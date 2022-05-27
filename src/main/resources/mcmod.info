@@ -1,0 +1,16 @@
+[
+{
+  "modid": "tfcplus-bids",
+  "name": "TFCPlus Bids",
+  "description": "Bids and pieces.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["bid"],
+  "credits": "bid",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["terrafirmacraftplus"]
+}
+]

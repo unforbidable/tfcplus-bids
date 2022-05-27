@@ -1,0 +1,13 @@
+package com.unforbidable.tfc.bids.api;
+
+import net.minecraft.block.Block;
+
+public class BidsBlocks {
+
+    public static int clayCrucibleRenderId;
+    public static int fireClayCrucibleRenderId;
+
+    public static Block clayCrucible;
+    public static Block fireClayCrucible;
+
+}

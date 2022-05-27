@@ -1,14 +1,17 @@
+# Gradle
 .gradle
 /build/
+/bin/
+/libs/
 
-# Ignore Gradle GUI config
-gradle-app.setting
+#vscode
+.vscode/
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+/eclipse/
+.settings/
+.project
 
-# Cache of project
-.gradletasknamecache
-
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
