@@ -1,4 +1,4 @@
-# TFC Plus Bids - Bids and Pieces
+# TFC Plus - Bids and Pieces
 A plugin for TerrafirmacraftPlus that aims to demonstrate various fully featured enhancements for gameplay and testing.
 
 ### Features
