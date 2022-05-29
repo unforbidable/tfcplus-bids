@@ -1,0 +1,5 @@
+0.1.0 (28-05-2022)
+- Initial release
+
+0.1.1 (30-05-2022)
+- Fixed: Copper age achievement is now correctly triggered when a full tool mold is removed from the crucible liquid output slot
