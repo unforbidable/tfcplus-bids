@@ -1,7 +1,9 @@
 package com.unforbidable.tfc.bids.Containers.Slots;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 public class TrackedSlot extends Slot {
 
@@ -15,6 +17,15 @@ public class TrackedSlot extends Slot {
 
         if (inventory instanceof ISlotTracker) {
             ((ISlotTracker) inventory).onSlotChanged(this);
+        }
+    }
+
+    @Override
+    public void onPickupFromSlot(EntityPlayer player, ItemStack itemStack) {
+        super.onPickupFromSlot(player, itemStack);
+
+        if (inventory instanceof ISlotTracker) {
+            ((ISlotTracker) inventory).onPickupFromSlot(this, player, itemStack);
         }
     }
 

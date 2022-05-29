@@ -3,12 +3,15 @@ package com.unforbidable.tfc.bids.Core.Crucible;
 import java.util.Arrays;
 import java.util.List;
 
+import com.dunk.tfc.Core.TFC_Achievements;
 import com.dunk.tfc.Core.Metal.Alloy;
 import com.dunk.tfc.Core.Metal.AlloyManager;
 import com.dunk.tfc.Core.Metal.AlloyMetal;
 import com.dunk.tfc.Core.Metal.AlloyMetalCompare;
 import com.dunk.tfc.Core.Metal.MetalRegistry;
+import com.dunk.tfc.Items.Pottery.ItemPotteryMold;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMoldBase;
+import com.dunk.tfc.Items.Pottery.ItemPotterySheetMold;
 import com.dunk.tfc.api.HeatIndex;
 import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.Metal;
@@ -19,6 +22,7 @@ import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -138,6 +142,13 @@ public class CrucibleHelper {
                 && ((ItemPotteryMoldBase) (liquidOutputStack.getItem())).isValidMold(liquidOutputStack);
     }
 
+    public static boolean isFullToolMold(ItemStack itemStack) {
+        return itemStack.getItem() instanceof ItemPotteryMold
+                && !(itemStack.getItem() instanceof ItemPotterySheetMold)
+                && itemStack.getItemDamage() > 1 /* Ceramic */
+                && itemStack.getItemDamage() <= 5 /* Full of Metal */;
+    }
+
     public static ItemStack fillMold(ItemStack liquidOutputStack, Metal metal, int units) {
         ItemPotteryMoldBase prevMoldItem = ((ItemPotteryMoldBase) (liquidOutputStack.getItem()));
         int prev = prevMoldItem.getUnits(liquidOutputStack);
@@ -150,6 +161,11 @@ public class CrucibleHelper {
 
     public static boolean isOreIron(ItemStack is) {
         return oreItems.contains(is.getItem()) && getMetalFromSmeltable(is) == Global.PIGIRON;
+    }
+
+    public static void triggerCopperAgeAchievement(EntityPlayer player) {
+        player.triggerAchievement(TFC_Achievements.achCopperAge);
+        Bids.LOG.debug("Copper Age achievement triggered");
     }
 
 }

@@ -224,6 +224,13 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     }
 
     @Override
+    public void onPickupFromSlot(Slot slot, EntityPlayer player, ItemStack itemStack) {
+        if (slot.slotNumber == getInputSlotCount() + 1) {
+            onPickupFromLiquidOutputSlot(player, itemStack);
+        }
+    }
+
+    @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
             doWork(solidHeatingTimer.tick(), liquidHeatingTimer.tick(), liquidInputTimer.tick(),
@@ -366,6 +373,14 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         else
             clearFlags(FLAGS_LIQUID_OUT);
         updateFlags();
+    }
+
+    private void onPickupFromLiquidOutputSlot(EntityPlayer player, ItemStack itemStack) {
+        // Trigger the copper age achievement when a full
+        // tool mold is removed from the output slot
+        if (CrucibleHelper.isFullToolMold(itemStack)) {
+            CrucibleHelper.triggerCopperAgeAchievement(player);
+        }
     }
 
     private float combineTemp(float tempA, float heatCapacityA, float tempB, float heatCapacityB) {
