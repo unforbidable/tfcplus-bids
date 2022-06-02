@@ -14,7 +14,7 @@ public class ConfigHandler {
     private final Configuration config;
 
     public ConfigHandler(File configDir) {
-        File configFile = new File(configDir.toString() + "/TFCPlusBids.cfg");
+        File configFile = new File(configDir.toString() + "/" + Tags.MOD_ID + ".cfg");
         config = new Configuration(configFile);
 
         loadConfig();
