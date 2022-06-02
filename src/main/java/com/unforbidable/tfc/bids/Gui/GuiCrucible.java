@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.TFC.GuiContainerTFC;
 import com.unforbidable.tfc.bids.TFC.PlayerInventory;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -75,7 +76,18 @@ public abstract class GuiCrucible extends GuiContainerTFC {
             drawTexturedModalRect(guiLeft + offsets.volumeX + 10, guiTop + offsets.volumeY + 39,
                     195, 40, 5, 7);
         }
+
+        if (crucibleTileEntity.isOutputAvailable()) {
+            drawCenteredString(this.fontRendererObj, StatCollector.translateToLocal("gui.Output") + ": "
+                    + crucibleTileEntity.getOutput(), guiLeft + 88, guiTop + 72, 0x555555);
+        }
     }
+
+    @Override
+	public void drawCenteredString(FontRenderer fontrenderer, String s, int i, int j, int k)
+	{
+		fontrenderer.drawString(s, i - fontrenderer.getStringWidth(s) / 2, j, k);
+	}
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {

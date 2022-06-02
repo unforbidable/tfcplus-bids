@@ -186,4 +186,12 @@ public class CrucibleLiquidStorage {
         dirty = false;
     }
 
+    public CrucibleLiquidStorage copy() {
+        CrucibleLiquidStorage copy = new CrucibleLiquidStorage();
+        for (CrucibleLiquidItem it : items) {
+            copy.addLiquid(it.getMetal(), it.getVolume());
+        }
+        return copy;
+    }
+
 }

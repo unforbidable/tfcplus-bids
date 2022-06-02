@@ -37,6 +37,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     CrucibleInputMonitor inputMonitor = new CrucibleInputMonitor(this);
 
     int combinedTemp = 0;
+    String output = null;
+    boolean isOutputAvailable = false;
+    boolean isOutputDirty = true;
 
     float heatingMult = 10;
     Timer solidHeatingTimer = new Timer(10);
@@ -47,7 +50,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     static final byte UPDATE_TEMP = 1;
     static final byte UPDATE_LIQUID = 2;
     static final byte UPDATE_FLAGS = 4;
-    static final byte UPDATE_ALL = 7;
+    static final byte UPDATE_OUTPUT = 8;
+    static final byte UPDATE_ALL = 15;
     byte updateMask = UPDATE_ALL;
 
     static final byte FLAGS_NONE = 0;
@@ -107,6 +111,16 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         return liquidStorage.getInfo(componentPrefix);
     }
 
+    @SideOnly(Side.CLIENT)
+    public String getOutput() {
+        return output;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean isOutputAvailable() {
+        return isOutputAvailable;
+    }
+
     public boolean isItemStackValidInput(ItemStack is) {
         return is.getItem() instanceof ISmeltable
                 && ((ISmeltable) is.getItem()).isSmeltable(is)
@@ -137,6 +151,11 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             if ((updateMask & UPDATE_FLAGS) != 0) {
                 tagCompound.setByte("flags", flags);
             }
+            if ((updateMask & UPDATE_OUTPUT) != 0) {
+                tagCompound.setBoolean("isOutputAvailable", isOutputAvailable);
+                if (isOutputAvailable)
+                    tagCompound.setString("output", output);
+            }
             updateMask = 0;
         }
         S35PacketUpdateTileEntity pack = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, tagCompound);
@@ -155,6 +174,11 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         }
         if ((updateMask & UPDATE_FLAGS) != 0) {
             flags = tagCompound.getByte("flags");
+        }
+        if ((updateMask & UPDATE_OUTPUT) != 0) {
+            isOutputAvailable = tagCompound.getBoolean("isOutputAvailable");
+            if (isOutputAvailable)
+                output = tagCompound.getString("output");
         }
     }
 
@@ -208,6 +232,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         }
 
         liquidStorage.readFromNBT(tag);
+
+        isOutputDirty = true;
     }
 
     @Override
@@ -235,6 +261,11 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         if (!worldObj.isRemote) {
             doWork(solidHeatingTimer.tick(), liquidHeatingTimer.tick(), liquidInputTimer.tick(),
                     liquidOutputTimer.tick());
+
+            if (isOutputDirty) {
+                updateOutput();
+                isOutputDirty = false;
+            }
         }
     }
 
@@ -324,6 +355,34 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         }
     }
 
+    private void updateOutput() {
+        String prevOutput = output;
+        isOutputAvailable = false;
+
+        CrucibleLiquidStorage predictedLiquidStorage = liquidStorage.copy();
+        for (int i = 0; i < getInputSlotCount(); i++ ) {
+            ItemStack is = getStackInSlot(i);
+            if (is != null) {
+                predictedLiquidStorage.addLiquid(CrucibleHelper.getMetalFromSmeltable(is),
+                        CrucibleHelper.getMetalReturnAmount(is) * is.stackSize);
+                isOutputAvailable |= true;
+            }
+        }
+
+        Metal outputMetal = predictedLiquidStorage.getOutputMetal();
+        int outputVolume = predictedLiquidStorage.getVolume();
+
+        if (outputMetal != null) {
+            output = outputVolume + " " + outputMetal.name;
+        } else {
+            output = null;
+        }
+
+        if (prevOutput != output) {
+            updateGui(UPDATE_OUTPUT);
+        }
+    }
+
     private void onInputSlotChanged() {
         // When an input slot changes
         // check if heat capacity changed
@@ -336,6 +395,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 solidTemp = 0;
                 updateGui(UPDATE_TEMP);
             }
+
+            isOutputDirty = true;
 
             solidHeatingTimer.delay(100);
         }
