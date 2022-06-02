@@ -6,6 +6,7 @@ import com.unforbidable.tfc.bids.Containers.ContainerCrucible;
 import com.unforbidable.tfc.bids.TFC.GuiContainerTFC;
 import com.unforbidable.tfc.bids.TFC.PlayerInventory;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -77,7 +78,8 @@ public abstract class GuiCrucible extends GuiContainerTFC {
                     195, 40, 5, 7);
         }
 
-        if (crucibleTileEntity.isOutputAvailable()) {
+        if (BidsOptions.enableCrucibleOutputDisplay
+                && crucibleTileEntity.isOutputAvailable()) {
             drawCenteredString(this.fontRendererObj, StatCollector.translateToLocal("gui.Output") + ": "
                     + crucibleTileEntity.getOutput(), guiLeft + 88, guiTop + 72, 0x555555);
         }

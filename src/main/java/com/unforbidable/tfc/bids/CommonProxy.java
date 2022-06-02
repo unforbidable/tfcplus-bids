@@ -11,6 +11,7 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.CraftingManagerTFC;
 import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
+import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
@@ -35,6 +36,8 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
+        FMLCommonHandler.instance().bus().register(new ConfigHandler(event.getModConfigurationDirectory()));
+
         GameRegistry.registerTileEntity(TileEntityClayCrucible.class, "BidsClayCrucible");
         GameRegistry.registerTileEntity(TileEntityFireClayCrucible.class, "BidsFireClayCrucible");
 
