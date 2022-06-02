@@ -5,4 +5,4 @@
 - Fixed: Copper age achievement is now correctly triggered when a full tool mold is removed from the crucible liquid output slot
 
 0.2.0 (02-06-2022)
-- Added: Option to have the Crucible GUI dislplay the expected output (disabled by default, set enableCrucibleOutputDisplay to true to enable)
+- Added: Option to have the Crucible GUI display the expected output (disabled by default, set enableCrucibleOutputDisplay to true to enable)
