@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.Handlers;
 
 import java.io.File;
 
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 
@@ -22,7 +21,6 @@ public class ConfigHandler {
 
     private void loadConfig() {
         config.load();
-        Bids.LOG.info("Config loaded");
 
         BidsOptions.Crucible.enableOutputDisplay = config.getBoolean(
                 "enableOutputDisplay", "crucible",
@@ -34,21 +32,18 @@ public class ConfigHandler {
                 "Set this to true if you wish to see the exact temperature in the GUI (hover text)");
         BidsOptions.Crucible.solidHeatingMultiplier = config.getFloat(
                 "solidHeatingMultiplier", "crucible",
-                BidsOptions.Crucible.solidHeatingMultiplier, 1f, 10f,
+                BidsOptions.Crucible.solidHeatingMultiplier, 0.1f, 100f,
                 "Higher values increase the heat transfer to solid input materials from the heat source");
         BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus = config.getFloat(
                 "solidHeatingMultiplierFromLiquidBonus", "crucible",
-                BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus, 1f, 10f,
+                BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus, 0.1f, 100f,
                 "Higher values increase the heat transfer to solid input materials from molten metal that is already in the crucible");
         BidsOptions.Crucible.liquidHeatingMultiplier = config.getFloat(
                 "liquidHeatingMultiplier", "crucible",
-                BidsOptions.Crucible.liquidHeatingMultiplier, 1f, 10f,
+                BidsOptions.Crucible.liquidHeatingMultiplier, 0.1f, 100f,
                 "Higher values increase the heat transfer to molten metal that is already in the crucible from the heat source");
 
-        if (config.hasChanged()) {
-            config.save();
-            Bids.LOG.info("Config saved");
-        }
+        config.save();
     }
 
     public void onConfigurationChangedEvent(OnConfigChangedEvent event) {

@@ -34,6 +34,15 @@ public class TileEntityClayCrucible extends TileEntityCrucible {
     }
 
     @Override
+    public float getHeatTransferEfficiency() {
+        // With 98% efficiency, the max temp received from charcoal is only 1078
+        // and because copper needs temp 1080 to melt
+        // a blowpipe or bellows needs to be used to melt copper in a clay crucible
+        // or coal as fuel instead
+        return 0.98f;
+    }
+
+    @Override
     public boolean hasLiquidInputSlot() {
         return true;
     }

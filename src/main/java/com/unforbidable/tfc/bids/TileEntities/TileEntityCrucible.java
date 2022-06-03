@@ -77,6 +77,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     public abstract boolean hasLiquidInputSlot();
 
+    public abstract float getHeatTransferEfficiency();
+
     @SideOnly(Side.CLIENT)
     public int getCombinedTemp() {
         return combinedTemp;
@@ -451,18 +453,18 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     // how heat capacity of solids affects heating speed
     private float getSolidHeatingCurve(float hc) {
-        return (float) Math.sqrt(hc / 10) / BidsOptions.Crucible.solidHeatingMultiplier;
+        return (float) (Math.sqrt(hc) + hc / 5) / 10 / BidsOptions.Crucible.solidHeatingMultiplier;
     }
 
     // how heat capacity of liquids affects heating speed
     private float getLiquidHeatingCurve(float hc) {
-        return (float) Math.sqrt(hc / 10) / BidsOptions.Crucible.liquidHeatingMultiplier;
+        return (float) (Math.sqrt(hc) + hc / 5) / 10 / BidsOptions.Crucible.liquidHeatingMultiplier;
     }
 
     // how heat capacity of solids affects bonus heating speed when heating from
     // liquid temp
     private float getSolidHeatingFromLiquidCurve(float hc) {
-        return (float) Math.sqrt(hc / 10) / BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus;
+        return (float) (Math.sqrt(hc) + hc / 5) / 10 / BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus;
     }
 
     private boolean isValidInputMetal(Metal inputMetal) {
@@ -511,7 +513,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     private void doWork(boolean updateSolidTemp, boolean updateLiquidTemp, boolean acceptLiquid, boolean ejectLiquid) {
         if (updateSolidTemp || updateLiquidTemp) {
-            float heatSourceTemp = getHeatSourceTemp();
+            float heatSourceTemp = getHeatSourceTemp() * getHeatTransferEfficiency();
 
             if (updateLiquidTemp) {
                 if (liquidStorage.getVolume() > 0

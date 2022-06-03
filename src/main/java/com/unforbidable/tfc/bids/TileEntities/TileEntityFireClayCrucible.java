@@ -30,6 +30,11 @@ public class TileEntityFireClayCrucible extends TileEntityCrucible {
     }
 
     @Override
+    public float getHeatTransferEfficiency() {
+        return 1;
+    }
+
+    @Override
     public boolean hasLiquidInputSlot() {
         return true;
     }
