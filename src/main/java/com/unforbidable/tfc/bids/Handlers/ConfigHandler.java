@@ -32,15 +32,15 @@ public class ConfigHandler {
                 "Set this to true if you wish to see the exact temperature in the GUI (hover text)");
         BidsOptions.Crucible.solidHeatingMultiplier = config.getFloat(
                 "solidHeatingMultiplier", "crucible",
-                BidsOptions.Crucible.solidHeatingMultiplier, 0.1f, 100f,
+                BidsOptions.Crucible.solidHeatingMultiplier, 1f, 10f,
                 "Higher values increase the heat transfer to solid input materials from the heat source");
         BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus = config.getFloat(
                 "solidHeatingMultiplierFromLiquidBonus", "crucible",
-                BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus, 0.1f, 100f,
+                BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus, 1f, 10f,
                 "Higher values increase the heat transfer to solid input materials from molten metal that is already in the crucible");
         BidsOptions.Crucible.liquidHeatingMultiplier = config.getFloat(
                 "liquidHeatingMultiplier", "crucible",
-                BidsOptions.Crucible.liquidHeatingMultiplier, 0.1f, 100f,
+                BidsOptions.Crucible.liquidHeatingMultiplier, 1f, 10f,
                 "Higher values increase the heat transfer to molten metal that is already in the crucible from the heat source");
 
         config.save();
