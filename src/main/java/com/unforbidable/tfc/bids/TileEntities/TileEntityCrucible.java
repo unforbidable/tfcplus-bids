@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleInputMonitor;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleLiquidStorage;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -360,7 +361,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         isOutputAvailable = false;
 
         CrucibleLiquidStorage predictedLiquidStorage = liquidStorage.copy();
-        for (int i = 0; i < getInputSlotCount(); i++ ) {
+        for (int i = 0; i < getInputSlotCount(); i++) {
             ItemStack is = getStackInSlot(i);
             if (is != null) {
                 predictedLiquidStorage.addLiquid(CrucibleHelper.getMetalFromSmeltable(is),
@@ -372,7 +373,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         Metal outputMetal = predictedLiquidStorage.getOutputMetal();
         int outputVolume = predictedLiquidStorage.getVolume();
 
-        if (outputMetal != null) {
+        if (isOutputAvailable && outputMetal != null) {
             output = outputVolume + " " + outputMetal.name;
         } else {
             output = null;
@@ -450,18 +451,18 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     // how heat capacity of solids affects heating speed
     private float getSolidHeatingCurve(float hc) {
-        return (float) Math.sqrt(hc / 10) / 2f;
+        return (float) Math.sqrt(hc / 10) / BidsOptions.Crucible.solidHeatingMultiplier;
     }
 
     // how heat capacity of liquids affects heating speed
     private float getLiquidHeatingCurve(float hc) {
-        return (float) Math.sqrt(hc / 10) / 10f;
+        return (float) Math.sqrt(hc / 10) / BidsOptions.Crucible.liquidHeatingMultiplier;
     }
 
     // how heat capacity of solids affects bonus heating speed when heating from
     // liquid temp
     private float getSolidHeatingFromLiquidCurve(float hc) {
-        return (float) Math.sqrt(hc / 10) / 2f;
+        return (float) Math.sqrt(hc / 10) / BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus;
     }
 
     private boolean isValidInputMetal(Metal inputMetal) {
@@ -494,10 +495,11 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 && !canAcceptLiquid();
     }
 
-    private float enforceMinimumDelta(float delta, float minAbs, float max) {
+    private float enforceMinimumDelta(float delta, float max) {
         // We want to enforce minimum temp delta
         // to ensure the temp reaches equilibrium with the heat source
         // at some point instead of forever approaching it
+        float minAbs = 0.001f;
         if (Math.abs(delta) < minAbs) {
             if (delta > 0)
                 delta = Math.min(minAbs, max);
@@ -517,7 +519,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                 || heatSourceTemp < liquidTemp && liquidTemp > 0)) {
                     float deltaFromHeatSource = (heatSourceTemp - liquidTemp) / 1000
                             / getLiquidHeatingCurve(liquidStorage.getHeatCapacity());
-                    float delta = enforceMinimumDelta(deltaFromHeatSource, 0.02f,
+                    float delta = enforceMinimumDelta(deltaFromHeatSource,
                             (heatSourceTemp - liquidTemp) / heatingMult);
                     liquidTemp += delta * heatingMult;
                     liquidTemp = Math.min(Math.max(liquidTemp, 0), getMaxTemp());
@@ -539,7 +541,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                     / ((inputMonitor.getHeatCapacity() + liquidStorage.getHeatCapacity())
                                             / liquidStorage.getHeatCapacity())
                             : 0;
-                    float delta = enforceMinimumDelta(deltaFromHeatSource + deltaFromLiquid, 0.02f,
+                    float delta = enforceMinimumDelta(deltaFromHeatSource + deltaFromLiquid,
                             (heatSourceTemp - solidTemp) / heatingMult);
                     solidTemp += delta * heatingMult;
                     solidTemp = Math.min(Math.max(solidTemp, 0), getMaxTemp());
@@ -596,6 +598,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                     liquidOutputTimer.delay(20);
                                     setFlags(FLAGS_LIQUID_OUT);
                                 }
+
+                                // Also update/clear output display
+                                updateOutput();
                             }
 
                             updateGui(UPDATE_LIQUID | UPDATE_TEMP);

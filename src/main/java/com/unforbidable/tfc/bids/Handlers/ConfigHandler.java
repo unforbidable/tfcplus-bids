@@ -24,9 +24,26 @@ public class ConfigHandler {
         config.load();
         Bids.LOG.info("Config loaded");
 
-        BidsOptions.enableCrucibleOutputDisplay = config.getBoolean("enableCrucibleOutputDisplay", "general",
-                BidsOptions.enableCrucibleOutputDisplay,
+        BidsOptions.Crucible.enableOutputDisplay = config.getBoolean(
+                "enableOutputDisplay", "crucible",
+                BidsOptions.Crucible.enableOutputDisplay,
                 "Set this to true if you wish to see the crucible output in the GUI");
+        BidsOptions.Crucible.enableExactTemperatureDisplay = config.getBoolean(
+                "enableExactTemperatureDisplay", "crucible",
+                BidsOptions.Crucible.enableExactTemperatureDisplay,
+                "Set this to true if you wish to see the exact temperature in the GUI (hover text)");
+        BidsOptions.Crucible.solidHeatingMultiplier = config.getFloat(
+                "solidHeatingMultiplier", "crucible",
+                BidsOptions.Crucible.solidHeatingMultiplier, 1f, 10f,
+                "Higher values increase the heat transfer to solid input materials from the heat source");
+        BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus = config.getFloat(
+                "solidHeatingMultiplierFromLiquidBonus", "crucible",
+                BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus, 1f, 10f,
+                "Higher values increase the heat transfer to solid input materials from molten metal that is already in the crucible");
+        BidsOptions.Crucible.liquidHeatingMultiplier = config.getFloat(
+                "liquidHeatingMultiplier", "crucible",
+                BidsOptions.Crucible.liquidHeatingMultiplier, 1f, 10f,
+                "Higher values increase the heat transfer to molten metal that is already in the crucible from the heat source");
 
         if (config.hasChanged()) {
             config.save();
