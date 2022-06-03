@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dunk.tfc.api.Metal;
+import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
 
 import net.minecraft.item.Item;
@@ -192,6 +193,18 @@ public class CrucibleLiquidStorage {
             copy.addLiquid(it.getMetal(), it.getVolume());
         }
         return copy;
+    }
+
+    public boolean mixAlloy() {
+        if (items.size() > 0 && getOutputMetal() != Global.UNKNOWN) {
+            CrucibleLiquidItem alloy = new CrucibleLiquidItem(getOutputMetal(), getVolume());
+            items.clear();
+            items.add(alloy);
+            dirty = true;
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

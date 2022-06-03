@@ -41,18 +41,21 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     String output = null;
     boolean isOutputAvailable = false;
     boolean isOutputDirty = true;
+    int alloyMixingCountdown = 0;
 
     float heatingMult = 10;
     Timer solidHeatingTimer = new Timer(10);
     Timer liquidHeatingTimer = new Timer(10);
     Timer liquidInputTimer = new Timer(1);
     Timer liquidOutputTimer = new Timer(2);
+    Timer alloyMixingTimer = new Timer(0);
 
     static final byte UPDATE_TEMP = 1;
     static final byte UPDATE_LIQUID = 2;
     static final byte UPDATE_FLAGS = 4;
     static final byte UPDATE_OUTPUT = 8;
-    static final byte UPDATE_ALL = 15;
+    static final byte UPDATE_ALLOY_MIXING = 16;
+    static final byte UPDATE_ALL = 31;
     byte updateMask = UPDATE_ALL;
 
     static final byte FLAGS_NONE = 0;
@@ -124,6 +127,11 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         return isOutputAvailable;
     }
 
+    @SideOnly(Side.CLIENT)
+    public int getAlloyMixingCountdown() {
+        return alloyMixingCountdown;
+    }
+
     public boolean isItemStackValidInput(ItemStack is) {
         return is.getItem() instanceof ISmeltable
                 && ((ISmeltable) is.getItem()).isSmeltable(is)
@@ -159,6 +167,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 if (isOutputAvailable)
                     tagCompound.setString("output", output);
             }
+            if ((updateMask & UPDATE_ALLOY_MIXING) != 0) {
+                tagCompound.setInteger("alloyMixingCountdown", alloyMixingCountdown);
+            }
             updateMask = 0;
         }
         S35PacketUpdateTileEntity pack = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, tagCompound);
@@ -182,6 +193,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             isOutputAvailable = tagCompound.getBoolean("isOutputAvailable");
             if (isOutputAvailable)
                 output = tagCompound.getString("output");
+        }
+        if ((updateMask & UPDATE_ALLOY_MIXING) != 0) {
+            alloyMixingCountdown = tagCompound.getInteger("alloyMixingCountdown");
         }
     }
 
@@ -249,6 +263,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             } else if (slot.slotNumber == getInputSlotCount() + 1) {
                 onLiquidOutputSlotChanged();
             }
+
+            checkAlloyMixing();
         }
     }
 
@@ -263,11 +279,15 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     public void updateEntity() {
         if (!worldObj.isRemote) {
             doWork(solidHeatingTimer.tick(), liquidHeatingTimer.tick(), liquidInputTimer.tick(),
-                    liquidOutputTimer.tick());
+                    liquidOutputTimer.tick(), alloyMixingTimer.tick());
 
             if (isOutputDirty) {
                 updateOutput();
                 isOutputDirty = false;
+            }
+
+            if (alloyMixingTimer.getTicksToGo() > 0) {
+                updateAlloyMixingCountdown();
             }
         }
     }
@@ -383,6 +403,40 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
         if (prevOutput != output) {
             updateGui(UPDATE_OUTPUT);
+        }
+    }
+
+    private void checkAlloyMixing() {
+        // Alloy can only be mixed when we are not smelting,
+        // or adding and removing liquid
+        // To be fool-proof, only when all slots are empty
+        if (inputMonitor.getItemCount() == 0
+                && getStackInSlot(getInputSlotCount()) == null
+                && getStackInSlot(getInputSlotCount() + 1) == null
+                // Is there anything to be mixed?
+                // We need 2 or more items, and the output cannot be null (UNKNOWN)
+                // Also, the molten metal needs to be actually liquid at this time
+                && liquidStorage.getItemCount() > 1
+                && liquidStorage.getOutputMetal() != Global.UNKNOWN
+                && liquidStorage.isAllLiquid(liquidTemp)) {
+            // Do nothing if the timer countdown is already running
+            if (alloyMixingTimer.getTicksToGo() == 0) {
+                alloyMixingTimer.delay(30 * 20);
+                Bids.LOG.info("Alloy will be mixed in 30 seconds");
+            }
+        } else if (alloyMixingTimer.getTicksToGo() > 0) {
+            Bids.LOG.info("Alloy mixing was cancelled");
+            alloyMixingTimer.delay(0);
+        }
+
+        updateAlloyMixingCountdown();
+    }
+
+    private void updateAlloyMixingCountdown() {
+        int prevAlloyMixingCooldown = alloyMixingCountdown;
+        alloyMixingCountdown = alloyMixingTimer.getTicksToGo() / 20;
+        if (prevAlloyMixingCooldown != alloyMixingCountdown) {
+            updateGui(UPDATE_ALLOY_MIXING);
         }
     }
 
@@ -511,7 +565,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         return delta;
     }
 
-    private void doWork(boolean updateSolidTemp, boolean updateLiquidTemp, boolean acceptLiquid, boolean ejectLiquid) {
+    private void doWork(boolean updateSolidTemp, boolean updateLiquidTemp, boolean acceptLiquid, boolean ejectLiquid,
+            boolean alloyMixing) {
         if (updateSolidTemp || updateLiquidTemp) {
             float heatSourceTemp = getHeatSourceTemp() * getHeatTransferEfficiency();
 
@@ -603,6 +658,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
                                 // Also update/clear output display
                                 updateOutput();
+
+                                // And see if we can mix an alloy
+                                checkAlloyMixing();
                             }
 
                             updateGui(UPDATE_LIQUID | UPDATE_TEMP);
@@ -617,6 +675,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                     setFlags(FLAGS_SOLIDIFIED);
                 else
                     clearFlags(FLAGS_SOLIDIFIED);
+
+                checkAlloyMixing();
             }
         }
 
@@ -695,6 +755,19 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 }
 
             }
+        }
+
+        if (alloyMixing) {
+            // This is when the alloy mixing countdown expired
+            // Make sure the metal is still liquid
+            if (liquidStorage.isAllLiquid(liquidTemp) && liquidStorage.mixAlloy()) {
+                Bids.LOG.info("Liquid metal has been mixed into: " + liquidStorage.getOutputMetal().name);
+            } else {
+                Bids.LOG.warn("Liquid metal has not been not mixed");
+            }
+
+            updateGui(UPDATE_LIQUID);
+            checkAlloyMixing();
         }
 
         updateFlags();

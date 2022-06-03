@@ -9,8 +9,12 @@ public class Timer {
         this.defaultInterval = ticksToGo = defaultInterval;
     }
 
+    public int getTicksToGo() {
+        return ticksToGo;
+    }
+
     public boolean tick() {
-        if (--ticksToGo <= 0) {
+        if (ticksToGo > 0 && --ticksToGo == 0) {
             ticksToGo = defaultInterval;
             return true;
         } else {
@@ -19,7 +23,11 @@ public class Timer {
     }
 
     public void delay(int delayByTicks) {
-        ticksToGo = ticksToGo % defaultInterval + delayByTicks;
+        if (defaultInterval == 0) {
+            ticksToGo = delayByTicks;
+        } else {
+            ticksToGo = ticksToGo % defaultInterval + delayByTicks;
+        }
     }
 
 }

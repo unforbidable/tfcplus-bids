@@ -104,8 +104,18 @@ public abstract class GuiCrucible extends GuiContainerTFC {
             if (crucibleTileEntity.getLiquidVolume() > 0) {
                 list.addAll(crucibleTileEntity
                         .getLiquidInfo(StatCollector.translateToLocal("gui.symbol.BulletPoint") + " "));
-                if (crucibleTileEntity.isSolidified())
-                    list.add(StatCollector.translateToLocal("gui.Solidified"));
+
+                String extra = null;
+                if (crucibleTileEntity.isSolidified()) {
+                    extra = StatCollector.translateToLocal("gui.Solidified");
+                } else if (crucibleTileEntity.getAlloyMixingCountdown() > 0) {
+                    extra = StatCollector.translateToLocal("gui.Alloying") + ": "
+                            + crucibleTileEntity.getAlloyMixingCountdown();
+                }
+
+                if (extra != null) {
+                    list.set(0, list.get(0) + " (" + extra + ")");
+                }
             } else {
                 list.add(StatCollector.translateToLocal("gui.Empty"));
             }
