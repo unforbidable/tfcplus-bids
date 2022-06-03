@@ -78,30 +78,32 @@ public abstract class GuiCrucible extends GuiContainerTFC {
                     195, 40, 5, 7);
         }
 
-        if (BidsOptions.enableCrucibleOutputDisplay
-                && crucibleTileEntity.isOutputAvailable()) {
+        if (crucibleTileEntity.isOutputAvailable()
+                && BidsOptions.Crucible.enableOutputDisplay) {
             drawCenteredString(this.fontRendererObj, StatCollector.translateToLocal("gui.Output") + ": "
                     + crucibleTileEntity.getOutput(), guiLeft + 88, guiTop + 72, 0x555555);
         }
     }
 
     @Override
-	public void drawCenteredString(FontRenderer fontrenderer, String s, int i, int j, int k)
-	{
-		fontrenderer.drawString(s, i - fontrenderer.getStringWidth(s) / 2, j, k);
-	}
+    public void drawCenteredString(FontRenderer fontrenderer, String s, int i, int j, int k) {
+        fontrenderer.drawString(s, i - fontrenderer.getStringWidth(s) / 2, j, k);
+    }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         GaugeOffsets offsets = getGaugeOffsets();
         if (this.mouseInRegion(offsets.tempX, offsets.tempY, 9, 50, mouseX, mouseY)) {
-            ArrayList<String> list = new ArrayList<String>();
-            list.add("" + crucibleTileEntity.getCombinedTemp());
-            this.drawHoveringText(list, mouseX - guiLeft, mouseY - guiTop + 8, this.fontRendererObj);
+            if (BidsOptions.Crucible.enableExactTemperatureDisplay) {
+                ArrayList<String> list = new ArrayList<String>();
+                list.add("" + crucibleTileEntity.getCombinedTemp());
+                this.drawHoveringText(list, mouseX - guiLeft, mouseY - guiTop + 8, this.fontRendererObj);
+            }
         } else if (this.mouseInRegion(offsets.volumeX, offsets.volumeY, 9, 50, mouseX, mouseY)) {
             ArrayList<String> list = new ArrayList<String>();
             if (crucibleTileEntity.getLiquidVolume() > 0) {
-                list.addAll(crucibleTileEntity.getLiquidInfo(StatCollector.translateToLocal("gui.symbol.BulletPoint") + " "));
+                list.addAll(crucibleTileEntity
+                        .getLiquidInfo(StatCollector.translateToLocal("gui.symbol.BulletPoint") + " "));
                 if (crucibleTileEntity.isSolidified())
                     list.add(StatCollector.translateToLocal("gui.Solidified"));
             } else {
