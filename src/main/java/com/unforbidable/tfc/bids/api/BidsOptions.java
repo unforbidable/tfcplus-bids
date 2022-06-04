@@ -4,6 +4,9 @@ public class BidsOptions {
 
     public static class Crucible {
 
+        public static boolean enableClayHandBreakable = true;
+        public static boolean enableFireClayHandBreakable = false;
+        public static boolean enableClassicHandBreakable = false;
         public static boolean enableOutputDisplay = false;
         public static boolean enableExactTemperatureDisplay = false;
         public static float solidHeatingMultiplier = 3;

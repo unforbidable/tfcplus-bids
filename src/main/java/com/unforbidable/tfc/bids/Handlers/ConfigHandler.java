@@ -22,6 +22,18 @@ public class ConfigHandler {
     private void loadConfig() {
         config.load();
 
+        BidsOptions.Crucible.enableClayHandBreakable = config.getBoolean(
+                "enableClayHandBreakable", "crucible",
+                BidsOptions.Crucible.enableClayHandBreakable,
+                "Set this to true if you wish to be able to break a Clay Crucible by hand easily");
+        BidsOptions.Crucible.enableFireClayHandBreakable = config.getBoolean(
+                "enableFireClayHandBreakable", "crucible",
+                BidsOptions.Crucible.enableFireClayHandBreakable,
+                "Set this to true if you wish to be able to break a Fireclay Crucible by hand easily");
+        BidsOptions.Crucible.enableClassicHandBreakable = config.getBoolean(
+                "enableClassicHandBreakable", "crucible",
+                BidsOptions.Crucible.enableClassicHandBreakable,
+                "Set this to true if you wish to be able to break a classic TFC crucible by hand easily");
         BidsOptions.Crucible.enableOutputDisplay = config.getBoolean(
                 "enableOutputDisplay", "crucible",
                 BidsOptions.Crucible.enableOutputDisplay,

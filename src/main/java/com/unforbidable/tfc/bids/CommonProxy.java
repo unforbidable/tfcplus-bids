@@ -6,6 +6,7 @@ import java.util.List;
 import com.dunk.tfc.api.HeatIndex;
 import com.dunk.tfc.api.HeatRaw;
 import com.dunk.tfc.api.HeatRegistry;
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.CraftingManagerTFC;
@@ -22,6 +23,7 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -41,8 +43,10 @@ public class CommonProxy {
         GameRegistry.registerTileEntity(TileEntityClayCrucible.class, "BidsClayCrucible");
         GameRegistry.registerTileEntity(TileEntityFireClayCrucible.class, "BidsFireClayCrucible");
 
-        BidsBlocks.clayCrucible = new BlockClayCrucible().setBlockName("ClayCrucible").setHardness(4.0f);
-        BidsBlocks.fireClayCrucible = new BlockFireClayCrucible().setBlockName("FireClayCrucible").setHardness(4.0f);
+        BidsBlocks.clayCrucible = new BlockClayCrucible().setBlockName("ClayCrucible")
+                .setHardness(BidsOptions.Crucible.enableClayHandBreakable ? 0.5f : 4.0f);
+        BidsBlocks.fireClayCrucible = new BlockFireClayCrucible().setBlockName("FireClayCrucible")
+                .setHardness(BidsOptions.Crucible.enableFireClayHandBreakable ? 0.5f : 4.0f);
 
         GameRegistry.registerBlock(BidsBlocks.clayCrucible, ItemClayCrucible.class, "ClayCrucible");
         GameRegistry.registerBlock(BidsBlocks.fireClayCrucible, ItemFireClayCrucible.class, "FireClayCrucible");
@@ -105,6 +109,12 @@ public class CommonProxy {
 
         for (HeatIndex index : heatList) {
             manager.addIndex(index);
+        }
+
+        if (BidsOptions.Crucible.enableClassicHandBreakable) {
+            // Lower the hardness of the classic TFC crucible
+            // The original value is 4.0f
+            TFCBlocks.crucible.setHardness(0.5f);
         }
     }
 
