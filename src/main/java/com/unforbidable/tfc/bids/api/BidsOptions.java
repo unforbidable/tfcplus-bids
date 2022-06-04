@@ -8,7 +8,7 @@ public class BidsOptions {
         public static boolean enableExactTemperatureDisplay = false;
         public static float solidHeatingMultiplier = 3;
         public static float liquidHeatingMultiplier = 6;
-        public static float solidHeatingMultiplierFromLiquidBonus = 3;
+        public static float solidHeatingFromLiquidBonusMultiplier = 3;
         public static float coolingMultiplier = 1;
 
     }

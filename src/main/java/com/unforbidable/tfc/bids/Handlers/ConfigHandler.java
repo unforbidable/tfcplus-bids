@@ -34,9 +34,9 @@ public class ConfigHandler {
                 "solidHeatingMultiplier", "crucible",
                 BidsOptions.Crucible.solidHeatingMultiplier, 1f, 10f,
                 "Higher values increase the heat transfer to solid input materials from the heat source");
-        BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus = config.getFloat(
-                "solidHeatingMultiplierFromLiquidBonus", "crucible",
-                BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus, 1f, 10f,
+        BidsOptions.Crucible.solidHeatingFromLiquidBonusMultiplier = config.getFloat(
+                "solidHeatingFromLiquidBonusMultiplier", "crucible",
+                BidsOptions.Crucible.solidHeatingFromLiquidBonusMultiplier, 1f, 10f,
                 "Higher values increase the heat transfer to solid input materials from molten metal that is already in the crucible");
         BidsOptions.Crucible.liquidHeatingMultiplier = config.getFloat(
                 "liquidHeatingMultiplier", "crucible",

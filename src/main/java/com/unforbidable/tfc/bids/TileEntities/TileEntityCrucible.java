@@ -608,7 +608,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                             : 0;
                     if (heatSourceTemp > solidTemp) {
                         deltaFromHeatSource *= BidsOptions.Crucible.solidHeatingMultiplier;
-                        deltaFromLiquid *= BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus;
+                        deltaFromLiquid *= BidsOptions.Crucible.solidHeatingFromLiquidBonusMultiplier;
                     } else {
                         deltaFromHeatSource *= BidsOptions.Crucible.coolingMultiplier;
                         deltaFromLiquid *= BidsOptions.Crucible.coolingMultiplier;
