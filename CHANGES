@@ -6,3 +6,11 @@
 
 0.2.0 (02-06-2022)
 - Added: Option to have the Crucible GUI display the expected output (disabled by default, set enableCrucibleOutputDisplay to true to enable)
+
+0.3.0 (04-06-2022)
+- Changed: Rebalanced heat transfer
+- Changed: Clay Crucible efficiency reduced - blowpipe or bellow is now required to melt copper with charcoal as the fuel
+- Changed: Showing the exact temperature in the GUI (hover text) is now optional
+- Added: Alloys mix automatically inside a crucible after a countdown when the crucible is inactive
+- Added: Option for adjusting solid and liquid heating and cooling rates
+- Added: Option to enable easy breaking of crucibles by hand (includes a classic TFC crucible)
