@@ -422,10 +422,10 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             // Do nothing if the timer countdown is already running
             if (alloyMixingTimer.getTicksToGo() == 0) {
                 alloyMixingTimer.delay(30 * 20);
-                Bids.LOG.info("Alloy will be mixed in 30 seconds");
+                Bids.LOG.debug("Alloy will be mixed in 30 seconds");
             }
         } else if (alloyMixingTimer.getTicksToGo() > 0) {
-            Bids.LOG.info("Alloy mixing was cancelled");
+            Bids.LOG.debug("Alloy mixing was cancelled");
             alloyMixingTimer.delay(0);
         }
 
@@ -434,7 +434,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     private void updateAlloyMixingCountdown() {
         int prevAlloyMixingCooldown = alloyMixingCountdown;
-        alloyMixingCountdown = alloyMixingTimer.getTicksToGo() / 20;
+        alloyMixingCountdown = (int) Math.ceil(alloyMixingTimer.getTicksToGo() / 20f);
         if (prevAlloyMixingCooldown != alloyMixingCountdown) {
             updateGui(UPDATE_ALLOY_MIXING);
         }
@@ -505,20 +505,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         return (tempA * heatCapacityA + tempB * heatCapacityB) / (heatCapacityA + heatCapacityB);
     }
 
-    // how heat capacity of solids affects heating speed
-    private float getSolidHeatingCurve(float hc) {
-        return (float) (Math.sqrt(hc) + hc / 5) / 10 / BidsOptions.Crucible.solidHeatingMultiplier;
-    }
-
-    // how heat capacity of liquids affects heating speed
-    private float getLiquidHeatingCurve(float hc) {
-        return (float) (Math.sqrt(hc) + hc / 5) / 10 / BidsOptions.Crucible.liquidHeatingMultiplier;
-    }
-
-    // how heat capacity of solids affects bonus heating speed when heating from
-    // liquid temp
-    private float getSolidHeatingFromLiquidCurve(float hc) {
-        return (float) (Math.sqrt(hc) + hc / 5) / 10 / BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus;
+    private float getHeatingCurve(float hc) {
+        return (float) (Math.sqrt(hc) + hc / 5) / 10;
     }
 
     private boolean isValidInputMetal(Metal inputMetal) {
@@ -528,7 +516,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     private boolean canSmelt() {
         return inputMonitor.getVolume() > 0
-                && inputMonitor.getVolume() < getMaxVolume() - liquidStorage.getVolume()
+                && inputMonitor.getVolume() <= getMaxVolume() - liquidStorage.getVolume()
                 && getHeatSourceTemp() > solidTemp;
     }
 
@@ -575,7 +563,10 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                         && (heatSourceTemp > liquidTemp && liquidTemp < getMaxTemp()
                                 || heatSourceTemp < liquidTemp && liquidTemp > 0)) {
                     float deltaFromHeatSource = (heatSourceTemp - liquidTemp) / 1000
-                            / getLiquidHeatingCurve(liquidStorage.getHeatCapacity());
+                            / getHeatingCurve(liquidStorage.getHeatCapacity());
+                    if (heatSourceTemp > liquidTemp) {
+                        deltaFromHeatSource *= BidsOptions.Crucible.liquidHeatingMultiplier;
+                    }
                     float delta = enforceMinimumDelta(deltaFromHeatSource,
                             (heatSourceTemp - liquidTemp) / heatingMult);
                     liquidTemp += delta * heatingMult;
@@ -587,17 +578,21 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
             if (updateSolidTemp) {
                 if (inputMonitor.getVolume() > 0
-                        && inputMonitor.getVolume() < getMaxVolume() - liquidStorage.getVolume()
+                        && inputMonitor.getVolume() <= getMaxVolume() - liquidStorage.getVolume()
                         && (heatSourceTemp > solidTemp && solidTemp < getMaxTemp()
                                 || heatSourceTemp < solidTemp && solidTemp > 0)) {
                     float deltaFromHeatSource = ((heatSourceTemp - solidTemp) / 1000
-                            / getSolidHeatingCurve(inputMonitor.getHeatCapacity()));
+                            / getHeatingCurve(inputMonitor.getHeatCapacity()));
                     float deltaFromLiquid = liquidStorage.getVolume() > 0
                             ? ((liquidTemp - solidTemp) / 1000
-                                    / getSolidHeatingFromLiquidCurve(inputMonitor.getHeatCapacity()))
+                                    / getHeatingCurve(inputMonitor.getHeatCapacity()))
                                     / ((inputMonitor.getHeatCapacity() + liquidStorage.getHeatCapacity())
                                             / liquidStorage.getHeatCapacity())
                             : 0;
+                    if (heatSourceTemp > solidTemp) {
+                        deltaFromHeatSource *= BidsOptions.Crucible.solidHeatingMultiplier;
+                        deltaFromLiquid *= BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus;
+                    }
                     float delta = enforceMinimumDelta(deltaFromHeatSource + deltaFromLiquid,
                             (heatSourceTemp - solidTemp) / heatingMult);
                     solidTemp += delta * heatingMult;
@@ -658,9 +653,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
                                 // Also update/clear output display
                                 updateOutput();
-
-                                // And see if we can mix an alloy
-                                checkAlloyMixing();
                             }
 
                             updateGui(UPDATE_LIQUID | UPDATE_TEMP);
@@ -675,8 +667,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                     setFlags(FLAGS_SOLIDIFIED);
                 else
                     clearFlags(FLAGS_SOLIDIFIED);
-
-                checkAlloyMixing();
             }
         }
 
@@ -761,12 +751,16 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             // This is when the alloy mixing countdown expired
             // Make sure the metal is still liquid
             if (liquidStorage.isAllLiquid(liquidTemp) && liquidStorage.mixAlloy()) {
-                Bids.LOG.info("Liquid metal has been mixed into: " + liquidStorage.getOutputMetal().name);
+                Bids.LOG.debug("Liquid metal has been mixed into: " + liquidStorage.getOutputMetal().name);
             } else {
-                Bids.LOG.warn("Liquid metal has not been not mixed");
+                Bids.LOG.debug("Liquid metal has not been not mixed");
             }
 
             updateGui(UPDATE_LIQUID);
+            updateAlloyMixingCountdown();
+        } else if (updateLiquidTemp) {
+            // See if alloying countdown might need to be started or stopped
+            // when temp changes
             checkAlloyMixing();
         }
 
