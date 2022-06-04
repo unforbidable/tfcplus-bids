@@ -42,6 +42,10 @@ public class ConfigHandler {
                 "liquidHeatingMultiplier", "crucible",
                 BidsOptions.Crucible.liquidHeatingMultiplier, 1f, 10f,
                 "Higher values increase the heat transfer to molten metal that is already in the crucible from the heat source");
+        BidsOptions.Crucible.coolingMultiplier = config.getFloat(
+                "coolingMultiplier", "crucible",
+                BidsOptions.Crucible.coolingMultiplier, 1f, 10f,
+                "Higher values increase the heat transfer rate when cooling down (heat loss)");
 
         config.save();
     }

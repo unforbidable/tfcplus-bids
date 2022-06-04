@@ -566,6 +566,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                             / getHeatingCurve(liquidStorage.getHeatCapacity());
                     if (heatSourceTemp > liquidTemp) {
                         deltaFromHeatSource *= BidsOptions.Crucible.liquidHeatingMultiplier;
+                    } else {
+                        deltaFromHeatSource *= BidsOptions.Crucible.coolingMultiplier;
                     }
                     float delta = enforceMinimumDelta(deltaFromHeatSource,
                             (heatSourceTemp - liquidTemp) / heatingMult);
@@ -592,6 +594,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                     if (heatSourceTemp > solidTemp) {
                         deltaFromHeatSource *= BidsOptions.Crucible.solidHeatingMultiplier;
                         deltaFromLiquid *= BidsOptions.Crucible.solidHeatingMultiplierFromLiquidBonus;
+                    } else {
+                        deltaFromHeatSource *= BidsOptions.Crucible.coolingMultiplier;
+                        deltaFromLiquid *= BidsOptions.Crucible.coolingMultiplier;
                     }
                     float delta = enforceMinimumDelta(deltaFromHeatSource + deltaFromLiquid,
                             (heatSourceTemp - solidTemp) / heatingMult);
