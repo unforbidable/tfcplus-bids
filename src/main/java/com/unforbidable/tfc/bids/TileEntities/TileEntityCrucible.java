@@ -462,6 +462,19 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             setFlags(FLAGS_SMELTING);
         else
             clearFlags(FLAGS_SMELTING);
+
+        // Making sure other indicators are off
+        // while solid input is present
+        if (inputMonitor.getItemCount() > 0) {
+            clearFlags(FLAGS_LIQUID_IN);
+            clearFlags(FLAGS_LIQUID_OUT);
+        } else {
+            if (canAcceptLiquid())
+                setFlags(FLAGS_LIQUID_IN);
+            else if (canEjectLiquid())
+                setFlags(FLAGS_LIQUID_OUT);
+        }
+
         updateFlags();
     }
 
@@ -476,8 +489,10 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
         // Making sure liquid output indicator is off
         // while accepting liquid
-        if (canAcceptLiquid() && canEjectLiquid())
+        if (canAcceptLiquid())
             clearFlags(FLAGS_LIQUID_OUT);
+        else if (canEjectLiquid())
+            setFlags(FLAGS_LIQUID_OUT);
 
         updateFlags();
     }
@@ -523,7 +538,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     private boolean canAcceptLiquid() {
         ItemStack is = getStackInSlot(getLiquidInputSlotIndex());
         return hasLiquidInputSlot()
-                && liquidStorage.getVolume() < getMaxVolume()
+                && inputMonitor.getVolume() == 0 && liquidStorage.getVolume() < getMaxVolume()
                 && is != null
                 && is.getItem() instanceof ItemMeltedMetal
                 && CrucibleHelper.isMeltedAtTemp(is, getMaxTemp())
@@ -677,7 +692,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
         if (acceptLiquid) {
             // Only allow liquid items with melting point lower then crucible max temp
-            if (hasLiquidInputSlot() && liquidStorage.getVolume() < getMaxVolume()) {
+            if (hasLiquidInputSlot()
+                    && inputMonitor.getVolume() == 0 && liquidStorage.getVolume() < getMaxVolume()) {
                 ItemStack liquidInputStack = getStackInSlot(getLiquidInputSlotIndex());
                 if (liquidInputStack != null && liquidInputStack.getItem() instanceof ItemMeltedMetal
                         && CrucibleHelper.isMeltedAtTemp(liquidInputStack, getMaxTemp())
