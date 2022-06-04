@@ -9,7 +9,7 @@ public class BidsOptions {
         public static float solidHeatingMultiplier = 3;
         public static float liquidHeatingMultiplier = 6;
         public static float solidHeatingMultiplierFromLiquidBonus = 3;
-        public static float coolingMultiplier = 3;
+        public static float coolingMultiplier = 1;
 
     }
 
