@@ -1,6 +1,8 @@
 # TFC Plus - Bids and Pieces
 A plugin for TerrafirmacraftPlus that aims to demonstrate various fully featured enhancements for gameplay and testing.
 
+Please find the latest release at [courseforge](https://www.curseforge.com/minecraft/mc-mods/tfcplus-bids).
+
 ### Features
 * Clay and Fireclay [Crucible](../../wiki/Crucible) - new crucibles with improved mechanics
 * [Ore Bits](../../wiki/Ore-Bits) - breaking ore chunks into smaller pieces
