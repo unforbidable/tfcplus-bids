@@ -168,4 +168,9 @@ public class CrucibleHelper {
         Bids.LOG.debug("Copper Age achievement triggered");
     }
 
+    public static void triggerCrucibleAchievement(EntityPlayer player) {
+        player.triggerAchievement(TFC_Achievements.achCrucible);
+        Bids.LOG.debug("Crucible achievement triggered");
+    }
+
 }

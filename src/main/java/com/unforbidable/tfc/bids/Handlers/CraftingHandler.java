@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
+import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -63,4 +65,12 @@ public class CraftingHandler {
             }
         }
     }
+
+    @SubscribeEvent
+    public void onItemCrafted(ItemCraftedEvent event) {
+        if (event.crafting.getItem() == Item.getItemFromBlock(BidsBlocks.fireClayCrucible)) {
+            CrucibleHelper.triggerCrucibleAchievement(event.player);
+        }
+    }
+
 }
