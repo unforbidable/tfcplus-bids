@@ -159,6 +159,10 @@ public class CrucibleHelper {
         return mold;
     }
 
+    public static int getMoldUnits(ItemStack mold) {
+        return ((ItemPotteryMoldBase)mold.getItem()).getUnits(mold);
+    }
+
     public static boolean isOreIron(ItemStack is) {
         return oreItems.contains(is.getItem()) && getMetalFromSmeltable(is) == Global.PIGIRON;
     }

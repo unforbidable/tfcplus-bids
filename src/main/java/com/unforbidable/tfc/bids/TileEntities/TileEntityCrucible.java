@@ -751,9 +751,17 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
                     ItemStack newMold = CrucibleHelper.fillMold(liquidOutputStack, liquidStorage.getOutputMetal(), 1);
                     TFC_ItemHeat.setTemp(newMold, liquidTemp);
-                    storage[getLiquidOutputSlotIndex()] = newMold;
 
-                    liquidStorage.removeLiquid(1);
+                    // For some molds, when we are 2 units away from full
+                    // the mold gets filled up with only 1 unit added
+                    // Not sure why this happens but it means we cannot assume only one unit is added
+                    // when we try to add one unit
+                    // So we remove whatever amount of units was trully added
+                    int prevUnits = CrucibleHelper.getMoldUnits(liquidOutputStack);
+                    int newUnits = CrucibleHelper.getMoldUnits(newMold);
+                    liquidStorage.removeLiquid(newUnits - prevUnits);
+
+                    storage[getLiquidOutputSlotIndex()] = newMold;
 
                     if (liquidStorage.getVolume() == 0
                             || !CrucibleHelper.isValidMold(newMold, liquidStorage.getOutputMetal())) {
