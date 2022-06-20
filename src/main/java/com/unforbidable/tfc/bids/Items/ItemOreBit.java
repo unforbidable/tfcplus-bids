@@ -135,13 +135,22 @@ public class ItemOreBit extends Item implements ISize, ISmeltable, IExtraSmeltab
     }
 
     @Override
-    public float getPurity() {
-        return 0.5f;
+    public float getPurity(ItemStack is) {
+        return isNativeOre(is) ? 0.975f : 0.75f;
     }
 
     @Override
-    public float getGranuality() {
-        return 0.9f;
+    public boolean isNativeOre(ItemStack is) {
+        switch (is.getItemDamage()) {
+            case 0:
+            case 1:
+            case 2:
+            case 4:
+                return true;
+
+            default:
+                return false;
+        }
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
