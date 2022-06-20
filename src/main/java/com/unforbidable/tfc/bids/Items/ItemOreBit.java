@@ -53,7 +53,7 @@ public class ItemOreBit extends Item implements ISize, ISmeltable, IExtraSmeltab
 
     @Override
     public int getItemStackLimit(ItemStack arg0) {
-        return 64;
+        return 32;
     }
 
     @Override
