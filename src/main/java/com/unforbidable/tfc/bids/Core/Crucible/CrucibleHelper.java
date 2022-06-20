@@ -21,6 +21,7 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.Interfaces.IExtraSmeltable;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -175,6 +176,47 @@ public class CrucibleHelper {
     public static void triggerCrucibleAchievement(EntityPlayer player) {
         player.triggerAchievement(TFC_Achievements.achCrucible);
         Bids.LOG.debug("Crucible achievement triggered");
+    }
+
+    public static boolean isNativeOre(ItemStack itemstack) {
+        if (itemstack.getItem() == TFCItems.oreChunk
+                || itemstack.getItem() == TFCItems.smallOreChunk) {
+            switch (itemstack.getItemDamage() % Global.oreGrade1Offset) {
+                case 0:
+                case 1:
+                case 2:
+                case 4:
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
+
+        return false;
+    }
+
+    public static float getPurity(ItemStack itemstack) {
+        if (itemstack.getItem() instanceof IExtraSmeltable) {
+            return ((IExtraSmeltable) itemstack.getItem()).getPurity(itemstack);
+        } else {
+            if (itemstack.getItem() == TFCItems.smallOreChunk) {
+                return isNativeOre(itemstack) ? 0.9f : 0.5f;
+            } else if (itemstack.getItem() == TFCItems.oreChunk) {
+                if (itemstack.getItemDamage() < Global.oreGrade1Offset) {
+                    return isNativeOre(itemstack) ? 0.9f : 0.5f; // Normal
+                } else if (itemstack.getItemDamage() < Global.oreGrade2Offset) {
+                    return isNativeOre(itemstack) ? 0.95f : 0.65f; // Rich
+                } else {
+                    return isNativeOre(itemstack) ? 0.85f : 0.35f; // Poor
+                }
+            } else {
+                // No nugget or ore, then this is a ready metal ingot
+                // (or sheet, anvil, etc)
+                // which is 100% pure
+                return 1f;
+            }
+        }
     }
 
 }

@@ -1,9 +1,11 @@
 package com.unforbidable.tfc.bids.api.Interfaces;
 
+import net.minecraft.item.ItemStack;
+
 public interface IExtraSmeltable {
 
-    float getPurity();
+    float getPurity(ItemStack is);
 
-    float getGranuality();
+    boolean isNativeOre(ItemStack is);
 
 }

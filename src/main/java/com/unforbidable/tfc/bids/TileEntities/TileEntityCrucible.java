@@ -613,13 +613,19 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                         deltaFromHeatSource *= BidsOptions.Crucible.coolingMultiplier;
                         deltaFromLiquid *= BidsOptions.Crucible.coolingMultiplier;
                     }
-                    float delta = enforceMinimumDelta(deltaFromHeatSource + deltaFromLiquid,
+                    float delta = deltaFromHeatSource + deltaFromLiquid;
+                    // Apply heating bonus based on purity
+                    // 0.5 is default speed, 1.0 is double
+                    if (heatSourceTemp > solidTemp)
+                        delta *= inputMonitor.getPurity() * 2;
+                    delta = enforceMinimumDelta(delta,
                             (heatSourceTemp - solidTemp) / heatingMult);
                     solidTemp += delta * heatingMult;
                     solidTemp = Math.min(Math.max(solidTemp, 0), getMaxTemp());
                     Bids.LOG.debug("Solid temp updated to " + solidTemp
                             + " (heat source: " + deltaFromHeatSource
-                            + ", liquid: " + deltaFromLiquid + ")");
+                            + ", liquid: " + deltaFromLiquid + ")"
+                            + ", purity: " + inputMonitor.getPurity());
                 }
             }
 

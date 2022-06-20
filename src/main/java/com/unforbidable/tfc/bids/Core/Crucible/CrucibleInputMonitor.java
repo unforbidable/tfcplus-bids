@@ -9,6 +9,7 @@ public class CrucibleInputMonitor {
     int count;
     int volume;
     float heatCapacity;
+    float purity;
     boolean valid;
 
     boolean dirty = true;
@@ -44,6 +45,13 @@ public class CrucibleInputMonitor {
         return heatCapacity;
     }
 
+    public float getPurity() {
+        if (dirty)
+            update();
+
+        return purity;
+    }
+
     public boolean isValid() {
         if (dirty)
             update();
@@ -56,6 +64,7 @@ public class CrucibleInputMonitor {
         count = 0;
         volume = 0;
         heatCapacity = 0;
+        float totalPurity = 0;
         for (int i = 0; i < te.getInputSlotCount(); i++) {
             ItemStack is = te.getStackInSlot(i);
             if (is != null) {
@@ -64,11 +73,14 @@ public class CrucibleInputMonitor {
                     volume += CrucibleHelper.getMetalReturnAmount(is) * is.stackSize;
                     heatCapacity += CrucibleHelper.getHeatCapacity(is) * CrucibleHelper.getMetalReturnAmount(is)
                             * is.stackSize;
+                    totalPurity += CrucibleHelper.getPurity(is) * CrucibleHelper.getMetalReturnAmount(is)
+                            * is.stackSize;
                 } else {
                     valid = false;
                 }
             }
         }
+        purity = volume > 0 ? totalPurity / volume : 0;
 
         dirty = false;
     }
