@@ -17,3 +17,8 @@
 
 0.3.1 (08-06-2022)
 - Fixed: TFC crucible achievement is bestowed when Fire Clay Crucible is crafted
+
+0.4.0 (20-06-2022)
+- Changed: Ingots and native ores heat up much faster, ore bits heat up faster, rich and poor ores heat up a little faster resp. slower
+- Fixed: Added workaround for current TFC bug where 1 unit remains in the crucible after filling some molds up
+- Fixed: Lowered maximum stack size of ore bits to 32 as originally intended
