@@ -25,18 +25,19 @@ public class CraftingHandler {
             Item itemOutput = isOutput.getItem();
             if (itemOutput == BidsItems.oreBit) {
                 int toolDamage = 0;
+                int baseDamage = CrucibleHelper.isOreIron(isOutput) ? 10 : 1;
                 for (int i = 0; i < iinventory.getSizeInventory(); i++) {
                     if (iinventory.getStackInSlot(i) != null) {
                         ItemStack isIngred = iinventory.getStackInSlot(i);
                         if (isIngred.getItem() == TFCItems.smallOreChunk) {
-                            toolDamage += 1; // Small
+                            toolDamage += baseDamage; // Small
                         } else if (isIngred.getItem() == TFCItems.oreChunk) {
                             if (isIngred.getItemDamage() < Global.oreGrade1Offset) {
-                                toolDamage += 3; // Normal
+                                toolDamage += baseDamage * 3; // Normal
                             } else if (isIngred.getItemDamage() < Global.oreGrade2Offset) {
-                                toolDamage += 4; // Rich
+                                toolDamage += baseDamage * 4; // Rich
                             } else {
-                                toolDamage += 2; // Poor
+                                toolDamage += baseDamage * 2; // Poor
                             }
                         }
                     }

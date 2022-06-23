@@ -1,8 +1,5 @@
 package com.unforbidable.tfc.bids;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.dunk.tfc.api.HeatIndex;
 import com.dunk.tfc.api.HeatRaw;
 import com.dunk.tfc.api.HeatRegistry;
@@ -12,6 +9,7 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.CraftingManagerTFC;
 import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
+import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
@@ -33,6 +31,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class CommonProxy {
@@ -64,6 +63,15 @@ public class CommonProxy {
         FMLInterModComms.sendMessage("Waila", "register",
                 "com.unforbidable.tfc.bids.WAILA.WailaCrucible.callbackRegister");
 
+        // Hammers that are able to break iron ores into bits
+        // You could realstically break iron ore with a stone hammer
+        // so this is for ballance only
+        // Also breaking iron ore will cause more damage to the hammer
+        OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.steelHammer, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.blackSteelHammer, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.blueSteelHammer, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.redSteelHammer, 1, OreDictionary.WILDCARD_VALUE));
+
         GameRegistry.addRecipe(new RecipeCrucibleConversion(true));
         GameRegistry.addRecipe(new RecipeCrucibleConversion(false));
 
@@ -80,35 +88,42 @@ public class CommonProxy {
             ItemStack normal = new ItemStack(TFCItems.oreChunk, 1, i);
             ItemStack rich = new ItemStack(TFCItems.oreChunk, 1, Global.oreGrade1Offset + i);
 
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 2, i),
-                    small, "itemHammer"));
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 3, i),
-                    poor, "itemHammer"));
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 5, i),
-                    normal, "itemHammer"));
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 7, i),
-                    rich, "itemHammer"));
+            if (CrucibleHelper.isOreIron(small)) {
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 2, i),
+                        small, "itemHammerIronBits"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 3, i),
+                        poor, "itemHammerIronBits"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 5, i),
+                        normal, "itemHammerIronBits"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 7, i),
+                        rich, "itemHammerIronBits"));
+            } else {
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 2, i),
+                        small, "itemHammer"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 3, i),
+                        poor, "itemHammer"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 5, i),
+                        normal, "itemHammer"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 7, i),
+                        rich, "itemHammer"));
+            }
         }
-
     }
 
     public void postInit(FMLPostInitializationEvent event) {
         HeatRegistry manager = HeatRegistry.getInstance();
 
         Bids.LOG.info("Registering heat indices");
-        List<HeatIndex> heatList = new ArrayList<HeatIndex>();
-        for (HeatIndex index : manager.getHeatList()) {
-            if (index.input.getItem() == TFCItems.smallOreChunk) {
-                ItemStack is = new ItemStack(BidsItems.oreBit, 1, index.input.getItemDamage());
-                HeatRaw raw = new HeatRaw(index.specificHeat, index.meltTemp);
-                heatList.add(new HeatIndex(is, raw, new ItemStack(index.getOutputItem(), 1)));
+        for (int i = 0; i < Global.ORE_METAL.length; i++) {
+            ItemStack smallOre = new ItemStack(TFCItems.smallOreChunk, 1, i);
+            HeatIndex smallOreIndex = manager.findMatchingIndex(smallOre);
+            if (smallOreIndex != null) {
+                HeatRaw raw = new HeatRaw(smallOreIndex.specificHeat, smallOreIndex.meltTemp);
 
-                Bids.LOG.info("Registered heat index for: " + is.getDisplayName());
+                ItemStack oreBit = new ItemStack(BidsItems.oreBit, 1, i);
+                manager.addIndex(new HeatIndex(oreBit, raw, new ItemStack(smallOreIndex.getOutputItem(), 1)));
+                Bids.LOG.info("Registered heat index for: " + oreBit.getDisplayName());
             }
-        }
-
-        for (HeatIndex index : heatList) {
-            manager.addIndex(index);
         }
 
         if (BidsOptions.Crucible.enableClassicHandBreakable) {
