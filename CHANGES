@@ -22,3 +22,8 @@
 - Changed: Ingots and native ores heat up much faster, ore bits heat up faster, rich and poor ores heat up a little faster resp. slower
 - Fixed: Added workaround for current TFC bug where 1 unit remains in the crucible after filling some molds up
 - Fixed: Lowered maximum stack size of ore bits to 32 as originally intended
+
+0.4.1 (23-06-2022)
+- Changed: Iron bearing ore chunks can only be broken into ore bits by a steel hammer or higher tier, taking substantial damage
+- Fixed: Crucible GUI would sometimes not get updated
+
