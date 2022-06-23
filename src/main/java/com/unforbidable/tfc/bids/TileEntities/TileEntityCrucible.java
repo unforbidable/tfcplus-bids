@@ -50,13 +50,15 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     Timer liquidOutputTimer = new Timer(2);
     Timer alloyMixingTimer = new Timer(0);
 
+    static final byte UPDATE_NONE = 0;
     static final byte UPDATE_TEMP = 1;
     static final byte UPDATE_LIQUID = 2;
     static final byte UPDATE_FLAGS = 4;
     static final byte UPDATE_OUTPUT = 8;
     static final byte UPDATE_ALLOY_MIXING = 16;
     static final byte UPDATE_ALL = 31;
-    byte updateMask = UPDATE_ALL;
+    byte updateMask = UPDATE_NONE;
+    boolean useUpdateMask = false;
 
     static final byte FLAGS_NONE = 0;
     static final byte FLAGS_SOLIDIFIED = 1;
@@ -150,6 +152,13 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     @Override
     public S35PacketUpdateTileEntity getDescriptionPacket() {
+        if (!useUpdateMask) {
+            // When we are not using the update mask
+            // it means that a regular init packet is requested
+            // so we want to update everything
+            updateMask = UPDATE_ALL;
+        }
+
         NBTTagCompound tagCompound = new NBTTagCompound();
         if (updateMask != 0) {
             tagCompound.setByte("updateMask", updateMask);
@@ -171,6 +180,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 tagCompound.setInteger("alloyMixingCountdown", alloyMixingCountdown);
             }
             updateMask = 0;
+            useUpdateMask = false;
         }
         S35PacketUpdateTileEntity pack = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, tagCompound);
         return pack;
@@ -819,6 +829,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     private void updateGui(int mask) {
         updateMask |= mask;
+        useUpdateMask = true;
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
