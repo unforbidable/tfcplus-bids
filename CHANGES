@@ -27,3 +27,5 @@
 - Changed: Iron bearing ore chunks can only be broken into ore bits by a steel hammer or higher tier, taking substantial damage
 - Fixed: Crucible GUI would sometimes not get updated
 
+0.4.2 (29-06-2022)
+- Fixed: Ore bits are correctly matched in the TFC Heat Index
