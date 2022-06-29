@@ -72,6 +72,11 @@ public class ItemOreBit extends Item implements ISize, ISmeltable, IExtraSmeltab
     }
 
     @Override
+    public boolean getHasSubtypes() {
+        return true;
+    }
+
+    @Override
     public void registerIcons(IIconRegister registerer) {
         metaIcons = new IIcon[Global.ORE_METAL.length];
         for (int i = 0; i < Global.ORE_METAL.length; i++) {
