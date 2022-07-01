@@ -12,6 +12,8 @@ import com.dunk.tfc.Core.Metal.MetalRegistry;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMold;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMoldBase;
 import com.dunk.tfc.Items.Pottery.ItemPotterySheetMold;
+import com.dunk.tfc.TileEntities.TEBellows;
+import com.dunk.tfc.TileEntities.TEForge;
 import com.dunk.tfc.api.HeatIndex;
 import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.Metal;
@@ -20,12 +22,17 @@ import com.dunk.tfc.api.TFC_ItemHeat;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Interfaces.IExtraSmeltable;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class CrucibleHelper {
 
@@ -33,9 +40,19 @@ public class CrucibleHelper {
             .asList(new Item[] { TFCItems.oreChunk, TFCItems.smallOreChunk, BidsItems.oreBit });
 
     public static int getMetalReturnAmount(ItemStack itemstack) {
-        return itemstack.getItem() instanceof ISmeltable
-                ? ((ISmeltable) itemstack.getItem()).getMetalReturnAmount(itemstack)
-                : 0;
+        if (itemstack.getItem() instanceof ISmeltable)
+            return ((ISmeltable) itemstack.getItem()).getMetalReturnAmount(itemstack);
+        else
+            return isGlass(itemstack) ? getGlassReturnAmount(itemstack) : 0;
+    }
+
+    private static int getGlassReturnAmount(ItemStack itemstack) {
+        if (itemstack.getItem() == Item.getItemFromBlock(Blocks.glass_pane))
+            return 175;
+        else if (itemstack.getItem() == Item.getItemFromBlock(Blocks.glass))
+            return 850;
+
+        return 0;
     }
 
     public static float getHeatCapacity(ItemStack itemstack) {
@@ -43,26 +60,28 @@ public class CrucibleHelper {
     }
 
     public static boolean isMeltedAtTemp(ItemStack itemstack, float temp) {
-        HeatRegistry manager = HeatRegistry.getInstance();
-        if (itemstack != null && manager != null) {
-            HeatIndex hi = manager.findMatchingIndex(itemstack);
-            if (hi != null)
-                return hi.meltTemp <= temp;
-            else
-                return false;
-        } else {
-            return false;
-        }
+        Metal metal = getMetalFromSmeltable(itemstack);
+        return isMeltedAtTemp(metal, temp);
     }
 
     public static boolean isMeltedAtTemp(Metal metal, float temp) {
         HeatRegistry manager = HeatRegistry.getInstance();
-        if (manager != null && metal.getResultFromMold(TFCItems.ceramicMold) != null) {
-            HeatIndex hi = manager.findMatchingIndex(new ItemStack(metal.getResultFromMold(TFCItems.ceramicMold)));
-            if (hi != null)
-                return hi.meltTemp <= temp;
-            else
-                return false;
+        if (manager != null) {
+            if (metal == Global.GLASS) {
+                // This is how molten glass is registered in the heat index
+                HeatIndex hi = manager.findMatchingIndex(new ItemStack(TFCItems.clayMoldSheet, 1, 5));
+                if (hi != null)
+                    return hi.meltTemp <= temp;
+            } else {
+                Item mold = metal.getResultFromMold(TFCItems.ceramicMold);
+                if (mold != null) {
+                    HeatIndex hi = manager.findMatchingIndex(new ItemStack(mold));
+                    if (hi != null)
+                        return hi.meltTemp <= temp;
+                }
+            }
+
+            return false;
         } else {
             return false;
         }
@@ -134,7 +153,10 @@ public class CrucibleHelper {
     }
 
     public static Metal getMetalFromSmeltable(ItemStack itemstack) {
-        return ((ISmeltable) itemstack.getItem()).getMetalType(itemstack);
+        if (itemstack.getItem() instanceof ISmeltable)
+            return ((ISmeltable) itemstack.getItem()).getMetalType(itemstack);
+        else
+            return isGlass(itemstack) ? Global.GLASS : Global.GARBAGE;
     }
 
     public static boolean isValidMold(ItemStack liquidOutputStack, Metal metal) {
@@ -161,7 +183,7 @@ public class CrucibleHelper {
     }
 
     public static int getMoldUnits(ItemStack mold) {
-        return ((ItemPotteryMoldBase)mold.getItem()).getUnits(mold);
+        return ((ItemPotteryMoldBase) mold.getItem()).getUnits(mold);
     }
 
     public static boolean isOreIron(ItemStack is) {
@@ -210,13 +232,84 @@ public class CrucibleHelper {
                 } else {
                     return isNativeOre(itemstack) ? 0.85f : 0.35f; // Poor
                 }
+            } else if (isGlass(itemstack)) {
+                // Melting glass is hard
+                return 0.50f;
+            } else if (isGlassIngredient(itemstack)) {
+                // Making glass is harder
+                return 0.25f;
             } else {
-                // No nugget or ore, then this is a ready metal ingot
+                // Not a nugget or ore, or glass stuff,
+                // then this is a ready metal ingot
                 // (or sheet, anvil, etc)
                 // which is 100% pure
                 return 1f;
             }
         }
+    }
+
+    public static boolean isGlass(ItemStack itemstack) {
+        return itemstack.getItem() == Item.getItemFromBlock(Blocks.glass_pane)
+                || itemstack.getItem() == Item.getItemFromBlock(Blocks.glass);
+    }
+
+    public static boolean isGlassIngredient(ItemStack itemstack) {
+        if (itemstack.getItem() instanceof ISmeltable) {
+            Metal metal = getMetalFromSmeltable(itemstack);
+            return metal == Global.SILICA || metal == Global.SODA || metal == Global.LIME;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean checkValidGlassmakingStructure(TileEntityCrucible tileEntityCrucible) {
+        World world = tileEntityCrucible.getWorldObj();
+        int x = tileEntityCrucible.xCoord;
+        int y = tileEntityCrucible.yCoord;
+        int z = tileEntityCrucible.zCoord;
+
+        int bellowsCount = 0;
+
+        // Forge bellow and non-flamable roof
+        boolean valid = world.getTileEntity(x, y - 1, z) instanceof TEForge
+                && !Blocks.fire.canCatchFire(world, x, y + 1, z, ForgeDirection.DOWN);
+
+        // Surrounding blocks need to be solid and non flamable
+        // or correctly facing bellows
+        if (valid) {
+            // Ordered by bellows orientation meta for simpler verification
+            ForgeDirection checkList[] = { ForgeDirection.NORTH, ForgeDirection.EAST, ForgeDirection.SOUTH,
+                    ForgeDirection.WEST };
+
+            int meta = 0;
+            for (ForgeDirection dir : checkList) {
+                TileEntity te = world.getTileEntity(x + dir.offsetX, y, z + dir.offsetZ);
+                if (te != null && te instanceof TEBellows) {
+                    if (meta == te.getBlockMetadata()) {
+                        // Proper facing bellows
+                        bellowsCount++;
+                    } else {
+                        // Bellows but not proper facing
+                        valid = false;
+                    }
+                } else if (!world.isSideSolid(x + dir.offsetX, y, z + dir.offsetZ, dir)) {
+                    // Non-solid side
+                    valid = false;
+                } else if (!Blocks.fire.canCatchFire(world, x + dir.offsetX, y, z + dir.offsetZ, dir)) {
+                    // Solid and non-flamable side
+                } else {
+                    valid = false;
+                }
+
+                if (!valid || bellowsCount > 1)
+                    break;
+
+                meta++;
+            }
+        }
+
+        // Exactly 1 bellows block is needed
+        return valid && bellowsCount == 1;
     }
 
 }

@@ -42,6 +42,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     boolean isOutputAvailable = false;
     boolean isOutputDirty = true;
     int alloyMixingCountdown = 0;
+    int glassMakingCountdown = 0;
+    Metal outputMetal = Global.UNKNOWN;
 
     float heatingMult = 10;
     Timer solidHeatingTimer = new Timer(10);
@@ -49,6 +51,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     Timer liquidInputTimer = new Timer(1);
     Timer liquidOutputTimer = new Timer(2);
     Timer alloyMixingTimer = new Timer(0);
+    Timer glassMakingTimer = new Timer(0);
 
     static final byte UPDATE_NONE = 0;
     static final byte UPDATE_TEMP = 1;
@@ -139,7 +142,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 && ((ISmeltable) is.getItem()).isSmeltable(is)
                 && isValidInputMetal(((ISmeltable) is.getItem()).getMetalType(is))
                 && CrucibleHelper.isMeltedAtTemp(is, getMaxTemp())
-                && !CrucibleHelper.isOreIron(is);
+                && !CrucibleHelper.isOreIron(is)
+                || CrucibleHelper.isGlassIngredient(is)
+                || CrucibleHelper.isGlass(is);
     }
 
     public boolean isItemStackValidLiquidInput(ItemStack is) {
@@ -158,6 +163,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             // so we want to update everything
             updateMask = UPDATE_ALL;
         }
+        //System.out.println("Update: " + updateMask);
 
         NBTTagCompound tagCompound = new NBTTagCompound();
         if (updateMask != 0) {
@@ -190,6 +196,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound tagCompound = pkt.func_148857_g();
         updateMask = tagCompound.getByte("updateMask");
+        //System.out.println("Updating: " + updateMask);
         if ((updateMask & UPDATE_TEMP) != 0) {
             combinedTemp = tagCompound.getInteger("combinedTemp");
         }
@@ -402,13 +409,14 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             }
         }
 
-        Metal outputMetal = predictedLiquidStorage.getOutputMetal();
+        outputMetal = predictedLiquidStorage.getOutputMetal();
         int outputVolume = predictedLiquidStorage.getVolume();
 
         if (isOutputAvailable && outputMetal != null) {
             output = outputVolume + " " + outputMetal.name;
         } else {
             output = null;
+            outputMetal = Global.UNKNOWN;
         }
 
         if (prevOutput != output) {
@@ -535,8 +543,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     }
 
     private boolean isValidInputMetal(Metal inputMetal) {
-        return (inputMetal != Global.SILICA && inputMetal != Global.LIME && inputMetal != Global.SODA)
-                && inputMetal != Global.GARBAGE && inputMetal != Global.GLASS;
+        return inputMetal != Global.GARBAGE;
     }
 
     private boolean canSmelt() {
@@ -649,49 +656,93 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             }
 
             if (updateSolidTemp) {
+                // Glass requires very high temperatures to melt
+                // and we achieve this by enclosing the crucible inside a solid structure
+                // and working the bellows
+                // This is only for glass, and it doesn't make sense for other things
+                // And the temperature needs to be already high enough meaning bellows are being
+                // used
+                boolean glassmaking = false;
+                if (outputMetal == Global.GLASS && heatSourceTemp > 1250 && solidTemp > 1050
+                        && liquidStorage.isAllLiquid(liquidTemp)
+                        && CrucibleHelper.checkValidGlassmakingStructure(this)) {
+                    if (glassMakingTimer.getTicksToGo() == 0) {
+                        // Glass making countdown is not measured it ticks
+                        // but instead updateSolidTemp cycles
+                        //
+                        glassMakingTimer.delay(60);
+                        Bids.LOG.info("Glassmaking will occur in 30 seconds");
+                    } else {
+                        if (glassMakingTimer.tick()) {
+                            Bids.LOG.info("Glassmaking completed");
+                            glassmaking = true;
+                        } else {
+                            Bids.LOG.debug("Glassmaking in progress, seconds to go: "
+                                    + glassMakingTimer.getTicksToGo() / 2);
+                        }
+                    }
+                } else if (glassMakingTimer.getTicksToGo() > 0) {
+                    Bids.LOG.debug("Glassmaking was paused, temp: " + heatSourceTemp + " valid: "
+                            + CrucibleHelper.checkValidGlassmakingStructure(this));
+                }
+
                 // See if we can melt any input materials
                 // but first make sure the liquid materials are not solid
                 // This is to avoid adding melted Tin to warm, but solidified Copper
+                // Glass ingredients will melt all at once
+                // either when glassmaking or when the temp reaches 1500
                 if (liquidStorage.isAllLiquid(liquidTemp)) {
                     for (int i = 0; i < getInputSlotCount(); i++) {
                         ItemStack is = getStackInSlot(i);
-                        if (is != null && CrucibleHelper.isMeltedAtTemp(is, solidTemp)
-                                && !CrucibleHelper.isOreIron(is)) {
-                            float prevLiquidStorageHeatCapacity = liquidStorage.getHeatCapacity();
-                            Bids.LOG.debug("Input item stack " + is.getUnlocalizedName() + "[" + is.stackSize
-                                    + "] melted");
-                            liquidStorage.addLiquid(CrucibleHelper.getMetalFromSmeltable(is),
-                                    CrucibleHelper.getMetalReturnAmount(is) * is.stackSize);
+                        if (is != null) {
+                            if (CrucibleHelper.isMeltedAtTemp(is, solidTemp)
+                                    && !CrucibleHelper.isOreIron(is)
+                                    && !CrucibleHelper.isGlassIngredient(is)
+                                    || glassmaking && CrucibleHelper.isGlassIngredient(is)
+                                    || solidTemp > 1500 && CrucibleHelper.isGlassIngredient(is)) {
+                                float prevLiquidStorageHeatCapacity = liquidStorage.getHeatCapacity();
+                                Bids.LOG.info("Input item stack " + is.getUnlocalizedName() + "[" + is.stackSize
+                                        + "] melted");
+                                liquidStorage.addLiquid(CrucibleHelper.getMetalFromSmeltable(is),
+                                        CrucibleHelper.getMetalReturnAmount(is) * is.stackSize);
 
-                            decrStackSize(i, is.stackSize); // won't trigger onSlotChanged, nice!
-                            inputMonitor.makeDirty();
+                                decrStackSize(i, is.stackSize); // won't trigger onSlotChanged, nice!
+                                inputMonitor.makeDirty();
 
-                            // Combine melted stack temp with liquid temp
-                            float meltedStackHeatCapacity = CrucibleHelper.getHeatCapacity(is)
-                                    * CrucibleHelper.getMetalReturnAmount(is) * is.stackSize;
-                            liquidTemp = combineTemp(solidTemp, meltedStackHeatCapacity, liquidTemp,
-                                    prevLiquidStorageHeatCapacity);
-                            Bids.LOG.debug("Melted item changed liquid temp to " + liquidTemp);
+                                // Combine melted stack temp with liquid temp
+                                float meltedStackHeatCapacity = CrucibleHelper.getHeatCapacity(is)
+                                        * CrucibleHelper.getMetalReturnAmount(is) * is.stackSize;
+                                liquidTemp = combineTemp(solidTemp, meltedStackHeatCapacity, liquidTemp,
+                                        prevLiquidStorageHeatCapacity);
+                                Bids.LOG.info("Melted item changed liquid temp to " + liquidTemp);
 
-                            // Reset input material temp once empty
-                            if (inputMonitor.getVolume() == 0) {
-                                solidTemp = 0;
+                                // Reset input material temp once empty
+                                if (inputMonitor.getVolume() == 0) {
+                                    solidTemp = 0;
 
-                                // Turn off smelting indicator
-                                // and turn on liquid output indicator if there is a mold already
-                                // and start ejecting after a delay
-                                clearFlags(FLAGS_SMELTING);
-                                if (canEjectLiquid()) {
-                                    ejectLiquid = false;
-                                    liquidOutputTimer.delay(20);
-                                    setFlags(FLAGS_LIQUID_OUT);
+                                    // Turn off smelting indicator
+                                    // and turn on liquid output indicator if there is a mold already
+                                    // and start ejecting after a delay
+                                    clearFlags(FLAGS_SMELTING);
+                                    if (canEjectLiquid()) {
+                                        ejectLiquid = false;
+                                        liquidOutputTimer.delay(20);
+                                        setFlags(FLAGS_LIQUID_OUT);
+                                    }
+
+                                    // Also update/clear output display
+                                    updateOutput();
+
+                                    // Mix glass immediately without checking the temperature
+                                    if (liquidStorage.getOutputMetal() == Global.GLASS && liquidStorage.mixAlloy()) {
+                                        Bids.LOG.info("Liquid metal has been mixed into: "
+                                                + liquidStorage.getOutputMetal().name);
+                                        updateGui(UPDATE_LIQUID);
+                                    }
                                 }
 
-                                // Also update/clear output display
-                                updateOutput();
+                                updateGui(UPDATE_LIQUID | UPDATE_TEMP);
                             }
-
-                            updateGui(UPDATE_LIQUID | UPDATE_TEMP);
                         }
                     }
                 }
@@ -770,7 +821,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
                     // For some molds, when we are 2 units away from full
                     // the mold gets filled up with only 1 unit added
-                    // Not sure why this happens but it means we cannot assume only one unit is added
+                    // Not sure why this happens but it means we cannot assume only 1 unit is added
                     // when we try to add one unit
                     // So we remove whatever amount of units was trully added
                     int prevUnits = CrucibleHelper.getMoldUnits(liquidOutputStack);
