@@ -18,6 +18,7 @@ item.Ore Bit.Chalcocite.name=Chalcocite Ore Bit
 item.Ore Bit.Chalcopyrite.name=Chalcopyrite Ore Bit
 item.Metal Blowpipe.name=Metal Blowpipe
 item.Metal Blowpipe.Glass.name=Metal Blowpipe Glass
+item.Flat Glass.name=Flat Glass
 itemGroup.Bids and Pieces=Bids and Pieces
 gui.ShowHelp=§8Help: (Hold §fShift§8)
 gui.Units=Units

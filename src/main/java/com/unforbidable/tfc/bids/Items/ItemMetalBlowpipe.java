@@ -3,11 +3,15 @@ package com.unforbidable.tfc.bids.Items;
 import java.util.List;
 
 import com.dunk.tfc.Core.TFC_Sounds;
+import com.dunk.tfc.Core.Player.PlayerInfo;
+import com.dunk.tfc.Core.Player.PlayerManagerTFC;
 import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMoldBase;
-import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsGui;
+import com.unforbidable.tfc.bids.api.BidsItems;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -45,14 +49,16 @@ public class ItemMetalBlowpipe extends ItemPotteryMoldBase {
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-        if (itemstack.getItemDamage() == 1 && !world.isRemote) {
-            itemstack.setItemDamage(0);
+        if (itemstack.getItemDamage() == 1 && !world.isRemote && !entityplayer.isSneaking()) {
             world.playSoundEffect(entityplayer.posX, entityplayer.posY, entityplayer.posZ,
                     TFC_Sounds.BELLOWS, 0.4F, 1);
 
             // Open glass crafting gui
-            entityplayer.inventory.addItemStackToInventory(new ItemStack(TFCItems.glassBottle, 1));
-
+            PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(entityplayer);
+            pi.specialCraftingType = new ItemStack(BidsItems.flatGlass, 1, 0);
+            pi.specialCraftingTypeAlternate = null;
+            entityplayer.openGui(Bids.instance, BidsGui.glassKnappingGui, world, (int) entityplayer.posX,
+                    (int) entityplayer.posY, (int) entityplayer.posZ);
         }
         return itemstack;
     }
@@ -100,7 +106,7 @@ public class ItemMetalBlowpipe extends ItemPotteryMoldBase {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
-		list.add(new ItemStack(item, 1, 0));
+        list.add(new ItemStack(item, 1, 0));
     }
 
 }

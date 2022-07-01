@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
+import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
@@ -53,9 +54,11 @@ public class CommonProxy {
 
         BidsItems.oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");
         BidsItems.metalBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Metal Blowpipe");
+        BidsItems.flatGlass = new ItemFlatGlass().setUnlocalizedName("Flat Glass");
 
         GameRegistry.registerItem(BidsItems.oreBit, BidsItems.oreBit.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.metalBlowpipe, BidsItems.metalBlowpipe.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.flatGlass, BidsItems.flatGlass.getUnlocalizedName());
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new GuiHandler());
 
@@ -84,6 +87,10 @@ public class CommonProxy {
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.fireClayCrucible, 1),
                 new Object[] { "#####", " ### ", " ### ", " ### ", "     ", '#',
                         new ItemStack(TFCItems.flatClay, 1, 3) });
+
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(TFCItems.glassBottle, 1),
+                new Object[] { " # # ", " # # ", "#   #", "#   #", " ### ", '#',
+                        new ItemStack(BidsItems.flatGlass, 1) });
 
         for (int i = 0; i < Global.ORE_METAL.length; i++) {
             ItemStack small = new ItemStack(TFCItems.smallOreChunk, 1, i);

@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Handlers.Client;
 
 import com.unforbidable.tfc.bids.Gui.GuiClayCrucible;
 import com.unforbidable.tfc.bids.Gui.GuiFireClayCrucible;
+import com.unforbidable.tfc.bids.Gui.GuiKnappingGlass;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
@@ -23,6 +24,9 @@ public class ClientGuiHandler extends GuiHandler {
 
             case BidsGui.fireClayCrucibleGui:
                 return new GuiFireClayCrucible(player.inventory, (TileEntityFireClayCrucible) te, world, x, y, z);
+
+            case BidsGui.glassKnappingGui:
+                return new GuiKnappingGlass(player.inventory, world, x, y, z);
         }
 
         return null;
