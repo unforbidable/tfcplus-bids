@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
+import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
@@ -51,8 +52,10 @@ public class CommonProxy {
         GameRegistry.registerBlock(BidsBlocks.fireClayCrucible, ItemFireClayCrucible.class, "FireClayCrucible");
 
         BidsItems.oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");
+        BidsItems.metalBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Metal Blowpipe");
 
         GameRegistry.registerItem(BidsItems.oreBit, BidsItems.oreBit.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.metalBlowpipe, BidsItems.metalBlowpipe.getUnlocalizedName());
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new GuiHandler());
 
@@ -131,6 +134,8 @@ public class CommonProxy {
             // The original value is 4.0f
             TFCBlocks.crucible.setHardness(0.5f);
         }
+
+        Global.GLASS.addValidPartialMold(BidsItems.metalBlowpipe, 1, BidsItems.metalBlowpipe, 1, 1);
     }
 
 }
