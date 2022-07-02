@@ -182,7 +182,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             // so we want to update everything
             updateMask = UPDATE_ALL;
         }
-        // System.out.println("Update: " + updateMask);
+        //System.out.println("Update: " + updateMask + " useMask: " + useUpdateMask);
 
         NBTTagCompound tagCompound = new NBTTagCompound();
         if (updateMask != 0) {
@@ -219,7 +219,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound tagCompound = pkt.func_148857_g();
         updateMask = tagCompound.getByte("updateMask");
-        // System.out.println("Updating: " + updateMask);
+        //System.out.println("Updating: " + updateMask);
         if ((updateMask & UPDATE_TEMP) != 0) {
             combinedTemp = tagCompound.getInteger("combinedTemp");
         }
@@ -300,7 +300,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             // Restore timer based on saved progress
             int ticksToGlassmakingRemaining = (int) (getTicksToGlassmaking() / 10 * (1f - glassMakingProgress));
             glassMakingTimer.delay(ticksToGlassmakingRemaining);
-            Bids.LOG.info("Restored glass making progress: " + glassMakingProgress);
+            Bids.LOG.debug("Restored glass making progress: " + glassMakingProgress);
         }
 
         liquidStorage.readFromNBT(tag);
@@ -515,7 +515,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     @SideOnly(Side.CLIENT)
     private void onGlassMakingProgressChanged() {
-        Bids.LOG.info("Glass making progress: " + glassMakingProgress
+        Bids.LOG.debug("Glass making progress: " + glassMakingProgress
                 + " active: " + glassMakingActive);
 
         if (glassMakingActive && glassMakingChimney == null) {
@@ -666,7 +666,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     }
 
     private int getTicksToGlassmaking() {
-        return (int) Math.round(Math.sqrt(inputMonitor.getVolume() * 2) * 100);
+        return (int) (Math.round(Math.sqrt(inputMonitor.getVolume() * 2) * 80)
+                / getHeatTransferEfficiency());
     }
 
     private void doWork(boolean updateSolidTemp, boolean updateLiquidTemp, boolean acceptLiquid, boolean ejectLiquid,
@@ -744,7 +745,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 // and working the bellows
                 // This is only for glass, and it doesn't make sense for other things
                 // And the temperature needs to be already high enough meaning bellows are being
-                // used
+                // used (at least manual)
                 boolean glassCanBeCreated = false;
                 if (outputMetal == Global.GLASS && heatSourceTemp > 1250 && solidTemp > 1050
                         && liquidStorage.isAllLiquid(liquidTemp)
@@ -755,11 +756,11 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                         // Countdown depends on the volume
                         int ticksToGlassmaking = getTicksToGlassmaking() / 10;
                         glassMakingTimer.delay(ticksToGlassmaking);
-                        Bids.LOG.info("Glassmaking will occur in about " + (ticksToGlassmaking / 2) + " seconds");
+                        Bids.LOG.debug("Glassmaking will occur in about " + (ticksToGlassmaking / 2) + " seconds");
                         glassMakingActive = true;
                     } else {
                         if (glassMakingTimer.tick()) {
-                            Bids.LOG.info("Glassmaking completed");
+                            Bids.LOG.debug("Glassmaking completed");
                             glassCanBeCreated = true;
                             glassMakingActive = false;
                         } else {
@@ -796,7 +797,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                     && !CrucibleHelper.isOreIron(is)
                                     && !CrucibleHelper.isGlassIngredient(is)
                                     || glassCanBeCreated && CrucibleHelper.isGlassIngredient(is)
-                                    || solidTemp > 1500 && CrucibleHelper.isGlassIngredient(is)) {
+                                    || solidTemp > 1600 && CrucibleHelper.isGlassIngredient(is)) {
                                 float prevLiquidStorageHeatCapacity = liquidStorage.getHeatCapacity();
                                 Bids.LOG.info("Input item stack " + is.getUnlocalizedName() + "[" + is.stackSize
                                         + "] melted");
