@@ -43,6 +43,9 @@ public abstract class BlockCrucible extends BlockContainer {
         if (!world.isRemote && world.getTileEntity(i, j, k) instanceof TileEntityCrucible) {
             TileEntityCrucible crucible = (TileEntityCrucible) world.getTileEntity(i, j, k);
             entityplayer.openGui(Bids.instance, crucible.getGui(), world, i, j, k);
+
+            // Force update when gui is displayed
+            world.markBlockForUpdate(i, j, k);
         }
         return true;
     }
