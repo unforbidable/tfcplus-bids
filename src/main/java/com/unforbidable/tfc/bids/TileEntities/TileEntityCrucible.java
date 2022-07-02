@@ -732,8 +732,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
             if (updateSolidTemp || updateLiquidTemp) {
                 int prevCombinedTemp = combinedTemp;
-                combinedTemp = (int) Math.floor(combineTemp(solidTemp, inputMonitor.getHeatCapacity(), liquidTemp,
-                        liquidStorage.getHeatCapacity()));
+                combinedTemp = (int) Math.floor(inputMonitor.getVolume() > 0 ? solidTemp : liquidTemp);
                 if (prevCombinedTemp != combinedTemp) {
                     updateGui(UPDATE_TEMP);
                 }
