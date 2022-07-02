@@ -29,3 +29,9 @@
 
 0.4.2 (29-06-2022)
 - Fixed: Ore bits are correctly matched in the TFC Heat Index
+
+0.5.0 (02-07-2022)
+- Added: Glass can be made in crucibles inside a special furnace structure
+- Added: Metal blowpipe can be used to craft glasswere with glass knapping recipes
+- Added: Glass bottles can be created with a metal blowpipe by knapping
+- Fixed: Crucible GUI still would not get updated sometimes
