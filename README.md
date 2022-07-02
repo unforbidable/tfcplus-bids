@@ -6,6 +6,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 ### Features
 * Clay and Fireclay [Crucible](../../wiki/Crucible) - new crucibles with improved mechanics
 * [Ore Bits](../../wiki/Ore-Bits) - breaking ore chunks into smaller pieces
+* [Metal Blowpipe](../../wiki/Metal-Blowpipe) - recipe based glassware crafting
 
 ### Compiling
 
