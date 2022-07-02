@@ -1,5 +1,8 @@
 package com.unforbidable.tfc.bids.Blocks;
 
+import java.util.Random;
+
+import com.dunk.tfc.TileEntities.TEChimney;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
@@ -40,6 +43,9 @@ public abstract class BlockCrucible extends BlockContainer {
         if (!world.isRemote && world.getTileEntity(i, j, k) instanceof TileEntityCrucible) {
             TileEntityCrucible crucible = (TileEntityCrucible) world.getTileEntity(i, j, k);
             entityplayer.openGui(Bids.instance, crucible.getGui(), world, i, j, k);
+
+            // Force update when gui is displayed
+            world.markBlockForUpdate(i, j, k);
         }
         return true;
     }
@@ -126,6 +132,31 @@ public abstract class BlockCrucible extends BlockContainer {
 
     @Override
     protected void dropBlockAsItem(World par1World, int par2, int par3, int par4, ItemStack par5ItemStack) {
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (te instanceof TileEntityCrucible) {
+            TileEntityCrucible tileEntityCrucible = (TileEntityCrucible) te;
+            if (tileEntityCrucible.isGlassMakingActive()) {
+                TEChimney teChimeny = tileEntityCrucible.getGlassMakingChimney();
+                if (teChimeny != null) {
+                    double centerX = teChimeny.xCoord + 0.5F;
+                    double centerY = teChimeny.yCoord + 2F;
+                    double centerZ = teChimeny.zCoord + 0.5F;
+                    world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY,
+                            centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.1D, 0.0D);
+                    world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY,
+                            centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.15D, 0.0D);
+                    world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1,
+                            centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.1D, 0.0D);
+                    world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1,
+                            centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.15D, 0.0D);
+                }
+            }
+        }
     }
 
 }

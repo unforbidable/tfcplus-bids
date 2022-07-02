@@ -13,7 +13,10 @@ import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
+import com.unforbidable.tfc.bids.Handlers.WorldEventHandler;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
+import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
+import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
@@ -31,6 +34,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -51,8 +55,12 @@ public class CommonProxy {
         GameRegistry.registerBlock(BidsBlocks.fireClayCrucible, ItemFireClayCrucible.class, "FireClayCrucible");
 
         BidsItems.oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");
+        BidsItems.metalBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Metal Blowpipe");
+        BidsItems.flatGlass = new ItemFlatGlass().setUnlocalizedName("Flat Glass");
 
         GameRegistry.registerItem(BidsItems.oreBit, BidsItems.oreBit.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.metalBlowpipe, BidsItems.metalBlowpipe.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.flatGlass, BidsItems.flatGlass.getUnlocalizedName());
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new GuiHandler());
 
@@ -74,13 +82,6 @@ public class CommonProxy {
 
         GameRegistry.addRecipe(new RecipeCrucibleConversion(true));
         GameRegistry.addRecipe(new RecipeCrucibleConversion(false));
-
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.clayCrucible, 1),
-                new Object[] { "#####", " ### ", " ### ", " ### ", "     ", '#',
-                        new ItemStack(TFCItems.flatClay, 1, 1) });
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.fireClayCrucible, 1),
-                new Object[] { "#####", " ### ", " ### ", " ### ", "     ", '#',
-                        new ItemStack(TFCItems.flatClay, 1, 3) });
 
         for (int i = 0; i < Global.ORE_METAL.length; i++) {
             ItemStack small = new ItemStack(TFCItems.smallOreChunk, 1, i);
@@ -113,7 +114,6 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         HeatRegistry manager = HeatRegistry.getInstance();
 
-        Bids.LOG.info("Registering heat indices");
         for (int i = 0; i < Global.ORE_METAL.length; i++) {
             ItemStack smallOre = new ItemStack(TFCItems.smallOreChunk, 1, i);
             HeatIndex smallOreIndex = manager.findMatchingIndex(smallOre);
@@ -129,8 +129,29 @@ public class CommonProxy {
         if (BidsOptions.Crucible.enableClassicHandBreakable) {
             // Lower the hardness of the classic TFC crucible
             // The original value is 4.0f
+            Bids.LOG.info("Classic TFC crucible hardness reduced");
             TFCBlocks.crucible.setHardness(0.5f);
         }
+
+        Bids.LOG.info("Registering metal blowpipe as valid glass mold");
+        Global.GLASS.addValidPartialMold(BidsItems.metalBlowpipe, 1, BidsItems.metalBlowpipe, 1, 1);
+
+        Bids.LOG.info("Registering crucible clay knapping recipes");
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.clayCrucible, 1),
+                new Object[] { "#####", " ### ", " ### ", " ### ", "     ", '#',
+                        new ItemStack(TFCItems.flatClay, 1, 1) });
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.fireClayCrucible, 1),
+                new Object[] { "#####", " ### ", " ### ", " ### ", "     ", '#',
+                        new ItemStack(TFCItems.flatClay, 1, 3) });
+
+        Bids.LOG.info("Registering glass knapping recipes");
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(TFCItems.glassBottle, 1),
+                new Object[] { " # # ", " # # ", "#   #", "#   #", " ### ", '#',
+                        new ItemStack(BidsItems.flatGlass, 1) });
+
+        // Anvil recipes are registered when world loads
+        // ideally after TFC initialized its AnvilManager
+        MinecraftForge.EVENT_BUS.register(new WorldEventHandler());
     }
 
 }

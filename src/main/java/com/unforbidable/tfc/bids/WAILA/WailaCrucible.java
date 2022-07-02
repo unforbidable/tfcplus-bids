@@ -47,6 +47,12 @@ public class WailaCrucible implements IWailaDataProvider {
                 String liquidTempString = TFC_ItemHeat.getHeatColor(liquidTemp, Integer.MAX_VALUE);
                 currenttip.add(liquidTempString);
             }
+
+            float glassMakingProgess = tileEntityCrucible.getGlassMakingProgress();
+            if (glassMakingProgess > 0) {
+                currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Glassmaking") + ": " +
+                    (int) (glassMakingProgess * 100) + "%");
+            }
         }
         return currenttip;
     }
