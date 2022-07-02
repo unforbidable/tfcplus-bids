@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
+import com.unforbidable.tfc.bids.Handlers.WorldEventHandler;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
@@ -33,6 +34,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -146,6 +148,10 @@ public class CommonProxy {
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(TFCItems.glassBottle, 1),
                 new Object[] { " # # ", " # # ", "#   #", "#   #", " ### ", '#',
                         new ItemStack(BidsItems.flatGlass, 1) });
+
+        // Anvil recipes are registered when world loads
+        // ideally after TFC initialized its AnvilManager
+        MinecraftForge.EVENT_BUS.register(new WorldEventHandler());
     }
 
 }
