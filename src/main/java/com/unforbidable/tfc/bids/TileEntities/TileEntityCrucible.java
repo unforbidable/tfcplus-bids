@@ -798,7 +798,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                     && !CrucibleHelper.isGlassIngredient(is)
                                     || glassCanBeCreated && CrucibleHelper.isGlassIngredient(is)) {
                                 float prevLiquidStorageHeatCapacity = liquidStorage.getHeatCapacity();
-                                Bids.LOG.info("Input item stack " + is.getUnlocalizedName() + "[" + is.stackSize
+                                Bids.LOG.debug("Input item stack " + is.getUnlocalizedName() + "[" + is.stackSize
                                         + "] melted");
                                 liquidStorage.addLiquid(CrucibleHelper.getMetalFromSmeltable(is),
                                         CrucibleHelper.getMetalReturnAmount(is) * is.stackSize);
@@ -811,7 +811,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                         * CrucibleHelper.getMetalReturnAmount(is) * is.stackSize;
                                 liquidTemp = combineTemp(solidTemp, meltedStackHeatCapacity, liquidTemp,
                                         prevLiquidStorageHeatCapacity);
-                                Bids.LOG.info("Melted item changed liquid temp to " + liquidTemp);
+                                Bids.LOG.debug("Melted item changed liquid temp to " + liquidTemp);
 
                                 // Reset input material temp once empty
                                 if (inputMonitor.getVolume() == 0) {
@@ -832,7 +832,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
                                     // Mix glass immediately without checking the temperature
                                     if (liquidStorage.getOutputMetal() == Global.GLASS && liquidStorage.mixAlloy()) {
-                                        Bids.LOG.info("Liquid metal has been mixed into: "
+                                        Bids.LOG.debug("Liquid metal has been mixed into: "
                                                 + liquidStorage.getOutputMetal().name);
                                         updateGui(UPDATE_LIQUID);
                                     }
