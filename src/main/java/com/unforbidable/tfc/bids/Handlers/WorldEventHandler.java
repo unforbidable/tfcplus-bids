@@ -29,7 +29,7 @@ public class WorldEventHandler {
                 AnvilManager.getInstance().addPlan("blowpipe", new PlanRecipe(new RuleEnum[] {
                         RuleEnum.BENDLAST, RuleEnum.BENDSECONDFROMLAST, RuleEnum.ANY }));
                 AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.wroughtIronSheet), null,
-                        "blowpipe", AnvilReq.WROUGHTIRON, new ItemStack(BidsItems.metalBlowpipe, 1)));
+                        "blowpipe", AnvilReq.WROUGHTIRON, new ItemStack(BidsItems.metalBlowpipe, 1, 1)));
             }
         }
     }

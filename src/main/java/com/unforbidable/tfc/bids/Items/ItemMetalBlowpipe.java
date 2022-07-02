@@ -6,7 +6,7 @@ import com.dunk.tfc.Core.TFC_Sounds;
 import com.dunk.tfc.Core.Player.PlayerInfo;
 import com.dunk.tfc.Core.Player.PlayerManagerTFC;
 import com.dunk.tfc.Items.ItemTerra;
-import com.dunk.tfc.Items.Pottery.ItemPotteryMoldBase;
+import com.dunk.tfc.Items.Pottery.ItemPotteryMold;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
@@ -22,7 +22,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class ItemMetalBlowpipe extends ItemPotteryMoldBase {
+public class ItemMetalBlowpipe extends ItemPotteryMold {
 
     protected IIcon icon;
     protected IIcon glassIcon;
@@ -33,7 +33,7 @@ public class ItemMetalBlowpipe extends ItemPotteryMoldBase {
         setMaxDamage(101);
         setMaxUnits(100);
         setCounter(1);
-        setBaseDamage(1);
+        setBaseDamage(2);
         setCreativeTab(BidsCreativeTabs.BidsDefault);
     }
 
@@ -49,7 +49,7 @@ public class ItemMetalBlowpipe extends ItemPotteryMoldBase {
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-        if (itemstack.getItemDamage() == 1 && !world.isRemote && !entityplayer.isSneaking()) {
+        if (itemstack.getItemDamage() == baseDamage && !world.isRemote && !entityplayer.isSneaking()) {
             world.playSoundEffect(entityplayer.posX, entityplayer.posY, entityplayer.posZ,
                     TFC_Sounds.BELLOWS, 0.4F, 1);
 
@@ -70,7 +70,7 @@ public class ItemMetalBlowpipe extends ItemPotteryMoldBase {
 
     @Override
     public String getUnlocalizedName(ItemStack itemStack) {
-        if (itemStack != null && itemStack.getItemDamage() > 0)
+        if (itemStack != null && itemStack.getItemDamage() >= baseDamage)
             return getUnlocalizedName().concat(".Glass");
 
         return getUnlocalizedName();
@@ -78,7 +78,7 @@ public class ItemMetalBlowpipe extends ItemPotteryMoldBase {
 
     @Override
     public IIcon getIconFromDamage(int damage) {
-        return damage == 0 ? icon : glassIcon;
+        return damage >= baseDamage ? glassIcon : icon;
     }
 
     @Override
@@ -92,9 +92,13 @@ public class ItemMetalBlowpipe extends ItemPotteryMoldBase {
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemTerra.addSizeInformation(is, list);
 
-        if (is.getItemDamage() > 0) {
-            int units = 100 - (is.getItemDamage() - 1);
+        if (is.getItemDamage() > 1) {
+            int units = 100 - (is.getItemDamage() - baseDamage);
             list.add(StatCollector.translateToLocal("gui.Units") + ": " + units + " / 100");
+        }
+
+        if (is.getItemDamage() == 0) {
+            list.add("Obsolete! Use crafting grid to upgrade.");
         }
     }
 
@@ -106,7 +110,7 @@ public class ItemMetalBlowpipe extends ItemPotteryMoldBase {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
-        list.add(new ItemStack(item, 1, 0));
+        list.add(new ItemStack(item, 1, baseDamage - 1));
     }
 
 }

@@ -32,8 +32,8 @@ public class ContainerSpecialCraftingGlass extends ContainerSpecialCrafting {
             // Once output is available
             // remove the glass from the blowpipe
             if (craftResult.getStackInSlot(0) != null) {
-                if (invPlayer.getCurrentItem().getItemDamage() == 1) {
-                    invPlayer.getCurrentItem().setItemDamage(0);
+                if (invPlayer.getCurrentItem().getItemDamage() > 1) {
+                    invPlayer.getCurrentItem().setItemDamage(1);
                 }
             }
         }

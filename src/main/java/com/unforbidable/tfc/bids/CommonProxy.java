@@ -109,6 +109,10 @@ public class CommonProxy {
                         rich, "itemHammer"));
             }
         }
+
+        // This recipe is meant to upgrade an obsolete version 0.5.0 metal blowpipe
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.metalBlowpipe, 1, 1),
+                new ItemStack(BidsItems.metalBlowpipe, 1, 0)));
     }
 
     public void postInit(FMLPostInitializationEvent event) {
@@ -134,7 +138,7 @@ public class CommonProxy {
         }
 
         Bids.LOG.info("Registering metal blowpipe as valid glass mold");
-        Global.GLASS.addValidPartialMold(BidsItems.metalBlowpipe, 1, BidsItems.metalBlowpipe, 1, 1);
+        Global.GLASS.addValidPartialMold(BidsItems.metalBlowpipe, 2, BidsItems.metalBlowpipe, 1, 2);
 
         Bids.LOG.info("Registering crucible clay knapping recipes");
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.clayCrucible, 1),
