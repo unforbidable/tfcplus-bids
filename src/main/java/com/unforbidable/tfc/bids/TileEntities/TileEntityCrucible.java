@@ -788,7 +788,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 // but first make sure the liquid materials are not solid
                 // This is to avoid adding melted Tin to warm, but solidified Copper
                 // Glass ingredients will melt all at once
-                // either when glassmaking or when the temp reaches 1500
+                // when glassmaking
                 if (liquidStorage.isAllLiquid(liquidTemp)) {
                     for (int i = 0; i < getInputSlotCount(); i++) {
                         ItemStack is = getStackInSlot(i);
@@ -796,8 +796,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                             if (CrucibleHelper.isMeltedAtTemp(is, solidTemp)
                                     && !CrucibleHelper.isOreIron(is)
                                     && !CrucibleHelper.isGlassIngredient(is)
-                                    || glassCanBeCreated && CrucibleHelper.isGlassIngredient(is)
-                                    || solidTemp > 1600 && CrucibleHelper.isGlassIngredient(is)) {
+                                    || glassCanBeCreated && CrucibleHelper.isGlassIngredient(is)) {
                                 float prevLiquidStorageHeatCapacity = liquidStorage.getHeatCapacity();
                                 Bids.LOG.info("Input item stack " + is.getUnlocalizedName() + "[" + is.stackSize
                                         + "] melted");
