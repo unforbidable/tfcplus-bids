@@ -63,9 +63,12 @@ public class CommonProxy {
         BidsItems.oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");
         BidsItems.metalBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Metal Blowpipe");
         BidsItems.flatGlass = new ItemFlatGlass().setUnlocalizedName("Flat Glass");
-        BidsItems.drinkingGlass = new ItemDrinkingGlass().setMaxStackSize(4).setUnlocalizedName("Drinking Glass");
-        BidsItems.glassJug = new ItemDrinkingGlass().setMaxStackSize(4).setUnlocalizedName("Glass Jug");
-        BidsItems.shotGlass = new ItemDrinkingGlass().setMaxStackSize(4).setUnlocalizedName("Shot Glass");
+        BidsItems.drinkingGlass = new ItemDrinkingGlass().setGlassReturnAmount(40).setMaxStackSize(4)
+                .setUnlocalizedName("Drinking Glass");
+        BidsItems.glassJug = new ItemDrinkingGlass().setGlassReturnAmount(80).setMaxStackSize(4)
+                .setUnlocalizedName("Glass Jug");
+        BidsItems.shotGlass = new ItemDrinkingGlass().setGlassReturnAmount(20).setMaxStackSize(4)
+                .setUnlocalizedName("Shot Glass");
 
         GameRegistry.registerItem(BidsItems.oreBit, BidsItems.oreBit.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.metalBlowpipe, BidsItems.metalBlowpipe.getUnlocalizedName());

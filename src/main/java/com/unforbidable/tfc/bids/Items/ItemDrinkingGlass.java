@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Items.ItemGlassBottle;
+import com.dunk.tfc.api.Metal;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
@@ -22,10 +23,27 @@ import net.minecraft.world.World;
 
 public class ItemDrinkingGlass extends ItemGlassBottle {
 
+    short glassReturnAmount = 0;
+
     public ItemDrinkingGlass() {
         super();
         setMetal(Global.GLASS);
         setCreativeTab(BidsCreativeTabs.BidsDefault);
+    }
+
+    public ItemDrinkingGlass setGlassReturnAmount(int glassReturnAmount) {
+        this.glassReturnAmount = (short)glassReturnAmount;
+        return this;
+    }
+
+    @Override
+    public Metal getMetalType(ItemStack is) {
+        return Global.GLASS;
+    }
+
+    @Override
+    public short getMetalReturnAmount(ItemStack is) {
+        return glassReturnAmount;
     }
 
     @Override
