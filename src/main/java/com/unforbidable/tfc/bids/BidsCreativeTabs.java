@@ -9,12 +9,14 @@ import net.minecraft.item.ItemStack;
 
 public class BidsCreativeTabs extends CreativeTabs {
 
-    public static CreativeTabs BidsDefault = new BidsCreativeTabs();
+    public static CreativeTabs BidsDefault = new BidsCreativeTabs("Default", Items.bowl);
+    public static CreativeTabs BidsDrinks = new BidsCreativeTabs("Drinks", Items.glass_bottle);
 
-    private ItemStack is = new ItemStack(Items.bowl);
+    private final ItemStack is;
 
-    public BidsCreativeTabs() {
-        super("Bids and Pieces");
+    public BidsCreativeTabs(String name, Item item) {
+        super("Bids." + name);
+        is = new ItemStack(item);
     }
 
     @Override
