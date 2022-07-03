@@ -38,3 +38,8 @@
 
 0.5.1 (02-07-2022)
 - Changed: Metal blowpipe accepts molten glass from a clay vessel
+
+0.6.0 (04-07-2022)
+- Added: Drinking glass (250mb) can be created using a metal blowpipe
+- Added: Shot glass (50mb) can be created using a metal blowpipe
+- Added: Glass jug (2000mb) can be created using a metal blowpipe
