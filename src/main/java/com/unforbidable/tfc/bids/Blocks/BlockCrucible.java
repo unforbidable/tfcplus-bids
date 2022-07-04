@@ -3,9 +3,13 @@ package com.unforbidable.tfc.bids.Blocks;
 import java.util.Random;
 
 import com.dunk.tfc.TileEntities.TEChimney;
+import com.dunk.tfc.api.TFCItems;
+import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.Interfaces.ILiquidMetalContainer;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -42,12 +46,61 @@ public abstract class BlockCrucible extends BlockContainer {
             float par8, float par9) {
         if (!world.isRemote && world.getTileEntity(i, j, k) instanceof TileEntityCrucible) {
             TileEntityCrucible crucible = (TileEntityCrucible) world.getTileEntity(i, j, k);
-            entityplayer.openGui(Bids.instance, crucible.getGui(), world, i, j, k);
+            if (!handleInteraction(entityplayer, crucible))
+                entityplayer.openGui(Bids.instance, crucible.getGui(), world, i, j, k);
 
             // Force update when gui is displayed
             world.markBlockForUpdate(i, j, k);
         }
         return true;
+    }
+
+    protected boolean handleInteraction(EntityPlayer player, TileEntityCrucible crucible) {
+        ItemStack itemstack = player.inventory.getCurrentItem();
+        if (itemstack != null
+                && isValidBlowpipe(itemstack)
+                && crucible instanceof ILiquidMetalContainer) {
+            ILiquidMetalContainer container = (ILiquidMetalContainer) crucible;
+
+            // See if we can quickly load or unload molten glass
+            // from or into a compatible tile entity
+            int blowpipeGlassAmount = itemstack.getItemDamage() > 1
+                    ? itemstack.getMaxDamage() - itemstack.getItemDamage() + 1
+                    : 0;
+            int itemDamage = itemstack.getItemDamage();
+            // Assume cooler than molten but still workable temp
+            float moltenGlassTemp = Global.GLASS.getMeltingPoint() * 0.80f;
+            if (blowpipeGlassAmount < 100 && container.canEjectLiquidMetal(Global.GLASS, 1)) {
+                int amountNeeded = 100 - blowpipeGlassAmount;
+                int actuallyEjectedAmount = container.ejectLiquidMetal(Global.GLASS, amountNeeded);
+                if (amountNeeded == actuallyEjectedAmount) {
+                    itemDamage = 2;
+                } else {
+                    itemDamage = itemstack.getMaxDamage() - blowpipeGlassAmount - actuallyEjectedAmount + 1;
+                }
+            } else if (blowpipeGlassAmount > 0 && container.canAcceptLiquidMetal(Global.GLASS, 1, moltenGlassTemp)) {
+                int actuallyAcceptedAmount = container.acceptLiquidMetal(Global.GLASS, blowpipeGlassAmount,
+                        moltenGlassTemp);
+                if (blowpipeGlassAmount == actuallyAcceptedAmount) {
+                    itemDamage = 1;
+                } else {
+                    itemDamage = itemstack.getMaxDamage() - blowpipeGlassAmount + actuallyAcceptedAmount + 1;
+                }
+            }
+
+            if (itemDamage != itemstack.getItemDamage()) {
+                itemstack.setItemDamage(itemDamage);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected boolean isValidBlowpipe(ItemStack itemstack) {
+        return itemstack.getItemDamage() > 0
+                && (itemstack.getItem() == BidsItems.metalBlowpipe
+                        || itemstack.getItem() == TFCItems.clayBlowpipe);
     }
 
     @Override

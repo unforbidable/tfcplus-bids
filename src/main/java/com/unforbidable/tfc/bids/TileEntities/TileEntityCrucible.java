@@ -17,6 +17,7 @@ import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleInputMonitor;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleLiquidStorage;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.Interfaces.ILiquidMetalContainer;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -30,7 +31,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-public abstract class TileEntityCrucible extends TileEntity implements IInventory, ISlotTracker {
+public abstract class TileEntityCrucible extends TileEntity implements IInventory, ISlotTracker, ILiquidMetalContainer {
 
     ItemStack[] storage;
     float solidTemp = 0;
@@ -175,6 +176,67 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     }
 
     @Override
+    public boolean canEjectLiquidMetal(Metal metal, int volume) {
+        return inputMonitor.getVolume() == 0
+                && liquidStorage.getVolume() >= volume
+                && liquidStorage.isAllLiquid(liquidTemp)
+                && liquidStorage.getOutputMetal() == metal;
+    }
+
+    @Override
+    public boolean canAcceptLiquidMetal(Metal metal, int volume, float temp) {
+        return inputMonitor.getVolume() == 0
+                && temp <= getMaxTemp()
+                && (liquidStorage.getVolume() == 0
+                        || liquidStorage.getVolume() + volume <= getMaxVolume()
+                                && liquidStorage.getOutputMetal() == metal);
+    }
+
+    @Override
+    public int ejectLiquidMetal(Metal metal, int volume) {
+        if (canEjectLiquidMetal(metal, 1)) {
+            int volumeToRemove = Math.min(volume, liquidStorage.getVolume());
+            liquidStorage.removeLiquid(volumeToRemove);
+            updateGui(UPDATE_LIQUID);
+            Bids.LOG.debug("Crucible ejected " + volumeToRemove + " of " + metal.name);
+            if (liquidStorage.getVolume() == 0) {
+                liquidTemp = 0;
+                updateGui(UPDATE_TEMP);
+            }
+            return volumeToRemove;
+        }
+        return 0;
+    }
+
+    @Override
+    public int acceptLiquidMetal(Metal metal, int volume, float temp) {
+        if (canAcceptLiquidMetal(metal, 1, temp)) {
+            float prevLiquidStorageHeatCapacity = liquidStorage.getHeatCapacity();
+            int volumeToAdd = Math.min(volume, getMaxVolume() - liquidStorage.getVolume());
+            liquidStorage.addLiquid(metal, volumeToAdd);
+            updateGui(UPDATE_LIQUID);
+            Bids.LOG.debug("Crucible accepted " + volumeToAdd + " of " + metal.name);
+            float addedMetalHeatCapacity = CrucibleHelper.getHeatCapacity(new ItemStack(metal.ingot)) * volume;
+            liquidTemp = combineTemp(temp, addedMetalHeatCapacity, liquidTemp,
+                    prevLiquidStorageHeatCapacity);
+            updateGui(UPDATE_TEMP);
+            Bids.LOG.debug("Added metal changed liquid temp to " + liquidTemp);
+            return volumeToAdd;
+        }
+        return 0;
+    }
+
+    @Override
+    public float getLiquidMetalTemp() {
+        return liquidTemp;
+    }
+
+    @Override
+    public int getLiquidMetalVolume() {
+        return liquidStorage.getVolume();
+    }
+
+    @Override
     public S35PacketUpdateTileEntity getDescriptionPacket() {
         if (!useUpdateMask) {
             // When we are not using the update mask
@@ -182,7 +244,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             // so we want to update everything
             updateMask = UPDATE_ALL;
         }
-        //System.out.println("Update: " + updateMask + " useMask: " + useUpdateMask);
+        // System.out.println("Update: " + updateMask + " useMask: " + useUpdateMask);
 
         NBTTagCompound tagCompound = new NBTTagCompound();
         if (updateMask != 0) {
@@ -219,7 +281,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound tagCompound = pkt.func_148857_g();
         updateMask = tagCompound.getByte("updateMask");
-        //System.out.println("Updating: " + updateMask);
+        // System.out.println("Updating: " + updateMask);
         if ((updateMask & UPDATE_TEMP) != 0) {
             combinedTemp = tagCompound.getInteger("combinedTemp");
         }
