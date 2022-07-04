@@ -24,6 +24,7 @@ item.Metal Blowpipe.Glass.name=Metal Blowpipe Glass
 item.Flat Glass.name=Flat Glass
 
 item.Drinking Glass.name=Empty Drinking Glass
+item.Drinking Glass.FreshWater.name=Glass of Water
 item.Drinking Glass.Beer.name=Glass of Beer
 item.Drinking Glass.WheatBeer.name=Glass of Wheat Beer
 item.Drinking Glass.CornBeer.name=Glass of Corn Beer
@@ -87,6 +88,7 @@ item.Drinking Glass.LemonBrandy.name=Glass of Lemon Brandy
 item.Drinking Glass.Tequila.name=Glass of Tequila
 
 item.Glass Jug.name=Empty Glass Jug
+item.Glass Jug.FreshWater.name=Jug of Water
 item.Glass Jug.Beer.name=Jug of Beer
 item.Glass Jug.WheatBeer.name=Jug of Wheat Beer
 item.Glass Jug.CornBeer.name=Jug of Corn Beer
@@ -150,6 +152,7 @@ item.Glass Jug.LemonBrandy.name=Jug of Lemon Brandy
 item.Glass Jug.Tequila.name=Jug of Tequila
 
 item.Shot Glass.name=Empty Shot Glass
+item.Shot Glass.FreshWater.name=Shot of Water
 item.Shot Glass.Beer.name=Shot of Beer
 item.Shot Glass.WheatBeer.name=Shot of Wheat Beer
 item.Shot Glass.CornBeer.name=Shot of Corn Beer
