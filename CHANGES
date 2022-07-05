@@ -43,3 +43,7 @@
 - Added: Drinking glass (250mb) can be created using a metal blowpipe
 - Added: Shot glass (50mb) can be created using a metal blowpipe
 - Added: Glass jug (2000mb) can be created using a metal blowpipe
+
+0.6.1 (05-07-2022)
+- Changed: Right click crucible when holding a blowpipe (metal or ceramic) to take or return molten glass
+- Fixed: Missing localization text of glass containers with fresh water
