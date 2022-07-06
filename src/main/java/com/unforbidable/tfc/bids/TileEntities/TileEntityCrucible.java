@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.TileEntities;
 
 import java.util.List;
 
+import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemMeltedMetal;
 import com.dunk.tfc.TileEntities.TEChimney;
 import com.dunk.tfc.api.Metal;
@@ -44,8 +45,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     boolean isOutputAvailable = false;
     boolean isOutputDirty = true;
     int alloyMixingCountdown = 0;
-    float glassMakingProgress = 0;
-    boolean glassMakingActive = false;
     TEChimney glassMakingChimney = null;
     Metal outputMetal = Global.UNKNOWN;
 
@@ -55,7 +54,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     Timer liquidInputTimer = new Timer(1);
     Timer liquidOutputTimer = new Timer(2);
     Timer alloyMixingTimer = new Timer(0);
-    Timer glassMakingTimer = new Timer(0);
+
+    static final long GLASS_MAKING_TICKS = TFC_Time.HOUR_LENGTH * 8;
+    long glassMakingCompletedTicks = 0;
 
     static final byte UPDATE_NONE = 0;
     static final byte UPDATE_TEMP = 1;
@@ -144,12 +145,17 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     @SideOnly(Side.CLIENT)
     public float getGlassMakingProgress() {
-        return glassMakingProgress;
+        return (glassMakingCompletedTicks - TFC_Time.getTotalTicks()) / (float) GLASS_MAKING_TICKS;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public int getGlassMakingRemainingHours() {
+        return (int) Math.ceil(getGlassMakingProgress() * 12);
     }
 
     @SideOnly(Side.CLIENT)
     public boolean isGlassMakingActive() {
-        return glassMakingActive;
+        return glassMakingCompletedTicks > 0;
     }
 
     @SideOnly(Side.CLIENT)
@@ -267,8 +273,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 tagCompound.setInteger("alloyMixingCountdown", alloyMixingCountdown);
             }
             if ((updateMask & UPDATE_GLASS_MAKING) != 0) {
-                tagCompound.setFloat("glassMakingProgress", glassMakingProgress);
-                tagCompound.setBoolean("glassMakingActive", glassMakingActive);
+                tagCompound.setLong("glassMakingCompletedTicks", glassMakingCompletedTicks);
             }
             updateMask = 0;
             useUpdateMask = false;
@@ -300,9 +305,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             alloyMixingCountdown = tagCompound.getInteger("alloyMixingCountdown");
         }
         if ((updateMask & UPDATE_GLASS_MAKING) != 0) {
-            glassMakingProgress = tagCompound.getFloat("glassMakingProgress");
-            glassMakingActive = tagCompound.getBoolean("glassMakingActive");
-            onGlassMakingProgressChanged();
+            glassMakingCompletedTicks = tagCompound.getLong("glassMakingCompletedTicks");
+            onGlassMakingStatusChanged();
         }
     }
 
@@ -328,7 +332,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         }
         tag.setTag("Storage", storageTags);
 
-        tag.setFloat("glassMakingProgress", glassMakingProgress);
+        tag.setLong("glassMakingCompletedTicks", glassMakingCompletedTicks);
 
         liquidStorage.writeToNBT(tag);
     }
@@ -357,13 +361,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             }
         }
 
-        glassMakingProgress = tag.getFloat("glassMakingProgress");
-        if (glassMakingProgress > 0) {
-            // Restore timer based on saved progress
-            int ticksToGlassmakingRemaining = (int) (getTicksToGlassmaking() / 10 * (1f - glassMakingProgress));
-            glassMakingTimer.delay(ticksToGlassmakingRemaining);
-            Bids.LOG.debug("Restored glass making progress: " + glassMakingProgress);
-        }
+        glassMakingCompletedTicks = tag.getLong("glassMakingCompletedTicks");
 
         liquidStorage.readFromNBT(tag);
 
@@ -558,29 +556,12 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         }
     }
 
-    private void updateGlassMakingProgress() {
-        float prevGlassMakingProgress = glassMakingProgress;
-        if (inputMonitor.getVolume() > 0 && glassMakingTimer.getTicksToGo() > 0) {
-            // Divide by 10 for updateSolidTemp cycles
-            int totalTicksToGo = getTicksToGlassmaking() / 10;
-            glassMakingProgress = (totalTicksToGo - glassMakingTimer.getTicksToGo()) / (float) totalTicksToGo;
-            // Round to 0.01 precision
-            glassMakingProgress = (float) (Math.round(glassMakingProgress * 100f) / 100f);
-        } else {
-            glassMakingProgress = 0;
-        }
-
-        if (prevGlassMakingProgress != glassMakingProgress) {
-            updateGui(UPDATE_GLASS_MAKING);
-        }
-    }
-
     @SideOnly(Side.CLIENT)
-    private void onGlassMakingProgressChanged() {
-        Bids.LOG.debug("Glass making progress: " + glassMakingProgress
-                + " active: " + glassMakingActive);
+    private void onGlassMakingStatusChanged() {
+        Bids.LOG.debug("Glass making progress: " + getGlassMakingProgress()
+                + " active: " + isGlassMakingActive());
 
-        if (glassMakingActive && glassMakingChimney == null) {
+        if (isGlassMakingActive() && glassMakingChimney == null) {
             TEChimney chimeny = CrucibleHelper.findValidGlassmakingStructureChimney(this);
 
             if (chimeny != null) {
@@ -590,7 +571,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 }
                 glassMakingChimney = chimeny;
             }
-        } else if (!glassMakingActive && glassMakingChimney != null) {
+        } else if (!isGlassMakingActive() && glassMakingChimney != null) {
             glassMakingChimney = null;
         }
     }
@@ -606,11 +587,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 Bids.LOG.debug("Heating solid materials interrupted, will resume in 5s");
                 solidTemp = 0;
                 updateGui(UPDATE_TEMP);
-
-                // Also terminate glassmaking
-                glassMakingActive = false;
-                glassMakingProgress = 0;
-                glassMakingTimer.delay(0);
             }
 
             isOutputDirty = true;
@@ -727,11 +703,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         return delta;
     }
 
-    private int getTicksToGlassmaking() {
-        return (int) (Math.round(Math.sqrt(inputMonitor.getVolume() * 2) * 80)
-                / getHeatTransferEfficiency());
-    }
-
     private void doWork(boolean updateSolidTemp, boolean updateLiquidTemp, boolean acceptLiquid, boolean ejectLiquid,
             boolean alloyMixing) {
         if (updateSolidTemp || updateLiquidTemp) {
@@ -806,49 +777,34 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 // and we achieve this by enclosing the crucible inside a solid structure
                 // This is only for glass, and it doesn't make sense for other things
                 boolean glassCanBeCreated = false;
-                if (outputMetal == Global.GLASS && heatSourceTemp > 1050 && solidTemp > 1050
+                if (glassMakingCompletedTicks == 0
+                        && outputMetal == Global.GLASS && heatSourceTemp > 1050 && solidTemp > 1050
                         && liquidStorage.isAllLiquid(liquidTemp)
                         && CrucibleHelper.findValidGlassmakingStructureChimney(this) != null) {
-                    if (glassMakingTimer.getTicksToGo() == 0) {
-                        // Glass making countdown is not measured in ticks
-                        // but instead updateSolidTemp cycles
-                        // Countdown depends on the volume
-                        int ticksToGlassmaking = getTicksToGlassmaking() / 10;
-                        glassMakingTimer.delay(ticksToGlassmaking);
-                        Bids.LOG.debug("Glassmaking will occur in about " + (ticksToGlassmaking / 2) + " seconds");
-                        glassMakingActive = true;
-                    } else {
-                        if (glassMakingTimer.tick()) {
-                            Bids.LOG.debug("Glassmaking completed");
-                            glassCanBeCreated = true;
-                            glassMakingActive = false;
-                        } else {
-                            Bids.LOG.debug("Glassmaking in progress, seconds to go: "
-                                    + glassMakingTimer.getTicksToGo() / 2);
-
-                            if (!glassMakingActive) {
-                                // Resume glassmaking progress
-                                glassMakingActive = true;
-                                updateGui(UPDATE_GLASS_MAKING);
-                            }
-                        }
-                    }
-                    updateGlassMakingProgress();
-                } else if (glassMakingTimer.getTicksToGo() > 0) {
-                    if (glassMakingActive) {
-                        Bids.LOG.debug("Glassmaking was paused, temp: " + heatSourceTemp);
-                        // Pause glassmaking progress
-                        glassMakingActive = false;
-                        updateGui(UPDATE_GLASS_MAKING);
-                    }
+                    glassMakingCompletedTicks = TFC_Time.getTotalTicks() + GLASS_MAKING_TICKS;
+                    Bids.LOG.debug("Glassmaking started");
+                    updateGui(UPDATE_GLASS_MAKING);
+                } else if (glassMakingCompletedTicks > 0
+                        && CrucibleHelper.findValidGlassmakingStructureChimney(this) == null) {
+                    // Only keep checking the structure
+                    // Temperature would drop if the forge runs out of fuel
+                    glassMakingCompletedTicks = 0;
+                    Bids.LOG.debug("Glassmaking interrupted");
+                    updateGui(UPDATE_GLASS_MAKING);
+                } else if (glassMakingCompletedTicks > TFC_Time.getTotalTicks()) {
+                    glassMakingCompletedTicks = 0;
+                    glassCanBeCreated = true;
+                    Bids.LOG.debug("Glassmaking complete");
+                    updateGui(UPDATE_GLASS_MAKING);
                 }
 
                 // See if we can melt any input materials
                 // but first make sure the liquid materials are not solid
                 // This is to avoid adding melted Tin to warm, but solidified Copper
-                // Glass ingredients will melt all at once
-                // when glassmaking
-                if (liquidStorage.isAllLiquid(liquidTemp)) {
+                // Glass ingredients will melt all at once when glassmaking
+                // Also when glassmaking we ignore the temperature of any liquid glass
+                // already present in the crucible
+                if (glassCanBeCreated || liquidStorage.isAllLiquid(liquidTemp)) {
                     for (int i = 0; i < getInputSlotCount(); i++) {
                         ItemStack is = getStackInSlot(i);
                         if (is != null) {
@@ -889,7 +845,12 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                     // Also update/clear output display
                                     updateOutput();
 
-                                    // Mix glass immediately without checking the temperature
+                                    // When glass is made, set fixed liquid temperature
+                                    if (glassCanBeCreated) {
+                                        liquidTemp = Global.GLASS.getMeltingPoint();
+                                    }
+
+                                    // Mix glass immediately
                                     if (liquidStorage.getOutputMetal() == Global.GLASS && liquidStorage.mixAlloy()) {
                                         Bids.LOG.debug("Liquid metal has been mixed into: "
                                                 + liquidStorage.getOutputMetal().name);
