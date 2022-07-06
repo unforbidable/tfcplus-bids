@@ -12,7 +12,6 @@ import com.dunk.tfc.Core.Metal.MetalRegistry;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMold;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMoldBase;
 import com.dunk.tfc.Items.Pottery.ItemPotterySheetMold;
-import com.dunk.tfc.TileEntities.TEBellows;
 import com.dunk.tfc.TileEntities.TEChimney;
 import com.dunk.tfc.TileEntities.TEForge;
 import com.dunk.tfc.api.HeatIndex;
@@ -269,7 +268,7 @@ public class CrucibleHelper {
         int y = tileEntityCrucible.yCoord;
         int z = tileEntityCrucible.zCoord;
 
-        int bellowsCount = 0;
+        int chimneyCount = 0;
         TEChimney validChimneyFound = null;
 
         // Forge bellow and non-flamable roof
@@ -277,39 +276,23 @@ public class CrucibleHelper {
                 && !Blocks.fire.canCatchFire(world, x, y + 1, z, ForgeDirection.DOWN);
 
         // Surrounding blocks need to be solid and non flamable
-        // or correctly facing bellows
+        // or a chimney
         if (valid) {
-            // Ordered by bellows orientation meta for simpler verification
             ForgeDirection checkList[] = { ForgeDirection.NORTH, ForgeDirection.EAST, ForgeDirection.SOUTH,
                     ForgeDirection.WEST };
 
-            int meta = 0;
             for (ForgeDirection dir : checkList) {
                 TileEntity te = world.getTileEntity(x + dir.offsetX, y, z + dir.offsetZ);
-                if (te != null && te instanceof TEBellows) {
-                    if (meta == te.getBlockMetadata()) {
-                        // Proper facing bellows
-
-                        TileEntity teAboveBellows = world.getTileEntity(x + dir.offsetX, y + 1, z + dir.offsetZ);
-                        if (teAboveBellows != null && teAboveBellows instanceof TEChimney) {
-                            TEChimney chimney = (TEChimney)teAboveBellows;
-                            if (!chimney.canChimneySeeSky()) {
-                                // Chimney cannot see the sky
-                                System.out.println("No sky");
-                                valid = false;
-                            }
-
-                            validChimneyFound = chimney;
-                            bellowsCount++;
-                        } else {
-                            // No chimney above bellows
-                            System.out.println("No chimney");
-                            valid = false;
-                        }
-                    } else {
-                        // Bellows but not proper facing
+                if (te != null && te instanceof TEChimney) {
+                    TEChimney chimney = (TEChimney)te;
+                    if (!chimney.canChimneySeeSky()) {
+                        // Chimney cannot see the sky
+                        System.out.println("No sky");
                         valid = false;
                     }
+
+                    validChimneyFound = chimney;
+                    chimneyCount++;
                 } else if (!world.isSideSolid(x + dir.offsetX, y, z + dir.offsetZ, dir)) {
                     // Non-solid side
                     valid = false;
@@ -319,15 +302,13 @@ public class CrucibleHelper {
                     valid = false;
                 }
 
-                if (!valid || bellowsCount > 1)
+                if (!valid || chimneyCount > 1)
                     break;
-
-                meta++;
             }
         }
 
-        // Exactly 1 bellows block is needed
-        if (valid && bellowsCount == 1)
+        // Exactly 1 chimney block is needed
+        if (valid && chimneyCount == 1)
             return validChimneyFound;
         else
             return null;

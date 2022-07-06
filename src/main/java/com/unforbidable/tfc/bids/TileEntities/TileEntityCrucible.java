@@ -804,12 +804,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             if (updateSolidTemp) {
                 // Glass requires very high temperatures to melt
                 // and we achieve this by enclosing the crucible inside a solid structure
-                // and working the bellows
                 // This is only for glass, and it doesn't make sense for other things
-                // And the temperature needs to be already high enough meaning bellows are being
-                // used (at least manual)
                 boolean glassCanBeCreated = false;
-                if (outputMetal == Global.GLASS && heatSourceTemp > 1250 && solidTemp > 1050
+                if (outputMetal == Global.GLASS && heatSourceTemp > 1050 && solidTemp > 1050
                         && liquidStorage.isAllLiquid(liquidTemp)
                         && CrucibleHelper.findValidGlassmakingStructureChimney(this) != null) {
                     if (glassMakingTimer.getTicksToGo() == 0) {
