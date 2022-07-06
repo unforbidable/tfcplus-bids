@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemMeltedMetal;
-import com.dunk.tfc.TileEntities.TEChimney;
 import com.dunk.tfc.api.Metal;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.TFC_ItemHeat;
@@ -14,6 +13,7 @@ import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Containers.Slots.ISlotTracker;
 import com.unforbidable.tfc.bids.Core.Timer;
+import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleInputMonitor;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleLiquidStorage;
@@ -45,7 +45,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     boolean isOutputAvailable = false;
     boolean isOutputDirty = true;
     int alloyMixingCountdown = 0;
-    TEChimney glassMakingChimney = null;
+    TileEntity glassMakingChimney = null;
     Metal outputMetal = Global.UNKNOWN;
 
     float heatingMult = 10;
@@ -159,7 +159,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     }
 
     @SideOnly(Side.CLIENT)
-    public TEChimney getGlassMakingChimney() {
+    public TileEntity getGlassMakingChimney() {
         return glassMakingChimney;
     }
 
@@ -562,14 +562,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 + " active: " + isGlassMakingActive());
 
         if (isGlassMakingActive() && glassMakingChimney == null) {
-            TEChimney chimeny = CrucibleHelper.findValidGlassmakingStructureChimney(this);
-
-            if (chimeny != null) {
-                // Look for the top chimney
-                while (worldObj.getTileEntity(chimeny.xCoord, chimeny.yCoord + 1, chimeny.zCoord) != null) {
-                    chimeny = (TEChimney) worldObj.getTileEntity(chimeny.xCoord, chimeny.yCoord + 1, chimeny.zCoord);
-                }
-                glassMakingChimney = chimeny;
+            TileEntity chimney = CrucibleHelper.findValidGlassmakingStructureChimney(this);
+            if (chimney != null) {
+                glassMakingChimney = ChimneyHelper.getTopMostChimney(chimney);
             }
         } else if (!isGlassMakingActive() && glassMakingChimney != null) {
             glassMakingChimney = null;

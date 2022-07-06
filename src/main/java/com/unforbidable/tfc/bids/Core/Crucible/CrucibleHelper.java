@@ -12,7 +12,6 @@ import com.dunk.tfc.Core.Metal.MetalRegistry;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMold;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMoldBase;
 import com.dunk.tfc.Items.Pottery.ItemPotterySheetMold;
-import com.dunk.tfc.TileEntities.TEChimney;
 import com.dunk.tfc.TileEntities.TEForge;
 import com.dunk.tfc.api.HeatIndex;
 import com.dunk.tfc.api.HeatRegistry;
@@ -22,6 +21,7 @@ import com.dunk.tfc.api.TFC_ItemHeat;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Interfaces.IExtraSmeltable;
@@ -262,14 +262,14 @@ public class CrucibleHelper {
         }
     }
 
-    public static TEChimney findValidGlassmakingStructureChimney(TileEntityCrucible tileEntityCrucible) {
+    public static TileEntity findValidGlassmakingStructureChimney(TileEntityCrucible tileEntityCrucible) {
         World world = tileEntityCrucible.getWorldObj();
         int x = tileEntityCrucible.xCoord;
         int y = tileEntityCrucible.yCoord;
         int z = tileEntityCrucible.zCoord;
 
         int chimneyCount = 0;
-        TEChimney validChimneyFound = null;
+        TileEntity validChimneyFound = null;
 
         // Forge bellow and non-flamable roof
         boolean valid = world.getTileEntity(x, y - 1, z) instanceof TEForge
@@ -283,15 +283,13 @@ public class CrucibleHelper {
 
             for (ForgeDirection dir : checkList) {
                 TileEntity te = world.getTileEntity(x + dir.offsetX, y, z + dir.offsetZ);
-                if (te != null && te instanceof TEChimney) {
-                    TEChimney chimney = (TEChimney)te;
-                    if (!chimney.canChimneySeeSky()) {
+                if (te != null && ChimneyHelper.isChimney(te)) {
+                    if (!ChimneyHelper.canChimneySeeSky(te)) {
                         // Chimney cannot see the sky
-                        System.out.println("No sky");
                         valid = false;
                     }
 
-                    validChimneyFound = chimney;
+                    validChimneyFound = te;
                     chimneyCount++;
                 } else if (!world.isSideSolid(x + dir.offsetX, y, z + dir.offsetZ, dir)) {
                     // Non-solid side

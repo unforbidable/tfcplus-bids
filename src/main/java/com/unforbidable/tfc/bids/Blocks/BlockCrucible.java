@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.Blocks;
 
 import java.util.Random;
 
-import com.dunk.tfc.TileEntities.TEChimney;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
@@ -194,7 +193,7 @@ public abstract class BlockCrucible extends BlockContainer {
         if (te instanceof TileEntityCrucible) {
             TileEntityCrucible tileEntityCrucible = (TileEntityCrucible) te;
             if (tileEntityCrucible.isGlassMakingActive()) {
-                TEChimney teChimeny = tileEntityCrucible.getGlassMakingChimney();
+                TileEntity teChimeny = tileEntityCrucible.getGlassMakingChimney();
                 if (teChimeny != null) {
                     double centerX = teChimeny.xCoord + 0.5F;
                     double centerY = teChimeny.yCoord + 2F;
