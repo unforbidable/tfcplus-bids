@@ -1,10 +1,12 @@
 package com.unforbidable.tfc.bids.Core.Chimney;
 
 import com.dunk.tfc.TileEntities.TEChimney;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 import com.unforbidable.tfc.bids.api.Interfaces.IChimney;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class ChimneyHelper {
 
@@ -46,6 +48,24 @@ public class ChimneyHelper {
         // Last chimney found is the top most one
         // It could be the original chimney
         return topMost;
+    }
+
+    public static TileEntityCrucible findActiveFurnaceCrucible(TileEntity tileEntity) {
+        ForgeDirection checkList[] = { ForgeDirection.NORTH, ForgeDirection.EAST, ForgeDirection.SOUTH,
+                ForgeDirection.WEST };
+
+        for (ForgeDirection dir : checkList) {
+            TileEntity te = tileEntity.getWorldObj().getTileEntity(tileEntity.xCoord + dir.offsetX, tileEntity.yCoord,
+                    tileEntity.zCoord + dir.offsetZ);
+            if (te != null && te instanceof TileEntityCrucible) {
+                TileEntityCrucible crucible = (TileEntityCrucible) te;
+                if (crucible.isGlassMakingActive()) {
+                    return crucible;
+                }
+            }
+        }
+
+        return null;
     }
 
 }

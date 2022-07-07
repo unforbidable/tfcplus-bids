@@ -2,7 +2,9 @@ package com.unforbidable.tfc.bids.WAILA;
 
 import java.util.List;
 
+import com.dunk.tfc.TileEntities.TEChimney;
 import com.dunk.tfc.api.TFC_ItemHeat;
+import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -22,6 +24,8 @@ public class WailaCrucible implements IWailaDataProvider {
     public static void callbackRegister(IWailaRegistrar reg) {
         reg.registerBodyProvider(new WailaCrucible(), TileEntityCrucible.class);
         reg.registerNBTProvider(new WailaCrucible(), TileEntityCrucible.class);
+
+        reg.registerBodyProvider(new WailaCrucible(), TEChimney.class);
     }
 
     @Override
@@ -38,7 +42,8 @@ public class WailaCrucible implements IWailaDataProvider {
         if (accessor.getTileEntity() instanceof TileEntityCrucible) {
             TileEntityCrucible tileEntityCrucible = (TileEntityCrucible) accessor.getTileEntity();
 
-            for (String line : tileEntityCrucible.getLiquidInfo(StatCollector.translateToLocal("gui.symbol.BulletPoint") + " ")) {
+            for (String line : tileEntityCrucible
+                    .getLiquidInfo(StatCollector.translateToLocal("gui.symbol.BulletPoint") + " ")) {
                 currenttip.add(EnumChatFormatting.GRAY + line);
             }
 
@@ -47,12 +52,13 @@ public class WailaCrucible implements IWailaDataProvider {
                 String liquidTempString = TFC_ItemHeat.getHeatColor(liquidTemp, Integer.MAX_VALUE);
                 currenttip.add(liquidTempString);
             }
+        }
+        if (ChimneyHelper.isChimney(accessor.getTileEntity())) {
+            TileEntityCrucible crucible = ChimneyHelper.findActiveFurnaceCrucible(accessor.getTileEntity());
+            if (crucible != null)
+                currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Glassmaking") + ": "
+                        + crucible.getGlassMakingRemainingHours() + " " + StatCollector.translateToLocal("gui.HoursRemaining"));
 
-            float glassMakingProgess = tileEntityCrucible.getGlassMakingProgress();
-            if (glassMakingProgess > 0) {
-                currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Glassmaking") + ": " +
-                    (int) (glassMakingProgess * 100) + "%");
-            }
         }
         return currenttip;
     }

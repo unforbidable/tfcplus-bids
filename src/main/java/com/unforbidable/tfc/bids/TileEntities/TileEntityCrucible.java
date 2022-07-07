@@ -152,7 +152,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     @SideOnly(Side.CLIENT)
     public int getGlassMakingRemainingHours() {
-        return (int) Math.ceil(getGlassMakingProgress() * 12);
+        return (int) Math.ceil(getGlassMakingProgress() * 8);
     }
 
     @SideOnly(Side.CLIENT)
@@ -797,18 +797,18 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                         && CrucibleHelper.getForgeFuelCount(this) >= 4
                         && CrucibleHelper.findValidGlassmakingStructureChimney(this) != null) {
                     glassMakingCompletedTicks = TFC_Time.getTotalTicks() + GLASS_MAKING_TICKS;
-                    Bids.LOG.info("Glassmaking started, will finish in: " + GLASS_MAKING_TICKS);
+                    Bids.LOG.debug("Glassmaking started, will finish in: " + GLASS_MAKING_TICKS);
                     updateGui(UPDATE_GLASS_MAKING);
                 } else if (glassMakingCompletedTicks > 0
                         && CrucibleHelper.findValidGlassmakingStructureChimney(this) == null) {
                     // Only keep checking the structure
                     glassMakingCompletedTicks = 0;
-                    Bids.LOG.info("Glassmaking interrupted");
+                    Bids.LOG.debug("Glassmaking interrupted");
                     updateGui(UPDATE_GLASS_MAKING);
                 } else if (glassMakingCompletedTicks > 0 && glassMakingCompletedTicks < TFC_Time.getTotalTicks()) {
                     glassMakingCompletedTicks = 0;
                     glassCanBeCreated = true;
-                    Bids.LOG.info("Glassmaking complete");
+                    Bids.LOG.debug("Glassmaking complete");
                     updateGui(UPDATE_GLASS_MAKING);
 
                     // Remove any fuel left in the forge
@@ -834,7 +834,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                     && !CrucibleHelper.isGlassIngredient(is)
                                     || glassCanBeCreated && CrucibleHelper.isGlassIngredient(is)) {
                                 float prevLiquidStorageHeatCapacity = liquidStorage.getHeatCapacity();
-                                Bids.LOG.info("Input item stack " + is.getUnlocalizedName() + "[" + is.stackSize
+                                Bids.LOG.debug("Input item stack " + is.getUnlocalizedName() + "[" + is.stackSize
                                         + "] melted");
                                 liquidStorage.addLiquid(CrucibleHelper.getMetalFromSmeltable(is),
                                         CrucibleHelper.getMetalReturnAmount(is) * is.stackSize);
@@ -847,7 +847,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                         * CrucibleHelper.getMetalReturnAmount(is) * is.stackSize;
                                 liquidTemp = combineTemp(solidTemp, meltedStackHeatCapacity, liquidTemp,
                                         prevLiquidStorageHeatCapacity);
-                                Bids.LOG.info("Melted item changed liquid temp to " + liquidTemp);
+                                Bids.LOG.debug("Melted item changed liquid temp to " + liquidTemp);
 
                                 // Reset input material temp once empty
                                 if (inputMonitor.getVolume() == 0) {
@@ -868,7 +868,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
                                     // Mix glass immediately
                                     if (liquidStorage.getOutputMetal() == Global.GLASS && liquidStorage.mixAlloy()) {
-                                        Bids.LOG.info("Liquid glass has been mixed");
+                                        Bids.LOG.debug("Liquid glass has been mixed");
                                         updateGui(UPDATE_LIQUID);
                                     }
                                 }
