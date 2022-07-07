@@ -34,6 +34,8 @@ import net.minecraft.tileentity.TileEntity;
 
 public abstract class TileEntityCrucible extends TileEntity implements IInventory, ISlotTracker, ILiquidMetalContainer {
 
+    boolean initialized = false;
+
     ItemStack[] storage;
     float solidTemp = 0;
     float liquidTemp = 0;
@@ -289,6 +291,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         // System.out.println("Updating: " + updateMask);
         if ((updateMask & UPDATE_TEMP) != 0) {
             combinedTemp = tagCompound.getInteger("combinedTemp");
+            // System.out.println("Updating temp: " + combinedTemp);
         }
         if ((updateMask & UPDATE_LIQUID) != 0) {
             liquidStorage.readFromNBT(tagCompound);
@@ -393,6 +396,12 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
+            if (!initialized) {
+                // Sync with client when loaded
+                updateGui(UPDATE_ALL);
+                initialized = true;
+            }
+
             doWork(solidHeatingTimer.tick(), liquidHeatingTimer.tick(), liquidInputTimer.tick(),
                     liquidOutputTimer.tick(), alloyMixingTimer.tick());
 
@@ -517,7 +526,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             outputMetal = Global.UNKNOWN;
         }
 
-        if (prevOutput != output) {
+        // Only sync output if output configured to be displayed
+        if (prevOutput != output && BidsOptions.Crucible.enableOutputDisplay) {
             updateGui(UPDATE_OUTPUT);
         }
     }
@@ -762,6 +772,12 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             if (updateSolidTemp || updateLiquidTemp) {
                 int prevCombinedTemp = combinedTemp;
                 combinedTemp = (int) Math.floor(inputMonitor.getVolume() > 0 ? solidTemp : liquidTemp);
+
+                // When exact values are not needed
+                // only update at 10 degrees precision
+                if (!BidsOptions.Crucible.enableExactTemperatureDisplay)
+                    combinedTemp = (int) Math.floor(combinedTemp / 10f) * 10;
+
                 if (prevCombinedTemp != combinedTemp) {
                     updateGui(UPDATE_TEMP);
                 }
@@ -781,28 +797,18 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                         && CrucibleHelper.getForgeFuelCount(this) >= 4
                         && CrucibleHelper.findValidGlassmakingStructureChimney(this) != null) {
                     glassMakingCompletedTicks = TFC_Time.getTotalTicks() + GLASS_MAKING_TICKS;
-                    Bids.LOG.debug("Glassmaking started, will finish in: " + GLASS_MAKING_TICKS);
+                    Bids.LOG.info("Glassmaking started, will finish in: " + GLASS_MAKING_TICKS);
                     updateGui(UPDATE_GLASS_MAKING);
                 } else if (glassMakingCompletedTicks > 0
                         && CrucibleHelper.findValidGlassmakingStructureChimney(this) == null) {
                     // Only keep checking the structure
                     glassMakingCompletedTicks = 0;
-                    Bids.LOG.debug("Glassmaking interrupted");
+                    Bids.LOG.info("Glassmaking interrupted");
                     updateGui(UPDATE_GLASS_MAKING);
-
-                    // If the forge run out of fuel
-                    // add some fuel time to allow time to refill it
-                    if (CrucibleHelper.getForgeFuelCount(this) == 0) {
-                        CrucibleHelper.setForgeFuelTimeLeft(this, 600);
-                    }
-                } else if (glassMakingCompletedTicks > 0
-                        && CrucibleHelper.getForgeFuelTimeLeft(this) < 300) {
-                    // Make sure the forge keeps buring even if it runs out of fuel
-                    CrucibleHelper.setForgeFuelTimeLeft(this, 1200);
-                } else if (glassMakingCompletedTicks > TFC_Time.getTotalTicks()) {
+                } else if (glassMakingCompletedTicks > 0 && glassMakingCompletedTicks < TFC_Time.getTotalTicks()) {
                     glassMakingCompletedTicks = 0;
                     glassCanBeCreated = true;
-                    Bids.LOG.debug("Glassmaking complete");
+                    Bids.LOG.info("Glassmaking complete");
                     updateGui(UPDATE_GLASS_MAKING);
 
                     // Remove any fuel left in the forge
@@ -828,7 +834,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                     && !CrucibleHelper.isGlassIngredient(is)
                                     || glassCanBeCreated && CrucibleHelper.isGlassIngredient(is)) {
                                 float prevLiquidStorageHeatCapacity = liquidStorage.getHeatCapacity();
-                                Bids.LOG.debug("Input item stack " + is.getUnlocalizedName() + "[" + is.stackSize
+                                Bids.LOG.info("Input item stack " + is.getUnlocalizedName() + "[" + is.stackSize
                                         + "] melted");
                                 liquidStorage.addLiquid(CrucibleHelper.getMetalFromSmeltable(is),
                                         CrucibleHelper.getMetalReturnAmount(is) * is.stackSize);
@@ -841,7 +847,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                         * CrucibleHelper.getMetalReturnAmount(is) * is.stackSize;
                                 liquidTemp = combineTemp(solidTemp, meltedStackHeatCapacity, liquidTemp,
                                         prevLiquidStorageHeatCapacity);
-                                Bids.LOG.debug("Melted item changed liquid temp to " + liquidTemp);
+                                Bids.LOG.info("Melted item changed liquid temp to " + liquidTemp);
 
                                 // Reset input material temp once empty
                                 if (inputMonitor.getVolume() == 0) {
@@ -862,8 +868,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
                                     // Mix glass immediately
                                     if (liquidStorage.getOutputMetal() == Global.GLASS && liquidStorage.mixAlloy()) {
-                                        Bids.LOG.debug("Liquid metal has been mixed into: "
-                                                + liquidStorage.getOutputMetal().name);
+                                        Bids.LOG.info("Liquid glass has been mixed");
                                         updateGui(UPDATE_LIQUID);
                                     }
                                 }

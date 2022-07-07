@@ -326,7 +326,6 @@ public class CrucibleHelper {
                     fuelCount++;
             }
 
-            System.out.println("Get forge fuel: " + fuelCount);
             return fuelCount;
         }
 
@@ -341,7 +340,7 @@ public class CrucibleHelper {
                 ItemStack fuel = forge.getStackInSlot(i);
                 if (fuel != null) {
                     forge.setInventorySlotContents(i, null);
-                    System.out.println("Cleared forge fuel in slot: " + i);
+                    Bids.LOG.debug("Cleared forge fuel in slot: " + i);
                 }
             }
         }
@@ -351,7 +350,6 @@ public class CrucibleHelper {
         TileEntity te = crucible.getWorldObj().getTileEntity(crucible.xCoord, crucible.yCoord - 1, crucible.zCoord);
         if (te instanceof TEForge) {
             TEForge forge = (TEForge) te;
-            System.out.println("Get forge fuel time left: " + forge.fuelTimeLeft);
             return forge.fuelTimeLeft;
         }
 
@@ -363,7 +361,7 @@ public class CrucibleHelper {
         if (te instanceof TEForge) {
             TEForge forge = (TEForge) te;
             forge.fuelTimeLeft = timeLeft;
-            System.out.println("Set forge fuel time left: " + timeLeft);
+            Bids.LOG.debug("Set forge fuel time left: " + timeLeft);
         }
     }
 
