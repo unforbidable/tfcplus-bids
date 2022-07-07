@@ -36,6 +36,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class CrucibleHelper {
 
+    static final int FORGE_FUEL_SLOT_FIRST = 5;
+    static final int FORGE_FUEL_SLOT_LAST = 9;
+
     static final List<Item> oreItems = Arrays
             .asList(new Item[] { TFCItems.oreChunk, TFCItems.smallOreChunk, BidsItems.oreBit });
 
@@ -310,6 +313,58 @@ public class CrucibleHelper {
             return validChimneyFound;
         else
             return null;
+    }
+
+    public static int getForgeFuelCount(TileEntityCrucible crucible) {
+        TileEntity te = crucible.getWorldObj().getTileEntity(crucible.xCoord, crucible.yCoord - 1, crucible.zCoord);
+        if (te instanceof TEForge) {
+            TEForge forge = (TEForge) te;
+            int fuelCount = 0;
+            for (int i = FORGE_FUEL_SLOT_FIRST; i <= FORGE_FUEL_SLOT_LAST; i++) {
+                ItemStack fuel = forge.getStackInSlot(i);
+                if (fuel != null)
+                    fuelCount++;
+            }
+
+            System.out.println("Get forge fuel: " + fuelCount);
+            return fuelCount;
+        }
+
+        return 0;
+    }
+
+    public static void clearForgeFuel(TileEntityCrucible crucible) {
+        TileEntity te = crucible.getWorldObj().getTileEntity(crucible.xCoord, crucible.yCoord - 1, crucible.zCoord);
+        if (te instanceof TEForge) {
+            TEForge forge = (TEForge) te;
+            for (int i = FORGE_FUEL_SLOT_FIRST; i <= FORGE_FUEL_SLOT_LAST; i++) {
+                ItemStack fuel = forge.getStackInSlot(i);
+                if (fuel != null) {
+                    forge.setInventorySlotContents(i, null);
+                    System.out.println("Cleared forge fuel in slot: " + i);
+                }
+            }
+        }
+    }
+
+    public static float getForgeFuelTimeLeft(TileEntityCrucible crucible) {
+        TileEntity te = crucible.getWorldObj().getTileEntity(crucible.xCoord, crucible.yCoord - 1, crucible.zCoord);
+        if (te instanceof TEForge) {
+            TEForge forge = (TEForge) te;
+            System.out.println("Get forge fuel time left: " + forge.fuelTimeLeft);
+            return forge.fuelTimeLeft;
+        }
+
+        return 0;
+    }
+
+    public static void setForgeFuelTimeLeft(TileEntityCrucible crucible, float timeLeft) {
+        TileEntity te = crucible.getWorldObj().getTileEntity(crucible.xCoord, crucible.yCoord - 1, crucible.zCoord);
+        if (te instanceof TEForge) {
+            TEForge forge = (TEForge) te;
+            forge.fuelTimeLeft = timeLeft;
+            System.out.println("Set forge fuel time left: " + timeLeft);
+        }
     }
 
 }

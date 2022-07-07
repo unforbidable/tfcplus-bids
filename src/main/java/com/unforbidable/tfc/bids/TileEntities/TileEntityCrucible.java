@@ -771,26 +771,46 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 // Glass requires very high temperatures to melt
                 // and we achieve this by enclosing the crucible inside a solid structure
                 // This is only for glass, and it doesn't make sense for other things
+                // We require the forge fuel stacks to be full (5 fuel items)
+                // but we test for at least 4, in case 1 has just been consumed
+                // in the time it took to complete the furnace structure
                 boolean glassCanBeCreated = false;
                 if (glassMakingCompletedTicks == 0
                         && outputMetal == Global.GLASS && heatSourceTemp > 1050 && solidTemp > 1050
                         && liquidStorage.isAllLiquid(liquidTemp)
+                        && CrucibleHelper.getForgeFuelCount(this) >= 4
                         && CrucibleHelper.findValidGlassmakingStructureChimney(this) != null) {
                     glassMakingCompletedTicks = TFC_Time.getTotalTicks() + GLASS_MAKING_TICKS;
-                    Bids.LOG.debug("Glassmaking started");
+                    Bids.LOG.debug("Glassmaking started, will finish in: " + GLASS_MAKING_TICKS);
                     updateGui(UPDATE_GLASS_MAKING);
                 } else if (glassMakingCompletedTicks > 0
                         && CrucibleHelper.findValidGlassmakingStructureChimney(this) == null) {
                     // Only keep checking the structure
-                    // Temperature would drop if the forge runs out of fuel
                     glassMakingCompletedTicks = 0;
                     Bids.LOG.debug("Glassmaking interrupted");
                     updateGui(UPDATE_GLASS_MAKING);
+
+                    // If the forge run out of fuel
+                    // add some fuel time to allow time to refill it
+                    if (CrucibleHelper.getForgeFuelCount(this) == 0) {
+                        CrucibleHelper.setForgeFuelTimeLeft(this, 600);
+                    }
+                } else if (glassMakingCompletedTicks > 0
+                        && CrucibleHelper.getForgeFuelTimeLeft(this) < 300) {
+                    // Make sure the forge keeps buring even if it runs out of fuel
+                    CrucibleHelper.setForgeFuelTimeLeft(this, 1200);
                 } else if (glassMakingCompletedTicks > TFC_Time.getTotalTicks()) {
                     glassMakingCompletedTicks = 0;
                     glassCanBeCreated = true;
                     Bids.LOG.debug("Glassmaking complete");
                     updateGui(UPDATE_GLASS_MAKING);
+
+                    // Remove any fuel left in the forge
+                    // in case time has been skipped when sleeping
+                    // and set the remaining burning time to 1 minute
+                    // so there is time to open the furnace and add more fuel
+                    CrucibleHelper.clearForgeFuel(this);
+                    CrucibleHelper.setForgeFuelTimeLeft(this, 1200);
                 }
 
                 // See if we can melt any input materials
@@ -839,11 +859,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
                                     // Also update/clear output display
                                     updateOutput();
-
-                                    // When glass is made, set fixed liquid temperature
-                                    if (glassCanBeCreated) {
-                                        liquidTemp = Global.GLASS.getMeltingPoint();
-                                    }
 
                                     // Mix glass immediately
                                     if (liquidStorage.getOutputMetal() == Global.GLASS && liquidStorage.mixAlloy()) {
