@@ -365,4 +365,20 @@ public class CrucibleHelper {
         }
     }
 
+    public static void reduceForgeTemp(TileEntityCrucible crucible) {
+        TileEntity te = crucible.getWorldObj().getTileEntity(crucible.xCoord, crucible.yCoord - 1, crucible.zCoord);
+        if (te instanceof TEForge) {
+            TEForge forge = (TEForge) te;
+            // Rapidly reduce the temperature of the forge
+            // Test higher temp than target temp
+            // because the current implementation causes temp to forever approach
+            // the target temp, never reaching it
+            // Below 20 is low enough, it means that the forge no longer makes fire sound
+            while (forge.getHeatSourceTemp() > 20) {
+                forge.handleTempFlux(0);
+            }
+            Bids.LOG.debug("Forge temp rapidly reduced to: " + forge.getHeatSourceTemp());
+        }
+    }
+
 }

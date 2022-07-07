@@ -791,6 +791,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 // but we test for at least 4, in case 1 has just been consumed
                 // in the time it took to complete the furnace structure
                 boolean glassCanBeCreated = false;
+                float hoursSinceGlassCreated = 0;
                 if (glassMakingCompletedTicks == 0
                         && outputMetal == Global.GLASS && heatSourceTemp > 1050 && solidTemp > 1050
                         && liquidStorage.isAllLiquid(liquidTemp)
@@ -806,17 +807,26 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                     Bids.LOG.debug("Glassmaking interrupted");
                     updateGui(UPDATE_GLASS_MAKING);
                 } else if (glassMakingCompletedTicks > 0 && glassMakingCompletedTicks < TFC_Time.getTotalTicks()) {
+                    hoursSinceGlassCreated = (TFC_Time.getTotalTicks() - glassMakingCompletedTicks)
+                            / (float) TFC_Time.HOUR_LENGTH;
                     glassMakingCompletedTicks = 0;
                     glassCanBeCreated = true;
-                    Bids.LOG.debug("Glassmaking complete");
+                    Bids.LOG.debug("Glassmaking complete, hours since: " + hoursSinceGlassCreated);
                     updateGui(UPDATE_GLASS_MAKING);
 
                     // Remove any fuel left in the forge
                     // in case time has been skipped when sleeping
-                    // and set the remaining burning time to 1 minute
-                    // so there is time to open the furnace and add more fuel
                     CrucibleHelper.clearForgeFuel(this);
-                    CrucibleHelper.setForgeFuelTimeLeft(this, 1200);
+
+                    if (hoursSinceGlassCreated < 0.5f) {
+                        // If only a little time passed since finishing
+                        // set the remaining burning time to 1 minute
+                        // so there is time to open the furnace and add more fuel
+                        CrucibleHelper.setForgeFuelTimeLeft(this, 1200);
+                    } else {
+                        // Otherwise set it to 0
+                        CrucibleHelper.setForgeFuelTimeLeft(this, 0);
+                    }
                 }
 
                 // See if we can melt any input materials
@@ -870,6 +880,14 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                     if (liquidStorage.getOutputMetal() == Global.GLASS && liquidStorage.mixAlloy()) {
                                         Bids.LOG.debug("Liquid glass has been mixed");
                                         updateGui(UPDATE_LIQUID);
+                                    }
+
+                                    // Solidify molten glass down if too much time passed
+                                    // since glass was created
+                                    // And cool the forge down
+                                    if (glassCanBeCreated && hoursSinceGlassCreated > 1) {
+                                        liquidTemp = 0;
+                                        CrucibleHelper.reduceForgeTemp(this);
                                     }
                                 }
 
