@@ -12,8 +12,6 @@ import com.dunk.tfc.Core.Metal.MetalRegistry;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMold;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMoldBase;
 import com.dunk.tfc.Items.Pottery.ItemPotterySheetMold;
-import com.dunk.tfc.TileEntities.TEBellows;
-import com.dunk.tfc.TileEntities.TEChimney;
 import com.dunk.tfc.TileEntities.TEForge;
 import com.dunk.tfc.api.HeatIndex;
 import com.dunk.tfc.api.HeatRegistry;
@@ -23,6 +21,7 @@ import com.dunk.tfc.api.TFC_ItemHeat;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Interfaces.IExtraSmeltable;
@@ -36,6 +35,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class CrucibleHelper {
+
+    static final int FORGE_FUEL_SLOT_FIRST = 5;
+    static final int FORGE_FUEL_SLOT_LAST = 9;
 
     static final List<Item> oreItems = Arrays
             .asList(new Item[] { TFCItems.oreChunk, TFCItems.smallOreChunk, BidsItems.oreBit });
@@ -263,53 +265,35 @@ public class CrucibleHelper {
         }
     }
 
-    public static TEChimney findValidGlassmakingStructureChimney(TileEntityCrucible tileEntityCrucible) {
+    public static TileEntity findValidGlassmakingStructureChimney(TileEntityCrucible tileEntityCrucible) {
         World world = tileEntityCrucible.getWorldObj();
         int x = tileEntityCrucible.xCoord;
         int y = tileEntityCrucible.yCoord;
         int z = tileEntityCrucible.zCoord;
 
-        int bellowsCount = 0;
-        TEChimney validChimneyFound = null;
+        int chimneyCount = 0;
+        TileEntity validChimneyFound = null;
 
         // Forge bellow and non-flamable roof
         boolean valid = world.getTileEntity(x, y - 1, z) instanceof TEForge
                 && !Blocks.fire.canCatchFire(world, x, y + 1, z, ForgeDirection.DOWN);
 
         // Surrounding blocks need to be solid and non flamable
-        // or correctly facing bellows
+        // or a chimney
         if (valid) {
-            // Ordered by bellows orientation meta for simpler verification
             ForgeDirection checkList[] = { ForgeDirection.NORTH, ForgeDirection.EAST, ForgeDirection.SOUTH,
                     ForgeDirection.WEST };
 
-            int meta = 0;
             for (ForgeDirection dir : checkList) {
                 TileEntity te = world.getTileEntity(x + dir.offsetX, y, z + dir.offsetZ);
-                if (te != null && te instanceof TEBellows) {
-                    if (meta == te.getBlockMetadata()) {
-                        // Proper facing bellows
-
-                        TileEntity teAboveBellows = world.getTileEntity(x + dir.offsetX, y + 1, z + dir.offsetZ);
-                        if (teAboveBellows != null && teAboveBellows instanceof TEChimney) {
-                            TEChimney chimney = (TEChimney)teAboveBellows;
-                            if (!chimney.canChimneySeeSky()) {
-                                // Chimney cannot see the sky
-                                System.out.println("No sky");
-                                valid = false;
-                            }
-
-                            validChimneyFound = chimney;
-                            bellowsCount++;
-                        } else {
-                            // No chimney above bellows
-                            System.out.println("No chimney");
-                            valid = false;
-                        }
-                    } else {
-                        // Bellows but not proper facing
+                if (te != null && ChimneyHelper.isChimney(te)) {
+                    if (!ChimneyHelper.canChimneySeeSky(te)) {
+                        // Chimney cannot see the sky
                         valid = false;
                     }
+
+                    validChimneyFound = te;
+                    chimneyCount++;
                 } else if (!world.isSideSolid(x + dir.offsetX, y, z + dir.offsetZ, dir)) {
                     // Non-solid side
                     valid = false;
@@ -319,18 +303,82 @@ public class CrucibleHelper {
                     valid = false;
                 }
 
-                if (!valid || bellowsCount > 1)
+                if (!valid || chimneyCount > 1)
                     break;
-
-                meta++;
             }
         }
 
-        // Exactly 1 bellows block is needed
-        if (valid && bellowsCount == 1)
+        // Exactly 1 chimney block is needed
+        if (valid && chimneyCount == 1)
             return validChimneyFound;
         else
             return null;
+    }
+
+    public static int getForgeFuelCount(TileEntityCrucible crucible) {
+        TileEntity te = crucible.getWorldObj().getTileEntity(crucible.xCoord, crucible.yCoord - 1, crucible.zCoord);
+        if (te instanceof TEForge) {
+            TEForge forge = (TEForge) te;
+            int fuelCount = 0;
+            for (int i = FORGE_FUEL_SLOT_FIRST; i <= FORGE_FUEL_SLOT_LAST; i++) {
+                ItemStack fuel = forge.getStackInSlot(i);
+                if (fuel != null)
+                    fuelCount++;
+            }
+
+            return fuelCount;
+        }
+
+        return 0;
+    }
+
+    public static void clearForgeFuel(TileEntityCrucible crucible) {
+        TileEntity te = crucible.getWorldObj().getTileEntity(crucible.xCoord, crucible.yCoord - 1, crucible.zCoord);
+        if (te instanceof TEForge) {
+            TEForge forge = (TEForge) te;
+            for (int i = FORGE_FUEL_SLOT_FIRST; i <= FORGE_FUEL_SLOT_LAST; i++) {
+                ItemStack fuel = forge.getStackInSlot(i);
+                if (fuel != null) {
+                    forge.setInventorySlotContents(i, null);
+                    Bids.LOG.debug("Cleared forge fuel in slot: " + i);
+                }
+            }
+        }
+    }
+
+    public static float getForgeFuelTimeLeft(TileEntityCrucible crucible) {
+        TileEntity te = crucible.getWorldObj().getTileEntity(crucible.xCoord, crucible.yCoord - 1, crucible.zCoord);
+        if (te instanceof TEForge) {
+            TEForge forge = (TEForge) te;
+            return forge.fuelTimeLeft;
+        }
+
+        return 0;
+    }
+
+    public static void setForgeFuelTimeLeft(TileEntityCrucible crucible, float timeLeft) {
+        TileEntity te = crucible.getWorldObj().getTileEntity(crucible.xCoord, crucible.yCoord - 1, crucible.zCoord);
+        if (te instanceof TEForge) {
+            TEForge forge = (TEForge) te;
+            forge.fuelTimeLeft = timeLeft;
+            Bids.LOG.debug("Set forge fuel time left: " + timeLeft);
+        }
+    }
+
+    public static void reduceForgeTemp(TileEntityCrucible crucible) {
+        TileEntity te = crucible.getWorldObj().getTileEntity(crucible.xCoord, crucible.yCoord - 1, crucible.zCoord);
+        if (te instanceof TEForge) {
+            TEForge forge = (TEForge) te;
+            // Rapidly reduce the temperature of the forge
+            // Test higher temp than target temp
+            // because the current implementation causes temp to forever approach
+            // the target temp, never reaching it
+            // Below 20 is low enough, it means that the forge no longer makes fire sound
+            while (forge.getHeatSourceTemp() > 20) {
+                forge.handleTempFlux(0);
+            }
+            Bids.LOG.debug("Forge temp rapidly reduced to: " + forge.getHeatSourceTemp());
+        }
     }
 
 }
