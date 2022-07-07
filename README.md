@@ -8,6 +8,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Ore Bits](../../wiki/Ore-Bits) - breaking ore chunks into smaller pieces
 * [Metal Blowpipe](../../wiki/Metal-Blowpipe) - recipe based glassware crafting
 * [Drinking Glass](../../wiki/Drinking-Glass) - various new drinking containers made out of glass
+* [Furnace](../../wiki/Furnace) - allows making glass in a crucible
 
 ### Compiling
 

@@ -47,3 +47,9 @@
 0.6.1 (05-07-2022)
 - Changed: Right click crucible when holding a blowpipe (metal or ceramic) to take or return molten glass
 - Fixed: Missing localization text of glass containers with fresh water
+
+0.7.0 (07-07-2022)
+- Added: Furnace chimney reports glassmaking remaining time via WAILA
+- Changed: Furnace no longer requires a bellows, place the chimney directly next to the crucible
+- Changed: Glassmaking takes fixed 8 hours (time can be skipped), all fuel is consumed, forge and glass begins to cool down
+- Fixed: Exact temp and output is not synced when disabled in config
