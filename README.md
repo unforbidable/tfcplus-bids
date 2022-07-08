@@ -9,6 +9,8 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Metal Blowpipe](../../wiki/Metal-Blowpipe) - recipe based glassware crafting
 * [Drinking Glass](../../wiki/Drinking-Glass) - various new drinking containers made out of glass
 * [Furnace](../../wiki/Furnace) - allows making glass in a crucible
+* [Mud Brick Chimney](../../wiki/Mud-brick-chimney) - allows furnace construction before acquiring metal tools
+* [Ceramic Pipe](../../wiki/Ceramic-Pipe) - used in making a mud brick chimney
 
 ### Compiling
 
