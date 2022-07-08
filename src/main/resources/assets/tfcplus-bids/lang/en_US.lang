@@ -1,6 +1,29 @@
 tile.ClayCrucible.name=Clay Crucible
 tile.FireClayCrucible.name=Crucible
 
+tile.MudBrickChimney.Andesite.name=Mudbrick Chimney
+tile.MudBrickChimney.Basalt.name=Mudbrick Chimney
+tile.MudBrickChimney.Chalk.name=Mudbrick Chimney
+tile.MudBrickChimney.Chert.name=Mudbrick Chimney
+tile.MudBrickChimney.Claystone.name=Mudbrick Chimney
+tile.MudBrickChimney.Conglomerate.name=Mudbrick Chimney
+tile.MudBrickChimney.Sandstone.name=Mudbrick Chimney
+tile.MudBrickChimney.Dacite.name=Mudbrick Chimney
+tile.MudBrickChimney.Diorite.name=Mudbrick Chimney
+tile.MudBrickChimney.Dolomite.name=Mudbrick Chimney
+tile.MudBrickChimney.Gabbro.name=Mudbrick Chimney
+tile.MudBrickChimney2.Gneiss.name=Mudbrick Chimney
+tile.MudBrickChimney.Granite.name=Mudbrick Chimney
+tile.MudBrickChimney.Limestone.name=Mudbrick Chimney
+tile.MudBrickChimney2.Marble.name=Mudbrick Chimney
+tile.MudBrickChimney2.Phyllite.name=Mudbrick Chimney
+tile.MudBrickChimney.Quartzite.name=Mudbrick Chimney
+tile.MudBrickChimney.Rhyolite.name=Mudbrick Chimney
+tile.MudBrickChimney.Rock Salt.name=Mudbrick Chimney
+tile.MudBrickChimney2.Schist.name=Mudbrick Chimney
+tile.MudBrickChimney.Shale.name=Mudbrick Chimney
+tile.MudBrickChimney2.Slate.name=Mudbrick Chimney
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit

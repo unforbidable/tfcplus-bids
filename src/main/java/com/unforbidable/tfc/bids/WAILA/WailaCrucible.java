@@ -5,6 +5,7 @@ import java.util.List;
 import com.dunk.tfc.TileEntities.TEChimney;
 import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -26,6 +27,7 @@ public class WailaCrucible implements IWailaDataProvider {
         reg.registerNBTProvider(new WailaCrucible(), TileEntityCrucible.class);
 
         reg.registerBodyProvider(new WailaCrucible(), TEChimney.class);
+        reg.registerBodyProvider(new WailaCrucible(), TileEntityChimney.class);
     }
 
     @Override

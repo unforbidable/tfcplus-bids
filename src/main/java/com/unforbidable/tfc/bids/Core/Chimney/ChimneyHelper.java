@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core.Chimney;
 
+import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.TileEntities.TEChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 import com.unforbidable.tfc.bids.api.Interfaces.IChimney;
@@ -25,12 +26,10 @@ public class ChimneyHelper {
     }
 
     public static boolean canChimneySeeSky(TileEntity tileEntity) {
-        if (tileEntity instanceof IChimney) {
-            return ((IChimney) tileEntity).canChimneySeeSky();
-        } else if (tileEntity instanceof TEChimney) {
-            return ((TEChimney) tileEntity).canChimneySeeSky();
+        if (tileEntity != null) {
+            TileEntity top = getTopMostChimney(tileEntity);
+            return TFC_Core.isExposed(top.getWorldObj(), top.xCoord, top.yCoord, top.zCoord);
         }
-
         return false;
     }
 

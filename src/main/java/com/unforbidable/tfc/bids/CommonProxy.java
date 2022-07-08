@@ -13,6 +13,7 @@ import com.dunk.tfc.api.Crafting.KilnRecipe;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
+import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Drinks.Drink;
 import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
@@ -27,7 +28,9 @@ import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemMudChimney;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -54,14 +57,21 @@ public class CommonProxy {
 
         GameRegistry.registerTileEntity(TileEntityClayCrucible.class, "BidsClayCrucible");
         GameRegistry.registerTileEntity(TileEntityFireClayCrucible.class, "BidsFireClayCrucible");
+        GameRegistry.registerTileEntity(TileEntityChimney.class, "BidsChimney");
 
         BidsBlocks.clayCrucible = new BlockClayCrucible().setBlockName("ClayCrucible")
                 .setHardness(BidsOptions.Crucible.enableClayHandBreakable ? 0.5f : 4.0f);
         BidsBlocks.fireClayCrucible = new BlockFireClayCrucible().setBlockName("FireClayCrucible")
                 .setHardness(BidsOptions.Crucible.enableFireClayHandBreakable ? 0.5f : 4.0f);
+        BidsBlocks.mudBrickChimney = new BlockMudChimney(0).setDirt(TFCBlocks.dirt)
+                .setBlockName("MudBrickChimney");
+        BidsBlocks.mudBrickChimney2 = new BlockMudChimney(16).setDirt(TFCBlocks.dirt2)
+                .setBlockName("MudBrickChimney2");
 
         GameRegistry.registerBlock(BidsBlocks.clayCrucible, ItemClayCrucible.class, "ClayCrucible");
         GameRegistry.registerBlock(BidsBlocks.fireClayCrucible, ItemFireClayCrucible.class, "FireClayCrucible");
+        GameRegistry.registerBlock(BidsBlocks.mudBrickChimney, ItemMudChimney.class, "MudBrickChimney");
+        GameRegistry.registerBlock(BidsBlocks.mudBrickChimney2, ItemMudChimney.class, "MudBrickChimney2");
 
         BidsItems.oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");
         BidsItems.metalBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Metal Blowpipe");
@@ -289,6 +299,18 @@ public class CommonProxy {
 
         ItemStack clayTile = new ItemStack(TFCItems.clayTile, 1, 0);
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.clayPipe, 1, 0), clayTile, clayTile);
+
+        for (int j = 0; j < Global.STONE_ALL.length; j++) {
+            GameRegistry.addRecipe(
+                    new ItemStack(j < 16 ? BidsBlocks.mudBrickChimney : BidsBlocks.mudBrickChimney2, 2, j % 16),
+                    "PB", "BB", 'P', new ItemStack(BidsItems.clayPipe, 1, 1),
+                    'B', new ItemStack(TFCItems.mudBrick, 1, j));
+            GameRegistry.addRecipe(
+                    new ItemStack(j < 16 ? BidsBlocks.mudBrickChimney : BidsBlocks.mudBrickChimney2, 2, j % 16),
+                    "PB", "BB", 'P', new ItemStack(TFCItems.logs, 1, 48), // Bamboo
+                    'B', new ItemStack(TFCItems.mudBrick, 1, j));
+        }
+
     }
 
     public void postInit(FMLPostInitializationEvent event) {

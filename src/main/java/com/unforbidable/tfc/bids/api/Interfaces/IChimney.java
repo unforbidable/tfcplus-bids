@@ -4,6 +4,4 @@ public interface IChimney {
 
     int getChimneyTier();
 
-    boolean canChimneySeeSky();
-
 }

@@ -10,4 +10,7 @@ public class BidsBlocks {
     public static Block clayCrucible;
     public static Block fireClayCrucible;
 
+    public static Block mudBrickChimney;
+    public static Block mudBrickChimney2;
+
 }
