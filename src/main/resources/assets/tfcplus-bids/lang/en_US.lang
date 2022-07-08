@@ -41,8 +41,10 @@ item.Ore Bit.Tetrahedrite.name=Tetrahedrite Ore Bit
 item.Ore Bit.Chalcocite.name=Chalcocite Ore Bit
 item.Ore Bit.Chalcopyrite.name=Chalcopyrite Ore Bit
 
-item.Metal Blowpipe.name=Metal Blowpipe
-item.Metal Blowpipe.Glass.name=Metal Blowpipe Glass
+item.Metal Blowpipe.name=Wrought Iron Blowpipe
+item.Metal Blowpipe.Glass.name=Wrought Iron Blowpipe Glass
+item.Brass Blowpipe.name=Brass Blowpipe
+item.Brass Blowpipe.Glass.name=Brass Blowpipe Glass
 
 item.Flat Glass.name=Flat Glass
 
