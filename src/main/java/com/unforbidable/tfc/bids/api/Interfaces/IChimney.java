@@ -4,4 +4,8 @@ public interface IChimney {
 
     int getChimneyTier();
 
+    void setChimneySmoke(int smoke);
+
+    int getChimneySmoke();
+
 }

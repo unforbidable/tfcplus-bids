@@ -47,7 +47,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     boolean isOutputAvailable = false;
     boolean isOutputDirty = true;
     int alloyMixingCountdown = 0;
-    TileEntity glassMakingChimney = null;
     Metal outputMetal = Global.UNKNOWN;
 
     float heatingMult = 10;
@@ -158,11 +157,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     @SideOnly(Side.CLIENT)
     public boolean isGlassMakingActive() {
         return glassMakingCompletedTicks > 0;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public TileEntity getGlassMakingChimney() {
-        return glassMakingChimney;
     }
 
     public boolean isItemStackValidInput(ItemStack is) {
@@ -309,7 +303,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         }
         if ((updateMask & UPDATE_GLASS_MAKING) != 0) {
             glassMakingCompletedTicks = tagCompound.getLong("glassMakingCompletedTicks");
-            onGlassMakingStatusChanged();
         }
     }
 
@@ -566,21 +559,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         }
     }
 
-    @SideOnly(Side.CLIENT)
-    private void onGlassMakingStatusChanged() {
-        Bids.LOG.debug("Glass making progress: " + getGlassMakingProgress()
-                + " active: " + isGlassMakingActive());
-
-        if (isGlassMakingActive() && glassMakingChimney == null) {
-            TileEntity chimney = CrucibleHelper.findValidGlassmakingStructureChimney(this);
-            if (chimney != null) {
-                glassMakingChimney = ChimneyHelper.getTopMostChimney(chimney);
-            }
-        } else if (!isGlassMakingActive() && glassMakingChimney != null) {
-            glassMakingChimney = null;
-        }
-    }
-
     private void onInputSlotChanged() {
         // When an input slot changes
         // check if heat capacity changed
@@ -800,32 +778,38 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                     glassMakingCompletedTicks = TFC_Time.getTotalTicks() + GLASS_MAKING_TICKS;
                     Bids.LOG.debug("Glassmaking started, will finish in: " + GLASS_MAKING_TICKS);
                     updateGui(UPDATE_GLASS_MAKING);
-                } else if (glassMakingCompletedTicks > 0
-                        && CrucibleHelper.findValidGlassmakingStructureChimney(this) == null) {
-                    // Only keep checking the structure
-                    glassMakingCompletedTicks = 0;
-                    Bids.LOG.debug("Glassmaking interrupted");
-                    updateGui(UPDATE_GLASS_MAKING);
-                } else if (glassMakingCompletedTicks > 0 && glassMakingCompletedTicks < TFC_Time.getTotalTicks()) {
-                    hoursSinceGlassCreated = (TFC_Time.getTotalTicks() - glassMakingCompletedTicks)
-                            / (float) TFC_Time.HOUR_LENGTH;
-                    glassMakingCompletedTicks = 0;
-                    glassCanBeCreated = true;
-                    Bids.LOG.debug("Glassmaking complete, hours since: " + hoursSinceGlassCreated);
-                    updateGui(UPDATE_GLASS_MAKING);
+                } else if (glassMakingCompletedTicks > 0) {
+                    if (glassMakingCompletedTicks < TFC_Time.getTotalTicks()) {
+                        hoursSinceGlassCreated = (TFC_Time.getTotalTicks() - glassMakingCompletedTicks)
+                                / (float) TFC_Time.HOUR_LENGTH;
+                        glassMakingCompletedTicks = 0;
+                        glassCanBeCreated = true;
+                        Bids.LOG.debug("Glassmaking complete, hours since: " + hoursSinceGlassCreated);
+                        updateGui(UPDATE_GLASS_MAKING);
 
-                    // Remove any fuel left in the forge
-                    // in case time has been skipped when sleeping
-                    CrucibleHelper.clearForgeFuel(this);
+                        // Remove any fuel left in the forge
+                        // in case time has been skipped when sleeping
+                        CrucibleHelper.clearForgeFuel(this);
 
-                    if (hoursSinceGlassCreated < 0.5f) {
-                        // If only a little time passed since finishing
-                        // set the remaining burning time to 1 minute
-                        // so there is time to open the furnace and add more fuel
-                        CrucibleHelper.setForgeFuelTimeLeft(this, 1200);
+                        if (hoursSinceGlassCreated < 0.5f) {
+                            // If only a little time passed since finishing
+                            // set the remaining burning time to 1 minute
+                            // so there is time to open the furnace and add more fuel
+                            CrucibleHelper.setForgeFuelTimeLeft(this, 1200);
+                        } else {
+                            // Otherwise set it to 0
+                            CrucibleHelper.setForgeFuelTimeLeft(this, 0);
+                        }
                     } else {
-                        // Otherwise set it to 0
-                        CrucibleHelper.setForgeFuelTimeLeft(this, 0);
+                        // Only keep checking the structure
+                        TileEntity chimney = CrucibleHelper.findValidGlassmakingStructureChimney(this);
+                        if (chimney != null) {
+                            ChimneyHelper.setChimneySmoke(chimney, 20);
+                        } else {
+                            glassMakingCompletedTicks = 0;
+                            Bids.LOG.debug("Glassmaking interrupted");
+                            updateGui(UPDATE_GLASS_MAKING);
+                        }
                     }
                 }
 

@@ -15,6 +15,26 @@ public class ChimneyHelper {
         return tileEntity instanceof IChimney || tileEntity instanceof TEChimney;
     }
 
+    public static int getChimneySmoke(TileEntity tileEntity) {
+        if (tileEntity instanceof IChimney) {
+            return ((IChimney) tileEntity).getChimneySmoke();
+        } else if (tileEntity instanceof TEChimney) {
+            return ((TEChimney) tileEntity).smoking;
+        }
+
+        return 0;
+    }
+
+    public static void setChimneySmoke(TileEntity tileEntity, int smoke) {
+        if (tileEntity instanceof IChimney) {
+            ((IChimney) tileEntity).setChimneySmoke(smoke);
+            tileEntity.getWorldObj().markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
+        } else if (tileEntity instanceof TEChimney) {
+            ((TEChimney) tileEntity).smoking = smoke;
+            tileEntity.getWorldObj().markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
+        }
+    }
+
     public static int getChimneyTier(TileEntity tileEntity) {
         if (tileEntity instanceof IChimney) {
             return ((IChimney) tileEntity).getChimneyTier();
