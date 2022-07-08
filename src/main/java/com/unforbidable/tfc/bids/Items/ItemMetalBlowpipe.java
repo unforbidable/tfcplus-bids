@@ -83,8 +83,10 @@ public class ItemMetalBlowpipe extends ItemPotteryMold {
 
     @Override
     public void registerIcons(IIconRegister registerer) {
-        icon = registerer.registerIcon(Tags.MOD_ID + ":Metal Blowpipe");
-        glassIcon = registerer.registerIcon(Tags.MOD_ID + ":Metal Blowpipe Glass");
+        icon = registerer.registerIcon(Tags.MOD_ID + ":tools/"
+                + getUnlocalizedName().replace("item.", ""));
+        glassIcon = registerer.registerIcon(Tags.MOD_ID + ":tools/"
+                + getUnlocalizedName().replace("item.", "") + ".Glass");
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

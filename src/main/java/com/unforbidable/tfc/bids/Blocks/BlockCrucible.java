@@ -1,11 +1,11 @@
 package com.unforbidable.tfc.bids.Blocks;
 
-import com.dunk.tfc.api.TFCItems;
+import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Interfaces.ILiquidMetalContainer;
 
 import cpw.mods.fml.relauncher.Side;
@@ -93,8 +93,8 @@ public abstract class BlockCrucible extends BlockContainer {
 
     protected boolean isValidBlowpipe(ItemStack itemstack) {
         return itemstack.getItemDamage() > 0
-                && (itemstack.getItem() == BidsItems.metalBlowpipe
-                        || itemstack.getItem() == TFCItems.clayBlowpipe);
+                && (itemstack.getItem() instanceof ItemMetalBlowpipe
+                        || itemstack.getItem() instanceof ItemPotteryBlowpipe);
     }
 
     @Override

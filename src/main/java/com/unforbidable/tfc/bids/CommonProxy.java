@@ -75,6 +75,7 @@ public class CommonProxy {
 
         BidsItems.oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");
         BidsItems.metalBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Metal Blowpipe");
+        BidsItems.brassBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Brass Blowpipe");
         BidsItems.flatGlass = new ItemFlatGlass().setUnlocalizedName("Flat Glass");
         BidsItems.drinkingGlass = new ItemDrinkingGlass().setGlassReturnAmount(40).setMaxStackSize(4)
                 .setUnlocalizedName("Drinking Glass");
@@ -86,6 +87,7 @@ public class CommonProxy {
 
         GameRegistry.registerItem(BidsItems.oreBit, BidsItems.oreBit.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.metalBlowpipe, BidsItems.metalBlowpipe.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.brassBlowpipe, BidsItems.brassBlowpipe.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.flatGlass, BidsItems.flatGlass.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.drinkingGlass, BidsItems.drinkingGlass.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.glassJug, BidsItems.glassJug.getUnlocalizedName());
@@ -337,6 +339,7 @@ public class CommonProxy {
 
         Bids.LOG.info("Registering metal blowpipe as valid glass mold");
         Global.GLASS.addValidPartialMold(BidsItems.metalBlowpipe, 2, BidsItems.metalBlowpipe, 1, 2);
+        Global.GLASS.addValidPartialMold(BidsItems.brassBlowpipe, 2, BidsItems.brassBlowpipe, 1, 2);
 
         Bids.LOG.info("Registering crucible clay knapping recipes");
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.clayCrucible, 1),

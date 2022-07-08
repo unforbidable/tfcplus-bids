@@ -8,6 +8,7 @@ public class BidsItems {
     public static Item fireClayCrucible;
     public static Item oreBit;
     public static Item metalBlowpipe;
+    public static Item brassBlowpipe;
     public static Item flatGlass;
     public static Item drinkingGlass;
     public static Item glassJug;
