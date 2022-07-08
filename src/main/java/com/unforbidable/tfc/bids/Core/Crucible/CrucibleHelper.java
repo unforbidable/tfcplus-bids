@@ -274,8 +274,9 @@ public class CrucibleHelper {
         int chimneyCount = 0;
         TileEntity validChimneyFound = null;
 
-        // Forge bellow and non-flamable roof
+        // Forge bellow and solid, non-flamable above
         boolean valid = world.getTileEntity(x, y - 1, z) instanceof TEForge
+                && world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)
                 && !Blocks.fire.canCatchFire(world, x, y + 1, z, ForgeDirection.DOWN);
 
         // Surrounding blocks need to be solid and non flamable
@@ -297,9 +298,8 @@ public class CrucibleHelper {
                 } else if (!world.isSideSolid(x + dir.offsetX, y, z + dir.offsetZ, dir)) {
                     // Non-solid side
                     valid = false;
-                } else if (!Blocks.fire.canCatchFire(world, x + dir.offsetX, y, z + dir.offsetZ, dir)) {
-                    // Solid and non-flamable side
-                } else {
+                } else if (Blocks.fire.canCatchFire(world, x + dir.offsetX, y, z + dir.offsetZ, dir)) {
+                    // Flamable side
                     valid = false;
                 }
 
