@@ -215,6 +215,9 @@ item.Shot Glass.OrangeBrandy.name=Shot of Orange Brandy
 item.Shot Glass.LemonBrandy.name=Shot of Lemon Brandy
 item.Shot Glass.Tequila.name=Shot of Tequila
 
+item.Pottery Pipe.Clay.name=Clay Pipe
+item.Pottery Pipe.Ceramic.name=Ceramic Pipe
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Drinks=Bids and Pieces - Drinks
 

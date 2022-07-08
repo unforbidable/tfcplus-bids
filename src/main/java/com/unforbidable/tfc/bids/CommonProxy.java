@@ -8,6 +8,8 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.CraftingManagerTFC;
+import com.dunk.tfc.api.Crafting.KilnCraftingManager;
+import com.dunk.tfc.api.Crafting.KilnRecipe;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
@@ -20,6 +22,7 @@ import com.unforbidable.tfc.bids.Handlers.GuiHandler;
 import com.unforbidable.tfc.bids.Handlers.WorldEventHandler;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
+import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
@@ -69,6 +72,7 @@ public class CommonProxy {
                 .setUnlocalizedName("Glass Jug");
         BidsItems.shotGlass = new ItemDrinkingGlass().setGlassReturnAmount(20).setMaxStackSize(4)
                 .setUnlocalizedName("Shot Glass");
+        BidsItems.clayPipe = new ItemGenericPottery(true).setUnlocalizedName("Pottery Pipe");
 
         GameRegistry.registerItem(BidsItems.oreBit, BidsItems.oreBit.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.metalBlowpipe, BidsItems.metalBlowpipe.getUnlocalizedName());
@@ -76,6 +80,7 @@ public class CommonProxy {
         GameRegistry.registerItem(BidsItems.drinkingGlass, BidsItems.drinkingGlass.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.glassJug, BidsItems.glassJug.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.shotGlass, BidsItems.shotGlass.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.clayPipe, BidsItems.clayPipe.getUnlocalizedName());
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new GuiHandler());
 
@@ -281,6 +286,9 @@ public class CommonProxy {
         // This recipe is meant to upgrade an obsolete version 0.5.0 metal blowpipe
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.metalBlowpipe, 1, 1),
                 new ItemStack(BidsItems.metalBlowpipe, 1, 0)));
+
+        ItemStack clayTile = new ItemStack(TFCItems.clayTile, 1, 0);
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.clayPipe, 1, 0), clayTile, clayTile);
     }
 
     public void postInit(FMLPostInitializationEvent event) {
@@ -329,6 +337,10 @@ public class CommonProxy {
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.glassJug, 1),
                 new Object[] { " #   ", "# ## ", "# # #", "# ## ", "###  ", '#',
                         new ItemStack(BidsItems.flatGlass, 1) });
+
+        KilnCraftingManager.getInstance().addRecipe(
+                new KilnRecipe(new ItemStack(BidsItems.clayPipe, 1, 0), 0,
+                        new ItemStack(BidsItems.clayPipe, 1, 1)));
 
         // Anvil recipes are registered when world loads
         // ideally after TFC initialized its AnvilManager
