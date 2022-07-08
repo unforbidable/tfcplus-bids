@@ -54,7 +54,7 @@
 - Changed: Glassmaking takes fixed 8 hours (time can be skipped), all fuel is consumed, forge and glass begins to cool down
 - Fixed: Exact temp and output is not synced when disabled in config
 
-0.8.0 (08-08-2022)
+0.8.0 (08-07-2022)
 - Added: Ceramic pipe for mud brick chimney construction
 - Added: Mud brick chimney which can be used as the furnace chimney
 - Added: Brass blowpipe can be made from a brass sheet
