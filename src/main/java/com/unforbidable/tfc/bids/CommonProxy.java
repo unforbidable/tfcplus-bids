@@ -25,6 +25,7 @@ import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
 import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
+import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
@@ -84,6 +85,7 @@ public class CommonProxy {
         BidsItems.shotGlass = new ItemDrinkingGlass().setGlassReturnAmount(20).setMaxStackSize(4)
                 .setUnlocalizedName("Shot Glass");
         BidsItems.clayPipe = new ItemGenericPottery(true).setUnlocalizedName("Pottery Pipe");
+        BidsItems.clayMug = new ItemDrinkingPottery().setUnlocalizedName("Pottery Mug");
 
         GameRegistry.registerItem(BidsItems.oreBit, BidsItems.oreBit.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.metalBlowpipe, BidsItems.metalBlowpipe.getUnlocalizedName());
@@ -93,6 +95,7 @@ public class CommonProxy {
         GameRegistry.registerItem(BidsItems.glassJug, BidsItems.glassJug.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.shotGlass, BidsItems.shotGlass.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.clayPipe, BidsItems.clayPipe.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.clayMug, BidsItems.clayMug.getUnlocalizedName());
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new GuiHandler());
 
@@ -251,6 +254,7 @@ public class CommonProxy {
         DrinkHelper.registerFluidContainers(BidsItems.drinkingGlass, 250, true);
         DrinkHelper.registerFluidContainers(BidsItems.glassJug, 2000, true);
         DrinkHelper.registerFluidContainers(BidsItems.shotGlass, 50, false);
+        DrinkHelper.registerPotteryFluidContainers(BidsItems.clayMug, 200, true);
 
         // Hammers that are able to break iron ores into bits
         // You could realstically break iron ore with a stone hammer
@@ -312,7 +316,6 @@ public class CommonProxy {
                     "PB", "BB", 'P', new ItemStack(TFCItems.logs, 1, 48), // Bamboo
                     'B', new ItemStack(TFCItems.mudBrick, 1, j));
         }
-
     }
 
     public void postInit(FMLPostInitializationEvent event) {
@@ -348,6 +351,9 @@ public class CommonProxy {
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.fireClayCrucible, 1),
                 new Object[] { "#####", " ### ", " ### ", " ### ", "     ", '#',
                         new ItemStack(TFCItems.flatClay, 1, 3) });
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMug, 2),
+                new Object[] { "#####", "#####", " ### ", " ### ", "     ", '#',
+                        new ItemStack(TFCItems.flatClay, 1, 1) });
 
         Bids.LOG.info("Registering glass knapping recipes");
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(TFCItems.glassBottle, 1),
@@ -366,6 +372,10 @@ public class CommonProxy {
         KilnCraftingManager.getInstance().addRecipe(
                 new KilnRecipe(new ItemStack(BidsItems.clayPipe, 1, 0), 0,
                         new ItemStack(BidsItems.clayPipe, 1, 1)));
+
+        KilnCraftingManager.getInstance().addRecipe(
+                new KilnRecipe(new ItemStack(BidsItems.clayMug, 1, 0), 0,
+                        new ItemStack(BidsItems.clayMug, 1, 1)));
 
         // Anvil recipes are registered when world loads
         // ideally after TFC initialized its AnvilManager
