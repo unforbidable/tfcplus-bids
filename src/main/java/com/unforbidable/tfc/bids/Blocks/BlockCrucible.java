@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.Blocks;
 import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 import com.unforbidable.tfc.bids.api.Interfaces.ILiquidMetalContainer;
@@ -13,7 +12,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,21 +19,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public abstract class BlockCrucible extends BlockContainer {
 
-    IIcon[] icons = new IIcon[2];
-    String textureName = "";
-
     protected BlockCrucible(Material material) {
         super(material);
-    }
-
-    protected void setTextureName(String textureName) {
-        this.textureName = textureName;
     }
 
     @Override
@@ -95,22 +85,6 @@ public abstract class BlockCrucible extends BlockContainer {
         return itemstack.getItemDamage() > 0
                 && (itemstack.getItem() instanceof ItemMetalBlowpipe
                         || itemstack.getItem() instanceof ItemPotteryBlowpipe);
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegisterer) {
-        icons[0] = iconRegisterer.registerIcon(Tags.MOD_ID + ":" + textureName + " Top");
-        icons[1] = iconRegisterer.registerIcon(Tags.MOD_ID + ":" + textureName + " Side");
-    }
-
-    @Override
-    public IIcon getIcon(int i, int j) {
-        if (i < 2) {
-            return icons[0];
-        }
-
-        return icons[1];
     }
 
     @Override

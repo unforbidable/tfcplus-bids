@@ -1,4 +1,5 @@
-tile.ClayCrucible.name=Clay Crucible
+tile.ClayCrucible.Clay.name=Clay Crucible
+tile.ClayCrucible.Ceramic.name=Ceramic Crucible
 tile.FireClayCrucible.name=Crucible
 
 tile.MudBrickChimney.Andesite.name=Mudbrick Chimney

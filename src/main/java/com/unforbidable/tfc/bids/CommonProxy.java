@@ -61,8 +61,10 @@ public class CommonProxy {
         GameRegistry.registerTileEntity(TileEntityChimney.class, "BidsChimney");
 
         BidsBlocks.clayCrucible = new BlockClayCrucible().setBlockName("ClayCrucible")
+                .setBlockTextureName("Pottery Crucible")
                 .setHardness(BidsOptions.Crucible.enableClayHandBreakable ? 0.5f : 4.0f);
         BidsBlocks.fireClayCrucible = new BlockFireClayCrucible().setBlockName("FireClayCrucible")
+                .setBlockTextureName("Fire Clay Crucible")
                 .setHardness(BidsOptions.Crucible.enableFireClayHandBreakable ? 0.5f : 4.0f);
         BidsBlocks.mudBrickChimney = new BlockMudChimney(0).setDirt(TFCBlocks.dirt)
                 .setBlockName("MudBrickChimney");
@@ -345,7 +347,7 @@ public class CommonProxy {
         Global.GLASS.addValidPartialMold(BidsItems.brassBlowpipe, 2, BidsItems.brassBlowpipe, 1, 2);
 
         Bids.LOG.info("Registering crucible clay knapping recipes");
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.clayCrucible, 1),
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.clayCrucible, 1, 1),
                 new Object[] { "#####", " ### ", " ### ", " ### ", "     ", '#',
                         new ItemStack(TFCItems.flatClay, 1, 1) });
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.fireClayCrucible, 1),
@@ -376,6 +378,10 @@ public class CommonProxy {
         KilnCraftingManager.getInstance().addRecipe(
                 new KilnRecipe(new ItemStack(BidsItems.clayMug, 1, 0), 0,
                         new ItemStack(BidsItems.clayMug, 1, 1)));
+
+        KilnCraftingManager.getInstance().addRecipe(
+                new KilnRecipe(new ItemStack(BidsBlocks.clayCrucible, 1, 1), 0,
+                        new ItemStack(BidsBlocks.clayCrucible, 1, 0)));
 
         // Anvil recipes are registered when world loads
         // ideally after TFC initialized its AnvilManager
