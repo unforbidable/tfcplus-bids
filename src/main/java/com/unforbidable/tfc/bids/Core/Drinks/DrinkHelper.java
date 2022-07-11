@@ -64,7 +64,7 @@ public class DrinkHelper {
                         new ItemStack(item), new ItemStack(containerItem, 1, emptyDmg));
             }
 
-            Bids.LOG.info("Registered drink item: " + item.getUnlocalizedName());
+            Bids.LOG.debug("Registered drink item: " + item.getUnlocalizedName());
         }
     }
 
