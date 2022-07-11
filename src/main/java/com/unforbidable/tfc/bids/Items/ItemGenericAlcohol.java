@@ -2,23 +2,34 @@ package com.unforbidable.tfc.bids.Items;
 
 import com.dunk.tfc.Items.ItemAlcohol;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.Core.Drinks.DrinkOverlayHandler;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
 public class ItemGenericAlcohol extends ItemAlcohol {
 
-    public ItemGenericAlcohol(float volume, boolean isPottery) {
+    final DrinkOverlayHandler overlay;
+
+    public ItemGenericAlcohol(float volume, boolean isPottery, int... overlayParts) {
         super(volume);
         pottery = isPottery;
         setCreativeTab(BidsCreativeTabs.BidsDrinks);
-        setFolder(isPottery ? "pottery" : "glassware");
+        overlay = new DrinkOverlayHandler(this, isPottery, overlayParts);
     }
 
     @Override
     public void registerIcons(IIconRegister registerer) {
-        itemIcon = registerer.registerIcon(Tags.MOD_ID + ":" + textureFolder + "/"
-                + getContainerItem().getUnlocalizedName().replace("item.", "") + ".Overlay");
+        overlay.registerIcons(registerer);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(ItemStack stack, int pass) {
+        return overlay.getIcon(stack, pass);
     }
 
 }
