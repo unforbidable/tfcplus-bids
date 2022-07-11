@@ -253,10 +253,10 @@ public class CommonProxy {
         FMLInterModComms.sendMessage("Waila", "register",
                 "com.unforbidable.tfc.bids.WAILA.WailaCrucible.callbackRegister");
 
-        DrinkHelper.registerFluidContainers(BidsItems.drinkingGlass, 250, true);
-        DrinkHelper.registerFluidContainers(BidsItems.glassJug, 2000, true);
+        DrinkHelper.registerFluidContainers(BidsItems.drinkingGlass, 250, true, 0, 40, 80, 100);
+        DrinkHelper.registerFluidContainers(BidsItems.glassJug, 2000, true, 0, 11, 22, 33, 44, 55, 66, 77, 88, 100);
         DrinkHelper.registerFluidContainers(BidsItems.shotGlass, 50, false);
-        DrinkHelper.registerPotteryFluidContainers(BidsItems.clayMug, 200, true);
+        DrinkHelper.registerPotteryFluidContainers(BidsItems.clayMug, 200, true, 0, 100);
 
         // Hammers that are able to break iron ores into bits
         // You could realstically break iron ore with a stone hammer

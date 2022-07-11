@@ -23,20 +23,20 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class DrinkHelper {
 
-    public static void registerFluidContainers(Item containerItem, int volume, boolean canDrinkInParts) {
-        registerFluidContainers(containerItem, false, volume, canDrinkInParts);
+    public static void registerFluidContainers(Item containerItem, int volume, boolean canDrinkInParts, int... overlayParts) {
+        registerFluidContainers(containerItem, false, volume, canDrinkInParts, overlayParts);
     }
 
-    public static void registerPotteryFluidContainers(Item containerItem, int volume, boolean canDrinkInParts) {
-        registerFluidContainers(containerItem, true, volume, canDrinkInParts);
+    public static void registerPotteryFluidContainers(Item containerItem, int volume, boolean canDrinkInParts, int... overlayParts) {
+        registerFluidContainers(containerItem, true, volume, canDrinkInParts, overlayParts);
     }
 
     private static void registerFluidContainers(Item containerItem, boolean isPottery, int volume,
-            boolean canDrinkInParts) {
+            boolean canDrinkInParts, int... overlayParts) {
         for (IDrinkable drink : DrinkRegistry.getDrinks()) {
             ItemDrink item = drink.getAlcoholContent() > 0
                     ? new ItemGenericAlcohol(volume, isPottery).setAlcoholContent(drink.getAlcoholContent())
-                    : new ItemGenericDrink(volume, isPottery);
+                    : new ItemGenericDrink(volume, isPottery, overlayParts);
             item.setContainerItem(containerItem);
             item.setCanDrinkInParts(canDrinkInParts);
             item.setUnlocalizedName(getDrinkItemName(containerItem, drink));
