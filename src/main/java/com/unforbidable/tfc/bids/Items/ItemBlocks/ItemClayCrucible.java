@@ -60,9 +60,15 @@ public class ItemClayCrucible extends ItemCrucible {
 
     @Override
     public String getUnlocalizedName(ItemStack itemstack) {
-        return itemstack.getItemDamage() == 0
-                ? getUnlocalizedName() + ".Ceramic"
-                : getUnlocalizedName() + ".Clay";
+        switch (itemstack.getItemDamage()) {
+            case 1:
+                return getUnlocalizedName() + ".Clay";
+
+            case 2:
+                return getUnlocalizedName() + ".Ruined";
+        }
+
+        return getUnlocalizedName() + ".Ceramic";
     }
 
 }

@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
 import java.util.List;
+import java.util.Random;
 
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemMeltedMetal;
@@ -75,6 +76,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     static final byte FLAGS_SMELTING = 2;
     static final byte FLAGS_LIQUID_IN = 4;
     static final byte FLAGS_LIQUID_OUT = 8;
+    static final byte FLAGS_RUINED = 16;
     byte flags = FLAGS_NONE;
     byte flagsPreviouslyUpdated = FLAGS_NONE;
 
@@ -93,6 +95,10 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     public abstract boolean hasLiquidInputSlot();
 
     public abstract float getHeatTransferEfficiency();
+
+    protected int getRuinedCrucibleBlockMeta() {
+        return -1;
+    }
 
     @SideOnly(Side.CLIENT)
     public int getCombinedTemp() {
@@ -122,6 +128,11 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     @SideOnly(Side.CLIENT)
     public boolean isLiquidOut() {
         return (flags & FLAGS_LIQUID_OUT) != 0;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean isRuined() {
+        return isFlagSet(FLAGS_RUINED);
     }
 
     @SideOnly(Side.CLIENT)
@@ -238,6 +249,10 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         return liquidStorage.getVolume();
     }
 
+    public boolean isLiquidMetal(Metal metal) {
+        return liquidStorage.getItemCount() == 1 && liquidStorage.getItem(0).getMetal() == metal;
+    }
+
     @Override
     public S35PacketUpdateTileEntity getDescriptionPacket() {
         if (!useUpdateMask) {
@@ -316,6 +331,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     public void writeCrucibleDataToNBT(NBTTagCompound tag) {
         tag.setInteger("solidTemp", (int) Math.floor(solidTemp));
         tag.setInteger("liquidTemp", (int) Math.floor(liquidTemp));
+        tag.setByte("flags", flags);
+        tag.setLong("glassMakingCompletedTicks", glassMakingCompletedTicks);
 
         NBTTagList storageTags = new NBTTagList();
         for (int i = 0; i < storage.length; i++) {
@@ -327,8 +344,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
             }
         }
         tag.setTag("Storage", storageTags);
-
-        tag.setLong("glassMakingCompletedTicks", glassMakingCompletedTicks);
 
         liquidStorage.writeToNBT(tag);
     }
@@ -343,6 +358,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     public void readCrucibleDataFromNBT(NBTTagCompound tag) {
         solidTemp = tag.getInteger("solidTemp");
         liquidTemp = tag.getInteger("liquidTemp");
+        flags = tag.getByte("flags");
+        glassMakingCompletedTicks = tag.getLong("glassMakingCompletedTicks");
 
         for (int i = 0; i < storage.length; i++) {
             storage[i] = null;
@@ -356,8 +373,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 storage[slot] = ItemStack.loadItemStackFromNBT(slotTag);
             }
         }
-
-        glassMakingCompletedTicks = tag.getLong("glassMakingCompletedTicks");
 
         liquidStorage.readFromNBT(tag);
 
@@ -395,16 +410,19 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 initialized = true;
             }
 
-            doWork(solidHeatingTimer.tick(), liquidHeatingTimer.tick(), liquidInputTimer.tick(),
-                    liquidOutputTimer.tick(), alloyMixingTimer.tick());
+            // Do work unless crucible is ruined
+            if (!isFlagSet(FLAGS_RUINED)) {
+                doWork(solidHeatingTimer.tick(), liquidHeatingTimer.tick(), liquidInputTimer.tick(),
+                        liquidOutputTimer.tick(), alloyMixingTimer.tick());
 
-            if (isOutputDirty) {
-                updateOutput();
-                isOutputDirty = false;
-            }
+                if (isOutputDirty) {
+                    updateOutput();
+                    isOutputDirty = false;
+                }
 
-            if (alloyMixingTimer.getTicksToGo() > 0) {
-                updateAlloyMixingCountdown();
+                if (alloyMixingTimer.getTicksToGo() > 0) {
+                    updateAlloyMixingCountdown();
+                }
             }
         }
     }
@@ -747,20 +765,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                 }
             }
 
-            if (updateSolidTemp || updateLiquidTemp) {
-                int prevCombinedTemp = combinedTemp;
-                combinedTemp = (int) Math.floor(inputMonitor.getVolume() > 0 ? solidTemp : liquidTemp);
-
-                // When exact values are not needed
-                // only update at 10 degrees precision
-                if (!BidsOptions.Crucible.enableExactTemperatureDisplay)
-                    combinedTemp = (int) Math.floor(combinedTemp / 10f) * 10;
-
-                if (prevCombinedTemp != combinedTemp) {
-                    updateGui(UPDATE_TEMP);
-                }
-            }
-
             if (updateSolidTemp) {
                 // Glass requires very high temperatures to melt
                 // and we achieve this by enclosing the crucible inside a solid structure
@@ -863,7 +867,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                     // Mix glass immediately
                                     if (liquidStorage.getOutputMetal() == Global.GLASS && liquidStorage.mixAlloy()) {
                                         Bids.LOG.debug("Liquid glass has been mixed");
-                                        updateGui(UPDATE_LIQUID);
                                     }
 
                                     // Solidify molten glass down if too much time passed
@@ -873,6 +876,22 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                         liquidTemp = 0;
                                         CrucibleHelper.reduceForgeTemp(this);
                                     }
+
+                                    // If glassmaking temp is higher than the max crucible temp
+                                    // there is a chance the crucible gets ruined
+                                    int meta = getRuinedCrucibleBlockMeta();
+                                    if (glassCanBeCreated && getMaxTemp() < 1600 && meta != -1) {
+                                        liquidTemp = 0;
+                                        double x = xCoord + 0.5D;
+                                        double y = yCoord + 0.5D;
+                                        double z = zCoord + 0.5D;
+                                        Random rand = getWorldObj().rand;
+                                        worldObj.playSoundEffect(x, y, z, "random.fizz",
+                                                0.4F + (rand.nextFloat() / 2), 0.7F + rand.nextFloat());
+                                        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta, 2);
+                                        Bids.LOG.debug("Crucible set to ruined.");
+                                        setFlags(FLAGS_RUINED);
+                                    }
                                 }
 
                                 updateGui(UPDATE_LIQUID | UPDATE_TEMP);
@@ -881,14 +900,26 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                     }
                 }
             }
+        }
 
-            if (updateLiquidTemp) {
-                boolean solidified = !liquidStorage.isAllLiquid(liquidTemp);
-                if (solidified)
-                    setFlags(FLAGS_SOLIDIFIED);
-                else
-                    clearFlags(FLAGS_SOLIDIFIED);
+        if (updateSolidTemp || updateLiquidTemp) {
+            int prevCombinedTemp = combinedTemp;
+            combinedTemp = (int) Math.floor(inputMonitor.getVolume() > 0 ? solidTemp : liquidTemp);
+
+            // When exact values are not needed
+            // only update at 10 degrees precision
+            if (!BidsOptions.Crucible.enableExactTemperatureDisplay)
+                combinedTemp = (int) Math.floor(combinedTemp / 10f) * 10;
+
+            if (prevCombinedTemp != combinedTemp) {
+                updateGui(UPDATE_TEMP);
             }
+
+            boolean solidified = !liquidStorage.isAllLiquid(liquidTemp);
+            if (solidified)
+                setFlags(FLAGS_SOLIDIFIED);
+            else
+                clearFlags(FLAGS_SOLIDIFIED);
         }
 
         if (acceptLiquid) {
@@ -1003,6 +1034,10 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
     private void clearFlags(byte mask) {
         flags &= ~mask;
+    }
+
+    private boolean isFlagSet(byte mask) {
+        return (flags & mask) != 0;
     }
 
     private void updateFlags() {

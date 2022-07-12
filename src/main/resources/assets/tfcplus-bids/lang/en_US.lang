@@ -1,5 +1,6 @@
 tile.ClayCrucible.Clay.name=Clay Crucible
 tile.ClayCrucible.Ceramic.name=Ceramic Crucible
+tile.ClayCrucible.Ruined.name=Ruined Ceramic Crucible
 tile.FireClayCrucible.name=Crucible
 
 tile.MudBrickChimney.Andesite.name=Mudbrick Chimney
@@ -324,3 +325,4 @@ gui.Alloying=Alloying
 gui.Glassmaking=Glassmaking
 gui.plans.blowpipe=Blowpipe
 gui.HoursRemaining=Hours Remaining
+gui.Ruined=Ruined

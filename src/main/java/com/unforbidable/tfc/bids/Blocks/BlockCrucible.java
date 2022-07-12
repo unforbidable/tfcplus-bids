@@ -113,20 +113,7 @@ public abstract class BlockCrucible extends BlockContainer {
             TileEntityCrucible crucibleTileEntity = (TileEntityCrucible) te;
 
             // Drop all inventory
-            for (int i = 0; i < crucibleTileEntity.getSizeInventory(); i++) {
-                if (crucibleTileEntity.getStackInSlot(i) != null) {
-                    ItemStack isItemStack = crucibleTileEntity.getStackInSlot(i);
-                    EntityItem slotEntityItem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5,
-                            isItemStack);
-                    slotEntityItem.motionX = 0;
-                    slotEntityItem.motionY = 0;
-                    slotEntityItem.motionZ = 0;
-                    world.spawnEntityInWorld(slotEntityItem);
-
-                    // Also empty the slot so that it isn't saved
-                    crucibleTileEntity.decrStackSize(i, isItemStack.stackSize);
-                }
-            }
+            dropContents(crucibleTileEntity);
 
             // Drop as item with liquid & liquid temp preserved
             ItemStack is = new ItemStack(Item.getItemFromBlock(block), 1);
@@ -153,6 +140,23 @@ public abstract class BlockCrucible extends BlockContainer {
 
     @Override
     protected void dropBlockAsItem(World par1World, int par2, int par3, int par4, ItemStack par5ItemStack) {
+    }
+
+    protected void dropContents(TileEntityCrucible crucible) {
+        for (int i = 0; i < crucible.getSizeInventory(); i++) {
+            if (crucible.getStackInSlot(i) != null) {
+                ItemStack isItemStack = crucible.getStackInSlot(i);
+                EntityItem slotEntityItem = new EntityItem(crucible.getWorldObj(),
+                        crucible.xCoord + 0.5, crucible.yCoord + 0.5, crucible.zCoord + 0.5,
+                        isItemStack);
+                slotEntityItem.motionX = 0;
+                slotEntityItem.motionY = 0;
+                slotEntityItem.motionZ = 0;
+                crucible.getWorldObj().spawnEntityInWorld(slotEntityItem);
+
+                crucible.decrStackSize(i, isItemStack.stackSize);
+            }
+        }
     }
 
 }

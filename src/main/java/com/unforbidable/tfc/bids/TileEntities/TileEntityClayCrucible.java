@@ -34,6 +34,11 @@ public class TileEntityClayCrucible extends TileEntityCrucible {
     }
 
     @Override
+    protected int getRuinedCrucibleBlockMeta() {
+        return 2;
+    }
+
+    @Override
     public float getHeatTransferEfficiency() {
         // With 98% efficiency, the max temp received from charcoal is only 1078
         // and because copper needs temp 1080 to melt

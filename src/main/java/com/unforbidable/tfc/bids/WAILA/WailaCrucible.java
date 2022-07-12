@@ -54,6 +54,11 @@ public class WailaCrucible implements IWailaDataProvider {
                 String liquidTempString = TFC_ItemHeat.getHeatColor(liquidTemp, Integer.MAX_VALUE);
                 currenttip.add(liquidTempString);
             }
+
+            if (tileEntityCrucible.isRuined()) {
+                currenttip.add(EnumChatFormatting.DARK_RED
+                        + StatCollector.translateToLocal("gui.Ruined"));
+            }
         }
         if (ChimneyHelper.isChimney(accessor.getTileEntity())) {
             TileEntityCrucible crucible = ChimneyHelper.findActiveFurnaceCrucible(accessor.getTileEntity());
