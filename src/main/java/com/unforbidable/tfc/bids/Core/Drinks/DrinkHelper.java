@@ -23,11 +23,13 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class DrinkHelper {
 
-    public static void registerFluidContainers(Item containerItem, int volume, boolean canDrinkInParts, int... overlayParts) {
+    public static void registerFluidContainers(Item containerItem, int volume, boolean canDrinkInParts,
+            int... overlayParts) {
         registerFluidContainers(containerItem, false, volume, canDrinkInParts, overlayParts);
     }
 
-    public static void registerPotteryFluidContainers(Item containerItem, int volume, boolean canDrinkInParts, int... overlayParts) {
+    public static void registerPotteryFluidContainers(Item containerItem, int volume, boolean canDrinkInParts,
+            int... overlayParts) {
         registerFluidContainers(containerItem, true, volume, canDrinkInParts, overlayParts);
     }
 
@@ -35,7 +37,8 @@ public class DrinkHelper {
             boolean canDrinkInParts, int... overlayParts) {
         for (IDrinkable drink : DrinkRegistry.getDrinks()) {
             ItemDrink item = drink.getAlcoholContent() > 0
-                    ? new ItemGenericAlcohol(volume, isPottery).setAlcoholContent(drink.getAlcoholContent())
+                    ? new ItemGenericAlcohol(volume, isPottery, overlayParts)
+                            .setAlcoholContent(drink.getAlcoholContent())
                     : new ItemGenericDrink(volume, isPottery, overlayParts);
             item.setContainerItem(containerItem);
             item.setCanDrinkInParts(canDrinkInParts);
@@ -151,4 +154,5 @@ public class DrinkHelper {
         }
         return is;
     }
+
 }
