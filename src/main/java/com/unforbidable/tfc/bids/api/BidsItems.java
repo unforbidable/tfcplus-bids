@@ -15,5 +15,6 @@ public class BidsItems {
     public static Item shotGlass;
     public static Item clayPipe;
     public static Item clayMug;
+    public static Item glassLump;
 
 }

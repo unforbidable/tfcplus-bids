@@ -24,6 +24,7 @@ import com.unforbidable.tfc.bids.Handlers.WorldEventHandler;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
 import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
+import com.unforbidable.tfc.bids.Items.ItemGlassLump;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
@@ -88,6 +89,7 @@ public class CommonProxy {
                 .setUnlocalizedName("Shot Glass");
         BidsItems.clayPipe = new ItemGenericPottery(true).setUnlocalizedName("Pottery Pipe");
         BidsItems.clayMug = new ItemDrinkingPottery().setUnlocalizedName("Pottery Mug");
+        BidsItems.glassLump = new ItemGlassLump().setUnlocalizedName("Glass Lump");
 
         GameRegistry.registerItem(BidsItems.oreBit, BidsItems.oreBit.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.metalBlowpipe, BidsItems.metalBlowpipe.getUnlocalizedName());
@@ -98,6 +100,7 @@ public class CommonProxy {
         GameRegistry.registerItem(BidsItems.shotGlass, BidsItems.shotGlass.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.clayPipe, BidsItems.clayPipe.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.clayMug, BidsItems.clayMug.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.glassLump, BidsItems.glassLump.getUnlocalizedName());
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new GuiHandler());
 

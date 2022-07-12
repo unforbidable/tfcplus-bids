@@ -309,6 +309,8 @@ item.Pottery Mug.Tequila.name=Mug of Tequila
 item.Pottery Pipe.Clay.name=Clay Pipe
 item.Pottery Pipe.Ceramic.name=Ceramic Pipe
 
+item.Glass Lump.name=Lump of Glass
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Drinks=Bids and Pieces - Drinks
 
