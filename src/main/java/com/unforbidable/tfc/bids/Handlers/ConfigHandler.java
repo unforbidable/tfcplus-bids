@@ -58,6 +58,10 @@ public class ConfigHandler {
                 "coolingMultiplier", "crucible",
                 BidsOptions.Crucible.coolingMultiplier, 1f, 10f,
                 "Higher values increase the heat transfer rate when cooling down (heat loss)");
+        BidsOptions.Crucible.furnaceOverheatingRuinChance = config.getFloat(
+                "furnaceOverheatingRuinChance", "crucible",
+                BidsOptions.Crucible.furnaceOverheatingRuinChance, 0f, 1f,
+                "The chance of clay crucible to get ruined after making glass (0 = never, 1 = always)");
 
         config.save();
     }

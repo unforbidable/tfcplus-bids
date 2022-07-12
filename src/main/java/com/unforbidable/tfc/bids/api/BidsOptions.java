@@ -13,6 +13,7 @@ public class BidsOptions {
         public static float liquidHeatingMultiplier = 6;
         public static float solidHeatingFromLiquidBonusMultiplier = 3;
         public static float coolingMultiplier = 1;
+        public static float furnaceOverheatingRuinChance = 1f;
 
     }
 

@@ -880,7 +880,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                     // If glassmaking temp is higher than the max crucible temp
                                     // there is a chance the crucible gets ruined
                                     int meta = getRuinedCrucibleBlockMeta();
-                                    if (glassCanBeCreated && getMaxTemp() < 1600 && meta != -1) {
+                                    if (BidsOptions.Crucible.furnaceOverheatingRuinChance > worldObj.rand.nextFloat()
+                                            && glassCanBeCreated && getMaxTemp() < 1600 && meta != -1) {
                                         liquidTemp = 0;
                                         double x = xCoord + 0.5D;
                                         double y = yCoord + 0.5D;
@@ -889,8 +890,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                         worldObj.playSoundEffect(x, y, z, "random.fizz",
                                                 0.4F + (rand.nextFloat() / 2), 0.7F + rand.nextFloat());
                                         worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta, 2);
-                                        Bids.LOG.debug("Crucible set to ruined.");
                                         setFlags(FLAGS_RUINED);
+                                        Bids.LOG.debug("Crucible got ruined");
                                     }
                                 }
 
