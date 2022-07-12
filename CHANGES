@@ -60,3 +60,10 @@
 - Added: Brass blowpipe can be made from a brass sheet
 - Changed: Furnace smoke propagates through chimney blocks
 - Fixed: Furnace structure now definitely requires the roof block
+
+0.9.0 (12-07-2022)
+- Added: Clay mug (200mb) for drinking
+- Added: Drink items visually reflect their fullness when possible
+- Added: Chance of clay crucible getting ruined when making glass in the furnace (optional, default is always)
+- Added: Lump of glass can be retrieved from a ruined crucible to be melted into glass
+- Changed: Clay crucible requires firing in the kiln before it can be used

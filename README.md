@@ -8,9 +8,10 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Ore Bits](../../wiki/Ore-Bits) - breaking ore chunks into smaller pieces
 * [Metal Blowpipe](../../wiki/Metal-Blowpipe) - recipe based glassware crafting
 * [Drinking Glass](../../wiki/Drinking-Glass) - various new drinking containers made out of glass
-* [Furnace](../../wiki/Furnace) - allows making glass in a crucible
+* [Furnace](../../wiki/Furnace) - for making glass in a crucible
 * [Mud Brick Chimney](../../wiki/Mud-brick-chimney) - allows furnace construction before acquiring metal tools
 * [Ceramic Pipe](../../wiki/Ceramic-Pipe) - used in making a mud brick chimney
+* [Ceramic Mug](../../wiki/Clay-Mug) - a drinking container made out of clay
 
 ### Compiling
 
