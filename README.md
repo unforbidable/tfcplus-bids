@@ -13,6 +13,10 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Ceramic Pipe](../../wiki/Ceramic-Pipe) - used in making a mud brick chimney
 * [Ceramic Mug](../../wiki/Clay-Mug) - a drinking container made out of clay
 
+### Translations
+
+* Chinese by Eternal130 (Eternal130#9454)
+
 ### Compiling
 
 Required libraries to be placed in `libs` folder (or the latest version as available):

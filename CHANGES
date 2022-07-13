@@ -67,3 +67,6 @@
 - Added: Chance of clay crucible getting ruined when making glass in the furnace (optional, default is always)
 - Added: Lump of glass can be retrieved from a ruined crucible to be melted into glass
 - Changed: Clay crucible requires firing in the kiln before it can be used
+
+0.9.1 (13-07-2022)
+- Added: Chinese translation by Eternal130
