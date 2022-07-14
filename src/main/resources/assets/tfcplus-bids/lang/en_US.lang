@@ -312,6 +312,15 @@ item.Pottery Pipe.Ceramic.name=Ceramic Pipe
 
 item.Glass Lump.name=Lump of Glass
 
+item.IgIn Stone Drill Head.name=Stone Drill Head
+item.Sed Stone Drill Head.name=Stone Drill Head
+item.IgEx Stone Drill Head.name=Stone Drill Head
+item.MM Stone Drill Head.name=Stone Drill Head
+item.IgIn Stone Drill.name=Stone Drill
+item.Sed Stone Drill.name=Stone Drill
+item.IgEx Stone Drill.name=Stone Drill
+item.MM Stone Drill.name=Stone Drill
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Drinks=Bids and Pieces - Drinks
 
