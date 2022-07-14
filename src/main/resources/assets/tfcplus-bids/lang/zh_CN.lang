@@ -50,7 +50,7 @@ item.Brass Blowpipe.Glass.name=黄铜吹管(玻璃)
 
 item.Flat Glass.name=Flat Glass
 
-item.Drinking Glass.name=玻璃杯()
+item.Drinking Glass.name=玻璃杯
 item.Drinking Glass.FreshWater.name=玻璃杯(淡水)
 item.Drinking Glass.Beer.name=玻璃杯(啤酒)
 item.Drinking Glass.WheatBeer.name=玻璃杯(小麦啤酒)
@@ -114,7 +114,7 @@ item.Drinking Glass.OrangeBrandy.name=玻璃杯(橙子白兰地)
 item.Drinking Glass.LemonBrandy.name=玻璃杯(柠檬白兰地)
 item.Drinking Glass.Tequila.name=玻璃杯(龙舌兰酒)
 
-item.Glass Jug.name=玻璃壶()
+item.Glass Jug.name=玻璃壶
 item.Glass Jug.FreshWater.name=玻璃壶(淡水)
 item.Glass Jug.Beer.name=玻璃壶(啤酒)
 item.Glass Jug.WheatBeer.name=玻璃壶(小麦啤酒)
@@ -178,7 +178,7 @@ item.Glass Jug.OrangeBrandy.name=玻璃壶(橙子白兰地)
 item.Glass Jug.LemonBrandy.name=玻璃壶(柠檬白兰地)
 item.Glass Jug.Tequila.name=玻璃壶(龙舌兰酒)
 
-item.Shot Glass.name=子弹杯()
+item.Shot Glass.name=子弹杯
 item.Shot Glass.FreshWater.name=子弹杯(淡水)
 item.Shot Glass.Beer.name=子弹杯(啤酒)
 item.Shot Glass.WheatBeer.name=子弹杯(小麦啤酒)
