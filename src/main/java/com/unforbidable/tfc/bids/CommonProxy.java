@@ -357,7 +357,7 @@ public class CommonProxy {
                 new Object[] { "#####", " ### ", " ### ", " ### ", "     ", '#',
                         new ItemStack(TFCItems.flatClay, 1, 3) });
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMug, 2),
-                new Object[] { "#####", "    #", "   # ", "    #", "   ##", '#',
+                new Object[] { "#####", "#####", "    #", "   # ", "    #", '#',
                         new ItemStack(TFCItems.flatClay, 1, 1) });
 
         Bids.LOG.info("Registering glass knapping recipes");
