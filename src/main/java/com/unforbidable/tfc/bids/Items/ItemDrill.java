@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Items;
 
-import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
@@ -8,6 +7,10 @@ import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.QuarryRegistry;
+import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
@@ -97,32 +101,38 @@ public class ItemDrill extends Item implements ISize {
     }
 
     protected boolean canDrillAt(World world, int x, int y, int z, int side) {
+        TileEntity te = world.getTileEntity(x, y, z);
         Block block = world.getBlock(x, y, z);
-        // Block must be quarriable
-        if (canDrillBlock(block)) {
-            ForgeDirection sidesToCheck[] = new ForgeDirection[] { ForgeDirection.UP, ForgeDirection.NORTH,
-                    ForgeDirection.WEST };
-            int airCount = 0;
-            for (ForgeDirection dir : sidesToCheck) {
-                // Either of the opposing side must be exposed to air to count
-                ForgeDirection opp = dir.getOpposite();
-                if (world.isAirBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ)
-                        || world.isAirBlock(x + opp.offsetX, y + opp.offsetY, z + opp.offsetZ)) {
-                    airCount++;
-                }
+        if (te != null && te instanceof TileEntityQuarry) {
+            // Can existing quarry be drilled more?
+            TileEntityQuarry quarry = (TileEntityQuarry) te;
+            return !quarry.isQuarryReady();
+        } else {
+            // Can a block be quarried?
+            IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+            if (quarriable != null) {
+                return quarriable.canQuarryBlockAt(world, x, y, z, side);
             }
-            return airCount == 3;
+
+            return false;
         }
-
-        return false;
     }
 
-    protected boolean canDrillBlock(Block block) {
-        return block == TFCBlocks.stoneMM || block == TFCBlocks.stoneSed;
-    }
-
-    protected static void onBlockDrilled(World world, int x, int y, int z, int side) {
-        Bids.LOG.info("Block drilled at: " + x + ", " + y + ", " + z + " side " + side);
+    protected void onBlockDrilled(World world, int x, int y, int z, int side) {
+        TileEntity te = world.getTileEntity(x, y, z);
+        Block block = world.getBlock(x, y, z);
+        if (te != null && te instanceof TileEntityQuarry) {
+            // Add another wedge to the quarry here
+            TileEntityQuarry quarry = (TileEntityQuarry) te;
+            quarry.onQuarryDrilled();
+            Bids.LOG.info("Existing quarry drilled at: " + x + ", " + y + ", " + z);
+        } else if (QuarryRegistry.isBlockQuarriable(block)) {
+            // Place quarry when block is drilled for the first time
+            // at the corresponding side
+            ForgeDirection d = ForgeDirection.getOrientation(side);
+            world.setBlock(x + d.offsetX, y + d.offsetY, z + d.offsetZ, BidsBlocks.quarry, side, 3);
+            Bids.LOG.info("Quarry started at: " + x + ", " + y + ", " + z + " side " + side);
+        }
     }
 
 }

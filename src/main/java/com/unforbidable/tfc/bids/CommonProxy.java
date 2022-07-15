@@ -14,9 +14,11 @@ import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
+import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Drinks.Drink;
 import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
+import com.unforbidable.tfc.bids.Core.Quarry.QuarriableStone;
 import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
@@ -33,14 +35,17 @@ import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemMudChimney;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemQuarry;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.DrinkRegistry;
+import com.unforbidable.tfc.bids.api.QuarryRegistry;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -62,6 +67,7 @@ public class CommonProxy {
         GameRegistry.registerTileEntity(TileEntityClayCrucible.class, "BidsClayCrucible");
         GameRegistry.registerTileEntity(TileEntityFireClayCrucible.class, "BidsFireClayCrucible");
         GameRegistry.registerTileEntity(TileEntityChimney.class, "BidsChimney");
+        GameRegistry.registerTileEntity(TileEntityQuarry.class, "BidsQuarry");
 
         BidsBlocks.clayCrucible = new BlockClayCrucible().setBlockName("ClayCrucible")
                 .setBlockTextureName("Pottery Crucible")
@@ -73,11 +79,16 @@ public class CommonProxy {
                 .setBlockName("MudBrickChimney");
         BidsBlocks.mudBrickChimney2 = new BlockMudChimney(16).setDirt(TFCBlocks.dirt2)
                 .setBlockName("MudBrickChimney2");
+        BidsBlocks.quarry = new BlockQuarry().setBlockName("Quarry");
 
         GameRegistry.registerBlock(BidsBlocks.clayCrucible, ItemClayCrucible.class, "ClayCrucible");
         GameRegistry.registerBlock(BidsBlocks.fireClayCrucible, ItemFireClayCrucible.class, "FireClayCrucible");
         GameRegistry.registerBlock(BidsBlocks.mudBrickChimney, ItemMudChimney.class, "MudBrickChimney");
         GameRegistry.registerBlock(BidsBlocks.mudBrickChimney2, ItemMudChimney.class, "MudBrickChimney2");
+        GameRegistry.registerBlock(BidsBlocks.quarry, ItemQuarry.class, "Quary");
+
+        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, BidsBlocks.quarriedStoneMM));
+        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneSed, BidsBlocks.quarriedStoneSed));
 
         BidsItems.oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");
         BidsItems.metalBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Metal Blowpipe");

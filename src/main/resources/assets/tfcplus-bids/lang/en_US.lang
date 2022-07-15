@@ -26,6 +26,8 @@ tile.MudBrickChimney2.Schist.name=Mudbrick Chimney
 tile.MudBrickChimney.Shale.name=Mudbrick Chimney
 tile.MudBrickChimney2.Slate.name=Mudbrick Chimney
 
+tile.Quarry.name=Quarry
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit
