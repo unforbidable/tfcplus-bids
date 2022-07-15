@@ -13,4 +13,6 @@ public interface IQuarriable {
 
     boolean isQuarryReady(World world, int x, int y, int z);
 
+    boolean blockRequiresWedgesToDetach(Block block);
+
 }

@@ -7,6 +7,7 @@ import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -28,6 +29,8 @@ public class WailaCrucible implements IWailaDataProvider {
 
         reg.registerBodyProvider(new WailaCrucible(), TEChimney.class);
         reg.registerBodyProvider(new WailaCrucible(), TileEntityChimney.class);
+
+        reg.registerBodyProvider(new WailaCrucible(), TileEntityQuarry.class);
     }
 
     @Override
@@ -64,8 +67,14 @@ public class WailaCrucible implements IWailaDataProvider {
             TileEntityCrucible crucible = ChimneyHelper.findActiveFurnaceCrucible(accessor.getTileEntity());
             if (crucible != null)
                 currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Glassmaking") + ": "
-                        + crucible.getGlassMakingRemainingHours() + " " + StatCollector.translateToLocal("gui.HoursRemaining"));
+                        + crucible.getGlassMakingRemainingHours() + " "
+                        + StatCollector.translateToLocal("gui.HoursRemaining"));
 
+        }
+        if (accessor.getTileEntity() instanceof TileEntityQuarry) {
+            TileEntityQuarry quarry = (TileEntityQuarry) accessor.getTileEntity();
+            currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Wedges") + ": "
+                    + quarry.getWedgeCount() + "/" + quarry.getMaxWedgeCount());
         }
         return currenttip;
     }

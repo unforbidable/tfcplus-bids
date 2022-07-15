@@ -112,4 +112,21 @@ public class BlockQuarry extends BlockContainer {
         super.onBlockHarvested(world, x, y, z, meta, player);
     }
 
+    @Override
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        int meta = world.getBlockMetadata(x, y, z);
+        ForgeDirection d = ForgeDirection.getOrientation(meta);
+        ForgeDirection o = d.getOpposite();
+        Block block = world.getBlock(x + o.offsetX, y + o.offsetY, z + o.offsetZ);
+        return QuarryRegistry.isBlockQuarriable(block);
+    }
+
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block b) {
+        super.onNeighborBlockChange(world, x, y, z, b);
+
+        if (!canBlockStay(world, x, y, z))
+            world.setBlockToAir(x, y, z);
+    }
+
 }

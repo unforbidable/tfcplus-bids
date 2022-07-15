@@ -7,10 +7,10 @@ import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
-import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -109,12 +109,7 @@ public class ItemDrill extends Item implements ISize {
             return !quarry.isQuarryReady();
         } else {
             // Can a block be quarried?
-            IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
-            if (quarriable != null) {
-                return quarriable.canQuarryBlockAt(world, x, y, z, side);
-            }
-
-            return false;
+            return QuarryHelper.canQuarryBlockAt(world, x, y, z, block, side);
         }
     }
 

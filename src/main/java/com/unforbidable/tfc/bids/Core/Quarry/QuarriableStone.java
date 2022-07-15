@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core.Quarry;
 
+import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
@@ -44,14 +45,19 @@ public class QuarriableStone implements IQuarriable {
         ForgeDirection[] sides = new ForgeDirection[] { ForgeDirection.UP, ForgeDirection.NORTH, ForgeDirection.WEST };
         for (ForgeDirection d : sides) {
             // There must be a ready quarry on each of the 3 sides or their opposites
-            if (!checkSide(world, x, y, z, d) && !checkSide(world, x, y, z, d.getOpposite()))
+            if (!checkSideIsReady(world, x, y, z, d) && !checkSideIsReady(world, x, y, z, d.getOpposite()))
                 return false;
 
         }
         return true;
     }
 
-    private boolean checkSide(World world, int x, int y, int z, ForgeDirection d) {
+    @Override
+    public boolean blockRequiresWedgesToDetach(Block block) {
+        return TFC_Core.isRawStone(block);
+    }
+
+    private boolean checkSideIsReady(World world, int x, int y, int z, ForgeDirection d) {
         x += d.offsetX;
         y += d.offsetY;
         z += d.offsetZ;
