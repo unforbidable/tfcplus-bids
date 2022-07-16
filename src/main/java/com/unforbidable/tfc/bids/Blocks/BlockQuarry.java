@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.Blocks;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
-import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -26,7 +26,7 @@ public class BlockQuarry extends BlockContainer {
 
     @Override
     public int damageDropped(int meta) {
-        return meta;
+        return meta & 7;
     }
 
     @Override
@@ -42,9 +42,9 @@ public class BlockQuarry extends BlockContainer {
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
-        ForgeDirection d = ForgeDirection.getOrientation(meta);
+        ForgeDirection d = ForgeDirection.getOrientation(meta & 7);
 
-        float s2 = 1f / 8;
+        float s2 = 1f / 16 * 1;
         float s1 = 1f - s2;
 
         float x1 = d == ForgeDirection.WEST ? s1 : 0;
@@ -53,6 +53,7 @@ public class BlockQuarry extends BlockContainer {
         float x2 = d == ForgeDirection.EAST ? s2 : 1;
         float y2 = d == ForgeDirection.UP ? s2 : 1;
         float z2 = d == ForgeDirection.SOUTH ? s2 : 1;
+
         setBlockBounds(x1, y1, z1, x2, y2, z2);
     }
 
@@ -71,7 +72,7 @@ public class BlockQuarry extends BlockContainer {
         if (!world.isRemote) {
             TileEntityQuarry quarry = (TileEntityQuarry) world.getTileEntity(x, y, z);
             if (quarry != null) {
-                quarry.dropWedges();
+                quarry.dropAllWedges();
             }
         }
     }
@@ -96,13 +97,7 @@ public class BlockQuarry extends BlockContainer {
                 }
 
                 if (isHammer) {
-                    // The direction of the block being quarried
-                    // is the opposite of the quarry block orientation
-                    ForgeDirection d = ForgeDirection.getOrientation(meta);
-                    ForgeDirection o = d.getOpposite();
-                    Block block = world.getBlock(x + o.offsetX, y + o.offsetY, z + o.offsetZ);
-                    IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
-                    if (quarriable.isQuarryReady(world, x + o.offsetX, y + o.offsetY, z + o.offsetZ)) {
+                    if (QuarryHelper.isQuarryReadyAt(world, x, y, z)) {
                         Bids.LOG.info("Quarry completed");
                     }
                 }
@@ -115,7 +110,7 @@ public class BlockQuarry extends BlockContainer {
     @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
-        ForgeDirection d = ForgeDirection.getOrientation(meta);
+        ForgeDirection d = ForgeDirection.getOrientation(meta & 7);
         ForgeDirection o = d.getOpposite();
         Block block = world.getBlock(x + o.offsetX, y + o.offsetY, z + o.offsetZ);
         return QuarryRegistry.isBlockQuarriable(block);

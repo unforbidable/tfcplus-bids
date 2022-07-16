@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.dunk.tfc.api.TFCItems;
@@ -24,9 +25,12 @@ public class TileEntityQuarry extends TileEntity {
     final static int WEDGE_PER_EDGE = 4;
 
     boolean initialized;
-    HashMap<ForgeDirection, Integer> wedgeData = new HashMap<ForgeDirection, Integer>();
+    Map<ForgeDirection, Integer> wedgeData;
 
     Timer neighborCheckingTimer = new Timer(10);
+
+    int clientInitRenderAttempts;
+    Timer clientInitRenderTimer = new Timer(0);
 
     public TileEntityQuarry() {
         super();
@@ -37,33 +41,67 @@ public class TileEntityQuarry extends TileEntity {
     }
 
     public void onQuarryDrilled() {
-        for (Entry<ForgeDirection, Integer> it : wedgeData.entrySet()) {
-            if (it.getValue() < WEDGE_PER_EDGE) {
-                it.setValue(it.getValue() + 1);
-                Bids.LOG.info("Wedge added to side: " + it.getKey() + ", total: " + getWedgeCount());
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                break;
+        boolean added = false;
+        for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+            if (wedgeData.containsKey(d)) {
+                int value = wedgeData.get(d);
+                if (value < WEDGE_PER_EDGE) {
+                    wedgeData.put(d, value + 1);
+                    Bids.LOG.info("Wedge added to side: " + d + ", total: " + getWedgeCount());
+                    added = true;
+                    break;
+                }
             }
         }
+
+        if (added) {
+            forceClientUpdate();
+            forceClientRenderUpdate();
+        }
+    }
+
+    private void forceClientUpdate() {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
+
+    private void forceClientRenderUpdate() {
+        // Forcing client update by setting/clearing an extra meta data bit
+        int side = getBlockMetadata() & 0x7;
+        int flag = (getBlockMetadata() & 0x8) == 0 ? 0x8 : 0;
+        // Flag 1 will cause a block update. Flag 2 will send the change to clients (you
+        // almost always want this). Flag 4 prevents the block from being re-rendered,
+        // if this is a client world. Flags can be added together.
+        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, side | flag, 3);
+    }
+
+    public Map<ForgeDirection, Integer> getWedges() {
+        return wedgeData;
     }
 
     public int getWedgeCount() {
         int total = 0;
-        for (int c : wedgeData.values())
-            total += c;
+        if (wedgeData != null) {
+            for (int c : wedgeData.values())
+                total += c;
+        }
         return total;
     }
 
     public int getMaxWedgeCount() {
-        return wedgeData.size() * WEDGE_PER_EDGE;
+        return wedgeData != null ? wedgeData.size() * WEDGE_PER_EDGE : 0;
     }
 
     public ForgeDirection getQuarryOrientation() {
-        return ForgeDirection.getOrientation(getBlockMetadata());
+        int meta = getBlockMetadata();
+        return ForgeDirection.getOrientation(meta & 7);
     }
 
-    public void dropWedges() {
+    public void dropAllWedges() {
         int n = getWedgeCount();
+        dropWedges(n);
+    }
+
+    public void dropWedges(int n) {
         ItemStack is = new ItemStack(TFCItems.stick, n);
         EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
         worldObj.spawnEntityInWorld(ei);
@@ -101,26 +139,33 @@ public class TileEntityQuarry extends TileEntity {
     public void writeQuarryDataToNBT(NBTTagCompound tag) {
         tag.setBoolean("initialized", initialized);
 
-        NBTTagList wedgeList = new NBTTagList();
-        for (Entry<ForgeDirection, Integer> it : wedgeData.entrySet()) {
-            NBTTagCompound wedgeTag = new NBTTagCompound();
-            wedgeTag.setByte("d", (byte) it.getKey().ordinal());
-            wedgeTag.setByte("c", (byte) it.getValue().intValue());
-            wedgeList.appendTag(wedgeTag);
+        if (initialized) {
+            NBTTagList wedgeList = new NBTTagList();
+            for (Entry<ForgeDirection, Integer> it : wedgeData.entrySet()) {
+                NBTTagCompound wedgeTag = new NBTTagCompound();
+                wedgeTag.setByte("d", (byte) it.getKey().ordinal());
+                wedgeTag.setByte("c", (byte) it.getValue().intValue());
+                wedgeList.appendTag(wedgeTag);
+            }
+            tag.setTag("wedges", wedgeList);
         }
-        tag.setTag("wedges", wedgeList);
     }
 
     public void readQuarryDataFromNBT(NBTTagCompound tag) {
         initialized = tag.getBoolean("initialized");
 
-        wedgeData.clear();
-        NBTTagList wedgeList = tag.getTagList("wedges", 10);
-        for (int i = 0; i < wedgeList.tagCount(); i++) {
-            NBTTagCompound wedgeTag = wedgeList.getCompoundTagAt(i);
-            ForgeDirection d = ForgeDirection.getOrientation(wedgeTag.getByte("d"));
-            int c = wedgeTag.getByte("c");
-            wedgeData.put(d, c);
+        if (initialized) {
+            NBTTagList wedgeList = tag.getTagList("wedges", 10);
+            wedgeData = new HashMap<ForgeDirection, Integer>();
+            for (int i = 0; i < wedgeList.tagCount(); i++) {
+                NBTTagCompound wedgeTag = wedgeList.getCompoundTagAt(i);
+                ForgeDirection d = ForgeDirection.getOrientation(wedgeTag.getByte("d"));
+                int c = wedgeTag.getByte("c");
+                wedgeData.put(d, c);
+            }
+            Bids.LOG.debug("Quarry client updated after server initialization");
+        } else {
+            Bids.LOG.debug("Quarry client updated before server initialization");
         }
     }
 
@@ -128,67 +173,144 @@ public class TileEntityQuarry extends TileEntity {
     public void updateEntity() {
         if (!worldObj.isRemote) {
             if (!initialized) {
+                Bids.LOG.debug("Quarry initializing");
                 initialized = true;
-                updateWedges();
-                onQuarryDrilled();
-                Bids.LOG.info("Quarry initialized");
+
+                wedgeData = initializeWedges();
+
+                forceClientUpdate();
+
+                // This triggers a delayed render update
+                // when the quarry is created and
+                // a wedge is added
+                // hopefully after the client has received
+                // initialized wedges from the server
+                // This is needed because during the initial
+                // render, we can't predict
+                // where the first wedge appears
+                // For that client would need to see the
+                // neightbors, and that is not guaranteed
+                // during the initial render
+                // Repeat a number of times
+                clientInitRenderAttempts = 3;
+                clientInitRenderTimer.delay(2);
+            }
+
+            if (clientInitRenderTimer.tick()) {
+                forceClientRenderUpdate();
+                Bids.LOG.debug("Quarry client render forced");
+
+                if (--clientInitRenderAttempts > 0) {
+                    clientInitRenderTimer.delay(2);
+                }
             }
 
             if (neighborCheckingTimer.tick()) {
-                updateWedges();
+                boolean changed = updateWedges(wedgeData);
+
+                if (changed) {
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    Bids.LOG.info("Updated max wedge count: " + getMaxWedgeCount());
+
+                    if (getMaxWedgeCount() == 0) {
+                        // No wedges are needed
+                        // which means the quarry shouldn't even be here
+                        worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+                        Bids.LOG.info("Quarry destroyed as there is no edges to wedge and nothing to quarry");
+                    }
+                }
             }
         }
     }
 
-    private void updateWedges() {
+    private Map<ForgeDirection, Integer> initializeWedges() {
+        Map<ForgeDirection, Integer> data = new HashMap<ForgeDirection, Integer>();
+
+        ForgeDirection orientation = getQuarryOrientation();
+        ForgeDirection opposite = getQuarryOrientation().getOpposite();
+
         // Quarried block location
-        ForgeDirection o = getQuarryOrientation().getOpposite();
-        int x = xCoord + o.offsetX;
-        int y = yCoord + o.offsetY;
-        int z = zCoord + o.offsetZ;
-        Block block = worldObj.getBlock(x, y, z);
+        int x2 = xCoord + opposite.offsetX;
+        int y2 = yCoord + opposite.offsetY;
+        int z2 = zCoord + opposite.offsetZ;
+        Block block = worldObj.getBlock(x2, y2, z2);
         IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
-        ForgeDirection orientation = ForgeDirection.getOrientation(getBlockMetadata());
 
-        boolean dirty = false;
-        int wedgesEjected = 0;
+        Bids.LOG.debug("Initializing wedges for quarry side: " + orientation
+                + " quarried at: " + x2 + ", " + y2 + ", " + z2);
 
-        for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
-            // Skip front and back relative to quarry location
-            if (d != orientation && d != orientation.getOpposite()) {
-                Block neighbor = worldObj.getBlock(x + d.offsetX, y + d.offsetY, z + d.offsetZ);
-                boolean useEdge = quarriable.blockRequiresWedgesToDetach(neighbor);
-                if (useEdge && !wedgeData.containsKey(d)) {
-                    // Add a new edge to gather wedges
-                    wedgeData.put(d, 0);
-                    dirty = true;
-                } else if (!useEdge && wedgeData.containsKey(d)) {
-                    // Remove previously used edge
-                    wedgesEjected += wedgeData.get(d);
-                    wedgeData.remove(d);
-                    dirty = true;
+        boolean addFirstWedge = true;
+
+        if (quarriable != null) {
+            for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+                // Skip front and back relative to quarry location
+                if (d != orientation && d != opposite) {
+                    Block neighbor = worldObj.getBlock(x2 + d.offsetX, y2 + d.offsetY, z2 + d.offsetZ);
+                    boolean useEdge = quarriable.blockRequiresWedgesToDetach(neighbor);
+                    if (useEdge) {
+                        // Add a new edge to gather wedges
+                        if (addFirstWedge) {
+                            data.put(d, 1);
+                            addFirstWedge = false;
+                        } else {
+                            data.put(d, 0);
+                        }
+                    }
                 }
             }
+        } else {
+            Bids.LOG.warn("Quarriable block missing when initializing wedges for quarry side: " + orientation
+                    + " quarried at: " + x2 + ", " + y2 + ", " + z2);
         }
 
-        if (dirty) {
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-            Bids.LOG.info("Updated max wedge count: " + getMaxWedgeCount());
+        return data;
+    }
+
+    private boolean updateWedges(Map<ForgeDirection, Integer> data) {
+        ForgeDirection orientation = getQuarryOrientation();
+        ForgeDirection opposite = orientation.getOpposite();
+
+        // Quarried block location
+        int x2 = xCoord + opposite.offsetX;
+        int y2 = yCoord + opposite.offsetY;
+        int z2 = zCoord + opposite.offsetZ;
+        Block block = worldObj.getBlock(x2, y2, z2);
+        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+
+        Bids.LOG.debug("Updating wedges for quarry side: " + orientation
+                + " quarried at: " + x2 + ", " + y2 + ", " + z2);
+
+        boolean dirty = false;
+        int wedgesDropped = 0;
+
+        if (quarriable != null) {
+            for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+                // Skip front and back relative to quarry location
+                if (d != orientation && d != opposite) {
+                    Block neighbor = worldObj.getBlock(x2 + d.offsetX, y2 + d.offsetY, z2 + d.offsetZ);
+                    boolean useEdge = quarriable.blockRequiresWedgesToDetach(neighbor);
+                    if (useEdge && !data.containsKey(d)) {
+                        // Add a new edge to gather wedges
+                        data.put(d, 0);
+                        dirty = true;
+                    } else if (!useEdge && data.containsKey(d)) {
+                        // Remove previously used edge
+                        wedgesDropped += data.get(d);
+                        data.remove(d);
+                        dirty = true;
+                    }
+                }
+            }
+        } else {
+            Bids.LOG.warn("Quarriable block missing when updating wedges for quarry side: " + orientation
+                    + " quarried at: " + x2 + ", " + y2 + ", " + z2);
         }
 
-        if (wedgesEjected > 0) {
-            ItemStack is = new ItemStack(TFCItems.stick, wedgesEjected);
-            EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
-            worldObj.spawnEntityInWorld(ei);
-            Bids.LOG.info("Dropped wedges from retired edges: " + wedgesEjected);
+        if (wedgesDropped > 0) {
+            dropWedges(wedgesDropped);
         }
 
-        if (getMaxWedgeCount() == 0) {
-            // No wedges are needed
-            // which means the quarry shouldn't even be here
-            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-            Bids.LOG.info("Quarry destroyed as there is no edges to wedge and nothing to quarry");
-        }
+        return dirty;
     }
 
 }
