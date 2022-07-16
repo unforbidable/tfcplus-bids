@@ -5,6 +5,7 @@ import java.util.List;
 import com.dunk.tfc.TileEntities.TEChimney;
 import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
+import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
@@ -75,6 +76,10 @@ public class WailaCrucible implements IWailaDataProvider {
             TileEntityQuarry quarry = (TileEntityQuarry) accessor.getTileEntity();
             currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Wedges") + ": "
                     + quarry.getWedgeCount() + "/" + quarry.getMaxWedgeCount());
+            if (QuarryHelper.isQuarryReadyAt(accessor.getWorld(), accessor.getPosition().blockX,
+                    accessor.getPosition().blockY, accessor.getPosition().blockZ)) {
+                currenttip.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("gui.QuarryReady"));
+            }
         }
         return currenttip;
     }
