@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.Core.Quarry;
+package com.unforbidable.tfc.bids.Core.Quarry.Quarriables;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;

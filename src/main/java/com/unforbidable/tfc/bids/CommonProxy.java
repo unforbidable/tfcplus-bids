@@ -18,7 +18,7 @@ import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Drinks.Drink;
 import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
-import com.unforbidable.tfc.bids.Core.Quarry.QuarriableStone;
+import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
