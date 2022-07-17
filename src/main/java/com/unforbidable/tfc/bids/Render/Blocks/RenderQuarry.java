@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.lwjgl.opengl.GL11;
 
-import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryWedgeBounds;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryWedgeModeller;
@@ -21,7 +20,6 @@ public class RenderQuarry implements ISimpleBlockRenderingHandler {
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-        Block materialBlock = TFCBlocks.woodAxle;
         ForgeDirection front = ForgeDirection.UP;
 
         for (ForgeDirection edge : ForgeDirection.VALID_DIRECTIONS) {
@@ -29,7 +27,7 @@ public class RenderQuarry implements ISimpleBlockRenderingHandler {
                 for (int i = 0; i < 4; i++) {
                     QuarryWedgeBounds[] b = QuarryWedgeModeller.getEdgeWedgeBounds(front, edge);
                     renderer.setRenderBounds(b[i].x1, b[i].y1, b[i].z1, b[i].x2, b[i].y2, b[i].z2);
-                    renderInvBlock(materialBlock, metadata, renderer);
+                    renderInvBlock(block, metadata, renderer);
                 }
             }
         }
@@ -41,7 +39,6 @@ public class RenderQuarry implements ISimpleBlockRenderingHandler {
         TileEntityQuarry quarry = (TileEntityQuarry) world.getTileEntity(x, y, z);
         ForgeDirection front = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) & 7);
         ForgeDirection back = front.getOpposite();
-        Block materialBlock = TFCBlocks.woodAxle;
 
         Map<ForgeDirection, Integer> wedges = quarry.getWedges();
         if (wedges != null) {
@@ -56,7 +53,7 @@ public class RenderQuarry implements ISimpleBlockRenderingHandler {
                             QuarryWedgeBounds[] b = QuarryWedgeModeller.getEdgeWedgeBounds(front, edge);
                             for (int i = 0; i < count; i++) {
                                 renderer.setRenderBounds(b[i].x1, b[i].y1, b[i].z1, b[i].x2, b[i].y2, b[i].z2);
-                                renderer.renderStandardBlock(materialBlock, x, y, z);
+                                renderer.renderStandardBlock(block, x, y, z);
                             }
                         }
                     }

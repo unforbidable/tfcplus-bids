@@ -1,20 +1,25 @@
 package com.unforbidable.tfc.bids.Blocks;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -22,9 +27,22 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockQuarry extends BlockContainer {
 
+    IIcon iconWedge;
+
     public BlockQuarry() {
         super(Material.wood);
         setHardness(5f);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerBlockIcons(IIconRegister iconRegisterer) {
+        iconWedge = iconRegisterer.registerIcon(Tags.MOD_ID + ":quarry/Wedge.Stick");
+    }
+
+    @Override
+    public IIcon getIcon(int side, int meta) {
+        return iconWedge;
     }
 
     @Override
