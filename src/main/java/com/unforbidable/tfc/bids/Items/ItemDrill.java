@@ -8,6 +8,7 @@ import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillDataAgent;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -86,12 +87,13 @@ public class ItemDrill extends Item implements ISize {
     @Override
     public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
         int ticks = this.getMaxItemUseDuration(stack) - count;
-        if (!player.worldObj.isRemote && ticks > getTicksToDrill(stack, player)) {
+        if (!player.worldObj.isRemote && ticks > getDrillDuration(stack, player)) {
             player.clearItemInUse();
             MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
             if (mop != null && mop.typeOfHit == MovingObjectType.BLOCK
                     && canDrillAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit)) {
                 onBlockDrilled(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, stack, player);
+                QuarryDrillDataAgent.clearPlayerData(player);
             }
         }
     }
@@ -104,14 +106,50 @@ public class ItemDrill extends Item implements ISize {
         return is;
     }
 
+    @Override
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
+        if (!world.isRemote && canPlayerDrill(player)) {
+            TileEntity te = world.getTileEntity(x, y, z);
+            ForgeDirection d = ForgeDirection.getOrientation(side);
+            if (te != null && te instanceof TileEntityQuarry) {
+                onBlockDrillStarted(player.worldObj, x - d.offsetX, y - d.offsetY, z - d.offsetZ, side, stack, player);
+            } else {
+                onBlockDrillStarted(player.worldObj, x, y, z, side, stack, player);
+            }
+        }
+
+        return super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+    }
+
     protected boolean canPlayerDrill(EntityPlayer player) {
         MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
         return mop != null && mop.typeOfHit == MovingObjectType.BLOCK
                 && canDrillAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit);
     }
 
-    protected int getTicksToDrill(ItemStack stack, EntityPlayer player) {
+    protected int getBaseDrillDuration() {
         return BASE_DRILL_DURATION;
+    }
+
+    protected void onBlockDrillStarted(World world, int x, int y, int z, int side, ItemStack stack,
+            EntityPlayer player) {
+        // Save duration for this player
+        Block block = world.getBlock(x, y, z);
+        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        float mult = quarriable.getDrillDurationMultiplier(block);
+        int duration = (int) Math.ceil(getBaseDrillDuration() * mult);
+        QuarryDrillDataAgent.setPlayerData(player, duration);
+        Bids.LOG.debug("Set drill duration: " + duration);
+    }
+
+    protected int getDrillDuration(ItemStack stack, EntityPlayer player) {
+        if (!QuarryDrillDataAgent.hasPlayerData(player)) {
+            Bids.LOG.warn("Missing drill duration info for player");
+            return getBaseDrillDuration();
+        }
+
+        return QuarryDrillDataAgent.getDuration(player);
     }
 
     protected boolean canDrillAt(World world, int x, int y, int z, int side) {

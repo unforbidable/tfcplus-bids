@@ -17,4 +17,6 @@ public interface IQuarriable {
 
     int getDrillDamage(Block block);
 
+    float getDrillDurationMultiplier(Block block);
+
 }

@@ -14,12 +14,15 @@ public class QuarriableStone implements IQuarriable {
     final Block rawBlock;
     final Block quarriedBlock;
     final int drillDamage;
+    final float drillDurationMultiplier;
 
-    public QuarriableStone(Block rawBlock, Block quarriedBlock, int drillDamage) {
+    public QuarriableStone(Block rawBlock, Block quarriedBlock,
+            int drillDamage, float drillDurationMultiplier) {
         super();
         this.rawBlock = rawBlock;
         this.quarriedBlock = quarriedBlock;
         this.drillDamage = drillDamage;
+        this.drillDurationMultiplier = drillDurationMultiplier;
     }
 
     @Override
@@ -61,6 +64,11 @@ public class QuarriableStone implements IQuarriable {
     @Override
     public int getDrillDamage(Block block) {
         return drillDamage;
+    }
+
+    @Override
+    public float getDrillDurationMultiplier(Block block) {
+        return drillDurationMultiplier;
     }
 
     private boolean checkSideIsReady(World world, int x, int y, int z, ForgeDirection d) {
