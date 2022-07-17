@@ -15,7 +15,5 @@ public class BidsBlocks {
     public static Block mudBrickChimney2;
 
     public static Block quarry;
-    public static Block quarriedStoneMM;
-    public static Block quarriedStoneSed;
 
 }
