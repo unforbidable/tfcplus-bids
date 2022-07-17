@@ -223,11 +223,11 @@ public class TileEntityQuarry extends TileEntity {
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                     Bids.LOG.info("Updated max wedge count: " + getMaxWedgeCount());
 
-                    if (getMaxWedgeCount() == 0) {
-                        // No wedges are needed
-                        // which means the quarry shouldn't even be here
+                    if (getWedgeCount() == 0) {
+                        // All wedges dropped during the update
+                        // so remove quarry
                         worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-                        Bids.LOG.info("Quarry destroyed as there is no edges to wedge and nothing to quarry");
+                        Bids.LOG.info("Quarry without wedges removed");
                     }
                 }
             }
