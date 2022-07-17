@@ -65,7 +65,7 @@ public class BlockQuarry extends BlockContainer {
         int meta = world.getBlockMetadata(x, y, z);
         ForgeDirection d = ForgeDirection.getOrientation(meta & 7);
 
-        float s2 = 1f / 16 * 1;
+        float s2 = 1f / 16 * 2;
         float s1 = 1f - s2;
 
         float x1 = d == ForgeDirection.WEST ? s1 : 0;
