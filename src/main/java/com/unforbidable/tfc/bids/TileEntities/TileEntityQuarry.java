@@ -93,6 +93,10 @@ public class TileEntityQuarry extends TileEntity {
 
     public ForgeDirection getQuarryOrientation() {
         int meta = getBlockMetadata();
+        return getQuarryOrientation(meta);
+    }
+
+    public ForgeDirection getQuarryOrientation(int meta) {
         return ForgeDirection.getOrientation(meta & 7);
     }
 

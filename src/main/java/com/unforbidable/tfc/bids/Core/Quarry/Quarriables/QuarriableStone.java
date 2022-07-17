@@ -47,7 +47,6 @@ public class QuarriableStone implements IQuarriable {
             // There must be a ready quarry on each of the 3 sides or their opposites
             if (!checkSideIsReady(world, x, y, z, d) && !checkSideIsReady(world, x, y, z, d.getOpposite()))
                 return false;
-
         }
         return true;
     }
@@ -58,16 +57,34 @@ public class QuarriableStone implements IQuarriable {
     }
 
     private boolean checkSideIsReady(World world, int x, int y, int z, ForgeDirection d) {
-        x += d.offsetX;
-        y += d.offsetY;
-        z += d.offsetZ;
-        int meta = world.getBlockMetadata(x, y, z);
-        TileEntity te = world.getTileEntity(x, y, z);
+        int x2 = x + d.offsetX;
+        int y2 = y + d.offsetY;
+        int z2 = z + d.offsetZ;
+        int meta = world.getBlockMetadata(x2, y2, z2);
+        TileEntity te = world.getTileEntity(x2, y2, z2);
 
         // We expect a properly facing quarry that is ready
-        if (meta == d.ordinal() && te != null && te instanceof TileEntityQuarry) {
-            return ((TileEntityQuarry) te).isQuarryReady();
+        if (te != null && te instanceof TileEntityQuarry) {
+            TileEntityQuarry quarry = (TileEntityQuarry) te;
+            return quarry.isQuarryReady() && quarry.getQuarryOrientation(meta) == d;
         }
+
+        // Or none of the edges to require wedges
+        // which means no quarry is needed here
+        boolean found = false;
+        for (ForgeDirection edge : ForgeDirection.VALID_DIRECTIONS) {
+            // Skip d and opposite
+            if (d != edge && d.getOpposite() != edge) {
+                Block block = world.getBlock(x + edge.offsetX, y + edge.offsetY, z + edge.offsetZ);
+                if (blockRequiresWedgesToDetach(block)) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        if (!found)
+            return true;
 
         return false;
     }
