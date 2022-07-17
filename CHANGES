@@ -74,3 +74,8 @@
 0.9.2 (14-07-2022)
 - Changed: Clay mug recipe changed to be more distinct from a clay jug recipe
 - Updated: Chinese translation by Eternal130
+
+0.10.0 (17-07-2022)
+- Added: Stone drill tool
+- Added: Raw stone quarrying using the drill and wedge method
+- Added: Options to change the drill duration and the chance of bow string breaking
