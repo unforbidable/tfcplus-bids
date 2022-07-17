@@ -76,8 +76,12 @@ public class WailaCrucible implements IWailaDataProvider {
             TileEntityQuarry quarry = (TileEntityQuarry) accessor.getTileEntity();
             currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Wedges") + ": "
                     + quarry.getWedgeCount() + "/" + quarry.getMaxWedgeCount());
-            if (QuarryHelper.isQuarryReadyAt(accessor.getWorld(), accessor.getPosition().blockX,
-                    accessor.getPosition().blockY, accessor.getPosition().blockZ)) {
+
+            // Wait for the quarry to be initialized
+            // before even considering showing readiness
+            if (quarry.getMaxWedgeCount() > 0
+                    && QuarryHelper.isQuarryReadyAt(accessor.getWorld(), accessor.getPosition().blockX,
+                            accessor.getPosition().blockY, accessor.getPosition().blockZ)) {
                 currenttip.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("gui.QuarryReady"));
             }
         }
