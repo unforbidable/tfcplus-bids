@@ -124,4 +124,14 @@ public class BlockQuarry extends BlockContainer {
             world.setBlockToAir(x, y, z);
     }
 
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+            float hitY, float hitZ) {
+        if (world.isRemote) {
+            world.markBlockForUpdate(x, y, z);
+        }
+
+        return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+    }
+
 }
