@@ -125,7 +125,20 @@ public class ItemDrill extends Item implements ISize {
     protected boolean canPlayerDrill(EntityPlayer player) {
         MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
         return mop != null && mop.typeOfHit == MovingObjectType.BLOCK
-                && canDrillAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit);
+                && canDrillAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit)
+                && checkExtraEquipment(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, player);
+    }
+
+    protected boolean checkExtraEquipment(World world, int x, int y, int z, int side, EntityPlayer player) {
+        // At least one stick is needed on the hotbar
+        for (int i = 0; i < 9; i++) {
+            ItemStack is = player.inventory.getStackInSlot(i);
+            if (is != null && is.getItem() == TFCItems.stick)
+                return true;
+        }
+
+        Bids.LOG.info("Drilling requires sticks on hotbar and none were found");
+        return false;
     }
 
     protected int getBaseDrillDuration() {
@@ -186,6 +199,7 @@ public class ItemDrill extends Item implements ISize {
         }
 
         ItemStack newStack = onDrillDamaged(stack, player, block);
+        onConsumeExtraEquipment(player, block);
 
         double x2 = x + 0.5D;
         double y2 = y + 0.5D;
@@ -198,6 +212,23 @@ public class ItemDrill extends Item implements ISize {
         if (stack.getItem() != newStack.getItem()) {
             world.playSoundEffect(x2, y2, z2, "random.break",
                     0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
+        }
+    }
+
+    protected void onConsumeExtraEquipment(EntityPlayer player, Block block) {
+        // Consume one stick from the hotbar
+        boolean consumed = false;
+        for (int i = 0; i < 9; i++) {
+            ItemStack is = player.inventory.getStackInSlot(i);
+            if (is != null && is.getItem() == TFCItems.stick) {
+                player.inventory.decrStackSize(i, 1);
+                consumed = true;
+                break;
+            }
+        }
+
+        if (!consumed) {
+            Bids.LOG.warn("No sticks were found on the hotbar to be consumed");
         }
     }
 
