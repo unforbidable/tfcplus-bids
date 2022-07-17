@@ -63,6 +63,15 @@ public class ConfigHandler {
                 BidsOptions.Crucible.furnaceOverheatingRuinChance, 0f, 1f,
                 "The chance of clay crucible to get ruined after making glass (0 = never, 1 = always)");
 
+        BidsOptions.Quarry.baseDrillDuration = config.getInt(
+                "baseDrillDuration", "quarry",
+                BidsOptions.Quarry.baseDrillDuration, 10, 1000,
+                "Higher values increase the time it takes to drill a hole");
+        BidsOptions.Quarry.bowStringBreakChance = config.getFloat(
+                "bowStringBreakChance", "quarry",
+                BidsOptions.Quarry.bowStringBreakChance, 0f, 1f,
+                "The chance of bow string breaking when a drill breaks (0 = never, 1 = always)");
+
         config.save();
     }
 

@@ -26,6 +26,8 @@ tile.MudBrickChimney2.Schist.name=Mudbrick Chimney
 tile.MudBrickChimney.Shale.name=Mudbrick Chimney
 tile.MudBrickChimney2.Slate.name=Mudbrick Chimney
 
+tile.Quarry.name=Quarry
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit
@@ -312,6 +314,15 @@ item.Pottery Pipe.Ceramic.name=Ceramic Pipe
 
 item.Glass Lump.name=Lump of Glass
 
+item.IgIn Stone Drill Head.name=Stone Drill Head
+item.Sed Stone Drill Head.name=Stone Drill Head
+item.IgEx Stone Drill Head.name=Stone Drill Head
+item.MM Stone Drill Head.name=Stone Drill Head
+item.IgIn Stone Drill.name=Stone Drill
+item.Sed Stone Drill.name=Stone Drill
+item.IgEx Stone Drill.name=Stone Drill
+item.MM Stone Drill.name=Stone Drill
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Drinks=Bids and Pieces - Drinks
 
@@ -326,3 +337,5 @@ gui.Glassmaking=Glassmaking
 gui.plans.blowpipe=Blowpipe
 gui.HoursRemaining=Hours Remaining
 gui.Ruined=Ruined
+gui.Wedges=Wedges
+gui.QuarryReady=Ready

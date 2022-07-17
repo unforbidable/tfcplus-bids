@@ -17,4 +17,14 @@ public class BidsItems {
     public static Item clayMug;
     public static Item glassLump;
 
+    public static Item igInStoneDrillHead;
+    public static Item sedStoneDrillHead;
+    public static Item igExStoneDrillHead;
+    public static Item mMStoneDrillHead;
+
+    public static Item igInStoneDrill;
+    public static Item sedStoneDrill;
+    public static Item igExStoneDrill;
+    public static Item mMStoneDrill;
+
 }
