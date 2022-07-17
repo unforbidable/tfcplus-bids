@@ -87,8 +87,8 @@ public class CommonProxy {
         GameRegistry.registerBlock(BidsBlocks.mudBrickChimney2, ItemMudChimney.class, "MudBrickChimney2");
         GameRegistry.registerBlock(BidsBlocks.quarry, ItemQuarry.class, "Quary");
 
-        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, BidsBlocks.quarriedStoneMM));
-        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneSed, BidsBlocks.quarriedStoneSed));
+        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, BidsBlocks.quarriedStoneMM, 2));
+        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneSed, BidsBlocks.quarriedStoneSed, 1));
 
         BidsItems.oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");
         BidsItems.metalBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Metal Blowpipe");

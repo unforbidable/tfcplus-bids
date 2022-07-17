@@ -15,4 +15,6 @@ public interface IQuarriable {
 
     boolean blockRequiresWedgesToDetach(Block block);
 
+    int getDrillDamage(Block block);
+
 }

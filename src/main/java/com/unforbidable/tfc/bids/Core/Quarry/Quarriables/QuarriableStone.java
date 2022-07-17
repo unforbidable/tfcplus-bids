@@ -13,11 +13,13 @@ public class QuarriableStone implements IQuarriable {
 
     final Block rawBlock;
     final Block quarriedBlock;
+    final int drillDamage;
 
-    public QuarriableStone(Block rawBlock, Block quarriedBlock) {
+    public QuarriableStone(Block rawBlock, Block quarriedBlock, int drillDamage) {
         super();
         this.rawBlock = rawBlock;
         this.quarriedBlock = quarriedBlock;
+        this.drillDamage = drillDamage;
     }
 
     @Override
@@ -54,6 +56,11 @@ public class QuarriableStone implements IQuarriable {
     @Override
     public boolean blockRequiresWedgesToDetach(Block block) {
         return TFC_Core.isRawStone(block);
+    }
+
+    @Override
+    public int getDrillDamage(Block block) {
+        return drillDamage;
     }
 
     private boolean checkSideIsReady(World world, int x, int y, int z, ForgeDirection d) {

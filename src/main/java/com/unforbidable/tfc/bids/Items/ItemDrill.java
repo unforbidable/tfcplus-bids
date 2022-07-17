@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Items;
 
+import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
@@ -11,6 +12,7 @@ import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
+import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -26,13 +28,18 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class ItemDrill extends Item implements ISize {
 
+    static final int MAX_USE_DURATION = 72000;
+    static final int BASE_DRILL_DURATION = 40;
+
     final private ToolMaterial material;
 
     public ItemDrill(ToolMaterial material) {
         super();
         this.material = material;
-        setMaxDamage(1000);
+        maxStackSize = 1;
         setCreativeTab(BidsCreativeTabs.BidsDefault);
+        setMaxDamage(material.getMaxUses() / 2);
+        setNoRepair();
     }
 
     public ToolMaterial getMaterial() {
@@ -58,7 +65,7 @@ public class ItemDrill extends Item implements ISize {
 
     @Override
     public EnumSize getSize(ItemStack arg0) {
-        return EnumSize.SMALL;
+        return EnumSize.VERYSMALL;
     }
 
     @Override
@@ -73,15 +80,18 @@ public class ItemDrill extends Item implements ISize {
 
     @Override
     public int getMaxItemUseDuration(ItemStack is) {
-        return 20;
+        return MAX_USE_DURATION;
     }
 
     @Override
     public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-        if (!player.worldObj.isRemote && count == 1) {
+        int ticks = this.getMaxItemUseDuration(stack) - count;
+        if (!player.worldObj.isRemote && ticks > getTicksToDrill(stack, player)) {
+            player.clearItemInUse();
             MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
-            if (mop != null && mop.typeOfHit == MovingObjectType.BLOCK) {
-                onBlockDrilled(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit);
+            if (mop != null && mop.typeOfHit == MovingObjectType.BLOCK
+                    && canDrillAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit)) {
+                onBlockDrilled(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, stack, player);
             }
         }
     }
@@ -94,10 +104,14 @@ public class ItemDrill extends Item implements ISize {
         return is;
     }
 
-    boolean canPlayerDrill(EntityPlayer player) {
+    protected boolean canPlayerDrill(EntityPlayer player) {
         MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
         return mop != null && mop.typeOfHit == MovingObjectType.BLOCK
                 && canDrillAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit);
+    }
+
+    protected int getTicksToDrill(ItemStack stack, EntityPlayer player) {
+        return BASE_DRILL_DURATION;
     }
 
     protected boolean canDrillAt(World world, int x, int y, int z, int side) {
@@ -113,21 +127,72 @@ public class ItemDrill extends Item implements ISize {
         }
     }
 
-    protected void onBlockDrilled(World world, int x, int y, int z, int side) {
+    protected void onBlockDrilled(World world, int x, int y, int z, int side, ItemStack stack, EntityPlayer player) {
         TileEntity te = world.getTileEntity(x, y, z);
         Block block = world.getBlock(x, y, z);
+        ForgeDirection d = ForgeDirection.getOrientation(side);
         if (te != null && te instanceof TileEntityQuarry) {
             // Add another wedge to the quarry here
             TileEntityQuarry quarry = (TileEntityQuarry) te;
             quarry.onQuarryDrilled();
             Bids.LOG.info("Existing quarry drilled at: " + x + ", " + y + ", " + z);
+
+            // Get the quarried block instead of the quarry block
+            // as needed later for drill damaging
+            block = world.getBlock(x - d.offsetX, y - d.offsetY, z - d.offsetZ);
         } else if (QuarryRegistry.isBlockQuarriable(block)) {
             // Place quarry when block is drilled for the first time
             // at the corresponding side
-            ForgeDirection d = ForgeDirection.getOrientation(side);
             world.setBlock(x + d.offsetX, y + d.offsetY, z + d.offsetZ, BidsBlocks.quarry, side, 3);
             Bids.LOG.info("Quarry started at: " + x + ", " + y + ", " + z + " side " + side);
         }
+
+        ItemStack newStack = onDrillDamaged(stack, player, block);
+
+        double x2 = x + 0.5D;
+        double y2 = y + 0.5D;
+        double z2 = z + 0.5D;
+
+        world.playSoundEffect(x2, y2, z2, "dig.stone",
+                0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
+
+        // Item is different if it the drill was destroyed
+        if (stack.getItem() != newStack.getItem()) {
+            world.playSoundEffect(x2, y2, z2, "random.break",
+                    0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
+        }
+    }
+
+    protected ItemStack onDrillDamaged(ItemStack stack, EntityPlayer player, Block block) {
+        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        if (quarriable == null) {
+            Bids.LOG.warn("Expected quarriable block, but got a " + block.getUnlocalizedName());
+            return stack;
+        }
+
+        int damage = quarriable.getDrillDamage(block);
+        boolean destroyed = stack.getItemDamage() + damage >= getMaxDamage();
+
+        stack.damageItem(damage, player);
+        Bids.LOG.info("Drill took damage: " + damage);
+
+        if (destroyed) {
+            Bids.LOG.info("Drill was destroyed");
+            return onDrillDestroyed(stack, player);
+        }
+
+        return stack;
+    }
+
+    protected ItemStack onDrillDestroyed(ItemStack stack, EntityPlayer player) {
+        int slot = player.inventory.currentItem;
+        player.inventory.decrStackSize(slot, 1);
+        ItemStack newStack = player.worldObj.rand.nextInt(5) == 0
+                ? new ItemStack(TFCItems.unstrungBow)
+                : new ItemStack(TFCItems.bow);
+        Bids.LOG.info("Returning " + newStack.getDisplayName());
+        player.inventory.setInventorySlotContents(slot, newStack);
+        return newStack;
     }
 
 }
