@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillDataAgent;
+import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillTarget;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -86,9 +87,25 @@ public class ItemDrill extends Item implements ISize {
 
     @Override
     public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
+        if (!player.worldObj.isRemote) {
+            MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
+            if (!isTargetSame(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, player)) {
+                // When player moves the cursor to another block or side
+                // cancel the drill
+                // but still damage the drill
+                // It makes sense and it also stops the use animation
+                player.stopUsingItem();
+                QuarryDrillTarget original = QuarryDrillDataAgent.getTarget(player);
+                Block block = player.worldObj.getBlock(original.x, original.y, original.z);
+                damageDrill(player.worldObj, original.x, original.y, original.z, stack, player, block);
+                Bids.LOG.debug("Use cancelled because the target has changed");
+                return;
+            }
+        }
+
         int ticks = this.getMaxItemUseDuration(stack) - count;
         if (!player.worldObj.isRemote && ticks > getDrillDuration(stack, player)) {
-            player.clearItemInUse();
+            player.stopUsingItem();
             MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
             if (mop != null && mop.typeOfHit == MovingObjectType.BLOCK
                     && canDrillAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit)) {
@@ -96,6 +113,20 @@ public class ItemDrill extends Item implements ISize {
                 QuarryDrillDataAgent.clearPlayerData(player);
             }
         }
+    }
+
+    private boolean isTargetSame(World world, int x, int y, int z, int side, EntityPlayer player) {
+        TileEntity te = world.getTileEntity(x, y, z);
+        ForgeDirection d = ForgeDirection.getOrientation(side);
+        if (te != null && te instanceof TileEntityQuarry) {
+            return isTargetSameBlock(x - d.offsetX, y - d.offsetY, z - d.offsetZ, side, player);
+        } else {
+            return isTargetSameBlock(x, y, z, side, player);
+        }
+    }
+
+    private boolean isTargetSameBlock(int x, int y, int z, int side, EntityPlayer player) {
+        return QuarryDrillDataAgent.getTarget(player).equals(new QuarryDrillTarget(x, y, z, side));
     }
 
     @Override
@@ -152,7 +183,7 @@ public class ItemDrill extends Item implements ISize {
         IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
         float mult = quarriable.getDrillDurationMultiplier(block);
         int duration = (int) Math.ceil(getBaseDrillDuration() * mult);
-        QuarryDrillDataAgent.setPlayerData(player, duration);
+        QuarryDrillDataAgent.setPlayerData(player, duration, x, y, z, side);
         Bids.LOG.debug("Set drill duration: " + duration);
     }
 
@@ -198,6 +229,10 @@ public class ItemDrill extends Item implements ISize {
             Bids.LOG.info("Quarry started at: " + x + ", " + y + ", " + z + " side " + side);
         }
 
+        damageDrill(world, x, y, z, stack, player, block);
+    }
+
+    private void damageDrill(World world, int x, int y, int z, ItemStack stack, EntityPlayer player, Block block) {
         ItemStack newStack = onDrillDamaged(stack, player, block);
         onConsumeExtraEquipment(player, block);
 
