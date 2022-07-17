@@ -102,14 +102,21 @@ public class TileEntityQuarry extends TileEntity {
 
     public void dropAllWedges() {
         int n = getWedgeCount();
-        dropWedges(n);
+        dropWedges(n, true);
     }
 
-    public void dropWedges(int n) {
-        ItemStack is = new ItemStack(TFCItems.stick, n);
-        EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
-        worldObj.spawnEntityInWorld(ei);
-        Bids.LOG.info("Querry dropped sticks: " + n);
+    public void dropWedges(int n, boolean randomized) {
+        if (n > 0) {
+            if (randomized) {
+                // Drop a random amount of wedges requested
+                // but 1 minimum
+                n = worldObj.rand.nextInt(n) + 1;
+            }
+            ItemStack is = new ItemStack(TFCItems.stick, n);
+            EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
+            worldObj.spawnEntityInWorld(ei);
+            Bids.LOG.info("Querry dropped sticks: " + n);
+        }
     }
 
     @Override
@@ -311,7 +318,7 @@ public class TileEntityQuarry extends TileEntity {
         }
 
         if (wedgesDropped > 0) {
-            dropWedges(wedgesDropped);
+            dropWedges(wedgesDropped, false);
         }
 
         return dirty;
