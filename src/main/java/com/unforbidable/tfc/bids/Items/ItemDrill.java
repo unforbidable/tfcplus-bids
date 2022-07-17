@@ -12,6 +12,7 @@ import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillDataAgent;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
@@ -30,7 +31,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class ItemDrill extends Item implements ISize {
 
     static final int MAX_USE_DURATION = 72000;
-    static final int BASE_DRILL_DURATION = 40;
 
     final private ToolMaterial material;
 
@@ -142,7 +142,7 @@ public class ItemDrill extends Item implements ISize {
     }
 
     protected int getBaseDrillDuration() {
-        return BASE_DRILL_DURATION;
+        return BidsOptions.Quarry.baseDrillDuration;
     }
 
     protected void onBlockDrillStarted(World world, int x, int y, int z, int side, ItemStack stack,
@@ -256,7 +256,8 @@ public class ItemDrill extends Item implements ISize {
     protected ItemStack onDrillDestroyed(ItemStack stack, EntityPlayer player) {
         int slot = player.inventory.currentItem;
         player.inventory.decrStackSize(slot, 1);
-        ItemStack newStack = player.worldObj.rand.nextInt(5) == 0
+        boolean breakString = BidsOptions.Quarry.bowStringBreakChance > player.worldObj.rand.nextDouble();
+        ItemStack newStack = breakString
                 ? new ItemStack(TFCItems.unstrungBow)
                 : new ItemStack(TFCItems.bow);
         Bids.LOG.info("Returning " + newStack.getDisplayName());

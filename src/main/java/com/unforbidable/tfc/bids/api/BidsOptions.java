@@ -17,4 +17,11 @@ public class BidsOptions {
 
     }
 
+    public static class Quarry {
+
+        public static float bowStringBreakChance = 0.2f;
+        public static int baseDrillDuration = 50;
+
+    }
+
 }
