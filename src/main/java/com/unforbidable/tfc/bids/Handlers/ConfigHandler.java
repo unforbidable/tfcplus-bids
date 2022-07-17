@@ -65,7 +65,7 @@ public class ConfigHandler {
 
         BidsOptions.Quarry.baseDrillDuration = config.getInt(
                 "baseDrillDuration", "quarry",
-                BidsOptions.Quarry.baseDrillDuration, 20, 2000,
+                BidsOptions.Quarry.baseDrillDuration, 10, 1000,
                 "Higher values increase the time it takes to drill a hole");
         BidsOptions.Quarry.bowStringBreakChance = config.getFloat(
                 "bowStringBreakChance", "quarry",
