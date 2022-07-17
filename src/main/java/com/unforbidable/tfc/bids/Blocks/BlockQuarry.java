@@ -5,11 +5,14 @@ import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
+import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
@@ -21,7 +24,7 @@ public class BlockQuarry extends BlockContainer {
 
     public BlockQuarry() {
         super(Material.wood);
-        setHardness(2f);
+        setHardness(5f);
     }
 
     @Override
@@ -99,12 +102,36 @@ public class BlockQuarry extends BlockContainer {
                 if (isHammer) {
                     if (QuarryHelper.isQuarryReadyAt(world, x, y, z)) {
                         Bids.LOG.info("Quarry completed");
+                        dropQuarriedBlock(world, x, y, z);
                     }
                 }
             }
         }
 
         super.onBlockHarvested(world, x, y, z, meta, player);
+    }
+
+    protected void dropQuarriedBlock(World world, int x, int y, int z) {
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (te != null && te instanceof TileEntityQuarry) {
+            TileEntityQuarry quarry = (TileEntityQuarry) te;
+            ForgeDirection d = quarry.getQuarryOrientation();
+            int x2 = x - d.offsetX;
+            int y2 = y - d.offsetY;
+            int z2 = z - d.offsetZ;
+            Block block = world.getBlock(x2, y2, z2);
+            int meta = world.getBlockMetadata(x2, y2, z2);
+            IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+            if (quarriable != null) {
+                world.setBlockToAir(x2, y2, z2);
+                // Drop the original quarried block for now
+                Block droppedBlock = quarriable.getQuarriedBlock();
+                int droppedMeta = quarriable.getQuarriedBlockMetadata(meta);
+                ItemStack is = new ItemStack(Item.getItemFromBlock(droppedBlock), 1, droppedMeta);
+                EntityItem entityItem = new EntityItem(world, x2, y2 + 1, z2, is);
+                world.spawnEntityInWorld(entityItem);
+            }
+        }
     }
 
     @Override

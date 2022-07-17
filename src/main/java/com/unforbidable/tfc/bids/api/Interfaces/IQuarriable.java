@@ -19,4 +19,6 @@ public interface IQuarriable {
 
     float getDrillDurationMultiplier(Block block);
 
+    int getQuarriedBlockMetadata(int metadata);
+
 }

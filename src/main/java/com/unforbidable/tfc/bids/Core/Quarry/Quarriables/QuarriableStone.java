@@ -36,6 +36,11 @@ public class QuarriableStone implements IQuarriable {
     }
 
     @Override
+    public int getQuarriedBlockMetadata(int metadata) {
+        return metadata;
+    }
+
+    @Override
     public boolean canQuarryBlockAt(World world, int x, int y, int z, int side) {
         ForgeDirection d = ForgeDirection.getOrientation(side);
         x += d.offsetX;
