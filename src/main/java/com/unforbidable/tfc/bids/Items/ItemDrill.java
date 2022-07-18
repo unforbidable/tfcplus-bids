@@ -117,9 +117,9 @@ public class ItemDrill extends Item implements ISize {
 
     private boolean isTargetSame(World world, int x, int y, int z, int side, EntityPlayer player) {
         TileEntity te = world.getTileEntity(x, y, z);
-        ForgeDirection d = ForgeDirection.getOrientation(side);
         if (te != null && te instanceof TileEntityQuarry) {
-            return isTargetSameBlock(x - d.offsetX, y - d.offsetY, z - d.offsetZ, side, player);
+            ForgeDirection d = ((TileEntityQuarry) te).getQuarryOrientation();
+            return isTargetSameBlock(x - d.offsetX, y - d.offsetY, z - d.offsetZ, d.ordinal(), player);
         } else {
             return isTargetSameBlock(x, y, z, side, player);
         }
@@ -142,9 +142,10 @@ public class ItemDrill extends Item implements ISize {
             float hitX, float hitY, float hitZ) {
         if (!world.isRemote && canPlayerDrill(player)) {
             TileEntity te = world.getTileEntity(x, y, z);
-            ForgeDirection d = ForgeDirection.getOrientation(side);
             if (te != null && te instanceof TileEntityQuarry) {
-                onBlockDrillStarted(player.worldObj, x - d.offsetX, y - d.offsetY, z - d.offsetZ, side, stack, player);
+                ForgeDirection d = ((TileEntityQuarry) te).getQuarryOrientation();
+                onBlockDrillStarted(player.worldObj, x - d.offsetX, y - d.offsetY, z - d.offsetZ, d.ordinal(), stack,
+                        player);
             } else {
                 onBlockDrillStarted(player.worldObj, x, y, z, side, stack, player);
             }
@@ -212,7 +213,6 @@ public class ItemDrill extends Item implements ISize {
     protected void onBlockDrilled(World world, int x, int y, int z, int side, ItemStack stack, EntityPlayer player) {
         TileEntity te = world.getTileEntity(x, y, z);
         Block block = world.getBlock(x, y, z);
-        ForgeDirection d = ForgeDirection.getOrientation(side);
         if (te != null && te instanceof TileEntityQuarry) {
             // Add another wedge to the quarry here
             TileEntityQuarry quarry = (TileEntityQuarry) te;
@@ -221,10 +221,12 @@ public class ItemDrill extends Item implements ISize {
 
             // Get the quarried block instead of the quarry block
             // as needed later for drill damaging
+            ForgeDirection d = quarry.getQuarryOrientation();
             block = world.getBlock(x - d.offsetX, y - d.offsetY, z - d.offsetZ);
         } else if (QuarryRegistry.isBlockQuarriable(block)) {
             // Place quarry when block is drilled for the first time
             // at the corresponding side
+            ForgeDirection d = ForgeDirection.getOrientation(side);
             world.setBlock(x + d.offsetX, y + d.offsetY, z + d.offsetZ, BidsBlocks.quarry, side, 3);
             Bids.LOG.info("Quarry started at: " + x + ", " + y + ", " + z + " side " + side);
         }
