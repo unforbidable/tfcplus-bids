@@ -79,3 +79,6 @@
 - Added: Stone drill tool
 - Added: Raw stone quarrying using the drill and wedge method
 - Added: Options to change the drill duration and the chance of bow string breaking
+
+0.10.1 (18-07-2022)
+- Fixed: Crash when drilling a quarry from a side
