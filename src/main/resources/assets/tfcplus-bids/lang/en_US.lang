@@ -327,6 +327,9 @@ itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Drinks=Bids and Pieces - Drinks
 
 gui.ShowHelp=§8Help: (Hold §fShift§8)
+gui.Help=Help:
+gui.Help.Drill=§bRight Click §7raw stone to quarry.
+gui.Help.Drill2=Requires sticks on the hotbar.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified
@@ -339,3 +342,4 @@ gui.HoursRemaining=Hours Remaining
 gui.Ruined=Ruined
 gui.Wedges=Wedges
 gui.QuarryReady=Ready
+
