@@ -47,7 +47,7 @@ public class TileEntityQuarry extends TileEntity {
                 int value = wedgeData.get(d);
                 if (value < WEDGE_PER_EDGE) {
                     wedgeData.put(d, value + 1);
-                    Bids.LOG.info("Wedge added to side: " + d + ", total: " + getWedgeCount());
+                    Bids.LOG.debug("Wedge added to side: " + d + ", total: " + getWedgeCount());
                     added = true;
                     break;
                 }
@@ -115,7 +115,7 @@ public class TileEntityQuarry extends TileEntity {
             ItemStack is = new ItemStack(TFCItems.stick, n);
             EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
             worldObj.spawnEntityInWorld(ei);
-            Bids.LOG.info("Querry dropped sticks: " + n);
+            Bids.LOG.debug("Querry dropped sticks: " + n);
         }
     }
 
@@ -221,13 +221,13 @@ public class TileEntityQuarry extends TileEntity {
 
                 if (changed) {
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                    Bids.LOG.info("Updated max wedge count: " + getMaxWedgeCount());
+                    Bids.LOG.debug("Updated max wedge count: " + getMaxWedgeCount());
 
                     if (getWedgeCount() == 0) {
                         // All wedges dropped during the update
                         // so remove quarry
                         worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-                        Bids.LOG.info("Quarry without wedges removed");
+                        Bids.LOG.debug("Quarry without wedges removed");
                     }
                 }
             }

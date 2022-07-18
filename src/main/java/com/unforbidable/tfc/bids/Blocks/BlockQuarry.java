@@ -119,7 +119,7 @@ public class BlockQuarry extends BlockContainer {
 
                 if (isHammer) {
                     if (QuarryHelper.isQuarryReadyAt(world, x, y, z)) {
-                        Bids.LOG.info("Quarry completed");
+                        Bids.LOG.debug("Quarry completed");
                         dropQuarriedBlock(world, x, y, z);
                     }
                 }

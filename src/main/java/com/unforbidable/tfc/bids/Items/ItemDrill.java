@@ -169,7 +169,7 @@ public class ItemDrill extends Item implements ISize {
                 return true;
         }
 
-        Bids.LOG.info("Drilling requires sticks on hotbar and none were found");
+        Bids.LOG.debug("Drilling requires sticks on hotbar and none were found");
         return false;
     }
 
@@ -217,7 +217,7 @@ public class ItemDrill extends Item implements ISize {
             // Add another wedge to the quarry here
             TileEntityQuarry quarry = (TileEntityQuarry) te;
             quarry.onQuarryDrilled();
-            Bids.LOG.info("Existing quarry drilled at: " + x + ", " + y + ", " + z);
+            Bids.LOG.debug("Existing quarry drilled at: " + x + ", " + y + ", " + z);
 
             // Get the quarried block instead of the quarry block
             // as needed later for drill damaging
@@ -228,7 +228,7 @@ public class ItemDrill extends Item implements ISize {
             // at the corresponding side
             ForgeDirection d = ForgeDirection.getOrientation(side);
             world.setBlock(x + d.offsetX, y + d.offsetY, z + d.offsetZ, BidsBlocks.quarry, side, 3);
-            Bids.LOG.info("Quarry started at: " + x + ", " + y + ", " + z + " side " + side);
+            Bids.LOG.debug("Quarry started at: " + x + ", " + y + ", " + z + " side " + side);
         }
 
         damageDrill(world, x, y, z, stack, player, block);
@@ -280,10 +280,10 @@ public class ItemDrill extends Item implements ISize {
         boolean destroyed = stack.getItemDamage() + damage >= getMaxDamage();
 
         stack.damageItem(damage, player);
-        Bids.LOG.info("Drill took damage: " + damage);
+        Bids.LOG.debug("Drill took damage: " + damage);
 
         if (destroyed) {
-            Bids.LOG.info("Drill was destroyed");
+            Bids.LOG.debug("Drill was destroyed");
             return onDrillDestroyed(stack, player);
         }
 
@@ -297,7 +297,7 @@ public class ItemDrill extends Item implements ISize {
         ItemStack newStack = breakString
                 ? new ItemStack(TFCItems.unstrungBow)
                 : new ItemStack(TFCItems.bow);
-        Bids.LOG.info("Returning " + newStack.getDisplayName());
+        Bids.LOG.debug("Returning " + newStack.getDisplayName());
         player.inventory.setInventorySlotContents(slot, newStack);
         return newStack;
     }
