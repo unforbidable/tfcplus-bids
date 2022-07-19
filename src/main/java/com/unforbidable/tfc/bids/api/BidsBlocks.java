@@ -16,4 +16,6 @@ public class BidsBlocks {
 
     public static Block quarry;
 
+    public static Block roughStoneSed;
+
 }

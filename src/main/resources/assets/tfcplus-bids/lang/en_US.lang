@@ -28,6 +28,15 @@ tile.MudBrickChimney2.Slate.name=Mudbrick Chimney
 
 tile.Quarry.name=Quarry
 
+tile.RoughStoneSed.Chalk.name=Rough Chalk
+tile.RoughStoneSed.Chert.name=Rough Chert
+tile.RoughStoneSed.Claystone.name=Rough Claystone
+tile.RoughStoneSed.Sandstone.name=Rough Sandstone
+tile.RoughStoneSed.Dolomite.name=Rough Dolomite
+tile.RoughStoneSed.Limestone.name=Rough Limestone
+tile.RoughStoneSed.Rock Salt.name=Rough Rock Salt
+tile.RoughStoneSed.Shale.name=Rough Shale
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit
