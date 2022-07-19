@@ -30,6 +30,7 @@ import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
 import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
 import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
 import com.unforbidable.tfc.bids.Items.ItemGlassLump;
+import com.unforbidable.tfc.bids.Items.ItemAdze;
 import com.unforbidable.tfc.bids.Items.ItemDrill;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
@@ -61,6 +62,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class CommonProxy {
@@ -133,6 +135,24 @@ public class CommonProxy {
         BidsItems.mMStoneDrill = new ItemDrill(TFCItems.mMToolMaterial)
                 .setUnlocalizedName("MM Stone Drill");
 
+        BidsItems.igInStoneAdzeHead = new ItemGenericToolHead(TFCItems.igInToolMaterial)
+                .setUnlocalizedName("IgIn Stone Adze Head");
+        BidsItems.sedStoneAdzeHead = new ItemGenericToolHead(TFCItems.sedToolMaterial)
+                .setUnlocalizedName("Sed Stone Adze Head");
+        BidsItems.igExStoneAdzeHead = new ItemGenericToolHead(TFCItems.igExToolMaterial)
+                .setUnlocalizedName("IgEx Stone Adze Head");
+        BidsItems.mMStoneAdzeHead = new ItemGenericToolHead(TFCItems.mMToolMaterial)
+                .setUnlocalizedName("MM Stone Adze Head");
+
+        BidsItems.igInStoneAdze = new ItemAdze(TFCItems.igInToolMaterial)
+                .setUnlocalizedName("IgIn Stone Adze");
+        BidsItems.sedStoneAdze = new ItemAdze(TFCItems.sedToolMaterial)
+                .setUnlocalizedName("Sed Stone Adze");
+        BidsItems.igExStoneAdze = new ItemAdze(TFCItems.igExToolMaterial)
+                .setUnlocalizedName("IgEx Stone Adze");
+        BidsItems.mMStoneAdze = new ItemAdze(TFCItems.mMToolMaterial)
+                .setUnlocalizedName("MM Stone Adze");
+
         GameRegistry.registerItem(BidsItems.oreBit, BidsItems.oreBit.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.metalBlowpipe, BidsItems.metalBlowpipe.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.brassBlowpipe, BidsItems.brassBlowpipe.getUnlocalizedName());
@@ -153,6 +173,16 @@ public class CommonProxy {
         GameRegistry.registerItem(BidsItems.sedStoneDrill, BidsItems.sedStoneDrill.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.igExStoneDrill, BidsItems.igExStoneDrill.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.mMStoneDrill, BidsItems.mMStoneDrill.getUnlocalizedName());
+
+        GameRegistry.registerItem(BidsItems.igInStoneAdzeHead, BidsItems.igInStoneAdzeHead.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.sedStoneAdzeHead, BidsItems.sedStoneAdzeHead.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.igExStoneAdzeHead, BidsItems.igExStoneAdzeHead.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.mMStoneAdzeHead, BidsItems.mMStoneAdzeHead.getUnlocalizedName());
+
+        GameRegistry.registerItem(BidsItems.igInStoneAdze, BidsItems.igInStoneAdze.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.sedStoneAdze, BidsItems.sedStoneAdze.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.igExStoneAdze, BidsItems.igExStoneAdze.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.mMStoneAdze, BidsItems.mMStoneAdze.getUnlocalizedName());
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new GuiHandler());
 
@@ -384,20 +414,35 @@ public class CommonProxy {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGIN_START) });
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
+                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGIN_START) });
         }
+
         for (int i = 0; i < Global.STONE_SED.length; i++) {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.sedStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_SED_START) });
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
+                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_SED_START) });
         }
+
         for (int i = 0; i < Global.STONE_IGEX.length; i++) {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igExStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGEX_START) });
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
+                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGEX_START) });
         }
+
         for (int i = 0; i < Global.STONE_MM.length; i++) {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.mMStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
+                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_MM_START) });
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_MM_START) });
         }
 
@@ -409,6 +454,25 @@ public class CommonProxy {
                 BidsItems.igExStoneDrillHead, "stickWood", TFCItems.bow));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.mMStoneDrill, 1, 0),
                 BidsItems.mMStoneDrillHead, "stickWood", TFCItems.bow));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.igInStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.igInStoneAdzeHead, '2', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.sedStoneAdzeHead, '2', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.igExStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.igExStoneAdzeHead, '2', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.mMStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.mMStoneAdzeHead, '2', "stickWood"));
+
+        GameRegistry.addRecipe(new ItemStack(BidsItems.igInStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.igInStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
+        GameRegistry.addRecipe(new ItemStack(BidsItems.sedStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.sedStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
+        GameRegistry.addRecipe(new ItemStack(BidsItems.igExStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.igExStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
+        GameRegistry.addRecipe(new ItemStack(BidsItems.mMStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.mMStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
+
     }
 
     public void postInit(FMLPostInitializationEvent event) {

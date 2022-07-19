@@ -341,6 +341,15 @@ item.Sed Stone Drill.name=Stone Drill
 item.IgEx Stone Drill.name=Stone Drill
 item.MM Stone Drill.name=Stone Drill
 
+item.IgIn Stone Adze Head.name=Stone Adze Head
+item.Sed Stone Adze Head.name=Stone Adze Head
+item.IgEx Stone Adze Head.name=Stone Adze Head
+item.MM Stone Adze Head.name=Stone Adze Head
+item.IgIn Stone Adze.name=Stone Adze
+item.Sed Stone Adze.name=Stone Adze
+item.IgEx Stone Adze.name=Stone Adze
+item.MM Stone Adze.name=Stone Adze
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Drinks=Bids and Pieces - Drinks
 
@@ -348,6 +357,7 @@ gui.ShowHelp=§8Help: (Hold §fShift§8)
 gui.Help=Help:
 gui.Help.Drill=§bRight Click §7raw stone to quarry.
 gui.Help.Drill2=Requires sticks on the hotbar.
+gui.Help.Adze=§bRight Click §7rough stone or thick log to carve.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified
