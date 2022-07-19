@@ -15,6 +15,8 @@ import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
 import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
+import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
+import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Drinks.Drink;
 import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
@@ -36,6 +38,8 @@ import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemMudChimney;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemQuarry;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStone;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStoneBrick;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
@@ -80,15 +84,22 @@ public class CommonProxy {
         BidsBlocks.mudBrickChimney2 = new BlockMudChimney(16).setDirt(TFCBlocks.dirt2)
                 .setBlockName("MudBrickChimney2");
         BidsBlocks.quarry = new BlockQuarry().setBlockName("Quarry");
+        BidsBlocks.roughStoneSed = new BlockRoughStone()
+                .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
+                .setBlockTextureName("Rough");
+        BidsBlocks.roughStoneBrickSed = new BlockRoughStoneBrick()
+                .setNames(Global.STONE_SED).setBlockName("RoughStoneBrickSed")
+                .setBlockTextureName("Rough Brick");
 
         GameRegistry.registerBlock(BidsBlocks.clayCrucible, ItemClayCrucible.class, "ClayCrucible");
         GameRegistry.registerBlock(BidsBlocks.fireClayCrucible, ItemFireClayCrucible.class, "FireClayCrucible");
         GameRegistry.registerBlock(BidsBlocks.mudBrickChimney, ItemMudChimney.class, "MudBrickChimney");
         GameRegistry.registerBlock(BidsBlocks.mudBrickChimney2, ItemMudChimney.class, "MudBrickChimney2");
         GameRegistry.registerBlock(BidsBlocks.quarry, ItemQuarry.class, "Quary");
+        GameRegistry.registerBlock(BidsBlocks.roughStoneSed, ItemRoughStone.class, "RoughStoneSed");
+        GameRegistry.registerBlock(BidsBlocks.roughStoneBrickSed, ItemRoughStoneBrick.class, "RoughStoneBrickSed");
 
-        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, TFCBlocks.stoneMM, 2, 1.5f));
-        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneSed, TFCBlocks.stoneSed, 1, 1));
+        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneSed, BidsBlocks.roughStoneSed, 1, 1));
 
         BidsItems.oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");
         BidsItems.metalBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Metal Blowpipe");
@@ -361,6 +372,12 @@ public class CommonProxy {
                     new ItemStack(j < 16 ? BidsBlocks.mudBrickChimney : BidsBlocks.mudBrickChimney2, 2, j % 16),
                     "PB", "BB", 'P', new ItemStack(TFCItems.logs, 1, 48), // Bamboo
                     'B', new ItemStack(TFCItems.mudBrick, 1, j));
+        }
+
+        for (int j = 0; j < Global.STONE_SED.length; j++) {
+            GameRegistry.addRecipe(
+                    new ItemStack(BidsBlocks.roughStoneBrickSed, 4, j),
+                    "BB", "BB", 'B', new ItemStack(BidsBlocks.roughStoneSed, 1, j));
         }
 
         for (int i = 0; i < Global.STONE_IGIN.length; i++) {

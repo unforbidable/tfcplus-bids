@@ -28,6 +28,24 @@ tile.MudBrickChimney2.Slate.name=Mudbrick Chimney
 
 tile.Quarry.name=Quarry
 
+tile.RoughStoneSed.Chalk.name=Rough Chalk
+tile.RoughStoneSed.Chert.name=Rough Chert
+tile.RoughStoneSed.Claystone.name=Rough Claystone
+tile.RoughStoneSed.Sandstone.name=Rough Sandstone
+tile.RoughStoneSed.Dolomite.name=Rough Dolomite
+tile.RoughStoneSed.Limestone.name=Rough Limestone
+tile.RoughStoneSed.Rock Salt.name=Rough Rock Salt
+tile.RoughStoneSed.Shale.name=Rough Shale
+
+tile.RoughStoneBrickSed.Chalk.name=Rough Chalk Brick
+tile.RoughStoneBrickSed.Chert.name=Rough Chert Brick
+tile.RoughStoneBrickSed.Claystone.name=Rough Claystone Brick
+tile.RoughStoneBrickSed.Sandstone.name=Rough Sandstone Brick
+tile.RoughStoneBrickSed.Dolomite.name=Rough Dolomite Brick
+tile.RoughStoneBrickSed.Limestone.name=Rough Limestone Brick
+tile.RoughStoneBrickSed.Rock Salt.name=Rough Rock Salt Brick
+tile.RoughStoneBrickSed.Shale.name=Rough Shale Brick
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit
@@ -327,6 +345,9 @@ itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Drinks=Bids and Pieces - Drinks
 
 gui.ShowHelp=§8Help: (Hold §fShift§8)
+gui.Help=Help:
+gui.Help.Drill=§bRight Click §7raw stone to quarry.
+gui.Help.Drill2=Requires sticks on the hotbar.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified
@@ -339,3 +360,4 @@ gui.HoursRemaining=Hours Remaining
 gui.Ruined=Ruined
 gui.Wedges=Wedges
 gui.QuarryReady=Ready
+

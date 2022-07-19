@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.api;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
@@ -9,20 +9,14 @@ import net.minecraft.block.Block;
 
 public class QuarryRegistry {
 
-    static final List<IQuarriable> quarries = new ArrayList<IQuarriable>();
+    static final Map<Block, IQuarriable> quarries = new HashMap<Block, IQuarriable>();
 
     public static void registerQuarryBlock(IQuarriable quarriable) {
-        quarries.add(quarriable);
+        quarries.put(quarriable.getRawBlock(), quarriable);
     }
 
     public static IQuarriable getBlockQuarriable(Block rawBlock) {
-        for (IQuarriable q : quarries) {
-            if (q.getRawBlock() == rawBlock) {
-                return q;
-            }
-        }
-
-        return null;
+        return quarries.get(rawBlock);
     }
 
     public static boolean isBlockQuarriable(Block rawStoneBlock) {
