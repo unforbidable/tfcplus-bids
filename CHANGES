@@ -82,3 +82,9 @@
 
 0.10.1 (18-07-2022)
 - Fixed: Crash when drilling a quarry from a side
+
+0.11.0 (19-07-2022)
+- Added: Rough stone building blocks for sedimentary rocks
+- Added: Rough stone brick building blocks for sedimenary rocks
+- Changed: Instead of a raw stone block, a rough stone block is dropped when quarrying raw stone
+- Changed: Only sedimentary rocks can be quarried with a stone drill

@@ -13,11 +13,12 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Ceramic Pipe](../../wiki/Ceramic-Pipe) - used in making a mud brick chimney
 * [Ceramic Mug](../../wiki/Clay-Mug) - a drinking container made out of clay
 * [Drill](../../wiki/Drill) - a tool for drilling raw stone
-* [Quarry](../../wiki/Quarry) - for harvesting raw stone using the drill and wedge method
+* [Quarry](../../wiki/Quarry) - for harvesting Rough Stone block using the drill and wedge method, sedimentary rocks only
+* [Rough Stone][../../wiki/Rough-Stone] and Rough Stone Bricks - new building blocks for sedimentary rocks
 
 ### Translations
 
-* Chinese by Eternal130 (Eternal130#9454)
+* Chinese by Eternal130 (v0.9.x)
 
 ### Compiling
 
