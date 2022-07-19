@@ -374,6 +374,12 @@ public class CommonProxy {
                     'B', new ItemStack(TFCItems.mudBrick, 1, j));
         }
 
+        for (int j = 0; j < Global.STONE_SED.length; j++) {
+            GameRegistry.addRecipe(
+                    new ItemStack(BidsBlocks.roughStoneBrickSed, 4, j),
+                    "BB", "BB", 'B', new ItemStack(BidsBlocks.roughStoneSed, 1, j));
+        }
+
         for (int i = 0; i < Global.STONE_IGIN.length; i++) {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
