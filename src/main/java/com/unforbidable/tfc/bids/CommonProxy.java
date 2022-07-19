@@ -99,7 +99,6 @@ public class CommonProxy {
         GameRegistry.registerBlock(BidsBlocks.roughStoneSed, ItemRoughStone.class, "RoughStoneSed");
         GameRegistry.registerBlock(BidsBlocks.roughStoneBrickSed, ItemRoughStoneBrick.class, "RoughStoneBrickSed");
 
-        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, TFCBlocks.stoneMM, 2, 1.5f));
         QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneSed, TFCBlocks.stoneSed, 1, 1));
 
         BidsItems.oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");

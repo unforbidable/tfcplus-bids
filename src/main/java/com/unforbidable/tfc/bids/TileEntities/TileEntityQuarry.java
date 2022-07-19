@@ -270,8 +270,12 @@ public class TileEntityQuarry extends TileEntity {
                 }
             }
         } else {
+            // This should not happen when initializing but still
             Bids.LOG.warn("Quarriable block missing when initializing wedges for quarry side: " + orientation
                     + " quarried at: " + x2 + ", " + y2 + ", " + z2);
+            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            Bids.LOG.warn("An invalid quarry was removed from: "
+                    + xCoord + ", " + yCoord + ", " + zCoord);
         }
 
         return data;
@@ -313,8 +317,15 @@ public class TileEntityQuarry extends TileEntity {
                 }
             }
         } else {
+            // This can happen when a quarried block that was previously quarriable
+            // is quarriable no more,
+            // e.g. when version 0.11.0 removed quarrying of metamorphic rocks
+            // using a stone drill
             Bids.LOG.warn("Quarriable block missing when updating wedges for quarry side: " + orientation
                     + " quarried at: " + x2 + ", " + y2 + ", " + z2);
+            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            Bids.LOG.warn("An invalid quarry was removed from: "
+                    + xCoord + ", " + yCoord + ", " + zCoord);
         }
 
         if (wedgesDropped > 0) {
