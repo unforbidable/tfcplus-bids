@@ -4,7 +4,7 @@ A plugin for TerrafirmacraftPlus that aims to demonstrate various fully featured
 Please find the latest release at [courseforge](https://www.curseforge.com/minecraft/mc-mods/tfcplus-bids).
 
 ### Features
-* Clay and Fireclay [Crucible](../../wiki/Crucible) - new crucibles with improved mechanics
+* [Clay and Fire Clay Crucible](../../wiki/Crucible) - new crucibles with improved mechanics
 * [Ore Bits](../../wiki/Ore-Bits) - breaking ore chunks into smaller pieces
 * [Metal Blowpipe](../../wiki/Metal-Blowpipe) - recipe based glassware crafting
 * [Drinking Glass](../../wiki/Drinking-Glass) - various new drinking containers made out of glass
@@ -14,7 +14,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Ceramic Mug](../../wiki/Clay-Mug) - a drinking container made out of clay
 * [Drill](../../wiki/Drill) - a tool for drilling raw stone
 * [Quarry](../../wiki/Quarry) - for harvesting Rough Stone block using the drill and wedge method, sedimentary rocks only
-* [Rough Stone][../../wiki/Rough-Stone] and Rough Stone Bricks - new building blocks for sedimentary rocks
+* [Rough Stone and Rough Stone Bricks](../../wiki/Rough-Stone) - new building blocks for sedimentary rocks
 
 ### Translations
 
