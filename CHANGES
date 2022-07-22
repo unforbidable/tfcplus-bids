@@ -88,3 +88,8 @@
 - Added: Rough stone brick building blocks for sedimenary rocks
 - Changed: Instead of a raw stone block, a rough stone block is dropped when quarrying raw stone
 - Changed: Only sedimentary rocks can be quarried with a stone drill
+
+0.12.0 (22-07-2022)
+- Added: Stone adze for block carving
+- Added: Sedimentary Rough Stone and Rough Stone Bricks can be carved
+- Updated: Chinese translation by Eternal130
