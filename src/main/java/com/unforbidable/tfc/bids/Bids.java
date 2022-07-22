@@ -9,11 +9,15 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 @Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, version = Tags.VERSION)
 public class Bids {
 
     public static final Logger LOG = LogManager.getLogger(Tags.MOD_NAME);
+
+    public static SimpleNetworkWrapper network;
 
     @SidedProxy(clientSide = Tags.PACKAGE + ".ClientProxy", serverSide = Tags.PACKAGE + ".ServerProxy")
     public static CommonProxy proxy;
@@ -28,6 +32,8 @@ public class Bids {
     // preInit "Run before anything else. Read your config, create blocks, items,
     // etc, and register them with the GameRegistry."
     public void preInit(FMLPreInitializationEvent event) {
+        network = NetworkRegistry.INSTANCE.newSimpleChannel("BidsChannel");
+
         proxy.preInit(event);
     }
 
