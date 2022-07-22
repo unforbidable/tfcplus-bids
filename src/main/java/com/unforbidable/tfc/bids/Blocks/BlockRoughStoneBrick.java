@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Blocks;
 
 import com.dunk.tfc.Blocks.Terrain.BlockCollapsible;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -30,8 +31,10 @@ public class BlockRoughStoneBrick extends BlockRoughStone {
 
     private boolean isNeighborSupportedBrick(World world, int x, int y, int z, ForgeDirection d) {
         Block neighbor = world.getBlock(x + d.offsetX, y + d.offsetY, z + d.offsetZ);
-        return neighbor instanceof BlockRoughStoneBrick
-                && !BlockCollapsible.canFallBelow(world, x + d.offsetX, y + d.offsetY - 1, z + d.offsetZ);
+        return neighbor.isSideSolid(world, x + d.offsetX, y + d.offsetY, z + d.offsetZ, d.getOpposite())
+                && (!BlockCollapsible.canFallBelow(world, x + d.offsetX, y + d.offsetY - 1, z + d.offsetZ)
+                        || world.getTileEntity(x + d.offsetX, y + d.offsetY - 1,
+                                z + d.offsetZ) instanceof TileEntityCarving);
     }
 
 }
