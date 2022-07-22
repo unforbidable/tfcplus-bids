@@ -20,6 +20,7 @@ import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStoneBrick;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Drinks.Drink;
 import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
@@ -236,6 +237,7 @@ public class CommonProxy {
         FMLCommonHandler.instance().bus().register(new CraftingHandler());
 
         CarvingRegistry.registerCarving(new CarvingRoughStone());
+        CarvingRegistry.registerCarving(new CarvingRoughStoneBrick());
 
         DrinkRegistry.registerDrink(new Drink(TFCFluids.FRESHWATER, "FreshWater")
                 .setWaterRestoreRatio(1));
