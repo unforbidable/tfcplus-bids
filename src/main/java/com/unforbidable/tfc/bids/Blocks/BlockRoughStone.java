@@ -6,6 +6,7 @@ import java.util.Random;
 import com.dunk.tfc.Blocks.Terrain.BlockCollapsible;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -126,7 +127,15 @@ public class BlockRoughStone extends Block {
     }
 
     protected boolean canBlockFall(World world, int x, int y, int z) {
+        // This is to prevent blocks from falling and breaking a carving
+        // because that would turn out to be rather annoying
+        // However TFC blocks falling on a carving will still break it
+        if (world.getTileEntity(x, y - 1, z) instanceof TileEntityCarving) {
+            return false;
+        }
+
         // Self-supporting arches and similar can override this
+        // and add more exceptions
         return true;
     }
 
