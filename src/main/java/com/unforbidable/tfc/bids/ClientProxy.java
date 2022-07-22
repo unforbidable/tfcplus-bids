@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids;
 
 import com.unforbidable.tfc.bids.Handlers.Client.ClientGuiHandler;
+import com.unforbidable.tfc.bids.Render.Blocks.RenderCarving;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderClayCrucible;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderFireClayCrucible;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderQuarry;
@@ -31,6 +32,9 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerBlockHandler(
                 BidsBlocks.quarryRenderId = RenderingRegistry.getNextAvailableRenderId(),
                 new RenderQuarry());
+        RenderingRegistry.registerBlockHandler(
+                BidsBlocks.carvingRenderId = RenderingRegistry.getNextAvailableRenderId(),
+                new RenderCarving());
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new ClientGuiHandler());
         MinecraftForge.EVENT_BUS.register(new ClientGuiHandler());

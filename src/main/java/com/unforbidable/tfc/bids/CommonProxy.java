@@ -11,15 +11,19 @@ import com.dunk.tfc.api.Crafting.CraftingManagerTFC;
 import com.dunk.tfc.api.Crafting.KilnCraftingManager;
 import com.dunk.tfc.api.Crafting.KilnRecipe;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
+import com.unforbidable.tfc.bids.Blocks.BlockCarving;
 import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
 import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
+import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Drinks.Drink;
 import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
+import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
@@ -42,6 +46,7 @@ import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemQuarry;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStone;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStoneBrick;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
@@ -49,6 +54,7 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.CarvingRegistry;
 import com.unforbidable.tfc.bids.api.DrinkRegistry;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 
@@ -59,6 +65,9 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
@@ -70,10 +79,16 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         FMLCommonHandler.instance().bus().register(new ConfigHandler(event.getModConfigurationDirectory()));
 
+        Bids.network.registerMessage(CarvingMessage.ServerHandler.class, CarvingMessage.class,
+                NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
+        Bids.network.registerMessage(CarvingMessage.ClientHandler.class, CarvingMessage.class,
+                NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
+
         GameRegistry.registerTileEntity(TileEntityClayCrucible.class, "BidsClayCrucible");
         GameRegistry.registerTileEntity(TileEntityFireClayCrucible.class, "BidsFireClayCrucible");
         GameRegistry.registerTileEntity(TileEntityChimney.class, "BidsChimney");
         GameRegistry.registerTileEntity(TileEntityQuarry.class, "BidsQuarry");
+        GameRegistry.registerTileEntity(TileEntityCarving.class, "BidsCarving");
 
         BidsBlocks.clayCrucible = new BlockClayCrucible().setBlockName("ClayCrucible")
                 .setBlockTextureName("Pottery Crucible")
@@ -86,6 +101,7 @@ public class CommonProxy {
         BidsBlocks.mudBrickChimney2 = new BlockMudChimney(16).setDirt(TFCBlocks.dirt2)
                 .setBlockName("MudBrickChimney2");
         BidsBlocks.quarry = new BlockQuarry().setBlockName("Quarry");
+        BidsBlocks.carvingRock = new BlockCarving(Material.rock).setBlockName("CarvingRock");
         BidsBlocks.roughStoneSed = new BlockRoughStone()
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
                 .setBlockTextureName("Rough");
@@ -98,6 +114,7 @@ public class CommonProxy {
         GameRegistry.registerBlock(BidsBlocks.mudBrickChimney, ItemMudChimney.class, "MudBrickChimney");
         GameRegistry.registerBlock(BidsBlocks.mudBrickChimney2, ItemMudChimney.class, "MudBrickChimney2");
         GameRegistry.registerBlock(BidsBlocks.quarry, ItemQuarry.class, "Quary");
+        GameRegistry.registerBlock(BidsBlocks.carvingRock, "CarvingRock");
         GameRegistry.registerBlock(BidsBlocks.roughStoneSed, ItemRoughStone.class, "RoughStoneSed");
         GameRegistry.registerBlock(BidsBlocks.roughStoneBrickSed, ItemRoughStoneBrick.class, "RoughStoneBrickSed");
 
@@ -184,9 +201,41 @@ public class CommonProxy {
         GameRegistry.registerItem(BidsItems.igExStoneAdze, BidsItems.igExStoneAdze.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.mMStoneAdze, BidsItems.mMStoneAdze.getUnlocalizedName());
 
+        BidsItems.sedStoneAdze.setHarvestLevel("shovel", 1);
+        BidsItems.mMStoneAdze.setHarvestLevel("shovel", 1);
+        BidsItems.igInStoneAdze.setHarvestLevel("shovel", 1);
+        BidsItems.igExStoneAdze.setHarvestLevel("shovel", 1);
+
+        BidsBlocks.roughStoneSed.setHarvestLevel("shovel", 0);
+        BidsBlocks.roughStoneBrickSed.setHarvestLevel("shovel", 0);
+        BidsBlocks.carvingRock.setHarvestLevel("shovel", 0);
+
+        final int WILD = OreDictionary.WILDCARD_VALUE;
+        OreDictionary.registerOre("stoneRough",
+                new ItemStack(BidsBlocks.roughStoneSed, 1, WILD));
+        OreDictionary.registerOre("stoneRoughBricks",
+                new ItemStack(BidsBlocks.roughStoneBrickSed, 1, WILD));
+
+        BidsItems.adzes = new Item[] { BidsItems.igInStoneAdze, BidsItems.mMStoneAdze,
+                BidsItems.igInStoneAdze, BidsItems.igExStoneAdze };
+        for (Item adze : BidsItems.adzes) {
+            OreDictionary.registerOre("itemAdze", new ItemStack(adze, 1, WILD));
+        }
+
+        OreDictionary.registerOre("itemAdzeStone",
+                new ItemStack(BidsItems.sedStoneAdze, 1, WILD));
+        OreDictionary.registerOre("itemAdzeStone",
+                new ItemStack(BidsItems.mMStoneAdze, 1, WILD));
+        OreDictionary.registerOre("itemAdzeStone",
+                new ItemStack(BidsItems.igInStoneAdze, 1, WILD));
+        OreDictionary.registerOre("itemAdzeStone",
+                new ItemStack(BidsItems.igExStoneAdze, 1, WILD));
+
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new GuiHandler());
 
         FMLCommonHandler.instance().bus().register(new CraftingHandler());
+
+        CarvingRegistry.registerCarving(new CarvingRoughStone());
 
         DrinkRegistry.registerDrink(new Drink(TFCFluids.FRESHWATER, "FreshWater")
                 .setWaterRestoreRatio(1));

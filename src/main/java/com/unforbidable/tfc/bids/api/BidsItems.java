@@ -37,4 +37,6 @@ public class BidsItems {
     public static Item igExStoneAdze;
     public static Item mMStoneAdze;
 
+    public static Item[] adzes;
+
 }

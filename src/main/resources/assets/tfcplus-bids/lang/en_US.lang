@@ -357,7 +357,9 @@ gui.ShowHelp=§8Help: (Hold §fShift§8)
 gui.Help=Help:
 gui.Help.Drill=§bRight Click §7raw stone to quarry.
 gui.Help.Drill2=Requires sticks on the hotbar.
-gui.Help.Adze=§bRight Click §7rough stone or thick log to carve.
+gui.Help.Adze=Hold §fShift §7and §bRight Click §7block to begin carving.
+gui.Help.Adze2=Hold §fShift §7and §bRight Click §7block to lock or unlock carving.
+gui.Help.Adze3=§bRight Click §7block to carve.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified
@@ -370,4 +372,3 @@ gui.HoursRemaining=Hours Remaining
 gui.Ruined=Ruined
 gui.Wedges=Wedges
 gui.QuarryReady=Ready
-
