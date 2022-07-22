@@ -11,15 +11,20 @@ import com.dunk.tfc.api.Crafting.CraftingManagerTFC;
 import com.dunk.tfc.api.Crafting.KilnCraftingManager;
 import com.dunk.tfc.api.Crafting.KilnRecipe;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
+import com.unforbidable.tfc.bids.Blocks.BlockCarving;
 import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
 import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
+import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStoneBrick;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Drinks.Drink;
 import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
+import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
@@ -30,6 +35,7 @@ import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
 import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
 import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
 import com.unforbidable.tfc.bids.Items.ItemGlassLump;
+import com.unforbidable.tfc.bids.Items.ItemAdze;
 import com.unforbidable.tfc.bids.Items.ItemDrill;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
@@ -41,6 +47,7 @@ import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemQuarry;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStone;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStoneBrick;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
@@ -48,6 +55,7 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.CarvingRegistry;
 import com.unforbidable.tfc.bids.api.DrinkRegistry;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 
@@ -58,9 +66,13 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class CommonProxy {
@@ -68,10 +80,16 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         FMLCommonHandler.instance().bus().register(new ConfigHandler(event.getModConfigurationDirectory()));
 
+        Bids.network.registerMessage(CarvingMessage.ServerHandler.class, CarvingMessage.class,
+                NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
+        Bids.network.registerMessage(CarvingMessage.ClientHandler.class, CarvingMessage.class,
+                NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
+
         GameRegistry.registerTileEntity(TileEntityClayCrucible.class, "BidsClayCrucible");
         GameRegistry.registerTileEntity(TileEntityFireClayCrucible.class, "BidsFireClayCrucible");
         GameRegistry.registerTileEntity(TileEntityChimney.class, "BidsChimney");
         GameRegistry.registerTileEntity(TileEntityQuarry.class, "BidsQuarry");
+        GameRegistry.registerTileEntity(TileEntityCarving.class, "BidsCarving");
 
         BidsBlocks.clayCrucible = new BlockClayCrucible().setBlockName("ClayCrucible")
                 .setBlockTextureName("Pottery Crucible")
@@ -84,6 +102,7 @@ public class CommonProxy {
         BidsBlocks.mudBrickChimney2 = new BlockMudChimney(16).setDirt(TFCBlocks.dirt2)
                 .setBlockName("MudBrickChimney2");
         BidsBlocks.quarry = new BlockQuarry().setBlockName("Quarry");
+        BidsBlocks.carvingRock = new BlockCarving(Material.rock).setBlockName("CarvingRock");
         BidsBlocks.roughStoneSed = new BlockRoughStone()
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
                 .setBlockTextureName("Rough");
@@ -96,6 +115,7 @@ public class CommonProxy {
         GameRegistry.registerBlock(BidsBlocks.mudBrickChimney, ItemMudChimney.class, "MudBrickChimney");
         GameRegistry.registerBlock(BidsBlocks.mudBrickChimney2, ItemMudChimney.class, "MudBrickChimney2");
         GameRegistry.registerBlock(BidsBlocks.quarry, ItemQuarry.class, "Quary");
+        GameRegistry.registerBlock(BidsBlocks.carvingRock, "CarvingRock");
         GameRegistry.registerBlock(BidsBlocks.roughStoneSed, ItemRoughStone.class, "RoughStoneSed");
         GameRegistry.registerBlock(BidsBlocks.roughStoneBrickSed, ItemRoughStoneBrick.class, "RoughStoneBrickSed");
 
@@ -133,6 +153,24 @@ public class CommonProxy {
         BidsItems.mMStoneDrill = new ItemDrill(TFCItems.mMToolMaterial)
                 .setUnlocalizedName("MM Stone Drill");
 
+        BidsItems.igInStoneAdzeHead = new ItemGenericToolHead(TFCItems.igInToolMaterial)
+                .setUnlocalizedName("IgIn Stone Adze Head");
+        BidsItems.sedStoneAdzeHead = new ItemGenericToolHead(TFCItems.sedToolMaterial)
+                .setUnlocalizedName("Sed Stone Adze Head");
+        BidsItems.igExStoneAdzeHead = new ItemGenericToolHead(TFCItems.igExToolMaterial)
+                .setUnlocalizedName("IgEx Stone Adze Head");
+        BidsItems.mMStoneAdzeHead = new ItemGenericToolHead(TFCItems.mMToolMaterial)
+                .setUnlocalizedName("MM Stone Adze Head");
+
+        BidsItems.igInStoneAdze = new ItemAdze(TFCItems.igInToolMaterial)
+                .setUnlocalizedName("IgIn Stone Adze");
+        BidsItems.sedStoneAdze = new ItemAdze(TFCItems.sedToolMaterial)
+                .setUnlocalizedName("Sed Stone Adze");
+        BidsItems.igExStoneAdze = new ItemAdze(TFCItems.igExToolMaterial)
+                .setUnlocalizedName("IgEx Stone Adze");
+        BidsItems.mMStoneAdze = new ItemAdze(TFCItems.mMToolMaterial)
+                .setUnlocalizedName("MM Stone Adze");
+
         GameRegistry.registerItem(BidsItems.oreBit, BidsItems.oreBit.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.metalBlowpipe, BidsItems.metalBlowpipe.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.brassBlowpipe, BidsItems.brassBlowpipe.getUnlocalizedName());
@@ -154,9 +192,52 @@ public class CommonProxy {
         GameRegistry.registerItem(BidsItems.igExStoneDrill, BidsItems.igExStoneDrill.getUnlocalizedName());
         GameRegistry.registerItem(BidsItems.mMStoneDrill, BidsItems.mMStoneDrill.getUnlocalizedName());
 
+        GameRegistry.registerItem(BidsItems.igInStoneAdzeHead, BidsItems.igInStoneAdzeHead.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.sedStoneAdzeHead, BidsItems.sedStoneAdzeHead.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.igExStoneAdzeHead, BidsItems.igExStoneAdzeHead.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.mMStoneAdzeHead, BidsItems.mMStoneAdzeHead.getUnlocalizedName());
+
+        GameRegistry.registerItem(BidsItems.igInStoneAdze, BidsItems.igInStoneAdze.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.sedStoneAdze, BidsItems.sedStoneAdze.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.igExStoneAdze, BidsItems.igExStoneAdze.getUnlocalizedName());
+        GameRegistry.registerItem(BidsItems.mMStoneAdze, BidsItems.mMStoneAdze.getUnlocalizedName());
+
+        BidsItems.sedStoneAdze.setHarvestLevel("shovel", 1);
+        BidsItems.mMStoneAdze.setHarvestLevel("shovel", 1);
+        BidsItems.igInStoneAdze.setHarvestLevel("shovel", 1);
+        BidsItems.igExStoneAdze.setHarvestLevel("shovel", 1);
+
+        BidsBlocks.roughStoneSed.setHarvestLevel("shovel", 0);
+        BidsBlocks.roughStoneBrickSed.setHarvestLevel("shovel", 0);
+        BidsBlocks.carvingRock.setHarvestLevel("shovel", 0);
+
+        final int WILD = OreDictionary.WILDCARD_VALUE;
+        OreDictionary.registerOre("stoneRough",
+                new ItemStack(BidsBlocks.roughStoneSed, 1, WILD));
+        OreDictionary.registerOre("stoneRoughBricks",
+                new ItemStack(BidsBlocks.roughStoneBrickSed, 1, WILD));
+
+        BidsItems.adzes = new Item[] { BidsItems.igInStoneAdze, BidsItems.mMStoneAdze,
+                BidsItems.igInStoneAdze, BidsItems.igExStoneAdze };
+        for (Item adze : BidsItems.adzes) {
+            OreDictionary.registerOre("itemAdze", new ItemStack(adze, 1, WILD));
+        }
+
+        OreDictionary.registerOre("itemAdzeStone",
+                new ItemStack(BidsItems.sedStoneAdze, 1, WILD));
+        OreDictionary.registerOre("itemAdzeStone",
+                new ItemStack(BidsItems.mMStoneAdze, 1, WILD));
+        OreDictionary.registerOre("itemAdzeStone",
+                new ItemStack(BidsItems.igInStoneAdze, 1, WILD));
+        OreDictionary.registerOre("itemAdzeStone",
+                new ItemStack(BidsItems.igExStoneAdze, 1, WILD));
+
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new GuiHandler());
 
         FMLCommonHandler.instance().bus().register(new CraftingHandler());
+
+        CarvingRegistry.registerCarving(new CarvingRoughStone());
+        CarvingRegistry.registerCarving(new CarvingRoughStoneBrick());
 
         DrinkRegistry.registerDrink(new Drink(TFCFluids.FRESHWATER, "FreshWater")
                 .setWaterRestoreRatio(1));
@@ -384,20 +465,35 @@ public class CommonProxy {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGIN_START) });
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
+                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGIN_START) });
         }
+
         for (int i = 0; i < Global.STONE_SED.length; i++) {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.sedStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_SED_START) });
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
+                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_SED_START) });
         }
+
         for (int i = 0; i < Global.STONE_IGEX.length; i++) {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igExStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGEX_START) });
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
+                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGEX_START) });
         }
+
         for (int i = 0; i < Global.STONE_MM.length; i++) {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.mMStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
+                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_MM_START) });
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_MM_START) });
         }
 
@@ -409,6 +505,25 @@ public class CommonProxy {
                 BidsItems.igExStoneDrillHead, "stickWood", TFCItems.bow));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.mMStoneDrill, 1, 0),
                 BidsItems.mMStoneDrillHead, "stickWood", TFCItems.bow));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.igInStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.igInStoneAdzeHead, '2', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.sedStoneAdzeHead, '2', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.igExStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.igExStoneAdzeHead, '2', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.mMStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.mMStoneAdzeHead, '2', "stickWood"));
+
+        GameRegistry.addRecipe(new ItemStack(BidsItems.igInStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.igInStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
+        GameRegistry.addRecipe(new ItemStack(BidsItems.sedStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.sedStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
+        GameRegistry.addRecipe(new ItemStack(BidsItems.igExStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.igExStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
+        GameRegistry.addRecipe(new ItemStack(BidsItems.mMStoneAdze, 1, 0),
+                "1", "2", '1', BidsItems.mMStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
+
     }
 
     public void postInit(FMLPostInitializationEvent event) {

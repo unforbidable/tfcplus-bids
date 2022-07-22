@@ -6,6 +6,7 @@ import com.dunk.tfc.TileEntities.TEChimney;
 import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
@@ -14,6 +15,7 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -32,6 +34,8 @@ public class WailaCrucible implements IWailaDataProvider {
         reg.registerBodyProvider(new WailaCrucible(), TileEntityChimney.class);
 
         reg.registerBodyProvider(new WailaCrucible(), TileEntityQuarry.class);
+
+        reg.registerStackProvider(new WailaCrucible(), TileEntityCarving.class);
     }
 
     @Override
@@ -64,14 +68,15 @@ public class WailaCrucible implements IWailaDataProvider {
                         + StatCollector.translateToLocal("gui.Ruined"));
             }
         }
+
         if (ChimneyHelper.isChimney(accessor.getTileEntity())) {
             TileEntityCrucible crucible = ChimneyHelper.findActiveFurnaceCrucible(accessor.getTileEntity());
             if (crucible != null)
                 currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Glassmaking") + ": "
                         + crucible.getGlassMakingRemainingHours() + " "
                         + StatCollector.translateToLocal("gui.HoursRemaining"));
-
         }
+
         if (accessor.getTileEntity() instanceof TileEntityQuarry) {
             TileEntityQuarry quarry = (TileEntityQuarry) accessor.getTileEntity();
             currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Wedges") + ": "
@@ -85,17 +90,27 @@ public class WailaCrucible implements IWailaDataProvider {
                 currenttip.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("gui.QuarryReady"));
             }
         }
+
         return currenttip;
     }
 
     @Override
     public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
             IWailaConfigHandler arg3) {
+
         return currenttip;
     }
 
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
+
+        if (accessor.getTileEntity() instanceof TileEntityCarving) {
+            TileEntityCarving carving = (TileEntityCarving) accessor.getTileEntity();
+            Block block = Block.getBlockById(carving.getCarvedBlockId());
+            int metadata = carving.getCarvedBlockMetadata();
+            return new ItemStack(block, 1, metadata);
+        }
+
         return null;
     }
 
