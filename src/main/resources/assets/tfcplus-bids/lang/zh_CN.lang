@@ -26,6 +26,26 @@ tile.MudBrickChimney2.Schist.name=烟囱(片岩泥砖)
 tile.MudBrickChimney.Shale.name=烟囱(页岩泥砖)
 tile.MudBrickChimney2.Slate.name=烟囱(板岩泥砖)
 
+tile.Quarry.name=采石
+
+tile.RoughStoneSed.Chalk.name=粗糙白垩岩
+tile.RoughStoneSed.Chert.name=粗糙角岩
+tile.RoughStoneSed.Claystone.name=粗糙粘土岩
+tile.RoughStoneSed.Sandstone.name=粗糙砂岩
+tile.RoughStoneSed.Dolomite.name=粗糙白云岩
+tile.RoughStoneSed.Limestone.name=粗糙石灰岩
+tile.RoughStoneSed.Rock Salt.name=粗糙盐岩
+tile.RoughStoneSed.Shale.name=粗糙页岩
+
+tile.RoughStoneBrickSed.Chalk.name=粗糙白垩岩砖块
+tile.RoughStoneBrickSed.Chert.name=粗糙角岩砖块
+tile.RoughStoneBrickSed.Claystone.name=粗糙粘土岩砖块
+tile.RoughStoneBrickSed.Sandstone.name=粗糙砂岩砖块
+tile.RoughStoneBrickSed.Dolomite.name=粗糙白云岩砖块
+tile.RoughStoneBrickSed.Limestone.name=粗糙石灰岩砖块
+tile.RoughStoneBrickSed.Rock Salt.name=粗糙盐岩砖块
+tile.RoughStoneBrickSed.Shale.name=粗糙页岩砖块
+
 item.Ore Bit.Bismuthinite.name=辉铋矿碎片
 item.Ore Bit.Cassiterite.name=锡精矿碎片
 item.Ore Bit.Galena.name=方铅矿碎片
@@ -312,10 +332,22 @@ item.Pottery Pipe.Ceramic.name=陶瓷管
 
 item.Glass Lump.name=玻璃块
 
+item.IgIn Stone Drill Head.name=石钻头
+item.Sed Stone Drill Head.name=石钻头
+item.IgEx Stone Drill Head.name=石钻头
+item.MM Stone Drill Head.name=石钻头
+item.IgIn Stone Drill.name=采石钻
+item.Sed Stone Drill.name=采石钻
+item.IgEx Stone Drill.name=采石钻
+item.MM Stone Drill.name=采石钻
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Drinks=Bids and Pieces - Drinks
 
 gui.ShowHelp=§8帮助: (按住 §fShift§8)
+gui.Help=Help:
+gui.Help.Drill=§b右键§7原生石头进行采石.
+gui.Help.Drill2=快捷栏中需要有木棍.
 gui.Units=单位
 gui.Empty=空
 gui.Solidified=凝固
@@ -326,3 +358,6 @@ gui.Glassmaking=玻璃吹制
 gui.plans.blowpipe=吹管
 gui.HoursRemaining=剩余小时
 gui.Ruined=毁坏的
+gui.Wedges=楔子
+gui.QuarryReady=可以开采
+
