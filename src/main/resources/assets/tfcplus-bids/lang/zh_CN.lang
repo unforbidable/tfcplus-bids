@@ -341,6 +341,15 @@ item.Sed Stone Drill.name=采石钻
 item.IgEx Stone Drill.name=采石钻
 item.MM Stone Drill.name=采石钻
 
+item.IgIn Stone Adze Head.name=石锛头
+item.Sed Stone Adze Head.name=石锛头
+item.IgEx Stone Adze Head.name=石锛头
+item.MM Stone Adze Head.name=石锛头
+item.IgIn Stone Adze.name=石锛
+item.Sed Stone Adze.name=石锛
+item.IgEx Stone Adze.name=石锛
+item.MM Stone Adze.name=石锛
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Drinks=Bids and Pieces - Drinks
 
@@ -348,6 +357,9 @@ gui.ShowHelp=§8帮助: (按住 §fShift§8)
 gui.Help=Help:
 gui.Help.Drill=§b右键§7原生石头进行采石.
 gui.Help.Drill2=快捷栏中需要有木棍.
+gui.Help.Adze=按住§fShift §7同时§b右键§7方块开始雕刻.
+gui.Help.Adze2=按住§fShift §7同时§b右键§7方块来解锁或锁定雕刻状态.
+gui.Help.Adze3=§b右键§7方块进行雕刻.
 gui.Units=单位
 gui.Empty=空
 gui.Solidified=凝固
@@ -360,4 +372,3 @@ gui.HoursRemaining=剩余小时
 gui.Ruined=毁坏的
 gui.Wedges=楔子
 gui.QuarryReady=可以开采
-
