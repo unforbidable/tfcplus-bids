@@ -120,6 +120,16 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
             return true;
         }
 
+        // Either one of each of the three opposing sides need to be exposed
+        if ((carvedBits.testBit(bit.getBitToDirection(ForgeDirection.WEST))
+                || carvedBits.testBit(bit.getBitToDirection(ForgeDirection.EAST)))
+                && (carvedBits.testBit(bit.getBitToDirection(ForgeDirection.SOUTH))
+                        || carvedBits.testBit(bit.getBitToDirection(ForgeDirection.NORTH)))
+                && (carvedBits.testBit(bit.getBitToDirection(ForgeDirection.UP))
+                        || carvedBits.testBit(bit.getBitToDirection(ForgeDirection.DOWN)))) {
+            return true;
+        }
+
         // Surrounding bits need to be exposed
         // to any one side the carved bit is exposed
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
