@@ -44,7 +44,7 @@ public class DrinkSetup extends BidsItems {
                 .setWaterRestoreRatio(1));
         DrinkRegistry.registerDrink(new Drink(TFCFluids.CANEJUICE, "CaneJuice")
                 .setCalories(269 / 250f)
-                .setAlcoholTier(1)); // TODO: Seems wrong, fix this?
+                .setWaterRestoreRatio(1));
         DrinkRegistry.registerDrink(new Drink(TFCFluids.APPLEJUICE, "AppleJuice")
                 .setCalories(113 / 250f).setFoodGroup(EnumFoodGroup.Fruit)
                 .setWaterRestoreRatio(1));
