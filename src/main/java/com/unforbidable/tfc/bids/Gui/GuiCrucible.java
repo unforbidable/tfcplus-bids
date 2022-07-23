@@ -2,14 +2,14 @@ package com.unforbidable.tfc.bids.Gui;
 
 import java.util.ArrayList;
 
-import com.unforbidable.tfc.bids.Containers.ContainerCrucible;
-import com.unforbidable.tfc.bids.TFC.GuiContainerTFC;
-import com.unforbidable.tfc.bids.TFC.PlayerInventory;
+import com.dunk.tfc.Core.Player.PlayerInventory;
+import com.dunk.tfc.GUI.GuiContainerTFC;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -19,7 +19,7 @@ public abstract class GuiCrucible extends GuiContainerTFC {
     protected final TileEntityCrucible crucibleTileEntity;
 
     public GuiCrucible(InventoryPlayer inventory, TileEntityCrucible te, World world, int x, int y, int z,
-            ContainerCrucible container) {
+            Container container) {
         super(container, 176, 85);
         crucibleTileEntity = te;
         setDrawInventory(true);

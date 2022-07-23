@@ -14,7 +14,6 @@ import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillDataAgent;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillTarget;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
-import com.unforbidable.tfc.bids.TFC.ItemTerra;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
@@ -310,7 +309,7 @@ public class ItemDrill extends Item implements ISize {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
-        ItemTerra.addSizeInformation(is, list);
+        ItemHelper.addSizeInformation(is, list);
 
         if (ItemHelper.showShiftInformation()) {
             list.add(StatCollector.translateToLocal("gui.Help"));

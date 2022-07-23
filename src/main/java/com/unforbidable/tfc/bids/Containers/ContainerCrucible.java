@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.Containers;
 
-import com.unforbidable.tfc.bids.TFC.ContainerTFC;
-import com.unforbidable.tfc.bids.TFC.PlayerInventory;
+import com.dunk.tfc.Containers.ContainerTFC;
+import com.dunk.tfc.Core.Player.PlayerInventory;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 
 import net.minecraft.entity.player.EntityPlayer;

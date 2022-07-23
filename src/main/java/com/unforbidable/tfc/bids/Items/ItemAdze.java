@@ -12,7 +12,6 @@ import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingHelper;
-import com.unforbidable.tfc.bids.TFC.ItemTerra;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
 
@@ -72,7 +71,7 @@ public class ItemAdze extends ItemTool implements ISize, ICarvingTool {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
-        ItemTerra.addSizeInformation(is, list);
+        ItemHelper.addSizeInformation(is, list);
 
         if (ItemHelper.showShiftInformation()) {
             list.add(StatCollector.translateToLocal("gui.Help"));

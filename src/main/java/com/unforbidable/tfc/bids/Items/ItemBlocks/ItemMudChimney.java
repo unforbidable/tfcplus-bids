@@ -2,7 +2,7 @@ package com.unforbidable.tfc.bids.Items.ItemBlocks;
 
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
-import com.unforbidable.tfc.bids.TFC.ItemTerra;
+import com.unforbidable.tfc.bids.Core.ItemHelper;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class ItemMudChimney extends ItemBlock implements ISize {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
-        ItemTerra.addSizeInformation(is, arraylist);
+        ItemHelper.addSizeInformation(is, arraylist);
 
         Block b = Block.getBlockFromItem(is.getItem());
         if (b instanceof BlockMudChimney) {

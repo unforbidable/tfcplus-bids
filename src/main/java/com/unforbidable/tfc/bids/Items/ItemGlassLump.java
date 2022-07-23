@@ -12,7 +12,6 @@ import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
-import com.unforbidable.tfc.bids.TFC.ItemTerra;
 import com.unforbidable.tfc.bids.api.Interfaces.IExtraSmeltable;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -106,7 +105,7 @@ public class ItemGlassLump extends Item implements ISize, ISmeltable, IExtraSmel
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
-        ItemTerra.addSizeInformation(is, list);
+        ItemHelper.addSizeInformation(is, list);
 
         if (getMetalType(is) != null) {
             if (ItemHelper.showShiftInformation()) {
