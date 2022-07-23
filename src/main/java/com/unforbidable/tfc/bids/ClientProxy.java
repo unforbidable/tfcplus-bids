@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids;
 
 import com.unforbidable.tfc.bids.Core.BlockSetup;
 import com.unforbidable.tfc.bids.Handlers.Client.ClientGuiHandler;
+import com.unforbidable.tfc.bids.WAILA.WailaSetup;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -28,6 +29,8 @@ public class ClientProxy extends CommonProxy {
     @SideOnly(Side.CLIENT)
     public void init(FMLInitializationEvent event) {
         super.init(event);
+
+        WailaSetup.init();
     }
 
     @Override

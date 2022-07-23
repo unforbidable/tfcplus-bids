@@ -4,7 +4,6 @@ import com.unforbidable.tfc.bids.Core.BlockSetup;
 import com.unforbidable.tfc.bids.Core.DrinkSetup;
 import com.unforbidable.tfc.bids.Core.ItemSetup;
 import com.unforbidable.tfc.bids.Core.RecipeSetup;
-import com.unforbidable.tfc.bids.Core.WailaSetup;
 import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
 
@@ -28,7 +27,6 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         RecipeSetup.init();
-        WailaSetup.init();
     }
 
     public void postInit(FMLPostInitializationEvent event) {
