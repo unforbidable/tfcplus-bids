@@ -15,7 +15,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Drill](../../wiki/Drill) - a tool for drilling raw stone
 * [Quarry](../../wiki/Quarry) - for harvesting Rough Stone block using the drill and wedge method, sedimentary rocks only
 * [Rough Stone and Rough Stone Bricks](../../wiki/Rough-Stone) - new building blocks for sedimentary rocks
-* [Adze](../../wiki/Adze) - a tool for digging and carving blocks
+* [Adze](../../wiki/Adze) - a tool for carving blocks and making rough stone bricks
 * [Carving](../../wiki/Carving) - allows shaping blocks with an adze, in like manner to TFC detailing with a chisel
 
 ### Translations

@@ -96,3 +96,15 @@
 
 0.12.1 (23-07-2022)
 - Updated: Chinese translation by Eternal130
+
+0.13.0 (24-07-2022)
+- Added: Rough Stone Loose Bricks
+- Added: Raw Stone can be carved as long as it is exposed enough, rules are similar to carving pieces of individual blocks
+- Changed: New icons for stone drill and stone drill head
+- Changed: Rough Stone Brick blocks no longer fall with gravity, but Rough Stone blocks still do
+- Changed: Rough Stone Brick (2) are crafted from Loose Rough Bricks (2) and Mud (2), Loose Rough Bricks (2) are crafted from Rough Stone (1) and Adze, Adze takes damage
+- Changed: Carving Rough Stone Bricks drops Loose Rough Bricks, up to 2, depending on how much has been carved out
+- Changed: More creative tabs
+- Fixed: Cane juice restores water now
+- Fixed: Inner bits exposed on three opposing sides can be carved now
+- Fixed: Coal Ore Bits removed
