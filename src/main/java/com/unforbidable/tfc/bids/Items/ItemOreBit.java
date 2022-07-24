@@ -57,7 +57,8 @@ public class ItemOreBit extends Item implements ISize, ISmeltable, IExtraSmeltab
 
     @Override
     public IIcon getIconFromDamage(int i) {
-        if (metaIcons != null && i < metaIcons.length) {
+        // No icons for bitumous coal and lignite
+        if (metaIcons != null && i < metaIcons.length && i != 14 && i != 15) {
             return metaIcons[i];
         } else
             return this.itemIcon;
@@ -66,8 +67,11 @@ public class ItemOreBit extends Item implements ISize, ISmeltable, IExtraSmeltab
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
-        for (int i = 0; i < Global.ORE_METAL.length; i++)
-            list.add(new ItemStack(this, 1, i));
+        for (int i = 0; i < Global.ORE_METAL.length; i++) {
+            // No sub items for bitumous coal and lignite
+            if (i != 14 && i != 15)
+                list.add(new ItemStack(this, 1, i));
+        }
     }
 
     @Override
@@ -79,7 +83,9 @@ public class ItemOreBit extends Item implements ISize, ISmeltable, IExtraSmeltab
     public void registerIcons(IIconRegister registerer) {
         metaIcons = new IIcon[Global.ORE_METAL.length];
         for (int i = 0; i < Global.ORE_METAL.length; i++) {
-            metaIcons[i] = registerer.registerIcon(Tags.MOD_ID + ":" + Global.ORE_METAL[i] + " Ore Bit");
+            // No icons for bitumous coal and lignite
+            if (i != 14 && i != 15)
+                metaIcons[i] = registerer.registerIcon(Tags.MOD_ID + ":" + Global.ORE_METAL[i] + " Ore Bit");
         }
     }
 
