@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Core;
 
-import com.dunk.tfc.Handlers.CraftingHandler;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.AnvilManager;
@@ -13,6 +12,7 @@ import com.dunk.tfc.api.Crafting.PlanRecipe;
 import com.dunk.tfc.api.Enums.RuleEnum;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
+import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -117,9 +117,8 @@ public class RecipeSetup {
         }
 
         for (int j = 0; j < Global.STONE_SED.length; j++) {
-            GameRegistry.addRecipe(
-                    new ItemStack(BidsBlocks.roughStoneBrickSed, 4, j),
-                    "BB", "BB", 'B', new ItemStack(BidsBlocks.roughStoneSed, 1, j));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsBlocks.roughStoneBrickSed, 1, j),
+                    new ItemStack(BidsBlocks.roughStoneSed, 1, j), "itemAdze"));
         }
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igInStoneDrill, 1, 0),
