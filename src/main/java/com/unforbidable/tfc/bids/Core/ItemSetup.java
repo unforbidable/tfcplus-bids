@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
 import com.unforbidable.tfc.bids.Items.ItemGlassLump;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
+import com.unforbidable.tfc.bids.Items.ItemRoughBrick;
 import com.unforbidable.tfc.bids.api.BidsItems;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -95,6 +96,9 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("IgEx Stone Adze");
         mMStoneAdze = new ItemAdze(TFCItems.mMToolMaterial)
                 .setUnlocalizedName("MM Stone Adze");
+
+        sedRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_SED)
+                .setUnlocalizedName("Sed Rough Stone Loose Brick");
     }
 
     private static void setupToolHarvest() {
@@ -120,6 +124,8 @@ public class ItemSetup extends BidsItems {
         OreDictionary.registerOre("itemAdzeStone", new ItemStack(mMStoneAdze, 1, WILD));
         OreDictionary.registerOre("itemAdzeStone", new ItemStack(igInStoneAdze, 1, WILD));
         OreDictionary.registerOre("itemAdzeStone", new ItemStack(igExStoneAdze, 1, WILD));
+
+        OreDictionary.registerOre("itemRoughStoneBrickLoose", new ItemStack(sedRoughStoneLooseBrick, 1, WILD));
     }
 
     private static void registerPartialMolds() {
@@ -185,6 +191,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(sedStoneAdze, sedStoneAdze.getUnlocalizedName());
         GameRegistry.registerItem(igExStoneAdze, igExStoneAdze.getUnlocalizedName());
         GameRegistry.registerItem(mMStoneAdze, mMStoneAdze.getUnlocalizedName());
+
+        GameRegistry.registerItem(sedRoughStoneLooseBrick, sedRoughStoneLooseBrick.getUnlocalizedName());
     }
 
 }
