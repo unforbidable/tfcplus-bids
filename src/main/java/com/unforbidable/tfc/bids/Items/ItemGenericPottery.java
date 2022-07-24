@@ -17,7 +17,7 @@ public class ItemGenericPottery extends ItemPotteryBase {
 
     public ItemGenericPottery(boolean hasCeramicItem) {
         super();
-        setCreativeTab(BidsCreativeTabs.BidsDefault);
+        setCreativeTab(BidsCreativeTabs.bidsDefault);
         this.hasCeramicItem = hasCeramicItem;
     }
 

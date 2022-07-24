@@ -29,7 +29,7 @@ public class BlockRoughStone extends Block {
 
     public BlockRoughStone() {
         super(Material.rock);
-        setCreativeTab(BidsCreativeTabs.BidsDefault);
+        setCreativeTab(BidsCreativeTabs.bidsBuildingBlocks);
         setHardness(10f);
     }
 

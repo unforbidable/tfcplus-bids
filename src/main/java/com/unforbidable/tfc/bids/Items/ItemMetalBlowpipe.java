@@ -34,7 +34,7 @@ public class ItemMetalBlowpipe extends ItemPotteryMold {
         setMaxUnits(100);
         setCounter(1);
         setBaseDamage(2);
-        setCreativeTab(BidsCreativeTabs.BidsDefault);
+        setCreativeTab(BidsCreativeTabs.bidsTools);
     }
 
     @Override

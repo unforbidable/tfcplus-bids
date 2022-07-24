@@ -38,7 +38,7 @@ public class BlockMudChimney extends BlockContainer {
         int count = (stoneOffset == 0 ? 16 : Global.STONE_ALL.length - 16);
         icons = new IIcon[count];
         setHardness(12f);
-        setCreativeTab(BidsCreativeTabs.BidsDefault);
+        setCreativeTab(BidsCreativeTabs.bidsBuildingBlocks);
     }
 
     public int getStoneOffset() {

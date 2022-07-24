@@ -19,7 +19,7 @@ public class BlockFireClayCrucible extends BlockCrucible {
 
     public BlockFireClayCrucible() {
         super(Material.rock);
-        setCreativeTab(BidsCreativeTabs.BidsDefault);
+        setCreativeTab(BidsCreativeTabs.bidsDefault);
         setBlockBounds(0.0625f, 0.25f, 0.0625f, 0.9375f, 0.9375f, 0.9375f);
     }
 

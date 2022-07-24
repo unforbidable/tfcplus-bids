@@ -13,7 +13,7 @@ public class ItemGenericToolHead extends ItemMiscToolHead {
     public ItemGenericToolHead(ToolMaterial material) {
         super();
         this.material = material;
-        setCreativeTab(BidsCreativeTabs.BidsDefault);
+        setCreativeTab(BidsCreativeTabs.bidsMaterials);
     }
 
     public ToolMaterial getMaterial() {

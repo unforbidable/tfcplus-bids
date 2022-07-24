@@ -27,7 +27,7 @@ public class ItemOreBit extends Item implements ISize, ISmeltable, IExtraSmeltab
     IIcon[] metaIcons = new IIcon[Global.ORE_METAL.length];
 
     public ItemOreBit() {
-        this.setCreativeTab(BidsCreativeTabs.BidsDefault);
+        this.setCreativeTab(BidsCreativeTabs.bidsMaterials);
     }
 
     @Override

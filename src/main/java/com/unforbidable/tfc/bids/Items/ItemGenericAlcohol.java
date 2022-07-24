@@ -17,7 +17,7 @@ public class ItemGenericAlcohol extends ItemAlcohol {
     public ItemGenericAlcohol(float volume, boolean isPottery, int... overlayParts) {
         super(volume);
         pottery = isPottery;
-        setCreativeTab(BidsCreativeTabs.BidsDrinks);
+        setCreativeTab(BidsCreativeTabs.bidsFoodstuffs);
         overlay = new DrinkOverlayHandler(this, isPottery, overlayParts);
     }
 

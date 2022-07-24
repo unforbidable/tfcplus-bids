@@ -360,7 +360,10 @@ item.Sed Rough Stone Loose Brick.Rock Salt.name=Rough Rock Salt Brick
 item.Sed Rough Stone Loose Brick.Shale.name=Rough Shale Brick
 
 itemGroup.Bids.Default=Bids and Pieces
-itemGroup.Bids.Drinks=Bids and Pieces - Drinks
+itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs
+itemGroup.Bids.BuildingBlocks=Bids and Pieces - Building Blocks
+itemGroup.Bids.Materials=Bids and Pieces - Materials
+itemGroup.Bids.Tools=Bids and Pieces - Tools
 
 gui.ShowHelp=§8Help: (Hold §fShift§8)
 gui.Help=Help:

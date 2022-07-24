@@ -23,7 +23,7 @@ public class ItemDrinkingGlass extends ItemGlassBottle {
     public ItemDrinkingGlass() {
         super();
         setMetal(Global.GLASS);
-        setCreativeTab(BidsCreativeTabs.BidsDefault);
+        setCreativeTab(BidsCreativeTabs.bidsDefault);
     }
 
     public ItemDrinkingGlass setGlassReturnAmount(int glassReturnAmount) {

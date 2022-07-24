@@ -31,7 +31,7 @@ public class ItemAdze extends ItemTool implements ISize, ICarvingTool {
 
     public ItemAdze(ToolMaterial material) {
         super(-0.25F * material.getDamageVsEntity(), material, BLOCKS_EFFECTIVE_AGAINST);
-        setCreativeTab(BidsCreativeTabs.BidsDefault);
+        setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxDamage(material.getMaxUses());
         setNoRepair();
     }

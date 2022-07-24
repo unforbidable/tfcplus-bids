@@ -25,7 +25,7 @@ import net.minecraft.util.StatCollector;
 public class ItemGlassLump extends Item implements ISize, ISmeltable, IExtraSmeltable {
 
     public ItemGlassLump() {
-        this.setCreativeTab(BidsCreativeTabs.BidsDefault);
+        this.setCreativeTab(BidsCreativeTabs.bidsMaterials);
     }
 
     @Override
