@@ -108,3 +108,11 @@
 - Fixed: Cane juice restores water now
 - Fixed: Inner bits exposed on three opposing sides can be carved now
 - Fixed: Coal Ore Bits removed
+
+0.13.1 (24-07-2022)
+- Fixed: Rough Stone Bricks recipes give the correct output
+
+0.13.2 (25-07-2022)
+- Changed: Adze fits in a chest
+- Changed: Rough Stone Brick (1) is crafted from Loose Rough Stone Bricks (4), Loose Rough Stone Bricks (4) are crafted from Rough Stone (1) and Adze, Adze takes damage
+- Changed: Carving Rough Stone Bricks drops Loose Rough Bricks, up to 4, depending on how much has been carved out
