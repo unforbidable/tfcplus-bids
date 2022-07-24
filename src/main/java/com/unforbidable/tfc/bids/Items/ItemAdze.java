@@ -60,7 +60,7 @@ public class ItemAdze extends ItemTool implements ISize, ICarvingTool {
 
     @Override
     public EnumSize getSize(ItemStack arg0) {
-        return EnumSize.MEDIUM;
+        return EnumSize.SMALL;
     }
 
     @Override
