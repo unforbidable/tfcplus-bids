@@ -37,14 +37,14 @@ tile.RoughStoneSed.Limestone.name=Rough Limestone
 tile.RoughStoneSed.Rock Salt.name=Rough Rock Salt
 tile.RoughStoneSed.Shale.name=Rough Shale
 
-tile.RoughStoneBrickSed.Chalk.name=Rough Chalk Brick
-tile.RoughStoneBrickSed.Chert.name=Rough Chert Brick
-tile.RoughStoneBrickSed.Claystone.name=Rough Claystone Brick
-tile.RoughStoneBrickSed.Sandstone.name=Rough Sandstone Brick
-tile.RoughStoneBrickSed.Dolomite.name=Rough Dolomite Brick
-tile.RoughStoneBrickSed.Limestone.name=Rough Limestone Brick
-tile.RoughStoneBrickSed.Rock Salt.name=Rough Rock Salt Brick
-tile.RoughStoneBrickSed.Shale.name=Rough Shale Brick
+tile.RoughStoneBrickSed.Chalk.name=Rough Chalk Bricks
+tile.RoughStoneBrickSed.Chert.name=Rough Chert Bricks
+tile.RoughStoneBrickSed.Claystone.name=Rough Claystone Bricks
+tile.RoughStoneBrickSed.Sandstone.name=Rough Sandstone Bricks
+tile.RoughStoneBrickSed.Dolomite.name=Rough Dolomite Bricks
+tile.RoughStoneBrickSed.Limestone.name=Rough Limestone Bricks
+tile.RoughStoneBrickSed.Rock Salt.name=Rough Rock Salt Bricks
+tile.RoughStoneBrickSed.Shale.name=Rough Shale Bricks
 
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
@@ -349,6 +349,15 @@ item.IgIn Stone Adze.name=Stone Adze
 item.Sed Stone Adze.name=Stone Adze
 item.IgEx Stone Adze.name=Stone Adze
 item.MM Stone Adze.name=Stone Adze
+
+item.Sed Rough Stone Loose Brick.Chalk.name=Rough Chalk Brick
+item.Sed Rough Stone Loose Brick.Chert.name=Rough Chert Brick
+item.Sed Rough Stone Loose Brick.Claystone.name=Rough Claystone Brick
+item.Sed Rough Stone Loose Brick.Sandstone.name=Rough Sandstone Brick
+item.Sed Rough Stone Loose Brick.Dolomite.name=Rough Dolomite Brick
+item.Sed Rough Stone Loose Brick.Limestone.name=Rough Limestone Brick
+item.Sed Rough Stone Loose Brick.Rock Salt.name=Rough Rock Salt Brick
+item.Sed Rough Stone Loose Brick.Shale.name=Rough Shale Brick
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Drinks=Bids and Pieces - Drinks

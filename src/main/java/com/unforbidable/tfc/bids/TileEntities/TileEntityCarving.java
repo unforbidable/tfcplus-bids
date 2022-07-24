@@ -198,7 +198,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
                 getCarvedBlockMetadata(), worldObj.rand);
         if (rewardStack != null) {
             int maxCount = rewardStack.length;
-            int earnedCount = Math.min(Math.round(maxCount * ratio), maxCount);
+            int earnedCount = Math.min((int) Math.floor(maxCount * ratio), maxCount);
             while (earnedCount > harvestDroppedCount) {
                 ItemStack is = rewardStack[harvestDroppedCount++];
                 EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);

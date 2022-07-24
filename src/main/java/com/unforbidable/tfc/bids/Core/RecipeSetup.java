@@ -117,8 +117,16 @@ public class RecipeSetup {
         }
 
         for (int j = 0; j < Global.STONE_SED.length; j++) {
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsBlocks.roughStoneBrickSed, 1, j),
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseBrick, 2, j),
                     new ItemStack(BidsBlocks.roughStoneSed, 1, j), "itemAdze"));
+            GameRegistry.addRecipe(
+                    new ItemStack(BidsBlocks.roughStoneBrickSed, 2, j),
+                    "MB", "BM", 'B', new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j),
+                    'M', new ItemStack(TFCItems.mud));
+            GameRegistry.addRecipe(
+                    new ItemStack(BidsBlocks.roughStoneBrickSed, 2, j),
+                    "BM", "MB", 'B', new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j),
+                    'M', new ItemStack(TFCItems.mud));
         }
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igInStoneDrill, 1, 0),

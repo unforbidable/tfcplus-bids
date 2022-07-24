@@ -41,6 +41,10 @@ public class CraftingHandler {
             damageTool(e, toolDamage, "itemHammer");
         }
 
+        if (e.crafting.getItem() == BidsItems.sedRoughStoneLooseBrick) {
+            damageTool(e, 5, "itemAdze");
+        }
+
         if (e.crafting.getItem() == Item.getItemFromBlock(BidsBlocks.fireClayCrucible)) {
             CrucibleHelper.triggerCrucibleAchievement(e.player);
         }
