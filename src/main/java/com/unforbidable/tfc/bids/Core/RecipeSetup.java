@@ -12,6 +12,9 @@ import com.dunk.tfc.api.Crafting.PlanRecipe;
 import com.dunk.tfc.api.Enums.RuleEnum;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
+import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
+import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionToolDamageOreBit;
+import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionDamageTool;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -98,6 +101,10 @@ public class RecipeSetup {
             }
         }
 
+        RecipeManager.addAction(new ActionToolDamageOreBit()
+                .addTools("itemHammer")
+                .matchCraftingItem(BidsItems.oreBit));
+
         // This recipe is meant to upgrade an obsolete version 0.5.0 metal blowpipe
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.metalBlowpipe, 1, 1),
                 new ItemStack(BidsItems.metalBlowpipe, 1, 0)));
@@ -128,6 +135,10 @@ public class RecipeSetup {
                     "BM", "MB", 'B', new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j),
                     'M', new ItemStack(TFCItems.mud));
         }
+
+        RecipeManager.addAction(new ActionDamageTool(4)
+                .addTools("itemAdze")
+                .matchCraftingItem(BidsItems.sedRoughStoneLooseBrick));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igInStoneDrill, 1, 0),
                 BidsItems.igInStoneDrillHead, "stickWood", TFCItems.bow));
