@@ -80,7 +80,8 @@ public class CarvingHelper {
                         + " at " + x + ", " + y + ", " + z + " hit with a carving tool");
 
                 ICarving carving = CarvingRegistry.getBlockCarvingAt(world, x, y, z);
-                if (carving != null && carving.canCarveBlockWithTool(block, metadata, tool)) {
+                if (carving != null && carving.canCarveBlockWithTool(block, metadata, tool)
+                        && carving.canCarveBlockAt(block, metadata, world, x, y, z, side)) {
                     Bids.LOG.debug("Block " + block.getUnlocalizedName() + ":" + metadata
                             + " at " + x + ", " + y + ", " + z + " can be carved");
 

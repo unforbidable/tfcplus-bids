@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public class CarvingRoughStone implements ICarving {
 
@@ -20,6 +21,11 @@ public class CarvingRoughStone implements ICarving {
 
     @Override
     public boolean canCarveBlockWithTool(Block block, int metadata, ICarvingTool tool) {
+        return true;
+    }
+
+    @Override
+    public boolean canCarveBlockAt(Block block, int metadata, World world, int x, int y, int z, int side) {
         return true;
     }
 
