@@ -38,7 +38,7 @@ public class ActionDamageTool extends RecipeAction {
             if (event.craftMatrix.getStackInSlot(i) != null) {
                 for (ItemStack is : tools) {
                     if (event.craftMatrix.getStackInSlot(i).getItem() == is.getItem()) {
-                        Bids.LOG.info("Found matching tool to be damaged: " + is.getDisplayName());
+                        Bids.LOG.debug("Found matching tool to be damaged: " + is.getDisplayName());
                         damageToolInSlot(event, i);
                     }
                 }
@@ -56,7 +56,7 @@ public class ActionDamageTool extends RecipeAction {
             stackSize = Math.min(stackSize + 1, 2);
             event.craftMatrix.getStackInSlot(i).stackSize = stackSize;
 
-            Bids.LOG.info("Tool was damaged");
+            Bids.LOG.debug("Tool was damaged");
         }
     }
 

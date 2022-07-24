@@ -18,7 +18,7 @@ public class RecipeManager {
     public static void handleItemCraftedEvent(ItemCraftedEvent event) {
         for (RecipeAction action : actions) {
             if (action.craftingMatches(event.crafting)) {
-                Bids.LOG.info("Recipe output matches action: " + action.getClass().getName());
+                Bids.LOG.debug("Recipe output matches action: " + action.getClass().getName());
                 action.onItemCrafted(event);
             }
         }
