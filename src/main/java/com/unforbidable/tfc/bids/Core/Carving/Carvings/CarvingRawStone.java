@@ -56,12 +56,12 @@ public class CarvingRawStone extends CarvingRoughStone {
                 if (exposedExposingSidesCount == 4) {
                     return true;
                 } else {
-                    Bids.LOG.info("Not enough exposed blocks around to " + d + ": " + exposedExposingSidesCount);
+                    Bids.LOG.debug("Not enough exposed blocks around to " + d + ": " + exposedExposingSidesCount);
                 }
             }
         }
 
-        Bids.LOG.info("Cannot carve raw block that is too deep");
+        Bids.LOG.debug("Cannot carve raw block that is too deep");
 
         return false;
     }
