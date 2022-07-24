@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRawStone;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
@@ -130,6 +131,7 @@ public class BlockSetup extends BidsBlocks {
 
         CarvingRegistry.registerCarving(new CarvingRoughStone());
         CarvingRegistry.registerCarving(new CarvingRoughStoneBrick());
+        CarvingRegistry.registerCarving(new CarvingRawStone());
     }
 
     private static void registerQuarryBlocks() {
