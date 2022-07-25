@@ -19,10 +19,12 @@ public class ActionDamageTool extends RecipeAction {
         this.damage = damage;
     }
 
-    public ActionDamageTool addTools(String toolOreName) {
-        List<ItemStack> list = OreDictionary.getOres(toolOreName, false);
-        if (list != null)
-            tools.addAll(list);
+    public ActionDamageTool addTools(String... toolOreNames) {
+        for (String toolOreName : toolOreNames) {
+            List<ItemStack> list = OreDictionary.getOres(toolOreName, false);
+            if (list != null)
+                tools.addAll(list);
+        }
         return this;
     }
 

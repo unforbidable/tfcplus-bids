@@ -39,4 +39,6 @@ public class BidsItems {
 
     public static Item sedRoughStoneLooseBrick;
 
+    public static Item peeledLog;
+
 }
