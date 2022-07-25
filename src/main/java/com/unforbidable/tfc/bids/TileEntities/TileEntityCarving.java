@@ -270,16 +270,18 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
         if (worldObj.isRemote) {
             switch (message.getAction()) {
                 case ACTION_UPDATE:
+                    carvedBits.setBytes(message.getCarveData());
                     worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-                    Bids.LOG.debug("Client updated");
+                    Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
+                            + message.getZCoord());
                     break;
             }
         } else {
             switch (message.getAction()) {
                 case ACTION_SELECT_BIT:
                     selectedBit = message.getBit();
-                    Bids.LOG.debug("Selected bit " + selectedBit.bitX + ", " + selectedBit.bitY +
-                            ", " + selectedBit.bitZ);
+                    Bids.LOG.debug("Selected bit " + (selectedBit.isEmpty() ? "None"
+                            : (selectedBit.bitX + ", " + selectedBit.bitY + ", " + selectedBit.bitZ)));
 
                     if (!clientInitialized) {
                         // First time a carving is selected
@@ -300,8 +302,11 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     }
 
     public static void sendUpdateMessage(World world, int x, int y, int z, int flags) {
+        TileEntityCarving te = (TileEntityCarving) world.getTileEntity(x, y, z);
         TargetPoint tp = new TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new CarvingMessage(x, y, z, TileEntityCarving.ACTION_UPDATE).setFlag(flags), tp);
+        Bids.network.sendToAllAround(new CarvingMessage(x, y, z, TileEntityCarving.ACTION_UPDATE)
+                .setFlag(flags)
+                .setCarvedData(te.carvedBits.getBytes()), tp);
         Bids.LOG.debug("Sent update message: " + flags);
     }
 

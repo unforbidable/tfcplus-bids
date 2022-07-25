@@ -57,6 +57,14 @@ public class CarvingBitMap {
 
     public void readFromNBT(NBTTagCompound tag, String name) {
         byte[] loaded = tag.getByteArray(name);
+        setBytes(loaded);
+    }
+
+    public byte[] getBytes() {
+        return data;
+    }
+
+    public void setBytes(byte[] loaded) {
         if (loaded.length == 0) {
             // Nothing loaded so just re-init
             data = new byte[data.length];

@@ -9,6 +9,7 @@ public class CarvingMessage extends TileEntityMessageBase {
     private int action;
     private int flag;
     private CarvingBit bit = CarvingBit.Empty;
+    private byte[] carvedData = null;
 
     public CarvingMessage() {
         super(-1, -1, -1, -1);
@@ -25,6 +26,15 @@ public class CarvingMessage extends TileEntityMessageBase {
 
     public int getFlag() {
         return flag;
+    }
+
+    public CarvingMessage setCarvedData(byte[] carvedData) {
+        this.carvedData = carvedData;
+        return this;
+    }
+
+    public byte[] getCarveData() {
+        return carvedData;
     }
 
     public CarvingMessage setBit(CarvingBit bit) {
@@ -52,6 +62,11 @@ public class CarvingMessage extends TileEntityMessageBase {
         } else {
             bit = CarvingBit.Empty;
         }
+
+        int carvedDataLength = buf.readByte();
+        if (carvedDataLength > 0) {
+            carvedData = buf.readBytes(carvedDataLength).array();
+        }
     }
 
     @Override
@@ -66,6 +81,13 @@ public class CarvingMessage extends TileEntityMessageBase {
             buf.writeByte(bit.bitX);
             buf.writeByte(bit.bitY);
             buf.writeByte(bit.bitZ);
+        }
+
+        if (carvedData != null) {
+            buf.writeByte(carvedData.length);
+            buf.writeBytes(carvedData);
+        } else {
+            buf.writeByte(0);
         }
     }
 
