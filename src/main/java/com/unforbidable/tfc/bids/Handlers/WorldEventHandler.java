@@ -10,8 +10,9 @@ public class WorldEventHandler {
     @SubscribeEvent
     public void onLoadWorld(WorldEvent.Load event) {
         if (!event.world.isRemote && event.world.provider.dimensionId == 0) {
-            RecipeSetup.onWorldLoad();
+            RecipeSetup.onServerWorldLoad();
         }
     }
+
 
 }

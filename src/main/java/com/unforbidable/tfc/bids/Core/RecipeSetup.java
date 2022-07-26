@@ -22,8 +22,6 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -43,8 +41,11 @@ public class RecipeSetup {
         registerKilnRecipes();
     }
 
-    @SideOnly(Side.SERVER)
-    public static void onWorldLoad() {
+    public static void onServerWorldLoad() {
+        registerAnvilRecipes();
+    }
+
+    public static void onClientWorldInit() {
         registerAnvilRecipes();
     }
 
@@ -242,7 +243,6 @@ public class RecipeSetup {
                         new ItemStack(BidsBlocks.clayCrucible, 1, 0)));
     }
 
-    @SideOnly(Side.SERVER)
     private static void registerAnvilRecipes() {
         Bids.LOG.info("Register TFC anvil recipes");
 
