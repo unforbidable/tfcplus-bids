@@ -49,7 +49,7 @@ public class ItemMetalBlowpipe extends ItemPotteryMold {
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-        if (itemstack.getItemDamage() == baseDamage && !world.isRemote && !entityplayer.isSneaking()) {
+        if (itemstack.getItemDamage() == baseDamage && !entityplayer.isSneaking()) {
             world.playSoundEffect(entityplayer.posX, entityplayer.posY, entityplayer.posZ,
                     TFC_Sounds.BELLOWS, 0.4F, 1);
 
