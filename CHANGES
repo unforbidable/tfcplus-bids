@@ -118,5 +118,10 @@
 - Changed: Carving Rough Stone Bricks drops Loose Rough Bricks, up to 4, depending on how much has been carved out
 
 0.13.3 (26-07-2022)
-- Fixed: Crash during initialization (server only)
-- Fixed: Carving should update properly for client (server only)
+- Fixed: Crash during initialization (MP)
+- Fixed: Carving should update properly for client (MP)
+
+0.14.4 (26-07-2022)
+- Fixed: Waila dependency is optional
+- Fixed: Client crash when blowing glass (MP)
+- Fixed: Anvil recipes register correctly (MP)
