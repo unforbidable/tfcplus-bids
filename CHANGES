@@ -121,7 +121,10 @@
 - Fixed: Crash during initialization (MP)
 - Fixed: Carving should update properly for client (MP)
 
-0.14.4 (26-07-2022)
+0.13.4 (26-07-2022)
 - Fixed: Waila dependency is optional
 - Fixed: Client crash when blowing glass (MP)
 - Fixed: Anvil recipes register correctly (MP)
+
+0.13.5 (27-07-2022)
+- Changed: Updated Chinese translation by Eternal130
