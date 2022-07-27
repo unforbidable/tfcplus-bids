@@ -46,6 +46,13 @@ tile.RoughStoneBrickSed.Limestone.name=Rough Limestone Bricks
 tile.RoughStoneBrickSed.Rock Salt.name=Rough Rock Salt Bricks
 tile.RoughStoneBrickSed.Shale.name=Rough Shale Bricks
 
+tile.LogWallEast.Oak.name=Oak Log Wall
+tile.LogWallNorth.Oak.name=Oak Log Wall
+tile.LogWallCorner.Oak.name=Oak Log Wall
+tile.LogWallEastAlt.Oak.name=Oak Log Wall
+tile.LogWallNorthAlt.Oak.name=Oak Log Wall
+tile.LogWallCornerAlt.Oak.name=Oak Log Wall
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit
