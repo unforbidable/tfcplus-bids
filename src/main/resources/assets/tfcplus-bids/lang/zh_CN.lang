@@ -350,8 +350,20 @@ item.Sed Stone Adze.name=石锛
 item.IgEx Stone Adze.name=石锛
 item.MM Stone Adze.name=石锛
 
+item.Sed Rough Stone Loose Brick.Chalk.name=粗糙白垩岩砖
+item.Sed Rough Stone Loose Brick.Chert.name=粗糙角岩砖
+item.Sed Rough Stone Loose Brick.Claystone.name=粗糙粘土岩砖
+item.Sed Rough Stone Loose Brick.Sandstone.name=粗糙砂岩砖
+item.Sed Rough Stone Loose Brick.Dolomite.name=粗糙白云岩砖
+item.Sed Rough Stone Loose Brick.Limestone.name=粗糙石灰岩砖
+item.Sed Rough Stone Loose Brick.Rock Salt.name=粗糙盐岩砖
+item.Sed Rough Stone Loose Brick.Shale.name=粗糙页岩砖
+
 itemGroup.Bids.Default=Bids and Pieces
-itemGroup.Bids.Drinks=Bids and Pieces - Drinks
+itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
+itemGroup.Bids.BuildingBlocks=Bids and Pieces - 建筑方块
+itemGroup.Bids.Materials=Bids and Pieces - 材料
+itemGroup.Bids.Tools=Bids and Pieces - 工具
 
 gui.ShowHelp=§8帮助: (按住 §fShift§8)
 gui.Help=Help:
