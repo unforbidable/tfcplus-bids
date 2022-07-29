@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
 import com.unforbidable.tfc.bids.Items.ItemGlassLump;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
+import com.unforbidable.tfc.bids.Items.ItemPeeledLog;
 import com.unforbidable.tfc.bids.Items.ItemRoughBrick;
 import com.unforbidable.tfc.bids.api.BidsItems;
 
@@ -99,6 +100,9 @@ public class ItemSetup extends BidsItems {
 
         sedRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_SED)
                 .setUnlocalizedName("Sed Rough Stone Loose Brick");
+
+        peeledLog = new ItemPeeledLog().setNames(Global.WOOD_ALL)
+                .setUnlocalizedName("Peeled Log");
     }
 
     private static void setupToolHarvest() {
@@ -108,6 +112,11 @@ public class ItemSetup extends BidsItems {
         mMStoneAdze.setHarvestLevel("shovel", 1);
         igInStoneAdze.setHarvestLevel("shovel", 1);
         igExStoneAdze.setHarvestLevel("shovel", 1);
+
+        sedStoneAdze.setHarvestLevel("axe", 1);
+        mMStoneAdze.setHarvestLevel("axe", 1);
+        igInStoneAdze.setHarvestLevel("axe", 1);
+        igExStoneAdze.setHarvestLevel("axe", 1);
     }
 
     private static void registerOre() {
@@ -193,6 +202,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(mMStoneAdze, mMStoneAdze.getUnlocalizedName());
 
         GameRegistry.registerItem(sedRoughStoneLooseBrick, sedRoughStoneLooseBrick.getUnlocalizedName());
+
+        GameRegistry.registerItem(peeledLog, peeledLog.getUnlocalizedName());
     }
 
 }

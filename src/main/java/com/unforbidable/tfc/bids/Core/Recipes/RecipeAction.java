@@ -1,12 +1,14 @@
 package com.unforbidable.tfc.bids.Core.Recipes;
 
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public abstract class RecipeAction {
 
     protected Item craftingItem;
+    protected Block craftingBlock;
 
     public RecipeAction() {
     }
@@ -16,8 +18,18 @@ public abstract class RecipeAction {
         return this;
     }
 
+    public RecipeAction matchCraftingBlock(Block craftingBlock) {
+        this.craftingBlock = craftingBlock;
+        return this;
+    }
+
     public boolean craftingMatches(ItemStack itemStack) {
-        return craftingMatchesItem(itemStack.getItem());
+        return craftingMatchesItem(itemStack.getItem())
+                || craftingMatchesBlock(Block.getBlockFromItem(itemStack.getItem()));
+    }
+
+    private boolean craftingMatchesBlock(Block block) {
+        return craftingBlock != null && block == craftingBlock;
     }
 
     public boolean craftingMatchesItem(Item item) {

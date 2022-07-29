@@ -1,5 +1,8 @@
 package com.unforbidable.tfc.bids.Core;
 
+import java.util.Arrays;
+
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.AnvilManager;
@@ -14,6 +17,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionToolDamageOreBit;
+import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionDamageTool;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
@@ -22,7 +26,9 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -162,6 +168,75 @@ public class RecipeSetup {
                 "1", "2", '1', BidsItems.igExStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
         GameRegistry.addRecipe(new ItemStack(BidsItems.mMStoneAdze, 1, 0),
                 "1", "2", '1', BidsItems.mMStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
+
+        for (int i = 0; i < Global.WOOD_ALL.length; i++) {
+            int j = i % 16;
+
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
+                    new ItemStack(TFCItems.logs, 1, i * 2), "itemAdze"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
+                    new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAdze", "itemAxe"));
+
+            if (WoodHelper.canBuildLogWall(i)) {
+                if (i < 16) {
+                    Block logWall = WoodHelper.getDefaultLogWallBlock(0);
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
+                            "A ", "11", '1', new ItemStack(BidsItems.peeledLog, 1, i),
+                            'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLog, 2, i),
+                            Arrays.asList(new ItemStack(logWall, 1, j))));
+                } else if (i < 32) {
+                    Block logWall = WoodHelper.getDefaultLogWallBlock(16);
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
+                            "A ", "11", '1', new ItemStack(BidsItems.peeledLog, 1, i),
+                            'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLog, 2, i),
+                            Arrays.asList(new ItemStack(logWall, 1, j))));
+                } else if (i < 48) {
+                    Block logWall = WoodHelper.getDefaultLogWallBlock(32);
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
+                            "A ", "11", '1', new ItemStack(BidsItems.peeledLog, 1, i),
+                            'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLog, 2, i),
+                            Arrays.asList(new ItemStack(logWall, 1, j))));
+                }
+            }
+
+            // Copies of TFC recipes for items made logs
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 1),
+                    new ItemStack(BidsItems.peeledLog, 1, i), "itemKnife"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.clayTile, 1, 0),
+                    "X ", "LX", 'L', new ItemStack(BidsItems.peeledLog, 1, i), 'X', "lumpClay"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.clayTile, 1, 0),
+                    " X", "XL", 'L', new ItemStack(BidsItems.peeledLog, 1, i), 'X', "lumpClay"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.paddle, 1),
+                    new ItemStack(TFCItems.pole, 1), new ItemStack(BidsItems.peeledLog, 1, i), "itemKnife"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.singlePlank, 8, i),
+                    new ItemStack(BidsItems.peeledLog), "itemSaw"));
+
+            // Copies of TFC recipes for block made from logs
+            if (i < 16) {
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.peeledLog, 1, i), 'A', "itemSaw"));
+            } else if (i < 32) {
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV2, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.peeledLog, 1, i), 'A', "itemSaw"));
+            } else if (i < 48) {
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV3, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.peeledLog, 1, i), 'A', "itemSaw"));
+            }
+        }
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemAdze", "itemAxe")
+                .matchCraftingItem(BidsItems.peeledLog));
+
+        for (int i = 0; i < 3; i++) {
+            Block logWall = WoodHelper.getDefaultLogWallBlock(i * 16);
+            RecipeManager.addAction(new ActionDamageTool(2)
+                    .addTools("itemAdze")
+                    .matchCraftingBlock(logWall));
+        }
     }
 
     private static void registerKnappingRecipes() {

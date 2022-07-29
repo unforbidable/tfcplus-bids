@@ -3,21 +3,27 @@ package com.unforbidable.tfc.bids.Core;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStoneBrick;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingStackedLogs;
 import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockCarving;
 import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
+import com.unforbidable.tfc.bids.Blocks.BlockLogWall;
 import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
 import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingLogWall;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRawStone;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall16;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall32;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemMudChimney;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemQuarry;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStone;
@@ -35,6 +41,7 @@ import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.CarvingRegistry;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
+import com.unforbidable.tfc.bids.api.Enums.EnumLogWallType;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -86,6 +93,7 @@ public class BlockSetup extends BidsBlocks {
         quarry = new BlockQuarry().setBlockName("Quarry");
 
         carvingRock = new BlockCarving(Material.rock).setBlockName("CarvingRock");
+        carvingWood = new BlockCarving(Material.wood).setBlockName("CarvingWood");
 
         roughStoneSed = new BlockRoughStone()
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
@@ -94,6 +102,27 @@ public class BlockSetup extends BidsBlocks {
         roughStoneBrickSed = new BlockRoughStoneBrick()
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneBrickSed")
                 .setBlockTextureName("Rough Brick");
+
+        logWallEast = new BlockLogWall(EnumLogWallType.EAST, 0).setBlockName("LogWallEast");
+        logWallNorth = new BlockLogWall(EnumLogWallType.NORTH, 0).setBlockName("LogWallNorth");
+        logWallCorner = new BlockLogWall(EnumLogWallType.CORNER, 0).setBlockName("LogWallCorner");
+        logWallEastAlt = new BlockLogWall(EnumLogWallType.EAST_ALT, 0).setBlockName("LogWallEastAlt");
+        logWallNorthAlt = new BlockLogWall(EnumLogWallType.NORTH_ALT, 0).setBlockName("LogWallNorthAlt");
+        logWallCornerAlt = new BlockLogWall(EnumLogWallType.CORNER_ALT, 0).setBlockName("LogWallCornerAlt");
+
+        logWallEast2 = new BlockLogWall(EnumLogWallType.EAST, 16).setBlockName("LogWallEast2");
+        logWallNorth2 = new BlockLogWall(EnumLogWallType.NORTH, 16).setBlockName("LogWallNorth2");
+        logWallCorner2 = new BlockLogWall(EnumLogWallType.CORNER, 16).setBlockName("LogWallCorner2");
+        logWallEastAlt2 = new BlockLogWall(EnumLogWallType.EAST_ALT, 16).setBlockName("LogWallEastAlt2");
+        logWallNorthAlt2 = new BlockLogWall(EnumLogWallType.NORTH_ALT, 16).setBlockName("LogWallNorthAlt2");
+        logWallCornerAlt2 = new BlockLogWall(EnumLogWallType.CORNER_ALT, 16).setBlockName("LogWallCornerAlt2");
+
+        logWallEast3 = new BlockLogWall(EnumLogWallType.EAST, 32).setBlockName("LogWallEast3");
+        logWallNorth3 = new BlockLogWall(EnumLogWallType.NORTH, 32).setBlockName("LogWallNorth3");
+        logWallCorner3 = new BlockLogWall(EnumLogWallType.CORNER, 32).setBlockName("LogWallCorner3");
+        logWallEastAlt3 = new BlockLogWall(EnumLogWallType.EAST_ALT, 32).setBlockName("LogWallEastAlt3");
+        logWallNorthAlt3 = new BlockLogWall(EnumLogWallType.NORTH_ALT, 32).setBlockName("LogWallNorthAlt3");
+        logWallCornerAlt3 = new BlockLogWall(EnumLogWallType.CORNER_ALT, 32).setBlockName("LogWallCornerAlt3");
     }
 
     private static void updateBlocks() {
@@ -115,6 +144,7 @@ public class BlockSetup extends BidsBlocks {
         roughStoneBrickSed.setHarvestLevel("shovel", 0);
 
         carvingRock.setHarvestLevel("shovel", 0);
+        carvingWood.setHarvestLevel("axe", 0);
     }
 
     private static void registerOre() {
@@ -132,6 +162,8 @@ public class BlockSetup extends BidsBlocks {
         CarvingRegistry.registerCarving(new CarvingRoughStone());
         CarvingRegistry.registerCarving(new CarvingRoughStoneBrick());
         CarvingRegistry.registerCarving(new CarvingRawStone());
+        CarvingRegistry.registerCarving(new CarvingLogWall());
+        CarvingRegistry.registerCarving(new CarvingStackedLogs());
     }
 
     private static void registerQuarryBlocks() {
@@ -191,10 +223,32 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(quarry, ItemQuarry.class, "Quary");
 
         GameRegistry.registerBlock(carvingRock, "CarvingRock");
+        GameRegistry.registerBlock(carvingWood, "CarvingWood");
 
         GameRegistry.registerBlock(roughStoneSed, ItemRoughStone.class, "RoughStoneSed");
 
         GameRegistry.registerBlock(roughStoneBrickSed, ItemRoughStoneBrick.class, "RoughStoneBrickSed");
+
+        GameRegistry.registerBlock(logWallEast, ItemLogWall.class, "LogWallEast");
+        GameRegistry.registerBlock(logWallNorth, ItemLogWall.class, "LogWallNorth");
+        GameRegistry.registerBlock(logWallCorner, ItemLogWall.class, "LogWallCorner");
+        GameRegistry.registerBlock(logWallEastAlt, ItemLogWall.class, "LogWallEastAlt");
+        GameRegistry.registerBlock(logWallNorthAlt, ItemLogWall.class, "LogWallNorthAlt");
+        GameRegistry.registerBlock(logWallCornerAlt, ItemLogWall.class, "LogWallCornerAlt");
+
+        GameRegistry.registerBlock(logWallEast2, ItemLogWall16.class, "LogWallEast2");
+        GameRegistry.registerBlock(logWallNorth2, ItemLogWall16.class, "LogWallNorth2");
+        GameRegistry.registerBlock(logWallCorner2, ItemLogWall16.class, "LogWallCorner2");
+        GameRegistry.registerBlock(logWallEastAlt2, ItemLogWall16.class, "LogWallEastAlt2");
+        GameRegistry.registerBlock(logWallNorthAlt2, ItemLogWall16.class, "LogWallNorthAlt2");
+        GameRegistry.registerBlock(logWallCornerAlt2, ItemLogWall16.class, "LogWallCornerAlt2");
+
+        GameRegistry.registerBlock(logWallEast3, ItemLogWall32.class, "LogWallEast3");
+        GameRegistry.registerBlock(logWallNorth3, ItemLogWall32.class, "LogWallNorth3");
+        GameRegistry.registerBlock(logWallCorner3, ItemLogWall32.class, "LogWallCorner3");
+        GameRegistry.registerBlock(logWallEastAlt3, ItemLogWall32.class, "LogWallEastAlt3");
+        GameRegistry.registerBlock(logWallNorthAlt3, ItemLogWall32.class, "LogWallNorthAlt3");
+        GameRegistry.registerBlock(logWallCornerAlt3, ItemLogWall32.class, "LogWallCornerAlt3");
     }
 
 }
