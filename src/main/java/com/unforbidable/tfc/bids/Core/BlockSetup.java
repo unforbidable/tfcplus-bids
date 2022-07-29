@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Core;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStoneBrick;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingStackedLogs;
 import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockCarving;
@@ -162,6 +163,7 @@ public class BlockSetup extends BidsBlocks {
         CarvingRegistry.registerCarving(new CarvingRoughStoneBrick());
         CarvingRegistry.registerCarving(new CarvingRawStone());
         CarvingRegistry.registerCarving(new CarvingLogWall());
+        CarvingRegistry.registerCarving(new CarvingStackedLogs());
     }
 
     private static void registerQuarryBlocks() {
