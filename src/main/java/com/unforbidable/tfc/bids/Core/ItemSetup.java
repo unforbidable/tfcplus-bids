@@ -112,6 +112,11 @@ public class ItemSetup extends BidsItems {
         mMStoneAdze.setHarvestLevel("shovel", 1);
         igInStoneAdze.setHarvestLevel("shovel", 1);
         igExStoneAdze.setHarvestLevel("shovel", 1);
+
+        sedStoneAdze.setHarvestLevel("axe", 1);
+        mMStoneAdze.setHarvestLevel("axe", 1);
+        igInStoneAdze.setHarvestLevel("axe", 1);
+        igExStoneAdze.setHarvestLevel("axe", 1);
     }
 
     private static void registerOre() {
