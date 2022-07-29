@@ -105,11 +105,11 @@ public class BlockLogWall extends Block {
             case CORNER_ALT:
                 switch (halfSide) {
                     case 0:
-                        return "End";
+                        return "Side";
                     case 1:
-                        return "Side Turned";
+                        return "Side";
                     case 2:
-                        return "Side Turned";
+                        return "Side Shifted";
                 }
 
             default:

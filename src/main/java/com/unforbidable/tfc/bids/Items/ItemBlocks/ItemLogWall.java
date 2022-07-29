@@ -40,14 +40,21 @@ public class ItemLogWall extends ItemBlock implements ISize {
             names = WoodHelper.getWoodOffsetNames(getOffset());
         }
 
-        return getUnlocalizedName() + "." + names[is.getItemDamage()];
+        String name = getUnlocalizedName().replace("EastAlt", "").replace("NorthAlt", "").replace("CornerAlt", "")
+                .replace("East", "").replace("North", "").replace("Corner", "");
+        return name + "." + names[is.getItemDamage()];
+    }
+
+    @Override
+    public int getMetadata(int damage) {
+        return damage;
     }
 
     @Override
     public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
             float hitX, float hitY, float hitZ, int metadata) {
 
-        world.setBlock(x, y, z, WoodHelper.getLogWallBlock(getOffset(), side, player.isSneaking()));
+        world.setBlock(x, y, z, WoodHelper.getLogWallBlock(getOffset(), side, player.isSneaking()), metadata, 2);
         return true;
     }
 
