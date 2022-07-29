@@ -426,17 +426,6 @@ item.Peeled Log.Yew.name=Peeled Yew Log
 item.Peeled Log.Baobab.name=Peeled Baobab Log
 item.Peeled Log.Bamboo.name=Peeled Bamboo Log
 item.Peeled Log.Limba.name=Peeled Limba Log
-item.Peeled Log.Palm.name=Peeled Palm Log
-item.Peeled Log.Ebony.name=Peeled Ebony Log
-item.Peeled Log.Fever.name=Peeled Fevertree Log
-item.Peeled Log.Baobab.name=Peeled Baobab Log
-item.Peeled Log.Limba.name=Peeled Limba Log
-item.Peeled Log.Mahogany.name=Peeled Mahogany Log
-item.Peeled Log.Teak.name=Peeled Teak Log
-item.Peeled Log.Bamboo.name=Peeled Bamboo
-item.Peeled Log.Gingko.name=Peeled Gingko Log
-item.Peeled Log.Fruitwood.name=Peeled Fruitwood Log
-item.Peeled Log.Mangrove.name=Peeled Mangrove Log
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs
