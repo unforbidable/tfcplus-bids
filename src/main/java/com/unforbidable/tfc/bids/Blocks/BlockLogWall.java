@@ -36,6 +36,10 @@ public class BlockLogWall extends Block {
         setHarvestLevel("axe", 0);
     }
 
+    public int getOffset() {
+        return offset;
+    }
+
     @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister iconRegisterer) {

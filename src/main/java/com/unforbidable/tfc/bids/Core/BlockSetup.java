@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingLogWall;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRawStone;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
@@ -91,6 +92,7 @@ public class BlockSetup extends BidsBlocks {
         quarry = new BlockQuarry().setBlockName("Quarry");
 
         carvingRock = new BlockCarving(Material.rock).setBlockName("CarvingRock");
+        carvingWood = new BlockCarving(Material.wood).setBlockName("CarvingWood");
 
         roughStoneSed = new BlockRoughStone()
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
@@ -141,6 +143,7 @@ public class BlockSetup extends BidsBlocks {
         roughStoneBrickSed.setHarvestLevel("shovel", 0);
 
         carvingRock.setHarvestLevel("shovel", 0);
+        carvingWood.setHarvestLevel("axe", 0);
     }
 
     private static void registerOre() {
@@ -158,6 +161,7 @@ public class BlockSetup extends BidsBlocks {
         CarvingRegistry.registerCarving(new CarvingRoughStone());
         CarvingRegistry.registerCarving(new CarvingRoughStoneBrick());
         CarvingRegistry.registerCarving(new CarvingRawStone());
+        CarvingRegistry.registerCarving(new CarvingLogWall());
     }
 
     private static void registerQuarryBlocks() {
@@ -217,6 +221,7 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(quarry, ItemQuarry.class, "Quary");
 
         GameRegistry.registerBlock(carvingRock, "CarvingRock");
+        GameRegistry.registerBlock(carvingWood, "CarvingWood");
 
         GameRegistry.registerBlock(roughStoneSed, ItemRoughStone.class, "RoughStoneSed");
 
