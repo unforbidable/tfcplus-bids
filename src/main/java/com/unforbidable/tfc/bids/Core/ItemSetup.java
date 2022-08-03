@@ -6,6 +6,7 @@ import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
 import com.unforbidable.tfc.bids.Items.ItemAdze;
 import com.unforbidable.tfc.bids.Items.ItemDrill;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
@@ -156,6 +157,7 @@ public class ItemSetup extends BidsItems {
 
         WoodPileRegistry.registerItem(peeledLog);
         WoodPileRegistry.registerItem(peeledLogSeasoned);
+        WoodPileRegistry.registerItem(TFCItems.logs, RenderLogsTFC.class);
     }
 
     @SideOnly(Side.CLIENT)

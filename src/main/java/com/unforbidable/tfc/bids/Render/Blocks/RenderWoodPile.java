@@ -60,6 +60,13 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
             rendererAlt.setOverrideBlockTexture_x(provider.getWoodPileIcon(item, 4, isRowRotated));
             rendererAlt.setOverrideBlockTexture_X(provider.getWoodPileIcon(item, 5, isRowRotated));
 
+            rendererAlt.uvRotateBottom = provider.getWoodPileIconRotation(item, 0, isRowRotated);
+            rendererAlt.uvRotateTop = provider.getWoodPileIconRotation(item, 1, isRowRotated);
+            rendererAlt.uvRotateNorth = provider.getWoodPileIconRotation(item, 2, isRowRotated);
+            rendererAlt.uvRotateSouth = provider.getWoodPileIconRotation(item, 3, isRowRotated);
+            rendererAlt.uvRotateWest = provider.getWoodPileIconRotation(item, 4, isRowRotated);
+            rendererAlt.uvRotateEast = provider.getWoodPileIconRotation(item, 5, isRowRotated);
+
             rendererAlt.textureStartXT = 0;
             rendererAlt.textureEndXT = scaleX;
             rendererAlt.textureStartZT = 0f;

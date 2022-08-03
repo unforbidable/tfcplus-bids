@@ -38,7 +38,7 @@ public class WoodPileRegistry {
     }
 
     public static Item[] getItems() {
-        return entries.values().toArray(new Item[] {});
+        return entries.keySet().toArray(new Item[] {});
     }
 
 }

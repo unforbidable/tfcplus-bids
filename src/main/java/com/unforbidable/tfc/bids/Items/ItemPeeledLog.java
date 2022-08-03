@@ -145,4 +145,9 @@ public class ItemPeeledLog extends Item implements ISize, IWoodPileRenderProvide
         return false;
     }
 
+    @Override
+    public int getWoodPileIconRotation(ItemStack itemStack, int side, boolean rotated) {
+        return 0;
+    }
+
 }
