@@ -23,6 +23,8 @@ import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
+import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -177,6 +179,9 @@ public class RecipeSetup {
                         new ItemStack(TFCItems.logs, 1, i * 2), "itemAdze"));
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
                         new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAdze", "itemAxe"));
+
+                SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
+                        new ItemStack(BidsItems.peeledLog, 1, i), 0.75f));
             }
 
             if (WoodHelper.canBuildLogWall(i)) {

@@ -17,6 +17,7 @@ import com.unforbidable.tfc.bids.Items.ItemGlassLump;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLog;
+import com.unforbidable.tfc.bids.Items.ItemPeeledLogSeasoned;
 import com.unforbidable.tfc.bids.Items.ItemRoughBrick;
 import com.unforbidable.tfc.bids.Render.Item.WoodPileItemRenderer;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -114,6 +115,8 @@ public class ItemSetup extends BidsItems {
 
         peeledLog = new ItemPeeledLog().setNames(Global.WOOD_ALL)
                 .setUnlocalizedName("Peeled Log");
+        peeledLogSeasoned = new ItemPeeledLogSeasoned().setNames(Global.WOOD_ALL)
+                .setUnlocalizedName("Peeled Log Seasoned");
     }
 
     private static void setupToolHarvest() {
@@ -152,6 +155,7 @@ public class ItemSetup extends BidsItems {
         Bids.LOG.info("Register wood pile items");
 
         WoodPileRegistry.registerItem(peeledLog);
+        WoodPileRegistry.registerItem(peeledLogSeasoned);
     }
 
     @SideOnly(Side.CLIENT)
@@ -230,6 +234,7 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(sedRoughStoneLooseBrick, sedRoughStoneLooseBrick.getUnlocalizedName());
 
         GameRegistry.registerItem(peeledLog, peeledLog.getUnlocalizedName());
+        GameRegistry.registerItem(peeledLogSeasoned, peeledLogSeasoned.getUnlocalizedName());
     }
 
 }

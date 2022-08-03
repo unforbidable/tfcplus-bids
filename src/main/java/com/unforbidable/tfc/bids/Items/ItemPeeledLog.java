@@ -53,7 +53,7 @@ public class ItemPeeledLog extends Item implements ISize, IWoodPileRenderProvide
             if (subItemExists(i)) {
                 icons[i] = registerer.registerIcon(Tags.MOD_ID + ":" + "wood/"
                         + Global.WOOD_ALL[i] + " "
-                        + getUnlocalizedName().replace("item.", ""));
+                        + getUnlocalizedName().replace("item.", "").replace(" Seasoned", ""));
             }
         }
     }
