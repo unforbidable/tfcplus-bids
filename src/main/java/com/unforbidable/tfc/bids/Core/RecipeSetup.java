@@ -172,10 +172,12 @@ public class RecipeSetup {
         for (int i = 0; i < Global.WOOD_ALL.length; i++) {
             int j = i % 16;
 
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
-                    new ItemStack(TFCItems.logs, 1, i * 2), "itemAdze"));
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
-                    new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAdze", "itemAxe"));
+            if (WoodHelper.canPeelLog(i)) {
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
+                        new ItemStack(TFCItems.logs, 1, i * 2), "itemAdze"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
+                        new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAdze", "itemAxe"));
+            }
 
             if (WoodHelper.canBuildLogWall(i)) {
                 if (i < 16) {
