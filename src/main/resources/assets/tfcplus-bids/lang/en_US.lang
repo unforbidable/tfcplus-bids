@@ -28,6 +28,8 @@ tile.MudBrickChimney2.Slate.name=Mudbrick Chimney
 
 tile.Quarry.name=Quarry
 
+tile.WoodPile.name=Wood Pile
+
 tile.RoughStoneSed.Chalk.name=Rough Chalk
 tile.RoughStoneSed.Chert.name=Rough Chert
 tile.RoughStoneSed.Claystone.name=Rough Claystone
@@ -452,3 +454,4 @@ gui.HoursRemaining=Hours Remaining
 gui.Ruined=Ruined
 gui.Wedges=Wedges
 gui.QuarryReady=Ready
+gui.Seasoning=Seasoning

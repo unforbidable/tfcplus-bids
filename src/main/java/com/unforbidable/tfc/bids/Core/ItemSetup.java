@@ -18,11 +18,16 @@ import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLog;
 import com.unforbidable.tfc.bids.Items.ItemRoughBrick;
+import com.unforbidable.tfc.bids.Render.Item.WoodPileItemRenderer;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemSetup extends BidsItems {
@@ -32,11 +37,17 @@ public class ItemSetup extends BidsItems {
         setupToolHarvest();
         registerItems();
         registerOre();
+        registerWoodPileItems();
     }
 
     public static void postInit() {
         registerPartialMolds();
         registerHeat();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void postInitClientOnly() {
+        registerItemRenderers();
     }
 
     private static void initItems() {
@@ -135,6 +146,21 @@ public class ItemSetup extends BidsItems {
         OreDictionary.registerOre("itemAdzeStone", new ItemStack(igExStoneAdze, 1, WILD));
 
         OreDictionary.registerOre("itemRoughStoneBrickLoose", new ItemStack(sedRoughStoneLooseBrick, 1, WILD));
+    }
+
+    private static void registerWoodPileItems() {
+        Bids.LOG.info("Register wood pile items");
+
+        WoodPileRegistry.registerItem(peeledLog);
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static void registerItemRenderers() {
+        Bids.LOG.info("Register item renderers");
+
+        for (Item item : WoodPileRegistry.getItems()) {
+            MinecraftForgeClient.registerItemRenderer(item, new WoodPileItemRenderer());
+        }
     }
 
     private static void registerPartialMolds() {

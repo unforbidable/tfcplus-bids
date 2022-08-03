@@ -6,10 +6,12 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.WAILA.Providers.CarvingProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.CrucibleProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.FurnaceProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.QuarryProvider;
+import com.unforbidable.tfc.bids.WAILA.Providers.WoodPileProvider;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.relauncher.Side;
@@ -30,6 +32,7 @@ public class WailaSetup {
         WailaProvider.addProvider(new FurnaceProvider(), TileEntityChimney.class, TEChimney.class);
         WailaProvider.addProvider(new QuarryProvider(), TileEntityQuarry.class);
         WailaProvider.addProvider(new CarvingProvider(), TileEntityCarving.class);
+        WailaProvider.addProvider(new WoodPileProvider(), TileEntityWoodPile.class);
     }
 
     @SideOnly(Side.CLIENT)

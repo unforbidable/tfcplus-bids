@@ -8,6 +8,7 @@ public class BidsBlocks {
     public static int fireClayCrucibleRenderId;
     public static int quarryRenderId;
     public static int carvingRenderId;
+    public static int woodPileRenderId;
 
     public static Block clayCrucible;
     public static Block fireClayCrucible;
@@ -16,8 +17,11 @@ public class BidsBlocks {
     public static Block mudBrickChimney2;
 
     public static Block quarry;
+
     public static Block carvingRock;
     public static Block carvingWood;
+
+    public static Block woodPile;
 
     public static Block roughStoneSed;
     public static Block roughStoneBrickSed;

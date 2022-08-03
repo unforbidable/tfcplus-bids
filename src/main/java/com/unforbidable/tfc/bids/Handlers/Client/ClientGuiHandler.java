@@ -3,9 +3,11 @@ package com.unforbidable.tfc.bids.Handlers.Client;
 import com.unforbidable.tfc.bids.Gui.GuiClayCrucible;
 import com.unforbidable.tfc.bids.Gui.GuiFireClayCrucible;
 import com.unforbidable.tfc.bids.Gui.GuiKnappingGlass;
+import com.unforbidable.tfc.bids.Gui.GuiWoodPile;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsGui;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,6 +29,9 @@ public class ClientGuiHandler extends GuiHandler {
 
             case BidsGui.glassKnappingGui:
                 return new GuiKnappingGlass(player.inventory, world, x, y, z);
+
+            case BidsGui.woodPileGui:
+                return new GuiWoodPile(player.inventory, (TileEntityWoodPile) te, world, x, y, z);
         }
 
         return null;
