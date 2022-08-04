@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Items;
 import java.util.List;
 
 import com.dunk.tfc.Items.ItemLogs;
+import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
@@ -28,9 +29,8 @@ public class ItemLogsSeasoned extends ItemLogs {
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list) {
         for (int i = 0; i < Global.WOOD_ALL.length * 2; i++) {
-            ItemStack is = new ItemStack(this, 1, i);
-            if (SeasoningManager.hasMatchingRecipe(is)) {
-                list.add(is);
+            if (SeasoningManager.hasMatchingRecipe(new ItemStack(TFCItems.logs, 1, i))) {
+                list.add(new ItemStack(this, 1, i));
             }
         }
     }

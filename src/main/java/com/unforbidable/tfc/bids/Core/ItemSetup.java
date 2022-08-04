@@ -120,7 +120,7 @@ public class ItemSetup extends BidsItems {
         peeledLogSeasoned = new ItemPeeledLogSeasoned().setNames(Global.WOOD_ALL)
                 .setUnlocalizedName("Peeled Log Seasoned");
         logsSeasoned = new ItemLogsSeasoned()
-                .setUnlocalizedName("Seasoned Log");
+                .setUnlocalizedName("Log Seasoned");
     }
 
     private static void setupToolHarvest() {
