@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.Core.WoodPile.Rendering;
 
 import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.Items.ItemPeeledLog;
-import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
@@ -18,12 +18,7 @@ public class RenderLogsTFC implements IWoodPileRenderProvider {
             if (side == 1 || rotated && side == 2 || !rotated && side == 4) {
                 // Top and one of the long sides
                 // use peeled log icon (i.e. log wall)
-                return ((ItemPeeledLog) BidsItems.peeledLog).getWoodPileIcon(itemStack, side, rotated);
-            }
-
-            if (rotated && (side == 4 || side == 5) || !rotated && (side == 2 || side == 3)) {
-                // The short sides use thick log icon
-                return getThickLogBlockIconTop(itemStack);
+                return getPeeledLogBlockIcon(itemStack, side, rotated);
             }
         }
 
@@ -46,23 +41,21 @@ public class RenderLogsTFC implements IWoodPileRenderProvider {
         return 0;
     }
 
-    private IIcon getThickLogBlockIconTop(ItemStack itemStack) {
-        final int offset = itemStack.getItemDamage() - itemStack.getItemDamage() % 16;
-        final int meta = itemStack.getItemDamage() % 16;
+    private IIcon getPeeledLogBlockIcon(ItemStack itemStack, int side, boolean rotated) {
+        final int peeledDamage = itemStack.getItemDamage() / 2;
+        final int offset = peeledDamage - peeledDamage % 16;
+        final int meta = peeledDamage % 16;
 
-        switch (offset) {
-            case 0:
-                return TFCBlocks.logNatural.getIcon(1, meta);
-            case 16:
-                return TFCBlocks.logNatural2.getIcon(1, meta);
-            default: // 32
-                return TFCBlocks.logNatural3.getIcon(1, meta);
-        }
+        Block block = rotated ? WoodHelper.getLogWallBlock(offset, 4, false)
+                : WoodHelper.getLogWallBlock(offset, 2, true);
+
+        return block.getIcon(side, meta);
     }
 
     private IIcon getStackedBlockIcon(ItemStack itemStack, int side, boolean rotated) {
-        final int offset = itemStack.getItemDamage() - itemStack.getItemDamage() % 8;
-        final int meta = itemStack.getItemDamage() % 8;
+        final int stackedDamage = itemStack.getItemDamage() / 2;
+        final int offset = stackedDamage - stackedDamage % 8;
+        final int meta = stackedDamage % 8;
 
         // Meta +8 indicates rotated stacked logs
         final int rotatedMeta = rotated ? meta + 8 : meta;
@@ -84,7 +77,13 @@ public class RenderLogsTFC implements IWoodPileRenderProvider {
     }
 
     @Override
-    public float getWoodPileIconScale(ItemStack itemStack) {
+    public float getWoodPileIconScale(ItemStack itemStack, int side, boolean rotated) {
+        final boolean isChoppedLog = itemStack.getItemDamage() % 2 == 1;
+
+        if (isChoppedLog) {
+            return 0.25f;
+        }
+
         return 0.5f;
     }
 

@@ -136,7 +136,7 @@ public class ItemPeeledLog extends Item implements ISize, IWoodPileRenderProvide
     }
 
     @Override
-    public float getWoodPileIconScale(ItemStack itemStack) {
+    public float getWoodPileIconScale(ItemStack itemStack, int side, boolean rotated) {
         return 0.5f;
     }
 

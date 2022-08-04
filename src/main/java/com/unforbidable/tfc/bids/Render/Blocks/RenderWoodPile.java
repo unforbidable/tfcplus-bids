@@ -48,10 +48,16 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
             final boolean isRowRotated = (row % 2) != (woodPileOrientation % 2);
             final int rowOrientation = (woodPileOrientation + (row % 2)) % 4;
 
-            final float scale = provider.getWoodPileIconScale(item);
-            final float scaleX = isRowRotated ? 1f : scale;
-            final float scaleY = scale;
-            final float scaleZ = isRowRotated ? scale : 1f;
+            final float scaleBottom = provider.getWoodPileIconScale(item, 0, isRowRotated);
+            final float scaleTop = provider.getWoodPileIconScale(item, 1, isRowRotated);
+            final float scaleNorth = provider.getWoodPileIconScale(item, 2, isRowRotated);
+            final float scaleSouth = provider.getWoodPileIconScale(item, 3, isRowRotated);
+            final float scaleWest = provider.getWoodPileIconScale(item, 4, isRowRotated);
+            final float scaleEast = provider.getWoodPileIconScale(item, 5, isRowRotated);
+
+            // final float scaleX = isRowRotated ? 1f : scale;
+            // final float scaleY = scale;
+            // final float scaleZ = isRowRotated ? scale : 1f;
 
             rendererAlt.setOverrideBlockTexture_y(provider.getWoodPileIcon(item, 0, isRowRotated));
             rendererAlt.setOverrideBlockTexture_Y(provider.getWoodPileIcon(item, 1, isRowRotated));
@@ -68,34 +74,34 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
             rendererAlt.uvRotateEast = provider.getWoodPileIconRotation(item, 5, isRowRotated);
 
             rendererAlt.textureStartXT = 0;
-            rendererAlt.textureEndXT = scaleX;
+            rendererAlt.textureEndXT = scaleTop;
             rendererAlt.textureStartZT = 0f;
-            rendererAlt.textureEndZT = scaleZ;
+            rendererAlt.textureEndZT = scaleTop;
 
             rendererAlt.textureStartXB = 0;
-            rendererAlt.textureEndXB = scaleX;
+            rendererAlt.textureEndXB = scaleBottom;
             rendererAlt.textureStartZB = 0f;
-            rendererAlt.textureEndZB = scaleZ;
+            rendererAlt.textureEndZB = scaleBottom;
 
             rendererAlt.textureStartXN = 0;
-            rendererAlt.textureEndXN = scaleX;
+            rendererAlt.textureEndXN = scaleNorth;
             rendererAlt.textureStartYN = 0;
-            rendererAlt.textureEndYN = scaleY;
+            rendererAlt.textureEndYN = scaleNorth;
 
             rendererAlt.textureStartXS = 0;
-            rendererAlt.textureEndXS = scaleX;
+            rendererAlt.textureEndXS = scaleSouth;
             rendererAlt.textureStartYS = 0;
-            rendererAlt.textureEndYS = scaleY;
+            rendererAlt.textureEndYS = scaleSouth;
 
             rendererAlt.textureStartYW = 0;
-            rendererAlt.textureEndYW = scaleY;
+            rendererAlt.textureEndYW = scaleWest;
             rendererAlt.textureStartZW = 0f;
-            rendererAlt.textureEndZW = scaleZ;
+            rendererAlt.textureEndZW = scaleWest;
 
             rendererAlt.textureStartYE = 0;
-            rendererAlt.textureEndYE = scaleY;
+            rendererAlt.textureEndYE = scaleEast;
             rendererAlt.textureStartZE = 0f;
-            rendererAlt.textureEndZE = scaleZ;
+            rendererAlt.textureEndZE = scaleEast;
 
             switch (rowOrientation) {
                 case 0:

@@ -9,7 +9,7 @@ public interface IWoodPileRenderProvider {
 
     int getWoodPileIconRotation(ItemStack itemStack, int side, boolean rotated);
 
-    float getWoodPileIconScale(ItemStack itemStack);
+    float getWoodPileIconScale(ItemStack itemStack, int side, boolean rotated);
 
     boolean isWoodPileLargeItem(ItemStack itemStack);
 
