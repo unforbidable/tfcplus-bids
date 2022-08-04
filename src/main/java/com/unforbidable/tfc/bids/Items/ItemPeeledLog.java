@@ -98,7 +98,7 @@ public class ItemPeeledLog extends Item implements ISize, IWoodPileRenderProvide
 
     @Override
     public EnumSize getSize(ItemStack arg0) {
-        return EnumSize.MEDIUM;
+        return EnumSize.VERYLARGE;
     }
 
     @Override

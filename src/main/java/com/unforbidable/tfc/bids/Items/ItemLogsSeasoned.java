@@ -5,6 +5,7 @@ import java.util.List;
 import com.dunk.tfc.Items.ItemLogs;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.Enums.EnumSize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 
@@ -33,6 +34,11 @@ public class ItemLogsSeasoned extends ItemLogs {
                 list.add(new ItemStack(this, 1, i));
             }
         }
+    }
+
+    @Override
+    public EnumSize getSize(ItemStack is) {
+        return EnumSize.VERYLARGE;
     }
 
 }
