@@ -41,5 +41,6 @@ public class BidsItems {
 
     public static Item peeledLog;
     public static Item peeledLogSeasoned;
+    public static Item logsSeasoned;
 
 }

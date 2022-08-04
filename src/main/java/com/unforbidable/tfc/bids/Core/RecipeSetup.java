@@ -182,6 +182,10 @@ public class RecipeSetup {
 
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                         new ItemStack(BidsItems.peeledLog, 1, i), 0.75f));
+                SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.logsSeasoned, 1, i * 2),
+                        new ItemStack(TFCItems.logs, 1, i * 2), 1f));
+                SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1),
+                        new ItemStack(TFCItems.logs, 1, i * 2 + 1), 1f));
             }
 
             if (WoodHelper.canBuildLogWall(i)) {
