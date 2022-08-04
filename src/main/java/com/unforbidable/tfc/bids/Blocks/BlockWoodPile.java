@@ -20,6 +20,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -56,18 +58,25 @@ public class BlockWoodPile extends BlockContainer {
         if (te != null && te instanceof TileEntityWoodPile) {
             return ((TileEntityWoodPile) te).isFull();
         }
+
         return false;
     }
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7,
             float par8, float par9) {
-        if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
+        if (world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
             TileEntityWoodPile woodPile = (TileEntityWoodPile) world.getTileEntity(x, y, z);
-            if (!handleInteraction(world, x, y, z, player, woodPile))
+            if (handleInteraction(world, x, y, z, player, woodPile)) {
+                return true;
+            }
+
+            if (!world.isRemote) {
                 player.openGui(Bids.instance, BidsGui.woodPileGui, world, x, y, z);
+            }
         }
-        return true;
+
+        return false;
     }
 
     protected boolean handleInteraction(World world, int x, int y, int z, EntityPlayer player,
@@ -75,6 +84,10 @@ public class BlockWoodPile extends BlockContainer {
         ItemStack heldItemStack = player.getCurrentEquippedItem();
         if (heldItemStack != null
                 && WoodPileHelper.insertIntoWoodPileAt(heldItemStack, player, world, x, y, z)) {
+            return true;
+        }
+
+        if (WoodPileHelper.retrieveSelectedItemFromWoodPileAt(player, world, x, y, z)) {
             return true;
         }
 
@@ -107,6 +120,17 @@ public class BlockWoodPile extends BlockContainer {
     @Override
     public Item getItemDropped(int metadata, Random rand, int fortune) {
         return null;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec) {
+        MovingObjectPosition mop = WoodPileHelper.onWoodPileCollisionRayTrace(world, x, y, z, startVec, endVec);
+        if (mop != null) {
+            return mop;
+        }
+
+        return super.collisionRayTrace(world, x, y, z, startVec, endVec);
     }
 
 }

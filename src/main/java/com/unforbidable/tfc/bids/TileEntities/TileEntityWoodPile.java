@@ -8,12 +8,13 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
+import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileBoundsIterator;
+import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileItemBounds;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -33,17 +34,32 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     static final long SEASONING_INTERVAL = TFC_Time.HOUR_LENGTH;
 
     static final int ACTION_UPDATE = 1;
+    static final int ACTION_RETRIEVE_ITEM = 2;
 
     final ItemStack[] storage = new ItemStack[MAX_STORAGE];
 
     long lastSeasoningTicks = 0;
     boolean initialized;
+    int orientation;
+
+    int selectedItemIndex = -1;
 
     boolean clientNeedToUpdate = false;
     Timer seasoningTimer = new Timer(10);
     int woodPileOpeningCounter = 0;
 
+    boolean isItemBoundsCacheActual = false;
+    List<WoodPileItemBounds> itemBoundsCache = new ArrayList<WoodPileItemBounds>();
+
     public TileEntityWoodPile() {
+    }
+
+    public void setOrientation(int orientation) {
+        this.orientation = orientation;
+    }
+
+    public int getOrientation() {
+        return orientation;
     }
 
     public List<ItemStack> getItems(boolean stacked) {
@@ -78,6 +94,32 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         return list;
     }
 
+    public List<WoodPileItemBounds> getItemBounds() {
+        if (!isItemBoundsCacheActual) {
+            itemBoundsCache.clear();
+            for (WoodPileItemBounds itemBounds : new WoodPileBoundsIterator(storage, orientation)) {
+                itemBoundsCache.add(itemBounds);
+            }
+
+            isItemBoundsCacheActual = true;
+
+            Bids.LOG.debug("Wood pile item bounds updated: " + itemBoundsCache.size());
+        }
+
+        return itemBoundsCache;
+    }
+
+    public float getActualBlockHeight() {
+        double maxY = 0;
+        for (WoodPileItemBounds itemBounds : getItemBounds()) {
+            if (maxY < itemBounds.getBounds().maxY) {
+                maxY = itemBounds.getBounds().maxY;
+            }
+        }
+
+        return (float) maxY;
+    }
+
     public boolean isEmpty() {
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
@@ -99,6 +141,26 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     public boolean addItem(ItemStack itemStack) {
+        if (isFull()) {
+            return false;
+        }
+
+        onStorageChanged();
+
+        // When adding items by right clicking
+        // we want to put items on top of the pile
+        // The current solution is to move
+        // all items to the beginning of the array
+        int shift = 0;
+        for (int i = 0; i < MAX_STORAGE; i++) {
+            if (storage[i] == null) {
+                shift++;
+            } else if (shift > 0) {
+                storage[i - shift] = storage[i];
+                storage[i] = null;
+            }
+        }
+
         int totalItemsAdded = 0;
         while (itemStack.stackSize > totalItemsAdded) {
             ItemStack toAdd = itemStack.copy();
@@ -129,13 +191,74 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] == null) {
-                setInventorySlotContents(i, itemStack);
+                storage[i] = itemStack;
 
                 return true;
             }
         }
 
         return false;
+    }
+
+    public void setSelectedItemIndex(int index) {
+        if (selectedItemIndex != index) {
+            Bids.LOG.debug("Selected item index: " + index);
+        }
+
+        selectedItemIndex = index;
+    }
+
+    public int getSelectedItemIndex() {
+        return selectedItemIndex;
+    }
+
+    public ItemStack getSelectedItem(boolean stacked) {
+        return getItemAtIndex(selectedItemIndex, stacked);
+    }
+
+    private ItemStack getItemAtIndex(int index, boolean stacked) {
+        if (index >= 0 && index < MAX_STORAGE && storage[index] != null) {
+            final ItemStack itemStack = storage[index].copy();
+
+            if (stacked) {
+                for (int i = 0; i < MAX_STORAGE; i++) {
+                    if (storage[i] != null && i != index) {
+                        if (storage[i].getItem() == itemStack.getItem()
+                                && storage[i].getItemDamage() == itemStack.getItemDamage()) {
+                            itemStack.stackSize = itemStack.stackSize + storage[i].stackSize;
+                        }
+                    }
+                }
+            }
+
+            return itemStack;
+        }
+
+        return null;
+    }
+
+    private void retrieveItemAtIndex(int index, EntityPlayer player) {
+        if (storage[index] != null) {
+            final EntityItem ei = new EntityItem(worldObj, player.posX, player.posY, player.posZ, storage[index]);
+            worldObj.spawnEntityInWorld(ei);
+
+            storage[index] = null;
+
+            if (woodPileOpeningCounter == 0 && isEmpty()) {
+                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            } else {
+                onStorageChanged();
+            }
+        }
+    }
+
+    private void onStorageChanged() {
+        if (!worldObj.isRemote) {
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            clientNeedToUpdate = true;
+        } else {
+            isItemBoundsCacheActual = false;
+        }
     }
 
     @Override
@@ -196,6 +319,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     public void writeWoodPileDataToNBT(NBTTagCompound tag) {
         tag.setLong("lastSeasoningTicks", lastSeasoningTicks);
         tag.setBoolean("clientInitialized", initialized);
+        tag.setInteger("orientation", orientation);
 
         NBTTagList itemTagList = new NBTTagList();
         for (int i = 0; i < MAX_STORAGE; i++) {
@@ -212,6 +336,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     public void readWoodPileDataFromNBT(NBTTagCompound tag) {
         lastSeasoningTicks = tag.getLong("lastSeasoningTicks");
         initialized = tag.getBoolean("clientInitialized");
+        orientation = tag.getInteger("orientation");
 
         for (int i = 0; i < MAX_STORAGE; i++) {
             storage[i] = null;
@@ -223,6 +348,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             final int slot = itemTag.getInteger("slot");
             storage[slot] = ItemStack.loadItemStackFromNBT(itemTag);
         }
+        isItemBoundsCacheActual = false;
     }
 
     public void onWoodPileBroken() {
@@ -236,22 +362,6 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
-    protected void onItemAdded(ItemStack itemStack, int i) {
-        Bids.LOG.debug("Item added " + itemStack.getDisplayName() + " to slot " + i);
-
-        if (!worldObj.isRemote) {
-            clientNeedToUpdate = true;
-        }
-    }
-
-    protected void onItemRemoved(ItemStack itemStack, int i) {
-        Bids.LOG.debug("Item removed " + itemStack.getDisplayName() + " from slot " + i);
-
-        if (!worldObj.isRemote) {
-            clientNeedToUpdate = true;
-        }
-    }
-
     protected void seasonItems() {
         final long ticksSinceLastSeasoning = TFC_Time.getTotalTicks() - lastSeasoningTicks;
         final float seasoningAdd = ticksSinceLastSeasoning / (float) SEASONING_TICKS;
@@ -261,19 +371,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         Bids.LOG.debug("Ticks since last seasoning: " + ticksSinceLastSeasoning
                 + ", progress to add: " + seasoningAdd);
 
-        boolean anyItemsSeasoned = false;
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
                 if (SeasoningManager.hasMatchingRecipe(storage[i])) {
                     seasonItemInSlot(i, seasoningAdd);
-
-                    anyItemsSeasoned = true;
                 }
             }
-        }
-
-        if (anyItemsSeasoned) {
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 
@@ -291,8 +394,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         if (seasoning == 1f) {
             Bids.LOG.info("Item fully seasoned in slot: " + slot);
             ItemStack output = recipe.getCraftingResult(storage[slot]);
-            decrStackSize(slot, storage[slot].stackSize);
-            setInventorySlotContents(slot, output.copy());
+            storage[slot] = output.copy();
+            onStorageChanged();
         }
     }
 
@@ -309,9 +412,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     @Override
     public ItemStack decrStackSize(int slot, int amount) {
         if (storage[slot] != null) {
-            if (storage[slot].stackSize <= amount) {
-                onItemRemoved(storage[slot], slot);
+            onStorageChanged();
 
+            if (storage[slot].stackSize <= amount) {
                 final ItemStack is = storage[slot];
                 storage[slot] = null;
 
@@ -331,22 +434,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     @Override
     public void setInventorySlotContents(int slot, ItemStack itemStack) {
-        boolean isSameItem = itemStack != null && storage[slot] != null
-                && ItemStack.areItemStacksEqual(itemStack, storage[slot])
-                && ItemStack.areItemStackTagsEqual(itemStack, storage[slot]);
+        storage[slot] = itemStack;
 
-        if (storage[slot] != null && !isSameItem) {
-            onItemRemoved(storage[slot], slot);
-        }
-
-        if (itemStack != null) {
-            if (!isSameItem) {
-                storage[slot] = itemStack;
-                onItemAdded(itemStack, slot);
-            }
-        } else {
-            storage[slot] = null;
-        }
+        onStorageChanged();
     }
 
     @Override
@@ -392,9 +482,14 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     public void onTileEntityMessage(WoodPileMessage message) {
         switch (message.getAction()) {
             case ACTION_UPDATE:
-                Minecraft.getMinecraft().theWorld.markBlockForUpdate(message.getXCoord(), message.getYCoord(),
-                        message.getZCoord());
-                Bids.LOG.debug("Received update message");
+                worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
+                Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
+                        + message.getZCoord());
+                break;
+
+            case ACTION_RETRIEVE_ITEM:
+                retrieveItemAtIndex(message.getSelectedItemIndex(), message.getPlayer());
+                Bids.LOG.debug("Item retrieved");
                 break;
         }
     }
@@ -403,6 +498,13 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         TargetPoint tp = new TargetPoint(world.provider.dimensionId, x, y, z, 255);
         Bids.network.sendToAllAround(new WoodPileMessage(x, y, z, TileEntityWoodPile.ACTION_UPDATE), tp);
         Bids.LOG.debug("Sent update message");
+    }
+
+    public static void sendRetrieveItem(World world, int x, int y, int z, int index, EntityPlayer player) {
+        Bids.network.sendToServer(new WoodPileMessage(x, y, z, TileEntityWoodPile.ACTION_RETRIEVE_ITEM)
+                .setSelectedItemIndex(index)
+                .setPlayer(player));
+        Bids.LOG.debug("Send retrieve item message " + index);
     }
 
 }

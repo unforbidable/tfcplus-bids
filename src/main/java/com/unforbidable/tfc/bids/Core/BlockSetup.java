@@ -222,6 +222,8 @@ public class BlockSetup extends BidsBlocks {
         Bids.network.registerMessage(CarvingMessage.ClientHandler.class, CarvingMessage.class,
                 NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
 
+        Bids.network.registerMessage(WoodPileMessage.ServerHandler.class, WoodPileMessage.class,
+                NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
         Bids.network.registerMessage(WoodPileMessage.ClientHandler.class, WoodPileMessage.class,
                 NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
     }
