@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Core.WoodPile;
 
 import java.util.Iterator;
 
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
 
@@ -50,7 +51,7 @@ public class WoodPileBoundsIterator implements Iterable<WoodPileItemBounds> {
                 final int itemsPerRow = renderProvider.isWoodPileLargeItem(item) ? 2 : 4;
                 final double stride = 1f / itemsPerRow;
 
-                final int rowRotation = (row % 2);
+                final int rowRotation = BidsOptions.WoodPile.rotateItems ? (row % 2) : 0;
                 final boolean isRowRotated = rowRotation != (orientation % 2);
                 final int rowOrientation = (orientation + rowRotation) % 4;
 

@@ -12,6 +12,7 @@ import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileBoundsIterator;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileItemBounds;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 
@@ -370,7 +371,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     protected void seasonItems() {
         final long ticksSinceLastSeasoning = TFC_Time.getTotalTicks() - lastSeasoningTicks;
-        float seasoningDelta = ticksSinceLastSeasoning / (float) SEASONING_TICKS;
+        float seasoningDelta = ticksSinceLastSeasoning / (float) SEASONING_TICKS
+                / BidsOptions.WoodPile.seasoningDurationMultiplier;
 
         lastSeasoningTicks = TFC_Time.getTotalTicks();
 
