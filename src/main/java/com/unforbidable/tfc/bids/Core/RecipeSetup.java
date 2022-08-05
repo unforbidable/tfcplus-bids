@@ -188,12 +188,22 @@ public class RecipeSetup {
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                         new ItemStack(BidsItems.peeledLog, 1, i),
                         0.75f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
-                SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.logsSeasoned, 1, i * 2),
-                        new ItemStack(TFCItems.logs, 1, i * 2),
-                        1f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
-                SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1),
-                        new ItemStack(TFCItems.logs, 1, i * 2 + 1),
-                        1f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
+
+                // Seasoning of TFC logs is suspended
+                // because the logs would be be acceptable in a fire pit
+                // due to fire pit fuel being hardcoded
+                // Peeled and seasoned peeled logs also cannot be burned
+                // in a fire pit obviously
+                // Pending finding a workaround
+                //
+                // SeasoningManager.addRecipe(new SeasoningRecipe(new
+                // ItemStack(BidsItems.logsSeasoned, 1, i * 2),
+                // new ItemStack(TFCItems.logs, 1, i * 2),
+                // 1f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
+                // SeasoningManager.addRecipe(new SeasoningRecipe(new
+                // ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1),
+                // new ItemStack(TFCItems.logs, 1, i * 2 + 1),
+                // 1f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
             }
 
             if (WoodHelper.canBuildLogWall(i)) {
