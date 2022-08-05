@@ -187,7 +187,7 @@ public class RecipeSetup {
 
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                         new ItemStack(BidsItems.peeledLog, 1, i),
-                        0.75f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
+                        0.9f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
 
                 // Seasoning of TFC logs is suspended
                 // because the logs would be be acceptable in a fire pit

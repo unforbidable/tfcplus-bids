@@ -26,7 +26,7 @@ public class BidsOptions {
 
     public static class WoodPile {
 
-        public static float seasoningDurationMultiplier = 3f;
+        public static float seasoningDurationMultiplier = 5f;
         public static boolean rotateItems = true;
 
     }
