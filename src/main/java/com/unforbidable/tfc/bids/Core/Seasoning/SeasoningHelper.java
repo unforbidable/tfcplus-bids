@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Core.Seasoning;
 import java.util.List;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -41,6 +42,27 @@ public class SeasoningHelper {
             int seasoning = itemStack.getTagCompound().getInteger("seasoning");
             list.add(ChatFormatting.GOLD + StatCollector.translateToLocal("gui.Seasoning")
                     + ": " + ((float) seasoning * 100 / (float) SEASONING_RATIO_PRECISION) + "% (" + seasoning + ")");
+        }
+    }
+
+    public static float getWoodSeasoningDurationMultiplier(int damage) {
+        final EnumWoodHardness hardness = EnumWoodHardness.fromDamage(damage);
+        switch (hardness) {
+            case SOFT:
+                return 0.7f;
+
+            case MODERATE:
+                return 0.9f;
+
+            case HARD:
+                return 1f;
+
+            // case INVALID:
+            default:
+                // Logs that aren't technically wood
+                // shouldn't be seasoned
+                // but we might still get here if someone tries to
+                return 1f;
         }
     }
 

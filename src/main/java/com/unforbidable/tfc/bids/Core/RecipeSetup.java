@@ -17,6 +17,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionToolDamageOreBit;
+import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionDamageTool;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
@@ -185,11 +186,14 @@ public class RecipeSetup {
                         new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemAdze", "itemAxe"));
 
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
-                        new ItemStack(BidsItems.peeledLog, 1, i), 0.75f));
+                        new ItemStack(BidsItems.peeledLog, 1, i),
+                        0.75f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.logsSeasoned, 1, i * 2),
-                        new ItemStack(TFCItems.logs, 1, i * 2), 1f));
+                        new ItemStack(TFCItems.logs, 1, i * 2),
+                        1f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1),
-                        new ItemStack(TFCItems.logs, 1, i * 2 + 1), 1f));
+                        new ItemStack(TFCItems.logs, 1, i * 2 + 1),
+                        1f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
             }
 
             if (WoodHelper.canBuildLogWall(i)) {
