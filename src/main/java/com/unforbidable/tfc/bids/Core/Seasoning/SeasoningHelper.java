@@ -2,12 +2,10 @@ package com.unforbidable.tfc.bids.Core.Seasoning;
 
 import java.util.List;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 
 public class SeasoningHelper {
 
@@ -38,11 +36,16 @@ public class SeasoningHelper {
     }
 
     public static void addSeasoningInformation(ItemStack itemStack, List<String> list) {
-        if (itemStack.hasTagCompound()) {
-            int seasoning = itemStack.getTagCompound().getInteger("seasoning");
-            list.add(ChatFormatting.GOLD + StatCollector.translateToLocal("gui.Seasoning")
-                    + ": " + ((float) seasoning * 100 / (float) SEASONING_RATIO_PRECISION) + "% (" + seasoning + ")");
-        }
+        // Since the seasoning progress is seen on the item icon
+        // showing it as item info text is redundant
+        //
+        // if (itemStack.hasTagCompound()) {
+        // int seasoning = itemStack.getTagCompound().getInteger("seasoning");
+        // list.add(ChatFormatting.GOLD +
+        // StatCollector.translateToLocal("gui.Seasoning")
+        // + ": " + ((float) seasoning * 100 / (float) SEASONING_RATIO_PRECISION) + "%
+        // (" + seasoning + ")");
+        // }
     }
 
     public static float getWoodSeasoningDurationMultiplier(int damage) {
