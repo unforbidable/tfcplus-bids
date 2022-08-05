@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.TileEntities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dunk.tfc.Blocks.BlockRoof;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Timer;
@@ -15,6 +16,9 @@ import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockGlass;
+import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -25,6 +29,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileEntityWoodPile extends TileEntity implements IInventory, IMessageHanldingTileEntity<WoodPileMessage> {
 
@@ -32,6 +37,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     static final long SEASONING_TICKS = TFC_Time.DAY_LENGTH;
     static final long SEASONING_INTERVAL = TFC_Time.HOUR_LENGTH;
+    static final float SEASONING_COVERED_BONUS = 1.5f;
 
     static final int ACTION_UPDATE = 1;
     static final int ACTION_RETRIEVE_ITEM = 2;
@@ -364,17 +370,28 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     protected void seasonItems() {
         final long ticksSinceLastSeasoning = TFC_Time.getTotalTicks() - lastSeasoningTicks;
-        final float seasoningAdd = ticksSinceLastSeasoning / (float) SEASONING_TICKS;
+        float seasoningDelta = ticksSinceLastSeasoning / (float) SEASONING_TICKS;
 
         lastSeasoningTicks = TFC_Time.getTotalTicks();
 
         Bids.LOG.debug("Ticks since last seasoning: " + ticksSinceLastSeasoning
-                + ", progress to add: " + seasoningAdd);
+                + ", progress to add: " + seasoningDelta);
 
+        boolean coverageChecked = false;
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
                 if (SeasoningManager.hasMatchingRecipe(storage[i])) {
-                    seasonItemInSlot(i, seasoningAdd);
+                    // Lazy coverage calculation
+                    // only when there is anything to season
+                    // Apply bonus once
+                    if (!coverageChecked) {
+                        if (isCovered()) {
+                            seasoningDelta *= SEASONING_COVERED_BONUS;
+                        }
+                        coverageChecked = true;
+                    }
+
+                    seasonItemInSlot(i, seasoningDelta);
                 }
             }
         }
@@ -392,11 +409,50 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 + " updated seasoning: " + seasoning);
 
         if (seasoning == 1f) {
-            Bids.LOG.info("Item fully seasoned in slot: " + slot);
+            Bids.LOG.debug("Item fully seasoned in slot: " + slot);
             ItemStack output = recipe.getCraftingResult(storage[slot]);
             storage[slot] = output.copy();
             onStorageChanged();
         }
+    }
+
+    private boolean isCovered() {
+        int highestY = worldObj.getPrecipitationHeight(xCoord, zCoord) - 1;
+        if (highestY == yCoord) {
+            // Rain falls directly on the wood pile
+            return false;
+        }
+
+        int y = yCoord;
+        while (y++ < highestY) {
+            TileEntity te = worldObj.getTileEntity(xCoord, y, zCoord);
+            if (te instanceof TileEntityWoodPile) {
+                // Another wood pile is above
+                return ((TileEntityWoodPile) te).isCovered();
+            }
+
+            if (isBlockAboveCovering(y)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isBlockAboveCovering(int y) {
+        Block block = worldObj.getBlock(xCoord, y, zCoord);
+        if (block instanceof BlockGlass || block instanceof BlockStainedGlass
+                || block instanceof BlockRoof) {
+            return true;
+        }
+
+        if (worldObj.isSideSolid(xCoord, y, zCoord, ForgeDirection.UP)
+                || worldObj.isSideSolid(xCoord, y, zCoord, ForgeDirection.DOWN)) {
+            // Any block with top or bottom side solid
+            return true;
+        }
+
+        return false;
     }
 
     @Override
