@@ -19,7 +19,7 @@ public class WoodHelper {
     // 32 - "Yew"
 
     public static boolean canPeelLog(int meta) {
-        return meta != 17 && meta != 24;
+        return meta != 17 && meta != 24 && meta != 31;
     }
 
     public static boolean canBuildLogWall(int meta) {
@@ -27,7 +27,7 @@ public class WoodHelper {
     }
 
     public static boolean canBuildLogWallFromPeeled(int meta) {
-        return meta != 17 && meta != 24;
+        return canPeelLog(meta);
     }
 
     public static boolean canBuildLogWallFromNormal(int meta) {
