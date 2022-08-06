@@ -23,7 +23,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Translations
 
-* Chinese by Eternal130 (v0.14.x)
+* Chinese by Eternal130 (v0.15.x)
 
 ### Compiling
 

@@ -140,8 +140,12 @@
 
 0.15.0 (06-08-2022)
 - Added: Wood pile for wood storage and seasoning
-- Added: Wood pile log rotation can be turned off in the options
-- Added: Peeled logs get seasoned in a woodpile over time
+- Added: Wood pile row rotation can be turned off in the options
+- Added: Peeled logs become seasoned in a wood pile over time
 - Changed: Log walls require seasoned peeled logs instead of just peeled logs
 - Changed: Redrawn peeled log textures
-- Changed: Joshua logs cannot be pealed or used to build log walls anymore
+- Changed: Joshua logs cannot be peeled and used to build log walls
+
+0.15.1 (06-08-2022)
+- Changed: Updated Chinese translation by Eternal130
+- Fixed: Correct thick log texture is used in wood piles
