@@ -16,12 +16,15 @@ import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
 import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
 import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
 import com.unforbidable.tfc.bids.Items.ItemGlassLump;
+import com.unforbidable.tfc.bids.Items.ItemKindling;
 import com.unforbidable.tfc.bids.Items.ItemLogsSeasoned;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLog;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLogSeasoned;
 import com.unforbidable.tfc.bids.Items.ItemRoughBrick;
+import com.unforbidable.tfc.bids.Items.ItemSmallStickBundle;
+import com.unforbidable.tfc.bids.Items.ItemTiedStickBundle;
 import com.unforbidable.tfc.bids.Render.Item.WoodPileItemRenderer;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
@@ -122,6 +125,13 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Peeled Log Seasoned");
         logsSeasoned = new ItemLogsSeasoned()
                 .setUnlocalizedName("Log Seasoned");
+
+        smallStickBundle = new ItemSmallStickBundle()
+                .setUnlocalizedName("Small Stick Bundle");
+        tiedStickBundle = new ItemTiedStickBundle()
+                .setUnlocalizedName("Tied Stick Bundle");
+        kindling = new ItemKindling()
+                .setUnlocalizedName("Kindling");
     }
 
     private static void setupToolHarvest() {
@@ -244,6 +254,10 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(peeledLog, peeledLog.getUnlocalizedName());
         GameRegistry.registerItem(peeledLogSeasoned, peeledLogSeasoned.getUnlocalizedName());
         GameRegistry.registerItem(logsSeasoned, logsSeasoned.getUnlocalizedName());
+
+        GameRegistry.registerItem(smallStickBundle, smallStickBundle.getUnlocalizedName());
+        GameRegistry.registerItem(tiedStickBundle, tiedStickBundle.getUnlocalizedName());
+        GameRegistry.registerItem(kindling, kindling.getUnlocalizedName());
     }
 
 }
