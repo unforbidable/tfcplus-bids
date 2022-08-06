@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dunk.tfc.Blocks.BlockRoof;
+import com.dunk.tfc.Blocks.Flora.BlockFruitLeaves;
+import com.dunk.tfc.Blocks.Vanilla.BlockCustomLeaves;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Timer;
@@ -495,6 +497,13 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         if (block instanceof BlockGlass || block instanceof BlockStainedGlass
                 || block instanceof BlockRoof) {
             return true;
+        }
+
+        if (block instanceof BlockCustomLeaves || block instanceof BlockFruitLeaves) {
+            // Mostly for consistency, as leaves have solid sides,
+            // but branches (with leaves) do not
+            // So neither protects the wood pile
+            return false;
         }
 
         if (worldObj.isSideSolid(xCoord, y, zCoord, ForgeDirection.UP)
