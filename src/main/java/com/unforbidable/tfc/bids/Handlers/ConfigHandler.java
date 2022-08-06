@@ -72,6 +72,13 @@ public class ConfigHandler {
                 BidsOptions.Quarry.bowStringBreakChance, 0f, 1f,
                 "The chance of bow string breaking when a drill breaks (0 = never, 1 = always)");
 
+        BidsOptions.WoodPile.rotateItems = config.getBoolean(
+                "rotateItems", "woodpile", BidsOptions.WoodPile.rotateItems,
+                "Set this to true if you want odd rows in the wood pile appear rotated");
+        BidsOptions.WoodPile.seasoningDurationMultiplier = config.getFloat(
+                "seasoningDurationMultiplier", "woodpile", BidsOptions.WoodPile.seasoningDurationMultiplier, 1f, 100f,
+                "Higher values increase the time it takes for wood to season in a wood pile");
+
         config.save();
     }
 

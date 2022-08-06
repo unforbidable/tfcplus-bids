@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids;
 
 import com.unforbidable.tfc.bids.Core.BlockSetup;
+import com.unforbidable.tfc.bids.Core.ItemSetup;
 import com.unforbidable.tfc.bids.Handlers.Client.ClientGuiHandler;
 import com.unforbidable.tfc.bids.WAILA.WailaSetup;
 
@@ -39,6 +40,8 @@ public class ClientProxy extends CommonProxy {
     @SideOnly(Side.CLIENT)
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
+
+        ItemSetup.postInitClientOnly();
     }
 
 }

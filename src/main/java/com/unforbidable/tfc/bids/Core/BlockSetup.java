@@ -14,11 +14,13 @@ import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
 import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
+import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingLogWall;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRawStone;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
+import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall;
@@ -32,11 +34,13 @@ import com.unforbidable.tfc.bids.Render.Blocks.RenderCarving;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderClayCrucible;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderFireClayCrucible;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderQuarry;
+import com.unforbidable.tfc.bids.Render.Blocks.RenderWoodPile;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.CarvingRegistry;
@@ -94,6 +98,9 @@ public class BlockSetup extends BidsBlocks {
 
         carvingRock = new BlockCarving(Material.rock).setBlockName("CarvingRock");
         carvingWood = new BlockCarving(Material.wood).setBlockName("CarvingWood");
+
+        woodPile = new BlockWoodPile().setBlockName("WoodPile")
+                .setBlockTextureName("Wood Pile");
 
         roughStoneSed = new BlockRoughStone()
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
@@ -187,6 +194,9 @@ public class BlockSetup extends BidsBlocks {
 
         carvingRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(carvingRenderId, new RenderCarving());
+
+        woodPileRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(woodPileRenderId, new RenderWoodPile());
     }
 
     private static void registerTileEntities() {
@@ -200,6 +210,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityQuarry.class, "BidsQuarry");
 
         GameRegistry.registerTileEntity(TileEntityCarving.class, "BidsCarving");
+
+        GameRegistry.registerTileEntity(TileEntityWoodPile.class, "BidsWoodPile");
     }
 
     private static void registerMessages() {
@@ -208,6 +220,11 @@ public class BlockSetup extends BidsBlocks {
         Bids.network.registerMessage(CarvingMessage.ServerHandler.class, CarvingMessage.class,
                 NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
         Bids.network.registerMessage(CarvingMessage.ClientHandler.class, CarvingMessage.class,
+                NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
+
+        Bids.network.registerMessage(WoodPileMessage.ServerHandler.class, WoodPileMessage.class,
+                NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
+        Bids.network.registerMessage(WoodPileMessage.ClientHandler.class, WoodPileMessage.class,
                 NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
     }
 
@@ -224,6 +241,8 @@ public class BlockSetup extends BidsBlocks {
 
         GameRegistry.registerBlock(carvingRock, "CarvingRock");
         GameRegistry.registerBlock(carvingWood, "CarvingWood");
+
+        GameRegistry.registerBlock(woodPile, "WoodPile");
 
         GameRegistry.registerBlock(roughStoneSed, ItemRoughStone.class, "RoughStoneSed");
 

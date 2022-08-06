@@ -6,6 +6,8 @@ import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
+import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderThickLogsTFC;
 import com.unforbidable.tfc.bids.Items.ItemAdze;
 import com.unforbidable.tfc.bids.Items.ItemDrill;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
@@ -14,15 +16,22 @@ import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
 import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
 import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
 import com.unforbidable.tfc.bids.Items.ItemGlassLump;
+import com.unforbidable.tfc.bids.Items.ItemLogsSeasoned;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLog;
+import com.unforbidable.tfc.bids.Items.ItemPeeledLogSeasoned;
 import com.unforbidable.tfc.bids.Items.ItemRoughBrick;
+import com.unforbidable.tfc.bids.Render.Item.WoodPileItemRenderer;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemSetup extends BidsItems {
@@ -32,11 +41,17 @@ public class ItemSetup extends BidsItems {
         setupToolHarvest();
         registerItems();
         registerOre();
+        registerWoodPileItems();
     }
 
     public static void postInit() {
         registerPartialMolds();
         registerHeat();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void postInitClientOnly() {
+        registerItemRenderers();
     }
 
     private static void initItems() {
@@ -103,6 +118,10 @@ public class ItemSetup extends BidsItems {
 
         peeledLog = new ItemPeeledLog().setNames(Global.WOOD_ALL)
                 .setUnlocalizedName("Peeled Log");
+        peeledLogSeasoned = new ItemPeeledLogSeasoned().setNames(Global.WOOD_ALL)
+                .setUnlocalizedName("Peeled Log Seasoned");
+        logsSeasoned = new ItemLogsSeasoned()
+                .setUnlocalizedName("Log Seasoned");
     }
 
     private static void setupToolHarvest() {
@@ -135,6 +154,25 @@ public class ItemSetup extends BidsItems {
         OreDictionary.registerOre("itemAdzeStone", new ItemStack(igExStoneAdze, 1, WILD));
 
         OreDictionary.registerOre("itemRoughStoneBrickLoose", new ItemStack(sedRoughStoneLooseBrick, 1, WILD));
+    }
+
+    private static void registerWoodPileItems() {
+        Bids.LOG.info("Register wood pile items");
+
+        WoodPileRegistry.registerItem(peeledLog);
+        WoodPileRegistry.registerItem(peeledLogSeasoned);
+        WoodPileRegistry.registerItem(TFCItems.logs, RenderLogsTFC.class);
+        WoodPileRegistry.registerItem(logsSeasoned, RenderLogsTFC.class);
+        WoodPileRegistry.registerItem(TFCItems.thickLogs, RenderThickLogsTFC.class);
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static void registerItemRenderers() {
+        Bids.LOG.info("Register item renderers");
+
+        for (Item item : WoodPileRegistry.getItems()) {
+            MinecraftForgeClient.registerItemRenderer(item, new WoodPileItemRenderer());
+        }
     }
 
     private static void registerPartialMolds() {
@@ -204,6 +242,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(sedRoughStoneLooseBrick, sedRoughStoneLooseBrick.getUnlocalizedName());
 
         GameRegistry.registerItem(peeledLog, peeledLog.getUnlocalizedName());
+        GameRegistry.registerItem(peeledLogSeasoned, peeledLogSeasoned.getUnlocalizedName());
+        GameRegistry.registerItem(logsSeasoned, logsSeasoned.getUnlocalizedName());
     }
 
 }

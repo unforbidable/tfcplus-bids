@@ -17,12 +17,15 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionToolDamageOreBit;
+import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionDamageTool;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
+import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -172,32 +175,58 @@ public class RecipeSetup {
         for (int i = 0; i < Global.WOOD_ALL.length; i++) {
             int j = i % 16;
 
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
-                    new ItemStack(TFCItems.logs, 1, i * 2), "itemAdze"));
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
-                    new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAdze", "itemAxe"));
+            if (WoodHelper.canPeelLog(i)) {
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
+                        new ItemStack(TFCItems.logs, 1, i * 2), "itemAdze"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
+                        new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAdze", "itemAxe"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2), "itemAdze"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemAdze", "itemAxe"));
+
+                SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
+                        new ItemStack(BidsItems.peeledLog, 1, i),
+                        0.9f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
+
+                // Seasoning of TFC logs is suspended
+                // because the logs would be be acceptable in a fire pit
+                // due to fire pit fuel being hardcoded
+                // Peeled and seasoned peeled logs also cannot be burned
+                // in a fire pit obviously
+                // Pending finding a workaround
+                //
+                // SeasoningManager.addRecipe(new SeasoningRecipe(new
+                // ItemStack(BidsItems.logsSeasoned, 1, i * 2),
+                // new ItemStack(TFCItems.logs, 1, i * 2),
+                // 1f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
+                // SeasoningManager.addRecipe(new SeasoningRecipe(new
+                // ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1),
+                // new ItemStack(TFCItems.logs, 1, i * 2 + 1),
+                // 1f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
+            }
 
             if (WoodHelper.canBuildLogWall(i)) {
                 if (i < 16) {
                     Block logWall = WoodHelper.getDefaultLogWallBlock(0);
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
-                            "A ", "11", '1', new ItemStack(BidsItems.peeledLog, 1, i),
+                            "A ", "11", '1', new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                             'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLog, 2, i),
+                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWall, 1, j))));
                 } else if (i < 32) {
                     Block logWall = WoodHelper.getDefaultLogWallBlock(16);
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
-                            "A ", "11", '1', new ItemStack(BidsItems.peeledLog, 1, i),
+                            "A ", "11", '1', new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                             'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLog, 2, i),
+                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWall, 1, j))));
                 } else if (i < 48) {
                     Block logWall = WoodHelper.getDefaultLogWallBlock(32);
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
-                            "A ", "11", '1', new ItemStack(BidsItems.peeledLog, 1, i),
+                            "A ", "11", '1', new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                             'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLog, 2, i),
+                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWall, 1, j))));
                 }
             }
@@ -205,25 +234,69 @@ public class RecipeSetup {
             // Copies of TFC recipes for items made logs
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 1),
                     new ItemStack(BidsItems.peeledLog, 1, i), "itemKnife"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 1),
+                    new ItemStack(BidsItems.peeledLogSeasoned, 1, i), "itemKnife"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 1),
+                    new ItemStack(BidsItems.logsSeasoned, 1, i * 2), "itemKnife"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 1),
+                    new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemKnife"));
+
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.clayTile, 1, 0),
                     "X ", "LX", 'L', new ItemStack(BidsItems.peeledLog, 1, i), 'X', "lumpClay"));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.clayTile, 1, 0),
+                    "X ", "LX", 'L', new ItemStack(BidsItems.peeledLogSeasoned, 1, i), 'X', "lumpClay"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.clayTile, 1, 0),
+                    "X ", "LX", 'L', new ItemStack(BidsItems.logsSeasoned, 1, i * 2), 'X', "lumpClay"));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.clayTile, 1, 0),
                     " X", "XL", 'L', new ItemStack(BidsItems.peeledLog, 1, i), 'X', "lumpClay"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.clayTile, 1, 0),
+                    " X", "XL", 'L', new ItemStack(BidsItems.peeledLogSeasoned, 1, i), 'X', "lumpClay"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.clayTile, 1, 0),
+                    " X", "XL", 'L', new ItemStack(BidsItems.logsSeasoned, 1, i * 2), 'X', "lumpClay"));
+
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.paddle, 1),
                     new ItemStack(TFCItems.pole, 1), new ItemStack(BidsItems.peeledLog, 1, i), "itemKnife"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.paddle, 1),
+                    new ItemStack(TFCItems.pole, 1), new ItemStack(BidsItems.peeledLogSeasoned, 1, i), "itemKnife"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.paddle, 1),
+                    new ItemStack(TFCItems.pole, 1), new ItemStack(BidsItems.logsSeasoned, 1, i * 2), "itemKnife"));
+
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.singlePlank, 8, i),
-                    new ItemStack(BidsItems.peeledLog), "itemSaw"));
+                    new ItemStack(BidsItems.logsSeasoned, 1, i * 2), "itemSaw"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.singlePlank, 8, i),
+                    new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemSaw"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.singlePlank, 8, i),
+                    new ItemStack(BidsItems.peeledLogSeasoned, 1, i), "itemSaw"));
 
             // Copies of TFC recipes for block made from logs
             if (i < 16) {
                 GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV, 8, j),
                         "A2", " 2", '2', new ItemStack(BidsItems.peeledLog, 1, i), 'A', "itemSaw"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.peeledLogSeasoned, 1, i), 'A', "itemSaw"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2), 'A', "itemSaw"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), 'A', "itemSaw"));
             } else if (i < 32) {
                 GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV2, 8, j),
                         "A2", " 2", '2', new ItemStack(BidsItems.peeledLog, 1, i), 'A', "itemSaw"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV2, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.peeledLogSeasoned, 1, i), 'A', "itemSaw"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV2, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2), 'A', "itemSaw"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV2, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), 'A', "itemSaw"));
             } else if (i < 48) {
                 GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV3, 8, j),
                         "A2", " 2", '2', new ItemStack(BidsItems.peeledLog, 1, i), 'A', "itemSaw"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV3, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.peeledLogSeasoned, 1, i), 'A', "itemSaw"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV3, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2), 'A', "itemSaw"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV3, 8, j),
+                        "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), 'A', "itemSaw"));
             }
         }
 

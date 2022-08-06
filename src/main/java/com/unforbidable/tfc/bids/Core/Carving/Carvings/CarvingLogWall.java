@@ -38,8 +38,8 @@ public class CarvingLogWall implements ICarving {
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
         final int damage = ((BlockLogWall) block).getOffset() + metadata;
         return new ItemStack[] {
-                new ItemStack(BidsItems.peeledLog, 1, damage),
-                new ItemStack(BidsItems.peeledLog, 1, damage)
+                new ItemStack(BidsItems.peeledLogSeasoned, 1, damage),
+                new ItemStack(BidsItems.peeledLogSeasoned, 1, damage)
         };
     }
 
