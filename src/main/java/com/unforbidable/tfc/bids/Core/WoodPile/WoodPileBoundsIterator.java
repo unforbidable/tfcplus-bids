@@ -1,6 +1,8 @@
 package com.unforbidable.tfc.bids.Core.WoodPile;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
@@ -14,12 +16,29 @@ public class WoodPileBoundsIterator implements Iterable<WoodPileItemBounds> {
     static final int ROWS_PER_PILE = 4;
     static final int ITEMS_PER_ROW = 4;
 
-    final ItemStack[] items;
     final int orientation;
+    final List<IndexedItemStack> sortedItems = new ArrayList<IndexedItemStack>();
 
     public WoodPileBoundsIterator(ItemStack[] items, int orientation) {
-        this.items = items;
         this.orientation = orientation;
+
+        // The logic bellow assumes large items are
+        // in front of the small ones
+        // Also skip nulls
+
+        int largeItemsAdded = 0;
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] != null) {
+                IWoodPileRenderProvider render = WoodPileRegistry.findItem(items[i].getItem());
+                if (render.isWoodPileLargeItem(items[i])) {
+                    // Add after last large item added
+                    sortedItems.add(largeItemsAdded++, new IndexedItemStack(i, items[i]));
+                } else {
+                    // Add to the end
+                    sortedItems.add(new IndexedItemStack(i, items[i]));
+                }
+            }
+        }
     }
 
     @Override
@@ -30,59 +49,50 @@ public class WoodPileBoundsIterator implements Iterable<WoodPileItemBounds> {
             int i = 0;
             int row = 0;
             int rowLargeItemCount = 0;
+            int rowRotation = 0;
 
             @Override
             public boolean hasNext() {
-                // The array is the TileEntityWoodPile.storage
-                // so it can contain null items
-                // that need to be skipped
-                while (index < items.length && items[index] == null) {
-                    index++;
-                }
-
-                return index < items.length && row < ROWS_PER_PILE;
+                return index < sortedItems.size() && row < ROWS_PER_PILE;
             }
 
             @Override
             public WoodPileItemBounds next() {
-                final ItemStack item = items[index];
+                final ItemStack item = sortedItems.get(index).itemStack;
                 final IWoodPileRenderProvider renderProvider = WoodPileRegistry.findItem(item.getItem());
 
-                final int itemsPerRow = renderProvider.isWoodPileLargeItem(item) ? 2 : 4;
-                final double stride = 1f / itemsPerRow;
+                final int width = renderProvider.isWoodPileLargeItem(item) ? 2 : 1;
+                final double stride = 1f / 4;
 
-                final int rowRotation = BidsOptions.WoodPile.rotateItems ? (row % 2) : 0;
-                final boolean isRowRotated = rowRotation != (orientation % 2);
+                final boolean isRowRotated = (rowRotation % 2) != (orientation % 2);
                 final int rowOrientation = (orientation + rowRotation) % 4;
 
                 AxisAlignedBB bounds;
                 switch (rowOrientation) {
                     case 0:
-                        bounds = AxisAlignedBB.getBoundingBox((3 - i) * stride, row * stride, 0,
-                                (4 - i) * stride, (row + 1) * stride, 1);
+                        bounds = AxisAlignedBB.getBoundingBox((4 - i - width) * stride, row * stride, 0,
+                                (4 - i) * stride, (row + width) * stride, 1);
                         break;
 
                     case 1:
-                        bounds = AxisAlignedBB.getBoundingBox(0, row * stride, (3 - i) * stride,
-                                1, (row + 1) * stride, (4 - i) * stride);
+                        bounds = AxisAlignedBB.getBoundingBox(0, row * stride, (4 - i - width) * stride,
+                                1, (row + width) * stride, (4 - i) * stride);
                         break;
 
                     case 2:
                         bounds = AxisAlignedBB.getBoundingBox(i * stride, row * stride, 0,
-                                (i + 1) * stride, (row + 1) * stride, 1);
+                                (i + width) * stride, (row + width) * stride, 1);
                         break;
 
                     default: // 3
                         bounds = AxisAlignedBB.getBoundingBox(0, row * stride, i * stride,
-                                1, (row + 1) * stride, (i + 1) * stride);
+                                1, (row + width) * stride, (i + width) * stride);
                         break;
                 }
 
-                WoodPileItemBounds woodPileItem = new WoodPileItemBounds(index, item, renderProvider, bounds,
-                        isRowRotated);
-
-                // The logic bellow assumes large items are
-                // in front of the small ones
+                // Pass the original index value
+                WoodPileItemBounds woodPileItem = new WoodPileItemBounds(sortedItems.get(index).index, item,
+                        renderProvider, bounds, isRowRotated);
 
                 i++;
 
@@ -93,16 +103,25 @@ public class WoodPileBoundsIterator implements Iterable<WoodPileItemBounds> {
 
                 if (i > 3) {
                     row++;
-                    i = 0;
-                    rowLargeItemCount = 0;
 
                     if (rowLargeItemCount == 1) {
                         // If one large item then we continue next to it
+                        // And skip row rotation
                         i = 2;
-                    } else if (rowLargeItemCount == 2) {
+                    } else {
+                        i = 0;
+
+                        if (BidsOptions.WoodPile.rotateItems) {
+                            rowRotation++;
+                        }
+                    }
+
+                    if (rowLargeItemCount == 2) {
                         // If two large items then we continue above
                         row++;
                     }
+
+                    rowLargeItemCount = 0;
                 }
 
                 index++;
@@ -111,6 +130,26 @@ public class WoodPileBoundsIterator implements Iterable<WoodPileItemBounds> {
             }
 
         };
+    }
+
+    class IndexedItemStack {
+
+        final int index;
+        final ItemStack itemStack;
+
+        public IndexedItemStack(int index, ItemStack itemStack) {
+            this.index = index;
+            this.itemStack = itemStack;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        public ItemStack getItemStack() {
+            return itemStack;
+        }
+
     }
 
 }

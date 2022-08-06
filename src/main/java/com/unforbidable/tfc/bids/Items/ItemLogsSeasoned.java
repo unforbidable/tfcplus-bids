@@ -41,4 +41,9 @@ public class ItemLogsSeasoned extends ItemLogs {
         return EnumSize.VERYLARGE;
     }
 
+    @Override
+    public int getItemStackLimit(ItemStack is) {
+        return 16;
+    }
+
 }

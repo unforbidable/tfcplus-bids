@@ -9,12 +9,15 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
+import com.unforbidable.tfc.bids.Core.WoodPile.EnumSlotGroup;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileBoundsIterator;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileItemBounds;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.Block;
@@ -138,13 +141,19 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     public boolean isFull() {
+        int count = 0;
         for (int i = 0; i < MAX_STORAGE; i++) {
-            if (storage[i] == null) {
-                return false;
+            if (storage[i] != null) {
+                IWoodPileRenderProvider render = WoodPileRegistry.findItem(storage[i].getItem());
+                if (render.isWoodPileLargeItem(storage[i])) {
+                    count += 4;
+                } else {
+                    count++;
+                }
             }
         }
 
-        return true;
+        return count == 16;
     }
 
     public boolean addItem(ItemStack itemStack) {
@@ -156,16 +165,18 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
         // When adding items by right clicking
         // we want to put items on top of the pile
-        // The current solution is to move
-        // all items to the beginning of the array
-        int shift = 0;
+        // The current solution is to clear the storage
+        // and add existing items back one by one
+        List<ItemStack> exisitingItems = new ArrayList<ItemStack>();
         for (int i = 0; i < MAX_STORAGE; i++) {
-            if (storage[i] == null) {
-                shift++;
-            } else if (shift > 0) {
-                storage[i - shift] = storage[i];
+            if (storage[i] != null) {
+                exisitingItems.add(storage[i]);
                 storage[i] = null;
             }
+        }
+
+        for (ItemStack is : exisitingItems) {
+            addOneItem(is);
         }
 
         int totalItemsAdded = 0;
@@ -173,7 +184,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             ItemStack toAdd = itemStack.copy();
             toAdd.stackSize = 1;
 
-            if (!addItem(toAdd, 0)) {
+            if (!addOneItem(toAdd)) {
                 // Cannot add any more items in the stack
                 break;
             }
@@ -190,17 +201,55 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         return false;
     }
 
-    protected boolean addItem(ItemStack itemStack, float seasoning) {
+    protected boolean addOneItem(ItemStack itemStack) {
         if (itemStack.stackSize != 1) {
             Bids.LOG.warn("Denied attempt to add stack of size other than 1 to a log pile");
             return false;
         }
 
-        for (int i = 0; i < MAX_STORAGE; i++) {
-            if (storage[i] == null) {
-                storage[i] = itemStack;
+        final IWoodPileRenderProvider render = WoodPileRegistry.findItem(itemStack.getItem());
 
-                return true;
+        for (EnumSlotGroup slotGroup : EnumSlotGroup.ALL_VALUES) {
+            if (render.isWoodPileLargeItem(itemStack)) {
+                // Large items must find an empty hybrid slot and empty shared slots
+                if (storage[slotGroup.getHybridSlot()] == null) {
+                    int emptySlotCount = 0;
+                    for (int slot : slotGroup.getSharedSlots()) {
+                        if (storage[slot] == null) {
+                            emptySlotCount++;
+                        }
+                    }
+
+                    // And if all 3 shared slots are empty
+                    // place into the hybrid slot
+                    if (emptySlotCount == 3) {
+                        storage[slotGroup.getHybridSlot()] = itemStack;
+
+                        return true;
+                    }
+                }
+            } else {
+                // A normal item can use any of the 4 slots
+                // as long as there is no large item in the hybrid slot
+                if (storage[slotGroup.getHybridSlot()] != null) {
+                    ItemStack itemInHybridSlot = storage[slotGroup.getHybridSlot()];
+                    IWoodPileRenderProvider renderInHybridSlot = WoodPileRegistry.findItem(itemInHybridSlot.getItem());
+                    if (renderInHybridSlot.isWoodPileLargeItem(itemInHybridSlot)) {
+                        // No items can be added to this slot groups
+                        // because there is a large item in the hybrid slot
+                        continue;
+                    }
+                }
+
+                // Iterate the whole array in order
+                // so that the item is placed in order
+                for (int i = 0; i < MAX_STORAGE; i++) {
+                    if (storage[i] == null && slotGroup.hasSlot(i)) {
+                        storage[i] = itemStack;
+
+                        return true;
+                    }
+                }
             }
         }
 
