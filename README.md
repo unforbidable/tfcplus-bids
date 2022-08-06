@@ -19,6 +19,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Carving](../../wiki/Carving) - allows shaping blocks with an adze, in like manner to TFC detailing with a chisel
 * [Peeled Log](../../wiki/Peeled-Log) - logs that had their bark stripped used to craft log walls
 * [Log Walls](../../wiki/Log-Wall) - new building block with 6 variations for log cabin construction
+* [Wood Pile](../../wiki/Wood-Pile) - for wood storage and seasoning peeled logs
 
 ### Translations
 
