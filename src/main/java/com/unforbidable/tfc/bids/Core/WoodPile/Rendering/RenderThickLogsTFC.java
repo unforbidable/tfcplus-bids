@@ -10,7 +10,7 @@ public class RenderThickLogsTFC implements IWoodPileRenderProvider {
 
     @Override
     public IIcon getWoodPileIcon(ItemStack itemStack, int side, boolean rotated) {
-        final int damage = itemStack.getItemDamage() / 2;
+        final int damage = itemStack.getItemDamage();
         final int offset = damage - damage % 8;
         final int meta = damage % 8;
 
