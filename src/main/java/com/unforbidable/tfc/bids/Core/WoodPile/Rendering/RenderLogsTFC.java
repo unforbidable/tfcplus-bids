@@ -81,7 +81,14 @@ public class RenderLogsTFC implements IWoodPileRenderProvider {
         final boolean isChoppedLog = itemStack.getItemDamage() % 2 == 1;
 
         if (isChoppedLog) {
-            return 0.25f;
+            // Crop short sides
+            if (rotated && (side == 4 || side == 5)) {
+                return 0.25f;
+            } else if (!rotated && (side == 2 || side == 3)) {
+                return 0.25f;
+            }
+
+            return 0.5f;
         }
 
         return 0.5f;
