@@ -7,6 +7,7 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelCoalTFC;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelLogsTFC;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelPeatTFC;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelStickBundleTFC;
@@ -190,6 +191,7 @@ public class ItemSetup extends BidsItems {
         FirepitRegistry.registerFuel(TFCItems.stickBundle, FuelStickBundleTFC.class);
         FirepitRegistry.registerFuel(Item.getItemFromBlock(TFCBlocks.peat), FuelPeatTFC.class);
         FirepitRegistry.registerFuel(TFCItems.logs, FuelLogsTFC.class);
+        FirepitRegistry.registerFuel(TFCItems.coal, FuelCoalTFC.class);
     }
 
     @SideOnly(Side.CLIENT)
