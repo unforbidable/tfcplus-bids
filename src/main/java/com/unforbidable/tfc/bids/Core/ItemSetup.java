@@ -3,9 +3,14 @@ package com.unforbidable.tfc.bids.Core;
 import com.dunk.tfc.api.HeatIndex;
 import com.dunk.tfc.api.HeatRaw;
 import com.dunk.tfc.api.HeatRegistry;
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelLogsTFC;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelPeatTFC;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelStickBundleTFC;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelStickTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderThickLogsTFC;
 import com.unforbidable.tfc.bids.Items.ItemAdze;
@@ -27,6 +32,7 @@ import com.unforbidable.tfc.bids.Items.ItemSmallStickBundle;
 import com.unforbidable.tfc.bids.Items.ItemTiedStickBundle;
 import com.unforbidable.tfc.bids.Render.Item.WoodPileItemRenderer;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.FirepitRegistry;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -45,6 +51,7 @@ public class ItemSetup extends BidsItems {
         registerItems();
         registerOre();
         registerWoodPileItems();
+        registerFirepitFuel();
     }
 
     public static void postInit() {
@@ -174,6 +181,15 @@ public class ItemSetup extends BidsItems {
         WoodPileRegistry.registerItem(TFCItems.logs, RenderLogsTFC.class);
         WoodPileRegistry.registerItem(logsSeasoned, RenderLogsTFC.class);
         WoodPileRegistry.registerItem(TFCItems.thickLogs, RenderThickLogsTFC.class);
+    }
+
+    private static void registerFirepitFuel() {
+        Bids.LOG.info("Register firepit fuel");
+
+        FirepitRegistry.registerFuel(TFCItems.stick, FuelStickTFC.class);
+        FirepitRegistry.registerFuel(TFCItems.stickBundle, FuelStickBundleTFC.class);
+        FirepitRegistry.registerFuel(Item.getItemFromBlock(TFCBlocks.peat), FuelPeatTFC.class);
+        FirepitRegistry.registerFuel(TFCItems.logs, FuelLogsTFC.class);
     }
 
     @SideOnly(Side.CLIENT)

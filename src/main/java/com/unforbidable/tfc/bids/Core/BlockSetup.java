@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockCarving;
 import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
+import com.unforbidable.tfc.bids.Blocks.BlockNewFirepit;
 import com.unforbidable.tfc.bids.Blocks.BlockLogWall;
 import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
 import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
@@ -39,6 +40,7 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -102,6 +104,8 @@ public class BlockSetup extends BidsBlocks {
         woodPile = new BlockWoodPile().setBlockName("WoodPile")
                 .setBlockTextureName("Wood Pile");
 
+        newFirepit = new BlockNewFirepit().setBlockName("NewFirepit");
+
         roughStoneSed = new BlockRoughStone()
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
                 .setBlockTextureName("Rough");
@@ -141,6 +145,9 @@ public class BlockSetup extends BidsBlocks {
             Bids.LOG.info("Classic TFC crucible hardness reduced");
             TFCBlocks.crucible.setHardness(0.5f);
         }
+
+        BidsBlocks.firepitTFC = TFCBlocks.firepit;
+        TFCBlocks.firepit = BidsBlocks.newFirepit;
     }
 
     private static void setupHarvest() {
@@ -212,6 +219,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityCarving.class, "BidsCarving");
 
         GameRegistry.registerTileEntity(TileEntityWoodPile.class, "BidsWoodPile");
+
+        GameRegistry.registerTileEntity(TileEntityNewFirepit.class, "BidsNewFirepit");
     }
 
     private static void registerMessages() {
@@ -243,6 +252,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(carvingWood, "CarvingWood");
 
         GameRegistry.registerBlock(woodPile, "WoodPile");
+
+        GameRegistry.registerBlock(newFirepit, "NewFirepit");
 
         GameRegistry.registerBlock(roughStoneSed, ItemRoughStone.class, "RoughStoneSed");
 

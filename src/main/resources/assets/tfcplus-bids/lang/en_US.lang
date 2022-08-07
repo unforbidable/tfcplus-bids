@@ -30,6 +30,8 @@ tile.Quarry.name=Quarry
 
 tile.WoodPile.name=Wood Pile
 
+tile.NewFirepit.name=Firepit
+
 tile.RoughStoneSed.Chalk.name=Rough Chalk
 tile.RoughStoneSed.Chert.name=Rough Chert
 tile.RoughStoneSed.Claystone.name=Rough Claystone

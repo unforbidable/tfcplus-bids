@@ -9,6 +9,7 @@ import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
+import com.unforbidable.tfc.bids.Core.Firepit.FirepitHelper;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 public class ItemKindling extends Item implements ISize {
 
@@ -27,6 +29,16 @@ public class ItemKindling extends Item implements ISize {
 
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
         setMaxStackSize(1);
+    }
+
+    @Override
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
+        if (FirepitHelper.createFirepitAt(itemStack, player, world, x, y, z, side)) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
