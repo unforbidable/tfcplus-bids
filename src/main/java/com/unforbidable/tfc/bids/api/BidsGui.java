@@ -6,5 +6,6 @@ public class BidsGui {
     public static final int fireClayCrucibleGui = 1;
     public static final int glassKnappingGui = 2;
     public static final int woodPileGui = 3;
+    public static final int newFirepitGui = 4;
 
 }

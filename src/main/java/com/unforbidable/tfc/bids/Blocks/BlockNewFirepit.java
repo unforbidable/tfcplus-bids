@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.Blocks;
 
 import java.util.Random;
 
-import com.dunk.tfc.TerraFirmaCraft;
 import com.dunk.tfc.Blocks.Devices.BlockFirepit;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
@@ -11,6 +10,7 @@ import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
+import com.unforbidable.tfc.bids.api.BidsGui;
 import com.unforbidable.tfc.bids.api.FirepitRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
@@ -39,7 +39,7 @@ public class BlockNewFirepit extends BlockFirepit {
         // needs to be reflected here
         if (!world.isRemote) {
             if (!handleInteraction(world, x, y, z, entityplayer, side)) {
-                entityplayer.openGui(TerraFirmaCraft.instance, 20, world, x, y, z);
+                entityplayer.openGui(Bids.instance, BidsGui.newFirepitGui, world, x, y, z);
             }
         }
 
