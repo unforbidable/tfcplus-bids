@@ -6,8 +6,8 @@ import java.util.List;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCItems;
-import com.dunk.tfc.api.Enums.EnumFuelMaterial;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.FirepitRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
@@ -30,11 +30,24 @@ public class TileEntityNewFirepit extends TEFirepit {
 
         // The default start is when a fire starter was used
         // with a bunch of sticks (and maybe straw)
-        fuelTimeLeft = EnumFuelMaterial.STICK.burnTimeMax * 1.5f;
-        fuelBurnTemp = (int) (EnumFuelMaterial.STICK.burnTempMax * 1.2f);
-        fuelTasteProfile = EnumFuelMaterial.STICK.ordinal();
-        fireTemp = fuelBurnTemp / 2;
-        ashNumber = 1;
+        // Init using BidsItems.kindling parameters
+        initWithKindling(new ItemStack(BidsItems.kindling), true);
+    }
+
+    public void initWithKindling(ItemStack kindling, boolean setOnFire) {
+        IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(kindling.getItem());
+        if (setOnFire && fuel != null) {
+            fuelTimeLeft = fuel.getFuelBurnTime(kindling);
+            fuelBurnTemp = fuel.getFuelMaxTemp(kindling);
+            fuelTasteProfile = fuel.getFuelTasteProfile(kindling).ordinal();
+            fireTemp = fuelBurnTemp / 2;
+        } else {
+            fireItemStacks[FUEL_BURN_SLOT] = kindling;
+            fuelTimeLeft = 0;
+            fuelBurnTemp = 0;
+            fuelTasteProfile = 0;
+            fireTemp = 0;
+        }
     }
 
     @Override

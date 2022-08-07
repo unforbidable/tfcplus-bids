@@ -23,6 +23,8 @@ public class FirepitHelper {
             world.setBlock(x, y + 1, z, BidsBlocks.newFirepit);
             TileEntity te = world.getTileEntity(x, y + 1, z);
             if (te instanceof TileEntityNewFirepit) {
+                TileEntityNewFirepit firepit = (TileEntityNewFirepit) te;
+                firepit.initWithKindling(itemStack, false);
 
                 world.markBlockForUpdate(x, y + 1, z);
             } else {
