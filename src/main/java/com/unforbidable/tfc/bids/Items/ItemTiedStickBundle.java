@@ -65,7 +65,7 @@ public class ItemTiedStickBundle extends Item implements ISize, IFirepitFuelMate
 
     @Override
     public float getFuelKindlingQuality(ItemStack itemStack) {
-        return 0;
+        return 0.25f;
     }
 
     @Override

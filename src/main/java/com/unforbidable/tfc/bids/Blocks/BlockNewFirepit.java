@@ -9,7 +9,10 @@ import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
 import com.dunk.tfc.Items.Tools.ItemFirestarter;
 import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCBlocks;
+import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
+import com.unforbidable.tfc.bids.api.FirepitRegistry;
+import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -36,10 +39,8 @@ public class BlockNewFirepit extends BlockFirepit {
         // needs to be reflected here
         if (!world.isRemote) {
             if (!handleInteraction(world, x, y, z, entityplayer, side)) {
-
+                entityplayer.openGui(TerraFirmaCraft.instance, 20, world, x, y, z);
             }
-
-            entityplayer.openGui(TerraFirmaCraft.instance, 20, world, x, y, z);
         }
 
         return true;
@@ -75,16 +76,38 @@ public class BlockNewFirepit extends BlockFirepit {
 
             if ((item instanceof ItemFirestarter || item instanceof ItemFlintAndSteel)
                     && te.fireTemp < 210 && te.fireItemStacks[5] != null) {
-                te.fireTemp = 300;
+                // No longer 100% chance of success
+                // and kindling is required
+                final ItemStack kindling = te.fireItemStacks[5];
+                final IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(kindling.getItem());
 
-                if (item instanceof ItemFlintAndSteel) {
-                    Random rand = new Random();
-                    world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "fire.ignite", 1.0F,
-                            rand.nextFloat() * 0.4F + 0.8F);
+                if (fuel != null && fuel.getFuelKindlingQuality(kindling) > 0) {
+                    float chance = fuel.getFuelKindlingQuality(kindling);
+
+                    if (item instanceof ItemFlintAndSteel) {
+                        Random rand = new Random();
+                        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "fire.ignite", 1.0F,
+                                rand.nextFloat() * 0.4F + 0.8F);
+
+                        // 100% chance with proper kindling and tinder
+                        // 50% chance without
+                        chance *= 2;
+                    } else if (item instanceof ItemFirestarter) {
+                        // 60% chance with proper kindling and tinder
+                        // 20% chance without
+                        chance *= 0.8f;
+                    }
+
+                    Bids.LOG.info("Chance to start fire: " + chance);
+
+                    if (world.rand.nextDouble() < chance) {
+                        te.fireTemp = 300;
+
+                        world.setBlockMetadataWithNotify(x, y, z, 1, 3);
+                    }
+
+                    equippedItem.damageItem(1, entityplayer);
                 }
-
-                equippedItem.damageItem(1, entityplayer);
-                world.setBlockMetadataWithNotify(x, y, z, 1, 3);
 
                 return true;
             }

@@ -108,7 +108,7 @@ public class ItemKindling extends Item implements ISize, IFirepitFuelMaterial {
 
     @Override
     public float getFuelKindlingQuality(ItemStack itemStack) {
-        return 0.8f;
+        return 0.75f;
     }
 
     @Override

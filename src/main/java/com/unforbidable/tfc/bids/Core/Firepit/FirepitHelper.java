@@ -25,6 +25,7 @@ public class FirepitHelper {
             if (te instanceof TileEntityNewFirepit) {
                 TileEntityNewFirepit firepit = (TileEntityNewFirepit) te;
                 firepit.initWithKindling(itemStack, false);
+                itemStack.stackSize--;
 
                 world.markBlockForUpdate(x, y + 1, z);
             } else {
@@ -38,7 +39,6 @@ public class FirepitHelper {
         }
 
         return false;
-
     }
 
     private static boolean isValidFirepitLocation(World world, int x, int y, int z) {

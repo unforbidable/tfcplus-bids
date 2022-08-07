@@ -65,7 +65,7 @@ public class ItemSmallStickBundle extends Item implements ISize, IFirepitFuelMat
 
     @Override
     public float getFuelKindlingQuality(ItemStack itemStack) {
-        return 0.5f;
+        return 0.25f;
     }
 
     @Override
