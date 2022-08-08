@@ -149,3 +149,11 @@
 0.15.1 (06-08-2022)
 - Changed: Updated Chinese translation by Eternal130
 - Fixed: Correct thick log texture is used in wood piles
+
+0.16.0 (08-08-2022)
+- Added: New firepit requires kindling to light
+- Added: Straw kindling for starting new firepit and easier starting fire
+- Added: New stick bundles that can be used as fuel in new firepit or kindling
+- Added: Charcoal can be used as fuel in new firepit (optional)
+- Added: Fire starter can be used as fuel in new firepit
+- Added: Allow new firepit to functinally replace classic TFC firepit (optional, disabled by default)
