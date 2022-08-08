@@ -146,8 +146,10 @@ public class BlockSetup extends BidsBlocks {
             TFCBlocks.crucible.setHardness(0.5f);
         }
 
-        BidsBlocks.firepitTFC = TFCBlocks.firepit;
-        TFCBlocks.firepit = BidsBlocks.newFirepit;
+        if (BidsOptions.Firepit.replaceFirepitTFC) {
+            BidsBlocks.firepitTFC = TFCBlocks.firepit;
+            TFCBlocks.firepit = BidsBlocks.newFirepit;
+        }
     }
 
     private static void setupHarvest() {

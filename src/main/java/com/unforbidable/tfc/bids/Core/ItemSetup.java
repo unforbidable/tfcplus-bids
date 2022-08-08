@@ -33,6 +33,7 @@ import com.unforbidable.tfc.bids.Items.ItemSmallStickBundle;
 import com.unforbidable.tfc.bids.Items.ItemTiedStickBundle;
 import com.unforbidable.tfc.bids.Render.Item.WoodPileItemRenderer;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.FirepitRegistry;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 
@@ -195,7 +196,10 @@ public class ItemSetup extends BidsItems {
         FirepitRegistry.registerFuel(TFCItems.stickBundle, FuelStickBundleTFC.class);
         FirepitRegistry.registerFuel(Item.getItemFromBlock(TFCBlocks.peat), FuelPeatTFC.class);
         FirepitRegistry.registerFuel(TFCItems.logs, FuelLogsTFC.class);
-        FirepitRegistry.registerFuel(TFCItems.coal, FuelCoalTFC.class);
+
+        if (BidsOptions.Firepit.allowFuelCharcoal) {
+            FirepitRegistry.registerFuel(TFCItems.coal, FuelCoalTFC.class);
+        }
     }
 
     @SideOnly(Side.CLIENT)
