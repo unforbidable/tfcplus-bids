@@ -107,7 +107,7 @@ public class BlockNewFirepit extends BlockFirepit {
                         chance *= 0.8f;
                     }
 
-                    Bids.LOG.info("Chance to start fire: " + chance);
+                    Bids.LOG.debug("Chance to start fire: " + chance);
 
                     if (world.rand.nextDouble() < chance) {
                         te.fireTemp = 300;

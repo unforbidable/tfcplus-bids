@@ -137,7 +137,7 @@ public class TileEntityNewFirepit extends TEFirepit {
                         setInventorySlotContents(0, new ItemStack(item, 1, is.getItemDamage()));
                         is.stackSize--;
 
-                        Bids.LOG.info("Fuel collected: " + is.getDisplayName());
+                        Bids.LOG.debug("Fuel collected: " + is.getDisplayName());
 
                         // This is called now to push the fuel item that was just added down
                         handleFuelStack();
@@ -178,7 +178,7 @@ public class TileEntityNewFirepit extends TEFirepit {
                 ashNumber++;
             }
 
-            Bids.LOG.info("Fuel consumed: " + itemStack.getDisplayName()
+            Bids.LOG.debug("Fuel consumed: " + itemStack.getDisplayName()
                     + " temp: " + fuelBurnTemp + " time: " + fuelTimeLeft);
 
             fireItemStacks[FUEL_BURN_SLOT] = null;
