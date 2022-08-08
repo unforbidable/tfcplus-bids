@@ -34,6 +34,22 @@ public class TileEntityNewFirepit extends TEFirepit {
         initWithKindling(new ItemStack(BidsItems.kindling), true);
     }
 
+    public int getFuelCount() {
+        int count = 0;
+
+        for (int slot : FUEL_SLOTS_ALL) {
+            if (fireItemStacks[slot] != null) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public int getMaxFuelCount() {
+        return FUEL_SLOTS_ALL.length;
+    }
+
     public void initWithKindling(ItemStack kindling, boolean setOnFire) {
         IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(kindling.getItem());
         if (setOnFire && fuel != null) {
@@ -70,6 +86,10 @@ public class TileEntityNewFirepit extends TEFirepit {
                     }
                 }
             }
+
+            // Make sure any fuel is in the burning slot
+            // before trying to consume fuel
+            handleFuelStack();
 
             // We also need to consume the fuel when needed
             // according to the registred properties
@@ -156,7 +176,8 @@ public class TileEntityNewFirepit extends TEFirepit {
                 ashNumber++;
             }
 
-            Bids.LOG.info("Fuel consumed: " + itemStack.getDisplayName());
+            Bids.LOG.info("Fuel consumed: " + itemStack.getDisplayName()
+                    + " temp: " + fuelBurnTemp + " time: " + fuelTimeLeft);
 
             fireItemStacks[FUEL_BURN_SLOT] = null;
         }
