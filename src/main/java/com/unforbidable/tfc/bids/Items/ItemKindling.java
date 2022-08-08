@@ -118,7 +118,7 @@ public class ItemKindling extends Item implements ISize, IFirepitFuelMaterial {
 
     @Override
     public int getFuelMaxTemp(ItemStack itemStack) {
-        return (int) (EnumFuelMaterial.STICK.burnTempMax * 1.25f);
+        return (int) (EnumFuelMaterial.STICK.burnTempMax * 1.2f);
     }
 
     @Override

@@ -5,10 +5,12 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.WAILA.Providers.CarvingProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.CrucibleProvider;
+import com.unforbidable.tfc.bids.WAILA.Providers.FirepitProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.FurnaceProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.QuarryProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.WoodPileProvider;
@@ -33,6 +35,7 @@ public class WailaSetup {
         WailaProvider.addProvider(new QuarryProvider(), TileEntityQuarry.class);
         WailaProvider.addProvider(new CarvingProvider(), TileEntityCarving.class);
         WailaProvider.addProvider(new WoodPileProvider(), TileEntityWoodPile.class);
+        WailaProvider.addProvider(new FirepitProvider(), TileEntityNewFirepit.class);
     }
 
     @SideOnly(Side.CLIENT)

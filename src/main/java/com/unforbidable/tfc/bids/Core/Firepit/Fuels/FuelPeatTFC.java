@@ -19,7 +19,7 @@ public class FuelPeatTFC implements IFirepitFuelMaterial {
 
     @Override
     public int getFuelBurnTime(ItemStack itemStack) {
-        return EnumFuelMaterial.PEAT.burnTempMax;
+        return EnumFuelMaterial.PEAT.burnTimeMax;
     }
 
     @Override
