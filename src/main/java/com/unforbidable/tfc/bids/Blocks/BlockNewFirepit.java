@@ -9,23 +9,32 @@ import com.dunk.tfc.Items.Tools.ItemFirestarter;
 import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.api.BidsGui;
 import com.unforbidable.tfc.bids.api.FirepitRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFlintAndSteel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 public class BlockNewFirepit extends BlockFirepit {
 
+    private IIcon iconOn;
+    private IIcon iconOff;
+
     public BlockNewFirepit() {
         super();
+
+        setHardness(1);
+        setLightLevel(0);
     }
 
     @Override
@@ -119,6 +128,21 @@ public class BlockNewFirepit extends BlockFirepit {
     @Override
     public TileEntity createNewTileEntity(World world, int metadata) {
         return new TileEntityNewFirepit();
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister iconRegisterer) {
+        iconOn = iconRegisterer.registerIcon(Tags.MOD_ID + ":" + "Firepit On");
+        iconOff = iconRegisterer.registerIcon(Tags.MOD_ID + ":" + "Firepit Off");
+    }
+
+    @Override
+    public IIcon getIcon(int side, int damage) {
+        if (damage > 0) {
+            return iconOn;
+        }
+
+        return iconOff;
     }
 
 }
