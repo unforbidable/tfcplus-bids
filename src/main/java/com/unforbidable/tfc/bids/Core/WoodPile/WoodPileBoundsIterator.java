@@ -112,7 +112,7 @@ public class WoodPileBoundsIterator implements Iterable<WoodPileItemBounds> {
                         i = 0;
 
                         if (BidsOptions.WoodPile.rotateItems) {
-                            rowRotation++;
+                            rowRotation = (rowRotation + 1) % 2;
                         }
                     }
 
