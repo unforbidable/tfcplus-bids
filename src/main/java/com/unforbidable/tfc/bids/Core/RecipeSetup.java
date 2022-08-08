@@ -172,6 +172,28 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ItemStack(BidsItems.mMStoneAdze, 1, 0),
                 "1", "2", '1', BidsItems.mMStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
 
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.smallStickBundle),
+                "stickWood", "stickWood", "stickWood"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stick, 3, 0),
+                new ItemStack(BidsItems.smallStickBundle)));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.kindling, 1, 0),
+                "stickWood", "stickWood", "stickWood", new ItemStack(TFCItems.straw)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.kindling, 1, 0),
+                new ItemStack(BidsItems.smallStickBundle), new ItemStack(TFCItems.straw)));
+
+        Object[] stickTyingMaterial = new Object[] { "materialString", new ItemStack(TFCItems.grassCordage) };
+        for (Object is : stickTyingMaterial) {
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
+                    new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.smallStickBundle),
+                    new ItemStack(BidsItems.smallStickBundle), is));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
+                    new ItemStack(TFCItems.stickBundle), is));
+        }
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stick, 9, 0),
+                new ItemStack(BidsItems.tiedStickBundle)));
+
         for (int i = 0; i < Global.WOOD_ALL.length; i++) {
             int j = i % 16;
 

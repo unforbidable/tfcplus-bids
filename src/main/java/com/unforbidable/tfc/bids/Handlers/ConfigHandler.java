@@ -79,6 +79,13 @@ public class ConfigHandler {
                 "seasoningDurationMultiplier", "woodpile", BidsOptions.WoodPile.seasoningDurationMultiplier, 1f, 100f,
                 "Higher values increase the time it takes for wood to season in a wood pile");
 
+        BidsOptions.Firepit.allowFuelCharcoal = config.getBoolean(
+                "allowFuelCharcoal", "firepit", BidsOptions.Firepit.allowFuelCharcoal,
+                "Set this to true if you want to be able to use charcoal as fuel in a firepit");
+        BidsOptions.Firepit.replaceFirepitTFC = config.getBoolean(
+                "replaceFirepitTFC", "firepit", BidsOptions.Firepit.replaceFirepitTFC,
+                "Set this to true if you want to replace TFC firepit");
+
         config.save();
     }
 

@@ -43,4 +43,8 @@ public class BidsItems {
     public static Item peeledLogSeasoned;
     public static Item logsSeasoned;
 
+    public static Item smallStickBundle;
+    public static Item tiedStickBundle;
+    public static Item kindling;
+
 }

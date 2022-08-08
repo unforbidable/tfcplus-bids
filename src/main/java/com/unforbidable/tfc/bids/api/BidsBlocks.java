@@ -23,6 +23,9 @@ public class BidsBlocks {
 
     public static Block woodPile;
 
+    public static Block newFirepit;
+    public static Block firepitTFC;
+
     public static Block roughStoneSed;
     public static Block roughStoneBrickSed;
 

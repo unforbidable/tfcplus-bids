@@ -3,9 +3,15 @@ package com.unforbidable.tfc.bids.Core;
 import com.dunk.tfc.api.HeatIndex;
 import com.dunk.tfc.api.HeatRaw;
 import com.dunk.tfc.api.HeatRegistry;
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelCoalTFC;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelLogsTFC;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelPeatTFC;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelStickBundleTFC;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelStickTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderThickLogsTFC;
 import com.unforbidable.tfc.bids.Items.ItemAdze;
@@ -16,14 +22,19 @@ import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
 import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
 import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
 import com.unforbidable.tfc.bids.Items.ItemGlassLump;
+import com.unforbidable.tfc.bids.Items.ItemKindling;
 import com.unforbidable.tfc.bids.Items.ItemLogsSeasoned;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLog;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLogSeasoned;
 import com.unforbidable.tfc.bids.Items.ItemRoughBrick;
+import com.unforbidable.tfc.bids.Items.ItemSmallStickBundle;
+import com.unforbidable.tfc.bids.Items.ItemTiedStickBundle;
 import com.unforbidable.tfc.bids.Render.Item.WoodPileItemRenderer;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.FirepitRegistry;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -42,6 +53,7 @@ public class ItemSetup extends BidsItems {
         registerItems();
         registerOre();
         registerWoodPileItems();
+        registerFirepitFuel();
     }
 
     public static void postInit() {
@@ -122,6 +134,13 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Peeled Log Seasoned");
         logsSeasoned = new ItemLogsSeasoned()
                 .setUnlocalizedName("Log Seasoned");
+
+        smallStickBundle = new ItemSmallStickBundle()
+                .setUnlocalizedName("Small Stick Bundle");
+        tiedStickBundle = new ItemTiedStickBundle()
+                .setUnlocalizedName("Tied Stick Bundle");
+        kindling = new ItemKindling()
+                .setUnlocalizedName("Kindling");
     }
 
     private static void setupToolHarvest() {
@@ -164,6 +183,23 @@ public class ItemSetup extends BidsItems {
         WoodPileRegistry.registerItem(TFCItems.logs, RenderLogsTFC.class);
         WoodPileRegistry.registerItem(logsSeasoned, RenderLogsTFC.class);
         WoodPileRegistry.registerItem(TFCItems.thickLogs, RenderThickLogsTFC.class);
+    }
+
+    private static void registerFirepitFuel() {
+        Bids.LOG.info("Register firepit fuel");
+
+        FirepitRegistry.registerFuel(kindling);
+        FirepitRegistry.registerFuel(smallStickBundle);
+        FirepitRegistry.registerFuel(tiedStickBundle);
+        FirepitRegistry.registerFuel(TFCItems.stick, FuelStickTFC.class);
+        FirepitRegistry.registerFuel(TFCItems.fireStarter, FuelStickTFC.class);
+        FirepitRegistry.registerFuel(TFCItems.stickBundle, FuelStickBundleTFC.class);
+        FirepitRegistry.registerFuel(Item.getItemFromBlock(TFCBlocks.peat), FuelPeatTFC.class);
+        FirepitRegistry.registerFuel(TFCItems.logs, FuelLogsTFC.class);
+
+        if (BidsOptions.Firepit.allowFuelCharcoal) {
+            FirepitRegistry.registerFuel(TFCItems.coal, FuelCoalTFC.class);
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -244,6 +280,10 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(peeledLog, peeledLog.getUnlocalizedName());
         GameRegistry.registerItem(peeledLogSeasoned, peeledLogSeasoned.getUnlocalizedName());
         GameRegistry.registerItem(logsSeasoned, logsSeasoned.getUnlocalizedName());
+
+        GameRegistry.registerItem(smallStickBundle, smallStickBundle.getUnlocalizedName());
+        GameRegistry.registerItem(tiedStickBundle, tiedStickBundle.getUnlocalizedName());
+        GameRegistry.registerItem(kindling, kindling.getUnlocalizedName());
     }
 
 }

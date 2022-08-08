@@ -30,6 +30,8 @@ tile.Quarry.name=Quarry
 
 tile.WoodPile.name=Wood Pile
 
+tile.NewFirepit.name=Firepit
+
 tile.RoughStoneSed.Chalk.name=Rough Chalk
 tile.RoughStoneSed.Chert.name=Rough Chert
 tile.RoughStoneSed.Claystone.name=Rough Claystone
@@ -531,6 +533,10 @@ item.Log Seasoned.Baobab Chopped.name=Seasoned Chopped Baobab Log
 item.Log Seasoned.Bamboo Chopped.name=Seasoned Chopped Bamboo Log
 item.Log Seasoned.Limba Chopped.name=Seasoned Chopped Limba Log
 
+item.Small Stick Bundle.name=Small Bundle of Sticks
+item.Tied Stick Bundle.name=Tied Bundle of Sticks
+item.Kindling.Straw.name=Straw Kindling
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs
 itemGroup.Bids.BuildingBlocks=Bids and Pieces - Building Blocks
@@ -557,3 +563,4 @@ gui.Ruined=Ruined
 gui.Wedges=Wedges
 gui.QuarryReady=Ready
 gui.Seasoning=Seasoning
+gui.Fuel=Fuel
