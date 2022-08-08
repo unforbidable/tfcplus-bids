@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core.Firepit.Fuels;
 
+import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Enums.EnumFuelMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
@@ -9,7 +10,15 @@ public class FuelStickTFC implements IFirepitFuelMaterial {
 
     @Override
     public boolean isFuelValid(ItemStack itemStack) {
-        return true;
+        if (itemStack.getItem() == TFCItems.stick) {
+            return true;
+        }
+
+        if (itemStack.getItem() == TFCItems.fireStarter) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

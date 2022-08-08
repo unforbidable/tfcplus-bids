@@ -191,6 +191,7 @@ public class ItemSetup extends BidsItems {
         FirepitRegistry.registerFuel(smallStickBundle);
         FirepitRegistry.registerFuel(tiedStickBundle);
         FirepitRegistry.registerFuel(TFCItems.stick, FuelStickTFC.class);
+        FirepitRegistry.registerFuel(TFCItems.fireStarter, FuelStickTFC.class);
         FirepitRegistry.registerFuel(TFCItems.stickBundle, FuelStickBundleTFC.class);
         FirepitRegistry.registerFuel(Item.getItemFromBlock(TFCBlocks.peat), FuelPeatTFC.class);
         FirepitRegistry.registerFuel(TFCItems.logs, FuelLogsTFC.class);
