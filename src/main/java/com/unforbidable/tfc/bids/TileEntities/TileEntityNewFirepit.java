@@ -57,12 +57,14 @@ public class TileEntityNewFirepit extends TEFirepit {
             fuelBurnTemp = fuel.getFuelMaxTemp(kindling);
             fuelTasteProfile = fuel.getFuelTasteProfile(kindling).ordinal();
             fireTemp = fuelBurnTemp / 2;
+            ashNumber = 1;
         } else {
             fireItemStacks[FUEL_BURN_SLOT] = new ItemStack(kindling.getItem(), 1, kindling.getItemDamage());
             fuelTimeLeft = 0;
             fuelBurnTemp = 0;
             fuelTasteProfile = 0;
             fireTemp = 0;
+            ashNumber = 0;
         }
     }
 
