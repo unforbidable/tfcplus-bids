@@ -36,7 +36,7 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
             final boolean isRowRotated = itemBounds.isRowRotated();
             final AxisAlignedBB bounds = itemBounds.getBounds();
 
-            final RendererHelper helper = new RendererHelper();
+            final RendererHelper helper = new RendererHelper(isRowRotated);
             provider.onWoodPileRender(item, isRowRotated, helper);
             helper.apply(rendererAlt);
 
@@ -67,11 +67,24 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
         private float[] scalesXY = new float[6];
         private float[] scalesYZ = new float[6];
 
-        public RendererHelper() {
-            // Default scale is 1
-            for (int i = 0; i < 6; i++) {
-                scalesXY[i] = 1f;
-                scalesYZ[i] = 1f;
+        public RendererHelper(boolean rotated) {
+            // Default scale
+            // Short side is 0.5f
+            // Scale long side, long edge to 1
+            if (rotated) {
+                setTextureScale(0, 1f, 0.5f);
+                setTextureScale(1, 1f, 0.5f);
+                setTextureScale(2, 1f, 0.5f);
+                setTextureScale(3, 1f, 0.5f);
+                setTextureScale(4, 0.5f, 0.5f);
+                setTextureScale(5, 0.5f, 0.5f);
+            } else {
+                setTextureScale(0, 0.5f, 1f);
+                setTextureScale(1, 0.5f, 1f);
+                setTextureScale(2, 0.5f, 0.5f);
+                setTextureScale(3, 0.5f, 0.5f);
+                setTextureScale(4, 0.5f, 1f);
+                setTextureScale(5, 0.5f, 1f);
             }
         }
 

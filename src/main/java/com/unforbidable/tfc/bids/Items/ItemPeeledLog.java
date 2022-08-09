@@ -133,7 +133,6 @@ public class ItemPeeledLog extends Item implements ISize, IWoodPileRenderProvide
     public void onWoodPileRender(ItemStack itemStack, boolean rotated, IWoodPileRenderer renderer) {
         for (int i = 0; i < 6; i++) {
             renderer.setTexture(i, getLogWallBlockIcon(itemStack, i, rotated));
-            renderer.setTextureScale(i, 0.5f);
         }
     }
 

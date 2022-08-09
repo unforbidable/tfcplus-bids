@@ -23,7 +23,6 @@ public class RenderLogsTFC implements IWoodPileRenderProvider {
         // Normal log textures are that of stacked logs with half scale
         for (int i = 0; i < 6; i++) {
             renderer.setTexture(i, getStackedBlockIcon(itemStack, i, rotated));
-            renderer.setTextureScale(i, 0.5f);
         }
 
         if (isChoppedLog) {
