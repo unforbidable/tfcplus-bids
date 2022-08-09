@@ -19,8 +19,7 @@ public class WoodPileHelper {
 
     public static boolean createWoodPileAt(ItemStack itemStack, EntityPlayer player, World world,
             int x, int y, int z, int side) {
-        if (!world.isRemote && player.isSneaking()
-                && isItemValidWoodPileItem(itemStack)) {
+        if (!world.isRemote && player.isSneaking()) {
             // Try to start a wood pile
             ForgeDirection d = ForgeDirection.getOrientation(side);
             int x2 = x + d.offsetX;
@@ -37,10 +36,16 @@ public class WoodPileHelper {
                 if (te instanceof TileEntityWoodPile) {
                     TileEntityWoodPile woodPile = (TileEntityWoodPile) te;
                     woodPile.setOrientation(orientation);
-                    ItemStack one = itemStack.copy();
-                    one.stackSize = 1;
-                    if (woodPile.addItem(one)) {
-                        itemStack.stackSize = itemStack.stackSize - 1;
+
+                    if (isItemValidWoodPileItem(itemStack)) {
+                        ItemStack one = itemStack.copy();
+                        one.stackSize = 1;
+                        if (woodPile.addItem(one)) {
+                            itemStack.stackSize = itemStack.stackSize - 1;
+                        }
+                    } else {
+                        // If item cannot be added open the GUI instead
+                        woodPile.openDelayedGUI(player);
                     }
 
                     return true;

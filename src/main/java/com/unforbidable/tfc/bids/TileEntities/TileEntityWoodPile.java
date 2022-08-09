@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.Core.WoodPile.EnumSlotGroup;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileBoundsIterator;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileItemBounds;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
+import com.unforbidable.tfc.bids.api.BidsGui;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
@@ -63,6 +64,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     boolean isItemBoundsCacheActual = false;
     List<WoodPileItemBounds> itemBoundsCache = new ArrayList<WoodPileItemBounds>();
 
+    EntityPlayer openDelayedGUIplayer = null;
+
     public TileEntityWoodPile() {
     }
 
@@ -72,6 +75,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     public int getOrientation() {
         return orientation;
+    }
+
+    public void openDelayedGUI(EntityPlayer player) {
+        openDelayedGUIplayer = player;
     }
 
     public List<ItemStack> getItems(boolean stacked) {
@@ -342,6 +349,11 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // for seasoning interval
             if (seasoningTimer.tick() && TFC_Time.getTotalTicks() > lastSeasoningTicks + SEASONING_INTERVAL) {
                 seasonItems();
+            }
+
+            if (openDelayedGUIplayer != null) {
+                openDelayedGUIplayer.openGui(Bids.instance, BidsGui.woodPileGui, worldObj, xCoord, yCoord, zCoord);
+                openDelayedGUIplayer = null;
             }
         }
     }
