@@ -183,6 +183,7 @@ public class ItemSetup extends BidsItems {
         WoodPileRegistry.registerItem(TFCItems.logs, RenderLogsTFC.class);
         WoodPileRegistry.registerItem(logsSeasoned, RenderLogsTFC.class);
         WoodPileRegistry.registerItem(TFCItems.thickLogs, RenderThickLogsTFC.class);
+        WoodPileRegistry.registerItem(tiedStickBundle);
     }
 
     private static void registerFirepitFuel() {

@@ -50,4 +50,6 @@ public class BidsBlocks {
     public static Block logWallNorthAlt3;
     public static Block logWallCornerAlt3;
 
+    public static Block tiedStickBundle;
+
 }
