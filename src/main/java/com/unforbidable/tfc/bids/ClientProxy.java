@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids;
 import com.unforbidable.tfc.bids.Core.BlockSetup;
 import com.unforbidable.tfc.bids.Core.ItemSetup;
 import com.unforbidable.tfc.bids.Handlers.Client.ClientGuiHandler;
+import com.unforbidable.tfc.bids.NEI.NotEnoughItemsSetup;
 import com.unforbidable.tfc.bids.WAILA.WailaSetup;
 
 import cpw.mods.fml.common.Loader;
@@ -32,8 +33,13 @@ public class ClientProxy extends CommonProxy {
     public void init(FMLInitializationEvent event) {
         super.init(event);
 
-        if (Loader.isModLoaded("Waila"))
+        if (Loader.isModLoaded("Waila")) {
             WailaSetup.init();
+        }
+
+        if (Loader.isModLoaded("NotEnoughItems")) {
+            NotEnoughItemsSetup.init();
+        }
     }
 
     @Override
