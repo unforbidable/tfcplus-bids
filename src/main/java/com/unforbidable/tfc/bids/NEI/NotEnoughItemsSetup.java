@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.NEI;
 
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.NEI.Handlers.QuarryHandler;
+import com.unforbidable.tfc.bids.NEI.Handlers.SeasoningHandler;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 
@@ -26,6 +27,8 @@ public class NotEnoughItemsSetup {
 
         API.registerRecipeHandler(new QuarryHandler());
         API.registerUsageHandler(new QuarryHandler());
+        API.registerRecipeHandler(new SeasoningHandler());
+        API.registerUsageHandler(new SeasoningHandler());
     }
 
     private static void hideItemStacks() {

@@ -42,9 +42,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     public static final int MAX_STORAGE = 16;
 
-    static final long SEASONING_TICKS = TFC_Time.DAY_LENGTH;
+    public static final long SEASONING_TICKS = TFC_Time.DAY_LENGTH;
+    public static final float SEASONING_COVERED_BONUS = 1.5f;
+
     static final long SEASONING_INTERVAL = TFC_Time.HOUR_LENGTH;
-    static final float SEASONING_COVERED_BONUS = 1.5f;
 
     static final int ACTION_UPDATE = 1;
     static final int ACTION_RETRIEVE_ITEM = 2;
