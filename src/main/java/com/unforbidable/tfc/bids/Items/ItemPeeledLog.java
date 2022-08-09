@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileHelper;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
+import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderer;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -124,7 +125,19 @@ public class ItemPeeledLog extends Item implements ISize, IWoodPileRenderProvide
     }
 
     @Override
-    public IIcon getWoodPileIcon(ItemStack itemStack, int side, boolean rotated) {
+    public boolean isWoodPileLargeItem(ItemStack itemStack) {
+        return false;
+    }
+
+    @Override
+    public void onWoodPileRender(ItemStack itemStack, boolean rotated, IWoodPileRenderer renderer) {
+        for (int i = 0; i < 6; i++) {
+            renderer.setTexture(i, getLogWallBlockIcon(itemStack, i, rotated));
+            renderer.setTextureScale(i, 0.5f);
+        }
+    }
+
+    private IIcon getLogWallBlockIcon(ItemStack itemStack, int side, boolean rotated) {
         // We are using the log wall to get the texture
         final int offset = itemStack.getItemDamage() - itemStack.getItemDamage() % 16;
         final int meta = itemStack.getItemDamage() % 16;
@@ -133,21 +146,6 @@ public class ItemPeeledLog extends Item implements ISize, IWoodPileRenderProvide
                 : WoodHelper.getLogWallBlock(offset, 2, true);
 
         return block.getIcon(side, meta);
-    }
-
-    @Override
-    public float getWoodPileIconScale(ItemStack itemStack, int side, boolean rotated) {
-        return 0.5f;
-    }
-
-    @Override
-    public boolean isWoodPileLargeItem(ItemStack itemStack) {
-        return false;
-    }
-
-    @Override
-    public int getWoodPileIconRotation(ItemStack itemStack, int side, boolean rotated) {
-        return 0;
     }
 
 }
