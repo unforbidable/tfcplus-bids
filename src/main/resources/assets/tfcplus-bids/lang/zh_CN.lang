@@ -30,6 +30,8 @@ tile.Quarry.name=采石
 
 tile.WoodPile.name=原木垛
 
+tile.NewFirepit.name=火堆
+
 tile.RoughStoneSed.Chalk.name=粗糙白垩岩
 tile.RoughStoneSed.Chert.name=粗糙角岩
 tile.RoughStoneSed.Claystone.name=粗糙粘土岩
@@ -531,6 +533,10 @@ item.Log Seasoned.Baobab Chopped.name=干燥的劈开的猴面包树原木
 item.Log Seasoned.Bamboo Chopped.name=干燥的劈开的竹子
 item.Log Seasoned.Limba Chopped.name=干燥的劈开的榄仁树原木
 
+item.Small Stick Bundle.name=小捆木棍
+item.Tied Stick Bundle.name=捆扎木棍
+item.Kindling.Straw.name=引火物
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
 itemGroup.Bids.BuildingBlocks=Bids and Pieces - 建筑方块
@@ -557,3 +563,4 @@ gui.Ruined=毁坏的
 gui.Wedges=楔子
 gui.QuarryReady=可以开采
 gui.Seasoning=风干中
+gui.Fuel=燃料
