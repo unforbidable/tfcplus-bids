@@ -156,4 +156,11 @@
 - Added: New stick bundles that can be used as fuel in new firepit or kindling
 - Added: Charcoal can be used as fuel in new firepit (optional)
 - Added: Fire starter can be used as fuel in new firepit
-- Added: Allow new firepit to functinally replace classic TFC firepit (optional, disabled by default)
+- Added: Allow new firepit to functionally replace classic TFC firepit (optional, disabled by default)
+
+0.16.1 (09-08-2022)
+- Added: Tied Bundles of Sticks can be added into a wood pile
+- Added: Small Bundles of Sticks can be used to create a wood pile
+- Changed: Updated Chinese translation by Eternal130
+- Fixed: Excessive stretching of some textures while rendering a wood pile
+- Fixed: Rows of wood items always begin at the left or in the back of the wood pile
