@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.NEI;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.NEI.Handlers.QuarryHandler;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 
@@ -17,6 +18,14 @@ public class NotEnoughItemsSetup {
     @SideOnly(Side.CLIENT)
     public static void init() {
         hideItemStacks();
+        registerHandlers();
+    }
+
+    private static void registerHandlers() {
+        Bids.LOG.info("Registering NEI handlers");
+
+        API.registerRecipeHandler(new QuarryHandler());
+        API.registerUsageHandler(new QuarryHandler());
     }
 
     private static void hideItemStacks() {
