@@ -162,6 +162,11 @@ public class ItemSetup extends BidsItems {
 
         final int WILD = OreDictionary.WILDCARD_VALUE;
 
+        final Item[] drills = new Item[] { sedStoneDrill, mMStoneDrill, igInStoneDrill, igExStoneDrill };
+        for (Item drill : drills) {
+            OreDictionary.registerOre("itemDrill", new ItemStack(drill, 1, WILD));
+        }
+
         final Item[] adzes = new Item[] { sedStoneAdze, mMStoneAdze, igInStoneAdze, igExStoneAdze };
         for (Item adze : adzes) {
             OreDictionary.registerOre("itemAdze", new ItemStack(adze, 1, WILD));

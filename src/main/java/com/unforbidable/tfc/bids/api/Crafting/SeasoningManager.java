@@ -27,4 +27,8 @@ public class SeasoningManager {
         return getMatchingRecipe(itemStack) != null;
     }
 
+    public static List<SeasoningRecipe> getRecipes() {
+        return new ArrayList<SeasoningRecipe>(recipes);
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.unforbidable.tfc.bids.api;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +23,10 @@ public class QuarryRegistry {
 
     public static boolean isBlockQuarriable(Block rawStoneBlock) {
         return getBlockQuarriable(rawStoneBlock) != null;
+    }
+
+    public static List<IQuarriable> getQuarriableBlocks() {
+        return new ArrayList<IQuarriable>(quarries.values());
     }
 
 }

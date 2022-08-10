@@ -19,6 +19,10 @@ public class SeasoningRecipe {
                 && itemStack.getItemDamage() == input.getItemDamage();
     }
 
+    public ItemStack getInput() {
+        return input;
+    }
+
     public ItemStack getCraftingResult(ItemStack itemStack) {
         return output;
     }
