@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelStickTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderThickLogsTFC;
 import com.unforbidable.tfc.bids.Items.ItemAdze;
+import com.unforbidable.tfc.bids.Items.ItemBark;
 import com.unforbidable.tfc.bids.Items.ItemDrill;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
@@ -28,6 +29,9 @@ import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLog;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLogSeasoned;
+import com.unforbidable.tfc.bids.Items.ItemBastCordage;
+import com.unforbidable.tfc.bids.Items.ItemBastFibre;
+import com.unforbidable.tfc.bids.Items.ItemBastFibreStrip;
 import com.unforbidable.tfc.bids.Items.ItemRoughBrick;
 import com.unforbidable.tfc.bids.Items.ItemSmallStickBundle;
 import com.unforbidable.tfc.bids.Items.ItemTiedStickBundle;
@@ -141,6 +145,17 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Tied Stick Bundle");
         kindling = new ItemKindling()
                 .setUnlocalizedName("Kindling");
+
+        bark = new ItemBark().setNames(Global.WOOD_ALL)
+                .setUnlocalizedName("Bark");
+        barkFibre = new ItemBastFibre()
+                .setUnlocalizedName("Bark Fibre");
+        barkFibreStrip = new ItemBastFibreStrip()
+                .setUnlocalizedName("Bark Fibre Strip");
+        flatBarkFiber = new ItemFlatGlass()
+                .setUnlocalizedName("Flat Bark Fibre");
+        barkCordage = new ItemBastCordage()
+                .setUnlocalizedName("Bark Cordage");
     }
 
     private static void setupToolHarvest() {
@@ -290,6 +305,12 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(smallStickBundle, smallStickBundle.getUnlocalizedName());
         GameRegistry.registerItem(tiedStickBundle, tiedStickBundle.getUnlocalizedName());
         GameRegistry.registerItem(kindling, kindling.getUnlocalizedName());
+
+        GameRegistry.registerItem(bark, bark.getUnlocalizedName());
+        GameRegistry.registerItem(barkFibre, barkFibre.getUnlocalizedName());
+        GameRegistry.registerItem(barkFibreStrip, barkFibreStrip.getUnlocalizedName());
+        GameRegistry.registerItem(flatBarkFiber, flatBarkFiber.getUnlocalizedName());
+        GameRegistry.registerItem(barkCordage, barkCordage.getUnlocalizedName());
     }
 
 }

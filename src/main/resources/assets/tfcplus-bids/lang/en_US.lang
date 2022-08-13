@@ -573,6 +573,12 @@ item.Small Stick Bundle.name=Small Bundle of Sticks
 item.Tied Stick Bundle.name=Tied Bundle of Sticks
 item.Kindling.name=Straw Kindling
 
+item.Bark Fibre.name=Bark Fibers
+item.Bark Fibre Strip.Fresh.name=Bark Fiber Strip
+item.Bark Fibre Strip.Cured.name=Cured Bark Fiber Strip
+item.Flat Bark Fibre.name=Flat Bark Fiber
+item.Bark Cordage.name=Bark Cordage
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs
 itemGroup.Bids.BuildingBlocks=Bids and Pieces - Building Blocks
