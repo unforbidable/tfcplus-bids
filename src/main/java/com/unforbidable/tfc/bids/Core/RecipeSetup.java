@@ -197,7 +197,8 @@ public class RecipeSetup {
                 new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.barkFibreStrip, 1, 1)));
 
         Object[] stickTyingMaterial = new Object[] { "materialString", new ItemStack(TFCItems.grassCordage),
-                new ItemStack(BidsItems.barkFibreStrip, 1, 0), new ItemStack(BidsItems.barkFibreStrip, 1, 1) };
+                new ItemStack(BidsItems.barkFibreStrip, 1, 0), new ItemStack(BidsItems.barkFibreStrip, 1, 1),
+                new ItemStack(BidsItems.barkCordage) };
         for (Object is : stickTyingMaterial) {
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
                     new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.smallStickBundle),
@@ -215,6 +216,9 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.dryingRack),
                 "PP", "SS", 'P', new ItemStack(TFCItems.pole),
                 'S', new ItemStack(TFCItems.sinew)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.dryingRack),
+                "PP", "SS", 'P', new ItemStack(TFCItems.pole),
+                'S', new ItemStack(BidsItems.barkCordage)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 2, 0),
                 new ItemStack(BidsBlocks.dryingRack)));
 
@@ -223,6 +227,23 @@ public class RecipeSetup {
 
         GameRegistry.addRecipe(new ItemStack(TFCItems.rope),
                 "11", "11", '1', BidsItems.barkCordage);
+
+        // Select TFC recipes where bark cordage and bark fiber strips can be used
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.primitiveLoom, 1, 0),
+                "LS", "SL", 'L', "stickWood", 'S', BidsItems.barkCordage));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.primitiveLoom, 1, 0),
+                "LS", "SL", 'S', "stickWood", 'L', BidsItems.barkCordage));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.unstrungBow, 1),
+                new ItemStack(TFCItems.pole), "itemKnife", new ItemStack(BidsItems.barkCordage)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.bow, 1),
+                new ItemStack(TFCItems.unstrungBow), new ItemStack(BidsItems.barkCordage)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.splint, 1),
+                TFCItems.stick, BidsItems.barkCordage));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.splint, 1),
+                TFCItems.stick, new ItemStack(BidsItems.barkFibreStrip, 1, 0)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.splint, 1),
+                TFCItems.stick, new ItemStack(BidsItems.barkFibreStrip, 1, 1)));
 
         for (int i = 0; i < Global.WOOD_ALL.length; i++) {
             int j = i % 16;
