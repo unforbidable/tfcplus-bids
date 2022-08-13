@@ -3,11 +3,14 @@ package com.unforbidable.tfc.bids.Core;
 import java.util.Arrays;
 
 import com.dunk.tfc.api.TFCBlocks;
+import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.dunk.tfc.api.Crafting.AnvilRecipe;
 import com.dunk.tfc.api.Crafting.AnvilReq;
+import com.dunk.tfc.api.Crafting.BarrelManager;
+import com.dunk.tfc.api.Crafting.BarrelMultiItemRecipe;
 import com.dunk.tfc.api.Crafting.CraftingManagerTFC;
 import com.dunk.tfc.api.Crafting.KilnCraftingManager;
 import com.dunk.tfc.api.Crafting.KilnRecipe;
@@ -17,9 +20,11 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionToolDamageOreBit;
+import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelItemDemandingRecipe;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionDamageTool;
+import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionExtraDrop;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -32,6 +37,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -48,6 +54,7 @@ public class RecipeSetup {
     public static void postInit() {
         registerKnappingRecipes();
         registerKilnRecipes();
+        registerBarrelRecipes();
     }
 
     public static void onServerWorldLoad() {
@@ -182,7 +189,8 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.kindling, 1, 0),
                 new ItemStack(BidsItems.smallStickBundle), new ItemStack(TFCItems.straw)));
 
-        Object[] stickTyingMaterial = new Object[] { "materialString", new ItemStack(TFCItems.grassCordage) };
+        Object[] stickTyingMaterial = new Object[] { "materialString", new ItemStack(TFCItems.grassCordage),
+                new ItemStack(BidsItems.barkFibreStrip, 1, 0), new ItemStack(BidsItems.barkFibreStrip, 1, 1) };
         for (Object is : stickTyingMaterial) {
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
                     new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.smallStickBundle),
@@ -202,6 +210,12 @@ public class RecipeSetup {
                 'S', new ItemStack(TFCItems.sinew)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 2, 0),
                 new ItemStack(BidsBlocks.dryingRack)));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreStrip, 4, 0),
+                new ItemStack(BidsItems.barkFibre, 1, 0), "itemKnife"));
+
+        GameRegistry.addRecipe(new ItemStack(TFCItems.rope),
+                "11", "11", '1', BidsItems.barkCordage);
 
         for (int i = 0; i < Global.WOOD_ALL.length; i++) {
             int j = i % 16;
@@ -335,12 +349,28 @@ public class RecipeSetup {
                 .addTools("itemAdze", "itemAxe")
                 .matchCraftingItem(BidsItems.peeledLog));
 
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemAdze", "itemAxe")
+                .matchCraftingItem(BidsItems.peeledLogSeasoned));
+
+        RecipeManager.addAction(new ActionExtraDrop()
+                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE))
+                .matchCraftingItem(BidsItems.peeledLog));
+
+        RecipeManager.addAction(new ActionExtraDrop()
+                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE))
+                .matchCraftingItem(BidsItems.peeledLogSeasoned));
+
         for (int i = 0; i < 3; i++) {
             Block logWall = WoodHelper.getDefaultLogWallBlock(i * 16);
             RecipeManager.addAction(new ActionDamageTool(2)
                     .addTools("itemAdze")
                     .matchCraftingBlock(logWall));
         }
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemKnife")
+                .matchCraftingItem(BidsItems.barkFibreStrip, 0));
     }
 
     private static void registerKnappingRecipes() {
@@ -404,6 +434,20 @@ public class RecipeSetup {
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.glassJug, 1),
                 new Object[] { " #   ", "# ## ", "# # #", "# ## ", "###  ", '#',
                         new ItemStack(BidsItems.flatGlass, 1) });
+
+        Object[][] cordagePatterns = new Object[][] {
+                new Object[] { "#####", "    #", "### #", "#   #", "#####", '#', null },
+                new Object[] { "### #", "# # #", "# # #", "#   #", "#####", '#', null },
+                new Object[] { "#####", "#   #", "# ###", "#    ", "#####", '#', null },
+                new Object[] { "#####", "#   #", "# # #", "# # #", "# ###", '#', null },
+                new Object[] { "#####", "#    ", "# ###", "#   #", "#####", '#', null },
+                new Object[] { "# ###", "# # #", "# # #", "#   #", "#####", '#', null },
+                new Object[] { "#####", "#   #", "### #", "    #", "#####", '#', null },
+                new Object[] { "#####", "#   #", "# # #", "# # #", "### #", '#', null } };
+        for (Object[] pattern : cordagePatterns) {
+            pattern[6] = new ItemStack(BidsItems.flatBarkFiber, 1);
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.barkCordage), pattern);
+        }
     }
 
     private static void registerKilnRecipes() {
@@ -420,6 +464,28 @@ public class RecipeSetup {
         KilnCraftingManager.getInstance().addRecipe(
                 new KilnRecipe(new ItemStack(BidsBlocks.clayCrucible, 1, 1), 0,
                         new ItemStack(BidsBlocks.clayCrucible, 1, 0)));
+    }
+
+    private static void registerBarrelRecipes() {
+        Bids.LOG.info("Register TFC barrel recipes");
+
+        for (int i = 0; i < Global.WOOD_ALL.length; i++) {
+            // Retting fibers from bark
+            if (WoodHelper.canBarkMakeFibers(i)) {
+                BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(
+                        new ItemStack(BidsItems.bark, 1, i), new FluidStack(TFCFluids.FRESHWATER, 625),
+                        new ItemStack(BidsItems.barkFibre, 1, 0), new FluidStack(TFCFluids.FRESHWATER, 500))
+                        .setSealTime(48).setMinTechLevel(0));
+            }
+
+            // Extracting tannin from bark
+            if (WoodHelper.canBarkMakeTannin(i)) {
+                BarrelManager.getInstance().addRecipe(new BarrelItemDemandingRecipe(
+                        new ItemStack(BidsItems.bark, 1, i), new FluidStack(TFCFluids.FRESHWATER, 625),
+                        null, new FluidStack(TFCFluids.TANNIN, 500))
+                        .setMinTechLevel(0));
+            }
+        }
     }
 
     private static void registerAnvilRecipes() {

@@ -2,13 +2,18 @@ package com.unforbidable.tfc.bids.Items;
 
 import java.util.List;
 
+import com.dunk.tfc.Core.Player.PlayerInfo;
+import com.dunk.tfc.Core.Player.PlayerManagerTFC;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
+import com.unforbidable.tfc.bids.api.BidsGui;
+import com.unforbidable.tfc.bids.api.BidsItems;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,6 +21,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
 public class ItemBastFibreStrip extends Item implements ISize {
 
@@ -27,6 +34,21 @@ public class ItemBastFibreStrip extends Item implements ISize {
 
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
         setMaxStackSize(64);
+    }
+
+    @Override
+    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
+        if (itemstack.getItemDamage() == 1 && itemstack.stackSize >= 5) {
+            // Open bark crafting gui
+            PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(entityplayer);
+            pi.specialCraftingType = new ItemStack(BidsItems.flatBarkFiber, 1, 0);
+            pi.specialCraftingTypeAlternate = null;
+            entityplayer.openGui(Bids.instance, BidsGui.barkFibreKnappingGui, world, (int) entityplayer.posX,
+                    (int) entityplayer.posY, (int) entityplayer.posZ);
+        }
+
+        return true;
     }
 
     @Override
@@ -89,6 +111,16 @@ public class ItemBastFibreStrip extends Item implements ISize {
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);
+
+        // Cured strips can be twisted into cordage, etc
+        if (is.getItemDamage() == 1) {
+            if (ItemHelper.showShiftInformation()) {
+                list.add(StatCollector.translateToLocal("gui.Help"));
+                list.add(StatCollector.translateToLocal("gui.Help.BastFibreStrip"));
+            } else {
+                list.add(StatCollector.translateToLocal("gui.ShowHelp"));
+            }
+        }
     }
 
 }

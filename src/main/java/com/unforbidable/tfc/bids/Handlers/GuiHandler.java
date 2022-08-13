@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Handlers;
 import com.unforbidable.tfc.bids.Containers.ContainerClayCrucible;
 import com.unforbidable.tfc.bids.Containers.ContainerFireClayCrucible;
 import com.unforbidable.tfc.bids.Containers.ContainerNewFirepit;
+import com.unforbidable.tfc.bids.Containers.ContainerSpecialCraftingBarkFibre;
 import com.unforbidable.tfc.bids.Containers.ContainerSpecialCraftingGlass;
 import com.unforbidable.tfc.bids.Containers.ContainerWoodPile;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
@@ -35,6 +36,9 @@ public class GuiHandler implements IGuiHandler {
 
             case BidsGui.glassKnappingGui:
                 return new ContainerSpecialCraftingGlass(player.inventory, world, x, y, z);
+
+            case BidsGui.barkFibreKnappingGui:
+                return new ContainerSpecialCraftingBarkFibre(player.inventory, world, x, y, z);
 
             case BidsGui.woodPileGui:
                 return new ContainerWoodPile(player.inventory, (TileEntityWoodPile) te, world, x, y, z);
