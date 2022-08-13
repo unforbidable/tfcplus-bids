@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Firepit.Fuels;
 
-import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.Enums.EnumFuelMaterial;
+import com.unforbidable.tfc.bids.Core.Firepit.FirepitHelper;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
 import net.minecraft.item.ItemStack;
@@ -20,21 +20,17 @@ public class FuelLogsTFC implements IFirepitFuelMaterial {
 
     @Override
     public int getFuelBurnTime(ItemStack itemStack) {
-        return getEnumFuelMaterial(itemStack).burnTimeMax;
+        return FirepitHelper.getEnumFuelMaterial(itemStack).burnTimeMax;
     }
 
     @Override
     public int getFuelMaxTemp(ItemStack itemStack) {
-        return getEnumFuelMaterial(itemStack).burnTempMax;
+        return FirepitHelper.getEnumFuelMaterial(itemStack).burnTempMax;
     }
 
     @Override
     public EnumFuelMaterial getFuelTasteProfile(ItemStack itemStack) {
-        return getEnumFuelMaterial(itemStack);
-    }
-
-    private static EnumFuelMaterial getEnumFuelMaterial(ItemStack itemStack) {
-        return TFC_Core.getFuelMaterial(itemStack);
+        return FirepitHelper.getEnumFuelMaterial(itemStack);
     }
 
 }

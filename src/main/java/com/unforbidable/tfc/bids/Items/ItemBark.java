@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Items;
 import java.util.List;
 
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.Enums.EnumFuelMaterial;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
@@ -10,7 +11,9 @@ import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
+import com.unforbidable.tfc.bids.Core.Firepit.FirepitHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
+import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,7 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemBark extends Item implements ISize {
+public class ItemBark extends Item implements ISize, IFirepitFuelMaterial {
 
     private IIcon[] icons;
     protected String[] names;
@@ -105,6 +108,32 @@ public class ItemBark extends Item implements ISize {
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);
+    }
+
+    @Override
+    public boolean isFuelValid(ItemStack itemStack) {
+        return true;
+    }
+
+    @Override
+    public float getFuelKindlingQuality(ItemStack itemStack) {
+        // Birch bark can be used as kindling
+        return itemStack.getItemDamage() == 2 ? 1.25f : 0;
+    }
+
+    @Override
+    public int getFuelBurnTime(ItemStack itemStack) {
+        return (int) (FirepitHelper.getEnumFuelMaterial(itemStack).burnTimeMax * 0.1f);
+    }
+
+    @Override
+    public int getFuelMaxTemp(ItemStack itemStack) {
+        return (int) (FirepitHelper.getEnumFuelMaterial(itemStack).burnTempMax * 0.5f);
+    }
+
+    @Override
+    public EnumFuelMaterial getFuelTasteProfile(ItemStack itemStack) {
+        return FirepitHelper.getEnumFuelMaterial(itemStack);
     }
 
 }

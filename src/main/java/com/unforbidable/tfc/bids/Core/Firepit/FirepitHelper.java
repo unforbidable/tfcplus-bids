@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
+import com.dunk.tfc.api.Enums.EnumFuelMaterial;
+import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -106,6 +108,11 @@ public class FirepitHelper {
                 && block != TFCBlocks.charcoal
                 && block != Blocks.coal_block
                 && block != TFCBlocks.pottery;
+    }
+
+    public static EnumFuelMaterial getEnumFuelMaterial(ItemStack itemStack) {
+        final ItemStack log = new ItemStack(TFCItems.logs, 1, itemStack.getItemDamage());
+        return TFC_Core.getFuelMaterial(log);
     }
 
 }
