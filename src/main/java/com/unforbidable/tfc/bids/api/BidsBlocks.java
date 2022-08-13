@@ -9,6 +9,7 @@ public class BidsBlocks {
     public static int quarryRenderId;
     public static int carvingRenderId;
     public static int woodPileRenderId;
+    public static int dryingRackRenderId;
 
     public static Block clayCrucible;
     public static Block fireClayCrucible;
@@ -51,5 +52,7 @@ public class BidsBlocks {
     public static Block logWallCornerAlt3;
 
     public static Block tiedStickBundle;
+
+    public static Block dryingRack;
 
 }

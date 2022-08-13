@@ -1,0 +1,27 @@
+package com.unforbidable.tfc.bids.WAILA.Providers;
+
+import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
+import com.unforbidable.tfc.bids.WAILA.WailaProvider;
+
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
+import net.minecraft.item.ItemStack;
+
+public class DryingRackProvider extends WailaProvider {
+
+    @Override
+    public int provides() {
+        return PROVIDES_STACK;
+    }
+
+    @Override
+    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        if (accessor.getTileEntity() instanceof TileEntityDryingRack) {
+            TileEntityDryingRack dryingRack = (TileEntityDryingRack) accessor.getTileEntity();
+            return dryingRack.getSelectedItem();
+        }
+
+        return super.getWailaStack(accessor, config);
+    }
+
+}

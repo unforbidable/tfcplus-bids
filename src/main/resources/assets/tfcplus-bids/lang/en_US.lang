@@ -32,6 +32,8 @@ tile.WoodPile.name=Wood Pile
 
 tile.NewFirepit.name=Firepit
 
+tile.DryingRack.name=Drying Rack
+
 tile.RoughStoneSed.Chalk.name=Rough Chalk
 tile.RoughStoneSed.Chert.name=Rough Chert
 tile.RoughStoneSed.Claystone.name=Rough Claystone
