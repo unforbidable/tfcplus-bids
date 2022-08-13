@@ -47,4 +47,6 @@ public class BidsItems {
     public static Item tiedStickBundle;
     public static Item kindling;
 
+    public static Item bark;
+
 }
