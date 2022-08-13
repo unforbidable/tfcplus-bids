@@ -535,7 +535,7 @@ item.Log Seasoned.Limba Chopped.name=干燥的劈开的榄仁树原木
 
 item.Small Stick Bundle.name=小捆木棍
 item.Tied Stick Bundle.name=捆扎木棍
-item.Kindling.Straw.name=引火物
+item.Kindling.name=引火物
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
