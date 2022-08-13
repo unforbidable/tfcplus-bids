@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockCarving;
 import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
+import com.unforbidable.tfc.bids.Blocks.BlockDryingRack;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockNewFirepit;
 import com.unforbidable.tfc.bids.Blocks.BlockLogWall;
@@ -24,6 +25,7 @@ import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemDryingRack;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall16;
@@ -34,12 +36,15 @@ import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStone;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStoneBrick;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderCarving;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderClayCrucible;
+import com.unforbidable.tfc.bids.Render.Blocks.RenderDryingRack;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderFireClayCrucible;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderQuarry;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderWoodPile;
+import com.unforbidable.tfc.bids.Render.Tiles.TileRenderDryingRack;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
@@ -50,6 +55,7 @@ import com.unforbidable.tfc.bids.api.CarvingRegistry;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Enums.EnumLogWallType;
 
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -78,6 +84,7 @@ public class BlockSetup extends BidsBlocks {
     @SideOnly(Side.CLIENT)
     public static void preInitClientOnly() {
         registerBlockRenderers();
+        registerTileEntitiesClientOnly();
     }
 
     private static void initBlocks() {
@@ -137,6 +144,8 @@ public class BlockSetup extends BidsBlocks {
         logWallCornerAlt3 = new BlockLogWall(EnumLogWallType.CORNER_ALT, 32).setBlockName("LogWallCornerAlt3");
 
         tiedStickBundle = new BlockTiedStickBundle();
+
+        dryingRack = new BlockDryingRack().setBlockName("DryingRack");
     }
 
     private static void updateBlocks() {
@@ -209,6 +218,9 @@ public class BlockSetup extends BidsBlocks {
 
         woodPileRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(woodPileRenderId, new RenderWoodPile());
+
+        dryingRackRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(dryingRackRenderId, new RenderDryingRack());
     }
 
     private static void registerTileEntities() {
@@ -226,6 +238,14 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityWoodPile.class, "BidsWoodPile");
 
         GameRegistry.registerTileEntity(TileEntityNewFirepit.class, "BidsNewFirepit");
+
+        GameRegistry.registerTileEntity(TileEntityDryingRack.class, "BidsDryingRack");
+    }
+
+    private static void registerTileEntitiesClientOnly() {
+        Bids.LOG.info("Bind tile entitie special renderers");
+
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDryingRack.class, new TileRenderDryingRack());
     }
 
     private static void registerMessages() {
@@ -286,6 +306,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(logWallCornerAlt3, ItemLogWall32.class, "LogWallCornerAlt3");
 
         GameRegistry.registerBlock(tiedStickBundle, "TiedStickBundle");
+
+        GameRegistry.registerBlock(dryingRack, ItemDryingRack.class, "DryingRack");
     }
 
 }

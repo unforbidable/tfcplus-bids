@@ -194,6 +194,15 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stick, 9, 0),
                 new ItemStack(BidsItems.tiedStickBundle)));
 
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.dryingRack),
+                "PP", "SS", 'P', new ItemStack(TFCItems.pole),
+                'S', "materialString"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.dryingRack),
+                "PP", "SS", 'P', new ItemStack(TFCItems.pole),
+                'S', new ItemStack(TFCItems.sinew)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 2, 0),
+                new ItemStack(BidsBlocks.dryingRack)));
+
         for (int i = 0; i < Global.WOOD_ALL.length; i++) {
             int j = i % 16;
 
