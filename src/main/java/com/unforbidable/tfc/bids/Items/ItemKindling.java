@@ -14,23 +14,26 @@ import com.unforbidable.tfc.bids.Core.Firepit.FirepitHelper;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 public class ItemKindling extends Item implements ISize, IFirepitFuelMaterial {
 
-    static String[] metaNames = new String[] { "Straw" };
-    IIcon[] icons;
+    private float fuelKindlingQuality = 1f;
 
     public ItemKindling() {
         super();
 
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
         setMaxStackSize(1);
+    }
+
+    public ItemKindling setFuelKindlingQuality(float fuelKindlingQuality) {
+        this.fuelKindlingQuality = fuelKindlingQuality;
+
+        return this;
     }
 
     @Override
@@ -44,35 +47,9 @@ public class ItemKindling extends Item implements ISize, IFirepitFuelMaterial {
     }
 
     @Override
-    public boolean getHasSubtypes() {
-        return true;
-    }
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override
-    public void getSubItems(Item item, CreativeTabs tabs, List list) {
-        for (int i = 0; i < metaNames.length; i++) {
-            list.add(new ItemStack(this, 1, i));
-        }
-    }
-
-    @Override
     public void registerIcons(IIconRegister registerer) {
-        icons = new IIcon[metaNames.length];
-        for (int i = 0; i < metaNames.length; i++) {
-            icons[i] = registerer.registerIcon(Tags.MOD_ID + ":wood/sticks/"
-                    + getUnlocalizedName().replace("item.", "") + "." + metaNames[i]);
-        }
-    }
-
-    @Override
-    public String getUnlocalizedName(ItemStack itemStack) {
-        return getUnlocalizedName() + "." + metaNames[itemStack.getItemDamage()];
-    }
-
-    @Override
-    public IIcon getIconFromDamage(int damage) {
-        return icons[damage];
+        this.itemIcon = registerer.registerIcon(Tags.MOD_ID + ":wood/sticks/"
+                + this.getUnlocalizedName().replace("item.", ""));
     }
 
     @Override
@@ -108,7 +85,7 @@ public class ItemKindling extends Item implements ISize, IFirepitFuelMaterial {
 
     @Override
     public float getFuelKindlingQuality(ItemStack itemStack) {
-        return 0.75f;
+        return fuelKindlingQuality;
     }
 
     @Override

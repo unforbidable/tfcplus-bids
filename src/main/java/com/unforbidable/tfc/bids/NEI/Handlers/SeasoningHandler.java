@@ -74,8 +74,9 @@ public class SeasoningHandler extends TemplateRecipeHandler {
     public void loadUsageRecipes(ItemStack ingredient) {
         for (SeasoningRecipe recipe : SeasoningManager.getRecipes()) {
             if (recipe.matches(ingredient)) {
+                final ItemStack input = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
                 final ItemStack result = recipe.getCraftingResult(ingredient);
-                arecipes.add(new CachedSeasoningRecipe(ingredient, result, recipe.getDurationMultipliter(ingredient)));
+                arecipes.add(new CachedSeasoningRecipe(input, result, recipe.getDurationMultipliter(ingredient)));
             }
         }
     }

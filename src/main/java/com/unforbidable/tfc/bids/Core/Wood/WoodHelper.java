@@ -112,4 +112,38 @@ public class WoodHelper {
         }
     }
 
+    public static boolean canBarkMakeTannin(int meta) {
+        switch (meta) {
+            // Values are identical to making tannin from logs
+            case 0:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 9:
+            case 16:
+            case 19:
+            case 21:
+            case 22:
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    public static boolean canBarkMakeFibers(int meta) {
+        switch (meta) {
+            // Popular trees with fibrous inner bark
+            case 12:
+            case 13:
+            case 14:
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
 }

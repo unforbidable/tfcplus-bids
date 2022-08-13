@@ -5,6 +5,7 @@ import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -135,7 +136,7 @@ public class DryingRackHelper {
     }
 
     public static boolean isItemValidDryingRackItem(ItemStack itemStack) {
-        return true;
+        return DryingManager.hasMatchingRecipe(itemStack);
     }
 
     public static int getDryingRackSectionFromHit(TileEntityDryingRack dryingRack, float hitX, float hitY, float hitZ) {
