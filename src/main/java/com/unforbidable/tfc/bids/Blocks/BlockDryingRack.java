@@ -49,7 +49,7 @@ public class BlockDryingRack extends BlockContainer {
             }
         }
 
-        return false;
+        return true;
     }
 
     @Override
