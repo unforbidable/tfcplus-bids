@@ -29,6 +29,8 @@ import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 
@@ -344,6 +346,9 @@ public class RecipeSetup {
                         "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), 'A', "itemSaw"));
             }
         }
+
+        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreStrip, 1, 1),
+                new ItemStack(BidsItems.barkFibreStrip, 1, 0), 24, true));
 
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemAdze", "itemAxe")
