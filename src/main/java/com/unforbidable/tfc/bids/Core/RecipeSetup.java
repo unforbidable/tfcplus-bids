@@ -186,10 +186,15 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stick, 3, 0),
                 new ItemStack(BidsItems.smallStickBundle)));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.kindling, 1, 0),
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.kindling),
                 "stickWood", "stickWood", "stickWood", new ItemStack(TFCItems.straw)));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.kindling, 1, 0),
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.kindling),
                 new ItemStack(BidsItems.smallStickBundle), new ItemStack(TFCItems.straw)));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreKindling),
+                "stickWood", "stickWood", "stickWood", new ItemStack(BidsItems.barkFibreStrip, 1, 1)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreKindling),
+                new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.barkFibreStrip, 1, 1)));
 
         Object[] stickTyingMaterial = new Object[] { "materialString", new ItemStack(TFCItems.grassCordage),
                 new ItemStack(BidsItems.barkFibreStrip, 1, 0), new ItemStack(BidsItems.barkFibreStrip, 1, 1) };

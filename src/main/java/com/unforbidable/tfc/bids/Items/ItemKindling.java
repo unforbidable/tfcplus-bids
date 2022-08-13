@@ -21,11 +21,19 @@ import net.minecraft.world.World;
 
 public class ItemKindling extends Item implements ISize, IFirepitFuelMaterial {
 
+    private float fuelKindlingQuality = 1f;
+
     public ItemKindling() {
         super();
 
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
         setMaxStackSize(1);
+    }
+
+    public ItemKindling setFuelKindlingQuality(float fuelKindlingQuality) {
+        this.fuelKindlingQuality = fuelKindlingQuality;
+
+        return this;
     }
 
     @Override
@@ -77,7 +85,7 @@ public class ItemKindling extends Item implements ISize, IFirepitFuelMaterial {
 
     @Override
     public float getFuelKindlingQuality(ItemStack itemStack) {
-        return 0.75f;
+        return fuelKindlingQuality;
     }
 
     @Override

@@ -578,6 +578,7 @@ item.Bark Fibre Strip.Fresh.name=Bark Fiber Strip
 item.Bark Fibre Strip.Cured.name=Cured Bark Fiber Strip
 item.Flat Bark Fibre.name=Flat Bark Fiber
 item.Bark Cordage.name=Bark Cordage
+item.Bark Fibre Kindling.name=Bark Fiber Kindling
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs

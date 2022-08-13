@@ -143,7 +143,7 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Small Stick Bundle");
         tiedStickBundle = new ItemTiedStickBundle()
                 .setUnlocalizedName("Tied Stick Bundle");
-        kindling = new ItemKindling()
+        kindling = new ItemKindling().setFuelKindlingQuality(0.75f)
                 .setUnlocalizedName("Kindling");
 
         bark = new ItemBark().setNames(Global.WOOD_ALL)
@@ -156,6 +156,8 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Flat Bark Fibre");
         barkCordage = new ItemBastCordage()
                 .setUnlocalizedName("Bark Cordage");
+        barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1.25f)
+                .setUnlocalizedName("Bark Fibre Kindling");
     }
 
     private static void setupToolHarvest() {
@@ -217,6 +219,7 @@ public class ItemSetup extends BidsItems {
         FirepitRegistry.registerFuel(TFCItems.stickBundle, FuelStickBundleTFC.class);
         FirepitRegistry.registerFuel(Item.getItemFromBlock(TFCBlocks.peat), FuelPeatTFC.class);
         FirepitRegistry.registerFuel(TFCItems.logs, FuelLogsTFC.class);
+        FirepitRegistry.registerFuel(barkFibreKindling);
 
         if (BidsOptions.Firepit.allowFuelCharcoal) {
             FirepitRegistry.registerFuel(TFCItems.coal, FuelCoalTFC.class);
@@ -311,6 +314,7 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(barkFibreStrip, barkFibreStrip.getUnlocalizedName());
         GameRegistry.registerItem(flatBarkFiber, flatBarkFiber.getUnlocalizedName());
         GameRegistry.registerItem(barkCordage, barkCordage.getUnlocalizedName());
+        GameRegistry.registerItem(barkFibreKindling, barkFibreKindling.getUnlocalizedName());
     }
 
 }
