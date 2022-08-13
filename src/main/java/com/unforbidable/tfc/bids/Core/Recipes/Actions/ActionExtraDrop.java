@@ -13,10 +13,15 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class ActionExtraDrop extends RecipeAction {
 
-    private List<ItemStack> extraDropList = new ArrayList<ItemStack>();
+    private List<RandomItemStack> extraDropList = new ArrayList<RandomItemStack>();
 
     public ActionExtraDrop addExtraDrop(ItemStack extraDrop) {
-        extraDropList.add(extraDrop);
+        extraDropList.add(new RandomItemStack(extraDrop, 1f));
+        return this;
+    }
+
+    public ActionExtraDrop addExtraDrop(ItemStack extraDrop, float chance) {
+        extraDropList.add(new RandomItemStack(extraDrop, chance));
         return this;
     }
 
@@ -25,13 +30,15 @@ public class ActionExtraDrop extends RecipeAction {
         super.onItemCrafted(event);
 
         if (!event.player.worldObj.isRemote) {
-            for (ItemStack extraDrop : extraDropList) {
-                if (extraDrop.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
-                    final int dmg = event.crafting.getItemDamage();
-                    final ItemStack is = new ItemStack(extraDrop.getItem(), extraDrop.stackSize, dmg);
-                    giveItemToPlayer(event.player, is);
-                } else {
-                    giveItemToPlayer(event.player, extraDrop.copy());
+            for (RandomItemStack extraDrop : extraDropList) {
+                if (event.player.worldObj.rand.nextDouble() < extraDrop.chance) {
+                    if (extraDrop.item.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
+                        final int dmg = event.crafting.getItemDamage();
+                        final ItemStack is = new ItemStack(extraDrop.item.getItem(), extraDrop.item.stackSize, dmg);
+                        giveItemToPlayer(event.player, is);
+                    } else {
+                        giveItemToPlayer(event.player, extraDrop.item.copy());
+                    }
                 }
             }
         }
@@ -41,6 +48,18 @@ public class ActionExtraDrop extends RecipeAction {
         EntityItem ei = new EntityItem(player.worldObj, player.posX, player.posY + 1, player.posZ, itemStack);
         player.worldObj.spawnEntityInWorld(ei);
         player.onItemPickup(ei, 0);
+    }
+
+    class RandomItemStack {
+
+        public final ItemStack item;
+        public final float chance;
+
+        public RandomItemStack(ItemStack item, float chance) {
+            this.item = item;
+            this.chance = chance;
+        }
+
     }
 
 }

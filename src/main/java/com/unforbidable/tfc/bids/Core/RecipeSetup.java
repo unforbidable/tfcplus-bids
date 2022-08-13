@@ -359,7 +359,7 @@ public class RecipeSetup {
                 .matchCraftingItem(BidsItems.peeledLogSeasoned));
 
         RecipeManager.addAction(new ActionExtraDrop()
-                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE))
+                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE), 0.25f)
                 .matchCraftingItem(BidsItems.peeledLog));
 
         RecipeManager.addAction(new ActionExtraDrop()
