@@ -242,6 +242,7 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityDryingRack.class, "BidsDryingRack");
     }
 
+    @SideOnly(Side.CLIENT)
     private static void registerTileEntitiesClientOnly() {
         Bids.LOG.info("Bind tile entitie special renderers");
 
