@@ -19,6 +19,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -29,14 +30,27 @@ public class BlockDryingRack extends BlockContainer {
 
         setHardness(2);
         setCreativeTab(BidsCreativeTabs.bidsDefault);
+    }
 
+    @Override
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
         AxisAlignedBB bounds = DryingRackBounds.getEntireDryingRackBounds();
         setBlockBounds((float) bounds.minX, (float) bounds.minY, (float) bounds.minZ,
                 (float) bounds.maxX, (float) bounds.maxY, (float) bounds.maxZ);
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float hitX,
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
+        return null;
+    }
+
+    @Override
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+        return DryingRackBounds.getEntireDryingRackBounds();
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
             float hitY, float hitZ) {
         ItemStack heldItemStack = player.getCurrentEquippedItem();
         if (heldItemStack != null) {
@@ -75,7 +89,7 @@ public class BlockDryingRack extends BlockContainer {
             ForgeDirection o = d.getOpposite();
 
             if (!isBlockRackOrSolidSide(world, x + d.offsetX, y, z + d.offsetZ, o)
-                    || !isBlockRackOrSolidSide(world, x + o.offsetX, y, z + o.offsetX, d)) {
+                    || !isBlockRackOrSolidSide(world, x + o.offsetX, y, z + o.offsetZ, d)) {
                 world.getBlock(x, y, z).dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
                 world.setBlockToAir(x, y, z);
             }

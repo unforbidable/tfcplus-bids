@@ -141,8 +141,8 @@ public class DryingRackHelper {
 
     public static int getDryingRackSectionFromHit(TileEntityDryingRack dryingRack, float hitX, float hitY, float hitZ) {
         DryingRackBounds bounds = DryingRackBounds.fromOrientation(dryingRack.getOrientation());
-        AxisAlignedBB near = AxisAlignedBB.getBoundingBox(hitX - 0.001f, hitY - 0.001f, hitZ - 0.001f,
-                hitX + 0.001f, hitY + 0.001f, hitZ + 0.001f);
+        AxisAlignedBB near = AxisAlignedBB.getBoundingBox(hitX - 0.01f, hitY - 0.1f, hitZ - 0.01f,
+                hitX + 0.01f, hitY + 0.1f, hitZ + 0.01f);
 
         for (int i = 0; i < bounds.sections.length; i++) {
             AxisAlignedBB check = bounds.sections[i];
