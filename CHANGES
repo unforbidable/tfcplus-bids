@@ -164,3 +164,13 @@
 - Changed: Updated Chinese translation by Eternal130
 - Fixed: Excessive stretching of some textures while rendering a wood pile
 - Fixed: Rows of wood items always begin at the left or in the back of the wood pile
+
+0.17.0 (14-08-2022)
+- Added: Drying rack that can dry 4 items per block
+- Added: Bark as a byproduct of peeling logs
+- Added: Extracting tannin from bark (16 per barrel needed)
+- Added: Extracting fiber from bark (up to 16 per barrel)
+- Added: Bark fiber strips
+- Added: Twisting bark fiber strips into bark cordage
+- Added: Making rope from bark cordage
+- Added: NEI support with seasoning recipes, quarrying recipes, drying recipes and new firepit fuels
