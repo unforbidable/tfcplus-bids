@@ -1,15 +1,14 @@
-package com.unforbidable.tfc.bids.api.Crafting.Recipes;
+package com.unforbidable.tfc.bids.api.Crafting;
 
 import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 
 import net.minecraft.item.ItemStack;
 
 public class FoodDryingRecipe extends DryingRecipe {
 
-    public FoodDryingRecipe(ItemStack item, int duration, boolean isSelftying) {
-        super(item, item, duration, isSelftying);
+    public FoodDryingRecipe(ItemStack item, int duration, boolean requiresTyingEquipment) {
+        super(item, item, duration, requiresTyingEquipment);
     }
 
     @Override
