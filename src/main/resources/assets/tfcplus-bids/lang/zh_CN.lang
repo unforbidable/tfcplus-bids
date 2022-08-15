@@ -32,6 +32,8 @@ tile.WoodPile.name=原木垛
 
 tile.NewFirepit.name=火堆
 
+tile.DryingRack.name=晒衣架
+
 tile.RoughStoneSed.Chalk.name=粗糙白垩岩
 tile.RoughStoneSed.Chert.name=粗糙角岩
 tile.RoughStoneSed.Claystone.name=粗糙粘土岩
@@ -533,9 +535,50 @@ item.Log Seasoned.Baobab Chopped.name=干燥的劈开的猴面包树原木
 item.Log Seasoned.Bamboo Chopped.name=干燥的劈开的竹子
 item.Log Seasoned.Limba Chopped.name=干燥的劈开的榄仁树原木
 
+item.Bark.Acacia.name=金合欢树皮
+item.Bark.Ash.name=白蜡树皮
+item.Bark.Aspen.name=白杨树皮
+item.Bark.Birch.name=桦树皮
+item.Bark.Chestnut.name=栗树皮
+item.Bark.Douglas Fir.name=花旗松树皮
+item.Bark.Hickory.name=山核桃树皮
+item.Bark.Kapok.name=木棉树皮
+item.Bark.Maple.name=枫树皮
+item.Bark.Oak.name=橡树皮
+item.Bark.Pine.name=松树皮
+item.Bark.Sequoia.name=红杉树皮
+item.Bark.Spruce.name=云杉树皮
+item.Bark.Sycamore.name=悬铃树皮
+item.Bark.White Cedar.name=北美香柏树皮
+item.Bark.White Elm.name=榆树皮
+item.Bark.Willow.name=柳树皮
+item.Bark.Palm.name=棕榈树皮
+item.Bark.Ebony.name=黑檀树皮
+item.Bark.Fever.name=金鸡纳树皮
+item.Bark.Mahogany.name=桃花心树皮
+item.Bark.Teak.name=柚树皮
+item.Bark.Gingko.name=银杏树皮
+item.Bark.Fruitwood.name=果树皮
+item.Bark.Mangrove.name=红树皮
+item.Bark.Ghaf.name=牧豆树皮
+item.Bark.Mahoe.name=黄槿树皮
+item.Bark.Laurel.name=月桂树皮
+item.Bark.Joshua.name=约书亚树皮
+item.Bark.Yew.name=红豆杉树皮
+item.Bark.Baobab.name=猴面包树皮
+item.Bark.Bamboo.name=竹皮
+item.Bark.Limba.name=榄仁树皮
+
 item.Small Stick Bundle.name=小捆木棍
 item.Tied Stick Bundle.name=捆扎木棍
 item.Kindling.name=引火物
+
+item.Bark Fibre.name=树皮纤维
+item.Bark Fibre Strip.Fresh.name=树皮纤维条
+item.Bark Fibre Strip.Cured.name=风干树皮纤维条
+item.Flat Bark Fibre.name=Flat Bark Fiber
+item.Bark Cordage.name=树皮绳
+item.Bark Fibre Kindling.name=树皮纤维引火物
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
@@ -550,6 +593,7 @@ gui.Help.Drill2=快捷栏中需要有木棍.
 gui.Help.Adze=按住§fShift §7同时§b右键§7方块开始雕刻.
 gui.Help.Adze2=按住§fShift §7同时§b右键§7方块来解锁或锁定雕刻状态.
 gui.Help.Adze3=§b右键§7方块进行雕刻.
+gui.Help.BastFibreStrip=至少手持5个§b右键§7进行编织.
 gui.Units=单位
 gui.Empty=空
 gui.Solidified=凝固
@@ -564,3 +608,4 @@ gui.Wedges=楔子
 gui.QuarryReady=可以开采
 gui.Seasoning=风干中
 gui.Fuel=燃料
+gui.Drying=风干中
