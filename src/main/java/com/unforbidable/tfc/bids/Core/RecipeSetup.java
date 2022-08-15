@@ -388,7 +388,7 @@ public class RecipeSetup {
         }
 
         // Extra food drying
-        DryingManager.addRecipe(new FoodDryingRecipe(new ItemStack(TFCItems.seaWeed), 24, false));
+        DryingManager.addRecipe(new FoodDryingRecipe(new ItemStack(TFCItems.seaWeed), 12, true));
 
         // And now tying equipment
         DryingManager.registerTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1);
