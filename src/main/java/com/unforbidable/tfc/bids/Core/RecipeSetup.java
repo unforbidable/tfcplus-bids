@@ -83,6 +83,24 @@ public class RecipeSetup {
         OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.blackSteelHammer, 1, WILD));
         OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.blueSteelHammer, 1, WILD));
         OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.redSteelHammer, 1, WILD));
+
+        for (ItemStack is : OreDictionary.getOres("materialString")) {
+            OreDictionary.registerOre("materialStringAny", is);
+            OreDictionary.registerOre("materialStringDecent", is);
+            OreDictionary.registerOre("materialStringStrong", is);
+        }
+
+        OreDictionary.registerOre("materialStringAny", TFCItems.grassCordage);
+        OreDictionary.registerOre("materialStringAny", TFCItems.sinew);
+        OreDictionary.registerOre("materialStringAny", new ItemStack(BidsItems.barkFibreStrip, 1, 0));
+        OreDictionary.registerOre("materialStringAny", new ItemStack(BidsItems.barkFibreStrip, 1, 1));
+        OreDictionary.registerOre("materialStringAny", BidsItems.barkCordage);
+
+        OreDictionary.registerOre("materialStringDecent", TFCItems.sinew);
+        OreDictionary.registerOre("materialStringDecent", BidsItems.barkCordage);
+
+        OreDictionary.registerOre("materialStringStrong", BidsItems.barkCordage);
+
     }
 
     private static void registerCustomRecipes() {
@@ -199,29 +217,18 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreKindling),
                 new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.barkFibreStrip, 1, 1)));
 
-        Object[] stickTyingMaterial = new Object[] { "materialString", new ItemStack(TFCItems.grassCordage),
-                new ItemStack(BidsItems.barkFibreStrip, 1, 0), new ItemStack(BidsItems.barkFibreStrip, 1, 1),
-                new ItemStack(BidsItems.barkCordage) };
-        for (Object is : stickTyingMaterial) {
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
-                    new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.smallStickBundle),
-                    new ItemStack(BidsItems.smallStickBundle), is));
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
-                    new ItemStack(TFCItems.stickBundle), is));
-        }
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
+                new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.smallStickBundle),
+                new ItemStack(BidsItems.smallStickBundle), "materialStringAny"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
+                new ItemStack(TFCItems.stickBundle), "materialStringAny"));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stick, 9, 0),
                 new ItemStack(BidsItems.tiedStickBundle)));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.dryingRack),
                 "PP", "SS", 'P', new ItemStack(TFCItems.pole),
-                'S', "materialString"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.dryingRack),
-                "PP", "SS", 'P', new ItemStack(TFCItems.pole),
-                'S', new ItemStack(TFCItems.sinew)));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.dryingRack),
-                "PP", "SS", 'P', new ItemStack(TFCItems.pole),
-                'S', new ItemStack(BidsItems.barkCordage)));
+                'S', "materialStringDecent"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 2, 0),
                 new ItemStack(BidsBlocks.dryingRack)));
 
