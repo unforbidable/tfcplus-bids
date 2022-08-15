@@ -13,13 +13,6 @@ public class FoodDryingRecipe extends DryingRecipe {
     }
 
     @Override
-    public ItemStack getInput() {
-        ItemStack input = super.getInput();
-        Food.setWeight(input, 1);
-        return input;
-    }
-
-    @Override
     public boolean matches(ItemStack itemStack) {
         return super.matches(itemStack)
                 && !Food.isDried(itemStack) && !Food.isCooked(itemStack);
@@ -28,7 +21,6 @@ public class FoodDryingRecipe extends DryingRecipe {
     @Override
     public ItemStack getCraftingResult(ItemStack itemStack) {
         ItemStack output = itemStack.copy();
-        Food.setWeight(output, 1);
         Food.setDried(output, Food.DRYHOURS);
         return output;
     }

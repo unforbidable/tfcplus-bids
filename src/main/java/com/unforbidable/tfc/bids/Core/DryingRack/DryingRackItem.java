@@ -8,11 +8,13 @@ public class DryingRackItem {
     public final ItemStack dryingItem;
     public final ItemStack tyingItem;
     public final long dryingStartTicks;
+    public final boolean tyingItemUsedUp;
 
-    public DryingRackItem(ItemStack dryingItem, ItemStack tyingItem, long dryingStartTicks) {
+    public DryingRackItem(ItemStack dryingItem, ItemStack tyingItem, long dryingStartTicks, boolean tyingItemUsedUp) {
         this.dryingItem = dryingItem;
         this.tyingItem = tyingItem;
         this.dryingStartTicks = dryingStartTicks;
+        this.tyingItemUsedUp = tyingItemUsedUp;
     }
 
     public void writeToNBT(NBTTagCompound tag) {
@@ -29,6 +31,7 @@ public class DryingRackItem {
         }
 
         tag.setLong("dryingStartTicks", dryingStartTicks);
+        tag.setBoolean("tyingItemUsedUp", tyingItemUsedUp);
     }
 
     public static DryingRackItem loadItemFromNBT(NBTTagCompound tag) {
@@ -46,8 +49,9 @@ public class DryingRackItem {
         }
 
         long dryingStartTicks = tag.getLong("dryingStartTicks");
+        boolean tyingItemUsedUp = tag.getBoolean("tyingItemUsedUp");
 
-        return new DryingRackItem(dryingItem, tyingItem, dryingStartTicks);
+        return new DryingRackItem(dryingItem, tyingItem, dryingStartTicks, tyingItemUsedUp);
     }
 
 }

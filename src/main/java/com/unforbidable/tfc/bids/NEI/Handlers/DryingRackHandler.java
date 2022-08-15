@@ -2,6 +2,8 @@ package com.unforbidable.tfc.bids.NEI.Handlers;
 
 import java.awt.Rectangle;
 
+import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
@@ -101,9 +103,14 @@ public class DryingRackHandler extends TemplateRecipeHandler {
         final int duration;
 
         public CachedDryingRecipe(ItemStack ingred, ItemStack result, int duration) {
-            this.ingred = ingred;
-            this.result = result;
+            this.ingred = ingred.copy();
+            this.result = result.copy();
             this.duration = duration;
+
+            if (ingred.getItem() instanceof ItemFoodTFC) {
+                Food.setWeight(this.ingred, 160);
+                Food.setWeight(this.result, 160);
+            }
         }
 
         public String getDurationString() {

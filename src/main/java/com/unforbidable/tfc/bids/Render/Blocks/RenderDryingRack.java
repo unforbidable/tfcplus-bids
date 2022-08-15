@@ -3,11 +3,17 @@ package com.unforbidable.tfc.bids.Render.Blocks;
 import org.lwjgl.opengl.GL11;
 
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackBounds;
+import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
+import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
+import com.unforbidable.tfc.bids.api.Crafting.DryingManager.TyingEquipment;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 
@@ -28,17 +34,59 @@ public class RenderDryingRack implements ISimpleBlockRenderingHandler {
             RenderBlocks renderer) {
         final int orientation = world.getBlockMetadata(x, y, z);
         final DryingRackBounds rackBounds = DryingRackBounds.fromOrientation(orientation);
+        final TileEntityDryingRack dryingRack = (TileEntityDryingRack) world.getTileEntity(x, y, z);
 
         renderer.renderAllFaces = true;
 
         for (AxisAlignedBB bounds : rackBounds.poles) {
-            renderer.setRenderBounds(bounds.minX, bounds.minY, bounds.minZ, bounds.maxX, bounds.maxY, bounds.maxZ);
-            renderer.renderStandardBlock(block, x, y, z);
+            renderPart(renderer, x, y, z, block, bounds);
+        }
+
+        for (int i = 0; i < rackBounds.knots.length; i++) {
+            DryingRackItem item = dryingRack.getItem(i);
+
+            if (item != null && item.tyingItem != null) {
+                Block tyingEquipmentBlock = Blocks.wool;
+                int tyingEquipmentBlockMetadata = 0;
+
+                // Use block for rendering the knot
+                // according to tying equipment specification
+                final TyingEquipment tyingEquipment = DryingManager.findTyingEquipmnt(item.tyingItem);
+                if (tyingEquipment != null && tyingEquipment.renderBlock != null) {
+                    tyingEquipmentBlock = tyingEquipment.renderBlock;
+                    tyingEquipmentBlockMetadata = tyingEquipment.renderBlockMetadata;
+                }
+
+                Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, tyingEquipmentBlockMetadata, 0);
+
+                if (item.tyingItemUsedUp) {
+                    float color = 0.5f;
+                    renderPartWithColorMultiplier(renderer, x, y, z, tyingEquipmentBlock, rackBounds.knots[i], color);
+                    renderPartWithColorMultiplier(renderer, x, y, z, tyingEquipmentBlock, rackBounds.strings[i], color);
+                } else {
+                    renderPart(renderer, x, y, z, tyingEquipmentBlock, rackBounds.knots[i]);
+                    renderPart(renderer, x, y, z, tyingEquipmentBlock, rackBounds.strings[i]);
+                }
+
+                Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, orientation, 0);
+            }
         }
 
         renderer.renderAllFaces = false;
 
         return true;
+    }
+
+    private void renderPart(RenderBlocks renderer, int x, int y, int z, Block block,
+            final AxisAlignedBB bounds) {
+        renderer.setRenderBounds(bounds.minX, bounds.minY, bounds.minZ, bounds.maxX, bounds.maxY, bounds.maxZ);
+        renderer.renderStandardBlock(block, x, y, z);
+    }
+
+    private void renderPartWithColorMultiplier(RenderBlocks renderer, int x, int y, int z, Block block,
+            final AxisAlignedBB bounds, float color) {
+        renderer.setRenderBounds(bounds.minX, bounds.minY, bounds.minZ, bounds.maxX, bounds.maxY, bounds.maxZ);
+        renderer.renderStandardBlockWithColorMultiplier(block, x, y, z, color, color, color);
     }
 
     @Override

@@ -38,6 +38,7 @@ import com.unforbidable.tfc.bids.api.Crafting.Recipes.FoodDryingRecipe;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
@@ -376,18 +377,25 @@ public class RecipeSetup {
         }
 
         DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreStrip, 1, 1),
-                new ItemStack(BidsItems.barkFibreStrip, 1, 0), 24, true));
+                new ItemStack(BidsItems.barkFibreStrip, 1, 0), 24, false));
 
         // Meat and cheese drying from TFC
         final Item[] foodToDry = new Item[] { TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
                 TFCItems.porkchopRaw, TFCItems.fishRaw, TFCItems.seastarRaw, TFCItems.scallopRaw,
                 TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese };
         for (Item food : foodToDry) {
-            DryingManager.addRecipe(new FoodDryingRecipe(new ItemStack(food), 24, false));
+            DryingManager.addRecipe(new FoodDryingRecipe(new ItemStack(food), 24, true));
         }
 
         // Extra food drying
         DryingManager.addRecipe(new FoodDryingRecipe(new ItemStack(TFCItems.seaWeed), 24, false));
+
+        // And now tying equipment
+        DryingManager.registerTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1);
+        DryingManager.registerTyingEquipment(TFCItems.woolYarn, false, Blocks.wool, 0);
+        DryingManager.registerTyingEquipment(TFCItems.linenString, false, Blocks.wool, 0);
+        DryingManager.registerTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0);
+        DryingManager.registerTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0);
 
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemAdze", "itemAxe")
