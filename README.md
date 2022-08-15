@@ -25,15 +25,15 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [More Stick Bundles](../../wiki/Stick-Bundle) - small and tied bundles of sticks as fuel in new firepit
 * [Bark](../../wiki/Bark) - comes from peeling logs, some can be used to extract tannin, or bast fibers
 * [Bark Fiber and Bark Cordage](../../wiki/Bark-Fiber) - make tying material and cordage from bark fiber
-* [Drying Rack](../../wiki/Drying-Rack) - for curing bark fibre strips
+* [Drying Rack](../../wiki/Drying-Rack) - for curing bark fibre strips and drying meat, cheese, and seaweed
 
 ### Translations
 
-* Chinese by Eternal130 (v0.16.x)
+* Chinese by Eternal130 (v0.17.x)
 
 ### Compatibility
 
-* Waila - block information for crucible, quarrying, glassmaking, wood pile items, etc
+* Waila - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, etc
 * Not Enough Items - recipes for seasoning, quarrying, drying and new firepit fuels
 
 ### Compiling
