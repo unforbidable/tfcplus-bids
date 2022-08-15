@@ -137,8 +137,16 @@ public class TileEntityDryingRack extends TileEntity {
                 final DryingRecipe recipe = DryingManager.getMatchingRecipe(item.dryingItem);
 
                 if (recipe != null) {
-                    long ticksDelta = TFC_Time.getTotalTicks() - item.dryingStartTicks;
-                    if (ticksDelta > recipe.getDuration() * TFC_Time.HOUR_LENGTH) {
+                    final long ticksElapsedTotal = TFC_Time.getTotalTicks() - item.dryingStartTicks;
+                    final long ticksLastDelta = TFC_Time.getTotalTicks() - lastDryingTicks;
+
+                    // This is for recipes that track progress or update items over time
+                    final long durationTicks = recipe.getDuration() * TFC_Time.HOUR_LENGTH;
+                    final float progressTotal = (float) ticksElapsedTotal / durationTicks;
+                    final float progressTotalDelta = (float) ticksLastDelta / durationTicks;
+                    recipe.onProgress(item.dryingItem, progressTotal, progressTotalDelta);
+
+                    if (ticksElapsedTotal > recipe.getDuration() * TFC_Time.HOUR_LENGTH) {
                         ItemStack driedItem = recipe.getCraftingResult(item.dryingItem);
 
                         Bids.LOG.debug("Item " + item.dryingItem.getDisplayName()
@@ -224,10 +232,21 @@ public class TileEntityDryingRack extends TileEntity {
     public boolean placeItem(int section, ItemStack itemStack) {
         Bids.LOG.debug("Placing item on drying rack: " + itemStack.getDisplayName() + ", section: " + section);
 
+        DryingRecipe recipe = DryingManager.getMatchingRecipe(itemStack);
+
         if (section >= 0 && section < MAX_STORAGE
-                && storage[section] == null) {
-            ItemStack dryingItem = new ItemStack(itemStack.getItem(), 1, itemStack.getItemDamage());
-            storage[section] = new DryingRackItem(dryingItem, null, TFC_Time.getTotalTicks());
+                && storage[section] == null && recipe != null) {
+            // Copy item to preserve NBT
+            ItemStack dryingItem = itemStack.copy();
+            dryingItem.stackSize = 1;
+
+            // If drying item already has some progress done
+            // we take this progress and move the start ticks back accordingly
+            final float initialProgress = recipe.getInitialProgress(itemStack);
+            final int initialTicks = Math.round(initialProgress * recipe.getDuration() * TFC_Time.HOUR_LENGTH);
+            final long startTicks = TFC_Time.getTotalTicks() - initialTicks;
+
+            storage[section] = new DryingRackItem(dryingItem, null, startTicks);
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 

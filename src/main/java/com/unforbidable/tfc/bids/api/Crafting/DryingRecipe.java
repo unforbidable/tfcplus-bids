@@ -33,4 +33,11 @@ public class DryingRecipe {
         return duration;
     }
 
+    public float getInitialProgress(ItemStack itemStack) {
+        return 0f;
+    }
+
+    public void onProgress(ItemStack itemStack, float progressTotal, float progressLastDelta) {
+    }
+
 }
