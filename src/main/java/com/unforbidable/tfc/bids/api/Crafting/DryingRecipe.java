@@ -7,13 +7,13 @@ public class DryingRecipe {
     final ItemStack output;
     final ItemStack input;
     final int duration;
-    final boolean isSelftying;
+    final boolean requiresTyingEquipment;
 
-    public DryingRecipe(ItemStack output, ItemStack input, int duration, boolean isSelftying) {
+    public DryingRecipe(ItemStack output, ItemStack input, int duration, boolean requiresTyingEquipment) {
         this.output = output;
         this.input = input;
         this.duration = duration;
-        this.isSelftying = isSelftying;
+        this.requiresTyingEquipment = requiresTyingEquipment;
     }
 
     public boolean matches(ItemStack itemStack) {
@@ -31,6 +31,17 @@ public class DryingRecipe {
 
     public int getDuration() {
         return duration;
+    }
+
+    public boolean getRequiresTyingEquipment() {
+        return requiresTyingEquipment;
+    }
+
+    public float getInitialProgress(ItemStack itemStack) {
+        return 0f;
+    }
+
+    public void onProgress(ItemStack itemStack, float progressTotal, float progressLastDelta) {
     }
 
 }

@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.WAILA.Providers;
 import java.util.List;
 
 import com.dunk.tfc.Core.TFC_Time;
+import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItemInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.WAILA.WailaProvider;
@@ -24,8 +25,9 @@ public class DryingRackProvider extends WailaProvider {
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
         if (accessor.getTileEntity() instanceof TileEntityDryingRack) {
             TileEntityDryingRack dryingRack = (TileEntityDryingRack) accessor.getTileEntity();
+            DryingRackItem item = dryingRack.getSelectedItem();
 
-            return dryingRack.getSelectedItem();
+            return item != null ? item.dryingItem : null;
         }
 
         return super.getWailaStack(accessor, config);

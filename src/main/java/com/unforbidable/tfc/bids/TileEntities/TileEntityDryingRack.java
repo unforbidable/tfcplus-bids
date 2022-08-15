@@ -1,13 +1,19 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
 import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItemInfo;
+import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackMessage;
+import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.DryingManager.TyingEquipment;
 
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.item.EntityItem;
@@ -19,10 +25,13 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 
-public class TileEntityDryingRack extends TileEntity {
+public class TileEntityDryingRack extends TileEntity implements IMessageHanldingTileEntity<DryingRackMessage> {
 
     public static final int MAX_STORAGE = 4;
+
+    public static final int ACTION_UPDATE = 1;
 
     static final long DRYING_INTERVAL = TFC_Time.HOUR_LENGTH / 12;
 
@@ -31,6 +40,8 @@ public class TileEntityDryingRack extends TileEntity {
     long lastDryingTicks = 0;
     boolean initialized;
     int orientation = -1;
+
+    boolean clientNeedToUpdate = false;
 
     int selectedSection = -1;
 
@@ -60,7 +71,7 @@ public class TileEntityDryingRack extends TileEntity {
         return selectedSection;
     }
 
-    public ItemStack getSelectedItem() {
+    public DryingRackItem getSelectedItem() {
         if (selectedSection != -1) {
             return getItem(selectedSection);
         }
@@ -68,12 +79,8 @@ public class TileEntityDryingRack extends TileEntity {
         return null;
     }
 
-    public ItemStack getItem(int section) {
-        if (storage[section] != null) {
-            return storage[section].dryingItem;
-        }
-
-        return null;
+    public DryingRackItem getItem(int section) {
+        return storage[section];
     }
 
     public DryingRackItemInfo getSelectedItemInfo() {
@@ -116,6 +123,13 @@ public class TileEntityDryingRack extends TileEntity {
                 initialized = true;
             }
 
+            // When inventory content changes
+            if (clientNeedToUpdate) {
+                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+
+                clientNeedToUpdate = false;
+            }
+
             // Check if enough time had passed
             // for drying interval
             if (dryingTimer.tick() && TFC_Time.getTotalTicks() > lastDryingTicks + DRYING_INTERVAL) {
@@ -137,14 +151,29 @@ public class TileEntityDryingRack extends TileEntity {
                 final DryingRecipe recipe = DryingManager.getMatchingRecipe(item.dryingItem);
 
                 if (recipe != null) {
-                    long ticksDelta = TFC_Time.getTotalTicks() - item.dryingStartTicks;
-                    if (ticksDelta > recipe.getDuration() * TFC_Time.HOUR_LENGTH) {
+                    final long ticksElapsedTotal = TFC_Time.getTotalTicks() - item.dryingStartTicks;
+                    final long ticksLastDelta = TFC_Time.getTotalTicks() - lastDryingTicks;
+
+                    // This is for recipes that track progress or update items over time
+                    final long durationTicks = recipe.getDuration() * TFC_Time.HOUR_LENGTH;
+                    final float progressTotal = (float) ticksElapsedTotal / durationTicks;
+                    final float progressTotalDelta = (float) ticksLastDelta / durationTicks;
+                    recipe.onProgress(item.dryingItem, progressTotal, progressTotalDelta);
+
+                    if (ticksElapsedTotal > recipe.getDuration() * TFC_Time.HOUR_LENGTH) {
                         ItemStack driedItem = recipe.getCraftingResult(item.dryingItem);
 
                         Bids.LOG.debug("Item " + item.dryingItem.getDisplayName()
                                 + " dried and become " + driedItem.getDisplayName());
 
-                        storage[i] = new DryingRackItem(driedItem, item.tyingItem, item.dryingStartTicks);
+                        if (item.dryingItem.getItem() instanceof ItemFoodTFC) {
+                            Bids.LOG.debug("Weight from: " + Food.getWeight(item.dryingItem)
+                                    + " to: " + Food.getWeight(driedItem));
+                        }
+
+                        storage[i] = new DryingRackItem(driedItem, item.tyingItem, item.dryingStartTicks, true);
+
+                        clientNeedToUpdate = true;
 
                         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                     }
@@ -221,15 +250,40 @@ public class TileEntityDryingRack extends TileEntity {
         }
     }
 
-    public boolean placeItem(int section, ItemStack itemStack) {
+    public boolean placeItem(int section, EntityPlayer player, ItemStack itemStack) {
         Bids.LOG.debug("Placing item on drying rack: " + itemStack.getDisplayName() + ", section: " + section);
 
+        DryingRecipe recipe = DryingManager.getMatchingRecipe(itemStack);
+
         if (section >= 0 && section < MAX_STORAGE
-                && storage[section] == null) {
-            ItemStack dryingItem = new ItemStack(itemStack.getItem(), 1, itemStack.getItemDamage());
-            storage[section] = new DryingRackItem(dryingItem, null, TFC_Time.getTotalTicks());
+                && storage[section] == null && recipe != null) {
+            final boolean consumeTyingEquipment = recipe.getRequiresTyingEquipment();
+            ItemStack tyingEquipment = null;
+
+            if (consumeTyingEquipment) {
+                tyingEquipment = findAndConsumeTyingEquipment(player);
+            }
+
+            if (consumeTyingEquipment && tyingEquipment == null) {
+                // Tying equipment needed and missing
+                return false;
+            }
+
+            // Copy item to preserve NBT
+            ItemStack dryingItem = itemStack.copy();
+            dryingItem.stackSize = 1;
+
+            // If drying item already has some progress done
+            // we take this progress and move the start ticks back accordingly
+            final float initialProgress = recipe.getInitialProgress(itemStack);
+            final int initialTicks = Math.round(initialProgress * recipe.getDuration() * TFC_Time.HOUR_LENGTH);
+            final long startTicks = TFC_Time.getTotalTicks() - initialTicks;
+
+            storage[section] = new DryingRackItem(dryingItem, tyingEquipment, startTicks, false);
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+            clientNeedToUpdate = true;
 
             return true;
         }
@@ -246,7 +300,7 @@ public class TileEntityDryingRack extends TileEntity {
                     worldObj.spawnEntityInWorld(ei);
                 }
 
-                if (storage[i].tyingItem != null) {
+                if (canDropTyingEquipment(i)) {
                     final EntityItem ei2 = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
                             storage[i].tyingItem);
                     worldObj.spawnEntityInWorld(ei2);
@@ -268,7 +322,7 @@ public class TileEntityDryingRack extends TileEntity {
                 worldObj.spawnEntityInWorld(ei);
             }
 
-            if (storage[section].tyingItem != null) {
+            if (canDropTyingEquipment(section)) {
                 final EntityItem ei2 = new EntityItem(worldObj, player.posX, player.posY, player.posZ,
                         storage[section].tyingItem);
                 worldObj.spawnEntityInWorld(ei2);
@@ -278,10 +332,90 @@ public class TileEntityDryingRack extends TileEntity {
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
+            clientNeedToUpdate = true;
+
             return true;
         }
 
         return false;
+    }
+
+    private boolean canDropTyingEquipment(int i) {
+        if (storage[i].tyingItem != null) {
+            final TyingEquipment te = DryingManager.findTyingEquipmnt(storage[i].tyingItem);
+            if (te != null && te.isReusable) {
+                // Reusable tying equipment will drop even when
+                // technically "used up"
+                return true;
+            }
+
+            return !storage[i].tyingItemUsedUp;
+        }
+
+        return false;
+    }
+
+    private ItemStack findAndConsumeTyingEquipment(EntityPlayer player) {
+        // Reusable tying equipment takes priority
+        // Search is done in order of registration
+
+        for (DryingManager.TyingEquipment tyingEquipment : DryingManager.getTyingEquipment()) {
+            if (tyingEquipment.isReusable) {
+                ItemStack result = findAndConsumeOneTyingEquipment(player, tyingEquipment.item);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+
+        for (DryingManager.TyingEquipment tyingEquipment : DryingManager.getTyingEquipment()) {
+            if (!tyingEquipment.isReusable) {
+                ItemStack result = findAndConsumeOneTyingEquipment(player, tyingEquipment.item);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private ItemStack findAndConsumeOneTyingEquipment(EntityPlayer player, ItemStack item) {
+        for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+            final ItemStack is = player.inventory.getStackInSlot(i);
+            if (is != null && is.getItem() == item.getItem()
+                    && is.getItemDamage() == item.getItemDamage()) {
+
+                final ItemStack copy = is.copy();
+                copy.stackSize = 1;
+
+                player.inventory.consumeInventoryItem(is.getItem());
+                player.inventoryContainer.detectAndSendChanges();
+
+                Bids.LOG.debug("Found and consumed tying equipment: " + copy.getDisplayName());
+
+                return copy;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public void onTileEntityMessage(DryingRackMessage message) {
+        switch (message.getAction()) {
+            case ACTION_UPDATE:
+                worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
+                Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
+                        + message.getZCoord());
+                break;
+        }
+    }
+
+    public static void sendUpdateMessage(World world, int x, int y, int z) {
+        TargetPoint tp = new TargetPoint(world.provider.dimensionId, x, y, z, 255);
+        Bids.network.sendToAllAround(new DryingRackMessage(x, y, z, TileEntityDryingRack.ACTION_UPDATE), tp);
+        Bids.LOG.debug("Sent update message");
     }
 
 }

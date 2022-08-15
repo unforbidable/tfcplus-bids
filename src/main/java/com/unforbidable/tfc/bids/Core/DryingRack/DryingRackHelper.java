@@ -108,9 +108,9 @@ public class DryingRackHelper {
         if (!world.isRemote && isItemValidDryingRackItem(itemStack)) {
             TileEntity te = world.getTileEntity(x, y, z);
             if (te instanceof TileEntityDryingRack) {
-                TileEntityDryingRack dryingRack = (TileEntityDryingRack) te;
-                int section = getDryingRackSectionFromHit(dryingRack, hitX, hitY, hitZ);
-                if (section != -1 && dryingRack.placeItem(section, itemStack)) {
+                final TileEntityDryingRack dryingRack = (TileEntityDryingRack) te;
+                final int section = getDryingRackSectionFromHit(dryingRack, hitX, hitY, hitZ);
+                if (section != -1 && dryingRack.placeItem(section, player, itemStack)) {
                     itemStack.stackSize--;
                 }
             }

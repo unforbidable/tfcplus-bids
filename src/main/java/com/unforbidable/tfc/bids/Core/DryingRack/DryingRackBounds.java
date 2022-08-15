@@ -8,24 +8,34 @@ public class DryingRackBounds {
     static final float unit = 1 / 32f;
     static final float poleStart = unit * 7;
     static final float poleWidth = unit * 2;
-    static final float knotStartXZ = unit * 6;
-    static final float knotStartY = unit * 4;
-    static final float knotWidth = unit * 4;
-    static final float knotHeight = unit * 6;
+    static final float knotStartXZ = unit * 6.5f;
+    static final float knotStartY = unit * 6.5f;
+    static final float knotWidth = unit * 3;
+    static final float knotHeight = unit * 3;
+    static final float stringStartXZ = unit * 7.75f;
+    static final float stringStartY = unit * 1;
+    static final float stringWidth = unit * 0.5f;
+    static final float stringHeight = unit * 6;
     static final float half = unit * 16;
     static final float itemOffsetSub = unit * 8;
     static final float itemOffsetPole = unit * 6.4f;
     static final float itemStridePole = unit * 19;
     static final float itemOffsetY = unit * 12;
+    static final float itemTiedOffsetPole = unit * 7.8f;
+    static final float itemTiedStridePole = unit * 16;
+    static final float itemTiedOffsetY = unit * 7;
 
     public final AxisAlignedBB[] poles;
     public final AxisAlignedBB[] sections;
     public final AxisAlignedBB[] knots;
+    public final AxisAlignedBB[] strings;
 
-    private DryingRackBounds(AxisAlignedBB[] poles, AxisAlignedBB[] sections, AxisAlignedBB[] knots) {
+    private DryingRackBounds(AxisAlignedBB[] poles, AxisAlignedBB[] sections, AxisAlignedBB[] knots,
+            AxisAlignedBB[] strings) {
         this.poles = poles;
         this.sections = sections;
         this.knots = knots;
+        this.strings = strings;
     }
 
     public static AxisAlignedBB getEntireDryingRackBounds() {
@@ -35,31 +45,50 @@ public class DryingRackBounds {
         return AxisAlignedBB.getBoundingBox(0, minY, 0, 1, maxY, 1);
     }
 
-    public static Vec3 getRenderItemOffset(int orientation, int section) {
+    public static Vec3 getRenderItemOffset(int orientation, int section, boolean tied) {
         final boolean isNorthSouthOrientation = orientation % 2 == 0;
 
         int sub = section % 2;
         int pole = section < 2 ? 0 : 1;
 
-        double y = itemOffsetY;
+        if (tied) {
+            double y = itemTiedOffsetY;
 
-        if (isNorthSouthOrientation) {
-            double x = itemOffsetPole + itemStridePole * pole;
-            double z = itemOffsetSub + half * sub;
+            if (isNorthSouthOrientation) {
+                double x = itemTiedOffsetPole + itemTiedStridePole * pole;
+                double z = itemOffsetSub + half * sub;
 
-            return Vec3.createVectorHelper(x, y, z);
+                return Vec3.createVectorHelper(x, y, z);
+            } else {
+                double x = itemOffsetSub + half * sub;
+                double z = itemTiedOffsetPole + itemTiedStridePole * pole;
+
+                return Vec3.createVectorHelper(x, y, z);
+            }
+
         } else {
-            double x = itemOffsetSub + half * sub;
-            double z = itemOffsetPole + itemStridePole * pole;
+            double y = itemOffsetY;
 
-            return Vec3.createVectorHelper(x, y, z);
+            if (isNorthSouthOrientation) {
+                double x = itemOffsetPole + itemStridePole * pole;
+                double z = itemOffsetSub + half * sub;
+
+                return Vec3.createVectorHelper(x, y, z);
+            } else {
+                double x = itemOffsetSub + half * sub;
+                double z = itemOffsetPole + itemStridePole * pole;
+
+                return Vec3.createVectorHelper(x, y, z);
+            }
         }
+
     }
 
     public static DryingRackBounds fromOrientation(int orientation) {
         final AxisAlignedBB[] poles = new AxisAlignedBB[2];
         final AxisAlignedBB[] sections = new AxisAlignedBB[4];
         final AxisAlignedBB[] knots = new AxisAlignedBB[4];
+        final AxisAlignedBB[] strings = new AxisAlignedBB[4];
 
         final boolean isNorthSouthOrientation = orientation % 2 == 0;
 
@@ -132,7 +161,31 @@ public class DryingRackBounds {
             }
         }
 
-        return new DryingRackBounds(poles, sections, knots);
+        for (int i = 0; i < 4; i++) {
+            int section = i % 2;
+            int pole = i < 2 ? 0 : 1;
+
+            double minY = half + stringStartY;
+            double maxY = minY + stringHeight;
+
+            if (isNorthSouthOrientation) {
+                double minX = stringStartXZ + half * pole;
+                double minZ = stringStartXZ + half * section;
+                double maxX = minX + stringWidth;
+                double maxZ = minZ + stringWidth;
+
+                strings[i] = AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
+            } else {
+                double minX = stringStartXZ + half * section;
+                double minZ = stringStartXZ + half * pole;
+                double maxX = minX + stringWidth;
+                double maxZ = minZ + stringWidth;
+
+                strings[i] = AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
+            }
+        }
+
+        return new DryingRackBounds(poles, sections, knots, strings);
     }
 
 }
