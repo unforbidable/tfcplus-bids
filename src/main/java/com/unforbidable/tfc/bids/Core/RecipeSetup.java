@@ -23,6 +23,7 @@ import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionToolDamageOreBit;
 import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelItemDemandingRecipe;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
+import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionCopySeasoning;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionDamageTool;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionExtraDrop;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
@@ -280,6 +281,19 @@ public class RecipeSetup {
             }
 
             if (WoodHelper.canMakeFirewood(i)) {
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.firewood, 1, i),
+                        new ItemStack(TFCItems.logs, 1, i * 2), "itemAxe"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.firewood, 1, i),
+                        new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAxe"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.firewood, 1, i),
+                        new ItemStack(BidsItems.peeledLog, 1, i), "itemAxe"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2), "itemAxe"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemAxe"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
+                        new ItemStack(BidsItems.peeledLogSeasoned, 1, i), "itemAxe"));
+
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
                         new ItemStack(BidsItems.firewood, 1, i),
                         SeasoningHelper.getWoodSeasoningDuration(i) - 4));
@@ -415,6 +429,23 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionExtraDrop()
                 .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE))
                 .matchCraftingItem(BidsItems.peeledLogSeasoned));
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemAxe")
+                .matchCraftingItem(BidsItems.firewood));
+
+        RecipeManager.addAction(new ActionCopySeasoning()
+                .addHandledItem(TFCItems.logs)
+                .matchCraftingItem(BidsItems.peeledLog));
+
+        RecipeManager.addAction(new ActionCopySeasoning()
+                .addHandledItem(TFCItems.logs)
+                .addHandledItem(BidsItems.peeledLog)
+                .matchCraftingItem(BidsItems.firewood));
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemAxe")
+                .matchCraftingItem(BidsItems.firewoodSeasoned));
 
         for (int i = 0; i < 3; i++) {
             Block logWall = WoodHelper.getDefaultLogWallBlock(i * 16);
