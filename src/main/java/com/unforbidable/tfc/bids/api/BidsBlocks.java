@@ -53,6 +53,10 @@ public class BidsBlocks {
 
     public static Block tiedStickBundle;
 
+    public static Block stackedFirewood;
+    public static Block stackedFirewood2;
+    public static Block stackedFirewood3;
+
     public static Block dryingRack;
 
 }
