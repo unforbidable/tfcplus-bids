@@ -289,6 +289,12 @@ public class RecipeSetup {
                 // 1f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
             }
 
+            if (WoodHelper.canMakeFirewood(i)) {
+                SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
+                        new ItemStack(BidsItems.firewood, 1, i),
+                        0.7f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
+            }
+
             if (WoodHelper.canBuildLogWall(i)) {
                 if (i < 16) {
                     Block logWall = WoodHelper.getDefaultLogWallBlock(0);
