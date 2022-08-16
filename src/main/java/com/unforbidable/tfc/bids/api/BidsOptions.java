@@ -33,6 +33,7 @@ public class BidsOptions {
 
     public static class Firepit {
 
+        public static boolean allowFuelLogsTFC = false;
         public static boolean allowFuelCharcoal = true;
         public static boolean replaceFirepitTFC = false;
 
