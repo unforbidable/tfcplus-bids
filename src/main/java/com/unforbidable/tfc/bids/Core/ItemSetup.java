@@ -19,6 +19,8 @@ import com.unforbidable.tfc.bids.Items.ItemBark;
 import com.unforbidable.tfc.bids.Items.ItemDrill;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
+import com.unforbidable.tfc.bids.Items.ItemFirewood;
+import com.unforbidable.tfc.bids.Items.ItemFirewoodSeasoned;
 import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
 import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
 import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
@@ -138,6 +140,10 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Peeled Log Seasoned");
         logsSeasoned = new ItemLogsSeasoned()
                 .setUnlocalizedName("Log Seasoned");
+        firewood = new ItemFirewood().setNames(Global.WOOD_ALL)
+                .setUnlocalizedName("Firewood");
+        firewoodSeasoned = new ItemFirewoodSeasoned().setNames(Global.WOOD_ALL)
+                .setUnlocalizedName("Firewood Seasoned");
 
         smallStickBundle = new ItemSmallStickBundle()
                 .setUnlocalizedName("Small Stick Bundle");
@@ -316,6 +322,9 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(flatBarkFiber, flatBarkFiber.getUnlocalizedName());
         GameRegistry.registerItem(barkCordage, barkCordage.getUnlocalizedName());
         GameRegistry.registerItem(barkFibreKindling, barkFibreKindling.getUnlocalizedName());
+
+        GameRegistry.registerItem(firewood, firewood.getUnlocalizedName());
+        GameRegistry.registerItem(firewoodSeasoned, firewoodSeasoned.getUnlocalizedName());
     }
 
 }
