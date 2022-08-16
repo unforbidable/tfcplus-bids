@@ -270,19 +270,19 @@ public class RecipeSetup {
 
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                         new ItemStack(BidsItems.peeledLog, 1, i),
-                        0.9f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
+                        SeasoningHelper.getWoodSeasoningDuration(i) - 2));
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.logsSeasoned, 1, i * 2),
                         new ItemStack(TFCItems.logs, 1, i * 2),
-                        1f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
+                        SeasoningHelper.getWoodSeasoningDuration(i)));
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1),
                         new ItemStack(TFCItems.logs, 1, i * 2 + 1),
-                        1f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
+                        SeasoningHelper.getWoodSeasoningDuration(i)));
             }
 
             if (WoodHelper.canMakeFirewood(i)) {
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
                         new ItemStack(BidsItems.firewood, 1, i),
-                        0.7f * SeasoningHelper.getWoodSeasoningDurationMultiplier(i)));
+                        SeasoningHelper.getWoodSeasoningDuration(i) - 4));
             }
 
             if (WoodHelper.canBuildLogWall(i)) {
