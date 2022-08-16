@@ -111,7 +111,7 @@ public class FirepitHelper {
     }
 
     public static EnumFuelMaterial getEnumFuelMaterial(ItemStack itemStack) {
-        final ItemStack log = new ItemStack(TFCItems.logs, 1, itemStack.getItemDamage());
+        final ItemStack log = new ItemStack(TFCItems.logs, 1, itemStack.getItemDamage() * 2);
         return TFC_Core.getFuelMaterial(log);
     }
 
