@@ -63,6 +63,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -81,6 +82,7 @@ public class BlockSetup extends BidsBlocks {
 
     public static void postInit() {
         updateBlocks();
+        setupFireInfo();
     }
 
     @SideOnly(Side.CLIENT)
@@ -179,6 +181,33 @@ public class BlockSetup extends BidsBlocks {
 
         carvingRock.setHarvestLevel("shovel", 0);
         carvingWood.setHarvestLevel("axe", 0);
+    }
+
+    private static void setupFireInfo() {
+        Bids.LOG.info("Set block flamability");
+
+        Blocks.fire.setFireInfo(logWallEast, 5, 5);
+        Blocks.fire.setFireInfo(logWallNorth, 5, 5);
+        Blocks.fire.setFireInfo(logWallCorner, 5, 5);
+        Blocks.fire.setFireInfo(logWallEastAlt, 5, 5);
+        Blocks.fire.setFireInfo(logWallNorthAlt, 5, 5);
+        Blocks.fire.setFireInfo(logWallCornerAlt, 5, 5);
+        Blocks.fire.setFireInfo(logWallEast2, 5, 5);
+        Blocks.fire.setFireInfo(logWallNorth2, 5, 5);
+        Blocks.fire.setFireInfo(logWallCorner2, 5, 5);
+        Blocks.fire.setFireInfo(logWallEastAlt2, 5, 5);
+        Blocks.fire.setFireInfo(logWallNorthAlt2, 5, 5);
+        Blocks.fire.setFireInfo(logWallCornerAlt2, 5, 5);
+        Blocks.fire.setFireInfo(logWallEast3, 5, 5);
+        Blocks.fire.setFireInfo(logWallNorth3, 5, 5);
+        Blocks.fire.setFireInfo(logWallCorner3, 5, 5);
+        Blocks.fire.setFireInfo(logWallEastAlt3, 5, 5);
+        Blocks.fire.setFireInfo(logWallNorthAlt3, 5, 5);
+        Blocks.fire.setFireInfo(logWallCornerAlt3, 5, 5);
+
+        Blocks.fire.setFireInfo(carvingWood, 5, 5);
+
+        Blocks.fire.setFireInfo(woodPile, 10, 10);
     }
 
     private static void registerOre() {
