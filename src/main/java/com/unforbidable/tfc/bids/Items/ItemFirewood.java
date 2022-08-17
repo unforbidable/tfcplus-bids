@@ -99,7 +99,7 @@ public class ItemFirewood extends Item implements ISize, IWoodPileRenderProvider
 
     @Override
     public EnumSize getSize(ItemStack arg0) {
-        return EnumSize.MEDIUM;
+        return EnumSize.VERYLARGE;
     }
 
     @Override
