@@ -73,8 +73,9 @@ public class BlockWoodPile extends BlockContainer {
 
             if (!world.isRemote) {
                 player.openGui(Bids.instance, BidsGui.woodPileGui, world, x, y, z);
-                return true;
             }
+
+            return true;
         }
 
         return false;
