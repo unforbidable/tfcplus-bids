@@ -430,6 +430,16 @@ public class RecipeSetup {
                 .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE))
                 .matchCraftingItem(BidsItems.peeledLogSeasoned));
 
+        RecipeManager.addAction(new ActionExtraDrop()
+                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE), 0.10f)
+                .matchIngredient(TFCItems.logs)
+                .matchCraftingItem(BidsItems.firewood));
+
+        RecipeManager.addAction(new ActionExtraDrop()
+                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE), 0.25f)
+                .matchIngredient(BidsItems.logsSeasoned)
+                .matchCraftingItem(BidsItems.firewoodSeasoned));
+
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemAxe")
                 .matchCraftingItem(BidsItems.firewood));
