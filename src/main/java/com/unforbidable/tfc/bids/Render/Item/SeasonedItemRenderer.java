@@ -28,7 +28,7 @@ public class SeasonedItemRenderer implements IItemRenderer {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
         renderIcon(0, 0, is.getItem().getIconIndex(is), 16, 16);
-        renderQuad(1, 14, 13, 1, 0xffffaa00);
+        renderQuad(1, 14, 14, 1, 0xffffaa00);
 
         GL11.glPopAttrib();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

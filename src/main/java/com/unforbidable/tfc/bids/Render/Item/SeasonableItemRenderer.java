@@ -35,7 +35,7 @@ public class SeasonableItemRenderer implements IItemRenderer {
             final float seasoning = SeasoningHelper.getItemSeasoningTag(is);
             final float seasoningWidth = seasoning * 13.0F;
 
-            renderQuad(1, 14, 13, 1, 0);
+            renderQuad(1, 14, 14, 1, 0);
             renderQuad(1, 14, seasoningWidth, 1, 0xffffaa00);
         }
 
