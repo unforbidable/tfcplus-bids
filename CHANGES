@@ -178,3 +178,18 @@
 0.17.1 (15-08-2022)
 - Added: Meat, cheese and seaweed can be dried on a drying rack (it takes 24 hours)
 - Changed: Updated Chinese translation by Eternal130
+
+0.18.0 (17-08-2022)
+- WARNING: PLEASE BE ADVISED - LOG WALLS AND WOOD PILES ARE NOW FLAMABLE, MAKE SURE NO TORCHES ARE NEAR THEM BEFORE UPDATING
+- Added: Firewood created by splitting logs, chopped logs and peeled logs
+- Added: Splitting logs and chopped logs has a small chance of dropping a piece of bark
+- Added: Firewood can be added to a wood pile and seasoned
+- Added: Seasoned firewood is a valid fuel for new firepit
+- Added: Seasoned firewood can be used in a pit kiln
+- Changed: Logs and chopped logs can now be seasoned in a wood pile
+- Changed: Logs and chopped logs are no longer valid fuel for new firepit (optional)
+- Changed: Seasoned wood items have icons with a full orange bar
+- Changed: Wood seasoning base duration is now number of hours defined in the recipe
+- Changed: NEI displays kindling quality
+- Known issue: Unless completely seasoned, seasoning progress of logs is only transferred when a single item is crafted when splitting or peeling
+- Known issue: For the time being, unseasoned TFC logs and chopped logs are still needed to make charcoal and run a beehive kiln

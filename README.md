@@ -26,6 +26,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Bark](../../wiki/Bark) - comes from peeling logs, some can be used to extract tannin, or bast fibers
 * [Bark Fiber and Bark Cordage](../../wiki/Bark-Fiber) - make tying material and cordage from bark fiber
 * [Drying Rack](../../wiki/Drying-Rack) - for curing bark fibre strips and drying meat, cheese, and seaweed
+* [Firewood](../../wiki/Firewood) - fuel for new firepit, needs to be seasoned
 
 ### Translations
 
