@@ -12,7 +12,7 @@ public class ActionCopySeasoning extends ActionHandleTagCompound {
         if (ingredient.hasTagCompound()) {
             final float seasoning = SeasoningHelper.getItemSeasoningTag(ingredient);
             if (seasoning > 0) {
-                Bids.LOG.info("Copying seasoning progress: " + seasoning);
+                Bids.LOG.debug("Copying seasoning progress: " + seasoning);
 
                 SeasoningHelper.setItemSeasoningTag(output, seasoning);
             }
