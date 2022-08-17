@@ -98,13 +98,14 @@ public class BlockNewFirepit extends BlockFirepit {
                         world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "fire.ignite", 1.0F,
                                 rand.nextFloat() * 0.4F + 0.8F);
 
-                        // 100% chance with proper kindling and tinder
+                        // 100% chance with straw kindling
                         // 50% chance without
                         chance *= 2;
                     } else if (item instanceof ItemFirestarter) {
-                        // 60% chance with proper kindling and tinder
-                        // 20% chance without
-                        chance *= 0.8f;
+                        // 100% chance with bark fiber kindling
+                        // 50% chance with straw kindling
+                        // 25% chance without
+                        chance *= 1f;
                     }
 
                     Bids.LOG.debug("Chance to start fire: " + chance);

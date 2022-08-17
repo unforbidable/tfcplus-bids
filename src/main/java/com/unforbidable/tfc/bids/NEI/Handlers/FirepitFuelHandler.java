@@ -11,6 +11,8 @@ import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -67,6 +69,21 @@ public class FirepitFuelHandler extends TemplateRecipeHandler {
         }
     }
 
+    @Override
+    public void drawExtras(int recipe) {
+        CachedRecipe crecipe = arecipes.get(recipe);
+        if (crecipe instanceof CachedFirepitFuelRecipe) {
+            final CachedFirepitFuelRecipe cachedFirepitFuelRecipe = (CachedFirepitFuelRecipe) crecipe;
+
+            drawCenteredString(Minecraft.getMinecraft().fontRenderer,
+                    cachedFirepitFuelRecipe.getKindlingString(), 83, 49, 0x555555);
+        }
+    }
+
+    private static void drawCenteredString(FontRenderer fontrenderer, String s, int i, int j, int k) {
+        fontrenderer.drawString(s, i - fontrenderer.getStringWidth(s) / 2, j, k);
+    }
+
     public class CachedFirepitFuelRecipe extends CachedRecipe {
 
         final IFirepitFuelMaterial fuel;
@@ -85,6 +102,13 @@ public class FirepitFuelHandler extends TemplateRecipeHandler {
                     ingreds.add(is);
                 }
             }
+        }
+
+        public String getKindlingString() {
+            float kindlingQuality = fuel.getFuelKindlingQuality(new ItemStack(ingred));
+            return kindlingQuality > 0
+                    ? String.format("Kindling Quality: %d%%", Math.round(kindlingQuality * 100))
+                    : "";
         }
 
         @Override

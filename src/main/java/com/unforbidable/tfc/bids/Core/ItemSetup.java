@@ -150,7 +150,7 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Small Stick Bundle");
         tiedStickBundle = new ItemTiedStickBundle()
                 .setUnlocalizedName("Tied Stick Bundle");
-        kindling = new ItemKindling().setFuelKindlingQuality(0.75f)
+        kindling = new ItemKindling().setFuelKindlingQuality(0.50f)
                 .setUnlocalizedName("Kindling");
 
         bark = new ItemBark().setNames(Global.WOOD_ALL)
@@ -163,7 +163,7 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Flat Bark Fibre");
         barkCordage = new ItemBastCordage()
                 .setUnlocalizedName("Bark Cordage");
-        barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1.25f)
+        barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1f)
                 .setUnlocalizedName("Bark Fibre Kindling");
     }
 
