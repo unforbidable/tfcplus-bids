@@ -42,8 +42,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     public static final int MAX_STORAGE = 16;
 
-    public static final long SEASONING_TICKS = TFC_Time.DAY_LENGTH;
-    public static final float SEASONING_COVERED_BONUS = 1.5f;
+    public static final float SEASONING_EXPOSED_MULTIPLIER = 1f;
+    public static final float SEASONING_COVERED_MULTIPLIER = 1.5f;
 
     static final long SEASONING_INTERVAL = TFC_Time.HOUR_LENGTH;
 
@@ -435,46 +435,44 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     protected void seasonItems() {
         final long ticksSinceLastSeasoning = TFC_Time.getTotalTicks() - lastSeasoningTicks;
-        float seasoningDelta = ticksSinceLastSeasoning / (float) SEASONING_TICKS
-                / BidsOptions.WoodPile.seasoningDurationMultiplier;
-
         lastSeasoningTicks = TFC_Time.getTotalTicks();
 
-        Bids.LOG.debug("Ticks since last seasoning: " + ticksSinceLastSeasoning
-                + ", progress to add: " + seasoningDelta);
-
         boolean coverageChecked = false;
+        boolean isCovered = false;
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
-                if (SeasoningManager.hasMatchingRecipe(storage[i])) {
+                final SeasoningRecipe recipe = SeasoningManager.getMatchingRecipe(storage[i]);
+
+                if (recipe != null) {
                     // Lazy coverage calculation
                     // only when there is anything to season
-                    // Apply bonus once
                     if (!coverageChecked) {
-                        if (isCovered()) {
-                            seasoningDelta *= SEASONING_COVERED_BONUS;
-                        }
+                        isCovered = isCovered();
                         coverageChecked = true;
                     }
 
-                    seasonItemInSlot(i, seasoningDelta);
+                    seasonItemInSlot(recipe, i, ticksSinceLastSeasoning, isCovered);
                 }
             }
         }
     }
 
-    protected void seasonItemInSlot(int slot, float seasoningDelta) {
-        final SeasoningRecipe recipe = SeasoningManager.getMatchingRecipe(storage[slot]);
-        float seasoningDeltaAdjusted = seasoningDelta / recipe.getDurationMultipliter(storage[slot]);
+    protected void seasonItemInSlot(SeasoningRecipe recipe, int slot, long ticksSinceLastSeasoning, boolean isCovered) {
+        final float currectSeasoning = SeasoningHelper.getItemSeasoningTag(storage[slot]);
 
-        float seasoning = SeasoningHelper.getItemSeasoningTag(storage[slot]);
-        seasoning = Math.min(1, seasoning + seasoningDeltaAdjusted);
-        SeasoningHelper.setItemSeasoningTag(storage[slot], seasoning);
+        final float totalSeasoningTicks = recipe.getDuration() * TFC_Time.HOUR_LENGTH
+                * BidsOptions.WoodPile.seasoningDurationMultiplier;
+        final float remainingSeasoningTicks = totalSeasoningTicks * (1 - currectSeasoning);
+        final float seasoningDelta = ticksSinceLastSeasoning / remainingSeasoningTicks;
+        final float coverageMultiplier = isCovered ? SEASONING_COVERED_MULTIPLIER : SEASONING_EXPOSED_MULTIPLIER;
+
+        final float newSeasoning = Math.min(1, currectSeasoning + seasoningDelta * coverageMultiplier);
+        SeasoningHelper.setItemSeasoningTag(storage[slot], newSeasoning);
 
         Bids.LOG.debug("Item " + storage[slot].getDisplayName()
-                + " updated seasoning: " + seasoning);
+                + " updated seasoning: " + newSeasoning);
 
-        if (seasoning == 1f) {
+        if (newSeasoning == 1f) {
             Bids.LOG.debug("Item fully seasoned in slot: " + slot);
             ItemStack output = recipe.getCraftingResult(storage[slot]);
             storage[slot] = output.copy();

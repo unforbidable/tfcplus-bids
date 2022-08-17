@@ -6,12 +6,12 @@ public class SeasoningRecipe {
 
     final ItemStack output;
     final ItemStack input;
-    final float durationMultipliter;
+    final int duration;
 
-    public SeasoningRecipe(ItemStack output, ItemStack input, float durationMultipliter) {
+    public SeasoningRecipe(ItemStack output, ItemStack input, int duration) {
         this.output = output;
         this.input = input;
-        this.durationMultipliter = durationMultipliter;
+        this.duration = duration;
     }
 
     public boolean matches(ItemStack itemStack) {
@@ -27,8 +27,8 @@ public class SeasoningRecipe {
         return output;
     }
 
-    public float getDurationMultipliter(ItemStack itemStack) {
-        return durationMultipliter;
+    public int getDuration() {
+        return duration;
     }
 
 }

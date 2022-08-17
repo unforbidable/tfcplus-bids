@@ -48,25 +48,8 @@ public class SeasoningHelper {
         // }
     }
 
-    public static float getWoodSeasoningDurationMultiplier(int damage) {
-        final EnumWoodHardness hardness = EnumWoodHardness.fromDamage(damage);
-        switch (hardness) {
-            case SOFT:
-                return 0.7f;
-
-            case MODERATE:
-                return 0.9f;
-
-            case HARD:
-                return 1f;
-
-            // case INVALID:
-            default:
-                // Logs that aren't technically wood
-                // shouldn't be seasoned
-                // but we might still get here if someone tries to
-                return 1f;
-        }
+    public static int getWoodSeasoningDuration(int damage) {
+        return EnumWoodHardness.fromDamage(damage).getSeasoningDuration();
     }
 
 }

@@ -2,10 +2,8 @@ package com.unforbidable.tfc.bids.NEI.Handlers;
 
 import java.awt.Rectangle;
 
-import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
@@ -52,7 +50,7 @@ public class SeasoningHandler extends TemplateRecipeHandler {
             for (SeasoningRecipe recipe : SeasoningManager.getRecipes()) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getCraftingResult(input);
-                arecipes.add(new CachedSeasoningRecipe(input, result, recipe.getDurationMultipliter(input)));
+                arecipes.add(new CachedSeasoningRecipe(input, result, recipe.getDuration()));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -65,7 +63,7 @@ public class SeasoningHandler extends TemplateRecipeHandler {
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getCraftingResult(input);
             if (ItemStack.areItemStacksEqual(result, output)) {
-                arecipes.add(new CachedSeasoningRecipe(input, output, recipe.getDurationMultipliter(input)));
+                arecipes.add(new CachedSeasoningRecipe(input, output, recipe.getDuration()));
             }
         }
     }
@@ -76,7 +74,7 @@ public class SeasoningHandler extends TemplateRecipeHandler {
             if (recipe.matches(ingredient)) {
                 final ItemStack input = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
                 final ItemStack result = recipe.getCraftingResult(ingredient);
-                arecipes.add(new CachedSeasoningRecipe(input, result, recipe.getDurationMultipliter(ingredient)));
+                arecipes.add(new CachedSeasoningRecipe(input, result, recipe.getDuration()));
             }
         }
     }
@@ -102,21 +100,19 @@ public class SeasoningHandler extends TemplateRecipeHandler {
 
         final ItemStack ingred;
         final ItemStack result;
-        final float durationMultipliter;
+        final int duration;
 
-        public CachedSeasoningRecipe(ItemStack ingred, ItemStack result, float durationMultipliter) {
+        public CachedSeasoningRecipe(ItemStack ingred, ItemStack result, int duration) {
             this.ingred = ingred;
             this.result = result;
-            this.durationMultipliter = durationMultipliter;
+            this.duration = duration;
         }
 
         public String getDurationString() {
-            final float ticks = durationMultipliter * TileEntityWoodPile.SEASONING_TICKS
-                    * BidsOptions.WoodPile.seasoningDurationMultiplier;
-            final float days = ticks / TFC_Time.DAY_LENGTH;
-            final float daysCovered = days / TileEntityWoodPile.SEASONING_COVERED_BONUS;
+            final int hours = (int) (duration * BidsOptions.WoodPile.seasoningDurationMultiplier);
+            final float days = hours / 24f;
 
-            return String.format("%.01f", days) + "/" + String.format("%.01f", daysCovered) + " days";
+            return String.format("%.01f", days) + " days";
         }
 
         @Override

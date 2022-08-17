@@ -19,6 +19,8 @@ import com.unforbidable.tfc.bids.Items.ItemBark;
 import com.unforbidable.tfc.bids.Items.ItemDrill;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
+import com.unforbidable.tfc.bids.Items.ItemFirewood;
+import com.unforbidable.tfc.bids.Items.ItemFirewoodSeasoned;
 import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
 import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
 import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
@@ -35,7 +37,8 @@ import com.unforbidable.tfc.bids.Items.ItemBastFibreStrip;
 import com.unforbidable.tfc.bids.Items.ItemRoughBrick;
 import com.unforbidable.tfc.bids.Items.ItemSmallStickBundle;
 import com.unforbidable.tfc.bids.Items.ItemTiedStickBundle;
-import com.unforbidable.tfc.bids.Render.Item.WoodPileItemRenderer;
+import com.unforbidable.tfc.bids.Render.Item.SeasonableItemRenderer;
+import com.unforbidable.tfc.bids.Render.Item.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.FirepitRegistry;
@@ -138,12 +141,16 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Peeled Log Seasoned");
         logsSeasoned = new ItemLogsSeasoned()
                 .setUnlocalizedName("Log Seasoned");
+        firewood = new ItemFirewood().setNames(Global.WOOD_ALL)
+                .setUnlocalizedName("Firewood");
+        firewoodSeasoned = new ItemFirewoodSeasoned().setNames(Global.WOOD_ALL)
+                .setUnlocalizedName("Firewood Seasoned");
 
         smallStickBundle = new ItemSmallStickBundle()
                 .setUnlocalizedName("Small Stick Bundle");
         tiedStickBundle = new ItemTiedStickBundle()
                 .setUnlocalizedName("Tied Stick Bundle");
-        kindling = new ItemKindling().setFuelKindlingQuality(0.75f)
+        kindling = new ItemKindling().setFuelKindlingQuality(0.50f)
                 .setUnlocalizedName("Kindling");
 
         bark = new ItemBark().setNames(Global.WOOD_ALL)
@@ -156,7 +163,7 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Flat Bark Fibre");
         barkCordage = new ItemBastCordage()
                 .setUnlocalizedName("Bark Cordage");
-        barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1.25f)
+        barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1f)
                 .setUnlocalizedName("Bark Fibre Kindling");
     }
 
@@ -200,12 +207,14 @@ public class ItemSetup extends BidsItems {
     private static void registerWoodPileItems() {
         Bids.LOG.info("Register wood pile items");
 
-        WoodPileRegistry.registerItem(peeledLog);
-        WoodPileRegistry.registerItem(peeledLogSeasoned);
-        WoodPileRegistry.registerItem(TFCItems.logs, RenderLogsTFC.class);
-        WoodPileRegistry.registerItem(logsSeasoned, RenderLogsTFC.class);
+        WoodPileRegistry.registerSeasonableItem(peeledLog);
+        WoodPileRegistry.registerSeasonedItem(peeledLogSeasoned);
+        WoodPileRegistry.registerSeasonableItem(TFCItems.logs, RenderLogsTFC.class);
+        WoodPileRegistry.registerSeasonedItem(logsSeasoned, RenderLogsTFC.class);
         WoodPileRegistry.registerItem(TFCItems.thickLogs, RenderThickLogsTFC.class);
         WoodPileRegistry.registerItem(tiedStickBundle);
+        WoodPileRegistry.registerSeasonableItem(firewood);
+        WoodPileRegistry.registerSeasonedItem(firewoodSeasoned);
     }
 
     private static void registerFirepitFuel() {
@@ -218,9 +227,13 @@ public class ItemSetup extends BidsItems {
         FirepitRegistry.registerFuel(TFCItems.fireStarter, FuelStickTFC.class);
         FirepitRegistry.registerFuel(TFCItems.stickBundle, FuelStickBundleTFC.class);
         FirepitRegistry.registerFuel(Item.getItemFromBlock(TFCBlocks.peat), FuelPeatTFC.class);
-        FirepitRegistry.registerFuel(TFCItems.logs, FuelLogsTFC.class);
         FirepitRegistry.registerFuel(bark);
         FirepitRegistry.registerFuel(barkFibreKindling);
+        FirepitRegistry.registerFuel(firewoodSeasoned);
+
+        if (BidsOptions.Firepit.allowFuelLogsTFC) {
+            FirepitRegistry.registerFuel(TFCItems.logs, FuelLogsTFC.class);
+        }
 
         if (BidsOptions.Firepit.allowFuelCharcoal) {
             FirepitRegistry.registerFuel(TFCItems.coal, FuelCoalTFC.class);
@@ -231,8 +244,12 @@ public class ItemSetup extends BidsItems {
     private static void registerItemRenderers() {
         Bids.LOG.info("Register item renderers");
 
-        for (Item item : WoodPileRegistry.getItems()) {
-            MinecraftForgeClient.registerItemRenderer(item, new WoodPileItemRenderer());
+        for (Item item : WoodPileRegistry.getSeasonableItems()) {
+            MinecraftForgeClient.registerItemRenderer(item, new SeasonableItemRenderer());
+        }
+
+        for (Item item : WoodPileRegistry.getSeasonedItems()) {
+            MinecraftForgeClient.registerItemRenderer(item, new SeasonedItemRenderer());
         }
     }
 
@@ -316,6 +333,9 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(flatBarkFiber, flatBarkFiber.getUnlocalizedName());
         GameRegistry.registerItem(barkCordage, barkCordage.getUnlocalizedName());
         GameRegistry.registerItem(barkFibreKindling, barkFibreKindling.getUnlocalizedName());
+
+        GameRegistry.registerItem(firewood, firewood.getUnlocalizedName());
+        GameRegistry.registerItem(firewoodSeasoned, firewoodSeasoned.getUnlocalizedName());
     }
 
 }

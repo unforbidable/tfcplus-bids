@@ -146,4 +146,8 @@ public class WoodHelper {
         }
     }
 
+    public static boolean canMakeFirewood(int meta) {
+        return meta != 17 && meta != 24 && meta != 31;
+    }
+
 }

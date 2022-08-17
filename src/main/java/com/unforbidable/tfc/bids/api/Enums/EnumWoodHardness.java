@@ -1,10 +1,20 @@
 package com.unforbidable.tfc.bids.api.Enums;
 
 public enum EnumWoodHardness {
-    INVALID,
-    SOFT,
-    MODERATE,
-    HARD;
+    INVALID(24),
+    SOFT(18),
+    MODERATE(22),
+    HARD(24);
+
+    private final int seasoningDuration;
+
+    EnumWoodHardness(int seasoningDuration) {
+        this.seasoningDuration = seasoningDuration;
+    }
+
+    public int getSeasoningDuration() {
+        return seasoningDuration;
+    }
 
     // 0 - "Oak","Aspen","Birch","Chestnut",
     // 4 - "Douglas Fir","Hickory","Maple","Ash",

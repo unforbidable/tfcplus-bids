@@ -17,6 +17,7 @@ import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
 import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
+import com.unforbidable.tfc.bids.Blocks.BlockStackedFirewood;
 import com.unforbidable.tfc.bids.Blocks.BlockTiedStickBundle;
 import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
@@ -144,7 +145,11 @@ public class BlockSetup extends BidsBlocks {
         logWallNorthAlt3 = new BlockLogWall(EnumLogWallType.NORTH_ALT, 32).setBlockName("LogWallNorthAlt3");
         logWallCornerAlt3 = new BlockLogWall(EnumLogWallType.CORNER_ALT, 32).setBlockName("LogWallCornerAlt3");
 
-        tiedStickBundle = new BlockTiedStickBundle();
+        tiedStickBundle = new BlockTiedStickBundle().setBlockName("TiedStickBundle");
+
+        stackedFirewood = new BlockStackedFirewood(0).setBlockName("StackedFirewood");
+        stackedFirewood2 = new BlockStackedFirewood(16).setBlockName("StackedFirewood2");
+        stackedFirewood3 = new BlockStackedFirewood(32).setBlockName("StackedFirewood3");
 
         dryingRack = new BlockDryingRack().setBlockName("DryingRack");
     }
@@ -315,6 +320,10 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(tiedStickBundle, "TiedStickBundle");
 
         GameRegistry.registerBlock(dryingRack, ItemDryingRack.class, "DryingRack");
+
+        GameRegistry.registerBlock(stackedFirewood, "StackedFirewood");
+        GameRegistry.registerBlock(stackedFirewood2, "StackedFirewood2");
+        GameRegistry.registerBlock(stackedFirewood3, "StackedFirewood3");
     }
 
 }
