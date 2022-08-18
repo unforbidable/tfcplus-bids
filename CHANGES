@@ -193,3 +193,6 @@
 - Changed: NEI displays kindling quality
 - Known issue: Unless completely seasoned, seasoning progress of logs is only transferred when a single item is crafted when splitting or peeling
 - Known issue: For the time being, unseasoned TFC logs and chopped logs are still needed to make charcoal and run a beehive kiln
+
+0.18.1 (18-08-2022)
+- Changed: Updated Chinese translation by Eternal130
