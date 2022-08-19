@@ -16,7 +16,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Quarry](../../wiki/Quarry) - for harvesting Rough Stone block using the drill and wedge method, sedimentary rocks only
 * [Rough Stone and Rough Stone Bricks](../../wiki/Rough-Stone) - new building blocks for sedimentary rocks
 * [Adze](../../wiki/Adze) - a tool for carving blocks, making rough stone bricks, peeling logs and so on
-* [Carving](../../wiki/Carving) - allows shaping blocks with an adze, in like manner to TFC detailing with a chisel
+* [Carving](../../wiki/Carving) - for shaping blocks with an adze, in like manner to TFC detailing with a chisel, and carving recipes
 * [Peeled Log](../../wiki/Peeled-Log) - logs that had their bark stripped used to craft log walls
 * [Log Walls](../../wiki/Log-Wall) - new building block with 6 variations for log cabin construction
 * [Wood Pile](../../wiki/Wood-Pile) - for wood storage and seasoning peeled logs, stick bundles
@@ -27,6 +27,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Bark Fiber and Bark Cordage](../../wiki/Bark-Fiber) - make tying material and cordage from bark fiber
 * [Drying Rack](../../wiki/Drying-Rack) - for curing bark fibre strips and drying meat, cheese, and seaweed
 * [Firewood](../../wiki/Firewood) - fuel for new firepit, needs to be seasoned
+* [Chopping Block](../../wiki/Chopping-Block) - for peeling and splitting logs
 
 ### Translations
 

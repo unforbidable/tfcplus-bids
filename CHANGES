@@ -196,3 +196,10 @@
 
 0.18.1 (18-08-2022)
 - Changed: Updated Chinese translation by Eternal130
+
+0.19.0 (19-08-2022)
+- Added: Chopping block for peeling and splitting logs without crafting grid
+- Added: Vertical thick logs can be carved
+- Added: Carve a vertical thick log with an adze to make a chopping block
+- Added: Axe and adze can be placed on a chopping block
+- Changed: Peeling chopped logs no longer requires an axe, only an adze
