@@ -34,6 +34,10 @@ tile.NewFirepit.name=Firepit
 
 tile.DryingRack.name=Drying Rack
 
+tile.ChoppingBlock.name=Chopping Block
+tile.ChoppingBlock2.name=Chopping Block
+tile.ChoppingBlock3.name=Chopping Block
+
 tile.RoughStoneSed.Chalk.name=Rough Chalk
 tile.RoughStoneSed.Chert.name=Rough Chert
 tile.RoughStoneSed.Claystone.name=Rough Claystone

@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityChoppingBlock;
 import com.unforbidable.tfc.bids.WAILA.Providers.CarvingProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.CrucibleProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.DryingRackProvider;
@@ -16,6 +17,7 @@ import com.unforbidable.tfc.bids.WAILA.Providers.FirepitProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.FurnaceProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.QuarryProvider;
 import com.unforbidable.tfc.bids.WAILA.Providers.WoodPileProvider;
+import com.unforbidable.tfc.bids.WAILA.Providers.ChoppingBlockProvider;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.relauncher.Side;
@@ -40,6 +42,7 @@ public class WailaSetup {
         WailaProvider.addProvider(new WoodPileProvider(), TileEntityWoodPile.class);
         WailaProvider.addProvider(new FirepitProvider(), TileEntityNewFirepit.class);
         WailaProvider.addProvider(new DryingRackProvider(), TileEntityDryingRack.class);
+        WailaProvider.addProvider(new ChoppingBlockProvider(), TileEntityChoppingBlock.class);
     }
 
     @SideOnly(Side.CLIENT)
