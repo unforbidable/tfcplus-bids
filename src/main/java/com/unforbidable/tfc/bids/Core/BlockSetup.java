@@ -27,6 +27,7 @@ import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRawStone;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemChoppingBlock;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemDryingRack;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
@@ -374,9 +375,9 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(stackedFirewood2, "StackedFirewood2");
         GameRegistry.registerBlock(stackedFirewood3, "StackedFirewood3");
 
-        GameRegistry.registerBlock(choppingBlock, "ChoppingBlock");
-        GameRegistry.registerBlock(choppingBlock2, "ChoppingBlock2");
-        GameRegistry.registerBlock(choppingBlock3, "ChoppingBlock3");
+        GameRegistry.registerBlock(choppingBlock, ItemChoppingBlock.class, "ChoppingBlock");
+        GameRegistry.registerBlock(choppingBlock2, ItemChoppingBlock.class, "ChoppingBlock2");
+        GameRegistry.registerBlock(choppingBlock3, ItemChoppingBlock.class, "ChoppingBlock3");
     }
 
 }

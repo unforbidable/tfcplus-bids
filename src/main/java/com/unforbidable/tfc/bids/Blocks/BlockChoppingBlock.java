@@ -62,7 +62,8 @@ public class BlockChoppingBlock extends BlockContainer {
             float hitY, float hitZ) {
         ItemStack heldItemStack = player.getCurrentEquippedItem();
         if (heldItemStack != null) {
-            if (ChoppingBlockHelper.placeItemOnChoppingBlockAt(heldItemStack, player, world, x, y, z, hitX, hitY, hitZ)) {
+            if (ChoppingBlockHelper.placeItemOnChoppingBlockAt(heldItemStack, player, world, x, y, z, hitX, hitY,
+                    hitZ)) {
                 return true;
             }
         } else {
@@ -72,6 +73,11 @@ public class BlockChoppingBlock extends BlockContainer {
         }
 
         return true;
+    }
+
+    @Override
+    public int damageDropped(int damage) {
+        return damage;
     }
 
     @Override
@@ -123,7 +129,8 @@ public class BlockChoppingBlock extends BlockContainer {
     @SideOnly(Side.CLIENT)
     @Override
     public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec) {
-        MovingObjectPosition mop = ChoppingBlockHelper.onChoppingBlockCollisionRayTrace(world, x, y, z, startVec, endVec);
+        MovingObjectPosition mop = ChoppingBlockHelper.onChoppingBlockCollisionRayTrace(world, x, y, z, startVec,
+                endVec);
         if (mop != null) {
             return mop;
         }
