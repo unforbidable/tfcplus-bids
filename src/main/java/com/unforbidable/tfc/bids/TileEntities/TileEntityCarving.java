@@ -218,7 +218,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
         ItemStack is = getCraftingResult();
         EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
         worldObj.spawnEntityInWorld(ei);
-        Bids.LOG.info("Crafting result harvested: " + is.getDisplayName());
+        Bids.LOG.debug("Crafting result harvested: " + is.getDisplayName());
     }
 
     private void dropHarvestAtRatioCarved(float ratio) {
