@@ -36,6 +36,9 @@ import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.FoodDryingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
+import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipePattern;
 import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
 import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockRecipe;
 
@@ -57,6 +60,7 @@ public class RecipeSetup {
         registerOre();
         registerRecipes();
         registerCustomRecipes();
+        registerCarvingRecipes();
         registerHandlers();
     }
 
@@ -502,6 +506,28 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemKnife")
                 .matchCraftingItem(BidsItems.barkFibreStrip, 0));
+    }
+
+    private static void registerCarvingRecipes() {
+        Bids.LOG.info("Register carving recipes");
+
+        CarvingRecipePattern choppingBlockPattern = new CarvingRecipePattern()
+                .carveEntireLayer();
+
+        for (int i = 0; i < Global.WOOD_ALL.length; i++) {
+            int j = i % 16;
+
+            if (i < 16) {
+                CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock, 1, i % 16),
+                        new ItemStack(TFCBlocks.woodVert, 1, j), choppingBlockPattern));
+            } else if (i < 32) {
+                CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock2, 1, i % 16),
+                        new ItemStack(TFCBlocks.woodVert2, 1, j), choppingBlockPattern));
+            } else {
+                CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock3, 1, i % 16),
+                        new ItemStack(TFCBlocks.woodVert3, 1, j), choppingBlockPattern));
+            }
+        }
     }
 
     private static void registerKnappingRecipes() {
