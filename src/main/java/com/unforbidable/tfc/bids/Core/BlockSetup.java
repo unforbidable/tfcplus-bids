@@ -4,6 +4,7 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStoneBrick;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingStackedLogs;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingWoodVert;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackMessage;
 import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Bids;
@@ -20,12 +21,14 @@ import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
 import com.unforbidable.tfc.bids.Blocks.BlockStackedFirewood;
 import com.unforbidable.tfc.bids.Blocks.BlockTiedStickBundle;
 import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
+import com.unforbidable.tfc.bids.Blocks.BlockChoppingBlock;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingLogWall;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRawStone;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemChoppingBlock;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemDryingRack;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
@@ -42,7 +45,9 @@ import com.unforbidable.tfc.bids.Render.Blocks.RenderDryingRack;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderFireClayCrucible;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderQuarry;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderWoodPile;
+import com.unforbidable.tfc.bids.Render.Blocks.RenderChoppingBlock;
 import com.unforbidable.tfc.bids.Render.Tiles.TileRenderDryingRack;
+import com.unforbidable.tfc.bids.Render.Tiles.TileRenderChoppingBlock;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
@@ -51,10 +56,12 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityChoppingBlock;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.CarvingRegistry;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
+import com.unforbidable.tfc.bids.api.BidsConstants.ChoppingBlock;
 import com.unforbidable.tfc.bids.api.Enums.EnumLogWallType;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -154,6 +161,13 @@ public class BlockSetup extends BidsBlocks {
         stackedFirewood3 = new BlockStackedFirewood(32).setBlockName("StackedFirewood3");
 
         dryingRack = new BlockDryingRack().setBlockName("DryingRack");
+
+        choppingBlock = new BlockChoppingBlock(TFCBlocks.woodVert, ChoppingBlock.DEFAULT)
+                .setBlockName("ChoppingBlock");
+        choppingBlock2 = new BlockChoppingBlock(TFCBlocks.woodVert2, ChoppingBlock.DEFAULT)
+                .setBlockName("ChoppingBlock2");
+        choppingBlock3 = new BlockChoppingBlock(TFCBlocks.woodVert3, ChoppingBlock.DEFAULT)
+                .setBlockName("ChoppingBlock3");
     }
 
     private static void updateBlocks() {
@@ -208,6 +222,8 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(carvingWood, 5, 5);
 
         Blocks.fire.setFireInfo(woodPile, 10, 10);
+
+        Blocks.fire.setFireInfo(choppingBlock, 5, 5);
     }
 
     private static void registerOre() {
@@ -227,6 +243,7 @@ public class BlockSetup extends BidsBlocks {
         CarvingRegistry.registerCarving(new CarvingRawStone());
         CarvingRegistry.registerCarving(new CarvingLogWall());
         CarvingRegistry.registerCarving(new CarvingStackedLogs());
+        CarvingRegistry.registerCarving(new CarvingWoodVert());
     }
 
     private static void registerQuarryBlocks() {
@@ -256,6 +273,9 @@ public class BlockSetup extends BidsBlocks {
 
         dryingRackRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(dryingRackRenderId, new RenderDryingRack());
+
+        choppingBlockRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(choppingBlockRenderId, new RenderChoppingBlock());
     }
 
     private static void registerTileEntities() {
@@ -275,13 +295,16 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityNewFirepit.class, "BidsNewFirepit");
 
         GameRegistry.registerTileEntity(TileEntityDryingRack.class, "BidsDryingRack");
+
+        GameRegistry.registerTileEntity(TileEntityChoppingBlock.class, "BidsChoppingBlock");
     }
 
     @SideOnly(Side.CLIENT)
     private static void registerTileEntitiesClientOnly() {
-        Bids.LOG.info("Bind tile entitie special renderers");
+        Bids.LOG.info("Bind tile entity special renderers");
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDryingRack.class, new TileRenderDryingRack());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityChoppingBlock.class, new TileRenderChoppingBlock());
     }
 
     private static void registerMessages() {
@@ -353,6 +376,10 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(stackedFirewood, "StackedFirewood");
         GameRegistry.registerBlock(stackedFirewood2, "StackedFirewood2");
         GameRegistry.registerBlock(stackedFirewood3, "StackedFirewood3");
+
+        GameRegistry.registerBlock(choppingBlock, ItemChoppingBlock.class, "ChoppingBlock");
+        GameRegistry.registerBlock(choppingBlock2, ItemChoppingBlock.class, "ChoppingBlock2");
+        GameRegistry.registerBlock(choppingBlock3, ItemChoppingBlock.class, "ChoppingBlock3");
     }
 
 }

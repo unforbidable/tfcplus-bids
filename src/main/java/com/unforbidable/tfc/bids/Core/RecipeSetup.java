@@ -30,11 +30,17 @@ import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsConstants.ChoppingBlock;
 import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.FoodDryingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
+import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipePattern;
+import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
+import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockRecipe;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -54,6 +60,7 @@ public class RecipeSetup {
         registerOre();
         registerRecipes();
         registerCustomRecipes();
+        registerCarvingRecipes();
         registerHandlers();
     }
 
@@ -263,11 +270,24 @@ public class RecipeSetup {
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
                         new ItemStack(TFCItems.logs, 1, i * 2), "itemAdze"));
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
-                        new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAdze", "itemAxe"));
+                        new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAdze"));
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                         new ItemStack(BidsItems.logsSeasoned, 1, i * 2), "itemAdze"));
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
-                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemAdze", "itemAxe"));
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemAdze"));
+
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.peeledLog, 1, i), "itemAdze",
+                        new ItemStack(TFCItems.logs, 1, i * 2)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.peeledLog, 1, i), "itemAdze",
+                        new ItemStack(TFCItems.logs, 1, i * 2 + 1)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.peeledLogSeasoned, 1, i), "itemAdze",
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.peeledLogSeasoned, 1, i), "itemAdze",
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1)));
 
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                         new ItemStack(BidsItems.peeledLog, 1, i),
@@ -293,6 +313,25 @@ public class RecipeSetup {
                         new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemAxe"));
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
                         new ItemStack(BidsItems.peeledLogSeasoned, 1, i), "itemAxe"));
+
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewood, 1, i), "itemAxe",
+                        new ItemStack(TFCItems.logs, 1, i * 2)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewood, 1, i), "itemAxe",
+                        new ItemStack(TFCItems.logs, 1, i * 2 + 1)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewood, 1, i), "itemAxe",
+                        new ItemStack(BidsItems.peeledLog, 1, i)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewoodSeasoned, 1, i), "itemAxe",
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewoodSeasoned, 1, i), "itemAxe",
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewoodSeasoned, 1, i), "itemAxe",
+                        new ItemStack(BidsItems.peeledLogSeasoned, 1, i)));
 
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
                         new ItemStack(BidsItems.firewood, 1, i),
@@ -467,6 +506,28 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemKnife")
                 .matchCraftingItem(BidsItems.barkFibreStrip, 0));
+    }
+
+    private static void registerCarvingRecipes() {
+        Bids.LOG.info("Register carving recipes");
+
+        CarvingRecipePattern choppingBlockPattern = new CarvingRecipePattern()
+                .carveEntireLayer();
+
+        for (int i = 0; i < Global.WOOD_ALL.length; i++) {
+            int j = i % 16;
+
+            if (i < 16) {
+                CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock, 1, i % 16),
+                        new ItemStack(TFCBlocks.woodVert, 1, j), choppingBlockPattern));
+            } else if (i < 32) {
+                CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock2, 1, i % 16),
+                        new ItemStack(TFCBlocks.woodVert2, 1, j), choppingBlockPattern));
+            } else {
+                CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock3, 1, i % 16),
+                        new ItemStack(TFCBlocks.woodVert3, 1, j), choppingBlockPattern));
+            }
+        }
     }
 
     private static void registerKnappingRecipes() {

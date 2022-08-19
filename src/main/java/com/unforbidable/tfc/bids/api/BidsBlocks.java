@@ -10,6 +10,7 @@ public class BidsBlocks {
     public static int carvingRenderId;
     public static int woodPileRenderId;
     public static int dryingRackRenderId;
+    public static int choppingBlockRenderId;
 
     public static Block clayCrucible;
     public static Block fireClayCrucible;
@@ -58,5 +59,9 @@ public class BidsBlocks {
     public static Block stackedFirewood3;
 
     public static Block dryingRack;
+
+    public static Block choppingBlock;
+    public static Block choppingBlock2;
+    public static Block choppingBlock3;
 
 }

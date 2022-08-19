@@ -49,11 +49,10 @@ public class ActionDamageTool extends RecipeAction {
     }
 
     private void damageToolInSlot(ItemCraftedEvent event, int i) {
-        ItemStack isUsedTool = event.craftMatrix.getStackInSlot(i).copy();
+        ItemStack isUsedTool = event.craftMatrix.getStackInSlot(i);
         if (isUsedTool != null
                 && damageTool(event, isUsedTool)
                 && (isUsedTool.getItemDamage() != 0 || event.player.capabilities.isCreativeMode)) {
-            event.craftMatrix.setInventorySlotContents(i, isUsedTool);
             int stackSize = event.craftMatrix.getStackInSlot(i).stackSize;
             stackSize = Math.min(stackSize + 1, 2);
             event.craftMatrix.getStackInSlot(i).stackSize = stackSize;

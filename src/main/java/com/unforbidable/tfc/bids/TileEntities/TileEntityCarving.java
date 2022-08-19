@@ -6,6 +6,8 @@ import com.unforbidable.tfc.bids.Core.Carving.CarvingBitMap;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.api.CarvingRegistry;
+import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
+import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
@@ -36,6 +38,9 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     boolean clientInitialized = false;
     int carvedBitCount = 0;
 
+    ItemStack cachedCraftingResult = null;
+    boolean cachedCraftingResultIsValid = false;
+
     public TileEntityCarving() {
         super();
     }
@@ -62,6 +67,17 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
 
     public boolean isCarvingLocked() {
         return isCarvingLocked;
+    }
+
+    public ItemStack getCraftingResult() {
+        if (!cachedCraftingResultIsValid) {
+            final CarvingRecipe recipe = CarvingManager.findMatchingRecipe(carvedBlockId, carvedBlockMetadata,
+                    carvedBits);
+            cachedCraftingResult = recipe != null ? recipe.getCraftingResult() : null;
+            cachedCraftingResultIsValid = true;
+        }
+
+        return cachedCraftingResult;
     }
 
     public boolean setSelectedBit(CarvingBit bit) {
@@ -104,6 +120,8 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
                 Bids.LOG.debug("The entire carving was removed");
                 worldObj.setBlockToAir(xCoord, yCoord, zCoord);
             }
+
+            cachedCraftingResultIsValid = false;
 
             return true;
         }
@@ -189,7 +207,18 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     }
 
     public void onCarvingBroken() {
-        dropHarvestAtRatioCarved(1);
+        if (getCraftingResult() != null) {
+            dropCraftingResult();
+        } else {
+            dropHarvestAtRatioCarved(1);
+        }
+    }
+
+    private void dropCraftingResult() {
+        ItemStack is = getCraftingResult();
+        EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
+        worldObj.spawnEntityInWorld(ei);
+        Bids.LOG.info("Crafting result harvested: " + is.getDisplayName());
     }
 
     private void dropHarvestAtRatioCarved(float ratio) {
@@ -263,6 +292,8 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
         isCarvingLocked = tag.getBoolean("isCarvingLocked");
 
         carvedBits.readFromNBT(tag, "carvedBits");
+
+        cachedCraftingResultIsValid = false;
     }
 
     @Override
@@ -271,6 +302,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
             switch (message.getAction()) {
                 case ACTION_UPDATE:
                     carvedBits.setBytes(message.getCarveData());
+                    cachedCraftingResultIsValid = false;
                     worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
                     Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
                             + message.getZCoord());
