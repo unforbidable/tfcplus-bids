@@ -266,11 +266,11 @@ public class RecipeSetup {
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
                         new ItemStack(TFCItems.logs, 1, i * 2), "itemAdze"));
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
-                        new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAdze", "itemAxe"));
+                        new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAdze"));
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                         new ItemStack(BidsItems.logsSeasoned, 1, i * 2), "itemAdze"));
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
-                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemAdze", "itemAxe"));
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemAdze"));
 
                 ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
                         new ItemStack(BidsItems.peeledLog, 1, i), "itemAdze",
