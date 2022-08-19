@@ -30,11 +30,14 @@ import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsConstants.ChoppingBlock;
 import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.FoodDryingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
+import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockRecipe;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -269,6 +272,19 @@ public class RecipeSetup {
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                         new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemAdze", "itemAxe"));
 
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.peeledLog, 1, i), "itemAdze",
+                        new ItemStack(TFCItems.logs, 1, i * 2)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.peeledLog, 1, i), "itemAdze",
+                        new ItemStack(TFCItems.logs, 1, i * 2 + 1)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.peeledLogSeasoned, 1, i), "itemAdze",
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.peeledLogSeasoned, 1, i), "itemAdze",
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1)));
+
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                         new ItemStack(BidsItems.peeledLog, 1, i),
                         SeasoningHelper.getWoodSeasoningDuration(i) - 2));
@@ -293,6 +309,25 @@ public class RecipeSetup {
                         new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemAxe"));
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
                         new ItemStack(BidsItems.peeledLogSeasoned, 1, i), "itemAxe"));
+
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewood, 1, i), "itemAxe",
+                        new ItemStack(TFCItems.logs, 1, i * 2)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewood, 1, i), "itemAxe",
+                        new ItemStack(TFCItems.logs, 1, i * 2 + 1)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewood, 1, i), "itemAxe",
+                        new ItemStack(BidsItems.peeledLog, 1, i)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewoodSeasoned, 1, i), "itemAxe",
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewoodSeasoned, 1, i), "itemAxe",
+                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1)));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe(ChoppingBlock.DEFAULT,
+                        new ItemStack(BidsItems.firewoodSeasoned, 1, i), "itemAxe",
+                        new ItemStack(BidsItems.peeledLogSeasoned, 1, i)));
 
                 SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
                         new ItemStack(BidsItems.firewood, 1, i),
