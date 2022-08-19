@@ -155,7 +155,8 @@ public class TileEntityChoppingBlock extends TileEntity {
             Bids.LOG.debug("Tool used on chopping block: " + itemStack.getDisplayName()
                     + " slot: " + slot);
 
-            final ChoppingBlockRecipe recipe = ChoppingBlockManager.findMatchingRecipe(choppingBlockId, itemStack, storage[slot]);
+            final ChoppingBlockRecipe recipe = ChoppingBlockManager.findMatchingRecipe(choppingBlockId, itemStack,
+                    storage[slot]);
             if (recipe != null) {
                 Bids.LOG.debug("Found matching recipe for tool: " + itemStack.getDisplayName()
                         + " ingredient: " + storage[slot].getDisplayName() + "[" + storage[slot].stackSize + "]");
@@ -259,7 +260,9 @@ public class TileEntityChoppingBlock extends TileEntity {
             final double velocityZ = dz * 0.3 + dz * r3 * 0.2;
 
             final EntityItem ei = new EntityItem(worldObj, posX, posY, posZ, storage[slot]);
-            ei.setVelocity(velocityX, velocityY, velocityZ);
+            ei.motionX = velocityX;
+            ei.motionY = velocityY;
+            ei.motionZ = velocityZ;
             ei.delayBeforeCanPickup = 10;
             worldObj.spawnEntityInWorld(ei);
 
