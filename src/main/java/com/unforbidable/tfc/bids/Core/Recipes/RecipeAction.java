@@ -3,8 +3,6 @@ package com.unforbidable.tfc.bids.Core.Recipes;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.unforbidable.tfc.bids.Bids;
-
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
@@ -75,8 +73,6 @@ public abstract class RecipeAction {
                 for (Item ingredient : ingredients) {
                     if (is.getItem() == ingredient) {
                         ingredientsFound++;
-
-                        Bids.LOG.info("Ingredient found: " + is.getDisplayName());
                     }
                 }
             }
