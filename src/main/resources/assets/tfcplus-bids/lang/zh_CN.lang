@@ -34,6 +34,10 @@ tile.NewFirepit.name=火堆
 
 tile.DryingRack.name=晒衣架
 
+tile.ChoppingBlock.name=柴墩
+tile.ChoppingBlock2.name=柴墩
+tile.ChoppingBlock3.name=柴墩
+
 tile.RoughStoneSed.Chalk.name=粗糙白垩岩
 tile.RoughStoneSed.Chert.name=粗糙角岩
 tile.RoughStoneSed.Claystone.name=粗糙粘土岩
