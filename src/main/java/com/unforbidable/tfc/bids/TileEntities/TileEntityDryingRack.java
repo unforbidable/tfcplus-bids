@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
+import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
@@ -18,6 +19,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -27,7 +29,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class TileEntityDryingRack extends TileEntity implements IMessageHanldingTileEntity<DryingRackMessage> {
+public class TileEntityDryingRack extends TileEntity
+        implements IInventory, IMessageHanldingTileEntity<DryingRackMessage> {
 
     public static final int MAX_STORAGE = 4;
 
@@ -46,6 +49,7 @@ public class TileEntityDryingRack extends TileEntity implements IMessageHanlding
     int selectedSection = -1;
 
     Timer dryingTimer = new Timer(10);
+    Timer decayTimer = new Timer(100);
 
     public TileEntityDryingRack() {
         super();
@@ -121,6 +125,10 @@ public class TileEntityDryingRack extends TileEntity implements IMessageHanlding
                 lastDryingTicks = TFC_Time.getTotalTicks();
 
                 initialized = true;
+            }
+
+            if (decayTimer.tick()) {
+                TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, false);
             }
 
             // When inventory content changes
@@ -416,6 +424,88 @@ public class TileEntityDryingRack extends TileEntity implements IMessageHanlding
         TargetPoint tp = new TargetPoint(world.provider.dimensionId, x, y, z, 255);
         Bids.network.sendToAllAround(new DryingRackMessage(x, y, z, TileEntityDryingRack.ACTION_UPDATE), tp);
         Bids.LOG.debug("Sent update message");
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return MAX_STORAGE;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int slot) {
+        // This is called by TFC to retrieve items for decay calc etc
+        return storage[slot] != null ? storage[slot].dryingItem : null;
+    }
+
+    @Override
+    public ItemStack decrStackSize(int slot, int amount) {
+        return null;
+    }
+
+    @Override
+    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
+        return null;
+    }
+
+    @Override
+    public void setInventorySlotContents(int slot, ItemStack itemStack) {
+        // This is called by TFC to return items after decay calc etc
+        if (itemStack == null) {
+            if (storage[slot] != null) {
+                // Item has decayed out of existence
+                storage[slot] = null;
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+                clientNeedToUpdate = true;
+            } else {
+                // null for null returned
+            }
+        } else {
+            DryingRackItem prev = storage[slot];
+
+            if (prev != null) {
+                storage[slot] = new DryingRackItem(itemStack, prev.tyingItem, prev.dryingStartTicks,
+                        prev.tyingItemUsedUp);
+            } else {
+                // This should not happen
+                Bids.LOG.warn("TFC returned an item after decay calculation into a slot that is empty.");
+            }
+        }
+    }
+
+    @Override
+    public String getInventoryName() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCustomInventoryName() {
+        return false;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return false;
+    }
+
+    @Override
+    public void openInventory() {
+
+    }
+
+    @Override
+    public void closeInventory() {
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+        return false;
     }
 
 }
