@@ -52,4 +52,8 @@ public class CarvingRecipePattern {
         return true;
     }
 
+    public boolean testBit(int x, int y, int z) {
+        return carvedPattern.testBit(x, y, z);
+    }
+
 }

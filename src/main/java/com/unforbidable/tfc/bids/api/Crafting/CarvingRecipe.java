@@ -16,6 +16,14 @@ public class CarvingRecipe {
         this.pattern = pattern;
     }
 
+    public ItemStack getInput() {
+        return input;
+    }
+
+    public CarvingRecipePattern getPattern() {
+        return pattern;
+    }
+
     public boolean matchCarving(ItemStack ingredient, CarvingBitMap carvedBits) {
         return matchCarving(ingredient) && pattern.matchCarving(carvedBits);
     }
