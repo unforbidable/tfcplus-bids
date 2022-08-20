@@ -31,12 +31,12 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Translations
 
-* Chinese by Eternal130 (v0.18.x)
+* Chinese by Eternal130 (v0.19.x)
 
 ### Compatibility
 
 * Waila - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, etc
-* Not Enough Items - recipes for seasoning, quarrying, drying and new firepit fuels
+* Not Enough Items - recipes for seasoning, quarrying, drying, carving and new firepit fuels
 
 ### Compiling
 
