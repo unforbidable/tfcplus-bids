@@ -157,10 +157,10 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Bark");
         barkFibre = new ItemBastFibre()
                 .setUnlocalizedName("Bark Fibre");
-        barkFibreStrip = new ItemBastFibreStrip()
-                .setUnlocalizedName("Bark Fibre Strip");
         flatBarkFibre = new ItemGenericFlat().setTextureFolder("plants")
                 .setUnlocalizedName("Flat Bark Fibre");
+        barkFibreStrip = new ItemBastFibreStrip().setSpecialCraftingType(flatBarkFibre)
+                .setUnlocalizedName("Bark Fibre Strip");
         barkCordage = new ItemBastCordage()
                 .setUnlocalizedName("Bark Cordage");
         barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1f)

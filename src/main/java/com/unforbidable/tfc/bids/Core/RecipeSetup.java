@@ -602,7 +602,7 @@ public class RecipeSetup {
                 new Object[] { "#####", "#   #", "### #", "    #", "#####", '#', null },
                 new Object[] { "#####", "#   #", "# # #", "# # #", "### #", '#', null } };
         for (Object[] pattern : cordagePatterns) {
-            pattern[6] = new ItemStack(BidsItems.flatBarkFibre, 1);
+            pattern[6] = new ItemStack(BidsItems.flatBarkFibre, 1, 1);
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.barkCordage), pattern);
         }
     }
