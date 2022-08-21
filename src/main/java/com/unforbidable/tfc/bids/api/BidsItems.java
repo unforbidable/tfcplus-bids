@@ -52,7 +52,7 @@ public class BidsItems {
     public static Item bark;
     public static Item barkFibre;
     public static Item barkFibreStrip;
-    public static Item flatBarkFiber;
+    public static Item flatBarkFibre;
     public static Item barkCordage;
     public static Item barkFibreKindling;
 

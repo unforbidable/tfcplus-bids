@@ -159,7 +159,7 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Bark Fibre");
         barkFibreStrip = new ItemBastFibreStrip()
                 .setUnlocalizedName("Bark Fibre Strip");
-        flatBarkFiber = new ItemGenericFlat().setTextureFolder("plants")
+        flatBarkFibre = new ItemGenericFlat().setTextureFolder("plants")
                 .setUnlocalizedName("Flat Bark Fibre");
         barkCordage = new ItemBastCordage()
                 .setUnlocalizedName("Bark Cordage");
@@ -330,7 +330,7 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(bark, bark.getUnlocalizedName());
         GameRegistry.registerItem(barkFibre, barkFibre.getUnlocalizedName());
         GameRegistry.registerItem(barkFibreStrip, barkFibreStrip.getUnlocalizedName());
-        GameRegistry.registerItem(flatBarkFiber, flatBarkFiber.getUnlocalizedName());
+        GameRegistry.registerItem(flatBarkFibre, flatBarkFibre.getUnlocalizedName());
         GameRegistry.registerItem(barkCordage, barkCordage.getUnlocalizedName());
         GameRegistry.registerItem(barkFibreKindling, barkFibreKindling.getUnlocalizedName());
 

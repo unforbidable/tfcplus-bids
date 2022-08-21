@@ -42,7 +42,7 @@ public class ItemBastFibreStrip extends Item implements ISize {
         if (itemstack.getItemDamage() == 1 && itemstack.stackSize >= 5) {
             // Open bark crafting gui
             PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(entityplayer);
-            pi.specialCraftingType = new ItemStack(BidsItems.flatBarkFiber, 1, 0);
+            pi.specialCraftingType = new ItemStack(BidsItems.flatBarkFibre, 1, 0);
             pi.specialCraftingTypeAlternate = null;
             entityplayer.openGui(Bids.instance, BidsGui.barkFibreKnappingGui, world, (int) entityplayer.posX,
                     (int) entityplayer.posY, (int) entityplayer.posZ);
