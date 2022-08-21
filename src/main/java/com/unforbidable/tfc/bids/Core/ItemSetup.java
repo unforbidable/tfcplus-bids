@@ -21,7 +21,7 @@ import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
 import com.unforbidable.tfc.bids.Items.ItemFirewood;
 import com.unforbidable.tfc.bids.Items.ItemFirewoodSeasoned;
-import com.unforbidable.tfc.bids.Items.ItemFlatGlass;
+import com.unforbidable.tfc.bids.Items.ItemGenericFlat;
 import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
 import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
 import com.unforbidable.tfc.bids.Items.ItemGlassLump;
@@ -81,7 +81,7 @@ public class ItemSetup extends BidsItems {
         metalBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Metal Blowpipe");
         brassBlowpipe = new ItemMetalBlowpipe().setUnlocalizedName("Brass Blowpipe");
 
-        flatGlass = new ItemFlatGlass().setUnlocalizedName("Flat Glass");
+        flatGlass = new ItemGenericFlat().setUnlocalizedName("Flat Glass");
 
         drinkingGlass = new ItemDrinkingGlass().setGlassReturnAmount(40).setMaxStackSize(4)
                 .setUnlocalizedName("Drinking Glass");
@@ -159,7 +159,7 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Bark Fibre");
         barkFibreStrip = new ItemBastFibreStrip()
                 .setUnlocalizedName("Bark Fibre Strip");
-        flatBarkFiber = new ItemFlatGlass()
+        flatBarkFiber = new ItemGenericFlat().setTextureFolder("plants")
                 .setUnlocalizedName("Flat Bark Fibre");
         barkCordage = new ItemBastCordage()
                 .setUnlocalizedName("Bark Cordage");
