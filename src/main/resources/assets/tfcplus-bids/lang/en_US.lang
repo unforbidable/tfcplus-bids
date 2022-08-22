@@ -652,6 +652,13 @@ item.Flat Bark Fibre.name=Flat Bark Fiber
 item.Bark Cordage.name=Bark Cordage
 item.Bark Fibre Kindling.name=Bark Fiber Kindling
 
+item.Flat Birch Bark.name=Birch Bark
+item.Birch Bark Sheet.name=Birch Bark Sheet
+item.Strap.Birch Bark.name=Birch Bark Strap
+item.Repair Patch.Birch Bark.name=Birch Bark Patch
+item.Bag Piece.Birch Bark.name=Birch Bark Bag Piece
+item.Birch Bark Bag.name=Birch Bark Bag
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs
 itemGroup.Bids.BuildingBlocks=Bids and Pieces - Building Blocks
@@ -666,6 +673,7 @@ gui.Help.Adze=Hold §fShift §7and §bRight Click §7block to begin carving.
 gui.Help.Adze2=Hold §fShift §7and §bRight Click §7block to lock or unlock carving.
 gui.Help.Adze3=§bRight Click §7block to carve.
 gui.Help.BastFibreStrip=§bRight Click §7with 5 in a stack to craft.
+gui.Help.Bag=§bRight Click §7to open inventory.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified

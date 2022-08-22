@@ -56,4 +56,11 @@ public class BidsItems {
     public static Item barkCordage;
     public static Item barkFibreKindling;
 
+    public static Item flatBirchBark;
+    public static Item birchBarkSheet;
+    public static Item birchBarkStrap;
+    public static Item birchBarkRepairPatch;
+    public static Item birchBarkBagPiece;
+    public static Item birchBarkBag;
+
 }

@@ -19,8 +19,11 @@ import com.unforbidable.tfc.bids.Items.ItemBark;
 import com.unforbidable.tfc.bids.Items.ItemDrill;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
+import com.unforbidable.tfc.bids.Items.ItemExtraBag;
+import com.unforbidable.tfc.bids.Items.ItemExtraClothingPiece;
 import com.unforbidable.tfc.bids.Items.ItemFirewood;
 import com.unforbidable.tfc.bids.Items.ItemFirewoodSeasoned;
+import com.unforbidable.tfc.bids.Items.ItemGenericClothSheet;
 import com.unforbidable.tfc.bids.Items.ItemGenericFlat;
 import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
 import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
@@ -43,6 +46,7 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.FirepitRegistry;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
+import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -165,6 +169,19 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Bark Cordage");
         barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1f)
                 .setUnlocalizedName("Bark Fibre Kindling");
+
+        flatBirchBark = new ItemGenericFlat().setTextureFolder("armor/clothing")
+                .setUnlocalizedName("Flat Birch Bark");
+        birchBarkSheet = new ItemGenericClothSheet().setSpecialCraftingType(flatBirchBark)
+                .setUnlocalizedName("Birch Bark Sheet");
+        birchBarkRepairPatch = new ItemExtraClothingPiece().setExtraPieceTypes(ExtraClothing.BIRCH_BARK)
+                .setUnlocalizedName("Repair Patch");
+        birchBarkBagPiece = new ItemExtraClothingPiece().setExtraPieceTypes(ExtraClothing.BIRCH_BARK)
+                .setUnlocalizedName("Bag Piece");
+        birchBarkStrap = new ItemExtraClothingPiece().setExtraPieceTypes(ExtraClothing.BIRCH_BARK)
+                .setUnlocalizedName("Strap");
+        birchBarkBag = new ItemExtraBag().setMaxDamage(20)
+                .setUnlocalizedName("Birch Bark Bag");
     }
 
     private static void setupToolHarvest() {
@@ -336,6 +353,13 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(firewood, firewood.getUnlocalizedName());
         GameRegistry.registerItem(firewoodSeasoned, firewoodSeasoned.getUnlocalizedName());
+
+        GameRegistry.registerItem(flatBirchBark, flatBirchBark.getUnlocalizedName());
+        GameRegistry.registerItem(birchBarkSheet, birchBarkSheet.getUnlocalizedName());
+        GameRegistry.registerItem(birchBarkStrap, birchBarkStrap.getUnlocalizedName());
+        GameRegistry.registerItem(birchBarkRepairPatch, birchBarkRepairPatch.getUnlocalizedName());
+        GameRegistry.registerItem(birchBarkBagPiece, birchBarkBagPiece.getUnlocalizedName());
+        GameRegistry.registerItem(birchBarkBag, birchBarkBag.getUnlocalizedName());
     }
 
 }
