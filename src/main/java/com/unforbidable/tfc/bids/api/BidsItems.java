@@ -61,6 +61,9 @@ public class BidsItems {
     public static Item birchBarkStrap;
     public static Item birchBarkRepairPatch;
     public static Item birchBarkBagPiece;
+    public static Item birchBarkCupPiece;
     public static Item birchBarkBag;
+    public static Item birchBarkCupUnfinished;
+    public static Item birchBarkCup;
 
 }

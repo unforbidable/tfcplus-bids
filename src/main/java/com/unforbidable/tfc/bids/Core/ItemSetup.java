@@ -18,6 +18,7 @@ import com.unforbidable.tfc.bids.Items.ItemAdze;
 import com.unforbidable.tfc.bids.Items.ItemBark;
 import com.unforbidable.tfc.bids.Items.ItemDrill;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
+import com.unforbidable.tfc.bids.Items.ItemDrinkingCloth;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
 import com.unforbidable.tfc.bids.Items.ItemExtraBag;
 import com.unforbidable.tfc.bids.Items.ItemExtraClothingPiece;
@@ -31,6 +32,7 @@ import com.unforbidable.tfc.bids.Items.ItemGlassLump;
 import com.unforbidable.tfc.bids.Items.ItemKindling;
 import com.unforbidable.tfc.bids.Items.ItemLogsSeasoned;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
+import com.unforbidable.tfc.bids.Items.ItemMiscSewable;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLog;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLogSeasoned;
@@ -180,8 +182,14 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Bag Piece");
         birchBarkStrap = new ItemExtraClothingPiece().setExtraPieceTypes(ExtraClothing.BIRCH_BARK)
                 .setUnlocalizedName("Strap");
+        birchBarkCupPiece = new ItemExtraClothingPiece().setExtraPieceTypes(ExtraClothing.BIRCH_BARK)
+                .setUnlocalizedName("Cup Piece");
         birchBarkBag = new ItemExtraBag().setMaxDamage(20)
                 .setUnlocalizedName("Birch Bark Bag");
+        birchBarkCupUnfinished = new ItemMiscSewable()
+                .setUnlocalizedName("Birch Bark Cup Unfinished");
+        birchBarkCup = new ItemDrinkingCloth()
+                .setUnlocalizedName("Birch Bark Cup");
     }
 
     private static void setupToolHarvest() {
@@ -360,6 +368,9 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(birchBarkRepairPatch, birchBarkRepairPatch.getUnlocalizedName());
         GameRegistry.registerItem(birchBarkBagPiece, birchBarkBagPiece.getUnlocalizedName());
         GameRegistry.registerItem(birchBarkBag, birchBarkBag.getUnlocalizedName());
+        GameRegistry.registerItem(birchBarkCupPiece, birchBarkCupPiece.getUnlocalizedName());
+        GameRegistry.registerItem(birchBarkCupUnfinished, birchBarkCupUnfinished.getUnlocalizedName());
+        GameRegistry.registerItem(birchBarkCup, birchBarkCup.getUnlocalizedName());
     }
 
 }

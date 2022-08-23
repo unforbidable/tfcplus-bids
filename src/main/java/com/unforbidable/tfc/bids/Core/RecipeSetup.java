@@ -49,6 +49,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
@@ -251,6 +252,9 @@ public class RecipeSetup {
 
         GameRegistry.addRecipe(new ItemStack(TFCItems.rope),
                 "11", "11", '1', BidsItems.barkCordage);
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkCup, 1, 0),
+                BidsItems.birchBarkCupUnfinished, Items.slime_ball));
 
         // Select TFC recipes where bark cordage and bark fiber strips can be used
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.primitiveLoom, 1, 0),
@@ -622,6 +626,10 @@ public class RecipeSetup {
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkRepairPatch, 4, 0),
                 new Object[] { "## ##", "## ##", "     ", "## ##", "## ##", '#', BidsItems.flatBirchBark });
+
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkCupPiece, 1),
+                new Object[] { "     ", "     ", "#### ", "### #", "#### ", '#',
+                        new ItemStack(BidsItems.flatBirchBark, 1) });
     }
 
     private static void registerSewingRecipes() {
@@ -641,6 +649,24 @@ public class RecipeSetup {
                 new ItemStack[] {
                         new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
                         new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
+                        new ItemStack(BidsItems.birchBarkStrap, 1, 0)
+                }));
+
+        int[][][] cupSewing = new int[][][] { {
+                { 11, 74 },
+                { 19, 87 },
+                { 64, 87 },
+                { 72, 74 },
+                { 72, 37 },
+                { 60, 40 },
+                { 21, 40 },
+                { 11, 37 }
+        } };
+
+        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+                new SewingPattern(new ItemStack(BidsItems.birchBarkCupUnfinished, 1), cupSewing, true),
+                new ItemStack[] {
+                        new ItemStack(BidsItems.birchBarkCupPiece, 1, 0),
                         new ItemStack(BidsItems.birchBarkStrap, 1, 0)
                 }));
     }

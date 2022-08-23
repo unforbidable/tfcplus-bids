@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.dunk.tfc.Items.ItemDrink;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.Items.ItemDrinkingCloth;
+import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
@@ -53,14 +55,25 @@ public class DrinkOverlayHandler {
     }
 
     public void registerIcons(IIconRegister registerer) {
-        String folder = isPottery ? "pottery" : "glassware";
         for (int i : parts) {
             String suffix = i == 100 ? "" : "." + i;
-            IIcon icon = registerer.registerIcon(Tags.MOD_ID + ":" + folder + "/"
+            IIcon icon = registerer.registerIcon(Tags.MOD_ID + ":" + getOverlayFolder() + "/"
                     + ((Item) item).getContainerItem().getUnlocalizedName().replace("item.", "")
                     + ".Overlay" + suffix);
             icons.put(i, icon);
         }
+    }
+
+    private String getOverlayFolder() {
+        if (isPottery) {
+            return "pottery";
+        } else if (item.getContainerItem() instanceof ItemDrinkingGlass) {
+            return "glassware";
+        } else if (item.getContainerItem() instanceof ItemDrinkingCloth) {
+            return "armor/clothing";
+        }
+
+        return "";
     }
 
     public IIcon getIcon(ItemStack stack, int pass) {
