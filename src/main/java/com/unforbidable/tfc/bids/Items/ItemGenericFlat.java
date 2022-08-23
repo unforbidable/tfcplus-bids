@@ -14,14 +14,14 @@ public class ItemGenericFlat extends ItemFlatGeneric {
     }
 
     public ItemGenericFlat setTextureFolder(String textureFolder) {
-        this.textureFolder = textureFolder;
+        this.textureFolder = textureFolder + "/";
 
         return this;
     }
 
     @Override
     public void registerIcons(IIconRegister registerer) {
-        this.itemIcon = registerer.registerIcon(Tags.MOD_ID + ":" + textureFolder + "/"
+        this.itemIcon = registerer.registerIcon(Tags.MOD_ID + ":" + textureFolder
                 + this.getUnlocalizedName().replace("item.", ""));
     }
 
