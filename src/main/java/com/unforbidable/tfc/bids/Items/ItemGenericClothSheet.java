@@ -23,7 +23,7 @@ public class ItemGenericClothSheet extends ItemLeather {
     public ItemGenericClothSheet() {
         super();
 
-        setCreativeTab(BidsCreativeTabs.tabMaterials);
+        setCreativeTab(BidsCreativeTabs.bidsMaterials);
     }
 
     @Override
