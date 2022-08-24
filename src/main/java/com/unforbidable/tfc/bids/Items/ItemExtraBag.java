@@ -1,19 +1,13 @@
 package com.unforbidable.tfc.bids.Items;
 
-import java.util.List;
-
 import com.dunk.tfc.Core.TFC_Textures;
 import com.dunk.tfc.Items.ItemLeatherBag;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.Core.ItemHelper;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 
 public class ItemExtraBag extends ItemLeatherBag {
 
@@ -50,19 +44,6 @@ public class ItemExtraBag extends ItemLeatherBag {
     @Override
     public boolean[][] getClothingAlpha() {
         return this.clothingAlpha;
-    }
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override
-    public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
-        ItemHelper.addSizeInformation(is, list);
-
-        if (ItemHelper.showShiftInformation()) {
-            list.add(StatCollector.translateToLocal("gui.Help"));
-            list.add(StatCollector.translateToLocal("gui.Help.Bag"));
-        } else {
-            list.add(StatCollector.translateToLocal("gui.ShowHelp"));
-        }
     }
 
 }

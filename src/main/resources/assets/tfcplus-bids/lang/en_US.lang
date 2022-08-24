@@ -740,7 +740,6 @@ gui.Help.Adze=Hold §fShift §7and §bRight Click §7block to begin carving.
 gui.Help.Adze2=Hold §fShift §7and §bRight Click §7block to lock or unlock carving.
 gui.Help.Adze3=§bRight Click §7block to carve.
 gui.Help.BastFibreStrip=§bRight Click §7with 5 in a stack to craft.
-gui.Help.Bag=§bRight Click §7to open inventory.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified
