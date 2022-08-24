@@ -256,6 +256,9 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkCup, 1, 0),
                 BidsItems.birchBarkCupUnfinished, Items.slime_ball));
 
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkSheet, 1, 0),
+                new ItemStack(BidsItems.bark, 1, 2), "itemKnife"));
+
         // Select TFC recipes where bark cordage and bark fiber strips can be used
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.primitiveLoom, 1, 0),
                 "LS", "SL", 'L', "stickWood", 'S', BidsItems.barkCordage));
@@ -516,6 +519,10 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemKnife")
                 .matchCraftingItem(BidsItems.barkFibreStrip, 0));
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemKnife")
+                .matchCraftingItem(BidsItems.birchBarkSheet, 0));
     }
 
     private static void registerCarvingRecipes() {
@@ -630,6 +637,10 @@ public class RecipeSetup {
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkCupPiece, 1),
                 new Object[] { "     ", "     ", "#### ", "### #", "#### ", '#',
                         new ItemStack(BidsItems.flatBirchBark, 1) });
+
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkShoes, 1),
+                new Object[] { "  ###", "   ##", "     ", "##   ", "###  ", '#',
+                        new ItemStack(BidsItems.flatBirchBark, 1) });
     }
 
     private static void registerSewingRecipes() {
@@ -679,6 +690,13 @@ public class RecipeSetup {
                 new ItemStack[] {
                         new ItemStack(BidsItems.birchBarkBag, 1, OreDictionary.WILDCARD_VALUE),
                         new ItemStack(BidsItems.birchBarkRepairPatch, 1, 0)
+                }).setRepairRecipe());
+
+        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+                new SewingPattern(new ItemStack(BidsItems.birchBarkShoes, 1), true),
+                new ItemStack[] {
+                        new ItemStack(BidsItems.birchBarkShoes, 1, OreDictionary.WILDCARD_VALUE),
+                        new ItemStack(BidsItems.birchBarkStrap, 1, 0)
                 }).setRepairRecipe());
     }
 

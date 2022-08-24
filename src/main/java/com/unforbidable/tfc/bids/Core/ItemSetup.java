@@ -1,12 +1,17 @@
 package com.unforbidable.tfc.bids.Core;
 
+import com.dunk.tfc.Items.ItemClothing;
+import com.dunk.tfc.api.Armor;
 import com.dunk.tfc.api.HeatIndex;
 import com.dunk.tfc.api.HeatRaw;
 import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.Interfaces.IBoots;
+import com.dunk.tfc.api.Interfaces.IEquipable;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelCoalTFC;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelLogsTFC;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelPeatTFC;
@@ -21,6 +26,7 @@ import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingCloth;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
 import com.unforbidable.tfc.bids.Items.ItemExtraBag;
+import com.unforbidable.tfc.bids.Items.ItemExtraBoots;
 import com.unforbidable.tfc.bids.Items.ItemExtraClothingPiece;
 import com.unforbidable.tfc.bids.Items.ItemFirewood;
 import com.unforbidable.tfc.bids.Items.ItemFirewoodSeasoned;
@@ -53,6 +59,7 @@ import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -190,6 +197,15 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Birch Bark Cup Unfinished");
         birchBarkCup = new ItemDrinkingCloth()
                 .setUnlocalizedName("Birch Bark Cup");
+
+        birchBarkShoes = new ItemExtraBoots(IEquipable.ClothingType.BOOTS)
+                .setResourceLocation(Tags.MOD_ID, "textures/models/armor/clothing/birch_bark_shoes_color.png")
+                .setArmorCoverage("SOCKS", 4)
+                .setArmorType(Armor.linenCloth)
+                .setMaxDamage(TFCItems.strawUses)
+                .setUnlocalizedName("Birch Bark Shoes");
+        ((IBoots) birchBarkShoes).setTrueBoots(false).setDefaultWalkable(0.07f).addWalkableSurface(Material.sand, 0.02f);
+        ((ItemClothing) birchBarkShoes).setRepairCost(2);
     }
 
     private static void setupToolHarvest() {
@@ -371,6 +387,7 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(birchBarkCupPiece, birchBarkCupPiece.getUnlocalizedName());
         GameRegistry.registerItem(birchBarkCupUnfinished, birchBarkCupUnfinished.getUnlocalizedName());
         GameRegistry.registerItem(birchBarkCup, birchBarkCup.getUnlocalizedName());
+        GameRegistry.registerItem(birchBarkShoes, birchBarkShoes.getUnlocalizedName());
     }
 
 }
