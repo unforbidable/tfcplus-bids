@@ -232,6 +232,11 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreKindling),
                 new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.barkFibreStrip, 1, 1)));
 
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkKindling),
+                "stickWood", "stickWood", "stickWood", new ItemStack(BidsItems.birchBarkStrap)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkKindling),
+                new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.birchBarkStrap)));
+
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
                 new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.smallStickBundle),
                 new ItemStack(BidsItems.smallStickBundle), "materialStringAny"));

@@ -197,6 +197,8 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Birch Bark Cup Unfinished");
         birchBarkCup = new ItemDrinkingCloth()
                 .setUnlocalizedName("Birch Bark Cup");
+        birchBarkKindling = new ItemKindling().setFuelKindlingQuality(1f)
+                .setUnlocalizedName("Birch Bark Kindling");
 
         birchBarkShoes = new ItemExtraBoots(IEquipable.ClothingType.BOOTS)
                 .setResourceLocation(Tags.MOD_ID, "textures/models/armor/clothing/birch_bark_shoes_color.png")
@@ -204,7 +206,9 @@ public class ItemSetup extends BidsItems {
                 .setArmorType(Armor.linenCloth)
                 .setMaxDamage(TFCItems.strawUses)
                 .setUnlocalizedName("Birch Bark Shoes");
-        ((IBoots) birchBarkShoes).setTrueBoots(false).setDefaultWalkable(0.07f).addWalkableSurface(Material.sand, 0.02f);
+        ((IBoots) birchBarkShoes).setTrueBoots(false)
+                .setDefaultWalkable(0.07f)
+                .addWalkableSurface(Material.sand, 0.02f);
         ((ItemClothing) birchBarkShoes).setRepairCost(2);
     }
 
@@ -388,6 +392,7 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(birchBarkCupUnfinished, birchBarkCupUnfinished.getUnlocalizedName());
         GameRegistry.registerItem(birchBarkCup, birchBarkCup.getUnlocalizedName());
         GameRegistry.registerItem(birchBarkShoes, birchBarkShoes.getUnlocalizedName());
+        GameRegistry.registerItem(birchBarkKindling, birchBarkKindling.getUnlocalizedName());
     }
 
 }

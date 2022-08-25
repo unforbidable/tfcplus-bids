@@ -66,5 +66,6 @@ public class BidsItems {
     public static Item birchBarkCupUnfinished;
     public static Item birchBarkCup;
     public static Item birchBarkShoes;
+    public static Item birchBarkKindling;
 
 }

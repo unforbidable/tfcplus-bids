@@ -725,6 +725,7 @@ item.Cup Piece.Birch Bark.name=Birch Bark Cup Piece
 item.Birch Bark Bag.name=Birch Bark Bag
 item.Birch Bark Cup Unfinished.name=Unfinished Birch Bark Cup
 item.Birch Bark Shoes.name=Birch Bark Shoes
+item.Birch Bark Kindling.name=Birch Bark Kindling
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs
