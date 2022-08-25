@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemKindling extends Item implements ISize, IFirepitFuelMaterial {
@@ -76,6 +77,14 @@ public class ItemKindling extends Item implements ISize, IFirepitFuelMaterial {
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);
+
+        if (ItemHelper.showShiftInformation()) {
+            list.add(StatCollector.translateToLocal("gui.Help"));
+            list.add(StatCollector.translateToLocal("gui.Help.Kindling"));
+            list.add(StatCollector.translateToLocal("gui.Help.Kindling2"));
+        } else {
+            list.add(StatCollector.translateToLocal("gui.ShowHelp"));
+        }
     }
 
     @Override
