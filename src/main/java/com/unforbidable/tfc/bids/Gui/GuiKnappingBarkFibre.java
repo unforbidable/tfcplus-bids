@@ -14,7 +14,7 @@ public class GuiKnappingBarkFibre extends GuiKnapping {
         // instead of ContainerSpecialCrafting
         // but it doesn't seem to matter as the functionality we need to override is
         // on server side where ContainerSpecialCraftingBarkFibre is used
-        super(inventoryplayer, new ItemStack(BidsItems.flatBarkFiber), world, x, y, z);
+        super(inventoryplayer, new ItemStack(BidsItems.flatBarkFibre), world, x, y, z);
     }
 
 }

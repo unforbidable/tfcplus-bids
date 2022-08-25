@@ -4,16 +4,15 @@ import java.util.List;
 
 import com.dunk.tfc.Core.Player.PlayerInfo;
 import com.dunk.tfc.Core.Player.PlayerManagerTFC;
+import com.dunk.tfc.Items.ItemLooseRock;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
-import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.api.BidsGui;
-import com.unforbidable.tfc.bids.api.BidsItems;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,7 +23,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class ItemBastFibreStrip extends Item implements ISize {
+public class ItemBastFibreStrip extends ItemLooseRock {
 
     static final String[] names = new String[] { "Fresh", "Cured" };
     IIcon[] icons;
@@ -42,8 +41,11 @@ public class ItemBastFibreStrip extends Item implements ISize {
         if (itemstack.getItemDamage() == 1 && itemstack.stackSize >= 5) {
             // Open bark crafting gui
             PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(entityplayer);
-            pi.specialCraftingType = new ItemStack(BidsItems.flatBarkFiber, 1, 0);
-            pi.specialCraftingTypeAlternate = null;
+            pi.specialCraftingType = new ItemStack(specialCraftingType, 1, itemstack.getItemDamage());
+            if (specialCraftingTypeAlternate != null)
+                pi.specialCraftingTypeAlternate = specialCraftingTypeAlternate;
+            else
+                pi.specialCraftingTypeAlternate = null;
             entityplayer.openGui(Bids.instance, BidsGui.barkFibreKnappingGui, world, (int) entityplayer.posX,
                     (int) entityplayer.posY, (int) entityplayer.posZ);
         }

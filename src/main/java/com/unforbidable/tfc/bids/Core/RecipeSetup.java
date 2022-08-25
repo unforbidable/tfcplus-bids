@@ -11,10 +11,13 @@ import com.dunk.tfc.api.Crafting.AnvilRecipe;
 import com.dunk.tfc.api.Crafting.AnvilReq;
 import com.dunk.tfc.api.Crafting.BarrelManager;
 import com.dunk.tfc.api.Crafting.BarrelMultiItemRecipe;
+import com.dunk.tfc.api.Crafting.ClothingManager;
 import com.dunk.tfc.api.Crafting.CraftingManagerTFC;
 import com.dunk.tfc.api.Crafting.KilnCraftingManager;
 import com.dunk.tfc.api.Crafting.KilnRecipe;
 import com.dunk.tfc.api.Crafting.PlanRecipe;
+import com.dunk.tfc.api.Crafting.SewingPattern;
+import com.dunk.tfc.api.Crafting.SewingRecipe;
 import com.dunk.tfc.api.Enums.RuleEnum;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
@@ -46,6 +49,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
@@ -66,16 +70,19 @@ public class RecipeSetup {
 
     public static void postInit() {
         registerKnappingRecipes();
+        registerSewingRecipes();
         registerKilnRecipes();
         registerBarrelRecipes();
     }
 
     public static void onServerWorldLoad() {
         registerAnvilRecipes();
+        registerSewingRepairRecipes();
     }
 
     public static void onClientWorldInit() {
         registerAnvilRecipes();
+        registerSewingRepairRecipes();
     }
 
     private static void registerOre() {
@@ -245,6 +252,12 @@ public class RecipeSetup {
 
         GameRegistry.addRecipe(new ItemStack(TFCItems.rope),
                 "11", "11", '1', BidsItems.barkCordage);
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkCup, 1, 0),
+                BidsItems.birchBarkCupUnfinished, Items.slime_ball));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkSheet, 1, 0),
+                new ItemStack(BidsItems.bark, 1, 2), "itemKnife"));
 
         // Select TFC recipes where bark cordage and bark fiber strips can be used
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.primitiveLoom, 1, 0),
@@ -506,6 +519,10 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemKnife")
                 .matchCraftingItem(BidsItems.barkFibreStrip, 0));
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemKnife")
+                .matchCraftingItem(BidsItems.birchBarkSheet, 0));
     }
 
     private static void registerCarvingRecipes() {
@@ -602,9 +619,85 @@ public class RecipeSetup {
                 new Object[] { "#####", "#   #", "### #", "    #", "#####", '#', null },
                 new Object[] { "#####", "#   #", "# # #", "# # #", "### #", '#', null } };
         for (Object[] pattern : cordagePatterns) {
-            pattern[6] = new ItemStack(BidsItems.flatBarkFiber, 1);
+            pattern[6] = new ItemStack(BidsItems.flatBarkFibre, 1, 1);
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.barkCordage), pattern);
         }
+
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkStrap, 3),
+                new Object[] { "# # #", "# # #", "# # #", "# # #", "# # #", '#', BidsItems.flatBirchBark });
+
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkBagPiece, 2, 0),
+                new Object[] { " ### ", " ### ", "     ", " ### ", " ### ", '#', BidsItems.flatBirchBark });
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkBagPiece, 2, 0),
+                new Object[] { "     ", "## ##", "## ##", "## ##", "     ", '#', BidsItems.flatBirchBark });
+
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkRepairPatch, 4, 0),
+                new Object[] { "## ##", "## ##", "     ", "## ##", "## ##", '#', BidsItems.flatBirchBark });
+
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkCupPiece, 1),
+                new Object[] { "     ", "     ", "#### ", "### #", "#### ", '#',
+                        new ItemStack(BidsItems.flatBirchBark, 1) });
+
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkShoes, 1),
+                new Object[] { "  ###", "   ##", "     ", "##   ", "###  ", '#',
+                        new ItemStack(BidsItems.flatBirchBark, 1) });
+    }
+
+    private static void registerSewingRecipes() {
+        Bids.LOG.info("Register TFC sewing recipes");
+
+        int[][][] bagSewing = new int[][][] { {
+                { 25, 21 },
+                { 11, 74 },
+                { 19, 87 },
+                { 79, 87 },
+                { 87, 74 },
+                { 73, 21 }
+        } };
+
+        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+                new SewingPattern(new ItemStack(BidsItems.birchBarkBag, 1), bagSewing, true),
+                new ItemStack[] {
+                        new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
+                        new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
+                        new ItemStack(BidsItems.birchBarkStrap, 1, 0)
+                }));
+
+        int[][][] cupSewing = new int[][][] { {
+                { 11, 74 },
+                { 19, 87 },
+                { 64, 87 },
+                { 72, 74 },
+                { 72, 37 },
+                { 60, 40 },
+                { 21, 40 },
+                { 11, 37 }
+        } };
+
+        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+                new SewingPattern(new ItemStack(BidsItems.birchBarkCupUnfinished, 1), cupSewing, true),
+                new ItemStack[] {
+                        new ItemStack(BidsItems.birchBarkCupPiece, 1, 0),
+                        new ItemStack(BidsItems.birchBarkStrap, 1, 0)
+                }));
+    }
+
+    private static void registerSewingRepairRecipes() {
+        Bids.LOG.info("Register TFC sewing repair recipes");
+
+        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+                new SewingPattern(new ItemStack(BidsItems.birchBarkBag, 1), true),
+                new ItemStack[] {
+                        new ItemStack(BidsItems.birchBarkBag, 1, OreDictionary.WILDCARD_VALUE),
+                        new ItemStack(BidsItems.birchBarkRepairPatch, 1, 0)
+                }).setRepairRecipe());
+
+        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+                new SewingPattern(new ItemStack(BidsItems.birchBarkShoes, 1), true),
+                new ItemStack[] {
+                        new ItemStack(BidsItems.birchBarkShoes, 1, OreDictionary.WILDCARD_VALUE),
+                        new ItemStack(BidsItems.birchBarkStrap, 1, 0)
+                }).setRepairRecipe());
     }
 
     private static void registerKilnRecipes() {

@@ -25,6 +25,7 @@ public class DrinkSetup extends BidsItems {
         DrinkHelper.registerFluidContainers(glassJug, 2000, true, 0, 11, 22, 33, 44, 55, 66, 77, 88, 100);
         DrinkHelper.registerFluidContainers(shotGlass, 50, false);
         DrinkHelper.registerPotteryFluidContainers(clayMug, 200, true, 0, 100);
+        DrinkHelper.registerFluidContainers(birchBarkCup, 250, true, 0, 100);
     }
 
     private static void registerDrinks() {

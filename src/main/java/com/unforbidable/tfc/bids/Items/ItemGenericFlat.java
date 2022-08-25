@@ -5,15 +5,23 @@ import com.unforbidable.tfc.bids.Tags;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 
-public class ItemFlatGlass extends ItemFlatGeneric {
+public class ItemGenericFlat extends ItemFlatGeneric {
 
-    public ItemFlatGlass() {
+    protected String textureFolder = "";
+
+    public ItemGenericFlat() {
         super();
+    }
+
+    public ItemGenericFlat setTextureFolder(String textureFolder) {
+        this.textureFolder = textureFolder + "/";
+
+        return this;
     }
 
     @Override
     public void registerIcons(IIconRegister registerer) {
-        this.itemIcon = registerer.registerIcon(Tags.MOD_ID + ":"
+        this.itemIcon = registerer.registerIcon(Tags.MOD_ID + ":" + textureFolder
                 + this.getUnlocalizedName().replace("item.", ""));
     }
 
