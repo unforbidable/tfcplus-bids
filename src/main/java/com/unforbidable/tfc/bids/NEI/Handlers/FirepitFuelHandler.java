@@ -107,7 +107,7 @@ public class FirepitFuelHandler extends TemplateRecipeHandler {
         public String getKindlingString() {
             float kindlingQuality = fuel.getFuelKindlingQuality(new ItemStack(ingred));
             return kindlingQuality > 0
-                    ? String.format("Kindling Quality: %d%%", Math.round(kindlingQuality * 100))
+                    ? String.format("%s: %d%%", StatCollector.translateToLocal("gui.KindlingQuality"), Math.round(kindlingQuality * 100))
                     : "";
         }
 

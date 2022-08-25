@@ -112,7 +112,7 @@ public class SeasoningHandler extends TemplateRecipeHandler {
             final int hours = (int) (duration * BidsOptions.WoodPile.seasoningDurationMultiplier);
             final float days = hours / 24f;
 
-            return String.format("%.01f", days) + " days";
+            return String.format("%.01f %s", days, StatCollector.translateToLocal("gui.Days").toLowerCase());
         }
 
         @Override

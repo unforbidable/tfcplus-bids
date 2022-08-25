@@ -14,6 +14,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 public class CarvingHandler extends TemplateRecipeHandler {
 
@@ -26,7 +27,7 @@ public class CarvingHandler extends TemplateRecipeHandler {
 
     @Override
     public String getRecipeName() {
-        return "Carving";
+        return StatCollector.translateToLocal("gui.Carving");
     }
 
     @Override

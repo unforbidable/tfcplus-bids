@@ -114,7 +114,7 @@ public class DryingRackHandler extends TemplateRecipeHandler {
         }
 
         public String getDurationString() {
-            return String.format("%d hours", duration);
+            return String.format("%d %s", duration, StatCollector.translateToLocal("gui.Hours").toLowerCase());
         }
 
         @Override
