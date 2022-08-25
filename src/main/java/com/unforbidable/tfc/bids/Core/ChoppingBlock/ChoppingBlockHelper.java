@@ -4,7 +4,6 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChoppingBlock;
-import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -97,10 +96,8 @@ public class ChoppingBlockHelper {
             final int slot = getChoppingBlockSlotFromHit(choppingBlock, hitX, hitY, hitZ);
 
             if (slot != -1) {
-                final boolean isInput = ChoppingBlockManager.isChoppingBlockInput(choppingBlock.getWorkbenchId(),
-                        itemStack);
-                final boolean isTool = ChoppingBlockManager.isChoppingBlockTool(choppingBlock.getWorkbenchId(),
-                        itemStack);
+                final boolean isInput = choppingBlock.isChoppingBlockInput(itemStack);
+                final boolean isTool = choppingBlock.isChoppingBlockTool(itemStack);
 
                 if (isTool) {
                     if (choppingBlock.useTool(slot, itemStack, player, true)) {

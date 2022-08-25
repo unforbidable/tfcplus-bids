@@ -61,7 +61,6 @@ import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.CarvingRegistry;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
-import com.unforbidable.tfc.bids.api.BidsConstants.ChoppingBlock;
 import com.unforbidable.tfc.bids.api.Enums.EnumLogWallType;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -162,11 +161,11 @@ public class BlockSetup extends BidsBlocks {
 
         dryingRack = new BlockDryingRack().setBlockName("DryingRack");
 
-        choppingBlock = new BlockChoppingBlock(TFCBlocks.woodVert, ChoppingBlock.DEFAULT)
+        choppingBlock = new BlockChoppingBlock(TFCBlocks.woodVert)
                 .setBlockName("ChoppingBlock");
-        choppingBlock2 = new BlockChoppingBlock(TFCBlocks.woodVert2, ChoppingBlock.DEFAULT)
+        choppingBlock2 = new BlockChoppingBlock(TFCBlocks.woodVert2)
                 .setBlockName("ChoppingBlock2");
-        choppingBlock3 = new BlockChoppingBlock(TFCBlocks.woodVert3, ChoppingBlock.DEFAULT)
+        choppingBlock3 = new BlockChoppingBlock(TFCBlocks.woodVert3)
                 .setBlockName("ChoppingBlock3");
     }
 

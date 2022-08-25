@@ -7,7 +7,6 @@ import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.ChoppingBlock.ChoppingBlockHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChoppingBlock;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -28,13 +27,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class BlockChoppingBlock extends BlockContainer {
 
     public final Block materialBlock;
-    public final int choppingBlockId;
 
-    public BlockChoppingBlock(Block materialBlock, String choppingBlockName) {
+    public BlockChoppingBlock(Block materialBlock) {
         super(materialBlock.getMaterial());
 
         this.materialBlock = materialBlock;
-        this.choppingBlockId = ChoppingBlockManager.getChoppingBlockId(choppingBlockName);
 
         setHardness(10);
         setCreativeTab(BidsCreativeTabs.bidsDefault);
@@ -78,17 +75,6 @@ public class BlockChoppingBlock extends BlockContainer {
     @Override
     public int damageDropped(int damage) {
         return damage;
-    }
-
-    @Override
-    public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {
-        super.onPostBlockPlaced(world, x, y, z, meta);
-
-        TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof TileEntityChoppingBlock) {
-            TileEntityChoppingBlock workbench = (TileEntityChoppingBlock) te;
-            workbench.setChoppingBlockId(choppingBlockId);
-        }
     }
 
     @Override

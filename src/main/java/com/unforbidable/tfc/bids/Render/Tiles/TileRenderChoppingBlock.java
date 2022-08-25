@@ -5,7 +5,6 @@ import org.lwjgl.opengl.GL11;
 import com.dunk.tfc.Render.TESR.TESRBase;
 import com.unforbidable.tfc.bids.Core.ChoppingBlock.ChoppingBlockHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChoppingBlock;
-import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -29,8 +28,7 @@ public class TileRenderChoppingBlock extends TESRBase {
                     GL11.glPushMatrix(); // start
 
                     final boolean isLargeItem = i == 0 && ChoppingBlockHelper.isLargeItem(item);
-                    final boolean isTool = ChoppingBlockManager.isChoppingBlockTool(choppingBlock.getWorkbenchId(),
-                            item);
+                    final boolean isTool = choppingBlock.isChoppingBlockTool(item);
 
                     float scale = isLargeItem ? 2.0F : 1.0F;
 

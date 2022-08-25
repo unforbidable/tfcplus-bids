@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockRecipe;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -27,20 +28,11 @@ public class TileEntityChoppingBlock extends TileEntity {
     static final int LARGE_ITEM_SLOT = 0;
 
     final ItemStack[] storage = new ItemStack[MAX_STORAGE];
-    int choppingBlockId;
 
     int selectedSlot = -1;
 
     public TileEntityChoppingBlock() {
         super();
-    }
-
-    public void setChoppingBlockId(int choppingBlockId) {
-        this.choppingBlockId = choppingBlockId;
-    }
-
-    public int getWorkbenchId() {
-        return choppingBlockId;
     }
 
     public void setSelectedSlot(int selectedSlot) {
@@ -82,7 +74,8 @@ public class TileEntityChoppingBlock extends TileEntity {
     }
 
     public boolean placeItem(int slot, ItemStack itemStack, boolean tryOtherSlots) {
-        if (ChoppingBlockManager.isChoppingBlockTool(choppingBlockId, itemStack)) {
+        final ItemStack material = getChoppingBlockItem();
+        if (ChoppingBlockManager.isChoppingBlockTool(material, itemStack)) {
             // Tools are placed into slot 0
             if (storage[0] == null) {
                 storage[0] = itemStack.copy();
@@ -155,7 +148,8 @@ public class TileEntityChoppingBlock extends TileEntity {
             Bids.LOG.debug("Tool used on chopping block: " + itemStack.getDisplayName()
                     + " slot: " + slot);
 
-            final ChoppingBlockRecipe recipe = ChoppingBlockManager.findMatchingRecipe(choppingBlockId, itemStack,
+            final ItemStack material = getChoppingBlockItem();
+            final ChoppingBlockRecipe recipe = ChoppingBlockManager.findMatchingRecipe(material, itemStack,
                     storage[slot]);
             if (recipe != null) {
                 Bids.LOG.debug("Found matching recipe for tool: " + itemStack.getDisplayName()
@@ -170,7 +164,7 @@ public class TileEntityChoppingBlock extends TileEntity {
 
                 storage[slot] = result;
 
-                if (!ChoppingBlockManager.isChoppingBlockInput(choppingBlockId, result)) {
+                if (!ChoppingBlockManager.isChoppingBlockInput(material, result)) {
                     ejectItemAwayFromPlayer(slot, player);
                 }
 
@@ -190,6 +184,20 @@ public class TileEntityChoppingBlock extends TileEntity {
         }
 
         return false;
+    }
+
+    public ItemStack getChoppingBlockItem() {
+        Block block = worldObj.getBlock(xCoord, yCoord, zCoord);
+        int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+        return new ItemStack(block, 1, metadata);
+    }
+
+    public boolean isChoppingBlockTool(ItemStack tool) {
+        return ChoppingBlockManager.isChoppingBlockTool(getChoppingBlockItem(), tool);
+    }
+
+    public boolean isChoppingBlockInput(ItemStack input) {
+        return ChoppingBlockManager.isChoppingBlockInput(getChoppingBlockItem(), input);
     }
 
     private void onChoppingBlockRecipeCrafted(EntityPlayer player, ItemStack result, ItemStack tool,
@@ -324,8 +332,6 @@ public class TileEntityChoppingBlock extends TileEntity {
     }
 
     public void writeWorkbenchDataToNBT(NBTTagCompound tag) {
-        tag.setString("choppingBlockName", ChoppingBlockManager.getChoppingBlockName(choppingBlockId));
-
         NBTTagList itemTagList = new NBTTagList();
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
@@ -339,13 +345,6 @@ public class TileEntityChoppingBlock extends TileEntity {
     }
 
     public void readWorkbenchDataFromNBT(NBTTagCompound tag) {
-        final String choppingBlockName = tag.getString("choppingBlockName");
-        if (choppingBlockName.length() > 0) {
-            choppingBlockId = ChoppingBlockManager.getChoppingBlockId(choppingBlockName);
-        } else {
-            choppingBlockId = 0;
-        }
-
         for (int i = 0; i < MAX_STORAGE; i++) {
             storage[i] = null;
         }
