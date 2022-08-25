@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.NEI;
 
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.NEI.Handlers.CarvingHandler;
+import com.unforbidable.tfc.bids.NEI.Handlers.ChoppingBlockHandler;
 import com.unforbidable.tfc.bids.NEI.Handlers.DryingRackHandler;
 import com.unforbidable.tfc.bids.NEI.Handlers.FirepitFuelHandler;
 import com.unforbidable.tfc.bids.NEI.Handlers.QuarryHandler;
@@ -42,6 +43,9 @@ public class NotEnoughItemsSetup {
 
         API.registerRecipeHandler(new CarvingHandler());
         API.registerUsageHandler(new CarvingHandler());
+
+        API.registerRecipeHandler(new ChoppingBlockHandler());
+        API.registerUsageHandler(new ChoppingBlockHandler());
     }
 
     private static void hideItemStacks() {
