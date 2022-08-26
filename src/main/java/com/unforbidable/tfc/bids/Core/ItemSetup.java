@@ -191,7 +191,7 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Strap");
         birchBarkCupPiece = new ItemExtraClothingPiece().setExtraPieceTypes(ExtraClothing.BIRCH_BARK)
                 .setUnlocalizedName("Cup Piece");
-        birchBarkBag = new ItemExtraBag().setMaxDamage(20)
+        birchBarkBag = new ItemExtraBag().setMaxDamage(12)
                 .setUnlocalizedName("Birch Bark Bag");
         birchBarkCupUnfinished = new ItemMiscSewable()
                 .setUnlocalizedName("Birch Bark Cup Unfinished");
