@@ -3,10 +3,10 @@ package com.unforbidable.tfc.bids.TileEntities;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.ChoppingBlock.ChoppingBlockCraftingInventory;
 import com.unforbidable.tfc.bids.Core.ChoppingBlock.ChoppingBlockHelper;
-import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
 import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockRecipe;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -208,9 +208,8 @@ public class TileEntityChoppingBlock extends TileEntity {
 
         final ItemCraftedEvent event = new ItemCraftedEvent(player, result, craftMatrix);
 
-        // We call our handler directly
-        // but consider actually invoking the forge event
-        RecipeManager.handleItemCraftedEvent(event);
+        // Invoke the forge event
+        FMLCommonHandler.instance().bus().post(event);
 
         // Consume items as crafting would
         // but we only care about the tool
