@@ -23,11 +23,12 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [New Firepit](../../wiki/Firepit) - new firepit that can consume custom fuels, requires kindling to light
 * [Kindling](../../wiki/Kindling) - kindling for lighting new firepit
 * [More Stick Bundles](../../wiki/Stick-Bundle) - small and tied bundles of sticks as fuel in new firepit
-* [Bark](../../wiki/Bark) - comes from peeling logs, some can be used to extract tannin, or bast fibers
-* [Bark Fiber and Bark Cordage](../../wiki/Bark-Fiber) - make tying material and cordage from bark fiber
-* [Drying Rack](../../wiki/Drying-Rack) - for curing bark fibre strips and drying meat, cheese, and seaweed
+* [Bark](../../wiki/Bark) - comes from peeling logs, some can be used to extract tannin, or bark fibers
+* [Bark Fiber and Cordage](../../wiki/Bark-Fiber) - tying material and cordage from bark fibers
+* [Drying Rack](../../wiki/Drying-Rack) - for curing bark fiber strips and drying meat, cheese, and seaweed
 * [Firewood](../../wiki/Firewood) - fuel for new firepit, needs to be seasoned
 * [Chopping Block](../../wiki/Chopping-Block) - for peeling and splitting logs
+* [Birch Bark Equipment](../../wiki/Birch-Bark-Sheet) - kindling, bags, cups and shoes from birch bark
 
 ### Translations
 
@@ -36,7 +37,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 ### Compatibility
 
 * Waila - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, etc
-* Not Enough Items - recipes for seasoning, quarrying, drying, carving and new firepit fuels
+* Not Enough Items - recipes for seasoning, quarrying, drying, carving, chopping and new firepit fuels
 
 ### Compiling
 

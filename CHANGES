@@ -208,3 +208,14 @@
 - Added: NEI support for carving recipes
 - Changed: Food now decays on a drying rack
 - Changed: Updated Chinese translation by Eternal130
+
+0.20.0 (26-08-2022)
+- Added: Birch Bark Sheet extracted from Birch Bark
+- Added: Birch Bark Cup (250mb) for drinking
+- Added: Birch Bark Bag for carrying
+- Added: Birch Bark Shoes for walking
+- Added: Birch Bark Kindling for lighting firepit
+- Added: Kindling items shows help information
+- Added: NEI support for chopping block recipes
+- Added: Options to change the drop rates of bark when peeling and splitting logs
+- Changed: More text shown in NEI can be localized now
