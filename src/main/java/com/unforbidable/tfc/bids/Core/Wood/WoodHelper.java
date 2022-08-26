@@ -150,4 +150,8 @@ public class WoodHelper {
         return meta != 17 && meta != 24 && meta != 31;
     }
 
+    public static boolean canMakeChoppingBlock(int meta) {
+        return meta != 17 && meta != 24 && meta != 31;
+    }
+
 }

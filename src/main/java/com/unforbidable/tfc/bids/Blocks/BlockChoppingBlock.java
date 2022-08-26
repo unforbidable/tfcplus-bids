@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.ChoppingBlock.ChoppingBlockHelper;
+import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChoppingBlock;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 
@@ -45,7 +46,10 @@ public class BlockChoppingBlock extends BlockContainer {
         materialBlock.getSubBlocks(item, tabs, materialBlockSubBlocks);
 
         for (ItemStack is : materialBlockSubBlocks) {
-            list.add(new ItemStack(this, 1, is.getItemDamage()));
+            final int dmg = materialBlock.damageDropped(is.getItemDamage());
+            if (WoodHelper.canMakeChoppingBlock(dmg)) {
+                list.add(new ItemStack(this, 1, is.getItemDamage()));
+            }
         }
     }
 

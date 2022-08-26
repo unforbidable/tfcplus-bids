@@ -118,12 +118,14 @@ public class RecipeSetup {
         for (int i = 0; i < Global.WOOD_ALL.length; i++) {
             int j = i % 16;
 
-            if (i < 16) {
-                OreDictionary.registerOre("blockChoppingBlock", new ItemStack(BidsBlocks.choppingBlock, 1, j));
-            } else if (i < 32) {
-                OreDictionary.registerOre("blockChoppingBlock", new ItemStack(BidsBlocks.choppingBlock2, 1, j));
-            } else {
-                OreDictionary.registerOre("blockChoppingBlock", new ItemStack(BidsBlocks.choppingBlock3, 1, j));
+            if (WoodHelper.canMakeChoppingBlock(i)) {
+                if (i < 16) {
+                    OreDictionary.registerOre("blockChoppingBlock", new ItemStack(BidsBlocks.choppingBlock, 1, j));
+                } else if (i < 32) {
+                    OreDictionary.registerOre("blockChoppingBlock", new ItemStack(BidsBlocks.choppingBlock2, 1, j));
+                } else {
+                    OreDictionary.registerOre("blockChoppingBlock", new ItemStack(BidsBlocks.choppingBlock3, 1, j));
+                }
             }
         }
 
@@ -550,15 +552,17 @@ public class RecipeSetup {
         for (int i = 0; i < Global.WOOD_ALL.length; i++) {
             int j = i % 16;
 
-            if (i < 16) {
-                CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock, 1, i % 16),
-                        new ItemStack(TFCBlocks.woodVert, 1, j), choppingBlockPattern));
-            } else if (i < 32) {
-                CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock2, 1, i % 16),
-                        new ItemStack(TFCBlocks.woodVert2, 1, j), choppingBlockPattern));
-            } else {
-                CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock3, 1, i % 16),
-                        new ItemStack(TFCBlocks.woodVert3, 1, j), choppingBlockPattern));
+            if (WoodHelper.canMakeChoppingBlock(i)) {
+                if (i < 16) {
+                    CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock, 1, i % 16),
+                            new ItemStack(TFCBlocks.woodVert, 1, j), choppingBlockPattern));
+                } else if (i < 32) {
+                    CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock2, 1, i % 16),
+                            new ItemStack(TFCBlocks.woodVert2, 1, j), choppingBlockPattern));
+                } else {
+                    CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock3, 1, i % 16),
+                            new ItemStack(TFCBlocks.woodVert3, 1, j), choppingBlockPattern));
+                }
             }
         }
     }
