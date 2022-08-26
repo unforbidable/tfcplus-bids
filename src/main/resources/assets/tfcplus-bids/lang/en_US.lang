@@ -716,7 +716,7 @@ item.Flat Bark Fibre.name=Flat Bark Fiber
 item.Bark Cordage.name=Bark Cordage
 item.Bark Fibre Kindling.name=Bark Fiber Kindling
 
-item.Flat Birch Bark.name=Birch Bark
+item.Flat Birch Bark.name=Flat Birch Bark
 item.Birch Bark Sheet.name=Birch Bark Sheet
 item.Strap.Birch Bark.name=Birch Bark Strap
 item.Repair Patch.Birch Bark.name=Birch Bark Patch
@@ -762,3 +762,4 @@ gui.Seasoning=Seasoning
 gui.Fuel=Fuel
 gui.Drying=Drying
 gui.KindlingQuality=Kindling Quality
+gui.ChoppingBlock=Chopping Block

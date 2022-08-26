@@ -52,6 +52,8 @@ public class NotEnoughItemsSetup {
         Bids.LOG.info("Hide items and blocks from NEI");
 
         hideItem(BidsItems.flatGlass);
+        hideItem(BidsItems.flatBarkFibre);
+        hideItem(BidsItems.flatBirchBark);
 
         hideBlock(BidsBlocks.clayCrucible, 2);
         hideBlock(BidsBlocks.carvingRock);
