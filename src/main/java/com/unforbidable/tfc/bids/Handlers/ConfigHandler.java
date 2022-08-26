@@ -89,6 +89,23 @@ public class ConfigHandler {
                 "replaceFirepitTFC", "firepit", BidsOptions.Firepit.replaceFirepitTFC,
                 "Set this to true if you want to replace TFC firepit");
 
+        BidsOptions.Bark.dropPeelingChance = config.getFloat(
+                "dropPeelingChance", "bark",
+                BidsOptions.Bark.dropPeelingChance, 0f, 1f,
+                "The chance of a bark piece dropping when peeling unseasoned logs (0 = never, 1 = always)");
+        BidsOptions.Bark.dropPeelingSeasonedChance = config.getFloat(
+                "dropPeelingSeasonedChance", "bark",
+                BidsOptions.Bark.dropPeelingSeasonedChance, 0f, 1f,
+                "The chance of a bark piece dropping when peeling seasoned logs (0 = never, 1 = always)");
+        BidsOptions.Bark.dropSplittingChance = config.getFloat(
+                "dropSplittingChance", "bark",
+                BidsOptions.Bark.dropSplittingChance, 0f, 1f,
+                "The chance of a bark piece dropping when splitting unseasoned logs into firewood (0 = never, 1 = always)");
+        BidsOptions.Bark.dropSplittingSeasonedChance = config.getFloat(
+                "dropSplittingSeasonedChance", "bark",
+                BidsOptions.Bark.dropSplittingSeasonedChance, 0f, 1f,
+                "The chance of a bark piece dropping when splitting seasoned logs into firewood (0 = never, 1 = always)");
+
         config.save();
     }
 

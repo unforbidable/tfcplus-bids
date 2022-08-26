@@ -33,6 +33,7 @@ import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.FoodDryingRecipe;
@@ -493,20 +494,24 @@ public class RecipeSetup {
                 .matchCraftingItem(BidsItems.peeledLogSeasoned));
 
         RecipeManager.addAction(new ActionExtraDrop()
-                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE), 0.25f)
+                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
+                        BidsOptions.Bark.dropPeelingChance)
                 .matchCraftingItem(BidsItems.peeledLog));
 
         RecipeManager.addAction(new ActionExtraDrop()
-                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE))
+                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
+                        BidsOptions.Bark.dropPeelingSeasonedChance)
                 .matchCraftingItem(BidsItems.peeledLogSeasoned));
 
         RecipeManager.addAction(new ActionExtraDrop()
-                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE), 0.10f)
+                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
+                        BidsOptions.Bark.dropSplittingChance)
                 .matchIngredient(TFCItems.logs)
                 .matchCraftingItem(BidsItems.firewood));
 
         RecipeManager.addAction(new ActionExtraDrop()
-                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE), 0.25f)
+                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
+                        BidsOptions.Bark.dropSplittingSeasonedChance)
                 .matchIngredient(BidsItems.logsSeasoned)
                 .matchCraftingItem(BidsItems.firewoodSeasoned));
 
