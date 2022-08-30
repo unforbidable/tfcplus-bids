@@ -219,3 +219,7 @@
 - Added: NEI support for chopping block recipes
 - Added: Options to change the drop rates of bark when peeling and splitting logs
 - Changed: More text shown in NEI can be localized now
+
+0.21.0 (30-08-2022)
+- Added: Wattle Trapdoor made from wattle and pole
+- Added: Trapping Pit for trapping mobs

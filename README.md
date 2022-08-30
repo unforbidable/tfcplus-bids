@@ -29,6 +29,8 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Firewood](../../wiki/Firewood) - fuel for new firepit, needs to be seasoned
 * [Chopping Block](../../wiki/Chopping-Block) - for peeling and splitting logs
 * [Birch Bark Equipment](../../wiki/Birch-Bark-Sheet) - kindling, bags, cups and shoes from birch bark
+* [Wattle Trapdoor](../../wiki/Wattle-Trapdoor) - trapdoor made from wattle
+* [Trapping Pit](../../wiki/Trapping-Pit) - for trapping mobs
 
 ### Translations
 
