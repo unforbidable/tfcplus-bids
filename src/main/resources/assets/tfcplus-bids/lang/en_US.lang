@@ -38,6 +38,9 @@ tile.ChoppingBlock.name=Chopping Block
 tile.ChoppingBlock2.name=Chopping Block
 tile.ChoppingBlock3.name=Chopping Block
 
+tile.WattleTrapDoor.name=Wattle Trapdoor
+tile.WattleTrapDoorCover.name=Covered Wattle Trapdoor
+
 tile.RoughStoneSed.Chalk.name=Rough Chalk
 tile.RoughStoneSed.Chert.name=Rough Chert
 tile.RoughStoneSed.Claystone.name=Rough Claystone

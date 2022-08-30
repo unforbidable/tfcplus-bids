@@ -20,6 +20,8 @@ import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
 import com.unforbidable.tfc.bids.Blocks.BlockStackedFirewood;
 import com.unforbidable.tfc.bids.Blocks.BlockTiedStickBundle;
+import com.unforbidable.tfc.bids.Blocks.BlockWattleTrapDoor;
+import com.unforbidable.tfc.bids.Blocks.BlockWattleTrapDoorCover;
 import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
 import com.unforbidable.tfc.bids.Blocks.BlockChoppingBlock;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
@@ -39,6 +41,7 @@ import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemMudChimney;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemQuarry;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStone;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStoneBrick;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemWattleTrapDoor;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderCarving;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderClayCrucible;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderDryingRack;
@@ -167,6 +170,12 @@ public class BlockSetup extends BidsBlocks {
                 .setBlockName("ChoppingBlock2");
         choppingBlock3 = new BlockChoppingBlock(TFCBlocks.woodVert3)
                 .setBlockName("ChoppingBlock3");
+
+        wattleTrapdoor = new BlockWattleTrapDoor().setIgnoreRedstone(true)
+                .setBlockName("WattleTrapDoor")
+                .setBlockTextureName("Wattle Trap Door");
+        wattleTrapdoorCover = new BlockWattleTrapDoorCover()
+                .setBlockName("WattleTrapDoorCover");
     }
 
     private static void updateBlocks() {
@@ -223,6 +232,9 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(woodPile, 10, 10);
 
         Blocks.fire.setFireInfo(choppingBlock, 5, 5);
+
+        Blocks.fire.setFireInfo(wattleTrapdoor, 10, 30);
+        Blocks.fire.setFireInfo(wattleTrapdoorCover, 60, 20);
     }
 
     private static void registerOre() {
@@ -379,6 +391,9 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(choppingBlock, ItemChoppingBlock.class, "ChoppingBlock");
         GameRegistry.registerBlock(choppingBlock2, ItemChoppingBlock.class, "ChoppingBlock2");
         GameRegistry.registerBlock(choppingBlock3, ItemChoppingBlock.class, "ChoppingBlock3");
+
+        GameRegistry.registerBlock(wattleTrapdoor, ItemWattleTrapDoor.class, "WattleTrapDoor");
+        GameRegistry.registerBlock(wattleTrapdoorCover, "WattleTrapDoorCover");
     }
 
 }

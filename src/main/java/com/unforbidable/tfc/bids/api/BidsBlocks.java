@@ -64,4 +64,7 @@ public class BidsBlocks {
     public static Block choppingBlock2;
     public static Block choppingBlock3;
 
+    public static Block wattleTrapdoor;
+    public static Block wattleTrapdoorCover;
+
 }
