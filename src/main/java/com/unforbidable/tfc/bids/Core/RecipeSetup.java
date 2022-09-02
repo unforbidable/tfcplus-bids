@@ -579,6 +579,40 @@ public class RecipeSetup {
                 }
             }
         }
+
+        CarvingRecipePattern saddleQuernPattern = new CarvingRecipePattern()
+                .carveEntireLayer()
+                .carveLayer("    ", " ## ", " ## ", " ## ");
+
+        for (int i = 0; i < Global.STONE_SED.length; i++) {
+            CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.saddleQuernBaseSed, 1, i),
+                    new ItemStack(BidsBlocks.roughStoneSed, 1, i), saddleQuernPattern));
+        }
+
+        CarvingRecipePattern[] handstonePatterns = {
+                new CarvingRecipePattern()
+                        .carveEntireLayer()
+                        .carveEntireLayer()
+                        .carveLayer("####", "#  #", "#  #", "#  #")
+                        .carveLayer("####", "#  #", "#  #", "#  #"),
+                new CarvingRecipePattern()
+                        .carveEntireLayer()
+                        .carveEntireLayer()
+                        .carveLayer("####", "  ##", "  ##", "  ##")
+                        .carveLayer("####", "  ##", "  ##", "  ##"),
+                new CarvingRecipePattern()
+                        .carveEntireLayer()
+                        .carveEntireLayer()
+                        .carveLayer("####", "##  ", "##  ", "##  ")
+                        .carveLayer("####", "##  ", "##  ", "##  ")
+        };
+
+        for (int j = 0; j < handstonePatterns.length; j++) {
+            for (int i = 0; i < Global.STONE_SED.length; i++) {
+                CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.saddleQuernHandstoneSed, 1, i),
+                        new ItemStack(BidsBlocks.roughStoneSed, 1, i), handstonePatterns[j]));
+            }
+        }
     }
 
     private static void registerKnappingRecipes() {
