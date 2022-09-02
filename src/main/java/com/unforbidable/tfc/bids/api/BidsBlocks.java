@@ -11,6 +11,8 @@ public class BidsBlocks {
     public static int woodPileRenderId;
     public static int dryingRackRenderId;
     public static int choppingBlockRenderId;
+    public static int saddleQuernRenderId;
+    public static int workStoneRenderId;
 
     public static Block clayCrucible;
     public static Block fireClayCrucible;
@@ -66,5 +68,8 @@ public class BidsBlocks {
 
     public static Block wattleTrapdoor;
     public static Block wattleTrapdoorCover;
+
+    public static Block saddleQuernBaseSed;
+    public static Block saddleQuernHandstoneSed;
 
 }
