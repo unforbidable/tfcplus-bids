@@ -31,6 +31,13 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Birch Bark Equipment](../../wiki/Birch-Bark-Sheet) - kindling, bags, cups and shoes from birch bark
 * [Wattle Trapdoor](../../wiki/Wattle-Trapdoor) - trapdoor made from wattle
 * [Trapping Pit](../../wiki/Trapping-Pit) - for trapping mobs
+* [Saddle Quern](../../wiki/Saddle-Quern) - carved from rough stone, used for crushing and grinding grain
+* [Coarse Flour](../../wiki/Coarse-Flour) - made with Saddle Quern
+* [Porridge](../../wiki/Porridge) - early game food from grain
+
+### Contributions
+
+* Saddle Quern model by [talhaereny](../../../../talhaereny)
 
 ### Translations
 
