@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Core;
 
 import java.util.Arrays;
 
+import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
@@ -9,6 +10,7 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.dunk.tfc.api.Crafting.AnvilRecipe;
 import com.dunk.tfc.api.Crafting.AnvilReq;
+import com.dunk.tfc.api.Crafting.BarrelFireRecipe;
 import com.dunk.tfc.api.Crafting.BarrelManager;
 import com.dunk.tfc.api.Crafting.BarrelMultiItemRecipe;
 import com.dunk.tfc.api.Crafting.ClothingManager;
@@ -37,6 +39,8 @@ import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.FoodDryingRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernManager;
+import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
@@ -65,6 +69,7 @@ public class RecipeSetup {
         registerRecipes();
         registerCustomRecipes();
         registerCarvingRecipes();
+        registerSaddleQuernRecipes();
         registerHandlers();
     }
 
@@ -615,6 +620,21 @@ public class RecipeSetup {
         }
     }
 
+    private static void registerSaddleQuernRecipes() {
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.wheatCrushed),
+                new ItemStack(TFCItems.wheatGrain)));
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.barleyCrushed),
+                new ItemStack(TFCItems.barleyGrain)));
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.oatCrushed),
+                new ItemStack(TFCItems.oatGrain)));
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.riceCrushed),
+                new ItemStack(TFCItems.riceGrain)));
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.ryeCrushed),
+                new ItemStack(TFCItems.ryeGrain)));
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.cornmealCrushed),
+                new ItemStack(TFCItems.maizeEar)));
+    }
+
     private static void registerKnappingRecipes() {
         Bids.LOG.info("Register TFC knapping recipes");
 
@@ -804,6 +824,37 @@ public class RecipeSetup {
                         .setMinTechLevel(0));
             }
         }
+
+        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatCrushed), 5),
+                new FluidStack(TFCFluids.FRESHWATER, 100),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatPorridge), 6),
+                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
+        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyCrushed), 5),
+                new FluidStack(TFCFluids.FRESHWATER, 100),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyPorridge), 6),
+                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
+        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.oatCrushed), 5),
+                new FluidStack(TFCFluids.FRESHWATER, 100),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.oatPorridge), 6),
+                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
+        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.riceCrushed), 5),
+                new FluidStack(TFCFluids.FRESHWATER, 100),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.ricePorridge), 6),
+                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
+        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeCrushed), 5),
+                new FluidStack(TFCFluids.FRESHWATER, 100),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.ryePorridge), 6),
+                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
+        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealCrushed), 5),
+                new FluidStack(TFCFluids.FRESHWATER, 100),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealPorridge), 6),
+                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
     }
 
     private static void registerAnvilRecipes() {
