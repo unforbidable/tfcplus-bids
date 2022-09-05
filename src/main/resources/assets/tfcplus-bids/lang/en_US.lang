@@ -41,6 +41,9 @@ tile.ChoppingBlock3.name=Chopping Block
 tile.WattleTrapDoor.name=Wattle Trapdoor
 tile.WattleTrapDoorCover.name=Covered Wattle Trapdoor
 
+tile.SaddleQuernSed.name=Saddle Quern
+tile.SaddleQuernHandstoneSed.name=Saddle Quern Handstone
+
 tile.RoughStoneSed.Chalk.name=Rough Chalk
 tile.RoughStoneSed.Chert.name=Rough Chert
 tile.RoughStoneSed.Claystone.name=Rough Claystone
@@ -729,6 +732,19 @@ item.Birch Bark Bag.name=Birch Bark Bag
 item.Birch Bark Cup Unfinished.name=Unfinished Birch Bark Cup
 item.Birch Bark Shoes.name=Birch Bark Shoes
 item.Birch Bark Kindling.name=Birch Bark Kindling
+
+item.Wheat Crushed.name=Coarse Wheat Flour
+item.Barley Crushed.name=Coarse Barley Flour
+item.Oat Crushed.name=Coarse Oat Flour
+item.Rice Crushed.name=Coarse Rice Flour
+item.Rye Crushed.name=Coarse Rye Flour
+item.Cornmeal Crushed.name=Coarse Cornmeal
+item.Wheat Porridge.name=Wheat Porridge
+item.Barley Porridge.name=Barley Porridge
+item.Oat Porridge.name=Porridge
+item.Rice Porridge.name=Rice Porridge
+item.Rye Porridge.name=Rye Porridge
+item.Cornmeal Porridge.name=Cornmeal Porridge
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs

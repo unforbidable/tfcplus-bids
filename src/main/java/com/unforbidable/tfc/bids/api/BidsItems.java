@@ -68,4 +68,17 @@ public class BidsItems {
     public static Item birchBarkShoes;
     public static Item birchBarkKindling;
 
+    public static Item wheatCrushed;
+    public static Item barleyCrushed;
+    public static Item oatCrushed;
+    public static Item ryeCrushed;
+    public static Item riceCrushed;
+    public static Item cornmealCrushed;
+    public static Item wheatPorridge;
+    public static Item barleyPorridge;
+    public static Item oatPorridge;
+    public static Item ryePorridge;
+    public static Item ricePorridge;
+    public static Item cornmealPorridge;
+
 }

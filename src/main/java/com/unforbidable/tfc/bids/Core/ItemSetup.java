@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.Items.ItemClothing;
+import com.dunk.tfc.Render.Item.FoodItemRenderer;
 import com.dunk.tfc.api.Armor;
 import com.dunk.tfc.api.HeatIndex;
 import com.dunk.tfc.api.HeatRaw;
@@ -8,6 +9,7 @@ import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Interfaces.IBoots;
 import com.dunk.tfc.api.Interfaces.IEquipable;
 import com.unforbidable.tfc.bids.Bids;
@@ -28,6 +30,7 @@ import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
 import com.unforbidable.tfc.bids.Items.ItemExtraBag;
 import com.unforbidable.tfc.bids.Items.ItemExtraBoots;
 import com.unforbidable.tfc.bids.Items.ItemExtraClothingPiece;
+import com.unforbidable.tfc.bids.Items.ItemExtraFood;
 import com.unforbidable.tfc.bids.Items.ItemFirewood;
 import com.unforbidable.tfc.bids.Items.ItemFirewoodSeasoned;
 import com.unforbidable.tfc.bids.Items.ItemGenericClothSheet;
@@ -210,6 +213,38 @@ public class ItemSetup extends BidsItems {
                 .setDefaultWalkable(0.07f)
                 .addWalkableSurface(Material.sand, 0.02f);
         ((ItemClothing) birchBarkShoes).setRepairCost(2);
+
+        wheatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+                .setUnlocalizedName("Wheat Crushed");
+        barleyCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20, false, false)
+                .setUnlocalizedName("Barley Crushed");
+        oatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+                .setUnlocalizedName("Oat Crushed");
+        ryeCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20, false, false)
+                .setUnlocalizedName("Rye Crushed");
+        riceCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+                .setUnlocalizedName("Rice Crushed");
+        cornmealCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20, false, false)
+                .setUnlocalizedName("Cornmeal Crushed");
+
+        wheatPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setUnlocalizedName("Wheat Porridge");
+        barleyPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
+                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setUnlocalizedName("Barley Porridge");
+        oatPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setUnlocalizedName("Oat Porridge");
+        ryePorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
+                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setUnlocalizedName("Rye Porridge");
+        ricePorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setUnlocalizedName("Rice Porridge");
+        cornmealPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
+                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setUnlocalizedName("Cornmeal Porridge");
     }
 
     private static void setupToolHarvest() {
@@ -295,6 +330,14 @@ public class ItemSetup extends BidsItems {
 
         for (Item item : WoodPileRegistry.getSeasonedItems()) {
             MinecraftForgeClient.registerItemRenderer(item, new SeasonedItemRenderer());
+        }
+
+        Item[] foodItems = { wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed,
+                cornmealCrushed, wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge,
+                cornmealPorridge };
+
+        for (Item item : foodItems) {
+            MinecraftForgeClient.registerItemRenderer(item, new FoodItemRenderer());
         }
     }
 
@@ -393,6 +436,19 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(birchBarkCup, birchBarkCup.getUnlocalizedName());
         GameRegistry.registerItem(birchBarkShoes, birchBarkShoes.getUnlocalizedName());
         GameRegistry.registerItem(birchBarkKindling, birchBarkKindling.getUnlocalizedName());
+
+        GameRegistry.registerItem(wheatCrushed, wheatCrushed.getUnlocalizedName());
+        GameRegistry.registerItem(barleyCrushed, barleyCrushed.getUnlocalizedName());
+        GameRegistry.registerItem(oatCrushed, oatCrushed.getUnlocalizedName());
+        GameRegistry.registerItem(ryeCrushed, ryeCrushed.getUnlocalizedName());
+        GameRegistry.registerItem(riceCrushed, riceCrushed.getUnlocalizedName());
+        GameRegistry.registerItem(cornmealCrushed, cornmealCrushed.getUnlocalizedName());
+        GameRegistry.registerItem(wheatPorridge, wheatPorridge.getUnlocalizedName());
+        GameRegistry.registerItem(barleyPorridge, barleyPorridge.getUnlocalizedName());
+        GameRegistry.registerItem(oatPorridge, oatPorridge.getUnlocalizedName());
+        GameRegistry.registerItem(ryePorridge, ryePorridge.getUnlocalizedName());
+        GameRegistry.registerItem(ricePorridge, ricePorridge.getUnlocalizedName());
+        GameRegistry.registerItem(cornmealPorridge, cornmealPorridge.getUnlocalizedName());
     }
 
 }

@@ -10,6 +10,8 @@ import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockCarving;
 import com.unforbidable.tfc.bids.Blocks.BlockClayCrucible;
+import com.unforbidable.tfc.bids.Blocks.BlockSaddleQuern;
+import com.unforbidable.tfc.bids.Blocks.BlockWorkStone;
 import com.unforbidable.tfc.bids.Blocks.BlockDryingRack;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockNewFirepit;
@@ -32,6 +34,8 @@ import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemChoppingBlock;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemSaddleQuern;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemWorkStone;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemDryingRack;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall;
@@ -44,16 +48,20 @@ import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStoneBrick;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemWattleTrapDoor;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderCarving;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderClayCrucible;
+import com.unforbidable.tfc.bids.Render.Blocks.RenderSaddleQuern;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderDryingRack;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderFireClayCrucible;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderQuarry;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderWoodPile;
+import com.unforbidable.tfc.bids.Render.Blocks.RenderWorkStone;
 import com.unforbidable.tfc.bids.Render.Blocks.RenderChoppingBlock;
 import com.unforbidable.tfc.bids.Render.Tiles.TileRenderDryingRack;
 import com.unforbidable.tfc.bids.Render.Tiles.TileRenderChoppingBlock;
+import com.unforbidable.tfc.bids.Render.Tiles.RenderTileSaddleQuern;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
+import com.unforbidable.tfc.bids.TileEntities.TileEntitySaddleQuern;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
@@ -176,6 +184,11 @@ public class BlockSetup extends BidsBlocks {
                 .setBlockTextureName("Wattle Trap Door");
         wattleTrapdoorCover = new BlockWattleTrapDoorCover()
                 .setBlockName("WattleTrapDoorCover");
+
+        saddleQuernBaseSed = new BlockSaddleQuern((BlockRoughStone) roughStoneSed)
+                .setBlockName("SaddleQuernSed");
+        saddleQuernHandstoneSed = new BlockWorkStone((BlockRoughStone) roughStoneSed)
+                .setBlockName("SaddleQuernHandstoneSed");
     }
 
     private static void updateBlocks() {
@@ -287,6 +300,12 @@ public class BlockSetup extends BidsBlocks {
 
         choppingBlockRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(choppingBlockRenderId, new RenderChoppingBlock());
+
+        saddleQuernRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(saddleQuernRenderId, new RenderSaddleQuern());
+
+        workStoneRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(workStoneRenderId, new RenderWorkStone());
     }
 
     private static void registerTileEntities() {
@@ -308,6 +327,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityDryingRack.class, "BidsDryingRack");
 
         GameRegistry.registerTileEntity(TileEntityChoppingBlock.class, "BidsChoppingBlock");
+
+        GameRegistry.registerTileEntity(TileEntitySaddleQuern.class, "BidsDrainingStone");
     }
 
     @SideOnly(Side.CLIENT)
@@ -316,6 +337,7 @@ public class BlockSetup extends BidsBlocks {
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDryingRack.class, new TileRenderDryingRack());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityChoppingBlock.class, new TileRenderChoppingBlock());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySaddleQuern.class, new RenderTileSaddleQuern());
     }
 
     private static void registerMessages() {
@@ -394,6 +416,9 @@ public class BlockSetup extends BidsBlocks {
 
         GameRegistry.registerBlock(wattleTrapdoor, ItemWattleTrapDoor.class, "WattleTrapDoor");
         GameRegistry.registerBlock(wattleTrapdoorCover, "WattleTrapDoorCover");
+
+        GameRegistry.registerBlock(saddleQuernBaseSed, ItemSaddleQuern.class, "SaddleQuernBaseSed");
+        GameRegistry.registerBlock(saddleQuernHandstoneSed, ItemWorkStone.class, "SaddleQuernHandstoneSed");
     }
 
 }
