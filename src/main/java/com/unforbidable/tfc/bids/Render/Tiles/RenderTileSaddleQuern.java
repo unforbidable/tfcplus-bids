@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntitySaddleQuern;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -124,11 +125,14 @@ public class RenderTileSaddleQuern extends TESRBase {
         int angle = getOrientationAngle(saddleQuern.getOrientation());
 
         GL11.glPushMatrix(); // start
-        GL11.glScalef(scale, scale, scale);
 
         GL11.glTranslated(x + offset.xCoord, y + 0.75, z + offset.zCoord);
 
-        GL11.glRotatef(angle, 0.0F, 1.0F, 0.0F);
+        if (Minecraft.getMinecraft().gameSettings.fancyGraphics) {
+            GL11.glRotatef(angle, 0.0F, 1.0F, 0.0F);
+        }
+
+        GL11.glScalef(scale, scale, scale);
 
         customitem.setEntityItemStack(saddleQuern.getInputStack());
         itemRenderer.doRender(customitem, 0, 0, 0, 0, 0);
