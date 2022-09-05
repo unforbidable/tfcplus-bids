@@ -586,7 +586,6 @@ public class RecipeSetup {
         }
 
         CarvingRecipePattern saddleQuernPattern = new CarvingRecipePattern()
-                .carveEntireLayer()
                 .carveLayer("    ", " ## ", " ## ", " ## ");
 
         for (int i = 0; i < Global.STONE_SED.length; i++) {
