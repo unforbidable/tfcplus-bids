@@ -3,6 +3,8 @@ package com.unforbidable.tfc.bids.TileEntities;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Sounds;
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.TileEntities.TEBarrel;
+import com.dunk.tfc.TileEntities.TEBasket;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Interfaces.IFood;
@@ -251,6 +253,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
             if (operationTimer.getTicksToGo() == OPERATION_TICKS / 2) {
                 processInput();
+                insertOutputIntoContainer();
                 ejectOutput();
             }
 
@@ -323,6 +326,116 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
             updateClient();
         }
+    }
+
+    private void insertOutputIntoContainer() {
+        if (storage[SLOT_OUTPUT_STACK] != null) {
+            ItemStack output = storage[SLOT_OUTPUT_STACK];
+
+            ForgeDirection d = getOutputForgeDirection();
+            int xContainer = xCoord + d.offsetX;
+            int zContainer = zCoord + d.offsetZ;
+            TileEntity te = worldObj.getTileEntity(xContainer, yCoord, zContainer);
+
+            if (te != null && te instanceof IInventory && isContainerSupported(te)) {
+                IInventory inv = (IInventory) te;
+
+                // First look for existing stack anywhere in the container
+                for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
+                    if (inv.getStackInSlot(slot) != null
+                            && inv.getStackInSlot(slot).getItem() == output.getItem()) {
+                        if (output.getItem() instanceof IFood) {
+                            ItemStack existing = inv.getStackInSlot(slot);
+                            float existingWeight = Food.getWeight(existing);
+
+                            if (existingWeight < Global.FOOD_MAX_WEIGHT) {
+                                float existingDecay = Food.getDecay(existing);
+
+                                Bids.LOG.debug("Trying to merge output with existing stack in slot: " + slot
+                                        + " weight: " + existingWeight
+                                        + " decay: " + existingDecay);
+
+                                float outputWeight = Food.getWeight(output);
+                                float outputDecay = Math.max(Food.getDecay(output), 0);
+
+                                Bids.LOG.debug("Output weight: " + outputWeight
+                                        + " decay: " + outputDecay);
+
+                                float newWeight = Math.min(Global.FOOD_MAX_WEIGHT, existingWeight + outputWeight);
+                                float addedWeight = newWeight - existingWeight;
+
+                                if (addedWeight < outputWeight) {
+                                    // Only part of the output is merged
+                                    // with the existing stack
+                                    float addedDecay = outputDecay * addedWeight / outputWeight;
+
+                                    Food.setWeight(existing, newWeight);
+                                    Food.setDecay(existing, existingDecay + addedDecay);
+
+                                    Food.setWeight(output, outputWeight - addedWeight);
+                                    Food.setDecay(output, outputDecay - addedDecay);
+
+                                    Bids.LOG.debug("Output stack merged into slot: " + slot
+                                            + " (with more to be merged)"
+                                            + " weight added: " + addedWeight
+                                            + " weight remaining: " + (outputWeight - addedWeight));
+                                } else {
+                                    // All output is merged
+                                    Food.setWeight(existing, newWeight);
+                                    Food.setDecay(existing, existingDecay + outputDecay);
+
+                                    output.stackSize = 0;
+
+                                    Bids.LOG.debug("Output stack merged into slot: " + slot
+                                            + " weight: " + outputWeight);
+                                }
+                            }
+                        } else {
+                            Bids.LOG.warn("Only food stuffs are supported");
+                        }
+                    }
+
+                    if (output.stackSize == 0) {
+                        // Output has been merged
+                        break;
+                    }
+                }
+
+                if (output.stackSize > 0) {
+                    // If existing stack not found
+                    // try to insert into an empty slot
+                    for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
+                        if (inv.getStackInSlot(slot) == null) {
+                            inv.setInventorySlotContents(slot, output.copy());
+
+                            output.stackSize = 0;
+
+                            Bids.LOG.debug("Output stack inserted into empty slot: " + slot);
+
+                            break;
+                        }
+                    }
+                }
+
+                if (output.stackSize == 0) {
+                    storage[SLOT_OUTPUT_STACK] = null;
+                }
+
+                updateClient();
+            }
+        }
+    }
+
+    private boolean isContainerSupported(TileEntity te) {
+        // Basket and unsealed vessel/barrel without liquid
+        // are open containers and thus supported
+        // Any derived TE might well work too
+        if (te instanceof TEBarrel) {
+            return te instanceof TEBasket
+                    || !((TEBarrel) te).getSealed() && ((TEBarrel) te).getFluidLevel() == 0;
+        }
+
+        return false;
     }
 
     private ForgeDirection getOutputForgeDirection() {
