@@ -216,6 +216,8 @@ public class BlockSetup extends BidsBlocks {
 
         carvingRock.setHarvestLevel("shovel", 0);
         carvingWood.setHarvestLevel("axe", 0);
+
+        saddleQuernBaseSed.setHarvestLevel("shovel", 0);
     }
 
     private static void setupFireInfo() {
