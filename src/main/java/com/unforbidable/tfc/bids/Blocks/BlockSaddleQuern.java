@@ -80,6 +80,14 @@ public class BlockSaddleQuern extends BlockContainer {
     }
 
     @Override
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+        TileEntitySaddleQuern te = (TileEntitySaddleQuern) world.getTileEntity(x, y, z);
+        te.onBlockBroken();
+
+        super.breakBlock(world, x, y, z, block, meta);
+    }
+
+    @Override
     public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec) {
         MovingObjectPosition mop = super.collisionRayTrace(world, x, y, z, startVec, endVec);
 

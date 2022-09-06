@@ -456,6 +456,18 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         return ForgeDirection.UNKNOWN;
     }
 
+    public void onBlockBroken() {
+        for (int i = 0; i < MAX_STORAGE; i++) {
+            if (storage[i] != null) {
+                final EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
+                        storage[i]);
+                worldObj.spawnEntityInWorld(ei);
+
+                storage[i] = null;
+            }
+        }
+    }
+
     @Override
     public S35PacketUpdateTileEntity getDescriptionPacket() {
         NBTTagCompound tag = new NBTTagCompound();
