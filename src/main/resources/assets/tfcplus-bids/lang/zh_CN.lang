@@ -41,6 +41,9 @@ tile.ChoppingBlock3.name=柴墩
 tile.WattleTrapDoor.name=荆条活板门
 tile.WattleTrapDoorCover.name=茅草陷阱
 
+tile.SaddleQuernSed.name=手推磨
+tile.SaddleQuernHandstoneSed.name=手推磨石
+
 tile.RoughStoneSed.Chalk.name=粗糙白垩岩
 tile.RoughStoneSed.Chert.name=粗糙角岩
 tile.RoughStoneSed.Claystone.name=粗糙粘土岩
@@ -729,6 +732,19 @@ item.Birch Bark Bag.name=桦树皮包
 item.Birch Bark Cup Unfinished.name=桦树皮杯(未完成)
 item.Birch Bark Shoes.name=桦树皮鞋
 item.Birch Bark Kindling.name=桦树皮火种
+
+item.Wheat Crushed.name=粗小麦粉
+item.Barley Crushed.name=粗大麦粉
+item.Oat Crushed.name=粗燕麦粉
+item.Rice Crushed.name=粗米粉
+item.Rye Crushed.name=粗黑麦粉
+item.Cornmeal Crushed.name=玉米糁
+item.Wheat Porridge.name=粗小麦糊
+item.Barley Porridge.name=粗大麦糊
+item.Oat Porridge.name=粗燕麦糊
+item.Rice Porridge.name=粗米糊
+item.Rye Porridge.name=粗黑麦糊
+item.Cornmeal Porridge.name=玉米糁粥
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
