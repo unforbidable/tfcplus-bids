@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillTarget;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
@@ -166,14 +167,15 @@ public class ItemDrill extends Item implements ISize {
     }
 
     protected boolean checkExtraEquipment(World world, int x, int y, int z, int side, EntityPlayer player) {
-        // At least one stick is needed on the hotbar
+        // At least one plug and feather is needed on the hotbar
         for (int i = 0; i < 9; i++) {
             ItemStack is = player.inventory.getStackInSlot(i);
-            if (is != null && is.getItem() == TFCItems.stick)
+            if (is != null && is.getItem() == BidsItems.plugAndFeather)
                 return true;
         }
 
-        Bids.LOG.debug("Drilling requires sticks on hotbar and none were found");
+        Bids.LOG.debug("Drilling requires 'Plug and Feather' on hotbar and none were found");
+
         return false;
     }
 
@@ -249,7 +251,7 @@ public class ItemDrill extends Item implements ISize {
         world.playSoundEffect(x2, y2, z2, "dig.stone",
                 0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
 
-        // Item is different if it the drill was destroyed
+        // Item is different if the drill was destroyed
         if (stack.getItem() != newStack.getItem()) {
             world.playSoundEffect(x2, y2, z2, "random.break",
                     0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
@@ -261,7 +263,7 @@ public class ItemDrill extends Item implements ISize {
         boolean consumed = false;
         for (int i = 0; i < 9; i++) {
             ItemStack is = player.inventory.getStackInSlot(i);
-            if (is != null && is.getItem() == TFCItems.stick) {
+            if (is != null && is.getItem() == BidsItems.plugAndFeather) {
                 player.inventory.decrStackSize(i, 1);
                 consumed = true;
                 break;
@@ -269,7 +271,7 @@ public class ItemDrill extends Item implements ISize {
         }
 
         if (!consumed) {
-            Bids.LOG.warn("No sticks were found on the hotbar to be consumed");
+            Bids.LOG.warn("No 'Plug and Feathers' were found on the hotbar to be consumed");
         }
     }
 
