@@ -81,4 +81,6 @@ public class BidsItems {
     public static Item ricePorridge;
     public static Item cornmealPorridge;
 
+    public static Item plugAndFeather;
+
 }

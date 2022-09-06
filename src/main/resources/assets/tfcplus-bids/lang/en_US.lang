@@ -746,6 +746,8 @@ item.Rice Porridge.name=Rice Porridge
 item.Rye Porridge.name=Rye Porridge
 item.Cornmeal Porridge.name=Cornmeal Porridge
 
+item.Plug And Feather.name=Plug and Feather
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs
 itemGroup.Bids.BuildingBlocks=Bids and Pieces - Building Blocks
@@ -755,7 +757,7 @@ itemGroup.Bids.Tools=Bids and Pieces - Tools
 gui.ShowHelp=§8Help: (Hold §fShift§8)
 gui.Help=Help:
 gui.Help.Drill=§bRight Click §7raw stone to quarry.
-gui.Help.Drill2=Requires sticks on the hotbar.
+gui.Help.Drill2=Requires §ePlug And Feathers §7on the hotbar.
 gui.Help.Adze=Hold §fShift §7and §bRight Click §7block to begin carving.
 gui.Help.Adze2=Hold §fShift §7and §bRight Click §7block to lock or unlock carving.
 gui.Help.Adze3=§bRight Click §7block to carve.
