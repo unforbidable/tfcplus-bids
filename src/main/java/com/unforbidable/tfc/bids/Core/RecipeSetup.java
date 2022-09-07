@@ -43,6 +43,7 @@ import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernManager;
 import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
 import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipePattern;
@@ -407,6 +408,11 @@ public class RecipeSetup {
                     GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWall, 1, j))));
                 }
+            }
+
+            if (EnumWoodHardness.fromDamage(i) == EnumWoodHardness.HARD) {
+                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.plugAndFeather, 4),
+                        new ItemStack(BidsItems.peeledLogSeasoned, 1, i), "itemAdze"));
             }
 
             // Copies of TFC recipes for items made logs

@@ -21,6 +21,7 @@ public class BidsOptions {
 
         public static float bowStringBreakChance = 0.25f;
         public static int baseDrillDuration = 50;
+        public static boolean enableDrillAutoRepair = true;
 
     }
 

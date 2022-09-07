@@ -45,6 +45,7 @@ import com.unforbidable.tfc.bids.Items.ItemMiscSewable;
 import com.unforbidable.tfc.bids.Items.ItemOreBit;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLog;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLogSeasoned;
+import com.unforbidable.tfc.bids.Items.ItemPlugAndFeather;
 import com.unforbidable.tfc.bids.Items.ItemBastCordage;
 import com.unforbidable.tfc.bids.Items.ItemBastFibre;
 import com.unforbidable.tfc.bids.Items.ItemBastFibreStrip;
@@ -245,6 +246,9 @@ public class ItemSetup extends BidsItems {
         cornmealPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
                 .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
                 .setUnlocalizedName("Cornmeal Porridge");
+
+        plugAndFeather = new ItemPlugAndFeather()
+                .setUnlocalizedName("Plug And Feather");
     }
 
     private static void setupToolHarvest() {
@@ -449,6 +453,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(ryePorridge, ryePorridge.getUnlocalizedName());
         GameRegistry.registerItem(ricePorridge, ricePorridge.getUnlocalizedName());
         GameRegistry.registerItem(cornmealPorridge, cornmealPorridge.getUnlocalizedName());
+
+        GameRegistry.registerItem(plugAndFeather, plugAndFeather.getUnlocalizedName());
     }
 
 }

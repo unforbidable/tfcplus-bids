@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillTarget;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
@@ -32,6 +33,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemDrill extends Item implements ISize {
 
@@ -166,14 +168,15 @@ public class ItemDrill extends Item implements ISize {
     }
 
     protected boolean checkExtraEquipment(World world, int x, int y, int z, int side, EntityPlayer player) {
-        // At least one stick is needed on the hotbar
+        // At least one plug and feather is needed on the hotbar
         for (int i = 0; i < 9; i++) {
             ItemStack is = player.inventory.getStackInSlot(i);
-            if (is != null && is.getItem() == TFCItems.stick)
+            if (is != null && is.getItem() == BidsItems.plugAndFeather)
                 return true;
         }
 
-        Bids.LOG.debug("Drilling requires sticks on hotbar and none were found");
+        Bids.LOG.debug("Drilling requires 'Plug and Feather' on hotbar and none were found");
+
         return false;
     }
 
@@ -249,7 +252,7 @@ public class ItemDrill extends Item implements ISize {
         world.playSoundEffect(x2, y2, z2, "dig.stone",
                 0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
 
-        // Item is different if it the drill was destroyed
+        // Item is different if the drill was destroyed
         if (stack.getItem() != newStack.getItem()) {
             world.playSoundEffect(x2, y2, z2, "random.break",
                     0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
@@ -261,7 +264,7 @@ public class ItemDrill extends Item implements ISize {
         boolean consumed = false;
         for (int i = 0; i < 9; i++) {
             ItemStack is = player.inventory.getStackInSlot(i);
-            if (is != null && is.getItem() == TFCItems.stick) {
+            if (is != null && is.getItem() == BidsItems.plugAndFeather) {
                 player.inventory.decrStackSize(i, 1);
                 consumed = true;
                 break;
@@ -269,7 +272,7 @@ public class ItemDrill extends Item implements ISize {
         }
 
         if (!consumed) {
-            Bids.LOG.warn("No sticks were found on the hotbar to be consumed");
+            Bids.LOG.warn("No 'Plug and Feathers' were found on the hotbar to be consumed");
         }
     }
 
@@ -297,13 +300,106 @@ public class ItemDrill extends Item implements ISize {
     protected ItemStack onDrillDestroyed(ItemStack stack, EntityPlayer player) {
         int slot = player.inventory.currentItem;
         player.inventory.decrStackSize(slot, 1);
-        boolean breakString = BidsOptions.Quarry.bowStringBreakChance > player.worldObj.rand.nextDouble();
-        ItemStack newStack = breakString
-                ? new ItemStack(TFCItems.unstrungBow)
-                : new ItemStack(TFCItems.bow);
+
+        ItemStack newStack = null;
+
+        boolean bowstringBroke = BidsOptions.Quarry.bowStringBreakChance > player.worldObj.rand.nextDouble();
+
+        if (BidsOptions.Quarry.enableDrillAutoRepair) {
+            List<ItemStack> bowstrings = bowstringBroke ? OreDictionary.getOres("materialStringDecent", false) : null;
+
+            // Try to repair the drill automatically
+            // Stick and drill head is needed on the hot bar
+            // If the bowstring has broken too,
+            // a new one will be needed too
+            ItemStack foundToolHandle = null;
+            ItemStack foundDrillHead = null;
+            ItemStack foundBowstring = null;
+
+            for (int i = 0; i < 9; i++) {
+                ItemStack is = player.inventory.getStackInSlot(i);
+                if (is != null) {
+                    if (foundToolHandle == null && isToolHandle(is)) {
+                        foundToolHandle = is;
+                    } else if (foundDrillHead == null && isDrillHead(is)) {
+                        foundDrillHead = is;
+                    } else if (bowstringBroke
+                            && foundBowstring == null && isBowstring(is, bowstrings)) {
+                        foundBowstring = is;
+                    }
+                }
+            }
+
+            if (foundToolHandle != null && foundDrillHead != null
+                    && (!bowstringBroke || foundBowstring != null)) {
+                newStack = getDrillForHead(foundDrillHead);
+
+                if (newStack != null) {
+                    player.inventory.consumeInventoryItem(foundToolHandle.getItem());
+                    player.inventory.consumeInventoryItem(foundDrillHead.getItem());
+
+                    if (bowstringBroke) {
+                        player.inventory.consumeInventoryItem(foundBowstring.getItem());
+                    }
+                }
+            }
+
+            Bids.LOG.debug("Needed drill head found: "
+                    + (foundDrillHead != null ? foundDrillHead.getDisplayName() : "none"));
+            Bids.LOG.debug("Needed tool handle found: "
+                    + (foundToolHandle != null ? foundToolHandle.getDisplayName() : "none"));
+            if (bowstringBroke) {
+                Bids.LOG.debug("Needed bowstring found: "
+                        + (foundBowstring != null ? foundBowstring.getDisplayName() : "none"));
+            }
+        }
+
+        if (newStack == null) {
+            // Unable to auto-repair the drill
+            // so we return the broken part
+            newStack = bowstringBroke ? new ItemStack(TFCItems.unstrungBow) : new ItemStack(TFCItems.bow);
+        }
+
         Bids.LOG.debug("Returning " + newStack.getDisplayName());
         player.inventory.setInventorySlotContents(slot, newStack);
         return newStack;
+    }
+
+    protected boolean isToolHandle(ItemStack itemStack) {
+        return itemStack.getItem() == TFCItems.stick;
+    }
+
+    protected boolean isDrillHead(ItemStack itemStack) {
+        return itemStack.getItem() == BidsItems.mMStoneDrillHead
+                || itemStack.getItem() == BidsItems.sedStoneDrillHead
+                || itemStack.getItem() == BidsItems.igExStoneDrillHead
+                || itemStack.getItem() == BidsItems.igInStoneDrillHead;
+    }
+
+    protected boolean isBowstring(ItemStack itemStack, List<ItemStack> ores) {
+        for (ItemStack ore : ores) {
+            if (ore.getItem() == itemStack.getItem()
+                    && (ore.getItemDamage() == itemStack.getItemDamage()
+                            || ore.getItemDamage() == OreDictionary.WILDCARD_VALUE)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected ItemStack getDrillForHead(ItemStack drillHead) {
+        if (drillHead.getItem() == BidsItems.mMStoneDrillHead) {
+            return new ItemStack(BidsItems.mMStoneDrill);
+        } else if (drillHead.getItem() == BidsItems.sedStoneDrillHead) {
+            return new ItemStack(BidsItems.sedStoneDrill);
+        } else if (drillHead.getItem() == BidsItems.igExStoneDrillHead) {
+            return new ItemStack(BidsItems.igExStoneDrill);
+        } else if (drillHead.getItem() == BidsItems.igInStoneDrillHead) {
+            return new ItemStack(BidsItems.igInStoneDrill);
+        }
+
+        return null;
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

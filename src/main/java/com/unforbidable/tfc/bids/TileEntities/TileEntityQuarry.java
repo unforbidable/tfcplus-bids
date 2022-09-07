@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Timer;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
@@ -112,10 +112,10 @@ public class TileEntityQuarry extends TileEntity {
                 // but 1 minimum
                 n = worldObj.rand.nextInt(n) + 1;
             }
-            ItemStack is = new ItemStack(TFCItems.stick, n);
+            ItemStack is = new ItemStack(BidsItems.plugAndFeather, n);
             EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
             worldObj.spawnEntityInWorld(ei);
-            Bids.LOG.debug("Querry dropped sticks: " + n);
+            Bids.LOG.debug("Quarry dropped Plug and Feathers: " + n);
         }
     }
 

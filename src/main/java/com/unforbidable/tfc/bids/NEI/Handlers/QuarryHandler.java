@@ -4,9 +4,9 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
@@ -87,7 +87,7 @@ public class QuarryHandler extends TemplateRecipeHandler {
             }
         }
 
-        if (TFCItems.stick == ingredient.getItem()) {
+        if (BidsItems.plugAndFeather == ingredient.getItem()) {
             loadRecipes(null);
         }
     }
@@ -118,7 +118,7 @@ public class QuarryHandler extends TemplateRecipeHandler {
             List<ItemStack> drills = OreDictionary.getOres("itemDrill", false);
             final int i = cycleticks % (20 * drills.size());
             list.add(new PositionedStack(drills.get(i / 20), 19, 6));
-            list.add(new PositionedStack(new ItemStack(TFCItems.stick), 19, 24));
+            list.add(new PositionedStack(new ItemStack(BidsItems.plugAndFeather), 19, 24));
             return list;
         }
 

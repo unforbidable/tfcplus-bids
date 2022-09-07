@@ -71,6 +71,9 @@ public class ConfigHandler {
                 "bowStringBreakChance", "quarry",
                 BidsOptions.Quarry.bowStringBreakChance, 0f, 1f,
                 "The chance of bow string breaking when a drill breaks (0 = never, 1 = always)");
+        BidsOptions.Quarry.enableDrillAutoRepair = config.getBoolean(
+                "enableDrillAutoRepair", "quarry", BidsOptions.Quarry.enableDrillAutoRepair,
+                "Set this to true if you want to see stone drills automatically repaired using material from the hotbar");
 
         BidsOptions.WoodPile.rotateItems = config.getBoolean(
                 "rotateItems", "woodpile", BidsOptions.WoodPile.rotateItems,
