@@ -566,6 +566,10 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemKnife")
                 .matchCraftingItem(BidsItems.birchBarkSheet, 0));
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemAdze")
+                .matchCraftingItem(BidsItems.plugAndFeather));
     }
 
     private static void registerCarvingRecipes() {
