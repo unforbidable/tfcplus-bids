@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Blocks;
 
 import java.util.Random;
 
+import com.dunk.tfc.Core.TFC_Sounds;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
@@ -159,8 +160,8 @@ public class BlockWattleTrapDoorCover extends Block {
                 world.spawnEntityInWorld(ei);
             }
 
-            world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "dig.grass",
-                    0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
+            world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, TFC_Sounds.TWIGSNAP,
+                    0.5f + (world.rand.nextFloat() * 0.7f), 0.2f + (world.rand.nextFloat() * 0.6f));
         }
     }
 
