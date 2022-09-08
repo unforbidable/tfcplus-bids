@@ -55,31 +55,62 @@ public class BlockWattleTrapDoorCover extends Block {
             final double quadX = x + 0.5 - entity.posX;
             final double quadZ = z + 0.5 - entity.posZ;
 
-            final boolean canCollapseN = isNeighborTrapOrAir(world, x, y, z - 1);
-            final boolean canCollapseS = isNeighborTrapOrAir(world, x, y, z + 1);
-            final boolean canCollapseW = isNeighborTrapOrAir(world, x + 1, y, z);
-            final boolean canCollapseE = isNeighborTrapOrAir(world, x - 1, y, z);
-
             boolean isCollapsing = false;
             int collapseX = 0;
             int collapseZ = 0;
 
-            if (quadX < 0 && quadZ >= 0 && canCollapseN && canCollapseW) {
-                isCollapsing = true;
-                collapseX = 1;
-                collapseZ = -1;
-            } else if (quadX >= 0 && quadZ >= 0 && canCollapseN && canCollapseE) {
-                isCollapsing = true;
-                collapseX = -1;
-                collapseZ = -1;
-            } else if (quadX < 0 && quadZ < 0 && canCollapseS && canCollapseW) {
-                isCollapsing = true;
-                collapseX = 1;
-                collapseZ = 1;
-            } else if (quadX >= 0 && quadZ < 0 && canCollapseS && canCollapseE) {
-                isCollapsing = true;
-                collapseX = -1;
-                collapseZ = 1;
+            if (quadX < 0 && quadZ >= 0) {
+                final boolean canCollapseN = isNeighborTrapOrAir(world, x, y, z - 1);
+                final boolean canCollapseW = isNeighborTrapOrAir(world, x + 1, y, z);
+
+                if (canCollapseN && canCollapseW) {
+                    final boolean canCollapseNW = isNeighborTrapOrAir(world, x + 1, y, z - 1);
+
+                    if (canCollapseNW) {
+                        isCollapsing = true;
+                        collapseX = 1;
+                        collapseZ = -1;
+                    }
+                }
+            } else if (quadX >= 0 && quadZ >= 0) {
+                final boolean canCollapseN = isNeighborTrapOrAir(world, x, y, z - 1);
+                final boolean canCollapseE = isNeighborTrapOrAir(world, x - 1, y, z);
+
+                if (canCollapseN && canCollapseE) {
+                    final boolean canCollapseNE = isNeighborTrapOrAir(world, x - 1, y, z - 1);
+
+                    if (canCollapseNE) {
+                        isCollapsing = true;
+                        collapseX = -1;
+                        collapseZ = -1;
+                    }
+                }
+            } else if (quadX < 0 && quadZ < 0) {
+                final boolean canCollapseS = isNeighborTrapOrAir(world, x, y, z + 1);
+                final boolean canCollapseW = isNeighborTrapOrAir(world, x + 1, y, z);
+
+                if (canCollapseS && canCollapseW) {
+                    final boolean canCollapseSW = isNeighborTrapOrAir(world, x + 1, y, z + 1);
+
+                    if (canCollapseSW) {
+                        isCollapsing = true;
+                        collapseX = 1;
+                        collapseZ = 1;
+                    }
+                }
+            } else if (quadX >= 0 && quadZ < 0) {
+                final boolean canCollapseS = isNeighborTrapOrAir(world, x, y, z + 1);
+                final boolean canCollapseE = isNeighborTrapOrAir(world, x - 1, y, z);
+
+                if (canCollapseS && canCollapseE) {
+                    final boolean canCollapseSE = isNeighborTrapOrAir(world, x - 1, y, z + 1);
+
+                    if (canCollapseSE) {
+                        isCollapsing = true;
+                        collapseX = -1;
+                        collapseZ = 1;
+                    }
+                }
             }
 
             if (isCollapsing) {
