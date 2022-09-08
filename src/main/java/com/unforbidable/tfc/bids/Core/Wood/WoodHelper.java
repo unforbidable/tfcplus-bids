@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Core.Wood;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.Enums.EnumLogWallType;
+import com.unforbidable.tfc.bids.api.Enums.EnumLogWallVertType;
 
 import net.minecraft.block.Block;
 
@@ -152,6 +153,30 @@ public class WoodHelper {
 
     public static boolean canMakeChoppingBlock(int meta) {
         return meta != 17 && meta != 24 && meta != 31;
+    }
+
+    public static EnumLogWallVertType getDefaultLogWallVertType() {
+        return EnumLogWallVertType.DEFAULT;
+    }
+
+    public static Block getDefaultLogWallVertBlock(int offset) {
+        if (offset == 0) {
+            return BidsBlocks.logWallVert;
+        } else if (offset == 16) {
+            return BidsBlocks.logWallVert2;
+        } else /* if (offset == 32) */ {
+            return BidsBlocks.logWallVert3;
+        }
+    }
+
+    public static Block getLogWallVertBlock(int offset, int side, boolean alt) {
+        if (offset == 0) {
+            return alt ? BidsBlocks.logWallVertAlt : BidsBlocks.logWallVert;
+        } else if (offset == 16) {
+            return alt ? BidsBlocks.logWallVertAlt2 : BidsBlocks.logWallVert2;
+        } else /* if (offset == 32) */ {
+            return alt ? BidsBlocks.logWallVertAlt3 : BidsBlocks.logWallVert3;
+        }
     }
 
 }

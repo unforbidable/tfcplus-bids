@@ -54,6 +54,13 @@ public class BidsBlocks {
     public static Block logWallNorthAlt3;
     public static Block logWallCornerAlt3;
 
+    public static Block logWallVert;
+    public static Block logWallVertAlt;
+    public static Block logWallVert2;
+    public static Block logWallVertAlt2;
+    public static Block logWallVert3;
+    public static Block logWallVertAlt3;
+
     public static Block tiedStickBundle;
 
     public static Block stackedFirewood;
