@@ -1,5 +1,9 @@
 package com.unforbidable.tfc.bids.api.Crafting;
 
+import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.Interfaces.IFood;
+
 import net.minecraft.item.ItemStack;
 
 public class SaddleQuernRecipe {
@@ -14,7 +18,9 @@ public class SaddleQuernRecipe {
 
     public boolean matches(ItemStack itemStack) {
         return itemStack.getItem() == input.getItem()
-                && itemStack.getItemDamage() == input.getItemDamage();
+                && itemStack.getItemDamage() == input.getItemDamage()
+                && (!(input.getItem() instanceof IFood)
+                        || Food.areEqual(ItemFoodTFC.createTag(input.copy()), itemStack));
     }
 
     public ItemStack getInput() {
