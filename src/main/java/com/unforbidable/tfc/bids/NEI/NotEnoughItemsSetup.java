@@ -82,6 +82,10 @@ public class NotEnoughItemsSetup {
         hideBlock(BidsBlocks.logWallCornerAlt);
         hideBlock(BidsBlocks.logWallCornerAlt2);
         hideBlock(BidsBlocks.logWallCornerAlt3);
+
+        hideBlock(BidsBlocks.logWallVertAlt);
+        hideBlock(BidsBlocks.logWallVertAlt2);
+        hideBlock(BidsBlocks.logWallVertAlt3);
     }
 
     private static void hideBlock(Block block) {
