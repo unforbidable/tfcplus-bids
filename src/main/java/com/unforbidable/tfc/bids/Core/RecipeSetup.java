@@ -546,23 +546,27 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionExtraDrop()
                 .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
                         BidsOptions.Bark.dropPeelingChance)
+                .matchIngredient("itemAdze")
                 .matchCraftingItem(BidsItems.peeledLog));
 
         RecipeManager.addAction(new ActionExtraDrop()
                 .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
                         BidsOptions.Bark.dropPeelingSeasonedChance)
+                .matchIngredient("itemAdze")
                 .matchCraftingItem(BidsItems.peeledLogSeasoned));
 
         RecipeManager.addAction(new ActionExtraDrop()
                 .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
                         BidsOptions.Bark.dropSplittingChance)
                 .matchIngredient(TFCItems.logs)
+                .matchIngredient("itemAxe")
                 .matchCraftingItem(BidsItems.firewood));
 
         RecipeManager.addAction(new ActionExtraDrop()
                 .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
                         BidsOptions.Bark.dropSplittingSeasonedChance)
                 .matchIngredient(BidsItems.logsSeasoned)
+                .matchIngredient("itemAxe")
                 .matchCraftingItem(BidsItems.firewoodSeasoned));
 
         RecipeManager.addAction(new ActionDamageTool(1)

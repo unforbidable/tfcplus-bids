@@ -3,6 +3,8 @@ package com.unforbidable.tfc.bids.Core.Recipes;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.unforbidable.tfc.bids.Bids;
+
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
@@ -16,6 +18,7 @@ public abstract class RecipeAction {
     protected Block craftingBlock;
     protected int craftingItemDamage = OreDictionary.WILDCARD_VALUE;
     protected List<Item> ingredients = new ArrayList<Item>();
+    protected List<String> ingredientOreNames = new ArrayList<String>();
 
     public RecipeAction() {
     }
@@ -38,6 +41,11 @@ public abstract class RecipeAction {
 
     public RecipeAction matchIngredient(Item ingredient) {
         ingredients.add(ingredient);
+        return this;
+    }
+
+    public RecipeAction matchIngredient(String ingredientOreName) {
+        ingredientOreNames.add(ingredientOreName);
         return this;
     }
 
@@ -66,19 +74,38 @@ public abstract class RecipeAction {
 
     private boolean ingredientsMatch(IInventory inv) {
         int ingredientsFound = 0;
+        int ingredientOresFound = 0;
 
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack is = inv.getStackInSlot(i);
             if (is != null) {
                 for (Item ingredient : ingredients) {
                     if (is.getItem() == ingredient) {
+                        Bids.LOG.debug("Match ingredient: " + new ItemStack(ingredient).getDisplayName());
+
                         ingredientsFound++;
+
+                        break;
+                    }
+                }
+
+                for (String oreName : ingredientOreNames) {
+                    List<ItemStack> ores = OreDictionary.getOres(oreName, false);
+                    for (ItemStack ore : ores) {
+                        if (is.getItem() == ore.getItem()) {
+                            Bids.LOG.debug("Match ore ingredient: " + ore.getDisplayName());
+
+                            ingredientOresFound++;
+
+                            break;
+                        }
                     }
                 }
             }
         }
 
-        return ingredientsFound == ingredients.size();
+        return ingredientsFound == ingredients.size()
+                && ingredientOresFound == ingredientOreNames.size();
     }
 
     public void onItemCrafted(ItemCraftedEvent event) {
