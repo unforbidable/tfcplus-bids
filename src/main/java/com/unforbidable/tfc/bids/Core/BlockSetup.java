@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.Blocks.BlockDryingRack;
 import com.unforbidable.tfc.bids.Blocks.BlockFireClayCrucible;
 import com.unforbidable.tfc.bids.Blocks.BlockNewFirepit;
 import com.unforbidable.tfc.bids.Blocks.BlockLogWall;
+import com.unforbidable.tfc.bids.Blocks.BlockLogWallVert;
 import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
 import com.unforbidable.tfc.bids.Blocks.BlockQuarry;
 import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
@@ -28,6 +29,7 @@ import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
 import com.unforbidable.tfc.bids.Blocks.BlockChoppingBlock;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingLogWall;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingLogWallVert;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRawStone;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
@@ -41,6 +43,9 @@ import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall16;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall32;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWallVert;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWallVert16;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWallVert32;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemMudChimney;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemQuarry;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStone;
@@ -73,6 +78,7 @@ import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.CarvingRegistry;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Enums.EnumLogWallType;
+import com.unforbidable.tfc.bids.api.Enums.EnumLogWallVertType;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -164,6 +170,15 @@ public class BlockSetup extends BidsBlocks {
         logWallNorthAlt3 = new BlockLogWall(EnumLogWallType.NORTH_ALT, 32).setBlockName("LogWallNorthAlt3");
         logWallCornerAlt3 = new BlockLogWall(EnumLogWallType.CORNER_ALT, 32).setBlockName("LogWallCornerAlt3");
 
+        logWallVert = new BlockLogWallVert(EnumLogWallVertType.DEFAULT, 0).setBlockName("LogWallVert");
+        logWallVertAlt = new BlockLogWallVert(EnumLogWallVertType.ALT, 0).setBlockName("LogWallVertAlt");
+
+        logWallVert2 = new BlockLogWallVert(EnumLogWallVertType.DEFAULT, 16).setBlockName("LogWallVert2");
+        logWallVertAlt2 = new BlockLogWallVert(EnumLogWallVertType.ALT, 16).setBlockName("LogWallVertAlt2");
+
+        logWallVert3 = new BlockLogWallVert(EnumLogWallVertType.DEFAULT, 32).setBlockName("LogWallVert3");
+        logWallVertAlt3 = new BlockLogWallVert(EnumLogWallVertType.ALT, 32).setBlockName("LogWallVertAlt3");
+
         tiedStickBundle = new BlockTiedStickBundle().setBlockName("TiedStickBundle");
 
         stackedFirewood = new BlockStackedFirewood(0).setBlockName("StackedFirewood");
@@ -242,6 +257,10 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(logWallNorthAlt3, 5, 5);
         Blocks.fire.setFireInfo(logWallCornerAlt3, 5, 5);
 
+        Blocks.fire.setFireInfo(logWallVert, 5, 5);
+        Blocks.fire.setFireInfo(logWallVert2, 5, 5);
+        Blocks.fire.setFireInfo(logWallVert3, 5, 5);
+
         Blocks.fire.setFireInfo(carvingWood, 5, 5);
 
         Blocks.fire.setFireInfo(woodPile, 10, 10);
@@ -268,6 +287,7 @@ public class BlockSetup extends BidsBlocks {
         CarvingRegistry.registerCarving(new CarvingRoughStoneBrick());
         CarvingRegistry.registerCarving(new CarvingRawStone());
         CarvingRegistry.registerCarving(new CarvingLogWall());
+        CarvingRegistry.registerCarving(new CarvingLogWallVert());
         CarvingRegistry.registerCarving(new CarvingStackedLogs());
         CarvingRegistry.registerCarving(new CarvingWoodVert());
     }
@@ -421,6 +441,13 @@ public class BlockSetup extends BidsBlocks {
 
         GameRegistry.registerBlock(saddleQuernBaseSed, ItemSaddleQuern.class, "SaddleQuernBaseSed");
         GameRegistry.registerBlock(saddleQuernHandstoneSed, ItemWorkStone.class, "SaddleQuernHandstoneSed");
+
+        GameRegistry.registerBlock(logWallVert, ItemLogWallVert.class, "LogWallVert");
+        GameRegistry.registerBlock(logWallVertAlt, ItemLogWallVert.class, "LogWallVertAlt");
+        GameRegistry.registerBlock(logWallVert2, ItemLogWallVert16.class, "LogWallVert2");
+        GameRegistry.registerBlock(logWallVertAlt2, ItemLogWallVert16.class, "LogWallVertAlt2");
+        GameRegistry.registerBlock(logWallVert3, ItemLogWallVert32.class, "LogWallVert3");
+        GameRegistry.registerBlock(logWallVertAlt3, ItemLogWallVert32.class, "LogWallVertAlt3");
     }
 
 }

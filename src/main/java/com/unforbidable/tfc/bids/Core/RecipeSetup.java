@@ -124,6 +124,7 @@ public class RecipeSetup {
 
         for (int i = 0; i < Global.WOOD_ALL.length; i++) {
             int j = i % 16;
+            int o = i / 16 * 16;
 
             if (WoodHelper.canMakeChoppingBlock(i)) {
                 if (i < 16) {
@@ -134,6 +135,14 @@ public class RecipeSetup {
                     OreDictionary.registerOre("blockChoppingBlock", new ItemStack(BidsBlocks.choppingBlock3, 1, j));
                 }
             }
+
+            if (WoodHelper.canBuildLogWall(i)) {
+                OreDictionary.registerOre("blockLogWall",
+                        new ItemStack(WoodHelper.getDefaultLogWallBlock(o), 1, j));
+                OreDictionary.registerOre("blockLogWall",
+                        new ItemStack(WoodHelper.getDefaultLogWallVertBlock(o), 1, j));
+            }
+
         }
 
     }
@@ -393,6 +402,13 @@ public class RecipeSetup {
                             'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWall, 1, j))));
+
+                    Block logWallVert = WoodHelper.getDefaultLogWallVertBlock(0);
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWallVert, 1, j),
+                            "1A", "1 ", '1', new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
+                            'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
+                            Arrays.asList(new ItemStack(logWallVert, 1, j))));
                 } else if (i < 32) {
                     Block logWall = WoodHelper.getDefaultLogWallBlock(16);
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
@@ -400,6 +416,13 @@ public class RecipeSetup {
                             'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWall, 1, j))));
+
+                    Block logWallVert = WoodHelper.getDefaultLogWallVertBlock(16);
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWallVert, 1, j),
+                            "1A", "1 ", '1', new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
+                            'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
+                            Arrays.asList(new ItemStack(logWallVert, 1, j))));
                 } else if (i < 48) {
                     Block logWall = WoodHelper.getDefaultLogWallBlock(32);
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
@@ -407,6 +430,13 @@ public class RecipeSetup {
                             'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWall, 1, j))));
+
+                    Block logWallVert = WoodHelper.getDefaultLogWallVertBlock(32);
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWallVert, 1, j),
+                            "1A", "1 ", '1', new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
+                            'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
+                            Arrays.asList(new ItemStack(logWallVert, 1, j))));
                 }
             }
 
@@ -557,6 +587,11 @@ public class RecipeSetup {
             RecipeManager.addAction(new ActionDamageTool(2)
                     .addTools("itemAdze")
                     .matchCraftingBlock(logWall));
+
+            Block logWallVert = WoodHelper.getDefaultLogWallVertBlock(i * 16);
+            RecipeManager.addAction(new ActionDamageTool(2)
+                    .addTools("itemAdze")
+                    .matchCraftingBlock(logWallVert));
         }
 
         RecipeManager.addAction(new ActionDamageTool(1)
