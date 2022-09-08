@@ -44,7 +44,7 @@ public class BlockWattleTrapDoor extends BlockTrapDoor {
                 // Activate
                 // with a straw
                 // place straw cover
-                if (heldItemStack.stackSize > 0 && world.isAirBlock(x, y + 1, z) && !world.isRemote) {
+                if (side == 1 && heldItemStack.stackSize > 0 && world.isAirBlock(x, y + 1, z) && !world.isRemote) {
                     world.setBlock(x, y + 1, z, BidsBlocks.wattleTrapdoorCover, 0, 3);
 
                     world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "dig.grass",
