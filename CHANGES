@@ -237,3 +237,13 @@
 - Changed: Updated Chinese translation by Eternal130
 - Changed: Saddle Quern can be broken by Adze
 - Fixed: Saddle Quern drops content when broken
+
+0.23.0 (09-09-2022)
+- Added: Vertical log wall, 2 variations, can be carved
+- Added: Plug and Feather for rough stone quarrying, replacing sticks
+- Added: Drill will auto-repair using material from the hotbar when broken (optional)
+- Added: NEI support for saddle quern recipes
+- Changed: Straw must be used on the top of the Wattle Trapdoor to place Trapping Pit cover
+- Changed: TFC twig snapping sound played when Trapping Pit collapses
+- Changed: Cooked grain cannot be crushed and ground in Saddle Quern
+- Fixed: Disassembling log walls no longer drops bark

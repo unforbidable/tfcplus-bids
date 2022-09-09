@@ -18,7 +18,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Adze](../../wiki/Adze) - a tool for carving blocks, making rough stone bricks, peeling logs and so on
 * [Carving](../../wiki/Carving) - for shaping blocks with an adze, in like manner to TFC detailing with a chisel, and carving recipes
 * [Peeled Log](../../wiki/Peeled-Log) - logs that had their bark stripped used to craft log walls
-* [Log Walls](../../wiki/Log-Wall) - new building block with 6 variations for log cabin construction
+* [Log Walls](../../wiki/Log-Wall) - new building block with 6 variations for log cabin construction, and 2 variations of vertical log walls
 * [Wood Pile](../../wiki/Wood-Pile) - for wood storage and seasoning peeled logs, stick bundles
 * [New Firepit](../../wiki/Firepit) - new firepit that can consume custom fuels, requires kindling to light
 * [Kindling](../../wiki/Kindling) - kindling for lighting new firepit
@@ -34,6 +34,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Saddle Quern](../../wiki/Saddle-Quern) - carved from rough stone, used for crushing and grinding grain
 * [Coarse Flour](../../wiki/Coarse-Flour) - made with Saddle Quern
 * [Porridge](../../wiki/Porridge) - early game food from grain
+* [Plug and Feather](../../wiki/Plug-And-Feather) - special wedges used for quarrying
 
 ### Contributions
 
@@ -45,8 +46,8 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Compatibility
 
-* Waila - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, etc
-* Not Enough Items - recipes for seasoning, quarrying, drying, carving, chopping and new firepit fuels
+* Waila - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, saddle quern, etc
+* Not Enough Items - recipes for seasoning, quarrying, drying, carving, chopping, saddle quern and new firepit fuels
 
 ### Compiling
 
