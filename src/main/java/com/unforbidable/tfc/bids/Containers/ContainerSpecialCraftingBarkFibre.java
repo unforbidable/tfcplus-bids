@@ -15,7 +15,7 @@ public class ContainerSpecialCraftingBarkFibre extends ContainerSpecialCrafting 
     private boolean decreasedStackReally = false;
 
     public ContainerSpecialCraftingBarkFibre(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
-        super(inventoryplayer, new ItemStack(BidsItems.flatBarkFibre), world, x, y, z);
+        super(inventoryplayer, new ItemStack(BidsItems.flatBarkFibre, 1, 1), world, x, y, z);
         invPlayer = inventoryplayer;
 
         // This will allow the output to be created
