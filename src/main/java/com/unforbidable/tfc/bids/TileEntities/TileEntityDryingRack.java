@@ -169,7 +169,7 @@ public class TileEntityDryingRack extends TileEntity
                     recipe.onProgress(item.dryingItem, progressTotal, progressTotalDelta);
 
                     if (ticksElapsedTotal > recipe.getDuration() * TFC_Time.HOUR_LENGTH) {
-                        ItemStack driedItem = recipe.getCraftingResult(item.dryingItem);
+                        ItemStack driedItem = recipe.getCraftingResult(item.dryingItem).copy();
 
                         Bids.LOG.debug("Item " + item.dryingItem.getDisplayName()
                                 + " dried and become " + driedItem.getDisplayName());
