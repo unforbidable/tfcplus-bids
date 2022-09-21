@@ -62,7 +62,7 @@ public class CarvingHelper {
                         if (world.rand.nextDouble() < damageChance) {
                             ItemStack toolStack = player.inventory.getCurrentItem();
                             if (toolStack != null) {
-                                boolean destroyed = toolStack.getItemDamage() + 1 >= toolStack.getMaxDamage();
+                                boolean destroyed = toolStack.getItemDamage() + 1 > toolStack.getMaxDamage();
                                 toolStack.damageItem(1, player);
 
                                 if (destroyed) {
