@@ -7,6 +7,9 @@
 #vscode
 .vscode/
 
+#idea
+.idea/
+
 # Eclipse Gradle plugin generated files
 # Eclipse Core
 /eclipse/
