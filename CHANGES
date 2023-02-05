@@ -252,3 +252,6 @@
 - Changed: Updated Chinese translation by Eternal130
 - Fixed: Loss of bark fiber strips after curing
 - Fixed: Broken bark cordage recipe
+
+0.23.2 (05-02-2023)
+- Fixed: Stop premature Adze breaking sound
