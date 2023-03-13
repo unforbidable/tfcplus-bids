@@ -247,7 +247,8 @@ public class CarvingHelper {
         int dimension = TileEntityCarving.CARVING_DIMENSION;
         double stride = 1f / dimension;
 
-        ItemStack item = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
+        // There won't be thePlayer when collision is checked for falling snow?
+        ItemStack item = Minecraft.getMinecraft().thePlayer != null ? Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() : null;
         ICarvingTool tool = item != null && item.getItem() instanceof ICarvingTool ? (ICarvingTool) item.getItem()
                 : null;
 
