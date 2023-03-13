@@ -255,3 +255,10 @@
 
 0.23.2 (05-02-2023)
 - Fixed: Stop premature Adze breaking sound
+
+0.23.3 (13-03-2023)
+- Fixed: Crash when browsing recipes involving peeled and seasoned logs that do not exist
+- Fixed: Crash when snow falling and other non-player things might collide with a carving
+- Fixed: Porridge cooking recipe should now produce more accurate bonus volume increase
+- Fixed: Birch bark kindling can actually be placed into a firepit
+- Fixed: Peeled and seasoned logs are not consumed when crafting clay tiles
