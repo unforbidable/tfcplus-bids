@@ -313,6 +313,7 @@ public class ItemSetup extends BidsItems {
         FirepitRegistry.registerFuel(Item.getItemFromBlock(TFCBlocks.peat), FuelPeatTFC.class);
         FirepitRegistry.registerFuel(bark);
         FirepitRegistry.registerFuel(barkFibreKindling);
+        FirepitRegistry.registerFuel(birchBarkKindling);
         FirepitRegistry.registerFuel(firewoodSeasoned);
 
         if (BidsOptions.Firepit.allowFuelLogsTFC) {
