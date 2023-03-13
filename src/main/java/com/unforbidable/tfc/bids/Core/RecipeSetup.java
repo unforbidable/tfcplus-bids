@@ -23,14 +23,11 @@ import com.dunk.tfc.api.Crafting.SewingRecipe;
 import com.dunk.tfc.api.Enums.RuleEnum;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
+import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
-import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionToolDamageOreBit;
 import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelItemDemandingRecipe;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
-import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionCopySeasoning;
-import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionDamageTool;
-import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionExtraDrop;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -609,6 +606,10 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemAdze")
                 .matchCraftingItem(BidsItems.plugAndFeather));
+
+        RecipeManager.addAction(new ActionKeepItem()
+            .addItems("itemLogExtra")
+            .matchCraftingItem(TFCItems.clayTile));
     }
 
     private static void registerCarvingRecipes() {

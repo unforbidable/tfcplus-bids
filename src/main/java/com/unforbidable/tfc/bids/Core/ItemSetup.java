@@ -286,6 +286,11 @@ public class ItemSetup extends BidsItems {
         OreDictionary.registerOre("itemAdzeStone", new ItemStack(igExStoneAdze, 1, WILD));
 
         OreDictionary.registerOre("itemRoughStoneBrickLoose", new ItemStack(sedRoughStoneLooseBrick, 1, WILD));
+
+        final Item[] logs = new Item[] { logsSeasoned, peeledLog, peeledLogSeasoned };
+        for (Item log : logs) {
+            OreDictionary.registerOre("itemLogExtra", new ItemStack(log, 1, WILD));
+        }
     }
 
     private static void registerWoodPileItems() {
