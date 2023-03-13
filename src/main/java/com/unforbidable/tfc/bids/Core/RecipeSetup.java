@@ -874,35 +874,35 @@ public class RecipeSetup {
         }
 
         BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatCrushed), 5),
-                new FluidStack(TFCFluids.FRESHWATER, 100),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatPorridge), 6),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatCrushed), 1f),
+                new FluidStack(TFCFluids.FRESHWATER, 50),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatPorridge), 1.2f),
+                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
         BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyCrushed), 5),
-                new FluidStack(TFCFluids.FRESHWATER, 100),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyPorridge), 6),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyCrushed), 1f),
+                new FluidStack(TFCFluids.FRESHWATER, 50),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyPorridge), 1.2f),
+                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
         BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.oatCrushed), 5),
-                new FluidStack(TFCFluids.FRESHWATER, 100),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.oatPorridge), 6),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.oatCrushed), 1f),
+                new FluidStack(TFCFluids.FRESHWATER, 50),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.oatPorridge), 1.2f),
+                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
         BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.riceCrushed), 5),
-                new FluidStack(TFCFluids.FRESHWATER, 100),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.ricePorridge), 6),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.riceCrushed), 1f),
+                new FluidStack(TFCFluids.FRESHWATER, 50),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.ricePorridge), 1.2f),
+                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
         BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeCrushed), 5),
-                new FluidStack(TFCFluids.FRESHWATER, 100),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.ryePorridge), 6),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeCrushed), 1),
+                new FluidStack(TFCFluids.FRESHWATER, 50),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.ryePorridge), 1.2f),
+                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
         BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealCrushed), 5),
-                new FluidStack(TFCFluids.FRESHWATER, 100),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealPorridge), 6),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4, 4000));
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealCrushed), 1),
+                new FluidStack(TFCFluids.FRESHWATER, 50),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealPorridge), 1.2f),
+                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
     }
 
     private static void registerAnvilRecipes() {
