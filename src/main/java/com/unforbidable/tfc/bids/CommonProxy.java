@@ -1,11 +1,9 @@
 package com.unforbidable.tfc.bids;
 
-import com.unforbidable.tfc.bids.Core.BlockSetup;
-import com.unforbidable.tfc.bids.Core.DrinkSetup;
-import com.unforbidable.tfc.bids.Core.ItemSetup;
-import com.unforbidable.tfc.bids.Core.RecipeSetup;
+import com.unforbidable.tfc.bids.Core.*;
 import com.unforbidable.tfc.bids.Core.Network.NetworkSetup;
 import com.unforbidable.tfc.bids.Core.Player.PlayerTracker;
+import com.unforbidable.tfc.bids.Handlers.Client.KeyBindingHandler;
 import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
 import com.unforbidable.tfc.bids.Handlers.WorldEventHandler;
@@ -39,8 +37,10 @@ public class CommonProxy {
         BlockSetup.postInit();
         DrinkSetup.postInit();
         RecipeSetup.postInit();
+        KeyBindingSetup.postInit();
 
         FMLCommonHandler.instance().bus().register(new PlayerTracker());
+        FMLCommonHandler.instance().bus().register(new KeyBindingHandler());
 
         // Anvil recipes are registered when world loads
         // ideally after TFC initialized its AnvilManager

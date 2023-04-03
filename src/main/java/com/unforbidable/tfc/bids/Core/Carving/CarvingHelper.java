@@ -1,10 +1,13 @@
 package com.unforbidable.tfc.bids.Core.Carving;
 
+import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
+import com.unforbidable.tfc.bids.Core.Player.PlayerStateManager;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.api.CarvingRegistry;
+import com.unforbidable.tfc.bids.api.Enums.EnumAdzeMode;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
 
@@ -14,11 +17,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.logging.Logger;
 
 public class CarvingHelper {
 
@@ -323,6 +329,27 @@ public class CarvingHelper {
         double minZ = bitZ * stride;
         double maxZ = minZ + stride;
         return AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
+    }
+
+    public static EnumAdzeMode getAdzeCarvingMode(EntityPlayer player) {
+        CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
+        if (state == null) {
+            return EnumAdzeMode.SINGLE;
+        } else {
+            return state.adzeMode;
+        }
+    }
+
+    public static void setNextAdzeCarvingMode(EntityPlayer player) {
+        CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
+        if (state == null) {
+            state = new CarvingPlayerState();
+            PlayerStateManager.setPlayerState(player, state);
+        }
+
+        state.adzeMode = state.adzeMode.getNext();
+
+        TFC_Core.sendInfoMessage(player, new ChatComponentText( "Carving mode: " + state.adzeMode));
     }
 
 }
