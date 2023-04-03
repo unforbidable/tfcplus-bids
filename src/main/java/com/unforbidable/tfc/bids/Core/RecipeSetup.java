@@ -208,7 +208,7 @@ public class RecipeSetup {
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseBrick, 4, j),
                     new ItemStack(BidsBlocks.roughStoneSed, 1, j), "itemAdze"));
             GameRegistry.addRecipe(
-                    new ItemStack(BidsBlocks.roughStoneBrickSed, 1, j),
+                    new ItemStack(BidsBlocks.roughStoneBrickSed, 2, j),
                     "BB", "BB", 'B', new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j));
         }
 

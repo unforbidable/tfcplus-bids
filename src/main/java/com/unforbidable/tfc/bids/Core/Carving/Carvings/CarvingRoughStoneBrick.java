@@ -30,8 +30,8 @@ public class CarvingRoughStoneBrick implements ICarving {
 
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
-        ItemStack[] list = new ItemStack[4];
-        for (int i = 0; i < 4; i++)
+        ItemStack[] list = new ItemStack[2];
+        for (int i = 0; i < 2; i++)
             list[i] = new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, metadata);
         return list;
     }
