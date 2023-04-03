@@ -46,7 +46,7 @@ public class ItemDrill extends Item implements ISize {
         this.material = material;
         maxStackSize = 1;
         setCreativeTab(BidsCreativeTabs.bidsTools);
-        setMaxDamage(material.getMaxUses() / 2);
+        setMaxDamage(material.getMaxUses());
         setNoRepair();
     }
 
