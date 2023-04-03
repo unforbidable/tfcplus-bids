@@ -262,3 +262,8 @@
 - Fixed: Porridge cooking recipe should now produce more accurate bonus volume increase
 - Fixed: Birch bark kindling can actually be placed into a firepit
 - Fixed: Peeled and seasoned logs are not consumed when crafting clay tiles
+
+0.23.4 (03-04-2023)
+- Changed: 4 loose rough stone bricks now yield 2 rough stone brick blocks instead of 1
+- Changed: Stone drill has double the durability as before
+- Changed: The default drilling speed increased
