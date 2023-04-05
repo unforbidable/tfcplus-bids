@@ -22,7 +22,6 @@ public class PlayerStateManager {
             states.put(player, playerStates);
         }
 
-        Bids.LOG.info("Stored player state: " + state);
         playerStates.put(type, state);
     }
 
@@ -38,7 +37,6 @@ public class PlayerStateManager {
             Object o = playerStates.get(type);
             if (o != null) {
                 state = (T) type.cast(o);
-                Bids.LOG.info("Retrieved player state: " + state);
 
                 if (andDoClear) {
                     clearPlayerState(player, type);
@@ -54,7 +52,6 @@ public class PlayerStateManager {
         if (playerStates != null) {
             Object o = playerStates.get(type);
             if (o != null) {
-                Bids.LOG.info("Cleared player state: " + o);
                 playerStates.remove(type);
             }
         }

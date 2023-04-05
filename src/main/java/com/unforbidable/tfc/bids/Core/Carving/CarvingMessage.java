@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Core.Carving;
 
 import com.unforbidable.tfc.bids.Core.Network.TileEntityMessageBase;
 
+import com.unforbidable.tfc.bids.api.Enums.EnumAdzeMode;
 import io.netty.buffer.ByteBuf;
 
 public class CarvingMessage extends TileEntityMessageBase {
@@ -9,6 +10,7 @@ public class CarvingMessage extends TileEntityMessageBase {
     private int action;
     private int flag;
     private CarvingBit bit = CarvingBit.Empty;
+    private EnumAdzeMode carvingMode = EnumAdzeMode.SINGLE;
     private byte[] carvedData = null;
 
     public CarvingMessage() {
@@ -46,12 +48,22 @@ public class CarvingMessage extends TileEntityMessageBase {
         return bit;
     }
 
+    public CarvingMessage setCarvingMode(EnumAdzeMode carvingMode) {
+        this.carvingMode = carvingMode;
+        return this;
+    }
+
+    public EnumAdzeMode getCarvingMode() {
+        return carvingMode;
+    }
+
     @Override
     public void fromBytes(ByteBuf buf) {
         super.fromBytes(buf);
 
         action = buf.readByte();
         flag = buf.readByte();
+        carvingMode = buf.readByte() == 0 ? EnumAdzeMode.SINGLE : EnumAdzeMode.DOUBLE;
 
         boolean isEmpty = buf.readBoolean();
         if (!isEmpty) {
@@ -75,6 +87,7 @@ public class CarvingMessage extends TileEntityMessageBase {
 
         buf.writeByte(action);
         buf.writeByte(flag);
+        buf.writeByte(carvingMode.ordinal());
 
         buf.writeBoolean(bit.isEmpty());
         if (!bit.isEmpty()) {

@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.api.CarvingRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
 import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
+import com.unforbidable.tfc.bids.api.Enums.EnumAdzeMode;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
@@ -20,6 +21,9 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileEntityCarving extends TileEntity implements IMessageHanldingTileEntity<CarvingMessage> {
 
@@ -37,6 +41,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     CarvingBit selectedBit = CarvingBit.Empty;
     boolean clientInitialized = false;
     int carvedBitCount = 0;
+    EnumAdzeMode carvingMode = EnumAdzeMode.SINGLE;
 
     ItemStack cachedCraftingResult = null;
     boolean cachedCraftingResultIsValid = false;
@@ -99,6 +104,14 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
         return selectedBit;
     }
 
+    public void setCarvingMode(EnumAdzeMode mode) {
+        carvingMode = mode;
+    }
+
+    public EnumAdzeMode getCarvingMode() {
+        return carvingMode;
+    }
+
     public boolean carveSelectedBit() {
         if (!selectedBit.isEmpty()) {
             return carveBit(selectedBit);
@@ -108,10 +121,32 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
         }
     }
 
-    public boolean carveBit(CarvingBit bit) {
+    private boolean carveBit(CarvingBit bit) {
+        List<CarvingBit> bitsToCarve = new ArrayList<CarvingBit>();
+
         if (canCarveBit(bit)) {
-            Bids.LOG.debug("Carved bit " + bit.bitX + ", " + bit.bitY + ", " + bit.bitZ);
-            carvedBits.setBit(bit);
+            if (carvingMode == EnumAdzeMode.SINGLE) {
+                bitsToCarve.add(bit);
+            } else if (carvingMode == EnumAdzeMode.DOUBLE) {
+                int quadX = bit.bitX / 2 * 2;
+                int quadY = bit.bitY / 2 * 2;
+                int quadZ = bit.bitZ / 2 * 2;
+
+                for (int x = 0; x < 2; x++) {
+                    for (int y = 0; y < 2; y++ ) {
+                        for (int z = 0; z < 2; z++) {
+                            bitsToCarve.add(new CarvingBit(quadX + x, quadY + y, quadZ + z));
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!bitsToCarve.isEmpty()) {
+            for (CarvingBit b : bitsToCarve) {
+                Bids.LOG.debug("Carved bit " + b.bitX + ", " + b.bitY + ", " + b.bitZ + " mode " + carvingMode);
+                carvedBits.setBit(b);
+            }
 
             dropHarvestAtRatioCarved(getCarvedBitCount() / (float) getTotalBitCount());
             dropExtraHarvest();
@@ -130,51 +165,56 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     }
 
     public boolean canCarveBit(CarvingBit bit) {
-        // Can be carved if bit is at the edge
-        final int maxBit = CARVING_DIMENSION - 1;
-        if (bit.bitX == 0 || bit.bitX == maxBit ||
+        if (carvingMode == EnumAdzeMode.SINGLE) {
+            // Can be carved if bit is at the edge
+            final int maxBit = CARVING_DIMENSION - 1;
+            if (bit.bitX == 0 || bit.bitX == maxBit ||
                 bit.bitY == 0 || bit.bitY == maxBit ||
                 bit.bitZ == 0 || bit.bitZ == maxBit) {
-            return true;
-        }
+                return true;
+            }
 
-        // Either one of each of the three opposing sides need to be exposed
-        if ((carvedBits.testBit(bit.getBitToDirection(ForgeDirection.WEST))
+            // Either one of each of the three opposing sides need to be exposed
+            if ((carvedBits.testBit(bit.getBitToDirection(ForgeDirection.WEST))
                 || carvedBits.testBit(bit.getBitToDirection(ForgeDirection.EAST)))
                 && (carvedBits.testBit(bit.getBitToDirection(ForgeDirection.SOUTH))
-                        || carvedBits.testBit(bit.getBitToDirection(ForgeDirection.NORTH)))
+                || carvedBits.testBit(bit.getBitToDirection(ForgeDirection.NORTH)))
                 && (carvedBits.testBit(bit.getBitToDirection(ForgeDirection.UP))
-                        || carvedBits.testBit(bit.getBitToDirection(ForgeDirection.DOWN)))) {
-            return true;
-        }
+                || carvedBits.testBit(bit.getBitToDirection(ForgeDirection.DOWN)))) {
+                return true;
+            }
 
-        // Surrounding bits need to be exposed
-        // to any one side the carved bit is exposed
-        for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
-            CarvingBit sideBit = bit.getBitToDirection(d);
-            if (carvedBits.testBit(sideBit)) {
-                // Each of the four bits around the side bit that had been carved
-                // need to have been carved out too
-                int sideBitNeighborCarvedCount = 0;
-                for (ForgeDirection ds : ForgeDirection.VALID_DIRECTIONS) {
-                    // Skip back and front relative to the bit being carved out
-                    if (ds != d && ds != d.getOpposite()) {
-                        CarvingBit sideBitNeighbor = sideBit.getBitToDirection(ds);
-                        if (carvedBits.testBit(sideBitNeighbor)) {
-                            sideBitNeighborCarvedCount++;
+            // Surrounding bits need to be exposed
+            // to any one side the carved bit is exposed
+            for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+                CarvingBit sideBit = bit.getBitToDirection(d);
+                if (carvedBits.testBit(sideBit)) {
+                    // Each of the four bits around the side bit that had been carved
+                    // need to have been carved out too
+                    int sideBitNeighborCarvedCount = 0;
+                    for (ForgeDirection ds : ForgeDirection.VALID_DIRECTIONS) {
+                        // Skip back and front relative to the bit being carved out
+                        if (ds != d && ds != d.getOpposite()) {
+                            CarvingBit sideBitNeighbor = sideBit.getBitToDirection(ds);
+                            if (carvedBits.testBit(sideBitNeighbor)) {
+                                sideBitNeighborCarvedCount++;
+                            }
                         }
                     }
-                }
 
-                if (sideBitNeighborCarvedCount == 4) {
-                    return true;
-                } else {
-                    Bids.LOG.debug("Not enough exposed bits around to " + d + ": " + sideBitNeighborCarvedCount);
+                    if (sideBitNeighborCarvedCount == 4) {
+                        return true;
+                    } else {
+                        Bids.LOG.debug("Not enough exposed bits around to " + d + ": " + sideBitNeighborCarvedCount);
+                    }
                 }
             }
-        }
 
-        Bids.LOG.debug("Cannot carve bit that is too deep");
+            Bids.LOG.debug("Cannot carve bit that is too deep");
+        } else if (carvingMode == EnumAdzeMode.DOUBLE) {
+            // Corners 2x2 can always be carved
+            return true;
+        }
 
         return false;
     }
@@ -312,6 +352,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
             switch (message.getAction()) {
                 case ACTION_SELECT_BIT:
                     selectedBit = message.getBit();
+                    carvingMode = message.getCarvingMode();
                     Bids.LOG.debug("Selected bit " + (selectedBit.isEmpty() ? "None"
                             : (selectedBit.bitX + ", " + selectedBit.bitY + ", " + selectedBit.bitZ)));
 
@@ -327,10 +368,10 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
 
     }
 
-    public static void sendSelectBitMessage(World world, int x, int y, int z, CarvingBit bit) {
-        Bids.network.sendToServer(new CarvingMessage(x, y, z, TileEntityCarving.ACTION_SELECT_BIT).setBit(bit));
+    public static void sendSelectBitMessage(World world, int x, int y, int z, CarvingBit bit, EnumAdzeMode mode) {
+        Bids.network.sendToServer(new CarvingMessage(x, y, z, TileEntityCarving.ACTION_SELECT_BIT).setBit(bit).setCarvingMode(mode));
         Bids.LOG.debug("Send select bit message " + bit.bitX + ", " + bit.bitY +
-                ", " + bit.bitZ);
+                ", " + bit.bitZ + " mode " + mode);
     }
 
     public static void sendUpdateMessage(World world, int x, int y, int z, int flags) {

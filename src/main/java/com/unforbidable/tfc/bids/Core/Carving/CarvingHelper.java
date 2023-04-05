@@ -134,21 +134,23 @@ public class CarvingHelper {
                 (int) Math.min((hitZ * dim), max));
     }
 
-    public static void setBlockBoundsBasedOnSelection(IBlockAccess access, int x, int y, int z) {
+    public static void setBlockBoundsBasedOnSelection(IBlockAccess access, int x, int y, int z, EnumAdzeMode mode) {
         Block block = access.getBlock(x, y, z);
         TileEntityCarving te = (TileEntityCarving) access.getTileEntity(x, y, z);
         CarvingBit selected = te.getSelectedBit();
 
         if (!selected.isEmpty()) {
-            int d = TileEntityCarving.CARVING_DIMENSION;
-            float div = 1f / d;
+            float modeMult = mode == EnumAdzeMode.SINGLE ? 1f : 0.5f;
 
-            float minX = selected.bitX * div;
-            float maxX = minX + div;
-            float minY = selected.bitY * div;
-            float maxY = minY + div;
-            float minZ = selected.bitZ * div;
-            float maxZ = minZ + div;
+            int d = TileEntityCarving.CARVING_DIMENSION;
+            float div = 1f / (d * modeMult);
+
+            double minX = Math.floor(selected.bitX * modeMult) * div;
+            double maxX = minX + div;
+            double minY = Math.floor(selected.bitY * modeMult) * div;
+            double maxY = minY + div;
+            double minZ = Math.floor(selected.bitZ * modeMult) * div;
+            double maxZ = minZ + div;
 
             AxisAlignedBB bound = AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
             block.setBlockBounds((float) bound.minX, (float) bound.minY, (float) bound.minZ,
@@ -237,7 +239,7 @@ public class CarvingHelper {
             ICarvingTool tool = item != null && item.getItem() instanceof ICarvingTool ? (ICarvingTool) item.getItem()
                     : null;
             if (!te.isCarvingLocked() && !te.getSelectedBit().isEmpty() && tool != null) {
-                CarvingHelper.setBlockBoundsBasedOnSelection(world, x, y, z);
+                CarvingHelper.setBlockBoundsBasedOnSelection(world, x, y, z, getAdzeCarvingMode(Minecraft.getMinecraft().thePlayer));
             } else {
                 CarvingHelper.setBlockBoundsBasedOnCarving(world, x, y, z);
             }
@@ -254,6 +256,7 @@ public class CarvingHelper {
         double stride = 1f / dimension;
 
         // There won't be thePlayer when collision is checked for falling snow?
+        EnumAdzeMode carvingMode = Minecraft.getMinecraft().thePlayer != null ? getAdzeCarvingMode(Minecraft.getMinecraft().thePlayer) : EnumAdzeMode.SINGLE;
         ItemStack item = Minecraft.getMinecraft().thePlayer != null ? Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() : null;
         ICarvingTool tool = item != null && item.getItem() instanceof ICarvingTool ? (ICarvingTool) item.getItem()
                 : null;
@@ -281,21 +284,22 @@ public class CarvingHelper {
             }
 
             if (nearestCol != null) {
-                if (te.setSelectedBit(nearestBit)) {
-                    TileEntityCarving.sendSelectBitMessage(world, x, y, z, nearestBit);
+                if (te.setSelectedBit(nearestBit) || te.getCarvingMode() != carvingMode) {
+                    te.setCarvingMode(carvingMode);
+                    TileEntityCarving.sendSelectBitMessage(world, x, y, z, nearestBit, carvingMode);
                 }
 
-                setBlockBoundsBasedOnSelection(world, x, y, z);
+                setBlockBoundsBasedOnSelection(world, x, y, z, carvingMode);
 
                 return new MovingObjectPosition(x, y, z,
                         nearestCol.side,
                         nearestCol.hitVec.addVector(x, y, z));
             } else {
                 if (te.setSelectedBit(CarvingBit.Empty)) {
-                    TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty);
+                    TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, carvingMode);
                 }
 
-                setBlockBoundsBasedOnSelection(world, x, y, z);
+                setBlockBoundsBasedOnSelection(world, x, y, z, carvingMode);
 
                 return null;
             }
@@ -306,7 +310,7 @@ public class CarvingHelper {
             setBlockBounds(world, x, y, z, bounds);
 
             if (te.setSelectedBit(CarvingBit.Empty)) {
-                TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty);
+                TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, carvingMode);
             }
 
             CollisionInfo col = CollisionHelper.rayTraceAABB(bounds, startVec, endVec);
