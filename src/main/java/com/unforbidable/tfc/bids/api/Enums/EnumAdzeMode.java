@@ -1,16 +1,18 @@
 package com.unforbidable.tfc.bids.api.Enums;
 
 import com.unforbidable.tfc.bids.Core.Carving.Modes.CarvingModeCorner;
+import com.unforbidable.tfc.bids.Core.Carving.Modes.CarvingModeSide;
 import com.unforbidable.tfc.bids.Core.Carving.Modes.CarvingModeSingle;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarvingMode;
 
 public enum EnumAdzeMode {
 
     SINGLE(new CarvingModeSingle()),
-    CORNER(new CarvingModeCorner());
+    CORNER(new CarvingModeCorner()),
+    SIDE(new CarvingModeSide());
 
     public static final EnumAdzeMode DEFAULT_MODE = SINGLE;
-    public static final EnumAdzeMode[] ALL_MODES = new EnumAdzeMode[] { SINGLE, CORNER };
+    public static final EnumAdzeMode[] ALL_MODES = new EnumAdzeMode[] { SINGLE, CORNER, SIDE };
 
     private final ICarvingMode carvingMode;
 

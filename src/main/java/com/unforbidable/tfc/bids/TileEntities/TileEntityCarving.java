@@ -37,6 +37,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     boolean isCarvingLocked = false;
 
     CarvingBit selectedBit = CarvingBit.Empty;
+    int selectedSide = 0;
     boolean clientInitialized = false;
     int carvedBitCount = 0;
     EnumAdzeMode carvingMode = EnumAdzeMode.DEFAULT_MODE;
@@ -110,18 +111,28 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
         return carvingMode;
     }
 
+    public int getSelectedSide() {
+        return selectedSide;
+    }
+
+    public void setSelectedSide(int selectedSide) {
+        this.selectedSide = selectedSide;
+    }
+
     public boolean carveSelectedBit() {
         if (!selectedBit.isEmpty()) {
-            return carveBit(selectedBit);
+            return carveBit(selectedBit, selectedSide);
         } else {
             Bids.LOG.warn("Cannot carve selected bit when none is selected");
             return false;
         }
     }
 
-    private boolean carveBit(CarvingBit bit) {
-        if (canCarveBit(bit)) {
-            List<CarvingBit> bitsToCarve = carvingMode.getCarvingMode().getBitsToCarve(bit, carvedBits);
+    private boolean carveBit(CarvingBit bit, int side) {
+        if (canCarveBit(bit, side)) {
+            Bids.LOG.debug("Can carve bit " + bit.bitX + ", " + bit.bitY + ", " + bit.bitZ + " side " + side);
+
+            List<CarvingBit> bitsToCarve = carvingMode.getCarvingMode().getBitsToCarve(bit, side, carvedBits);
 
             if (!bitsToCarve.isEmpty()) {
                 for (CarvingBit b : bitsToCarve) {
@@ -146,8 +157,8 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
         return false;
     }
 
-    public boolean canCarveBit(CarvingBit bit) {
-        return carvingMode.getCarvingMode().canCarveBit(bit, carvedBits);
+    public boolean canCarveBit(CarvingBit bit, int side) {
+        return carvingMode.getCarvingMode().canCarveBit(bit, side, carvedBits);
     }
 
     public boolean isBitCarved(int bitX, int bitY, int bitZ) {
@@ -283,6 +294,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
             switch (message.getAction()) {
                 case ACTION_SELECT_BIT:
                     selectedBit = message.getBit();
+                    selectedSide = message.getSide();
                     carvingMode = message.getCarvingMode();
                     Bids.LOG.debug("Selected bit " + (selectedBit.isEmpty() ? "None"
                             : (selectedBit.bitX + ", " + selectedBit.bitY + ", " + selectedBit.bitZ)));
@@ -299,10 +311,13 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
 
     }
 
-    public static void sendSelectBitMessage(World world, int x, int y, int z, CarvingBit bit, EnumAdzeMode mode) {
-        Bids.network.sendToServer(new CarvingMessage(x, y, z, TileEntityCarving.ACTION_SELECT_BIT).setBit(bit).setCarvingMode(mode));
+    public static void sendSelectBitMessage(World world, int x, int y, int z, CarvingBit bit, int side, EnumAdzeMode mode) {
+        Bids.network.sendToServer(new CarvingMessage(x, y, z, TileEntityCarving.ACTION_SELECT_BIT)
+                .setBit(bit)
+                .setSide(side)
+                .setCarvingMode(mode));
         Bids.LOG.debug("Send select bit message " + bit.bitX + ", " + bit.bitY +
-                ", " + bit.bitZ + " mode " + mode);
+                ", " + bit.bitZ + " side " + side + " mode " + mode);
     }
 
     public static void sendUpdateMessage(World world, int x, int y, int z, int flags) {

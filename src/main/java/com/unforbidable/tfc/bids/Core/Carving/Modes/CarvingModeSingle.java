@@ -21,7 +21,7 @@ public class CarvingModeSingle implements ICarvingMode {
     }
 
     @Override
-    public boolean canCarveBit(final CarvingBit bit, final CarvingBitMap carvedBits) {
+    public boolean canCarveBit(final CarvingBit bit, final int side, final CarvingBitMap carvedBits) {
         // Can be carved if bit is at the edge
         final int maxBit = CARVING_DIMENSION - 1;
         if (bit.bitX == 0 || bit.bitX == maxBit ||
@@ -72,12 +72,12 @@ public class CarvingModeSingle implements ICarvingMode {
     }
 
     @Override
-    public List<CarvingBit> getBitsToCarve(CarvingBit selectedBit, CarvingBitMap currentCarvedBits) {
+    public List<CarvingBit> getBitsToCarve(CarvingBit selectedBit, int side, CarvingBitMap currentCarvedBits) {
         return Collections.singletonList(selectedBit);
     }
 
     @Override
-    public AxisAlignedBB getSelectedBitBounds(CarvingBit selected) {
+    public AxisAlignedBB getSelectedBitBounds(CarvingBit selected, int side) {
         float div = 1f / TileEntityCarving.CARVING_DIMENSION;
 
         double minX = selected.bitX * div;

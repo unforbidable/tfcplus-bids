@@ -17,13 +17,13 @@ public class CarvingModeCorner implements ICarvingMode {
     }
 
     @Override
-    public boolean canCarveBit(CarvingBit selectedBit, CarvingBitMap currentCarvedBits) {
+    public boolean canCarveBit(CarvingBit selectedBit, int side, CarvingBitMap currentCarvedBits) {
         // Corners 2x2 can always be carved
         return true;
     }
 
     @Override
-    public List<CarvingBit> getBitsToCarve(CarvingBit bit, CarvingBitMap currentCarvedBits) {
+    public List<CarvingBit> getBitsToCarve(CarvingBit bit, int side, CarvingBitMap currentCarvedBits) {
         List<CarvingBit> bitsToCarve = new ArrayList<CarvingBit>();
 
         int quadX = bit.bitX / 2 * 2;
@@ -42,7 +42,7 @@ public class CarvingModeCorner implements ICarvingMode {
     }
 
     @Override
-    public AxisAlignedBB getSelectedBitBounds(CarvingBit selected) {
+    public AxisAlignedBB getSelectedBitBounds(CarvingBit selected, int side) {
         int d = TileEntityCarving.CARVING_DIMENSION;
         float div = 1f / (d * 0.5f);
 

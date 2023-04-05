@@ -9,8 +9,8 @@ import java.util.List;
 public interface ICarvingMode {
 
     String getName();
-    boolean canCarveBit(CarvingBit selectedBit, CarvingBitMap currentCarvedBits);
-    List<CarvingBit> getBitsToCarve(CarvingBit selectedBit, CarvingBitMap currentCarvedBits);
-    AxisAlignedBB getSelectedBitBounds(CarvingBit selectedBit);
+    boolean canCarveBit(CarvingBit selectedBit, int side, CarvingBitMap currentCarvedBits);
+    List<CarvingBit> getBitsToCarve(CarvingBit selectedBit, int side, CarvingBitMap currentCarvedBits);
+    AxisAlignedBB getSelectedBitBounds(CarvingBit selectedBit, int side);
 
 }

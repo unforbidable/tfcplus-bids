@@ -131,13 +131,13 @@ public class CarvingHelper {
                 (int) Math.min((hitZ * dim), max));
     }
 
-    public static void setBlockBoundsBasedOnSelection(IBlockAccess access, int x, int y, int z, EnumAdzeMode mode) {
+    public static void setBlockBoundsBasedOnSelection(IBlockAccess access, int x, int y, int z, int side, EnumAdzeMode mode) {
         Block block = access.getBlock(x, y, z);
         TileEntityCarving te = (TileEntityCarving) access.getTileEntity(x, y, z);
         CarvingBit selected = te.getSelectedBit();
 
         if (!selected.isEmpty()) {
-            AxisAlignedBB bound = mode.getCarvingMode().getSelectedBitBounds(selected);
+            AxisAlignedBB bound = mode.getCarvingMode().getSelectedBitBounds(selected, side);
             block.setBlockBounds((float) bound.minX, (float) bound.minY, (float) bound.minZ,
                     (float) bound.maxX, (float) bound.maxY, (float) bound.maxZ);
         } else {
@@ -216,7 +216,7 @@ public class CarvingHelper {
         return AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
-    public static void updateBlockBoundsAfterCollisions(World world, int x, int y, int z) {
+    public static void updateBlockBoundsAfterCollisions(World world, int x, int y, int z, int side) {
         if (world.isRemote) {
             System.out.println("!");
             TileEntityCarving te = (TileEntityCarving) world.getTileEntity(x, y, z);
@@ -224,7 +224,7 @@ public class CarvingHelper {
             ICarvingTool tool = item != null && item.getItem() instanceof ICarvingTool ? (ICarvingTool) item.getItem()
                     : null;
             if (!te.isCarvingLocked() && !te.getSelectedBit().isEmpty() && tool != null) {
-                CarvingHelper.setBlockBoundsBasedOnSelection(world, x, y, z, getAdzeCarvingMode(Minecraft.getMinecraft().thePlayer));
+                CarvingHelper.setBlockBoundsBasedOnSelection(world, x, y, z, side, getAdzeCarvingMode(Minecraft.getMinecraft().thePlayer));
             } else {
                 CarvingHelper.setBlockBoundsBasedOnCarving(world, x, y, z);
             }
@@ -269,22 +269,23 @@ public class CarvingHelper {
             }
 
             if (nearestCol != null) {
-                if (te.setSelectedBit(nearestBit) || te.getCarvingMode() != carvingMode) {
+                if (te.setSelectedBit(nearestBit) || te.getCarvingMode() != carvingMode || te.getSelectedSide() != nearestCol.side) {
                     te.setCarvingMode(carvingMode);
-                    TileEntityCarving.sendSelectBitMessage(world, x, y, z, nearestBit, carvingMode);
+                    te.setSelectedSide(nearestCol.side);
+                    TileEntityCarving.sendSelectBitMessage(world, x, y, z, nearestBit, nearestCol.side, carvingMode);
                 }
 
-                setBlockBoundsBasedOnSelection(world, x, y, z, carvingMode);
+                setBlockBoundsBasedOnSelection(world, x, y, z, nearestCol.side, carvingMode);
 
                 return new MovingObjectPosition(x, y, z,
                         nearestCol.side,
                         nearestCol.hitVec.addVector(x, y, z));
             } else {
                 if (te.setSelectedBit(CarvingBit.Empty)) {
-                    TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, carvingMode);
+                    TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, 0, carvingMode);
                 }
 
-                setBlockBoundsBasedOnSelection(world, x, y, z, carvingMode);
+                setBlockBoundsBasedOnSelection(world, x, y, z, 0, carvingMode);
 
                 return null;
             }
@@ -295,7 +296,7 @@ public class CarvingHelper {
             setBlockBounds(world, x, y, z, bounds);
 
             if (te.setSelectedBit(CarvingBit.Empty)) {
-                TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, carvingMode);
+                TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, 0, carvingMode);
             }
 
             CollisionInfo col = CollisionHelper.rayTraceAABB(bounds, startVec, endVec);
