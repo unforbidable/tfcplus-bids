@@ -20,7 +20,7 @@ public class KeyBindingHandler {
             FMLClientHandler.instance().getClient().currentScreen == null) {
             if (KEY_BINDING_TOOL_MODE.isPressed()) {
                 if (player.getCurrentEquippedItem().getItem() instanceof ItemAdze) {
-                    CarvingHelper.setNextAdzeCarvingMode(player);
+                    CarvingHelper.setPlayerCarvingMode(player);
 
                     //Let's send the actual EnumAdzeMode so the server/client does not
                     //come out of sync.

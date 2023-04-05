@@ -3,10 +3,12 @@ package com.unforbidable.tfc.bids;
 import com.unforbidable.tfc.bids.Core.BlockSetup;
 import com.unforbidable.tfc.bids.Core.ItemSetup;
 import com.unforbidable.tfc.bids.Handlers.Client.ClientGuiHandler;
+import com.unforbidable.tfc.bids.Handlers.Client.ClientTickHandler;
 import com.unforbidable.tfc.bids.Handlers.Client.RenderOverlayHandler;
 import com.unforbidable.tfc.bids.NEI.NotEnoughItemsSetup;
 import com.unforbidable.tfc.bids.WAILA.WailaSetup;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -22,6 +24,8 @@ public class ClientProxy extends CommonProxy {
     @SideOnly(Side.CLIENT)
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
+
+        FMLCommonHandler.instance().bus().register(new ClientTickHandler());
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new ClientGuiHandler());
         MinecraftForge.EVENT_BUS.register(new ClientGuiHandler());

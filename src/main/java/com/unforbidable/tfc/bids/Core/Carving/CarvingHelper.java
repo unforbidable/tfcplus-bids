@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Core.Carving;
 
-import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
@@ -16,12 +15,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.time.Instant;
+import java.util.Date;
 
 public class CarvingHelper {
 
@@ -224,7 +225,7 @@ public class CarvingHelper {
             ICarvingTool tool = item != null && item.getItem() instanceof ICarvingTool ? (ICarvingTool) item.getItem()
                     : null;
             if (!te.isCarvingLocked() && !te.getSelectedBit().isEmpty() && tool != null) {
-                CarvingHelper.setBlockBoundsBasedOnSelection(world, x, y, z, side, getAdzeCarvingMode(Minecraft.getMinecraft().thePlayer));
+                CarvingHelper.setBlockBoundsBasedOnSelection(world, x, y, z, side, getPlayerCarvingMode(Minecraft.getMinecraft().thePlayer));
             } else {
                 CarvingHelper.setBlockBoundsBasedOnCarving(world, x, y, z);
             }
@@ -241,7 +242,7 @@ public class CarvingHelper {
         double stride = 1f / dimension;
 
         // There won't be thePlayer when collision is checked for falling snow?
-        EnumAdzeMode carvingMode = Minecraft.getMinecraft().thePlayer != null ? getAdzeCarvingMode(Minecraft.getMinecraft().thePlayer) : EnumAdzeMode.DEFAULT_MODE;
+        EnumAdzeMode carvingMode = Minecraft.getMinecraft().thePlayer != null ? getPlayerCarvingMode(Minecraft.getMinecraft().thePlayer) : EnumAdzeMode.DEFAULT_MODE;
         ItemStack item = Minecraft.getMinecraft().thePlayer != null ? Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() : null;
         ICarvingTool tool = item != null && item.getItem() instanceof ICarvingTool ? (ICarvingTool) item.getItem()
                 : null;
@@ -277,6 +278,10 @@ public class CarvingHelper {
 
                 setBlockBoundsBasedOnSelection(world, x, y, z, nearestCol.side, carvingMode);
 
+                if (Minecraft.getMinecraft().thePlayer != null) {
+                    setPlayerCarvingActive(Minecraft.getMinecraft().thePlayer, true);
+                }
+
                 return new MovingObjectPosition(x, y, z,
                         nearestCol.side,
                         nearestCol.hitVec.addVector(x, y, z));
@@ -287,16 +292,24 @@ public class CarvingHelper {
 
                 setBlockBoundsBasedOnSelection(world, x, y, z, 0, carvingMode);
 
+                if (Minecraft.getMinecraft().thePlayer != null) {
+                    setPlayerCarvingActive(Minecraft.getMinecraft().thePlayer, false);
+                }
+
                 return null;
             }
         } else {
             // Ray tracing the whole carving cuboid when not wielding a ICarvingTool
-            // or if the carcing is locked
+            // or if the carving is locked
             AxisAlignedBB bounds = getCarvingBounds(te);
             setBlockBounds(world, x, y, z, bounds);
 
             if (te.setSelectedBit(CarvingBit.Empty)) {
                 TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, 0, carvingMode);
+            }
+
+            if (Minecraft.getMinecraft().thePlayer != null) {
+                setPlayerCarvingActive(Minecraft.getMinecraft().thePlayer, false);
             }
 
             CollisionInfo col = CollisionHelper.rayTraceAABB(bounds, startVec, endVec);
@@ -321,7 +334,7 @@ public class CarvingHelper {
         return AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
-    public static EnumAdzeMode getAdzeCarvingMode(EntityPlayer player) {
+    public static EnumAdzeMode getPlayerCarvingMode(EntityPlayer player) {
         CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
         if (state == null) {
             return EnumAdzeMode.DEFAULT_MODE;
@@ -330,7 +343,7 @@ public class CarvingHelper {
         }
     }
 
-    public static void setNextAdzeCarvingMode(EntityPlayer player) {
+    public static void setPlayerCarvingMode(EntityPlayer player) {
         CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
         if (state == null) {
             state = new CarvingPlayerState();
@@ -338,8 +351,38 @@ public class CarvingHelper {
         }
 
         state.adzeMode = state.adzeMode.getNext();
-
-        TFC_Core.sendInfoMessage(player, new ChatComponentText( "Carving mode: " + state.adzeMode.getCarvingMode().getName()));
     }
 
+    public static boolean isPlayerCarvingActive(EntityPlayer player) {
+        CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
+        if (state == null) {
+            return false;
+        } else {
+            return state.isCarvingActive;
+        }
+    }
+
+    public static void setPlayerCarvingActive(EntityPlayer player, boolean active) {
+        CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
+        if (state == null) {
+            state = new CarvingPlayerState();
+            PlayerStateManager.setPlayerState(player, state);
+        }
+
+        state.isCarvingActive = active;
+        state.carvingActivityChangedTime = System.currentTimeMillis();
+    }
+
+    public static void trackPlayerCarvingActivity(EntityPlayer player) {
+        CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
+        if (state != null) {
+            if (state.isCarvingActive) {
+                // Checking if the player looked away from the carving
+                // This causes the carving activity not being refreshed
+                if (state.carvingActivityChangedTime + 20 < System.currentTimeMillis()) {
+                    state.isCarvingActive = false;
+                }
+            }
+        }
+    }
 }

@@ -35,9 +35,9 @@ public class RenderOverlayHandler {
         if (playerInventory.getCurrentItem() != null) {
             Item currentItem = playerInventory.getCurrentItem().getItem();
 
-            if (currentItem instanceof ItemAdze)
+            if (currentItem instanceof ItemAdze && CarvingHelper.isPlayerCarvingActive(player))
             {
-                EnumAdzeMode mode = CarvingHelper.getAdzeCarvingMode(player);
+                EnumAdzeMode mode = CarvingHelper.getPlayerCarvingMode(player);
                 drawTexturedModalRect(mid + 95, sr.getScaledHeight() - 21, (20 * mode.ordinal()), 0, 20, 20);
             }
         }
