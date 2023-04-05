@@ -10,7 +10,7 @@ public class CarvingMessage extends TileEntityMessageBase {
     private int action;
     private int flag;
     private CarvingBit bit = CarvingBit.Empty;
-    private EnumAdzeMode carvingMode = EnumAdzeMode.SINGLE;
+    private EnumAdzeMode carvingMode = EnumAdzeMode.DEFAULT_MODE;
     private byte[] carvedData = null;
 
     public CarvingMessage() {
@@ -63,7 +63,7 @@ public class CarvingMessage extends TileEntityMessageBase {
 
         action = buf.readByte();
         flag = buf.readByte();
-        carvingMode = buf.readByte() == 0 ? EnumAdzeMode.SINGLE : EnumAdzeMode.DOUBLE;
+        carvingMode = EnumAdzeMode.valueOf(buf.readByte());
 
         boolean isEmpty = buf.readBoolean();
         if (!isEmpty) {

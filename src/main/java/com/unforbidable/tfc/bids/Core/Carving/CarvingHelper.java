@@ -10,7 +10,6 @@ import com.unforbidable.tfc.bids.api.CarvingRegistry;
 import com.unforbidable.tfc.bids.api.Enums.EnumAdzeMode;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,8 +22,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.logging.Logger;
 
 public class CarvingHelper {
 
@@ -140,19 +137,7 @@ public class CarvingHelper {
         CarvingBit selected = te.getSelectedBit();
 
         if (!selected.isEmpty()) {
-            float modeMult = mode == EnumAdzeMode.SINGLE ? 1f : 0.5f;
-
-            int d = TileEntityCarving.CARVING_DIMENSION;
-            float div = 1f / (d * modeMult);
-
-            double minX = Math.floor(selected.bitX * modeMult) * div;
-            double maxX = minX + div;
-            double minY = Math.floor(selected.bitY * modeMult) * div;
-            double maxY = minY + div;
-            double minZ = Math.floor(selected.bitZ * modeMult) * div;
-            double maxZ = minZ + div;
-
-            AxisAlignedBB bound = AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
+            AxisAlignedBB bound = mode.getCarvingMode().getSelectedBitBounds(selected);
             block.setBlockBounds((float) bound.minX, (float) bound.minY, (float) bound.minZ,
                     (float) bound.maxX, (float) bound.maxY, (float) bound.maxZ);
         } else {
@@ -256,7 +241,7 @@ public class CarvingHelper {
         double stride = 1f / dimension;
 
         // There won't be thePlayer when collision is checked for falling snow?
-        EnumAdzeMode carvingMode = Minecraft.getMinecraft().thePlayer != null ? getAdzeCarvingMode(Minecraft.getMinecraft().thePlayer) : EnumAdzeMode.SINGLE;
+        EnumAdzeMode carvingMode = Minecraft.getMinecraft().thePlayer != null ? getAdzeCarvingMode(Minecraft.getMinecraft().thePlayer) : EnumAdzeMode.DEFAULT_MODE;
         ItemStack item = Minecraft.getMinecraft().thePlayer != null ? Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() : null;
         ICarvingTool tool = item != null && item.getItem() instanceof ICarvingTool ? (ICarvingTool) item.getItem()
                 : null;
@@ -338,7 +323,7 @@ public class CarvingHelper {
     public static EnumAdzeMode getAdzeCarvingMode(EntityPlayer player) {
         CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
         if (state == null) {
-            return EnumAdzeMode.SINGLE;
+            return EnumAdzeMode.DEFAULT_MODE;
         } else {
             return state.adzeMode;
         }
@@ -353,7 +338,7 @@ public class CarvingHelper {
 
         state.adzeMode = state.adzeMode.getNext();
 
-        TFC_Core.sendInfoMessage(player, new ChatComponentText( "Carving mode: " + state.adzeMode));
+        TFC_Core.sendInfoMessage(player, new ChatComponentText( "Carving mode: " + state.adzeMode.getCarvingMode().getName()));
     }
 
 }

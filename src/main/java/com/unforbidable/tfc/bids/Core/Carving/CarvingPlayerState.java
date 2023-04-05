@@ -4,6 +4,6 @@ import com.unforbidable.tfc.bids.api.Enums.EnumAdzeMode;
 
 public class CarvingPlayerState {
 
-    public EnumAdzeMode adzeMode = EnumAdzeMode.SINGLE;
+    public EnumAdzeMode adzeMode = EnumAdzeMode.DEFAULT_MODE;
 
 }

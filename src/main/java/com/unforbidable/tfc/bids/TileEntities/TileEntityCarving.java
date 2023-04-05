@@ -20,9 +20,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TileEntityCarving extends TileEntity implements IMessageHanldingTileEntity<CarvingMessage> {
@@ -41,7 +39,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     CarvingBit selectedBit = CarvingBit.Empty;
     boolean clientInitialized = false;
     int carvedBitCount = 0;
-    EnumAdzeMode carvingMode = EnumAdzeMode.SINGLE;
+    EnumAdzeMode carvingMode = EnumAdzeMode.DEFAULT_MODE;
 
     ItemStack cachedCraftingResult = null;
     boolean cachedCraftingResultIsValid = false;
@@ -122,101 +120,34 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     }
 
     private boolean carveBit(CarvingBit bit) {
-        List<CarvingBit> bitsToCarve = new ArrayList<CarvingBit>();
-
         if (canCarveBit(bit)) {
-            if (carvingMode == EnumAdzeMode.SINGLE) {
-                bitsToCarve.add(bit);
-            } else if (carvingMode == EnumAdzeMode.DOUBLE) {
-                int quadX = bit.bitX / 2 * 2;
-                int quadY = bit.bitY / 2 * 2;
-                int quadZ = bit.bitZ / 2 * 2;
+            List<CarvingBit> bitsToCarve = carvingMode.getCarvingMode().getBitsToCarve(bit, carvedBits);
 
-                for (int x = 0; x < 2; x++) {
-                    for (int y = 0; y < 2; y++ ) {
-                        for (int z = 0; z < 2; z++) {
-                            bitsToCarve.add(new CarvingBit(quadX + x, quadY + y, quadZ + z));
-                        }
-                    }
+            if (!bitsToCarve.isEmpty()) {
+                for (CarvingBit b : bitsToCarve) {
+                    Bids.LOG.debug("Carved bit " + b.bitX + ", " + b.bitY + ", " + b.bitZ + " mode " + carvingMode);
+                    carvedBits.setBit(b);
                 }
+
+                dropHarvestAtRatioCarved(getCarvedBitCount() / (float) getTotalBitCount());
+                dropExtraHarvest();
+
+                if (getCarvedBitCount() == getTotalBitCount()) {
+                    Bids.LOG.debug("The entire carving was removed");
+                    worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+                }
+
+                cachedCraftingResultIsValid = false;
+
+                return true;
             }
-        }
-
-        if (!bitsToCarve.isEmpty()) {
-            for (CarvingBit b : bitsToCarve) {
-                Bids.LOG.debug("Carved bit " + b.bitX + ", " + b.bitY + ", " + b.bitZ + " mode " + carvingMode);
-                carvedBits.setBit(b);
-            }
-
-            dropHarvestAtRatioCarved(getCarvedBitCount() / (float) getTotalBitCount());
-            dropExtraHarvest();
-
-            if (getCarvedBitCount() == getTotalBitCount()) {
-                Bids.LOG.debug("The entire carving was removed");
-                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-            }
-
-            cachedCraftingResultIsValid = false;
-
-            return true;
         }
 
         return false;
     }
 
     public boolean canCarveBit(CarvingBit bit) {
-        if (carvingMode == EnumAdzeMode.SINGLE) {
-            // Can be carved if bit is at the edge
-            final int maxBit = CARVING_DIMENSION - 1;
-            if (bit.bitX == 0 || bit.bitX == maxBit ||
-                bit.bitY == 0 || bit.bitY == maxBit ||
-                bit.bitZ == 0 || bit.bitZ == maxBit) {
-                return true;
-            }
-
-            // Either one of each of the three opposing sides need to be exposed
-            if ((carvedBits.testBit(bit.getBitToDirection(ForgeDirection.WEST))
-                || carvedBits.testBit(bit.getBitToDirection(ForgeDirection.EAST)))
-                && (carvedBits.testBit(bit.getBitToDirection(ForgeDirection.SOUTH))
-                || carvedBits.testBit(bit.getBitToDirection(ForgeDirection.NORTH)))
-                && (carvedBits.testBit(bit.getBitToDirection(ForgeDirection.UP))
-                || carvedBits.testBit(bit.getBitToDirection(ForgeDirection.DOWN)))) {
-                return true;
-            }
-
-            // Surrounding bits need to be exposed
-            // to any one side the carved bit is exposed
-            for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
-                CarvingBit sideBit = bit.getBitToDirection(d);
-                if (carvedBits.testBit(sideBit)) {
-                    // Each of the four bits around the side bit that had been carved
-                    // need to have been carved out too
-                    int sideBitNeighborCarvedCount = 0;
-                    for (ForgeDirection ds : ForgeDirection.VALID_DIRECTIONS) {
-                        // Skip back and front relative to the bit being carved out
-                        if (ds != d && ds != d.getOpposite()) {
-                            CarvingBit sideBitNeighbor = sideBit.getBitToDirection(ds);
-                            if (carvedBits.testBit(sideBitNeighbor)) {
-                                sideBitNeighborCarvedCount++;
-                            }
-                        }
-                    }
-
-                    if (sideBitNeighborCarvedCount == 4) {
-                        return true;
-                    } else {
-                        Bids.LOG.debug("Not enough exposed bits around to " + d + ": " + sideBitNeighborCarvedCount);
-                    }
-                }
-            }
-
-            Bids.LOG.debug("Cannot carve bit that is too deep");
-        } else if (carvingMode == EnumAdzeMode.DOUBLE) {
-            // Corners 2x2 can always be carved
-            return true;
-        }
-
-        return false;
+        return carvingMode.getCarvingMode().canCarveBit(bit, carvedBits);
     }
 
     public boolean isBitCarved(int bitX, int bitY, int bitZ) {
