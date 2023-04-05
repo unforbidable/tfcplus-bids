@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids;
 import com.unforbidable.tfc.bids.Core.BlockSetup;
 import com.unforbidable.tfc.bids.Core.ItemSetup;
 import com.unforbidable.tfc.bids.Handlers.Client.ClientGuiHandler;
+import com.unforbidable.tfc.bids.Handlers.Client.RenderOverlayHandler;
 import com.unforbidable.tfc.bids.NEI.NotEnoughItemsSetup;
 import com.unforbidable.tfc.bids.WAILA.WailaSetup;
 
@@ -48,6 +49,8 @@ public class ClientProxy extends CommonProxy {
         super.postInit(event);
 
         ItemSetup.postInitClientOnly();
+
+        MinecraftForge.EVENT_BUS.register(new RenderOverlayHandler());
     }
 
 }
