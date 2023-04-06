@@ -1,6 +1,8 @@
 package com.unforbidable.tfc.bids.Core;
 
 import com.unforbidable.tfc.bids.Tags;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
@@ -10,6 +12,7 @@ public class KeyBindingSetup {
 
     public static KeyBinding KEY_BINDING_TOOL_MODE = new KeyBinding("key.BidsToolMode", Keyboard.KEY_N, Tags.MOD_NAME);
 
+    @SideOnly(Side.CLIENT)
     public static void postInit() {
         KeyBinding[] newKeyBindings = new KeyBinding[] { KEY_BINDING_TOOL_MODE };
 

@@ -9,6 +9,8 @@ import com.unforbidable.tfc.bids.api.CarvingRegistry;
 import com.unforbidable.tfc.bids.api.Enums.EnumAdzeMode;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,9 +22,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.time.Instant;
-import java.util.Date;
 
 public class CarvingHelper {
 
@@ -217,6 +216,7 @@ public class CarvingHelper {
         return AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
+    @SideOnly(Side.CLIENT)
     public static void updateBlockBoundsAfterCollisions(World world, int x, int y, int z, int side) {
         if (world.isRemote) {
             System.out.println("!");
@@ -232,95 +232,94 @@ public class CarvingHelper {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     public static MovingObjectPosition onCarvingCollisionRayTrace(World world, int x, int y, int z,
             Vec3 startVec, Vec3 endVec) {
-        TileEntityCarving te = (TileEntityCarving) world.getTileEntity(x, y, z);
-        startVec = startVec.addVector(-x, -y, -z);
-        endVec = endVec.addVector(-x, -y, -z);
-
-        int dimension = TileEntityCarving.CARVING_DIMENSION;
-        double stride = 1f / dimension;
-
         // There won't be thePlayer when collision is checked for falling snow?
-        EnumAdzeMode carvingMode = Minecraft.getMinecraft().thePlayer != null ? getPlayerCarvingMode(Minecraft.getMinecraft().thePlayer) : EnumAdzeMode.DEFAULT_MODE;
-        ItemStack item = Minecraft.getMinecraft().thePlayer != null ? Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() : null;
-        ICarvingTool tool = item != null && item.getItem() instanceof ICarvingTool ? (ICarvingTool) item.getItem()
-                : null;
+        if (Minecraft.getMinecraft().thePlayer != null) {
+            TileEntityCarving te = (TileEntityCarving) world.getTileEntity(x, y, z);
+            startVec = startVec.addVector(-x, -y, -z);
+            endVec = endVec.addVector(-x, -y, -z);
 
-        if (tool != null && !te.isCarvingLocked()) {
-            CollisionInfo nearestCol = null;
-            CarvingBit nearestBit = null;
+            int dimension = TileEntityCarving.CARVING_DIMENSION;
+            double stride = 1f / dimension;
 
-            for (int bitX = 0; bitX < dimension; bitX++) {
-                for (int bitY = 0; bitY < dimension; bitY++) {
-                    for (int bitZ = 0; bitZ < dimension; bitZ++) {
-                        if (!te.isBitCarved(bitX, bitY, bitZ)) {
-                            AxisAlignedBB bound = getBitAABB(bitX, bitY, bitZ, stride);
-                            CollisionInfo col = CollisionHelper.rayTraceAABB(bound, startVec, endVec);
+            EnumAdzeMode carvingMode = getPlayerCarvingMode(Minecraft.getMinecraft().thePlayer);
+            ItemStack item = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
+            ICarvingTool tool = item != null && item.getItem() instanceof ICarvingTool ? (ICarvingTool) item.getItem()
+                    : null;
 
-                            // When the bit collides
-                            // Save if first or closer than the nearest so far
-                            if (col != null && (nearestCol == null || col.distance < nearestCol.distance)) {
-                                nearestCol = col;
-                                nearestBit = new CarvingBit(bitX, bitY, bitZ);
+            if (tool != null && !te.isCarvingLocked()) {
+                CollisionInfo nearestCol = null;
+                CarvingBit nearestBit = null;
+
+                for (int bitX = 0; bitX < dimension; bitX++) {
+                    for (int bitY = 0; bitY < dimension; bitY++) {
+                        for (int bitZ = 0; bitZ < dimension; bitZ++) {
+                            if (!te.isBitCarved(bitX, bitY, bitZ)) {
+                                AxisAlignedBB bound = getBitAABB(bitX, bitY, bitZ, stride);
+                                CollisionInfo col = CollisionHelper.rayTraceAABB(bound, startVec, endVec);
+
+                                // When the bit collides
+                                // Save if first or closer than the nearest so far
+                                if (col != null && (nearestCol == null || col.distance < nearestCol.distance)) {
+                                    nearestCol = col;
+                                    nearestBit = new CarvingBit(bitX, bitY, bitZ);
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            if (nearestCol != null) {
-                if (te.setSelectedBit(nearestBit) || te.getCarvingMode() != carvingMode || te.getSelectedSide() != nearestCol.side) {
-                    te.setCarvingMode(carvingMode);
-                    te.setSelectedSide(nearestCol.side);
-                    TileEntityCarving.sendSelectBitMessage(world, x, y, z, nearestBit, nearestCol.side, carvingMode);
-                }
+                if (nearestCol != null) {
+                    if (te.setSelectedBit(nearestBit) || te.getCarvingMode() != carvingMode || te.getSelectedSide() != nearestCol.side) {
+                        te.setCarvingMode(carvingMode);
+                        te.setSelectedSide(nearestCol.side);
+                        TileEntityCarving.sendSelectBitMessage(world, x, y, z, nearestBit, nearestCol.side, carvingMode);
+                    }
 
-                setBlockBoundsBasedOnSelection(world, x, y, z, nearestCol.side, carvingMode);
+                    setBlockBoundsBasedOnSelection(world, x, y, z, nearestCol.side, carvingMode);
 
-                if (Minecraft.getMinecraft().thePlayer != null) {
                     setPlayerCarvingActive(Minecraft.getMinecraft().thePlayer, true);
-                }
 
-                return new MovingObjectPosition(x, y, z,
-                        nearestCol.side,
-                        nearestCol.hitVec.addVector(x, y, z));
+                    return new MovingObjectPosition(x, y, z,
+                            nearestCol.side,
+                            nearestCol.hitVec.addVector(x, y, z));
+                } else {
+                    if (te.setSelectedBit(CarvingBit.Empty)) {
+                        TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, 0, carvingMode);
+                    }
+
+                    setBlockBoundsBasedOnSelection(world, x, y, z, 0, carvingMode);
+
+                    setPlayerCarvingActive(Minecraft.getMinecraft().thePlayer, false);
+
+                    return null;
+                }
             } else {
+                // Ray tracing the whole carving cuboid when not wielding a ICarvingTool
+                // or if the carving is locked
+                AxisAlignedBB bounds = getCarvingBounds(te);
+                setBlockBounds(world, x, y, z, bounds);
+
                 if (te.setSelectedBit(CarvingBit.Empty)) {
                     TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, 0, carvingMode);
                 }
 
-                setBlockBoundsBasedOnSelection(world, x, y, z, 0, carvingMode);
+                setPlayerCarvingActive(Minecraft.getMinecraft().thePlayer, false);
 
-                if (Minecraft.getMinecraft().thePlayer != null) {
-                    setPlayerCarvingActive(Minecraft.getMinecraft().thePlayer, false);
+                CollisionInfo col = CollisionHelper.rayTraceAABB(bounds, startVec, endVec);
+                if (col != null) {
+
+                    return new MovingObjectPosition(x, y, z,
+                            col.side,
+                            col.hitVec.addVector(x, y, z));
+                } else {
+                    return null;
                 }
-
-                return null;
             }
         } else {
-            // Ray tracing the whole carving cuboid when not wielding a ICarvingTool
-            // or if the carving is locked
-            AxisAlignedBB bounds = getCarvingBounds(te);
-            setBlockBounds(world, x, y, z, bounds);
-
-            if (te.setSelectedBit(CarvingBit.Empty)) {
-                TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, 0, carvingMode);
-            }
-
-            if (Minecraft.getMinecraft().thePlayer != null) {
-                setPlayerCarvingActive(Minecraft.getMinecraft().thePlayer, false);
-            }
-
-            CollisionInfo col = CollisionHelper.rayTraceAABB(bounds, startVec, endVec);
-            if (col != null) {
-
-                return new MovingObjectPosition(x, y, z,
-                        col.side,
-                        col.hitVec.addVector(x, y, z));
-            } else {
-                return null;
-            }
+            return null;
         }
     }
 
@@ -334,6 +333,7 @@ public class CarvingHelper {
         return AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
+    @SideOnly(Side.CLIENT)
     public static EnumAdzeMode getPlayerCarvingMode(EntityPlayer player) {
         CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
         if (state == null) {
@@ -343,6 +343,7 @@ public class CarvingHelper {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     public static void setPlayerCarvingMode(EntityPlayer player) {
         CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
         if (state == null) {
@@ -353,6 +354,7 @@ public class CarvingHelper {
         state.adzeMode = state.adzeMode.getNext();
     }
 
+    @SideOnly(Side.CLIENT)
     public static boolean isPlayerCarvingActive(EntityPlayer player) {
         CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
         if (state == null) {
@@ -362,6 +364,7 @@ public class CarvingHelper {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     public static void setPlayerCarvingActive(EntityPlayer player, boolean active) {
         CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
         if (state == null) {
@@ -373,6 +376,7 @@ public class CarvingHelper {
         state.carvingActivityChangedTime = System.currentTimeMillis();
     }
 
+    @SideOnly(Side.CLIENT)
     public static void trackPlayerCarvingActivity(EntityPlayer player) {
         CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
         if (state != null) {

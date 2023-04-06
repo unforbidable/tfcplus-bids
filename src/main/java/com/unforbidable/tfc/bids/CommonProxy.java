@@ -37,10 +37,8 @@ public class CommonProxy {
         BlockSetup.postInit();
         DrinkSetup.postInit();
         RecipeSetup.postInit();
-        KeyBindingSetup.postInit();
 
         FMLCommonHandler.instance().bus().register(new PlayerTracker());
-        FMLCommonHandler.instance().bus().register(new KeyBindingHandler());
 
         // Anvil recipes are registered when world loads
         // ideally after TFC initialized its AnvilManager
