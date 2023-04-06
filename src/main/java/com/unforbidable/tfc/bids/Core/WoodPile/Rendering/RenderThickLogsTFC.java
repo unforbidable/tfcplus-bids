@@ -22,7 +22,7 @@ public class RenderThickLogsTFC implements IWoodPileRenderProvider {
     }
 
     private IIcon getStackedBlockIcon(ItemStack itemStack, int side, boolean rotated) {
-        final int stackedDamage = itemStack.getItemDamage() / 2;
+        final int stackedDamage = itemStack.getItemDamage();
         final int offset = stackedDamage - stackedDamage % 8;
         final int meta = stackedDamage % 8;
 
