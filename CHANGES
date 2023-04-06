@@ -267,3 +267,9 @@
 - Changed: 4 loose rough stone bricks now yield 2 rough stone brick blocks instead of 1
 - Changed: Stone drill has double the durability as before
 - Changed: The default drilling speed increased
+
+0.24.0 (06-04-2023)
+- Added: Adze mode for carving corners (2x2x2 bits) and sides (4x4x1 bits)
+- Added: Current adze mode is shown in GUI during carving (default key binding 'N' to cycle)
+- Changed: Less Adze is consumed when crafting Log Walls and Rough Stone Bricks
+- Fixed: Correct Thick Log texture is shown when placed in a Wood Pile
