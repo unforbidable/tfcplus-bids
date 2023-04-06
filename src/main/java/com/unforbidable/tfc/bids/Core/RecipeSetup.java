@@ -212,7 +212,7 @@ public class RecipeSetup {
                     "BB", "BB", 'B', new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j));
         }
 
-        RecipeManager.addAction(new ActionDamageTool(4)
+        RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemAdze")
                 .matchCraftingItem(BidsItems.sedRoughStoneLooseBrick));
 
@@ -601,12 +601,12 @@ public class RecipeSetup {
 
         for (int i = 0; i < 3; i++) {
             Block logWall = WoodHelper.getDefaultLogWallBlock(i * 16);
-            RecipeManager.addAction(new ActionDamageTool(2)
+            RecipeManager.addAction(new ActionDamageTool(1)
                     .addTools("itemAdze")
                     .matchCraftingBlock(logWall));
 
             Block logWallVert = WoodHelper.getDefaultLogWallVertBlock(i * 16);
-            RecipeManager.addAction(new ActionDamageTool(2)
+            RecipeManager.addAction(new ActionDamageTool(1)
                     .addTools("itemAdze")
                     .matchCraftingBlock(logWallVert));
         }
