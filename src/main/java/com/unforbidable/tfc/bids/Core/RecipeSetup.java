@@ -397,6 +397,12 @@ public class RecipeSetup {
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
                             "A ", "11", '1', new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                             'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
+                        "A ", "11", '1', new ItemStack(BidsItems.logsSeasoned, 1, i * 2),
+                        'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
+                        "A ", "11", '1', new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1),
+                        'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWall, 1, j))));
 
@@ -404,6 +410,12 @@ public class RecipeSetup {
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWallVert, 1, j),
                             "1A", "1 ", '1', new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
                             'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWallVert, 1, j),
+                        "1A", "1 ", '1', new ItemStack(BidsItems.logsSeasoned, 1, i * 2),
+                        'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWallVert, 1, j),
+                        "1A", "1 ", '1', new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1),
+                        'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWallVert, 1, j))));
                 } else if (i < 32) {
@@ -603,11 +615,25 @@ public class RecipeSetup {
             Block logWall = WoodHelper.getDefaultLogWallBlock(i * 16);
             RecipeManager.addAction(new ActionDamageTool(1)
                     .addTools("itemAdze")
+                    .matchIngredient(BidsItems.peeledLogSeasoned)
+                    .matchIngredient(BidsItems.peeledLogSeasoned)
+                    .matchCraftingBlock(logWall));
+            RecipeManager.addAction(new ActionDamageTool(2)
+                    .addTools("itemAdze")
+                    .matchIngredient(BidsItems.logsSeasoned)
+                    .matchIngredient(BidsItems.logsSeasoned)
                     .matchCraftingBlock(logWall));
 
             Block logWallVert = WoodHelper.getDefaultLogWallVertBlock(i * 16);
             RecipeManager.addAction(new ActionDamageTool(1)
                     .addTools("itemAdze")
+                    .matchIngredient(BidsItems.peeledLogSeasoned)
+                    .matchIngredient(BidsItems.peeledLogSeasoned)
+                    .matchCraftingBlock(logWallVert));
+            RecipeManager.addAction(new ActionDamageTool(2)
+                    .addTools("itemAdze")
+                    .matchIngredient(BidsItems.logsSeasoned)
+                    .matchIngredient(BidsItems.logsSeasoned)
                     .matchCraftingBlock(logWallVert));
         }
 
