@@ -819,3 +819,5 @@ gui.Drying=风干中
 gui.KindlingQuality=火种品质
 gui.ChoppingBlock=柴墩
 gui.SaddleQuern=手推磨
+
+key.BidsToolMode=循环工具模式
