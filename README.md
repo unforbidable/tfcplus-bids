@@ -16,7 +16,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Quarry](../../wiki/Quarry) - for harvesting Rough Stone block using the drill and wedge method, sedimentary rocks only
 * [Rough Stone and Rough Stone Bricks](../../wiki/Rough-Stone) - new building blocks for sedimentary rocks
 * [Adze](../../wiki/Adze) - a tool for carving blocks, making rough stone bricks, peeling logs and so on
-* [Carving](../../wiki/Carving) - for shaping blocks with an adze, in like manner to TFC detailing with a chisel, and carving recipes
+* [Carving](../../wiki/Carving) - for shaping blocks with an adze, in like manner to TFC detailing with a chisel, and carving recipes, using 3 carving modes
 * [Peeled Log](../../wiki/Peeled-Log) - logs that had their bark stripped used to craft log walls
 * [Log Walls](../../wiki/Log-Wall) - new building block with 6 variations for log cabin construction, and 2 variations of vertical log walls
 * [Wood Pile](../../wiki/Wood-Pile) - for wood storage and seasoning peeled logs, stick bundles
