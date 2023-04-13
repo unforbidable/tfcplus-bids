@@ -417,7 +417,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound tag = pkt.func_148857_g();
-        readFromNBT(tag);
+        readWoodPileDataFromNBT(tag);
     }
 
     @Override
