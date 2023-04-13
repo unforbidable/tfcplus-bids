@@ -1,22 +1,28 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.dunk.tfc.Blocks.BlockRoof;
+import com.dunk.tfc.Blocks.Devices.BlockHopper;
 import com.dunk.tfc.Blocks.Flora.BlockFruitLeaves;
 import com.dunk.tfc.Blocks.Vanilla.BlockCustomLeaves;
+import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.Core.Vector3f;
+import com.dunk.tfc.api.TFCBlocks;
+import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
-import com.unforbidable.tfc.bids.Core.WoodPile.EnumSlotGroup;
-import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileBoundsIterator;
-import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileItemBounds;
-import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
+import com.unforbidable.tfc.bids.Core.WoodPile.*;
 import com.unforbidable.tfc.bids.api.BidsGui;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
@@ -28,13 +34,16 @@ import net.minecraft.block.BlockGlass;
 import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -66,6 +75,13 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     List<WoodPileItemBounds> itemBoundsCache = new ArrayList<WoodPileItemBounds>();
 
     EntityPlayer openDelayedGUIplayer = null;
+
+    boolean onFire = false;
+    long hoursOnFire = 0;
+
+    Timer torchDetectionTimer = new Timer(20);
+    Timer torchDetectionClientTimer = new Timer(10);
+    long torchDetectedTicks = 0;
 
     public TileEntityWoodPile() {
     }
@@ -346,15 +362,46 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 clientNeedToUpdate = false;
             }
 
+            // Better to do this on the entity item
+            // but that's a TFC torch
+            // So we detect torches above, when not already on fire
+            if (!onFire && torchDetectionTimer.tick()) {
+                EntityItem ei = detectTorch();
+                if (ei != null) {
+                    Bids.LOG.debug("Torch detected above woodpile at " + xCoord + "," + yCoord + "," + zCoord);
+
+                    if (torchDetectedTicks == 0) {
+                        torchDetectedTicks = TFC_Time.getTotalTicks();
+                    } else if (torchDetectedTicks + 160 < TFC_Time.getTotalTicks()) {
+                        setOnFire(true);
+                        ei.setDead();
+                    }
+                } else {
+                    torchDetectedTicks = 0;
+                }
+            }
+
             // Check if enough time had passed
             // for seasoning interval
             if (seasoningTimer.tick() && TFC_Time.getTotalTicks() > lastSeasoningTicks + SEASONING_INTERVAL) {
-                seasonItems();
+                if (onFire) {
+                    // No seasoning when making charcoal
+                    lastSeasoningTicks = TFC_Time.getTotalTicks();
+                } else {
+                    seasonItems();
+                }
             }
 
             if (openDelayedGUIplayer != null) {
                 openDelayedGUIplayer.openGui(Bids.instance, BidsGui.woodPileGui, worldObj, xCoord, yCoord, zCoord);
                 openDelayedGUIplayer = null;
+            }
+        } else {
+            // Torch detection client side to show sparks
+            if (!onFire && torchDetectionClientTimer.tick()) {
+                if (detectTorch() != null) {
+                    worldObj.spawnParticle("lava", xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat());
+                }
             }
         }
     }
@@ -391,6 +438,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         tag.setLong("lastSeasoningTicks", lastSeasoningTicks);
         tag.setBoolean("clientInitialized", initialized);
         tag.setInteger("orientation", orientation);
+        tag.setBoolean("onFire", onFire);
+        tag.setLong("hoursOnFire", hoursOnFire);
 
         NBTTagList itemTagList = new NBTTagList();
         for (int i = 0; i < MAX_STORAGE; i++) {
@@ -408,6 +457,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         lastSeasoningTicks = tag.getLong("lastSeasoningTicks");
         initialized = tag.getBoolean("clientInitialized");
         orientation = tag.getInteger("orientation");
+        onFire = tag.getBoolean("onFire");
+        hoursOnFire = tag.getLong("hoursOnFire");
 
         for (int i = 0; i < MAX_STORAGE; i++) {
             storage[i] = null;
@@ -596,6 +647,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         woodPileOpeningCounter--;
 
         if (woodPileOpeningCounter == 0 && isEmpty()) {
+            setOnFire(false);
             worldObj.setBlockToAir(xCoord, yCoord, zCoord);
         }
     }
@@ -603,6 +655,162 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     @Override
     public boolean isItemValidForSlot(int n, ItemStack itemStack) {
         return false;
+    }
+
+    public boolean isOnFire() {
+        return onFire;
+    }
+
+    public void setOnFire(boolean onFire) {
+        if (onFire && !this.onFire) {
+            this.onFire = true;
+            hoursOnFire = TFC_Time.getTotalHours();
+
+            Bids.LOG.debug("Woodpile set on fire at " + xCoord + "," + yCoord + "," + zCoord);
+
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+            doSpreadFire();
+        } else if (!onFire && this.onFire) {
+            this.onFire = false;
+            hoursOnFire = 0;
+
+            Bids.LOG.debug("Woodpile extinguished at " + xCoord + "," + yCoord + "," + zCoord);
+
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+            doExtinguishFire();
+        }
+    }
+
+    public void tryToCreateCharcoal() {
+        Bids.LOG.debug("Trying to create charcoal at " + xCoord + "," + yCoord + "," + zCoord);
+
+        if (isOnFire() && hoursOnFire + TFCOptions.charcoalPitBurnTime < TFC_Time.getTotalHours()) {
+            doCreateCharcoal();
+        }
+    }
+
+    private void doCreateCharcoal() {
+        boolean invalidItemsFound = false;
+        int charcoalCount = 0;
+
+        for (ItemStack itemStack : storage) {
+            if (itemStack != null) {
+                if (itemStack.getItem() == BidsItems.firewoodSeasoned) {
+                    float percent = getCharcoalPercentageForWoodType(itemStack);
+                    charcoalCount += worldObj.rand.nextInt(100) < percent ? 1 : 0;
+                } else {
+                    invalidItemsFound = true;
+                    break;
+                }
+            }
+        }
+
+        if (invalidItemsFound) {
+            // Invalid woodpile for charcoal making, leave as is
+            setOnFire(false);
+
+            Bids.LOG.debug("Invalid item found for charcoal at " + xCoord + "," + yCoord + "," + zCoord);
+        } else {
+            Arrays.fill(storage, null);
+
+            if (charcoalCount > 0)
+            {
+                worldObj.setBlock(xCoord, yCoord, zCoord, TFCBlocks.charcoal, Math.min(charcoalCount, 8), 0x2);
+                Bids.LOG.debug("Created " + charcoalCount + " charcoal at " + xCoord + "," + yCoord + "," + zCoord);
+            }
+            else
+            {
+                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+                Bids.LOG.debug("Created no charcoal at " + xCoord + "," + yCoord + "," + zCoord);
+            }
+        }
+
+        for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+            TileEntity te = worldObj.getTileEntity(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
+            if (te instanceof TileEntityWoodPile) {
+                TileEntityWoodPile neighbor = (TileEntityWoodPile) te;
+                if (neighbor.isOnFire()) {
+                    neighbor.doCreateCharcoal();
+                }
+            }
+        }
+    }
+
+    private float getCharcoalPercentageForWoodType(ItemStack itemStack) {
+        EnumWoodHardness hardness = EnumWoodHardness.fromDamage(itemStack.getItemDamage());
+        switch (hardness) {
+            case HARD:
+                return 45 + worldObj.rand.nextInt(6); // ~7.7
+            case MODERATE:
+                return 35 + worldObj.rand.nextInt(16); // ~6.9
+            default:
+                return 25 + worldObj.rand.nextInt(26); // ~6.1 (original TFC+ rating)
+        }
+    }
+
+    public void tryToSpreadFire() {
+        if (onFire) {
+            doSpreadFire();
+        }
+    }
+
+    private void doSpreadFire() {
+        ArrayDeque<Vector3f> blocksToBeSetOnFire = new ArrayDeque<Vector3f>();
+
+        for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+            TileEntity te = worldObj.getTileEntity(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
+            if (te instanceof TileEntityWoodPile) {
+                TileEntityWoodPile neighbor = (TileEntityWoodPile) te;
+                neighbor.setOnFire(true);
+            } else {
+                Block block = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
+                if (!TFC_Core.isValidCharcoalPitCover(block)) {
+                    // Hopper below is allowed
+                    if (!(d.offsetY == -1 && block instanceof BlockHopper)) {
+                        blocksToBeSetOnFire.add(new Vector3f(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
+                    }
+                }
+            }
+        }
+
+        while (blocksToBeSetOnFire.size() > 0) {
+            Vector3f pos = blocksToBeSetOnFire.poll();
+            if (worldObj.getBlock((int) pos.x, (int) pos.y, (int) pos.z) != Blocks.fire
+                && worldObj.getBlock((int) pos.x, (int) pos.y - 1, (int) pos.z) != Blocks.air) {
+                worldObj.setBlock((int) pos.x, (int) pos.y, (int) pos.z, Blocks.fire);
+                worldObj.markBlockForUpdate((int) pos.x, (int) pos.y, (int) pos.z);
+            }
+        }
+    }
+
+    private void doExtinguishFire() {
+        for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+            Block block = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
+            if (block == Blocks.fire) {
+                worldObj.setBlockToAir(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
+                worldObj.markBlockForUpdate(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    protected EntityItem detectTorch() {
+        if (worldObj.isAirBlock(xCoord, yCoord + 1, zCoord)) {
+            final AxisAlignedBB bounds = AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord,
+                xCoord + 1, yCoord + 1.1, zCoord + 1);
+            final List<EntityItem> list = (List<EntityItem>) worldObj.getEntitiesWithinAABB(EntityItem.class, bounds);
+
+            for (EntityItem entity : list) {
+                final ItemStack is = entity.getEntityItem();
+                if (is.getItem() == Item.getItemFromBlock(TFCBlocks.torch)) {
+                    return entity;
+                }
+            }
+        }
+
+        return null;
     }
 
     @Override

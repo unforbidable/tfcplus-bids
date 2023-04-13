@@ -16,6 +16,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -34,6 +35,8 @@ public class BlockWoodPile extends BlockContainer {
         super(Material.wood);
 
         setHardness(10f);
+
+        setTickRandomly(true);
     }
 
     @Override
@@ -133,6 +136,51 @@ public class BlockWoodPile extends BlockContainer {
         }
 
         return super.collisionRayTrace(world, x, y, z, startVec, endVec);
+    }
+
+    @Override
+    public void updateTick(World world, int x, int y, int z, Random rand) {
+        if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
+            TileEntityWoodPile woodPile = (TileEntityWoodPile) world.getTileEntity(x, y, z);
+
+            // Set woodpile on fire from nearby fire blocks
+            if (!woodPile.isOnFire()) {
+                ForgeDirection[] dirs = new ForgeDirection[]{ForgeDirection.EAST, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST};
+                for (ForgeDirection d : dirs) {
+                    Block block = world.getBlock(x + d.offsetX, y, z + d.offsetZ);
+                    if (block == Blocks.fire) {
+                        woodPile.setOnFire(true);
+                        break;
+                    }
+                }
+            }
+
+            woodPile.tryToCreateCharcoal();
+        }
+    }
+
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
+            TileEntityWoodPile woodPile = (TileEntityWoodPile) world.getTileEntity(x, y, z);
+            woodPile.tryToSpreadFire();
+        }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(World world, int x, int y, int z, Random rand)
+    {
+        if (world.getTileEntity(x, y, z) instanceof TileEntityWoodPile && ((TileEntityWoodPile) world.getTileEntity(x, y, z)).isOnFire())
+        {
+            double centerX = x + 0.5F;
+            double centerY = y + 2F;
+            double centerZ = z + 0.5F;
+            world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.1D, 0.0D);
+            world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.15D, 0.0D);
+            world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.1D, 0.0D);
+            world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.15D, 0.0D);
+        }
     }
 
 }
