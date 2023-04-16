@@ -197,7 +197,10 @@ public class BlockSetup extends BidsBlocks {
         saddleQuernBaseSed = new BlockSaddleQuern((BlockRoughStone) roughStoneSed)
                 .setBlockName("SaddleQuernSed");
         saddleQuernHandstoneSed = new BlockWorkStone((BlockRoughStone) roughStoneSed)
+        saddleQuernHandstoneSed = new BlockWorkStone((BlockRoughStone) roughStoneSed, EnumWorkStoneType.SADDLE_QUERN_CRUSHING)
                 .setBlockName("SaddleQuernHandstoneSed");
+        saddleQuernPressingStoneSed = new BlockWorkStone((BlockRoughStone) roughStoneSed, EnumWorkStoneType.SADDLE_QUERN_PRESSING)
+                .setBlockName("SaddleQuernPressingStoneSed");
     }
 
     private static void updateBlocks() {
@@ -443,6 +446,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(logWallVertAlt2, ItemLogWallVert16.class, "LogWallVertAlt2");
         GameRegistry.registerBlock(logWallVert3, ItemLogWallVert32.class, "LogWallVert3");
         GameRegistry.registerBlock(logWallVertAlt3, ItemLogWallVert32.class, "LogWallVertAlt3");
+
+        GameRegistry.registerBlock(saddleQuernPressingStoneSed, ItemWorkStone.class, "SaddleQuernPressingStoneSed");
     }
 
 }

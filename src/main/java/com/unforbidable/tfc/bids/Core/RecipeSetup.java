@@ -709,6 +709,17 @@ public class RecipeSetup {
                         new ItemStack(BidsBlocks.roughStoneSed, 1, i), handstonePatterns[j]));
             }
         }
+
+        CarvingRecipePattern pressingStonePattern =  new CarvingRecipePattern()
+                .carveEntireLayer()
+                .carveEntireLayer()
+                .carveLayer("####", "#   ", "#   ", "#   ")
+                .carveLayer("####", "#   ", "#   ", "#   ");
+
+        for (int i = 0; i < Global.STONE_SED.length; i++) {
+            CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.saddleQuernPressingStoneSed, 1, i),
+                new ItemStack(BidsBlocks.roughStoneSed, 1, i), pressingStonePattern));
+        }
     }
 
     private static void registerSaddleQuernRecipes() {

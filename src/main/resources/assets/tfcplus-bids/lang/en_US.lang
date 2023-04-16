@@ -43,6 +43,7 @@ tile.WattleTrapDoorCover.name=Covered Wattle Trapdoor
 
 tile.SaddleQuernSed.name=Saddle Quern
 tile.SaddleQuernHandstoneSed.name=Saddle Quern Handstone
+tile.SaddleQuernPressingStoneSed.name=Pressing Stone
 
 tile.RoughStoneSed.Chalk.name=Rough Chalk
 tile.RoughStoneSed.Chert.name=Rough Chert

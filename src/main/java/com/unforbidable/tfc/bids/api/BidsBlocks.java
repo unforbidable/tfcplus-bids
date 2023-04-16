@@ -78,5 +78,6 @@ public class BidsBlocks {
 
     public static Block saddleQuernBaseSed;
     public static Block saddleQuernHandstoneSed;
+    public static Block saddleQuernPressingStoneSed;
 
 }

@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Render.Tiles;
 
+import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
 import org.lwjgl.opengl.GL11;
 
 import com.dunk.tfc.Render.TESR.TESRBase;
@@ -24,8 +25,13 @@ public class RenderTileSaddleQuern extends TESRBase {
     static final ResourceLocation handstoneModelLocation = new ResourceLocation(Tags.MOD_ID,
             "models/SaddleQuernHandstone.obj");
 
+    static final ResourceLocation pressingStoneModelLocation = new ResourceLocation(Tags.MOD_ID,
+            "models/SaddleQuernPressingStone.obj");
+
     static IModelCustom baseModel = null;
     static IModelCustom handstoneModel = null;
+
+    static IModelCustom pressingStoneModel = null;
 
     @Override
     public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partialTick) {
@@ -36,8 +42,10 @@ public class RenderTileSaddleQuern extends TESRBase {
                 renderBaseStone(saddleQuern, x, y, z);
             }
 
-            if (saddleQuern.hasWorkStone()) {
+            if (saddleQuern.getWorkStoneType() == EnumWorkStoneType.SADDLE_QUERN_CRUSHING) {
                 renderQuernHandstone(saddleQuern, x, y, z);
+            } else if (saddleQuern.getWorkStoneType() == EnumWorkStoneType.SADDLE_QUERN_PRESSING) {
+                renderQuernPressingStone(saddleQuern, x, y, z);
             }
 
             if (saddleQuern.hasInputStack()) {
@@ -92,6 +100,25 @@ public class RenderTileSaddleQuern extends TESRBase {
         GL11.glRotatef(angle, 0, 1, 0);
 
         handstoneModel.renderAll();
+
+        GL11.glPopMatrix(); // end
+    }
+
+    public void renderQuernPressingStone(TileEntitySaddleQuern saddleQuern, double x, double y, double z) {
+        if (pressingStoneModel == null) {
+            pressingStoneModel = AdvancedModelLoader.loadModel(pressingStoneModelLocation);
+        }
+
+        bindItemStackTexture(saddleQuern.getWorkStone());
+
+        float scale = 1f;
+
+        GL11.glPushMatrix(); // start
+
+        GL11.glTranslated(x + 0.5, y + 0.75, z + 0.5);
+        GL11.glScalef(scale, scale, scale);
+
+        pressingStoneModel.renderAll();
 
         GL11.glPopMatrix(); // end
     }

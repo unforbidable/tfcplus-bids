@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernManager;
 import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
 
+import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,6 +55,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     int workStoneStage = 0;
     Selection selection = Selection.NONE;
 
+    EnumWorkStoneType cachedWorkStoneType = EnumWorkStoneType.NONE;
+    boolean isCachedWorkStoneTypeValid = false;
+
     public TileEntitySaddleQuern() {
         super();
     }
@@ -87,6 +91,20 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         }
     }
 
+    public EnumWorkStoneType getWorkStoneType() {
+        if (!isCachedWorkStoneTypeValid) {
+            if (hasWorkStone()) {
+                cachedWorkStoneType = ((BlockWorkStone) Block.getBlockFromItem(storage[SLOT_WORK_STONE].getItem())).getWorkStoneType();
+            } else {
+                cachedWorkStoneType = EnumWorkStoneType.NONE;
+            }
+
+            isCachedWorkStoneTypeValid = true;
+        }
+
+        return cachedWorkStoneType;
+    }
+
     public boolean setWorkStone(ItemStack workStone) {
         if (hasWorkStone() || !isValidWorkStone(workStone)) {
             return false;
@@ -95,6 +113,8 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         ItemStack is = workStone.copy();
         is.stackSize = 1;
         storage[SLOT_WORK_STONE] = is;
+
+        isCachedWorkStoneTypeValid = false;
 
         workStone.stackSize--;
 
@@ -127,6 +147,8 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         Bids.LOG.info("Work stone retrieved from saddle quern: " + is.getDisplayName());
 
         storage[SLOT_WORK_STONE] = null;
+
+        isCachedWorkStoneTypeValid = false;
 
         updateClient();
 
@@ -197,7 +219,8 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     }
 
     public boolean operate() {
-        if (!hasWorkStone()) {
+        // Only Handstone allows manual operation
+        if (getWorkStoneType() != EnumWorkStoneType.SADDLE_QUERN_CRUSHING) {
             return false;
         }
 
@@ -527,6 +550,8 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
             final int slot = itemTag.getInteger("slot");
             storage[slot] = ItemStack.loadItemStackFromNBT(itemTag);
         }
+
+        isCachedWorkStoneTypeValid = false;
     }
 
     @Override

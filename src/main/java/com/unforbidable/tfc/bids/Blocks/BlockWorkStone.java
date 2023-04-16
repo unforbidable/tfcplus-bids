@@ -5,6 +5,7 @@ import java.util.List;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 
+import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -17,11 +18,13 @@ import net.minecraft.world.World;
 public class BlockWorkStone extends Block {
 
     final BlockRoughStone materialBlock;
+    final EnumWorkStoneType workStoneType;
 
-    public BlockWorkStone(BlockRoughStone materialBlock) {
+    public BlockWorkStone(BlockRoughStone materialBlock, EnumWorkStoneType workStoneType) {
         super(materialBlock.getMaterial());
 
         this.materialBlock = materialBlock;
+        this.workStoneType = workStoneType;
 
         setCreativeTab(BidsCreativeTabs.bidsDefault);
         setHardness(10f);
@@ -29,6 +32,10 @@ public class BlockWorkStone extends Block {
 
     public Block getMaterialBlock() {
         return materialBlock;
+    }
+
+    public EnumWorkStoneType getWorkStoneType() {
+        return workStoneType;
     }
 
     @Override
