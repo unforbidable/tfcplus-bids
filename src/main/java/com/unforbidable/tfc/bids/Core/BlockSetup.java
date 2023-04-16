@@ -2,9 +2,7 @@ package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Constant.Global;
-import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStoneBrick;
-import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingStackedLogs;
-import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingWoodVert;
+import com.unforbidable.tfc.bids.Core.Carving.Carvings.*;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackMessage;
 import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Bids;
@@ -28,10 +26,6 @@ import com.unforbidable.tfc.bids.Blocks.BlockWattleTrapDoorCover;
 import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
 import com.unforbidable.tfc.bids.Blocks.BlockChoppingBlock;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
-import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingLogWall;
-import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingLogWallVert;
-import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRawStone;
-import com.unforbidable.tfc.bids.Core.Carving.Carvings.CarvingRoughStone;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemChoppingBlock;
@@ -290,6 +284,7 @@ public class BlockSetup extends BidsBlocks {
         CarvingRegistry.registerCarving(new CarvingLogWallVert());
         CarvingRegistry.registerCarving(new CarvingStackedLogs());
         CarvingRegistry.registerCarving(new CarvingWoodVert());
+        CarvingRegistry.registerCarving(new CarvingMudBrick());
     }
 
     private static void registerQuarryBlocks() {
