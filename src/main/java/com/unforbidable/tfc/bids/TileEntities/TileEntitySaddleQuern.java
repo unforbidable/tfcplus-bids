@@ -461,7 +461,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         return false;
     }
 
-    private ForgeDirection getOutputForgeDirection() {
+    public ForgeDirection getOutputForgeDirection() {
         switch (orientation) {
             case 0:
                 return ForgeDirection.NORTH;

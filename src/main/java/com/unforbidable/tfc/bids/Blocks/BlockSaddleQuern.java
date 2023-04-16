@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Blocks;
 import java.util.List;
 
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
+import com.unforbidable.tfc.bids.Core.SaddleQuern.StonePressHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntitySaddleQuern;
 import com.unforbidable.tfc.bids.TileEntities.TileEntitySaddleQuern.Selection;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -59,9 +60,10 @@ public class BlockSaddleQuern extends BlockContainer {
             if (heldItemStack == null) {
                 if (player.isSneaking() && side == 1) {
                     boolean isItemHit = getIsItemHit(saddleQuern, side, hitX, hitY, hitZ);
+                    boolean isLeverPresent = world.getBlock(x, y + 1, z) == BidsBlocks.stonePressLever;
                     if (isItemHit) {
                         saddleQuern.retrieveInputStack(player);
-                    } else {
+                    } else if (!isLeverPresent) {
                         saddleQuern.retrieveWorkStone(player);
                     }
                 } else {
@@ -72,6 +74,8 @@ public class BlockSaddleQuern extends BlockContainer {
                     saddleQuern.setWorkStone(heldItemStack);
                 } else if (saddleQuern.isValidInput(heldItemStack)) {
                     saddleQuern.setInputStack(heldItemStack);
+                } else if (StonePressHelper.isValidLever(heldItemStack) && StonePressHelper.canPlaceLeverAt(world, x, y, z)) {
+                    StonePressHelper.placeLeverAt(world, x, y, z, heldItemStack);
                 }
             }
         }
