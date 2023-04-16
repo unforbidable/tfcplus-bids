@@ -249,6 +249,13 @@ public class ItemSetup extends BidsItems {
 
         plugAndFeather = new ItemPlugAndFeather()
                 .setUnlocalizedName("Plug And Feather");
+
+        appleCrushed = new ItemExtraFood(EnumFoodGroup.Fruit, 40, 20, 0, 10, 0)
+                .setDecayRate(4f)
+                .setUnlocalizedName("Apple Crushed");
+        oliveCrushed = new ItemExtraFood(EnumFoodGroup.Fruit, 10, 0, 3, 50, 0)
+                .setDecayRate(4f)
+                .setUnlocalizedName("Olive Crushed");
     }
 
     private static void setupToolHarvest() {
@@ -344,7 +351,7 @@ public class ItemSetup extends BidsItems {
 
         Item[] foodItems = { wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed,
                 cornmealCrushed, wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge,
-                cornmealPorridge };
+                cornmealPorridge, appleCrushed, oliveCrushed };
 
         for (Item item : foodItems) {
             MinecraftForgeClient.registerItemRenderer(item, new FoodItemRenderer());
@@ -461,6 +468,9 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(cornmealPorridge, cornmealPorridge.getUnlocalizedName());
 
         GameRegistry.registerItem(plugAndFeather, plugAndFeather.getUnlocalizedName());
+
+        GameRegistry.registerItem(appleCrushed, appleCrushed.getUnlocalizedName());
+        GameRegistry.registerItem(oliveCrushed, oliveCrushed.getUnlocalizedName());
     }
 
 }

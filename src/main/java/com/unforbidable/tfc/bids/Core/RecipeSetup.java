@@ -724,6 +724,12 @@ public class RecipeSetup {
                 new ItemStack(TFCItems.ryeGrain)));
         SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.cornmealCrushed),
                 new ItemStack(TFCItems.maizeEar)));
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.appleCrushed),
+                new ItemStack(TFCItems.greenApple)));
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.appleCrushed),
+                new ItemStack(TFCItems.redApple)));
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.oliveCrushed),
+                new ItemStack(TFCItems.olive)));
     }
 
     private static void registerKnappingRecipes() {

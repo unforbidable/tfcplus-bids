@@ -83,4 +83,7 @@ public class BidsItems {
 
     public static Item plugAndFeather;
 
+    public static Item appleCrushed;
+    public static Item oliveCrushed;
+
 }
