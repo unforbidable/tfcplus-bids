@@ -109,6 +109,11 @@ public class ConfigHandler {
                 BidsOptions.Bark.dropSplittingSeasonedChance, 0f, 1f,
                 "The chance of a bark piece dropping when splitting seasoned logs into firewood (0 = never, 1 = always)");
 
+        BidsOptions.StonePress.efficiency = config.getFloat(
+                "efficiency", "stonePress",
+                BidsOptions.StonePress.efficiency, 0.5f, 1.5f,
+                "Higher values increase the efficiency of a stone press, 1.0f being equal to the classic TFC hopper press.");
+
         config.save();
     }
 

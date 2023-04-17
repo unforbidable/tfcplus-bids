@@ -11,6 +11,7 @@ import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockWorkStone;
 import com.unforbidable.tfc.bids.Core.Timer;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernManager;
 import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
 
@@ -352,7 +353,8 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
             StonePressRecipe recipe = StonePressManager.getMatchingRecipe(getInputStack());
             if (recipe != null) {
                 if (isValidLiquidOutputContainer(recipe.getCraftingResult())) {
-                    float weightConsumed = Food.getWeight(recipe.getInput());
+                    float weightNeeded = Food.getWeight(recipe.getInput());
+                    float weightConsumed = weightNeeded / BidsOptions.StonePress.efficiency;
                     float weightAvailable = Food.getWeight(getInputStack());
                     float weightConsumedActually = Math.min(weightConsumed, weightAvailable);
                     float requiredAmountRatio = weightConsumedActually / weightConsumed;

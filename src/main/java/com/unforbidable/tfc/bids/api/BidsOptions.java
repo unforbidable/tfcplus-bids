@@ -49,4 +49,10 @@ public class BidsOptions {
 
     }
 
+    public static class StonePress {
+
+        public static float efficiency = 0.8f;
+
+    }
+
 }
