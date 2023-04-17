@@ -14,6 +14,7 @@ public class BidsBlocks {
     public static int saddleQuernRenderId;
     public static int workStoneRenderId;
     public static int stonePressLeverRenderId;
+    public static int stonePressWeightRenderId;
 
     public static Block clayCrucible;
     public static Block fireClayCrucible;
@@ -81,5 +82,6 @@ public class BidsBlocks {
     public static Block saddleQuernHandstoneSed;
     public static Block saddleQuernPressingStoneSed;
     public static Block stonePressLever;
+    public static Block stonePressWeightSed;
 
 }

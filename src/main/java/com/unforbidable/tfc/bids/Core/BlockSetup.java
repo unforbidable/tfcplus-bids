@@ -10,23 +10,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemChoppingBlock;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemClayCrucible;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemSaddleQuern;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemWorkStone;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemDryingRack;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemFireClayCrucible;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall16;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWall32;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWallVert;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWallVert16;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemLogWallVert32;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemMudChimney;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemQuarry;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStone;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemRoughStoneBrick;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemWattleTrapDoor;
+import com.unforbidable.tfc.bids.Items.ItemBlocks.*;
 import com.unforbidable.tfc.bids.Render.Blocks.*;
 import com.unforbidable.tfc.bids.Render.Tiles.TileRenderDryingRack;
 import com.unforbidable.tfc.bids.Render.Tiles.TileRenderChoppingBlock;
@@ -168,6 +152,8 @@ public class BlockSetup extends BidsBlocks {
                 .setBlockName("SaddleQuernPressingStoneSed");
         stonePressLever = new BlockStonePressLever()
                 .setBlockName("StonePressLever");
+        stonePressWeightSed = new BlockStonePressWeight((BlockRoughStone) roughStoneSed)
+                .setBlockName("StonePressWeight");
     }
 
     private static void updateBlocks() {
@@ -197,6 +183,7 @@ public class BlockSetup extends BidsBlocks {
         carvingWood.setHarvestLevel("axe", 0);
 
         saddleQuernBaseSed.setHarvestLevel("shovel", 0);
+        stonePressWeightSed.setHarvestLevel("shovel", 0);
     }
 
     private static void setupFireInfo() {
@@ -233,6 +220,8 @@ public class BlockSetup extends BidsBlocks {
 
         Blocks.fire.setFireInfo(wattleTrapdoor, 10, 30);
         Blocks.fire.setFireInfo(wattleTrapdoorCover, 60, 20);
+
+        Blocks.fire.setFireInfo(stonePressLever, 5, 5);
     }
 
     private static void registerOre() {
@@ -296,6 +285,9 @@ public class BlockSetup extends BidsBlocks {
 
         stonePressLeverRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(stonePressLeverRenderId, new RenderStonePressLever());
+
+        stonePressWeightRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(stonePressWeightRenderId, new RenderStonePressWeight());
     }
 
     private static void registerTileEntities() {
@@ -321,6 +313,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntitySaddleQuern.class, "BidsDrainingStone");
 
         GameRegistry.registerTileEntity(TileEntityStonePressLever.class, "BidsStonePressLever");
+
+        GameRegistry.registerTileEntity(TileEntityStonePressWeight.class, "BidsStonePressWeight");
     }
 
     @SideOnly(Side.CLIENT)
@@ -421,6 +415,7 @@ public class BlockSetup extends BidsBlocks {
 
         GameRegistry.registerBlock(saddleQuernPressingStoneSed, ItemWorkStone.class, "SaddleQuernPressingStoneSed");
         GameRegistry.registerBlock(stonePressLever, "StonePressLever");
+        GameRegistry.registerBlock(stonePressWeightSed, ItemStonePressWeight.class, "StonePressWeightSed");
     }
 
 }

@@ -720,6 +720,17 @@ public class RecipeSetup {
             CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.saddleQuernPressingStoneSed, 1, i),
                 new ItemStack(BidsBlocks.roughStoneSed, 1, i), pressingStonePattern));
         }
+
+        CarvingRecipePattern weightStonePattern =  new CarvingRecipePattern()
+            .carveEntireLayer()
+            .carveLayer("####", "#   ", "#   ", "#   ")
+            .carveLayer("####", "#   ", "#   ", "#   ")
+            .carveLayer("####", "#   ", "#   ", "#   ");
+
+        for (int i = 0; i < Global.STONE_SED.length; i++) {
+            CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.stonePressWeightSed, 1, i),
+                new ItemStack(BidsBlocks.roughStoneSed, 1, i), weightStonePattern));
+        }
     }
 
     private static void registerSaddleQuernRecipes() {

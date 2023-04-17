@@ -3,8 +3,10 @@ package com.unforbidable.tfc.bids.Core.SaddleQuern;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLogSeasoned;
 import com.unforbidable.tfc.bids.TileEntities.TileEntitySaddleQuern;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityStonePressLever;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityStonePressWeight;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -51,6 +53,21 @@ public class StonePressHelper {
 
     public static boolean isValidAnchorBlockAt(World world, int x, int y, int z) {
         return world.getBlock(x, y, z) == BidsBlocks.roughStoneBrickSed;
+    }
+
+    public static boolean isWeightLiftedAt(IBlockAccess world, int x, int y, int z) {
+        if (world.getTileEntity(x, y, z) instanceof TileEntityStonePressWeight
+            && world.getTileEntity(x, y + 1, z) instanceof TileEntityStonePressLever) {
+            TileEntityStonePressWeight weightTileEntity = (TileEntityStonePressWeight) world.getTileEntity(x, y, z);
+            TileEntityStonePressLever leverTileEntity = (TileEntityStonePressLever) world.getTileEntity(x, y + 1, z);
+            if (weightTileEntity.getRopeItem() != null
+                && leverTileEntity.getLeverPart() == TileEntityStonePressLever.PART_WEIGHT
+                && leverTileEntity.getExtraItem() != null) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
