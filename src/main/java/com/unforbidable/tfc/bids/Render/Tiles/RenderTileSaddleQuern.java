@@ -170,16 +170,16 @@ public class RenderTileSaddleQuern extends TESRBase {
     private Vec3 getInputStackOffset(int orientation) {
         switch (orientation) {
             case 0:
-                return Vec3.createVectorHelper(0.5, 0, 0.75);
+                return Vec3.createVectorHelper(0.5, 0, 0.785);
 
             case 1:
-                return Vec3.createVectorHelper(0.25, 0, 0.5);
+                return Vec3.createVectorHelper(0.215, 0, 0.5);
 
             case 2:
-                return Vec3.createVectorHelper(0.5, 0, 0.25);
+                return Vec3.createVectorHelper(0.5, 0, 0.215);
 
             case 3:
-                return Vec3.createVectorHelper(0.75, 0, 0.5);
+                return Vec3.createVectorHelper(0.785, 0, 0.5);
         }
 
         return Vec3.createVectorHelper(0, 0, 0);
