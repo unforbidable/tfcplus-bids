@@ -755,8 +755,6 @@ public class RecipeSetup {
                 ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.CANEJUICE, 10),
                 ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f)));
-        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, 40),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.agave), 1f)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.LEMONJUICE, 10),
                 ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.ORANGEJUICE, 10),
@@ -792,6 +790,10 @@ public class RecipeSetup {
                 ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
                 ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f)));
+
+        // TODO: Agave has to be handled as a non food item stack
+        // StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, 40),
+        //        new ItemStack(TFCItems.agave, 1)));
     }
 
     private static void registerKnappingRecipes() {
