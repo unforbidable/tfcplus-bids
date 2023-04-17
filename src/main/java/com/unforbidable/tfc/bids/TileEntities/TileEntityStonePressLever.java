@@ -22,8 +22,7 @@ public class TileEntityStonePressLever extends TileEntity {
     private static final int SLOT_LOG = 0;
     private static final int SLOT_EXTRA = 1; // Rope or anchoring block
 
-    public static final int PART_UNDEFINED = -1; // Briefly used during initialization
-    public static final int PART_ANCHOR = 0; // Anchored in solid block
+    public static final int PART_UNDEFINED = 0; // Briefly used during initialization
     public static final int PART_BASE = 1; // Over the pressing stone
     public static final int PART_FREE = 2; // Hanging free
     public static final int PART_WEIGHT = 3; // Holding weight stone

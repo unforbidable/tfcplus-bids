@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Blocks;
 
 import com.unforbidable.tfc.bids.Core.SaddleQuern.LeverBounds;
+import com.unforbidable.tfc.bids.Core.SaddleQuern.StonePressHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityStonePressLever;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.relauncher.Side;
@@ -53,7 +54,7 @@ public class BlockStonePressLever extends BlockContainer {
             float hitY, float hitZ) {
         ItemStack heldItemStack = player.getCurrentEquippedItem();
         if (heldItemStack != null) {
-            // TODO: Attach anchoring stone or weight stone
+            // TODO: Attach weight stone
         }
 
         return true;
@@ -83,17 +84,11 @@ public class BlockStonePressLever extends BlockContainer {
         TileEntityStonePressLever te = (TileEntityStonePressLever) world.getTileEntity(x, y, z);
         ForgeDirection d = te.getSaddleQuernOutputForgeDirection();
 
-        if (te.getLeverPart() == TileEntityStonePressLever.PART_ANCHOR) {
-            // Solid below, attached to another lever to front
-            return world.isSideSolid(x, y - 1, z, ForgeDirection.UP)
-                && world.getBlock(x + d.offsetX, y, z + d.offsetZ) == BidsBlocks.stonePressLever;
-        }
-
         if (te.getLeverPart() == TileEntityStonePressLever.PART_BASE) {
-            // Saddle quern below, attached to lever front and back
+            // Saddle quern below, attached to lever front and anchor block back
             return world.getBlock(x, y - 1, z) == BidsBlocks.saddleQuernBaseSed
                 && world.getBlock(x + d.offsetX, y, z + d.offsetZ) == BidsBlocks.stonePressLever
-                && world.getBlock(x - d.offsetX, y, z - d.offsetZ) == BidsBlocks.stonePressLever;
+                && StonePressHelper.isValidAnchorBlockAt(world, x, y, z);
         }
 
         if (te.getLeverPart() == TileEntityStonePressLever.PART_FREE) {
