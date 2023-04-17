@@ -44,7 +44,7 @@ public class BlockStonePressLever extends BlockContainer {
 
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
-        AxisAlignedBB bounds = LeverBounds.fromOrientation(world.getBlockMetadata(x, y, z)).getLogBounds();
+        AxisAlignedBB bounds = LeverBounds.fromOrientation(world.getBlockMetadata(x, y, z)).getLog();
         setBlockBounds((float) bounds.minX, (float) bounds.minY, (float) bounds.minZ,
             (float) bounds.maxX, (float) bounds.maxY, (float) bounds.maxZ);
     }
@@ -52,11 +52,17 @@ public class BlockStonePressLever extends BlockContainer {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
             float hitY, float hitZ) {
-        ItemStack heldItemStack = player.getCurrentEquippedItem();
-        if (heldItemStack != null) {
-            // TODO: Attach weight stone
+        if (!world.isRemote) {
+            TileEntityStonePressLever leverTileEntity = (TileEntityStonePressLever) world.getTileEntity(x, y, z);
+            ItemStack heldItemStack = player.getCurrentEquippedItem();
+            if (heldItemStack != null && leverTileEntity.isValidRopeItem(heldItemStack)
+                && leverTileEntity.setRopeItem(heldItemStack)) {
+                return true;
+            } else if (heldItemStack == null
+                && leverTileEntity.retrieveRope(player)) {
+                return true;
+            }
         }
-
         return true;
     }
 

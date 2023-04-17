@@ -10,7 +10,7 @@ public class WeightBounds {
     static final float weightSize = 1 / 16f * 12;
     static final float weightMargin = 1 / 16f * 2;
     static final float ropeSize = 1 / 16f;
-    static final float liftOffset = 1 / 16f * 4;
+    static final float liftOffset = 1 / 16f * 6;
 
     static WeightBounds groundedCache = null;
     static WeightBounds liftedCache = null;

@@ -108,11 +108,12 @@ public class TileEntityStonePressWeight extends TileEntity implements IMessageHa
     }
 
     public boolean isLifted() {
-        TileEntityStonePressLever leverTileEntity = (TileEntityStonePressLever) worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
+        if (worldObj.getTileEntity(xCoord, yCoord + 1, zCoord) instanceof TileEntityStonePressLever) {
+            TileEntityStonePressLever leverTileEntity = (TileEntityStonePressLever) worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
+            return hasRope() && leverTileEntity.hasRope();
+        }
 
-        return hasRope()
-            && leverTileEntity.getLeverPart() == TileEntityStonePressLever.PART_WEIGHT
-            && leverTileEntity.getExtraItem() != null;
+        return false;
     }
 
     public boolean setRopeItem(ItemStack rope) {
@@ -126,7 +127,7 @@ public class TileEntityStonePressWeight extends TileEntity implements IMessageHa
 
         rope.stackSize--;
 
-        Bids.LOG.info("Rope attached to weight: " + is.getDisplayName());
+        Bids.LOG.debug("Rope attached to weight: " + is.getDisplayName());
 
         updateClient();
 
@@ -148,7 +149,7 @@ public class TileEntityStonePressWeight extends TileEntity implements IMessageHa
 
         storage[SLOT_ROPE] = null;
 
-        Bids.LOG.info("Rope retrieved from weight: " + is.getDisplayName());
+        Bids.LOG.debug("Rope retrieved from weight: " + is.getDisplayName());
 
         updateClient();
 
@@ -157,7 +158,7 @@ public class TileEntityStonePressWeight extends TileEntity implements IMessageHa
 
     private void updateClient() {
         if (worldObj != null && !worldObj.isRemote) {
-            Bids.LOG.info("Update " + xCoord + "," + yCoord + "," + zCoord);
+            Bids.LOG.debug("Update " + xCoord + "," + yCoord + "," + zCoord);
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
             clientNeedToUpdate = true;
@@ -171,14 +172,14 @@ public class TileEntityStonePressWeight extends TileEntity implements IMessageHa
     @Override
     public void onTileEntityMessage(TileEntityUpdateMessage message) {
         worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-        Bids.LOG.info("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
+        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
             + message.getZCoord());
     }
 
     public static void sendUpdateMessage(World world, int x, int y, int z) {
         NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
         Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
-        Bids.LOG.info("Sent update message");
+        Bids.LOG.debug("Sent update message");
     }
 
 }
