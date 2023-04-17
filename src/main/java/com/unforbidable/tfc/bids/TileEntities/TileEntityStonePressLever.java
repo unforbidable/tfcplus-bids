@@ -1,8 +1,5 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
-import com.unforbidable.tfc.bids.Core.ChoppingBlock.ChoppingBlockHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,7 +7,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileEntityStonePressLever extends TileEntity {
@@ -94,13 +90,6 @@ public class TileEntityStonePressLever extends TileEntity {
                 storage[i] = null;
             }
         }
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox() {
-        final float h = ChoppingBlockHelper.getChoppingBlockBoundsHeight() + 0.5f;
-        return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + h, zCoord + 1);
     }
 
     @Override
