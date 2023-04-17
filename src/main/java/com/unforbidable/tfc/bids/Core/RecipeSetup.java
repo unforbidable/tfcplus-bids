@@ -33,19 +33,8 @@ import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
-import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.FoodDryingRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernManager;
-import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
-import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.*;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
-import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
-import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipePattern;
-import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
-import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockRecipe;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -68,6 +57,7 @@ public class RecipeSetup {
         registerCustomRecipes();
         registerCarvingRecipes();
         registerSaddleQuernRecipes();
+        registerStonePressRecipes();
         registerHandlers();
     }
 
@@ -746,12 +736,62 @@ public class RecipeSetup {
                 new ItemStack(TFCItems.ryeGrain)));
         SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.cornmealCrushed),
                 new ItemStack(TFCItems.maizeEar)));
+
         SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.appleCrushed),
                 new ItemStack(TFCItems.greenApple)));
         SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.appleCrushed),
                 new ItemStack(TFCItems.redApple)));
         SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.oliveCrushed),
                 new ItemStack(TFCItems.olive)));
+    }
+
+    private static void registerStonePressRecipes() {
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f)));
+
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.GRAPEJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.CANEJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, 40),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.agave), 1f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.LEMONJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.ORANGEJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.orange), 0.5f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.PEACHJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.peach), 0.55f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.PLUMJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.plum), 0.65f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.FIGJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.fig), 0.5f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.CHERRYJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.cherry), 0.7f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.DATEJUICE, 6),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.date), 0.8f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.PAPAYAJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.papaya), 0.6f)));
+
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.strawberry), 0.65f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.blackberry), 0.61f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.blueberry), 0.6f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.bunchberry), 0.68f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.cranberry), 0.7f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.elderberry), 0.58f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.gooseberry), 0.6f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f)));
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f)));
     }
 
     private static void registerKnappingRecipes() {
