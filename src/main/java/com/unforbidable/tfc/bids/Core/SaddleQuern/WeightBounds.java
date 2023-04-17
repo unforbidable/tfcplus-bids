@@ -39,11 +39,11 @@ public class WeightBounds {
     private static WeightBounds getLiftedBoundsFromGroundedCache() {
         WeightBounds bounds = new WeightBounds();
 
-        bounds.weight = groundedCache.weight.offset(0, liftOffset, 0);
+        bounds.weight = groundedCache.weight.copy().offset(0, liftOffset, 0);
 
         bounds.ropes = new AxisAlignedBB[groundedCache.ropes.length];
         for (int i = 0; i < groundedCache.ropes.length; i++) {
-            bounds.ropes[i] = groundedCache.ropes[i].offset(0, liftOffset, 0);
+            bounds.ropes[i] = groundedCache.ropes[i].copy().offset(0, liftOffset, 0);
         }
 
         return bounds;
@@ -59,6 +59,7 @@ public class WeightBounds {
                 liftedCache = getLiftedBoundsFromGroundedCache();
             }
 
+            return liftedCache;
         }
 
         return groundedCache;
