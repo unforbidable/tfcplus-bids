@@ -32,14 +32,14 @@ public class BlockStonePressWeight extends BlockContainer {
 
         setHardness(10);
         setCreativeTab(BidsCreativeTabs.bidsDefault);
-        AxisAlignedBB bounds = WeightBounds.get().getTotal();
+        AxisAlignedBB bounds = WeightBounds.getTotal();
         setBlockBounds((float) bounds.minX, (float) bounds.minY, (float) bounds.minZ, (float) bounds.maxX, (float) bounds.maxY, (float) bounds.maxZ);
     }
 
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
         boolean lifted = StonePressHelper.isWeightLiftedAt(world, x, y, z);
-        AxisAlignedBB bounds = lifted ? WeightBounds.get().getWeightLifted() : WeightBounds.get().getWeightGrounded();
+        AxisAlignedBB bounds = WeightBounds.fromLifted(lifted).getWeight();
         setBlockBounds((float) bounds.minX, (float) bounds.minY, (float) bounds.minZ,
             (float) bounds.maxX, (float) bounds.maxY, (float) bounds.maxZ);
     }
@@ -63,11 +63,16 @@ public class BlockStonePressWeight extends BlockContainer {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
             float hitY, float hitZ) {
-        ItemStack heldItemStack = player.getCurrentEquippedItem();
-        if (heldItemStack != null) {
-            // TODO: Attach rope
-        } else {
-            // TODO: Detach rope
+        if (!world.isRemote) {
+            TileEntityStonePressWeight weightTileEntity = (TileEntityStonePressWeight) world.getTileEntity(x, y, z);
+            ItemStack heldItemStack = player.getCurrentEquippedItem();
+            if (heldItemStack != null && weightTileEntity.isValidRopeItem(heldItemStack)
+                && weightTileEntity.setRopeItem(heldItemStack)) {
+                return true;
+            } else if (heldItemStack == null
+                && weightTileEntity.retrieveRope(player)) {
+                return true;
+            }
         }
 
         return true;

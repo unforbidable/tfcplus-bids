@@ -1,14 +1,21 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
+import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
+import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
-public class TileEntityStonePressWeight extends TileEntity {
+public class TileEntityStonePressWeight extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
 
     public static final int MAX_STORAGE = 1;
 
@@ -16,16 +23,10 @@ public class TileEntityStonePressWeight extends TileEntity {
 
     private static final int SLOT_ROPE = 0;
 
+    boolean clientNeedToUpdate = false;
+
     public TileEntityStonePressWeight() {
         super();
-    }
-
-    public ItemStack getRopeItem() {
-        return storage[SLOT_ROPE];
-    }
-
-    public void setRopeItem(ItemStack is) {
-        storage[SLOT_ROPE] = is;
     }
 
     public void onBlockBroken() {
@@ -35,6 +36,18 @@ public class TileEntityStonePressWeight extends TileEntity {
                 worldObj.spawnEntityInWorld(ei);
 
                 storage[i] = null;
+            }
+        }
+    }
+
+    @Override
+    public void updateEntity() {
+        if (!worldObj.isRemote) {
+            // When inventory content changes
+            if (clientNeedToUpdate) {
+                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+
+                clientNeedToUpdate = false;
             }
         }
     }
@@ -92,6 +105,80 @@ public class TileEntityStonePressWeight extends TileEntity {
             final int slot = itemTag.getInteger("slot");
             storage[slot] = ItemStack.loadItemStackFromNBT(itemTag);
         }
+    }
+
+    public boolean isLifted() {
+        TileEntityStonePressLever leverTileEntity = (TileEntityStonePressLever) worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
+
+        return hasRope()
+            && leverTileEntity.getLeverPart() == TileEntityStonePressLever.PART_WEIGHT
+            && leverTileEntity.getExtraItem() != null;
+    }
+
+    public boolean setRopeItem(ItemStack rope) {
+        if (isLifted() || hasRope() || !isValidRopeItem(rope)) {
+            return false;
+        }
+
+        ItemStack is = rope.copy();
+        is.stackSize = 1;
+        storage[SLOT_ROPE] = is;
+
+        rope.stackSize--;
+
+        Bids.LOG.info("Rope attached to weight: " + is.getDisplayName());
+
+        updateClient();
+
+        return true;
+    }
+
+    public boolean hasRope() {
+        return storage[SLOT_ROPE] != null;
+    }
+
+    public boolean retrieveRope(EntityPlayer player) {
+        if (isLifted() || !hasRope()) {
+            return false;
+        }
+
+        final ItemStack is = storage[SLOT_ROPE];
+        final EntityItem ei = new EntityItem(worldObj, player.posX, player.posY, player.posZ, is);
+        worldObj.spawnEntityInWorld(ei);
+
+        storage[SLOT_ROPE] = null;
+
+        Bids.LOG.info("Rope retrieved from weight: " + is.getDisplayName());
+
+        updateClient();
+
+        return true;
+    }
+
+    private void updateClient() {
+        if (worldObj != null && !worldObj.isRemote) {
+            Bids.LOG.info("Update " + xCoord + "," + yCoord + "," + zCoord);
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+            clientNeedToUpdate = true;
+        }
+    }
+
+    public boolean isValidRopeItem(ItemStack itemStack) {
+        return itemStack.getItem() == TFCItems.rope;
+    }
+
+    @Override
+    public void onTileEntityMessage(TileEntityUpdateMessage message) {
+        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
+        Bids.LOG.info("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
+            + message.getZCoord());
+    }
+
+    public static void sendUpdateMessage(World world, int x, int y, int z) {
+        NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
+        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
+        Bids.LOG.info("Sent update message");
     }
 
 }

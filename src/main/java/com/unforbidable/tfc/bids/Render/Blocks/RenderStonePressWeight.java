@@ -1,13 +1,15 @@
 package com.unforbidable.tfc.bids.Render.Blocks;
 
+import com.unforbidable.tfc.bids.Blocks.BlockRoughStone;
 import com.unforbidable.tfc.bids.Blocks.BlockStonePressWeight;
-import com.unforbidable.tfc.bids.Core.ChoppingBlock.ChoppingBlockHelper;
-import com.unforbidable.tfc.bids.Core.SaddleQuern.StonePressHelper;
 import com.unforbidable.tfc.bids.Core.SaddleQuern.WeightBounds;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityStonePressWeight;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
@@ -16,7 +18,7 @@ public class RenderStonePressWeight implements ISimpleBlockRenderingHandler {
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-        AxisAlignedBB bounds = WeightBounds.get().getWeightGrounded();
+        AxisAlignedBB bounds = WeightBounds.fromLifted(false).getWeight();
         renderer.setRenderBounds(bounds.minX, bounds.minY, bounds.minZ, bounds.maxX, bounds.maxY, bounds.maxZ);
         renderInvBlock(((BlockStonePressWeight) block).materialBlock, metadata, renderer);
     }
@@ -24,22 +26,43 @@ public class RenderStonePressWeight implements ISimpleBlockRenderingHandler {
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
             RenderBlocks renderer) {
-        final BlockStonePressWeight weightBlock = (BlockStonePressWeight) block;
+        BlockStonePressWeight weightBlock = (BlockStonePressWeight) block;
+        TileEntityStonePressWeight weightTileEntity = (TileEntityStonePressWeight) world.getTileEntity(x, y, z);
 
         renderer.renderAllFaces = true;
 
-        boolean lifted = StonePressHelper.isWeightLiftedAt(world, x, y, z);
-        WeightBounds weightBounds = WeightBounds.get();
+        boolean lifted = weightTileEntity.isLifted();
+        WeightBounds bounds = WeightBounds.fromLifted(lifted);
 
-        AxisAlignedBB bounds = lifted ? weightBounds.getWeightLifted() : weightBounds.getWeightGrounded();
-        renderer.setRenderBounds(bounds.minX, bounds.minY, bounds.minZ, bounds.maxX, bounds.maxY, bounds.maxZ);
+        renderWeight(renderer, x, y, z, weightBlock.materialBlock, bounds.getWeight());
 
-        renderer.renderStandardBlock(weightBlock.materialBlock, x, y, z);
+        if (weightTileEntity.hasRope()) {
+            // Brown wool (lighter)
+            renderRopes(renderer, x, y, z, Blocks.wool, 12, 8f, bounds.getRopes());
+        }
 
         renderer.renderAllFaces = false;
 
         return true;
     }
+
+    private void renderRopes(RenderBlocks renderer, int x, int y, int z, Block block, int meta, float color, AxisAlignedBB[] boundsForRopes) {
+        int origMetaData = Minecraft.getMinecraft().theWorld.getBlockMetadata(x, y, z);
+        Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, meta, 0);
+
+        for (AxisAlignedBB bounds : boundsForRopes) {
+            renderer.setRenderBounds(bounds.minX, bounds.minY, bounds.minZ, bounds.maxX, bounds.maxY, bounds.maxZ);
+            renderer.renderStandardBlockWithColorMultiplier(block, x, y, z, color, color, color);
+        }
+
+        Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, origMetaData, 0);
+    }
+
+    private void renderWeight(RenderBlocks renderer, int x, int y, int z, BlockRoughStone block, AxisAlignedBB bounds) {
+        renderer.setRenderBounds(bounds.minX, bounds.minY, bounds.minZ, bounds.maxX, bounds.maxY, bounds.maxZ);
+        renderer.renderStandardBlock(block, x, y, z);
+    }
+
 
     @Override
     public boolean shouldRender3DInInventory(int modelId) {

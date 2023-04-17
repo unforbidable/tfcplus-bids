@@ -5,6 +5,7 @@ import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Blocks.*;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.*;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackMessage;
+import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
@@ -343,6 +344,11 @@ public class BlockSetup extends BidsBlocks {
                 NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
         Bids.network.registerMessage(DryingRackMessage.ClientHandler.class, DryingRackMessage.class,
                 NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
+
+        Bids.network.registerMessage(TileEntityUpdateMessage.ServerHandler.class, TileEntityUpdateMessage.class,
+            NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
+        Bids.network.registerMessage(TileEntityUpdateMessage.ClientHandler.class, TileEntityUpdateMessage.class,
+            NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
     }
 
     private static void registerBlocks() {

@@ -56,15 +56,9 @@ public class StonePressHelper {
     }
 
     public static boolean isWeightLiftedAt(IBlockAccess world, int x, int y, int z) {
-        if (world.getTileEntity(x, y, z) instanceof TileEntityStonePressWeight
-            && world.getTileEntity(x, y + 1, z) instanceof TileEntityStonePressLever) {
+        if (world.getTileEntity(x, y, z) instanceof TileEntityStonePressWeight) {
             TileEntityStonePressWeight weightTileEntity = (TileEntityStonePressWeight) world.getTileEntity(x, y, z);
-            TileEntityStonePressLever leverTileEntity = (TileEntityStonePressLever) world.getTileEntity(x, y + 1, z);
-            if (weightTileEntity.getRopeItem() != null
-                && leverTileEntity.getLeverPart() == TileEntityStonePressLever.PART_WEIGHT
-                && leverTileEntity.getExtraItem() != null) {
-                return true;
-            }
+            return weightTileEntity.isLifted();
         }
 
         return false;
