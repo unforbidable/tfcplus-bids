@@ -15,6 +15,8 @@ import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernManager;
 import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
 
 import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
+import com.unforbidable.tfc.bids.api.Crafting.StonePressManager;
+import com.unforbidable.tfc.bids.api.Crafting.StonePressRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,6 +28,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 
 public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
@@ -36,6 +39,8 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     public static final int SLOT_OUTPUT_STACK = 2;
 
     private static final int OPERATION_TICKS = 70;
+
+    private static final int INIT_PRESSING_DELAY = 100;
 
     private static final float MAX_GRIND_WEIGHT = 4;
 
@@ -50,6 +55,8 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     Timer cancelOperationTimer = new Timer(0);
     Timer operationTimer = new Timer(0);
     Timer decayTimer = new Timer(100);
+    Timer pressingReadyCheckTimer = new Timer(100);
+    Timer pressingTimer = new Timer(0);
 
     float workStonePosition = 0;
     int workStoneStage = 0;
@@ -118,6 +125,18 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
         workStone.stackSize--;
 
+        if (getInputStack() != null) {
+            // Make sure any input stack is valid for the new work stone
+            // or eject
+            if (!isValidInput(getInputStack())) {
+                final EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
+                    storage[SLOT_INPUT_STACK]);
+                worldObj.spawnEntityInWorld(ei);
+
+                storage[SLOT_INPUT_STACK] = null;
+            }
+        }
+
         updateClient();
 
         return true;
@@ -136,7 +155,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     }
 
     public boolean retrieveWorkStone(EntityPlayer player) {
-        if (!hasWorkStone() || isInOperation()) {
+        if (!hasWorkStone() || isInOperation() || isPressActive()) {
             return false;
         }
 
@@ -160,7 +179,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     }
 
     public boolean setInputStack(ItemStack inputStack) {
-        if (hasInputStack() && !canInputStack(inputStack) || !isValidInput(inputStack) || isInOperation()) {
+        if (hasInputStack() && !canInputStack(inputStack) || !isValidInput(inputStack) || isInOperation() || isPressActive()) {
             return false;
         }
 
@@ -185,7 +204,13 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     }
 
     public boolean isValidInput(ItemStack inputStack) {
-        return SaddleQuernManager.hasMatchingRecipe(inputStack);
+        if (getWorkStoneType() == EnumWorkStoneType.SADDLE_QUERN_CRUSHING) {
+            return SaddleQuernManager.hasMatchingRecipe(inputStack);
+        } else if (getWorkStoneType() == EnumWorkStoneType.SADDLE_QUERN_PRESSING) {
+            return StonePressManager.hasMatchingRecipe(inputStack);
+        } else {
+            return false;
+        }
     }
 
     private boolean canInputStack(ItemStack inputStack) {
@@ -201,7 +226,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     }
 
     public boolean retrieveInputStack(EntityPlayer player) {
-        if (!hasInputStack() || isInOperation()) {
+        if (!hasInputStack() || isInOperation() || isPressActive()) {
             return false;
         }
 
@@ -280,6 +305,20 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                 ejectOutput();
             }
 
+            if (pressingReadyCheckTimer.tick()) {
+                if (isPressActive()) {
+                    pressingTimer.delay(INIT_PRESSING_DELAY);
+                }
+            }
+
+            if (pressingTimer.tick()) {
+                if (isPressActive()) {
+                    processPressingInput();
+                    pressingTimer.delay(20);
+                    pressingReadyCheckTimer.delay(50);
+                }
+            }
+
         } else {
             if (isWorking || workStoneStage > 0) {
                 workStoneStage++;
@@ -294,6 +333,92 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                 }
             }
         }
+    }
+
+    private boolean isPressActive() {
+        if (getWorkStoneType() == EnumWorkStoneType.SADDLE_QUERN_PRESSING) {
+            ForgeDirection d = getOutputForgeDirection();
+            if (worldObj.getTileEntity(xCoord + d.offsetX * 3, yCoord + 1, zCoord + d.offsetZ * 3) instanceof TileEntityStonePressLever) {
+                TileEntityStonePressLever lever = (TileEntityStonePressLever) worldObj.getTileEntity(xCoord + d.offsetX * 3, yCoord + 1, zCoord + d.offsetZ * 3);
+                return lever.hasRope();
+            }
+        }
+
+        return false;
+    }
+
+    private void processPressingInput() {
+        if (hasInputStack()) {
+            StonePressRecipe recipe = StonePressManager.getMatchingRecipe(getInputStack());
+            if (recipe != null) {
+                if (isValidLiquidOutputContainer(recipe.getCraftingResult())) {
+                    float weightConsumed = Food.getWeight(recipe.getInput());
+                    float weightAvailable = Food.getWeight(getInputStack());
+                    float weightConsumedActually = Math.min(weightConsumed, weightAvailable);
+                    float requiredAmountRatio = weightConsumedActually / weightConsumed;
+                    float fluidProduced = recipe.getCraftingResult().amount;
+                    float fluidProducedActually = fluidProduced * requiredAmountRatio;
+
+                    Food.setWeight(getInputStack(), weightAvailable - weightConsumedActually);
+
+                    FluidStack outputFuild = recipe.getCraftingResult().copy();
+                    outputFuild.amount = Math.round(fluidProducedActually);
+
+                    Bids.LOG.info("Available: " + weightAvailable);
+                    Bids.LOG.info("Consumed: " + weightConsumedActually);
+                    Bids.LOG.info("Output: " + outputFuild.getLocalizedName() + " amount: " + outputFuild.amount);
+
+                    if (!ejectLiquidOutputToContainer(outputFuild)) {
+                        Bids.LOG.warn("Fluid not added!");
+                    }
+
+                    float weightRemaining = Food.getWeight(getInputStack());
+                    float decayRemaining = Food.getDecay(getInputStack());
+                    float weightRemainingWithoutDecay = weightRemaining - decayRemaining;
+
+                    Bids.LOG.info("Remaining: " + weightRemaining);
+                    Bids.LOG.info("Decay: " + decayRemaining);
+                    Bids.LOG.info("Remaining without decay: " + weightRemainingWithoutDecay);
+
+                    if (weightRemainingWithoutDecay <= 0) {
+                        Bids.LOG.info("Nothing left but decay");
+
+                        storage[SLOT_INPUT_STACK] = null;
+                    }
+
+                    updateClient();
+                }
+            }
+        }
+    }
+
+    private boolean ejectLiquidOutputToContainer(FluidStack outputFluid) {
+        ForgeDirection d = getOutputForgeDirection();
+        int xContainer = xCoord + d.offsetX;
+        int zContainer = zCoord + d.offsetZ;
+        TileEntity te = worldObj.getTileEntity(xContainer, yCoord, zContainer);
+        if (te instanceof TEBarrel) {
+            TEBarrel barrel = (TEBarrel) te;
+            return barrel.addLiquid(outputFluid);
+        }
+
+        return false;
+    }
+
+    private boolean isValidLiquidOutputContainer(FluidStack outputFluid) {
+        if (getWorkStoneType() == EnumWorkStoneType.SADDLE_QUERN_PRESSING) {
+            ForgeDirection d = getOutputForgeDirection();
+            int xContainer = xCoord + d.offsetX;
+            int zContainer = zCoord + d.offsetZ;
+            TileEntity te = worldObj.getTileEntity(xContainer, yCoord, zContainer);
+            if (te instanceof TEBarrel) {
+                TEBarrel barrel = (TEBarrel) te;
+                return barrel.getFluidLevel() == 0
+                    || barrel.getFluidStack().isFluidEqual(outputFluid) && barrel.getFluidLevel() < barrel.getMaxLiquid();
+            }
+        }
+
+        return false;
     }
 
     private void processInput() {
