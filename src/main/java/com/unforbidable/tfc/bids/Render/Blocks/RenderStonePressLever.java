@@ -30,22 +30,31 @@ public class RenderStonePressLever implements ISimpleBlockRenderingHandler {
         final LeverBounds bounds = LeverBounds.fromOrientation(orientation);
         final TileEntityStonePressLever lever = (TileEntityStonePressLever) world.getTileEntity(x, y, z);
 
-        final boolean rotated = orientation % 2 == 1;
-        final ItemStack log = lever.getLogItem();
-        final WoodPileRenderHelper helper = new WoodPileRenderHelper(rotated);
-        final IWoodPileRenderProvider provider = new ItemPeeledLog();
+        if (lever.getLogItem() != null && lever.getLeverPart() != TileEntityStonePressLever.PART_UNDEFINED) {
+            final boolean rotated = orientation % 2 == 1;
+            final IWoodPileRenderProvider provider = new ItemPeeledLog();
 
-        provider.onWoodPileRender(log, rotated, helper);
+            RenderBlocksWithRotation rendererAlt = new RenderBlocksWithRotation(renderer);
+            rendererAlt.renderAllFaces = true;
+            rendererAlt.staticTexture = true;
 
-        RenderBlocksWithRotation rendererAlt = new RenderBlocksWithRotation(renderer);
-        rendererAlt.renderAllFaces = true;
-        rendererAlt.staticTexture = true;
+            final WoodPileRenderHelper helper = new WoodPileRenderHelper(rotated);
+            provider.onWoodPileRender(lever.getLogItem(), rotated, helper);
+            helper.apply(rendererAlt);
 
-        helper.apply(rendererAlt);
+            renderBlock(x, y, z, rendererAlt, block, bounds.getLogBounds());
 
-        renderBlock(x, y, z, rendererAlt, block, bounds.getLogBounds());
+            if (lever.getLeverPart() == TileEntityStonePressLever.PART_BASE) {
+                final WoodPileRenderHelper helperPivot = new WoodPileRenderHelper(!rotated);
+                provider.onWoodPileRender(lever.getLogItem(), !rotated, helperPivot);
+                helperPivot.apply(rendererAlt);
 
-        renderer.renderAllFaces = false;
+                renderBlock(x, y, z, rendererAlt, block, bounds.getPivotBounds());
+            }
+
+            renderer.renderAllFaces = false;
+
+        }
 
         return true;
     }
