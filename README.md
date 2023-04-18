@@ -35,6 +35,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Coarse Flour](../../wiki/Coarse-Flour) - made with Saddle Quern
 * [Porridge](../../wiki/Porridge) - early game food from grain
 * [Plug and Feather](../../wiki/Plug-And-Feather) - special wedges used for quarrying
+* [Stone Press](../../wiki/Stone-Press) - lever based pressing device, used for extractring juices and oils from berries and fruits
 
 ### Contributions
 
