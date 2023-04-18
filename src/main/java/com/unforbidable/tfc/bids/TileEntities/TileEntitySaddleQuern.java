@@ -42,6 +42,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     private static final int OPERATION_TICKS = 70;
 
     private static final int INIT_PRESSING_DELAY = 100;
+    private static final int PRESSING_DELAY = 40;
 
     private static final float MAX_GRIND_WEIGHT = 4;
 
@@ -315,8 +316,8 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
             if (pressingTimer.tick()) {
                 if (isPressActive()) {
                     processPressingInput();
-                    pressingTimer.delay(20);
-                    pressingReadyCheckTimer.delay(50);
+                    pressingTimer.delay(PRESSING_DELAY);
+                    pressingReadyCheckTimer.delay(PRESSING_DELAY + 10);
                 }
             }
 
