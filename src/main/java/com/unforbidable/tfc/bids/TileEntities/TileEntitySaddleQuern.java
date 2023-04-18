@@ -165,7 +165,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         final EntityItem ei = new EntityItem(worldObj, player.posX, player.posY, player.posZ, is);
         worldObj.spawnEntityInWorld(ei);
 
-        Bids.LOG.info("Work stone retrieved from saddle quern: " + is.getDisplayName());
+        Bids.LOG.debug("Work stone retrieved from saddle quern: " + is.getDisplayName());
 
         storage[SLOT_WORK_STONE] = null;
 
@@ -236,7 +236,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         final EntityItem ei = new EntityItem(worldObj, player.posX, player.posY, player.posZ, is);
         worldObj.spawnEntityInWorld(ei);
 
-        Bids.LOG.info("Input stack retrieved from saddle quern: " + is.getDisplayName());
+        Bids.LOG.debug("Input stack retrieved from saddle quern: " + is.getDisplayName());
 
         storage[SLOT_INPUT_STACK] = null;
 
@@ -367,9 +367,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                     FluidStack outputFuild = recipe.getCraftingResult().copy();
                     outputFuild.amount = Math.round(fluidProducedActually);
 
-                    Bids.LOG.info("Available: " + weightAvailable);
-                    Bids.LOG.info("Consumed: " + weightConsumedActually);
-                    Bids.LOG.info("Output: " + outputFuild.getLocalizedName() + " amount: " + outputFuild.amount);
+                    Bids.LOG.debug("Available: " + weightAvailable);
+                    Bids.LOG.debug("Consumed: " + weightConsumedActually);
+                    Bids.LOG.debug("Output: " + outputFuild.getLocalizedName() + " amount: " + outputFuild.amount);
 
                     if (!ejectLiquidOutputToContainer(outputFuild)) {
                         Bids.LOG.warn("Fluid not added!");
@@ -379,12 +379,12 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                     float decayRemaining = Food.getDecay(getInputStack());
                     float weightRemainingWithoutDecay = weightRemaining - decayRemaining;
 
-                    Bids.LOG.info("Remaining: " + weightRemaining);
-                    Bids.LOG.info("Decay: " + decayRemaining);
-                    Bids.LOG.info("Remaining without decay: " + weightRemainingWithoutDecay);
+                    Bids.LOG.debug("Remaining: " + weightRemaining);
+                    Bids.LOG.debug("Decay: " + decayRemaining);
+                    Bids.LOG.debug("Remaining without decay: " + weightRemainingWithoutDecay);
 
                     if (weightRemainingWithoutDecay <= 0) {
-                        Bids.LOG.info("Nothing left but decay");
+                        Bids.LOG.debug("Nothing left but decay");
 
                         storage[SLOT_INPUT_STACK] = null;
                     }
