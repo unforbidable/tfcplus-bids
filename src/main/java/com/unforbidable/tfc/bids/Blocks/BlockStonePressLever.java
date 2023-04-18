@@ -94,7 +94,7 @@ public class BlockStonePressLever extends BlockContainer {
             // Saddle quern below, attached to lever front and anchor block back
             return world.getBlock(x, y - 1, z) == BidsBlocks.saddleQuernBaseSed
                 && world.getBlock(x + d.offsetX, y, z + d.offsetZ) == BidsBlocks.stonePressLever
-                && StonePressHelper.isValidAnchorBlockAt(world, x, y, z);
+                && StonePressHelper.isValidAnchorBlockAt(world, x - d.offsetX, y, z - d.offsetZ);
         }
 
         if (te.getLeverPart() == TileEntityStonePressLever.PART_FREE) {
