@@ -746,52 +746,56 @@ public class RecipeSetup {
     }
 
     private static void registerStonePressRecipes() {
+        // Stone press efficiency affects the recipe input or output volume
+        float inputMult = 1 / BidsOptions.StonePress.efficiency; // input multiplier (for non-food input)
+        float outputMult = BidsOptions.StonePress.efficiency; // output multiplier (for food input)
+
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f)));
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f)));
+                ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f * inputMult)));
 
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.GRAPEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.CANEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.LEMONJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.ORANGEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.orange), 0.5f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.orange), 0.5f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.PEACHJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.peach), 0.55f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.peach), 0.55f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.PLUMJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.plum), 0.65f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.plum), 0.65f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.FIGJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.fig), 0.5f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.fig), 0.5f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.CHERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.cherry), 0.7f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.cherry), 0.7f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.DATEJUICE, 6),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.date), 0.8f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.date), 0.8f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.PAPAYAJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.papaya), 0.6f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.papaya), 0.6f * inputMult)));
 
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.strawberry), 0.65f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.strawberry), 0.65f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.blackberry), 0.61f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.blackberry), 0.61f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.blueberry), 0.6f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.blueberry), 0.6f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.bunchberry), 0.68f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.bunchberry), 0.68f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.cranberry), 0.7f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.cranberry), 0.7f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.elderberry), 0.58f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.elderberry), 0.58f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.gooseberry), 0.6f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.gooseberry), 0.6f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f * inputMult)));
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f)));
+                ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f * inputMult)));
 
-        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, 40),
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputMult)),
                 new ItemStack(TFCItems.agave, 1)));
     }
 

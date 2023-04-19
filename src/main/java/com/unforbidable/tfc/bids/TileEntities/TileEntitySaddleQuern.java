@@ -357,10 +357,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                 if (isValidLiquidOutputContainer(recipe.getCraftingResult())) {
                     if (storage[SLOT_INPUT_STACK].getItem() instanceof IFood) {
                         float weightNeeded = Food.getWeight(recipe.getInput());
-                        float weightConsumed = weightNeeded / BidsOptions.StonePress.efficiency;
                         float weightAvailable = Food.getWeight(storage[SLOT_INPUT_STACK]);
-                        float weightConsumedActually = Math.min(weightConsumed, weightAvailable);
-                        float requiredAmountRatio = weightConsumedActually / weightConsumed;
+                        float weightConsumedActually = Math.min(weightNeeded, weightAvailable);
+                        float requiredAmountRatio = weightConsumedActually / weightNeeded;
                         float fluidProduced = recipe.getCraftingResult().amount;
                         float fluidProducedActually = fluidProduced * requiredAmountRatio;
 
@@ -400,10 +399,8 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                         float fluidProduced = recipe.getCraftingResult().amount;
                         float fluidProducedActually = fluidProduced * requiredAmountRatio;
 
-                        float fluidProducedActuallyActually = fluidProducedActually * BidsOptions.StonePress.efficiency;
-
                         FluidStack outputFuild = recipe.getCraftingResult().copy();
-                        outputFuild.amount = Math.round(fluidProducedActuallyActually);
+                        outputFuild.amount = Math.round(fluidProducedActually);
 
                         if (!ejectLiquidOutputToContainer(outputFuild)) {
                             Bids.LOG.warn("Fluid not added!");
