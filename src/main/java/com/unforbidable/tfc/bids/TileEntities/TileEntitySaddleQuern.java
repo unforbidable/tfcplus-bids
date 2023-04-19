@@ -350,46 +350,72 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     }
 
     private void processPressingInput() {
-        if (hasInputStack()) {
-            StonePressRecipe recipe = StonePressManager.getMatchingRecipe(getInputStack());
+        if (storage[SLOT_INPUT_STACK] != null) {
+            ItemStack input = storage[SLOT_INPUT_STACK];
+            StonePressRecipe recipe = StonePressManager.getMatchingRecipe(storage[SLOT_INPUT_STACK]);
             if (recipe != null) {
                 if (isValidLiquidOutputContainer(recipe.getCraftingResult())) {
-                    float weightNeeded = Food.getWeight(recipe.getInput());
-                    float weightConsumed = weightNeeded / BidsOptions.StonePress.efficiency;
-                    float weightAvailable = Food.getWeight(getInputStack());
-                    float weightConsumedActually = Math.min(weightConsumed, weightAvailable);
-                    float requiredAmountRatio = weightConsumedActually / weightConsumed;
-                    float fluidProduced = recipe.getCraftingResult().amount;
-                    float fluidProducedActually = fluidProduced * requiredAmountRatio;
+                    if (storage[SLOT_INPUT_STACK].getItem() instanceof IFood) {
+                        float weightNeeded = Food.getWeight(recipe.getInput());
+                        float weightConsumed = weightNeeded / BidsOptions.StonePress.efficiency;
+                        float weightAvailable = Food.getWeight(storage[SLOT_INPUT_STACK]);
+                        float weightConsumedActually = Math.min(weightConsumed, weightAvailable);
+                        float requiredAmountRatio = weightConsumedActually / weightConsumed;
+                        float fluidProduced = recipe.getCraftingResult().amount;
+                        float fluidProducedActually = fluidProduced * requiredAmountRatio;
 
-                    Food.setWeight(getInputStack(), weightAvailable - weightConsumedActually);
+                        Food.setWeight(storage[SLOT_INPUT_STACK], weightAvailable - weightConsumedActually);
 
-                    FluidStack outputFuild = recipe.getCraftingResult().copy();
-                    outputFuild.amount = Math.round(fluidProducedActually);
+                        FluidStack outputFuild = recipe.getCraftingResult().copy();
+                        outputFuild.amount = Math.round(fluidProducedActually);
 
-                    Bids.LOG.debug("Available: " + weightAvailable);
-                    Bids.LOG.debug("Consumed: " + weightConsumedActually);
-                    Bids.LOG.debug("Output: " + outputFuild.getLocalizedName() + " amount: " + outputFuild.amount);
+                        Bids.LOG.debug("Available: " + weightAvailable);
+                        Bids.LOG.debug("Consumed: " + weightConsumedActually);
+                        Bids.LOG.debug("Output: " + outputFuild.getLocalizedName() + " amount: " + outputFuild.amount);
 
-                    if (!ejectLiquidOutputToContainer(outputFuild)) {
-                        Bids.LOG.warn("Fluid not added!");
+                        if (!ejectLiquidOutputToContainer(outputFuild)) {
+                            Bids.LOG.warn("Fluid not added!");
+                        }
+
+                        float weightRemaining = Food.getWeight(storage[SLOT_INPUT_STACK]);
+                        float decayRemaining = Food.getDecay(storage[SLOT_INPUT_STACK]);
+                        float weightRemainingWithoutDecay = weightRemaining - decayRemaining;
+
+                        Bids.LOG.debug("Remaining: " + weightRemaining);
+                        Bids.LOG.debug("Decay: " + decayRemaining);
+                        Bids.LOG.debug("Remaining without decay: " + weightRemainingWithoutDecay);
+
+                        if (weightRemainingWithoutDecay <= 0) {
+                            Bids.LOG.debug("Nothing left but decay");
+
+                            storage[SLOT_INPUT_STACK] = null;
+                        }
+
+                        updateClient();
+                    } else {
+                        int amountNeeded = recipe.getInput().stackSize;
+                        int amountAvailable = input.stackSize;
+                        int amountConsumedActually = Math.min(amountNeeded, amountAvailable);
+                        float requiredAmountRatio = (float)amountConsumedActually / (float)amountNeeded;
+                        float fluidProduced = recipe.getCraftingResult().amount;
+                        float fluidProducedActually = fluidProduced * requiredAmountRatio;
+
+                        float fluidProducedActuallyActually = fluidProducedActually * BidsOptions.StonePress.efficiency;
+
+                        FluidStack outputFuild = recipe.getCraftingResult().copy();
+                        outputFuild.amount = Math.round(fluidProducedActuallyActually);
+
+                        if (!ejectLiquidOutputToContainer(outputFuild)) {
+                            Bids.LOG.warn("Fluid not added!");
+                        }
+
+                        storage[SLOT_INPUT_STACK].stackSize -= amountConsumedActually;
+                        if (storage[SLOT_INPUT_STACK].stackSize == 0) {
+                            storage[SLOT_INPUT_STACK] = null;
+                        }
+
+                        updateClient();
                     }
-
-                    float weightRemaining = Food.getWeight(getInputStack());
-                    float decayRemaining = Food.getDecay(getInputStack());
-                    float weightRemainingWithoutDecay = weightRemaining - decayRemaining;
-
-                    Bids.LOG.debug("Remaining: " + weightRemaining);
-                    Bids.LOG.debug("Decay: " + decayRemaining);
-                    Bids.LOG.debug("Remaining without decay: " + weightRemainingWithoutDecay);
-
-                    if (weightRemainingWithoutDecay <= 0) {
-                        Bids.LOG.debug("Nothing left but decay");
-
-                        storage[SLOT_INPUT_STACK] = null;
-                    }
-
-                    updateClient();
                 }
             }
         }
