@@ -19,7 +19,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Carving](../../wiki/Carving) - for shaping blocks with an adze, in like manner to TFC detailing with a chisel, and carving recipes, using 3 carving modes
 * [Peeled Log](../../wiki/Peeled-Log) - logs that had their bark stripped used to craft log walls
 * [Log Walls](../../wiki/Log-Wall) - new building block with 6 variations for log cabin construction, and 2 variations of vertical log walls
-* [Wood Pile](../../wiki/Wood-Pile) - for wood storage and seasoning peeled logs, stick bundles
+* [Wood Pile](../../wiki/Wood-Pile) - for wood storage and seasoning peeled logs, stick bundles, and making charcoal
 * [New Firepit](../../wiki/Firepit) - new firepit that can consume custom fuels, requires kindling to light
 * [Kindling](../../wiki/Kindling) - kindling for lighting new firepit
 * [More Stick Bundles](../../wiki/Stick-Bundle) - small and tied bundles of sticks as fuel in new firepit
@@ -35,20 +35,24 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Coarse Flour](../../wiki/Coarse-Flour) - made with Saddle Quern
 * [Porridge](../../wiki/Porridge) - early game food from grain
 * [Plug and Feather](../../wiki/Plug-And-Feather) - special wedges used for quarrying
-* [Stone Press](../../wiki/Stone-Press) - lever based pressing device, used for extractring juices and oils from berries and fruits
+* [Stone Press](../../wiki/Stone-Press) - lever based pressing device, used for extracting juices and oils from berries and fruits
 
 ### Contributions
 
-* Saddle Quern model by [talhaereny](../../../../talhaereny)
+* Saddle Quern and Stone Press related models by [talhaereny](https://github.com/talhaereny)
 
 ### Translations
 
 * Chinese by Eternal130 (v0.24.x)
 
+### Other credits
+
+* [TFCraft-NEIplugin](https://github.com/tfc-plus-addons/TFCraft-NEIplugin)
+
 ### Compatibility
 
-* Waila - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, saddle quern, etc
-* Not Enough Items - recipes for seasoning, quarrying, drying, carving, chopping, saddle quern and new firepit fuels
+* Waila - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, saddle quern, stone press, etc
+* Not Enough Items - recipes for seasoning, quarrying, drying, carving, chopping, saddle quern, stone press and new firepit fuels
 
 ### Compiling
 

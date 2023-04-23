@@ -285,3 +285,7 @@
 - Added: Mud brick blocks can be carved
 - Changed: The durability of Adzes has been increased
 - Changed: Cooked food is now accepted in Saddle Quern recipes
+
+0.25.1 (23-04-2023)
+- Added: Agave can be processed in a stone press
+- Added: NEI support for stone press recipes
