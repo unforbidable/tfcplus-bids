@@ -486,6 +486,11 @@ item.Glass Bottle.Honey.name=Bottle of Honey
 item.Glass Bottle.HoneyWater.name=Bottle of Honey Water
 item.Glass Bottle.MilkVinegar.name=Bottle of Milk + Vinegar Mix
 
+item.Bowl Vinegar.PotteryBowl.name=Ceramic Bowl (Vinegar)
+item.Bowl Vinegar.Bowl.name=Bowl (Vinegar)
+item.Bowl Olive Oil.PotteryBowl.name=Ceramic Bowl (Olive Oil)
+item.Bowl Olive Oil.Bowl.name=Bowl (Olive Oil)
+
 item.Pottery Pipe.Clay.name=Clay Pipe
 item.Pottery Pipe.Ceramic.name=Ceramic Pipe
 

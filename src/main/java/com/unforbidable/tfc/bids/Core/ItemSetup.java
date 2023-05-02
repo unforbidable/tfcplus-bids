@@ -67,6 +67,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemSetup extends BidsItems {
@@ -75,6 +77,7 @@ public class ItemSetup extends BidsItems {
         initItems();
         setupToolHarvest();
         registerItems();
+        registerFluidContainers();
         registerOre();
         registerWoodPileItems();
         registerFirepitFuel();
@@ -283,6 +286,13 @@ public class ItemSetup extends BidsItems {
         milkVinegarBottle = new ItemGlassBottleFluid()
             .setContainerItem((TFCItems.glassBottle))
             .setUnlocalizedName("Glass Bottle.MilkVinegar");
+
+        vinegarBowl = new ItemBowlFluid(new String[] { "PotteryBowl", "Bowl" })
+            .setContainerItem(TFCItems.potteryBowl)
+            .setUnlocalizedName("Bowl Vinegar");
+        oliveOilBowl = new ItemBowlFluid(new String[] { "PotteryBowl", "Bowl" })
+            .setContainerItem(TFCItems.potteryBowl)
+            .setUnlocalizedName("Bowl Olive Oil");
     }
 
     private static void registerFluidContainers() {
@@ -297,6 +307,15 @@ public class ItemSetup extends BidsItems {
             new ItemStack(honeyWaterBottle), new ItemStack(TFCItems.glassBottle));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
             new ItemStack(milkVinegarBottle), new ItemStack(TFCItems.glassBottle));
+
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.VINEGAR, 250),
+            new ItemStack(vinegarBowl, 1, 0), new ItemStack(TFCItems.potteryBowl, 1, 1));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.VINEGAR, 250),
+            new ItemStack(vinegarBowl, 1, 1), new ItemStack(TFCItems.potteryBowl, 1, 2));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.OLIVEOIL, 250),
+            new ItemStack(oliveOilBowl, 1, 0), new ItemStack(TFCItems.potteryBowl, 1, 1));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.OLIVEOIL, 250),
+            new ItemStack(oliveOilBowl, 1, 1), new ItemStack(TFCItems.potteryBowl, 1, 2));
     }
 
     private static void setupToolHarvest() {
@@ -520,6 +539,9 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(honeyBottle, honeyBottle.getUnlocalizedName());
         GameRegistry.registerItem(honeyWaterBottle, honeyWaterBottle.getUnlocalizedName());
         GameRegistry.registerItem(milkVinegarBottle, milkVinegarBottle.getUnlocalizedName());
+
+        GameRegistry.registerItem(vinegarBowl, vinegarBowl.getUnlocalizedName());
+        GameRegistry.registerItem(oliveOilBowl, oliveOilBowl.getUnlocalizedName());
     }
 
 }
