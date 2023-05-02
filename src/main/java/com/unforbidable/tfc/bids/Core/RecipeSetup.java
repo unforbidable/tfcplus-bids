@@ -541,6 +541,18 @@ public class RecipeSetup {
             new ItemStack(TFCItems.powder, 1, 9),
             new ItemStack(TFCItems.clayBucketWater), new ItemStack(TFCItems.clayBucketEmpty));
 
+        registerBowlMixingRecipe(BidsItems.honeyWaterBottle, TFCItems.honeybowl, TFCItems.waterBottle, TFCItems.glassBottle, true);
+        registerBowlMixingRecipe(BidsItems.brineBottle, BidsItems.vinegarBowl, BidsItems.saltWaterBottle, TFCItems.glassBottle, false);
+        registerBowlMixingRecipe(BidsItems.milkVinegarBottle, BidsItems.vinegarBowl, TFCItems.milk, TFCItems.glassBottle, false);
+
+        registerBowlMixingRecipe(BidsItems.ceramicBucketHoneyWater, TFCItems.honeybowl, TFCItems.clayBucketWater, TFCItems.clayBucketEmpty, true);
+        registerBowlMixingRecipe(BidsItems.ceramicBucketBrine, BidsItems.vinegarBowl, TFCItems.clayBucketSaltWater, TFCItems.clayBucketEmpty, false);
+        registerBowlMixingRecipe(BidsItems.ceramicBucketMilkVinegar, BidsItems.vinegarBowl, TFCItems.clayBucketMilk, TFCItems.clayBucketEmpty, false);
+
+        registerBowlMixingRecipe(BidsItems.woodenBucketHoneyWater, TFCItems.honeybowl, TFCItems.woodenBucketWater, TFCItems.woodenBucketEmpty, true);
+        registerBowlMixingRecipe(BidsItems.woodenBucketBrine, BidsItems.vinegarBowl, TFCItems.woodenBucketSaltWater, TFCItems.woodenBucketEmpty, false);
+        registerBowlMixingRecipe(BidsItems.woodenBucketMilkVinegar, BidsItems.vinegarBowl, TFCItems.woodenBucketMilk, TFCItems.woodenBucketEmpty, false);
+
         DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreStrip, 1, 1),
                 new ItemStack(BidsItems.barkFibreStrip, 1, 0), 24, false));
 
@@ -654,6 +666,28 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionKeepItem()
             .addItems("itemLogExtra")
             .matchCraftingItem(TFCItems.clayTile));
+    }
+
+    private static void registerBowlMixingRecipe(Item outputFluidItem, Item inputBowlItem, Item inputFluidItem, Item emptyContainerItem, boolean extraDropBowl) {
+        GameRegistry.addShapelessRecipe(new ItemStack(outputFluidItem),
+            new ItemStack(inputBowlItem, 1, OreDictionary.WILDCARD_VALUE),
+            new ItemStack(inputFluidItem), new ItemStack(emptyContainerItem));
+
+        if (extraDropBowl) {
+            RecipeManager.addAction(new ActionExtraDrop()
+                .addExtraDrop(new ItemStack(TFCItems.potteryBowl, 1, 1))
+                .matchCraftingItem(outputFluidItem)
+                .matchIngredient(inputBowlItem, 0)
+                .matchIngredient(inputFluidItem)
+                .matchIngredient(emptyContainerItem));
+
+            RecipeManager.addAction(new ActionExtraDrop()
+                .addExtraDrop(new ItemStack(TFCItems.potteryBowl, 1, 2))
+                .matchCraftingItem(outputFluidItem)
+                .matchIngredient(inputBowlItem, 1)
+                .matchIngredient(inputFluidItem)
+                .matchIngredient(emptyContainerItem));
+        }
     }
 
     private static void registerCarvingRecipes() {
