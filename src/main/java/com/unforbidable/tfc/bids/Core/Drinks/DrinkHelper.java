@@ -52,16 +52,7 @@ public class DrinkHelper {
 
             int emptyDmg = isPottery ? 1 : 0;
             if (canDrinkInParts) {
-                int sip = 50;
-                int count = volume / sip;
-
-                FluidContainerRegistry.registerFluidContainer(new FluidStack(drink.getFluid(), sip),
-                        new ItemStack(item, 1, count - 1), new ItemStack(containerItem, 1, emptyDmg));
-
-                for (int i = 0; i < count - 1; i++) {
-                    FluidContainerRegistry.registerFluidContainer(new FluidStack(drink.getFluid(), sip),
-                            new ItemStack(item, 1, i), new ItemStack(item, 1, i + 1));
-                }
+                FluidHelper.registerPartialFluidContainer(drink.getFluid(), containerItem, emptyDmg, item, 50, volume);
             } else {
                 FluidContainerRegistry.registerFluidContainer(new FluidStack(drink.getFluid(), volume),
                         new ItemStack(item), new ItemStack(containerItem, 1, emptyDmg));

@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.Core;
 
-import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
+import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Drinks.Drink;
 import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
@@ -19,7 +19,7 @@ public class DrinkSetup extends BidsItems {
     }
 
     private static void registerFluidContainers() {
-        Bids.LOG.info("Register fluit containers for drinks");
+        Bids.LOG.info("Register fluid containers for drinks");
 
         DrinkHelper.registerFluidContainers(drinkingGlass, 250, true, 0, 40, 80, 100);
         DrinkHelper.registerFluidContainers(glassJug, 2000, true, 0, 11, 22, 33, 44, 55, 66, 77, 88, 100);
