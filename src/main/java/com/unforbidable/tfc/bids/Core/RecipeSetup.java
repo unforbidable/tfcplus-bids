@@ -529,6 +529,18 @@ public class RecipeSetup {
             }
         }
 
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.saltWaterBottle),
+            new ItemStack(TFCItems.powder, 1, 9),
+            new ItemStack(TFCItems.waterBottle), new ItemStack(TFCItems.glassBottle));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.woodenBucketSaltWater),
+            new ItemStack(TFCItems.powder, 1, 9),
+            new ItemStack(TFCItems.woodenBucketWater), new ItemStack(TFCItems.woodenBucketEmpty));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.clayBucketSaltWater),
+            new ItemStack(TFCItems.powder, 1, 9),
+            new ItemStack(TFCItems.clayBucketWater), new ItemStack(TFCItems.clayBucketEmpty));
+
         DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreStrip, 1, 1),
                 new ItemStack(BidsItems.barkFibreStrip, 1, 0), 24, false));
 
