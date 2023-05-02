@@ -491,6 +491,14 @@ item.Bowl Vinegar.Bowl.name=Bowl (Vinegar)
 item.Bowl Olive Oil.PotteryBowl.name=Ceramic Bowl (Olive Oil)
 item.Bowl Olive Oil.Bowl.name=Bowl (Olive Oil)
 
+item.Ceramic Bucket.Brine.name=Ceramic Bucket (Brine)
+item.Ceramic Bucket.HoneyWater.name=Ceramic Bucket (Honey Water)
+item.Ceramic Bucket.MilkVinegar.name=Ceramic Bucket (Milk + Vinegar Mix)
+
+item.Wooden Bucket.Brine.name=Wooden Bucket (Brine)
+item.Wooden Bucket.HoneyWater.name=Wooden Bucket (Honey Water)
+item.Wooden Bucket.MilkVinegar.name=Wooden Bucket (Milk + Vinegar Mix)
+
 item.Pottery Pipe.Clay.name=Clay Pipe
 item.Pottery Pipe.Ceramic.name=Ceramic Pipe
 

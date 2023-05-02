@@ -2,17 +2,14 @@ package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.Items.ItemClothing;
 import com.dunk.tfc.Render.Item.FoodItemRenderer;
-import com.dunk.tfc.api.Armor;
-import com.dunk.tfc.api.HeatIndex;
-import com.dunk.tfc.api.HeatRaw;
-import com.dunk.tfc.api.HeatRegistry;
-import com.dunk.tfc.api.TFCBlocks;
-import com.dunk.tfc.api.TFCItems;
+import com.dunk.tfc.api.*;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Interfaces.IBoots;
 import com.dunk.tfc.api.Interfaces.IEquipable;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
+import com.unforbidable.tfc.bids.Items.*;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelCoalTFC;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelLogsTFC;
@@ -21,37 +18,6 @@ import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelStickBundleTFC;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelStickTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderThickLogsTFC;
-import com.unforbidable.tfc.bids.Items.ItemAdze;
-import com.unforbidable.tfc.bids.Items.ItemBark;
-import com.unforbidable.tfc.bids.Items.ItemDrill;
-import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
-import com.unforbidable.tfc.bids.Items.ItemDrinkingCloth;
-import com.unforbidable.tfc.bids.Items.ItemDrinkingPottery;
-import com.unforbidable.tfc.bids.Items.ItemExtraBag;
-import com.unforbidable.tfc.bids.Items.ItemExtraBoots;
-import com.unforbidable.tfc.bids.Items.ItemExtraClothingPiece;
-import com.unforbidable.tfc.bids.Items.ItemExtraFood;
-import com.unforbidable.tfc.bids.Items.ItemFirewood;
-import com.unforbidable.tfc.bids.Items.ItemFirewoodSeasoned;
-import com.unforbidable.tfc.bids.Items.ItemGenericClothSheet;
-import com.unforbidable.tfc.bids.Items.ItemGenericFlat;
-import com.unforbidable.tfc.bids.Items.ItemGenericPottery;
-import com.unforbidable.tfc.bids.Items.ItemGenericToolHead;
-import com.unforbidable.tfc.bids.Items.ItemGlassLump;
-import com.unforbidable.tfc.bids.Items.ItemKindling;
-import com.unforbidable.tfc.bids.Items.ItemLogsSeasoned;
-import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
-import com.unforbidable.tfc.bids.Items.ItemMiscSewable;
-import com.unforbidable.tfc.bids.Items.ItemOreBit;
-import com.unforbidable.tfc.bids.Items.ItemPeeledLog;
-import com.unforbidable.tfc.bids.Items.ItemPeeledLogSeasoned;
-import com.unforbidable.tfc.bids.Items.ItemPlugAndFeather;
-import com.unforbidable.tfc.bids.Items.ItemBastCordage;
-import com.unforbidable.tfc.bids.Items.ItemBastFibre;
-import com.unforbidable.tfc.bids.Items.ItemBastFibreStrip;
-import com.unforbidable.tfc.bids.Items.ItemRoughBrick;
-import com.unforbidable.tfc.bids.Items.ItemSmallStickBundle;
-import com.unforbidable.tfc.bids.Items.ItemTiedStickBundle;
 import com.unforbidable.tfc.bids.Render.Item.SeasonableItemRenderer;
 import com.unforbidable.tfc.bids.Render.Item.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -293,6 +259,26 @@ public class ItemSetup extends BidsItems {
         oliveOilBowl = new ItemBowlFluid(new String[] { "PotteryBowl", "Bowl" })
             .setContainerItem(TFCItems.potteryBowl)
             .setUnlocalizedName("Bowl Olive Oil");
+
+        ceramicBucketBrine = new ItemBucketFluid(true)
+            .setContainerItem((TFCItems.clayBucketEmpty))
+            .setUnlocalizedName("Ceramic Bucket.Brine");
+        ceramicBucketHoneyWater = new ItemBucketFluid(true)
+            .setContainerItem((TFCItems.clayBucketEmpty))
+            .setUnlocalizedName("Ceramic Bucket.HoneyWater");
+        ceramicBucketMilkVinegar = new ItemBucketFluid(true)
+            .setContainerItem((TFCItems.clayBucketEmpty))
+            .setUnlocalizedName("Ceramic Bucket.MilkVinegar");
+
+        woodenBucketBrine = new ItemBucketFluid(false)
+            .setContainerItem((TFCItems.woodenBucketEmpty))
+            .setUnlocalizedName("Wooden Bucket.Brine");
+        woodenBucketHoneyWater = new ItemBucketFluid(false)
+            .setContainerItem((TFCItems.woodenBucketEmpty))
+            .setUnlocalizedName("Wooden Bucket.HoneyWater");
+        woodenBucketMilkVinegar = new ItemBucketFluid(false)
+            .setContainerItem((TFCItems.woodenBucketEmpty))
+            .setUnlocalizedName("Wooden Bucket.MilkVinegar");
     }
 
     private static void registerFluidContainers() {
@@ -316,6 +302,20 @@ public class ItemSetup extends BidsItems {
             new ItemStack(oliveOilBowl, 1, 0), new ItemStack(TFCItems.potteryBowl, 1, 1));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.OLIVEOIL, 250),
             new ItemStack(oliveOilBowl, 1, 1), new ItemStack(TFCItems.potteryBowl, 1, 2));
+
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.BRINE, 1000),
+            new ItemStack(ceramicBucketBrine), new ItemStack(TFCItems.clayBucketEmpty));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
+            new ItemStack(ceramicBucketHoneyWater), new ItemStack(TFCItems.clayBucketEmpty));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
+            new ItemStack(ceramicBucketMilkVinegar), new ItemStack(TFCItems.clayBucketEmpty));
+
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.BRINE, 1000),
+            new ItemStack(woodenBucketBrine), new ItemStack(TFCItems.woodenBucketEmpty));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
+            new ItemStack(woodenBucketHoneyWater), new ItemStack(TFCItems.woodenBucketEmpty));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
+            new ItemStack(woodenBucketMilkVinegar), new ItemStack(TFCItems.woodenBucketEmpty));
     }
 
     private static void setupToolHarvest() {
@@ -542,6 +542,14 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(vinegarBowl, vinegarBowl.getUnlocalizedName());
         GameRegistry.registerItem(oliveOilBowl, oliveOilBowl.getUnlocalizedName());
+
+        GameRegistry.registerItem(ceramicBucketBrine, ceramicBucketBrine.getUnlocalizedName());
+        GameRegistry.registerItem(ceramicBucketHoneyWater, ceramicBucketHoneyWater.getUnlocalizedName());
+        GameRegistry.registerItem(ceramicBucketMilkVinegar, ceramicBucketMilkVinegar.getUnlocalizedName());
+
+        GameRegistry.registerItem(woodenBucketBrine, woodenBucketBrine.getUnlocalizedName());
+        GameRegistry.registerItem(woodenBucketHoneyWater, woodenBucketHoneyWater.getUnlocalizedName());
+        GameRegistry.registerItem(woodenBucketMilkVinegar, woodenBucketMilkVinegar.getUnlocalizedName());
     }
 
 }
