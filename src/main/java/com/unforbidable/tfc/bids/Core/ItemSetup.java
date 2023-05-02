@@ -256,6 +256,47 @@ public class ItemSetup extends BidsItems {
         oliveCrushed = new ItemExtraFood(EnumFoodGroup.Fruit, 10, 0, 3, 50, 0)
                 .setDecayRate(4f)
                 .setUnlocalizedName("Olive Crushed");
+
+        oliveOilBottle = new ItemGlassBottleFluid()
+            .setContainerItem((TFCItems.glassBottle))
+            .setMaxDamage(1000 / 50)
+            .setUnlocalizedName("Glass Bottle.OliveOil");
+        vinegarBottle = new ItemGlassBottleFluid()
+            .setContainerItem((TFCItems.glassBottle))
+            .setMaxDamage(1000 / 50)
+            .setUnlocalizedName("Glass Bottle.Vinegar");
+        brineBottle = new ItemGlassBottleFluid()
+            .setContainerItem((TFCItems.glassBottle))
+            .setMaxDamage(1000 / 50)
+            .setUnlocalizedName("Glass Bottle.Brine");
+        honeyBottle = new ItemGlassBottleFluid()
+            .setContainerItem((TFCItems.glassBottle))
+            .setMaxDamage(1000 / 50)
+            .setUnlocalizedName("Glass Bottle.Honey");
+
+        saltWaterBottle = new ItemGlassBottleFluid()
+            .setContainerItem((TFCItems.glassBottle))
+            .setUnlocalizedName("Glass Bottle.SaltWater");
+        honeyWaterBottle = new ItemGlassBottleFluid()
+            .setContainerItem((TFCItems.glassBottle))
+            .setUnlocalizedName("Glass Bottle.HoneyWater");
+        milkVinegarBottle = new ItemGlassBottleFluid()
+            .setContainerItem((TFCItems.glassBottle))
+            .setUnlocalizedName("Glass Bottle.MilkVinegar");
+    }
+
+    private static void registerFluidContainers() {
+        FluidHelper.registerPartialFluidContainer(TFCFluids.OLIVEOIL, TFCItems.glassBottle, 0, oliveOilBottle, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, TFCItems.glassBottle, 0, vinegarBottle, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(TFCFluids.BRINE, TFCItems.glassBottle, 0, brineBottle, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(TFCFluids.HONEY, TFCItems.glassBottle, 0, honeyBottle, 50, 1000);
+
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.SALTWATER, 1000),
+            new ItemStack(saltWaterBottle), new ItemStack(TFCItems.glassBottle));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
+            new ItemStack(honeyWaterBottle), new ItemStack(TFCItems.glassBottle));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
+            new ItemStack(milkVinegarBottle), new ItemStack(TFCItems.glassBottle));
     }
 
     private static void setupToolHarvest() {
@@ -471,6 +512,14 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(appleCrushed, appleCrushed.getUnlocalizedName());
         GameRegistry.registerItem(oliveCrushed, oliveCrushed.getUnlocalizedName());
+
+        GameRegistry.registerItem(oliveOilBottle, oliveOilBottle.getUnlocalizedName());
+        GameRegistry.registerItem(vinegarBottle, vinegarBottle.getUnlocalizedName());
+        GameRegistry.registerItem(saltWaterBottle, saltWaterBottle.getUnlocalizedName());
+        GameRegistry.registerItem(brineBottle, brineBottle.getUnlocalizedName());
+        GameRegistry.registerItem(honeyBottle, honeyBottle.getUnlocalizedName());
+        GameRegistry.registerItem(honeyWaterBottle, honeyWaterBottle.getUnlocalizedName());
+        GameRegistry.registerItem(milkVinegarBottle, milkVinegarBottle.getUnlocalizedName());
     }
 
 }

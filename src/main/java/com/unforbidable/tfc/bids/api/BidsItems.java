@@ -86,4 +86,12 @@ public class BidsItems {
     public static Item appleCrushed;
     public static Item oliveCrushed;
 
+    public static Item oliveOilBottle;
+    public static Item saltWaterBottle;
+    public static Item vinegarBottle;
+    public static Item brineBottle;
+    public static Item honeyBottle;
+    public static Item honeyWaterBottle;
+    public static Item milkVinegarBottle;
+
 }

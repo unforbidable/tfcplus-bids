@@ -478,6 +478,14 @@ item.Birch Bark Cup.OrangeBrandy.name=Cup of Orange Brandy
 item.Birch Bark Cup.LemonBrandy.name=Cup of Lemon Brandy
 item.Birch Bark Cup.Tequila.name=Cup of Tequila
 
+item.Glass Bottle.OliveOil.name=Bottle of Olive Oil
+item.Glass Bottle.Vinegar.name=Bottle of Vinegar
+item.Glass Bottle.SaltWater.name=Bottle of Salt Water
+item.Glass Bottle.Brine.name=Bottle of Brine
+item.Glass Bottle.Honey.name=Bottle of Honey
+item.Glass Bottle.HoneyWater.name=Bottle of Honey Water
+item.Glass Bottle.MilkVinegar.name=Bottle of Milk + Vinegar Mix
+
 item.Pottery Pipe.Clay.name=Clay Pipe
 item.Pottery Pipe.Ceramic.name=Ceramic Pipe
 
