@@ -17,7 +17,7 @@ public abstract class RecipeAction {
     protected Item craftingItem;
     protected Block craftingBlock;
     protected int craftingItemDamage = OreDictionary.WILDCARD_VALUE;
-    protected List<Item> ingredients = new ArrayList<Item>();
+    protected List<ItemStack> ingredients = new ArrayList<ItemStack>();
     protected List<String> ingredientOreNames = new ArrayList<String>();
 
     public RecipeAction() {
@@ -40,7 +40,12 @@ public abstract class RecipeAction {
     }
 
     public RecipeAction matchIngredient(Item ingredient) {
-        ingredients.add(ingredient);
+        ingredients.add(new ItemStack(ingredient, 1, OreDictionary.WILDCARD_VALUE));
+        return this;
+    }
+
+    public RecipeAction matchIngredient(Item ingredient, int damage) {
+        ingredients.add(new ItemStack(ingredient, 1, damage));
         return this;
     }
 
@@ -79,9 +84,10 @@ public abstract class RecipeAction {
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack is = inv.getStackInSlot(i);
             if (is != null) {
-                for (Item ingredient : ingredients) {
-                    if (is.getItem() == ingredient) {
-                        Bids.LOG.debug("Match ingredient: " + new ItemStack(ingredient).getDisplayName());
+                for (ItemStack ingredient : ingredients) {
+                    if (is.getItem() == ingredient.getItem() &&
+                        (is.getItemDamage() == ingredient.getItemDamage() || ingredient.getItemDamage() == OreDictionary.WILDCARD_VALUE)) {
+                        Bids.LOG.debug("Match ingredient: " + is.getDisplayName());
 
                         ingredientsFound++;
 
