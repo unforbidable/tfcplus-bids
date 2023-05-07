@@ -133,6 +133,8 @@ tile.LogWallVert2.Limba.name=Limba Log Wall
 tile.LogWallVert2.Joshua.name=Joshua Log Wall
 tile.LogWallVert3.Yew.name=Yew Log Wall
 
+tile.ClayLamp.name=Clay Lamp
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit

@@ -155,6 +155,9 @@ public class BlockSetup extends BidsBlocks {
                 .setBlockName("StonePressLever");
         stonePressWeightSed = new BlockStonePressWeight((BlockRoughStone) roughStoneSed)
                 .setBlockName("StonePressWeight");
+
+        clayLamp = new BlockClayLamp()
+                .setBlockName("ClayLamp");
     }
 
     private static void updateBlocks() {
@@ -289,6 +292,9 @@ public class BlockSetup extends BidsBlocks {
 
         stonePressWeightRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(stonePressWeightRenderId, new RenderStonePressWeight());
+
+        clayLampRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(clayLampRenderId, new RenderClayLamp());
     }
 
     private static void registerTileEntities() {
@@ -316,6 +322,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityStonePressLever.class, "BidsStonePressLever");
 
         GameRegistry.registerTileEntity(TileEntityStonePressWeight.class, "BidsStonePressWeight");
+
+        GameRegistry.registerTileEntity(TileEntityClayLamp.class, "BidsClayLamp");
     }
 
     @SideOnly(Side.CLIENT)
@@ -422,6 +430,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(saddleQuernPressingStoneSed, ItemWorkStone.class, "SaddleQuernPressingStoneSed");
         GameRegistry.registerBlock(stonePressLever, "StonePressLever");
         GameRegistry.registerBlock(stonePressWeightSed, ItemStonePressWeight.class, "StonePressWeightSed");
+
+        GameRegistry.registerBlock(clayLamp, ItemClayLamp.class, "ClayLamp");
     }
 
 }
