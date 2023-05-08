@@ -158,7 +158,9 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
 
     public boolean addLiquid(FluidStack inFS)
     {
-        updateFuelAmount(false);
+        if (isOnFire()) {
+            updateFuelAmount(false);
+        }
 
         if (inFS != null)
         {
