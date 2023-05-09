@@ -40,7 +40,7 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
     boolean fuelLevelUpdated = false;
 
     public TileEntityClayLamp() {
-        lastTimeFuelConsumed = TFC_Time.getTotalTicks();
+        lastTimeFuelConsumed = 0;
     }
 
     public boolean isClientDataLoaded() {
@@ -53,7 +53,7 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
 
     public void updateFuelAmount(boolean updateFuelLevel) {
         if (hasFuel()) {
-            long timeSinceLastConsumption =  TFC_Time.getTotalTicks() - lastTimeFuelConsumed;
+            long timeSinceLastConsumption = TFC_Time.getTotalTicks() == 0 ? 0 : TFC_Time.getTotalTicks() - lastTimeFuelConsumed;
             lastTimeFuelConsumed = TFC_Time.getTotalTicks();
 
             float fuelConsumedNow = timeSinceLastConsumption * FUEL_CONSUMED_PER_HOUR / TFC_Time.HOUR_LENGTH;
@@ -124,8 +124,8 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
     }
 
     public float getFuelTimeLeft() {
-        if (hasFuel()) {
-            return getFuel().amount / FUEL_CONSUMED_PER_HOUR;
+        if (fuelAmount > 0) {
+            return fuelAmount / FUEL_CONSUMED_PER_HOUR;
         } else {
             return 0;
         }
@@ -149,9 +149,9 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
     }
 
     public static int getFuelLevelForAmount(int amount) {
-        if (amount < FUEL_MAX_VOLUME - 250) {
+        if (amount <= FUEL_MAX_VOLUME - 250) {
             return FUEL_LOW;
-        } else if (amount < FUEL_MAX_VOLUME / 2) {
+        } else if (amount <= FUEL_MAX_VOLUME / 3) {
             return FUEL_MED;
         } else {
             return FUEL_HIGH;

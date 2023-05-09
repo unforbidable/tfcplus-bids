@@ -23,8 +23,8 @@ public class ClayLampProvider extends WailaProvider {
         if (accessor.getTileEntity() instanceof TileEntityClayLamp) {
             TileEntityClayLamp clayLamp = (TileEntityClayLamp) accessor.getTileEntity();
             if (clayLamp.isClientDataLoaded()) {
-                currentTip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.HoursRemaining") + ": "
-                    + clayLamp.getFuelTimeLeft());
+                int timeLeft = Math.round(clayLamp.getFuelTimeLeft());
+                currentTip.add("" + EnumChatFormatting.GRAY + timeLeft + " " + StatCollector.translateToLocal("gui.HoursRemaining"));
             }
         }
 
