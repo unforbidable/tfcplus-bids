@@ -27,9 +27,7 @@ public class RenderClayLamp implements ISimpleBlockRenderingHandler {
         }
         renderPartInv(renderer, block, metadata, bounds.getSpoutBounds());
 
-        if (metadata > 0) {
-            renderPartInv(renderer, Blocks.wool, 13, bounds.getFuelsBounds()[metadata - 1]);
-        }
+        renderPartInv(renderer, Blocks.wool, 13, bounds.getFuelsBounds()[1]);
 
         for (int i = 0; i < 2; i++) {
             renderPartInv(renderer, Blocks.wool, 0, bounds.getWicksBounds()[i]);

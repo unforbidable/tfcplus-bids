@@ -162,8 +162,7 @@ public class BlockClayLamp extends BlockContainer {
 
                 if(te.hasFuel())
                 {
-                    int droppedBlockMeta = TileEntityClayLamp.getFuelLevelForAmount(te.getFuel().amount);
-                    ItemStack is = new ItemStack(this, 1, droppedBlockMeta);
+                    ItemStack is = new ItemStack(this, 1, meta);
                     NBTTagCompound nbt = te.getFuel().writeToNBT(new NBTTagCompound());
                     is.setTagCompound(nbt);
                     EntityItem ei = new EntityItem(world,x,y,z,is);
@@ -171,8 +170,7 @@ public class BlockClayLamp extends BlockContainer {
                 }
                 else
                 {
-                    int droppedBlockMeta = 0;
-                    ItemStack is = new ItemStack(this, 1, droppedBlockMeta);
+                    ItemStack is = new ItemStack(this, 1, meta);
                     EntityItem ei = new EntityItem(world,x,y,z,is);
                     world.spawnEntityInWorld(ei);
                 }

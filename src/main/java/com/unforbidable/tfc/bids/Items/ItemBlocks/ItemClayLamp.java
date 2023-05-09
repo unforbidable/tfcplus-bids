@@ -19,7 +19,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
@@ -91,8 +90,7 @@ public class ItemClayLamp extends ItemTerraBlock implements ISize, IFluidContain
         ItemHelper.addSizeInformation(is, list);
     }
 
-    protected boolean hasFuel(ItemStack is)
-    {
+    protected boolean hasFuel(ItemStack is) {
         return is.hasTagCompound();
     }
 
