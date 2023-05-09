@@ -289,3 +289,11 @@
 0.25.1 (23-04-2023)
 - Added: Agave can be processed in a stone press
 - Added: NEI support for stone press recipes
+
+0.26.0 (09-05-2023)
+- Added: Clay lamp as a stationary light source that consumes olive oil
+- Added: Glass bottles, bowls and buckets now accept a few more kinds of fluids
+- Added: Brine, Honey Water and Milk + Vinegar can be mixed using glass bottles or buckets
+- Added: Salt can be mixed with fresh water to create salt water in glass bottles or buckets
+- Changed: The color of log walls now matches the log color rather than the plank block color
+- Changed: Updated Chinese translation by Eternal130 to version 0.25.x
