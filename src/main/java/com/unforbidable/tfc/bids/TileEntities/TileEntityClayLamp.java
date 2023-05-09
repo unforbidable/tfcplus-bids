@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
+import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
@@ -70,11 +71,12 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
 
                 if (fuelStack.amount == 0) {
                     fuelStack = null;
+                    Bids.LOG.debug("Fuel depleted!");
+                }
 
+                if (fuelStack == null || TFC_Core.isExposedToRain(worldObj, xCoord, yCoord, zCoord)) {
                     int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord) & 7;
                     worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, metadata, 2);
-
-                    Bids.LOG.debug("Fuel depleted!");
                 }
 
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);

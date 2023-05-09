@@ -249,7 +249,9 @@ public class BlockClayLamp extends BlockContainer {
                         if (equippedItem.getItem() == Item.getItemFromBlock(TFCBlocks.torch) ||
                             Block.getBlockFromItem(equippedItem.getItem()) instanceof BlockCandle &&
                                 !(Block.getBlockFromItem(player.inventory.getCurrentItem().getItem()) instanceof BlockCandleOff)) {
-                            te.setOnFire(true);
+                            if (!TFC_Core.isExposedToRain(world, x, y, z)) {
+                                te.setOnFire(true);
+                            }
                             return true;
                         }
                     } else if (te.isOnFire()) {
