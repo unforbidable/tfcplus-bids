@@ -35,6 +35,23 @@ public class ItemClayLamp extends ItemTerraBlock implements ISize, IFluidContain
     }
 
     @Override
+    public boolean isDamaged(ItemStack is) {
+        return is.hasTagCompound();
+    }
+
+    @Override
+    public int getMaxDamage(ItemStack is) {
+        return getCapacity(is);
+    }
+
+    @Override
+    public int getDisplayDamage(ItemStack is) {
+        FluidStack fuel = FluidStack.loadFluidStackFromNBT(is.getTagCompound());
+        int amt = fuel != null ? fuel.amount : 0;
+        return getMaxDamage(is) - amt;
+    }
+
+    @Override
     public String getItemStackDisplayName(ItemStack is) {
         if (hasFuel(is)) {
             FluidStack fuelStack = FluidStack.loadFluidStackFromNBT(is.getTagCompound());
@@ -72,11 +89,6 @@ public class ItemClayLamp extends ItemTerraBlock implements ISize, IFluidContain
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);
-
-        if (hasFuel(is)) {
-            FluidStack fuelStack = FluidStack.loadFluidStackFromNBT(is.getTagCompound());
-            list.add(StatCollector.translateToLocal("gui.Fuel") + ": " + fuelStack.amount + "/" + TileEntityClayLamp.FUEL_MAX_VOLUME);
-        }
     }
 
     protected boolean hasFuel(ItemStack is)
