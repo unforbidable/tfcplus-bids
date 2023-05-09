@@ -4,8 +4,6 @@ import com.dunk.tfc.Blocks.BlockCandle;
 import com.dunk.tfc.Blocks.BlockCandleOff;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.TFCBlocks;
-import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.Common.Bounds.ClayLampBounds;
 import com.unforbidable.tfc.bids.Tags;
@@ -162,7 +160,7 @@ public class BlockClayLamp extends BlockContainer {
 
                 if(te.hasFuel())
                 {
-                    ItemStack is = new ItemStack(this, 1, meta);
+                    ItemStack is = new ItemStack(this, 1, 0);
                     NBTTagCompound nbt = te.getFuel().writeToNBT(new NBTTagCompound());
                     is.setTagCompound(nbt);
                     EntityItem ei = new EntityItem(world,x,y,z,is);
@@ -170,7 +168,7 @@ public class BlockClayLamp extends BlockContainer {
                 }
                 else
                 {
-                    ItemStack is = new ItemStack(this, 1, meta);
+                    ItemStack is = new ItemStack(this, 1, 0);
                     EntityItem ei = new EntityItem(world,x,y,z,is);
                     world.spawnEntityInWorld(ei);
                 }
