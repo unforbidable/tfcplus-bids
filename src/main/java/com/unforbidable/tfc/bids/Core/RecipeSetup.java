@@ -1,26 +1,12 @@
 package com.unforbidable.tfc.bids.Core;
 
-import java.util.Arrays;
-
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.Crafting.*;
+import com.dunk.tfc.api.Enums.RuleEnum;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
-import com.dunk.tfc.api.Constant.Global;
-import com.dunk.tfc.api.Crafting.AnvilManager;
-import com.dunk.tfc.api.Crafting.AnvilRecipe;
-import com.dunk.tfc.api.Crafting.AnvilReq;
-import com.dunk.tfc.api.Crafting.BarrelFireRecipe;
-import com.dunk.tfc.api.Crafting.BarrelManager;
-import com.dunk.tfc.api.Crafting.BarrelMultiItemRecipe;
-import com.dunk.tfc.api.Crafting.ClothingManager;
-import com.dunk.tfc.api.Crafting.CraftingManagerTFC;
-import com.dunk.tfc.api.Crafting.KilnCraftingManager;
-import com.dunk.tfc.api.Crafting.KilnRecipe;
-import com.dunk.tfc.api.Crafting.PlanRecipe;
-import com.dunk.tfc.api.Crafting.SewingPattern;
-import com.dunk.tfc.api.Crafting.SewingRecipe;
-import com.dunk.tfc.api.Enums.RuleEnum;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
@@ -35,7 +21,6 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.*;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -48,6 +33,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import java.util.Arrays;
 
 public class RecipeSetup {
 
@@ -528,6 +515,10 @@ public class RecipeSetup {
                 }
             }
         }
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.clayLamp),
+            "S ", "B ", 'S', "materialString",
+            'B', new ItemStack(TFCItems.potteryBowl, 1, 1)));
 
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.saltWaterBottle),
             new ItemStack(TFCItems.powder, 1, 9), new ItemStack(TFCItems.powder, 1, 9),
