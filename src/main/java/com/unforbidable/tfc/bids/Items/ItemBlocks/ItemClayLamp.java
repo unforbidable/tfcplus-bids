@@ -1,23 +1,32 @@
 package com.unforbidable.tfc.bids.Items.ItemBlocks;
 
+import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Core.TFC_Sounds;
+import com.dunk.tfc.Handlers.Network.ItemPotterySmashPacket;
+import com.dunk.tfc.Items.ItemBlocks.ItemTerraBlock;
+import com.dunk.tfc.TerraFirmaCraft;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.dunk.tfc.api.Interfaces.ISmashable;
+import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayLamp;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 
 import java.util.List;
 
-public class ItemClayLamp extends ItemBlock implements ISize, IFluidContainerItem {
+public class ItemClayLamp extends ItemTerraBlock implements ISize, IFluidContainerItem, ISmashable {
 
     public ItemClayLamp(Block material) {
         super(material);
@@ -36,8 +45,7 @@ public class ItemClayLamp extends ItemBlock implements ISize, IFluidContainerIte
     }
 
     @Override
-    public int getItemStackLimit(ItemStack is)
-    {
+    public int getItemStackLimit(ItemStack is) {
         return hasFuel(is) ? 1 : 4;
     }
 
@@ -136,4 +144,37 @@ public class ItemClayLamp extends ItemBlock implements ISize, IFluidContainerIte
 
         return fsOut;
     }
+
+    @Override
+    public void onSmashed(ItemStack stack, World world, double x, double y, double z) {
+        if (stack != null && stack.getItem() != null && stack.getItem() instanceof ISmashable)
+        {
+            world.playSoundEffect(x, y, z, TFC_Sounds.CERAMICBREAK, 1.0f, 0.8f + world.rand.nextFloat() * 0.4f);
+            ItemPotterySmashPacket smashPkt = new ItemPotterySmashPacket(Item.getIdFromItem(stack.getItem()), x, y, z);
+            NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 32);
+            TerraFirmaCraft.PACKET_PIPELINE.sendToAllAround(smashPkt, tp);
+
+            if (stack.hasTagCompound()) {
+                FluidStack fs = FluidStack.loadFluidStackFromNBT(stack.getTagCompound());
+                if (fs != null)
+                {
+                    TFC_Core.smashFluidInWorld(world, x, y, z, fs);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void smashAnimate(World world, double x, double y, double z) {
+        for (double i = 0; i < Math.PI * 2; i += Math.PI / 4) {
+            world.spawnParticle("blockdust_" + Block.getIdFromBlock(TFCBlocks.pottery) + "_15", x, y, z, Math.cos(i) * 0.2D, 0.15D + world.rand.nextDouble() * 0.1D,
+                Math.sin(i) * 0.2D);
+        }
+    }
+
+    @Override
+    public boolean canSmash(ItemStack itemStack) {
+        return true;
+    }
+
 }
