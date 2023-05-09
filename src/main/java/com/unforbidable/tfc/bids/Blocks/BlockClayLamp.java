@@ -141,7 +141,7 @@ public class BlockClayLamp extends BlockContainer {
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block b)
     {
-        if(!World.doesBlockHaveSolidTopSurface(world, x, y-1, z)) {
+        if (!canSupportTorch(world, x, y - 1, z)) {
             TFC_Core.setBlockToAirWithDrops(world, x, y, z);
         }
     }
