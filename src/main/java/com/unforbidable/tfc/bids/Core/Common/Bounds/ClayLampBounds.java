@@ -37,8 +37,8 @@ public class ClayLampBounds {
 
         float rimStartXZ = bottomXZ - rimWidth / 2;
         float rimEndXZ = bottomXZ + rimWidth / 2;
-        sides[0] = AxisAlignedBB.getBoundingBox(rimStartXZ, rimLift, rimStartXZ, rimEndXZ, rimLift + rimHeight, 1 - rimStartXZ);
-        sides[1] = AxisAlignedBB.getBoundingBox(1 - rimEndXZ, rimLift, rimStartXZ, 1 - rimStartXZ, rimLift + rimHeight, 1 - rimStartXZ);
+        sides[0] = AxisAlignedBB.getBoundingBox(rimStartXZ, rimLift, rimEndXZ, rimEndXZ, rimLift + rimHeight, 1 - rimEndXZ);
+        sides[1] = AxisAlignedBB.getBoundingBox(1 - rimEndXZ, rimLift, rimEndXZ, 1 - rimStartXZ, rimLift + rimHeight, 1 - rimEndXZ);
         sides[2] = AxisAlignedBB.getBoundingBox(rimStartXZ, rimLift, rimStartXZ, 1 - rimStartXZ, rimLift + rimHeight, rimEndXZ);
         sides[3] = AxisAlignedBB.getBoundingBox(rimStartXZ, rimLift, 1 - rimEndXZ, 1 - rimStartXZ, rimLift + rimHeight, 1 - rimStartXZ);
 
@@ -53,20 +53,20 @@ public class ClayLampBounds {
 
             float wickX = (1 - wickWidth) / 2;
             float wickZ = rimEndXZ - wickWidth + 1 / 128f;
-            float wickY = rimLift;
+            float wickY = rimLift + 1 / 128f;
 
             if (orientation == 0) {
                 spout = AxisAlignedBB.getBoundingBox(spoutX, spoutY, spoutZ, spoutX + spoutWidth, spoutY + spoutHeight, spoutZ + spoutLength);
-                wicks[0] = AxisAlignedBB.getBoundingBox(wickX, wickY, wickZ, wickX + wickWidth, wickY + rimHeight + wickHeight, wickZ + wickWidth);
-                wicks[1] = AxisAlignedBB.getBoundingBox(wickX, wickY, wickZ + wickWidth, wickX + wickWidth, wickY + wickWidth / 2 + 1 / 128f, wickZ + wickWidth + wickLength);
+                wicks[0] = AxisAlignedBB.getBoundingBox(wickX, wickY, wickZ, wickX + wickWidth, wickY + rimHeight + wickHeight - 1 / 128f, wickZ + wickWidth);
+                wicks[1] = AxisAlignedBB.getBoundingBox(wickX, wickY, wickZ + wickWidth, wickX + wickWidth, wickY + wickWidth / 2, wickZ + wickWidth + wickLength);
 
                 entire = AxisAlignedBB.getBoundingBox(rimStartXZ, 0, rimStartXZ - spoutLength, 1 - rimStartXZ, rimLift + rimHeight, 1 - rimStartXZ);
 
                 flame = Vec3.createVectorHelper(wickX + wickWidth / 2, wickY + rimLift + rimHeight + wickHeight, wickZ + wickWidth / 2);
             } else {
                 spout = AxisAlignedBB.getBoundingBox(spoutX, spoutY, 1 - spoutZ - spoutLength, spoutX + spoutWidth, spoutY + spoutHeight, 1 - spoutZ);
-                wicks[0] = AxisAlignedBB.getBoundingBox(wickX, wickY, 1 - wickZ - wickWidth, wickX + wickWidth, wickY + rimHeight + wickHeight, 1 - wickZ);
-                wicks[1] = AxisAlignedBB.getBoundingBox(wickX, wickY, 1 - wickZ - wickWidth - wickLength, wickX + wickWidth, wickY + wickWidth / 2 + 1 / 128f, 1 - wickZ);
+                wicks[0] = AxisAlignedBB.getBoundingBox(wickX, wickY, 1 - wickZ - wickWidth, wickX + wickWidth, wickY + rimHeight + wickHeight - 1 / 128f, 1 - wickZ);
+                wicks[1] = AxisAlignedBB.getBoundingBox(wickX, wickY, 1 - wickZ - wickWidth - wickLength, wickX + wickWidth, wickY + wickWidth / 2, 1 - wickZ);
 
                 entire = AxisAlignedBB.getBoundingBox(rimStartXZ, 0, rimStartXZ, 1 - rimStartXZ, rimLift + rimHeight, 1 - rimStartXZ + spoutLength);
 
@@ -79,20 +79,20 @@ public class ClayLampBounds {
 
             float wickX = rimEndXZ - wickWidth + 1 / 128f;
             float wickZ = (1 - wickWidth) / 2;
-            float wickY = rimLift;
+            float wickY = rimLift + 1 / 128f;
 
             if (orientation == 3) {
                 spout = AxisAlignedBB.getBoundingBox(spoutX, spoutY, spoutZ, spoutX + spoutLength, spoutY + spoutHeight, spoutZ + spoutWidth);
-                wicks[0] = AxisAlignedBB.getBoundingBox(wickX, wickY, wickZ, wickX + wickWidth, wickY + rimHeight + wickHeight, wickZ + wickWidth);
-                wicks[1] = AxisAlignedBB.getBoundingBox(wickX, wickY, wickZ, wickX + wickWidth + wickLength, wickY + wickWidth / 2 + 1 / 128f, wickZ + wickWidth);
+                wicks[0] = AxisAlignedBB.getBoundingBox(wickX, wickY, wickZ, wickX + wickWidth, wickY + rimHeight + wickHeight - 1 / 128f, wickZ + wickWidth);
+                wicks[1] = AxisAlignedBB.getBoundingBox(wickX, wickY, wickZ, wickX + wickWidth + wickLength, wickY + wickWidth / 2, wickZ + wickWidth);
 
                 entire = AxisAlignedBB.getBoundingBox(rimStartXZ - spoutLength, 0, rimStartXZ, 1 - rimStartXZ, rimLift + rimHeight, 1 - rimStartXZ);
 
                 flame = Vec3.createVectorHelper(wickX + wickWidth / 2, wickY + rimLift + rimHeight + wickHeight, wickZ + wickWidth / 2);
             } else {
                 spout = AxisAlignedBB.getBoundingBox(1 - spoutX - spoutLength, spoutY, 1 - spoutZ - spoutWidth, 1 - spoutX, spoutY + spoutHeight, 1 - spoutZ);
-                wicks[0] = AxisAlignedBB.getBoundingBox(1 - wickX - wickWidth, wickY, 1 - wickZ - wickWidth, 1 - wickX, wickY + rimHeight + wickHeight, 1 - wickZ);
-                wicks[1] = AxisAlignedBB.getBoundingBox(1 - wickX - wickWidth - wickLength, wickY, 1 - wickZ - wickWidth, 1 - wickX, wickY + wickWidth / 2 + 1 / 128f, 1 - wickZ);
+                wicks[0] = AxisAlignedBB.getBoundingBox(1 - wickX - wickWidth, wickY, 1 - wickZ - wickWidth, 1 - wickX, wickY + rimHeight + wickHeight - 1 / 128f, 1 - wickZ);
+                wicks[1] = AxisAlignedBB.getBoundingBox(1 - wickX - wickWidth - wickLength, wickY, 1 - wickZ - wickWidth, 1 - wickX, wickY + wickWidth / 2, 1 - wickZ);
 
                 entire = AxisAlignedBB.getBoundingBox(rimStartXZ, 0, rimStartXZ, 1 - rimStartXZ + spoutLength, rimLift + rimHeight, 1 - rimStartXZ);
 
