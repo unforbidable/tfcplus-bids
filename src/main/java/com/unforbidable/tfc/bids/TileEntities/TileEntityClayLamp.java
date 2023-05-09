@@ -26,7 +26,7 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
 
     public static final int FUEL_MAX_VOLUME = 300;
 
-    private static final float FUEL_CONSUMED_PER_HOUR = 2;
+    private static final float FUEL_CONSUMED_PER_HOUR = 1 / 4f;
 
     FluidStack fuelStack;
     int orientation;
