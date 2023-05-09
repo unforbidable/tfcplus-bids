@@ -43,6 +43,9 @@ tile.WattleTrapDoorCover.name=茅草陷阱
 
 tile.SaddleQuernSed.name=手推磨
 tile.SaddleQuernHandstoneSed.name=手推磨石
+tile.SaddleQuernPressingStoneSed.name=压石
+tile.StonePressLever.name=原始压机杆
+tile.StonePressWeight.name=原始压机砝码
 
 tile.RoughStoneSed.Chalk.name=粗糙白垩岩
 tile.RoughStoneSed.Chert.name=粗糙角岩
@@ -782,6 +785,9 @@ item.Cornmeal Porridge.name=玉米糁粥
 
 item.Plug And Feather.name=楔子
 
+item.Apple Crushed.name=Crushed Apple
+item.Olive Crushed.name=Crushed Olive
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
 itemGroup.Bids.BuildingBlocks=Bids and Pieces - 建筑方块
@@ -819,5 +825,6 @@ gui.Drying=风干中
 gui.KindlingQuality=火种品质
 gui.ChoppingBlock=柴墩
 gui.SaddleQuern=手推磨
+gui.StonePress=原始压机
 
 key.BidsToolMode=循环工具模式
