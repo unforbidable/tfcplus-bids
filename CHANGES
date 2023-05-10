@@ -297,3 +297,8 @@
 - Added: Salt can be mixed with fresh water to create salt water in glass bottles or buckets
 - Changed: The color of log walls now matches the log color rather than the plank block color
 - Changed: Updated Chinese translation by Eternal130 to version 0.25.x
+
+0.26.1 (10-05-2023)
+- Changed: Clay lamp olive oil consumption rate and light level can be configured
+- Changed: Clay lamps can be fully filled up from one another
+- Changed: Updated Chinese translation by Eternal130 for the current version
