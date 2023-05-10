@@ -29,6 +29,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 
 import java.util.Random;
@@ -203,7 +204,29 @@ public class BlockClayLamp extends BlockContainer {
             if (te != null) {
                 ItemStack equippedItem = player.getCurrentEquippedItem();
                 if (equippedItem != null) {
-                    if ((FluidContainerRegistry.isFilledContainer(equippedItem)
+                    if (Block.getBlockFromItem(equippedItem.getItem()) instanceof BlockClayLamp) {
+                        // BlockClayLamp is IFluidContainerItem, but we handle it as a special case,
+                        // so we can partially drain the held clay lamp and
+                        // allow complete topping up of the target clay lamp
+                        FluidStack heldFluidStack = FluidStack.loadFluidStackFromNBT(equippedItem.getTagCompound());
+                        if (heldFluidStack != null) {
+                            int amountAbleToFill = te.hasFuel() ? TileEntityClayLamp.FUEL_MAX_VOLUME - te.getFuel().amount : TileEntityClayLamp.FUEL_MAX_VOLUME;
+                            if (amountAbleToFill > 0) {
+                                int amountToFillActually = Math.min(amountAbleToFill, heldFluidStack.amount);
+
+                                heldFluidStack.amount -= amountToFillActually;
+                                if (heldFluidStack.amount == 0) {
+                                    equippedItem.setTagCompound(null);
+                                } else {
+                                    heldFluidStack.writeToNBT(equippedItem.getTagCompound());
+                                }
+
+                                te.addLiquid(new FluidStack(heldFluidStack.getFluid(), amountToFillActually));
+                            }
+                        }
+
+                        return true;
+                    } if ((FluidContainerRegistry.isFilledContainer(equippedItem)
                         || equippedItem.getItem() instanceof IFluidContainerItem && ((IFluidContainerItem) equippedItem.getItem()).getFluid(equippedItem) != null))
                     {
                         ItemStack tmp = equippedItem.copy();
