@@ -6,6 +6,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,8 +26,6 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
     public static final int FUEL_HIGH = 3;
 
     public static final int FUEL_MAX_VOLUME = 300;
-
-    private static final float FUEL_CONSUMED_PER_HOUR = 1 / 4f;
 
     FluidStack fuelStack;
     int orientation;
@@ -56,7 +55,7 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
             long timeSinceLastConsumption = TFC_Time.getTotalTicks() == 0 ? 0 : TFC_Time.getTotalTicks() - lastTimeFuelConsumed;
             lastTimeFuelConsumed = TFC_Time.getTotalTicks();
 
-            float fuelConsumedNow = timeSinceLastConsumption * FUEL_CONSUMED_PER_HOUR / TFC_Time.HOUR_LENGTH;
+            float fuelConsumedNow = timeSinceLastConsumption * BidsOptions.LightSources.clayLampOliveOilConsumption / TFC_Time.HOUR_LENGTH;
             fuelAmount -= fuelConsumedNow;
             if (fuelAmount < 0) {
                 fuelAmount = 0;
@@ -125,7 +124,7 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
 
     public float getFuelTimeLeft() {
         if (fuelAmount > 0) {
-            return fuelAmount / FUEL_CONSUMED_PER_HOUR;
+            return fuelAmount / BidsOptions.LightSources.clayLampOliveOilConsumption;
         } else {
             return 0;
         }

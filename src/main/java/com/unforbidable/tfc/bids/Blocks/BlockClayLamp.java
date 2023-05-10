@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.Core.Common.Bounds.ClayLampBounds;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayLamp;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -56,7 +57,7 @@ public class BlockClayLamp extends BlockContainer {
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta > 7) {
-            return 10;
+            return (int)(BidsOptions.LightSources.clayLampLightLevel * 15);
         }
 
         return 0;
