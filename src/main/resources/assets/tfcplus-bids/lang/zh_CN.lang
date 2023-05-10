@@ -133,6 +133,8 @@ tile.LogWallVert2.Limba.name=榄仁树原木墙
 tile.LogWallVert2.Joshua.name=约书亚树原木墙
 tile.LogWallVert3.Yew.name=红豆杉原木墙
 
+tile.ClayLamp.name=油灯
+
 item.Ore Bit.Bismuthinite.name=辉铋矿碎片
 item.Ore Bit.Cassiterite.name=锡精矿碎片
 item.Ore Bit.Galena.name=方铅矿碎片
@@ -478,6 +480,27 @@ item.Birch Bark Cup.OrangeBrandy.name=桦树皮杯(橙子白兰地)
 item.Birch Bark Cup.LemonBrandy.name=桦树皮杯(柠檬白兰地)
 item.Birch Bark Cup.Tequila.name=桦树皮杯(烈龙舌兰酒)
 
+item.Glass Bottle.OliveOil.name=瓶装橄榄油
+item.Glass Bottle.Vinegar.name=瓶装醋
+item.Glass Bottle.SaltWater.name=瓶装盐水
+item.Glass Bottle.Brine.name=瓶装卤水
+item.Glass Bottle.Honey.name=瓶装蜂蜜
+item.Glass Bottle.HoneyWater.name=瓶装蜂蜜水
+item.Glass Bottle.MilkVinegar.name=瓶装奶醋
+
+item.Bowl Vinegar.PotteryBowl.name=陶瓷碗(醋)
+item.Bowl Vinegar.Bowl.name=碗(醋)
+item.Bowl Olive Oil.PotteryBowl.name=陶瓷碗(橄榄油)
+item.Bowl Olive Oil.Bowl.name=碗(橄榄油)
+
+item.Ceramic Bucket.Brine.name=陶瓷桶(卤水)
+item.Ceramic Bucket.HoneyWater.name=陶瓷桶(蜂蜜水)
+item.Ceramic Bucket.MilkVinegar.name=陶瓷桶(奶醋)
+
+item.Wooden Bucket.Brine.name=木桶(卤水)
+item.Wooden Bucket.HoneyWater.name=木桶(蜂蜜水)
+item.Wooden Bucket.MilkVinegar.name=木桶(奶醋)
+
 item.Pottery Pipe.Clay.name=粘土管
 item.Pottery Pipe.Ceramic.name=陶瓷管
 
@@ -785,8 +808,8 @@ item.Cornmeal Porridge.name=玉米糁粥
 
 item.Plug And Feather.name=楔子
 
-item.Apple Crushed.name=Crushed Apple
-item.Olive Crushed.name=Crushed Olive
+item.Apple Crushed.name=碎苹果
+item.Olive Crushed.name=碎橄榄
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
