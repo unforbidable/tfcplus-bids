@@ -520,6 +520,9 @@ public class RecipeSetup {
             "S ", "B ", 'S', "materialString",
             'B', new ItemStack(TFCItems.potteryBowl, 1, 1)));
 
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsBlocks.wallHook, 1, 0),
+            "stickWood", TFCItems.resin));
+
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.saltWaterBottle),
             new ItemStack(TFCItems.powder, 1, 9), new ItemStack(TFCItems.powder, 1, 9),
             new ItemStack(TFCItems.waterBottle), new ItemStack(TFCItems.glassBottle));
