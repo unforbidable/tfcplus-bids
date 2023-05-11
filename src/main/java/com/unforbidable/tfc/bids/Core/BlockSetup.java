@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.*;
 import com.unforbidable.tfc.bids.Render.Blocks.*;
+import com.unforbidable.tfc.bids.Render.Tiles.RenderTileWallHook;
 import com.unforbidable.tfc.bids.Render.Tiles.TileRenderDryingRack;
 import com.unforbidable.tfc.bids.Render.Tiles.TileRenderChoppingBlock;
 import com.unforbidable.tfc.bids.Render.Tiles.RenderTileSaddleQuern;
@@ -158,6 +159,9 @@ public class BlockSetup extends BidsBlocks {
 
         clayLamp = new BlockClayLamp()
                 .setBlockName("ClayLamp");
+
+        wallHook = new BlockWallHook()
+                .setBlockName("WallHook");
     }
 
     private static void updateBlocks() {
@@ -226,6 +230,8 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(wattleTrapdoorCover, 60, 20);
 
         Blocks.fire.setFireInfo(stonePressLever, 5, 5);
+
+        Blocks.fire.setFireInfo(wallHook, 5, 5);
     }
 
     private static void registerOre() {
@@ -295,6 +301,9 @@ public class BlockSetup extends BidsBlocks {
 
         clayLampRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(clayLampRenderId, new RenderClayLamp());
+
+        wallHookRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(wallHookRenderId, new RenderWallHook());
     }
 
     private static void registerTileEntities() {
@@ -324,6 +333,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityStonePressWeight.class, "BidsStonePressWeight");
 
         GameRegistry.registerTileEntity(TileEntityClayLamp.class, "BidsClayLamp");
+
+        GameRegistry.registerTileEntity(TileEntityWallHook.class, "BidsWallHook");
     }
 
     @SideOnly(Side.CLIENT)
@@ -333,6 +344,7 @@ public class BlockSetup extends BidsBlocks {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDryingRack.class, new TileRenderDryingRack());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityChoppingBlock.class, new TileRenderChoppingBlock());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySaddleQuern.class, new RenderTileSaddleQuern());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWallHook.class, new RenderTileWallHook());
     }
 
     private static void registerMessages() {
@@ -432,6 +444,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(stonePressWeightSed, ItemStonePressWeight.class, "StonePressWeightSed");
 
         GameRegistry.registerBlock(clayLamp, ItemClayLamp.class, "ClayLamp");
+
+        GameRegistry.registerBlock(wallHook, ItemWallHook.class, "WallHook");
     }
 
 }
