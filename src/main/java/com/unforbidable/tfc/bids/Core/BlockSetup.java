@@ -162,6 +162,13 @@ public class BlockSetup extends BidsBlocks {
 
         wallHook = new BlockWallHook()
                 .setBlockName("WallHook");
+
+        aquifer = new BlockAquifer(0)
+                .setGravelBlock(TFCBlocks.gravel)
+                .setBlockName("Aquifer");
+        aquifer2 = new BlockAquifer(16)
+                .setGravelBlock(TFCBlocks.gravel2)
+                .setBlockName("Aquifer2");
     }
 
     private static void updateBlocks() {
@@ -446,6 +453,9 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(clayLamp, ItemClayLamp.class, "ClayLamp");
 
         GameRegistry.registerBlock(wallHook, ItemWallHook.class, "WallHook");
+
+        GameRegistry.registerBlock(aquifer, ItemGenericSoil.class, "Aquifer");
+        GameRegistry.registerBlock(aquifer2, ItemGenericSoil.class, "Aquifer2");
     }
 
 }

@@ -90,4 +90,7 @@ public class BidsBlocks {
 
     public static Block wallHook;
 
+    public static Block aquifer;
+    public static Block aquifer2;
+
 }

@@ -137,6 +137,9 @@ tile.ClayLamp.name=Clay Lamp
 
 tile.WallHook.name=Wall Hook
 
+tile.Aquifer.name=Gravel
+tile.Aquifer2.name=Gravel
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit
