@@ -4,19 +4,19 @@ import com.dunk.tfc.Blocks.Terrain.BlockCollapsible;
 import com.dunk.tfc.Blocks.Terrain.BlockGravel;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.Constant.Global;
-import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityAquifer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockAquifer extends Block {
+public class BlockAquifer extends BlockContainer {
 
     private final int textureOffset;
     private final IIcon[] icons = new IIcon[Global.STONE_ALL.length];
@@ -105,40 +105,40 @@ public class BlockAquifer extends Block {
     @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         if (ensureBlockCanStay(world, x, y, z)) {
-            world.scheduleBlockUpdate(x, y, z, this, tickRate(world));
+            if (!world.isRemote) {
+                TileEntityAquifer te = (TileEntityAquifer) world.getTileEntity(x, y, z);
+                te.checkBeingExposed();
+            }
         }
     }
 
     @Override
     public int tickRate(World world) {
-        return 0;
+        return 3;
     }
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block b) {
-        ensureBlockCanStay(world, x, y, z);
-    }
-
-    @Override
-    public void onBlockPreDestroy(World world, int x, int y, int z, int meta) {
-        //Bids.LOG.info("onBlockPreDestroy");
-        if (world.getBlock(x, y + 1, z) == TFCBlocks.freshWaterStationary) {
-            //Bids.LOG.info("onBlockPreDestroy - Water is above!");
-            world.setBlockToAir(x, y + 1, z);
-            world.notifyBlockOfNeighborChange(x, y + 1, z, Blocks.air);
+        if (ensureBlockCanStay(world, x, y, z)) {
+            if (!world.isRemote) {
+                TileEntityAquifer te = (TileEntityAquifer) world.getTileEntity(x, y, z);
+                te.checkBeingExposed();
+            }
         }
     }
 
     @Override
+    public void onBlockPreDestroy(World world, int x, int y, int z, int meta) {
+        TileEntityAquifer te = (TileEntityAquifer) world.getTileEntity(x, y, z);
+        te.onBlockDestroyed();
+    }
+
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
-        if (random.nextInt(100) > 50) {
-            if (world.isAirBlock(x, y + 1, z)
-                || TFC_Core.isFreshWater(world.getBlock(x, y + 1, z))) {
-                Bids.LOG.info("Place water!");
-                world.setBlock(x, y + 1, z, TFCBlocks.freshWaterStationary);
-                world.notifyBlockOfNeighborChange(x, y + 1, z, TFCBlocks.freshWaterStationary);
-            } else {
-                //Bids.LOG.info("Cannot place water: " + world.getBlock(x, y + 1, z).getUnlocalizedName());
+        if (ensureBlockCanStay(world, x, y, z)) {
+            if (!world.isRemote && random.nextInt(16) == 0) {
+                TileEntityAquifer te = (TileEntityAquifer) world.getTileEntity(x, y, z);
+                te.checkBeingExposed();
             }
         }
     }
@@ -178,6 +178,11 @@ public class BlockAquifer extends Block {
         //Bids.LOG.info("Can stay");
 
         return true;
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World world, int meta) {
+        return new TileEntityAquifer();
     }
 
 }

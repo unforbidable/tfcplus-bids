@@ -30,4 +30,8 @@ public class Timer {
         }
     }
 
+    public void reset() {
+        ticksToGo = defaultInterval;
+    }
+
 }

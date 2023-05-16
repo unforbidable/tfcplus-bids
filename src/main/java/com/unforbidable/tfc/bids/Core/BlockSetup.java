@@ -342,6 +342,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityClayLamp.class, "BidsClayLamp");
 
         GameRegistry.registerTileEntity(TileEntityWallHook.class, "BidsWallHook");
+
+        GameRegistry.registerTileEntity(TileEntityAquifer.class, "BidsAquifer");
     }
 
     @SideOnly(Side.CLIENT)
