@@ -279,6 +279,17 @@ public class ItemSetup extends BidsItems {
         woodenBucketMilkVinegar = new ItemBucketFluid(false)
             .setContainerItem((TFCItems.woodenBucketEmpty))
             .setUnlocalizedName("Wooden Bucket.MilkVinegar");
+
+        ceramicBucketRope = new ItemBucketRopeEmpty(true)
+            .setUnlocalizedName("Ceramic Bucket Rope");
+        ceramicBucketRopeWater = new ItemBucketRopeFluid(true)
+            .setContainerItem(ceramicBucketRope)
+            .setUnlocalizedName("Ceramic Bucket Rope.FreshWater");
+        woodenBucketRope = new ItemBucketRopeEmpty(false)
+            .setUnlocalizedName("Wooden Bucket Rope");
+        woodenBucketRopeWater = new ItemBucketRopeFluid(false)
+            .setContainerItem(woodenBucketRope)
+            .setUnlocalizedName("Wooden Bucket Rope.FreshWater");
     }
 
     private static void registerFluidContainers() {
@@ -316,6 +327,11 @@ public class ItemSetup extends BidsItems {
             new ItemStack(woodenBucketHoneyWater), new ItemStack(TFCItems.woodenBucketEmpty));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
             new ItemStack(woodenBucketMilkVinegar), new ItemStack(TFCItems.woodenBucketEmpty));
+
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.FRESHWATER, 1000),
+            new ItemStack(ceramicBucketRopeWater), new ItemStack(ceramicBucketRope));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.FRESHWATER, 1000),
+            new ItemStack(woodenBucketRopeWater), new ItemStack(woodenBucketRope));
     }
 
     private static void setupToolHarvest() {
@@ -550,6 +566,11 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(woodenBucketBrine, woodenBucketBrine.getUnlocalizedName());
         GameRegistry.registerItem(woodenBucketHoneyWater, woodenBucketHoneyWater.getUnlocalizedName());
         GameRegistry.registerItem(woodenBucketMilkVinegar, woodenBucketMilkVinegar.getUnlocalizedName());
+
+        GameRegistry.registerItem(ceramicBucketRope, ceramicBucketRope.getUnlocalizedName());
+        GameRegistry.registerItem(ceramicBucketRopeWater, ceramicBucketRopeWater.getUnlocalizedName());
+        GameRegistry.registerItem(woodenBucketRope, woodenBucketRope.getUnlocalizedName());
+        GameRegistry.registerItem(woodenBucketRopeWater, woodenBucketRopeWater.getUnlocalizedName());
     }
 
 }

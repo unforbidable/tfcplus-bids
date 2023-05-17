@@ -105,4 +105,9 @@ public class BidsItems {
     public static Item ceramicBucketHoneyWater;
     public static Item ceramicBucketMilkVinegar;
 
+    public static Item woodenBucketRope;
+    public static Item woodenBucketRopeWater;
+    public static Item ceramicBucketRope;
+    public static Item ceramicBucketRopeWater;
+
 }

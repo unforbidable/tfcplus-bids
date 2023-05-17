@@ -21,7 +21,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 
 public class ItemBucketFluid extends ItemTerra implements ISmashable {
 
-    private final boolean isPottery;
+    protected final boolean isPottery;
     IIcon overlayIcon;
 
     public ItemBucketFluid(boolean isPottery) {

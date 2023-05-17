@@ -506,6 +506,12 @@ item.Wooden Bucket.Brine.name=Wooden Bucket (Brine)
 item.Wooden Bucket.HoneyWater.name=Wooden Bucket (Honey Water)
 item.Wooden Bucket.MilkVinegar.name=Wooden Bucket (Milk + Vinegar Mix)
 
+item.Ceramic Bucket Rope.name=Ceramic Bucket and Rope
+item.Ceramic Bucket Rope.FreshWater.name=Ceramic Bucket and Rope (Fresh Water)
+
+item.Wooden Bucket Rope.name=Wooden Bucket and Rope
+item.Wooden Bucket Rope.FreshWater.name=Wooden Bucket and Rope (Fresh Water)
+
 item.Pottery Pipe.Clay.name=Clay Pipe
 item.Pottery Pipe.Ceramic.name=Ceramic Pipe
 
