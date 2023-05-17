@@ -523,6 +523,23 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsBlocks.wallHook, 1, 0),
             "stickWood", TFCItems.resin));
 
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.ceramicBucketRope),
+            new ItemStack(TFCItems.rope, 1, 0), new ItemStack(TFCItems.clayBucketEmpty, 1, 0));
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.woodenBucketRope),
+            new ItemStack(TFCItems.rope, 1, 0), new ItemStack(TFCItems.woodenBucketEmpty, 1, 0));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.clayBucketEmpty), new ItemStack(BidsItems.ceramicBucketRope, 1, 0));
+        RecipeManager.addAction(new ActionExtraDrop()
+            .addExtraDrop(new ItemStack(TFCItems.rope, 1, 0))
+            .matchCraftingItem(TFCItems.clayBucketEmpty)
+            .matchIngredient(BidsItems.ceramicBucketRope));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.woodenBucketEmpty), new ItemStack(BidsItems.woodenBucketRope, 1, 0));
+        RecipeManager.addAction(new ActionExtraDrop()
+            .addExtraDrop(new ItemStack(TFCItems.rope, 1, 0))
+            .matchCraftingItem(TFCItems.woodenBucketEmpty)
+            .matchIngredient(BidsItems.woodenBucketRope));
+
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.saltWaterBottle),
             new ItemStack(TFCItems.powder, 1, 9), new ItemStack(TFCItems.powder, 1, 9),
             new ItemStack(TFCItems.waterBottle), new ItemStack(TFCItems.glassBottle));
