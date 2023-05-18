@@ -1,12 +1,12 @@
 package com.unforbidable.tfc.bids.WorldGen;
 
-import codechicken.lib.vec.BlockCoord;
 import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.WorldGen.WorldGenHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.common.IWorldGenerator;

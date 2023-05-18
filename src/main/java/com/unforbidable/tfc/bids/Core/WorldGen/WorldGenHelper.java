@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.Core.WorldGen;
 
-import codechicken.lib.vec.BlockCoord;
+import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.*;
