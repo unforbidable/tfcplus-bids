@@ -123,6 +123,19 @@ public class ConfigHandler {
                 BidsOptions.LightSources.clayLampOliveOilConsumption, 0.1f, 10f,
                 "Higher values increase the olive oil consumption in clay lamps, 0.125f being equal to the olive oil consumption of TFC metal oil lamps.");
 
+        BidsOptions.WorldGen.aquiferChanceMultiplier = config.getFloat(
+                "aquiferChanceMultiplier", "worldGen",
+                BidsOptions.WorldGen.aquiferChanceMultiplier, 0.25f, 4f,
+                "Higher values increase the chance of an aquifer cluster generating in any given chunk. Value 1.0 roughly translates to 1 out of 8 chance.");
+        BidsOptions.WorldGen.aquiferSizeMultiplier = config.getFloat(
+                "aquiferSizeMultiplier", "worldGen",
+                BidsOptions.WorldGen.aquiferSizeMultiplier, 1f, 4f,
+                "Higher values increase the size of aquifer clusters. Aquifer clusters still generate smaller in drier areas than in wetter areas.");
+        BidsOptions.WorldGen.aquiferMaxSurfaceHeight = config.getInt(
+                "aquiferMaxSurfaceHeight", "worldGen",
+                BidsOptions.WorldGen.aquiferMaxSurfaceHeight, 145, 195,
+                "Sets the elevation limit for aquifer clusters to generate. The number corresponds to the elevation of the surface above rather than the aquifer itself.");
+
         config.save();
     }
 

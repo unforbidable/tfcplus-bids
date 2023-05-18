@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.WorldGen.WorldGenHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -23,15 +24,16 @@ public class AquiferWorldGen implements IWorldGenerator {
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
         int xCoord = chunkX * 16 + random.nextInt(16) + 8;
         int zCoord = chunkZ * 16 + random.nextInt(16) + 8;
-        float rain = TFC_Climate.getRainfall(world, xCoord, Global.SEALEVEL, zCoord);
-        if (random.nextInt(getRngForRainfall(rain)) == 0) {
-            int size = 1 + Math.min(Math.round(rain / 200), 2) + Math.min(Math.round(rain / 800), 3) * 2 + random.nextInt(2 + Math.min(Math.round(rain / 400), 6));
 
-            if (rain > 55) {
-                findSuitableLocationsAndGenerate(random, chunkX, chunkZ, world, size, false);
-            } else {
-                findSuitableLocationsAndGenerate(random, chunkX, chunkZ, world, size, true);
-            }
+        float rain = TFC_Climate.getRainfall(world, xCoord, Global.SEALEVEL, zCoord);
+        int rainBaseRng = getRngForRainfall(rain);
+        int rainRng = Math.max(1, Math.round(rainBaseRng / BidsOptions.WorldGen.aquiferChanceMultiplier));
+
+        if (random.nextInt(rainRng) == 0) {
+            int baseSize = 1 + Math.min(Math.round(rain / 200), 2) + Math.min(Math.round(rain / 800), 3) * 2 + random.nextInt(2 + Math.min(Math.round(rain / 400), 6));
+            int size = Math.min(32, Math.max(1, Math.round(baseSize * BidsOptions.WorldGen.aquiferSizeMultiplier)));
+
+            findSuitableLocationsAndGenerate(random, chunkX, chunkZ, world, size, rain < 55);
         }
     }
 
@@ -50,7 +52,7 @@ public class AquiferWorldGen implements IWorldGenerator {
     public boolean findSuitableLocationsAndGenerate(Random random, int chunkX, int chunkZ, World world, int size, boolean desertMode) {
         long start = new Date().getTime();
 
-        int maxY = desertMode ? Global.SEALEVEL : Global.SEALEVEL + 14;
+        int maxY = desertMode ? Global.SEALEVEL : BidsOptions.WorldGen.aquiferMaxSurfaceHeight;
 
         int invalidBiomeCount = 0;
 
@@ -191,7 +193,7 @@ public class AquiferWorldGen implements IWorldGenerator {
     private boolean doGenerateAquifer(Random random, World world, int xCoord, int yCoord, int zCoord, int size) {
         int yCoordAquifer = yCoord - 1;
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 13; i++) {
             Block rawStoneBlock = world.getBlock(xCoord, yCoordAquifer, zCoord);
 
             if (!TFC_Core.isSoilOrGravel(rawStoneBlock) && !TFC_Core.isRawStone(rawStoneBlock)) {
@@ -208,7 +210,7 @@ public class AquiferWorldGen implements IWorldGenerator {
         }
 
         // Randomly move
-        yCoordAquifer += 2 + random.nextInt(2);
+        yCoordAquifer += 5 + random.nextInt(2);
 
         Set<BlockCoord> area = WorldGenHelper.getClusterArea(random, xCoord, yCoord, zCoord, size);
         Set<BlockCoord> border = WorldGenHelper.getBorderOfArea(area);
@@ -294,7 +296,7 @@ public class AquiferWorldGen implements IWorldGenerator {
     }
 
     private boolean checkBorderAreaIsValid(World world, int yCoord, Set<BlockCoord> area) {
-        for (int y = - 1; y < 10; y ++) {
+        for (int y = - 4; y < 10; y ++) {
             for (BlockCoord bc : area) {
                 Block block = world.getBlock(bc.x, yCoord + y, bc.z);
                 if (!isValidAquiferBlock(block, y)) {
@@ -308,7 +310,7 @@ public class AquiferWorldGen implements IWorldGenerator {
     }
 
     private boolean isValidAquiferBlock(Block block, int yOffset) {
-        if (yOffset > 4) {
+        if (yOffset > 6) {
             // Anything but water in the top part
             return !TFC_Core.isWater(block) && !TFC_Core.isWaterFlowing(block);
         } else {
