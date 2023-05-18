@@ -142,7 +142,7 @@ public class AquiferWorldGen implements IWorldGenerator {
             BlockCoord bc = locations.get(n);
 
             // Special random seed for the actual gen
-            Random random2 = new Random(world.getSeed() + (long) ((chunkX >> 3) - (chunkZ >> 3)) * (chunkZ >> 3) + i);
+            Random random2 = new Random(random.nextLong());
 
             boolean success = doGenerateAquifer(random2, world, bc.x, bc.y, bc.z, size);
             if (success) {
@@ -167,6 +167,7 @@ public class AquiferWorldGen implements IWorldGenerator {
         return biomeID == TFCBiome.ROLLING_HILLS.biomeID ||
             biomeID == TFCBiome.MOUNTAINS_EDGE.biomeID ||
             biomeID == TFCBiome.MOUNTAINS.biomeID ||
+            biomeID == TFCBiome.MOUNTAIN_RANGE_EDGE.biomeID ||
             biomeID == TFCBiome.HIGH_PLAINS.biomeID ||
             biomeID == TFCBiome.HIGH_HILLS.biomeID ||
             biomeID == TFCBiome.HIGH_HILLS_EDGE.biomeID ||
@@ -178,7 +179,7 @@ public class AquiferWorldGen implements IWorldGenerator {
             biomeID == TFCBiome.SALTSWAMP.biomeID;
     }
 
-    private boolean isBlockAboveSoil(Block block) {
+    private boolean isBlockReplacableAt(Block block) {
         return block == Blocks.air ||
             block == TFCBlocks.tallGrass ||
             block == TFCBlocks.worldItem ||
@@ -188,49 +189,33 @@ public class AquiferWorldGen implements IWorldGenerator {
     }
 
     private boolean doGenerateAquifer(Random random, World world, int xCoord, int yCoord, int zCoord, int size) {
-        // Find block that isn't soil or gravel below
-        int yCoordRawStone = yCoord - 1;
-        Block rawStoneBlock = world.getBlock(xCoord, yCoordRawStone, zCoord);
+        int yCoordAquifer = yCoord - 1;
 
-        int n = 10;
-        while (TFC_Core.isSoilOrGravel(rawStoneBlock) && n > 0) {
-            n--;
-            yCoordRawStone--;
-            rawStoneBlock = world.getBlock(xCoord, yCoordRawStone, zCoord);
+        for (int i = 0; i < 10; i++) {
+            Block rawStoneBlock = world.getBlock(xCoord, yCoordAquifer, zCoord);
+
+            if (!TFC_Core.isSoilOrGravel(rawStoneBlock) && !TFC_Core.isRawStone(rawStoneBlock)) {
+                Bids.LOG.debug("Found no raw stone below!");
+                return false;
+            }
 
             if (rawStoneBlock == BidsBlocks.aquifer || rawStoneBlock == BidsBlocks.aquifer2) {
                 Bids.LOG.debug("Already generated here!");
                 return true;
             }
+
+            yCoordAquifer--;
         }
 
-        if (!TFC_Core.isRawStone(rawStoneBlock)) {
-            Bids.LOG.debug("Found no raw stone below!");
-            return false;
-        }
-
-        if (!TFC_Core.isGravel(world.getBlock(xCoord, yCoordRawStone + 1, zCoord))) {
-            Bids.LOG.debug("Gravel not found, need to go deeper!");
-            for (int i = 0; i < 3; i++) {
-                yCoordRawStone--;
-                rawStoneBlock = world.getBlock(xCoord, yCoordRawStone, zCoord);
-
-                if (!TFC_Core.isRawStone(rawStoneBlock)) {
-                    Bids.LOG.debug("Found not enough raw stone below!");
-                    return false;
-                }
-            }
-        }
-
-        Bids.LOG.debug("Randomly move up or down one block!");
-        yCoordRawStone += random.nextInt(3) - 1;
+        // Randomly move
+        yCoordAquifer += 2 + random.nextInt(2);
 
         Set<BlockCoord> area = WorldGenHelper.getClusterArea(random, xCoord, yCoord, zCoord, size);
         Set<BlockCoord> border = WorldGenHelper.getBorderOfArea(area);
         Set<BlockCoord> buffer = WorldGenHelper.getBorderOfAreaExcluding(border, area);
 
         // Check only the buffer area for invalid blocks
-        if (!checkBorderAreaIsValid(world, yCoordRawStone, buffer)) {
+        if (!checkBorderAreaIsValid(world, yCoordAquifer, buffer)) {
             Bids.LOG.debug("Invalid buffer!");
             return false;
         }
@@ -239,49 +224,62 @@ public class AquiferWorldGen implements IWorldGenerator {
         int grassBlockMetadtata = world.getBlockMetadata(xCoord, yCoord, zCoord);
         BlockGroup blocks = BlockGroup.fromGrass(grassBlock);
 
-        doGenerateBorderArea(random, world, yCoordRawStone, border, blocks, grassBlockMetadtata);
-        doGenerateAquiferArea(random, world, yCoordRawStone, area, blocks, grassBlockMetadtata);
+        doGenerateAquiferArea(random, world, yCoordAquifer, area, border, blocks, grassBlockMetadtata);
+
+        List<BlockCoord> areaAndBorderBlocks = new ArrayList<BlockCoord>(area);
+        areaAndBorderBlocks.addAll(border);
 
         int rodsToGenerate = 1 + Math.min(2, size / 5);
-        List<BlockCoord> rodsBlocks = new ArrayList<BlockCoord>(area);
-        rodsBlocks.addAll(border);
-        if (doGenerateGoldenRodsInArea(random, world, yCoord, rodsBlocks, rodsToGenerate) == 0) {
+        if (!doGenerateGoldenRodsInArea(random, world, yCoord, areaAndBorderBlocks, rodsToGenerate)) {
             // Place a single Golden Rod at the origin
-            doGenerateGoldenRodAt(world, xCoord, yCoord, zCoord);
+            doGenerateGoldenRodAt(world, xCoord, yCoord + 1, zCoord);
+            world.setBlock(xCoord, yCoord + 4, zCoord, Blocks.glass, 0, 2);
         }
 
         for (BlockCoord bc: area) {
             world.setBlock(bc.x, yCoord + 3, bc.z, Blocks.glass, 0, 2);
         }
 
-        Bids.LOG.info("Aquifer done at " + xCoord + "," + zCoord + " size: " + size);
+        Bids.LOG.debug("Aquifer done at " + xCoord + "," + zCoord + " size: " + size + " depth: " + (yCoord - yCoordAquifer));
 
         return true;
     }
 
-    private boolean doGenerateGoldenRodAt(World world, int xCoord, int yCoord, int zCoord) {
-        int y = world.getTopSolidOrLiquidBlock(xCoord, zCoord);
-
-        // Don't generate rods too high or too low
-        if (y > yCoord + 2 || y < yCoord - 2) {
-            return false;
-        }
-
-        if (TFC_Core.isSoil(world.getBlock(xCoord, y - 1, zCoord)) &&
-            isBlockAboveSoil(world.getBlock(xCoord, y, zCoord))) {
-            world.setBlock(xCoord, y, zCoord, TFCBlocks.flora, 0, 2);
-            Bids.LOG.debug("Placed rod at: " + xCoord + "," + y + "," + zCoord);
-
-            return true;
-        }
-
-        return false;
+    private void doGenerateGoldenRodAt(World world, int xCoord, int yCoord, int zCoord) {
+        world.setBlock(xCoord, yCoord, zCoord, TFCBlocks.flora, 0, 2);
+        Bids.LOG.debug("Placed rod at: " + xCoord + "," + yCoord + "," + zCoord);
     }
 
-    private int doGenerateGoldenRodsInArea(Random random, World world, int yCoord, List<BlockCoord> list, int count) {
-        int actual = 0;
+    private boolean doGenerateGoldenRodsInArea(Random random, World world, int yCoord, List<BlockCoord> list, int count) {
+        List<BlockCoord> clayList = new ArrayList<BlockCoord>();
+        List<BlockCoord> dirtList = new ArrayList<BlockCoord>();
+        for (BlockCoord bc : list) {
+            int y = world.getTopSolidOrLiquidBlock(bc.x, bc.z);
+            if (y < yCoord + 3 && y > yCoord - 3 && isBlockReplacableAt(world.getBlock(bc.x, y, bc.z))) {
+                Block b = world.getBlock(bc.x, y - 1, bc.z);
+                if (TFC_Core.isClayGrass(b)) {
+                    clayList.add(new BlockCoord(bc.x, y, bc.z));
+                } else if (TFC_Core.isGrass(b)) {
+                    dirtList.add(new BlockCoord(bc.x, y, bc.z));
+                }
+            }
+        }
+
+        int actual = doGenerateGoldenRodsAtSpecificBlocks(random, world, clayList, count);
+
+        if (actual < count) {
+            actual += doGenerateGoldenRodsAtSpecificBlocks(random, world, dirtList, count - actual);
+        }
+
+        Bids.LOG.debug("Placed golden rods " + actual + "/" + count);
+
+        return actual != 0;
+    }
+
+    private int doGenerateGoldenRodsAtSpecificBlocks(Random random, World world, List<BlockCoord> list, int count) {
         Set<Integer> tried = new HashSet<Integer>(list.size());
-        while (actual < count && tried.size() < list.size()) {
+
+        while (tried.size() < list.size() && tried.size() < count) {
             int n = random.nextInt(list.size());
             while (tried.contains(n)) {
                 n = random.nextInt(list.size());
@@ -289,16 +287,14 @@ public class AquiferWorldGen implements IWorldGenerator {
 
             tried.add(n);
             BlockCoord bc = list.get(n);
-            if (doGenerateGoldenRodAt(world, bc.x, yCoord, bc.z)) {
-                actual++;
-            }
+            doGenerateGoldenRodAt(world, bc.x, bc.y, bc.z);
         }
 
-        return actual;
+        return tried.size();
     }
 
     private boolean checkBorderAreaIsValid(World world, int yCoord, Set<BlockCoord> area) {
-        for (int y = - 3; y < 8; y ++) {
+        for (int y = - 1; y < 10; y ++) {
             for (BlockCoord bc : area) {
                 Block block = world.getBlock(bc.x, yCoord + y, bc.z);
                 if (!isValidAquiferBlock(block, y)) {
@@ -327,64 +323,52 @@ public class AquiferWorldGen implements IWorldGenerator {
         }
     }
 
-    private void doGenerateAquiferArea(Random random, World world, int yCoord, Set<BlockCoord> area,
+    private void doGenerateAquiferArea(Random random, World world, int yCoord, Set<BlockCoord> area, Set<BlockCoord> border,
                                        BlockGroup blocks, int metadata) {
         for (BlockCoord bc : area) {
-            doGenerateAquiferSingle(random, world, bc.x, yCoord, bc.z, blocks, metadata);
+            doGenerateAquiferSingle(random, world, bc.x, yCoord, bc.z, blocks, metadata, false);
+        }
+        for (BlockCoord bc : border) {
+            doGenerateAquiferSingle(random, world, bc.x, yCoord, bc.z, blocks, metadata, true);
         }
     }
 
     private void doGenerateAquiferSingle(Random random, World world, int xCoord, int yCoord, int zCoord,
-                                         BlockGroup blocks, int metadata) {
-        int clayRng = 1 + random.nextInt(20);
-        world.setBlock(xCoord, yCoord - 2, zCoord, blocks.aquifer, metadata, 2);
-        world.setBlock(xCoord, yCoord - 1, zCoord, blocks.gravel, metadata, 2);
-        world.setBlock(xCoord, yCoord, zCoord, clayRng > 7 ? blocks.gravel : blocks.clay, metadata, 2);
-        world.setBlock(xCoord, yCoord + 1, zCoord, clayRng > 14 ? blocks.gravel : blocks.clay, metadata, 2);
-        for (int i = 0; i < 4; i++) {
-            Block previous = world.getBlock(xCoord, yCoord + 1 + i, zCoord);
-
-            if (TFC_Core.isGrassNormal(previous)) {
-                world.setBlock(xCoord, yCoord + 1 + i, zCoord, blocks.clayGrass, metadata, 2);
-            } else if (i < clayRng / 4 && TFC_Core.isDirt(previous)) {
-                world.setBlock(xCoord, yCoord + 1 + i, zCoord, blocks.clay, metadata, 2);
-            } else if (TFC_Core.isRawStone(previous)) {
-                world.setBlock(xCoord, yCoord + 1 + i, zCoord, blocks.dirt, metadata, 2);
-            } else if (i < clayRng / 4 && TFC_Core.isSand(previous)) {
-                if (world.isAirBlock(xCoord, yCoord + 1 + i + 1, zCoord)) {
-                    world.setBlock(xCoord, yCoord + 1 + i, zCoord, blocks.dryGrass, metadata, 2);
-                } else {
-                    world.setBlock(xCoord, yCoord + 1 + i, zCoord, blocks.clay, metadata, 2);
-                }
-            }
+                                         BlockGroup blocks, int metadata, boolean border) {
+        if (!border) {
+            world.setBlock(xCoord, yCoord, zCoord, blocks.aquifer, metadata, 2);
         }
-    }
 
-    private void doGenerateBorderArea(Random random, World world, int yCoord, Set<BlockCoord> border,
-                                      BlockGroup blocks, int metadata) {
-        for (BlockCoord bc : border) {
-            doGenerateBorderSingle(random, world, bc.x, yCoord, bc.z, blocks, metadata);
-        }
-    }
+        int clayRng = (border ? 1 : 5) + random.nextInt(20);
 
-    private void doGenerateBorderSingle(Random random, World world, int xCoord, int yCoord, int zCoord,
-                                        BlockGroup blocks, int metadata) {
-        int clayRng = 1 + random.nextInt(16);
-        world.setBlock(xCoord, yCoord - 1, zCoord, blocks.gravel, metadata, 2);
-        world.setBlock(xCoord, yCoord, zCoord, blocks.gravel, metadata, 2);
         world.setBlock(xCoord, yCoord + 1, zCoord, blocks.gravel, metadata, 2);
-        if (clayRng > 2) {
-            if (TFC_Core.isSand(world.getBlock(xCoord, yCoord + 1, zCoord))) {
-                world.setBlock(xCoord, yCoord + 1, zCoord, blocks.dirt, metadata, 2);
-            } else if (!TFC_Core.isRawStone(world.getBlock(xCoord, yCoord + 1, zCoord))) {
-                world.setBlock(xCoord, yCoord + 1, zCoord, blocks.clay, metadata, 2);
-            }
+        world.setBlock(xCoord, yCoord + 2, zCoord, clayRng > 19 ? blocks.clay : blocks.gravel, metadata, 2);
+        world.setBlock(xCoord, yCoord + 3, zCoord, clayRng > 14 ? blocks.clay : blocks.gravel, metadata, 2);
+        world.setBlock(xCoord, yCoord + 4, zCoord, clayRng > 9 ? blocks.clay : blocks.gravel, metadata, 2);
 
-            if (clayRng > 12) {
-                if (TFC_Core.isSand(world.getBlock(xCoord, yCoord + 2, zCoord))) {
-                    world.setBlock(xCoord, yCoord + 2, zCoord, blocks.dirt, metadata, 2);
-                } else if (!TFC_Core.isRawStone(world.getBlock(xCoord, yCoord + 2, zCoord))) {
-                    world.setBlock(xCoord, yCoord + 2, zCoord, blocks.clay, metadata, 2);
+        for (int i = 0; i < 6; i++) {
+            int y = yCoord + 4 + i;
+            Block previous = world.getBlock(xCoord, y, zCoord);
+
+            if (TFC_Core.isSand(previous)) {
+                if (i < clayRng / 3 || random.nextInt(3) != 0) {
+                    if (world.isAirBlock(xCoord, y + 1, zCoord)) {
+                        world.setBlock(xCoord, y, zCoord, blocks.dryGrass, metadata, 2);
+                    } else {
+                        world.setBlock(xCoord, y, zCoord, blocks.dirt, metadata, 2);
+                    }
+                }
+            } else {
+                if (i < clayRng / 3 && random.nextInt(3) != 0) {
+                    if (TFC_Core.isGrassNormal(previous)) {
+                        world.setBlock(xCoord, y, zCoord, blocks.clayGrass, metadata, 2);
+                    } else if (TFC_Core.isDirt(previous) || TFC_Core.isRawStone(previous)) {
+                        world.setBlock(xCoord, y, zCoord, blocks.clay, metadata, 2);
+                    }
+                } else {
+                    if (TFC_Core.isRawStone(previous)) {
+                        world.setBlock(xCoord, y, zCoord, blocks.dirt, metadata, 2);
+                    }
                 }
             }
         }
