@@ -362,11 +362,11 @@ public class AquiferWorldGen implements IWorldGenerator {
                 if (i < clayRng / 3 && random.nextInt(3) != 0) {
                     if (TFC_Core.isGrassNormal(previous)) {
                         world.setBlock(xCoord, y, zCoord, blocks.clayGrass, metadata, 2);
-                    } else if (TFC_Core.isDirt(previous) || TFC_Core.isRawStone(previous)) {
+                    } else if (TFC_Core.isDirt(previous) || TFC_Core.isRawStone(previous) || TFC_Core.isGravel(previous)) {
                         world.setBlock(xCoord, y, zCoord, blocks.clay, metadata, 2);
                     }
                 } else {
-                    if (TFC_Core.isRawStone(previous)) {
+                    if (TFC_Core.isRawStone(previous) || TFC_Core.isGravel(previous)) {
                         world.setBlock(xCoord, y, zCoord, blocks.dirt, metadata, 2);
                     }
                 }
