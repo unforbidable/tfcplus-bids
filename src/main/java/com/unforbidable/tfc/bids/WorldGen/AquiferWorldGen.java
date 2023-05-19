@@ -235,11 +235,6 @@ public class AquiferWorldGen implements IWorldGenerator {
         if (!doGenerateGoldenRodsInArea(random, world, yCoord, areaAndBorderBlocks, rodsToGenerate)) {
             // Place a single Golden Rod at the origin
             doGenerateGoldenRodAt(world, xCoord, yCoord + 1, zCoord);
-            world.setBlock(xCoord, yCoord + 4, zCoord, Blocks.glass, 0, 2);
-        }
-
-        for (BlockCoord bc: area) {
-            world.setBlock(bc.x, yCoord + 3, bc.z, Blocks.glass, 0, 2);
         }
 
         Bids.LOG.debug("Aquifer done at " + xCoord + "," + zCoord + " size: " + size + " depth: " + (yCoord - yCoordAquifer));

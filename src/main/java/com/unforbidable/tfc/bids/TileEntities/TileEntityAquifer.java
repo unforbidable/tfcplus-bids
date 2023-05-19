@@ -51,7 +51,7 @@ public class TileEntityAquifer extends TileEntity {
     }
 
     public void checkBeingExposed() {
-        Bids.LOG.info(worldObj.getBlock(xCoord, yCoord, zCoord));
+        Bids.LOG.debug(worldObj.getBlock(xCoord, yCoord, zCoord));
 
         boolean isExposedNow = TileEntityAquifer.isAquiferBlockExposedAt(worldObj, xCoord, yCoord, zCoord);
         if (isExposedNow && !isExposed) {
@@ -85,7 +85,7 @@ public class TileEntityAquifer extends TileEntity {
     }
 
     private void onAquiferCovered() {
-        Bids.LOG.info("Aquifer covered at " + xCoord + "," + zCoord);
+        Bids.LOG.debug("Aquifer covered at " + xCoord + "," + zCoord);
 
         updateAquiferNeighborsImmediate();
         clearWaterColumn();
@@ -148,7 +148,7 @@ public class TileEntityAquifer extends TileEntity {
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
-            Bids.LOG.info("Aquifer neighbor count total " + total + " and exposed " + exposed + " at " + xCoord + "," + zCoord);
+            Bids.LOG.debug("Aquifer neighbor count total " + total + " and exposed " + exposed + " at " + xCoord + "," + zCoord);
         }
 
         updateAquiferNeighborsRequired = false;
@@ -203,14 +203,14 @@ public class TileEntityAquifer extends TileEntity {
                         if (canPlaceWaterBlockAt(worldObj, xCoord, yCoord + i, zCoord, i)) {
                             long timeRequired = getTimeRequiredToRaiseWaterColumnToLevel(i);
                             if (timeRequired <= TFC_Time.getTotalTicks() - currentWaterColumnRiseTime) {
-                                Bids.LOG.info("Aquifer water column rise done at " + xCoord + "," + zCoord);
+                                Bids.LOG.debug("Aquifer water column rise done at " + xCoord + "," + zCoord);
                                 currentRise++;
 
                                 placeWaterBlockAt(worldObj, xCoord, yCoord + i, zCoord);
                                 currentWaterColumnRiseTime += timeRequired;
                                 lastWaterColumnRiseTime = TFC_Time.getTotalTicks();
                             } else {
-                                Bids.LOG.info("Aquifer water column rise at " + xCoord + "," + zCoord + " requires " +
+                                Bids.LOG.debug("Aquifer water column rise at " + xCoord + "," + zCoord + " requires " +
                                     (TFC_Time.getTotalTicks() - currentWaterColumnRiseTime) + "/" + timeRequired + " ticks");
                                 lastWaterColumnRiseTime = currentWaterColumnRiseTime;
                                 break;
@@ -246,7 +246,7 @@ public class TileEntityAquifer extends TileEntity {
         float neighborBonus = Math.min(WATER_COLUMN_RISE_NEIGHBOR_BONUS * neighborTotalCount + 1f, 3f);
         float rainfallBonus = Math.min(WATER_COLUMN_RISE_RAINFALL_BONUS * rainfall + 1f, 6f);
 
-        Bids.LOG.info("Aquifer water column raise time at " + xCoord + "," + zCoord +
+        Bids.LOG.debug("Aquifer water column raise time at " + xCoord + "," + zCoord +
             " base: " + base +
             " level penalty: " + levelPenalty +
             " exposed neighbor penalty: " + exposedNeighborPenalty +
