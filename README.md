@@ -38,6 +38,9 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Stone Press](../../wiki/Stone-Press) - lever based pressing device, used for extracting juices and oils from berries and fruits
 * [Fluid Mixing](../../wiki/Fluid-Mixing) - fluid mixing recipes for making Honey Water, Brine and Milk + Vinegar
 * [Clay Lamp](../../wiki/Clay-Lamp) - stationary light source that consumes olive oil
+* [Wall Hook](../../wiki/Wall-Hook) - for hanging some tools, clothes and some other items on a wall
+* [Aquifer](../../wiki/Aquifer) - generates below the surface and spawns water blocks above when exposed
+* [Bucket and Rope](../../wiki/Bucket-and-Rope) - for drawing water from deep wells
 
 ### Contributions
 
