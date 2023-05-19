@@ -33,12 +33,12 @@ public class AquiferWorldGen implements IWorldGenerator {
             int baseSize = 1 + Math.min(Math.round(rain / 200), 2) + Math.min(Math.round(rain / 800), 3) * 2 + random.nextInt(2 + Math.min(Math.round(rain / 400), 6));
             int size = Math.min(32, Math.max(1, Math.round(baseSize * BidsOptions.WorldGen.aquiferSizeMultiplier)));
 
-            findSuitableLocationsAndGenerate(random, chunkX, chunkZ, world, size, rain < 55);
+            findSuitableLocationsAndGenerate(random, chunkX, chunkZ, world, size, rain < 125);
         }
     }
 
     private int getRngForRainfall(float rain) {
-        if (rain < 55) {
+        if (rain < 125) {
             // More odds for deserts having far less valid blocks
             return 8;
         } else if (rain < 400) {
