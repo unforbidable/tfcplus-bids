@@ -28,7 +28,7 @@ public class RenderTileWallHook extends TESRBase {
     }
 
     private int getOrientationAngle(int orientation) {
-        return (2 - orientation) * 90;
+        return (4 - orientation) * 90;
     }
 
     private void renderItemStack(double x, double y, double z, ItemStack is, WallHookBounds bounds, int angle, int pos) {
