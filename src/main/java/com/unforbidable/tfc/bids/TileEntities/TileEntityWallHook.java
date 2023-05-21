@@ -1,14 +1,19 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
-import com.dunk.tfc.Items.ItemClothing;
-import com.dunk.tfc.Items.ItemLeatherBag;
-import com.dunk.tfc.Items.ItemWaterskin;
+import com.dunk.tfc.Core.TFC_Climate;
+import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.Items.*;
 import com.dunk.tfc.Items.Tools.*;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackHelper;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
+import com.unforbidable.tfc.bids.Core.Timer;
+import com.unforbidable.tfc.bids.Items.ItemBucketRopeEmpty;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,8 +37,12 @@ public class TileEntityWallHook extends TileEntity implements IMessageHanldingTi
 
     private static final int SLOT_ITEM = 0;
 
+    private static final int DRYING_TIMER_INTERVAL = 20;
+
     ItemStack[] storage = new ItemStack[MAX_STORAGE];
     int orientation;
+
+    Timer dryingTimer = new Timer(DRYING_TIMER_INTERVAL);
 
     boolean clientNeedToUpdate = false;
 
@@ -132,12 +141,32 @@ public class TileEntityWallHook extends TileEntity implements IMessageHanldingTi
 
                 clientNeedToUpdate = false;
             }
+
+            // Check if enough time had passed
+            // for drying interval
+            if (dryingTimer.tick()) {
+                dryClothes();
+            }
         }
     }
+
+    private void dryClothes() {
+        for (ItemStack itemStack : storage) {
+            if (itemStack != null && itemStack.getItem() instanceof ItemClothing) {
+                float temp = TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord);
+                if (TFC_Core.isExposedToRain(worldObj, xCoord, yCoord, zCoord) && temp > 0) {
+                    DryingRackHelper.handleClothesInRain(itemStack, DRYING_TIMER_INTERVAL);
+                } else if (temp > 0) {
+                    DryingRackHelper.handleNormalDry(worldObj, xCoord, yCoord, zCoord, itemStack, DRYING_TIMER_INTERVAL);
+                }
+            }
+        }
+    }
+
     @Override
     public S35PacketUpdateTileEntity getDescriptionPacket() {
         NBTTagCompound tag = new NBTTagCompound();
-        writeDryingRackDataToNBT(tag);
+        writeTileEntityDataToNBT(tag);
         S35PacketUpdateTileEntity pack = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, tag);
         return pack;
     }
@@ -146,12 +175,12 @@ public class TileEntityWallHook extends TileEntity implements IMessageHanldingTi
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound tag = pkt.func_148857_g();
 
-        readDryingRackDataFromNBT(tag);
+        readTileEntityDataFromNBT(tag);
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tag) {
-        writeDryingRackDataToNBT(tag);
+        writeTileEntityDataToNBT(tag);
 
         super.writeToNBT(tag);
     }
@@ -160,10 +189,10 @@ public class TileEntityWallHook extends TileEntity implements IMessageHanldingTi
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
 
-        readDryingRackDataFromNBT(tag);
+        readTileEntityDataFromNBT(tag);
     }
 
-    public void writeDryingRackDataToNBT(NBTTagCompound tag) {
+    public void writeTileEntityDataToNBT(NBTTagCompound tag) {
         tag.setInteger("orientation", orientation);
 
         NBTTagList itemTagList = new NBTTagList();
@@ -178,7 +207,7 @@ public class TileEntityWallHook extends TileEntity implements IMessageHanldingTi
         tag.setTag("storage", itemTagList);
     }
 
-    public void readDryingRackDataFromNBT(NBTTagCompound tag) {
+    public void readTileEntityDataFromNBT(NBTTagCompound tag) {
         orientation = tag.getInteger("orientation");
 
         for (int i = 0; i < MAX_STORAGE; i++) {
