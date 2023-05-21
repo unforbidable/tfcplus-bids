@@ -1,10 +1,13 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
+import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.Items.ItemClothing;
 import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackHelper;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItemInfo;
@@ -37,6 +40,7 @@ public class TileEntityDryingRack extends TileEntity
     public static final int ACTION_UPDATE = 1;
 
     static final long DRYING_INTERVAL = TFC_Time.HOUR_LENGTH / 12;
+    private static final int DRYING_TIMER_INTERVAL = 20;
 
     final DryingRackItem[] storage = new DryingRackItem[MAX_STORAGE];
 
@@ -48,7 +52,7 @@ public class TileEntityDryingRack extends TileEntity
 
     int selectedSection = -1;
 
-    Timer dryingTimer = new Timer(10);
+    Timer dryingTimer = new Timer(DRYING_TIMER_INTERVAL);
     Timer decayTimer = new Timer(100);
 
     public TileEntityDryingRack() {
@@ -190,6 +194,21 @@ public class TileEntityDryingRack extends TileEntity
                     // Item has no matching recipe
                     // so either item is already dried
                     // or the recipe no longer exists
+                    // or it's clothes
+                    dryClothes();
+                }
+            }
+        }
+    }
+
+    private void dryClothes() {
+        for (DryingRackItem itemStack : storage) {
+            if (itemStack != null && itemStack.dryingItem.getItem() instanceof ItemClothing) {
+                float temp = TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord);
+                if (TFC_Core.isExposedToRain(worldObj, xCoord, yCoord, zCoord) && temp > 0) {
+                    DryingRackHelper.handleClothesInRain(itemStack.dryingItem, DRYING_TIMER_INTERVAL);
+                } else if (temp > 0) {
+                    DryingRackHelper.handleNormalDry(worldObj, xCoord, yCoord, zCoord, itemStack.dryingItem, DRYING_TIMER_INTERVAL);
                 }
             }
         }
@@ -264,36 +283,49 @@ public class TileEntityDryingRack extends TileEntity
         DryingRecipe recipe = DryingManager.getMatchingRecipe(itemStack);
 
         if (section >= 0 && section < MAX_STORAGE
-                && storage[section] == null && recipe != null) {
-            final boolean consumeTyingEquipment = recipe.getRequiresTyingEquipment();
-            ItemStack tyingEquipment = null;
+                && storage[section] == null) {
+            if (recipe != null) {
+                final boolean consumeTyingEquipment = recipe.getRequiresTyingEquipment();
+                ItemStack tyingEquipment = null;
 
-            if (consumeTyingEquipment) {
-                tyingEquipment = findAndConsumeTyingEquipment(player);
+                if (consumeTyingEquipment) {
+                    tyingEquipment = findAndConsumeTyingEquipment(player);
+                }
+
+                if (consumeTyingEquipment && tyingEquipment == null) {
+                    // Tying equipment needed and missing
+                    return false;
+                }
+
+                // Copy item to preserve NBT
+                ItemStack dryingItem = itemStack.copy();
+                dryingItem.stackSize = 1;
+
+                // If drying item already has some progress done
+                // we take this progress and move the start ticks back accordingly
+                final float initialProgress = recipe.getInitialProgress(itemStack);
+                final int initialTicks = Math.round(initialProgress * recipe.getDuration() * TFC_Time.HOUR_LENGTH);
+                final long startTicks = TFC_Time.getTotalTicks() - initialTicks;
+
+                storage[section] = new DryingRackItem(dryingItem, tyingEquipment, startTicks, false);
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+                clientNeedToUpdate = true;
+
+                return true;
+            } else if (itemStack.getItem() instanceof ItemClothing) {
+                ItemStack dryingItem = itemStack.copy();
+                dryingItem.stackSize = 1;
+
+                storage[section] = new DryingRackItem(dryingItem, null, 0, false);
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+                clientNeedToUpdate = true;
+
+                return true;
             }
-
-            if (consumeTyingEquipment && tyingEquipment == null) {
-                // Tying equipment needed and missing
-                return false;
-            }
-
-            // Copy item to preserve NBT
-            ItemStack dryingItem = itemStack.copy();
-            dryingItem.stackSize = 1;
-
-            // If drying item already has some progress done
-            // we take this progress and move the start ticks back accordingly
-            final float initialProgress = recipe.getInitialProgress(itemStack);
-            final int initialTicks = Math.round(initialProgress * recipe.getDuration() * TFC_Time.HOUR_LENGTH);
-            final long startTicks = TFC_Time.getTotalTicks() - initialTicks;
-
-            storage[section] = new DryingRackItem(dryingItem, tyingEquipment, startTicks, false);
-
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-
-            clientNeedToUpdate = true;
-
-            return true;
         }
 
         return false;
