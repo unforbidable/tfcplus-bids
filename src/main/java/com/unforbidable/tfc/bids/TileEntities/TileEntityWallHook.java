@@ -2,23 +2,17 @@ package com.unforbidable.tfc.bids.TileEntities;
 
 import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.*;
-import com.dunk.tfc.Items.Tools.*;
-import com.dunk.tfc.api.Enums.EnumWeight;
-import com.dunk.tfc.api.Interfaces.ISize;
-import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackHelper;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Timer;
-import com.unforbidable.tfc.bids.Items.ItemBucketRopeEmpty;
+import com.unforbidable.tfc.bids.Core.WallHook.WallHookHelper;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
-import net.minecraft.item.ItemShears;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
@@ -27,11 +21,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public class TileEntityWallHook extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
-
-    public static final int HANG_POS_NONE = 0;
-    public static final int HANG_POS_HIGH = 1;
-    public static final int HANG_POS_MID = 2;
-    public static final int HANG_POS_LOW = 3;
 
     private static final int MAX_STORAGE = 1;
 
@@ -65,7 +54,7 @@ public class TileEntityWallHook extends TileEntity implements IMessageHanldingTi
     }
 
     public boolean tryPlaceItemStack(ItemStack itemStack, EntityPlayer player) {
-        if (storage[SLOT_ITEM] == null && canPlaceItemStack(itemStack)) {
+        if (storage[SLOT_ITEM] == null && WallHookHelper.canPlaceItemStackOnWallHook(itemStack)) {
             storage[SLOT_ITEM] = itemStack.copy();
             storage[SLOT_ITEM].stackSize = 1;
 
@@ -79,38 +68,6 @@ public class TileEntityWallHook extends TileEntity implements IMessageHanldingTi
         }
 
         return false;
-    }
-
-    private boolean canPlaceItemStack(ItemStack is) {
-        return is.getItem() instanceof ItemTool ||
-            is.getItem() instanceof ItemHoe ||
-            is.getItem() instanceof ItemProPick ||
-            is.getItem() instanceof ItemBow ||
-            is.getItem() instanceof ItemSword ||
-            is.getItem() instanceof ItemShears ||
-            is.getItem() instanceof ItemSpindle ||
-            is.getItem() instanceof ItemTrowel ||
-            is.getItem() instanceof ItemLeatherBag && ((ISize)is.getItem()).getWeight(is) != EnumWeight.HEAVY ||
-            is.getItem() instanceof ItemWaterskin ||
-            is.getItem() instanceof ItemClothing;
-    }
-
-    public int getItemStackHangPosition() {
-        ItemStack is = storage[SLOT_ITEM];
-
-        if (is != null) {
-            if (is.getItem() instanceof ItemClothing ||
-                is.getItem() instanceof ItemLeatherBag) {
-                return HANG_POS_LOW;
-            } else if (is.getItem() instanceof ItemBow ||
-                is.getItem() instanceof ItemWaterskin) {
-                return HANG_POS_MID;
-            } else {
-                return HANG_POS_HIGH;
-            }
-        } else {
-            return HANG_POS_NONE;
-        }
     }
 
     public boolean tryRetrieveItemStack(EntityPlayer player) {

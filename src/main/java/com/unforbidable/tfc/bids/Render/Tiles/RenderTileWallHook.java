@@ -1,9 +1,10 @@
 package com.unforbidable.tfc.bids.Render.Tiles;
 
 import com.dunk.tfc.Render.TESR.TESRBase;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.Bounds.WallHookBounds;
+import com.unforbidable.tfc.bids.Core.WallHook.WallHookHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWallHook;
+import com.unforbidable.tfc.bids.api.Enums.EnumWallHookPos;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -22,8 +23,7 @@ public class RenderTileWallHook extends TESRBase {
             int orientation = tileentity.getBlockMetadata();
             WallHookBounds bounds = WallHookBounds.getBoundsForOrientation(orientation);
             int angle = getOrientationAngle(orientation);
-            int pos = ((TileEntityWallHook) tileentity).getItemStackHangPosition();
-            renderItemStack(x, y, z, itemStack, bounds, angle, pos);
+            renderItemStack(x, y, z, itemStack, bounds, angle);
         }
     }
 
@@ -31,18 +31,15 @@ public class RenderTileWallHook extends TESRBase {
         return (4 - orientation) * 90;
     }
 
-    private void renderItemStack(double x, double y, double z, ItemStack is, WallHookBounds bounds, int angle, int pos) {
+    private void renderItemStack(double x, double y, double z, ItemStack is, WallHookBounds bounds, int angle) {
         EntityItem customItem = new EntityItem(field_147501_a.field_147550_f); // tileEntityRenderer.worldObj
         customItem.hoverStart = 0f;
 
         float scale = 1f;
         Vec3 offset = bounds.getItemPos();
 
-        if (pos == TileEntityWallHook.HANG_POS_MID) {
-            offset = offset.addVector(0, -4 / 32f, 0);
-        } else if (pos == TileEntityWallHook.HANG_POS_LOW) {
-            offset = offset.addVector(0, -8 / 32f, 0);
-        }
+        EnumWallHookPos pos = WallHookHelper.getItemStackWallHookPosition(is);
+        offset = offset.addVector(0, -pos.getOffset(), 0);
 
         GL11.glPushMatrix(); // start
 
