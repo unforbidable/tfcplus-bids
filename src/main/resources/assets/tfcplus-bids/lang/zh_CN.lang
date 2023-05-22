@@ -135,6 +135,11 @@ tile.LogWallVert3.Yew.name=红豆杉原木墙
 
 tile.ClayLamp.name=油灯
 
+tile.WallHook.name=挂钩
+
+tile.Aquifer.name=沙砾
+tile.Aquifer2.name=沙砾
+
 item.Ore Bit.Bismuthinite.name=辉铋矿碎片
 item.Ore Bit.Cassiterite.name=锡精矿碎片
 item.Ore Bit.Galena.name=方铅矿碎片
@@ -500,6 +505,12 @@ item.Ceramic Bucket.MilkVinegar.name=陶瓷桶(奶醋)
 item.Wooden Bucket.Brine.name=木桶(卤水)
 item.Wooden Bucket.HoneyWater.name=木桶(蜂蜜水)
 item.Wooden Bucket.MilkVinegar.name=木桶(奶醋)
+
+item.Ceramic Bucket Rope.name=带绳陶瓷桶
+item.Ceramic Bucket Rope.FreshWater.name=带绳陶瓷桶(清水)
+
+item.Wooden Bucket Rope.name=带绳木桶
+item.Wooden Bucket Rope.FreshWater.name=带绳木桶(清水)
 
 item.Pottery Pipe.Clay.name=粘土管
 item.Pottery Pipe.Ceramic.name=陶瓷管
