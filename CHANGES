@@ -307,3 +307,11 @@
 - Added: Aquifer generates in clusters under ground allowing the construction of wells (GEN)
 - Added: Bucket and Rope to help draw water from wells
 - Added: Wall hooks for hanging certain items on walls
+
+0.27.1 (22-05-2023)
+- Changed: Clothes hung on drying rack and wall hooks get dry or wet over time according to environmental conditions
+- Changed: More items can be hung on a wall hook
+- Changed: Bowls, glass bottles, buckets and bucket with rope moved to Tools creative tab
+- Changed: Mods can specify items that can be hung on a wall hook via an API
+- Changed: Updated Chinese translation by Eternal130
+- Fixed: Items no longer render flipped when hung on a wall hook
