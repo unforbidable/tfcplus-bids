@@ -25,7 +25,7 @@ public class ItemGlassBottleFluid extends ItemTerra implements ISmashable {
     final FluidOverlayMap overlays;
 
     public ItemGlassBottleFluid() {
-        setCreativeTab(BidsCreativeTabs.bidsMaterials);
+        setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxStackSize(4);
 
         this.overlays = new FluidOverlayMap(OVERLAY_PARTS);

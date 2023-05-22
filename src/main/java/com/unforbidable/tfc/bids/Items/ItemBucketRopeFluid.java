@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Items;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +23,9 @@ public class ItemBucketRopeFluid extends ItemBucketFluid {
 
     public ItemBucketRopeFluid(boolean isPottery) {
         super(isPottery);
+
+        setCreativeTab(BidsCreativeTabs.bidsTools);
+        setMaxStackSize(1);
     }
 
     @Override

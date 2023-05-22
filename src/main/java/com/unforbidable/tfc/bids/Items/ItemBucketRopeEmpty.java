@@ -12,6 +12,7 @@ import com.dunk.tfc.api.Interfaces.ISmashable;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Util.Helper;
+import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import cpw.mods.fml.common.eventhandler.Event;
@@ -41,6 +42,9 @@ public class ItemBucketRopeEmpty extends ItemTerra implements ISmashable {
 
     public ItemBucketRopeEmpty(boolean isPottery) {
         this.isPottery = isPottery;
+
+        setCreativeTab(BidsCreativeTabs.bidsTools);
+        setMaxStackSize(1);
     }
 
     @Override

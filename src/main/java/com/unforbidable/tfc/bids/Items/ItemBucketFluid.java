@@ -27,7 +27,7 @@ public class ItemBucketFluid extends ItemTerra implements ISmashable {
     public ItemBucketFluid(boolean isPottery) {
         this.isPottery = isPottery;
 
-        setCreativeTab(BidsCreativeTabs.bidsMaterials);
+        setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxStackSize(1);
     }
 
