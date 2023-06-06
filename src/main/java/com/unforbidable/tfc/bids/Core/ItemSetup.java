@@ -185,35 +185,47 @@ public class ItemSetup extends BidsItems {
         ((ItemClothing) birchBarkShoes).setRepairCost(2);
 
         wheatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+                .setDecayRate(1.5f)
                 .setUnlocalizedName("Wheat Crushed");
         barleyCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20, false, false)
+                .setDecayRate(1.5f)
                 .setUnlocalizedName("Barley Crushed");
         oatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+                .setDecayRate(1.5f)
                 .setUnlocalizedName("Oat Crushed");
         ryeCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20, false, false)
+                .setDecayRate(1.5f)
                 .setUnlocalizedName("Rye Crushed");
         riceCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+                .setDecayRate(1.5f)
                 .setUnlocalizedName("Rice Crushed");
         cornmealCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20, false, false)
+                .setDecayRate(1.5f)
                 .setUnlocalizedName("Cornmeal Crushed");
 
         wheatPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
                 .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setDecayRate(2f)
                 .setUnlocalizedName("Wheat Porridge");
         barleyPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
                 .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setDecayRate(2f)
                 .setUnlocalizedName("Barley Porridge");
         oatPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
                 .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setDecayRate(2f)
                 .setUnlocalizedName("Oat Porridge");
         ryePorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
                 .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setDecayRate(2f)
                 .setUnlocalizedName("Rye Porridge");
         ricePorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
                 .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setDecayRate(2f)
                 .setUnlocalizedName("Rice Porridge");
         cornmealPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
                 .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+                .setDecayRate(2f)
                 .setUnlocalizedName("Cornmeal Porridge");
 
         plugAndFeather = new ItemPlugAndFeather()
