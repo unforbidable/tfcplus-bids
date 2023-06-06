@@ -428,9 +428,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                         }
 
                     }
-
-                    return true;
                 }
+
+                return true;
             }
         }
 
