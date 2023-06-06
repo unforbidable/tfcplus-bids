@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.TileEntities;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Sounds;
+import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.TileEntities.TEBasket;
@@ -11,7 +12,6 @@ import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockWorkStone;
 import com.unforbidable.tfc.bids.Core.Timer;
-import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernManager;
 import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
 
@@ -53,12 +53,12 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     ItemStack[] storage = new ItemStack[MAX_STORAGE];
     int orientation = 0;
     boolean isWorking = false;
+    long nextPressOperationTicks;
 
     Timer cancelOperationTimer = new Timer(0);
     Timer operationTimer = new Timer(0);
     Timer decayTimer = new Timer(100);
     Timer pressingReadyCheckTimer = new Timer(100);
-    Timer pressingTimer = new Timer(0);
 
     float workStonePosition = 0;
     int workStoneStage = 0;
@@ -307,17 +307,19 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                 ejectOutput();
             }
 
-            if (pressingReadyCheckTimer.tick()) {
+            if (pressingReadyCheckTimer.tick() && nextPressOperationTicks == 0) {
                 if (isPressActive()) {
-                    pressingTimer.delay(INIT_PRESSING_DELAY);
+                    Bids.LOG.debug("Pressing is ready");
+                    nextPressOperationTicks = TFC_Time.getTotalTicks() + INIT_PRESSING_DELAY;
                 }
             }
 
-            if (pressingTimer.tick()) {
+            if (nextPressOperationTicks != 0 && nextPressOperationTicks < TFC_Time.getTotalTicks()) {
                 if (isPressActive()) {
-                    processPressingInput();
-                    pressingTimer.delay(PRESSING_DELAY);
-                    pressingReadyCheckTimer.delay(PRESSING_DELAY + 10);
+                    processPressingInputRepeated();
+                } else {
+                    nextPressOperationTicks = 0;
+                    Bids.LOG.debug("Pressing stopped");
                 }
             }
 
@@ -337,6 +339,22 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         }
     }
 
+    private void processPressingInputRepeated() {
+        if (processPressingInput()) {
+            nextPressOperationTicks += PRESSING_DELAY;
+
+            if (nextPressOperationTicks < TFC_Time.getTotalTicks()) {
+                Bids.LOG.debug("Catching up on pressing ticks: " + (TFC_Time.getTotalTicks() - nextPressOperationTicks));
+            }
+
+            while (nextPressOperationTicks < TFC_Time.getTotalTicks() && processPressingInput()) {
+                nextPressOperationTicks += PRESSING_DELAY;
+            }
+
+            updateClient();
+        }
+    }
+
     private boolean isPressActive() {
         if (getWorkStoneType() == EnumWorkStoneType.SADDLE_QUERN_PRESSING) {
             ForgeDirection d = getOutputForgeDirection();
@@ -349,7 +367,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         return false;
     }
 
-    private void processPressingInput() {
+    private boolean processPressingInput() {
         if (storage[SLOT_INPUT_STACK] != null) {
             ItemStack input = storage[SLOT_INPUT_STACK];
             StonePressRecipe recipe = StonePressManager.getMatchingRecipe(storage[SLOT_INPUT_STACK]);
@@ -389,8 +407,6 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
                             storage[SLOT_INPUT_STACK] = null;
                         }
-
-                        updateClient();
                     } else {
                         int amountNeeded = recipe.getInput().stackSize;
                         int amountAvailable = input.stackSize;
@@ -411,11 +427,14 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                             storage[SLOT_INPUT_STACK] = null;
                         }
 
-                        updateClient();
                     }
+
+                    return true;
                 }
             }
         }
+
+        return false;
     }
 
     private boolean ejectLiquidOutputToContainer(FluidStack outputFluid) {
@@ -674,6 +693,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     public void writeDataToNBT(NBTTagCompound tag) {
         tag.setInteger("orientation", orientation);
         tag.setBoolean("isWorking", isWorking);
+        tag.setLong("nextPressOperationTicks", nextPressOperationTicks);
 
         NBTTagList itemTagList = new NBTTagList();
         for (int i = 0; i < MAX_STORAGE; i++) {
@@ -690,6 +710,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     public void readDataFromNBT(NBTTagCompound tag) {
         orientation = tag.getInteger("orientation");
         isWorking = tag.getBoolean("isWorking");
+        nextPressOperationTicks = tag.getLong("nextPressOperationTicks");
 
         for (int i = 0; i < MAX_STORAGE; i++) {
             storage[i] = null;
