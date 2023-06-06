@@ -633,9 +633,14 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         // Basket and unsealed vessel/barrel without liquid
         // are open containers and thus supported
         // Any derived TE might well work too
-        if (te instanceof TEBarrel) {
-            return te instanceof TEBasket
+        try {
+            // Caution while using non-api functionality of TFC+ that is subject to change
+            if (te instanceof TEBarrel) {
+                return te instanceof TEBasket
                     || !((TEBarrel) te).getSealed() && ((TEBarrel) te).getFluidLevel() == 0;
+            }
+        } catch (Exception ex) {
+            Bids.LOG.warn("Barrel is not compatible: " + ex.getMessage(), ex);
         }
 
         return false;
