@@ -5,6 +5,7 @@ import com.unforbidable.tfc.bids.Core.Network.NetworkSetup;
 import com.unforbidable.tfc.bids.Core.Player.PlayerTracker;
 import com.unforbidable.tfc.bids.Handlers.ConfigHandler;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
+import com.unforbidable.tfc.bids.Handlers.PlayerInteractHandler;
 import com.unforbidable.tfc.bids.Handlers.WorldEventHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -29,6 +30,8 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         RecipeSetup.init();
+
+        MinecraftForge.EVENT_BUS.register(new PlayerInteractHandler());
     }
 
     public void postInit(FMLPostInitializationEvent event) {
