@@ -315,3 +315,10 @@
 - Changed: Mods can specify items that can be hung on a wall hook via an API
 - Changed: Updated Chinese translation by Eternal130
 - Fixed: Items no longer render flipped when hung on a wall hook
+
+0.27.2 (06-06-2023)
+- Changed: Stone press continues to operate when the player sleeps and when its chunk is unloaded
+- Changed: Ceramic bucket and rope breaks less often when used
+- Changed: Reduced drying duration on a Drying Rack and bark fiber retting duration in barrel
+- Changed: Increased the decay rate of Coarse Flour and Porridge
+- Fixed: Porridge actually decays now
