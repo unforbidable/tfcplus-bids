@@ -442,9 +442,14 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         int xContainer = xCoord + d.offsetX;
         int zContainer = zCoord + d.offsetZ;
         TileEntity te = worldObj.getTileEntity(xContainer, yCoord, zContainer);
-        if (te instanceof TEBarrel) {
-            TEBarrel barrel = (TEBarrel) te;
-            return barrel.addLiquid(outputFluid);
+        try {
+            // Caution while using non-api functionality of TFC+ that is subject to change
+            if (te instanceof TEBarrel) {
+                TEBarrel barrel = (TEBarrel) te;
+                return barrel.addLiquid(outputFluid);
+            }
+        } catch (Exception ex) {
+            Bids.LOG.warn("Barrel is not compatible: " + ex.getMessage(), ex);
         }
 
         return false;
@@ -456,10 +461,15 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
             int xContainer = xCoord + d.offsetX;
             int zContainer = zCoord + d.offsetZ;
             TileEntity te = worldObj.getTileEntity(xContainer, yCoord, zContainer);
-            if (te instanceof TEBarrel) {
-                TEBarrel barrel = (TEBarrel) te;
-                return barrel.getFluidLevel() == 0
-                    || barrel.getFluidStack().isFluidEqual(outputFluid) && barrel.getFluidLevel() < barrel.getMaxLiquid();
+            try {
+                // Caution while using non-api functionality of TFC+ that is subject to change
+                if (te instanceof TEBarrel) {
+                    TEBarrel barrel = (TEBarrel) te;
+                    return barrel.getFluidLevel() == 0
+                        || barrel.getFluidStack().isFluidEqual(outputFluid) && barrel.getFluidLevel() < barrel.getMaxLiquid();
+                }
+            } catch (Exception ex) {
+                Bids.LOG.warn("Barrel is not compatible: " + ex.getMessage(), ex);
             }
         }
 
