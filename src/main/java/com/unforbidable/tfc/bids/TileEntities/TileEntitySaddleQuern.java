@@ -465,8 +465,10 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                 // Caution while using non-api functionality of TFC+ that is subject to change
                 if (te instanceof TEBarrel) {
                     TEBarrel barrel = (TEBarrel) te;
-                    return barrel.getFluidLevel() == 0
-                        || barrel.getFluidStack().isFluidEqual(outputFluid) && barrel.getFluidLevel() < barrel.getMaxLiquid();
+                    return !(barrel instanceof TEBasket) &&
+                        !barrel.getSealed() &&
+                        (barrel.getFluidLevel() == 0
+                        || barrel.getFluidStack().isFluidEqual(outputFluid) && barrel.getFluidLevel() < barrel.getMaxLiquid());
                 }
             } catch (Exception ex) {
                 Bids.LOG.warn("Barrel is not compatible: " + ex.getMessage(), ex);
