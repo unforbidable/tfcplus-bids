@@ -2,14 +2,11 @@ package com.unforbidable.tfc.bids.Items;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Sounds;
-import com.dunk.tfc.Entities.Mobs.EntityCowTFC;
 import com.dunk.tfc.Handlers.Network.ItemPotterySmashPacket;
 import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.TerraFirmaCraft;
-import com.dunk.tfc.api.Entities.IAnimal;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Interfaces.ISmashable;
-import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Util.Helper;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
@@ -19,21 +16,16 @@ import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 public class ItemBucketRopeEmpty extends ItemTerra implements ISmashable {
@@ -131,7 +123,7 @@ public class ItemBucketRopeEmpty extends ItemTerra implements ISmashable {
                 }
 
                 if (TFC_Core.isFreshWater(world.getBlock(flowX, flowY, flowZ))) {
-                    if (isPottery && random.nextInt(40) == 0)  {
+                    if (isPottery && random.nextInt(80) == 0)  {
                         world.playSoundAtEntity(player, TFC_Sounds.CERAMICBREAK, 0.7f,
                             player.worldObj.rand.nextFloat() * 0.2F + 0.8F);
                         return new ItemStack(TFCItems.rope, 1, 0);
