@@ -565,14 +565,14 @@ public class RecipeSetup {
         registerBowlMixingRecipe(BidsItems.woodenBucketMilkVinegar, BidsItems.vinegarBowl, TFCItems.woodenBucketMilk, TFCItems.woodenBucketEmpty, false);
 
         DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreStrip, 1, 1),
-                new ItemStack(BidsItems.barkFibreStrip, 1, 0), 24, false));
+                new ItemStack(BidsItems.barkFibreStrip, 1, 0), 12, false));
 
         // Meat and cheese drying from TFC
         final Item[] foodToDry = new Item[] { TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
                 TFCItems.porkchopRaw, TFCItems.fishRaw, TFCItems.seastarRaw, TFCItems.scallopRaw,
                 TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese };
         for (Item food : foodToDry) {
-            DryingManager.addRecipe(new FoodDryingRecipe(new ItemStack(food), 24, true));
+            DryingManager.addRecipe(new FoodDryingRecipe(new ItemStack(food), 12, true));
         }
 
         // Extra food drying
@@ -1034,7 +1034,7 @@ public class RecipeSetup {
                 BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(
                         new ItemStack(BidsItems.bark, 1, i), new FluidStack(TFCFluids.FRESHWATER, 625),
                         new ItemStack(BidsItems.barkFibre, 1, 0), new FluidStack(TFCFluids.FRESHWATER, 500))
-                        .setSealTime(48).setMinTechLevel(0));
+                        .setSealTime(8).setMinTechLevel(0));
             }
 
             // Extracting tannin from bark
