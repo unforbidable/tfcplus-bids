@@ -102,8 +102,10 @@ public class ItemDrill extends Item implements ISize {
                 // It makes sense and it also stops the use animation
                 player.stopUsingItem();
                 QuarryDrillTarget original = QuarryDrillDataAgent.getTarget(player);
-                Block block = player.worldObj.getBlock(original.x, original.y, original.z);
-                damageDrill(player.worldObj, original.x, original.y, original.z, stack, player, block);
+                if (original != null) {
+                    Block block = player.worldObj.getBlock(original.x, original.y, original.z);
+                    damageDrill(player.worldObj, original.x, original.y, original.z, stack, player, block);
+                }
                 Bids.LOG.debug("Use cancelled because the target has changed");
                 return;
             }
@@ -132,7 +134,7 @@ public class ItemDrill extends Item implements ISize {
     }
 
     private boolean isTargetSameBlock(int x, int y, int z, int side, EntityPlayer player) {
-        return QuarryDrillDataAgent.getTarget(player).equals(new QuarryDrillTarget(x, y, z, side));
+        return QuarryDrillDataAgent.getTarget(player) != null && QuarryDrillDataAgent.getTarget(player).equals(new QuarryDrillTarget(x, y, z, side));
     }
 
     @Override

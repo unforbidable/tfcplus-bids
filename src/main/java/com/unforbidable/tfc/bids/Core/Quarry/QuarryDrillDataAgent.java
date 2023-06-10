@@ -26,7 +26,7 @@ public class QuarryDrillDataAgent {
     }
 
     public static QuarryDrillTarget getTarget(EntityPlayer player) {
-        return data.get(player).getTarget();
+        return data.containsKey(player) ? data.get(player).getTarget() : null;
     }
 
 }
