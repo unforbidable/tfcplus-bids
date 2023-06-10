@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.Blocks;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import com.dunk.tfc.Blocks.Terrain.BlockCollapsible;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
@@ -23,14 +22,32 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockRoughStone extends Block {
 
-    protected IIcon sandstoneTop;
+    protected IIcon topIcons[];
     protected IIcon icons[];
     protected String[] names;
+    protected List<Integer> metaWhitelist = null;
+    protected boolean allHaveTopTexture = false;
+    protected boolean sandstoneHasTopTexture = false;
 
     public BlockRoughStone() {
         super(Material.rock);
         setCreativeTab(BidsCreativeTabs.bidsBuildingBlocks);
         setHardness(10f);
+    }
+
+    public BlockRoughStone setMetaOnly(Integer ...metaOnly) {
+        this.metaWhitelist = Arrays.asList(metaOnly);
+        return this;
+    }
+
+    public BlockRoughStone setAllHaveTopTexture(boolean allHaveTopTexture) {
+        this.allHaveTopTexture = allHaveTopTexture;
+        return this;
+    }
+
+    public BlockRoughStone setSandstoneHasTopTexture(boolean sandstoneHasTopTexture) {
+        this.sandstoneHasTopTexture = sandstoneHasTopTexture;
+        return this;
     }
 
     @Override
@@ -58,18 +75,28 @@ public class BlockRoughStone extends Block {
     @Override
     public void registerBlockIcons(IIconRegister iconRegisterer) {
         icons = new IIcon[names.length];
+        topIcons = new IIcon[names.length];
         for (int i = 0; i < names.length; i++) {
+            if (metaWhitelist != null && !metaWhitelist.contains(i)) {
+                continue;
+            }
+
             icons[i] = iconRegisterer.registerIcon(Tags.MOD_ID + ":rocks/"
                     + names[i] + " " + getTextureName());
+
+            if (allHaveTopTexture || sandstoneHasTopTexture && i == 4) {
+                topIcons[i] = iconRegisterer.registerIcon(Tags.MOD_ID + ":rocks/"
+                    + names[i] + " " + getTextureName() + " Top");
+            }
         }
-        sandstoneTop = iconRegisterer.registerIcon(Tags.MOD_ID + ":rocks/"
-                + "Sandstone Top " + getTextureName());
     }
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        if (meta == 4 && side < 2) {
-            return sandstoneTop;
+        if (side < 2) {
+            if (allHaveTopTexture || sandstoneHasTopTexture && meta == 4) {
+                return topIcons[meta];
+            }
         }
         return icons[meta];
     }
@@ -79,6 +106,10 @@ public class BlockRoughStone extends Block {
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (int i = 0; i < names.length; i++) {
+            if (metaWhitelist != null && !metaWhitelist.contains(i)) {
+                continue;
+            }
+
             par3List.add(new ItemStack(par1, 1, i));
         }
     }

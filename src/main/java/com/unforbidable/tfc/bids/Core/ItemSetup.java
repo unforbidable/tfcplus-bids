@@ -119,7 +119,13 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("MM Stone Adze");
 
         sedRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_SED)
+                .setTextureName("Rough Brick")
                 .setUnlocalizedName("Sed Rough Stone Loose Brick");
+
+        sedRoughStoneLooseTile = new ItemRoughBrick().setNames(Global.STONE_SED)
+                .setMetaOnly(0) // Only Shale
+                .setTextureName("Rough Tile")
+                .setUnlocalizedName("Sed Rough Stone Loose Tile");
 
         peeledLog = new ItemPeeledLog().setNames(Global.WOOD_ALL)
                 .setUnlocalizedName("Peeled Log");
@@ -583,6 +589,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(ceramicBucketRopeWater, ceramicBucketRopeWater.getUnlocalizedName());
         GameRegistry.registerItem(woodenBucketRope, woodenBucketRope.getUnlocalizedName());
         GameRegistry.registerItem(woodenBucketRopeWater, woodenBucketRopeWater.getUnlocalizedName());
+
+        GameRegistry.registerItem(sedRoughStoneLooseTile, sedRoughStoneLooseTile.getUnlocalizedName());
     }
 
 }

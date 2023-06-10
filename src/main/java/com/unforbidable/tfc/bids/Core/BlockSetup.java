@@ -88,12 +88,20 @@ public class BlockSetup extends BidsBlocks {
         newFirepit = new BlockNewFirepit().setBlockName("NewFirepit");
 
         roughStoneSed = new BlockRoughStone()
+                .setSandstoneHasTopTexture(true)
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
                 .setBlockTextureName("Rough");
 
         roughStoneBrickSed = new BlockRoughStoneBrick()
+                .setSandstoneHasTopTexture(true)
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneBrickSed")
                 .setBlockTextureName("Rough Brick");
+
+        roughStoneTileSed = new BlockRoughStoneBrick()
+                .setAllHaveTopTexture(true)
+                .setMetaOnly(0) // Only Shale
+                .setNames(Global.STONE_SED).setBlockName("RoughStoneTileSed")
+                .setBlockTextureName("Rough Tile");
 
         logWallEast = new BlockLogWall(EnumLogWallType.EAST, 0).setBlockName("LogWallEast");
         logWallNorth = new BlockLogWall(EnumLogWallType.NORTH, 0).setBlockName("LogWallNorth");
@@ -193,6 +201,7 @@ public class BlockSetup extends BidsBlocks {
         roughStoneSed.setHarvestLevel("shovel", 0);
 
         roughStoneBrickSed.setHarvestLevel("shovel", 0);
+        roughStoneTileSed.setHarvestLevel("shovel", 0);
 
         carvingRock.setHarvestLevel("shovel", 0);
         carvingWood.setHarvestLevel("axe", 0);
@@ -399,7 +408,6 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(newFirepit, "NewFirepit");
 
         GameRegistry.registerBlock(roughStoneSed, ItemRoughStone.class, "RoughStoneSed");
-
         GameRegistry.registerBlock(roughStoneBrickSed, ItemRoughStoneBrick.class, "RoughStoneBrickSed");
 
         GameRegistry.registerBlock(logWallEast, ItemLogWall.class, "LogWallEast");
@@ -458,6 +466,8 @@ public class BlockSetup extends BidsBlocks {
 
         GameRegistry.registerBlock(aquifer, ItemGenericSoil.class, "Aquifer");
         GameRegistry.registerBlock(aquifer2, ItemGenericSoil.class, "Aquifer2");
+
+        GameRegistry.registerBlock(roughStoneTileSed, ItemRoughStoneBrick.class, "RoughStoneTileSed");
     }
 
 }
