@@ -1,10 +1,13 @@
 package com.unforbidable.tfc.bids.Core.SaddleQuern;
 
+import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLogSeasoned;
 import com.unforbidable.tfc.bids.TileEntities.TileEntitySaddleQuern;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityStonePressLever;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityStonePressWeight;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -52,7 +55,10 @@ public class StonePressHelper {
     }
 
     public static boolean isValidAnchorBlockAt(World world, int x, int y, int z) {
-        return world.getBlock(x, y, z) == BidsBlocks.roughStoneBrickSed;
+        Block block = world.getBlock(x, y, z);
+        return block == BidsBlocks.roughStoneBrickSed ||
+            block == TFCBlocks.wattleDaub ||
+            TFC_Core.isBrickStone(block);
     }
 
     public static boolean isWeightLiftedAt(IBlockAccess world, int x, int y, int z) {
