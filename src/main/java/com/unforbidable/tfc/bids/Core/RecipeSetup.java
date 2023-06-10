@@ -182,16 +182,34 @@ public class RecipeSetup {
         }
 
         for (int j = 0; j < Global.STONE_SED.length; j++) {
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseBrick, 4, j),
-                    new ItemStack(BidsBlocks.roughStoneSed, 1, j), "itemAdze"));
+            if (j == 0) {
+                // Shale can split into tiles
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseTile, 4, j),
+                    "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseTile, 4, j),
+                    "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
+
+                GameRegistry.addRecipe(
+                    new ItemStack(BidsBlocks.roughStoneTileSed, 2, j),
+                    "BB", "BB", 'B', new ItemStack(BidsItems.sedRoughStoneLooseTile, 1, j));
+            }
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseBrick, 4, j),
+                "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseBrick, 4, j),
+                "S ", "A ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
+
             GameRegistry.addRecipe(
-                    new ItemStack(BidsBlocks.roughStoneBrickSed, 2, j),
-                    "BB", "BB", 'B', new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j));
+                new ItemStack(BidsBlocks.roughStoneBrickSed, 2, j),
+                "BB", "BB", 'B', new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j));
         }
 
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemAdze")
                 .matchCraftingItem(BidsItems.sedRoughStoneLooseBrick));
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemAdze")
+                .matchCraftingItem(BidsItems.sedRoughStoneLooseTile));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igInStoneDrill, 1, 0),
                 BidsItems.igInStoneDrillHead, "stickWood", TFCItems.bow));
