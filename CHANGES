@@ -322,3 +322,9 @@
 - Changed: Reduced drying duration on a Drying Rack and bark fiber retting duration in barrel
 - Changed: Increased the decay rate of Coarse Flour and Porridge
 - Fixed: Porridge actually decays now
+
+0.27.3 (10-06-2023)
+- Changed: Wattle and Daub, Bricks and Stone Bricks can be used to anchor the stone press lever
+- Changed: Clay lamps take a little more effort to mine
+- Fixed: Clay lamps dropping an extra copy of itself when mined
+- Fixed: Crash when the cursor moves outside any block collision during quarrying
