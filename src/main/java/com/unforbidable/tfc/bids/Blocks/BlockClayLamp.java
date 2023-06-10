@@ -40,10 +40,11 @@ public class BlockClayLamp extends BlockContainer {
     IIcon sideIcon;
 
     public BlockClayLamp() {
-        super(Material.circuits);
+        super(Material.rock);
 
         setCreativeTab(BidsCreativeTabs.bidsDefault);
         setTickRandomly(true);
+        setHardness(0.25f);
     }
 
     @Override
