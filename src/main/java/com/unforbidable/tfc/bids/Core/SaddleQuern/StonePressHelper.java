@@ -57,6 +57,7 @@ public class StonePressHelper {
     public static boolean isValidAnchorBlockAt(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
         return block == BidsBlocks.roughStoneBrickSed ||
+            block == TFCBlocks.bricks ||
             block == TFCBlocks.wattleDaub ||
             TFC_Core.isBrickStone(block);
     }
