@@ -32,6 +32,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BlockClayLamp extends BlockContainer {
@@ -147,6 +148,11 @@ public class BlockClayLamp extends BlockContainer {
         if (!canSupportTorch(world, x, y - 1, z)) {
             TFC_Core.setBlockToAirWithDrops(world, x, y, z);
         }
+    }
+
+    @Override
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+        return new ArrayList<ItemStack>();
     }
 
     @Override
