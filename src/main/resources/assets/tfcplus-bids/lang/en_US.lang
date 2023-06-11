@@ -65,6 +65,7 @@ tile.RoughStoneBrickSed.Limestone.name=Rough Limestone Bricks
 tile.RoughStoneBrickSed.Rock Salt.name=Rough Rock Salt Bricks
 tile.RoughStoneBrickSed.Shale.name=Rough Shale Bricks
 
+tile.RoughStoneTileSed.Sandstone.name=Rough Sandstone Tiles
 tile.RoughStoneTileSed.Shale.name=Rough Shale Tiles
 
 tile.LogWall.Ash.name=Ash Log Wall
@@ -546,6 +547,7 @@ item.Sed Rough Stone Loose Brick.Limestone.name=Rough Limestone Brick
 item.Sed Rough Stone Loose Brick.Rock Salt.name=Rough Rock Salt Brick
 item.Sed Rough Stone Loose Brick.Shale.name=Rough Shale Brick
 
+item.Sed Rough Stone Loose Tile.Sandstone.name=Rough Sandstone Tile
 item.Sed Rough Stone Loose Tile.Shale.name=Rough Shale Tile
 
 item.Peeled Log.Acacia.name=Peeled Acacia Log

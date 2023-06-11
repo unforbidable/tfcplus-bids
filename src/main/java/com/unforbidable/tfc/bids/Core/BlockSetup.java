@@ -99,7 +99,7 @@ public class BlockSetup extends BidsBlocks {
 
         roughStoneTileSed = new BlockRoughStoneBrick()
                 .setAllHaveTopTexture(true)
-                .setMetaOnly(0) // Only Shale
+                .setMetaOnly(0, 4) // Only Shale and Sandstone
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneTileSed")
                 .setBlockTextureName("Rough Tile");
 

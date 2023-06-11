@@ -182,8 +182,8 @@ public class RecipeSetup {
         }
 
         for (int j = 0; j < Global.STONE_SED.length; j++) {
-            if (j == 0) {
-                // Shale can split into tiles
+            if (j == 0 || j == 4) {
+                // Shale and Sandstone can split into tiles
                 GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseTile, 4, j),
                     "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
                 GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseTile, 4, j),
