@@ -63,7 +63,10 @@ public class QuarriableStone implements IQuarriable {
 
     @Override
     public boolean isSufficientEquipmentTier(Block block, int metadata, EnumQuarryEquipmentTier equipmentTier) {
+        if (block == TFCBlocks.stoneSed || block == TFCBlocks.stoneMM && metadata == 1)
             return true;
+        else
+            return equipmentTier == EnumQuarryEquipmentTier.BRONZE;
     }
 
     @Override

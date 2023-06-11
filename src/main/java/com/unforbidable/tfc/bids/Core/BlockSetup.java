@@ -91,16 +91,29 @@ public class BlockSetup extends BidsBlocks {
                 .setSandstoneHasTopTexture(true)
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
                 .setBlockTextureName("Rough");
+        roughStoneMM = new BlockRoughStone()
+                .setMetaOnly(1) // Only slate
+                .setNames(Global.STONE_MM).setBlockName("RoughStoneMM")
+                .setBlockTextureName("Rough");
 
         roughStoneBrickSed = new BlockRoughStoneBrick()
                 .setSandstoneHasTopTexture(true)
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneBrickSed")
+                .setBlockTextureName("Rough Brick");
+        roughStoneBrickMM = new BlockRoughStoneBrick()
+                .setMetaOnly() // No blocks yet!
+                .setNames(Global.STONE_MM).setBlockName("RoughStoneBrickMM")
                 .setBlockTextureName("Rough Brick");
 
         roughStoneTileSed = new BlockRoughStoneBrick()
                 .setAllHaveTopTexture(true)
                 .setMetaOnly(0, 4) // Only Shale and Sandstone
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneTileSed")
+                .setBlockTextureName("Rough Tile");
+        roughStoneTileMM = new BlockRoughStoneBrick()
+                .setAllHaveTopTexture(true)
+                .setMetaOnly(1) // Only Slate
+                .setNames(Global.STONE_MM).setBlockName("RoughStoneTileMM")
                 .setBlockTextureName("Rough Tile");
 
         logWallEast = new BlockLogWall(EnumLogWallType.EAST, 0).setBlockName("LogWallEast");
@@ -199,9 +212,11 @@ public class BlockSetup extends BidsBlocks {
         Bids.LOG.info("Set block harvestability");
 
         roughStoneSed.setHarvestLevel("shovel", 0);
-
         roughStoneBrickSed.setHarvestLevel("shovel", 0);
         roughStoneTileSed.setHarvestLevel("shovel", 0);
+        roughStoneMM.setHarvestLevel("shovel", 0);
+        roughStoneBrickMM.setHarvestLevel("shovel", 0);
+        roughStoneTileMM.setHarvestLevel("shovel", 0);
 
         carvingRock.setHarvestLevel("shovel", 0);
         carvingWood.setHarvestLevel("axe", 0);
@@ -211,7 +226,7 @@ public class BlockSetup extends BidsBlocks {
     }
 
     private static void setupFireInfo() {
-        Bids.LOG.info("Set block flamability");
+        Bids.LOG.info("Set block flammability");
 
         Blocks.fire.setFireInfo(logWallEast, 5, 5);
         Blocks.fire.setFireInfo(logWallNorth, 5, 5);
@@ -276,6 +291,7 @@ public class BlockSetup extends BidsBlocks {
         Bids.LOG.info("Register quarriable blocks");
 
         QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneSed, roughStoneSed, 1, 1));
+        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, roughStoneMM, 2, 1.5f));
     }
 
     @SideOnly(Side.CLIENT)
@@ -468,6 +484,10 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(aquifer2, ItemGenericSoil.class, "Aquifer2");
 
         GameRegistry.registerBlock(roughStoneTileSed, ItemRoughStoneBrick.class, "RoughStoneTileSed");
+
+        GameRegistry.registerBlock(roughStoneMM, ItemRoughStone.class, "RoughStoneMM");
+        GameRegistry.registerBlock(roughStoneBrickMM, ItemRoughStoneBrick.class, "RoughStoneBrickMM");
+        GameRegistry.registerBlock(roughStoneTileMM, ItemRoughStoneBrick.class, "RoughStoneTileMM");
     }
 
 }

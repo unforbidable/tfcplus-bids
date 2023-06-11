@@ -121,11 +121,19 @@ public class ItemSetup extends BidsItems {
         sedRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_SED)
                 .setTextureName("Rough Brick")
                 .setUnlocalizedName("Sed Rough Stone Loose Brick");
+        mMRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_MM)
+                .setMetaOnly() // No items yet
+                .setTextureName("Rough Brick")
+                .setUnlocalizedName("MM Rough Stone Loose Brick");
 
         sedRoughStoneLooseTile = new ItemRoughBrick().setNames(Global.STONE_SED)
                 .setMetaOnly(0, 4) // Only Shale and Sandstone
                 .setTextureName("Rough Tile")
                 .setUnlocalizedName("Sed Rough Stone Loose Tile");
+        mMRoughStoneLooseTile = new ItemRoughBrick().setNames(Global.STONE_MM)
+                .setMetaOnly(1) // Only Slate
+                .setTextureName("Rough Tile")
+                .setUnlocalizedName("MM Rough Stone Loose Tile");
 
         peeledLog = new ItemPeeledLog().setNames(Global.WOOD_ALL)
                 .setUnlocalizedName("Peeled Log");
@@ -591,6 +599,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(woodenBucketRopeWater, woodenBucketRopeWater.getUnlocalizedName());
 
         GameRegistry.registerItem(sedRoughStoneLooseTile, sedRoughStoneLooseTile.getUnlocalizedName());
+        GameRegistry.registerItem(mMRoughStoneLooseBrick, mMRoughStoneLooseBrick.getUnlocalizedName());
+        GameRegistry.registerItem(mMRoughStoneLooseTile, mMRoughStoneLooseTile.getUnlocalizedName());
     }
 
 }

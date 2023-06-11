@@ -211,6 +211,24 @@ public class RecipeSetup {
                 .addTools("itemAdze")
                 .matchCraftingItem(BidsItems.sedRoughStoneLooseTile));
 
+        for (int j = 0; j < Global.STONE_MM.length; j++) {
+            if (j == 1) {
+                // Slate can only split into tiles
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.mMRoughStoneLooseTile, 4, j),
+                    "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdze"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.mMRoughStoneLooseTile, 4, j),
+                    "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdze"));
+
+                GameRegistry.addRecipe(
+                    new ItemStack(BidsBlocks.roughStoneTileMM, 2, j),
+                    "BB", "BB", 'B', new ItemStack(BidsItems.mMRoughStoneLooseTile, 1, j));
+            }
+        }
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemAdze")
+            .matchCraftingItem(BidsItems.mMRoughStoneLooseTile));
+
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igInStoneDrill, 1, 0),
                 BidsItems.igInStoneDrillHead, "stickWood", TFCItems.bow));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.sedStoneDrill, 1, 0),
