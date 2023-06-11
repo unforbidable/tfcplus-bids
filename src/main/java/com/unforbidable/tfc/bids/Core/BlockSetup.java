@@ -279,6 +279,7 @@ public class BlockSetup extends BidsBlocks {
 
         CarvingRegistry.registerCarving(new CarvingRoughStone());
         CarvingRegistry.registerCarving(new CarvingRoughStoneBrick());
+        CarvingRegistry.registerCarving(new CarvingRoughStoneTile());
         CarvingRegistry.registerCarving(new CarvingRawStone());
         CarvingRegistry.registerCarving(new CarvingLogWall());
         CarvingRegistry.registerCarving(new CarvingLogWallVert());

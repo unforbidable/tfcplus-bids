@@ -1,22 +1,20 @@
 package com.unforbidable.tfc.bids.Core.Carving.Carvings;
 
-import java.util.Random;
-
-import com.dunk.tfc.api.TFCItems;
-import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class CarvingRoughStone implements ICarving {
+import java.util.Random;
+
+public class CarvingRoughStoneTile implements ICarving {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block == BidsBlocks.roughStoneSed || block == BidsBlocks.roughStoneMM;
+        return block == BidsBlocks.roughStoneTileSed || block == BidsBlocks.roughStoneTileMM;
     }
 
     @Override
@@ -31,23 +29,20 @@ public class CarvingRoughStone implements ICarving {
 
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
-        final int n = random.nextInt(2) + 1;
-        ItemStack[] list = new ItemStack[n];
-        if (block == BidsBlocks.roughStoneSed) {
-            for (int i = 0; i < n; i++)
-                list[i] = new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_SED_START);
-        } else if (block == BidsBlocks.roughStoneMM) {
-            for (int i = 0; i < n; i++)
-                list[i] = new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_MM_START);
+        ItemStack[] list = new ItemStack[2];
+        if (block == BidsBlocks.roughStoneTileSed) {
+            for (int i = 0; i < 2; i++)
+                list[i] = new ItemStack(BidsItems.sedRoughStoneLooseTile, 1, metadata);
+        } else if (block == BidsBlocks.roughStoneTileMM) {
+            for (int i = 0; i < 2; i++)
+                list[i] = new ItemStack(BidsItems.mMRoughStoneLooseTile, 1, metadata);
         }
         return list;
     }
 
     @Override
     public ItemStack getCarvingExtraHarvest(Block block, int metadata, Random random, float bitRatio) {
-        return random.nextDouble() < 2 * bitRatio
-                ? new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_SED_START)
-                : null;
+        return null;
     }
 
     @Override
