@@ -1,7 +1,10 @@
 package com.unforbidable.tfc.bids.Core.Quarry.Quarriables;
 
 import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.Enums.EnumQuarryEquipmentTier;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
 import net.minecraft.block.Block;
@@ -36,7 +39,7 @@ public class QuarriableStone implements IQuarriable {
     }
 
     @Override
-    public int getQuarriedBlockMetadata(int metadata) {
+    public int getQuarriedBlockMetadata(Block block, int metadata) {
         return metadata;
     }
 
@@ -51,6 +54,19 @@ public class QuarriableStone implements IQuarriable {
     }
 
     @Override
+    public boolean canQuarryBlock(Block block, int metadata) {
+        if (block == TFCBlocks.stoneSed || block == TFCBlocks.stoneMM && metadata == 1)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public boolean isSufficientEquipmentTier(Block block, int metadata, EnumQuarryEquipmentTier equipmentTier) {
+            return true;
+    }
+
+    @Override
     public boolean isQuarryReady(World world, int x, int y, int z) {
         ForgeDirection[] sides = new ForgeDirection[] { ForgeDirection.UP, ForgeDirection.NORTH, ForgeDirection.WEST };
         for (ForgeDirection d : sides) {
@@ -62,17 +78,17 @@ public class QuarriableStone implements IQuarriable {
     }
 
     @Override
-    public boolean blockRequiresWedgesToDetach(Block block) {
+    public boolean blockRequiresWedgesToDetach(Block block, int metadata) {
         return TFC_Core.isRawStone(block);
     }
 
     @Override
-    public int getDrillDamage(Block block) {
+    public int getDrillDamage(Block block, int metadata) {
         return drillDamage;
     }
 
     @Override
-    public float getDrillDurationMultiplier(Block block) {
+    public float getDrillDurationMultiplier(Block block, int metadata) {
         return drillDurationMultiplier;
     }
 
@@ -96,17 +112,15 @@ public class QuarriableStone implements IQuarriable {
             // Skip d and opposite
             if (d != edge && d.getOpposite() != edge) {
                 Block block = world.getBlock(x + edge.offsetX, y + edge.offsetY, z + edge.offsetZ);
-                if (blockRequiresWedgesToDetach(block)) {
+                int metadata = world.getBlockMetadata(x + edge.offsetX, y + edge.offsetY, z + edge.offsetZ);
+                if (blockRequiresWedgesToDetach(block, metadata)) {
                     found = true;
                     break;
                 }
             }
         }
 
-        if (!found)
-            return true;
-
-        return false;
+        return !found;
     }
 
 }

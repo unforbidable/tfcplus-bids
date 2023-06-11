@@ -6,19 +6,43 @@ import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 
+import com.unforbidable.tfc.bids.api.Enums.EnumQuarryEquipmentTier;
+import com.unforbidable.tfc.bids.api.Interfaces.IPlugAndFeather;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ItemPlugAndFeather extends Item implements ISize {
+public class ItemPlugAndFeather extends Item implements ISize, IPlugAndFeather {
 
     public ItemPlugAndFeather() {
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
+    }
+
+    @Override
+    public EnumQuarryEquipmentTier getPlugAndFeatherQuarryEquipmentTier(ItemStack itemStack) {
+        return EnumQuarryEquipmentTier.STONE;
+    }
+
+    @Override
+    public float getPlugAndFeatherDropRate(ItemStack itemStack) {
+        return 0.6f;
+    }
+
+    @Override
+    public Block getPlugAndFeatherRenderBlock(ItemStack itemStack) {
+        return TFCBlocks.woodSupportV;
+    }
+
+    @Override
+    public int getPlugAndFeatherRenderBlockMetadata(ItemStack itemStack) {
+        return 5;
     }
 
     @Override

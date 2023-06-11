@@ -3,9 +3,8 @@ package com.unforbidable.tfc.bids.Core.Quarry;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
-
+import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -32,7 +31,8 @@ public class QuarryHelper {
             // Skip front and back relative to quarry location
             if (d != orientation && d != orientation.getOpposite()) {
                 Block block = world.getBlock(x + d.offsetX, y + d.offsetY, z + d.offsetZ);
-                if (quarriable.blockRequiresWedgesToDetach(block))
+                int metadata = world.getBlockMetadata(x + d.offsetX, y + d.offsetY, z + d.offsetZ);
+                if (quarriable.blockRequiresWedgesToDetach(block, metadata))
                     count++;
             }
         }

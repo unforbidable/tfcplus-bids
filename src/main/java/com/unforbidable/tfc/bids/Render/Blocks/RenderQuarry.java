@@ -1,20 +1,19 @@
 package com.unforbidable.tfc.bids.Render.Blocks;
 
-import java.util.Map;
-
-import org.lwjgl.opengl.GL11;
-
-import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Quarry.QuarrySideWedgeData;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryWedgeBounds;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryWedgeModeller;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
-
+import com.unforbidable.tfc.bids.api.Interfaces.IPlugAndFeather;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
+import org.lwjgl.opengl.GL11;
 
 public class RenderQuarry implements ISimpleBlockRenderingHandler {
 
@@ -37,33 +36,28 @@ public class RenderQuarry implements ISimpleBlockRenderingHandler {
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
             RenderBlocks renderer) {
         TileEntityQuarry quarry = (TileEntityQuarry) world.getTileEntity(x, y, z);
-        ForgeDirection front = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) & 7);
-        ForgeDirection back = front.getOpposite();
+        ForgeDirection orientation = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) & 7);
 
-        Map<ForgeDirection, Integer> wedges = quarry.getWedges();
-        if (wedges != null) {
-            renderer.renderAllFaces = true;
+        renderer.renderAllFaces = true;
 
-            for (ForgeDirection edge : ForgeDirection.VALID_DIRECTIONS) {
-                // Skip front and back relative to quarry location
-                if (edge != front && edge != back) {
-                    if (wedges.containsKey(edge)) {
-                        int count = wedges.get(edge);
-                        if (count > 0) {
-                            QuarryWedgeBounds[] b = QuarryWedgeModeller.getEdgeWedgeBounds(front, edge);
-                            for (int i = 0; i < count; i++) {
-                                renderer.setRenderBounds(b[i].x1, b[i].y1, b[i].z1, b[i].x2, b[i].y2, b[i].z2);
-                                renderer.renderStandardBlock(block, x, y, z);
-                            }
-                        }
-                    }
-                }
+        for (QuarrySideWedgeData data : quarry.getWedges()) {
+            QuarryWedgeBounds[] b = QuarryWedgeModeller.getEdgeWedgeBounds(orientation, data.direction);
+            int i = 0;
+            for (ItemStack wedge : data.storage) {
+                Block wedgeBlock = ((IPlugAndFeather)wedge.getItem()).getPlugAndFeatherRenderBlock(wedge);
+                int wedgeMetadata = ((IPlugAndFeather)wedge.getItem()).getPlugAndFeatherRenderBlockMetadata(wedge);
+
+                Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, wedgeMetadata, 0);
+
+                renderer.setRenderBounds(b[i].x1, b[i].y1, b[i].z1, b[i].x2, b[i].y2, b[i].z2);
+                renderer.renderStandardBlock(wedgeBlock, x, y, z);
+                i++;
             }
-
-            renderer.renderAllFaces = false;
-        } else {
-            Bids.LOG.debug("Wedges not initialized yet, won't render");
         }
+
+        Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, orientation.ordinal(), 0);
+
+        renderer.renderAllFaces = false;
 
         return true;
     }

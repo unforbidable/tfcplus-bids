@@ -18,6 +18,8 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.Enums.EnumQuarryEquipmentTier;
+import com.unforbidable.tfc.bids.api.Interfaces.IPlugAndFeather;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
@@ -39,19 +41,16 @@ public class ItemDrill extends Item implements ISize {
 
     static final int MAX_USE_DURATION = 72000;
 
-    final private ToolMaterial material;
-
     public ItemDrill(ToolMaterial material) {
         super();
-        this.material = material;
         maxStackSize = 1;
         setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxDamage(material.getMaxUses());
         setNoRepair();
     }
 
-    public ToolMaterial getMaterial() {
-        return material;
+    public EnumQuarryEquipmentTier getDrillQuarryEquipmentTier(ItemStack itemStack) {
+        return EnumQuarryEquipmentTier.STONE;
     }
 
     @Override
@@ -104,7 +103,8 @@ public class ItemDrill extends Item implements ISize {
                 QuarryDrillTarget original = QuarryDrillDataAgent.getTarget(player);
                 if (original != null) {
                     Block block = player.worldObj.getBlock(original.x, original.y, original.z);
-                    damageDrill(player.worldObj, original.x, original.y, original.z, stack, player, block);
+                    int metadata = player.worldObj.getBlockMetadata(original.x, original.y, original.z);
+                    damageDrill(player.worldObj, original.x, original.y, original.z, stack, player, block, metadata);
                 }
                 Bids.LOG.debug("Use cancelled because the target has changed");
                 return;
@@ -116,7 +116,7 @@ public class ItemDrill extends Item implements ISize {
             player.stopUsingItem();
             MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
             if (mop != null && mop.typeOfHit == MovingObjectType.BLOCK
-                    && canDrillAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit)) {
+                    && canPlayerDrillAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, player)) {
                 onBlockDrilled(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, stack, player);
                 QuarryDrillDataAgent.clearPlayerData(player);
             }
@@ -150,7 +150,7 @@ public class ItemDrill extends Item implements ISize {
             float hitX, float hitY, float hitZ) {
         if (!world.isRemote && canPlayerDrill(player)) {
             TileEntity te = world.getTileEntity(x, y, z);
-            if (te != null && te instanceof TileEntityQuarry) {
+            if (te instanceof TileEntityQuarry) {
                 ForgeDirection d = ((TileEntityQuarry) te).getQuarryOrientation();
                 onBlockDrillStarted(player.worldObj, x - d.offsetX, y - d.offsetY, z - d.offsetZ, d.ordinal(), stack,
                         player);
@@ -165,19 +165,60 @@ public class ItemDrill extends Item implements ISize {
     protected boolean canPlayerDrill(EntityPlayer player) {
         MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
         return mop != null && mop.typeOfHit == MovingObjectType.BLOCK
-                && canDrillAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit)
-                && checkExtraEquipment(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, player);
+                && canPlayerDrillAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, player);
     }
 
-    protected boolean checkExtraEquipment(World world, int x, int y, int z, int side, EntityPlayer player) {
-        // At least one plug and feather is needed on the hotbar
-        for (int i = 0; i < 9; i++) {
-            ItemStack is = player.inventory.getStackInSlot(i);
-            if (is != null && is.getItem() == BidsItems.plugAndFeather)
-                return true;
+    protected boolean canPlayerDrillAt(World world, int x, int y, int z, int side, EntityPlayer player) {
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (te instanceof TileEntityQuarry) {
+            // Can existing quarry be drilled more?
+            TileEntityQuarry quarry = (TileEntityQuarry) te;
+
+            // Get the quarried block instead of the quarry block
+            ForgeDirection d = quarry.getQuarryOrientation();
+            Block block = world.getBlock(x - d.offsetX, y - d.offsetY, z - d.offsetZ);
+            int metadata = world.getBlockMetadata(x - d.offsetX, y - d.offsetY, z - d.offsetZ);
+
+            return !quarry.isQuarryReady() && canPlayerDrillBlock(block, metadata, player);
+        } else {
+            // Can a block be quarried?
+            Block block = world.getBlock(x, y, z);
+            int metadata = world.getBlockMetadata(x, y, z);
+
+            return QuarryHelper.canQuarryBlockAt(world, x, y, z, block, side) && canPlayerDrillBlock(block, metadata, player);
+        }
+    }
+
+    public boolean canPlayerDrillBlock(Block block, int metadata, EntityPlayer player) {
+        Bids.LOG.debug("canPlayerDrillBlock " + block.getUnlocalizedName() + " " + metadata);
+
+        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        if (quarriable == null) {
+            Bids.LOG.warn("Trying to continue drilling a quarry but the quarried block " + block.getUnlocalizedName() + ":" + metadata + " is not quarriable.");
+            return false;
         }
 
-        Bids.LOG.debug("Drilling requires 'Plug and Feather' on hotbar and none were found");
+        ItemStack equippedItem = player.getCurrentEquippedItem();
+        if (equippedItem != null && equippedItem.getItem() instanceof ItemDrill) {
+            EnumQuarryEquipmentTier drillQuarryEquipmentTier = ((ItemDrill) equippedItem.getItem()).getDrillQuarryEquipmentTier(equippedItem);
+            if (!quarriable.isSufficientEquipmentTier(block, metadata, drillQuarryEquipmentTier)) {
+                Bids.LOG.debug("Insufficient drill tier");
+                return false;
+            }
+
+            // At least one plug and feather is needed on the hotbar
+            for (int i = 0; i < 9; i++) {
+                ItemStack is = player.inventory.getStackInSlot(i);
+                if (is != null && is.getItem() instanceof IPlugAndFeather) {
+                    EnumQuarryEquipmentTier plugAndFeatherQuarryEquipmentTier = ((IPlugAndFeather) is.getItem()).getPlugAndFeatherQuarryEquipmentTier(is);
+                    if (quarriable.isSufficientEquipmentTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
+                        return true;
+                    }
+                }
+            }
+
+            Bids.LOG.debug("Insufficient plug and feather tier");
+        }
 
         return false;
     }
@@ -190,8 +231,9 @@ public class ItemDrill extends Item implements ISize {
             EntityPlayer player) {
         // Save duration for this player
         Block block = world.getBlock(x, y, z);
+        int metadata = world.getBlockMetadata(x, y, z);
         IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
-        float mult = quarriable.getDrillDurationMultiplier(block);
+        float mult = quarriable.getDrillDurationMultiplier(block, metadata);
         int duration = (int) Math.ceil(getBaseDrillDuration() * mult);
         QuarryDrillDataAgent.setPlayerData(player, duration, x, y, z, side);
         Bids.LOG.debug("Set drill duration: " + duration);
@@ -206,46 +248,45 @@ public class ItemDrill extends Item implements ISize {
         return QuarryDrillDataAgent.getDuration(player);
     }
 
-    protected boolean canDrillAt(World world, int x, int y, int z, int side) {
-        TileEntity te = world.getTileEntity(x, y, z);
-        Block block = world.getBlock(x, y, z);
-        if (te != null && te instanceof TileEntityQuarry) {
-            // Can existing quarry be drilled more?
-            TileEntityQuarry quarry = (TileEntityQuarry) te;
-            return !quarry.isQuarryReady();
-        } else {
-            // Can a block be quarried?
-            return QuarryHelper.canQuarryBlockAt(world, x, y, z, block, side);
-        }
-    }
-
     protected void onBlockDrilled(World world, int x, int y, int z, int side, ItemStack stack, EntityPlayer player) {
         TileEntity te = world.getTileEntity(x, y, z);
         Block block = world.getBlock(x, y, z);
-        if (te != null && te instanceof TileEntityQuarry) {
+
+        if (te instanceof TileEntityQuarry) {
             // Add another wedge to the quarry here
             TileEntityQuarry quarry = (TileEntityQuarry) te;
-            quarry.onQuarryDrilled();
-            Bids.LOG.debug("Existing quarry drilled at: " + x + ", " + y + ", " + z);
 
             // Get the quarried block instead of the quarry block
             // as needed later for drill damaging
             ForgeDirection d = quarry.getQuarryOrientation();
-            block = world.getBlock(x - d.offsetX, y - d.offsetY, z - d.offsetZ);
+            Block actualBlock = world.getBlock(x - d.offsetX, y - d.offsetY, z - d.offsetZ);
+            int metadata = world.getBlockMetadata(x - d.offsetX, y - d.offsetY, z - d.offsetZ);;
+            damageDrill(world, x, y, z, stack, player, actualBlock, metadata);
+            ItemStack consumedPlugAndFeather = consumePlugAndFeather(player, actualBlock, metadata);
+            if (consumedPlugAndFeather != null) {
+                quarry.onQuarryDrilled(consumedPlugAndFeather);
+                Bids.LOG.debug("Existing quarry drilled at: " + x + ", " + y + ", " + z + " side " + d);
+            }
         } else if (QuarryRegistry.isBlockQuarriable(block)) {
-            // Place quarry when block is drilled for the first time
-            // at the corresponding side
-            ForgeDirection d = ForgeDirection.getOrientation(side);
-            world.setBlock(x + d.offsetX, y + d.offsetY, z + d.offsetZ, BidsBlocks.quarry, side, 3);
-            Bids.LOG.debug("Quarry started at: " + x + ", " + y + ", " + z + " side " + side);
-        }
+            int metadata = world.getBlockMetadata(x, y, z);
+            damageDrill(world, x, y, z, stack, player, block, metadata);
+            ItemStack consumedPlugAndFeather = consumePlugAndFeather(player, block, metadata);
+            if (consumedPlugAndFeather != null) {
+                // Place quarry when block is drilled for the first time
+                // at the corresponding side
+                ForgeDirection d = ForgeDirection.getOrientation(side);
+                world.setBlock(x + d.offsetX, y + d.offsetY, z + d.offsetZ, BidsBlocks.quarry, side, 3);
+                Bids.LOG.debug("Quarry started at: " + x + ", " + y + ", " + z + " side " + side);
 
-        damageDrill(world, x, y, z, stack, player, block);
+                TileEntityQuarry quarry = (TileEntityQuarry) world.getTileEntity(x + d.offsetX, y + d.offsetY, z + d.offsetZ);
+                quarry.initializeWedges();
+                quarry.onQuarryDrilled(consumedPlugAndFeather);
+            }
+        }
     }
 
-    private void damageDrill(World world, int x, int y, int z, ItemStack stack, EntityPlayer player, Block block) {
-        ItemStack newStack = onDrillDamaged(stack, player, block);
-        onConsumeExtraEquipment(player, block);
+    private void damageDrill(World world, int x, int y, int z, ItemStack stack, EntityPlayer player, Block block, int metadata) {
+        ItemStack newStack = onDrillDamaged(stack, player, block, metadata);
 
         double x2 = x + 0.5D;
         double y2 = y + 0.5D;
@@ -261,31 +302,36 @@ public class ItemDrill extends Item implements ISize {
         }
     }
 
-    protected void onConsumeExtraEquipment(EntityPlayer player, Block block) {
+    protected ItemStack consumePlugAndFeather(EntityPlayer player, Block block, int metadata) {
+        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+
         // Consume one stick from the hotbar
-        boolean consumed = false;
         for (int i = 0; i < 9; i++) {
             ItemStack is = player.inventory.getStackInSlot(i);
-            if (is != null && is.getItem() == BidsItems.plugAndFeather) {
-                player.inventory.decrStackSize(i, 1);
-                consumed = true;
-                break;
+            if (is != null && is.getItem() instanceof IPlugAndFeather) {
+                EnumQuarryEquipmentTier plugAndFeatherQuarryEquipmentTier = ((IPlugAndFeather) is.getItem()).getPlugAndFeatherQuarryEquipmentTier(is);
+                if (quarriable.isSufficientEquipmentTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
+                    ItemStack consumed = player.inventory.getStackInSlot(i).copy();
+                    consumed.stackSize = 1;
+                    player.inventory.decrStackSize(i, 1);
+                    return consumed;
+                }
             }
         }
 
-        if (!consumed) {
-            Bids.LOG.warn("No 'Plug and Feathers' were found on the hotbar to be consumed");
-        }
+        Bids.LOG.warn("No sufficient 'Plug and Feathers' were found on the hotbar to be consumed");
+
+        return null;
     }
 
-    protected ItemStack onDrillDamaged(ItemStack stack, EntityPlayer player, Block block) {
+    protected ItemStack onDrillDamaged(ItemStack stack, EntityPlayer player, Block block, int metadata) {
         IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
         if (quarriable == null) {
             Bids.LOG.warn("Expected quarriable block, but got a " + block.getUnlocalizedName());
             return stack;
         }
 
-        int damage = quarriable.getDrillDamage(block);
+        int damage = quarriable.getDrillDamage(block, metadata);
         boolean destroyed = stack.getItemDamage() + damage >= getMaxDamage();
 
         stack.damageItem(damage, player);

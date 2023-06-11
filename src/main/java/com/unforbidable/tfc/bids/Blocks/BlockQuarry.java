@@ -144,7 +144,7 @@ public class BlockQuarry extends BlockContainer {
                 world.setBlockToAir(x2, y2, z2);
                 // Drop the original quarried block for now
                 Block droppedBlock = quarriable.getQuarriedBlock();
-                int droppedMeta = quarriable.getQuarriedBlockMetadata(meta);
+                int droppedMeta = quarriable.getQuarriedBlockMetadata(block, meta);
                 ItemStack is = new ItemStack(Item.getItemFromBlock(droppedBlock), 1, droppedMeta);
                 EntityItem entityItem = new EntityItem(world, x2, y2 + 1, z2, is);
                 world.spawnEntityInWorld(entityItem);

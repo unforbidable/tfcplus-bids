@@ -60,14 +60,18 @@ public class QuarryHandler extends TemplateRecipeHandler {
             List<ItemStack> list = new ArrayList<ItemStack>();
             rawBlock.getSubBlocks(Item.getItemFromBlock(rawBlock), null, list);
             for (ItemStack ingredItemStack : list) {
+                Block ingredBlock = Block.getBlockFromItem(ingredItemStack.getItem());
                 int ingredMetadata = ingredItemStack.getItem().getMetadata(ingredItemStack.getItemDamage());
-                Block outputBlock = quarriable.getQuarriedBlock();
-                int outputMetadata = quarriable.getQuarriedBlockMetadata(ingredMetadata);
-                ItemStack outputItemStack = new ItemStack(outputBlock, 1, outputMetadata);
 
-                if (result == null || ItemStack.areItemStacksEqual(result, outputItemStack)) {
-                    CachedQuarriable cached = new CachedQuarriable(ingredItemStack, outputItemStack);
-                    arecipes.add(cached);
+                if (quarriable.canQuarryBlock(ingredBlock, ingredMetadata)) {
+                    Block outputBlock = quarriable.getQuarriedBlock();
+                    int outputMetadata = quarriable.getQuarriedBlockMetadata(outputBlock, ingredMetadata);
+                    ItemStack outputItemStack = new ItemStack(outputBlock, 1, outputMetadata);
+
+                    if (result == null || ItemStack.areItemStacksEqual(result, outputItemStack)) {
+                        CachedQuarriable cached = new CachedQuarriable(ingredItemStack, outputItemStack);
+                        arecipes.add(cached);
+                    }
                 }
             }
         }
