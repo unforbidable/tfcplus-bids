@@ -184,50 +184,49 @@ public class RecipeSetup {
         for (int j = 0; j < Global.STONE_SED.length; j++) {
             if (j == 0 || j == 4) {
                 // Shale and Sandstone can split into tiles
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseTile, 4, j),
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_SED_START + j),
                     "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseTile, 4, j),
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_SED_START + j),
                     "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
 
                 GameRegistry.addRecipe(
                     new ItemStack(BidsBlocks.roughStoneTileSed, 2, j),
-                    "BB", "BB", 'B', new ItemStack(BidsItems.sedRoughStoneLooseTile, 1, j));
+                    "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_SED_START + j));
             }
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseBrick, 4, j),
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_SED_START + j),
                 "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedRoughStoneLooseBrick, 4, j),
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_SED_START + j),
                 "S ", "A ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
 
             GameRegistry.addRecipe(
                 new ItemStack(BidsBlocks.roughStoneBrickSed, 2, j),
-                "BB", "BB", 'B', new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j));
-        }
+                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_SED_START + j));
 
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAdze")
-                .matchCraftingItem(BidsItems.sedRoughStoneLooseBrick));
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAdze")
-                .matchCraftingItem(BidsItems.sedRoughStoneLooseTile));
+            // Convert obsolete sedimentary rough bricks
+            GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_SED_START + j), new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j));
+        }
 
         for (int j = 0; j < Global.STONE_MM.length; j++) {
             if (j == 1) {
                 // Slate can only split into tiles
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.mMRoughStoneLooseTile, 4, j),
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_MM_START + j),
                     "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdze"));
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.mMRoughStoneLooseTile, 4, j),
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_MM_START + j),
                     "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdze"));
 
                 GameRegistry.addRecipe(
                     new ItemStack(BidsBlocks.roughStoneTileMM, 2, j),
-                    "BB", "BB", 'B', new ItemStack(BidsItems.mMRoughStoneLooseTile, 1, j));
+                    "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_MM_START + j));
             }
         }
 
         RecipeManager.addAction(new ActionDamageTool(1)
             .addTools("itemAdze")
-            .matchCraftingItem(BidsItems.mMRoughStoneLooseTile));
+            .matchCraftingItem(BidsItems.roughStoneBrick));
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemAdze")
+            .matchCraftingItem(BidsItems.roughStoneTile));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igInStoneDrill, 1, 0),
                 BidsItems.igInStoneDrillHead, "stickWood", TFCItems.bow));

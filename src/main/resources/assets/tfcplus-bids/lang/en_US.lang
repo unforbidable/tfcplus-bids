@@ -542,19 +542,19 @@ item.Sed Stone Adze.name=Stone Adze
 item.IgEx Stone Adze.name=Stone Adze
 item.MM Stone Adze.name=Stone Adze
 
-item.Sed Rough Stone Loose Brick.Chalk.name=Rough Chalk Brick
-item.Sed Rough Stone Loose Brick.Chert.name=Rough Chert Brick
-item.Sed Rough Stone Loose Brick.Claystone.name=Rough Claystone Brick
-item.Sed Rough Stone Loose Brick.Sandstone.name=Rough Sandstone Brick
-item.Sed Rough Stone Loose Brick.Dolomite.name=Rough Dolomite Brick
-item.Sed Rough Stone Loose Brick.Limestone.name=Rough Limestone Brick
-item.Sed Rough Stone Loose Brick.Rock Salt.name=Rough Rock Salt Brick
-item.Sed Rough Stone Loose Brick.Shale.name=Rough Shale Brick
+item.Rough Stone Brick.Chalk.name=Rough Chalk Brick
+item.Rough Stone Brick.Chert.name=Rough Chert Brick
+item.Rough Stone Brick.Claystone.name=Rough Claystone Brick
+item.Rough Stone Brick.Sandstone.name=Rough Sandstone Brick
+item.Rough Stone Brick.Dolomite.name=Rough Dolomite Brick
+item.Rough Stone Brick.Limestone.name=Rough Limestone Brick
+item.Rough Stone Brick.Rock Salt.name=Rough Rock Salt Brick
+item.Rough Stone Brick.Shale.name=Rough Shale Brick
 
-item.Sed Rough Stone Loose Tile.Sandstone.name=Rough Sandstone Tile
-item.Sed Rough Stone Loose Tile.Shale.name=Rough Shale Tile
+item.Rough Stone Tile.Sandstone.name=Rough Sandstone Tile
+item.Rough Stone Tile.Shale.name=Rough Shale Tile
 
-item.MM Rough Stone Loose Tile.Slate.name=Rough Slate Tile
+item.Rough Stone Tile.Slate.name=Rough Slate Tile
 
 item.Peeled Log.Acacia.name=Peeled Acacia Log
 item.Peeled Log.Ash.name=Peeled Ash Log

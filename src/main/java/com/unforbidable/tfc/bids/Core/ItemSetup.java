@@ -9,23 +9,18 @@ import com.dunk.tfc.api.Interfaces.IBoots;
 import com.dunk.tfc.api.Interfaces.IEquipable;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
-import com.unforbidable.tfc.bids.Items.*;
-import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelCoalTFC;
-import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelLogsTFC;
-import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelPeatTFC;
-import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelStickBundleTFC;
-import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelStickTFC;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.*;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderThickLogsTFC;
+import com.unforbidable.tfc.bids.Items.*;
 import com.unforbidable.tfc.bids.Render.Item.SeasonableItemRenderer;
 import com.unforbidable.tfc.bids.Render.Item.SeasonedItemRenderer;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.FirepitRegistry;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
-import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -118,22 +113,21 @@ public class ItemSetup extends BidsItems {
         mMStoneAdze = new ItemAdze(TFCItems.mMToolMaterial)
                 .setUnlocalizedName("MM Stone Adze");
 
+        // Obsolete - replaced with roughStoneBrick
         sedRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_SED)
+                .setMetaOnly() // No actual items
                 .setTextureName("Rough Brick")
                 .setUnlocalizedName("Sed Rough Stone Loose Brick");
-        mMRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_MM)
-                .setMetaOnly() // No items yet
-                .setTextureName("Rough Brick")
-                .setUnlocalizedName("MM Rough Stone Loose Brick");
 
-        sedRoughStoneLooseTile = new ItemRoughBrick().setNames(Global.STONE_SED)
-                .setMetaOnly(0, 4) // Only Shale and Sandstone
+        roughStoneBrick = new ItemRoughBrick().setNames(Global.STONE_ALL)
+                .setMetaOnly(Global.STONE_SED_START, Global.STONE_SED_START + 1, Global.STONE_SED_START + 2, Global.STONE_SED_START + 3, Global.STONE_SED_START + 4, Global.STONE_SED_START + 5, Global.STONE_SED_START + 6, Global.STONE_SED_START + 7) // Only SED
+                .setTextureName("Rough Brick")
+                .setUnlocalizedName("Rough Stone Brick");
+
+        roughStoneTile = new ItemRoughBrick().setNames(Global.STONE_ALL)
+                .setMetaOnly(Global.STONE_SED_START, Global.STONE_SED_START + 4, Global.STONE_MM_START + 1) // Shale, Sandstone and Slate only
                 .setTextureName("Rough Tile")
-                .setUnlocalizedName("Sed Rough Stone Loose Tile");
-        mMRoughStoneLooseTile = new ItemRoughBrick().setNames(Global.STONE_MM)
-                .setMetaOnly(1) // Only Slate
-                .setTextureName("Rough Tile")
-                .setUnlocalizedName("MM Rough Stone Loose Tile");
+                .setUnlocalizedName("Rough Stone Tile");
 
         peeledLog = new ItemPeeledLog().setNames(Global.WOOD_ALL)
                 .setUnlocalizedName("Peeled Log");
@@ -394,8 +388,6 @@ public class ItemSetup extends BidsItems {
         OreDictionary.registerOre("itemAdzeStone", new ItemStack(igInStoneAdze, 1, WILD));
         OreDictionary.registerOre("itemAdzeStone", new ItemStack(igExStoneAdze, 1, WILD));
 
-        OreDictionary.registerOre("itemRoughStoneBrickLoose", new ItemStack(sedRoughStoneLooseBrick, 1, WILD));
-
         final Item[] logs = new Item[] { logsSeasoned, peeledLog, peeledLogSeasoned };
         for (Item log : logs) {
             OreDictionary.registerOre("itemLogExtra", new ItemStack(log, 1, WILD));
@@ -598,9 +590,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(woodenBucketRope, woodenBucketRope.getUnlocalizedName());
         GameRegistry.registerItem(woodenBucketRopeWater, woodenBucketRopeWater.getUnlocalizedName());
 
-        GameRegistry.registerItem(sedRoughStoneLooseTile, sedRoughStoneLooseTile.getUnlocalizedName());
-        GameRegistry.registerItem(mMRoughStoneLooseBrick, mMRoughStoneLooseBrick.getUnlocalizedName());
-        GameRegistry.registerItem(mMRoughStoneLooseTile, mMRoughStoneLooseTile.getUnlocalizedName());
+        GameRegistry.registerItem(roughStoneBrick, roughStoneBrick.getUnlocalizedName());
+        GameRegistry.registerItem(roughStoneTile, roughStoneTile.getUnlocalizedName());
     }
 
 }

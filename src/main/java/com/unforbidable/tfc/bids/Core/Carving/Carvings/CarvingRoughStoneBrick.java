@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Core.Carving.Carvings;
 
 import java.util.Random;
 
+import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
@@ -32,7 +33,7 @@ public class CarvingRoughStoneBrick implements ICarving {
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
         ItemStack[] list = new ItemStack[2];
         for (int i = 0; i < 2; i++)
-            list[i] = new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, metadata);
+            list[i] = new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_SED_START + metadata);
         return list;
     }
 
