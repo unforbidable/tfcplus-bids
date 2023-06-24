@@ -207,20 +207,6 @@ public class RecipeSetup {
             GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_SED_START + j), new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j));
         }
 
-        for (int j = 0; j < Global.STONE_MM.length; j++) {
-            if (j == 1) {
-                // Slate can only split into tiles
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_MM_START + j),
-                    "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdze"));
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_MM_START + j),
-                    "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdze"));
-
-                GameRegistry.addRecipe(
-                    new ItemStack(BidsBlocks.roughStoneTileMM, 2, j),
-                    "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_MM_START + j));
-            }
-        }
-
         RecipeManager.addAction(new ActionDamageTool(1)
             .addTools("itemAdze")
             .matchCraftingItem(BidsItems.roughStoneBrick));

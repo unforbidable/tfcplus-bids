@@ -92,7 +92,7 @@ public class BlockSetup extends BidsBlocks {
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
                 .setBlockTextureName("Rough");
         roughStoneMM = new BlockRoughStone()
-                .setMetaOnly(1) // Only slate
+                .setMetaOnly() // No blocks yet!
                 .setNames(Global.STONE_MM).setBlockName("RoughStoneMM")
                 .setBlockTextureName("Rough");
 
@@ -112,7 +112,7 @@ public class BlockSetup extends BidsBlocks {
                 .setBlockTextureName("Rough Tile");
         roughStoneTileMM = new BlockRoughStoneBrick()
                 .setAllHaveTopTexture(true)
-                .setMetaOnly(1) // Only Slate
+                .setMetaOnly() // No blocks yet!
                 .setNames(Global.STONE_MM).setBlockName("RoughStoneTileMM")
                 .setBlockTextureName("Rough Tile");
 
@@ -292,7 +292,7 @@ public class BlockSetup extends BidsBlocks {
         Bids.LOG.info("Register quarriable blocks");
 
         QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneSed, roughStoneSed, 1, 1));
-        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, roughStoneMM, 2, 1.5f));
+        //QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, roughStoneMM, 2, 1.5f));
     }
 
     @SideOnly(Side.CLIENT)

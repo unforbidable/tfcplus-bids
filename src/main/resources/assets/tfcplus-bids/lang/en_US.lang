@@ -56,8 +56,6 @@ tile.RoughStoneSed.Limestone.name=Rough Limestone
 tile.RoughStoneSed.Rock Salt.name=Rough Rock Salt
 tile.RoughStoneSed.Shale.name=Rough Shale
 
-tile.RoughStoneMM.Slate.name=Rough Slate
-
 tile.RoughStoneBrickSed.Chalk.name=Rough Chalk Bricks
 tile.RoughStoneBrickSed.Chert.name=Rough Chert Bricks
 tile.RoughStoneBrickSed.Claystone.name=Rough Claystone Bricks
@@ -69,8 +67,6 @@ tile.RoughStoneBrickSed.Shale.name=Rough Shale Bricks
 
 tile.RoughStoneTileSed.Sandstone.name=Rough Sandstone Tiles
 tile.RoughStoneTileSed.Shale.name=Rough Shale Tiles
-
-tile.RoughStoneTileMM.Slate.name=Rough Slate Tiles
 
 tile.LogWall.Ash.name=Ash Log Wall
 tile.LogWall.Aspen.name=Aspen Log Wall
@@ -553,8 +549,6 @@ item.Rough Stone Brick.Shale.name=Rough Shale Brick
 
 item.Rough Stone Tile.Sandstone.name=Rough Sandstone Tile
 item.Rough Stone Tile.Shale.name=Rough Shale Tile
-
-item.Rough Stone Tile.Slate.name=Rough Slate Tile
 
 item.Peeled Log.Acacia.name=Peeled Acacia Log
 item.Peeled Log.Ash.name=Peeled Ash Log

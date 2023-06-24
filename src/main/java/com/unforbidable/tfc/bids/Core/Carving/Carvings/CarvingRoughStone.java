@@ -16,7 +16,7 @@ public class CarvingRoughStone implements ICarving {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block == BidsBlocks.roughStoneSed || block == BidsBlocks.roughStoneMM;
+        return block == BidsBlocks.roughStoneSed;
     }
 
     @Override
