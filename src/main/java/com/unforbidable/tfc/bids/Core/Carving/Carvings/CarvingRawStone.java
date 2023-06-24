@@ -1,9 +1,12 @@
 package com.unforbidable.tfc.bids.Core.Carving.Carvings;
 
+import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCBlocks;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -18,6 +21,15 @@ public class CarvingRawStone extends CarvingRoughStone {
     public boolean canCarveBlockAt(Block block, int metadata, World world, int x, int y, int z, int side) {
         return super.canCarveBlockAt(block, metadata, world, x, y, z, side)
                 && isCarvedBlockExposed(world, x, y, z, side);
+    }
+
+    @Override
+    protected ItemStack getLooseRock(Block block, int metadata) {
+        if (block == TFCBlocks.stoneSed) {
+            return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_SED_START);
+        } else {
+            return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_MM_START);
+        }
     }
 
     private boolean isCarvedBlockExposed(World world, int x, int y, int z, int side) {

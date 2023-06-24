@@ -33,20 +33,15 @@ public class CarvingRoughStone implements ICarving {
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
         final int n = random.nextInt(2) + 1;
         ItemStack[] list = new ItemStack[n];
-        if (block == BidsBlocks.roughStoneSed) {
-            for (int i = 0; i < n; i++)
-                list[i] = new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_SED_START);
-        } else if (block == BidsBlocks.roughStoneMM) {
-            for (int i = 0; i < n; i++)
-                list[i] = new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_MM_START);
-        }
+        for (int i = 0; i < n; i++)
+            list[i] = getLooseRock(block, metadata);
         return list;
     }
 
     @Override
     public ItemStack getCarvingExtraHarvest(Block block, int metadata, Random random, float bitRatio) {
         return random.nextDouble() < 2 * bitRatio
-                ? new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_SED_START)
+                ? getLooseRock(block, metadata)
                 : null;
     }
 
@@ -58,6 +53,14 @@ public class CarvingRoughStone implements ICarving {
     @Override
     public String getCarvingSoundEffect() {
         return "dig.stone";
+    }
+
+    protected ItemStack getLooseRock(Block block, int metadata) {
+        if (block == BidsBlocks.roughStoneSed) {
+            return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_SED_START);
+        } else {
+            return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_MM_START);
+        }
     }
 
 }
