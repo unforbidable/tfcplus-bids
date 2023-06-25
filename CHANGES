@@ -328,3 +328,11 @@
 - Changed: Clay lamps take a little more effort to mine
 - Fixed: Clay lamps dropping an extra copy of itself when mined
 - Fixed: Crash when the cursor moves outside any block collision during quarrying
+
+0.28.0 (25-06-2023)
+- Added: Shale and Sandstone rough stone can be split into loose rough bricks or loose rough tiles with an Adze
+- Added: Rough stone tile building block from Shale and Sandstone for stone tile floors and flat brick walls
+- Changed: Recipe to make loose rough bricks is now shaped to distinguish between making bricks and making tiles
+- Changed: Shale rough brick texture changed to match new Shale rough tile texture
+- Changed: Loose sedimentary rough stone bricks have a new item ID with 1:1 conversion recipes available
+- Fixed: Raw stone blocks touching ore blocks can be quarried now
