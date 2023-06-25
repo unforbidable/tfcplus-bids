@@ -11,7 +11,6 @@ import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 
-import com.unforbidable.tfc.bids.api.Enums.EnumQuarryEquipmentTier;
 import com.unforbidable.tfc.bids.api.Interfaces.IPlugAndFeather;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -26,8 +25,8 @@ public class ItemPlugAndFeather extends Item implements ISize, IPlugAndFeather {
     }
 
     @Override
-    public EnumQuarryEquipmentTier getPlugAndFeatherQuarryEquipmentTier(ItemStack itemStack) {
-        return EnumQuarryEquipmentTier.STONE;
+    public int getPlugAndFeatherQuarryEquipmentTier(ItemStack itemStack) {
+        return 0;
     }
 
     @Override

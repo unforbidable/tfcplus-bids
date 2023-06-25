@@ -18,7 +18,6 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.Enums.EnumQuarryEquipmentTier;
 import com.unforbidable.tfc.bids.api.Interfaces.IPlugAndFeather;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
@@ -49,8 +48,8 @@ public class ItemDrill extends Item implements ISize {
         setNoRepair();
     }
 
-    public EnumQuarryEquipmentTier getDrillQuarryEquipmentTier(ItemStack itemStack) {
-        return EnumQuarryEquipmentTier.STONE;
+    public int getDrillQuarryEquipmentTier(ItemStack itemStack) {
+        return 0;
     }
 
     @Override
@@ -200,7 +199,7 @@ public class ItemDrill extends Item implements ISize {
 
         ItemStack equippedItem = player.getCurrentEquippedItem();
         if (equippedItem != null && equippedItem.getItem() instanceof ItemDrill) {
-            EnumQuarryEquipmentTier drillQuarryEquipmentTier = ((ItemDrill) equippedItem.getItem()).getDrillQuarryEquipmentTier(equippedItem);
+            int drillQuarryEquipmentTier = ((ItemDrill) equippedItem.getItem()).getDrillQuarryEquipmentTier(equippedItem);
             if (!quarriable.isSufficientEquipmentTier(block, metadata, drillQuarryEquipmentTier)) {
                 Bids.LOG.debug("Insufficient drill tier");
                 return false;
@@ -210,7 +209,7 @@ public class ItemDrill extends Item implements ISize {
             for (int i = 0; i < 9; i++) {
                 ItemStack is = player.inventory.getStackInSlot(i);
                 if (is != null && is.getItem() instanceof IPlugAndFeather) {
-                    EnumQuarryEquipmentTier plugAndFeatherQuarryEquipmentTier = ((IPlugAndFeather) is.getItem()).getPlugAndFeatherQuarryEquipmentTier(is);
+                    int plugAndFeatherQuarryEquipmentTier = ((IPlugAndFeather) is.getItem()).getPlugAndFeatherQuarryEquipmentTier(is);
                     if (quarriable.isSufficientEquipmentTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
                         return true;
                     }
@@ -309,7 +308,7 @@ public class ItemDrill extends Item implements ISize {
         for (int i = 0; i < 9; i++) {
             ItemStack is = player.inventory.getStackInSlot(i);
             if (is != null && is.getItem() instanceof IPlugAndFeather) {
-                EnumQuarryEquipmentTier plugAndFeatherQuarryEquipmentTier = ((IPlugAndFeather) is.getItem()).getPlugAndFeatherQuarryEquipmentTier(is);
+                int plugAndFeatherQuarryEquipmentTier = ((IPlugAndFeather) is.getItem()).getPlugAndFeatherQuarryEquipmentTier(is);
                 if (quarriable.isSufficientEquipmentTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
                     ItemStack consumed = player.inventory.getStackInSlot(i).copy();
                     consumed.stackSize = 1;
