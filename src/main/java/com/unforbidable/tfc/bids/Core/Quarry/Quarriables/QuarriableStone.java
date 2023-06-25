@@ -81,7 +81,7 @@ public class QuarriableStone implements IQuarriable {
 
     @Override
     public boolean blockRequiresWedgesToDetach(Block block, int metadata) {
-        return TFC_Core.isRawStone(block);
+        return TFC_Core.isRawStone(block) || TFC_Core.isOreStone(block);
     }
 
     @Override
