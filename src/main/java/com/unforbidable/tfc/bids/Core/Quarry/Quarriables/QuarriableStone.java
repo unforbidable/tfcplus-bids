@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.Core.Quarry.Quarriables;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.Enums.EnumQuarryEquipmentTier;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 
@@ -55,7 +54,7 @@ public class QuarriableStone implements IQuarriable {
 
     @Override
     public boolean canQuarryBlock(Block block, int metadata) {
-        if (block == TFCBlocks.stoneSed || block == TFCBlocks.stoneMM && metadata == 1)
+        if (block == TFCBlocks.stoneSed)
             return true;
         else
             return false;
@@ -63,7 +62,7 @@ public class QuarriableStone implements IQuarriable {
 
     @Override
     public boolean isSufficientEquipmentTier(Block block, int metadata, EnumQuarryEquipmentTier equipmentTier) {
-        if (block == TFCBlocks.stoneSed || block == TFCBlocks.stoneMM && metadata == 1)
+        if (block == TFCBlocks.stoneSed)
             return true;
         else
             return equipmentTier == EnumQuarryEquipmentTier.BRONZE;
