@@ -83,6 +83,14 @@ public class BlockNewFirepit extends BlockFirepit {
                 return true;
             }
 
+            if (item == Item.getItemFromBlock(TFCBlocks.candleOff)
+                && te.fireTemp > 100) {
+                entityplayer.inventory.consumeInventoryItem(Item.getItemFromBlock(TFCBlocks.candleOff));
+                TFC_Core.giveItemToPlayer(new ItemStack(TFCBlocks.candle), entityplayer);
+
+                return true;
+            }
+
             if ((item instanceof ItemFirestarter || item instanceof ItemFlintAndSteel)
                     && te.fireTemp < 210 && te.fireItemStacks[5] != null) {
                 // No longer 100% chance of success
