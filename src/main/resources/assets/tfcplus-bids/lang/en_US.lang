@@ -509,6 +509,15 @@ item.Wooden Bucket.Brine.name=Wooden Bucket (Brine)
 item.Wooden Bucket.HoneyWater.name=Wooden Bucket (Honey Water)
 item.Wooden Bucket.MilkVinegar.name=Wooden Bucket (Milk + Vinegar Mix)
 
+item.Large Bowl.Clay.name=Large Clay Bowl
+item.Large Bowl.Ceramic.name=Large Ceramic Bowl
+
+item.Large Bowl.FreshWater.Pottery.name=Large Ceramic Bowl (Fresh Water)
+item.Large Bowl.SaltWater.Pottery.name=Large Ceramic Bowl (Salt Water)
+item.Large Bowl.Vinegar.Pottery.name=Large Ceramic Bowl (Vinegar)
+item.Large Bowl.Milk.Pottery.name=Large Ceramic Bowl (Milk)
+item.Large Bowl.Honey.Pottery.name=Large Ceramic Bowl (Honey)
+
 item.Ceramic Bucket Rope.name=Ceramic Bucket and Rope
 item.Ceramic Bucket Rope.FreshWater.name=Ceramic Bucket and Rope (Fresh Water)
 
