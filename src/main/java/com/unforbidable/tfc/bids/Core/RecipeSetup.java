@@ -926,6 +926,10 @@ public class RecipeSetup {
                 new Object[] { "#####", "#####", "    #", "   # ", "    #", '#',
                         new ItemStack(TFCItems.flatClay, 1, 1) });
 
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.largeClayBowl, 1),
+            new Object[] { "#####", " ### ", " ### ", "#   #", "#####", '#',
+                new ItemStack(TFCItems.flatClay, 1, 1) });
+
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(TFCItems.glassBottle, 1),
                 new Object[] { " # # ", " # # ", "#   #", "#   #", " ### ", '#',
                         new ItemStack(BidsItems.flatGlass, 1) });
@@ -1044,6 +1048,10 @@ public class RecipeSetup {
         KilnCraftingManager.getInstance().addRecipe(
                 new KilnRecipe(new ItemStack(BidsBlocks.clayCrucible, 1, 1), 0,
                         new ItemStack(BidsBlocks.clayCrucible, 1, 0)));
+
+        KilnCraftingManager.getInstance().addRecipe(
+            new KilnRecipe(new ItemStack(BidsItems.largeClayBowl, 1, 0), 0,
+                new ItemStack(BidsItems.largeClayBowl, 1, 1)));
     }
 
     private static void registerBarrelRecipes() {

@@ -280,6 +280,25 @@ public class ItemSetup extends BidsItems {
             .setContainerItem(TFCItems.potteryBowl)
             .setUnlocalizedName("Bowl Olive Oil");
 
+        largeClayBowl = new ItemLargeBowl()
+            .setUnlocalizedName("Large Bowl");
+
+        freshWaterLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+            .setContainerItem(BidsItems.largeClayBowl)
+            .setUnlocalizedName("Large Bowl.FreshWater");
+        saltWaterLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+            .setContainerItem(BidsItems.largeClayBowl)
+            .setUnlocalizedName("Large Bowl.SaltWater");
+        vinegarLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+            .setContainerItem(BidsItems.largeClayBowl)
+            .setUnlocalizedName("Large Bowl.Vinegar");
+        milkLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+            .setContainerItem(BidsItems.largeClayBowl)
+            .setUnlocalizedName("Large Bowl.Milk");
+        honeyLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+            .setContainerItem(BidsItems.largeClayBowl)
+            .setUnlocalizedName("Large Bowl.Honey");
+
         ceramicBucketBrine = new ItemBucketFluid(true)
             .setContainerItem((TFCItems.clayBucketEmpty))
             .setUnlocalizedName("Ceramic Bucket.Brine");
@@ -352,6 +371,17 @@ public class ItemSetup extends BidsItems {
             new ItemStack(ceramicBucketRopeWater), new ItemStack(ceramicBucketRope));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.FRESHWATER, 1000),
             new ItemStack(woodenBucketRopeWater), new ItemStack(woodenBucketRope));
+
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.FRESHWATER, 500),
+            new ItemStack(freshWaterLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.SALTWATER, 500),
+            new ItemStack(saltWaterLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.VINEGAR, 500),
+            new ItemStack(vinegarLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILK, 500),
+            new ItemStack(milkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEY, 500),
+            new ItemStack(honeyLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
     }
 
     private static void setupToolHarvest() {
@@ -592,6 +622,13 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(roughStoneBrick, roughStoneBrick.getUnlocalizedName());
         GameRegistry.registerItem(roughStoneTile, roughStoneTile.getUnlocalizedName());
+
+        GameRegistry.registerItem(largeClayBowl, largeClayBowl.getUnlocalizedName());
+        GameRegistry.registerItem(freshWaterLargeBowl, freshWaterLargeBowl.getUnlocalizedName());
+        GameRegistry.registerItem(saltWaterLargeBowl, saltWaterLargeBowl.getUnlocalizedName());
+        GameRegistry.registerItem(vinegarLargeBowl, vinegarLargeBowl.getUnlocalizedName());
+        GameRegistry.registerItem(milkLargeBowl, milkLargeBowl.getUnlocalizedName());
+        GameRegistry.registerItem(honeyLargeBowl, honeyLargeBowl.getUnlocalizedName());
     }
 
 }

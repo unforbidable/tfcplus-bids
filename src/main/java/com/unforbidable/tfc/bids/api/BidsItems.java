@@ -99,6 +99,13 @@ public class BidsItems {
     public static Item vinegarBowl;
     public static Item oliveOilBowl;
 
+    public static Item largeClayBowl;
+    public static Item freshWaterLargeBowl;
+    public static Item saltWaterLargeBowl;
+    public static Item vinegarLargeBowl;
+    public static Item milkLargeBowl;
+    public static Item honeyLargeBowl;
+
     public static Item woodenBucketBrine;
     public static Item woodenBucketHoneyWater;
     public static Item woodenBucketMilkVinegar;
