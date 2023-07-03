@@ -29,7 +29,7 @@ public class ItemBowlFluid extends ItemTerra implements ISmashable {
     public ItemBowlFluid(String[] metaNames) {
         setMetaNames(metaNames);
         setCreativeTab(BidsCreativeTabs.bidsTools);
-        setMaxStackSize(4);
+        setMaxStackSize(1);
     }
 
     public ItemStack getContainerItem(ItemStack i) {
@@ -39,7 +39,7 @@ public class ItemBowlFluid extends ItemTerra implements ISmashable {
     @Override
     public int getItemStackLimit(ItemStack is)
     {
-        return 4;
+        return 1;
     }
 
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list) {
