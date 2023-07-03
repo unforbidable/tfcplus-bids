@@ -65,6 +65,9 @@ tile.RoughStoneBrickSed.Limestone.name=粗糙石灰岩砖块
 tile.RoughStoneBrickSed.Rock Salt.name=粗糙盐岩砖块
 tile.RoughStoneBrickSed.Shale.name=粗糙页岩砖块
 
+tile.RoughStoneTileSed.Sandstone.name=粗糙砂岩岩片砖块
+tile.RoughStoneTileSed.Shale.name=粗糙页岩岩片砖块
+
 tile.LogWall.Ash.name=白蜡原木墙
 tile.LogWall.Aspen.name=白杨原木墙
 tile.LogWall.Birch.name=桦树原木墙
@@ -543,6 +546,9 @@ item.Sed Rough Stone Loose Brick.Dolomite.name=粗糙白云岩砖
 item.Sed Rough Stone Loose Brick.Limestone.name=粗糙石灰岩砖
 item.Sed Rough Stone Loose Brick.Rock Salt.name=粗糙盐岩砖
 item.Sed Rough Stone Loose Brick.Shale.name=粗糙页岩砖
+
+item.Rough Stone Tile.Sandstone.name=粗糙砂岩岩片
+item.Rough Stone Tile.Shale.name=粗糙页岩岩片
 
 item.Peeled Log.Acacia.name=光滑金合欢原木
 item.Peeled Log.Ash.name=光滑白蜡原木

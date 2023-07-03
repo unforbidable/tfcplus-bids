@@ -336,3 +336,8 @@
 - Changed: Shale rough brick texture changed to match new Shale rough tile texture
 - Changed: Loose sedimentary rough stone bricks have a new item ID with 1:1 conversion recipes available
 - Fixed: Raw stone blocks touching ore blocks can be quarried now
+
+0.28.1 (03-07-2023)
+- Changed: Empty wood pile slots get automatically filled up with logs from the wood pile above if present
+- Changed: Loose candles can be lit directly from the new fire pit when it is lit
+- Changed: Updated Chinese translation by Eternal130

@@ -167,6 +167,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     public boolean isFull() {
+        return getActualOccupiedSlotCount() == 16;
+    }
+
+    private int getActualOccupiedSlotCount() {
         int count = 0;
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
@@ -179,7 +183,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             }
         }
 
-        return count == 16;
+        return count;
     }
 
     public boolean addItem(ItemStack itemStack) {
@@ -326,12 +330,79 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
             storage[index] = null;
 
+            tryToPullItemsFromAbove();
+
             if (woodPileOpeningCounter == 0 && isEmpty()) {
                 worldObj.setBlockToAir(xCoord, yCoord, zCoord);
             } else {
                 onStorageChanged();
             }
         }
+    }
+
+    public ItemStack retrieveFirstAvailableItemToPullDown(boolean acceptingLargeItems) {
+        for (int i = 0; i < MAX_STORAGE; i++) {
+            if (storage[i] != null) {
+                IWoodPileRenderProvider render = WoodPileRegistry.findItem(storage[i].getItem());
+                if (render.isWoodPileLargeItem(storage[i])) {
+                    if (acceptingLargeItems) {
+                        return retrieveFirstItemAtIndexToPullDown(i);
+                    }
+                } else {
+                    return retrieveFirstItemAtIndexToPullDown(i);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private ItemStack retrieveFirstItemAtIndexToPullDown(int index) {
+        if (storage[index] != null) {
+            ItemStack retrieved = storage[index];
+
+            storage[index] = null;
+
+            tryToPullItemsFromAbove();
+
+            if (woodPileOpeningCounter == 0 && isEmpty()) {
+                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            } else {
+                onStorageChanged();
+            }
+
+            return retrieved;
+        } else {
+            return null;
+        }
+    }
+
+    private void tryToPullItemsFromAbove() {
+        TileEntity teAbove = worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
+        if (teAbove instanceof TileEntityWoodPile) {
+            Bids.LOG.info("Wood pile above found");
+
+            int occupied = getActualOccupiedSlotCount();
+            while (occupied < 16) {
+                Bids.LOG.info("Trying to pull an item from wood pile above");
+
+                TileEntityWoodPile woodPileAbove = (TileEntityWoodPile) teAbove;
+
+                // Check if large item fits
+                boolean largeItemFits = occupied <= 12;
+                ItemStack retrieved = woodPileAbove.retrieveFirstAvailableItemToPullDown(largeItemFits);
+                if (retrieved != null) {
+                    Bids.LOG.info("Pulled item " + retrieved.getDisplayName() + "[" + retrieved.stackSize + "] from wood pile above");
+
+                    addItem(retrieved);
+
+                    occupied = getActualOccupiedSlotCount();
+                } else {
+                    break;
+                }
+            }
+        }
+
     }
 
     private void onStorageChanged() {
@@ -646,9 +717,13 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     public void closeInventory() {
         woodPileOpeningCounter--;
 
-        if (woodPileOpeningCounter == 0 && isEmpty()) {
-            setOnFire(false);
-            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+        if (woodPileOpeningCounter == 0) {
+            tryToPullItemsFromAbove();
+
+            if (isEmpty()) {
+                setOnFire(false);
+                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            }
         }
     }
 
