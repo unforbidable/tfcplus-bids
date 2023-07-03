@@ -1105,6 +1105,25 @@ public class RecipeSetup {
                 new FluidStack(TFCFluids.FRESHWATER, 50),
                 ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealPorridge), 1.2f),
                 new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
+
+        BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.riceGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
+            null, new FluidStack(TFCFluids.RICEBEER, 5000)).setMinTechLevel(0).setRequiresCooked(true));
+        BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.wheatGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
+            null, new FluidStack(TFCFluids.WHEATBEER, 5000)).setMinTechLevel(0).setRequiresCooked(true));
+        BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.ryeGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
+            null, new FluidStack(TFCFluids.RYEBEER, 5000)).setMinTechLevel(0).setRequiresCooked(true));
+        BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.barleyGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
+            null, new FluidStack(TFCFluids.BEER, 5000)).setMinTechLevel(0).setRequiresCooked(true));
+        BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.cornGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
+            null, new FluidStack(TFCFluids.CORNBEER, 5000)).setMinTechLevel(0).setRequiresCooked(true));
+
+        BarrelManager.getInstance().addRecipe(new BarrelLiquidToLiquidRecipe(new FluidStack(TFCFluids.SALTWATER, 4500), new FluidStack(TFCFluids.VINEGAR, 500), new FluidStack(TFCFluids.BRINE, 5000))
+                .setSealTime(0).setSealedRecipe(false).setMinTechLevel(0).setRemovesLiquid(false));
+        BarrelManager.getInstance().addRecipe(new BarrelLiquidToLiquidRecipe(new FluidStack(TFCFluids.MILK, 4500), new FluidStack(TFCFluids.VINEGAR, 500), new FluidStack(TFCFluids.MILKVINEGAR, 5000))
+            .setSealTime(0).setSealedRecipe(false).setMinTechLevel(0).setRemovesLiquid(false));
+        BarrelManager.getInstance().addRecipe(new BarrelLiquidToLiquidRecipe(new FluidStack(TFCFluids.FRESHWATER, 4500), new FluidStack(TFCFluids.HONEY, 500), new FluidStack(TFCFluids.HONEYWATER, 5000))
+                .setSealTime(0).setSealedRecipe(false).setMinTechLevel(0).setRemovesLiquid(false));
+
     }
 
     private static void registerAnvilRecipes() {
