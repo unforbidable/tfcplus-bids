@@ -119,6 +119,8 @@ public class RecipeSetup {
 
         }
 
+        OreDictionary.registerOre("itemHoneycomb", TFCItems.honeycomb);
+        OreDictionary.registerOre("itemHoneycomb", TFCItems.fertileHoneycomb);
     }
 
     private static void registerCustomRecipes() {
@@ -543,6 +545,20 @@ public class RecipeSetup {
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsBlocks.wallHook, 1, 0),
             "stickWood", TFCItems.resin));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.honeyLargeBowl, 1, 0),
+            "itemHoneycomb", "itemHoneycomb", "itemKnife", new ItemStack(BidsItems.largeClayBowl, 1, 1)));
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemKnife")
+            .matchCraftingItem(BidsItems.honeyLargeBowl));
+        RecipeManager.addAction(new ActionExtraDrop()
+            .addExtraDrop(new ItemStack(TFCItems.emptyHoneycomb, 2, 0))
+            .matchIngredient("itemHoneycomb")
+            .matchIngredient("itemHoneycomb")
+            .matchIngredient("itemKnife")
+            .matchIngredient(BidsItems.largeClayBowl)
+            .matchCraftingItem(BidsItems.honeyLargeBowl));
 
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.ceramicBucketRope),
             new ItemStack(TFCItems.rope, 1, 0), new ItemStack(TFCItems.clayBucketEmpty, 1, 0));
