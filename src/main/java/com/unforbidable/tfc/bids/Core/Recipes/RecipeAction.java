@@ -96,22 +96,33 @@ public abstract class RecipeAction {
                 }
 
                 for (String oreName : ingredientOreNames) {
-                    List<ItemStack> ores = OreDictionary.getOres(oreName, false);
-                    for (ItemStack ore : ores) {
-                        if (is.getItem() == ore.getItem()) {
-                            Bids.LOG.debug("Match ore ingredient: " + ore.getDisplayName());
+                    if (ingredientMatchesOreName(is, oreName)) {
+                        Bids.LOG.debug("Match ore ingredient: " + is.getDisplayName());
 
-                            ingredientOresFound++;
+                        ingredientOresFound++;
 
-                            break;
-                        }
+                        break;
                     }
                 }
             }
         }
 
+        Bids.LOG.debug("Expected ingredients to match: " + ingredients.size() + " found: " + ingredientsFound);
+        Bids.LOG.debug("Expected ore ingredients to match: " + ingredientOreNames.size() + " found: " + ingredientOresFound);
+
         return ingredientsFound == ingredients.size()
                 && ingredientOresFound == ingredientOreNames.size();
+    }
+
+    private boolean ingredientMatchesOreName(ItemStack is, String oreName) {
+        List<ItemStack> ores = OreDictionary.getOres(oreName, false);
+        for (ItemStack ore : ores) {
+            if (is.getItem() == ore.getItem()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void onItemCrafted(ItemCraftedEvent event) {
