@@ -1,15 +1,15 @@
 package com.unforbidable.tfc.bids.Core.Carving.Carvings;
 
-import java.util.Random;
-
 import com.dunk.tfc.api.TFCBlocks;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class CarvingWoodVert implements ICarving {
 
@@ -25,7 +25,8 @@ public class CarvingWoodVert implements ICarving {
 
     @Override
     public boolean canCarveBlockAt(Block block, int metadata, World world, int x, int y, int z, int side) {
-        return world.isAirBlock(x, y + 1, z);
+        return world.isAirBlock(x, y + 1, z) ||
+            world.getTileEntity(x, y + 1, z) instanceof TileEntityCarving;
     }
 
     @Override
