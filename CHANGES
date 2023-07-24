@@ -341,3 +341,13 @@
 - Changed: Empty wood pile slots get automatically filled up with logs from the wood pile above if present
 - Changed: Loose candles can be lit directly from the new fire pit when it is lit
 - Changed: Updated Chinese translation by Eternal130
+
+0.29.0 (24-07-2023)
+- Added: Large ceramic bowl able to carry fresh water, salt water, vinegar, milk and honey
+- Added: Recipe for emptying two honeycombs into a large bowl with a knife
+- Added: Recipes for fermenting 5000 mB of beers in large vessels and barrels
+- Added: Recipes for mixing 5000 mB of brine, milk + vinegar mix and honey water in large vessels and barrels
+- Added: Added Japanese translation by dynamic.day for version 0.28.x
+- Changed: Bowls containing a liquid can no longer stack
+- Changed: Crucibles will reach equilibrium a little faster
+- Changed: Vertical logs (ie. large tree trunks) can be carved if the block above is air or another carving

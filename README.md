@@ -41,6 +41,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Wall Hook](../../wiki/Wall-Hook) - for hanging some tools, clothes and some other items on a wall
 * [Aquifer](../../wiki/Aquifer) - generates below the surface and spawns water blocks above when exposed
 * [Bucket and Rope](../../wiki/Bucket-and-Rope) - for drawing water from deep wells
+* [Large Bowl](../../wiki/Large-Bowl) - enables mixing barrel recipes that might require adding 500mB of liquid
 
 ### Contributions
 
