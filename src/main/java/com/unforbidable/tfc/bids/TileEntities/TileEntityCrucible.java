@@ -694,7 +694,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         // We want to enforce minimum temp delta
         // to ensure the temp reaches equilibrium with the heat source
         // at some point instead of forever approaching it
-        float minAbs = 0.001f;
+        float minAbs = 0.005f;
         if (Math.abs(delta) < minAbs) {
             if (delta > 0)
                 delta = Math.min(minAbs, max);
