@@ -37,6 +37,11 @@ public class BidsItems {
     public static Item igExStoneAdze;
     public static Item mMStoneAdze;
 
+    public static Item copperAdze;
+    public static Item bronzeAdze;
+    public static Item bismuthBronzeAdze;
+    public static Item blackBronzeAdze;
+
     public static Item sedRoughStoneLooseBrick;
     public static Item roughStoneBrick;
     public static Item roughStoneTile;

@@ -25,14 +25,12 @@ import net.minecraft.world.World;
 
 public class ItemAdze extends ItemTool implements ISize, ICarvingTool {
 
-    private static final Set<Block> BLOCKS_EFFECTIVE_AGAINST = Sets.newHashSet(new Block[] {
-            BidsBlocks.carvingRock, BidsBlocks.roughStoneSed, BidsBlocks.roughStoneBrickSed
-    });
+    private static final Set<Block> BLOCKS_EFFECTIVE_AGAINST = Sets.newHashSet(BidsBlocks.carvingRock, BidsBlocks.roughStoneSed, BidsBlocks.roughStoneBrickSed);
 
     public ItemAdze(ToolMaterial material) {
         super(-0.25F * material.getDamageVsEntity(), material, BLOCKS_EFFECTIVE_AGAINST);
         setCreativeTab(BidsCreativeTabs.bidsTools);
-        setMaxDamage(material.getMaxUses() * 2);
+        setMaxDamage(material.getHarvestLevel() < 2 ? material.getMaxUses() * 2 : material.getMaxUses());
         setNoRepair();
     }
 
