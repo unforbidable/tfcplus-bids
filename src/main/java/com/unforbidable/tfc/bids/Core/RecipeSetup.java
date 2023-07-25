@@ -250,6 +250,11 @@ public class RecipeSetup {
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.bismuthBronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 4)));
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.blackBronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 5)));
 
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.copperAdze, 1), "#", "I", '#', new ItemStack(BidsItems.copperAdzeHead, 1, 0), 'I', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.bronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.bronzeAdzeHead, 1, 0), 'I', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.bismuthBronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.bismuthBronzeAdzeHead, 1, 0), 'I', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.blackBronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.blackBronzeAdzeHead, 1, 0), 'I', "stickWood"));
+
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.smallStickBundle),
                 "stickWood", "stickWood", "stickWood"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stick, 3, 0),
