@@ -38,6 +38,11 @@ public class BidsItems {
     public static Item mMStoneAdze;
 
     public static Item clayMoldAdze;
+    public static Item copperAdzeHead;
+    public static Item bronzeAdzeHead;
+    public static Item bismuthBronzeAdzeHead;
+    public static Item blackBronzeAdzeHead;
+
     public static Item copperAdze;
     public static Item bronzeAdze;
     public static Item bismuthBronzeAdze;
@@ -124,5 +129,4 @@ public class BidsItems {
     public static Item woodenBucketRopeWater;
     public static Item ceramicBucketRope;
     public static Item ceramicBucketRopeWater;
-
 }

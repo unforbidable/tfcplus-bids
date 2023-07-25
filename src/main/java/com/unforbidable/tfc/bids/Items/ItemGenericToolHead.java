@@ -8,16 +8,12 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 
 public class ItemGenericToolHead extends ItemMiscToolHead {
 
-    final private ToolMaterial material;
-
     public ItemGenericToolHead(ToolMaterial material) {
-        super();
-        this.material = material;
+        super(material);
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
     }
 
-    public ToolMaterial getMaterial() {
-        return material;
+    public ItemGenericToolHead() {
     }
 
     @Override

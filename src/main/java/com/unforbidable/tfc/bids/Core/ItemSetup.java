@@ -120,6 +120,15 @@ public class ItemSetup extends BidsItems {
             .setMetaNames(new String[] { "Clay", "Ceramic", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze" })
             .setUnlocalizedName("Mold Adze");
 
+        copperAdzeHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Copper Adze Head");
+        bronzeAdzeHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Bronze Adze Head");
+        bismuthBronzeAdzeHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Bismuth Bronze Adze Head");
+        blackBronzeAdzeHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Black Bronze Adze Head");
+
         copperAdze = new ItemAdze(TFCItems.copperToolMaterial)
             .setUnlocalizedName("Copper Adze");
         bronzeAdze = new ItemAdze(TFCItems.bronzeToolMaterial)
@@ -664,6 +673,10 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(honeyLargeBowl, honeyLargeBowl.getUnlocalizedName());
 
         GameRegistry.registerItem(clayMoldAdze, clayMoldAdze.getUnlocalizedName());
+        GameRegistry.registerItem(copperAdzeHead, copperAdzeHead.getUnlocalizedName());
+        GameRegistry.registerItem(bronzeAdzeHead, bronzeAdzeHead.getUnlocalizedName());
+        GameRegistry.registerItem(bismuthBronzeAdzeHead, bismuthBronzeAdzeHead.getUnlocalizedName());
+        GameRegistry.registerItem(blackBronzeAdzeHead, blackBronzeAdzeHead.getUnlocalizedName());
 
         GameRegistry.registerItem(copperAdze, copperAdze.getUnlocalizedName());
         GameRegistry.registerItem(bronzeAdze, bronzeAdze.getUnlocalizedName());

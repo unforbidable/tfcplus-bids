@@ -554,6 +554,11 @@ item.Mold Adze.Bronze.name=Adze Mold (Bronze)
 item.Mold Adze.Bismuth Bronze.name=Adze Mold (Bismuth Bronze)
 item.Mold Adze.Black Bronze.name=Adze Mold (Black Bronze)
 
+item.Copper Adze Head.name=Copper Adze Head
+item.Bronze Adze Head.name=Bronze Adze Head
+item.Bismuth Bronze Adze Head.name=Bismuth Bronze Adze Head
+item.Black Bronze Adze Head.name=Black Bronze Adze Head
+
 item.Rough Stone Brick.Chalk.name=Rough Chalk Brick
 item.Rough Stone Brick.Chert.name=Rough Chert Brick
 item.Rough Stone Brick.Claystone.name=Rough Claystone Brick

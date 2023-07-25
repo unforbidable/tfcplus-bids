@@ -36,6 +36,8 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.Arrays;
 
+import static com.dunk.tfc.Core.Recipes.getStackNoTemp;
+
 public class RecipeSetup {
 
     public static void init() {
@@ -242,6 +244,11 @@ public class RecipeSetup {
                 "1", "2", '1', BidsItems.igExStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
         GameRegistry.addRecipe(new ItemStack(BidsItems.mMStoneAdze, 1, 0),
                 "1", "2", '1', BidsItems.mMStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.copperAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 2)));
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.bronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 3)));
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.bismuthBronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 4)));
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.blackBronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 5)));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.smallStickBundle),
                 "stickWood", "stickWood", "stickWood"));
