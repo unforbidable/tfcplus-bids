@@ -547,6 +547,13 @@ item.Sed Stone Adze.name=Stone Adze
 item.IgEx Stone Adze.name=Stone Adze
 item.MM Stone Adze.name=Stone Adze
 
+item.Mold Adze.Clay.name=Clay Adze Mold
+item.Mold Adze.Ceramic.name=Adze Mold
+item.Mold Adze.Copper.name=Adze Mold (Copper)
+item.Mold Adze.Bronze.name=Adze Mold (Bronze)
+item.Mold Adze.Bismuth Bronze.name=Adze Mold (Bismuth Bronze)
+item.Mold Adze.Black Bronze.name=Adze Mold (Black Bronze)
+
 item.Rough Stone Brick.Chalk.name=Rough Chalk Brick
 item.Rough Stone Brick.Chert.name=Rough Chert Brick
 item.Rough Stone Brick.Claystone.name=Rough Claystone Brick

@@ -113,6 +113,13 @@ public class ItemSetup extends BidsItems {
         mMStoneAdze = new ItemAdze(TFCItems.mMToolMaterial)
                 .setUnlocalizedName("MM Stone Adze");
 
+        Metal[] toolMetals = new Metal[] { Global.COPPER, Global.BRONZE, Global.BISMUTHBRONZE, Global.BLACKBRONZE };
+        clayMoldAdze = new ItemGenericPotteryMold()
+            .setCounter(4)
+            .setMetals(toolMetals)
+            .setMetaNames(new String[] { "Clay", "Ceramic", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze" })
+            .setUnlocalizedName("Mold Adze");
+
         copperAdze = new ItemAdze(TFCItems.copperToolMaterial)
             .setUnlocalizedName("Copper Adze");
         bronzeAdze = new ItemAdze(TFCItems.bronzeToolMaterial)
@@ -508,6 +515,11 @@ public class ItemSetup extends BidsItems {
 
         Global.GLASS.addValidPartialMold(metalBlowpipe, 2, metalBlowpipe, 1, 2);
         Global.GLASS.addValidPartialMold(brassBlowpipe, 2, brassBlowpipe, 1, 2);
+
+        Global.COPPER.addValidPartialMold(clayMoldAdze, 2, clayMoldAdze, 4, 2);
+        Global.BRONZE.addValidPartialMold(clayMoldAdze, 3, clayMoldAdze, 4, 2);
+        Global.BISMUTHBRONZE.addValidPartialMold(clayMoldAdze, 4, clayMoldAdze, 4, 2);
+        Global.BLACKBRONZE.addValidPartialMold(clayMoldAdze, 5, clayMoldAdze, 4, 2);
     }
 
     private static void registerHeat() {
@@ -650,6 +662,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(vinegarLargeBowl, vinegarLargeBowl.getUnlocalizedName());
         GameRegistry.registerItem(milkLargeBowl, milkLargeBowl.getUnlocalizedName());
         GameRegistry.registerItem(honeyLargeBowl, honeyLargeBowl.getUnlocalizedName());
+
+        GameRegistry.registerItem(clayMoldAdze, clayMoldAdze.getUnlocalizedName());
 
         GameRegistry.registerItem(copperAdze, copperAdze.getUnlocalizedName());
         GameRegistry.registerItem(bronzeAdze, bronzeAdze.getUnlocalizedName());
