@@ -1171,13 +1171,26 @@ public class RecipeSetup {
         }
 
         if (AnvilManager.getInstance().getPlan("blowpipe") == null) {
-            Bids.LOG.info("Registering blowpipe anvil plan and recipe");
+            Bids.LOG.info("Registering blowpipe anvil plan and recipes");
             AnvilManager.getInstance().addPlan("blowpipe", new PlanRecipe(new RuleEnum[] {
                     RuleEnum.BENDLAST, RuleEnum.BENDSECONDFROMLAST, RuleEnum.ANY }));
             AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.wroughtIronSheet), null,
                     "blowpipe", AnvilReq.WROUGHTIRON, new ItemStack(BidsItems.metalBlowpipe, 1, 1)));
             AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.brassSheet), null,
                     "blowpipe", AnvilReq.BRONZE, new ItemStack(BidsItems.brassBlowpipe, 1, 1)));
+        }
+
+        if (AnvilManager.getInstance().getPlan("adze") == null) {
+            Bids.LOG.info("Registering adze anvil plan and recipes");
+            AnvilManager.getInstance().addPlan("adze", new PlanRecipe(new RuleEnum[] { RuleEnum.PUNCHLAST, RuleEnum.PUNCHSECONDFROMLAST, RuleEnum.HITTHIRDFROMLAST }));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.copperIngot), null,
+                "adze", AnvilReq.COPPER, new ItemStack(BidsItems.copperAdzeHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.bronzeIngot), null,
+                "adze", AnvilReq.BRONZE, new ItemStack(BidsItems.bronzeAdzeHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.bismuthBronzeIngot), null,
+                "adze", AnvilReq.BISMUTHBRONZE, new ItemStack(BidsItems.bismuthBronzeAdzeHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.blackBronzeIngot), null,
+                "adze", AnvilReq.BLACKBRONZE, new ItemStack(BidsItems.blackBronzeAdzeHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
         }
     }
 

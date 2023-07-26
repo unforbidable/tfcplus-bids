@@ -3,10 +3,14 @@ package com.unforbidable.tfc.bids.Items;
 import java.util.List;
 import java.util.Set;
 
+import com.dunk.tfc.Items.Tools.ItemTerraTool;
+import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
@@ -17,21 +21,42 @@ import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class ItemAdze extends ItemTool implements ISize, ICarvingTool {
+public class ItemAdze extends ItemTerraTool implements ISize, ICarvingTool {
 
     private static final Set<Block> BLOCKS_EFFECTIVE_AGAINST = Sets.newHashSet(BidsBlocks.carvingRock, BidsBlocks.roughStoneSed, BidsBlocks.roughStoneBrickSed);
+    private final float damageVsEntity;
 
     public ItemAdze(ToolMaterial material) {
-        super(-0.25F * material.getDamageVsEntity(), material, BLOCKS_EFFECTIVE_AGAINST);
+        super(0, material, BLOCKS_EFFECTIVE_AGAINST);
+
+        damageVsEntity = material.getDamageVsEntity() * 0.5f;
+
         setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxDamage(material.getHarvestLevel() < 2 ? material.getMaxUses() * 2 : material.getMaxUses());
         setNoRepair();
+    }
+
+    @Override
+    public int getMaxDamage(ItemStack is) {
+        return (int) Math.floor(getMaxDamage() + (getMaxDamage() * AnvilManager.getDurabilityBuff(is)));
+    }
+
+    @Override
+    public Multimap<String, AttributeModifier> getAttributeModifiers(ItemStack is) {
+        Multimap<String, AttributeModifier> multimap = HashMultimap.create();
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Tool modifier", getWeaponDamage(is), 0));
+        return multimap;
+    }
+
+    private double getWeaponDamage(ItemStack is) {
+        return Math.floor(damageVsEntity + (damageVsEntity * AnvilManager.getDamageBuff(is)));
     }
 
     @Override
@@ -66,18 +91,15 @@ public class ItemAdze extends ItemTool implements ISize, ICarvingTool {
         return EnumWeight.LIGHT;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
-        ItemHelper.addSizeInformation(is, list);
-
+    public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> arraylist) {
         if (ItemHelper.showShiftInformation()) {
-            list.add(StatCollector.translateToLocal("gui.Help"));
-            list.add(StatCollector.translateToLocal("gui.Help.Adze"));
-            list.add(StatCollector.translateToLocal("gui.Help.Adze2"));
-            list.add(StatCollector.translateToLocal("gui.Help.Adze3"));
+            arraylist.add(StatCollector.translateToLocal("gui.Help"));
+            arraylist.add(StatCollector.translateToLocal("gui.Help.Adze"));
+            arraylist.add(StatCollector.translateToLocal("gui.Help.Adze2"));
+            arraylist.add(StatCollector.translateToLocal("gui.Help.Adze3"));
         } else {
-            list.add(StatCollector.translateToLocal("gui.ShowHelp"));
+            arraylist.add(StatCollector.translateToLocal("gui.ShowHelp"));
         }
     }
 

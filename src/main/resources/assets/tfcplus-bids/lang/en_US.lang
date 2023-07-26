@@ -878,6 +878,7 @@ gui.Output=Output
 gui.Alloying=Alloying
 gui.Glassmaking=Glassmaking
 gui.plans.blowpipe=Blowpipe
+gui.plans.adze=Adze
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Days=Days
