@@ -10,7 +10,7 @@ public interface ICarving {
 
     boolean canCarveBlock(Block block, int metadata);
 
-    boolean canCarveBlockWithTool(Block block, int metadata, ICarvingTool tool);
+    boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier);
 
     boolean canCarveBlockAt(Block block, int metadata, World world, int x, int y, int z, int side);
 

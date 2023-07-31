@@ -130,12 +130,16 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Black Bronze Adze Head");
 
         copperAdze = new ItemAdze(TFCItems.copperToolMaterial)
+            .setEquipmentTier(1)
             .setUnlocalizedName("Copper Adze");
         bronzeAdze = new ItemAdze(TFCItems.bronzeToolMaterial)
+            .setEquipmentTier(2)
             .setUnlocalizedName("Bronze Adze");
         bismuthBronzeAdze = new ItemAdze(TFCItems.bismuthBronzeToolMaterial)
+            .setEquipmentTier(2)
             .setUnlocalizedName("Bismuth Bronze Adze");
         blackBronzeAdze = new ItemAdze(TFCItems.blackBronzeToolMaterial)
+            .setEquipmentTier(2)
             .setUnlocalizedName("Black Bronze Adze");
 
         // Obsolete - replaced with roughStoneBrick

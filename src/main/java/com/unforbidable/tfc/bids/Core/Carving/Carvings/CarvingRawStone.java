@@ -18,6 +18,11 @@ public class CarvingRawStone extends CarvingRoughStone {
     }
 
     @Override
+    public boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier) {
+        return true;
+    }
+
+    @Override
     public boolean canCarveBlockAt(Block block, int metadata, World world, int x, int y, int z, int side) {
         return super.canCarveBlockAt(block, metadata, world, x, y, z, side)
                 && isCarvedBlockExposed(world, x, y, z, side);

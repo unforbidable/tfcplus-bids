@@ -26,12 +26,18 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class CarvingHelper {
 
     public static boolean carveBlockAt(World world, EntityPlayer player, int x, int y, int z, int side,
-            float hitX, float hitY, float hitZ, ICarvingTool tool) {
+            float hitX, float hitY, float hitZ, ItemStack tool) {
         if (!world.isRemote) {
             ForgeDirection d = ForgeDirection.getOrientation(side);
             TileEntity te = world.getTileEntity(x, y, z);
             if (te != null && te instanceof TileEntityCarving) {
                 TileEntityCarving tec = (TileEntityCarving) te;
+
+                ICarving carving = CarvingRegistry.getBlockCarving(tec);
+                if (!carving.isSufficientEquipmentTier(Block.getBlockById(tec.getCarvedBlockId()), tec.getCarvedBlockMetadata(), ((ICarvingTool)tool.getItem()).getCarvingToolEquipmentTier(tool))) {
+                    Bids.LOG.debug("Insufficient tool to continue to carve block at " + x + ", " + y + ", " + z);
+                    return false;
+                }
 
                 if (player.isSneaking()) {
                     tec.setCarvingLocked(!tec.isCarvingLocked());
@@ -52,7 +58,6 @@ public class CarvingHelper {
                         double y2 = y + 0.5D;
                         double z2 = z + 0.5D;
 
-                        ICarving carving = CarvingRegistry.getBlockCarving(tec);
                         String soundEffect = carving.getCarvingSoundEffect();
                         if (soundEffect != null) {
                             world.playSoundEffect(x2, y2, z2, soundEffect,
@@ -85,7 +90,7 @@ public class CarvingHelper {
                         + " at " + x + ", " + y + ", " + z + " hit with a carving tool");
 
                 ICarving carving = CarvingRegistry.getBlockCarvingAt(world, x, y, z);
-                if (carving != null && carving.canCarveBlockWithTool(block, metadata, tool)
+                if (carving != null && carving.isSufficientEquipmentTier(block, metadata, ((ICarvingTool)tool.getItem()).getCarvingToolEquipmentTier(tool))
                         && carving.canCarveBlockAt(block, metadata, world, x, y, z, side)) {
                     Bids.LOG.debug("Block " + block.getUnlocalizedName() + ":" + metadata
                             + " at " + x + ", " + y + ", " + z + " can be carved");

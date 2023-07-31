@@ -30,8 +30,10 @@ import net.minecraft.world.World;
 
 public class ItemAdze extends ItemTerraTool implements ISize, ICarvingTool {
 
-    private static final Set<Block> BLOCKS_EFFECTIVE_AGAINST = Sets.newHashSet(BidsBlocks.carvingRock, BidsBlocks.roughStoneSed, BidsBlocks.roughStoneBrickSed);
+    private static final Set<Block> BLOCKS_EFFECTIVE_AGAINST = Sets.newHashSet(BidsBlocks.carvingRock, BidsBlocks.carvingWood, BidsBlocks.roughStoneSed, BidsBlocks.roughStoneBrickSed);
     private final float damageVsEntity;
+
+    private int equipmentTier = 0;
 
     public ItemAdze(ToolMaterial material) {
         super(0, material, BLOCKS_EFFECTIVE_AGAINST);
@@ -41,6 +43,16 @@ public class ItemAdze extends ItemTerraTool implements ISize, ICarvingTool {
         setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxDamage(material.getHarvestLevel() < 2 ? material.getMaxUses() * 2 : material.getMaxUses());
         setNoRepair();
+    }
+
+    public int getEquipmentTier() {
+        return equipmentTier;
+    }
+
+    public ItemAdze setEquipmentTier(int equipmentTier) {
+        this.equipmentTier = equipmentTier;
+
+        return this;
     }
 
     @Override
@@ -106,11 +118,16 @@ public class ItemAdze extends ItemTerraTool implements ISize, ICarvingTool {
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
             float hitX, float hitY, float hitZ) {
-        if (CarvingHelper.carveBlockAt(world, player, x, y, z, side, hitX, hitY, hitZ, this)) {
+        if (CarvingHelper.carveBlockAt(world, player, x, y, z, side, hitX, hitY, hitZ, stack)) {
             return true;
         }
 
         return super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+    }
+
+    @Override
+    public int getCarvingToolEquipmentTier(ItemStack itemStack) {
+        return equipmentTier;
     }
 
 }

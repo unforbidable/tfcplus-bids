@@ -20,7 +20,7 @@ public class CarvingRoughStone implements ICarving {
     }
 
     @Override
-    public boolean canCarveBlockWithTool(Block block, int metadata, ICarvingTool tool) {
+    public boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier) {
         return true;
     }
 
