@@ -14,12 +14,12 @@ public class CarvingRawStone extends CarvingRoughStone {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block == TFCBlocks.stoneSed;
+        return block == TFCBlocks.stoneSed || block == TFCBlocks.stoneMM || block == TFCBlocks.stoneIgEx || block == TFCBlocks.stoneIgIn;
     }
 
     @Override
     public boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier) {
-        return true;
+        return block == TFCBlocks.stoneSed || equipmentTier > 0;
     }
 
     @Override
@@ -32,6 +32,10 @@ public class CarvingRawStone extends CarvingRoughStone {
     protected ItemStack getLooseRock(Block block, int metadata) {
         if (block == TFCBlocks.stoneSed) {
             return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_SED_START);
+        } else if (block == TFCBlocks.stoneIgEx) {
+            return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_IGEX_START);
+        } else if (block == TFCBlocks.stoneIgIn) {
+            return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_IGIN_START);
         } else {
             return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_MM_START);
         }
