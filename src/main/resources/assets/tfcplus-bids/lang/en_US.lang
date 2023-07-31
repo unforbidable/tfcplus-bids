@@ -143,6 +143,17 @@ tile.WallHook.name=Wall Hook
 tile.Aquifer.name=Gravel
 tile.Aquifer2.name=Gravel
 
+tile.UnfinishedAnvil.Copper.name=Unfinished Copper Anvil
+tile.UnfinishedAnvil.Bronze.name=Unfinished Bronze Anvil
+tile.UnfinishedAnvil.Wrought Iron.name=Unfinished Wrought Iron Anvil
+tile.UnfinishedAnvil.Steel.name=Unfinished Steel Anvil
+tile.UnfinishedAnvil.Black Steel.name=Unfinished Black Steel Anvil
+tile.UnfinishedAnvil.Blue Steel.name=Unfinished Blue Steel Anvil
+tile.UnfinishedAnvil.Red Steel.name=Unfinished Red Steel Anvil
+tile.UnfinishedAnvil.Rose Gold.name=Unfinished Rose Gold Anvil
+tile.UnfinishedAnvil.Bismuth Bronze.name=Unfinished Bismuth Bronze Anvil
+tile.UnfinishedAnvil.Black Bronze.name=Unfinished Black Bronze Anvil
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit
@@ -893,5 +904,10 @@ gui.KindlingQuality=Kindling Quality
 gui.ChoppingBlock=Chopping Block
 gui.SaddleQuern=Saddle Quern
 gui.StonePress=Stone Press
+gui.Stage1=Stage 1
+gui.Stage2=Stage 2
+gui.Stage3=Stage 3
+gui.Stage4=Stage 4
+gui.Stage5=Stage 5
 
 key.BidsToolMode=Cycle Tool Mode

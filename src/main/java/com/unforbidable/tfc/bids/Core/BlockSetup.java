@@ -190,6 +190,17 @@ public class BlockSetup extends BidsBlocks {
         aquifer2 = new BlockAquifer(16)
                 .setGravelBlock(TFCBlocks.gravel2)
                 .setBlockName("Aquifer2");
+
+        unfinishedAnvilStage1 = new BlockUnfinishedAnvil(0)
+            .setBlockName("UnfinishedAnvilStage1");
+        unfinishedAnvilStage2 = new BlockUnfinishedAnvil(1)
+            .setBlockName("UnfinishedAnvilStage2");
+        unfinishedAnvilStage3 = new BlockUnfinishedAnvil(2)
+            .setBlockName("UnfinishedAnvilStage3");
+        unfinishedAnvilStage4 = new BlockUnfinishedAnvil(3)
+            .setBlockName("UnfinishedAnvilStage4");
+        unfinishedAnvilStage5 = new BlockUnfinishedAnvil(4)
+            .setBlockName("UnfinishedAnvilStage5");
     }
 
     private static void updateBlocks() {
@@ -337,6 +348,21 @@ public class BlockSetup extends BidsBlocks {
 
         wallHookRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(wallHookRenderId, new RenderWallHook());
+
+        unfinishedAnvilStage1RenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage1RenderId, new RenderUnfinishedAnvil(0));
+
+        unfinishedAnvilStage2RenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage2RenderId, new RenderUnfinishedAnvil(1));
+
+        unfinishedAnvilStage3RenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage3RenderId, new RenderUnfinishedAnvil(2));
+
+        unfinishedAnvilStage4RenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage4RenderId, new RenderUnfinishedAnvil(3));
+
+        unfinishedAnvilStage5RenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage5RenderId, new RenderUnfinishedAnvil(4));
     }
 
     private static void registerTileEntities() {
@@ -489,6 +515,12 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(roughStoneMM, ItemRoughStone.class, "RoughStoneMM");
         GameRegistry.registerBlock(roughStoneBrickMM, ItemRoughStoneBrick.class, "RoughStoneBrickMM");
         GameRegistry.registerBlock(roughStoneTileMM, ItemRoughStoneBrick.class, "RoughStoneTileMM");
+
+        GameRegistry.registerBlock(unfinishedAnvilStage1, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage1");
+        GameRegistry.registerBlock(unfinishedAnvilStage2, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage2");
+        GameRegistry.registerBlock(unfinishedAnvilStage3, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage3");
+        GameRegistry.registerBlock(unfinishedAnvilStage4, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage4");
+        GameRegistry.registerBlock(unfinishedAnvilStage5, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage5");
     }
 
 }

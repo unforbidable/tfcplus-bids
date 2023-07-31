@@ -8,6 +8,7 @@ import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Interfaces.IBoots;
 import com.dunk.tfc.api.Interfaces.IEquipable;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Blocks.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.*;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
@@ -548,6 +549,27 @@ public class ItemSetup extends BidsItems {
 
                 ItemStack is = new ItemStack(oreBit, 1, i);
                 reg.addIndex(new HeatIndex(is, raw, new ItemStack(smallOreIndex.getOutputItem(), 1)));
+            }
+        }
+
+        registerHeatUnfinishedAnvilHelper(reg, 1, TFCItems.copperUnshaped);
+        registerHeatUnfinishedAnvilHelper(reg, 2, TFCItems.bronzeUnshaped);
+        registerHeatUnfinishedAnvilHelper(reg, 3, TFCItems.wroughtIronUnshaped);
+        registerHeatUnfinishedAnvilHelper(reg, 4, TFCItems.steelUnshaped);
+        registerHeatUnfinishedAnvilHelper(reg, 5, TFCItems.blackSteelUnshaped);
+        registerHeatUnfinishedAnvilHelper(reg, 6, TFCItems.redSteelUnshaped);
+        registerHeatUnfinishedAnvilHelper(reg, 7, TFCItems.blueSteelUnshaped);
+        registerHeatUnfinishedAnvilHelper(reg, 8, TFCItems.roseGoldUnshaped);
+        registerHeatUnfinishedAnvilHelper(reg, 9, TFCItems.bismuthUnshaped);
+        registerHeatUnfinishedAnvilHelper(reg, 10, TFCItems.blackBronzeUnshaped);
+    }
+
+    private static void registerHeatUnfinishedAnvilHelper(HeatRegistry reg, int mat, Item unshaped) {
+        HeatIndex hi = reg.findMatchingIndex(new ItemStack(unshaped, 1));
+        if (hi != null) {
+            HeatRaw raw = new HeatRaw(hi.specificHeat, hi.meltTemp);
+            for (int j = 0; j < BlockUnfinishedAnvil.NUM_STAGES; j++) {
+                reg.addIndex(new HeatIndex(BlockUnfinishedAnvil.getUnfinishedAnvil(mat, j), raw, new ItemStack(unshaped, 2 * j + 4, 0)));
             }
         }
     }
