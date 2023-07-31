@@ -694,13 +694,17 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         // We want to enforce minimum temp delta
         // to ensure the temp reaches equilibrium with the heat source
         // at some point instead of forever approaching it
-        float minAbs = 0.005f;
-        if (Math.abs(delta) < minAbs) {
-            if (delta > 0)
-                delta = Math.min(minAbs, max);
-            else if (delta < 0)
-                delta = Math.max(-minAbs, max);
-        }
+        // Higher values will speed up the finish
+        // Speed up heating and slow down cooling for the player's convenience
+        float minHeatingDetla = 0.02f;
+        float minCoolingDetla = -0.002f;
+        if (delta > 0 && delta < minHeatingDetla)
+            delta = Math.min(minHeatingDetla, max);
+        else if (delta < 0 && delta > minCoolingDetla)
+            delta = Math.max(minCoolingDetla, max);
+
+        Bids.LOG.debug("Temperature delta enforced to " + delta);
+
         return delta;
     }
 
