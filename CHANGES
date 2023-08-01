@@ -351,3 +351,9 @@
 - Changed: Bowls containing a liquid can no longer stack
 - Changed: Crucibles will reach equilibrium a little faster
 - Changed: Vertical logs (ie. large tree trunks) can be carved if the block above is air or another carving
+
+0.30.0 (01-07-2023)
+- Added: Copper and Bronze Adze with tool heads cast with molds and hammered on an anvil
+- Added: Anvil can be made by welding together double ingots and Unfinished Anvil stages 1-5
+- Added: Copper and Bronze Adze can carve any type of raw stone
+- Changed: Crucible temp will rise to equilibrium a little faster and drop a little slower

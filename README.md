@@ -15,7 +15,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Drill](../../wiki/Drill) - a tool for drilling raw stone
 * [Quarry](../../wiki/Quarry) - for harvesting Rough Stone block using the drill and wedge method, sedimentary rocks only
 * [Rough Stone and Rough Stone Bricks](../../wiki/Rough-Stone) - new building blocks for sedimentary rocks
-* [Adze](../../wiki/Adze) - a tool for carving blocks, making rough stone bricks, peeling logs and so on
+* [Adze](../../wiki/Adze) - a tool for carving blocks, making rough stone bricks, peeling logs and so on, tool head made from stone, copper and any bronze
 * [Carving](../../wiki/Carving) - for shaping blocks with an adze, in like manner to TFC detailing with a chisel, and carving recipes, using 3 carving modes
 * [Peeled Log](../../wiki/Peeled-Log) - logs that had their bark stripped used to craft log walls
 * [Log Walls](../../wiki/Log-Wall) - new building block with 6 variations for log cabin construction, and 2 variations of vertical log walls
@@ -42,6 +42,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Aquifer](../../wiki/Aquifer) - generates below the surface and spawns water blocks above when exposed
 * [Bucket and Rope](../../wiki/Bucket-and-Rope) - for drawing water from deep wells
 * [Large Bowl](../../wiki/Large-Bowl) - enables mixing barrel recipes that might require adding 500mB of liquid
+* [Unfinished Anvil](../../wiki/Unfinished-Anvil) - enables anvil creation by welding seven double ingots together
 
 ### Contributions
 
