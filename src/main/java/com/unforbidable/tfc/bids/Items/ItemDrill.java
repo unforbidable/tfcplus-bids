@@ -40,16 +40,31 @@ public class ItemDrill extends Item implements ISize {
 
     static final int MAX_USE_DURATION = 72000;
 
+    private int equipmentTier;
+    private float durationMultiplier = 1f;
+
     public ItemDrill(ToolMaterial material) {
         super();
         maxStackSize = 1;
         setCreativeTab(BidsCreativeTabs.bidsTools);
-        setMaxDamage(material.getMaxUses());
+        setMaxDamage(material.getHarvestLevel() > 1 ? material.getMaxUses() / 2 : material.getMaxUses());
         setNoRepair();
     }
 
-    public int getDrillQuarryEquipmentTier(ItemStack itemStack) {
-        return 0;
+    public ItemDrill setEquipmentTier(int equipmentTier) {
+        this.equipmentTier = equipmentTier;
+
+        return this;
+    }
+
+    public ItemDrill setDurationMultiplier(float durationMultiplier) {
+        this.durationMultiplier = durationMultiplier;
+
+        return this;
+    }
+
+    public int getDrillEquipmentTier(ItemStack itemStack) {
+        return equipmentTier;
     }
 
     @Override
@@ -199,7 +214,7 @@ public class ItemDrill extends Item implements ISize {
 
         ItemStack equippedItem = player.getCurrentEquippedItem();
         if (equippedItem != null && equippedItem.getItem() instanceof ItemDrill) {
-            int drillQuarryEquipmentTier = ((ItemDrill) equippedItem.getItem()).getDrillQuarryEquipmentTier(equippedItem);
+            int drillQuarryEquipmentTier = ((ItemDrill) equippedItem.getItem()).getDrillEquipmentTier(equippedItem);
             if (!quarriable.isSufficientEquipmentTier(block, metadata, drillQuarryEquipmentTier)) {
                 Bids.LOG.debug("Insufficient drill tier");
                 return false;
@@ -223,7 +238,7 @@ public class ItemDrill extends Item implements ISize {
     }
 
     protected int getBaseDrillDuration() {
-        return BidsOptions.Quarry.baseDrillDuration;
+        return Math.round(BidsOptions.Quarry.baseDrillDuration * durationMultiplier);
     }
 
     protected void onBlockDrillStarted(World world, int x, int y, int z, int side, ItemStack stack,

@@ -120,6 +120,11 @@ public class ItemSetup extends BidsItems {
             .setMetals(toolMetals)
             .setMetaNames(new String[] { "Clay", "Ceramic", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze" })
             .setUnlocalizedName("Mold Adze");
+        clayMoldDrill = new ItemGenericPotteryMold()
+            .setCounter(4)
+            .setMetals(toolMetals)
+            .setMetaNames(new String[] { "Clay", "Ceramic", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze" })
+            .setUnlocalizedName("Mold Drill");
 
         copperAdzeHead = new ItemGenericToolHead()
             .setUnlocalizedName("Copper Adze Head");
@@ -129,6 +134,15 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Bismuth Bronze Adze Head");
         blackBronzeAdzeHead = new ItemGenericToolHead()
             .setUnlocalizedName("Black Bronze Adze Head");
+
+        copperDrillHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Copper Drill Head");
+        bronzeDrillHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Bronze Drill Head");
+        bismuthBronzeDrillHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Bismuth Bronze Drill Head");
+        blackBronzeDrillHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Black Bronze Drill Head");
 
         copperAdze = new ItemAdze(TFCItems.copperToolMaterial)
             .setEquipmentTier(1)
@@ -142,6 +156,23 @@ public class ItemSetup extends BidsItems {
         blackBronzeAdze = new ItemAdze(TFCItems.blackBronzeToolMaterial)
             .setEquipmentTier(2)
             .setUnlocalizedName("Black Bronze Adze");
+
+        copperDrill = new ItemDrill(TFCItems.copperToolMaterial)
+            .setEquipmentTier(1)
+            .setDurationMultiplier(0.8f)
+            .setUnlocalizedName("Copper Drill");
+        bronzeDrill = new ItemDrill(TFCItems.bronzeToolMaterial)
+            .setEquipmentTier(2)
+            .setDurationMultiplier(0.5f)
+            .setUnlocalizedName("Bronze Drill");
+        bismuthBronzeDrill = new ItemDrill(TFCItems.bismuthBronzeToolMaterial)
+            .setEquipmentTier(2)
+            .setDurationMultiplier(0.5f)
+            .setUnlocalizedName("Bismuth Bronze Drill");
+        blackBronzeDrill = new ItemDrill(TFCItems.blackBronzeToolMaterial)
+            .setEquipmentTier(2)
+            .setDurationMultiplier(0.5f)
+            .setUnlocalizedName("Black Bronze Drill");
 
         // Obsolete - replaced with roughStoneBrick
         sedRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_SED)
@@ -441,12 +472,14 @@ public class ItemSetup extends BidsItems {
 
         final int WILD = OreDictionary.WILDCARD_VALUE;
 
-        final Item[] drills = new Item[] { sedStoneDrill, mMStoneDrill, igInStoneDrill, igExStoneDrill };
+        final Item[] drills = new Item[] { sedStoneDrill, mMStoneDrill, igInStoneDrill, igExStoneDrill,
+            copperDrill, bronzeDrill, bismuthBronzeDrill, blackBronzeDrill };
         for (Item drill : drills) {
             OreDictionary.registerOre("itemDrill", new ItemStack(drill, 1, WILD));
         }
 
-        final Item[] adzes = new Item[] { sedStoneAdze, mMStoneAdze, igInStoneAdze, igExStoneAdze };
+        final Item[] adzes = new Item[] { sedStoneAdze, mMStoneAdze, igInStoneAdze, igExStoneAdze,
+            copperAdze, bronzeAdze, bismuthBronzeAdze, blackBronzeAdze };
         for (Item adze : adzes) {
             OreDictionary.registerOre("itemAdze", new ItemStack(adze, 1, WILD));
         }
@@ -534,6 +567,11 @@ public class ItemSetup extends BidsItems {
         Global.BRONZE.addValidPartialMold(clayMoldAdze, 3, clayMoldAdze, 4, 2);
         Global.BISMUTHBRONZE.addValidPartialMold(clayMoldAdze, 4, clayMoldAdze, 4, 2);
         Global.BLACKBRONZE.addValidPartialMold(clayMoldAdze, 5, clayMoldAdze, 4, 2);
+
+        Global.COPPER.addValidPartialMold(clayMoldDrill, 2, clayMoldDrill, 4, 2);
+        Global.BRONZE.addValidPartialMold(clayMoldDrill, 3, clayMoldDrill, 4, 2);
+        Global.BISMUTHBRONZE.addValidPartialMold(clayMoldDrill, 4, clayMoldDrill, 4, 2);
+        Global.BLACKBRONZE.addValidPartialMold(clayMoldDrill, 5, clayMoldDrill, 4, 2);
     }
 
     private static void registerHeat() {
@@ -708,6 +746,17 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(bronzeAdze, bronzeAdze.getUnlocalizedName());
         GameRegistry.registerItem(bismuthBronzeAdze, bismuthBronzeAdze.getUnlocalizedName());
         GameRegistry.registerItem(blackBronzeAdze, blackBronzeAdze.getUnlocalizedName());
+
+        GameRegistry.registerItem(clayMoldDrill, clayMoldDrill.getUnlocalizedName());
+        GameRegistry.registerItem(copperDrillHead, copperDrillHead.getUnlocalizedName());
+        GameRegistry.registerItem(bronzeDrillHead, bronzeDrillHead.getUnlocalizedName());
+        GameRegistry.registerItem(bismuthBronzeDrillHead, bismuthBronzeDrillHead.getUnlocalizedName());
+        GameRegistry.registerItem(blackBronzeDrillHead, blackBronzeDrillHead.getUnlocalizedName());
+
+        GameRegistry.registerItem(copperDrill, copperDrill.getUnlocalizedName());
+        GameRegistry.registerItem(bronzeDrill, bronzeDrill.getUnlocalizedName());
+        GameRegistry.registerItem(bismuthBronzeDrill, bismuthBronzeDrill.getUnlocalizedName());
+        GameRegistry.registerItem(blackBronzeDrill, blackBronzeDrill.getUnlocalizedName());
     }
 
 }

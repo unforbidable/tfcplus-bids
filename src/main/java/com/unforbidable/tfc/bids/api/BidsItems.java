@@ -27,6 +27,17 @@ public class BidsItems {
     public static Item igExStoneDrill;
     public static Item mMStoneDrill;
 
+    public static Item clayMoldDrill;
+    public static Item copperDrillHead;
+    public static Item bronzeDrillHead;
+    public static Item bismuthBronzeDrillHead;
+    public static Item blackBronzeDrillHead;
+
+    public static Item copperDrill;
+    public static Item bronzeDrill;
+    public static Item bismuthBronzeDrill;
+    public static Item blackBronzeDrill;
+
     public static Item igInStoneAdzeHead;
     public static Item sedStoneAdzeHead;
     public static Item igExStoneAdzeHead;

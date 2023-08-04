@@ -16,7 +16,6 @@ import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelItemDemandingRecipe;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
-import com.unforbidable.tfc.bids.Items.ItemBlocks.ItemUnfinishedAnvil;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -252,10 +251,24 @@ public class RecipeSetup {
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.bismuthBronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 4)));
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.blackBronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 5)));
 
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.copperDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 2)));
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.bronzeDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 3)));
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.bismuthBronzeDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 4)));
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.blackBronzeDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 5)));
+
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.copperAdze, 1), "#", "I", '#', new ItemStack(BidsItems.copperAdzeHead, 1, 0), 'I', "stickWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.bronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.bronzeAdzeHead, 1, 0), 'I', "stickWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.bismuthBronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.bismuthBronzeAdzeHead, 1, 0), 'I', "stickWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.blackBronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.blackBronzeAdzeHead, 1, 0), 'I', "stickWood"));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.copperDrill, 1, 0),
+            BidsItems.copperDrillHead, "stickWood", TFCItems.bow));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.bronzeDrill, 1, 0),
+            BidsItems.bronzeDrillHead, "stickWood", TFCItems.bow));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.bismuthBronzeDrill, 1, 0),
+            BidsItems.bismuthBronzeDrillHead, "stickWood", TFCItems.bow));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.blackBronzeDrill, 1, 0),
+            BidsItems.blackBronzeDrillHead, "stickWood", TFCItems.bow));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.smallStickBundle),
                 "stickWood", "stickWood", "stickWood"));
@@ -949,6 +962,9 @@ public class RecipeSetup {
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMoldAdze, 1),
             new Object[] { "     ", "#####", "#  ##", "#    ", "     ",
                 '#', new ItemStack(TFCItems.flatClay, 1, 1) });
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMoldDrill, 1),
+            new Object[] { "  #  ", "  #  ", "  #  ", " ### ", "  #  ",
+                '#', new ItemStack(TFCItems.flatClay, 1, 1) });
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.clayCrucible, 1, 1),
                 new Object[] { "#####", " ### ", " ### ", " ### ", "     ", '#',
@@ -1090,6 +1106,9 @@ public class RecipeSetup {
         KilnCraftingManager.getInstance().addRecipe(
             new KilnRecipe(new ItemStack(BidsItems.clayMoldAdze, 1, 0), 0,
                 new ItemStack(BidsItems.clayMoldAdze, 1, 1)));
+        KilnCraftingManager.getInstance().addRecipe(
+            new KilnRecipe(new ItemStack(BidsItems.clayMoldDrill, 1, 0), 0,
+                new ItemStack(BidsItems.clayMoldDrill, 1, 1)));
     }
 
     private static void registerBarrelRecipes() {
@@ -1191,6 +1210,17 @@ public class RecipeSetup {
                 "adze", AnvilReq.BISMUTHBRONZE, new ItemStack(BidsItems.bismuthBronzeAdzeHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
             AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.blackBronzeIngot), null,
                 "adze", AnvilReq.BLACKBRONZE, new ItemStack(BidsItems.blackBronzeAdzeHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
+
+            Bids.LOG.info("Registering drill anvil plan and recipes");
+            AnvilManager.getInstance().addPlan("drill", new PlanRecipe(new RuleEnum[]{RuleEnum.HITLAST, RuleEnum.PUNCHNOTLAST, RuleEnum.DRAWNOTLAST }));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.copperIngot), null,
+                "drill", AnvilReq.COPPER, new ItemStack(BidsItems.copperDrillHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.bronzeIngot), null,
+                "drill", AnvilReq.BRONZE, new ItemStack(BidsItems.bronzeDrillHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.bismuthBronzeIngot), null,
+                "drill", AnvilReq.BISMUTHBRONZE, new ItemStack(BidsItems.bismuthBronzeDrillHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.blackBronzeIngot), null,
+                "drill", AnvilReq.BLACKBRONZE, new ItemStack(BidsItems.blackBronzeDrillHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
 
             registerUnfinishedAnvilRecipeHelper(1, TFCItems.copperIngot2x, AnvilReq.STONE);
             registerUnfinishedAnvilRecipeHelper(2, TFCItems.bronzeIngot2x, AnvilReq.COPPER);

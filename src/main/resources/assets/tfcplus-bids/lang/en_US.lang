@@ -575,6 +575,23 @@ item.Bronze Adze.name=Bronze Adze
 item.Bismuth Bronze Adze.name=Bismuth Bronze Adze
 item.Black Bronze Adze.name=Black Bronze Adze
 
+item.Mold Drill.Clay.name=Clay Drill Mold
+item.Mold Drill.Ceramic.name=Drill Mold
+item.Mold Drill.Copper.name=Drill Mold (Copper)
+item.Mold Drill.Bronze.name=Drill Mold (Bronze)
+item.Mold Drill.Bismuth Bronze.name=Drill Mold (Bismuth Bronze)
+item.Mold Drill.Black Bronze.name=Drill Mold (Black Bronze)
+
+item.Copper Drill Head.name=Copper Drill Head
+item.Bronze Drill Head.name=Bronze Drill Head
+item.Bismuth Bronze Drill Head.name=Bismuth Bronze Drill Head
+item.Black Bronze Drill Head.name=Black Bronze Drill Head
+
+item.Copper Drill.name=Copper Drill
+item.Bronze Drill.name=Bronze Drill
+item.Bismuth Bronze Drill.name=Bismuth Bronze Drill
+item.Black Bronze Drill.name=Black Bronze Drill
+
 item.Rough Stone Brick.Chalk.name=Rough Chalk Brick
 item.Rough Stone Brick.Chert.name=Rough Chert Brick
 item.Rough Stone Brick.Claystone.name=Rough Claystone Brick
@@ -890,6 +907,7 @@ gui.Alloying=Alloying
 gui.Glassmaking=Glassmaking
 gui.plans.blowpipe=Blowpipe
 gui.plans.adze=Adze
+gui.plans.drill=Drill
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Days=Days
