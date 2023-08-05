@@ -864,6 +864,10 @@ item.Birch Bark Cup Unfinished.name=Unfinished Birch Bark Cup
 item.Birch Bark Shoes.name=Birch Bark Shoes
 item.Birch Bark Kindling.name=Birch Bark Kindling
 
+item.Coat Front.Leather.name=Leather Coat Front
+item.Coat Back.Leather.name=Leather Coat Back
+item.Leather Coat.name=Leather Coat
+
 item.Wheat Crushed.name=Coarse Wheat Flour
 item.Barley Crushed.name=Coarse Barley Flour
 item.Oat Crushed.name=Coarse Oat Flour

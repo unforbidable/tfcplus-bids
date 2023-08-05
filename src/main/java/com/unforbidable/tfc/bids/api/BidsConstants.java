@@ -6,6 +6,8 @@ public class BidsConstants {
 
         public static final String BIRCH_BARK = "Birch Bark";
 
+        public static final String LEATHER = "Leather";
+
     }
 
 }

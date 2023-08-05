@@ -92,6 +92,11 @@ public class BidsItems {
     public static Item birchBarkShoes;
     public static Item birchBarkKindling;
 
+    public static Item coatBodyFrontLeather;
+    public static Item coatBodyBackLeather;
+
+    public static Item leatherCoat;
+
     public static Item wheatCrushed;
     public static Item barleyCrushed;
     public static Item oatCrushed;

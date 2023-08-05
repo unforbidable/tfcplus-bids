@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.Items.ItemClothingPiece;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.*;
 import com.dunk.tfc.api.Enums.RuleEnum;
@@ -1025,6 +1026,11 @@ public class RecipeSetup {
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkShoes, 1),
                 new Object[] { "  ###", "   ##", "     ", "##   ", "###  ", '#',
                         new ItemStack(BidsItems.flatBirchBark, 1) });
+
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.coatBodyFrontLeather, 1, 0),
+            new Object[] { "#   #", "## ##", "## ##", "## ##", "## ##", '#', TFCItems.flatLeather });
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.coatBodyBackLeather, 1, 0),
+            new Object[] { "## ##", "#####", "#####", "#####", "#####", '#', TFCItems.flatLeather });
     }
 
     private static void registerSewingRecipes() {
@@ -1064,6 +1070,30 @@ public class RecipeSetup {
                         new ItemStack(BidsItems.birchBarkCupPiece, 1, 0),
                         new ItemStack(BidsItems.birchBarkStrap, 1, 0)
                 }));
+
+        int[][][] coatSewing = new int[][][] {
+            // the left side of the coat and underarm
+            { { 24, 86 }, { 27, 33 }, { 24, 33 }, { 18, 71 } },
+            // the outer left arm and shoulder
+            { { 8, 71 }, { 11, 33 }, { 16, 19 }, { 22, 13 },  { 37, 12 } },
+            // the arm attached to the sleeve
+            {  { 25, 33 }, { 21, 15 } },
+            // the right side of the coat and underarm
+             { { 97 - 24, 86 }, { 97 - 27, 33 }, { 97 - 24, 33 },  { 97 - 18, 71 } },
+            // the outer right arm and shoulder
+            { { 97 - 8, 71 }, { 97 - 11, 33 },{ 97 - 16, 19 }, { 97 - 22, 13 },  { 97 - 37, 12 } },
+            // the right arm attached to the sleeve
+            { { 97 - 25, 33 }, { 97 - 21, 15 } }
+        };
+
+        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+            new SewingPattern(new ItemStack(BidsItems.leatherCoat, 1), coatSewing, true),
+            new ItemStack[] {
+                new ItemStack(BidsItems.coatBodyFrontLeather, 1, 0),
+                new ItemStack(BidsItems.coatBodyBackLeather, 1, 0),
+                new ItemStack(TFCItems.shirtSleeves, 1, 2),
+                new ItemStack(TFCItems.shirtSleeves, 1, 2),
+            }));
     }
 
     private static void registerSewingRepairRecipes() {
@@ -1082,6 +1112,13 @@ public class RecipeSetup {
                         new ItemStack(BidsItems.birchBarkShoes, 1, OreDictionary.WILDCARD_VALUE),
                         new ItemStack(BidsItems.birchBarkStrap, 1, 0)
                 }).setRepairRecipe());
+
+        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+            new SewingPattern(new ItemStack(BidsItems.leatherCoat, 1), true),
+            new ItemStack[] {
+                new ItemStack(BidsItems.leatherCoat, 1, OreDictionary.WILDCARD_VALUE),
+                new ItemStack(TFCItems.repairPatch, 1, 2)
+            }).setRepairRecipe());
     }
 
     private static void registerKilnRecipes() {

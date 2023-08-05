@@ -253,6 +253,26 @@ public class ItemSetup extends BidsItems {
                 .addWalkableSurface(Material.sand, 0.02f);
         ((ItemClothing) birchBarkShoes).setRepairCost(2);
 
+        coatBodyFrontLeather = new ItemExtraClothingPiece()
+            .setExtraPieceTypes(ExtraClothing.LEATHER)
+            .setUnlocalizedName("Coat Front");
+        coatBodyBackLeather = new ItemExtraClothingPiece()
+            .setExtraPieceTypes(ExtraClothing.LEATHER)
+            .setUnlocalizedName("Coat Back");
+
+        leatherCoat = new ItemExtraCoat(IEquipable.ClothingType.COAT)
+            .setResourceLocation(Tags.MOD_ID, "textures/models/armor/leather_coat_color.png")
+            .setBodySunProtection(1f)
+            .setColdResistance(2)
+            .setHeatResistance(-1)
+            .setArmorType(Armor.leather)
+            .setMaxDamage(TFCItems.leatherUses)
+            .setUnlocalizedName("Leather Coat");
+        ((ItemClothing) leatherCoat).setRepairCost(8);
+        ((ItemClothing) leatherCoat).setArmorCoverage("LONG_SLEEVES", 2)
+            .setArmorCoverage("FULL_SHIRT_TORSO", 1)
+            .setArmorCoverage("SHORTS_LEGS", 3);
+
         wheatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
                 .setDecayRate(1.5f)
                 .setUnlocalizedName("Wheat Crushed");
@@ -757,6 +777,10 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(bronzeDrill, bronzeDrill.getUnlocalizedName());
         GameRegistry.registerItem(bismuthBronzeDrill, bismuthBronzeDrill.getUnlocalizedName());
         GameRegistry.registerItem(blackBronzeDrill, blackBronzeDrill.getUnlocalizedName());
+
+        GameRegistry.registerItem(coatBodyFrontLeather, coatBodyFrontLeather.getUnlocalizedName());
+        GameRegistry.registerItem(coatBodyBackLeather, coatBodyBackLeather.getUnlocalizedName());
+        GameRegistry.registerItem(leatherCoat, leatherCoat.getUnlocalizedName());
     }
 
 }
