@@ -503,10 +503,6 @@ public class ItemSetup extends BidsItems {
         for (Item adze : adzes) {
             OreDictionary.registerOre("itemAdze", new ItemStack(adze, 1, WILD));
         }
-        OreDictionary.registerOre("itemAdze", new ItemStack(copperAdze, 1, WILD));
-        OreDictionary.registerOre("itemAdze", new ItemStack(bronzeAdze, 1, WILD));
-        OreDictionary.registerOre("itemAdze", new ItemStack(bismuthBronzeAdze, 1, WILD));
-        OreDictionary.registerOre("itemAdze", new ItemStack(blackBronzeAdze, 1, WILD));
 
         OreDictionary.registerOre("itemAdzeStone", new ItemStack(sedStoneAdze, 1, WILD));
         OreDictionary.registerOre("itemAdzeStone", new ItemStack(mMStoneAdze, 1, WILD));
