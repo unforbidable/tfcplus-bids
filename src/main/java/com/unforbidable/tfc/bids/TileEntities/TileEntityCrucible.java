@@ -696,8 +696,8 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         // at some point instead of forever approaching it
         // Higher values will speed up the finish
         // Speed up heating and slow down cooling for the player's convenience
-        float minHeatingDetla = 0.02f;
-        float minCoolingDetla = -0.002f;
+        float minHeatingDetla = 0.015f;
+        float minCoolingDetla = -0.005f;
         if (delta > 0 && delta < minHeatingDetla)
             delta = Math.min(minHeatingDetla, max);
         else if (delta < 0 && delta > minCoolingDetla)
