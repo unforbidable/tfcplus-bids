@@ -494,20 +494,27 @@ public class ItemSetup extends BidsItems {
 
         final Item[] drills = new Item[] { sedStoneDrill, mMStoneDrill, igInStoneDrill, igExStoneDrill,
             copperDrill, bronzeDrill, bismuthBronzeDrill, blackBronzeDrill };
-        for (Item drill : drills) {
-            OreDictionary.registerOre("itemDrill", new ItemStack(drill, 1, WILD));
+        for (int i = 0; i < drills.length; i++) {
+            OreDictionary.registerOre("itemDrill", new ItemStack(drills[i], 1, WILD));
+
+            if (i < 4) {
+                OreDictionary.registerOre("itemDrillStone", new ItemStack(drills[i], 1, WILD));
+            } else {
+                OreDictionary.registerOre("itemDrillMetal", new ItemStack(drills[i], 1, WILD));
+            }
         }
 
         final Item[] adzes = new Item[] { sedStoneAdze, mMStoneAdze, igInStoneAdze, igExStoneAdze,
             copperAdze, bronzeAdze, bismuthBronzeAdze, blackBronzeAdze };
-        for (Item adze : adzes) {
-            OreDictionary.registerOre("itemAdze", new ItemStack(adze, 1, WILD));
-        }
+        for (int i = 0; i < adzes.length; i++) {
+            OreDictionary.registerOre("itemAdze", new ItemStack(adzes[i], 1, WILD));
 
-        OreDictionary.registerOre("itemAdzeStone", new ItemStack(sedStoneAdze, 1, WILD));
-        OreDictionary.registerOre("itemAdzeStone", new ItemStack(mMStoneAdze, 1, WILD));
-        OreDictionary.registerOre("itemAdzeStone", new ItemStack(igInStoneAdze, 1, WILD));
-        OreDictionary.registerOre("itemAdzeStone", new ItemStack(igExStoneAdze, 1, WILD));
+            if (i < 4) {
+                OreDictionary.registerOre("itemAdzeStone", new ItemStack(adzes[i], 1, WILD));
+            } else {
+                OreDictionary.registerOre("itemAdzeMetal", new ItemStack(adzes[i], 1, WILD));
+            }
+        }
 
         final Item[] logs = new Item[] { logsSeasoned, peeledLog, peeledLogSeasoned };
         for (Item log : logs) {
