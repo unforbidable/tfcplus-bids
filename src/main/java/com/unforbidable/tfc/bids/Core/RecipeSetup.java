@@ -212,6 +212,39 @@ public class RecipeSetup {
             GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_SED_START + j), new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j));
         }
 
+        for (int j = 0; j < Global.STONE_MM.length; j++) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_MM_START + j),
+                "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_MM_START + j),
+                "S ", "A ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
+
+            GameRegistry.addRecipe(
+                new ItemStack(BidsBlocks.roughStoneBrickMM, 2, j),
+                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_MM_START + j));
+        }
+
+        for (int j = 0; j < Global.STONE_IGIN.length; j++) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGIN_START + j),
+                "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneIgIn, 1, j), 'A', "itemAdzeMetal"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGIN_START + j),
+                "S ", "A ", 'S', new ItemStack(BidsBlocks.roughStoneIgIn, 1, j), 'A', "itemAdzeMetal"));
+
+            GameRegistry.addRecipe(
+                new ItemStack(BidsBlocks.roughStoneBrickIgIn, 2, j),
+                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_IGIN_START + j));
+        }
+
+        for (int j = 0; j < Global.STONE_IGEX.length; j++) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGEX_START + j),
+                "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneIgEx, 1, j), 'A', "itemAdzeMetal"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGEX_START + j),
+                "S ", "A ", 'S', new ItemStack(BidsBlocks.roughStoneIgEx, 1, j), 'A', "itemAdzeMetal"));
+
+            GameRegistry.addRecipe(
+                new ItemStack(BidsBlocks.roughStoneBrickIgEx, 2, j),
+                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_IGEX_START + j));
+        }
+
         RecipeManager.addAction(new ActionDamageTool(1)
             .addTools("itemAdze")
             .matchCraftingItem(BidsItems.roughStoneBrick));
