@@ -215,7 +215,7 @@ public class ItemDrill extends Item implements ISize {
         ItemStack equippedItem = player.getCurrentEquippedItem();
         if (equippedItem != null && equippedItem.getItem() instanceof ItemDrill) {
             int drillQuarryEquipmentTier = ((ItemDrill) equippedItem.getItem()).getDrillEquipmentTier(equippedItem);
-            if (!quarriable.isSufficientEquipmentTier(block, metadata, drillQuarryEquipmentTier)) {
+            if (!quarriable.isSufficientDrillTier(block, metadata, drillQuarryEquipmentTier)) {
                 Bids.LOG.debug("Insufficient drill tier");
                 return false;
             }
@@ -225,7 +225,7 @@ public class ItemDrill extends Item implements ISize {
                 ItemStack is = player.inventory.getStackInSlot(i);
                 if (is != null && is.getItem() instanceof IPlugAndFeather) {
                     int plugAndFeatherQuarryEquipmentTier = ((IPlugAndFeather) is.getItem()).getPlugAndFeatherQuarryEquipmentTier(is);
-                    if (quarriable.isSufficientEquipmentTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
+                    if (quarriable.isSufficientPlugAndFeaterTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
                         return true;
                     }
                 }
@@ -324,7 +324,7 @@ public class ItemDrill extends Item implements ISize {
             ItemStack is = player.inventory.getStackInSlot(i);
             if (is != null && is.getItem() instanceof IPlugAndFeather) {
                 int plugAndFeatherQuarryEquipmentTier = ((IPlugAndFeather) is.getItem()).getPlugAndFeatherQuarryEquipmentTier(is);
-                if (quarriable.isSufficientEquipmentTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
+                if (quarriable.isSufficientPlugAndFeaterTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
                     ItemStack consumed = player.inventory.getStackInSlot(i).copy();
                     consumed.stackSize = 1;
                     player.inventory.decrStackSize(i, 1);

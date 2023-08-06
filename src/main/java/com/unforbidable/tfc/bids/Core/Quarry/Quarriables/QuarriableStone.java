@@ -60,11 +60,16 @@ public class QuarriableStone implements IQuarriable {
     }
 
     @Override
-    public boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier) {
+    public boolean isSufficientDrillTier(Block block, int metadata, int equipmentTier) {
         if (block == TFCBlocks.stoneSed)
             return true;
         else
             return equipmentTier > 0;
+    }
+
+    @Override
+    public boolean isSufficientPlugAndFeaterTier(Block block, int metadata, int equipmentTier) {
+        return true;
     }
 
     @Override

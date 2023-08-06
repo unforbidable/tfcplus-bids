@@ -9,7 +9,9 @@ public interface IQuarriable {
 
     Block getQuarriedBlock();
 
-    boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier);
+    boolean isSufficientDrillTier(Block block, int metadata, int equipmentTier);
+
+    boolean isSufficientPlugAndFeaterTier(Block block, int metadata, int equipmentTier);
 
     boolean canQuarryBlock(Block block, int metadata);
 
