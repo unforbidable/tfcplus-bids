@@ -136,6 +136,11 @@ public class ConfigHandler {
                 BidsOptions.WorldGen.aquiferMaxSurfaceHeight, 145, 195,
                 "Sets the elevation limit for aquifer clusters to generate. The number corresponds to the elevation of the surface above rather than the aquifer itself.");
 
+        BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes = config.getBoolean(
+            "craftingAddMissingLeatherRepairRecipes", "crafting",
+            BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes,
+            "Set this to true if you want to add missing leather armor repair recipes.");
+
         config.save();
     }
 

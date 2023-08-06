@@ -72,4 +72,10 @@ public class BidsOptions {
 
     }
 
+    public static class Crafting {
+
+        public static boolean craftingAddMissingLeatherRepairRecipes = true;
+
+    }
+
 }

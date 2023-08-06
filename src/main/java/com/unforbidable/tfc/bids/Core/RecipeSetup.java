@@ -1120,29 +1120,31 @@ public class RecipeSetup {
                 new ItemStack(TFCItems.repairPatch, 1, 2)
             }).setRepairRecipe());
 
-        // Adding missing TFC+ recipe for repairing leather boots
-        ClothingManager.getInstance().addRecipe(new SewingRecipe(
-            new SewingPattern(new ItemStack(TFCItems.leatherBoots, 1), true),
-            new ItemStack[] {
-                new ItemStack(TFCItems.leatherBoots, 1, OreDictionary.WILDCARD_VALUE),
-                new ItemStack(TFCItems.repairPatch, 1, 2)
-            }).setRepairRecipe());
+        if (BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes) {
+            // Adding missing TFC+ recipe for repairing leather boots
+            ClothingManager.getInstance().addRecipe(new SewingRecipe(
+                new SewingPattern(new ItemStack(TFCItems.leatherBoots, 1), true),
+                new ItemStack[] {
+                    new ItemStack(TFCItems.leatherBoots, 1, OreDictionary.WILDCARD_VALUE),
+                    new ItemStack(TFCItems.repairPatch, 1, 2)
+                }).setRepairRecipe());
 
-        // Adding missing TFC+ recipe for repairing leather cap
-        ClothingManager.getInstance().addRecipe(new SewingRecipe(
-            new SewingPattern(new ItemStack(TFCItems.leatherCoif, 1), true),
-            new ItemStack[] {
-                new ItemStack(TFCItems.leatherCoif, 1, OreDictionary.WILDCARD_VALUE),
-                new ItemStack(TFCItems.repairPatch, 1, 2)
-            }).setRepairRecipe());
+            // Adding missing TFC+ recipe for repairing leather cap
+            ClothingManager.getInstance().addRecipe(new SewingRecipe(
+                new SewingPattern(new ItemStack(TFCItems.leatherCoif, 1), true),
+                new ItemStack[] {
+                    new ItemStack(TFCItems.leatherCoif, 1, OreDictionary.WILDCARD_VALUE),
+                    new ItemStack(TFCItems.repairPatch, 1, 2)
+                }).setRepairRecipe());
 
-        // Adding missing TFC+ recipe for repairing leather shorts
-        ClothingManager.getInstance().addRecipe(new SewingRecipe(
-            new SewingPattern(new ItemStack(TFCItems.leatherShorts, 1), true),
-            new ItemStack[] {
-                new ItemStack(TFCItems.leatherShorts, 1, OreDictionary.WILDCARD_VALUE),
-                new ItemStack(TFCItems.repairPatch, 1, 2)
-            }).setRepairRecipe());
+            // Adding missing TFC+ recipe for repairing leather shorts
+            ClothingManager.getInstance().addRecipe(new SewingRecipe(
+                new SewingPattern(new ItemStack(TFCItems.leatherShorts, 1), true),
+                new ItemStack[] {
+                    new ItemStack(TFCItems.leatherShorts, 1, OreDictionary.WILDCARD_VALUE),
+                    new ItemStack(TFCItems.repairPatch, 1, 2)
+                }).setRepairRecipe());
+        }
     }
 
     private static void registerKilnRecipes() {
