@@ -1,31 +1,30 @@
 package com.unforbidable.tfc.bids.Core;
 
-import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.TFCBlocks;
+import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.*;
+import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.*;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackMessage;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
-import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
+import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.*;
 import com.unforbidable.tfc.bids.Render.Blocks.*;
-import com.unforbidable.tfc.bids.Render.Tiles.RenderTileWallHook;
-import com.unforbidable.tfc.bids.Render.Tiles.TileRenderDryingRack;
-import com.unforbidable.tfc.bids.Render.Tiles.TileRenderChoppingBlock;
 import com.unforbidable.tfc.bids.Render.Tiles.RenderTileSaddleQuern;
+import com.unforbidable.tfc.bids.Render.Tiles.RenderTileWallHook;
+import com.unforbidable.tfc.bids.Render.Tiles.TileRenderChoppingBlock;
+import com.unforbidable.tfc.bids.Render.Tiles.TileRenderDryingRack;
 import com.unforbidable.tfc.bids.TileEntities.*;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.CarvingRegistry;
-import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
-import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Enums.EnumLogWallType;
 import com.unforbidable.tfc.bids.api.Enums.EnumLogWallVertType;
-
+import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -234,6 +233,8 @@ public class BlockSetup extends BidsBlocks {
 
         saddleQuernBaseSed.setHarvestLevel("shovel", 0);
         stonePressWeightSed.setHarvestLevel("shovel", 0);
+
+        quarry.setHarvestLevel("hammer", 0);
     }
 
     private static void setupFireInfo() {

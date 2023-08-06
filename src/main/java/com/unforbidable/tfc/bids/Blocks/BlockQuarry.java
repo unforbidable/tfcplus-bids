@@ -1,13 +1,12 @@
 package com.unforbidable.tfc.bids.Blocks;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
-
+import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -31,7 +30,8 @@ public class BlockQuarry extends BlockContainer {
 
     public BlockQuarry() {
         super(Material.wood);
-        setHardness(5f);
+
+        setHardness(10f);
     }
 
     @SideOnly(Side.CLIENT)
