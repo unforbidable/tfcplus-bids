@@ -248,7 +248,11 @@ public class BlockSetup extends BidsBlocks {
         roughStoneBrickMM.setHarvestLevel("shovel", 0);
         roughStoneTileMM.setHarvestLevel("shovel", 0);
         roughStoneIgIn.setHarvestLevel("shovel", 0);
+        roughStoneBrickIgIn.setHarvestLevel("shovel", 0);
+        roughStoneTileIgIn.setHarvestLevel("shovel", 0);
         roughStoneIgEx.setHarvestLevel("shovel", 0);
+        roughStoneBrickIgEx.setHarvestLevel("shovel", 0);
+        roughStoneTileIgEx.setHarvestLevel("shovel", 0);
 
         carvingRock.setHarvestLevel("shovel", 0);
         carvingWood.setHarvestLevel("axe", 0);
