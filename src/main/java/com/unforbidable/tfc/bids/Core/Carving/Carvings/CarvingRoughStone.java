@@ -1,27 +1,28 @@
 package com.unforbidable.tfc.bids.Core.Carving.Carvings;
 
-import java.util.Random;
-
-import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
-import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class CarvingRoughStone implements ICarving {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block == BidsBlocks.roughStoneSed;
+        return block == BidsBlocks.roughStoneSed ||
+            block == BidsBlocks.roughStoneMM ||
+            block == BidsBlocks.roughStoneIgIn ||
+            block == BidsBlocks.roughStoneIgEx;
     }
 
     @Override
     public boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier) {
-        return true;
+        return block == BidsBlocks.roughStoneSed || equipmentTier > 0;
     }
 
     @Override
@@ -58,6 +59,10 @@ public class CarvingRoughStone implements ICarving {
     protected ItemStack getLooseRock(Block block, int metadata) {
         if (block == BidsBlocks.roughStoneSed) {
             return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_SED_START);
+        } else if (block == BidsBlocks.roughStoneIgIn) {
+            return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_IGIN_START);
+        } else if (block == BidsBlocks.roughStoneIgEx) {
+            return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_IGEX_START);
         } else {
             return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_MM_START);
         }

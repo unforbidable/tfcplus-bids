@@ -4,7 +4,6 @@ import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
-import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -15,12 +14,15 @@ public class CarvingRoughStoneTile implements ICarving {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block == BidsBlocks.roughStoneTileSed;
+        return block == BidsBlocks.roughStoneTileSed ||
+            block == BidsBlocks.roughStoneTileMM ||
+            block == BidsBlocks.roughStoneTileIgIn ||
+            block == BidsBlocks.roughStoneTileIgEx;
     }
 
     @Override
     public boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier) {
-        return true;
+        return block == BidsBlocks.roughStoneTileSed || equipmentTier > 0;
     }
 
     @Override
@@ -31,13 +33,8 @@ public class CarvingRoughStoneTile implements ICarving {
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
         ItemStack[] list = new ItemStack[2];
-        if (block == BidsBlocks.roughStoneTileSed) {
-            for (int i = 0; i < 2; i++)
-                list[i] = new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_SED_START + metadata);
-        } else if (block == BidsBlocks.roughStoneTileMM) {
-            for (int i = 0; i < 2; i++)
-                list[i] = new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_MM_START + metadata);
-        }
+        for (int i = 0; i < 2; i++)
+            list[i] = getLooseRoughTile(block, metadata);
         return list;
     }
 
@@ -54,6 +51,18 @@ public class CarvingRoughStoneTile implements ICarving {
     @Override
     public String getCarvingSoundEffect() {
         return "dig.stone";
+    }
+
+    protected ItemStack getLooseRoughTile(Block block, int metadata) {
+        if (block == BidsBlocks.roughStoneSed) {
+            return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_SED_START);
+        } else if (block == BidsBlocks.roughStoneIgIn) {
+            return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_IGIN_START);
+        } else if (block == BidsBlocks.roughStoneIgEx) {
+            return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_IGEX_START);
+        } else {
+            return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_MM_START);
+        }
     }
 
 }
