@@ -181,7 +181,6 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Sed Rough Stone Loose Brick");
 
         roughStoneBrick = new ItemRoughBrick().setNames(Global.STONE_ALL)
-                .setMetaOnly(Global.STONE_SED_START, Global.STONE_SED_START + 1, Global.STONE_SED_START + 2, Global.STONE_SED_START + 3, Global.STONE_SED_START + 4, Global.STONE_SED_START + 5, Global.STONE_SED_START + 6, Global.STONE_SED_START + 7) // Only SED
                 .setTextureName("Rough Brick")
                 .setUnlocalizedName("Rough Stone Brick");
 
