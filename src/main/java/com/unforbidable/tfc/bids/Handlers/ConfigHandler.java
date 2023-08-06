@@ -140,7 +140,7 @@ public class ConfigHandler {
     }
 
     public void onConfigurationChangedEvent(OnConfigChangedEvent event) {
-        if (event.modID == Tags.MOD_ID) {
+        if (Tags.MOD_ID.equals(event.modID)) {
             loadConfig();
         }
     }
