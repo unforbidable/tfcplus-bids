@@ -91,8 +91,14 @@ public class BlockSetup extends BidsBlocks {
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
                 .setBlockTextureName("Rough");
         roughStoneMM = new BlockRoughStone()
-                .setMetaOnly() // No blocks yet!
+                .setMetaHavingTopTexture(1) // Slate
                 .setNames(Global.STONE_MM).setBlockName("RoughStoneMM")
+                .setBlockTextureName("Rough");
+        roughStoneIgIn = new BlockRoughStone()
+                .setNames(Global.STONE_IGIN).setBlockName("RoughStoneIgIn")
+                .setBlockTextureName("Rough");
+        roughStoneIgEx = new BlockRoughStone()
+                .setNames(Global.STONE_IGEX).setBlockName("RoughStoneIgEx")
                 .setBlockTextureName("Rough");
 
         roughStoneBrickSed = new BlockRoughStoneBrick()
@@ -100,8 +106,14 @@ public class BlockSetup extends BidsBlocks {
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneBrickSed")
                 .setBlockTextureName("Rough Brick");
         roughStoneBrickMM = new BlockRoughStoneBrick()
-                .setMetaOnly() // No blocks yet!
+                .setMetaHavingTopTexture(1) // Slate
                 .setNames(Global.STONE_MM).setBlockName("RoughStoneBrickMM")
+                .setBlockTextureName("Rough Brick");
+        roughStoneBrickIgIn = new BlockRoughStone()
+                .setNames(Global.STONE_IGIN).setBlockName("RoughStoneBrickIgIn")
+                .setBlockTextureName("Rough Brick");
+        roughStoneBrickIgEx = new BlockRoughStone()
+                .setNames(Global.STONE_IGEX).setBlockName("RoughStoneBrickIgEx")
                 .setBlockTextureName("Rough Brick");
 
         roughStoneTileSed = new BlockRoughStoneBrick()
@@ -111,8 +123,16 @@ public class BlockSetup extends BidsBlocks {
                 .setBlockTextureName("Rough Tile");
         roughStoneTileMM = new BlockRoughStoneBrick()
                 .setAllHaveTopTexture(true)
-                .setMetaOnly() // No blocks yet!
+                .setMetaOnly(1) // Only slate
                 .setNames(Global.STONE_MM).setBlockName("RoughStoneTileMM")
+                .setBlockTextureName("Rough Tile");
+        roughStoneTileIgIn = new BlockRoughStone()
+                .setMetaOnly() // No blocks yet
+                .setNames(Global.STONE_IGIN).setBlockName("RoughStoneTileIgIn")
+                .setBlockTextureName("Rough Tile");
+        roughStoneTileIgEx = new BlockRoughStone()
+                .setMetaOnly() // No blocks yet
+                .setNames(Global.STONE_IGEX).setBlockName("RoughStoneTileIgEx")
                 .setBlockTextureName("Rough Tile");
 
         logWallEast = new BlockLogWall(EnumLogWallType.EAST, 0).setBlockName("LogWallEast");
@@ -227,6 +247,8 @@ public class BlockSetup extends BidsBlocks {
         roughStoneMM.setHarvestLevel("shovel", 0);
         roughStoneBrickMM.setHarvestLevel("shovel", 0);
         roughStoneTileMM.setHarvestLevel("shovel", 0);
+        roughStoneIgIn.setHarvestLevel("shovel", 0);
+        roughStoneIgEx.setHarvestLevel("shovel", 0);
 
         carvingRock.setHarvestLevel("shovel", 0);
         carvingWood.setHarvestLevel("axe", 0);
@@ -522,6 +544,14 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(unfinishedAnvilStage3, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage3");
         GameRegistry.registerBlock(unfinishedAnvilStage4, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage4");
         GameRegistry.registerBlock(unfinishedAnvilStage5, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage5");
+
+        GameRegistry.registerBlock(roughStoneIgIn, ItemRoughStone.class, "RoughStoneIgIn");
+        GameRegistry.registerBlock(roughStoneBrickIgIn, ItemRoughStone.class, "RoughStoneBrickIgIn");
+        GameRegistry.registerBlock(roughStoneTileIgIn, ItemRoughStone.class, "RoughStoneTileIgIn");
+
+        GameRegistry.registerBlock(roughStoneIgEx, ItemRoughStone.class, "RoughStoneIgEx");
+        GameRegistry.registerBlock(roughStoneBrickIgEx, ItemRoughStone.class, "RoughStoneBrickIgEx");
+        GameRegistry.registerBlock(roughStoneTileIgEx, ItemRoughStone.class, "RoughStoneTileIgEx");
     }
 
 }

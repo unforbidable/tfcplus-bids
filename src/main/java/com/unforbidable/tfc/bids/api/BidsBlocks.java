@@ -46,6 +46,12 @@ public class BidsBlocks {
     public static Block roughStoneMM;
     public static Block roughStoneBrickMM;
     public static Block roughStoneTileMM;
+    public static Block roughStoneIgIn;
+    public static Block roughStoneBrickIgIn;
+    public static Block roughStoneTileIgIn;
+    public static Block roughStoneIgEx;
+    public static Block roughStoneBrickIgEx;
+    public static Block roughStoneTileIgEx;
 
     public static Block logWallEast;
     public static Block logWallNorth;

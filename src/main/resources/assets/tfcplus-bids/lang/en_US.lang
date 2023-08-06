@@ -68,6 +68,40 @@ tile.RoughStoneBrickSed.Shale.name=Rough Shale Bricks
 tile.RoughStoneTileSed.Sandstone.name=Rough Sandstone Tiles
 tile.RoughStoneTileSed.Shale.name=Rough Shale Tiles
 
+tile.RoughStoneMM.Quartzite.name=Rough Quartzite
+tile.RoughStoneMM.Slate.name=Rough Slate
+tile.RoughStoneMM.Phyllite.name=Rough Phyllite
+tile.RoughStoneMM.Schist.name=Rough Schist
+tile.RoughStoneMM.Gneiss.name=Rough Gneiss
+tile.RoughStoneMM.Marble.name=Rough Marble
+
+tile.RoughStoneBrickMM.Quartzite.name=Rough Quartzite Bricks
+tile.RoughStoneBrickMM.Slate.name=Rough Slate Bricks
+tile.RoughStoneBrickMM.Phyllite.name=Rough Phyllite Bricks
+tile.RoughStoneBrickMM.Schist.name=Rough Schist Bricks
+tile.RoughStoneBrickMM.Gneiss.name=Rough Gneiss Bricks
+tile.RoughStoneBrickMM.Marble.name=Rough Marble Bricks
+
+tile.RoughStoneTileMM.Slate.name=Rough Slate Tiles
+
+tile.RoughStoneIgIn.Granite.name=Rough Granite
+tile.RoughStoneIgIn.Diorite.name=Rough Diorite
+tile.RoughStoneIgIn.Gabbro.name=Rough Gabbro
+
+tile.RoughStoneBrickIgIn.Granite.name=Rough Granite Bricks
+tile.RoughStoneBrickIgIn.Diorite.name=Rough Diorite Bricks
+tile.RoughStoneBrickIgIn.Gabbro.name=Rough Gabbro Bricks
+
+tile.RoughStoneIgEx.Rhyolite.name=Rough Rhyolite
+tile.RoughStoneIgEx.Basalt.name=Rough Basalt
+tile.RoughStoneIgEx.Andesite.name=Rough Andesite
+tile.RoughStoneIgEx.Dacite.name=Rough Dacite
+
+tile.RoughStoneBrickIgEx.Rhyolite.name=Rough Rhyolite Bricks
+tile.RoughStoneBrickIgEx.Basalt.name=Rough Basalt Bricks
+tile.RoughStoneBrickIgEx.Andesite.name=Rough Andesite Bricks
+tile.RoughStoneBrickIgEx.Dacite.name=Rough Dacite Bricks
+
 tile.LogWall.Ash.name=Ash Log Wall
 tile.LogWall.Aspen.name=Aspen Log Wall
 tile.LogWall.Birch.name=Birch Log Wall
