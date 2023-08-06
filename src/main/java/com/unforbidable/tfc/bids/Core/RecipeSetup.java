@@ -213,6 +213,18 @@ public class RecipeSetup {
         }
 
         for (int j = 0; j < Global.STONE_MM.length; j++) {
+            if (j == 1) {
+                // Slate can split into tiles
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_MM_START + j),
+                    "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_MM_START + j),
+                    "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
+
+                GameRegistry.addRecipe(
+                    new ItemStack(BidsBlocks.roughStoneTileMM, 2, j),
+                    "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_MM_START + j));
+            }
+
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_MM_START + j),
                 "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_MM_START + j),
