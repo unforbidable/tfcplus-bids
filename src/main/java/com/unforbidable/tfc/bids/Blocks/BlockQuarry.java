@@ -41,17 +41,7 @@ public class BlockQuarry extends BlockContainer {
         TileEntity te = world.getTileEntity(x, y, z);
         if (te != null && te instanceof TileEntityQuarry) {
             TileEntityQuarry quarry = (TileEntityQuarry) te;
-            ForgeDirection d = quarry.getQuarryOrientation();
-            int x2 = x - d.offsetX;
-            int y2 = y - d.offsetY;
-            int z2 = z - d.offsetZ;
-            Block block = world.getBlock(x2, y2, z2);
-            int meta = world.getBlockMetadata(x2, y2, z2);
-            IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
-            if (quarriable != null) {
-                float durationMultiplier = quarriable.getDrillDurationMultiplier(block, meta);
-                return hardness * durationMultiplier;
-            }
+            return hardness * quarry.getCachedQuarryDifficultyMultiplier();
         }
 
         return hardness;

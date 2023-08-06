@@ -38,6 +38,33 @@ public class TileEntityQuarry extends TileEntity implements IMessageHanldingTile
         super();
     }
 
+    float cachedQuarryDifficultyMultiplier = 0;
+
+    public float getQuarryDifficultyMultiplier() {
+        ForgeDirection d = getQuarryOrientation();
+        int x2 = xCoord - d.offsetX;
+        int y2 = yCoord - d.offsetY;
+        int z2 = zCoord - d.offsetZ;
+        Block block = worldObj.getBlock(x2, y2, z2);
+        int meta = worldObj.getBlockMetadata(x2, y2, z2);
+        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        if (quarriable != null) {
+            return quarriable.getDrillDurationMultiplier(block, meta);
+        } else {
+            Bids.LOG.warn("Block " + block.getUnlocalizedName() + ":" + meta + " is not IQuarriable!");
+
+            return 1;
+        }
+    }
+
+    public float getCachedQuarryDifficultyMultiplier() {
+        if (cachedQuarryDifficultyMultiplier == 0) {
+            cachedQuarryDifficultyMultiplier = getQuarryDifficultyMultiplier();
+        }
+
+        return cachedQuarryDifficultyMultiplier;
+    }
+
     public boolean isQuarryReady() {
         return getWedgeCount() == getMaxWedgeCount();
     }
