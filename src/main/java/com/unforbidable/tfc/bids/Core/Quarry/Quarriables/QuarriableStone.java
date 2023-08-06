@@ -53,10 +53,7 @@ public class QuarriableStone implements IQuarriable {
 
     @Override
     public boolean canQuarryBlock(Block block, int metadata) {
-        if (block == TFCBlocks.stoneSed)
-            return true;
-        else
-            return false;
+        return true;
     }
 
     @Override

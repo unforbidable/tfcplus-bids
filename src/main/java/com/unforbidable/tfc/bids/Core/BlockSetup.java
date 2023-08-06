@@ -326,7 +326,9 @@ public class BlockSetup extends BidsBlocks {
         Bids.LOG.info("Register quarriable blocks");
 
         QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneSed, roughStoneSed, 1, 1));
-        //QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, roughStoneMM, 2, 1.5f));
+        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, roughStoneMM, 2, 1.5f));
+        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneIgIn, roughStoneIgIn, 4, 3f));
+        QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneIgEx, roughStoneIgEx, 4, 3f));
     }
 
     @SideOnly(Side.CLIENT)
