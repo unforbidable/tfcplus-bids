@@ -87,7 +87,7 @@ public class BlockSetup extends BidsBlocks {
         newFirepit = new BlockNewFirepit().setBlockName("NewFirepit");
 
         roughStoneSed = new BlockRoughStone()
-                .setSandstoneHasTopTexture(true)
+                .setMetaHavingTopTexture(0, 4) // Shale and Sandstone
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
                 .setBlockTextureName("Rough");
         roughStoneMM = new BlockRoughStone()
@@ -96,7 +96,7 @@ public class BlockSetup extends BidsBlocks {
                 .setBlockTextureName("Rough");
 
         roughStoneBrickSed = new BlockRoughStoneBrick()
-                .setSandstoneHasTopTexture(true)
+                .setMetaHavingTopTexture(0, 4) // Shale and Sandstone
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneBrickSed")
                 .setBlockTextureName("Rough Brick");
         roughStoneBrickMM = new BlockRoughStoneBrick()

@@ -27,7 +27,7 @@ public class BlockRoughStone extends Block {
     protected String[] names;
     protected List<Integer> metaWhitelist = null;
     protected boolean allHaveTopTexture = false;
-    protected boolean sandstoneHasTopTexture = false;
+    protected List<Integer> metaHavingTopTexture = null;
 
     public BlockRoughStone() {
         super(Material.rock);
@@ -45,8 +45,8 @@ public class BlockRoughStone extends Block {
         return this;
     }
 
-    public BlockRoughStone setSandstoneHasTopTexture(boolean sandstoneHasTopTexture) {
-        this.sandstoneHasTopTexture = sandstoneHasTopTexture;
+    public BlockRoughStone setMetaHavingTopTexture(Integer ...metaHavingTopTexture) {
+        this.metaHavingTopTexture = Arrays.asList(metaHavingTopTexture);
         return this;
     }
 
@@ -84,7 +84,7 @@ public class BlockRoughStone extends Block {
             icons[i] = iconRegisterer.registerIcon(Tags.MOD_ID + ":rocks/"
                     + names[i] + " " + getTextureName());
 
-            if (allHaveTopTexture || sandstoneHasTopTexture && i == 4) {
+            if (allHaveTopTexture || metaHavingTopTexture != null && metaHavingTopTexture.contains(i)) {
                 topIcons[i] = iconRegisterer.registerIcon(Tags.MOD_ID + ":rocks/"
                     + names[i] + " " + getTextureName() + " Top");
             }
@@ -94,7 +94,7 @@ public class BlockRoughStone extends Block {
     @Override
     public IIcon getIcon(int side, int meta) {
         if (side < 2) {
-            if (allHaveTopTexture || sandstoneHasTopTexture && meta == 4) {
+            if (allHaveTopTexture || metaHavingTopTexture != null && metaHavingTopTexture.contains(meta)) {
                 return topIcons[meta];
             }
         }
