@@ -240,7 +240,7 @@ public class CrucibleHelper {
                 return 0.50f;
             } else if (isGlassIngredient(itemstack)) {
                 // Making glass is harder
-                return 0.25f;
+                return getGlassIngredientPurity(itemstack);
             } else {
                 // Not a nugget or ore, or glass stuff,
                 // then this is a ready metal ingot
@@ -262,6 +262,21 @@ public class CrucibleHelper {
             return metal == Global.SILICA || metal == Global.SODA || metal == Global.LIME;
         } else {
             return false;
+        }
+    }
+
+    private static float getGlassIngredientPurity(ItemStack itemstack) {
+        if (itemstack.getItem() == TFCItems.soda) {
+            // Soda ash effectively lowers the difficulty of making glass
+            return 3f;
+        } else {
+            Metal metal = getMetalFromSmeltable(itemstack);
+            if (metal == Global.SILICA) {
+                // Only the amount of sand rises the difficulty of making glass
+                return 0.25f;
+            } else {
+                return 1f;
+            }
         }
     }
 
