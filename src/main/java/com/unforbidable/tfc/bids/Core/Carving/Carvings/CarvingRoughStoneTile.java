@@ -54,11 +54,11 @@ public class CarvingRoughStoneTile implements ICarving {
     }
 
     protected ItemStack getLooseRoughTile(Block block, int metadata) {
-        if (block == BidsBlocks.roughStoneSed) {
+        if (block == BidsBlocks.roughStoneTileSed) {
             return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_SED_START);
-        } else if (block == BidsBlocks.roughStoneIgIn) {
+        } else if (block == BidsBlocks.roughStoneTileIgIn) {
             return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_IGIN_START);
-        } else if (block == BidsBlocks.roughStoneIgEx) {
+        } else if (block == BidsBlocks.roughStoneTileIgEx) {
             return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_IGEX_START);
         } else {
             return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_MM_START);

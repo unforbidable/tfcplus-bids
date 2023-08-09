@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import org.lwjgl.Sys;
 
 import java.util.Random;
 
@@ -54,11 +55,11 @@ public class CarvingRoughStoneBrick implements ICarving {
     }
 
     protected ItemStack getLooseRoughBrick(Block block, int metadata) {
-        if (block == BidsBlocks.roughStoneSed) {
+        if (block == BidsBlocks.roughStoneBrickSed) {
             return new ItemStack(BidsItems.roughStoneBrick, 1, metadata + Global.STONE_SED_START);
-        } else if (block == BidsBlocks.roughStoneIgIn) {
+        } else if (block == BidsBlocks.roughStoneBrickIgIn) {
             return new ItemStack(BidsItems.roughStoneBrick, 1, metadata + Global.STONE_IGIN_START);
-        } else if (block == BidsBlocks.roughStoneIgEx) {
+        } else if (block == BidsBlocks.roughStoneBrickIgEx) {
             return new ItemStack(BidsItems.roughStoneBrick, 1, metadata + Global.STONE_IGEX_START);
         } else {
             return new ItemStack(BidsItems.roughStoneBrick, 1, metadata + Global.STONE_MM_START);
