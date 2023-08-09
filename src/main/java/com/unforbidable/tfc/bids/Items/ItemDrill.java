@@ -1,7 +1,10 @@
 package com.unforbidable.tfc.bids.Items;
 
+import java.util.HashSet;
 import java.util.List;
 
+import com.dunk.tfc.Items.Tools.ItemTerraTool;
+import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
@@ -26,7 +29,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
@@ -36,7 +38,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ItemDrill extends Item implements ISize {
+public class ItemDrill extends ItemTerraTool implements ISize {
 
     static final int MAX_USE_DURATION = 72000;
 
@@ -44,8 +46,10 @@ public class ItemDrill extends Item implements ISize {
     private float durationMultiplier = 1f;
 
     public ItemDrill(ToolMaterial material) {
-        super();
+        super(0, material, new HashSet<Block>());
+
         maxStackSize = 1;
+
         setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxDamage(material.getMaxUses());
         setNoRepair();
@@ -466,9 +470,7 @@ public class ItemDrill extends Item implements ISize {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
-        ItemHelper.addSizeInformation(is, list);
-
+    public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> list) {
         if (ItemHelper.showShiftInformation()) {
             list.add(StatCollector.translateToLocal("gui.Help"));
             list.add(StatCollector.translateToLocal("gui.Help.Drill"));
