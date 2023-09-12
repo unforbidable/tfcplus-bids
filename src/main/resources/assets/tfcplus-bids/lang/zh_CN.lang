@@ -143,6 +143,17 @@ tile.WallHook.name=挂钩
 tile.Aquifer.name=沙砾
 tile.Aquifer2.name=沙砾
 
+tile.UnfinishedAnvil.Copper.name=铜砧(未完成)
+tile.UnfinishedAnvil.Bronze.name=青铜砧(未完成)
+tile.UnfinishedAnvil.Wrought Iron.name=锻铁砧(未完成)
+tile.UnfinishedAnvil.Steel.name=钢砧(未完成)
+tile.UnfinishedAnvil.Black Steel.name=黑钢砧(未完成)
+tile.UnfinishedAnvil.Blue Steel.name=蓝钢砧(未完成)
+tile.UnfinishedAnvil.Red Steel.name=红钢砧(未完成)
+tile.UnfinishedAnvil.Rose Gold.name=玫瑰金砧(未完成)
+tile.UnfinishedAnvil.Bismuth Bronze.name=铋青铜砧(未完成)
+tile.UnfinishedAnvil.Black Bronze.name=黑青铜砧(未完成)
+
 item.Ore Bit.Bismuthinite.name=辉铋矿碎片
 item.Ore Bit.Cassiterite.name=锡精矿碎片
 item.Ore Bit.Galena.name=方铅矿碎片
@@ -509,11 +520,20 @@ item.Wooden Bucket.Brine.name=木桶(卤水)
 item.Wooden Bucket.HoneyWater.name=木桶(蜂蜜水)
 item.Wooden Bucket.MilkVinegar.name=木桶(奶醋)
 
+item.Large Bowl.Clay.name=大黏土碗
+item.Large Bowl.Ceramic.name=大陶瓷碗
+
+item.Large Bowl.FreshWater.Pottery.name=大陶瓷碗(淡水)
+item.Large Bowl.SaltWater.Pottery.name=大陶瓷碗(盐水)
+item.Large Bowl.Vinegar.Pottery.name=大陶瓷碗(醋)
+item.Large Bowl.Milk.Pottery.name=大陶瓷碗(奶)
+item.Large Bowl.Honey.Pottery.name=大陶瓷碗(蜂蜜)
+
 item.Ceramic Bucket Rope.name=带绳陶瓷桶
-item.Ceramic Bucket Rope.FreshWater.name=带绳陶瓷桶(清水)
+item.Ceramic Bucket Rope.FreshWater.name=带绳陶瓷桶(淡水)
 
 item.Wooden Bucket Rope.name=带绳木桶
-item.Wooden Bucket Rope.FreshWater.name=带绳木桶(清水)
+item.Wooden Bucket Rope.FreshWater.name=带绳木桶(淡水)
 
 item.Pottery Pipe.Clay.name=粘土管
 item.Pottery Pipe.Ceramic.name=陶瓷管
@@ -538,14 +558,31 @@ item.Sed Stone Adze.name=石锛
 item.IgEx Stone Adze.name=石锛
 item.MM Stone Adze.name=石锛
 
-item.Sed Rough Stone Loose Brick.Chalk.name=粗糙白垩岩砖
-item.Sed Rough Stone Loose Brick.Chert.name=粗糙角岩砖
-item.Sed Rough Stone Loose Brick.Claystone.name=粗糙粘土岩砖
-item.Sed Rough Stone Loose Brick.Sandstone.name=粗糙砂岩砖
-item.Sed Rough Stone Loose Brick.Dolomite.name=粗糙白云岩砖
-item.Sed Rough Stone Loose Brick.Limestone.name=粗糙石灰岩砖
-item.Sed Rough Stone Loose Brick.Rock Salt.name=粗糙盐岩砖
-item.Sed Rough Stone Loose Brick.Shale.name=粗糙页岩砖
+item.Mold Adze.Clay.name=黏土锛头模具
+item.Mold Adze.Ceramic.name=锛头模具
+item.Mold Adze.Copper.name=锛头模具(铜)
+item.Mold Adze.Bronze.name=锛头模具(青铜)
+item.Mold Adze.Bismuth Bronze.name=锛头模具(铋青铜)
+item.Mold Adze.Black Bronze.name=锛头模具(黑青铜)
+
+item.Copper Adze Head.name=铜锛头
+item.Bronze Adze Head.name=青铜锛头
+item.Bismuth Bronze Adze Head.name=铋青铜锛头
+item.Black Bronze Adze Head.name=黑青铜锛头
+
+item.Copper Adze.name=铜锛
+item.Bronze Adze.name=青铜锛
+item.Bismuth Bronze Adze.name=铋青铜锛
+item.Black Bronze Adze.name=黑青铜锛
+
+item.Rough Stone Brick.Chalk.name=粗糙白垩岩砖
+item.Rough Stone Brick.Chert.name=粗糙角岩砖
+item.Rough Stone Brick.Claystone.name=粗糙粘土岩砖
+item.Rough Stone Brick.Sandstone.name=粗糙砂岩砖
+item.Rough Stone Brick.Dolomite.name=粗糙白云岩砖
+item.Rough Stone Brick.Limestone.name=粗糙石灰岩砖
+item.Rough Stone Brick.Rock Salt.name=粗糙盐岩砖
+item.Rough Stone Brick.Shale.name=粗糙页岩砖
 
 item.Rough Stone Tile.Sandstone.name=粗糙砂岩岩片
 item.Rough Stone Tile.Shale.name=粗糙页岩岩片
@@ -866,5 +903,10 @@ gui.KindlingQuality=火种品质
 gui.ChoppingBlock=柴墩
 gui.SaddleQuern=手推磨
 gui.StonePress=原始压机
+gui.Stage1=Stage 1
+gui.Stage2=Stage 2
+gui.Stage3=Stage 3
+gui.Stage4=Stage 4
+gui.Stage5=Stage 5
 
 key.BidsToolMode=循环工具模式
