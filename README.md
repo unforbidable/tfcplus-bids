@@ -12,7 +12,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Mud Brick Chimney](../../wiki/Mud-brick-chimney) - allows furnace construction before acquiring metal tools
 * [Ceramic Pipe](../../wiki/Ceramic-Pipe) - used in making a mud brick chimney
 * [Ceramic Mug](../../wiki/Clay-Mug) - a drinking container made out of clay
-* [Drill](../../wiki/Drill) - a tool for drilling raw stone
+* [Drill](../../wiki/Drill) - a tool for drilling raw stone, tool heads made from stone, copper or any bronze
 * [Quarry](../../wiki/Quarry) - for harvesting Rough Stone block using the drill and wedge method, sedimentary rocks only
 * [Rough Stone and Rough Stone Bricks](../../wiki/Rough-Stone) - new building blocks for sedimentary rocks
 * [Adze](../../wiki/Adze) - a tool for carving blocks, making rough stone bricks, peeling logs and so on, tool head made from stone, copper and any bronze
@@ -36,7 +36,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Porridge](../../wiki/Porridge) - early game food from grain
 * [Plug and Feather](../../wiki/Plug-And-Feather) - special wedges used for quarrying
 * [Stone Press](../../wiki/Stone-Press) - lever based pressing device, used for extracting juices and oils from berries and fruits
-* [Fluid Mixing](../../wiki/Fluid-Mixing) - fluid mixing recipes for making Honey Water, Brine and Milk + Vinegar
+* [~~Fluid Mixing~~](../../wiki/Fluid-Mixing) - ~~fluid mixing recipes for making Honey Water, Brine and Milk + Vinegar~~
 * [Clay Lamp](../../wiki/Clay-Lamp) - stationary light source that consumes olive oil
 * [Wall Hook](../../wiki/Wall-Hook) - for hanging some tools, clothes and some other items on a wall
 * [Aquifer](../../wiki/Aquifer) - generates below the surface and spawns water blocks above when exposed
@@ -50,7 +50,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Translations
 
-* Chinese by Eternal130 (v0.28.x)
+* Chinese by Eternal130 (v0.30.x)
 * Japanese by dymanic.day (v0.28.x)
 
 ### Other credits
