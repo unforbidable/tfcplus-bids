@@ -69,7 +69,8 @@ public class CookingHelper {
     }
 
     private static String getItemInfoLine(ItemStack itemStack) {
-        return EnumChatFormatting.GOLD + itemStack.getDisplayName() + (itemStack.stackSize > -1 ? (" (" + itemStack.stackSize + "x)") : "");
+        String stackSizeInfo = itemStack.stackSize > 1 ? (itemStack.stackSize + "x ") : "";
+        return EnumChatFormatting.GOLD + stackSizeInfo + itemStack.getDisplayName();
     }
 
     public static MovingObjectPosition onCookingPotCollisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec) {

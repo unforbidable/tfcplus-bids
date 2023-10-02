@@ -8,7 +8,11 @@ import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
+import com.unforbidable.tfc.bids.api.Crafting.CookingRecipe;
+import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
+import com.unforbidable.tfc.bids.api.Enums.EnumCookingLidUsage;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -95,20 +99,6 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             return true;
         }
 
-        // Input item can be placed when there is no lid or another input item already
-        if (isValidInputItemStack(itemStack) && !hasLid() && !hasInputItem()) {
-            storage[SLOT_INPUT] = itemStack.copy();
-            storage[SLOT_INPUT].stackSize = 1;
-            itemStack.stackSize--;
-
-            Bids.LOG.info("Placed input item: " + storage[SLOT_INPUT].getDisplayName());
-
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-            clientNeedToUpdate = true;
-
-            return true;
-        }
-
         // Accessory can be placed when there is no lid, input item or another accessory already
         if (isValidAccessoryItemStack(itemStack) && !hasLid() && !hasInputItem() && !hasAccessory()) {
             storage[SLOT_ACCESSORY] = itemStack.copy();
@@ -123,7 +113,138 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             return true;
         }
 
+        // If not lid or accessory, try to match item to a recipe
+        // When there is no lid and top layer fluid
+        if (!hasLid() && !hasTopLayerFluid()) {
+            // If there is already an input item, the items need to be able to form a stack
+            if (hasInputItem()) {
+                if (itemStack.getItem() instanceof ItemFoodTFC) {
+                    // Food cannot be stacked
+                    return false;
+                } else if (!itemStack.isItemEqual(getInputItemStack()) || itemStack.getItemDamage() != getInputItemStack().getItemDamage()) {
+                    // Different items cannot be stacked
+                    return false;
+                }
+            }
+
+            // For input items the stack size is determined based on the matching recipe
+            int requiredStackSize = getInputItemStackSizeForRecipe(itemStack);
+            if (requiredStackSize == 0) {
+                // Stack size could not be determined based on the matching recipe,
+                // or it was determined as 0
+                // which means the item stack in fact cannot be placed
+                return false;
+            }
+            Bids.LOG.info("requiredStackSize: " + requiredStackSize);
+
+            // Ensure the required stack size does not exceed max stack size
+            int checkedRequiredStackSize = Math.min(requiredStackSize, itemStack.getMaxStackSize());
+            Bids.LOG.info("checkedRequiredStackSize: " + checkedRequiredStackSize);
+
+            // Reduce target stack size by existing stack size
+            int existingStackSize = hasInputItem() ? getInputItemStack().stackSize : 0;
+            int targetStackSize = checkedRequiredStackSize - existingStackSize;
+            Bids.LOG.info("targetStackSize: " + targetStackSize);
+
+            if (targetStackSize <= 0) {
+                // The target stack size is already fulfilled
+                return false;
+            }
+
+            // Consider the stack size that is available
+            int consumedStackSize = Math.min(targetStackSize, itemStack.stackSize);
+            Bids.LOG.info("consumedStackSize: " + consumedStackSize);
+
+            if (hasInputItem()) {
+                storage[SLOT_INPUT].stackSize += consumedStackSize;
+            } else {
+                storage[SLOT_INPUT] = itemStack.copy();
+                storage[SLOT_INPUT].stackSize = consumedStackSize;
+            }
+
+            itemStack.stackSize -= consumedStackSize;
+
+            Bids.LOG.info("Placed input item: " + storage[SLOT_INPUT].getDisplayName() + "[" + storage[SLOT_INPUT].stackSize + "]");
+
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            clientNeedToUpdate = true;
+
+            return true;
+        }
+
         return false;
+    }
+
+    private int getInputItemStackSizeForRecipe(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof ItemFoodTFC) {
+            // Food items default to stack size of 1
+            return 1;
+        } else {
+            // Look for all recipes matching specific input item
+            // as we don't know the final parameters for the recipes
+            // and manually ensure certain parameters such as steaming mesh and existing liquid
+            for (CookingRecipe recipe : CookingManager.getRecipesMatchingInput(itemStack)) {
+                // Ensure accessory matches
+                if (recipe.getAccessory() == EnumCookingAccessory.NONE && hasAccessory() ||
+                    recipe.getAccessory() == EnumCookingAccessory.STEAMING_MESH && !hasSteamingMesh()) {
+                    continue;
+                }
+
+                if (recipe.getInputFluidStack() != null) {
+                    // Ensure existing liquid matches recipe input liquid
+                    if (hasFluid() && !recipe.getInputFluidStack().isFluidEqual(getPrimaryFluidStack())) {
+                        continue;
+                    }
+
+                    // Recipes with fluid input (salt + fresh water)
+                    // Stack size depends on how much input liquid is in the cooking pot
+                    // If there is no input liquid (yet) assume max volume
+                    int currentAmount = hasFluid() ? getPrimaryFluidStack().amount : getMaxFluidVolume();
+                    float runs = (float)currentAmount / recipe.getInputFluidStack().amount;
+                    int count = (int)Math.ceil(runs);
+                    int stackSize = count * recipe.getInputItemStack().stackSize;
+
+                    Bids.LOG.info("Determined input item stack size: " + stackSize + " for runs: " + runs + " and input amount: " + currentAmount);
+
+                    return stackSize;
+                } else if (recipe.getOutputFluidStack() != null) {
+                    // Ensure existing liquid matches recipe output liquid
+                    if (hasFluid() && !recipe.getOutputFluidStack().isFluidEqual(getPrimaryFluidStack())) {
+                        continue;
+                    }
+
+                    // Recipes without fluid input (melting snow)
+                    // Stack size depends on how much output liquid can fit in the cooking pot
+                    // account for existing liquid
+                    int currentAmount = hasFluid() ? getPrimaryFluidStack().amount : 0;
+                    int outputAmount = getMaxFluidVolume() - currentAmount;
+                    float runs = (float)outputAmount / recipe.getOutputFluidStack().amount;
+                    int count = (int)Math.floor(runs);
+                    int stackSize = count * recipe.getInputItemStack().stackSize;
+
+                    Bids.LOG.info("Determined input item stack size: " + stackSize + " for runs: " + runs + " and output amount: " + outputAmount);
+
+                    return stackSize;
+                } else {
+                    // Recipes without input or output liquid
+                    // currently not handled
+                    return 0;
+                }
+            }
+
+            // Recipe should have been found
+            return 0;
+        }
+    }
+
+    private CookingRecipe createRecipeTemplate() {
+        return new CookingRecipe(
+            getPrimaryFluidStack(),null, null,
+            getInputItemStack(), null,
+            hasSteamingMesh() ? EnumCookingAccessory.STEAMING_MESH : EnumCookingAccessory.NONE,
+            hasLid() ? EnumCookingLidUsage.ON : EnumCookingLidUsage.OFF,
+            getHeatLevel(), getHeatLevel(), 0
+        );
     }
 
     public boolean retrieveItemStack(EntityPlayer player) {
@@ -283,10 +404,6 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     private void giveItemStackToPlayer(EntityPlayer player, ItemStack itemStack) {
         final EntityItem ei = new EntityItem(worldObj, player.posX, player.posY, player.posZ, itemStack);
         worldObj.spawnEntityInWorld(ei);
-    }
-
-    protected boolean isValidInputItemStack(ItemStack itemStack) {
-        return itemStack.getItem() instanceof ItemFoodTFC;
     }
 
     protected boolean isValidAccessoryItemStack(ItemStack itemStack) {
