@@ -22,7 +22,7 @@ public class CookingPotProvider extends WailaProvider {
         if (accessor.getTileEntity() instanceof TileEntityCookingPot) {
             TileEntityCookingPot tileEntityCookingPot = (TileEntityCookingPot) accessor.getTileEntity();
 
-            CookingHelper.getCookingPotInfo(tileEntityCookingPot, currenttip);
+            CookingHelper.getCookingPotInfo(tileEntityCookingPot, currenttip, true);
         }
 
         return currenttip;

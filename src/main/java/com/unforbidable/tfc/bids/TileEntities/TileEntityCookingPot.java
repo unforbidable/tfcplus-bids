@@ -6,7 +6,9 @@ import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.CookingPotBounds;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.EnumCookingPotPlacement;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
+import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -36,14 +38,20 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     private static final int FLUID_TOP_LAYER = 1;
     private static final int FLUID_BEFORE_SEPARATION = 2;
 
+    private static final int HEAT_CHECK_INTERVAL = 10;
+    private static final int HEAT_CHECK_DELAY_AFTER_PLACEMENT_CHANGE = 50;
+
     private final ItemStack[] storage = new ItemStack[MAX_STORAGE];
     private final FluidStack[] fluids = new FluidStack[MAX_FLUIDS];
 
     private EnumCookingPotPlacement placement = EnumCookingPotPlacement.GROUND;
     private CookingPotBounds cachedBounds = null;
+    private EnumCookingHeatLevel heatLevel = EnumCookingHeatLevel.NONE;
 
     boolean clientNeedToUpdate = false;
     boolean clientDataLoaded = false;
+
+    private final Timer heatCheckTimer = new Timer(HEAT_CHECK_INTERVAL);
 
     public EnumCookingPotPlacement getPlacement() {
         return placement;
@@ -56,6 +64,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         clientNeedToUpdate = true;
+
+        heatCheckTimer.delay(HEAT_CHECK_DELAY_AFTER_PLACEMENT_CHANGE);
     }
 
     public CookingPotBounds getCachedBounds() {
@@ -64,6 +74,10 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         }
 
         return cachedBounds;
+    }
+
+    public EnumCookingHeatLevel getHeatLevel() {
+        return heatLevel;
     }
 
     public boolean placeItemStack(ItemStack itemStack) {
@@ -358,11 +372,22 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     public void onBreakBlock() {
+        // Reset placement and heat level
+        placement = EnumCookingPotPlacement.GROUND;
+        heatLevel = EnumCookingHeatLevel.NONE;
+
         if (fluids[FLUID_BEFORE_SEPARATION] != null) {
             // When block is broken - that is picked up -
             // any separated liquid is mixed together again
             remixSeparatedFluids();
         }
+    }
+
+    private void onHeatLevelChanged() {
+        Bids.LOG.info("Heat level changed: " + heatLevel);
+
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        clientNeedToUpdate = true;
     }
 
     private void remixSeparatedFluids() {
@@ -387,6 +412,14 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
 
                 clientNeedToUpdate = false;
+            }
+
+            if (heatCheckTimer.tick()) {
+                EnumCookingHeatLevel currentHeatLevel = placement.getPlacement().getHeatLevel(worldObj, xCoord, yCoord, zCoord);
+                if (heatLevel != currentHeatLevel) {
+                    heatLevel = currentHeatLevel;
+                    onHeatLevelChanged();
+                }
             }
         }
     }
@@ -427,7 +460,13 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     public void writeDataToNBT(NBTTagCompound tag) {
-        tag.setString("placement", placement.name());
+        if (placement != EnumCookingPotPlacement.GROUND) {
+            tag.setString("placement", placement.name());
+        }
+
+        if (heatLevel != EnumCookingHeatLevel.NONE) {
+            tag.setString("heatLevel", heatLevel.name());
+        }
 
         {
             NBTTagList itemTagList = new NBTTagList();
@@ -463,6 +502,12 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             placement = EnumCookingPotPlacement.GROUND;
         }
         cachedBounds = null;
+
+        try {
+            heatLevel = EnumCookingHeatLevel.valueOf(tag.getString("heatLevel"));
+        } catch (IllegalArgumentException e) {
+            heatLevel = EnumCookingHeatLevel.NONE;
+        }
 
         {
             for (int i = 0; i < MAX_STORAGE; i++) {

@@ -4,6 +4,7 @@ import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.CookingPotBounds;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCookingPot;
+import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -25,7 +26,7 @@ public class CookingHelper {
         }
     }
 
-    public static void getCookingPotInfo(TileEntityCookingPot tileEntityCookingPot, List<String> list) {
+    public static void getCookingPotInfo(TileEntityCookingPot tileEntityCookingPot, List<String> list, boolean includeHeat) {
         if (tileEntityCookingPot.getTopLayerFluidStack() != null) {
             list.add(getFluidInfoLine(tileEntityCookingPot.getTopLayerFluidStack()));
         }
@@ -38,8 +39,28 @@ public class CookingHelper {
             list.add(EnumChatFormatting.WHITE + "" + StatCollector.translateToLocal("gui.SteamingMesh"));
         }
 
-        if(tileEntityCookingPot.hasInputItem()) {
+        if (tileEntityCookingPot.hasInputItem()) {
             list.add(getItemInfoLine(tileEntityCookingPot.getInputItemStack()));
+        }
+
+        if (includeHeat) {
+            switch (tileEntityCookingPot.getHeatLevel()) {
+                case NONE:
+                    list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.CookingHeatLevel.None"));
+                    break;
+
+                case LOW:
+                    list.add(EnumChatFormatting.DARK_RED + StatCollector.translateToLocal("gui.CookingHeatLevel.Low"));
+                    break;
+
+                case MEDIUM:
+                    list.add(EnumChatFormatting.RED + StatCollector.translateToLocal("gui.CookingHeatLevel.Medium"));
+                    break;
+
+                case HIGH:
+                    list.add(EnumChatFormatting.YELLOW + StatCollector.translateToLocal("gui.CookingHeatLevel.High"));
+                    break;
+            }
         }
     }
 

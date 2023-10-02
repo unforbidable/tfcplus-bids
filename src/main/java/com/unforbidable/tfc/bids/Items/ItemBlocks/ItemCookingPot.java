@@ -112,7 +112,7 @@ public class ItemCookingPot extends ItemBlock implements ISize {
             TileEntityCookingPot dummyCookingPot = new TileEntityCookingPot();
             dummyCookingPot.readDataFromNBT(tag);
 
-            CookingHelper.getCookingPotInfo(dummyCookingPot, list);
+            CookingHelper.getCookingPotInfo(dummyCookingPot, list, false);
         }
 
         if (ItemHelper.showShiftInformation()) {

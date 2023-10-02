@@ -992,5 +992,9 @@ gui.Stage3=Stage 3
 gui.Stage4=Stage 4
 gui.Stage5=Stage 5
 gui.SteamingMesh=Steaming Mesh
+gui.CookingHeatLevel.None=No Heat
+gui.CookingHeatLevel.Low=Low Heat
+gui.CookingHeatLevel.Medium=Medium Heat
+gui.CookingHeatLevel.High=High Heat
 
 key.BidsToolMode=Cycle Tool Mode
