@@ -519,6 +519,10 @@ public class ItemSetup extends BidsItems {
         for (Item log : logs) {
             OreDictionary.registerOre("itemLogExtra", new ItemStack(log, 1, WILD));
         }
+
+        // Use linen cloth as a steaming mesh
+        OreDictionary.registerOre("itemCookingPotAccessory", TFCItems.linenCloth);
+        OreDictionary.registerOre("itemCookingPotAccessorySteamingMesh", TFCItems.linenCloth);
     }
 
     private static void registerWoodPileItems() {
