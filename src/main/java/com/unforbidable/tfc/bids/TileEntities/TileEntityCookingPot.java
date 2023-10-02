@@ -291,7 +291,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     protected boolean isValidAccessoryItemStack(ItemStack itemStack) {
         for (ItemStack is : OreDictionary.getOres("itemCookingPotAccessory")) {
-            if (is.getItem() == itemStack.getItem() && is.getItemDamage() == OreDictionary.WILDCARD_VALUE || is.getItemDamage() == itemStack.getItemDamage()) {
+            if (is.getItem() == itemStack.getItem() && (is.getItemDamage() == OreDictionary.WILDCARD_VALUE || is.getItemDamage() == itemStack.getItemDamage())) {
                 return true;
             }
         }
@@ -301,7 +301,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     protected boolean isValidAccessorySteamingMeshItemStack(ItemStack itemStack) {
         for (ItemStack is : OreDictionary.getOres("itemCookingPotAccessorySteamingMesh")) {
-            if (is.getItem() == itemStack.getItem() && is.getItemDamage() == OreDictionary.WILDCARD_VALUE || is.getItemDamage() == itemStack.getItemDamage()) {
+            if (is.getItem() == itemStack.getItem() && (is.getItemDamage() == OreDictionary.WILDCARD_VALUE || is.getItemDamage() == itemStack.getItemDamage())) {
                 return true;
             }
         }
