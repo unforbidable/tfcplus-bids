@@ -83,28 +83,32 @@ public class CookingRecipe {
     }
 
     private boolean doesInputFluidMatch(CookingRecipe template) {
-        boolean match = getInputFluidStack() == template.getInputFluidStack();
+        boolean match = getInputFluidStack() == null && template.getInputFluidStack() == null ||
+            getInputFluidStack() != null && template.getInputFluidStack() != null && getInputFluidStack().isFluidEqual(template.getInputFluidStack()) ||
+            getInputFluidStack() == null && template.getInputFluidStack() != null && getOutputFluidStack().isFluidEqual(template.getInputFluidStack());
         Bids.LOG.info("doesInputFluidMatch: " + match);
 
         return match;
     }
 
     private boolean doesInputItemMatch(CookingRecipe template) {
-        boolean match = getInputItemStack() == template.getInputItemStack();
+        boolean match = getInputItemStack() == null && template.getInputItemStack() == null ||
+            getInputItemStack() != null && template.getInputItemStack() != null && getInputItemStack().isItemEqual(template.getInputItemStack())
+                && getInputItemStack().getItemDamage() == template.getInputItemStack().getItemDamage();
         Bids.LOG.info("doesInputItemMatch: " + match);
 
         return match;
     }
 
     private boolean doesMinHeatLevelMatch(CookingRecipe template) {
-        boolean match = getMinHeatLevel() == null || getMinHeatLevel().compareTo(template.getMinHeatLevel()) >= 0;
+        boolean match = getMinHeatLevel() == null || getMinHeatLevel().compareTo(template.getMinHeatLevel()) <= 0;
         Bids.LOG.info("doesMinHeatLevelMatch: " + match);
 
         return match;
     }
 
     private boolean doesMaxHeatLevelMatch(CookingRecipe template) {
-        boolean match = getMaxHeatLevel() == null || getMaxHeatLevel().compareTo(template.getMaxHeatLevel()) <= 0;
+        boolean match = getMaxHeatLevel() == null || getMaxHeatLevel().compareTo(template.getMaxHeatLevel()) >= 0;
         Bids.LOG.info("doesMaxHeatLevelMatch: " + match);
 
         return match;
