@@ -24,6 +24,9 @@ public class BidsBlocks {
     public static int unfinishedAnvilStage4RenderId;
     public static int unfinishedAnvilStage5RenderId;
 
+    public static int cookingPotRenderId;
+    public static int cookingPotLidRenderId;
+
     public static Block clayCrucible;
     public static Block fireClayCrucible;
 
@@ -114,5 +117,8 @@ public class BidsBlocks {
     public static Block unfinishedAnvilStage3;
     public static Block unfinishedAnvilStage4;
     public static Block unfinishedAnvilStage5;
+
+    public static Block cookingPot;
+    public static Block cookingPotLid;
 
 }

@@ -14,10 +14,7 @@ import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.*;
 import com.unforbidable.tfc.bids.Render.Blocks.*;
-import com.unforbidable.tfc.bids.Render.Tiles.RenderTileSaddleQuern;
-import com.unforbidable.tfc.bids.Render.Tiles.RenderTileWallHook;
-import com.unforbidable.tfc.bids.Render.Tiles.TileRenderChoppingBlock;
-import com.unforbidable.tfc.bids.Render.Tiles.TileRenderDryingRack;
+import com.unforbidable.tfc.bids.Render.Tiles.*;
 import com.unforbidable.tfc.bids.TileEntities.*;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
@@ -220,6 +217,13 @@ public class BlockSetup extends BidsBlocks {
             .setBlockName("UnfinishedAnvilStage4");
         unfinishedAnvilStage5 = new BlockUnfinishedAnvil(4)
             .setBlockName("UnfinishedAnvilStage5");
+
+        cookingPot = new BlockCookingPot()
+            .setBlockTextureName("Cooking Pot")
+            .setBlockName("CookingPot");
+        cookingPotLid = new BlockCookingPotLid()
+            .setBlockTextureName("Cooking Pot Lid")
+            .setBlockName("CookingPotLid");
     }
 
     private static void updateBlocks() {
@@ -392,6 +396,12 @@ public class BlockSetup extends BidsBlocks {
 
         unfinishedAnvilStage5RenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(unfinishedAnvilStage5RenderId, new RenderUnfinishedAnvil(4));
+
+        cookingPotRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(cookingPotRenderId, new RenderCookingPot());
+
+        cookingPotLidRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(cookingPotLidRenderId, new RenderCookingPotLid());
     }
 
     private static void registerTileEntities() {
@@ -425,6 +435,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityWallHook.class, "BidsWallHook");
 
         GameRegistry.registerTileEntity(TileEntityAquifer.class, "BidsAquifer");
+
+        GameRegistry.registerTileEntity(TileEntityCookingPot.class, "BidsCookingPot");
     }
 
     @SideOnly(Side.CLIENT)
@@ -435,6 +447,7 @@ public class BlockSetup extends BidsBlocks {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityChoppingBlock.class, new TileRenderChoppingBlock());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySaddleQuern.class, new RenderTileSaddleQuern());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWallHook.class, new RenderTileWallHook());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCookingPot.class, new RenderTileCookingPot());
     }
 
     private static void registerMessages() {
@@ -558,6 +571,9 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(roughStoneIgEx, ItemRoughStone.class, "RoughStoneIgEx");
         GameRegistry.registerBlock(roughStoneBrickIgEx, ItemRoughStone.class, "RoughStoneBrickIgEx");
         GameRegistry.registerBlock(roughStoneTileIgEx, ItemRoughStone.class, "RoughStoneTileIgEx");
+
+        GameRegistry.registerBlock(cookingPot, ItemCookingPot.class, "CookingPot");
+        GameRegistry.registerBlock(cookingPotLid, ItemCookingPotLid.class, "CookingPotLid");
     }
 
 }

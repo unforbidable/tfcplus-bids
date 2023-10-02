@@ -188,6 +188,11 @@ tile.UnfinishedAnvil.Rose Gold.name=Unfinished Rose Gold Anvil
 tile.UnfinishedAnvil.Bismuth Bronze.name=Unfinished Bismuth Bronze Anvil
 tile.UnfinishedAnvil.Black Bronze.name=Unfinished Black Bronze Anvil
 
+tile.CookingPot.Clay.name=Clay Cooking Pot
+tile.CookingPot.Ceramic.name=Ceramic Cooking Pot
+tile.CookingPotLid.Clay.name=Clay Cooking Pot Lid
+tile.CookingPotLid.Ceramic.name=Ceramic Cooking Pot Lid
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit
@@ -954,6 +959,9 @@ gui.Help.Adze3=§bRight Click §7block to carve.
 gui.Help.BastFibreStrip=§bRight Click §7with 5 in a stack to craft.
 gui.Help.Kindling=§bRight Click §7to place a firepit.
 gui.Help.Kindling2=Requires 2 loose rocks on the ground.
+gui.Help.Pottery=Sneak and §bRight Click §7block to place.
+gui.Help.CookingPot=§bRight Click §7block to place.
+gui.Help.CookingPotLid=§bRight Click §7block to place.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified
@@ -983,5 +991,6 @@ gui.Stage2=Stage 2
 gui.Stage3=Stage 3
 gui.Stage4=Stage 4
 gui.Stage5=Stage 5
+gui.SteamingMesh=Steaming Mesh
 
 key.BidsToolMode=Cycle Tool Mode
