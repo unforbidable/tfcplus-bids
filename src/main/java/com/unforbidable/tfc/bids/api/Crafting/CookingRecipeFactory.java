@@ -28,6 +28,10 @@ public class CookingRecipeFactory {
         return new CookingRecipe(inputFluidStack, null, null, inputItemStack, outputItemStack, EnumCookingAccessory.NONE, null, null, null, time);
     }
 
+    public static CookingRecipe createSoakingRecipe(FluidStack inputFluidStack, ItemStack inputItemStack, ItemStack outputItemStack, EnumCookingHeatLevel heatLevel, long time) {
+        return new CookingRecipe(inputFluidStack, null, null, inputItemStack, outputItemStack, EnumCookingAccessory.NONE, null, heatLevel, EnumCookingHeatLevel.HIGH, time);
+    }
+
     public static CookingRecipe createDissolvingRecipe(FluidStack inputFluidStack, FluidStack outputFluidStack, ItemStack inputItemStack, long time) {
         return new CookingRecipe(inputFluidStack, outputFluidStack, null, inputItemStack, null, EnumCookingAccessory.NONE, null, null, null, time);
     }
