@@ -1,6 +1,8 @@
 package com.unforbidable.tfc.bids.Blocks;
 
 import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Items.ItemBlocks.ItemBarrels;
+import com.dunk.tfc.Items.ItemBlocks.ItemLargeVessel;
 import com.dunk.tfc.Items.Tools.ItemCustomBucketMilk;
 import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCItems;
@@ -33,6 +35,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 
 import java.util.List;
@@ -269,6 +272,62 @@ public class BlockCookingPot extends BlockContainer {
                     }
 
                     return true;
+                } else if (equippedItem.getItem() instanceof ItemBarrels || equippedItem.getItem() instanceof ItemLargeVessel) {
+                    Bids.LOG.info("Cooking pot activated with barrel/large vessel: " + equippedItem.getDisplayName());
+
+                    ItemStack is = equippedItem.copy();
+                    is.stackSize = 1;
+
+                    if (equippedItem.hasTagCompound()) {
+                        if (equippedItem.getTagCompound().hasKey("fluidNBT") && !equippedItem.getTagCompound().hasKey("Items") &&
+                            te.getTotalLiquidVolume() < te.getMaxFluidVolume()) {
+                            FluidStack fs = FluidStack.loadFluidStackFromNBT(equippedItem.getTagCompound().getCompoundTag("fluidNBT"));
+                            if (te.addLiquid(fs)) {
+                                if (fs.amount == 0) {
+                                    equippedItem.getTagCompound().removeTag("Sealed");
+                                    equippedItem.getTagCompound().removeTag("fluidNBT");
+                                    if (equippedItem.getTagCompound().hasNoTags())
+                                        equippedItem.setTagCompound(null);
+                                } else {
+                                    fs.writeToNBT(equippedItem.getTagCompound().getCompoundTag("fluidNBT"));
+                                }
+
+                                return true;
+                            }
+                        }
+                    } else {
+                        if (te.getTopFluidStack() != null) {
+                            if (is.getItem() instanceof ItemBarrels) {
+                                FluidStack fs = te.getTopFluidStack();
+
+                                NBTTagCompound nbt = new NBTTagCompound();
+                                nbt.setTag("fluidNBT", fs.writeToNBT(new NBTTagCompound()));
+                                nbt.setBoolean("Sealed", true);
+                                is.setTagCompound(nbt);
+                                equippedItem.stackSize--;
+                                TFC_Core.giveItemToPlayer(is, player);
+
+                                te.drainTopLiquid();
+                            } else if (is.getItem() instanceof ItemLargeVessel) {
+                                if (is.getItemDamage() == 0) {
+                                    return false;
+                                }
+
+                                FluidStack fs = te.getTopFluidStack().copy();
+
+                                NBTTagCompound nbt = new NBTTagCompound();
+                                nbt.setTag("fluidNBT", fs.writeToNBT(new NBTTagCompound()));
+                                nbt.setBoolean("Sealed", true);
+                                is.setTagCompound(nbt);
+                                equippedItem.stackSize--;
+                                TFC_Core.giveItemToPlayer(is, player);
+
+                                te.drainTopLiquid();
+                            }
+
+                            return true;
+                        }
+                    }
                 } else {
                     Bids.LOG.info("Placing item on cooking pot: " + equippedItem.getDisplayName());
                     te.placeItemStack(equippedItem);

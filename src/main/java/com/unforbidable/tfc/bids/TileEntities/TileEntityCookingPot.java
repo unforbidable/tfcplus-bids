@@ -346,7 +346,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         }
     }
 
-    private boolean addLiquid(FluidStack inFS) {
+    public boolean addLiquid(FluidStack inFS) {
         if (inFS != null) {
             if (fluids[FLUID_PRIMARY] == null) {
                 // Cannot fill up from larger amount
@@ -457,6 +457,21 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         clientNeedToUpdate = true;
 
         onRecipeParametersChanged(true);
+    }
+
+    public void drainTopLiquid() {
+        if (hasFluid()) {
+            if (hasTopLayerFluid()) {
+                fluids[FLUID_TOP_LAYER] = null;
+            } else {
+                fluids[FLUID_PRIMARY] = null;
+            }
+
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            clientNeedToUpdate = true;
+
+            onRecipeParametersChanged(true);
+        }
     }
 
     public boolean hasTopLayerFluid() {
