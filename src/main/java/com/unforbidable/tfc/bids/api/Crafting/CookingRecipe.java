@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.api.Crafting;
 
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingLidUsage;
@@ -86,7 +85,7 @@ public class CookingRecipe {
         boolean match = getInputFluidStack() == null && template.getInputFluidStack() == null ||
             getInputFluidStack() != null && template.getInputFluidStack() != null && getInputFluidStack().isFluidEqual(template.getInputFluidStack()) ||
             getInputFluidStack() == null && template.getInputFluidStack() != null && getOutputFluidStack().isFluidEqual(template.getInputFluidStack());
-        Bids.LOG.info("doesInputFluidMatch: " + match);
+        //Bids.LOG.info("doesInputFluidMatch: " + match);
 
         return match;
     }
@@ -95,35 +94,35 @@ public class CookingRecipe {
         boolean match = getInputItemStack() == null && template.getInputItemStack() == null ||
             getInputItemStack() != null && template.getInputItemStack() != null && getInputItemStack().isItemEqual(template.getInputItemStack())
                 && getInputItemStack().getItemDamage() == template.getInputItemStack().getItemDamage();
-        Bids.LOG.info("doesInputItemMatch: " + match);
+        //Bids.LOG.info("doesInputItemMatch: " + match);
 
         return match;
     }
 
     private boolean doesMinHeatLevelMatch(CookingRecipe template) {
         boolean match = getMinHeatLevel() == null || getMinHeatLevel().compareTo(template.getMinHeatLevel()) <= 0;
-        Bids.LOG.info("doesMinHeatLevelMatch: " + match);
+        //Bids.LOG.info("doesMinHeatLevelMatch: " + match);
 
         return match;
     }
 
     private boolean doesMaxHeatLevelMatch(CookingRecipe template) {
         boolean match = getMaxHeatLevel() == null || getMaxHeatLevel().compareTo(template.getMaxHeatLevel()) >= 0;
-        Bids.LOG.info("doesMaxHeatLevelMatch: " + match);
+        //Bids.LOG.info("doesMaxHeatLevelMatch: " + match);
 
         return match;
     }
 
     private boolean doesLidUsageMatch(CookingRecipe template) {
         boolean match = getLidUsage() == null || getLidUsage() == template.getLidUsage();
-        Bids.LOG.info("doesLidUsageMatch: " + match);
+        //Bids.LOG.info("doesLidUsageMatch: " + match);
 
         return match;
     }
 
     private boolean doesAccessoryMatch(CookingRecipe template) {
         boolean match = getAccessory() == null || getAccessory() == template.getAccessory();
-        Bids.LOG.info("doesAccessoryMatch: " + match);
+        //Bids.LOG.info("doesAccessoryMatch: " + match);
 
         return match;
     }

@@ -1,11 +1,14 @@
 package com.unforbidable.tfc.bids.WAILA.Providers;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingRecipeProgress;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCookingPot;
 import com.unforbidable.tfc.bids.WAILA.WailaProvider;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -23,6 +26,17 @@ public class CookingPotProvider extends WailaProvider {
             TileEntityCookingPot tileEntityCookingPot = (TileEntityCookingPot) accessor.getTileEntity();
 
             CookingHelper.getCookingPotInfo(tileEntityCookingPot, currenttip, true);
+
+            CookingRecipeProgress recipeProgress = tileEntityCookingPot.getRecipeProgress();
+            if (recipeProgress != null) {
+                String output = recipeProgress.getOutputDisplayText();
+                String progress = recipeProgress.isProgressPaused()
+                    ? " (" + StatCollector.translateToLocal("gui.Paused") + ")"
+                    : recipeProgress.getProgressRounded() > 0 ? String.format(" (%d%%)", recipeProgress.getProgressRounded()) : "";
+
+                currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
+                    + ChatFormatting.WHITE + output + progress);
+            }
         }
 
         return currenttip;

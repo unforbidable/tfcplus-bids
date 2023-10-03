@@ -967,6 +967,7 @@ gui.Empty=Empty
 gui.Solidified=Solidified
 gui.symbol.BulletPoint=·
 gui.Output=Output
+gui.Paused=Paused
 gui.Alloying=Alloying
 gui.Glassmaking=Glassmaking
 gui.plans.blowpipe=Blowpipe

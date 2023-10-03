@@ -1,9 +1,12 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
+import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.CookingPotBounds;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.EnumCookingPotPlacement;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingRecipeHelper;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingRecipeProgress;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Timer;
@@ -29,6 +32,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.List;
+
 public class TileEntityCookingPot extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
 
     private static final int MAX_STORAGE = 3;
@@ -44,6 +49,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     private static final int HEAT_CHECK_INTERVAL = 10;
     private static final int HEAT_CHECK_DELAY_AFTER_PLACEMENT_CHANGE = 50;
+    private static final int RECIPE_HANDLE_INTERVAL = 20;
+    private static final int RECIPE_HANDLE_INTERVAL_AFTER_PARAMETER_CHANGE = 5;
 
     private final ItemStack[] storage = new ItemStack[MAX_STORAGE];
     private final FluidStack[] fluids = new FluidStack[MAX_FLUIDS];
@@ -52,10 +59,22 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     private CookingPotBounds cachedBounds = null;
     private EnumCookingHeatLevel heatLevel = EnumCookingHeatLevel.NONE;
 
+    private CookingRecipe cachedRecipe = null;
+    private boolean isCachedRecipeValid = false;
+
+    private CookingRecipeProgress recipeProgress = null;
+
     boolean clientNeedToUpdate = false;
     boolean clientDataLoaded = false;
 
     private final Timer heatCheckTimer = new Timer(HEAT_CHECK_INTERVAL);
+    private final Timer recipeHandleTimer = new Timer(RECIPE_HANDLE_INTERVAL);
+
+    private boolean recipeCanPauseWhenParametersChange = true;
+
+    public CookingRecipeProgress getRecipeProgress() {
+        return recipeProgress;
+    }
 
     public EnumCookingPotPlacement getPlacement() {
         return placement;
@@ -80,6 +99,29 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         return cachedBounds;
     }
 
+    public CookingRecipe getCachedRecipe() {
+        if (!isCachedRecipeValid) {
+            CookingRecipe template = createRecipeTemplate();
+            List<CookingRecipe> recipes = CookingManager.getRecipesMatchingTemplate(template);
+            if (recipes.size() == 0) {
+                Bids.LOG.info("No recipe matched");
+
+                cachedRecipe = null;
+            } else {
+                Bids.LOG.info("Recipe match found!");
+                cachedRecipe = recipes.get(0);
+
+                if (recipes.size() > 1) {
+                    Bids.LOG.warn("Too many recipes match: " + recipes.size() + " - the first one will be used");
+                }
+            }
+
+            isCachedRecipeValid = true;
+        }
+
+        return cachedRecipe;
+    }
+
     public EnumCookingHeatLevel getHeatLevel() {
         return heatLevel;
     }
@@ -96,6 +138,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
+            onRecipeParametersChanged(false);
+
             return true;
         }
 
@@ -109,6 +153,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
+
+            onRecipeParametersChanged(true);
 
             return true;
         }
@@ -169,6 +215,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
+            onRecipeParametersChanged(false);
+
             return true;
         }
 
@@ -196,6 +244,12 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                         continue;
                     }
 
+                    // If the recipe has both input and output item (e.g. soaking)
+                    // we can only do one run
+                    if (recipe.getOutputItemStack() != null) {
+                        return 1;
+                    }
+
                     // Recipes with fluid input (salt + fresh water)
                     // Stack size depends on how much input liquid is in the cooking pot
                     // If there is no input liquid (yet) assume max volume
@@ -213,6 +267,12 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                         continue;
                     }
 
+                    // If the recipe has both input and output item (creating liquid and changing solid item)
+                    // we can only do one run
+                    if (recipe.getOutputItemStack() != null) {
+                        return 1;
+                    }
+
                     // Recipes without fluid input (melting snow)
                     // Stack size depends on how much output liquid can fit in the cooking pot
                     // account for existing liquid
@@ -226,13 +286,13 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
                     return stackSize;
                 } else {
-                    // Recipes without input or output liquid
-                    // currently not handled
-                    return 0;
+                    // Recipes without input or output liquid (turning solid item into another solid item)
+                    // always one item
+                    return 1;
                 }
             }
 
-            // Recipe should have been found
+            // No valid recipe found for the input item
             return 0;
         }
     }
@@ -256,6 +316,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
+            onRecipeParametersChanged(false);
+
             return true;
         } else if (hasInputItem()) {
             Bids.LOG.info("Retrieving input item: " + storage[SLOT_INPUT].getDisplayName());
@@ -265,6 +327,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
+            onRecipeParametersChanged(true);
+
             return true;
         } else if (hasAccessory()) {
             Bids.LOG.info("Retrieving accessory: " + storage[SLOT_ACCESSORY].getDisplayName());
@@ -273,6 +337,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
+
+            onRecipeParametersChanged(true);
 
             return true;
         } else {
@@ -303,6 +369,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
+
+            onRecipeParametersChanged(true);
 
             return true;
         }
@@ -387,6 +455,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         clientNeedToUpdate = true;
+
+        onRecipeParametersChanged(true);
     }
 
     public boolean hasTopLayerFluid() {
@@ -493,6 +563,9 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         placement = EnumCookingPotPlacement.GROUND;
         heatLevel = EnumCookingHeatLevel.NONE;
 
+        // Cancel recipe progress
+        recipeProgress = null;
+
         if (fluids[FLUID_BEFORE_SEPARATION] != null) {
             // When block is broken - that is picked up -
             // any separated liquid is mixed together again
@@ -505,6 +578,23 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         clientNeedToUpdate = true;
+
+        onRecipeParametersChanged(false);
+    }
+
+    private void onRecipeParametersChanged(boolean cancelRecipe) {
+        Bids.LOG.info("Recipe parameters changed - recipe cancellation: " + cancelRecipe);
+
+        isCachedRecipeValid = false;
+
+        // By default, recipes can pause when parameters change
+        // unless a change occurred that cancels the recipe
+        if (cancelRecipe) {
+            recipeCanPauseWhenParametersChange = false;
+        }
+
+        // Handle the recipe progress after delay
+        recipeHandleTimer.delay(RECIPE_HANDLE_INTERVAL_AFTER_PARAMETER_CHANGE);
     }
 
     private void remixSeparatedFluids() {
@@ -515,6 +605,226 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     private void preventRemixingSeparatedLiquids() {
         fluids[FLUID_BEFORE_SEPARATION] = null;
+    }
+
+    private void handleRecipeProgress() {
+        boolean update = false;
+
+        CookingRecipe recipe = getCachedRecipe();
+
+        if (recipeProgress != null) {
+            // A recipe is in progress
+            // see if the progress matches the current recipe
+            if (recipe != null &&
+                recipeProgress.getTotalRuns() == calculateTotalRecipeRuns(recipe) &&
+                recipeProgress.getOutputHashString().equals(CookingRecipeHelper.getRecipeHashString(recipe))) {
+                // Resume paused recipe if it has been paused
+                if (recipeProgress.isProgressPaused()) {
+                    Bids.LOG.info("Recipe progress resumed: " + recipeProgress.getOutputHashString());
+
+                    recipeProgress.setProgressPaused(false);
+                }
+
+                // Determine how much progress is made
+                long lastUpdateTicks = recipeProgress.getLastUpdateTicks();
+                long elapsedTicks = TFC_Time.getTotalTicks() - lastUpdateTicks;
+                Bids.LOG.info("elapsedTicks: " + elapsedTicks);
+                long totalRecipeTicks = recipe.getTime() * recipeProgress.getTotalRuns();
+                Bids.LOG.info("totalRecipeTicks: " + totalRecipeTicks);
+                float progress = (float)elapsedTicks / totalRecipeTicks;
+                Bids.LOG.info("progress: " + progress);
+                float heatAdjustedProgress = adjustProgressForHeat(recipe, getHeatLevel(), progress);
+                Bids.LOG.info("heatAdjustedProgress: " + heatAdjustedProgress);
+
+                int lastProgressRounded = recipeProgress.getProgressRounded();
+                recipeProgress.addProgress(heatAdjustedProgress);
+
+                if (recipeProgress.getProgress() == 1f) {
+                    Bids.LOG.info("Recipe progress completed: " + recipeProgress.getOutputHashString());
+
+                    handleRecipeOutput(recipe);
+
+                    recipeProgress = null;
+
+                    // Update the cached recipe that may be invalid after completion
+                    isCachedRecipeValid = false;
+                    recipe = getCachedRecipe();
+
+                    update = true;
+                } else {
+                    Bids.LOG.info("Recipe progress updated: " + recipeProgress.getOutputHashString() + " - " + recipeProgress.getProgress());
+
+                    // Only send update to the client when the rounded progress changes
+                    if (lastProgressRounded != recipeProgress.getProgressRounded()) {
+                        update = true;
+                    }
+                }
+            } else {
+                // When the recipe in progress does not match because
+                // sometimes the progress can be paused, depending on the kind of changes
+                // This prevents progress being lost, when heat changes or lid is manipulated,
+                // when substantial progress has been made
+                if (!recipeProgress.isProgressPaused()) {
+                    if (recipeCanPauseWhenParametersChange && recipeProgress.getProgress() > 0.1f) {
+                        Bids.LOG.info("Recipe progress paused: " + recipeProgress.getOutputHashString());
+
+                        recipeProgress.setProgressPaused(true);
+                    } else {
+                        Bids.LOG.info("Recipe progress cancelled: " + recipeProgress.getOutputHashString());
+
+                        recipeProgress = null;
+                    }
+
+                    update = true;
+                }
+            }
+        }
+
+        if (recipeProgress == null) {
+            // No recipe is in progress
+            // see if we can start one
+            if (recipe != null) {
+                String displayText = CookingRecipeHelper.getRecipeOutputDisplayText(recipe);
+                String hashString = CookingRecipeHelper.getRecipeHashString(recipe);
+                int totalRuns = calculateTotalRecipeRuns(recipe);
+
+                recipeProgress = new CookingRecipeProgress(displayText, hashString, totalRuns);
+                update = true;
+
+                Bids.LOG.info("Recipe progress started: " + recipeProgress.getOutputHashString());
+            }
+        }
+
+        if (update) {
+            // Sync data with the client
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            clientNeedToUpdate = true;
+        }
+
+        // By default, pause recipe unless explicitly stated otherwise
+        recipeCanPauseWhenParametersChange = true;
+    }
+
+    private void handleRecipeOutput(CookingRecipe recipe) {
+        int runs = calculateTotalRecipeRuns(recipe);
+        Bids.LOG.info("runs: " + runs);
+
+        if (recipe.getOutputItemStack() != null) {
+            // When the recipe has output item stack,
+            // any input stack is always replaced with the output item stack
+            storage[SLOT_INPUT] = recipe.getOutputItemStack().copy();
+            storage[SLOT_INPUT].stackSize *= runs;
+        } else if (recipe.getInputItemStack() != null) {
+            // Otherwise consume appropriate size of the input item stack
+            int consumedStackSize = recipe.getInputItemStack().stackSize * runs;
+
+            Bids.LOG.info("availableStackSize: " + storage[SLOT_INPUT].stackSize);
+            Bids.LOG.info("consumedStackSize: " + consumedStackSize);
+
+            storage[SLOT_INPUT].stackSize -= consumedStackSize;
+
+            if (storage[SLOT_INPUT].stackSize < 0) {
+                Bids.LOG.warn("Recipe consumed more items than available");
+                storage[SLOT_INPUT].stackSize = 0;
+            }
+
+            if (storage[SLOT_INPUT].stackSize == 0) {
+                storage[SLOT_INPUT] = null;
+            }
+        }
+
+        if (recipe.getOutputFluidStack() != null) {
+            // When the recipe has output fluid stack
+            // any input fluid stack is always replaced
+            // or merged with existing liquid
+            if (hasFluid() && !hasTopLayerFluid() && recipe.getInputFluidStack() == null) {
+                fluids[FLUID_PRIMARY].amount += recipe.getOutputFluidStack().amount * runs;
+            } else {
+                fluids[FLUID_PRIMARY] = recipe.getOutputFluidStack().copy();
+                fluids[FLUID_PRIMARY].amount *= runs;
+
+                // When two liquids are created, the secondary one goes to the top
+                if (recipe.getSecondaryOutputFluidStack() != null) {
+                    fluids[FLUID_TOP_LAYER] = recipe.getSecondaryOutputFluidStack();
+                    fluids[FLUID_TOP_LAYER].amount *= runs;
+                }
+            }
+        } else if (recipe.getInputFluidStack() != null) {
+            // Otherwise consume appropriate amount of the input fluid stack
+            int consumedAmount = recipe.getInputFluidStack().amount * runs;
+
+            Bids.LOG.info("availableAmount: " + fluids[FLUID_PRIMARY].amount);
+            Bids.LOG.info("consumedAmount: " + consumedAmount);
+
+            fluids[FLUID_PRIMARY].amount -= consumedAmount;
+
+            if (fluids[FLUID_PRIMARY].amount < 0) {
+                Bids.LOG.warn("Recipe consumed more fluid than available");
+                fluids[FLUID_PRIMARY].amount = 0;
+            }
+
+            if (fluids[FLUID_PRIMARY].amount == 0) {
+                fluids[FLUID_PRIMARY] = null;
+            }
+        }
+    }
+
+    private float adjustProgressForHeat(CookingRecipe recipe, EnumCookingHeatLevel heatLevel, float progress) {
+        if (recipe.getMinHeatLevel() == null || recipe.getMinHeatLevel() == EnumCookingHeatLevel.NONE) {
+            return progress;
+        }
+
+        switch (heatLevel) {
+            case LOW:
+                return progress * 0.6f;
+
+            case MEDIUM:
+                return progress * 1.2f;
+
+            case HIGH:
+                return progress * 1.8f;
+        }
+
+        return 0;
+    }
+
+    private int calculateTotalRecipeRuns(CookingRecipe recipe) {
+        // Melting recipes (solid input changes and liquid output) are processed one set of ingredients at a time
+        // Total time is one run of the recipe
+        if (recipe.getInputItemStack() != null && recipe.getOutputItemStack() == null
+            && recipe.getOutputFluidStack() != null && recipe.getInputFluidStack() == null) {
+            return 1;
+        }
+
+        // Total recipe time depends on both the solid and liquid input
+        if (recipe.getInputItemStack() != null && recipe.getInputFluidStack() != null) {
+            return Math.min(getRunsForInputItemStack(recipe), getRunsForInputFluidStack(recipe));
+        }
+
+        // Total recipe time depends on the input item stack size
+        if (recipe.getInputItemStack() != null) {
+            return getRunsForInputItemStack(recipe);
+        }
+
+        // Total recipe time depends on the input fluid amount
+        if (recipe.getInputFluidStack() != null) {
+            return getRunsForInputFluidStack(recipe);
+        }
+
+        // Making things out of thin air?
+        return 1;
+    }
+
+    private int getRunsForInputFluidStack(CookingRecipe recipe) {
+        int recipeAmount = recipe.getInputFluidStack().amount;
+        int actualInputAmount = getTotalLiquidVolume();
+        return (int)Math.floor((float)actualInputAmount / recipeAmount);
+    }
+
+    private int getRunsForInputItemStack(CookingRecipe recipe) {
+        int recipeStackSize = recipe.getInputItemStack().stackSize;
+        int actualInputStackSize = getInputItemStack().stackSize;
+        return (int)Math.floor((float)actualInputStackSize / recipeStackSize);
     }
 
     public boolean isClientDataLoaded() {
@@ -537,6 +847,10 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                     heatLevel = currentHeatLevel;
                     onHeatLevelChanged();
                 }
+            }
+
+            if (recipeHandleTimer.tick()) {
+                handleRecipeProgress();
             }
         }
     }
@@ -610,6 +924,12 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             }
             tag.setTag("fluids", fluidTagList);
         }
+
+        if (recipeProgress != null) {
+            NBTTagCompound progressTag = new NBTTagCompound();
+            recipeProgress.writeToNBT(progressTag);
+            tag.setTag("progress", progressTag);
+        }
     }
 
     public void readDataFromNBT(NBTTagCompound tag) {
@@ -650,6 +970,13 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 final int slot = fluidTag.getInteger("slot");
                 fluids[slot] = FluidStack.loadFluidStackFromNBT(fluidTag);
             }
+        }
+
+        if (tag.hasKey("progress")) {
+            NBTTagCompound progressTag = tag.getCompoundTag("progress");
+            recipeProgress = CookingRecipeProgress.readFromNBT(progressTag);
+        } else {
+            recipeProgress = null;
         }
     }
 
