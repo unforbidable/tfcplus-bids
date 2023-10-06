@@ -101,22 +101,21 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     public CookingRecipe getCachedRecipe() {
         if (!isCachedRecipeValid) {
+            isCachedRecipeValid = true;
+            cachedRecipe = null;
+
             CookingRecipe template = createRecipeTemplate();
-            List<CookingRecipe> recipes = CookingManager.getRecipesMatchingTemplate(template);
-            if (recipes.size() == 0) {
-                Bids.LOG.info("No recipe matched");
-
-                cachedRecipe = null;
-            } else {
-                Bids.LOG.info("Recipe match found!");
-                cachedRecipe = recipes.get(0);
-
-                if (recipes.size() > 1) {
-                    Bids.LOG.warn("Too many recipes match: " + recipes.size() + " - the first one will be used");
+            for (CookingRecipe recipe : CookingManager.getRecipesMatchingTemplate(template)) {
+                // Ensure the recipe can run - checking the amounts
+                if (calculateTotalRecipeRuns(recipe) > 0) {
+                    cachedRecipe = recipe;
+                    break;
                 }
             }
 
-            isCachedRecipeValid = true;
+            if (cachedRecipe == null) {
+                Bids.LOG.info("No recipe matched");
+            }
         }
 
         return cachedRecipe;
@@ -930,7 +929,22 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
         // Total recipe time depends on both the solid and liquid input
         if (recipe.getInputItemStack() != null && recipe.getInputFluidStack() != null) {
-            return Math.min(getRunsForInputItemStack(recipe), getRunsForInputFluidStack(recipe));
+            int itemRuns = getRunsForInputItemStack(recipe);
+            int fluidRuns = getRunsForInputFluidStack(recipe);
+
+            // If recipe also has fluid output, ensure enough items
+            if (recipe.getOutputFluidStack() != null && itemRuns < fluidRuns) {
+                Bids.LOG.warn("Not enough items for recipe");
+                return 0;
+            }
+
+            // If recipe also has input output, ensure enough liquid
+            if (recipe.getOutputItemStack() != null && fluidRuns < itemRuns) {
+                Bids.LOG.warn("Not enough fluid for recipe");
+                return 0;
+            }
+
+            return Math.min(itemRuns, fluidRuns);
         }
 
         // Total recipe time depends on the input item stack size
