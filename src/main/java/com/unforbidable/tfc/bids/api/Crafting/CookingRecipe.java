@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.api.Crafting;
 
+import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingLidUsage;
@@ -9,6 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class CookingRecipe {
 
     private final FluidStack inputFluidStack;
+    private final FluidStack secondaryInputFluidStack;
     private final FluidStack outputFluidStack;
     private final FluidStack secondaryOutputFluidStack;
     private final ItemStack inputItemStack;
@@ -19,8 +21,9 @@ public class CookingRecipe {
     private final EnumCookingHeatLevel maxHeatLevel;
     private final long time;
 
-    public CookingRecipe(FluidStack inputFluidStack, FluidStack outputFluidStack, FluidStack secondaryOutputFluidStack, ItemStack inputItemStack, ItemStack outputItemStack, EnumCookingAccessory accessory, EnumCookingLidUsage lidUsage, EnumCookingHeatLevel minHeatLevel, EnumCookingHeatLevel maxHeatLevel, long time) {
+    public CookingRecipe(FluidStack inputFluidStack, FluidStack secondaryInputFluidStack, FluidStack outputFluidStack, FluidStack secondaryOutputFluidStack, ItemStack inputItemStack, ItemStack outputItemStack, EnumCookingAccessory accessory, EnumCookingLidUsage lidUsage, EnumCookingHeatLevel minHeatLevel, EnumCookingHeatLevel maxHeatLevel, long time) {
         this.inputFluidStack = inputFluidStack;
+        this.secondaryInputFluidStack = secondaryInputFluidStack;
         this.outputFluidStack = outputFluidStack;
         this.secondaryOutputFluidStack = secondaryOutputFluidStack;
         this.inputItemStack = inputItemStack;
@@ -34,6 +37,10 @@ public class CookingRecipe {
 
     public FluidStack getInputFluidStack() {
         return inputFluidStack;
+    }
+
+    public FluidStack getSecondaryInputFluidStack() {
+        return secondaryInputFluidStack;
     }
 
     public FluidStack getOutputFluidStack() {
@@ -74,6 +81,7 @@ public class CookingRecipe {
 
     public boolean matchesTemplate(CookingRecipe template) {
         return doesInputFluidMatch(template) &&
+            doesSecondaryInputFluidMatch(template) &&
             doesInputItemMatch(template) &&
             doesMinHeatLevelMatch(template) &&
             doesMaxHeatLevelMatch(template) &&
@@ -86,6 +94,14 @@ public class CookingRecipe {
             getInputFluidStack() != null && template.getInputFluidStack() != null && getInputFluidStack().isFluidEqual(template.getInputFluidStack()) ||
             getInputFluidStack() == null && template.getInputFluidStack() != null && getOutputFluidStack().isFluidEqual(template.getInputFluidStack());
         //Bids.LOG.info("doesInputFluidMatch: " + match);
+
+        return match;
+    }
+
+    private boolean doesSecondaryInputFluidMatch(CookingRecipe template) {
+        boolean match = getSecondaryInputFluidStack() == null && template.getSecondaryInputFluidStack() == null ||
+            getSecondaryInputFluidStack() != null && template.getSecondaryInputFluidStack() != null && getSecondaryInputFluidStack().isFluidEqual(template.getSecondaryInputFluidStack());
+        //Bids.LOG.info("doesSecondaryInputFluidMatch: " + match);
 
         return match;
     }
@@ -138,7 +154,8 @@ public class CookingRecipe {
     }
 
     public boolean matchesInput(FluidStack fluidStack) {
-        return getInputFluidStack() != null && getInputFluidStack().isFluidEqual(fluidStack);
+        return getInputFluidStack() != null && getInputFluidStack().isFluidEqual(fluidStack) ||
+            getSecondaryInputFluidStack() != null && getSecondaryInputFluidStack().isFluidEqual(fluidStack);
     }
 
     public boolean matchesInput(ItemStack itemStack) {

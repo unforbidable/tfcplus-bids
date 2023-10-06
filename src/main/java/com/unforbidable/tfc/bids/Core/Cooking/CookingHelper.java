@@ -26,13 +26,15 @@ public class CookingHelper {
         }
     }
 
-    public static void getCookingPotInfo(TileEntityCookingPot tileEntityCookingPot, List<String> list, boolean includeHeat) {
+    public static void getCookingPotInfo(TileEntityCookingPot tileEntityCookingPot, List<String> list, boolean blockInfo) {
+        EnumChatFormatting fluidColor = blockInfo ? EnumChatFormatting.GRAY : EnumChatFormatting.BLUE;
+
         if (tileEntityCookingPot.getTopLayerFluidStack() != null) {
-            list.add(getFluidInfoLine(tileEntityCookingPot.getTopLayerFluidStack()));
+            list.add(fluidColor + getFluidInfoLine(tileEntityCookingPot.getTopLayerFluidStack()));
         }
 
         if (tileEntityCookingPot.getPrimaryFluidStack() != null) {
-            list.add(getFluidInfoLine(tileEntityCookingPot.getPrimaryFluidStack()));
+            list.add(fluidColor + getFluidInfoLine(tileEntityCookingPot.getPrimaryFluidStack()));
         }
 
         if (tileEntityCookingPot.hasSteamingMesh()) {
@@ -40,15 +42,11 @@ public class CookingHelper {
         }
 
         if (tileEntityCookingPot.hasInputItem()) {
-            list.add(getItemInfoLine(tileEntityCookingPot.getInputItemStack()));
+            list.add(EnumChatFormatting.GOLD + getItemInfoLine(tileEntityCookingPot.getInputItemStack()));
         }
 
-        if (includeHeat) {
+        if (blockInfo) {
             switch (tileEntityCookingPot.getHeatLevel()) {
-                case NONE:
-                    list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.CookingHeatLevel.None"));
-                    break;
-
                 case LOW:
                     list.add(EnumChatFormatting.DARK_RED + StatCollector.translateToLocal("gui.CookingHeatLevel.Low"));
                     break;
@@ -65,12 +63,12 @@ public class CookingHelper {
     }
 
     private static String getFluidInfoLine(FluidStack fluidStack) {
-        return EnumChatFormatting.BLUE + fluidStack.getFluid().getLocalizedName(fluidStack) + " (" + fluidStack.amount + " mB)";
+        return fluidStack.getFluid().getLocalizedName(fluidStack) + " " + fluidStack.amount + " mB";
     }
 
     private static String getItemInfoLine(ItemStack itemStack) {
         String stackSizeInfo = itemStack.stackSize > 1 ? (itemStack.stackSize + "x ") : "";
-        return EnumChatFormatting.GOLD + stackSizeInfo + itemStack.getDisplayName();
+        return stackSizeInfo + itemStack.getDisplayName();
     }
 
     public static MovingObjectPosition onCookingPotCollisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec) {

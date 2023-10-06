@@ -244,6 +244,12 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                         continue;
                     }
 
+                    // If recipe has secondary input liquid (e.g. fluid mixing)
+                    // those recipes are completed instantly when item containers are used
+                    if (recipe.getSecondaryInputFluidStack() != null) {
+                        continue;
+                    }
+
                     // If the recipe has both input and output item (e.g. soaking)
                     // we can only do one run
                     if (recipe.getOutputItemStack() != null) {
@@ -299,12 +305,31 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     private CookingRecipe createRecipeTemplate() {
         return new CookingRecipe(
-            getPrimaryFluidStack(),null, null,
+            getPrimaryFluidStack(), null, null, null,
             getInputItemStack(), null,
             hasSteamingMesh() ? EnumCookingAccessory.STEAMING_MESH : EnumCookingAccessory.NONE,
             hasLid() ? EnumCookingLidUsage.ON : EnumCookingLidUsage.OFF,
             getHeatLevel(), getHeatLevel(), 0
         );
+    }
+
+    private CookingRecipe createRecipeTemplateWithSecondaryInputFluidStack(FluidStack secondaryInputFluidStack) {
+        return new CookingRecipe(
+            getPrimaryFluidStack(), secondaryInputFluidStack, null, null,
+            null, null,
+            hasSteamingMesh() ? EnumCookingAccessory.STEAMING_MESH : EnumCookingAccessory.NONE,
+            hasLid() ? EnumCookingLidUsage.ON : EnumCookingLidUsage.OFF,
+            getHeatLevel(), getHeatLevel(), 0
+        );
+    }
+
+    private FluidStack getFluidStackFromItemStack(ItemStack itemStack) {
+        if (itemStack != null && itemStack.getItem() instanceof IFluidContainerItem) {
+            IFluidContainerItem container = (IFluidContainerItem) itemStack.getItem();
+            return container.getFluid(itemStack);
+        } else {
+            return null;
+        }
     }
 
     public boolean retrieveItemStack(EntityPlayer player) {
@@ -388,20 +413,112 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         }
 
         if (FluidContainerRegistry.isFilledContainer(is)) {
-            FluidStack fs = FluidContainerRegistry.getFluidForFilledItem(is);
-            if (addLiquid(fs)) {
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                return FluidContainerRegistry.drainFluidContainer(is);
+            ItemStack draining = is.copy();
+            boolean drained = false;
+            while (FluidContainerRegistry.isFilledContainer(draining)) {
+                FluidStack fs = FluidContainerRegistry.getFluidForFilledItem(draining);
+                if (addLiquid(fs)) {
+                    drained = true;
+                    draining = FluidContainerRegistry.drainFluidContainer(draining);
+                    Bids.LOG.info("Draining item stack: " + draining.getDisplayName() + "[" + draining.getItemDamage() + "]");
+                } else {
+                    break;
+                }
             }
+
+            if (drained) {
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            }
+            return draining;
         } else if (is.getItem() instanceof IFluidContainerItem) {
             FluidStack isfs = ((IFluidContainerItem) is.getItem()).getFluid(is);
             if (addLiquid(isfs)) {
-                ((IFluidContainerItem) is.getItem()).drain(is, is.getMaxDamage(), true);
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                ((IFluidContainerItem) is.getItem()).drain(is, is.getMaxDamage(), true);
+                return is;
             }
         }
 
         return is;
+    }
+
+    public ItemStack mixLiquids(ItemStack itemStack) {
+        Bids.LOG.info("itemStack: " + itemStack.getDisplayName());
+
+        if (hasFluid() && FluidContainerRegistry.isFilledContainer(itemStack)) {
+            FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
+            Bids.LOG.info("fluidStack: " + fluidStack.getLocalizedName());
+
+            CookingRecipe template = createRecipeTemplateWithSecondaryInputFluidStack(fluidStack);
+            for (CookingRecipe recipe : CookingManager.getRecipesMatchingTemplate(template)) {
+                Bids.LOG.info("Found mixing recipe: " + CookingRecipeHelper.getRecipeHashString(recipe));
+
+                int primaryAmountRequired = recipe.getInputFluidStack().amount;
+                int primaryAmountAvailable = getTopFluidStack().amount;
+
+                // Ensure the primary amount is divisible by required amount precisely
+                if (primaryAmountAvailable % primaryAmountRequired != 0) {
+                    Bids.LOG.warn("Input liquid amount must be multiple of recipe input");
+                    continue;
+                }
+
+                int runs = primaryAmountAvailable / primaryAmountRequired;
+                int secondaryAmountRequired = recipe.getSecondaryInputFluidStack().amount * runs;
+                int secondaryAmountAvailable = fluidStack.amount;
+
+                Bids.LOG.info("secondaryAmountRequired: " + secondaryAmountRequired);
+                Bids.LOG.info("secondaryAmountAvailable: " + secondaryAmountAvailable);
+
+                int drains = getDrainCountForAmount(itemStack, secondaryAmountRequired);
+                if (drains == 0) {
+                    Bids.LOG.warn("The container cannot be drained as required");
+                    continue;
+                }
+
+                Bids.LOG.info("Input container will be drained times: " + drains);
+
+                ItemStack drainingItemStack = itemStack;
+                for (int i = 0; i < drains; i++) {
+                    drainingItemStack = FluidContainerRegistry.drainFluidContainer(drainingItemStack);
+                    Bids.LOG.info("Draining item stack (" + i + "): " + drainingItemStack.getDisplayName() + "[" + drainingItemStack.getItemDamage() + "]");
+                }
+
+                handleRecipeOutput(recipe);
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                clientNeedToUpdate = true;
+
+                return drainingItemStack;
+            }
+        }
+
+        return itemStack;
+    }
+
+    private int getDrainCountForAmount(ItemStack itemStack, int requiredAmount) {
+        int drainedAmount = 0;
+        int drainedCount = 0;
+        ItemStack drainedItemStack = itemStack;
+        FluidStack originalFluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
+        while (drainedAmount < requiredAmount && FluidContainerRegistry.isFilledContainer(drainedItemStack)) {
+            FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(drainedItemStack);
+            // Ensure the fluid is still the same
+            if (!originalFluidStack.isFluidEqual(fluidStack)) {
+                break;
+            }
+
+            int availableAmount = fluidStack.amount;
+            drainedItemStack = FluidContainerRegistry.drainFluidContainer(drainedItemStack);
+            drainedAmount += availableAmount;
+            drainedCount++;
+        }
+
+        // Ensure the exact amount was drained
+        if (drainedAmount == requiredAmount) {
+            return drainedCount;
+        } else {
+            return 0;
+        }
     }
 
     public ItemStack removeLiquid(ItemStack is) {

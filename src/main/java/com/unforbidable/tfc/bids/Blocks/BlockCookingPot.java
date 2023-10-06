@@ -196,16 +196,12 @@ public class BlockCookingPot extends BlockContainer {
                     tmp.stackSize = 1;
 
                     ItemStack is = te.addLiquid(tmp);
-                    if (ItemStack.areItemStacksEqual(equippedItem, is)) {
-                        return false;
-                    }
-
-                    boolean finished = false;
-                    while (!finished) {
-                        tmp = is.copy();
-                        is = te.addLiquid(is);
-
-                        finished = ItemStack.areItemStacksEqual(tmp, is);
+                    if (ItemStack.areItemStacksEqual(tmp, is)) {
+                        // Fluid could not be added, so let's try mixing instead
+                        is = te.mixLiquids(tmp);
+                        if (ItemStack.areItemStacksEqual(tmp, is)) {
+                            return false;
+                        }
                     }
 
                     equippedItem.stackSize--;

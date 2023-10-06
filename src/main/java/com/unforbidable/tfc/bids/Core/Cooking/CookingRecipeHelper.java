@@ -30,6 +30,15 @@ public class CookingRecipeHelper {
         }
         stringBuilder.append(",");
 
+        if (recipe.getSecondaryInputFluidStack() != null) {
+            stringBuilder.append(recipe.getSecondaryInputFluidStack().getUnlocalizedName())
+                .append(":")
+                .append(recipe.getSecondaryInputFluidStack().amount);
+        } else {
+            stringBuilder.append("NULL");
+        }
+        stringBuilder.append(",");
+
         if (recipe.getOutputFluidStack() != null) {
             stringBuilder.append(recipe.getOutputFluidStack().getUnlocalizedName())
                 .append(":")
