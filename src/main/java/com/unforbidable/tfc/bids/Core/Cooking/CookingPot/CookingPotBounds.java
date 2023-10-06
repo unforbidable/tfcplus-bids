@@ -49,7 +49,7 @@ public class CookingPotBounds {
 
         meshBounds = AxisAlignedBB.getBoundingBox(bottomXZ, meshLift, bottomXZ, 1 - bottomXZ, meshLift + meshHeight, 1 - bottomXZ);
 
-        entireBounds = AxisAlignedBB.getBoundingBox(rimStartXZ, 0, rimStartXZ, 1 - rimStartXZ, lidLift + lidHeight + lidHandleHeight, 1 - rimStartXZ);
+        entireBounds = AxisAlignedBB.getBoundingBox(rimStartXZ, 0, rimStartXZ, 1 - rimStartXZ, lidLift, 1 - rimStartXZ);
 
         itemPos = Vec3.createVectorHelper(0.5, bottomHeight, 0.5);
         itemPosWithMesh = Vec3.createVectorHelper(0.5, meshLift - (2 / 32f), 0.5);
