@@ -16,7 +16,20 @@ public class CookingPotProvider extends WailaProvider {
 
     @Override
     public int provides() {
-        return PROVIDES_BODY;
+        return PROVIDES_BODY | PROVIDES_STACK;
+    }
+
+    @Override
+    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        if (accessor.getTileEntity() instanceof TileEntityCookingPot) {
+            TileEntityCookingPot tileEntityCookingPot = (TileEntityCookingPot) accessor.getTileEntity();
+
+            if (tileEntityCookingPot.isInputItemSelected()) {
+                return tileEntityCookingPot.getInputItemStack();
+            }
+        }
+
+        return super.getWailaStack(accessor, config);
     }
 
     @Override
@@ -25,17 +38,19 @@ public class CookingPotProvider extends WailaProvider {
         if (accessor.getTileEntity() instanceof TileEntityCookingPot) {
             TileEntityCookingPot tileEntityCookingPot = (TileEntityCookingPot) accessor.getTileEntity();
 
-            CookingHelper.getCookingPotInfo(tileEntityCookingPot, currenttip, true);
+            if (!tileEntityCookingPot.isInputItemSelected()) {
+                CookingHelper.getCookingPotInfo(tileEntityCookingPot, currenttip, true);
 
-            CookingRecipeProgress recipeProgress = tileEntityCookingPot.getRecipeProgress();
-            if (recipeProgress != null) {
-                String output = recipeProgress.getOutputDisplayText();
-                String progress = recipeProgress.isProgressPaused()
-                    ? " (" + StatCollector.translateToLocal("gui.Paused") + ")"
-                    : recipeProgress.getProgressRounded() > 0 ? String.format(" (%d%%)", recipeProgress.getProgressRounded()) : "";
+                CookingRecipeProgress recipeProgress = tileEntityCookingPot.getRecipeProgress();
+                if (recipeProgress != null) {
+                    String output = recipeProgress.getOutputDisplayText();
+                    String progress = recipeProgress.isProgressPaused()
+                        ? " (" + StatCollector.translateToLocal("gui.Paused") + ")"
+                        : recipeProgress.getProgressRounded() > 0 ? String.format(" (%d%%)", recipeProgress.getProgressRounded()) : "";
 
-                currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
-                    + ChatFormatting.WHITE + output + progress);
+                    currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
+                        + ChatFormatting.WHITE + output + progress);
+                }
             }
         }
 

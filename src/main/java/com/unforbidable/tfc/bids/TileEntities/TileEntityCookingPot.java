@@ -17,6 +17,8 @@ import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingLidUsage;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -66,6 +68,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     boolean clientNeedToUpdate = false;
     boolean clientDataLoaded = false;
+    boolean inputItemSelected = false;
 
     private final Timer heatCheckTimer = new Timer(HEAT_CHECK_INTERVAL);
     private final Timer recipeHandleTimer = new Timer(RECIPE_HANDLE_INTERVAL);
@@ -975,8 +978,19 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         return (int)Math.floor((float)actualInputStackSize / recipeStackSize);
     }
 
+    @SideOnly(Side.CLIENT)
     public boolean isClientDataLoaded() {
         return clientDataLoaded;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean isInputItemSelected() {
+        return inputItemSelected;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void setInputItemSelected(boolean inputItemSelected) {
+        this.inputItemSelected = inputItemSelected;
     }
 
     @Override

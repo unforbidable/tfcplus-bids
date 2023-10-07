@@ -79,6 +79,22 @@ public class CookingHelper {
             startVec = startVec.addVector(-x, -y, -z);
             endVec = endVec.addVector(-x, -y, -z);
 
+            if (te.hasInputItem() && !te.hasLid()) {
+                Vec3 itemPos = te.hasSteamingMesh() ? te.getCachedBounds().getItemPosWithMesh() : te.getCachedBounds().getItemPos();
+                float fullnessRatio = (float)te.getTotalLiquidVolume() / (float)te.getMaxFluidVolume();
+                itemPos = itemPos.addVector(0, te.getCachedBounds().getMaxContentHeight() * fullnessRatio, 0);
+                AxisAlignedBB itemBounds = AxisAlignedBB.getBoundingBox(itemPos.xCoord - 0.1, itemPos.yCoord, itemPos.zCoord - 0.1,
+                    itemPos.xCoord + 0.1, itemPos.yCoord + 0.2, itemPos.zCoord + 0.1);
+                CollisionInfo itemCol = CollisionHelper.rayTraceAABB(itemBounds, startVec, endVec);
+                if (itemCol != null) {
+                    te.setInputItemSelected(true);
+                } else {
+                    te.setInputItemSelected(false);
+                }
+            } else {
+                te.setInputItemSelected(false);
+            }
+
             AxisAlignedBB potBounds = te.getCachedBounds().getEntireBounds();
             CollisionInfo potCol = CollisionHelper.rayTraceAABB(potBounds, startVec, endVec);
             if (potCol != null) {
