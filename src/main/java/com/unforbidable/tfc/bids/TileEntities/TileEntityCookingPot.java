@@ -1,8 +1,15 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
+import com.dunk.tfc.Core.TFC_Climate;
+import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.Interfaces.ICookableFood;
+import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.CookingPotBounds;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.EnumCookingPotPlacement;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingRecipeHelper;
@@ -22,6 +29,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -34,9 +42,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.List;
-
-public class TileEntityCookingPot extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
+public class TileEntityCookingPot extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage>, IInventory {
 
     private static final int MAX_STORAGE = 3;
     private static final int MAX_FLUIDS = 3;
@@ -53,6 +59,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     private static final int HEAT_CHECK_DELAY_AFTER_PLACEMENT_CHANGE = 50;
     private static final int RECIPE_HANDLE_INTERVAL = 20;
     private static final int RECIPE_HANDLE_INTERVAL_AFTER_PARAMETER_CHANGE = 5;
+    private static final int ITEM_TICK_INTERVAL = 50;
 
     private final ItemStack[] storage = new ItemStack[MAX_STORAGE];
     private final FluidStack[] fluids = new FluidStack[MAX_FLUIDS];
@@ -72,6 +79,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     private final Timer heatCheckTimer = new Timer(HEAT_CHECK_INTERVAL);
     private final Timer recipeHandleTimer = new Timer(RECIPE_HANDLE_INTERVAL);
+    private final Timer itemTickTimer = new Timer(ITEM_TICK_INTERVAL);
 
     private boolean recipeCanPauseWhenParametersChange = true;
 
@@ -978,6 +986,136 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         return (int)Math.floor((float)actualInputStackSize / recipeStackSize);
     }
 
+    private void handleInputItemTicking() {
+        if (getInputItemStack() != null && getInputItemStack().getItem() instanceof ItemFoodTFC
+            && getInputItemStack().getItem() instanceof ICookableFood) {
+            boolean lastCooked = Food.isCooked(getInputItemStack());
+            int lastCookedLevel = CookingHelper.getItemStackCookedLevel(getInputItemStack());
+            int requiredFluidAmount = CookingHelper.calculateRequiredCookingFluidAmount(Food.getWeight(getInputItemStack()), hasSteamingMesh(), lastCookedLevel);
+
+            // Cooking requires heat, input fluid (valid and sufficient amount), and lid when steaming
+            boolean canCook = getHeatLevel() != EnumCookingHeatLevel.NONE &&
+                hasFluid() && !hasTopLayerFluid() &&
+                CookingHelper.isValidCookingFluid(getPrimaryFluidStack(), hasSteamingMesh()) &&
+                getPrimaryFluidStack().amount >= requiredFluidAmount &&
+                (!hasSteamingMesh() || hasLid());
+
+            // Cooking down requires no heat, input fluid (valid), no steaming mesh
+            boolean canCoolDown = getHeatLevel() == EnumCookingHeatLevel.NONE &&
+                hasFluid() &&
+                CookingHelper.isValidCookingFluid(getPrimaryFluidStack(), false) &&
+                !hasSteamingMesh();
+
+            if (canCook) {
+                handleItemStackHeating(getInputItemStack());
+            } else if (canCoolDown) {
+                handleItemStackCooling(getInputItemStack());
+            }
+
+            TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, canCook);
+
+            if (lastCooked != Food.isCooked(getInputItemStack())) {
+                // When the food is cooked for the first time alter the taste
+                CookingHelper.setInputStackCookedNBT(getInputItemStack(), getPrimaryFluidStack(), hasSteamingMesh());
+            }
+
+            if (canCook && lastCookedLevel != CookingHelper.getItemStackCookedLevel(getInputItemStack())) {
+                // Whenever the cooked level is raised some liquid is consumed
+                fluids[FLUID_PRIMARY].amount -= requiredFluidAmount;
+                if (fluids[FLUID_PRIMARY].amount == 0) {
+                    fluids[FLUID_PRIMARY] = null;
+                }
+
+                Bids.LOG.info("Consumed input liquid amount: " + requiredFluidAmount);
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                clientNeedToUpdate = true;
+            }
+        }
+    }
+
+    private void handleItemStackCooling(ItemStack itemStack) {
+        float temp = TFC_ItemHeat.getTemp(itemStack);
+        if (temp == 0) {
+            temp = TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord);
+        }
+
+        int cookedTempIndex = ((ItemFoodTFC) itemStack.getItem()).cookTempIndex;
+        float cookedTemp = Food.globalCookTemps[cookedTempIndex];
+        float targetTemp = TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord);
+
+        if (Math.abs(targetTemp - temp) < cookedTemp) {
+            // Jump to target at a threshold
+            temp = targetTemp;
+        } else {
+            // Cool down fast in a liquid that is cooling down too
+            float bonus = 10f;
+            if (targetTemp > temp) {
+                temp += (TFC_ItemHeat.getTempIncrease(itemStack, targetTemp) * ITEM_TICK_INTERVAL * bonus);
+                temp = Math.min(targetTemp, temp);
+            } else {
+                temp -= (TFC_ItemHeat.getTempDecrease(itemStack, targetTemp) * ITEM_TICK_INTERVAL * bonus);
+                temp = Math.max(targetTemp, temp);
+            }
+        }
+
+        TFC_ItemHeat.setTemp(itemStack, temp, true);
+    }
+
+    private void handleItemStackHeating(ItemStack itemStack) {
+        float temp = TFC_ItemHeat.getTemp(itemStack);
+        if (temp == 0) {
+            temp = TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord);
+        }
+
+        int cookedTempIndex = ((ItemFoodTFC) itemStack.getItem()).cookTempIndex;
+        float cookedTemp = Food.globalCookTemps[cookedTempIndex];
+        float targetTemp = cookedTemp * getMaxCookedTempMultiplier(cookedTempIndex);
+
+        // Because food is boiled and steamed differently in a cooking pot
+        // compared to roasting in the fire - that is, at lower temperatures
+        // a bonus is provided so food cooking does not take forever
+        // Cooking a large stack of food with LOW heat level will still take a while though
+        float bonus = getBaseCookingBonus();
+        bonus += (1 - Food.getWeight(itemStack) / Global.FOOD_MAX_WEIGHT) * 2;
+
+        if (targetTemp > temp) {
+            // Also the targetTemp is increased for the calculation of speeding up heating
+            temp += (TFC_ItemHeat.getTempIncrease(itemStack, targetTemp * 1.5f) * ITEM_TICK_INTERVAL * bonus);
+        } else {
+            temp -= (TFC_ItemHeat.getTempDecrease(itemStack, targetTemp) * ITEM_TICK_INTERVAL);
+        }
+
+        TFC_ItemHeat.setTemp(itemStack, temp, true);
+    }
+
+    private float getBaseCookingBonus() {
+        switch (getHeatLevel()) {
+            case HIGH:
+                return 2f;
+            case MEDIUM:
+                return 1.25f;
+            case LOW:
+                return 1f;
+        }
+
+        return 0;
+    }
+
+    private float getMaxCookedTempMultiplier(int cookedTempIndex) {
+        switch (getHeatLevel()) {
+            case HIGH:
+            case MEDIUM:
+                // up to well done / medium
+                return cookedTempIndex == 0 ? 1.9f : 1.4f;
+            case LOW:
+                // up to medium / light
+                return cookedTempIndex == 0 ? 1.5f : 1.25f;
+        }
+
+        return 0;
+    }
+
     @SideOnly(Side.CLIENT)
     public boolean isClientDataLoaded() {
         return clientDataLoaded;
@@ -1013,6 +1151,10 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             if (recipeHandleTimer.tick()) {
                 handleRecipeProgress();
+            }
+
+            if (itemTickTimer.tick()) {
+                handleInputItemTicking();
             }
         }
     }
@@ -1061,7 +1203,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             tag.setString("heatLevel", heatLevel.name());
         }
 
-        {
+        if (hasLid() || hasAccessory() || hasInputItem()) {
             NBTTagList itemTagList = new NBTTagList();
             for (int i = 0; i < MAX_STORAGE; i++) {
                 if (storage[i] != null) {
@@ -1074,7 +1216,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             tag.setTag("storage", itemTagList);
         }
 
-        {
+        if (hasFluid()) {
             NBTTagList fluidTagList = new NBTTagList();
             for (int i = 0; i < MAX_FLUIDS; i++) {
                 if (fluids[i] != null) {
@@ -1140,6 +1282,74 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         } else {
             recipeProgress = null;
         }
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return 1;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int slot) {
+        return storage[SLOT_INPUT];
+    }
+
+    @Override
+    public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
+        return null;
+    }
+
+    @Override
+    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
+        return null;
+    }
+
+    @Override
+    public void setInventorySlotContents(int slot, ItemStack itemStack) {
+        if (itemStack == null) {
+            if (storage[SLOT_INPUT] != null) {
+                // Item has decayed out of existence
+                storage[SLOT_INPUT] = null;
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                clientNeedToUpdate = true;
+            }
+        } else {
+            storage[SLOT_INPUT] = itemStack;
+        }
+    }
+
+    @Override
+    public String getInventoryName() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCustomInventoryName() {
+        return false;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return false;
+    }
+
+    @Override
+    public void openInventory() {
+    }
+
+    @Override
+    public void closeInventory() {
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+        return false;
     }
 
     @Override

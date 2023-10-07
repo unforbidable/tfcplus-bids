@@ -1,10 +1,12 @@
 package com.unforbidable.tfc.bids.Core.Cooking;
 
+import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.CookingPotBounds;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCookingPot;
-import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -117,4 +119,58 @@ public class CookingHelper {
             col.side,
             col.hitVec.addVector(x, y, z));
     }
+
+    public static int getItemStackCookedLevel(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof ItemFoodTFC && Food.isCooked(itemStack)) {
+            ItemFoodTFC itemFoodTFC = (ItemFoodTFC)itemStack.getItem();
+            int cookTempIndex = itemFoodTFC.cookTempIndex;
+            return ((int) Food.getCooked(itemStack) - (int)Food.globalCookTemps[cookTempIndex]) / (int)(Food.globalCookTemps[cookTempIndex] / 5f) + 1;
+        }
+
+        return 0;
+    }
+
+    public static void setInputStackCookedNBT(ItemStack itemStack, FluidStack fluidStack, boolean steaming) {
+        if (itemStack.getItem() instanceof ItemFoodTFC && Food.isCooked(itemStack)) {
+            if (!steaming) {
+                int[] profile = new int[5];
+                for (int i = 0; i < 5; i++) {
+                    profile[i] = -10;
+                }
+
+                if (fluidStack.getFluid() == TFCFluids.SALTWATER) {
+                    profile[2] += 30;
+                }
+
+                Food.setCookedProfile(itemStack, profile);
+            }
+        }
+    }
+
+    public static int calculateRequiredCookingFluidAmount(float weight, boolean steaming, int cookedLevel) {
+        // 1000 mB for a full stack of raw food to be cooked one level and 200 mB for each additional level
+        int amount = Math.round(weight / 160 * 200);
+
+        // Times 5 when then item is not yet cooked
+        if (cookedLevel == 0) {
+            amount *= 5;
+        }
+
+        // When steaming the amount is halved
+        if (steaming) {
+            amount /= 2;
+        }
+
+        // Round up to multiple of 50 to avoid weird numbers
+        return (int)Math.ceil(amount / 50f) * 50;
+    }
+
+    public static boolean isValidCookingFluid(FluidStack inputFluid, boolean steaming) {
+        if (steaming) {
+            return inputFluid.getFluid() == TFCFluids.FRESHWATER;
+        } else {
+            return inputFluid.getFluid() == TFCFluids.FRESHWATER || inputFluid.getFluid() == TFCFluids.SALTWATER;
+        }
+    }
+
 }
