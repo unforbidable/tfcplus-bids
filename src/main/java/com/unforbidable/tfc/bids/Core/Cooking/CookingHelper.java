@@ -143,6 +143,10 @@ public class CookingHelper {
                 }
 
                 Food.setCookedProfile(itemStack, profile);
+
+                Food.setInfusion(itemStack, "infusion.boiled");
+            } else {
+                Food.setInfusion(itemStack, "infusion.steamed");
             }
         }
     }
