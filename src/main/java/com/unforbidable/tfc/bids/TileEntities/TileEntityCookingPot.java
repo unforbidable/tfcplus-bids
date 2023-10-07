@@ -795,16 +795,18 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 // sometimes the progress can be paused, depending on the kind of changes
                 // This prevents progress being lost, when heat changes or lid is manipulated,
                 // when substantial progress has been made
-                if (!recipeProgress.isProgressPaused()) {
-                    if (recipeCanPauseWhenParametersChange && recipeProgress.getProgress() > 0.1f) {
+                if (recipeCanPauseWhenParametersChange && recipeProgress.getProgress() > 0.1f) {
+                    if (!recipeProgress.isProgressPaused()) {
                         Bids.LOG.info("Recipe progress paused: " + recipeProgress.getOutputHashString());
 
                         recipeProgress.setProgressPaused(true);
-                    } else {
-                        Bids.LOG.info("Recipe progress cancelled: " + recipeProgress.getOutputHashString());
 
-                        recipeProgress = null;
+                        update = true;
                     }
+                } else {
+                    Bids.LOG.info("Recipe progress cancelled: " + recipeProgress.getOutputHashString());
+
+                    recipeProgress = null;
 
                     update = true;
                 }
