@@ -94,7 +94,7 @@ public class CookingRecipe {
             doesAccessoryMatch(template);
     }
 
-    private boolean doesInputFluidMatch(CookingRecipe template) {
+    protected boolean doesInputFluidMatch(CookingRecipe template) {
         boolean match = getInputFluidStack() == null && template.getInputFluidStack() == null ||
             getInputFluidStack() != null && template.getInputFluidStack() != null && getInputFluidStack().isFluidEqual(template.getInputFluidStack()) ||
             getInputFluidStack() == null && template.getInputFluidStack() != null && getOutputFluidStack().isFluidEqual(template.getInputFluidStack());
@@ -103,7 +103,7 @@ public class CookingRecipe {
         return match;
     }
 
-    private boolean doesSecondaryInputFluidMatch(CookingRecipe template) {
+    protected boolean doesSecondaryInputFluidMatch(CookingRecipe template) {
         boolean match = getSecondaryInputFluidStack() == null && template.getSecondaryInputFluidStack() == null ||
             getSecondaryInputFluidStack() != null && template.getSecondaryInputFluidStack() != null && getSecondaryInputFluidStack().isFluidEqual(template.getSecondaryInputFluidStack());
         //Bids.LOG.info("doesSecondaryInputFluidMatch: " + match);
@@ -111,7 +111,7 @@ public class CookingRecipe {
         return match;
     }
 
-    private boolean doesInputItemMatch(CookingRecipe template) {
+    protected boolean doesInputItemMatch(CookingRecipe template) {
         boolean match = getInputItemStack() == null && template.getInputItemStack() == null ||
             getInputItemStack() != null && template.getInputItemStack() != null && getInputItemStack().isItemEqual(template.getInputItemStack())
                 && getInputItemStack().getItemDamage() == template.getInputItemStack().getItemDamage();
@@ -120,28 +120,28 @@ public class CookingRecipe {
         return match;
     }
 
-    private boolean doesMinHeatLevelMatch(CookingRecipe template) {
+    protected boolean doesMinHeatLevelMatch(CookingRecipe template) {
         boolean match = getMinHeatLevel() == null || getMinHeatLevel().compareTo(template.getMinHeatLevel()) <= 0;
         //Bids.LOG.info("doesMinHeatLevelMatch: " + match);
 
         return match;
     }
 
-    private boolean doesMaxHeatLevelMatch(CookingRecipe template) {
+    protected boolean doesMaxHeatLevelMatch(CookingRecipe template) {
         boolean match = getMaxHeatLevel() == null || getMaxHeatLevel().compareTo(template.getMaxHeatLevel()) >= 0;
         //Bids.LOG.info("doesMaxHeatLevelMatch: " + match);
 
         return match;
     }
 
-    private boolean doesLidUsageMatch(CookingRecipe template) {
+    protected boolean doesLidUsageMatch(CookingRecipe template) {
         boolean match = getLidUsage() == null || getLidUsage() == template.getLidUsage();
         //Bids.LOG.info("doesLidUsageMatch: " + match);
 
         return match;
     }
 
-    private boolean doesAccessoryMatch(CookingRecipe template) {
+    protected boolean doesAccessoryMatch(CookingRecipe template) {
         boolean match = getAccessory() == null || getAccessory() == template.getAccessory();
         //Bids.LOG.info("doesAccessoryMatch: " + match);
 
