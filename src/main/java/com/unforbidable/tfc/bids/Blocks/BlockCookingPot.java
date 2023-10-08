@@ -27,10 +27,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -140,6 +137,19 @@ public class BlockCookingPot extends BlockContainer {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block b) {
         if (!World.doesBlockHaveSolidTopSurface(world, x, y - 1, z)) {
             TFC_Core.setBlockToAirWithDrops(world, x, y, z);
+        } else {
+            // Unsure cooking pot placement next to a fire pit is still valid
+            TileEntity te = world.getTileEntity(x, y, z);
+            if (te instanceof TileEntityCookingPot) {
+                TileEntityCookingPot cookingPot = (TileEntityCookingPot) te;
+                EnumCookingPotPlacement placement = cookingPot.getPlacement();
+                if (placement.isFirepidEdgePlacement()) {
+                    ForgeDirection d = placement.getPlacement().getDirection();
+                    if (!isValidFirepitDirection(world, x, y, z, d)) {
+                        cookingPot.setPlacement(EnumCookingPotPlacement.GROUND);
+                    }
+                }
+            }
         }
     }
 
@@ -357,6 +367,15 @@ public class BlockCookingPot extends BlockContainer {
         }
 
         return null;
+    }
+
+    private boolean isValidFirepitDirection(World world, int x, int y, int z, ForgeDirection d) {
+        TileEntity te = world.getTileEntity(x + d.offsetX, y, z + d.offsetZ);
+        if (te instanceof TEFirepit) {
+            return true;
+        }
+
+        return false;
     }
 
 }

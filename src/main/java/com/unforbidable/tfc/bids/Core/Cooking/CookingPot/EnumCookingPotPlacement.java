@@ -37,4 +37,11 @@ public enum EnumCookingPotPlacement {
         return placement;
     }
 
+    public boolean isFirepidEdgePlacement() {
+        return this == EnumCookingPotPlacement.FIREPIT_EDGE_EAST ||
+            this == EnumCookingPotPlacement.FIREPIT_EDGE_WEST ||
+            this == EnumCookingPotPlacement.FIREPIT_EDGE_NORTH ||
+            this == EnumCookingPotPlacement.FIREPIT_EDGE_SOUTH;
+    }
+
 }
