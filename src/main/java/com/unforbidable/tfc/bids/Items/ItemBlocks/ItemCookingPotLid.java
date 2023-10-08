@@ -89,10 +89,14 @@ public class ItemCookingPotLid extends ItemBlock implements ISize {
 
             return false;
         } else if (metadata == 1) {
+            if (!world.isAirBlock(x, y, z)) {
+                return false;
+            }
+
             return super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
         }
 
-        return true;
+        return false;
     }
 
     @Override

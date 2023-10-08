@@ -98,7 +98,7 @@ public class ItemCookingPot extends ItemBlock implements ISize {
             return super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
         }
 
-        return true;
+        return false;
     }
 
     @Override
