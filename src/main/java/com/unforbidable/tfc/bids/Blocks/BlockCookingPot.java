@@ -197,7 +197,7 @@ public class BlockCookingPot extends BlockContainer {
             if (cookingPotHit) {
                 if (equippedItem == null) {
                     if (player.isSneaking()) {
-                        Bids.LOG.info("Retrieving items from cooking pot");
+                        Bids.LOG.debug("Retrieving items from cooking pot");
                         te.retrieveItemStack(player);
                     }
                 } else if ((FluidContainerRegistry.isFilledContainer(equippedItem)
@@ -279,7 +279,7 @@ public class BlockCookingPot extends BlockContainer {
 
                     return true;
                 } else if (equippedItem.getItem() instanceof ItemBarrels || equippedItem.getItem() instanceof ItemLargeVessel) {
-                    Bids.LOG.info("Cooking pot activated with barrel/large vessel: " + equippedItem.getDisplayName());
+                    Bids.LOG.debug("Cooking pot activated with barrel/large vessel: " + equippedItem.getDisplayName());
 
                     ItemStack is = equippedItem.copy();
                     is.stackSize = 1;
@@ -335,19 +335,19 @@ public class BlockCookingPot extends BlockContainer {
                         }
                     }
                 } else {
-                    Bids.LOG.info("Placing item on cooking pot: " + equippedItem.getDisplayName());
+                    Bids.LOG.debug("Placing item on cooking pot: " + equippedItem.getDisplayName());
                     te.placeItemStack(equippedItem);
                 }
             } else {
                 if (equippedItem == null) {
                     ForgeDirection directionFirepit = getFirepitDirection(world, x, y, z);
                     if (directionFirepit != null) {
-                        Bids.LOG.info("Firepit found: " + directionFirepit);
+                        Bids.LOG.debug("Firepit found: " + directionFirepit);
                         if (te.getPlacement() == EnumCookingPotPlacement.GROUND) {
-                            Bids.LOG.info("Moving cooking pot to firepit: " + directionFirepit);
+                            Bids.LOG.debug("Moving cooking pot to firepit: " + directionFirepit);
                             te.setPlacement(EnumCookingPotPlacement.getFirepitEdgePlacementForDirection(directionFirepit));
                         } else {
-                            Bids.LOG.info("Moving cooking pot off the firepit");
+                            Bids.LOG.debug("Moving cooking pot off the firepit");
                             te.setPlacement(EnumCookingPotPlacement.GROUND);
                         }
                     }

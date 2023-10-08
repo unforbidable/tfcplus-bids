@@ -125,10 +125,6 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                     break;
                 }
             }
-
-            if (cachedRecipe == null) {
-                Bids.LOG.info("No recipe matched");
-            }
         }
 
         return cachedRecipe;
@@ -145,7 +141,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             storage[SLOT_LID].stackSize = 1;
             itemStack.stackSize--;
 
-            Bids.LOG.info("Placed lid: " + storage[SLOT_LID].getDisplayName());
+            Bids.LOG.debug("Placed lid: " + storage[SLOT_LID].getDisplayName());
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
@@ -161,7 +157,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             storage[SLOT_ACCESSORY].stackSize = 1;
             itemStack.stackSize--;
 
-            Bids.LOG.info("Placed accessory: " + storage[SLOT_ACCESSORY].getDisplayName());
+            Bids.LOG.debug("Placed accessory: " + storage[SLOT_ACCESSORY].getDisplayName());
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
@@ -193,16 +189,16 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 // which means the item stack in fact cannot be placed
                 return false;
             }
-            Bids.LOG.info("requiredStackSize: " + requiredStackSize);
+            Bids.LOG.debug("requiredStackSize: " + requiredStackSize);
 
             // Ensure the required stack size does not exceed max stack size
             int checkedRequiredStackSize = Math.min(requiredStackSize, itemStack.getMaxStackSize());
-            Bids.LOG.info("checkedRequiredStackSize: " + checkedRequiredStackSize);
+            Bids.LOG.debug("checkedRequiredStackSize: " + checkedRequiredStackSize);
 
             // Reduce target stack size by existing stack size
             int existingStackSize = hasInputItem() ? getInputItemStack().stackSize : 0;
             int targetStackSize = checkedRequiredStackSize - existingStackSize;
-            Bids.LOG.info("targetStackSize: " + targetStackSize);
+            Bids.LOG.debug("targetStackSize: " + targetStackSize);
 
             if (targetStackSize <= 0) {
                 // The target stack size is already fulfilled
@@ -211,7 +207,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             // Consider the stack size that is available
             int consumedStackSize = Math.min(targetStackSize, itemStack.stackSize);
-            Bids.LOG.info("consumedStackSize: " + consumedStackSize);
+            Bids.LOG.debug("consumedStackSize: " + consumedStackSize);
 
             if (hasInputItem()) {
                 storage[SLOT_INPUT].stackSize += consumedStackSize;
@@ -222,7 +218,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             itemStack.stackSize -= consumedStackSize;
 
-            Bids.LOG.info("Placed input item: " + storage[SLOT_INPUT].getDisplayName() + "[" + storage[SLOT_INPUT].stackSize + "]");
+            Bids.LOG.debug("Placed input item: " + storage[SLOT_INPUT].getDisplayName() + "[" + storage[SLOT_INPUT].stackSize + "]");
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
@@ -276,7 +272,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                     int count = (int)Math.ceil(runs);
                     int stackSize = count * recipe.getInputItemStack().stackSize;
 
-                    Bids.LOG.info("Determined input item stack size: " + stackSize + " for runs: " + runs + " and input amount: " + currentAmount);
+                    Bids.LOG.debug("Determined input item stack size: " + stackSize + " for runs: " + runs + " and input amount: " + currentAmount);
 
                     return stackSize;
                 } else if (recipe.getOutputFluidStack() != null) {
@@ -300,7 +296,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                     int count = (int)Math.floor(runs);
                     int stackSize = count * recipe.getInputItemStack().stackSize;
 
-                    Bids.LOG.info("Determined input item stack size: " + stackSize + " for runs: " + runs + " and output amount: " + outputAmount);
+                    Bids.LOG.debug("Determined input item stack size: " + stackSize + " for runs: " + runs + " and output amount: " + outputAmount);
 
                     return stackSize;
                 } else {
@@ -346,7 +342,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     public boolean retrieveItemStack(EntityPlayer player) {
         if (hasLid()) {
-            Bids.LOG.info("Retrieving lid: " + storage[SLOT_LID].getDisplayName());
+            Bids.LOG.debug("Retrieving lid: " + storage[SLOT_LID].getDisplayName());
             giveItemStackToPlayer(player, storage[SLOT_LID]);
             storage[SLOT_LID] = null;
 
@@ -357,7 +353,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             return true;
         } else if (hasInputItem()) {
-            Bids.LOG.info("Retrieving input item: " + storage[SLOT_INPUT].getDisplayName());
+            Bids.LOG.debug("Retrieving input item: " + storage[SLOT_INPUT].getDisplayName());
             giveItemStackToPlayer(player, storage[SLOT_INPUT]);
             storage[SLOT_INPUT] = null;
 
@@ -368,7 +364,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             return true;
         } else if (hasAccessory()) {
-            Bids.LOG.info("Retrieving accessory: " + storage[SLOT_ACCESSORY].getDisplayName());
+            Bids.LOG.debug("Retrieving accessory: " + storage[SLOT_ACCESSORY].getDisplayName());
             giveItemStackToPlayer(player, storage[SLOT_ACCESSORY]);
             storage[SLOT_ACCESSORY] = null;
 
@@ -432,7 +428,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 if (addLiquid(fs)) {
                     drained = true;
                     draining = FluidContainerRegistry.drainFluidContainer(draining);
-                    Bids.LOG.info("Draining item stack: " + draining.getDisplayName() + "[" + draining.getItemDamage() + "]");
+                    Bids.LOG.debug("Draining item stack: " + draining.getDisplayName() + "[" + draining.getItemDamage() + "]");
                 } else {
                     break;
                 }
@@ -455,22 +451,18 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     public ItemStack mixLiquids(ItemStack itemStack) {
-        Bids.LOG.info("itemStack: " + itemStack.getDisplayName());
-
         if (hasFluid() && FluidContainerRegistry.isFilledContainer(itemStack)) {
             FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
-            Bids.LOG.info("fluidStack: " + fluidStack.getLocalizedName());
-
             CookingRecipe template = createRecipeTemplateWithSecondaryInputFluidStack(fluidStack);
             for (CookingRecipe recipe : CookingManager.getRecipesMatchingTemplate(template)) {
-                Bids.LOG.info("Found mixing recipe: " + CookingRecipeHelper.getRecipeHashString(recipe));
+                Bids.LOG.debug("Found mixing recipe: " + CookingRecipeHelper.getRecipeHashString(recipe));
 
                 int primaryAmountRequired = recipe.getInputFluidStack().amount;
                 int primaryAmountAvailable = getTopFluidStack().amount;
 
                 // Ensure the primary amount is divisible by required amount precisely
                 if (primaryAmountAvailable % primaryAmountRequired != 0) {
-                    Bids.LOG.warn("Input liquid amount must be multiple of recipe input");
+                    Bids.LOG.debug("Input liquid amount must be multiple of recipe input");
                     continue;
                 }
 
@@ -478,21 +470,20 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 int secondaryAmountRequired = recipe.getSecondaryInputFluidStack().amount * runs;
                 int secondaryAmountAvailable = fluidStack.amount;
 
-                Bids.LOG.info("secondaryAmountRequired: " + secondaryAmountRequired);
-                Bids.LOG.info("secondaryAmountAvailable: " + secondaryAmountAvailable);
+                Bids.LOG.debug("secondaryAmountRequired: " + secondaryAmountRequired);
+                Bids.LOG.debug("secondaryAmountAvailable: " + secondaryAmountAvailable);
 
                 int drains = getDrainCountForAmount(itemStack, secondaryAmountRequired);
                 if (drains == 0) {
-                    Bids.LOG.warn("The container cannot be drained as required");
+                    Bids.LOG.debug("The container cannot be drained as required");
                     continue;
                 }
 
-                Bids.LOG.info("Input container will be drained times: " + drains);
+                Bids.LOG.debug("Input container will be drained times: " + drains);
 
                 ItemStack drainingItemStack = itemStack;
                 for (int i = 0; i < drains; i++) {
                     drainingItemStack = FluidContainerRegistry.drainFluidContainer(drainingItemStack);
-                    Bids.LOG.info("Draining item stack (" + i + "): " + drainingItemStack.getDisplayName() + "[" + drainingItemStack.getItemDamage() + "]");
                 }
 
                 handleRecipeOutput(recipe);
@@ -724,7 +715,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     private void onHeatLevelChanged() {
-        Bids.LOG.info("Heat level changed: " + heatLevel);
+        Bids.LOG.debug("Heat level changed: " + heatLevel);
 
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         clientNeedToUpdate = true;
@@ -733,7 +724,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     private void onRecipeParametersChanged(boolean cancelRecipe) {
-        Bids.LOG.info("Recipe parameters changed - recipe cancellation: " + cancelRecipe);
+        Bids.LOG.debug("Recipe parameters changed - recipe cancellation: " + cancelRecipe);
 
         isCachedRecipeValid = false;
 
@@ -770,7 +761,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 recipeProgress.getOutputHashString().equals(CookingRecipeHelper.getRecipeHashString(recipe))) {
                 // Resume paused recipe if it has been paused
                 if (recipeProgress.isProgressPaused()) {
-                    Bids.LOG.info("Recipe progress resumed: " + recipeProgress.getOutputHashString());
+                    Bids.LOG.debug("Recipe progress resumed: " + recipeProgress.getOutputHashString());
 
                     recipeProgress.setProgressPaused(false);
                 }
@@ -778,19 +769,15 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 // Determine how much progress is made
                 long lastUpdateTicks = recipeProgress.getLastUpdateTicks();
                 long elapsedTicks = TFC_Time.getTotalTicks() - lastUpdateTicks;
-                Bids.LOG.info("elapsedTicks: " + elapsedTicks);
                 long totalRecipeTicks = recipe.getTime() * recipeProgress.getTotalRuns();
-                Bids.LOG.info("totalRecipeTicks: " + totalRecipeTicks);
                 float progress = (float)elapsedTicks / totalRecipeTicks;
-                Bids.LOG.info("progress: " + progress);
                 float heatAdjustedProgress = adjustProgressForHeat(recipe, getHeatLevel(), progress);
-                Bids.LOG.info("heatAdjustedProgress: " + heatAdjustedProgress);
 
                 int lastProgressRounded = recipeProgress.getProgressRounded();
                 recipeProgress.addProgress(heatAdjustedProgress);
 
                 if (recipeProgress.getProgress() == 1f) {
-                    Bids.LOG.info("Recipe progress completed: " + recipeProgress.getOutputHashString());
+                    Bids.LOG.debug("Recipe progress completed: " + recipeProgress.getOutputHashString());
 
                     handleRecipeOutput(recipe);
 
@@ -802,7 +789,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
                     update = true;
                 } else {
-                    Bids.LOG.info("Recipe progress updated: " + recipeProgress.getOutputHashString() + " - " + recipeProgress.getProgress());
+                    Bids.LOG.debug("Recipe progress updated: " + recipeProgress.getOutputHashString() + " - " + recipeProgress.getProgress());
 
                     // Only send update to the client when the rounded progress changes
                     if (lastProgressRounded != recipeProgress.getProgressRounded()) {
@@ -816,14 +803,14 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 // when substantial progress has been made
                 if (recipeCanPauseWhenParametersChange && recipeProgress.getProgress() > 0.1f) {
                     if (!recipeProgress.isProgressPaused()) {
-                        Bids.LOG.info("Recipe progress paused: " + recipeProgress.getOutputHashString());
+                        Bids.LOG.debug("Recipe progress paused: " + recipeProgress.getOutputHashString());
 
                         recipeProgress.setProgressPaused(true);
 
                         update = true;
                     }
                 } else {
-                    Bids.LOG.info("Recipe progress cancelled: " + recipeProgress.getOutputHashString());
+                    Bids.LOG.debug("Recipe progress cancelled: " + recipeProgress.getOutputHashString());
 
                     recipeProgress = null;
 
@@ -843,7 +830,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 recipeProgress = new CookingRecipeProgress(displayText, hashString, totalRuns);
                 update = true;
 
-                Bids.LOG.info("Recipe progress started: " + recipeProgress.getOutputHashString());
+                Bids.LOG.debug("Recipe progress started: " + recipeProgress.getOutputHashString());
             }
         }
 
@@ -859,7 +846,6 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     private void handleRecipeOutput(CookingRecipe recipe) {
         int runs = calculateTotalRecipeRuns(recipe);
-        Bids.LOG.info("runs: " + runs);
 
         if (recipe.getOutputItemStack() != null) {
             // When the recipe has output item stack,
@@ -870,8 +856,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             // Otherwise consume appropriate size of the input item stack
             int consumedStackSize = recipe.getInputItemStack().stackSize * runs;
 
-            Bids.LOG.info("availableStackSize: " + storage[SLOT_INPUT].stackSize);
-            Bids.LOG.info("consumedStackSize: " + consumedStackSize);
+            Bids.LOG.debug("availableStackSize: " + storage[SLOT_INPUT].stackSize);
+            Bids.LOG.debug("consumedStackSize: " + consumedStackSize);
 
             storage[SLOT_INPUT].stackSize -= consumedStackSize;
 
@@ -905,8 +891,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             // Otherwise consume appropriate amount of the input fluid stack
             int consumedAmount = recipe.getInputFluidStack().amount * runs;
 
-            Bids.LOG.info("availableAmount: " + fluids[FLUID_PRIMARY].amount);
-            Bids.LOG.info("consumedAmount: " + consumedAmount);
+            Bids.LOG.debug("availableAmount: " + fluids[FLUID_PRIMARY].amount);
+            Bids.LOG.debug("consumedAmount: " + consumedAmount);
 
             fluids[FLUID_PRIMARY].amount -= consumedAmount;
 
@@ -955,13 +941,13 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             // If recipe also has fluid output, ensure enough items
             if (recipe.getOutputFluidStack() != null && itemRuns < fluidRuns) {
-                Bids.LOG.warn("Not enough items for recipe");
+                Bids.LOG.debug("Not enough items for recipe");
                 return 0;
             }
 
             // If recipe also has input output, ensure enough liquid
             if (recipe.getOutputItemStack() != null && fluidRuns < itemRuns) {
-                Bids.LOG.warn("Not enough fluid for recipe");
+                Bids.LOG.debug("Not enough fluid for recipe");
                 return 0;
             }
 
@@ -1030,7 +1016,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                     fluids[FLUID_PRIMARY] = null;
                 }
 
-                Bids.LOG.info("Consumed input liquid amount: " + requiredFluidAmount);
+                Bids.LOG.debug("Consumed input liquid amount: " + requiredFluidAmount);
 
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 clientNeedToUpdate = true;
@@ -1046,7 +1032,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             // The assumption is that the output is for baking (cooking directly in the fire), such as bread
             // which should not be possible with boiling or steaming in a cooking pot
             // Therefore food that turns into another item when cooked, cannot be boiled
-            // Grain based food can still be cooked, such pasta, as long as heat
+            // Grain based food can still be cooked, such pasta, as long as it's the same item
             // See weed can be cooked, even though it turns into soda ash
             // because cooking pot cannot reach the temperate at which it burns
             HeatIndex hi = HeatRegistry.getInstance().findMatchingIndex(itemStack);
@@ -1382,14 +1368,14 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     @Override
     public void onTileEntityMessage(TileEntityUpdateMessage message) {
         worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-        Bids.LOG.info("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
+        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
             + message.getZCoord());
     }
 
     public static void sendUpdateMessage(World world, int x, int y, int z) {
         NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
         Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
-        Bids.LOG.info("Sent update message");
+        Bids.LOG.debug("Sent update message");
     }
 
 }

@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.api.Crafting;
 
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingLidUsage;
