@@ -998,11 +998,13 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             int requiredFluidAmount = CookingHelper.calculateRequiredCookingFluidAmount(Food.getWeight(getInputItemStack()), hasSteamingMesh(), lastCookedLevel);
 
             // Cooking requires heat, input fluid (valid and sufficient amount), and lid when steaming
+            // and cooking level cannot exceed the maximum
             boolean canCook = getHeatLevel() != EnumCookingHeatLevel.NONE &&
                 hasFluid() && !hasTopLayerFluid() &&
                 CookingHelper.isValidCookingFluid(getPrimaryFluidStack(), hasSteamingMesh()) &&
                 getPrimaryFluidStack().amount >= requiredFluidAmount &&
-                (!hasSteamingMesh() || hasLid());
+                (!hasSteamingMesh() || hasLid()) &&
+                lastCookedLevel < getMaxCookedLevel(getInputItemStack());
 
             // Cooking down requires no heat
             boolean canCoolDown = getHeatLevel() == EnumCookingHeatLevel.NONE;
@@ -1033,6 +1035,19 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 clientNeedToUpdate = true;
             }
         }
+    }
+
+    private int getMaxCookedLevel(ItemStack itemStack) {
+        int cookedTempIndex = ((ItemFoodTFC) itemStack.getItem()).cookTempIndex;
+        switch (getHeatLevel()) {
+            case HIGH:
+            case MEDIUM:
+                return cookedTempIndex == 0 ? 5 : 3;
+            case LOW:
+                return cookedTempIndex == 0 ? 3 : 2;
+        }
+
+        return 1;
     }
 
     private boolean isCookableFoodItemStack(ItemStack itemStack) {
@@ -1087,16 +1102,10 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             temp = TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord);
         }
 
-        int cookedTempIndex = ((ItemFoodTFC) itemStack.getItem()).cookTempIndex;
-        float cookedTemp = Food.globalCookTemps[cookedTempIndex];
-        float targetTemp = cookedTemp * getMaxCookedTempMultiplier(cookedTempIndex);
+        float targetTemp = getTargetTemp();
 
-        // Because food is boiled and steamed differently in a cooking pot
-        // compared to roasting in the fire - that is, at lower temperatures
-        // a bonus is provided so food cooking does not take forever
         // Cooking a large stack of food with LOW heat level will still take a while though
-        float bonus = getBaseCookingBonus();
-        bonus += (1 - Food.getWeight(itemStack) / Global.FOOD_MAX_WEIGHT) * 2;
+        float bonus = 1 + (1 - Food.getWeight(itemStack) / Global.FOOD_MAX_WEIGHT) * 2;
 
         // Steaming takes 2x as long
         if (hasSteamingMesh()) {
@@ -1104,8 +1113,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         }
 
         if (targetTemp > temp) {
-            // Also the targetTemp is increased for the calculation of speeding up heating
-            temp += (TFC_ItemHeat.getTempIncrease(itemStack, targetTemp * 1.5f) * ITEM_TICK_INTERVAL * bonus);
+            temp += (TFC_ItemHeat.getTempIncrease(itemStack, targetTemp) * ITEM_TICK_INTERVAL * bonus);
         } else {
             temp -= (TFC_ItemHeat.getTempDecrease(itemStack, targetTemp) * ITEM_TICK_INTERVAL);
         }
@@ -1113,28 +1121,14 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         TFC_ItemHeat.setTemp(itemStack, temp, true);
     }
 
-    private float getBaseCookingBonus() {
+    private float getTargetTemp() {
         switch (getHeatLevel()) {
             case HIGH:
-                return 2f;
+                return 600;
             case MEDIUM:
-                return 1.25f;
+                return 400;
             case LOW:
-                return 1f;
-        }
-
-        return 0;
-    }
-
-    private float getMaxCookedTempMultiplier(int cookedTempIndex) {
-        switch (getHeatLevel()) {
-            case HIGH:
-            case MEDIUM:
-                // up to well done / medium
-                return cookedTempIndex == 0 ? 1.9f : 1.4f;
-            case LOW:
-                // up to medium / light
-                return cookedTempIndex == 0 ? 1.5f : 1.25f;
+                return 300;
         }
 
         return 0;
