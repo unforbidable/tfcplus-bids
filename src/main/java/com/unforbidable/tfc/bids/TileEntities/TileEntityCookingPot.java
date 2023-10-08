@@ -860,9 +860,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             if (storage[SLOT_INPUT].getItem() instanceof ItemFoodTFC) {
                 // Multiply the weight for foodstuff
                 float weight = Food.getWeight(storage[SLOT_INPUT]);
-                Bids.LOG.info("weight: " + weight);
                 Food.setWeight(storage[SLOT_INPUT], weight * runs);
-                Bids.LOG.info("weight after: " + Food.getWeight(storage[SLOT_INPUT]));
             } else {
                 // Multiply the stack size for non foodstuff
                 storage[SLOT_INPUT].stackSize *= runs;
