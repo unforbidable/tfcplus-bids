@@ -601,6 +601,12 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         }
     }
 
+    public void setLiquidEmptyNoUpdate() {
+        fluids[FLUID_PRIMARY] = null;
+        fluids[FLUID_TOP_LAYER] = null;
+        fluids[FLUID_BEFORE_SEPARATION] = null;
+    }
+
     public boolean hasTopLayerFluid() {
         return fluids[FLUID_TOP_LAYER] != null;
     }

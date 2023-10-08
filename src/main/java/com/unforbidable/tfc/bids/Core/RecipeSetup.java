@@ -17,6 +17,7 @@ import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
+import com.unforbidable.tfc.bids.Recipes.RecipeEmptyCookingPot;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
@@ -132,6 +133,7 @@ public class RecipeSetup {
         // TODO: register with net.minecraftforge.oredict.RecipeSorter
         GameRegistry.addRecipe(new RecipeCrucibleConversion(true));
         GameRegistry.addRecipe(new RecipeCrucibleConversion(false));
+        GameRegistry.addRecipe(new RecipeEmptyCookingPot());
     }
 
     private static void registerRecipes() {
