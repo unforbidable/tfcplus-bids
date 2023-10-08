@@ -792,6 +792,10 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 } else {
                     Bids.LOG.debug("Recipe progress updated: " + recipeProgress.getOutputHashString() + " - " + recipeProgress.getProgress());
 
+                    // If output changes for any reason, update the display text
+                    String displayText = CookingRecipeHelper.getRecipeOutputDisplayText(recipe, createRecipeTemplate());
+                    recipeProgress.setOutputDisplayText(displayText);
+
                     // Only send update to the client when the rounded progress changes
                     if (lastProgressRounded != recipeProgress.getProgressRounded()) {
                         update = true;

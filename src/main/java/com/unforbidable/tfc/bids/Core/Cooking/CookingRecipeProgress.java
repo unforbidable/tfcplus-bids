@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class CookingRecipeProgress {
 
-    private final String outputDisplayText;
+    private String outputDisplayText;
     private final String outputHashString;
     private float progress = 0f;
     private boolean progressPaused = false;
@@ -44,6 +44,10 @@ public class CookingRecipeProgress {
 
     public String getOutputDisplayText() {
         return outputDisplayText;
+    }
+
+    public void setOutputDisplayText(String outputDisplayText) {
+        this.outputDisplayText = outputDisplayText;
     }
 
     public String getOutputHashString() {
