@@ -1007,11 +1007,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 getPrimaryFluidStack().amount >= requiredFluidAmount &&
                 (!hasSteamingMesh() || hasLid());
 
-            // Cooking down requires no heat, input fluid (valid), no steaming mesh
-            boolean canCoolDown = getHeatLevel() == EnumCookingHeatLevel.NONE &&
-                hasFluid() &&
-                CookingHelper.isValidCookingFluid(getPrimaryFluidStack(), false) &&
-                !hasSteamingMesh();
+            // Cooking down requires no heat
+            boolean canCoolDown = getHeatLevel() == EnumCookingHeatLevel.NONE;
 
             if (canCook) {
                 handleItemStackHeating(getInputItemStack());
