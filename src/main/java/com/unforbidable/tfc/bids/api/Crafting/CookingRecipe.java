@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.api.Crafting;
 
+import com.unforbidable.tfc.bids.api.Crafting.Builders.CookingRecipeBuilder;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingLidUsage;
@@ -171,4 +172,9 @@ public class CookingRecipe {
         return getInputItemStack() != null && getInputItemStack().isItemEqual(itemStack)
             && getInputItemStack().getItemDamage() == itemStack.getItemDamage();
     }
+
+    public static CookingRecipeBuilder builder() {
+        return new CookingRecipeBuilder();
+    }
+
 }
