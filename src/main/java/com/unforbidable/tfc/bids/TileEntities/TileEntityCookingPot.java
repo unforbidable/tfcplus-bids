@@ -6,6 +6,8 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.HeatIndex;
+import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.Interfaces.ICookableFood;
 import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Bids;
@@ -234,7 +236,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     private int getInputItemStackSizeForRecipe(ItemStack itemStack) {
-        if (itemStack.getItem() instanceof ItemFoodTFC) {
+        if (isCookableFoodItemStack(itemStack)) {
             // Food items default to stack size of 1
             return 1;
         } else {
@@ -993,8 +995,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     private void handleInputItemTicking() {
-        if (getInputItemStack() != null && getInputItemStack().getItem() instanceof ItemFoodTFC
-            && getInputItemStack().getItem() instanceof ICookableFood) {
+        if (getInputItemStack() != null && isCookableFoodItemStack(getInputItemStack())) {
             boolean lastCooked = Food.isCooked(getInputItemStack());
             int lastCookedLevel = CookingHelper.getItemStackCookedLevel(getInputItemStack());
             int requiredFluidAmount = CookingHelper.calculateRequiredCookingFluidAmount(Food.getWeight(getInputItemStack()), hasSteamingMesh(), lastCookedLevel);
@@ -1038,6 +1039,24 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 clientNeedToUpdate = true;
             }
         }
+    }
+
+    private boolean isCookableFoodItemStack(ItemStack itemStack) {
+        if ( itemStack.getItem() instanceof ItemFoodTFC
+            && itemStack.getItem() instanceof ICookableFood) {
+
+            // Check heat registry to ensure there is no output or meltTemp lower than 160
+            // The assumption is that the output is for baking (cooking directly in the fire), such as bread
+            // which should not be possible with boiling or steaming in a cooking pot
+            // Therefore food that turns into another item when cooked, cannot be boiled
+            // Grain based food can still be cooked, such pasta, as long as heat
+            // See weed can be cooked, even though it turns into soda ash
+            // because cooking pot cannot reach the temperate at which it burns
+            HeatIndex hi = HeatRegistry.getInstance().findMatchingIndex(itemStack);
+            return !hi.hasOutput() || hi.meltTemp > 150;
+        }
+
+        return false;
     }
 
     private void handleItemStackCooling(ItemStack itemStack) {
