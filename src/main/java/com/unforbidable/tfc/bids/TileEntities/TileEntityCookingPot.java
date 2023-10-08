@@ -22,6 +22,7 @@ import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingLidUsage;
@@ -847,10 +848,11 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     private void handleRecipeOutput(CookingRecipe recipe) {
         int runs = calculateTotalRecipeRuns(recipe);
 
-        if (recipe.getOutputItemStack() != null) {
+        CookingRecipeCraftingResult result = recipe.getCraftingResult(createRecipeTemplate());
+        if (result.getOutputItemStack() != null) {
             // When the recipe has output item stack,
             // any input stack is always replaced with the output item stack
-            storage[SLOT_INPUT] = recipe.getOutputItemStack().copy();
+            storage[SLOT_INPUT] = result.getOutputItemStack().copy();
             if (storage[SLOT_INPUT].getItem() instanceof ItemFoodTFC) {
                 // Multiply the weight for foodstuff
                 float weight = Food.getWeight(storage[SLOT_INPUT]);
@@ -880,19 +882,19 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             }
         }
 
-        if (recipe.getOutputFluidStack() != null) {
+        if (result.getOutputFluidStack() != null) {
             // When the recipe has output fluid stack
             // any input fluid stack is always replaced
             // or merged with existing liquid
             if (hasFluid() && !hasTopLayerFluid() && recipe.getInputFluidStack() == null) {
-                fluids[FLUID_PRIMARY].amount += recipe.getOutputFluidStack().amount * runs;
+                fluids[FLUID_PRIMARY].amount += result.getOutputFluidStack().amount * runs;
             } else {
-                fluids[FLUID_PRIMARY] = recipe.getOutputFluidStack().copy();
+                fluids[FLUID_PRIMARY] = result.getOutputFluidStack().copy();
                 fluids[FLUID_PRIMARY].amount *= runs;
 
                 // When two liquids are created, the secondary one goes to the top
-                if (recipe.getSecondaryOutputFluidStack() != null) {
-                    fluids[FLUID_TOP_LAYER] = recipe.getSecondaryOutputFluidStack();
+                if (result.getSecondaryOutputFluidStack() != null) {
+                    fluids[FLUID_TOP_LAYER] = result.getSecondaryOutputFluidStack();
                     fluids[FLUID_TOP_LAYER].amount *= runs;
                 }
             }

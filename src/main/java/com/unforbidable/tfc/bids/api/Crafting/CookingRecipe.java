@@ -148,6 +148,10 @@ public class CookingRecipe {
         return match;
     }
 
+    public CookingRecipeCraftingResult getCraftingResult(CookingRecipe template) {
+        return new CookingRecipeCraftingResult(outputFluidStack, secondaryOutputFluidStack, outputItemStack);
+    }
+
     public boolean matchesOutput(FluidStack fluidStack) {
         return getOutputFluidStack() != null && getOutputFluidStack().isFluidEqual(fluidStack)
             || getSecondaryOutputFluidStack() != null && getSecondaryOutputFluidStack().isFluidEqual(fluidStack);
