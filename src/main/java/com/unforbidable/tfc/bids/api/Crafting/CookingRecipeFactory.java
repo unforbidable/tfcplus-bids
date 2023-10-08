@@ -37,7 +37,11 @@ public class CookingRecipeFactory {
     }
 
     public static CookingRecipe createMeltingRecipe(FluidStack outputFluidStack, ItemStack inputItemStack, long time) {
-        return new CookingRecipe(null, null, outputFluidStack, null, inputItemStack, null, EnumCookingAccessory.NONE, null, EnumCookingHeatLevel.LOW, EnumCookingHeatLevel.HIGH, time);
+        return new CookingRecipe(null, null, outputFluidStack, null, inputItemStack, null, EnumCookingAccessory.NONE, null, EnumCookingHeatLevel.NONE, EnumCookingHeatLevel.NONE, time);
+    }
+
+    public static CookingRecipe createMeltingRecipe(FluidStack outputFluidStack, ItemStack inputItemStack, EnumCookingHeatLevel heatLevel, long time) {
+        return new CookingRecipe(null, null, outputFluidStack, null, inputItemStack, null, EnumCookingAccessory.NONE, null, heatLevel, EnumCookingHeatLevel.HIGH, time);
     }
 
     public static CookingRecipe createEvaporatingRecipe(FluidStack inputFluidStack, ItemStack outputItemStack, long time) {
