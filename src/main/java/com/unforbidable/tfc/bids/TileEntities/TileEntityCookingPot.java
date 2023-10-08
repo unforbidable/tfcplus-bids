@@ -1104,6 +1104,11 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         float bonus = getBaseCookingBonus();
         bonus += (1 - Food.getWeight(itemStack) / Global.FOOD_MAX_WEIGHT) * 2;
 
+        // Steaming takes 2x as long
+        if (hasSteamingMesh()) {
+            bonus /= 2;
+        }
+
         if (targetTemp > temp) {
             // Also the targetTemp is increased for the calculation of speeding up heating
             temp += (TFC_ItemHeat.getTempIncrease(itemStack, targetTemp * 1.5f) * ITEM_TICK_INTERVAL * bonus);
