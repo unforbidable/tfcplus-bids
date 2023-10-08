@@ -29,12 +29,16 @@ public class ItemCookingPot extends ItemBlock implements ISize {
 
     @Override
     public int getItemStackLimit(ItemStack is) {
-        return 4;
+        if (is.hasTagCompound()) {
+            return 1;
+        } else {
+            return 4;
+        }
     }
 
     @Override
     public EnumSize getSize(ItemStack is) {
-        return EnumSize.MEDIUM;
+        return EnumSize.LARGE;
     }
 
     @Override
@@ -44,17 +48,16 @@ public class ItemCookingPot extends ItemBlock implements ISize {
 
     @Override
     public EnumWeight getWeight(ItemStack is) {
-        return EnumWeight.MEDIUM;
+        if (is.hasTagCompound()) {
+            return EnumWeight.HEAVY;
+        } else {
+            return EnumWeight.MEDIUM;
+        }
     }
 
     @Override
     public EnumItemReach getReach(ItemStack is) {
         return EnumItemReach.SHORT;
-    }
-
-    @Override
-    public boolean hasCustomEntity(ItemStack stack) {
-        return stack.getItemDamage() == 0;
     }
 
     @Override
@@ -88,10 +91,14 @@ public class ItemCookingPot extends ItemBlock implements ISize {
 
             return false;
         } else if (metadata > 0) {
+            if (!world.isAirBlock(x, y, z)) {
+                return false;
+            }
+
             return super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
         }
 
-        return false;
+        return true;
     }
 
     @Override
