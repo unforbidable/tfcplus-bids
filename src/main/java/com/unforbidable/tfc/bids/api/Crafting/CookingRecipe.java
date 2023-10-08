@@ -19,8 +19,9 @@ public class CookingRecipe {
     private final EnumCookingHeatLevel minHeatLevel;
     private final EnumCookingHeatLevel maxHeatLevel;
     private final long time;
+    private final boolean fixedTime;
 
-    public CookingRecipe(FluidStack inputFluidStack, FluidStack secondaryInputFluidStack, FluidStack outputFluidStack, FluidStack secondaryOutputFluidStack, ItemStack inputItemStack, ItemStack outputItemStack, EnumCookingAccessory accessory, EnumCookingLidUsage lidUsage, EnumCookingHeatLevel minHeatLevel, EnumCookingHeatLevel maxHeatLevel, long time) {
+    public CookingRecipe(FluidStack inputFluidStack, FluidStack secondaryInputFluidStack, FluidStack outputFluidStack, FluidStack secondaryOutputFluidStack, ItemStack inputItemStack, ItemStack outputItemStack, EnumCookingAccessory accessory, EnumCookingLidUsage lidUsage, EnumCookingHeatLevel minHeatLevel, EnumCookingHeatLevel maxHeatLevel, long time, boolean fixedTime) {
         this.inputFluidStack = inputFluidStack;
         this.secondaryInputFluidStack = secondaryInputFluidStack;
         this.outputFluidStack = outputFluidStack;
@@ -32,6 +33,7 @@ public class CookingRecipe {
         this.minHeatLevel = minHeatLevel;
         this.maxHeatLevel = maxHeatLevel;
         this.time = time;
+        this.fixedTime = fixedTime;
     }
 
     public FluidStack getInputFluidStack() {
@@ -76,6 +78,10 @@ public class CookingRecipe {
 
     public long getTime() {
         return time;
+    }
+
+    public boolean isFixedTime() {
+        return fixedTime;
     }
 
     public boolean matchesTemplate(CookingRecipe template) {

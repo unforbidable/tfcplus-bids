@@ -317,8 +317,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             getInputItemStack(), null,
             hasSteamingMesh() ? EnumCookingAccessory.STEAMING_MESH : EnumCookingAccessory.NONE,
             hasLid() ? EnumCookingLidUsage.ON : EnumCookingLidUsage.OFF,
-            getHeatLevel(), getHeatLevel(), 0
-        );
+            getHeatLevel(), getHeatLevel(), 0,
+            false);
     }
 
     private CookingRecipe createRecipeTemplateWithSecondaryInputFluidStack(FluidStack secondaryInputFluidStack) {
@@ -327,8 +327,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             null, null,
             hasSteamingMesh() ? EnumCookingAccessory.STEAMING_MESH : EnumCookingAccessory.NONE,
             hasLid() ? EnumCookingLidUsage.ON : EnumCookingLidUsage.OFF,
-            getHeatLevel(), getHeatLevel(), 0
-        );
+            getHeatLevel(), getHeatLevel(), 0,
+            false);
     }
 
     private FluidStack getFluidStackFromItemStack(ItemStack itemStack) {
@@ -769,7 +769,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 // Determine how much progress is made
                 long lastUpdateTicks = recipeProgress.getLastUpdateTicks();
                 long elapsedTicks = TFC_Time.getTotalTicks() - lastUpdateTicks;
-                long totalRecipeTicks = recipe.getTime() * recipeProgress.getTotalRuns();
+                long totalRecipeTicks = recipe.getTime() * (recipe.isFixedTime() ? 1 : recipeProgress.getTotalRuns());
                 float progress = (float)elapsedTicks / totalRecipeTicks;
                 float heatAdjustedProgress = adjustProgressForHeat(recipe, getHeatLevel(), progress);
 
