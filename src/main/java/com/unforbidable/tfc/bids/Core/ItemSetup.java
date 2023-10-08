@@ -491,8 +491,8 @@ public class ItemSetup extends BidsItems {
 
         final int WILD = OreDictionary.WILDCARD_VALUE;
 
-        final Item[] drills = new Item[] { sedStoneDrill, mMStoneDrill, igInStoneDrill, igExStoneDrill,
-            copperDrill, bronzeDrill, bismuthBronzeDrill, blackBronzeDrill };
+        final Item[] drills = new Item[]{sedStoneDrill, mMStoneDrill, igInStoneDrill, igExStoneDrill,
+            copperDrill, bronzeDrill, bismuthBronzeDrill, blackBronzeDrill};
         for (int i = 0; i < drills.length; i++) {
             OreDictionary.registerOre("itemDrill", new ItemStack(drills[i], 1, WILD));
 
@@ -503,8 +503,8 @@ public class ItemSetup extends BidsItems {
             }
         }
 
-        final Item[] adzes = new Item[] { sedStoneAdze, mMStoneAdze, igInStoneAdze, igExStoneAdze,
-            copperAdze, bronzeAdze, bismuthBronzeAdze, blackBronzeAdze };
+        final Item[] adzes = new Item[]{sedStoneAdze, mMStoneAdze, igInStoneAdze, igExStoneAdze,
+            copperAdze, bronzeAdze, bismuthBronzeAdze, blackBronzeAdze};
         for (int i = 0; i < adzes.length; i++) {
             OreDictionary.registerOre("itemAdze", new ItemStack(adzes[i], 1, WILD));
 
@@ -515,14 +515,16 @@ public class ItemSetup extends BidsItems {
             }
         }
 
-        final Item[] logs = new Item[] { logsSeasoned, peeledLog, peeledLogSeasoned };
+        final Item[] logs = new Item[]{logsSeasoned, peeledLog, peeledLogSeasoned};
         for (Item log : logs) {
             OreDictionary.registerOre("itemLogExtra", new ItemStack(log, 1, WILD));
         }
 
-        // Use linen cloth as a steaming mesh
-        OreDictionary.registerOre("itemCookingPotAccessory", TFCItems.linenCloth);
-        OreDictionary.registerOre("itemCookingPotAccessorySteamingMesh", TFCItems.linenCloth);
+        // Use various cloth as a steaming mesh
+        for (Item item : new Item[]{ TFCItems.linenCloth, TFCItems.woolCloth, TFCItems.silkCloth, TFCItems.cottonCloth, TFCItems.burlapCloth }) {
+            OreDictionary.registerOre("itemCookingPotAccessory", item);
+            OreDictionary.registerOre("itemCookingPotAccessorySteamingMesh", item);
+        }
     }
 
     private static void registerWoodPileItems() {
