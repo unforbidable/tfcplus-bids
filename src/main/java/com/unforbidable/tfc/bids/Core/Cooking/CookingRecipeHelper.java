@@ -1,17 +1,20 @@
 package com.unforbidable.tfc.bids.Core.Cooking;
 
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.CookingRecipeCraftingResult;
 
 public class CookingRecipeHelper {
 
-    public static String getRecipeOutputDisplayText(CookingRecipe recipe) {
-        if (recipe.getOutputItemStack() != null) {
-            return recipe.getOutputItemStack().getDisplayName();
-        } else if (recipe.getOutputFluidStack() != null) {
-            if (recipe.getSecondaryOutputFluidStack() != null) {
-                return recipe.getSecondaryOutputFluidStack().getLocalizedName() + " + " + recipe.getOutputFluidStack().getLocalizedName();
+    public static String getRecipeOutputDisplayText(CookingRecipe recipe, CookingRecipe template) {
+        CookingRecipeCraftingResult result = recipe.getCraftingResult(template);
+
+        if (result.getOutputItemStack() != null) {
+            return result.getOutputItemStack().getDisplayName();
+        } else if (result.getOutputFluidStack() != null) {
+            if (result.getSecondaryOutputFluidStack() != null) {
+                return result.getSecondaryOutputFluidStack().getLocalizedName() + " + " + recipe.getOutputFluidStack().getLocalizedName();
             } else {
-                return recipe.getOutputFluidStack().getLocalizedName();
+                return result.getOutputFluidStack().getLocalizedName();
             }
         }
 

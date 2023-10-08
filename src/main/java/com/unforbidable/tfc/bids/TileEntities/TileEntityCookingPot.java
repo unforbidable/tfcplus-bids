@@ -824,7 +824,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             // No recipe is in progress
             // see if we can start one
             if (recipe != null) {
-                String displayText = CookingRecipeHelper.getRecipeOutputDisplayText(recipe);
+                String displayText = CookingRecipeHelper.getRecipeOutputDisplayText(recipe, createRecipeTemplate());
                 String hashString = CookingRecipeHelper.getRecipeHashString(recipe);
                 int totalRuns = calculateTotalRecipeRuns(recipe);
 
