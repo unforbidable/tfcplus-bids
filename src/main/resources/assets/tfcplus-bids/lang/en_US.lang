@@ -949,7 +949,6 @@ itemGroup.Bids.BuildingBlocks=Bids and Pieces - Building Blocks
 itemGroup.Bids.Materials=Bids and Pieces - Materials
 itemGroup.Bids.Tools=Bids and Pieces - Tools
 
-infusion.boiled.name=(Boiled)
 infusion.steamed.name=(Steamed)
 
 gui.ShowHelp=§8Help: (Hold §fShift§8)
