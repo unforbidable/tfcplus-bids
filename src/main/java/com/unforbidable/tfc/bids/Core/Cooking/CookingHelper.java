@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.CookingPotBounds;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCookingPot;
+import com.unforbidable.tfc.bids.api.BidsFood;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -143,8 +144,11 @@ public class CookingHelper {
                 }
 
                 Food.setCookedProfile(itemStack, profile);
+                BidsFood.setBoiled(itemStack, true);
+                BidsFood.setBoiledLiquid(itemStack, fluidStack.getUnlocalizedName());
             } else {
                 Food.setInfusion(itemStack, "infusion.steamed");
+                BidsFood.setSteamed(itemStack, true);
             }
         }
     }
