@@ -49,6 +49,7 @@ public class RecipeSetup {
         registerCarvingRecipes();
         registerSaddleQuernRecipes();
         registerStonePressRecipes();
+        registerCookingRecipes();
         registerHandlers();
     }
 
@@ -931,6 +932,103 @@ public class RecipeSetup {
 
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputMult)),
                 new ItemStack(TFCItems.agave, 1)));
+    }
+
+    private static void registerCookingRecipes() {
+        Bids.LOG.info("Register cooking recipes");
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), new ItemStack(TFCItems.powder, 1, 9))
+            .produces(new FluidStack(TFCFluids.SALTWATER, 500))
+            .inTime(20)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.SALTWATER, 500))
+            .produces(new ItemStack(TFCItems.powder, 1, 9))
+            .withHeat()
+            .withoutLid()
+            .inTime(750)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new ItemStack(Items.snowball))
+            .produces(new FluidStack(TFCFluids.FRESHWATER, 200))
+            .withHeat()
+            .inTime(200)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new ItemStack(Items.snowball))
+            .produces(new FluidStack(TFCFluids.FRESHWATER, 200))
+            .withoutHeat()
+            .inTime(1000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new ItemStack(TFCItems.resin))
+            .produces(new FluidStack(TFCFluids.PITCH, 50))
+            .withHeat()
+            .inTime(50)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new ItemStack(TFCItems.emptyHoneycomb))
+            .produces(new FluidStack(TFCFluids.WAX, 300))
+            .withHeat()
+            .inTime(750)
+            .build());
+
+        for (Item stringItem : new Item[] { TFCItems.silkString, TFCItems.woolYarn, TFCItems.linenString, TFCItems.cottonYarn, TFCItems.juteFiber, TFCItems.sisalFiber }) {
+            CookingManager.addRecipe(CookingRecipe.builder()
+                .consumes(new FluidStack(TFCFluids.WAX, 200), new ItemStack(stringItem))
+                .produces(new ItemStack(TFCBlocks.candleOff, 1))
+                .withHeat()
+                .build());
+        }
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.PITCH, 50), new ItemStack(TFCItems.stick))
+            .produces(new ItemStack(TFCBlocks.torchOff, 1))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.PITCH, 250), new ItemStack(TFCItems.leatherBag))
+            .produces(new ItemStack(TFCItems.pitchBag, 1))
+            .inTime(100)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 9), new FluidStack(TFCFluids.HONEY, 1))
+            .produces(new FluidStack(TFCFluids.HONEYWATER, 10))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.SALTWATER, 9), new FluidStack(TFCFluids.VINEGAR, 1))
+            .produces(new FluidStack(TFCFluids.BRINE, 10))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.MILK, 9), new FluidStack(TFCFluids.VINEGAR, 1))
+            .produces(new FluidStack(TFCFluids.MILKVINEGAR, 10))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.MILKVINEGAR, 1))
+            .produces(new FluidStack(TFCFluids.MILKCURDLED, 1))
+            .withoutHeat()
+            .withLid()
+            .inFixedTime(8000)
+            .build());
+
+        CookingManager.addRecipe(CookingCheeseRecipe.builder()
+            .allowingInfusion()
+            .consumes(new FluidStack(TFCFluids.MILKCURDLED, 1))
+            .produces(ItemFoodTFC.createTag(new ItemStack(TFCItems.cheese), Global.FOOD_MAX_WEIGHT / 10000))
+            .withoutHeat()
+            .withLid()
+            .inFixedTime(8000)
+            .build());
     }
 
     private static void registerKnappingRecipes() {
