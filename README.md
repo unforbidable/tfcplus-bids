@@ -43,6 +43,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Bucket and Rope](../../wiki/Bucket-and-Rope) - for drawing water from deep wells
 * [Large Bowl](../../wiki/Large-Bowl) - enables mixing barrel recipes that might require adding 500mB of liquid
 * [Unfinished Anvil](../../wiki/Unfinished-Anvil) - enables anvil creation by welding seven double ingots together
+* [Cooking Pot](../../wiki/Cooking-Pot) - for boiling and steaming foodstuffs and much more
 
 ### Contributions
 
@@ -50,7 +51,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Translations
 
-* Chinese by Eternal130 (v0.30.x)
+* Chinese by Eternal130 (v0.31.x)
 * Japanese by dymanic.day (v0.28.x)
 
 ### Other credits

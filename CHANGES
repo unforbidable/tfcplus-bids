@@ -373,3 +373,12 @@
 - Changed: Updated Chinese translation by Eternal130 to version 0.30.x
 - Removed: Brine, Honey Water and Milk + Vinegar can no longer be awkwardly mixed using glass bottles or buckets (discontinued in favor of using large bowls and a large vessel)
 - Fixed: Swapped bismuth bronze and black bronze adze and adze head textures
+
+0.32.0 (09-10-2023)
+- Added: Clay Cooking Pot
+- Added: Cooking pot supports recipes for Cooking, Boiling, Steaming, Melting, Soaking, Dissolving, Solidifying, and for Mixing and Separating fluids
+- Added: Cooking pot can boil raw foodstuff using fresh water or salt water
+- Added: Cooking pot can steam raw foodstuff using fresh water and cloth as steaming mesh
+- Added: Several TFC+ barrel recipes adapted as cooking recipes
+- Changed: Glass bottle accepts partial amounts of salt water
+- Changed: Updated Chinese translation by Eternal130 to version 0.31.x
