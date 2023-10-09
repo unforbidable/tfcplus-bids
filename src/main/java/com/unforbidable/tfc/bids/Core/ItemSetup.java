@@ -342,10 +342,11 @@ public class ItemSetup extends BidsItems {
             .setContainerItem((TFCItems.glassBottle))
             .setMaxDamage(1000 / 50)
             .setUnlocalizedName("Glass Bottle.Honey");
-
         saltWaterBottle = new ItemGlassBottleFluid()
             .setContainerItem((TFCItems.glassBottle))
+            .setMaxDamage(1000 / 50)
             .setUnlocalizedName("Glass Bottle.SaltWater");
+
         honeyWaterBottle = new ItemGlassBottleFluid()
             .setContainerItem((TFCItems.glassBottle))
             .setUnlocalizedName("Glass Bottle.HoneyWater");
