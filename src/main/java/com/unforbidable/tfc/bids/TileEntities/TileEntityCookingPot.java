@@ -1110,13 +1110,13 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
         float targetTemp = getTargetTemp();
 
+        // Steaming takes longer
+        if (hasSteamingMesh()) {
+            targetTemp *= 0.75;
+        }
+
         // Cooking a large stack of food with LOW heat level will still take a while though
         float bonus = 1 + (1 - Food.getWeight(itemStack) / Global.FOOD_MAX_WEIGHT) * 2;
-
-        // Steaming takes 2x as long
-        if (hasSteamingMesh()) {
-            bonus /= 2;
-        }
 
         if (targetTemp > temp) {
             temp += (TFC_ItemHeat.getTempIncrease(itemStack, targetTemp) * ITEM_TICK_INTERVAL * bonus);
@@ -1130,11 +1130,11 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     private float getTargetTemp() {
         switch (getHeatLevel()) {
             case HIGH:
-                return 600;
-            case MEDIUM:
                 return 400;
-            case LOW:
+            case MEDIUM:
                 return 300;
+            case LOW:
+                return 250;
         }
 
         return 0;
