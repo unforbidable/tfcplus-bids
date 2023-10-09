@@ -1045,15 +1045,13 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     private int getMaxCookedLevel(ItemStack itemStack) {
         int cookedTempIndex = ((ItemFoodTFC) itemStack.getItem()).cookTempIndex;
-        switch (getHeatLevel()) {
-            case HIGH:
-            case MEDIUM:
-                return cookedTempIndex == 0 ? 5 : 3;
-            case LOW:
-                return cookedTempIndex == 0 ? 3 : 2;
+        if (getHeatLevel() == EnumCookingHeatLevel.LOW || hasSteamingMesh()) {
+            // Cooking with low heat or steaming - Medium / Light
+            return cookedTempIndex == 0 ? 3 : 2;
+        } else {
+            // Cooking with medium or high heat (not steaming) - Well done / Medium
+            return cookedTempIndex == 0 ? 5 : 3;
         }
-
-        return 1;
     }
 
     private boolean isCookableFoodItemStack(ItemStack itemStack) {
