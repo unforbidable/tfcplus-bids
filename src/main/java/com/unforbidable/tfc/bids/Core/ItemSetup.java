@@ -416,9 +416,8 @@ public class ItemSetup extends BidsItems {
         FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, TFCItems.glassBottle, 0, vinegarBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(TFCFluids.BRINE, TFCItems.glassBottle, 0, brineBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(TFCFluids.HONEY, TFCItems.glassBottle, 0, honeyBottle, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(TFCFluids.SALTWATER, TFCItems.glassBottle, 0, saltWaterBottle, 50, 1000);
 
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.SALTWATER, 1000),
-            new ItemStack(saltWaterBottle), new ItemStack(TFCItems.glassBottle));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
             new ItemStack(honeyWaterBottle), new ItemStack(TFCItems.glassBottle));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
