@@ -68,6 +68,40 @@ tile.RoughStoneBrickSed.Shale.name=粗糙页岩砖块
 tile.RoughStoneTileSed.Sandstone.name=粗糙砂岩岩片砖块
 tile.RoughStoneTileSed.Shale.name=粗糙页岩岩片砖块
 
+tile.RoughStoneMM.Quartzite.name=粗糙硅岩
+tile.RoughStoneMM.Slate.name=粗糙板岩
+tile.RoughStoneMM.Phyllite.name=粗糙千枚岩
+tile.RoughStoneMM.Schist.name=粗糙片岩
+tile.RoughStoneMM.Gneiss.name=粗糙片麻岩
+tile.RoughStoneMM.Marble.name=粗糙大理石
+
+tile.RoughStoneBrickMM.Quartzite.name=粗糙硅岩砖块
+tile.RoughStoneBrickMM.Slate.name=粗糙板岩砖块
+tile.RoughStoneBrickMM.Phyllite.name=粗糙千枚岩砖块
+tile.RoughStoneBrickMM.Schist.name=粗糙片岩砖块
+tile.RoughStoneBrickMM.Gneiss.name=粗糙片麻岩砖块
+tile.RoughStoneBrickMM.Marble.name=粗糙大理石砖块
+
+tile.RoughStoneTileMM.Slate.name=粗糙板岩岩片砖块
+
+tile.RoughStoneIgIn.Granite.name=粗糙花岗岩
+tile.RoughStoneIgIn.Diorite.name=粗糙闪长岩
+tile.RoughStoneIgIn.Gabbro.name=粗糙辉长岩
+
+tile.RoughStoneBrickIgIn.Granite.name=粗糙花岗岩砖块
+tile.RoughStoneBrickIgIn.Diorite.name=粗糙闪长岩砖块
+tile.RoughStoneBrickIgIn.Gabbro.name=粗糙辉长岩砖块
+
+tile.RoughStoneIgEx.Rhyolite.name=粗糙流纹岩
+tile.RoughStoneIgEx.Basalt.name=粗糙玄武岩
+tile.RoughStoneIgEx.Andesite.name=粗糙安山岩
+tile.RoughStoneIgEx.Dacite.name=粗糙英安岩
+
+tile.RoughStoneBrickIgEx.Rhyolite.name=粗糙流纹岩砖块
+tile.RoughStoneBrickIgEx.Basalt.name=粗糙玄武岩砖块
+tile.RoughStoneBrickIgEx.Andesite.name=粗糙安山岩砖块
+tile.RoughStoneBrickIgEx.Dacite.name=粗糙英安岩砖块
+
 tile.LogWall.Ash.name=白蜡原木墙
 tile.LogWall.Aspen.name=白杨原木墙
 tile.LogWall.Birch.name=桦树原木墙
@@ -575,6 +609,23 @@ item.Bronze Adze.name=青铜锛
 item.Bismuth Bronze Adze.name=铋青铜锛
 item.Black Bronze Adze.name=黑青铜锛
 
+item.Mold Drill.Clay.name=黏土钻头模具
+item.Mold Drill.Ceramic.name=钻头模具
+item.Mold Drill.Copper.name=钻头模具(铜)
+item.Mold Drill.Bronze.name=钻头模具(青铜)
+item.Mold Drill.Bismuth Bronze.name=钻头模具(铋青铜)
+item.Mold Drill.Black Bronze.name=钻头模具(黑青铜)
+
+item.Copper Drill Head.name=铜钻头
+item.Bronze Drill Head.name=青铜钻头
+item.Bismuth Bronze Drill Head.name=铋青铜钻头
+item.Black Bronze Drill Head.name=黑青铜钻头
+
+item.Copper Drill.name=铜采石钻
+item.Bronze Drill.name=青铜采石钻
+item.Bismuth Bronze Drill.name=铋青铜采石钻
+item.Black Bronze Drill.name=黑青铜采石钻
+
 item.Rough Stone Brick.Chalk.name=粗糙白垩岩砖
 item.Rough Stone Brick.Chert.name=粗糙角岩砖
 item.Rough Stone Brick.Claystone.name=粗糙粘土岩砖
@@ -584,8 +635,26 @@ item.Rough Stone Brick.Limestone.name=粗糙石灰岩砖
 item.Rough Stone Brick.Rock Salt.name=粗糙盐岩砖
 item.Rough Stone Brick.Shale.name=粗糙页岩砖
 
+item.Rough Stone Brick.Quartzite.name=粗糙硅岩砖
+item.Rough Stone Brick.Slate.name=粗糙板岩砖
+item.Rough Stone Brick.Phyllite.name=粗糙千枚岩砖
+item.Rough Stone Brick.Schist.name=粗糙片岩砖
+item.Rough Stone Brick.Gneiss.name=粗糙片麻岩砖
+item.Rough Stone Brick.Marble.name=粗糙大理石砖
+
+item.Rough Stone Brick.Granite.name=粗糙花岗岩砖
+item.Rough Stone Brick.Diorite.name=粗糙闪长岩砖
+item.Rough Stone Brick.Gabbro.name=粗糙辉长岩砖
+
+item.Rough Stone Brick.Rhyolite.name=粗糙流纹岩砖
+item.Rough Stone Brick.Basalt.name=粗糙玄武岩砖
+item.Rough Stone Brick.Andesite.name=粗糙安山岩砖
+item.Rough Stone Brick.Dacite.name=粗糙英安岩砖
+
 item.Rough Stone Tile.Sandstone.name=粗糙砂岩岩片
 item.Rough Stone Tile.Shale.name=粗糙页岩岩片
+
+item.Rough Stone Tile.Slate.name=粗糙板岩岩片
 
 item.Peeled Log.Acacia.name=光滑金合欢原木
 item.Peeled Log.Ash.name=光滑白蜡原木
@@ -847,6 +916,10 @@ item.Birch Bark Cup Unfinished.name=桦树皮杯(未完成)
 item.Birch Bark Shoes.name=桦树皮鞋
 item.Birch Bark Kindling.name=桦树皮火种
 
+item.Coat Front.Leather.name=皮革大衣正面
+item.Coat Back.Leather.name=皮革大衣背面
+item.Leather Coat.name=皮革大衣
+
 item.Wheat Crushed.name=粗小麦粉
 item.Barley Crushed.name=粗大麦粉
 item.Oat Crushed.name=粗燕麦粉
@@ -889,6 +962,8 @@ gui.Output=出产
 gui.Alloying=合金混合中
 gui.Glassmaking=玻璃吹制
 gui.plans.blowpipe=吹管
+gui.plans.adze=锛
+gui.plans.drill=钻头
 gui.Hours=小时
 gui.HoursRemaining=剩余小时
 gui.Days=天
