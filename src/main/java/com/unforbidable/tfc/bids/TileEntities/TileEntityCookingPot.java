@@ -452,6 +452,10 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     public ItemStack mixLiquids(ItemStack itemStack) {
+        if (hasLid() || hasTopLayerFluid()) {
+            return itemStack;
+        }
+
         if (hasFluid() && FluidContainerRegistry.isFilledContainer(itemStack)) {
             FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
             CookingRecipe template = createRecipeTemplateWithSecondaryInputFluidStack(fluidStack);
