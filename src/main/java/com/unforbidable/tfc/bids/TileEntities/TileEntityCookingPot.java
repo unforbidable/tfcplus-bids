@@ -163,7 +163,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
-            onRecipeParametersChanged(true);
+            onRecipeParametersChanged(false);
 
             return true;
         }
@@ -224,7 +224,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
-            onRecipeParametersChanged(false);
+            onRecipeParametersChanged(true);
 
             return true;
         }
@@ -769,6 +769,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                     Bids.LOG.debug("Recipe progress resumed: " + recipeProgress.getOutputHashString());
 
                     recipeProgress.setProgressPaused(false);
+
+                    update = true;
                 }
 
                 // Determine how much progress is made
