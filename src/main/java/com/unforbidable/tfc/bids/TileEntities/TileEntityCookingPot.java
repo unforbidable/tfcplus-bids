@@ -1057,8 +1057,11 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     private boolean isCookableFoodItemStack(ItemStack itemStack) {
-        if ( itemStack.getItem() instanceof ItemFoodTFC
-            && itemStack.getItem() instanceof ICookableFood) {
+        // Only allow cooking food items with heat index
+        HeatIndex hi = HeatRegistry.getInstance().findMatchingIndex(itemStack);
+        if (itemStack.getItem() instanceof ItemFoodTFC
+            && itemStack.getItem() instanceof ICookableFood
+            && hi != null) {
 
             // Check heat registry to ensure there is no output or meltTemp lower than 160
             // The assumption is that the output is for baking (cooking directly in the fire), such as bread
@@ -1067,7 +1070,6 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             // Grain based food can still be cooked, such pasta, as long as it's the same item
             // See weed can be cooked, even though it turns into soda ash
             // because cooking pot cannot reach the temperate at which it burns
-            HeatIndex hi = HeatRegistry.getInstance().findMatchingIndex(itemStack);
             return !hi.hasOutput() || hi.meltTemp > 150;
         }
 
