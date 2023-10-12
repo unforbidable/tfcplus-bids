@@ -382,3 +382,10 @@
 - Added: Several TFC+ barrel recipes adapted as cooking recipes
 - Changed: Glass bottle accepts partial amounts of salt water
 - Changed: Updated Chinese translation by Eternal130 to version 0.31.x
+
+0.32.1 (12-10-2023)
+- Added: NEI support for cooking recipes
+- Added: Porridge can be boiled from coarse flour in a cooking pot
+- Changed: Updated Chinese translation by Eternal130
+- Removed: Cooking coarse flour into porridge in a large vessel (discontinued in favor of boiling in a cooking pot)
+- Fixed: Crash when trying to cook food without heat index
