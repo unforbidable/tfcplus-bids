@@ -47,6 +47,9 @@ public class NotEnoughItemsSetup {
 
         API.registerRecipeHandler(new StonePressHandler());
         API.registerUsageHandler(new StonePressHandler());
+
+        API.registerRecipeHandler(new CookingPotHandler());
+        API.registerUsageHandler(new CookingPotHandler());
     }
 
     private static void hideItemStacks() {
