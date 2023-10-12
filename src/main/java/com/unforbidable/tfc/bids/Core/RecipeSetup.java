@@ -1319,37 +1319,6 @@ public class RecipeSetup {
             }
         }
 
-        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatCrushed), 1f),
-                new FluidStack(TFCFluids.FRESHWATER, 50),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatPorridge), 1.2f),
-                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
-        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyCrushed), 1f),
-                new FluidStack(TFCFluids.FRESHWATER, 50),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyPorridge), 1.2f),
-                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
-        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.oatCrushed), 1f),
-                new FluidStack(TFCFluids.FRESHWATER, 50),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.oatPorridge), 1.2f),
-                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
-        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.riceCrushed), 1f),
-                new FluidStack(TFCFluids.FRESHWATER, 50),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.ricePorridge), 1.2f),
-                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
-        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeCrushed), 1),
-                new FluidStack(TFCFluids.FRESHWATER, 50),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.ryePorridge), 1.2f),
-                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
-        BarrelManager.getInstance().addRecipe(new BarrelFireRecipe(
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealCrushed), 1),
-                new FluidStack(TFCFluids.FRESHWATER, 50),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealPorridge), 1.2f),
-                new FluidStack(TFCFluids.FRESHWATER, 500), 4, 4000));
-
         BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.riceGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
             null, new FluidStack(TFCFluids.RICEBEER, 5000)).setMinTechLevel(0).setRequiresCooked(true));
         BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.wheatGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
