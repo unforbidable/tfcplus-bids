@@ -17,11 +17,8 @@ import com.unforbidable.tfc.bids.Items.*;
 import com.unforbidable.tfc.bids.Render.Item.SeasonableItemRenderer;
 import com.unforbidable.tfc.bids.Render.Item.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
-import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.FirepitRegistry;
-import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -628,6 +625,20 @@ public class ItemSetup extends BidsItems {
         registerHeatUnfinishedAnvilHelper(reg, 8, TFCItems.roseGoldUnshaped);
         registerHeatUnfinishedAnvilHelper(reg, 9, TFCItems.bismuthUnshaped);
         registerHeatUnfinishedAnvilHelper(reg, 10, TFCItems.blackBronzeUnshaped);
+
+        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(wheatCrushed, 1), 1, 88, null, new ItemStack(wheatPorridge, 1), null).setKeepNBT(true));
+        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(barleyCrushed, 1), 1, 88, null, new ItemStack(barleyPorridge, 1), null).setKeepNBT(true));
+        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(oatCrushed, 1), 1, 88, null, new ItemStack(oatPorridge, 1), null).setKeepNBT(true));
+        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(ryeCrushed, 1), 1, 88, null, new ItemStack(ryePorridge, 1), null).setKeepNBT(true));
+        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(riceCrushed, 1), 1, 88, null, new ItemStack(ricePorridge, 1), null).setKeepNBT(true));
+        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(cornmealCrushed, 1), 1, 88, null, new ItemStack(cornmealPorridge, 1), null).setKeepNBT(true));
+
+        reg.addIndex(new HeatIndex(new ItemStack(wheatPorridge, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(barleyPorridge, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(oatPorridge, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(ryePorridge, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(ricePorridge, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(cornmealPorridge, 1), 1, 177, null));
     }
 
     private static void registerHeatUnfinishedAnvilHelper(HeatRegistry reg, int mat, Item unshaped) {
