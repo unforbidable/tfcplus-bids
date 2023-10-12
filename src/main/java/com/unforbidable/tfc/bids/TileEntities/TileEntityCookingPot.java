@@ -20,6 +20,7 @@ import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsFoodHeatIndex;
 import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipeCraftingResult;
@@ -1025,6 +1026,13 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, canCook);
 
+            if (canCook) {
+                if (tryToMorphInputItem()) {
+                    // Cook boiled or steamed item again
+                    TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, true);
+                }
+            }
+
             if (lastCooked != Food.isCooked(getInputItemStack())) {
                 // When the food is cooked for the first time alter the taste
                 CookingHelper.setInputStackCookedNBT(getInputItemStack(), getPrimaryFluidStack(), hasSteamingMesh());
@@ -1043,6 +1051,43 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 clientNeedToUpdate = true;
             }
         }
+    }
+
+    private boolean tryToMorphInputItem() {
+        HeatIndex hi = HeatRegistry.getInstance().findMatchingIndex(getInputItemStack());
+        if (hi instanceof BidsFoodHeatIndex) {
+            BidsFoodHeatIndex bidsFoodHeatIndex = (BidsFoodHeatIndex) hi;
+
+            float temp = TFC_ItemHeat.getTemp(getInputItemStack());
+            if (temp > bidsFoodHeatIndex.meltTemp) {
+                if (!hasSteamingMesh() && bidsFoodHeatIndex.hasBoilingOutput()) {
+                    morphInputItemStackInto(bidsFoodHeatIndex.getBoilingOutput(getInputItemStack()));
+
+                    // Boiling adds weight due to water absorption
+                    if (getInputItemStack().getItem() instanceof ItemFoodTFC) {
+                        float weight = Food.getWeight(getInputItemStack());
+                        float newWeight = Math.min(160f, weight * 1.2f);
+                        Food.setWeight(getInputItemStack(), newWeight);
+                    }
+
+                    return true;
+                }
+
+                if (hasSteamingMesh() && bidsFoodHeatIndex.hasSteamingOutput()) {
+                    morphInputItemStackInto(bidsFoodHeatIndex.getSteamingOutput(getInputItemStack()));
+
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private void morphInputItemStackInto(ItemStack targetItemStack) {
+        storage[SLOT_INPUT] = targetItemStack;
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        clientNeedToUpdate = true;
     }
 
     private int getMaxCookedLevel(ItemStack itemStack) {
