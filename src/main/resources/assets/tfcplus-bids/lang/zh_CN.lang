@@ -188,6 +188,11 @@ tile.UnfinishedAnvil.Rose Gold.name=玫瑰金砧(未完成)
 tile.UnfinishedAnvil.Bismuth Bronze.name=铋青铜砧(未完成)
 tile.UnfinishedAnvil.Black Bronze.name=黑青铜砧(未完成)
 
+tile.CookingPot.Clay.name=黏土烹饪锅
+tile.CookingPot.Ceramic.name=陶瓷烹饪锅
+tile.CookingPotLid.Clay.name=黏土锅盖
+tile.CookingPotLid.Ceramic.name=陶瓷锅盖
+
 item.Ore Bit.Bismuthinite.name=辉铋矿碎片
 item.Ore Bit.Cassiterite.name=锡精矿碎片
 item.Ore Bit.Galena.name=方铅矿碎片
@@ -944,6 +949,8 @@ itemGroup.Bids.BuildingBlocks=Bids and Pieces - 建筑方块
 itemGroup.Bids.Materials=Bids and Pieces - 材料
 itemGroup.Bids.Tools=Bids and Pieces - 工具
 
+infusion.steamed.name=(蒸)
+
 gui.ShowHelp=§8帮助: (按住 §fShift§8)
 gui.Help=帮助:
 gui.Help.Drill=§b右键§7原生石头进行采石.
@@ -954,11 +961,15 @@ gui.Help.Adze3=§b右键§7方块进行雕刻.
 gui.Help.BastFibreStrip=至少手持5个§b右键§7进行编织.
 gui.Help.Kindling=§b右键 §7放置火堆.
 gui.Help.Kindling2=地上要扔两个石子.
+gui.Help.Pottery=潜行时§b右击§7以放置物品.
+gui.Help.CookingPot=§b右击§7方块以放置.
+gui.Help.CookingPotLid=§b右击§7方块以放置.
 gui.Units=单位
 gui.Empty=空
 gui.Solidified=凝固
 gui.symbol.BulletPoint=·
 gui.Output=出产
+gui.Paused=Paused
 gui.Alloying=合金混合中
 gui.Glassmaking=玻璃吹制
 gui.plans.blowpipe=吹管
@@ -983,5 +994,10 @@ gui.Stage2=Stage 2
 gui.Stage3=Stage 3
 gui.Stage4=Stage 4
 gui.Stage5=Stage 5
+gui.SteamingMesh=蒸网
+gui.CookingHeatLevel.None=No Heat
+gui.CookingHeatLevel.Low=Low Heat
+gui.CookingHeatLevel.Medium=Medium Heat
+gui.CookingHeatLevel.High=High Heat
 
 key.BidsToolMode=循环工具模式
