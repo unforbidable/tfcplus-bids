@@ -898,13 +898,18 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             if (hasFluid() && !hasTopLayerFluid() && recipe.getInputFluidStack() == null) {
                 fluids[FLUID_PRIMARY].amount += result.getOutputFluidStack().amount * runs;
             } else {
+                FluidStack originalFluid = fluids[FLUID_PRIMARY];
+
                 fluids[FLUID_PRIMARY] = result.getOutputFluidStack().copy();
                 fluids[FLUID_PRIMARY].amount *= runs;
 
                 // When two liquids are created, the secondary one goes to the top
                 if (result.getSecondaryOutputFluidStack() != null) {
-                    fluids[FLUID_TOP_LAYER] = result.getSecondaryOutputFluidStack();
+                    fluids[FLUID_TOP_LAYER] = result.getSecondaryOutputFluidStack().copy();
                     fluids[FLUID_TOP_LAYER].amount *= runs;
+
+                    // Remember the input fluid to allow remixing
+                    fluids[FLUID_BEFORE_SEPARATION] = originalFluid;
                 }
             }
         } else if (recipe.getInputFluidStack() != null) {
