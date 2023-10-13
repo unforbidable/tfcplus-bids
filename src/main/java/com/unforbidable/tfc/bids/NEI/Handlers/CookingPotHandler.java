@@ -263,7 +263,7 @@ public class CookingPotHandler extends TemplateRecipeHandler {
             GL11.glColor4ub((byte) ((color >> 16) & 255), (byte) ((color >> 8) & 255), (byte) (color & 255), (byte) (0xaa & 255));
 
             int part = Math.round(rect.height * fluids.getRatio(i));
-            int y = rect.y + (rect.height - part) - pos;
+            int y = Math.max(rect.y + (rect.height - part) - pos, rect.y);
             pos += part;
 
             GuiDraw.gui.drawTexturedModelRectFromIcon(rect.x, y, fluidIcon, rect.width, part);
