@@ -66,9 +66,11 @@ public class BidsFood {
             if (itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey(TAG_PROC)) {
                 return itemStack.getTagCompound().getCompoundTag(TAG_PROC);
             } else {
-                NBTTagCompound tag = new NBTTagCompound();
+                if (!itemStack.hasTagCompound()) {
+                    itemStack.setTagCompound(new NBTTagCompound());
+                }
 
-                itemStack.setTagCompound(new NBTTagCompound());
+                NBTTagCompound tag = new NBTTagCompound();
                 itemStack.getTagCompound().setTag(TAG_PROC, tag);
 
                 return tag;
