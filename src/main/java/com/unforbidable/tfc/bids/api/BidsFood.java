@@ -14,24 +14,27 @@ public class BidsFood {
         return new ProcTagAccessor(is);
     }
 
-    public static void setBoiled(ItemStack is, boolean value) {
+    public static ItemStack setBoiled(ItemStack is, boolean value) {
         getProcTag(is).setBoolean(TAG_BOILED, value);
+        return is;
     }
 
     public static boolean isBoiled(ItemStack is) {
         return getProcTag(is).getBoolean(TAG_BOILED);
     }
 
-    public static void setBoiledLiquid(ItemStack is, String value) {
+    public static ItemStack setBoiledLiquid(ItemStack is, String value) {
         getProcTag(is).setString(TAG_BOILED_LIQUID, value);
+        return is;
     }
 
     public static String getBoiledLiquid(ItemStack is) {
         return getProcTag(is).getString(TAG_BOILED_LIQUID);
     }
 
-    public static void setSteamed(ItemStack is, boolean value) {
+    public static ItemStack setSteamed(ItemStack is, boolean value) {
         getProcTag(is).setBoolean(TAG_STEAMED, value);
+        return is;
     }
 
     public static boolean isSteamed(ItemStack is) {
