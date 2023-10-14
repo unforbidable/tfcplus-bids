@@ -10,6 +10,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockUnfinishedAnvil;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
@@ -933,6 +934,8 @@ public class RecipeSetup {
                 new ItemStack(TFCItems.agave, 1)));
 
         ItemStack steamedFish = BidsFood.setSteamed(ItemFoodTFC.createTag(new ItemStack(TFCItems.fishRaw), 0.5f * inputMult), true);
+        // Require fish to be cooked (steamed) to medium level
+        Food.setCooked(steamedFish, CookingHelper.getTempForItemStackCookedLevel(steamedFish, 3));
         // Set infusion to show item with "(Steamed)" text
         // It does not affect recipe matching
         Food.setInfusion(steamedFish, "infusion.steamed");

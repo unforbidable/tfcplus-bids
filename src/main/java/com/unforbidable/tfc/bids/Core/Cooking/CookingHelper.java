@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Core.Cooking;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCFluids;
+import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.CookingPotBounds;
@@ -126,6 +127,16 @@ public class CookingHelper {
             ItemFoodTFC itemFoodTFC = (ItemFoodTFC)itemStack.getItem();
             int cookTempIndex = itemFoodTFC.cookTempIndex;
             return ((int) Food.getCooked(itemStack) - (int)Food.globalCookTemps[cookTempIndex]) / (int)(Food.globalCookTemps[cookTempIndex] / 5f) + 1;
+        }
+
+        return 0;
+    }
+
+    public static float getTempForItemStackCookedLevel(ItemStack itemStack, int level) {
+        if (itemStack.getItem() instanceof ItemFoodTFC) {
+            ItemFoodTFC itemFoodTFC = (ItemFoodTFC)itemStack.getItem();
+            int cookTempIndex = itemFoodTFC.cookTempIndex;
+            return Food.globalCookTemps[cookTempIndex] + (int)(Food.globalCookTemps[cookTempIndex] / 5f) * (level - 1);
         }
 
         return 0;
