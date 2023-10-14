@@ -1,21 +1,24 @@
 package com.unforbidable.tfc.bids.NEI.Handlers;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
-import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockRecipe;
-
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.unforbidable.tfc.bids.NEI.HandlerInfo;
+import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
+import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockRecipe;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ChoppingBlockHandler extends TemplateRecipeHandler {
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ChoppingBlockHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
     static final String HANDLER_ID = "choppingblock";
 
@@ -95,6 +98,15 @@ public class ChoppingBlockHandler extends TemplateRecipeHandler {
                 arecipes.add(new CachedChoppingRecipe(input, result, tools, blocks));
             }
         }
+    }
+
+    @Override
+    public HandlerInfo getHandlerInfo() {
+        HandlerInfo info = new HandlerInfo(BidsBlocks.choppingBlock, 0);
+        for (ItemStack is : OreDictionary.getOres("blockChoppingBlock", false)) {
+            info.addCatalyst(Block.getBlockFromItem(is.getItem()), is.getItem().getMetadata(is.getItemDamage()));
+        }
+        return info;
     }
 
     public class CachedChoppingRecipe extends CachedRecipe {

@@ -1,21 +1,24 @@
 package com.unforbidable.tfc.bids.NEI.Handlers;
 
-import java.awt.Rectangle;
-
-import com.dunk.tfc.Food.ItemFoodTFC;
-import com.dunk.tfc.api.Food;
-import com.dunk.tfc.api.Interfaces.IFood;
-import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernManager;
-import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
-
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.Interfaces.IFood;
+import com.unforbidable.tfc.bids.NEI.HandlerInfo;
+import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernManager;
+import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-public class SaddleQuernHandler extends TemplateRecipeHandler {
+import java.awt.*;
+
+public class SaddleQuernHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
     static final String HANDLER_ID = "saddlequern";
 
@@ -82,6 +85,16 @@ public class SaddleQuernHandler extends TemplateRecipeHandler {
                 arecipes.add(new CachedSaddleQuernRecipe(input, result));
             }
         }
+    }
+
+    @Override
+    public HandlerInfo getHandlerInfo() {
+        HandlerInfo info = new HandlerInfo(BidsBlocks.saddleQuernHandstoneSed, 4);
+        for (int i = 0; i < Global.STONE_SED.length; i++) {
+            info.addCatalyst(BidsBlocks.saddleQuernBaseSed, i);
+            info.addCatalyst(BidsBlocks.saddleQuernHandstoneSed, i);
+        }
+        return info;
     }
 
     public class CachedSaddleQuernRecipe extends CachedRecipe {

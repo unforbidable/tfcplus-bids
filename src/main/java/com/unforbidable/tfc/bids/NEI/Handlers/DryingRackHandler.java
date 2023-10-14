@@ -1,23 +1,24 @@
 package com.unforbidable.tfc.bids.NEI.Handlers;
 
-import java.awt.Rectangle;
-
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
+import com.unforbidable.tfc.bids.NEI.HandlerInfo;
+import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
-
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-public class DryingRackHandler extends TemplateRecipeHandler {
+import java.awt.*;
+
+public class DryingRackHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
     static final String HANDLER_ID = "dryingrack";
 
@@ -99,6 +100,13 @@ public class DryingRackHandler extends TemplateRecipeHandler {
 
     private static void drawCenteredString(FontRenderer fontrenderer, String s, int i, int j, int k) {
         fontrenderer.drawString(s, i - fontrenderer.getStringWidth(s) / 2, j, k);
+    }
+
+    @Override
+    public HandlerInfo getHandlerInfo() {
+        HandlerInfo info = new HandlerInfo(BidsBlocks.dryingRack);
+        info.addCatalyst(BidsBlocks.dryingRack);
+        return info;
     }
 
     public class CachedDryingRecipe extends CachedRecipe {

@@ -1,16 +1,13 @@
 package com.unforbidable.tfc.bids.NEI.Handlers;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.unforbidable.tfc.bids.NEI.HandlerInfo;
+import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.FirepitRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
-
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
@@ -18,7 +15,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-public class FirepitFuelHandler extends TemplateRecipeHandler {
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class FirepitFuelHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
     static final String HANDLER_ID = "firepitfuel";
 
@@ -82,6 +83,11 @@ public class FirepitFuelHandler extends TemplateRecipeHandler {
 
     private static void drawCenteredString(FontRenderer fontrenderer, String s, int i, int j, int k) {
         fontrenderer.drawString(s, i - fontrenderer.getStringWidth(s) / 2, j, k);
+    }
+
+    @Override
+    public HandlerInfo getHandlerInfo() {
+        return new HandlerInfo(BidsBlocks.newFirepit);
     }
 
     public class CachedFirepitFuelRecipe extends CachedRecipe {

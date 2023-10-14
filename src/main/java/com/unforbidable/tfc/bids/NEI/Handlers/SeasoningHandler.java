@@ -1,23 +1,24 @@
 package com.unforbidable.tfc.bids.NEI.Handlers;
 
-import java.awt.Rectangle;
-
-import com.unforbidable.tfc.bids.Tags;
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
+import com.unforbidable.tfc.bids.NEI.HandlerInfo;
+import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
-
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-public class SeasoningHandler extends TemplateRecipeHandler {
+import java.awt.*;
+
+public class SeasoningHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
     static final String HANDLER_ID = "woodpileseasoning";
 
@@ -94,6 +95,11 @@ public class SeasoningHandler extends TemplateRecipeHandler {
 
     private static void drawCenteredString(FontRenderer fontrenderer, String s, int i, int j, int k) {
         fontrenderer.drawString(s, i - fontrenderer.getStringWidth(s) / 2, j, k);
+    }
+
+    @Override
+    public HandlerInfo getHandlerInfo() {
+        return new HandlerInfo(BidsBlocks.woodPile);
     }
 
     public class CachedSeasoningRecipe extends CachedRecipe {

@@ -10,13 +10,16 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
+import com.unforbidable.tfc.bids.NEI.HandlerInfo;
+import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.Crafting.*;
+import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
+import com.unforbidable.tfc.bids.api.Crafting.CookingRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingLidUsage;
-import jdk.nashorn.internal.objects.Global;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -35,7 +38,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CookingPotHandler extends TemplateRecipeHandler {
+public class CookingPotHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
     static final String HANDLER_ID = "cookingpot";
 
@@ -44,7 +47,7 @@ public class CookingPotHandler extends TemplateRecipeHandler {
 
     @Override
     public String getRecipeName() {
-        return "CookingPot";
+        return "Cooking";
     }
 
     @Override
@@ -280,6 +283,14 @@ public class CookingPotHandler extends TemplateRecipeHandler {
 
     private static void drawCenteredString(FontRenderer fontrenderer, String s, int i, int j, int k) {
         fontrenderer.drawString(s, i - fontrenderer.getStringWidth(s) / 2, j, k);
+    }
+
+    @Override
+    public HandlerInfo getHandlerInfo() {
+        HandlerInfo info = new HandlerInfo(BidsBlocks.cookingPot, 9);
+        info.addCatalyst(BidsBlocks.cookingPot, 1);
+        info.addCatalyst(BidsBlocks.cookingPotLid, 1);
+        return info;
     }
 
     public class CachedCookingRecipe extends CachedRecipe {

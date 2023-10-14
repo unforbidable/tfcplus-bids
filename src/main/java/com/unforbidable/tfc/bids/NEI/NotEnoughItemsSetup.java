@@ -1,16 +1,19 @@
 package com.unforbidable.tfc.bids.NEI;
 
+import codechicken.nei.api.API;
+import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.NEI.Handlers.*;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
-
-import codechicken.nei.api.API;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class NotEnoughItemsSetup {
@@ -24,32 +27,47 @@ public class NotEnoughItemsSetup {
     private static void registerHandlers() {
         Bids.LOG.info("Registering NEI handlers");
 
-        API.registerRecipeHandler(new QuarryHandler());
-        API.registerUsageHandler(new QuarryHandler());
+        registerHandler(new QuarryHandler());
+        registerHandler(new SeasoningHandler());
+        registerHandler(new FirepitFuelHandler());
+        registerHandler(new DryingRackHandler());
+        registerHandler(new CarvingHandler());
+        registerHandler(new ChoppingBlockHandler());
+        registerHandler(new SaddleQuernHandler());
+        registerHandler(new StonePressHandler());
+        registerHandler(new CookingPotHandler());
+    }
 
-        API.registerRecipeHandler(new SeasoningHandler());
-        API.registerUsageHandler(new SeasoningHandler());
+    private static void registerHandler(TemplateRecipeHandler handler) {
+        API.registerRecipeHandler(handler);
+        API.registerUsageHandler(handler);
 
-        API.registerRecipeHandler(new FirepitFuelHandler());
-        API.registerUsageHandler(new FirepitFuelHandler());
+        if (handler instanceof IHandlerInfoProvider) {
+            registerHandlerHeaderInfo(handler.getOverlayIdentifier(), ((IHandlerInfoProvider)handler).getHandlerInfo());
+        }
+    }
 
-        API.registerRecipeHandler(new DryingRackHandler());
-        API.registerUsageHandler(new DryingRackHandler());
+    private static void registerHandlerHeaderInfo(String handlerId, HandlerInfo handlerInfo) {
+        NBTTagCompound handlerMetadata = new NBTTagCompound();
+        handlerMetadata.setString("handler", handlerId);
+        handlerMetadata.setString("modName", Tags.MOD_NAME);
+        handlerMetadata.setString("modId", Tags.MOD_ID);
+        handlerMetadata.setBoolean("modRequired", true);
+        handlerMetadata.setString("itemName", handlerInfo.getUniqueBlockOrItemId());
+        handlerMetadata.setInteger("handlerHeight", 70);
+        handlerMetadata.setInteger("maxRecipesPerPage", 5);
+        FMLInterModComms.sendMessage("NotEnoughItems", "registerHandlerInfo", handlerMetadata);
 
-        API.registerRecipeHandler(new CarvingHandler());
-        API.registerUsageHandler(new CarvingHandler());
+        Bids.LOG.info("Sent registerHandlerInfo message for: " + handlerId);
 
-        API.registerRecipeHandler(new ChoppingBlockHandler());
-        API.registerUsageHandler(new ChoppingBlockHandler());
+        for (HandlerCatalystInfo catalystInfo : handlerInfo.getCatalysts()) {
+            NBTTagCompound catalystMetadata = new NBTTagCompound();
+            catalystMetadata.setString("handlerID", handlerId);
+            catalystMetadata.setString("itemName", catalystInfo.getUniqueBlockOrItemId());
+            FMLInterModComms.sendMessage("NotEnoughItems", "registerCatalystInfo", catalystMetadata);
 
-        API.registerRecipeHandler(new SaddleQuernHandler());
-        API.registerUsageHandler(new SaddleQuernHandler());
-
-        API.registerRecipeHandler(new StonePressHandler());
-        API.registerUsageHandler(new StonePressHandler());
-
-        API.registerRecipeHandler(new CookingPotHandler());
-        API.registerUsageHandler(new CookingPotHandler());
+            Bids.LOG.debug("Sent registerCatalystInfo message for: " + handlerId + ", " + catalystInfo.getUniqueBlockOrItemId());
+        }
     }
 
     private static void hideItemStacks() {

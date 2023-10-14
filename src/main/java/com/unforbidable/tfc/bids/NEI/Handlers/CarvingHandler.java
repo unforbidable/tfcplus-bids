@@ -1,22 +1,24 @@
 package com.unforbidable.tfc.bids.NEI.Handlers;
 
-import java.awt.Rectangle;
-
-import org.lwjgl.opengl.GL11;
-
-import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
-import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipePattern;
-
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.unforbidable.tfc.bids.NEI.HandlerInfo;
+import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
+import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipePattern;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.OreDictionary;
+import org.lwjgl.opengl.GL11;
 
-public class CarvingHandler extends TemplateRecipeHandler {
+import java.awt.*;
+
+public class CarvingHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
     static final String HANDLER_ID = "carving";
 
@@ -134,6 +136,15 @@ public class CarvingHandler extends TemplateRecipeHandler {
                 arecipes.add(new CachedCarvingRecipe(input, result, recipe.getPattern()));
             }
         }
+    }
+
+    @Override
+    public HandlerInfo getHandlerInfo() {
+        HandlerInfo info = new HandlerInfo(BidsItems.sedStoneAdze);
+        for (ItemStack is : OreDictionary.getOres("itemAdze", false)) {
+            info.addCatalyst(is.getItem());
+        }
+        return info;
     }
 
     public class CachedCarvingRecipe extends CachedRecipe {

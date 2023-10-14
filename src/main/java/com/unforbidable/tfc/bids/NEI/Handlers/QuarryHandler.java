@@ -1,24 +1,25 @@
 package com.unforbidable.tfc.bids.NEI.Handlers;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.unforbidable.tfc.bids.NEI.HandlerInfo;
+import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
-
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class QuarryHandler extends TemplateRecipeHandler {
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class QuarryHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
     static final String HANDLER_ID = "quarry";
 
@@ -94,6 +95,15 @@ public class QuarryHandler extends TemplateRecipeHandler {
         if (BidsItems.plugAndFeather == ingredient.getItem()) {
             loadRecipes(null);
         }
+    }
+
+    @Override
+    public HandlerInfo getHandlerInfo() {
+        HandlerInfo info = new HandlerInfo(BidsItems.sedStoneDrill);
+        for (ItemStack is : OreDictionary.getOres("itemDrill", false)) {
+            info.addCatalyst(is.getItem());
+        }
+        return info;
     }
 
     public class CachedQuarriable extends CachedRecipe {

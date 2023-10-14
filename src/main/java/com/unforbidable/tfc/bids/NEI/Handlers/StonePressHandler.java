@@ -8,9 +8,11 @@ import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.GuiUsageRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.Food.ItemFoodTFC;
-import com.dunk.tfc.api.Food;
-import com.dunk.tfc.api.Interfaces.IFood;
+import com.dunk.tfc.api.Constant.Global;
+import com.unforbidable.tfc.bids.NEI.HandlerInfo;
+import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.Crafting.StonePressManager;
 import com.unforbidable.tfc.bids.api.Crafting.StonePressRecipe;
 import net.minecraft.client.Minecraft;
@@ -29,9 +31,8 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class StonePressHandler extends TemplateRecipeHandler {
+public class StonePressHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
     static final String HANDLER_ID = "stonepress";
 
@@ -227,6 +228,17 @@ public class StonePressHandler extends TemplateRecipeHandler {
     private static Rectangle recipeOutFluidRect()
     {
         return new Rectangle(115, 7, 8, 50);
+    }
+
+    @Override
+    public HandlerInfo getHandlerInfo() {
+        HandlerInfo info = new HandlerInfo(BidsBlocks.saddleQuernPressingStoneSed, 4);
+        for (int i = 0; i < Global.STONE_SED.length; i++) {
+            info.addCatalyst(BidsBlocks.saddleQuernBaseSed, i);
+            info.addCatalyst(BidsBlocks.saddleQuernPressingStoneSed, i);
+            info.addCatalyst(BidsBlocks.stonePressWeightSed, i);
+        }
+        return info;
     }
 
     public class CachedStonePressRecipe extends CachedRecipe {
