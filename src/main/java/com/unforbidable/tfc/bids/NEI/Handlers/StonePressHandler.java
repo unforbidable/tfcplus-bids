@@ -62,8 +62,11 @@ public class StonePressHandler extends TemplateRecipeHandler {
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == StonePressHandler.class) {
             for (StonePressRecipe recipe : StonePressManager.getRecipes()) {
-                final ItemStack input = recipe.getInput();
-                final FluidStack result = recipe.getCraftingResult();
+                final ItemStack input = recipe.getInput().copy();
+                final FluidStack result = recipe.getCraftingResult().copy();
+                if ((input.getItem() instanceof ItemFood)) {
+                    ItemFoodTFC.createTag(input);
+                }
                 arecipes.add(new CachedStonePressRecipe(input, result));
             }
         } else {
@@ -74,8 +77,8 @@ public class StonePressHandler extends TemplateRecipeHandler {
     @Override
     public void loadCraftingRecipes(ItemStack output) {
         for (StonePressRecipe recipe : StonePressManager.getRecipes()) {
-            final ItemStack input = recipe.getInput();
-            final FluidStack result = recipe.getCraftingResult();
+            final ItemStack input = recipe.getInput().copy();
+            final FluidStack result = recipe.getCraftingResult().copy();
             if (result.isFluidEqual(output)) {
                 arecipes.add(new CachedStonePressRecipe(input, result));
             }
@@ -86,8 +89,13 @@ public class StonePressHandler extends TemplateRecipeHandler {
     public void loadUsageRecipes(ItemStack ingredient) {
         for (StonePressRecipe recipe : StonePressManager.getRecipes()) {
             if (recipe.matches(ingredient)) {
-                final ItemStack input = ingredient.getItem() instanceof IFood ? recipe.getInput() : ingredient;
-                final FluidStack result = recipe.getCraftingResult();
+                final ItemStack input = ingredient.copy();
+                input.stackSize = recipe.getInput().stackSize;
+                if (input.getItem() instanceof ItemFoodTFC) {
+                    input.setTagCompound(recipe.getInput().getTagCompound());
+                }
+
+                final FluidStack result = recipe.getCraftingResult().copy();
                 arecipes.add(new CachedStonePressRecipe(input, result));
             }
         }
@@ -227,10 +235,8 @@ public class StonePressHandler extends TemplateRecipeHandler {
         final FluidStack result;
 
         public CachedStonePressRecipe(ItemStack ingred, FluidStack result) {
-            this.ingred = (ingred.getItem() instanceof ItemFood)
-                ? ItemFoodTFC.createTag(ingred.copy())
-                : ingred.copy();
-            this.result = result.copy();
+            this.ingred = ingred;
+            this.result = result;
         }
 
         @Override
