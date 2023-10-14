@@ -27,6 +27,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -224,6 +225,10 @@ public class BlockSetup extends BidsBlocks {
         cookingPotLid = new BlockCookingPotLid()
             .setBlockTextureName("Cooking Pot Lid")
             .setBlockName("CookingPotLid");
+
+        steamingMesh = new BlockSteamingMesh()
+            .setBlockTextureName("Steaming Mesh")
+            .setBlockName("SteamingMesh");
     }
 
     private static void updateBlocks() {
@@ -574,6 +579,8 @@ public class BlockSetup extends BidsBlocks {
 
         GameRegistry.registerBlock(cookingPot, ItemCookingPot.class, "CookingPot");
         GameRegistry.registerBlock(cookingPotLid, ItemCookingPotLid.class, "CookingPotLid");
+
+        GameRegistry.registerBlock(steamingMesh, "SteamingMesh");
     }
 
 }

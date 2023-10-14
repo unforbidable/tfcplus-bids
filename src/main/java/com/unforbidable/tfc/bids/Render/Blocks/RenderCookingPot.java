@@ -7,10 +7,8 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityCookingPot;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -60,7 +58,7 @@ public class RenderCookingPot implements ISimpleBlockRenderingHandler {
             }
         } else {
             if (te.hasSteamingMesh()) {
-                renderMesh(renderer, x, y, z, bounds.getMeshBounds());
+                renderPart(renderer, x, y, z, BidsBlocks.steamingMesh, bounds.getMeshBounds());
             }
 
             if (te.hasFluid()) {
@@ -89,17 +87,6 @@ public class RenderCookingPot implements ISimpleBlockRenderingHandler {
         renderer.renderStandardBlockWithColorMultiplier(block, x, y, z, r, g, b);
 
         renderer.clearOverrideBlockTexture();
-    }
-
-    private void renderMesh(RenderBlocks renderer, int x, int y, int z,
-                            final AxisAlignedBB meshBounds) {
-        int origMetaData = Minecraft.getMinecraft().theWorld.getBlockMetadata(x, y, z);
-        Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, 0, 0);
-
-        renderer.setRenderBounds(meshBounds.minX, meshBounds.minY, meshBounds.minZ, meshBounds.maxX, meshBounds.maxY, meshBounds.maxZ);
-        renderer.renderStandardBlock(Blocks.wool, x, y, z);
-
-        Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, origMetaData, 0);
     }
 
     private void renderPart(RenderBlocks renderer, int x, int y, int z, Block block,

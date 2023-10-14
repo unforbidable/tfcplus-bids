@@ -106,6 +106,8 @@ public class NotEnoughItemsSetup {
         hideBlock(BidsBlocks.logWallVertAlt);
         hideBlock(BidsBlocks.logWallVertAlt2);
         hideBlock(BidsBlocks.logWallVertAlt3);
+
+        hideBlock(BidsBlocks.steamingMesh);
     }
 
     private static void hideBlock(Block block) {

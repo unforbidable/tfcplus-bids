@@ -121,4 +121,6 @@ public class BidsBlocks {
     public static Block cookingPot;
     public static Block cookingPotLid;
 
+    public static Block steamingMesh;
+
 }
