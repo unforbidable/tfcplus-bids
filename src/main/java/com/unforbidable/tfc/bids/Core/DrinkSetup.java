@@ -5,16 +5,29 @@ import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Drinks.Drink;
 import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
+import com.unforbidable.tfc.bids.Core.Lamp.Fuels.FuelFishOil;
 import com.unforbidable.tfc.bids.Core.Lamp.Fuels.FuelOliveOil;
+import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.DrinkRegistry;
 import com.unforbidable.tfc.bids.api.LampRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class DrinkSetup extends BidsItems {
 
     public static void preInit() {
+        registerFluids();
         registerDrinks();
         registerLampFuels();
+    }
+
+    private static void registerFluids() {
+        Bids.LOG.info("Register fluids");
+
+        FluidRegistry.registerFluid(BidsFluids.OILYFISHWATER);
+        FluidRegistry.registerFluid(BidsFluids.FISHOIL);
+    }
+
     private static void registerLampFuels() {
         Bids.LOG.info("Register lamp fuels");
 

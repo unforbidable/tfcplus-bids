@@ -545,19 +545,25 @@ item.Glass Bottle.Brine.name=Bottle of Brine
 item.Glass Bottle.Honey.name=Bottle of Honey
 item.Glass Bottle.HoneyWater.name=Bottle of Honey Water
 item.Glass Bottle.MilkVinegar.name=Bottle of Milk + Vinegar Mix
+item.Glass Bottle.FishOil.name=Bottle of Fish Oil
+item.Glass Bottle.OilyFishWater.name=Bottle of Oily Fish Water
 
 item.Bowl Vinegar.PotteryBowl.name=Ceramic Bowl (Vinegar)
 item.Bowl Vinegar.Bowl.name=Bowl (Vinegar)
 item.Bowl Olive Oil.PotteryBowl.name=Ceramic Bowl (Olive Oil)
 item.Bowl Olive Oil.Bowl.name=Bowl (Olive Oil)
+item.Bowl Fish Oil.PotteryBowl.name=Ceramic Bowl (Fish Oil)
+item.Bowl Fish Oil.Bowl.name=Bowl (Fish Oil)
 
 item.Ceramic Bucket.Brine.name=Ceramic Bucket (Brine)
 item.Ceramic Bucket.HoneyWater.name=Ceramic Bucket (Honey Water)
 item.Ceramic Bucket.MilkVinegar.name=Ceramic Bucket (Milk + Vinegar Mix)
+item.Ceramic Bucket.OilyFishWater.name=Ceramic Bucket (Oily Fish Water)
 
 item.Wooden Bucket.Brine.name=Wooden Bucket (Brine)
 item.Wooden Bucket.HoneyWater.name=Wooden Bucket (Honey Water)
 item.Wooden Bucket.MilkVinegar.name=Wooden Bucket (Milk + Vinegar Mix)
+item.Wooden Bucket.OilyFishWater.name=Wooden Bucket (Oily Fish Water)
 
 item.Large Bowl.Clay.name=Large Clay Bowl
 item.Large Bowl.Ceramic.name=Large Ceramic Bowl
@@ -942,6 +948,9 @@ item.Plug And Feather.name=Plug and Feather
 
 item.Apple Crushed.name=Crushed Apple
 item.Olive Crushed.name=Crushed Olive
+
+fluid.FishOil=Fish Oil
+fluid.OilyFishWater=Oily Fish Water
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs

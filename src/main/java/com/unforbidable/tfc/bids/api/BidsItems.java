@@ -122,9 +122,12 @@ public class BidsItems {
     public static Item honeyBottle;
     public static Item honeyWaterBottle;
     public static Item milkVinegarBottle;
+    public static Item fishOilBottle;
+    public static Item oilyFishWaterBottle;
 
     public static Item vinegarBowl;
     public static Item oliveOilBowl;
+    public static Item fishOilBowl;
 
     public static Item largeClayBowl;
     public static Item freshWaterLargeBowl;
@@ -136,10 +139,12 @@ public class BidsItems {
     public static Item woodenBucketBrine;
     public static Item woodenBucketHoneyWater;
     public static Item woodenBucketMilkVinegar;
+    public static Item woodenBucketOilyFishWater;
 
     public static Item ceramicBucketBrine;
     public static Item ceramicBucketHoneyWater;
     public static Item ceramicBucketMilkVinegar;
+    public static Item ceramicBucketOilyFishWater;
 
     public static Item woodenBucketRope;
     public static Item woodenBucketRopeWater;
