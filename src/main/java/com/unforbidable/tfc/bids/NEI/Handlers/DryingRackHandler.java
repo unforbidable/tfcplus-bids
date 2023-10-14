@@ -72,7 +72,12 @@ public class DryingRackHandler extends TemplateRecipeHandler {
     public void loadUsageRecipes(ItemStack ingredient) {
         for (DryingRecipe recipe : DryingManager.getRecipes()) {
             if (recipe.matches(ingredient)) {
-                final ItemStack input = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
+                final ItemStack input = ingredient.copy();
+                input.stackSize = recipe.getInput().stackSize;
+                if (input.getItem() instanceof ItemFoodTFC) {
+                    input.setTagCompound(recipe.getInput().getTagCompound());
+                }
+
                 final ItemStack result = recipe.getCraftingResult(input);
                 arecipes.add(new CachedDryingRecipe(input, result, recipe.getDuration()));
             }
