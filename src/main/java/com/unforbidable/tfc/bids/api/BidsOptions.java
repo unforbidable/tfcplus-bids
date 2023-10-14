@@ -57,7 +57,7 @@ public class BidsOptions {
 
     public static class LightSources {
 
-        public static float clayLampLightLevel = 0.8f;
+        public static float clayLampOliveOilLightLevel = 0.8f;
         public static float clayLampOliveOilConsumption = 0.25f;
 
     }

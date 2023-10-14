@@ -114,10 +114,10 @@ public class ConfigHandler {
                 BidsOptions.StonePress.efficiency, 0.5f, 1.5f,
                 "Higher values increase the efficiency of a stone press, 1.0f being equal to the classic TFC hopper press.");
 
-        BidsOptions.LightSources.clayLampLightLevel = config.getFloat(
-                "clayLampLightLevel", "lightSources",
-                BidsOptions.LightSources.clayLampLightLevel, 0.1f, 1f,
-                "Higher values increase the light level of clay lamps, 1f being equal to the light level of TFC metal oil lamps.");
+        BidsOptions.LightSources.clayLampOliveOilLightLevel = config.getFloat(
+                "clayLampOliveOilLightLevel", "lightSources",
+                BidsOptions.LightSources.clayLampOliveOilLightLevel, 0.1f, 1f,
+                "Higher values increase the light level of clay lamps consuming olive oil, 1f being equal to the light level of TFC metal oil lamps.");
         BidsOptions.LightSources.clayLampOliveOilConsumption = config.getFloat(
                 "clayLampOliveOilConsumption", "lightSources",
                 BidsOptions.LightSources.clayLampOliveOilConsumption, 0.1f, 10f,
