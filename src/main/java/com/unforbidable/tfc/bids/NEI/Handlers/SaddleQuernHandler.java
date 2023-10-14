@@ -72,7 +72,12 @@ public class SaddleQuernHandler extends TemplateRecipeHandler {
     public void loadUsageRecipes(ItemStack ingredient) {
         for (SaddleQuernRecipe recipe : SaddleQuernManager.getRecipes()) {
             if (recipe.matches(ingredient)) {
-                final ItemStack input = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
+                final ItemStack input = ingredient.copy();
+                input.stackSize = recipe.getInput().stackSize;
+                if (input.getItem() instanceof ItemFoodTFC) {
+                    input.setTagCompound(recipe.getInput().getTagCompound());
+                }
+
                 final ItemStack result = recipe.getCraftingResult();
                 arecipes.add(new CachedSaddleQuernRecipe(input, result));
             }
