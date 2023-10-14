@@ -672,11 +672,11 @@ public class RecipeSetup {
                 TFCItems.porkchopRaw, TFCItems.fishRaw, TFCItems.seastarRaw, TFCItems.scallopRaw,
                 TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese };
         for (Item food : foodToDry) {
-            DryingManager.addRecipe(new FoodDryingRecipe(new ItemStack(food), 12, true));
+            DryingManager.addRecipe(new FoodDryingRecipe(ItemFoodTFC.createTag(new ItemStack(food)), 12, true));
         }
 
         // Extra food drying
-        DryingManager.addRecipe(new FoodDryingRecipe(new ItemStack(TFCItems.seaWeed), 12, true));
+        DryingManager.addRecipe(new FoodDryingRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.seaWeed)), 12, true));
 
         // And now tying equipment
         DryingManager.registerTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1);
