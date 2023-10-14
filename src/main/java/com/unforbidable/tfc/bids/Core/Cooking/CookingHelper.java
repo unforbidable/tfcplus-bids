@@ -162,9 +162,9 @@ public class CookingHelper {
             amount *= 5;
         }
 
-        // When steaming the amount is halved
+        // When steaming the amount is doubled
         if (steaming) {
-            amount /= 2;
+            amount *= 2;
         }
 
         // Round up to multiple of 50 to avoid weird numbers
