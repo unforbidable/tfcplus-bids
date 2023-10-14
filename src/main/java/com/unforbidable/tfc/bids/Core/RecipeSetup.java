@@ -4,6 +4,7 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.*;
 import com.dunk.tfc.api.Enums.RuleEnum;
+import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
@@ -18,9 +19,7 @@ import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.Recipes.RecipeEmptyCookingPot;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.*;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -932,6 +931,12 @@ public class RecipeSetup {
 
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputMult)),
                 new ItemStack(TFCItems.agave, 1)));
+
+        ItemStack steamedFish = BidsFood.setSteamed(ItemFoodTFC.createTag(new ItemStack(TFCItems.fishRaw), 0.5f * inputMult), true);
+        // Set infusion to show item with "(Steamed)" text
+        // It does not affect recipe matching
+        Food.setInfusion(steamedFish, "infusion.steamed");
+        StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(BidsFluids.OILYFISHWATER, 10), steamedFish));
     }
 
     private static void registerCookingRecipes() {
@@ -1028,6 +1033,13 @@ public class RecipeSetup {
             .withoutHeat()
             .withLid()
             .inFixedTime(8000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.OILYFISHWATER, 1000))
+            .produces(new FluidStack(TFCFluids.FRESHWATER, 950), new FluidStack(BidsFluids.FISHOIL, 50))
+            .withoutHeat()
+            .inFixedTime(1000)
             .build());
     }
 

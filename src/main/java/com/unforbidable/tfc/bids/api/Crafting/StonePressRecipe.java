@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.api.Crafting;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
+import com.unforbidable.tfc.bids.api.BidsFood;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -26,21 +27,16 @@ public class StonePressRecipe {
     private boolean foodMatches(ItemStack itemStack) {
         ItemStack inputFood = ItemFoodTFC.createTag(input.copy());
 
-        if (Food.areEqual(inputFood, itemStack)) {
-            return true;
-        }
+        // Ignore cooked and infused status
+        ItemStack inputFoodCooked = inputFood.copy();
+        ItemStack itemStackCooked = itemStack.copy();
+        Food.setCooked(itemStackCooked,0);
+        Food.setCooked(inputFoodCooked,0);
+        Food.setInfusion(itemStackCooked, "dummy");
+        Food.setInfusion(inputFoodCooked, "dummy");
 
-        // Allow cooked - set both to 0 and compare
-        if (Food.getCooked(itemStack) > 0) {
-            ItemStack inputFoodCooked = inputFood.copy();
-            Food.setCooked(inputFoodCooked,0);
-            ItemStack itemStackCooked = itemStack.copy();
-            Food.setCooked(itemStackCooked,0);
-
-            return Food.areEqual(inputFoodCooked, itemStackCooked);
-        }
-
-        return false;
+        // Use BidsFood to check boiled and steamed status
+        return BidsFood.areEqual(inputFoodCooked, itemStackCooked);
     }
 
     public ItemStack getInput() {
