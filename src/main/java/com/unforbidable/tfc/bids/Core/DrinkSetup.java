@@ -5,13 +5,20 @@ import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Drinks.Drink;
 import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
+import com.unforbidable.tfc.bids.Core.Lamp.Fuels.FuelOliveOil;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.DrinkRegistry;
+import com.unforbidable.tfc.bids.api.LampRegistry;
 
 public class DrinkSetup extends BidsItems {
 
     public static void preInit() {
         registerDrinks();
+        registerLampFuels();
+    private static void registerLampFuels() {
+        Bids.LOG.info("Register lamp fuels");
+
+        LampRegistry.registerFuel(TFCFluids.OLIVEOIL, FuelOliveOil.class);
     }
 
     public static void postInit() {

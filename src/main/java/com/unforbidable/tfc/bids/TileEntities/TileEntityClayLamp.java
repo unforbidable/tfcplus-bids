@@ -2,8 +2,8 @@ package com.unforbidable.tfc.bids.TileEntities;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
-import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Lamp.LampHelper;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.api.BidsOptions;
@@ -55,7 +55,7 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
             long timeSinceLastConsumption = TFC_Time.getTotalTicks() == 0 ? 0 : TFC_Time.getTotalTicks() - lastTimeFuelConsumed;
             lastTimeFuelConsumed = TFC_Time.getTotalTicks();
 
-            float fuelConsumedNow = timeSinceLastConsumption * BidsOptions.LightSources.clayLampOliveOilConsumption / TFC_Time.HOUR_LENGTH;
+            float fuelConsumedNow = timeSinceLastConsumption * LampHelper.getFuelConsumptionRate(fuelStack) / TFC_Time.HOUR_LENGTH;
             fuelAmount -= fuelConsumedNow;
             if (fuelAmount < 0) {
                 fuelAmount = 0;
@@ -124,7 +124,7 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
 
     public float getFuelTimeLeft() {
         if (fuelAmount > 0) {
-            return fuelAmount / BidsOptions.LightSources.clayLampOliveOilConsumption;
+            return fuelAmount / LampHelper.getFuelConsumptionRate(fuelStack);
         } else {
             return 0;
         }
@@ -168,7 +168,7 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
             if (fuelStack == null)
             {
                 // Cannot fill up from larger amount
-                if (inFS.amount > FUEL_MAX_VOLUME || inFS.getFluid() != TFCFluids.OLIVEOIL) {
+                if (inFS.amount > FUEL_MAX_VOLUME || !LampHelper.isValidLampFuel(inFS)) {
                     return false;
                 }
 

@@ -6,6 +6,7 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.Common.Bounds.ClayLampBounds;
+import com.unforbidable.tfc.bids.Core.Lamp.LampHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityClayLamp;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -56,11 +57,13 @@ public class BlockClayLamp extends BlockContainer {
     }
 
     @Override
-    public int getLightValue(IBlockAccess world, int x, int y, int z)
-    {
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta > 7) {
-            return (int)(BidsOptions.LightSources.clayLampLightLevel * 15);
+            TileEntityClayLamp clayLamp = (TileEntityClayLamp) world.getTileEntity(x, y, z);
+            if (clayLamp.hasFuel()) {
+                return (int)(LampHelper.getFuelLightLevel(clayLamp.getFuel()) * 15);
+            }
         }
 
         return 0;
