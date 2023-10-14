@@ -32,6 +32,7 @@ public class DrinkSetup extends BidsItems {
         Bids.LOG.info("Register lamp fuels");
 
         LampRegistry.registerFuel(TFCFluids.OLIVEOIL, FuelOliveOil.class);
+        LampRegistry.registerFuel(BidsFluids.FISHOIL, FuelFishOil.class);
     }
 
     public static void postInit() {

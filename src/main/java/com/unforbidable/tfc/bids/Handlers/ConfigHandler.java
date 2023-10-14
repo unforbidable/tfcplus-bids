@@ -122,6 +122,14 @@ public class ConfigHandler {
                 "clayLampOliveOilConsumption", "lightSources",
                 BidsOptions.LightSources.clayLampOliveOilConsumption, 0.1f, 10f,
                 "Higher values increase the olive oil consumption in clay lamps, 0.125f being equal to the olive oil consumption of TFC metal oil lamps.");
+        BidsOptions.LightSources.clayLampFishOilLightLevel = config.getFloat(
+                "clayLampFishOilLightLevel", "lightSources",
+                BidsOptions.LightSources.clayLampFishOilLightLevel, 0.1f, 1f,
+                "Higher values increase the light level of clay lamps consuming fish oil, 1f being equal to the light level of TFC metal oil lamps.");
+        BidsOptions.LightSources.clayLampFishOilConsumption = config.getFloat(
+                "clayLampFishOilConsumption", "lightSources",
+                BidsOptions.LightSources.clayLampFishOilConsumption, 0.1f, 10f,
+                "Higher values increase the fish oil consumption in clay lamps, 0.125f being equal to the olive oil consumption of TFC metal oil lamps.");
 
         BidsOptions.WorldGen.aquiferChanceMultiplier = config.getFloat(
                 "aquiferChanceMultiplier", "worldGen",
