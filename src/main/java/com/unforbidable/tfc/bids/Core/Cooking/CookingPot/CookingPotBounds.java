@@ -47,7 +47,8 @@ public class CookingPotBounds {
 
         contentBounds = AxisAlignedBB.getBoundingBox(bottomXZ, bottomHeight, bottomXZ, 1 - bottomXZ, bottomHeight + (1 / 32f), 1 - bottomXZ);
 
-        meshBounds = AxisAlignedBB.getBoundingBox(bottomXZ, meshLift, bottomXZ, 1 - bottomXZ, meshLift + meshHeight, 1 - bottomXZ);
+        float meshXZ = bottomXZ + rimWidth / 2;
+        meshBounds = AxisAlignedBB.getBoundingBox(meshXZ, meshLift, meshXZ, 1 - meshXZ, meshLift + meshHeight, 1 - meshXZ);
 
         entireBounds = AxisAlignedBB.getBoundingBox(rimStartXZ, 0, rimStartXZ, 1 - rimStartXZ, lidLift, 1 - rimStartXZ);
 

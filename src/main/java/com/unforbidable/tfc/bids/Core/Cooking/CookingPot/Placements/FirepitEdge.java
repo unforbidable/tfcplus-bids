@@ -36,7 +36,7 @@ public class FirepitEdge extends CookingPotPlacement {
 
     @Override
     public Vec3 getOffset() {
-        return Vec3.createVectorHelper(0.35 * direction.offsetX, direction.offsetY, 0.35 * direction.offsetZ);
+        return Vec3.createVectorHelper(0.28 * direction.offsetX, direction.offsetY, 0.28 * direction.offsetZ);
     }
 
     @Override
