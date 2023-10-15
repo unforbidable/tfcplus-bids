@@ -1042,7 +1042,7 @@ public class RecipeSetup {
             .consumes(new FluidStack(BidsFluids.OILYFISHWATER, 1000))
             .produces(new FluidStack(TFCFluids.FRESHWATER, 950), new FluidStack(BidsFluids.FISHOIL, 50))
             .withoutHeat()
-            .inFixedTime(1000)
+            .inFixedTime(48000)
             .build());
     }
 
