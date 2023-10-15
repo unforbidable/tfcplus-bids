@@ -348,7 +348,12 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
 
             if (template.getTime() > 0) {
                 float hours = template.getTime() / (float)TFC_Time.HOUR_LENGTH;
-                duration = String.format("%.2f %s", hours, StatCollector.translateToLocal("gui.Hours").toLowerCase());
+                int roundHours = Math.round(hours);
+                if (roundHours == hours) {
+                    duration = String.format("%d %s", roundHours, StatCollector.translateToLocal("gui.Hours").toLowerCase());
+                } else {
+                    duration = String.format("%.2f %s", hours, StatCollector.translateToLocal("gui.Hours").toLowerCase());
+                }
             } else {
                 duration = StatCollector.translateToLocal("gui.Instant");
             }
