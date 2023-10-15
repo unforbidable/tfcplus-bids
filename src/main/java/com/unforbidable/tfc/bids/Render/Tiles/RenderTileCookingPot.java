@@ -5,9 +5,7 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityCookingPot;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
-import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
 
 public class RenderTileCookingPot extends TESRBase {
@@ -25,11 +23,21 @@ public class RenderTileCookingPot extends TESRBase {
                 ItemStack item = cookingPot.getInputItemStack();
                 GL11.glPushMatrix(); // start
 
-                Vec3 offset = cookingPot.hasSteamingMesh() ? cookingPot.getCachedBounds().getItemPosWithMesh() : cookingPot.getCachedBounds().getItemPos();
-                offset = offset.addVector(x, y, z);
+                Vec3 offset = Vec3.createVectorHelper(x, y, z);
 
-                float fullnessRatio = (float)cookingPot.getTotalLiquidVolume() / (float)cookingPot.getMaxFluidVolume();
-                offset = offset.addVector(0, cookingPot.getCachedBounds().getMaxContentHeight() * fullnessRatio, 0);
+                if (cookingPot.hasSteamingMesh()) {
+                    // Place above steaming mesh
+                    Vec3 pos = cookingPot.getCachedBounds().getItemPosWithMesh();
+                    offset = offset.addVector(pos.xCoord, pos.yCoord, pos.zCoord);
+                } else {
+                    // Place in the cooking pot
+                    Vec3 pos = cookingPot.getCachedBounds().getItemPos();
+                    offset = offset.addVector(pos.xCoord, pos.yCoord, pos.zCoord);
+
+                    // Raise above the liquid
+                    float fullnessRatio = (float)cookingPot.getTotalLiquidVolume() / (float)cookingPot.getMaxFluidVolume();
+                    offset = offset.addVector(0, cookingPot.getCachedBounds().getMaxContentHeight() * fullnessRatio, 0);
+                }
 
                 float scale = 0.6f;
 
