@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipeCraftingResult;
@@ -290,6 +291,7 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
         HandlerInfo info = new HandlerInfo(BidsBlocks.cookingPot, 9);
         info.addCatalyst(BidsBlocks.cookingPot, 1);
         info.addCatalyst(BidsBlocks.cookingPotLid, 1);
+        info.addCatalyst(BidsItems.steamingMeshCloth);
         return info;
     }
 
