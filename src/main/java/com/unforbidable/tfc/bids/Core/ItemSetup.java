@@ -426,6 +426,7 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Wooden Bucket Rope.FreshWater");
 
         steamingMeshCloth = new ItemSteamingMeshCloth()
+            .setMaxDamage(TFCItems.linenUses)
             .setUnlocalizedName("Steaming Mesh Cloth");
     }
 

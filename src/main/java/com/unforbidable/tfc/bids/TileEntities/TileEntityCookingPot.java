@@ -87,6 +87,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     private boolean recipeCanPauseWhenParametersChange = true;
 
+    private int accessoryDamage = 0;
+
     public CookingRecipeProgress getRecipeProgress() {
         return recipeProgress;
     }
@@ -359,6 +361,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             giveItemStackToPlayer(player, storage[SLOT_INPUT]);
             storage[SLOT_INPUT] = null;
 
+            applyAccessoryDamage();
+
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
@@ -378,6 +382,25 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             return true;
         } else {
             return false;
+        }
+    }
+
+    private void applyAccessoryDamage() {
+        // When steaming mesh is used, and the accumulated damage exceeds the durability
+        // this is when the item stack is destroyed
+        if (accessoryDamage > 0 && hasAccessory() && getAccessoryItemStack().getMaxDamage() > 0) {
+            Bids.LOG.info("accessoryDamage (applied): " + accessoryDamage);
+            Bids.LOG.info("getAccessoryItemStack().getMaxDamage(): " + getAccessoryItemStack().getMaxDamage());
+            Bids.LOG.info("getAccessoryItemStack().getItemDamage(): " + getAccessoryItemStack().getItemDamage());
+
+            getAccessoryItemStack().setItemDamage(getAccessoryItemStack().getItemDamage() + accessoryDamage);
+            accessoryDamage = 0;
+
+            Bids.LOG.info("getAccessoryItemStack().getItemDamage() (after): " + getAccessoryItemStack().getItemDamage());
+
+            if (storage[SLOT_ACCESSORY].getItemDamage() >= storage[SLOT_ACCESSORY].getMaxDamage()) {
+                storage[SLOT_ACCESSORY] = null;
+            }
         }
     }
 
@@ -888,6 +911,9 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             if (storage[SLOT_INPUT].stackSize == 0) {
                 storage[SLOT_INPUT] = null;
+
+                // When input item is consumed, apply any accumulated accessory damage
+                applyAccessoryDamage();
             }
         }
 
@@ -1048,6 +1074,13 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 fluids[FLUID_PRIMARY].amount -= requiredFluidAmount;
                 if (fluids[FLUID_PRIMARY].amount == 0) {
                     fluids[FLUID_PRIMARY] = null;
+                }
+
+                // When steaming, the steaming mesh is damaged proportionally to the amount of liquid consumed
+                if (hasSteamingMesh()) {
+                    Bids.LOG.info("accessoryDamage: " + accessoryDamage);
+                    accessoryDamage += requiredFluidAmount / 100;
+                    Bids.LOG.info("accessoryDamage (after): " + accessoryDamage);
                 }
 
                 Bids.LOG.debug("Consumed input liquid amount: " + requiredFluidAmount);
@@ -1279,6 +1312,10 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             tag.setString("heatLevel", heatLevel.name());
         }
 
+        if (hasAccessory() && accessoryDamage > 0) {
+            tag.setInteger("accessoryDamage", accessoryDamage);
+        }
+
         if (hasLid() || hasAccessory() || hasInputItem()) {
             NBTTagList itemTagList = new NBTTagList();
             for (int i = 0; i < MAX_STORAGE; i++) {
@@ -1325,6 +1362,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         } catch (IllegalArgumentException e) {
             heatLevel = EnumCookingHeatLevel.NONE;
         }
+
+        accessoryDamage = tag.getInteger("accessoryDamage");
 
         {
             for (int i = 0; i < MAX_STORAGE; i++) {
