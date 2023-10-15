@@ -47,7 +47,7 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public String getRecipeName() {
-        return "Cooking";
+        return StatCollector.translateToLocal("gui.Cooking");
     }
 
     @Override

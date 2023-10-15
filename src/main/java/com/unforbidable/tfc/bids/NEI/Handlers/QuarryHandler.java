@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.awt.*;
@@ -27,7 +28,7 @@ public class QuarryHandler extends TemplateRecipeHandler implements IHandlerInfo
 
     @Override
     public String getRecipeName() {
-        return BidsBlocks.quarry.getLocalizedName();
+        return StatCollector.translateToLocal("gui.Quarrying");
     }
 
     @Override
