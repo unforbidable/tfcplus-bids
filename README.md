@@ -44,6 +44,8 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Large Bowl](../../wiki/Large-Bowl) - enables mixing barrel recipes that might require adding 500mB of liquid
 * [Unfinished Anvil](../../wiki/Unfinished-Anvil) - enables anvil creation by welding seven double ingots together
 * [Cooking Pot](../../wiki/Cooking-Pot) - for boiling and steaming foodstuffs and much more
+* [Steaming Mesh](../../wiki/Steaming-Mesh) - as an accessory for the cooking pot
+* [Fish Oil](../../wiki/Fish-Oil) - an alternative fuel for clay lamps
 
 ### Contributions
 
@@ -60,8 +62,8 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Compatibility
 
-* Waila - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, saddle quern, stone press, etc
-* Not Enough Items - recipes for seasoning, quarrying, drying, carving, chopping, saddle quern, stone press and new firepit fuels
+* WAILA - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, saddle quern, stone press, cooking pot, etc
+* NEI & NEI G.T.N.H. Unofficial - recipes for seasoning, quarrying, drying, carving, chopping, saddle quern, stone press, cooking and new firepit fuels
 
 ### Compiling
 

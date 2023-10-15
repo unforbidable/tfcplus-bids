@@ -389,3 +389,16 @@
 - Changed: Updated Chinese translation by Eternal130
 - Removed: Cooking coarse flour into porridge in a large vessel (discontinued in favor of boiling in a cooking pot)
 - Fixed: Crash when trying to cook food without heat index
+
+0.33.0 (15-10-2023)
+- Added: Fish Oil
+- Added: Steaming mesh
+- Added: Steamed Fish (Medium) can be pressed in a Stone Press producing Oily Fish Water
+- Added: Oily Fish Water can be separated into Fish Oil and Fresh Water by leaving it to sit a Cooking Pot
+- Added: Clay lamp can use Fish Oil as fuel which lasts slightly longer and produces slightly less light compared to Olive oil
+- Added: Support for NEI G.T.N.H. Unofficial with recipe headers and catalysts
+- Changed: Sheets of cloth cannot be used as a steaming mesh directly
+- Changed: More water is consumed when steaming food in a cooking pot
+- Changed: More text shown in NEI can be localized now
+- Changed: Light level and consumption can be configured individually for Clay lamp fuels
+- Fixed: Steamed item should always render above steaming mesh
