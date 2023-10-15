@@ -150,4 +150,7 @@ public class BidsItems {
     public static Item woodenBucketRopeWater;
     public static Item ceramicBucketRope;
     public static Item ceramicBucketRopeWater;
+
+    public static Item steamingMeshCloth;
+
 }

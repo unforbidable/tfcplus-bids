@@ -1163,6 +1163,11 @@ public class RecipeSetup {
             new Object[] { "#   #", "## ##", "## ##", "## ##", "## ##", '#', TFCItems.flatLeather });
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.coatBodyBackLeather, 1, 0),
             new Object[] { "## ##", "#####", "#####", "#####", "#####", '#', TFCItems.flatLeather });
+
+        for (Item flatItem : new Item[] { TFCItems.flatLinen, TFCItems.flatWool, TFCItems.flatSilk, TFCItems.flatCotton, TFCItems.flatBurlap }) {
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.steamingMeshCloth, 1),
+                new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#', flatItem });
+        }
     }
 
     private static void registerSewingRecipes() {

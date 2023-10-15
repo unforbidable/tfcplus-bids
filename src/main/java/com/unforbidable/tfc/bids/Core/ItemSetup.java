@@ -424,6 +424,9 @@ public class ItemSetup extends BidsItems {
         woodenBucketRopeWater = new ItemBucketRopeFluid(false)
             .setContainerItem(woodenBucketRope)
             .setUnlocalizedName("Wooden Bucket Rope.FreshWater");
+
+        steamingMeshCloth = new ItemSteamingMeshCloth()
+            .setUnlocalizedName("Steaming Mesh Cloth");
     }
 
     private static void registerFluidContainers() {
@@ -544,10 +547,10 @@ public class ItemSetup extends BidsItems {
             OreDictionary.registerOre("itemLogExtra", new ItemStack(log, 1, WILD));
         }
 
-        // Use various cloth as a steaming mesh
-        for (Item item : new Item[]{ TFCItems.linenCloth, TFCItems.woolCloth, TFCItems.silkCloth, TFCItems.cottonCloth, TFCItems.burlapCloth }) {
-            OreDictionary.registerOre("itemCookingPotAccessory", item);
-            OreDictionary.registerOre("itemCookingPotAccessorySteamingMesh", item);
+        // Proper steaming mesh
+        for (Item item : new Item[]{ BidsItems.steamingMeshCloth }) {
+            OreDictionary.registerOre("itemCookingPotAccessory", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
+            OreDictionary.registerOre("itemCookingPotAccessorySteamingMesh", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
         }
     }
 
@@ -834,6 +837,7 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(ceramicBucketOilyFishWater, ceramicBucketOilyFishWater.getUnlocalizedName());
         GameRegistry.registerItem(woodenBucketOilyFishWater, woodenBucketOilyFishWater.getUnlocalizedName());
 
+        GameRegistry.registerItem(steamingMeshCloth, steamingMeshCloth.getUnlocalizedName());
     }
 
 }
