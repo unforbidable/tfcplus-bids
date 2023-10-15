@@ -13,6 +13,8 @@ public class HandlerInfo {
     private final int blockMetadata;
     private final Item item;
     private final int itemDamage;
+    private int recipesPerPage = 5;
+    private int height = 65;
 
     private final List<HandlerCatalystInfo> catalysts = new ArrayList<HandlerCatalystInfo>();
 
@@ -56,6 +58,22 @@ public class HandlerInfo {
 
     public void addCatalyst(Item item) {
         this.catalysts.add(new HandlerCatalystInfo(item, 0));
+    }
+
+    public int getRecipesPerPage() {
+        return recipesPerPage;
+    }
+
+    public void setRecipesPerPage(int recipesPerPage) {
+        this.recipesPerPage = recipesPerPage;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public String getUniqueBlockOrItemId() {

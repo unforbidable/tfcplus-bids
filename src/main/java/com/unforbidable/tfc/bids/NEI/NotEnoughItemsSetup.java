@@ -54,8 +54,8 @@ public class NotEnoughItemsSetup {
         handlerMetadata.setString("modId", Tags.MOD_ID);
         handlerMetadata.setBoolean("modRequired", true);
         handlerMetadata.setString("itemName", handlerInfo.getUniqueBlockOrItemId());
-        handlerMetadata.setInteger("handlerHeight", 70);
-        handlerMetadata.setInteger("maxRecipesPerPage", 5);
+        handlerMetadata.setInteger("handlerHeight", handlerInfo.getHeight());
+        handlerMetadata.setInteger("maxRecipesPerPage", handlerInfo.getRecipesPerPage());
         FMLInterModComms.sendMessage("NotEnoughItems", "registerHandlerInfo", handlerMetadata);
 
         Bids.LOG.info("Sent registerHandlerInfo message for: " + handlerId);

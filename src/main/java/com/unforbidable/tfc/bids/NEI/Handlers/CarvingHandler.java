@@ -141,6 +141,7 @@ public class CarvingHandler extends TemplateRecipeHandler implements IHandlerInf
     @Override
     public HandlerInfo getHandlerInfo() {
         HandlerInfo info = new HandlerInfo(BidsItems.sedStoneAdze);
+        info.setHeight(107);
         for (ItemStack is : OreDictionary.getOres("itemAdze", false)) {
             info.addCatalyst(is.getItem());
         }
