@@ -350,7 +350,7 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
                 float hours = template.getTime() / (float)TFC_Time.HOUR_LENGTH;
                 duration = String.format("%.2f %s", hours, StatCollector.translateToLocal("gui.Hours").toLowerCase());
             } else {
-                duration = "Instant";
+                duration = StatCollector.translateToLocal("gui.Instant");
             }
         }
 

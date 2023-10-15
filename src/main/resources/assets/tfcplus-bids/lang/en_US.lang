@@ -989,6 +989,7 @@ gui.plans.drill=Drill
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Days=Days
+gui.Instant=Instant
 gui.Ruined=Ruined
 gui.Wedges=Wedges
 gui.QuarryReady=Ready
