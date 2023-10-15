@@ -90,7 +90,7 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
             } else if (recipe.getOutputFluidStack() != null && recipe.getOutputFluidStack().isFluidEqual(output)) {
                 // Fluid matches
                 arecipes.add(new CachedCookingRecipe(recipe));
-            } else if (recipe.getOutputFluidStack() != null && recipe.getOutputFluidStack().isFluidEqual(output)) {
+            } else if (recipe.getSecondaryOutputFluidStack() != null && recipe.getSecondaryOutputFluidStack().isFluidEqual(output)) {
                 // Secondary fluid matches
                 arecipes.add(new CachedCookingRecipe(recipe));
             }
