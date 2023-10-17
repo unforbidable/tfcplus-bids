@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -117,67 +118,37 @@ public class FluidHelper {
                 if (event.getResult() == Event.Result.ALLOW)
                     return event.result;
 
-                if (TFC_Core.isFreshWater(world.getBlock(x, y, z))) {
-                    if (player.capabilities.isCreativeMode)
-                        return is;
-
-                    return getContainerFilledWithFluid(is, world, player, TFCFluids.FRESHWATER);
-                }
-
-                if (TFC_Core.isSaltWater(world.getBlock(x, y, z))) {
-                    if (player.capabilities.isCreativeMode)
-                        return is;
-
-                    return getContainerFilledWithFluid(is, world, player, TFCFluids.SALTWATER);
-                }
-
-                if (TFC_Core.isTanninWater(world.getBlock(x, y, z))) {
-                    if (player.capabilities.isCreativeMode)
-                        return is;
-
-                    return getContainerFilledWithFluid(is, world, player, TFCFluids.TANNIN);
+                Fluid fluid = getFluidFromBlockAt(world, x, y, z);
+                if (fluid != null) {
+                    return getContainerFilledWithFluid(is, world, player, fluid);
                 }
 
                 // Handle flowing water
-                int flowX = x;
-                int flowY = y;
-                int flowZ = z;
-                switch (mop.sideHit) {
-                    case 0:
-                        flowY = y - 1;
-                        break;
-                    case 1:
-                        flowY = y + 1;
-                        break;
-                    case 2:
-                        flowZ = z - 1;
-                        break;
-                    case 3:
-                        flowZ = z + 1;
-                        break;
-                    case 4:
-                        flowX = x - 1;
-                        break;
-                    case 5:
-                        flowX = x + 1;
-                        break;
-                }
-
-                if (TFC_Core.isFreshWater(world.getBlock(flowX, flowY, flowZ))) {
-                    return getContainerFilledWithFluid(is, world, player, TFCFluids.FRESHWATER);
-                }
-
-                if (TFC_Core.isSaltWater(world.getBlock(flowX, flowY, flowZ))) {
-                    return getContainerFilledWithFluid(is, world, player, TFCFluids.SALTWATER);
-                }
-
-                if (TFC_Core.isTanninWater(world.getBlock(flowX, flowY, flowZ))) {
-                    return getContainerFilledWithFluid(is, world, player, TFCFluids.TANNIN);
+                ForgeDirection d = ForgeDirection.getOrientation(mop.sideHit);
+                Fluid flowFluid = getFluidFromBlockAt(world, x + d.offsetX, y + d.offsetY, z + d.offsetZ);
+                if (flowFluid != null) {
+                    return getContainerFilledWithFluid(is, world, player, flowFluid);
                 }
             }
         }
 
         return is;
+    }
+
+    private static Fluid getFluidFromBlockAt(World world, int x, int y, int z) {
+        if (TFC_Core.isFreshWater(world.getBlock(x, y, z))) {
+            return TFCFluids.FRESHWATER;
+        }
+
+        if (TFC_Core.isSaltWater(world.getBlock(x, y, z))) {
+            return TFCFluids.SALTWATER;
+        }
+
+        if (TFC_Core.isTanninWater(world.getBlock(x, y, z))) {
+            return TFCFluids.TANNIN;
+        }
+
+        return null;
     }
 
     private static ItemStack getContainerFilledWithFluid(ItemStack is, World world, EntityPlayer player, Fluid fluid) {
