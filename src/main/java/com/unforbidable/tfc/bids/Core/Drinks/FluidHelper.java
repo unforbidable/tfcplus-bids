@@ -34,8 +34,8 @@ public class FluidHelper {
     }
 
     public static ItemStack fillContainerFromWorld(ItemStack is, World world, EntityPlayer player) {
-        if (!(is.getItem() instanceof IWorldFluidFillable)) {
-            Bids.LOG.warn("Fluid container " + is.getDisplayName() + " cannot be filled up form world, missing IWorldFluidFillable interface");
+        if (!FluidContainerRegistry.isEmptyContainer(is)) {
+            Bids.LOG.warn("Fluid container " + is.getDisplayName() + " is not a registered fluid container");
 
             return is;
         }
@@ -168,8 +168,33 @@ public class FluidHelper {
     }
 
     private static ItemStack getContainerFilledWithFluid(ItemStack is, World world, EntityPlayer player, Fluid fluid) {
-        IWorldFluidFillable fillable = (IWorldFluidFillable) is.getItem();
-        ItemStack filledContainer = fillable.getWorldFluidFilledItem(is, world, player, fluid);
+        //if (isPottery && random.nextInt(80) == 0)  {
+        //    world.playSoundAtEntity(player, TFC_Sounds.CERAMICBREAK, 0.7f,
+        //        player.worldObj.rand.nextFloat() * 0.2F + 0.8F);
+        //    return new ItemStack(TFCItems.rope, 1, 0);
+        //}
+
+        FluidStack fs = new FluidStack(fluid, 1);
+        ItemStack temp = is.copy();
+
+        if (FluidContainerRegistry.getContainerCapacity(fs, is) == 0) {
+            // Container does not accept this fluid
+            return is;
+        }
+
+        while (FluidContainerRegistry.isEmptyContainer(temp)) {
+            fs.amount = FluidContainerRegistry.getContainerCapacity(fs, is);
+
+            temp = FluidContainerRegistry.fillFluidContainer(fs, temp);
+            if (temp == null) {
+                Bids.LOG.warn("Container could not be filled");
+                return is;
+            }
+
+            Bids.LOG.info("Filled: " + temp.getDisplayName() + "[" + temp.getItemDamage() + "]");
+        }
+
+        ItemStack filledContainer = temp;
 
         if (is.stackSize > 1) {
             --is.stackSize;

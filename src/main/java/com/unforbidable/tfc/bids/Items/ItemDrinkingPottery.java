@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.Items;
 
-import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
-
+import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -14,8 +13,7 @@ public class ItemDrinkingPottery extends ItemGenericPottery {
 
     @Override
     public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer entity) {
-        return DrinkHelper.getFreshWaterDrink(is, world, entity,
-                getMovingObjectPositionFromPlayer(world, entity, true));
+        return FluidHelper.fillContainerFromWorld(is, world, entity);
     }
 
 }

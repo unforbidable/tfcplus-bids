@@ -1,20 +1,19 @@
 package com.unforbidable.tfc.bids.Items;
 
-import java.util.List;
-
 import com.dunk.tfc.Items.ItemGlassBottle;
-import com.dunk.tfc.api.Metal;
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.Metal;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
+import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.Core.Drinks.DrinkHelper;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemDrinkingGlass extends ItemGlassBottle {
 
@@ -55,8 +54,7 @@ public class ItemDrinkingGlass extends ItemGlassBottle {
 
     @Override
     public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer entity) {
-        return DrinkHelper.getFreshWaterDrink(is, world, entity,
-                getMovingObjectPositionFromPlayer(world, entity, true));
+        return FluidHelper.fillContainerFromWorld(is, world, entity);
     }
 
 }

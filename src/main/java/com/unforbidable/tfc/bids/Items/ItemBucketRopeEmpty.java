@@ -1,19 +1,15 @@
 package com.unforbidable.tfc.bids.Items;
 
 import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.Core.TFC_Sounds;
 import com.dunk.tfc.Handlers.Network.ItemPotterySmashPacket;
 import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.TerraFirmaCraft;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Interfaces.ISmashable;
-import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
-import com.unforbidable.tfc.bids.Core.Drinks.IWorldFluidFillable;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -22,11 +18,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 
-import java.util.Random;
-
-public class ItemBucketRopeEmpty extends ItemTerra implements ISmashable, IWorldFluidFillable {
+public class ItemBucketRopeEmpty extends ItemTerra implements ISmashable {
 
     private final boolean isPottery;
 
@@ -85,21 +78,4 @@ public class ItemBucketRopeEmpty extends ItemTerra implements ISmashable, IWorld
         }
     }
 
-    @Override
-    public ItemStack getWorldFluidFilledItem(ItemStack is, World world, EntityPlayer player, Fluid fluid) {
-        if (fluid == TFCFluids.FRESHWATER) {
-            Random random = new Random();
-
-            if (isPottery && random.nextInt(80) == 0)  {
-                world.playSoundAtEntity(player, TFC_Sounds.CERAMICBREAK, 0.7f,
-                    player.worldObj.rand.nextFloat() * 0.2F + 0.8F);
-                return new ItemStack(TFCItems.rope, 1, 0);
-            }
-
-            Item bucketWater = isPottery ? BidsItems.ceramicBucketRopeWater : BidsItems.woodenBucketRopeWater;
-            return new ItemStack(bucketWater, 1, 0);
-        }
-
-        return is;
-    }
 }

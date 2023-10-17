@@ -1,20 +1,16 @@
 package com.unforbidable.tfc.bids.Items;
 
-import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
-import com.unforbidable.tfc.bids.Core.Drinks.IWorldFluidFillable;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
 
-public class ItemLargeBowl extends ItemGenericPottery implements IWorldFluidFillable {
+public class ItemLargeBowl extends ItemGenericPottery {
 
     public ItemLargeBowl() {
         super(true);
@@ -30,19 +26,6 @@ public class ItemLargeBowl extends ItemGenericPottery implements IWorldFluidFill
     @Override
     public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player) {
         return FluidHelper.fillContainerFromWorld(is, world, player);
-    }
-
-    @Override
-    public ItemStack getWorldFluidFilledItem(ItemStack is, World world, EntityPlayer player, Fluid fluid) {
-        if (fluid == TFCFluids.FRESHWATER) {
-            return new ItemStack(BidsItems.freshWaterLargeBowl, 1, 0);
-        }
-
-        if (fluid == TFCFluids.SALTWATER) {
-            return new ItemStack(BidsItems.saltWaterLargeBowl, 1, 0);
-        }
-
-        return null;
     }
 
     @Override
