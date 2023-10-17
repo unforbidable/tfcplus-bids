@@ -1,7 +1,9 @@
 package com.unforbidable.tfc.bids.Core.Drinks;
 
 import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.TFCFluids;
+import com.dunk.tfc.api.Util.Helper;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Network.Messages.FillContainerFromWorldMessage;
 import cpw.mods.fml.common.eventhandler.Event;
@@ -9,6 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
@@ -34,35 +37,45 @@ public class FluidHelper {
     }
 
     public static ItemStack fillContainerFromWorld(ItemStack is, World world, EntityPlayer player) {
+        return fillContainerFromWorld(is, world, player, false);
+    }
+
+    public static ItemStack fillContainerFromWorld(ItemStack is, World world, EntityPlayer player, boolean includeEntities) {
         if (!FluidContainerRegistry.isEmptyContainer(is)) {
             Bids.LOG.warn("Fluid container " + is.getDisplayName() + " is not a registered fluid container");
 
             return is;
         }
 
-        if (world.isRemote) {
-            if (tryToFillContainedFromWorld(is, world, player)) {
-                return is;
+        if (includeEntities) {
+            if (world.isRemote) {
+                // Entities can only be detected on the client
+                // So container filling is done asynchronously
+                // after the server receives mop from the client
+                fillContainedFromWorldClient(is, world, player);
             }
+        } else {
+            double reachBase = player instanceof EntityPlayerMP ? ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance() : 5;
+            int reach = (int) Math.round(reachBase * ((ISize)is.getItem()).getReach(is).multiplier);
+            MovingObjectPosition mop = Helper.getMovingObjectPositionFromPlayer(world, player, true, reach);
+
+            Bids.LOG.info("typeOfHit: " + mop.typeOfHit);
+
+            return fillContainerFromBlock(is, world, player, mop);
         }
 
         return is;
     }
 
     @SideOnly(Side.CLIENT)
-    private static boolean tryToFillContainedFromWorld(ItemStack is, World world, EntityPlayer player) {
+    private static void fillContainedFromWorldClient(ItemStack is, World world, EntityPlayer player) {
         MovingObjectPosition mop = Minecraft.getMinecraft().objectMouseOver;
-
         if (mop != null) {
             if (mop.typeOfHit != MovingObjectPosition.MovingObjectType.MISS) {
                 Bids.network.sendToServer(new FillContainerFromWorldMessage(is, player, mop));
                 Bids.LOG.debug("Send FillContainerFromWorldMessage message");
-
-                return true;
             }
         }
-
-        return false;
     }
 
     public static void onContainerFilledFromWorld(ItemStack is, EntityPlayer player, MovingObjectPosition mop) {
