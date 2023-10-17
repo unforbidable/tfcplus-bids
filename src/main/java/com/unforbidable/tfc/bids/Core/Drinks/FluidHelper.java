@@ -1,13 +1,14 @@
 package com.unforbidable.tfc.bids.Core.Drinks;
 
 import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.TFCFluids;
-import com.dunk.tfc.api.Util.Helper;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Network.Messages.FillContainerFromWorldMessage;
 import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
@@ -39,10 +40,51 @@ public class FluidHelper {
             return is;
         }
 
-        double reachBase = player instanceof EntityPlayerMP ? ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance() : 5;
-        int reach = (int) Math.round(reachBase * ((ISize)is.getItem()).getReach(is).multiplier);
-        MovingObjectPosition mop = Helper.getMovingObjectPositionFromPlayer(world, player, true, reach);
+        if (world.isRemote) {
+            if (tryToFillContainedFromWorld(is, world, player)) {
+                return is;
+            }
+        }
 
+        return is;
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static boolean tryToFillContainedFromWorld(ItemStack is, World world, EntityPlayer player) {
+        MovingObjectPosition mop = Minecraft.getMinecraft().objectMouseOver;
+
+        if (mop != null) {
+            if (mop.typeOfHit != MovingObjectPosition.MovingObjectType.MISS) {
+                Bids.network.sendToServer(new FillContainerFromWorldMessage(is, player, mop));
+                Bids.LOG.debug("Send FillContainerFromWorldMessage message");
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void onContainerFilledFromWorld(ItemStack is, EntityPlayer player, MovingObjectPosition mop) {
+        int slot = player.inventory.currentItem;
+        ItemStack empty = player.inventory.getStackInSlot(slot);
+        if (!ItemStack.areItemStacksEqual(empty, is)) {
+            Bids.LOG.warn("Player current item changed or out of sync");
+            return;
+        }
+
+        ItemStack returned = null;
+        if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+            returned = fillContainerFromBlock(empty, player.worldObj, player, mop);
+        }
+
+        if (returned != null && !ItemStack.areItemStacksEqual(returned, empty)) {
+            player.inventory.setInventorySlotContents(slot, returned);
+            player.inventoryContainer.detectAndSendChanges();
+        }
+    }
+
+    private static ItemStack fillContainerFromBlock(ItemStack is, World world, EntityPlayer player, MovingObjectPosition mop) {
         if (mop != null) {
             if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 int x = mop.blockX;
@@ -62,21 +104,21 @@ public class FluidHelper {
                 if (event.getResult() == Event.Result.ALLOW)
                     return event.result;
 
-                if (TFC_Core.isFreshWater(world.getBlock(x, y, z)))  {
+                if (TFC_Core.isFreshWater(world.getBlock(x, y, z))) {
                     if (player.capabilities.isCreativeMode)
                         return is;
 
                     return getContainerFilledWithFluid(is, world, player, TFCFluids.FRESHWATER);
                 }
 
-                if (TFC_Core.isSaltWater(world.getBlock(x, y, z)))  {
+                if (TFC_Core.isSaltWater(world.getBlock(x, y, z))) {
                     if (player.capabilities.isCreativeMode)
                         return is;
 
                     return getContainerFilledWithFluid(is, world, player, TFCFluids.SALTWATER);
                 }
 
-                if (TFC_Core.isTanninWater(world.getBlock(x, y, z)))  {
+                if (TFC_Core.isTanninWater(world.getBlock(x, y, z))) {
                     if (player.capabilities.isCreativeMode)
                         return is;
 
