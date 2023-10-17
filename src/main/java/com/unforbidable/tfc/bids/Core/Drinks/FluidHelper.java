@@ -99,37 +99,33 @@ public class FluidHelper {
     }
 
     private static ItemStack fillContainerFromBlock(ItemStack is, World world, EntityPlayer player, MovingObjectPosition mop) {
-        if (mop != null) {
-            if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                int x = mop.blockX;
-                int y = mop.blockY;
-                int z = mop.blockZ;
+        int x = mop.blockX;
+        int y = mop.blockY;
+        int z = mop.blockZ;
 
-                if (!world.canMineBlock(player, x, y, z))
-                    return is;
+        if (!world.canMineBlock(player, x, y, z))
+            return is;
 
-                if (!player.canPlayerEdit(x, y, z, mop.sideHit, is))
-                    return is;
+        if (!player.canPlayerEdit(x, y, z, mop.sideHit, is))
+            return is;
 
-                FillBucketEvent event = new FillBucketEvent(player, is, world, mop);
-                if (MinecraftForge.EVENT_BUS.post(event) || event.isCanceled())
-                    return is;
+        FillBucketEvent event = new FillBucketEvent(player, is, world, mop);
+        if (MinecraftForge.EVENT_BUS.post(event) || event.isCanceled())
+            return is;
 
-                if (event.getResult() == Event.Result.ALLOW)
-                    return event.result;
+        if (event.getResult() == Event.Result.ALLOW)
+            return event.result;
 
-                Fluid fluid = getFluidFromBlockAt(world, x, y, z);
-                if (fluid != null) {
-                    return getContainerFilledWithFluid(is, world, player, fluid);
-                }
+        Fluid fluid = getFluidFromBlockAt(world, x, y, z);
+        if (fluid != null) {
+            return getContainerFilledWithFluid(is, world, player, fluid);
+        }
 
-                // Handle flowing water
-                ForgeDirection d = ForgeDirection.getOrientation(mop.sideHit);
-                Fluid flowFluid = getFluidFromBlockAt(world, x + d.offsetX, y + d.offsetY, z + d.offsetZ);
-                if (flowFluid != null) {
-                    return getContainerFilledWithFluid(is, world, player, flowFluid);
-                }
-            }
+        // Handle flowing water
+        ForgeDirection d = ForgeDirection.getOrientation(mop.sideHit);
+        Fluid flowFluid = getFluidFromBlockAt(world, x + d.offsetX, y + d.offsetY, z + d.offsetZ);
+        if (flowFluid != null) {
+            return getContainerFilledWithFluid(is, world, player, flowFluid);
         }
 
         return is;
