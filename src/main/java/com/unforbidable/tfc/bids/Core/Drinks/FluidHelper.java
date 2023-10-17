@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Drinks;
 
 import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Entities.Mobs.EntityCowTFC;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.Util.Helper;
@@ -10,6 +11,7 @@ import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -90,12 +92,48 @@ public class FluidHelper {
         ItemStack returned = null;
         if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             returned = fillContainerFromBlock(empty, player.worldObj, player, mop);
+        } else if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+            returned = fillContainerFromEntity(empty, player.worldObj, player, mop);
         }
 
         if (returned != null && !ItemStack.areItemStacksEqual(returned, empty)) {
             player.inventory.setInventorySlotContents(slot, returned);
             player.inventoryContainer.detectAndSendChanges();
         }
+    }
+
+    private static ItemStack fillContainerFromEntity(ItemStack is, World world, EntityPlayer player, MovingObjectPosition mop) {
+        Fluid fluid = EntityFluidHelper.getFluidFromEntity(mop.entityHit, player);
+        if (fluid == null) {
+            Bids.LOG.info("Entity is unable to provide fluid");
+            return is;
+        }
+
+        int totalCapacity = getTotalContainerCapacity(is, fluid);
+        if (totalCapacity == 0) {
+            Bids.LOG.info("Container does not accept fluid from entity: " + fluid.getUnlocalizedName());
+            return is;
+        }
+
+        if (EntityFluidHelper.drainEntityFluid(mop.entityHit, player, totalCapacity)) {
+            return getContainerFilledWithFluid(is, world, player, fluid);
+        }
+
+        return is;
+    }
+
+    private static int getTotalContainerCapacity(ItemStack is, Fluid fluid) {
+        FluidStack fs = new FluidStack(fluid, 1);
+        int total = 0;
+
+        while (FluidContainerRegistry.isEmptyContainer(is)) {
+            int capacity = FluidContainerRegistry.getContainerCapacity(fs, is);
+            fs.amount = capacity;
+            total += capacity;
+            is = FluidContainerRegistry.fillFluidContainer(fs, is);
+        }
+
+        return total;
     }
 
     private static ItemStack fillContainerFromBlock(ItemStack is, World world, EntityPlayer player, MovingObjectPosition mop) {
