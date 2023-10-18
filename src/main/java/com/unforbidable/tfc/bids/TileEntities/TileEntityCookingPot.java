@@ -782,6 +782,21 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
         CookingRecipe recipe = getCachedRecipe();
 
+        if (recipeProgress == null) {
+            // No recipe is in progress
+            // see if we can start one
+            if (recipe != null) {
+                String displayText = CookingRecipeHelper.getRecipeOutputDisplayText(recipe, createRecipeTemplate());
+                String hashString = CookingRecipeHelper.getRecipeHashString(recipe);
+                int totalRuns = calculateTotalRecipeRuns(recipe);
+
+                recipeProgress = new CookingRecipeProgress(displayText, hashString, totalRuns);
+                update = true;
+
+                Bids.LOG.debug("Recipe progress started: " + recipeProgress.getOutputHashString());
+            }
+        }
+
         if (recipeProgress != null) {
             // A recipe is in progress
             // see if the progress matches the current recipe
@@ -797,15 +812,20 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                     update = true;
                 }
 
-                // Determine how much progress is made
-                long lastUpdateTicks = recipeProgress.getLastUpdateTicks();
-                long elapsedTicks = TFC_Time.getTotalTicks() - lastUpdateTicks;
-                long totalRecipeTicks = recipe.getTime() * (recipe.isFixedTime() ? 1 : recipeProgress.getTotalRuns());
-                float progress = (float)elapsedTicks / totalRecipeTicks;
-                float heatAdjustedProgress = adjustProgressForHeat(recipe, getHeatLevel(), progress);
-
                 int lastProgressRounded = recipeProgress.getProgressRounded();
-                recipeProgress.addProgress(heatAdjustedProgress);
+
+                // Determine how much progress is made
+                long totalRecipeTicks = recipe.getTime() * (recipe.isFixedTime() ? 1 : recipeProgress.getTotalRuns());
+                if (totalRecipeTicks > 0) {
+                    long lastUpdateTicks = recipeProgress.getLastUpdateTicks();
+                    long elapsedTicks = TFC_Time.getTotalTicks() - lastUpdateTicks;
+                    float progress = (float) elapsedTicks / totalRecipeTicks;
+                    float heatAdjustedProgress = adjustProgressForHeat(recipe, getHeatLevel(), progress);
+                    recipeProgress.addProgress(heatAdjustedProgress);
+                } else {
+                    // For recipe without time the progress is completed immediately
+                    recipeProgress.addProgress(1f);
+                }
 
                 if (recipeProgress.getProgress() == 1f) {
                     Bids.LOG.debug("Recipe progress completed: " + recipeProgress.getOutputHashString());
@@ -851,21 +871,6 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
                     update = true;
                 }
-            }
-        }
-
-        if (recipeProgress == null) {
-            // No recipe is in progress
-            // see if we can start one
-            if (recipe != null) {
-                String displayText = CookingRecipeHelper.getRecipeOutputDisplayText(recipe, createRecipeTemplate());
-                String hashString = CookingRecipeHelper.getRecipeHashString(recipe);
-                int totalRuns = calculateTotalRecipeRuns(recipe);
-
-                recipeProgress = new CookingRecipeProgress(displayText, hashString, totalRuns);
-                update = true;
-
-                Bids.LOG.debug("Recipe progress started: " + recipeProgress.getOutputHashString());
             }
         }
 
