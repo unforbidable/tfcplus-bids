@@ -402,3 +402,7 @@
 - Changed: More text shown in NEI can be localized now
 - Changed: Light level and consumption can be configured individually for Clay lamp fuels
 - Fixed: Steamed item should always render above steaming mesh
+
+0.33.1 (18-10-2023)
+- Changed: Immediate soaking recipes return crafted items immediately (e.g. torches and candles)
+- Changed: Updated Chinese translation by Eternal130
