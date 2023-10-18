@@ -138,7 +138,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         return heatLevel;
     }
 
-    public boolean placeItemStack(ItemStack itemStack) {
+    public boolean placeItemStack(ItemStack itemStack, EntityPlayer player) {
         // Lid can be placed when there is no lid already
         if (isValidLidItemStack(itemStack) && !hasLid()) {
             storage[SLOT_LID] = itemStack.copy();
@@ -228,6 +228,21 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             clientNeedToUpdate = true;
 
             onRecipeParametersChanged(true);
+
+            // Process recipe right after item is placed
+            // and remember the input item
+            ItemStack before = storage[SLOT_INPUT].copy();
+            handleRecipeProgress();
+
+            if (hasInputItem() && !ItemStack.areItemStacksEqual(before, storage[SLOT_INPUT])) {
+                // If the input item changed
+                // the recipe completed immediately
+                // so return the crafted item immediately
+                giveItemStackToPlayer(player, storage[SLOT_INPUT]);
+                storage[SLOT_INPUT] = null;
+
+                onRecipeParametersChanged(true);
+            }
 
             return true;
         }

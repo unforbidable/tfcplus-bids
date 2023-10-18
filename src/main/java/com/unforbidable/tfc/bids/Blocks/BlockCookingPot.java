@@ -336,7 +336,7 @@ public class BlockCookingPot extends BlockContainer {
                     }
                 } else {
                     Bids.LOG.debug("Placing item on cooking pot: " + equippedItem.getDisplayName());
-                    te.placeItemStack(equippedItem);
+                    te.placeItemStack(equippedItem, player);
                 }
             } else {
                 if (equippedItem == null) {
