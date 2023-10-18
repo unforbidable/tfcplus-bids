@@ -672,7 +672,8 @@ public class RecipeSetup {
         // Meat and cheese drying from TFC
         final Item[] foodToDry = new Item[] { TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
                 TFCItems.porkchopRaw, TFCItems.fishRaw, TFCItems.seastarRaw, TFCItems.scallopRaw,
-                TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese };
+                TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese,
+                BidsItems.goatCheese };
         for (Item food : foodToDry) {
             DryingManager.addRecipe(new FoodDryingRecipe(ItemFoodTFC.createTag(new ItemStack(food)), 12, true));
         }
@@ -1035,6 +1036,28 @@ public class RecipeSetup {
             .allowingInfusion()
             .consumes(new FluidStack(TFCFluids.MILKCURDLED, 1))
             .produces(ItemFoodTFC.createTag(new ItemStack(TFCItems.cheese), Global.FOOD_MAX_WEIGHT / 10000))
+            .withoutHeat()
+            .withLid()
+            .inFixedTime(8000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.GOATMILK, 9), new FluidStack(TFCFluids.VINEGAR, 1))
+            .produces(new FluidStack(BidsFluids.GOATMILKVINEGAR, 10))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.GOATMILKVINEGAR, 1))
+            .produces(new FluidStack(BidsFluids.GOATMILKCURDLED, 1))
+            .withoutHeat()
+            .withLid()
+            .inFixedTime(8000)
+            .build());
+
+        CookingManager.addRecipe(CookingCheeseRecipe.builder()
+            .allowingInfusion()
+            .consumes(new FluidStack(BidsFluids.GOATMILKCURDLED, 1))
+            .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.goatCheese), Global.FOOD_MAX_WEIGHT / 10000))
             .withoutHeat()
             .withLid()
             .inFixedTime(8000)

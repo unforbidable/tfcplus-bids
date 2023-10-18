@@ -157,6 +157,8 @@ public class BidsItems {
 
     public static Item steamingMeshCloth;
 
+    public static Item goatCheese;
+
     public static Item stuffedPepper;
 
 }

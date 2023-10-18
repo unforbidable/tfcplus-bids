@@ -27,6 +27,8 @@ public class DrinkSetup extends BidsItems {
         FluidRegistry.registerFluid(BidsFluids.OILYFISHWATER);
         FluidRegistry.registerFluid(BidsFluids.FISHOIL);
         FluidRegistry.registerFluid(BidsFluids.GOATMILK);
+        FluidRegistry.registerFluid(BidsFluids.GOATMILKVINEGAR);
+        FluidRegistry.registerFluid(BidsFluids.GOATMILKCURDLED);
     }
 
     private static void registerLampFuels() {

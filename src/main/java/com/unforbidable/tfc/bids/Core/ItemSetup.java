@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core;
 
+import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.ItemClothing;
 import com.dunk.tfc.Render.Item.FoodItemRenderer;
 import com.dunk.tfc.api.*;
@@ -312,6 +313,13 @@ public class ItemSetup extends BidsItems {
                 .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
                 .setDecayRate(2f)
                 .setUnlocalizedName("Cornmeal Porridge");
+
+        goatCheese = new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20)
+            .setWaterPercentage(0.6f)
+            .setDecayRate(0.5f)
+            .setCanSmoke()
+            .setUnlocalizedName("Goat Cheese");
+        ((ItemFoodTFC) goatCheese).setSmokeAbsorbMultiplier(1F);
 
         plugAndFeather = new ItemPlugAndFeather()
                 .setUnlocalizedName("Plug And Feather");
@@ -632,7 +640,7 @@ public class ItemSetup extends BidsItems {
 
         Item[] foodItems = { wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed,
                 cornmealCrushed, wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge,
-                cornmealPorridge, appleCrushed, oliveCrushed, stuffedPepper };
+                cornmealPorridge, appleCrushed, oliveCrushed, goatCheese, stuffedPepper };
 
         for (Item item : foodItems) {
             MinecraftForgeClient.registerItemRenderer(item, new FoodItemRenderer());
@@ -870,6 +878,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(goatMilkLargeBowl, goatMilkLargeBowl.getUnlocalizedName());
         GameRegistry.registerItem(ceramicBucketGoatMilk, ceramicBucketGoatMilk.getUnlocalizedName());
         GameRegistry.registerItem(woodenBucketGoatMilk, woodenBucketGoatMilk.getUnlocalizedName());
+
+        GameRegistry.registerItem(goatCheese, goatCheese.getUnlocalizedName());
 
         GameRegistry.registerItem(stuffedPepper, stuffedPepper.getUnlocalizedName());
     }
