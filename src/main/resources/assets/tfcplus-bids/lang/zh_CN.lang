@@ -545,19 +545,25 @@ item.Glass Bottle.Brine.name=瓶装卤水
 item.Glass Bottle.Honey.name=瓶装蜂蜜
 item.Glass Bottle.HoneyWater.name=瓶装蜂蜜水
 item.Glass Bottle.MilkVinegar.name=瓶装奶醋
+item.Glass Bottle.FishOil.name=瓶装鱼油
+item.Glass Bottle.OilyFishWater.name=瓶装鱼糜
 
 item.Bowl Vinegar.PotteryBowl.name=陶瓷碗(醋)
 item.Bowl Vinegar.Bowl.name=碗(醋)
 item.Bowl Olive Oil.PotteryBowl.name=陶瓷碗(橄榄油)
 item.Bowl Olive Oil.Bowl.name=碗(橄榄油)
+item.Bowl Fish Oil.PotteryBowl.name=陶瓷碗(鱼油)
+item.Bowl Fish Oil.Bowl.name=碗(鱼油)
 
 item.Ceramic Bucket.Brine.name=陶瓷桶(卤水)
 item.Ceramic Bucket.HoneyWater.name=陶瓷桶(蜂蜜水)
 item.Ceramic Bucket.MilkVinegar.name=陶瓷桶(奶醋)
+item.Ceramic Bucket.OilyFishWater.name=陶瓷桶(鱼糜)
 
 item.Wooden Bucket.Brine.name=木桶(卤水)
 item.Wooden Bucket.HoneyWater.name=木桶(蜂蜜水)
 item.Wooden Bucket.MilkVinegar.name=木桶(奶醋)
+item.Wooden Bucket.OilyFishWater.name=木桶(鱼糜)
 
 item.Large Bowl.Clay.name=大黏土碗
 item.Large Bowl.Ceramic.name=大陶瓷碗
@@ -943,6 +949,11 @@ item.Plug And Feather.name=楔子
 item.Apple Crushed.name=碎苹果
 item.Olive Crushed.name=碎橄榄
 
+item.Steaming Mesh Cloth.name=蒸网
+
+fluid.FishOil=鱼油
+fluid.OilyFishWater=鱼糜
+
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
 itemGroup.Bids.BuildingBlocks=Bids and Pieces - 建筑方块
@@ -978,11 +989,14 @@ gui.plans.drill=钻头
 gui.Hours=小时
 gui.HoursRemaining=剩余小时
 gui.Days=天
+gui.Instant=Instant
 gui.Ruined=毁坏的
 gui.Wedges=楔子
 gui.QuarryReady=可以开采
 gui.Carving=雕刻中
+gui.Quarrying=采石
 gui.Seasoning=风干中
+gui.Cooking=烹饪
 gui.Fuel=燃料
 gui.Drying=风干中
 gui.KindlingQuality=火种品质
