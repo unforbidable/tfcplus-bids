@@ -26,6 +26,7 @@ public class DrinkSetup extends BidsItems {
 
         FluidRegistry.registerFluid(BidsFluids.OILYFISHWATER);
         FluidRegistry.registerFluid(BidsFluids.FISHOIL);
+        FluidRegistry.registerFluid(BidsFluids.GOATMILK);
     }
 
     private static void registerLampFuels() {
@@ -56,6 +57,9 @@ public class DrinkSetup extends BidsItems {
                 .setWaterRestoreRatio(1));
         DrinkRegistry.registerDrink(new Drink(TFCFluids.MILK, "Milk")
                 .setCalories(0.584f).setFoodGroup(EnumFoodGroup.Dairy)
+                .setWaterRestoreRatio(1));
+        DrinkRegistry.registerDrink(new Drink(BidsFluids.GOATMILK, "GoatMilk")
+                .setCalories(0.642f).setFoodGroup(EnumFoodGroup.Dairy)
                 .setWaterRestoreRatio(1));
 
         DrinkRegistry.registerDrink(new Drink(TFCFluids.GRAPEJUICE, "GrapeJuice")
