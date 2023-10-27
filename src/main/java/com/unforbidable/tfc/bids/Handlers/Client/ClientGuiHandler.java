@@ -1,16 +1,8 @@
 package com.unforbidable.tfc.bids.Handlers.Client;
 
-import com.unforbidable.tfc.bids.Gui.GuiClayCrucible;
-import com.unforbidable.tfc.bids.Gui.GuiFireClayCrucible;
-import com.unforbidable.tfc.bids.Gui.GuiKnappingBarkFibre;
-import com.unforbidable.tfc.bids.Gui.GuiKnappingGlass;
-import com.unforbidable.tfc.bids.Gui.GuiNewFirepit;
-import com.unforbidable.tfc.bids.Gui.GuiWoodPile;
+import com.unforbidable.tfc.bids.Gui.*;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
+import com.unforbidable.tfc.bids.TileEntities.*;
 import com.unforbidable.tfc.bids.api.BidsGui;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,6 +33,9 @@ public class ClientGuiHandler extends GuiHandler {
 
             case BidsGui.newFirepitGui:
                 return new GuiNewFirepit(player.inventory, (TileEntityNewFirepit) te, world, x, y, z);
+
+            case BidsGui.cookingPrepGui:
+                return new GuiCookingPrep(player.inventory, (TileEntityCookingPrep) te, world, x, y, z);
         }
 
         return null;

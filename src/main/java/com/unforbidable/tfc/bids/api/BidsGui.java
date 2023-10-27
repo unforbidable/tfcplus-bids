@@ -8,5 +8,6 @@ public class BidsGui {
     public static final int woodPileGui = 3;
     public static final int newFirepitGui = 4;
     public static final int barkFibreKnappingGui = 5;
+    public static final int cookingPrepGui = 6;
 
 }

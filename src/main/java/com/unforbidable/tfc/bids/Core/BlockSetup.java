@@ -229,6 +229,9 @@ public class BlockSetup extends BidsBlocks {
         steamingMesh = new BlockSteamingMesh()
             .setBlockTextureName("Steaming Mesh")
             .setBlockName("SteamingMesh");
+
+        cookingPrep = new BlockCookingPrep()
+            .setBlockName("CookingPrep");
     }
 
     private static void updateBlocks() {
@@ -442,6 +445,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityAquifer.class, "BidsAquifer");
 
         GameRegistry.registerTileEntity(TileEntityCookingPot.class, "BidsCookingPot");
+
+        GameRegistry.registerTileEntity(TileEntityCookingPrep.class, "BidsCookingPrep");
     }
 
     @SideOnly(Side.CLIENT)
@@ -453,6 +458,7 @@ public class BlockSetup extends BidsBlocks {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySaddleQuern.class, new RenderTileSaddleQuern());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWallHook.class, new RenderTileWallHook());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCookingPot.class, new RenderTileCookingPot());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCookingPrep.class, new RenderTileCookingPrep());
     }
 
     private static void registerMessages() {
@@ -581,6 +587,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(cookingPotLid, ItemCookingPotLid.class, "CookingPotLid");
 
         GameRegistry.registerBlock(steamingMesh, "SteamingMesh");
+
+        GameRegistry.registerBlock(cookingPrep, "CookingPrep");
     }
 
 }

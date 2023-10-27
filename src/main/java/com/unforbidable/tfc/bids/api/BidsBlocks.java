@@ -123,4 +123,6 @@ public class BidsBlocks {
 
     public static Block steamingMesh;
 
+    public static Block cookingPrep;
+
 }

@@ -192,6 +192,7 @@ tile.CookingPot.Clay.name=Clay Cooking Pot
 tile.CookingPot.Ceramic.name=Ceramic Cooking Pot
 tile.CookingPotLid.Clay.name=Clay Cooking Pot Lid
 tile.CookingPotLid.Ceramic.name=Ceramic Cooking Pot Lid
+tile.CookingPrep.name=Cooking Prep
 
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit

@@ -1,15 +1,7 @@
 package com.unforbidable.tfc.bids.Handlers;
 
-import com.unforbidable.tfc.bids.Containers.ContainerClayCrucible;
-import com.unforbidable.tfc.bids.Containers.ContainerFireClayCrucible;
-import com.unforbidable.tfc.bids.Containers.ContainerNewFirepit;
-import com.unforbidable.tfc.bids.Containers.ContainerSpecialCraftingBarkFibre;
-import com.unforbidable.tfc.bids.Containers.ContainerSpecialCraftingGlass;
-import com.unforbidable.tfc.bids.Containers.ContainerWoodPile;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityClayCrucible;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityFireClayCrucible;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
+import com.unforbidable.tfc.bids.Containers.*;
+import com.unforbidable.tfc.bids.TileEntities.*;
 import com.unforbidable.tfc.bids.api.BidsGui;
 
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -45,6 +37,9 @@ public class GuiHandler implements IGuiHandler {
 
             case BidsGui.newFirepitGui:
                 return new ContainerNewFirepit(player.inventory, (TileEntityNewFirepit) te, world, x, y, z);
+
+            case BidsGui.cookingPrepGui:
+                return new ContainerCookingPrep(player.inventory, (TileEntityCookingPrep) te, world, x, y, z);
         }
         return null;
     }
