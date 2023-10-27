@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Core;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.*;
+import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Enums.RuleEnum;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCBlocks;
@@ -50,6 +51,7 @@ public class RecipeSetup {
         registerSaddleQuernRecipes();
         registerStonePressRecipes();
         registerCookingRecipes();
+        registerPrepRecipes();
         registerHandlers();
     }
 
@@ -1044,6 +1046,39 @@ public class RecipeSetup {
             .withoutHeat()
             .inFixedTime(48000)
             .build());
+    }
+
+    private static void registerPrepRecipes() {
+        Bids.LOG.info("Register prep recipes");
+
+        PrepIngredient foodAny = PrepIngredient.builder()
+            .build();
+
+        PrepIngredient foodBread = PrepIngredient.builder()
+            .allow(TFCItems.barleyBread)
+            .allow(TFCItems.cornBread)
+            .allow(TFCItems.oatBread)
+            .allow(TFCItems.riceBread)
+            .allow(TFCItems.ryeBread)
+            .allow(TFCItems.wheatBread)
+            .build();
+
+        PrepIngredient foodAllButGrain = PrepIngredient.builder()
+            .deny(EnumFoodGroup.Grain)
+            .build();
+
+        PrepIngredient vesselBowl = PrepIngredient.builder()
+            .allow(TFCItems.potteryBowl, 1)
+            .allow(TFCItems.potteryBowl, 2)
+            .build();
+
+        PrepManager.addRecipe(new PrepSandwichRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.sandwich)), new PrepIngredient[]{
+            foodBread, foodAllButGrain, foodAllButGrain, foodAllButGrain, foodAllButGrain
+        }));
+
+        PrepManager.addRecipe(new PrepSaladRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.salad)), new PrepIngredient[] {
+            vesselBowl, foodAny, foodAny, foodAny, foodAny
+        }));
     }
 
     private static void registerKnappingRecipes() {
