@@ -349,6 +349,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
 
     private boolean recipeResultsAreEqual(ItemStack result, ItemStack prev) {
         if (prev.getItem() != result.getItem() ||
+            prev.getItemDamage() != result.getItemDamage() ||
             !BidsFood.areEqual(prev, result) ||
             Food.getWeight(prev) != Food.getWeight(result) ||
             Food.getFoodGroups(prev).length != Food.getFoodGroups(prev).length) {
