@@ -79,6 +79,8 @@ public class NotEnoughItemsSetup {
 
         hideItem(BidsItems.sedRoughStoneLooseBrick);
 
+        hideItem(BidsItems.stuffedPepper);
+
         hideBlock(BidsBlocks.clayCrucible, 2);
         hideBlock(BidsBlocks.carvingRock);
         hideBlock(BidsBlocks.carvingWood);

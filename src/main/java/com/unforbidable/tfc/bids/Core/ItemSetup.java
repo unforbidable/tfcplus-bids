@@ -428,6 +428,9 @@ public class ItemSetup extends BidsItems {
         steamingMeshCloth = new ItemSteamingMeshCloth()
             .setMaxDamage(TFCItems.linenUses)
             .setUnlocalizedName("Steaming Mesh Cloth");
+
+        stuffedPepper = new ItemStuffedPepper()
+            .setUnlocalizedName("Stuffed Pepper");
     }
 
     private static void registerFluidContainers() {
@@ -610,7 +613,7 @@ public class ItemSetup extends BidsItems {
 
         Item[] foodItems = { wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed,
                 cornmealCrushed, wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge,
-                cornmealPorridge, appleCrushed, oliveCrushed };
+                cornmealPorridge, appleCrushed, oliveCrushed, stuffedPepper };
 
         for (Item item : foodItems) {
             MinecraftForgeClient.registerItemRenderer(item, new FoodItemRenderer());
@@ -843,6 +846,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(woodenBucketOilyFishWater, woodenBucketOilyFishWater.getUnlocalizedName());
 
         GameRegistry.registerItem(steamingMeshCloth, steamingMeshCloth.getUnlocalizedName());
+
+        GameRegistry.registerItem(stuffedPepper, stuffedPepper.getUnlocalizedName());
     }
 
 }

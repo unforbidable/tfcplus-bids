@@ -1063,6 +1063,12 @@ public class RecipeSetup {
             .allow(TFCItems.wheatBread)
             .build();
 
+        PrepIngredient foodPepper = PrepIngredient.builder()
+            .allow(TFCItems.greenBellPepper)
+            .allow(TFCItems.yellowBellPepper)
+            .allow(TFCItems.redBellPepper)
+            .build();
+
         PrepIngredient foodAllButGrain = PrepIngredient.builder()
             .deny(EnumFoodGroup.Grain)
             .build();
@@ -1078,6 +1084,10 @@ public class RecipeSetup {
 
         PrepManager.addRecipe(new PrepSaladRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.salad)), new PrepIngredient[] {
             vesselBowl, foodAny, foodAny, foodAny, foodAny
+        }));
+
+        PrepManager.addRecipe(new PrepStuffedPepperRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedPepper)), new PrepIngredient[]{
+            foodPepper, foodAny, foodAny, foodAny, foodAny
         }));
     }
 
