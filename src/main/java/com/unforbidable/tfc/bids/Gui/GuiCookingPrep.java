@@ -34,12 +34,12 @@ public class GuiCookingPrep extends GuiContainerTFC {
      */
     @Override
     protected void drawForeground(int guiLeft, int guiTop) {
-        int[] weights = tileEntityCookingPrep.getRecipeIngredientWeights();
+        float[] weights = tileEntityCookingPrep.getRecipeIngredientWeights();
         int[] xs = { 40, 62, 80, 98, 116 };
         if (weights != null && weights.length == 5) {
             for (int i = 0; i < 5; i++) {
                 if (weights[i] > 0) {
-                    drawCenteredString(this.fontRendererObj, String.valueOf(weights[i]), guiLeft + 8 + xs[i], guiTop + 14, 0x555555);
+                    drawCenteredString(this.fontRendererObj, String.valueOf(Math.round(weights[i])), guiLeft + 8 + xs[i], guiTop + 14, 0x555555);
                 }
             }
         }

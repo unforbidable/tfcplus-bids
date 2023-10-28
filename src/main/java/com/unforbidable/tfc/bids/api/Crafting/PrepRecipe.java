@@ -78,13 +78,9 @@ public abstract class PrepRecipe {
         return totalConsumedWeight >= getMinWeight();
     }
 
-    public int[] getIngredientWeights() {
-        return new int[0];
-    }
+    public abstract float[] getIngredientWeights();
 
-    public int getMinWeight() {
-        return 0;
-    }
+    public abstract float getMinWeight();
 
     public boolean doesVesselMatch(ItemStack is) {
         return ingredients[0].matches(is);
@@ -152,7 +148,7 @@ public abstract class PrepRecipe {
     }
 
     private ItemStack[] getConsumedIngredients(ItemStack[] ingredients, boolean consumeIngredients) {
-        int[] weights = getIngredientWeights();
+        float[] weights = getIngredientWeights();
         ItemStack[] consumed = new ItemStack[INGREDIENT_COUNT];
 
         for (int i = 0; i < INGREDIENT_COUNT; i++) {
@@ -185,7 +181,7 @@ public abstract class PrepRecipe {
     private int[] getCombinedIngredientTastes(ItemStack[] consumedIngredients) {
         int[] tastes = { 0, 0, 0, 0, 0 };
         float totalWeight = getTotalConsumedIngredientWeight(consumedIngredients);
-        int[] weights = getIngredientWeights();
+        float[] weights = getIngredientWeights();
 
         for (int i = 0; i < INGREDIENT_COUNT; i++) {
             if (consumedIngredients[i] != null) {
@@ -202,7 +198,7 @@ public abstract class PrepRecipe {
     }
 
     private int[] getIngredientFoodGroups(ItemStack[] consumedIngredients) {
-        int[] weights = getIngredientWeights();
+        float[] weights = getIngredientWeights();
         int[] fg = new int[INGREDIENT_COUNT];
 
         int j = 0;

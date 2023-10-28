@@ -10,12 +10,12 @@ public class PrepSandwichRecipe extends PrepRecipe {
     }
 
     @Override
-    public int[] getIngredientWeights() {
-        return new int[] {2, 3, 2, 2, 1};
+    public float[] getIngredientWeights() {
+        return new float[] {2, 3, 2, 2, 1};
     }
 
     @Override
-    public int getMinWeight() {
+    public float getMinWeight() {
         return 7;
     }
 

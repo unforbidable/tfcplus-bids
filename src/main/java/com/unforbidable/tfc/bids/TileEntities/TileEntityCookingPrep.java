@@ -40,10 +40,10 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
     private final Timer itemTickTimer = new Timer(ITEM_TICK_INTERVAL);
     private final Timer updateWeightsTimer = new Timer(UPDATE_WEIGHTS_INTERVAL);
 
-    private int[] recipeIngredientWeights = null;
+    private float[] recipeIngredientWeights = null;
     private boolean needToUpdateWeights = false;
 
-    public int[] getRecipeIngredientWeights() {
+    public float[] getRecipeIngredientWeights() {
         return recipeIngredientWeights;
     }
 
