@@ -238,8 +238,6 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
         TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, false);
 
         if (detectStorageChanges(prev)) {
-            Bids.LOG.info("Detected changes after item ticking");
-
             if (!worldObj.isRemote) {
                 onIngredientsChanged();
             }
@@ -270,8 +268,6 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
 
     private void onIngredientsChanged() {
         if (!worldObj.isRemote) {
-            Bids.LOG.info("Ingredients changed");
-
             updateRecipeResultPreview();
         } else {
             needToUpdateWeights = true;
@@ -279,7 +275,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
     }
 
     private void onOutputPickedFromSlot(ItemStack itemStack, EntityPlayer player) {
-        Bids.LOG.info("Picked output " + itemStack.getDisplayName());
+        Bids.LOG.debug("Picked output " + itemStack.getDisplayName());
 
         if (!worldObj.isRemote) {
             ItemStack[] ingredients = getIngredientsForRecipe();
@@ -293,7 +289,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
                     Bids.LOG.warn("Item picked is different from the item crafted while consuming ingredients");
                 }
 
-                Bids.LOG.info("Consumed ingredients");
+                Bids.LOG.debug("Consumed ingredients");
             } else {
                 Bids.LOG.warn("Could not consume ingredients because recipe was not found.");
             }
@@ -331,15 +327,14 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
         ItemStack[] ingredients = getIngredientsForRecipe();
         PrepRecipe recipe = PrepManager.getMatchingRecipe(ingredients);
         if (recipe != null) {
-            Bids.LOG.info("Matching recipe found");
             ItemStack result = recipe.getResult(ingredients, false);
-            Bids.LOG.info("Result: " + result.getDisplayName() + "[" + result.stackSize + "]");
+            Bids.LOG.debug("Result: " + result.getDisplayName() + "[" + result.stackSize + "]");
 
             // Preview will never decay
             Food.setDecayTimer(result, Integer.MAX_VALUE);
 
             if (!isSameRecipeResult(result)) {
-                Bids.LOG.info("Result changed");
+                Bids.LOG.debug("Result changed");
 
                 setInventorySlotContents(SLOT_OUTPUT, result);
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -407,7 +402,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
             List<PrepRecipe> recipes = PrepManager.getRecipesUsingVessel(vessel);
             if (recipes.size() > 0) {
                 recipeIngredientWeights = recipes.get(0).getIngredientWeights();
-                Bids.LOG.info("Updated weights: " + Arrays.toString(recipeIngredientWeights));
+                Bids.LOG.debug("Updated weights: " + Arrays.toString(recipeIngredientWeights));
                 return;
             }
         }

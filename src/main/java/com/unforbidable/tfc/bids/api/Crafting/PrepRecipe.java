@@ -42,12 +42,12 @@ public abstract class PrepRecipe {
         float weight = getTotalConsumedIngredientWeight(consumedIngredients);
         ItemFoodTFC.createTag(result, weight);
 
-        Bids.LOG.info("Result weight: " + weight);
+        Bids.LOG.debug("Result weight: " + weight);
 
         int[] foodGroups = getIngredientFoodGroups(consumedIngredients);
         Food.setFoodGroups(result, foodGroups);
 
-        Bids.LOG.info("Result food groups: " + Arrays.toString(foodGroups));
+        Bids.LOG.debug("Result food groups: " + Arrays.toString(foodGroups));
 
         int[] tastes = getCombinedIngredientTastes(consumedIngredients);
         result.getTagCompound().setInteger("tasteSweet", tastes[0]);
@@ -56,7 +56,7 @@ public abstract class PrepRecipe {
         result.getTagCompound().setInteger("tasteBitter", tastes[3]);
         result.getTagCompound().setInteger("tasteUmami", tastes[4]);
 
-        Bids.LOG.info("Result tastes: " + Arrays.toString(tastes));
+        Bids.LOG.debug("Result tastes: " + Arrays.toString(tastes));
 
         return result;
     }
