@@ -365,7 +365,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
             return false;
         }
 
-        int[] prevFoodGroups = Food.getFoodGroups(result);
+        int[] prevFoodGroups = Food.getFoodGroups(prev);
         int[] resultFoodGroups = Food.getFoodGroups(result);
         for (int i = 0; i < resultFoodGroups.length; i++) {
             if (prevFoodGroups[i] != resultFoodGroups[i]) {
