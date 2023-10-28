@@ -11,6 +11,7 @@ import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsFood;
 import com.unforbidable.tfc.bids.api.Crafting.PrepManager;
 import com.unforbidable.tfc.bids.api.Crafting.PrepRecipe;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -47,6 +48,14 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
     }
 
     public void onBlockBroken() {
+        for (int i = 0; i < MAX_STORAGE; i++) {
+            if (storage[i] != null && i != SLOT_OUTPUT) {
+                final EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, storage[i]);
+                worldObj.spawnEntityInWorld(ei);
+
+                storage[i] = null;
+            }
+        }
     }
 
     @Override

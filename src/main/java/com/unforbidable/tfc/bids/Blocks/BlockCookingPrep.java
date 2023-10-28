@@ -29,6 +29,7 @@ public class BlockCookingPrep extends BlockContainer {
     public BlockCookingPrep() {
         super(Material.rock);
 
+        setHardness(1);
         this.setBlockBounds(0, 0, 0, 1, 0.15f, 1);
     }
 
