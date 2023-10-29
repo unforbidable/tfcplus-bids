@@ -74,6 +74,13 @@ public abstract class PrepRecipe {
 
     private boolean isTotalIngredientsWeightSufficient(ItemStack[] ingredients) {
         ItemStack[] consumedIngredients = getConsumedIngredients(ingredients, false);
+
+        // First slot must always be consumed if food
+        float[] weights = getIngredientWeights();
+        if (weights[0] > 0 && consumedIngredients[0] == null) {
+            return false;
+        }
+
         float totalConsumedWeight = getTotalConsumedIngredientWeight(consumedIngredients);
         return totalConsumedWeight >= getMinWeight();
     }
