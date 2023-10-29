@@ -449,7 +449,8 @@ public class ItemSetup extends BidsItems {
             .setMaxDamage(TFCItems.linenUses)
             .setUnlocalizedName("Steaming Mesh Cloth");
 
-        stuffedPepper = new ItemStuffedPepper()
+        stuffedPepper = new ItemStuffedPepper(new float[] { 3, 6, 4, 2, 1 }, 10)
+            .setMetaNames(new String[]{"Stuffed Pepper.Green", "Stuffed Pepper.Yellow", "Stuffed Pepper.Red"})
             .setUnlocalizedName("Stuffed Pepper");
     }
 

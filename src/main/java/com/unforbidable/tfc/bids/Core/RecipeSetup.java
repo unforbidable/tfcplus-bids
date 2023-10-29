@@ -1109,7 +1109,7 @@ public class RecipeSetup {
             vesselBowl, foodAny, foodAny, foodAny, foodAny
         }));
 
-        PrepManager.addRecipe(new PrepStuffedPepperRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedPepper)), new PrepIngredient[]{
+        PrepManager.addRecipe(new PrepMoreSandwichRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedPepper)), new PrepIngredient[]{
             foodPepper, foodAny, foodAny, foodAny, foodAny
         }));
     }

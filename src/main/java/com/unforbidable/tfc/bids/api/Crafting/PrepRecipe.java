@@ -15,7 +15,7 @@ public abstract class PrepRecipe {
 
     private final int INGREDIENT_COUNT = 5;
 
-    private final ItemStack output;
+    protected final ItemStack output;
     private final PrepIngredient[] ingredients;
 
     public PrepRecipe(ItemStack output, PrepIngredient[] ingredients) {
