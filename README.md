@@ -46,6 +46,8 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Cooking Pot](../../wiki/Cooking-Pot) - for boiling and steaming foodstuffs and much more
 * [Steaming Mesh](../../wiki/Steaming-Mesh) - as an accessory for the cooking pot
 * [Fish Oil](../../wiki/Fish-Oil) - an alternative fuel for clay lamps
+* [More Milk](../../wiki/More-Milk) - goat milk and goat cheese
+* [Cooking Prep](../../wiki/Cooking-Prep) - for making classic salads and sandwiches and new meals such as stuffed peppers and stuffed mushrooms
 
 ### Contributions
 
