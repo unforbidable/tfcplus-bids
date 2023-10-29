@@ -90,11 +90,6 @@ public class ItemMoreSandwich extends ItemSandwich implements IMoreSandwich {
         return foodMinWeight;
     }
 
-    @Override
-    public int getDamageFromIngredients(ItemStack[] input) {
-        return 0;
-    }
-
     protected float getAmountEatenPerCycle() {
         return foodMaxWeight / 2;
     }

@@ -13,7 +13,7 @@ import java.util.List;
 
 public abstract class PrepRecipe {
 
-    private final int INGREDIENT_COUNT = 5;
+    public static final int INGREDIENT_COUNT = 5;
 
     protected final ItemStack output;
     private final PrepIngredient[] ingredients;
@@ -25,6 +25,14 @@ public abstract class PrepRecipe {
 
         this.output = output;
         this.ingredients = ingredients;
+    }
+
+    public ItemStack getOutput() {
+        return output;
+    }
+
+    public PrepIngredient[] getIngredients() {
+        return ingredients;
     }
 
     public ItemStack getResult(ItemStack[] input, boolean consumeIngredients) {

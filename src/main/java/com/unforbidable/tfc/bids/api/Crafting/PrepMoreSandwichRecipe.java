@@ -9,18 +9,8 @@ public class PrepMoreSandwichRecipe extends PrepRecipe {
         super(output, ingredients);
 
         if (!(output.getItem() instanceof IMoreSandwich)) {
-            throw new IllegalArgumentException("PrepMoreSandwichRecipe requires output to be derived from ItemMoreSandwich or IMoreSandwich");
+            throw new IllegalArgumentException("PrepMoreSandwichRecipe requires output to be derived from ItemMoreSandwich or implement IMoreSandwich");
         }
-    }
-
-    @Override
-    public ItemStack getResult(ItemStack[] input, boolean consumeIngredients) {
-        ItemStack result = super.getResult(input, consumeIngredients);
-
-        int damage = ((IMoreSandwich)output.getItem()).getDamageFromIngredients(input);
-        result.setItemDamage(damage);
-
-        return result;
     }
 
     @Override

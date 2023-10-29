@@ -1,12 +1,10 @@
 package com.unforbidable.tfc.bids.api.Crafting;
 
-import com.dunk.tfc.Food.ItemMeal;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Interfaces.IFood;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.Crafting.Builders.PrepIngredientBuilder;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
@@ -96,6 +94,12 @@ public class PrepIngredient {
 
     public static PrepIngredientBuilder builder() {
         return new PrepIngredientBuilder();
+    }
+
+    public static PrepIngredient from(Item item) {
+        return builder()
+            .allow(item)
+            .build();
     }
 
 }
