@@ -32,18 +32,28 @@ public class PrepIngredient {
 
     public boolean matches(ItemStack ingredient) {
         if (allowedItemStacks.size() == 0 && allowedOreNames.size() == 0 && allowedFoodGroups.size() == 0) {
-            // Implicit allow any food but meals and filled containers (milk buckets)
-            return ingredient.getItem() instanceof IFood &&
-                !(ingredient.getItem() instanceof ItemMeal) &&
-                !FluidContainerRegistry.isFilledContainer(ingredient);
+            // Implicit allow any usable food
+            if (!isUsableFood(ingredient)) {
+                return false;
+            }
         } else {
-            return (allowedItemStacks.size() == 0 || matchesAnyFromItemStacks(ingredient, allowedItemStacks)) &&
-                (allowedOreNames.size() == 0 || matchesAnyFromOreNames(ingredient, allowedOreNames)) &&
-                (allowedFoodGroups.size() == 0 || matchesAnyFromFoodGroups(ingredient, allowedFoodGroups)) &&
-                (deniedItemStacks.size() == 0 || !matchesAnyFromItemStacks(ingredient, deniedItemStacks)) &&
-                (deniedOreNames.size() == 0 || !matchesAnyFromOreNames(ingredient, deniedOreNames)) &&
-                (deniedFoodGroups.size() == 0 || !matchesAnyFromFoodGroups(ingredient, deniedFoodGroups));
+            // Matches any allowed stack, ore or food group
+            if (allowedItemStacks.size() > 0 && !matchesAnyFromItemStacks(ingredient, allowedItemStacks) ||
+                allowedOreNames.size() > 0 && !matchesAnyFromOreNames(ingredient, allowedOreNames) ||
+                allowedFoodGroups.size() > 0 && !matchesAnyFromFoodGroups(ingredient, allowedFoodGroups)) {
+                return false;
+            }
         }
+
+        // And does not match any denied stack, ore or food group
+        return (deniedItemStacks.size() == 0 || !matchesAnyFromItemStacks(ingredient, deniedItemStacks)) &&
+            (deniedOreNames.size() == 0 || !matchesAnyFromOreNames(ingredient, deniedOreNames)) &&
+            (deniedFoodGroups.size() == 0 || !matchesAnyFromFoodGroups(ingredient, deniedFoodGroups));
+    }
+
+    private boolean isUsableFood(ItemStack ingredient) {
+        return ingredient.getItem() instanceof IFood &&
+            ((IFood)ingredient.getItem()).isUsable(ingredient);
     }
 
     private boolean matchesAnyFromItemStacks(ItemStack ingredient, List<ItemStack> itemStacks) {
