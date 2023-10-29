@@ -452,6 +452,9 @@ public class ItemSetup extends BidsItems {
         stuffedPepper = new ItemStuffedPepper(new float[] { 3, 6, 4, 2, 1 }, 10)
             .setMetaNames(new String[]{"Stuffed Pepper.Green", "Stuffed Pepper.Yellow", "Stuffed Pepper.Red"})
             .setUnlocalizedName("Stuffed Pepper");
+        stuffedMushroom = new ItemMoreSandwich(new float[] { 2, 3, 2, 2, 1 }, 7)
+            .setMetaNames(new String[]{"Stuffed Mushroom.Brown"})
+            .setUnlocalizedName("Stuffed Mushroom");
     }
 
     private static void registerFluidContainers() {
@@ -641,7 +644,7 @@ public class ItemSetup extends BidsItems {
 
         Item[] foodItems = { wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed,
                 cornmealCrushed, wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge,
-                cornmealPorridge, appleCrushed, oliveCrushed, goatCheese, stuffedPepper };
+                cornmealPorridge, appleCrushed, oliveCrushed, goatCheese, stuffedPepper, stuffedMushroom };
 
         for (Item item : foodItems) {
             MinecraftForgeClient.registerItemRenderer(item, new FoodItemRenderer());
@@ -883,6 +886,7 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(goatCheese, goatCheese.getUnlocalizedName());
 
         GameRegistry.registerItem(stuffedPepper, stuffedPepper.getUnlocalizedName());
+        GameRegistry.registerItem(stuffedMushroom, stuffedMushroom.getUnlocalizedName());
     }
 
 }

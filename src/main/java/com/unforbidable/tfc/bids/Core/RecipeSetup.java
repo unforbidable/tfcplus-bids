@@ -1092,6 +1092,10 @@ public class RecipeSetup {
             .allow(TFCItems.redBellPepper)
             .build();
 
+        PrepIngredient foodMushroom = PrepIngredient.builder()
+            .allow(TFCItems.mushroomFoodB)
+            .build();
+
         PrepIngredient foodAllButGrain = PrepIngredient.builder()
             .deny(EnumFoodGroup.Grain)
             .build();
@@ -1111,6 +1115,10 @@ public class RecipeSetup {
 
         PrepManager.addRecipe(new PrepMoreSandwichRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedPepper)), new PrepIngredient[]{
             foodPepper, foodAny, foodAny, foodAny, foodAny
+        }));
+
+        PrepManager.addRecipe(new PrepMoreSandwichRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedMushroom)), new PrepIngredient[]{
+            foodMushroom, foodAny, foodAny, foodAny, foodAny
         }));
     }
 

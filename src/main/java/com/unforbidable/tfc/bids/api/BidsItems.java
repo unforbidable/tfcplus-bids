@@ -160,5 +160,6 @@ public class BidsItems {
     public static Item goatCheese;
 
     public static Item stuffedPepper;
+    public static Item stuffedMushroom;
 
 }
