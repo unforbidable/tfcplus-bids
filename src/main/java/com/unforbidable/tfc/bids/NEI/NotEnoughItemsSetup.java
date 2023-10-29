@@ -36,6 +36,7 @@ public class NotEnoughItemsSetup {
         registerHandler(new SaddleQuernHandler());
         registerHandler(new StonePressHandler());
         registerHandler(new CookingPotHandler());
+        registerHandler(new CookingPrepHandler());
     }
 
     private static void registerHandler(TemplateRecipeHandler handler) {

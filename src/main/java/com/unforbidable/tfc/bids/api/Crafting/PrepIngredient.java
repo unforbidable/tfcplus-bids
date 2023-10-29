@@ -28,6 +28,30 @@ public class PrepIngredient {
         this.deniedFoodGroups = deniedFoodGroups;
     }
 
+    public List<ItemStack> getAllowedItemStacks() {
+        return allowedItemStacks;
+    }
+
+    public List<String> getAllowedOreNames() {
+        return allowedOreNames;
+    }
+
+    public List<EnumFoodGroup> getAllowedFoodGroups() {
+        return allowedFoodGroups;
+    }
+
+    public List<ItemStack> getDeniedItemStacks() {
+        return deniedItemStacks;
+    }
+
+    public List<String> getDeniedOreNames() {
+        return deniedOreNames;
+    }
+
+    public List<EnumFoodGroup> getDeniedFoodGroups() {
+        return deniedFoodGroups;
+    }
+
     public boolean matches(ItemStack ingredient) {
         if (allowedItemStacks.size() == 0 && allowedOreNames.size() == 0 && allowedFoodGroups.size() == 0) {
             // Implicit allow any usable food
