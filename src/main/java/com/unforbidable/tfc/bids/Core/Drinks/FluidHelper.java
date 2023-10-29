@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.Core.Drinks;
 
 import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.Entities.Mobs.EntityCowTFC;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.Util.Helper;
@@ -11,7 +10,6 @@ import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -62,9 +60,9 @@ public class FluidHelper {
             int reach = (int) Math.round(reachBase * ((ISize)is.getItem()).getReach(is).multiplier);
             MovingObjectPosition mop = Helper.getMovingObjectPositionFromPlayer(world, player, true, reach);
 
-            Bids.LOG.info("typeOfHit: " + mop.typeOfHit);
-
-            return fillContainerFromBlock(is, world, player, mop);
+            if (mop != null) {
+                return fillContainerFromBlock(is, world, player, mop);
+            }
         }
 
         return is;
@@ -209,7 +207,7 @@ public class FluidHelper {
                 return is;
             }
 
-            Bids.LOG.info("Filled: " + temp.getDisplayName() + "[" + temp.getItemDamage() + "]");
+            Bids.LOG.debug("Filled: " + temp.getDisplayName() + "[" + temp.getItemDamage() + "]");
         }
 
         ItemStack filledContainer = temp;
