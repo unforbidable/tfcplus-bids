@@ -4,6 +4,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Interfaces.IFood;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
@@ -12,7 +13,6 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Crafting.PrepIngredient;
 import com.unforbidable.tfc.bids.api.Crafting.PrepManager;
 import com.unforbidable.tfc.bids.api.Crafting.PrepRecipe;
-import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
@@ -127,12 +127,10 @@ public class CookingPrepHandler extends TemplateRecipeHandler implements IHandle
         }
 
         if (prepIngredient.getAllowedFoodGroups().size() > 0 || list.size() == 0) {
-            for (Item item : GameData.getItemRegistry().typeSafeIterable()) {
-                if (item instanceof IFood) {
-                    ItemStack is = new ItemStack(item);
-                    if (prepIngredient.matches(is)) {
-                        list.add(is);
-                    }
+            for (Item item : TFCItems.foodList) {
+                ItemStack is = new ItemStack(item);
+                if (prepIngredient.matches(is)) {
+                    list.add(is);
                 }
             }
         }
