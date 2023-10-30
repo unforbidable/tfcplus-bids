@@ -172,7 +172,7 @@ public abstract class PrepRecipe {
             if (ingredients[i] != null) {
                 if (weights[i] > 0) {
                     float weight = Food.getWeight(ingredients[i]);
-                    float decay = Food.getDecay(ingredients[i]);
+                    float decay = Math.max(Food.getDecay(ingredients[i]), 0);
                     float availableWeight = weight - decay;
                     if (availableWeight >= weights[i]) {
                         float consumedWeight = weights[i];
