@@ -74,8 +74,7 @@ public abstract class PrepRecipe {
             throw new IllegalArgumentException("Expected array of ingredients of size 5");
         }
 
-        return ingredients[0] != null &&
-            ingredientsMatch(ingredients) &&
+        return ingredientsMatch(ingredients) &&
             isTotalIngredientsWeightSufficient(ingredients) &&
             areIngredientsUnique(ingredients);
     }
@@ -123,6 +122,9 @@ public abstract class PrepRecipe {
                     // No match
                     return false;
                 }
+            } else if (i == 0 && this.ingredients[i] != null) {
+                // Vessel is not optional
+                return false;
             }
         }
 
@@ -130,7 +132,7 @@ public abstract class PrepRecipe {
     }
 
     protected boolean ingredientMatches(ItemStack ingredient, int slot) {
-        return this.ingredients[slot].matches(ingredient);
+        return ingredients[slot] != null && ingredients[slot].matches(ingredient);
     }
 
     private float getTotalConsumedIngredientWeight(ItemStack[] consumedIngredients) {
