@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.TileEntities;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.Food.ItemMeal;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
@@ -297,7 +298,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
             // Set decay when the output is picked as if it was just created
             Food.setDecayTimer(itemStack, (int)TFC_Time.getTotalHours() + 1);
 
-            if (player != null) {
+            if (player != null && itemStack.getItem() instanceof ItemMeal) {
                 // Advance player's skill
                 TFC_Core.getSkillStats(player).increaseSkill(Global.SKILL_COOKING, 1);
 
