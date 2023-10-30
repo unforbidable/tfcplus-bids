@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.Containers.Slots;
 
+import com.dunk.tfc.Food.ItemMeal;
 import com.dunk.tfc.api.Interfaces.IFood;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 
 public class SlotPrepIngredient extends TrackedSlot {
 
@@ -15,7 +15,7 @@ public class SlotPrepIngredient extends TrackedSlot {
     public boolean isItemValid(ItemStack is) {
         return super.isItemValid(is) &&
             is.getItem() instanceof IFood &&
-            !FluidContainerRegistry.isFilledContainer(is);
+            !(is.getItem() instanceof ItemMeal);
     }
 
 }
