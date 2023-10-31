@@ -126,4 +126,10 @@ public class PrepIngredient {
             .build();
     }
 
+    public static PrepIngredient from(ItemStack ingredient) {
+        return builder()
+            .allow(ingredient)
+            .build();
+    }
+
 }

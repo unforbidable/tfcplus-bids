@@ -40,7 +40,7 @@ public abstract class PrepRecipe {
             throw new IllegalArgumentException("Expected array of ingredients of size " + INGREDIENT_COUNT);
         }
 
-        ItemStack result = output.copy();
+        ItemStack result = getOutput().copy();
 
         // Stack size is 0 if output tag was created without weight
         result.stackSize = 1;
@@ -135,7 +135,7 @@ public abstract class PrepRecipe {
         return ingredients[slot] != null && ingredients[slot].matches(ingredient);
     }
 
-    private float getTotalConsumedIngredientWeight(ItemStack[] consumedIngredients) {
+    protected float getTotalConsumedIngredientWeight(ItemStack[] consumedIngredients) {
         float totalAvailableWeight = 0;
 
         for (ItemStack consumedIngredient : consumedIngredients) {
@@ -164,7 +164,7 @@ public abstract class PrepRecipe {
         return true;
     }
 
-    private ItemStack[] getConsumedIngredients(ItemStack[] ingredients, boolean consumeIngredients) {
+    protected ItemStack[] getConsumedIngredients(ItemStack[] ingredients, boolean consumeIngredients) {
         float[] weights = getIngredientWeights();
         ItemStack[] consumed = new ItemStack[INGREDIENT_COUNT];
 
@@ -195,7 +195,7 @@ public abstract class PrepRecipe {
         return consumed;
     }
 
-    private int[] getCombinedIngredientTastes(ItemStack[] consumedIngredients) {
+    protected int[] getCombinedIngredientTastes(ItemStack[] consumedIngredients) {
         int[] tastes = { 0, 0, 0, 0, 0 };
         float totalWeight = getTotalConsumedIngredientWeight(consumedIngredients);
         float[] weights = getIngredientWeights();
@@ -214,7 +214,7 @@ public abstract class PrepRecipe {
         return tastes;
     }
 
-    private int[] getIngredientFoodGroups(ItemStack[] consumedIngredients) {
+    protected int[] getIngredientFoodGroups(ItemStack[] consumedIngredients) {
         float[] weights = getIngredientWeights();
         int[] fg = new int[INGREDIENT_COUNT];
 

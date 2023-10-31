@@ -8,6 +8,7 @@ import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Containers.Slots.ISlotTracker;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingPrep.PrepVirtualCuttingRecipe;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsFood;
 import com.unforbidable.tfc.bids.api.Crafting.PrepManager;
@@ -279,11 +280,8 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
         Bids.LOG.debug("Picked output " + itemStack.getDisplayName());
 
         if (!worldObj.isRemote) {
-            ItemStack[] ingredients = getIngredientsForRecipe();
-            PrepRecipe recipe = PrepManager.getMatchingRecipe(ingredients);
-            if (recipe != null) {
-                ItemStack result = recipe.getResult(ingredients, true);
-
+            ItemStack result = getMatchingRecipeResult(true);
+            if (result != null) {
                 removeConsumedIngredients();
 
                 if (!recipeResultsAreEqual(result, itemStack)) {
@@ -325,10 +323,8 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
     }
 
     private void updateRecipeResultPreview() {
-        ItemStack[] ingredients = getIngredientsForRecipe();
-        PrepRecipe recipe = PrepManager.getMatchingRecipe(ingredients);
-        if (recipe != null) {
-            ItemStack result = recipe.getResult(ingredients, false);
+        ItemStack result = getMatchingRecipeResult(false);
+        if (result != null) {
             Bids.LOG.debug("Result: " + result.getDisplayName() + "[" + result.stackSize + "]");
 
             // Preview will never decay
@@ -346,6 +342,52 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
         }
+    }
+
+    private ItemStack getMatchingRecipeResult(boolean consumeIngredients) {
+        ItemStack[] ingredients = getIngredientsForRecipe(false);
+        PrepRecipe recipe = PrepManager.getMatchingRecipe(ingredients);
+        if (recipe != null) {
+            return recipe.getResult(ingredients, consumeIngredients);
+        }
+
+        PrepRecipe virtualCuttingRecipe = getMatchingVirtualCuttingRecipe(ingredients);
+        if (virtualCuttingRecipe != null) {
+            return virtualCuttingRecipe.getResult(ingredients, consumeIngredients);
+        }
+
+        ItemStack[] ingredientsWithStoredVessel = getIngredientsForRecipe(true);
+        PrepRecipe recipeWithStoredVessel = PrepManager.getMatchingRecipe(ingredientsWithStoredVessel);
+        if (recipeWithStoredVessel != null) {
+            return recipeWithStoredVessel.getResult(ingredientsWithStoredVessel, consumeIngredients);
+        }
+
+        return null;
+    }
+
+    private PrepRecipe getMatchingVirtualCuttingRecipe(ItemStack[] ingredients) {
+        // If there is only one item placed in any slot from 1 to 4
+        // create virtual cutting recipe
+        int slot = 0;
+        for (int i = 1; i <= 4; i++) {
+            if (storage[i] != null) {
+                if (slot == 0) {
+                    slot = i;
+                } else {
+                    slot = -1;
+                }
+            }
+        }
+
+        // Exactly one item was found in slot
+        if (slot > 0) {
+            PrepVirtualCuttingRecipe virtualCuttingRecipe = PrepVirtualCuttingRecipe.forIngredientInSlot(storage[slot], slot);
+            if (virtualCuttingRecipe.matches(ingredients)) {
+                return virtualCuttingRecipe;
+            }
+        }
+
+        return null;
     }
 
     private boolean isSameRecipeResult(ItemStack result) {
@@ -372,10 +414,10 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
         return true;
     }
 
-    private ItemStack[] getIngredientsForRecipe() {
+    private ItemStack[] getIngredientsForRecipe(boolean checkStorageForVessel) {
         ItemStack[] ingredients = Arrays.copyOfRange(storage, 0, 5);
 
-        if (ingredients[0] == null) {
+        if (ingredients[0] == null && checkStorageForVessel) {
             // When the vessel slot is empty, look for bowls in the storage slots
             for (int i = 6; i <= 9; i++) {
                 if (storage[i] != null) {
@@ -397,14 +439,31 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
     }
 
     private void updateRecipeWeights() {
-        ItemStack[] ingredients = getIngredientsForRecipe();
-        ItemStack vessel = ingredients[0];
-        if (vessel != null) {
-            List<PrepRecipe> recipes = PrepManager.getRecipesUsingVessel(vessel);
-            if (recipes.size() > 0) {
-                recipeIngredientWeights = recipes.get(0).getIngredientWeights();
-                Bids.LOG.debug("Updated weights: " + Arrays.toString(recipeIngredientWeights));
+        int count = 0;
+        for (int i = 1; i <= 4; i++) {
+            if (storage[i] != null) {
+                count++;
+            }
+        }
+
+        if (count == 1 && storage[0] == null) {
+            // Exactly one ingredient and also empty vessel slot
+            ItemStack[] ingredients = getIngredientsForRecipe(false);
+            PrepRecipe recipe = getMatchingVirtualCuttingRecipe(ingredients);
+            if (recipe != null) {
+                recipeIngredientWeights = recipe.getIngredientWeights();
+                Bids.LOG.debug("Updated weights for cutting: " + Arrays.toString(recipeIngredientWeights));
                 return;
+            }
+        } else if (count > 1 || storage[0] != null) {
+            ItemStack[] ingredientsWithStoredVessel = getIngredientsForRecipe(true);
+            if (ingredientsWithStoredVessel[0] != null) {
+                List<PrepRecipe> recipes = PrepManager.getRecipesUsingVessel(ingredientsWithStoredVessel[0]);
+                if (recipes.size() > 0) {
+                    recipeIngredientWeights = recipes.get(0).getIngredientWeights();
+                    Bids.LOG.debug("Updated weights for recipe: " + Arrays.toString(recipeIngredientWeights));
+                    return;
+                }
             }
         }
 

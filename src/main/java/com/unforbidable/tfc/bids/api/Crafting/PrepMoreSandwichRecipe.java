@@ -15,12 +15,12 @@ public class PrepMoreSandwichRecipe extends PrepRecipe {
 
     @Override
     public float[] getIngredientWeights() {
-        return ((IMoreSandwich)output.getItem()).getIngredientWeights();
+        return ((IMoreSandwich)getOutput().getItem()).getIngredientWeights();
     }
 
     @Override
     public float getMinWeight() {
-        return ((IMoreSandwich)output.getItem()).getFoodMinWeight();
+        return ((IMoreSandwich)getOutput().getItem()).getFoodMinWeight();
     }
 
 }
