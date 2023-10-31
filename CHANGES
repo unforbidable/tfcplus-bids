@@ -414,3 +414,12 @@
 - Added: Cooking Prep surface for making meals
 - Added: Stuffed Pepper and Stuffed Mushroom meal
 - Fixed: Bismuth bronze anvil is welded from bismuth bronze double ingots
+
+0.34.1 (31-10-2023)
+- Added: NEI support for Cooking Prep recipes
+- Added: Cooking Prep surface can be used to cut 10oz, 20oz, 40oz and 80oz portions from food (except meals)
+- Changed: Simplified cooking prep recipe result item damage handling (API)
+- Changed: Updated Chinese translation by Eternal130
+- Fixed: Cooking prep ingredient matching should be less eager
+- Fixed: Fresh food with negative decay should be consumed properly
+- Fixed: Crash when the player attempts to fill an empty containers with air
