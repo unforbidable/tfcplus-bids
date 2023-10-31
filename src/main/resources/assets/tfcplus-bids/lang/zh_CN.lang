@@ -192,6 +192,7 @@ tile.CookingPot.Clay.name=黏土烹饪锅
 tile.CookingPot.Ceramic.name=陶瓷烹饪锅
 tile.CookingPotLid.Clay.name=黏土锅盖
 tile.CookingPotLid.Ceramic.name=陶瓷锅盖
+tile.CookingPrep.name=厨台
 
 item.Ore Bit.Bismuthinite.name=辉铋矿碎片
 item.Ore Bit.Cassiterite.name=锡精矿碎片
@@ -230,6 +231,7 @@ item.Drinking Glass.RyeWine.name=玻璃杯(黑麦酒)
 item.Drinking Glass.BarleyWine.name=玻璃杯(大麦酒)
 item.Drinking Glass.PotatoWine.name=玻璃杯(马铃薯酒)
 item.Drinking Glass.Milk.name=玻璃杯(奶)
+item.Drinking Glass.GoatMilk.name=玻璃杯(羊奶)
 item.Drinking Glass.Shochu.name=玻璃杯(烧酒)
 item.Drinking Glass.Brandy.name=玻璃杯(白兰地)
 item.Drinking Glass.BerryBrandy.name=玻璃杯(浆果白兰地)
@@ -294,6 +296,7 @@ item.Glass Jug.RyeWine.name=玻璃壶(黑麦酒)
 item.Glass Jug.BarleyWine.name=玻璃壶(大麦酒)
 item.Glass Jug.PotatoWine.name=玻璃壶(马铃薯酒)
 item.Glass Jug.Milk.name=玻璃壶(奶)
+item.Glass Jug.GoatMilk.name=玻璃壶(羊奶)
 item.Glass Jug.Shochu.name=玻璃壶(烧酒)
 item.Glass Jug.Brandy.name=玻璃壶(白兰地)
 item.Glass Jug.BerryBrandy.name=玻璃壶(浆果白兰地)
@@ -358,6 +361,7 @@ item.Shot Glass.RyeWine.name=子弹杯(黑麦酒)
 item.Shot Glass.BarleyWine.name=子弹杯(大麦酒)
 item.Shot Glass.PotatoWine.name=子弹杯(马铃薯酒)
 item.Shot Glass.Milk.name=子弹杯(奶)
+item.Shot Glass.GoatMilk.name=子弹杯(羊奶)
 item.Shot Glass.Shochu.name=子弹杯(烧酒)
 item.Shot Glass.Brandy.name=子弹杯(白兰地)
 item.Shot Glass.BerryBrandy.name=子弹杯(浆果白兰地)
@@ -423,6 +427,7 @@ item.Pottery Mug.RyeWine.name=陶瓷杯(黑麦酒)
 item.Pottery Mug.BarleyWine.name=陶瓷杯(大麦酒)
 item.Pottery Mug.PotatoWine.name=陶瓷杯(马铃薯酒)
 item.Pottery Mug.Milk.name=陶瓷杯(奶)
+item.Pottery Mug.GoatMilk.name=陶瓷杯(羊奶)
 item.Pottery Mug.Shochu.name=陶瓷杯(烧酒)
 item.Pottery Mug.Brandy.name=陶瓷杯(白兰地)
 item.Pottery Mug.BerryBrandy.name=陶瓷杯(浆果白兰地)
@@ -487,6 +492,7 @@ item.Birch Bark Cup.RyeWine.name=桦树皮杯(黑麦酒)
 item.Birch Bark Cup.BarleyWine.name=桦树皮杯(大麦酒)
 item.Birch Bark Cup.PotatoWine.name=桦树皮杯(马铃薯酒)
 item.Birch Bark Cup.Milk.name=桦树皮杯(奶)
+item.Birch Bark Cup.GoatMilk.name=桦树皮杯(羊奶)
 item.Birch Bark Cup.Shochu.name=桦树皮杯(烧酒)
 item.Birch Bark Cup.Brandy.name=桦树皮杯(白兰地)
 item.Birch Bark Cup.BerryBrandy.name=桦树皮杯(浆果白兰地)
@@ -547,6 +553,7 @@ item.Glass Bottle.HoneyWater.name=瓶装蜂蜜水
 item.Glass Bottle.MilkVinegar.name=瓶装奶醋
 item.Glass Bottle.FishOil.name=瓶装鱼油
 item.Glass Bottle.OilyFishWater.name=瓶装鱼糜
+item.Glass Bottle.GoatMilk.name=瓶装羊奶
 
 item.Bowl Vinegar.PotteryBowl.name=陶瓷碗(醋)
 item.Bowl Vinegar.Bowl.name=碗(醋)
@@ -559,11 +566,13 @@ item.Ceramic Bucket.Brine.name=陶瓷桶(卤水)
 item.Ceramic Bucket.HoneyWater.name=陶瓷桶(蜂蜜水)
 item.Ceramic Bucket.MilkVinegar.name=陶瓷桶(奶醋)
 item.Ceramic Bucket.OilyFishWater.name=陶瓷桶(鱼糜)
+item.Ceramic Bucket.GoatMilk.name=陶瓷桶(羊奶)
 
 item.Wooden Bucket.Brine.name=木桶(卤水)
 item.Wooden Bucket.HoneyWater.name=木桶(蜂蜜水)
 item.Wooden Bucket.MilkVinegar.name=木桶(奶醋)
 item.Wooden Bucket.OilyFishWater.name=木桶(鱼糜)
+item.Wooden Bucket.GoatMilk.name=木桶(羊奶)
 
 item.Large Bowl.Clay.name=大黏土碗
 item.Large Bowl.Ceramic.name=大陶瓷碗
@@ -573,6 +582,7 @@ item.Large Bowl.SaltWater.Pottery.name=大陶瓷碗(盐水)
 item.Large Bowl.Vinegar.Pottery.name=大陶瓷碗(醋)
 item.Large Bowl.Milk.Pottery.name=大陶瓷碗(奶)
 item.Large Bowl.Honey.Pottery.name=大陶瓷碗(蜂蜜)
+item.Large Bowl.GoatMilk.Pottery.name=大陶瓷碗(羊奶)
 
 item.Ceramic Bucket Rope.name=带绳陶瓷桶
 item.Ceramic Bucket Rope.FreshWater.name=带绳陶瓷桶(淡水)
@@ -944,6 +954,8 @@ item.Rice Porridge.name=粗米糊
 item.Rye Porridge.name=粗黑麦糊
 item.Cornmeal Porridge.name=玉米糁粥
 
+item.Goat Cheese.name=羊奶酪
+
 item.Plug And Feather.name=楔子
 
 item.Apple Crushed.name=碎苹果
@@ -951,8 +963,14 @@ item.Olive Crushed.name=碎橄榄
 
 item.Steaming Mesh Cloth.name=蒸网
 
+item.Stuffed Pepper.name=酿辣椒
+item.Stuffed Mushroom.name=酿蘑菇
+
 fluid.FishOil=鱼油
 fluid.OilyFishWater=鱼糜
+fluid.GoatMilk=羊奶
+fluid.GoatMilkVinegar=羊奶醋
+fluid.GoatMilkCurdled=羊凝乳
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
