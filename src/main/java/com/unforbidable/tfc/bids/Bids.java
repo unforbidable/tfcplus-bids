@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids;
 
 import com.unforbidable.tfc.bids.WorldGen.AquiferWorldGen;
+import com.unforbidable.tfc.bids.WorldGen.CropWorldGen;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
@@ -36,6 +37,7 @@ public class Bids {
         network = NetworkRegistry.INSTANCE.newSimpleChannel("BidsChannel");
 
         GameRegistry.registerWorldGenerator(new AquiferWorldGen(), 0);
+        GameRegistry.registerWorldGenerator(new CropWorldGen(), 0);
 
         proxy.preInit(event);
     }

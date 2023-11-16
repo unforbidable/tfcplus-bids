@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core.WorldGen;
 
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.*;
@@ -121,6 +122,10 @@ public class WorldGenHelper {
         }
 
         return border;
+    }
+
+    public static Random getChunkYearRandom(World world, int chunkX, int chunkZ, int year) {
+        return new Random(world.getSeed() + (chunkX * chunkX * 4987142L) + (chunkX * 5947611L) + (chunkZ * chunkZ * 4392871L + (chunkZ * 389711L) ^ year));
     }
 
 }
