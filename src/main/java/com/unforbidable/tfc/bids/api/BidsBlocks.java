@@ -27,6 +27,8 @@ public class BidsBlocks {
     public static int cookingPotRenderId;
     public static int cookingPotLidRenderId;
 
+    public static int newCropsRenderId;
+
     public static Block clayCrucible;
     public static Block fireClayCrucible;
 
@@ -124,5 +126,9 @@ public class BidsBlocks {
     public static Block steamingMesh;
 
     public static Block cookingPrep;
+
+    public static Block newCrops;
+    public static Block newTilledSoil;
+    public static Block newTilledSoil2;
 
 }

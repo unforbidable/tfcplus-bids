@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core;
 
+import com.dunk.tfc.Items.ItemBlocks.ItemSoil;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Bids;
@@ -16,12 +17,9 @@ import com.unforbidable.tfc.bids.Items.ItemBlocks.*;
 import com.unforbidable.tfc.bids.Render.Blocks.*;
 import com.unforbidable.tfc.bids.Render.Tiles.*;
 import com.unforbidable.tfc.bids.TileEntities.*;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.CarvingRegistry;
+import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Enums.EnumLogWallType;
 import com.unforbidable.tfc.bids.api.Enums.EnumLogWallVertType;
-import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -232,6 +230,19 @@ public class BlockSetup extends BidsBlocks {
 
         cookingPrep = new BlockCookingPrep()
             .setBlockName("CookingPrep");
+
+        newCrops = new BlockNewCrop()
+            .setHardness(0.3F)
+            .setStepSound(Block.soundTypeGrass)
+            .setBlockName("NewCrop");
+        newTilledSoil = new BlockNewFarmland(TFCBlocks.dirt, 0)
+            .setHardness(2F)
+            .setStepSound(Block.soundTypeGravel)
+            .setBlockName("NewTilledSoil");
+        newTilledSoil2 = new BlockNewFarmland(TFCBlocks.dirt2, 16)
+            .setHardness(2F)
+            .setStepSound(Block.soundTypeGravel)
+            .setBlockName("NewTilledSoil");
     }
 
     private static void updateBlocks() {
@@ -313,6 +324,8 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(stonePressLever, 5, 5);
 
         Blocks.fire.setFireInfo(wallHook, 5, 5);
+
+        Blocks.fire.setFireInfo(newCrops, 5, 5);
     }
 
     private static void registerOre() {
@@ -410,6 +423,9 @@ public class BlockSetup extends BidsBlocks {
 
         cookingPotLidRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(cookingPotLidRenderId, new RenderCookingPotLid());
+
+        newCropsRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(newCropsRenderId, new RenderNewCrop());
     }
 
     private static void registerTileEntities() {
@@ -447,6 +463,9 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityCookingPot.class, "BidsCookingPot");
 
         GameRegistry.registerTileEntity(TileEntityCookingPrep.class, "BidsCookingPrep");
+
+        GameRegistry.registerTileEntity(TileEntityNewCrop.class, "BidsNewCrop");
+        GameRegistry.registerTileEntity(TileEntityNewFarmland.class, "BidsNewFarmland");
     }
 
     @SideOnly(Side.CLIENT)
@@ -589,6 +608,10 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(steamingMesh, "SteamingMesh");
 
         GameRegistry.registerBlock(cookingPrep, "CookingPrep");
+
+        GameRegistry.registerBlock(newCrops, ItemSoil.class, "NewCrop");
+        GameRegistry.registerBlock(newTilledSoil, ItemSoil.class, "NewTilledSoil");
+        GameRegistry.registerBlock(newTilledSoil2, ItemSoil.class, "NewTilledSoil2");
     }
 
 }
