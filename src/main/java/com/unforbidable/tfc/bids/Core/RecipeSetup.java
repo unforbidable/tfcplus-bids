@@ -1465,7 +1465,7 @@ public class RecipeSetup {
             registerUnfinishedAnvilRecipeHelper(2, TFCItems.bronzeIngot2x, AnvilReq.COPPER);
             registerUnfinishedAnvilRecipeHelper(3, TFCItems.wroughtIronIngot2x, AnvilReq.BRONZE);
             registerUnfinishedAnvilRecipeHelper(4, TFCItems.steelIngot2x, AnvilReq.WROUGHTIRON);
-            registerUnfinishedAnvilRecipeHelper(5, TFCItems.blackBronzeIngot2x, AnvilReq.STEEL);
+            registerUnfinishedAnvilRecipeHelper(5, TFCItems.blackSteelIngot2x, AnvilReq.STEEL);
             registerUnfinishedAnvilRecipeHelper(6, TFCItems.blueSteelIngot2x, AnvilReq.BLACKSTEEL);
             registerUnfinishedAnvilRecipeHelper(7, TFCItems.redSteelIngot2x, AnvilReq.BLACKSTEEL);
             registerUnfinishedAnvilRecipeHelper(8, TFCItems.roseGoldIngot2x, AnvilReq.COPPER);
