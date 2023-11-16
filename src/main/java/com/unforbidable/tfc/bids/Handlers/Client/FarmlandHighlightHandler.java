@@ -226,6 +226,8 @@ public class FarmlandHighlightHandler {
                 GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 if (crop.getIndex().isFullyGrown(crop))
                     GL11.glColor4ub((byte) 64, (byte) 200, (byte) 37, (byte) 200);
+                else if (crop.getIndex().isAtLeastPartiallyGrown(crop))
+                    GL11.glColor4ub((byte) 200, (byte) 150, (byte) 0, (byte) 200);
                 else
                     GL11.glColor4ub((byte) 200, (byte) 37, (byte) 37, (byte) 200);
                 GL11.glDisable(GL11.GL_CULL_FACE);
