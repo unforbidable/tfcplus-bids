@@ -3,10 +3,7 @@ package com.unforbidable.tfc.bids;
 import com.unforbidable.tfc.bids.Core.BlockSetup;
 import com.unforbidable.tfc.bids.Core.ItemSetup;
 import com.unforbidable.tfc.bids.Core.KeyBindingSetup;
-import com.unforbidable.tfc.bids.Handlers.Client.ClientGuiHandler;
-import com.unforbidable.tfc.bids.Handlers.Client.ClientTickHandler;
-import com.unforbidable.tfc.bids.Handlers.Client.KeyBindingHandler;
-import com.unforbidable.tfc.bids.Handlers.Client.RenderOverlayHandler;
+import com.unforbidable.tfc.bids.Handlers.Client.*;
 import com.unforbidable.tfc.bids.NEI.NotEnoughItemsSetup;
 import com.unforbidable.tfc.bids.WAILA.WailaSetup;
 
@@ -31,6 +28,7 @@ public class ClientProxy extends CommonProxy {
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new ClientGuiHandler());
         MinecraftForge.EVENT_BUS.register(new ClientGuiHandler());
+        MinecraftForge.EVENT_BUS.register(new FarmlandHighlightHandler());
 
         BlockSetup.preInitClientOnly();
     }
