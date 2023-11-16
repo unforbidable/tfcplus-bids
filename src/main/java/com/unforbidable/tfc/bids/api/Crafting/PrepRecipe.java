@@ -14,6 +14,7 @@ import java.util.List;
 public abstract class PrepRecipe {
 
     public static final int INGREDIENT_COUNT = 5;
+    private static final float REQUIRED_WEIGHT_TOLERANCE = 0.95f;
 
     protected final ItemStack output;
     private final PrepIngredient[] ingredients;
@@ -174,8 +175,10 @@ public abstract class PrepRecipe {
                     float weight = Food.getWeight(ingredients[i]);
                     float decay = Math.max(Food.getDecay(ingredients[i]), 0);
                     float availableWeight = weight - decay;
-                    if (availableWeight >= weights[i]) {
-                        float consumedWeight = weights[i];
+                    // Allow some tolerance so that slightly less food than required is enough
+                    if (availableWeight >= weights[i] * REQUIRED_WEIGHT_TOLERANCE) {
+                        // Consume available weight but no more than required weight
+                        float consumedWeight = Math.min(availableWeight, weights[i]);
                         consumed[i] = ingredients[i].copy();
                         Food.setWeight(consumed[i], consumedWeight);
 
