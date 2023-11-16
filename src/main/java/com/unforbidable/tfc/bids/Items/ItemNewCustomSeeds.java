@@ -53,6 +53,9 @@ public class ItemNewCustomSeeds extends ItemCustomSeeds {
                     } else if (crop.requiresLadder && !player.inventory.hasItem(Item.getItemFromBlock(Blocks.ladder))) {
                         TFC_Core.sendInfoMessage(player, new ChatComponentTranslation("gui.seeds.failedLadder"));
                         return false;
+                    } else if (crop.requiresPole && !player.inventory.hasItem(TFCItems.pole)) {
+                        TFC_Core.sendInfoMessage(player, new ChatComponentTranslation("gui.seeds.failedPole"));
+                        return false;
                     } else if (TFC_Climate.getHeightAdjustedTemp(world, x, y, z) <= crop.minAliveTemp && !crop.dormantInFrost) {
                         TFC_Core.sendInfoMessage(player, new ChatComponentTranslation("gui.seeds.failedTemp"));
                         return false;
@@ -68,6 +71,9 @@ public class ItemNewCustomSeeds extends ItemCustomSeeds {
                         --stack.stackSize;
                         if (crop.requiresLadder) {
                             player.inventory.consumeInventoryItem(Item.getItemFromBlock(Blocks.ladder));
+                            player.inventoryContainer.detectAndSendChanges();
+                        } else if (crop.requiresPole) {
+                            player.inventory.consumeInventoryItem(TFCItems.pole);
                             player.inventoryContainer.detectAndSendChanges();
                         }
 
