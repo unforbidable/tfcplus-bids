@@ -8,6 +8,7 @@ import com.dunk.tfc.TileEntities.TEFarmland;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Core.Crops.BidsCropIndex;
+import com.unforbidable.tfc.bids.Core.Crops.CropCultivation;
 import com.unforbidable.tfc.bids.Core.Crops.CropHelper;
 import com.unforbidable.tfc.bids.Core.Crops.BidsCropManager;
 import com.unforbidable.tfc.bids.Tags;
@@ -20,7 +21,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemNewCustomSeeds extends ItemCustomSeeds {
 
@@ -87,6 +91,25 @@ public class ItemNewCustomSeeds extends ItemCustomSeeds {
             }
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
+        super.addInformation(is, player, arraylist, flag);
+
+        BidsCropIndex crop = BidsCropManager.findCropById(cropId);
+        if (crop.requiresLadder) {
+            arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedRequiresLadder"));
+        } else if (crop.requiresPole) {
+            arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedRequiresPole"));
+        }
+
+        if (crop.cropCultivation != null) {
+            for (CropCultivation cultivation : crop.cropCultivation) {
+                ItemStack seedItemStack = new ItemStack(cultivation.getCultivatedSeedItem());
+                arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedCultivation") + " " + EnumChatFormatting.WHITE + seedItemStack.getDisplayName());
+            }
         }
     }
 

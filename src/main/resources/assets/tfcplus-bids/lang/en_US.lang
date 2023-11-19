@@ -1034,6 +1034,9 @@ gui.CookingHeatLevel.None=No Heat
 gui.CookingHeatLevel.Low=Low Heat
 gui.CookingHeatLevel.Medium=Medium Heat
 gui.CookingHeatLevel.High=High Heat
+gui.SeedCultivation=Can be cultivated into
+gui.SeedRequiresLadder=Requires a ladder to plant
+gui.SeedRequiresPole=Requires a pole to plant
 gui.seeds.failedPole=You need a pole for that to grow on
 
 key.BidsToolMode=Cycle Tool Mode
