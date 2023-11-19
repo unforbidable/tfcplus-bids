@@ -58,8 +58,6 @@ public class TileEntityNewCrop extends TECrop {
                     sunLevel++;
                     if (sunLevel > 30)
                         sunLevel = 30;
-                } else {
-                    Bids.LOG.info("No sunlight");
                 }
 
                 TEFarmland tef = null;
@@ -70,7 +68,6 @@ public class TileEntityNewCrop extends TECrop {
                 // FIX: Get current year temp instead of first year temp
                 float ambientTemp = TFC_Climate.getHeightAdjustedTempSpecificDay(worldObj,
                     getTotalDaysFromTick(growthTimer), xCoord, yCoord, zCoord);
-                float tempAdded = 0;
                 boolean isDormant = false;
 
                 // Attempt to start an infestation
@@ -84,26 +81,11 @@ public class TileEntityNewCrop extends TECrop {
                  */
                 // End Infestation Code
 
-                if (!crop.dormantInFrost && ambientTemp < crop.minGrowthTemp)
-                    tempAdded = -0.03f * (crop.minGrowthTemp - ambientTemp);
-                else if (crop.dormantInFrost && ambientTemp < crop.minGrowthTemp)
-                {
-                    if (growth > 1)
-                        tempAdded = -0.03f * (crop.minGrowthTemp - ambientTemp);
-                    isDormant = true;
-                }
-                else if (ambientTemp < 28)
-                    tempAdded = ambientTemp * 0.00035f;
-                else if (ambientTemp < 37)
-                    tempAdded = (28 - (ambientTemp - 28)) * 0.0003f;
-
                 if (!crop.dormantInFrost && ambientTemp < crop.minAliveTemp)
                 {
                     int baseKillChance = 6;
                     if (this.worldObj.rand.nextInt(baseKillChance - this.killLevel) == 0) {
                         killCrop(crop);
-
-                        Bids.LOG.info("Crop killed frost: " + killLevel + " - " + ambientTemp);
                     }
                     else
                     {
@@ -118,14 +100,14 @@ public class TileEntityNewCrop extends TECrop {
                         int baseKillChance = 6;
                         if (this.worldObj.rand.nextInt(baseKillChance - this.killLevel) == 0) {
                             killCrop(crop);
-
-                            Bids.LOG.info("Crop killed frost (dormant): " + killLevel + " - " + ambientTemp);
                         }
                         else
                         {
                             if (killLevel < baseKillChance - 1)
                                 this.killLevel++;
                         }
+                    } else {
+                        isDormant = true;
                     }
                 }
                 else
@@ -214,8 +196,6 @@ public class TileEntityNewCrop extends TECrop {
                     && (crop.maxLifespan == -1 && growth > crop.numGrowthStages + ((float) crop.numGrowthStages / 2)) || growth < 0)
                 {
                     killCrop(crop);
-
-                    Bids.LOG.info("Crop killed old age: " + growth);
                 }
 
 
@@ -225,8 +205,6 @@ public class TileEntityNewCrop extends TECrop {
             else if (crop != null && crop.needsSunlight && sunLevel <= 0)
             {
                 killCrop(crop);
-
-                Bids.LOG.info("Crop killed lack of sunlight: " + sunLevel);
             }
 
             // Snowing
@@ -236,8 +214,6 @@ public class TileEntityNewCrop extends TECrop {
                 if (crop != null && !crop.dormantInFrost)
                 {
                     killCrop(crop);
-
-                    Bids.LOG.info("Crop killed snow - temp: " + TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord));
                 }
             }
         }
