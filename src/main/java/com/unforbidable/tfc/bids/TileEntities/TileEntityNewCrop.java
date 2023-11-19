@@ -95,7 +95,9 @@ public class TileEntityNewCrop extends TECrop {
                 }
                 else if (crop.dormantInFrost && ambientTemp < crop.minAliveTemp)
                 {
-                    if (growth > 1)
+                    // FIX: Determine young plant based to growth % rather than stage 0
+                    // otherwise crop with more stages are at a disadvantage
+                    if (growth / (crop.numGrowthStages + 1) > 0.20)
                     {
                         int baseKillChance = 6;
                         if (this.worldObj.rand.nextInt(baseKillChance - this.killLevel) == 0) {
