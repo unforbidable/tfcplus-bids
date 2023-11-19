@@ -18,8 +18,8 @@ import com.unforbidable.tfc.bids.Items.*;
 import com.unforbidable.tfc.bids.Render.Item.SeasonableItemRenderer;
 import com.unforbidable.tfc.bids.Render.Item.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
+import com.unforbidable.tfc.bids.api.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -320,6 +320,38 @@ public class ItemSetup extends BidsItems {
             .setCanSmoke()
             .setUnlocalizedName("Goat Cheese");
         ((ItemFoodTFC) goatCheese).setSmokeAbsorbMultiplier(1F);
+
+        seaBeet = new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 40, 10, 0)
+            .setWaterPercentage(0.2f)
+            .setDecayRate(1.4f)
+            .setUnlocalizedName("Sea Beet");
+        beetroot = new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 0, 10, 30)
+            .setWaterPercentage(0.1f)
+            .setDecayRate(0.8f)
+            .setUnlocalizedName("Beetroot");
+        sugarBeet = new ItemExtraFood(EnumFoodGroup.Vegetable, 60, 0, 0, 0, 0)
+            .setWaterPercentage(0.1f)
+            .setDecayRate(0.8f)
+            .setUnlocalizedName("Sugar Beet");
+        wildBeans = new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 20)
+            .setCookTempIndex(1)
+            .setDecayRate(0.5f)
+            .setUnlocalizedName("Wild Beans");
+        broadBeans = new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 40)
+            .setCookTempIndex(1)
+            .setDecayRate(0.25f)
+            .setUnlocalizedName("Broad Beans");
+
+        seedsSeaBeet = new ItemNewCustomSeeds(BidsCrops.SEEBEAT)
+            .setUnlocalizedName("Seeds Sea Beet");
+        seedsBeetroot = new ItemNewCustomSeeds(BidsCrops.BEETROOT)
+            .setUnlocalizedName("Seeds Beetroot");
+        seedsSugarBeet = new ItemNewCustomSeeds(BidsCrops.SUGARBEET)
+            .setUnlocalizedName("Seeds Sugar Beet");
+        seedsWildBeans = new ItemNewCustomSeeds(BidsCrops.WILDBEANS)
+            .setUnlocalizedName("Seeds Wild Bean");
+        seedsBroadBeans = new ItemNewCustomSeeds(BidsCrops.BROADBEANS)
+            .setUnlocalizedName("Seeds Broad Bean");
 
         plugAndFeather = new ItemPlugAndFeather()
                 .setUnlocalizedName("Plug And Feather");
@@ -644,7 +676,8 @@ public class ItemSetup extends BidsItems {
 
         Item[] foodItems = { wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed,
                 cornmealCrushed, wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge,
-                cornmealPorridge, appleCrushed, oliveCrushed, goatCheese, stuffedPepper, stuffedMushroom };
+                cornmealPorridge, appleCrushed, oliveCrushed, goatCheese, stuffedPepper, stuffedMushroom,
+                seaBeet, beetroot, sugarBeet, wildBeans, broadBeans };
 
         for (Item item : foodItems) {
             MinecraftForgeClient.registerItemRenderer(item, new FoodItemRenderer());
@@ -708,6 +741,12 @@ public class ItemSetup extends BidsItems {
         reg.addIndex(new HeatIndex(new ItemStack(ryePorridge, 1), 1, 177, null));
         reg.addIndex(new HeatIndex(new ItemStack(ricePorridge, 1), 1, 177, null));
         reg.addIndex(new HeatIndex(new ItemStack(cornmealPorridge, 1), 1, 177, null));
+
+        reg.addIndex(new HeatIndex(new ItemStack(seaBeet, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(beetroot, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(sugarBeet, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(wildBeans, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(broadBeans, 1), 1, 177, null));
     }
 
     private static void registerHeatUnfinishedAnvilHelper(HeatRegistry reg, int mat, Item unshaped) {
@@ -887,6 +926,18 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(stuffedPepper, stuffedPepper.getUnlocalizedName());
         GameRegistry.registerItem(stuffedMushroom, stuffedMushroom.getUnlocalizedName());
+
+        GameRegistry.registerItem(seaBeet, seaBeet.getUnlocalizedName());
+        GameRegistry.registerItem(beetroot, beetroot.getUnlocalizedName());
+        GameRegistry.registerItem(sugarBeet, sugarBeet.getUnlocalizedName());
+        GameRegistry.registerItem(wildBeans, wildBeans.getUnlocalizedName());
+        GameRegistry.registerItem(broadBeans, broadBeans.getUnlocalizedName());
+
+        GameRegistry.registerItem(seedsSeaBeet, seedsSeaBeet.getUnlocalizedName());
+        GameRegistry.registerItem(seedsBeetroot, seedsBeetroot.getUnlocalizedName());
+        GameRegistry.registerItem(seedsSugarBeet, seedsSugarBeet.getUnlocalizedName());
+        GameRegistry.registerItem(seedsWildBeans, seedsWildBeans.getUnlocalizedName());
+        GameRegistry.registerItem(seedsBroadBeans, seedsBroadBeans.getUnlocalizedName());
     }
 
 }

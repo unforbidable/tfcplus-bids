@@ -964,6 +964,18 @@ item.Plug And Feather.name=Plug and Feather
 item.Apple Crushed.name=Crushed Apple
 item.Olive Crushed.name=Crushed Olive
 
+item.Sea Beet.name=Sea Beet
+item.Beetroot.name=Beetroot
+item.Sugar Beet.name=Sugar Beet
+item.Wild Beans.name=Wild Beans
+item.Broad Beans.name=Broad Beans
+
+item.Seeds Sea Beet.name=Sea Beet Seeds
+item.Seeds Beetroot.name=Beetroot Seeds
+item.Seeds Sugar Beet.name=Sugar Beet Seeds
+item.Seeds Wild Bean.name=Wild Bean Seeds
+item.Seeds Broad Bean.name=Broad Bean Seeds
+
 item.Steaming Mesh Cloth.name=Steaming Mesh
 
 item.Stuffed Pepper.name=Stuffed Pepper

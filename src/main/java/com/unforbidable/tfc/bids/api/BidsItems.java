@@ -162,4 +162,16 @@ public class BidsItems {
     public static Item stuffedPepper;
     public static Item stuffedMushroom;
 
+    public static Item seaBeet;
+    public static Item beetroot;
+    public static Item sugarBeet;
+    public static Item wildBeans;
+    public static Item broadBeans;
+
+    public static Item seedsSeaBeet;
+    public static Item seedsBeetroot;
+    public static Item seedsSugarBeet;
+    public static Item seedsWildBeans;
+    public static Item seedsBroadBeans;
+
 }
