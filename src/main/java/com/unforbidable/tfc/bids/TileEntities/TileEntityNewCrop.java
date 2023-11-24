@@ -226,10 +226,7 @@ public class TileEntityNewCrop extends TECrop {
         ItemStack is = crop.getSeed();
         is.stackSize = 1;
         if (CropHelper.isFarmland(worldObj.getBlock(xCoord, yCoord - 1, zCoord)) && TFCOptions.enableSeedDrops) {
-            if(growth < crop.numGrowthStages - 1) {
-                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-                return;
-            } else if(growth >= crop.numGrowthStages - 1) {
+            if(growth >= crop.numGrowthStages - 1) {
                 float nutrientBonus = 1f;
                 float standardNutri = crop.growthTime * 90;
                 nutrientBonus = nutrients / standardNutri;
