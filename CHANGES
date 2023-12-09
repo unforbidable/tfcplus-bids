@@ -423,3 +423,14 @@
 - Fixed: Cooking prep ingredient matching should be less eager
 - Fixed: Fresh food with negative decay should be consumed properly
 - Fixed: Crash when the player attempts to fill an empty containers with air
+
+0.35.0 (09-12-2023)
+- Added: Sea Beet generates at the coast of Europe, Asia and Africa (GEN)
+- Added: Wild Beans generate in Asia and Africa (GEN)
+- Added: Beetroot can be cultivated from Sea Beet crops
+- Added: Sugar Beet an be cultivated from Beetroot crops
+- Added: Broad Bean can be cultivated from Wild Bean crops
+- Added: New crops can be harvested early with reduced yield and other drawbacks
+- Added: Recipes for re-crafting bronze anvils as a workaround to get the Bronze Age achievement
+- Changed: Tolerance of 5% weight less than required is allowed when crafting meals
+- Fixed: Black steel anvil is welded from black steel double ingots

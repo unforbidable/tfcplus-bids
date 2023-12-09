@@ -48,6 +48,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Fish Oil](../../wiki/Fish-Oil) - an alternative fuel for clay lamps
 * [More Milk](../../wiki/More-Milk) - goat milk and goat cheese
 * [Cooking Prep](../../wiki/Cooking-Prep) - for making classic salads and sandwiches and new meals such as stuffed peppers and stuffed mushrooms
+* [More Crops](../../wiki/More-Crops) - new crops such as sea beet, beetroot, sugar beet, wild beans and broad beans
 
 ### Contributions
 
