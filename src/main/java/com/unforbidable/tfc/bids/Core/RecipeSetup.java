@@ -23,6 +23,7 @@ import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.Recipes.RecipeEmptyCookingPot;
 import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.*;
+import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -1002,6 +1003,11 @@ public class RecipeSetup {
                 .produces(new ItemStack(TFCBlocks.candleOff, 1))
                 .withHeat()
                 .build());
+
+            CookingManager.addRecipe(CookingRecipe.builder()
+                .consumes(new FluidStack(BidsFluids.TALLOW, 200), new ItemStack(stringItem))
+                .produces(new ItemStack(TFCBlocks.candleOff, 1))
+                .build());
         }
 
         CookingManager.addRecipe(CookingRecipe.builder()
@@ -1074,6 +1080,28 @@ public class RecipeSetup {
             .produces(new FluidStack(TFCFluids.FRESHWATER, 950), new FluidStack(BidsFluids.FISHOIL, 50))
             .withoutHeat()
             .inFixedTime(48000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.suet), Global.FOOD_MAX_WEIGHT / 8000))
+            .produces(new FluidStack(BidsFluids.TALLOW, 1))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .withLid()
+            .inTime(4000 / 5000f)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.TALLOW, 1))
+            .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.tallow), Global.FOOD_MAX_WEIGHT / 10000))
+            .withoutHeat()
+            .inFixedTime(1000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.tallow), Global.FOOD_MAX_WEIGHT / 10000))
+            .produces(new FluidStack(BidsFluids.TALLOW, 1))
+            .withHeat()
+            .inTime(250 / 5000f)
             .build());
     }
 
