@@ -989,6 +989,7 @@ fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk
 fluid.GoatMilkVinegar=Goat Milk + Vinegar Mix
 fluid.GoatMilkCurdled=Curdled Goat Milk
+fluid.Tallow=Tallow
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs

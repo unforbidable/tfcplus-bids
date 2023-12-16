@@ -10,5 +10,6 @@ public class BidsFluids {
     public static final Fluid GOATMILK = new FluidBaseTFC("GoatMilk").setBaseColor(0xffffff);
     public static final Fluid GOATMILKVINEGAR = new FluidBaseTFC("GoatMilkVinegar").setBaseColor(0xfffbe8);
     public static final Fluid GOATMILKCURDLED = new FluidBaseTFC("GoatMilkCurdled").setBaseColor(0xfffbe8);
+    public static final Fluid TALLOW = new FluidBaseTFC("Tallow").setBaseColor(0xf0db3a);
 
 }
