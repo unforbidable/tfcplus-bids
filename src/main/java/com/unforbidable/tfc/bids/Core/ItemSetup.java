@@ -321,6 +321,15 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Goat Cheese");
         ((ItemFoodTFC) goatCheese).setSmokeAbsorbMultiplier(1F);
 
+        suet = new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 30)
+            .setDecayRate(2.5f)
+            .setPoisonOnRaw(true)
+            .setUnlocalizedName("Suet");
+        tallow = new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 60)
+            .setDecayRate(0.05f)
+            .setNutritionAsIfCooked(true)
+            .setUnlocalizedName("Tallow");
+
         seaBeet = new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 40, 10, 0)
             .setWaterPercentage(0.2f)
             .setDecayRate(1.4f)
@@ -677,7 +686,8 @@ public class ItemSetup extends BidsItems {
         Item[] foodItems = { wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed,
                 cornmealCrushed, wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge,
                 cornmealPorridge, appleCrushed, oliveCrushed, goatCheese, stuffedPepper, stuffedMushroom,
-                seaBeet, beetroot, sugarBeet, wildBeans, broadBeans };
+                seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
+                suet, tallow };
 
         for (Item item : foodItems) {
             MinecraftForgeClient.registerItemRenderer(item, new FoodItemRenderer());
@@ -938,6 +948,9 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(seedsSugarBeet, seedsSugarBeet.getUnlocalizedName());
         GameRegistry.registerItem(seedsWildBeans, seedsWildBeans.getUnlocalizedName());
         GameRegistry.registerItem(seedsBroadBeans, seedsBroadBeans.getUnlocalizedName());
+
+        GameRegistry.registerItem(suet, suet.getUnlocalizedName());
+        GameRegistry.registerItem(tallow, tallow.getUnlocalizedName());
     }
 
 }

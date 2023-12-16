@@ -174,4 +174,7 @@ public class BidsItems {
     public static Item seedsWildBeans;
     public static Item seedsBroadBeans;
 
+    public static Item suet;
+    public static Item tallow;
+
 }
