@@ -227,7 +227,9 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
-            onRecipeParametersChanged(true);
+            // Cancel any recipe that may be in progress
+            // otherwise instant recipes returning output immediately will not work
+            cancelRecipeProgress();
 
             // Process recipe right after item is placed
             // and remember the input item
@@ -280,6 +282,12 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                     // If the recipe has both input and output item (e.g. soaking)
                     // we can only do one run
                     if (recipe.getOutputItemStack() != null) {
+                        return 1;
+                    }
+
+                    // If input item is food
+                    // we take the whole stack to be processed fully or partially
+                    if (recipe.getInputItemStack().getItem() instanceof ItemFoodTFC) {
                         return 1;
                     }
 
@@ -404,14 +412,14 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         // When steaming mesh is used, and the accumulated damage exceeds the durability
         // this is when the item stack is destroyed
         if (accessoryDamage > 0 && hasAccessory() && getAccessoryItemStack().getMaxDamage() > 0) {
-            Bids.LOG.info("accessoryDamage (applied): " + accessoryDamage);
-            Bids.LOG.info("getAccessoryItemStack().getMaxDamage(): " + getAccessoryItemStack().getMaxDamage());
-            Bids.LOG.info("getAccessoryItemStack().getItemDamage(): " + getAccessoryItemStack().getItemDamage());
+            Bids.LOG.debug("accessoryDamage (applied): " + accessoryDamage);
+            Bids.LOG.debug("getAccessoryItemStack().getMaxDamage(): " + getAccessoryItemStack().getMaxDamage());
+            Bids.LOG.debug("getAccessoryItemStack().getItemDamage(): " + getAccessoryItemStack().getItemDamage());
 
             getAccessoryItemStack().setItemDamage(getAccessoryItemStack().getItemDamage() + accessoryDamage);
             accessoryDamage = 0;
 
-            Bids.LOG.info("getAccessoryItemStack().getItemDamage() (after): " + getAccessoryItemStack().getItemDamage());
+            Bids.LOG.debug("getAccessoryItemStack().getItemDamage() (after): " + getAccessoryItemStack().getItemDamage());
 
             if (storage[SLOT_ACCESSORY].getItemDamage() >= storage[SLOT_ACCESSORY].getMaxDamage()) {
                 storage[SLOT_ACCESSORY] = null;
@@ -782,6 +790,17 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         recipeHandleTimer.delay(RECIPE_HANDLE_INTERVAL_AFTER_PARAMETER_CHANGE);
     }
 
+    private void cancelRecipeProgress() {
+        isCachedRecipeValid = false;
+
+        if (recipeProgress != null) {
+            recipeProgress = null;
+            // Sync data with the client
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            clientNeedToUpdate = true;
+        }
+    }
+
     private void remixSeparatedFluids() {
         fluids[FLUID_PRIMARY] = fluids[FLUID_BEFORE_SEPARATION];
         fluids[FLUID_TOP_LAYER] = null;
@@ -830,7 +849,11 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 int lastProgressRounded = recipeProgress.getProgressRounded();
 
                 // Determine how much progress is made
-                long totalRecipeTicks = recipe.getTime() * (recipe.isFixedTime() ? 1 : recipeProgress.getTotalRuns());
+                long totalRecipeTicks = (long) Math.ceil(recipe.getTime() * (recipe.isFixedTime() ? 1 : recipeProgress.getTotalRuns()));
+
+                Bids.LOG.debug("runs: " + recipeProgress.getTotalRuns());
+                Bids.LOG.debug("totalRecipeTicks: " + totalRecipeTicks);
+
                 if (totalRecipeTicks > 0) {
                     long lastUpdateTicks = recipeProgress.getLastUpdateTicks();
                     long elapsedTicks = TFC_Time.getTotalTicks() - lastUpdateTicks;
@@ -917,12 +940,28 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             }
         } else if (recipe.getInputItemStack() != null) {
             // Otherwise consume appropriate size of the input item stack
-            int consumedStackSize = recipe.getInputItemStack().stackSize * runs;
+            // or food weight
+            if (recipe.getInputItemStack().getItem() instanceof ItemFoodTFC) {
+                float availableWeight = Food.getWeight(storage[SLOT_INPUT]);
+                float consumedWeight = Food.getWeight(recipe.getInputItemStack()) * runs;
 
-            Bids.LOG.debug("availableStackSize: " + storage[SLOT_INPUT].stackSize);
-            Bids.LOG.debug("consumedStackSize: " + consumedStackSize);
+                Bids.LOG.debug("availableWeight: " + availableWeight);
+                Bids.LOG.debug("consumedWeight: " + consumedWeight);
 
-            storage[SLOT_INPUT].stackSize -= consumedStackSize;
+                float remainingWeight = availableWeight - consumedWeight;
+                if (remainingWeight > 0) {
+                    Food.setWeight(storage[SLOT_INPUT], remainingWeight);
+                } else {
+                    storage[SLOT_INPUT].stackSize = 0;
+                }
+            } else {
+                int consumedStackSize = recipe.getInputItemStack().stackSize * runs;
+
+                Bids.LOG.debug("availableStackSize: " + storage[SLOT_INPUT].stackSize);
+                Bids.LOG.debug("consumedStackSize: " + consumedStackSize);
+
+                storage[SLOT_INPUT].stackSize -= consumedStackSize;
+            }
 
             if (storage[SLOT_INPUT].stackSize < 0) {
                 Bids.LOG.warn("Recipe consumed more items than available");
@@ -1002,7 +1041,15 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         // Total time is one run of the recipe
         if (recipe.getInputItemStack() != null && recipe.getOutputItemStack() == null
             && recipe.getOutputFluidStack() != null && recipe.getInputFluidStack() == null) {
-            return 1;
+            // Except when input item is food with weight
+            // then the amount of runs is given by the weight of the recipe input and the actual input weight
+            if (recipe.getInputItemStack().getItem() instanceof ItemFoodTFC) {
+                int inputFoodRuns = getRunsForInputFood(recipe);
+                int outputFluidRunsToFit = getOutputFluidRunsToFit(recipe);
+                return Math.min(inputFoodRuns, outputFluidRunsToFit);
+            } else {
+                return 1;
+            }
         }
 
         // Total recipe time depends on both the solid and liquid input
@@ -1037,6 +1084,22 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
         // Making things out of thin air?
         return 1;
+    }
+
+    private int getOutputFluidRunsToFit(CookingRecipe recipe) {
+        if (!hasTopLayerFluid() && !hasFluid() || getTopFluidStack().isFluidEqual(recipe.getOutputFluidStack())) {
+            int totalAmountToFit = getMaxFluidVolume() - getTotalLiquidVolume();
+            return (int)Math.floor((float)totalAmountToFit / recipe.getOutputFluidStack().amount);
+        } else {
+            // Not compatible fluids present
+            return 0;
+        }
+    }
+
+    private int getRunsForInputFood(CookingRecipe recipe) {
+        float recipeInputWeight = Food.getWeight(recipe.getInputItemStack());
+        float actualInputWeight = Food.getWeight(getInputItemStack()) - Math.max(Food.getDecay(getInputItemStack()), 0);
+        return (int)Math.ceil(actualInputWeight / recipeInputWeight);
     }
 
     private int getRunsForInputFluidStack(CookingRecipe recipe) {
@@ -1098,9 +1161,9 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
                 // When steaming, the steaming mesh is damaged proportionally to the amount of liquid consumed
                 if (hasSteamingMesh()) {
-                    Bids.LOG.info("accessoryDamage: " + accessoryDamage);
+                    Bids.LOG.debug("accessoryDamage: " + accessoryDamage);
                     accessoryDamage += requiredFluidAmount / 100;
-                    Bids.LOG.info("accessoryDamage (after): " + accessoryDamage);
+                    Bids.LOG.debug("accessoryDamage (after): " + accessoryDamage);
                 }
 
                 Bids.LOG.debug("Consumed input liquid amount: " + requiredFluidAmount);
