@@ -19,10 +19,10 @@ public class CookingRecipe {
     private final EnumCookingLidUsage lidUsage;
     private final EnumCookingHeatLevel minHeatLevel;
     private final EnumCookingHeatLevel maxHeatLevel;
-    private final long time;
+    private final float time;
     private final boolean fixedTime;
 
-    public CookingRecipe(FluidStack inputFluidStack, FluidStack secondaryInputFluidStack, FluidStack outputFluidStack, FluidStack secondaryOutputFluidStack, ItemStack inputItemStack, ItemStack outputItemStack, EnumCookingAccessory accessory, EnumCookingLidUsage lidUsage, EnumCookingHeatLevel minHeatLevel, EnumCookingHeatLevel maxHeatLevel, long time, boolean fixedTime) {
+    public CookingRecipe(FluidStack inputFluidStack, FluidStack secondaryInputFluidStack, FluidStack outputFluidStack, FluidStack secondaryOutputFluidStack, ItemStack inputItemStack, ItemStack outputItemStack, EnumCookingAccessory accessory, EnumCookingLidUsage lidUsage, EnumCookingHeatLevel minHeatLevel, EnumCookingHeatLevel maxHeatLevel, float time, boolean fixedTime) {
         this.inputFluidStack = inputFluidStack;
         this.secondaryInputFluidStack = secondaryInputFluidStack;
         this.outputFluidStack = outputFluidStack;
@@ -77,7 +77,7 @@ public class CookingRecipe {
         return maxHeatLevel;
     }
 
-    public long getTime() {
+    public float getTime() {
         return time;
     }
 
