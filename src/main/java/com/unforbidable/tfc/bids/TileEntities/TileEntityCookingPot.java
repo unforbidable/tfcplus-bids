@@ -934,6 +934,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 // Multiply the weight for foodstuff
                 float weight = Food.getWeight(storage[SLOT_INPUT]);
                 Food.setWeight(storage[SLOT_INPUT], weight * runs);
+                // Delay the start of decay of crafted food items
+                Food.setDecayTimer(storage[SLOT_INPUT], (int)TFC_Time.getTotalHours() + 1);
             } else {
                 // Multiply the stack size for non foodstuff
                 storage[SLOT_INPUT].stackSize *= runs;
