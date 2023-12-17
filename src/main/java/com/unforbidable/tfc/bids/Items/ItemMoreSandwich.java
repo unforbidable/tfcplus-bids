@@ -5,6 +5,7 @@ import com.dunk.tfc.Food.ItemSandwich;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.Interfaces.IMoreSandwich;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
@@ -43,6 +44,10 @@ public class ItemMoreSandwich extends ItemSandwich implements IMoreSandwich {
 
             this.itemIcon = metaIcons[0];
         }
+    }
+
+    @Override
+    public void onCrafted(ItemStack is, EntityPlayer player) {
     }
 
     @Override
