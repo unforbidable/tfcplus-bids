@@ -21,7 +21,9 @@ public class ItemMoreSandwich extends ItemSandwich implements IMoreSandwich {
 
         float total = 0;
         for (float w : ingredientWeights) {
-            total += w;
+            if (w > 0) {
+                total += w;
+            }
         }
         this.foodMaxWeight = total;
 
