@@ -152,23 +152,27 @@ public class CookingPrepHandler extends TemplateRecipeHandler implements IHandle
 
             int totalWeight = 0;
             for (int i = 0; i < PrepRecipe.INGREDIENT_COUNT; i++) {
-                totalWeight += weights[i];
-                PrepIngredient ingredient = recipe.getIngredients()[i];
-
-                List<PositionedStack> slot = new ArrayList<PositionedStack>();
-                for (ItemStack is : getAllIngredients(ingredient)) {
-                    if (i > 0 && recipe.doesVesselMatch(is)) {
-                        // Skip items that can also be used as the vessel
-                        continue;
-                    }
-
-                    if (is.getItem() instanceof IFood) {
-                        ItemFoodTFC.createTag(is, weights[i]);
-                    }
-
-                    slot.add(new PositionedStack(is, xs[i], 24));
+                if (weights[i] > 0) {
+                    totalWeight += weights[i];
                 }
-                inputs.add(slot);
+
+                PrepIngredient ingredient = recipe.getIngredients()[i];
+                if (ingredient != null) {
+                    List<PositionedStack> slot = new ArrayList<PositionedStack>();
+                    for (ItemStack is : getAllIngredients(ingredient)) {
+                        if (i > 0 && recipe.doesVesselMatch(is)) {
+                            // Skip items that can also be used as the vessel
+                            continue;
+                        }
+
+                        if (is.getItem() instanceof IFood) {
+                            ItemFoodTFC.createTag(is, weights[i]);
+                        }
+
+                        slot.add(new PositionedStack(is, xs[i], 24));
+                    }
+                    inputs.add(slot);
+                }
             }
 
             ItemStack output = recipe.getOutput().copy();
@@ -189,10 +193,12 @@ public class CookingPrepHandler extends TemplateRecipeHandler implements IHandle
 
             int shift = 0;
             for (List<PositionedStack> slot : inputs) {
-                final int i = (cycleticks + shift * 20) % (20 * slot.size());
-                list.add(slot.get(i / 20));
+                if (slot.size() > 0) {
+                    final int i = (cycleticks + shift * 20) % (20 * slot.size());
+                    list.add(slot.get(i / 20));
 
-                shift++;
+                    shift++;
+                }
             }
 
             return list;
