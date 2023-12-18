@@ -434,3 +434,18 @@
 - Added: Recipes for re-crafting bronze anvils as a workaround to get the Bronze Age achievement
 - Changed: Tolerance of 5% weight less than required is allowed when crafting meals
 - Fixed: Black steel anvil is welded from black steel double ingots
+
+0.36.0 (18-12-2023)
+- Added: Sheep and cow mobs drop Suet when butchered
+- Added: Suet can be rendered into liquid Tallow in a Cooking Pot with LOW heat and a lid on
+- Added: Liquid Tallow can solidify in a Cooking Pot with no heat
+- Added: Solidified Tallow can be melted in a Cooking Pot with heat
+- Added: Solidified Tallow can be consumed as protein food or used as an ingredient in meals
+- Added: Pemmican meal can be crafted in a Cooking Prep using rawhide, lean meat, tallow, berries and flours
+- Added: Candles can be crafted by placing strings into liquid Tallow in a Cooking Pot
+- Changed: Allow fractional duration in Cooking Pot recipes (API)
+- Changed: Reworked how Cooking Prep ingredient weights for sandwiches are specified (API)
+- Changed: Updated Chinese translation by Eternal130 to version 0.35.x
+- Fixed: Meals crafted in a Cooking Prep now have correct decay multiplier of 2
+- Fixed: Shovel and Adze mine mud brick chimney blocks faster
+- Fixed: Nonexistent Rough Stone Tiles and Unfinished anvil blocks hid from NEI to avoid odd errors

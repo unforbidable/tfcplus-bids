@@ -49,6 +49,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [More Milk](../../wiki/More-Milk) - goat milk and goat cheese
 * [Cooking Prep](../../wiki/Cooking-Prep) - for making classic salads and sandwiches and new meals such as stuffed peppers and stuffed mushrooms
 * [More Crops](../../wiki/More-Crops) - new crops such as sea beet, beetroot, sugar beet, wild beans and broad beans
+* [Tallow](../../wiki/Tallow) - made from Suet which drops from appropriate animal mobs, for consumption or making candles and Pemmican
 
 ### Contributions
 
@@ -56,7 +57,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Translations
 
-* Chinese by Eternal130 (v0.34.x)
+* Chinese by Eternal130 (v0.35.x)
 * Japanese by dymanic.day (v0.28.x)
 
 ### Other credits
