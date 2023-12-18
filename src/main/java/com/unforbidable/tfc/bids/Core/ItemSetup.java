@@ -496,6 +496,9 @@ public class ItemSetup extends BidsItems {
         stuffedMushroom = new ItemMoreSandwich(new float[] { 2, 3, 2, 2, 1 })
             .setMetaNames(new String[]{"Stuffed Mushroom.Brown"})
             .setUnlocalizedName("Stuffed Mushroom");
+        pemmican = new ItemPemmican(new float[] { 0, 20, 10, 5, 5 })
+            .setMetaNames(new String[]{"Pemmican"})
+            .setUnlocalizedName("Pemmican");
     }
 
     private static void registerFluidContainers() {
@@ -685,7 +688,8 @@ public class ItemSetup extends BidsItems {
 
         Item[] foodItems = { wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed,
                 cornmealCrushed, wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge,
-                cornmealPorridge, appleCrushed, oliveCrushed, goatCheese, stuffedPepper, stuffedMushroom,
+                cornmealPorridge, appleCrushed, oliveCrushed, goatCheese,
+                stuffedPepper, stuffedMushroom, pemmican,
                 seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
                 suet, tallow };
 
@@ -951,6 +955,8 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(suet, suet.getUnlocalizedName());
         GameRegistry.registerItem(tallow, tallow.getUnlocalizedName());
+
+        GameRegistry.registerItem(pemmican, pemmican.getUnlocalizedName());
     }
 
 }

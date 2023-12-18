@@ -138,6 +138,12 @@ public class PrepIngredient {
             .build();
     }
 
+    public static PrepIngredient from(Item item, int damage) {
+        return builder()
+            .allow(item, damage)
+            .build();
+    }
+
     public static PrepIngredient from(ItemStack ingredient) {
         return builder()
             .allow(ingredient)

@@ -161,6 +161,7 @@ public class BidsItems {
 
     public static Item stuffedPepper;
     public static Item stuffedMushroom;
+    public static Item pemmican;
 
     public static Item seaBeet;
     public static Item beetroot;

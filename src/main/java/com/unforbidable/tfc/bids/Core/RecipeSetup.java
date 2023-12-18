@@ -1144,6 +1144,46 @@ public class RecipeSetup {
             PrepIngredient.from(TFCItems.mushroomFoodB).toSpec(2),
             foodAny.toSpec(3), foodAny.toSpec(2), foodAny.toSpec(2), foodAny.toSpec(1)
         }, 7));
+
+        PrepIngredient leanMeat = PrepIngredient.builder()
+            .allow(TFCItems.beefRaw)
+            .allow(TFCItems.venisonRaw)
+            .allow(TFCItems.muttonRaw)
+            .allow(TFCItems.horseMeatRaw)
+            .build();
+
+        PrepIngredient tallow = PrepIngredient.builder()
+            .allow(BidsItems.tallow)
+            .build();
+
+        PrepIngredient berriesAndFlours = PrepIngredient.builder()
+            .allow(TFCItems.blackberry)
+            .allow(TFCItems.blueberry)
+            .allow(TFCItems.wintergreenBerry)
+            .allow(TFCItems.bunchberry)
+            .allow(TFCItems.cranberry)
+            .allow(TFCItems.raspberry)
+            .allow(TFCItems.gooseberry)
+            .allow(TFCItems.elderberry)
+            .allow(TFCItems.cloudberry)
+            .allow(TFCItems.snowberry)
+            .allow(TFCItems.strawberry)
+            .allow(TFCItems.oatGround)
+            .allow(TFCItems.wheatGround)
+            .allow(TFCItems.ryeGround)
+            .allow(TFCItems.barleyGround)
+            .allow(TFCItems.riceGround)
+            .allow(BidsItems.oatCrushed)
+            .allow(BidsItems.wheatCrushed)
+            .allow(BidsItems.ryeCrushed)
+            .allow(BidsItems.barleyCrushed)
+            .allow(BidsItems.riceCrushed)
+            .build();
+
+        PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.pemmican)), new PrepIngredientSpec[]{
+            PrepIngredient.from(TFCItems.hide, 0).toSpec(),
+            leanMeat.toSpec(20, true), tallow.toSpec(10, true), berriesAndFlours.toSpec(5), berriesAndFlours.toSpec(5)
+        }));
     }
 
     private static void registerKnappingRecipes() {
