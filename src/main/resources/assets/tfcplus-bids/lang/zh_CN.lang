@@ -194,6 +194,9 @@ tile.CookingPotLid.Clay.name=黏土锅盖
 tile.CookingPotLid.Ceramic.name=陶瓷锅盖
 tile.CookingPrep.name=厨台
 
+tile.NewTilledSoil.name=农田
+tile.NewTilledSoil2.name=农田
+
 item.Ore Bit.Bismuthinite.name=辉铋矿碎片
 item.Ore Bit.Cassiterite.name=锡精矿碎片
 item.Ore Bit.Galena.name=方铅矿碎片
@@ -961,6 +964,18 @@ item.Plug And Feather.name=楔子
 item.Apple Crushed.name=碎苹果
 item.Olive Crushed.name=碎橄榄
 
+item.Sea Beet.name=海甜菜
+item.Beetroot.name=甜菜根
+item.Sugar Beet.name=糖甜菜
+item.Wild Beans.name=野蚕豆
+item.Broad Beans.name=蚕豆
+
+item.Seeds Sea Beet.name=海甜菜种子
+item.Seeds Beetroot.name=甜菜根种子
+item.Seeds Sugar Beet.name=糖甜菜种子
+item.Seeds Wild Bean.name=野蚕豆种子
+item.Seeds Broad Bean.name=蚕豆种子
+
 item.Steaming Mesh Cloth.name=蒸网
 
 item.Stuffed Pepper.name=酿辣椒
@@ -997,8 +1012,8 @@ gui.Units=单位
 gui.Empty=空
 gui.Solidified=凝固
 gui.symbol.BulletPoint=·
-gui.Output=出产
-gui.Paused=Paused
+gui.Output=产出
+gui.Paused=暂停
 gui.Alloying=合金混合中
 gui.Glassmaking=玻璃吹制
 gui.plans.blowpipe=吹管
@@ -1031,5 +1046,9 @@ gui.CookingHeatLevel.None=No Heat
 gui.CookingHeatLevel.Low=Low Heat
 gui.CookingHeatLevel.Medium=Medium Heat
 gui.CookingHeatLevel.High=High Heat
+gui.SeedCultivation=可以培养成
+gui.SeedRequiresLadder=需要梯子才能种植
+gui.SeedRequiresPole=需要木杆才能种植
+gui.seeds.failedPole=需要木杆才能让它生长
 
 key.BidsToolMode=循环工具模式
