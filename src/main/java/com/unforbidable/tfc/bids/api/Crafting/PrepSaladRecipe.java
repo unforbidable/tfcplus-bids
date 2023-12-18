@@ -4,18 +4,8 @@ import net.minecraft.item.ItemStack;
 
 public class PrepSaladRecipe extends PrepRecipe {
 
-    public PrepSaladRecipe(ItemStack output, PrepIngredient[] ingredients) {
-        super(output, ingredients);
-    }
-
-    @Override
-    public float[] getIngredientWeights() {
-        return new float[] { 0, 10, 4, 4, 2 };
-    }
-
-    @Override
-    public float getMinWeight() {
-        return 14;
+    public PrepSaladRecipe(ItemStack output, PrepIngredientSpec[] ingredients, float minWight) {
+        super(output, ingredients, minWight);
     }
 
     @Override

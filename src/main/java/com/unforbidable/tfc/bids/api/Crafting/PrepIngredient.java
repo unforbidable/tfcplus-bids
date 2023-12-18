@@ -28,6 +28,18 @@ public class PrepIngredient {
         this.deniedFoodGroups = deniedFoodGroups;
     }
 
+    public PrepIngredientSpec toSpec() {
+        return new PrepIngredientSpec(this);
+    }
+
+    public PrepIngredientSpec toSpec(float weight) {
+        return new PrepIngredientSpec(this, weight);
+    }
+
+    public PrepIngredientSpec toSpec(float weight, boolean required) {
+        return new PrepIngredientSpec(this, weight, required);
+    }
+
     public List<ItemStack> getAllowedItemStacks() {
         return allowedItemStacks;
     }

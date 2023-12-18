@@ -11,28 +11,34 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class PrepRecipe {
+public class PrepRecipe {
 
     public static final int INGREDIENT_COUNT = 5;
     private static final float REQUIRED_WEIGHT_TOLERANCE = 0.95f;
 
     protected final ItemStack output;
-    private final PrepIngredient[] ingredients;
+    private final PrepIngredientSpec[] ingredients;
+    private final float minWeight;
 
-    public PrepRecipe(ItemStack output, PrepIngredient[] ingredients) {
+    public PrepRecipe(ItemStack output, PrepIngredientSpec[] ingredients) {
+        this(output, ingredients, 0);
+    }
+
+    public PrepRecipe(ItemStack output, PrepIngredientSpec[] ingredients, float minWeight) {
         if (ingredients.length != INGREDIENT_COUNT) {
             throw new IllegalArgumentException("Expected array of ingredients of size " + INGREDIENT_COUNT);
         }
 
         this.output = output;
         this.ingredients = ingredients;
+        this.minWeight = minWeight;
     }
 
     public ItemStack getOutput() {
         return output;
     }
 
-    public PrepIngredient[] getIngredients() {
+    public PrepIngredientSpec[] getIngredients() {
         return ingredients;
     }
 
@@ -76,29 +82,34 @@ public abstract class PrepRecipe {
         }
 
         return ingredientsMatch(ingredients) &&
-            isTotalIngredientsWeightSufficient(ingredients) &&
+            areIngredientsSufficient(ingredients) &&
             areIngredientsUnique(ingredients);
     }
 
-    private boolean isTotalIngredientsWeightSufficient(ItemStack[] ingredients) {
+    private boolean areIngredientsSufficient(ItemStack[] ingredients) {
         ItemStack[] consumedIngredients = getConsumedIngredients(ingredients, false);
 
         // First slot must always be consumed if food
-        float[] weights = getIngredientWeights();
-        if (weights[0] > 0 && consumedIngredients[0] == null) {
+        if (this.ingredients[0] != null && this.ingredients[0].getWeight() > 0 && consumedIngredients[0] == null) {
             return false;
+        }
+
+        for (int i = 0; i < INGREDIENT_COUNT; i++) {
+            if (this.ingredients[i] != null && this.ingredients[i].isRequired() && consumedIngredients[i] == null) {
+                return false;
+            }
         }
 
         float totalConsumedWeight = getTotalConsumedIngredientWeight(consumedIngredients);
         return totalConsumedWeight >= getMinWeight();
     }
 
-    public abstract float[] getIngredientWeights();
-
-    public abstract float getMinWeight();
+    public float getMinWeight() {
+        return minWeight;
+    }
 
     public boolean doesVesselMatch(ItemStack is) {
-        return ingredients[0].matches(is);
+        return ingredients[0].getIngredient().matches(is);
     }
 
     public boolean doesVesselOrIngredientMatch(ItemStack is) {
@@ -106,8 +117,8 @@ public abstract class PrepRecipe {
     }
 
     private boolean doesAnyIngredientMatch(ItemStack is) {
-        for (PrepIngredient ingredient : ingredients) {
-            if (ingredient.matches(is)) {
+        for (PrepIngredientSpec ingredient : ingredients) {
+            if (ingredient.getIngredient().matches(is)) {
                 return true;
             }
         }
@@ -133,7 +144,7 @@ public abstract class PrepRecipe {
     }
 
     protected boolean ingredientMatches(ItemStack ingredient, int slot) {
-        return ingredients[slot] != null && ingredients[slot].matches(ingredient);
+        return ingredients[slot] != null && ingredients[slot].getIngredient().matches(ingredient);
     }
 
     protected float getTotalConsumedIngredientWeight(ItemStack[] consumedIngredients) {
@@ -166,19 +177,18 @@ public abstract class PrepRecipe {
     }
 
     protected ItemStack[] getConsumedIngredients(ItemStack[] ingredients, boolean consumeIngredients) {
-        float[] weights = getIngredientWeights();
         ItemStack[] consumed = new ItemStack[INGREDIENT_COUNT];
 
         for (int i = 0; i < INGREDIENT_COUNT; i++) {
             if (ingredients[i] != null) {
-                if (weights[i] > 0) {
+                if (this.ingredients[i].getWeight() > 0) {
                     float weight = Food.getWeight(ingredients[i]);
                     float decay = Math.max(Food.getDecay(ingredients[i]), 0);
                     float availableWeight = weight - decay;
                     // Allow some tolerance so that slightly less food than required is enough
-                    if (availableWeight >= weights[i] * REQUIRED_WEIGHT_TOLERANCE) {
+                    if (availableWeight >= this.ingredients[i].getWeight() * REQUIRED_WEIGHT_TOLERANCE) {
                         // Consume available weight but no more than required weight
-                        float consumedWeight = Math.min(availableWeight, weights[i]);
+                        float consumedWeight = Math.min(availableWeight, this.ingredients[i].getWeight());
                         consumed[i] = ingredients[i].copy();
                         Food.setWeight(consumed[i], consumedWeight);
 
@@ -201,11 +211,9 @@ public abstract class PrepRecipe {
     protected int[] getCombinedIngredientTastes(ItemStack[] consumedIngredients) {
         int[] tastes = { 0, 0, 0, 0, 0 };
         float totalWeight = getTotalConsumedIngredientWeight(consumedIngredients);
-        float[] weights = getIngredientWeights();
-
         for (int i = 0; i < INGREDIENT_COUNT; i++) {
             if (consumedIngredients[i] != null) {
-                float weightMult = weights[i] / totalWeight;
+                float weightMult = this.ingredients[i].getWeight() / totalWeight;
                 tastes[0] += ((IFood)consumedIngredients[i].getItem()).getTasteSweet(consumedIngredients[i]) * weightMult;
                 tastes[1] += ((IFood)consumedIngredients[i].getItem()).getTasteSour(consumedIngredients[i]) * weightMult;
                 tastes[2] += ((IFood)consumedIngredients[i].getItem()).getTasteSalty(consumedIngredients[i]) * weightMult;
@@ -218,13 +226,12 @@ public abstract class PrepRecipe {
     }
 
     protected int[] getIngredientFoodGroups(ItemStack[] consumedIngredients) {
-        float[] weights = getIngredientWeights();
         int[] fg = new int[INGREDIENT_COUNT];
 
         int j = 0;
         for (int i = 0; i < INGREDIENT_COUNT; i++) {
             // Skipping slots with no weight
-            if (weights[i] > 0) {
+            if (this.ingredients[i].getWeight() > 0) {
                 if (consumedIngredients[i] != null) {
                     fg[j] = ((IFood) consumedIngredients[i].getItem()).getFoodID();
                 } else {
@@ -242,4 +249,13 @@ public abstract class PrepRecipe {
         }
     }
 
+    public float[] getIngredientWeights() {
+        float[] weights = new float[INGREDIENT_COUNT];
+
+        for (int i = 0; i < INGREDIENT_COUNT; i++) {
+            weights[i] = ingredients[i] != null ? ingredients[i].getWeight() : 0;
+        }
+
+        return weights;
+    }
 }

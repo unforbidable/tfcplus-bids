@@ -1122,25 +1122,28 @@ public class RecipeSetup {
 
         Item[] breads = new Item[] { TFCItems.wheatBread, TFCItems.oatBread, TFCItems.barleyBread, TFCItems.ryeBread, TFCItems.cornBread, TFCItems.riceBread };
         for (int i = 0; i < breads.length; i++) {
-            PrepManager.addRecipe(new PrepSandwichRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.sandwich, 1, i)), new PrepIngredient[]{
-                PrepIngredient.from(breads[i]), foodAllButGrain, foodAllButGrain, foodAllButGrain, foodAllButGrain
-            }));
+            PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.sandwich, 1, i)), new PrepIngredientSpec[]{
+                PrepIngredient.from(breads[i]).toSpec(2),
+                foodAllButGrain.toSpec(3), foodAllButGrain.toSpec(2), foodAllButGrain.toSpec(2), foodAllButGrain.toSpec(1)
+            }, 7));
         }
 
-        PrepManager.addRecipe(new PrepSaladRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.salad)), new PrepIngredient[] {
-            vesselBowl, foodAny, foodAny, foodAny, foodAny
-        }));
+        PrepManager.addRecipe(new PrepSaladRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.salad)), new PrepIngredientSpec[] {
+            vesselBowl.toSpec(), foodAny.toSpec(10), foodAny.toSpec(4), foodAny.toSpec(4), foodAny.toSpec(2)
+        }, 14));
 
         Item[] peppers = new Item[] { TFCItems.greenBellPepper, TFCItems.yellowBellPepper, TFCItems.redBellPepper };
         for (int i = 0; i < peppers.length; i++) {
-            PrepManager.addRecipe(new PrepMoreSandwichRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedPepper, 1, i)), new PrepIngredient[]{
-                PrepIngredient.from(peppers[i]), foodAny, foodAny, foodAny, foodAny
-            }));
+            PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedPepper, 1, i)), new PrepIngredientSpec[]{
+                PrepIngredient.from(peppers[i]).toSpec(3),
+                foodAny.toSpec(6), foodAny.toSpec(4), foodAny.toSpec(2), foodAny.toSpec(1)
+            }, 10));
         }
 
-        PrepManager.addRecipe(new PrepMoreSandwichRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedMushroom)), new PrepIngredient[]{
-            PrepIngredient.from(TFCItems.mushroomFoodB), foodAny, foodAny, foodAny, foodAny
-        }));
+        PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedMushroom)), new PrepIngredientSpec[]{
+            PrepIngredient.from(TFCItems.mushroomFoodB).toSpec(2),
+            foodAny.toSpec(3), foodAny.toSpec(2), foodAny.toSpec(2), foodAny.toSpec(1)
+        }, 7));
     }
 
     private static void registerKnappingRecipes() {

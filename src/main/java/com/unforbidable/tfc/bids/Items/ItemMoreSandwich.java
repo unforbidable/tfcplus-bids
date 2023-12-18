@@ -12,12 +12,10 @@ import net.minecraft.util.IIcon;
 public class ItemMoreSandwich extends ItemSandwich implements IMoreSandwich {
 
     protected final float[] ingredientWeights;
-    protected final float foodMinWeight;
     protected final float foodMaxWeight;
 
-    public ItemMoreSandwich(float[] ingredientWeights, float foodMinWeight) {
+    public ItemMoreSandwich(float[] ingredientWeights) {
         this.ingredientWeights = ingredientWeights;
-        this.foodMinWeight = foodMinWeight;
 
         float total = 0;
         for (float w : ingredientWeights) {
@@ -59,7 +57,7 @@ public class ItemMoreSandwich extends ItemSandwich implements IMoreSandwich {
 
     @Override
     protected float[] getFoodWeights() {
-        return getIngredientWeights();
+        return ingredientWeights;
     }
 
     @Override
@@ -85,16 +83,6 @@ public class ItemMoreSandwich extends ItemSandwich implements IMoreSandwich {
     @Override
     public boolean renderWeight() {
         return true;
-    }
-
-    @Override
-    public float[] getIngredientWeights() {
-        return ingredientWeights;
-    }
-
-    @Override
-    public float getFoodMinWeight() {
-        return foodMinWeight;
     }
 
     protected float getAmountEatenPerCycle() {

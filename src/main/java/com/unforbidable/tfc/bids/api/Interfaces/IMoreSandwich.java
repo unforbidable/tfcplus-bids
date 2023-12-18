@@ -5,10 +5,6 @@ import net.minecraft.item.ItemStack;
 
 public interface IMoreSandwich {
 
-    float[] getIngredientWeights();
-
-    float getFoodMinWeight();
-
     void onCrafted(ItemStack is, EntityPlayer player);
 
 }

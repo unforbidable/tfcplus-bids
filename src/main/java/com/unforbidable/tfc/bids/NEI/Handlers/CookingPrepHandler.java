@@ -11,6 +11,7 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Crafting.PrepIngredient;
+import com.unforbidable.tfc.bids.api.Crafting.PrepIngredientSpec;
 import com.unforbidable.tfc.bids.api.Crafting.PrepManager;
 import com.unforbidable.tfc.bids.api.Crafting.PrepRecipe;
 import net.minecraft.client.Minecraft;
@@ -92,12 +93,11 @@ public class CookingPrepHandler extends TemplateRecipeHandler implements IHandle
     public void drawForeground(int index) {
         if (arecipes.get(index) instanceof CachedPrepRecipe) {
             CachedPrepRecipe recipe = (CachedPrepRecipe) arecipes.get(index);
-            float[] weights = recipe.weights;
             int[] xs = { 18, 40, 58, 76, 94 };
             for (int i = 0; i < 5; i++) {
-                if (weights[i] > 0) {
+                if (recipe.ingredients[i].getWeight() > 0) {
                     drawCenteredString(Minecraft.getMinecraft().fontRenderer,
-                        String.valueOf(Math.round(weights[i])), xs[i], 14, 0x555555);
+                        String.valueOf(Math.round(recipe.ingredients[i].getWeight())), xs[i], 14, 0x555555);
                 }
             }
         }
@@ -140,33 +140,33 @@ public class CookingPrepHandler extends TemplateRecipeHandler implements IHandle
 
     public class CachedPrepRecipe extends CachedRecipe {
 
-        final float[] weights;
+        final PrepIngredientSpec[] ingredients;
         final PositionedStack result;
         final List<List<PositionedStack>> inputs;
 
         public CachedPrepRecipe(PrepRecipe recipe) {
-            weights = recipe.getIngredientWeights();
+            ingredients = recipe.getIngredients();
             inputs = new ArrayList<List<PositionedStack>>(PrepRecipe.INGREDIENT_COUNT);
 
             int[] xs = { 10, 32, 50, 68, 86 };
 
             int totalWeight = 0;
             for (int i = 0; i < PrepRecipe.INGREDIENT_COUNT; i++) {
-                if (weights[i] > 0) {
-                    totalWeight += weights[i];
+                if (ingredients[i].getWeight() > 0) {
+                    totalWeight += ingredients[i].getWeight();
                 }
 
-                PrepIngredient ingredient = recipe.getIngredients()[i];
+                PrepIngredientSpec ingredient = recipe.getIngredients()[i];
                 if (ingredient != null) {
                     List<PositionedStack> slot = new ArrayList<PositionedStack>();
-                    for (ItemStack is : getAllIngredients(ingredient)) {
+                    for (ItemStack is : getAllIngredients(ingredient.getIngredient())) {
                         if (i > 0 && recipe.doesVesselMatch(is)) {
                             // Skip items that can also be used as the vessel
                             continue;
                         }
 
                         if (is.getItem() instanceof IFood) {
-                            ItemFoodTFC.createTag(is, weights[i]);
+                            ItemFoodTFC.createTag(is, ingredients[i].getWeight());
                         }
 
                         slot.add(new PositionedStack(is, xs[i], 24));
