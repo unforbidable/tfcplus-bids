@@ -20,7 +20,7 @@ public class CookingRecipeBuilder {
     protected EnumCookingLidUsage lidUsage;
     protected EnumCookingHeatLevel minHeatLevel;
     protected EnumCookingHeatLevel maxHeatLevel;
-    protected long time;
+    protected float time;
     protected boolean fixedTime;
 
     public CookingRecipeBuilder consumes(FluidStack inputFluidStack) {
@@ -106,12 +106,12 @@ public class CookingRecipeBuilder {
         return this;
     }
 
-    public CookingRecipeBuilder inTime(long timeTicks) {
+    public CookingRecipeBuilder inTime(float timeTicks) {
         this.time = timeTicks;
         return this;
     }
 
-    public CookingRecipeBuilder inFixedTime(long timeTicks) {
+    public CookingRecipeBuilder inFixedTime(float timeTicks) {
         this.time = timeTicks;
         this.fixedTime = true;
         return this;

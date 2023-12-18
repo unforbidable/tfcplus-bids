@@ -321,6 +321,15 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Goat Cheese");
         ((ItemFoodTFC) goatCheese).setSmokeAbsorbMultiplier(1F);
 
+        suet = new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 30)
+            .setDecayRate(2.5f)
+            .setPoisonOnRaw(true)
+            .setUnlocalizedName("Suet");
+        tallow = new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 60)
+            .setDecayRate(0.05f)
+            .setNutritionAsIfCooked(true)
+            .setUnlocalizedName("Tallow");
+
         seaBeet = new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 40, 10, 0)
             .setWaterPercentage(0.2f)
             .setDecayRate(1.4f)
@@ -481,12 +490,15 @@ public class ItemSetup extends BidsItems {
             .setMaxDamage(TFCItems.linenUses)
             .setUnlocalizedName("Steaming Mesh Cloth");
 
-        stuffedPepper = new ItemMoreSandwich(new float[] { 3, 6, 4, 2, 1 }, 10)
+        stuffedPepper = new ItemMoreSandwich(new float[] { 3, 6, 4, 2, 1 })
             .setMetaNames(new String[]{"Stuffed Pepper.Green", "Stuffed Pepper.Yellow", "Stuffed Pepper.Red"})
             .setUnlocalizedName("Stuffed Pepper");
-        stuffedMushroom = new ItemMoreSandwich(new float[] { 2, 3, 2, 2, 1 }, 7)
+        stuffedMushroom = new ItemMoreSandwich(new float[] { 2, 3, 2, 2, 1 })
             .setMetaNames(new String[]{"Stuffed Mushroom.Brown"})
             .setUnlocalizedName("Stuffed Mushroom");
+        pemmican = new ItemPemmican(new float[] { 0, 20, 10, 5, 5 })
+            .setMetaNames(new String[]{"Pemmican"})
+            .setUnlocalizedName("Pemmican");
     }
 
     private static void registerFluidContainers() {
@@ -676,8 +688,10 @@ public class ItemSetup extends BidsItems {
 
         Item[] foodItems = { wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed,
                 cornmealCrushed, wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge,
-                cornmealPorridge, appleCrushed, oliveCrushed, goatCheese, stuffedPepper, stuffedMushroom,
-                seaBeet, beetroot, sugarBeet, wildBeans, broadBeans };
+                cornmealPorridge, appleCrushed, oliveCrushed, goatCheese,
+                stuffedPepper, stuffedMushroom, pemmican,
+                seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
+                suet, tallow };
 
         for (Item item : foodItems) {
             MinecraftForgeClient.registerItemRenderer(item, new FoodItemRenderer());
@@ -938,6 +952,11 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(seedsSugarBeet, seedsSugarBeet.getUnlocalizedName());
         GameRegistry.registerItem(seedsWildBeans, seedsWildBeans.getUnlocalizedName());
         GameRegistry.registerItem(seedsBroadBeans, seedsBroadBeans.getUnlocalizedName());
+
+        GameRegistry.registerItem(suet, suet.getUnlocalizedName());
+        GameRegistry.registerItem(tallow, tallow.getUnlocalizedName());
+
+        GameRegistry.registerItem(pemmican, pemmican.getUnlocalizedName());
     }
 
 }

@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsFood;
 import com.unforbidable.tfc.bids.api.Crafting.PrepManager;
 import com.unforbidable.tfc.bids.api.Crafting.PrepRecipe;
+import com.unforbidable.tfc.bids.api.Interfaces.IMoreSandwich;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -296,12 +297,19 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
             // Set decay when the output is picked as if it was just created
             Food.setDecayTimer(itemStack, (int)TFC_Time.getTotalHours() + 1);
 
+            // Default decay rate for meals is 2x
+            Food.setDecayRate(itemStack, 2);
+
             if (player != null && itemStack.getItem() instanceof ItemMeal) {
                 // Advance player's skill
                 TFC_Core.getSkillStats(player).increaseSkill(Global.SKILL_COOKING, 1);
 
                 // Save player's skill to the crafted item
                 Food.setMealSkill(itemStack, TFC_Core.getSkillStats(player).getSkillRank(Global.SKILL_COOKING).ordinal());
+            }
+
+            if (itemStack.getItem() instanceof IMoreSandwich) {
+                ((IMoreSandwich)itemStack.getItem()).onCrafted(itemStack, player);
             }
 
             updateRecipeResultPreview();

@@ -5,22 +5,23 @@ import com.dunk.tfc.Food.ItemSandwich;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.Interfaces.IMoreSandwich;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 public class ItemMoreSandwich extends ItemSandwich implements IMoreSandwich {
 
     protected final float[] ingredientWeights;
-    protected final float foodMinWeight;
     protected final float foodMaxWeight;
 
-    public ItemMoreSandwich(float[] ingredientWeights, float foodMinWeight) {
+    public ItemMoreSandwich(float[] ingredientWeights) {
         this.ingredientWeights = ingredientWeights;
-        this.foodMinWeight = foodMinWeight;
 
         float total = 0;
         for (float w : ingredientWeights) {
-            total += w;
+            if (w > 0) {
+                total += w;
+            }
         }
         this.foodMaxWeight = total;
 
@@ -46,13 +47,17 @@ public class ItemMoreSandwich extends ItemSandwich implements IMoreSandwich {
     }
 
     @Override
+    public void onCrafted(ItemStack is, EntityPlayer player) {
+    }
+
+    @Override
     protected float getFillingBoost() {
         return 1.1f;
     }
 
     @Override
     protected float[] getFoodWeights() {
-        return getIngredientWeights();
+        return ingredientWeights;
     }
 
     @Override
@@ -78,16 +83,6 @@ public class ItemMoreSandwich extends ItemSandwich implements IMoreSandwich {
     @Override
     public boolean renderWeight() {
         return true;
-    }
-
-    @Override
-    public float[] getIngredientWeights() {
-        return ingredientWeights;
-    }
-
-    @Override
-    public float getFoodMinWeight() {
-        return foodMinWeight;
     }
 
     protected float getAmountEatenPerCycle() {

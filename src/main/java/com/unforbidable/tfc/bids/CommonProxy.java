@@ -31,6 +31,7 @@ public class CommonProxy {
 
         MinecraftForge.EVENT_BUS.register(new PlayerInteractHandler());
         MinecraftForge.EVENT_BUS.register(new ChunkEventHandler());
+        MinecraftForge.EVENT_BUS.register(new LivingDropsEventHandler());
     }
 
     public void postInit(FMLPostInitializationEvent event) {

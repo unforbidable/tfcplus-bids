@@ -23,6 +23,7 @@ import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.Recipes.RecipeEmptyCookingPot;
 import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.*;
+import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -1002,6 +1003,11 @@ public class RecipeSetup {
                 .produces(new ItemStack(TFCBlocks.candleOff, 1))
                 .withHeat()
                 .build());
+
+            CookingManager.addRecipe(CookingRecipe.builder()
+                .consumes(new FluidStack(BidsFluids.TALLOW, 200), new ItemStack(stringItem))
+                .produces(new ItemStack(TFCBlocks.candleOff, 1))
+                .build());
         }
 
         CookingManager.addRecipe(CookingRecipe.builder()
@@ -1075,6 +1081,28 @@ public class RecipeSetup {
             .withoutHeat()
             .inFixedTime(48000)
             .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.suet), Global.FOOD_MAX_WEIGHT / 8000))
+            .produces(new FluidStack(BidsFluids.TALLOW, 1))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .withLid()
+            .inTime(4000 / 5000f)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.TALLOW, 1))
+            .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.tallow), Global.FOOD_MAX_WEIGHT / 10000))
+            .withoutHeat()
+            .inFixedTime(1000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.tallow), Global.FOOD_MAX_WEIGHT / 10000))
+            .produces(new FluidStack(BidsFluids.TALLOW, 1))
+            .withHeat()
+            .inTime(250 / 5000f)
+            .build());
     }
 
     private static void registerPrepRecipes() {
@@ -1094,24 +1122,67 @@ public class RecipeSetup {
 
         Item[] breads = new Item[] { TFCItems.wheatBread, TFCItems.oatBread, TFCItems.barleyBread, TFCItems.ryeBread, TFCItems.cornBread, TFCItems.riceBread };
         for (int i = 0; i < breads.length; i++) {
-            PrepManager.addRecipe(new PrepSandwichRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.sandwich, 1, i)), new PrepIngredient[]{
-                PrepIngredient.from(breads[i]), foodAllButGrain, foodAllButGrain, foodAllButGrain, foodAllButGrain
-            }));
+            PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.sandwich, 1, i)), new PrepIngredientSpec[]{
+                PrepIngredient.from(breads[i]).toSpec(2),
+                foodAllButGrain.toSpec(3), foodAllButGrain.toSpec(2), foodAllButGrain.toSpec(2), foodAllButGrain.toSpec(1)
+            }, 7));
         }
 
-        PrepManager.addRecipe(new PrepSaladRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.salad)), new PrepIngredient[] {
-            vesselBowl, foodAny, foodAny, foodAny, foodAny
-        }));
+        PrepManager.addRecipe(new PrepSaladRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.salad)), new PrepIngredientSpec[] {
+            vesselBowl.toSpec(), foodAny.toSpec(10), foodAny.toSpec(4), foodAny.toSpec(4), foodAny.toSpec(2)
+        }, 14));
 
         Item[] peppers = new Item[] { TFCItems.greenBellPepper, TFCItems.yellowBellPepper, TFCItems.redBellPepper };
         for (int i = 0; i < peppers.length; i++) {
-            PrepManager.addRecipe(new PrepMoreSandwichRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedPepper, 1, i)), new PrepIngredient[]{
-                PrepIngredient.from(peppers[i]), foodAny, foodAny, foodAny, foodAny
-            }));
+            PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedPepper, 1, i)), new PrepIngredientSpec[]{
+                PrepIngredient.from(peppers[i]).toSpec(3),
+                foodAny.toSpec(6), foodAny.toSpec(4), foodAny.toSpec(2), foodAny.toSpec(1)
+            }, 10));
         }
 
-        PrepManager.addRecipe(new PrepMoreSandwichRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedMushroom)), new PrepIngredient[]{
-            PrepIngredient.from(TFCItems.mushroomFoodB), foodAny, foodAny, foodAny, foodAny
+        PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedMushroom)), new PrepIngredientSpec[]{
+            PrepIngredient.from(TFCItems.mushroomFoodB).toSpec(2),
+            foodAny.toSpec(3), foodAny.toSpec(2), foodAny.toSpec(2), foodAny.toSpec(1)
+        }, 7));
+
+        PrepIngredient leanMeat = PrepIngredient.builder()
+            .allow(TFCItems.beefRaw)
+            .allow(TFCItems.venisonRaw)
+            .allow(TFCItems.muttonRaw)
+            .allow(TFCItems.horseMeatRaw)
+            .build();
+
+        PrepIngredient tallow = PrepIngredient.builder()
+            .allow(BidsItems.tallow)
+            .build();
+
+        PrepIngredient berriesAndFlours = PrepIngredient.builder()
+            .allow(TFCItems.blackberry)
+            .allow(TFCItems.blueberry)
+            .allow(TFCItems.wintergreenBerry)
+            .allow(TFCItems.bunchberry)
+            .allow(TFCItems.cranberry)
+            .allow(TFCItems.raspberry)
+            .allow(TFCItems.gooseberry)
+            .allow(TFCItems.elderberry)
+            .allow(TFCItems.cloudberry)
+            .allow(TFCItems.snowberry)
+            .allow(TFCItems.strawberry)
+            .allow(TFCItems.oatGround)
+            .allow(TFCItems.wheatGround)
+            .allow(TFCItems.ryeGround)
+            .allow(TFCItems.barleyGround)
+            .allow(TFCItems.riceGround)
+            .allow(BidsItems.oatCrushed)
+            .allow(BidsItems.wheatCrushed)
+            .allow(BidsItems.ryeCrushed)
+            .allow(BidsItems.barleyCrushed)
+            .allow(BidsItems.riceCrushed)
+            .build();
+
+        PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.pemmican)), new PrepIngredientSpec[]{
+            PrepIngredient.from(TFCItems.hide, 0).toSpec(),
+            leanMeat.toSpec(20, true), tallow.toSpec(10, true), berriesAndFlours.toSpec(5), berriesAndFlours.toSpec(5)
         }));
     }
 

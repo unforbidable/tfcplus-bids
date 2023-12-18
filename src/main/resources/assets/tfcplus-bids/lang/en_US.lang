@@ -959,6 +959,9 @@ item.Cornmeal Porridge.name=Cornmeal Porridge
 
 item.Goat Cheese.name=Goat Cheese
 
+item.Suet.name=Suet
+item.Tallow.name=Tallow
+
 item.Plug And Feather.name=Plug and Feather
 
 item.Apple Crushed.name=Crushed Apple
@@ -980,12 +983,14 @@ item.Steaming Mesh Cloth.name=Steaming Mesh
 
 item.Stuffed Pepper.name=Stuffed Pepper
 item.Stuffed Mushroom.name=Stuffed Mushroom
+item.Pemmican.name=Pemmican
 
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk
 fluid.GoatMilkVinegar=Goat Milk + Vinegar Mix
 fluid.GoatMilkCurdled=Curdled Goat Milk
+fluid.Tallow=Tallow
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs

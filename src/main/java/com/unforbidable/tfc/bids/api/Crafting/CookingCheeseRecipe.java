@@ -15,7 +15,7 @@ public class CookingCheeseRecipe extends CookingRecipe {
 
     protected final boolean allowInfusion;
 
-    public CookingCheeseRecipe(FluidStack inputFluidStack, FluidStack secondaryInputFluidStack, FluidStack outputFluidStack, FluidStack secondaryOutputFluidStack, ItemStack inputItemStack, ItemStack outputItemStack, EnumCookingAccessory accessory, EnumCookingLidUsage lidUsage, EnumCookingHeatLevel minHeatLevel, EnumCookingHeatLevel maxHeatLevel, long time, boolean fixedTime, boolean allowInfusion) {
+    public CookingCheeseRecipe(FluidStack inputFluidStack, FluidStack secondaryInputFluidStack, FluidStack outputFluidStack, FluidStack secondaryOutputFluidStack, ItemStack inputItemStack, ItemStack outputItemStack, EnumCookingAccessory accessory, EnumCookingLidUsage lidUsage, EnumCookingHeatLevel minHeatLevel, EnumCookingHeatLevel maxHeatLevel, float time, boolean fixedTime, boolean allowInfusion) {
         super(inputFluidStack, secondaryInputFluidStack, outputFluidStack, secondaryOutputFluidStack, inputItemStack, outputItemStack, accessory, lidUsage, minHeatLevel, maxHeatLevel, time, fixedTime);
         this.allowInfusion = allowInfusion;
     }
