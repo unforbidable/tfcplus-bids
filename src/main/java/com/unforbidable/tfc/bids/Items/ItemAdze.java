@@ -9,6 +9,7 @@ import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.dunk.tfc.api.TFCBlocks;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
@@ -30,7 +31,9 @@ import net.minecraft.world.World;
 
 public class ItemAdze extends ItemTerraTool implements ISize, ICarvingTool {
 
-    private static final Set<Block> BLOCKS_EFFECTIVE_AGAINST = Sets.newHashSet(BidsBlocks.carvingRock, BidsBlocks.carvingWood, BidsBlocks.roughStoneSed, BidsBlocks.roughStoneBrickSed);
+    private static final Set<Block> BLOCKS_EFFECTIVE_AGAINST = Sets.newHashSet(BidsBlocks.carvingRock, BidsBlocks.carvingWood,
+        BidsBlocks.roughStoneSed, BidsBlocks.roughStoneBrickSed, BidsBlocks.mudBrickChimney, BidsBlocks.mudBrickChimney2,
+        TFCBlocks.mudBricks, TFCBlocks.mudBricks2);
     private final float damageVsEntity;
 
     private int equipmentTier = 0;

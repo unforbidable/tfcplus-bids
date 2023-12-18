@@ -33,7 +33,7 @@ public class BlockMudChimney extends BlockContainer {
     Block sourceDirt;
 
     public BlockMudChimney(int stoneOffset) {
-        super(Material.clay);
+        super(Material.ground);
         this.stoneOffset = stoneOffset;
         int count = (stoneOffset == 0 ? 16 : Global.STONE_ALL.length - 16);
         icons = new IIcon[count];

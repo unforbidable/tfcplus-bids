@@ -284,6 +284,9 @@ public class BlockSetup extends BidsBlocks {
         stonePressWeightSed.setHarvestLevel("shovel", 0);
 
         quarry.setHarvestLevel("hammer", 0);
+
+        mudBrickChimney.setHarvestLevel("shovel", 0);
+        mudBrickChimney2.setHarvestLevel("shovel", 0);
     }
 
     private static void setupFireInfo() {
