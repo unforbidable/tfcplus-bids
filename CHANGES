@@ -436,7 +436,7 @@
 - Fixed: Black steel anvil is welded from black steel double ingots
 
 0.36.0 (18-12-2023)
-- Added: Sheep and cow mobs drop Suet when butchered
+- Added: Sheep, goat and cow mobs drop Suet when butchered
 - Added: Suet can be rendered into liquid Tallow in a Cooking Pot with LOW heat and a lid on
 - Added: Liquid Tallow can solidify in a Cooking Pot with no heat
 - Added: Solidified Tallow can be melted in a Cooking Pot with heat
@@ -449,3 +449,8 @@
 - Fixed: Meals crafted in a Cooking Prep now have correct decay multiplier of 2
 - Fixed: Shovel and Adze mine mud brick chimney blocks faster
 - Fixed: Nonexistent Rough Stone Tiles and Unfinished anvil blocks hid from NEI to avoid odd errors
+
+0.36.1 (19-12-2023)
+- Changed: Updated Chinese translation by Eternal130
+- Fixed: Rough stone bricks blocks of igneous rocks no longer fall with gravity
+- Fixed: Bottle of Goat Milk has a durability bar
