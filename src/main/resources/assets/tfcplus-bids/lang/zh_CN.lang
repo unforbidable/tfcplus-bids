@@ -959,6 +959,9 @@ item.Cornmeal Porridge.name=玉米糁粥
 
 item.Goat Cheese.name=羊奶酪
 
+item.Suet.name=板油
+item.Tallow.name=动物油脂
+
 item.Plug And Feather.name=楔子
 
 item.Apple Crushed.name=碎苹果
@@ -980,12 +983,14 @@ item.Steaming Mesh Cloth.name=蒸网
 
 item.Stuffed Pepper.name=酿辣椒
 item.Stuffed Mushroom.name=酿蘑菇
+item.Pemmican.name=干肉饼
 
 fluid.FishOil=鱼油
 fluid.OilyFishWater=鱼糜
 fluid.GoatMilk=羊奶
 fluid.GoatMilkVinegar=羊奶醋
 fluid.GoatMilkCurdled=羊凝乳
+fluid.Tallow=动物油脂
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
