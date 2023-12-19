@@ -105,10 +105,10 @@ public class BlockSetup extends BidsBlocks {
                 .setMetaHavingTopTexture(1) // Slate
                 .setNames(Global.STONE_MM).setBlockName("RoughStoneBrickMM")
                 .setBlockTextureName("Rough Brick");
-        roughStoneBrickIgIn = new BlockRoughStone()
+        roughStoneBrickIgIn = new BlockRoughStoneBrick()
                 .setNames(Global.STONE_IGIN).setBlockName("RoughStoneBrickIgIn")
                 .setBlockTextureName("Rough Brick");
-        roughStoneBrickIgEx = new BlockRoughStone()
+        roughStoneBrickIgEx = new BlockRoughStoneBrick()
                 .setNames(Global.STONE_IGEX).setBlockName("RoughStoneBrickIgEx")
                 .setBlockTextureName("Rough Brick");
 
@@ -122,11 +122,11 @@ public class BlockSetup extends BidsBlocks {
                 .setMetaOnly(1) // Only slate
                 .setNames(Global.STONE_MM).setBlockName("RoughStoneTileMM")
                 .setBlockTextureName("Rough Tile");
-        roughStoneTileIgIn = new BlockRoughStone()
+        roughStoneTileIgIn = new BlockRoughStoneBrick()
                 .setMetaOnly() // No blocks yet
                 .setNames(Global.STONE_IGIN).setBlockName("RoughStoneTileIgIn")
                 .setBlockTextureName("Rough Tile");
-        roughStoneTileIgEx = new BlockRoughStone()
+        roughStoneTileIgEx = new BlockRoughStoneBrick()
                 .setMetaOnly() // No blocks yet
                 .setNames(Global.STONE_IGEX).setBlockName("RoughStoneTileIgEx")
                 .setBlockTextureName("Rough Tile");
