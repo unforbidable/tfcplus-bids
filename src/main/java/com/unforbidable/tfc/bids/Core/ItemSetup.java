@@ -362,6 +362,24 @@ public class ItemSetup extends BidsItems {
         seedsBroadBeans = new ItemNewCustomSeeds(BidsCrops.BROADBEANS)
             .setUnlocalizedName("Seeds Broad Bean");
 
+        seedsNewBarley = new ItemNewCustomSeeds(BidsCrops.BARLEY)
+            .setUnlocalizedName("Seeds New Barley");
+        seedsNewOat = new ItemNewCustomSeeds(BidsCrops.OAT)
+            .setUnlocalizedName("Seeds New Oat");
+        seedsNewRye = new ItemNewCustomSeeds(BidsCrops.RYE)
+            .setUnlocalizedName("Seeds New Rye");
+        seedsNewWheat = new ItemNewCustomSeeds(BidsCrops.WHEAT)
+            .setUnlocalizedName("Seeds New Wheat");
+
+        seedsWinterBarley = new ItemNewCustomSeeds(BidsCrops.WINTERBARLEY)
+            .setUnlocalizedName("Seeds Winter Barley");
+        seedsWinterOat = new ItemNewCustomSeeds(BidsCrops.WINTEROAT)
+            .setUnlocalizedName("Seeds Winter Oat");
+        seedsWinterRye = new ItemNewCustomSeeds(BidsCrops.WINTERRYE)
+            .setUnlocalizedName("Seeds Winter Rye");
+        seedsWinterWheat = new ItemNewCustomSeeds(BidsCrops.WINTERWHEAT)
+            .setUnlocalizedName("Seeds Winter Wheat");
+
         plugAndFeather = new ItemPlugAndFeather()
                 .setUnlocalizedName("Plug And Feather");
 
@@ -958,6 +976,15 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(tallow, tallow.getUnlocalizedName());
 
         GameRegistry.registerItem(pemmican, pemmican.getUnlocalizedName());
+
+        GameRegistry.registerItem(seedsNewBarley, seedsNewBarley.getUnlocalizedName());
+        GameRegistry.registerItem(seedsNewOat, seedsNewOat.getUnlocalizedName());
+        GameRegistry.registerItem(seedsNewRye, seedsNewRye.getUnlocalizedName());
+        GameRegistry.registerItem(seedsNewWheat, seedsNewWheat.getUnlocalizedName());
+        GameRegistry.registerItem(seedsWinterBarley, seedsWinterBarley.getUnlocalizedName());
+        GameRegistry.registerItem(seedsWinterOat, seedsWinterOat.getUnlocalizedName());
+        GameRegistry.registerItem(seedsWinterRye, seedsWinterRye.getUnlocalizedName());
+        GameRegistry.registerItem(seedsWinterWheat, seedsWinterWheat.getUnlocalizedName());
     }
 
 }

@@ -978,6 +978,14 @@ item.Seeds Beetroot.name=Beetroot Seeds
 item.Seeds Sugar Beet.name=Sugar Beet Seeds
 item.Seeds Wild Bean.name=Wild Bean Seeds
 item.Seeds Broad Bean.name=Broad Bean Seeds
+item.Seeds New Barley.name=Spring Barley Seeds
+item.Seeds New Oat.name=Spring Oat Seeds
+item.Seeds New Rye.name=Spring Rye Seeds
+item.Seeds New Wheat.name=Spring Wheat Seeds
+item.Seeds Winter Barley.name=Winter Barley Seeds
+item.Seeds Winter Oat.name=Winter Oat Seeds
+item.Seeds Winter Rye.name=Winter Rye Seeds
+item.Seeds Winter Wheat.name=Winter Wheat Seeds
 
 item.Steaming Mesh Cloth.name=Steaming Mesh
 

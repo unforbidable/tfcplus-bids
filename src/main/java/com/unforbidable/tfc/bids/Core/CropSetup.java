@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.api.Enums.EnumRegion;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Core.Crops.*;
 import com.unforbidable.tfc.bids.api.BidsCrops;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -58,6 +59,70 @@ public class CropSetup {
             .dropsSeed(BidsItems.seedsBroadBeans)
             .dropsOutput(BidsItems.broadBeans, 16f)
             .renders(new CropRenderer(EnumCropRenderType.CROSSED_SQUARES, 0.45, 1, "Broad Beans"))
+            .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.BARLEY, "barley")
+            .grows(0, 33, 7, 4, 4, 0, 0.85f)
+            .dropsSeed(BidsItems.seedsNewBarley)
+            .dropsOutput(TFCItems.barleyWhole, 14.0f * 2)
+            .canBeCultivated(new CropCultivationTemp(BidsItems.seedsWinterBarley, 1, 0.1f, 10f))
+            .renders(new CropRendererTFC(EnumCropRenderType.BLOCK, 0.5, 1, "Barley"))
+            .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.OAT, "oat")
+            .grows(0, 32, 7, 4, 4, 0, 0.9f)
+            .dropsSeed(BidsItems.seedsNewOat)
+            .dropsOutput(TFCItems.oatWhole, 14.0f * 2)
+            .canBeCultivated(new CropCultivationTemp(BidsItems.seedsWinterOat, 1, 0.1f, 10f))
+            .renders(new CropRendererTFC(EnumCropRenderType.BLOCK, 0.5, 1, "Oat"))
+            .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.RYE, "rye")
+            .grows(0, 32, 7, 4, 4, 0, 0.9f)
+            .dropsSeed(BidsItems.seedsNewRye)
+            .dropsOutput(TFCItems.ryeWhole, 14.0f * 2)
+            .canBeCultivated(new CropCultivationTemp(BidsItems.seedsWinterRye, 1, 0.1f, 10f))
+            .renders(new CropRendererTFC(EnumCropRenderType.BLOCK, 0.5, 1, "Rye"))
+            .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.WHEAT, "wheat")
+            .grows(0, 32, 7, 4, 4, 0, 0.9f)
+            .dropsSeed(BidsItems.seedsNewWheat)
+            .dropsOutput(TFCItems.wheatWhole, 14.0f * 2)
+            .canBeCultivated(new CropCultivationTemp(BidsItems.seedsWinterWheat, 1, 0.1f, 10f))
+            .renders(new CropRendererTFC(EnumCropRenderType.BLOCK, 0.5, 1, "Wheat"))
+            .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.WINTERBARLEY, "winterbarley")
+            .grows(0, 33, 7, 4, 4, -2, 0.85f)
+            .goesDormantInFrost()
+            .dropsSeed(BidsItems.seedsWinterBarley)
+            .dropsOutput(TFCItems.barleyWhole, 14.0f * 2)
+            .renders(new CropRendererTFC(EnumCropRenderType.BLOCK, 0.5, 1, "Barley"))
+            .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.WINTEROAT, "winteroat")
+            .grows(0, 32, 7, 4, 4, -2, 0.9f)
+            .goesDormantInFrost()
+            .dropsSeed(BidsItems.seedsWinterOat)
+            .dropsOutput(TFCItems.oatWhole, 14.0f * 2)
+            .renders(new CropRendererTFC(EnumCropRenderType.BLOCK, 0.5, 1, "Oat"))
+            .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.WINTERRYE, "winterrye")
+            .grows(0, 32, 7, 4, 4, -2, 0.9f)
+            .goesDormantInFrost()
+            .dropsSeed(BidsItems.seedsWinterRye)
+            .dropsOutput(TFCItems.ryeWhole, 14.0f * 2)
+            .renders(new CropRendererTFC(EnumCropRenderType.BLOCK, 0.5, 1, "Rye"))
+            .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.WINTERWHEAT, "winterwheat")
+            .grows(0, 32, 7, 4, 4, -2, 0.9f)
+            .goesDormantInFrost()
+            .dropsSeed(BidsItems.seedsWinterWheat)
+            .dropsOutput(TFCItems.wheatWhole, 14.0f * 2)
+            .renders(new CropRendererTFC(EnumCropRenderType.BLOCK, 0.5, 1, "Wheat"))
             .build());
     }
 
