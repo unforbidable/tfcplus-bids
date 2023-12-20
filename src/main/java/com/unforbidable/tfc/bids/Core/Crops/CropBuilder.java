@@ -13,25 +13,20 @@ public class CropBuilder {
         this.cropIndex = cropIndex;
     }
 
-    public CropBuilder grows(int cycleType, int growthTime, int numGrowthStages, int minWaterDistance, float minGrowthTemp, float minAliveTemp) {
+    public CropBuilder grows(int cycleType, int growthTime, int numGrowthStages, int minWaterDistance, float minGrowthTemp, float minAliveTemp, float nutrientUsageMult) {
         cropIndex.cycleType = cycleType;
         cropIndex.growthTime = growthTime;
         cropIndex.numGrowthStages = numGrowthStages;
         cropIndex.minWaterDistance = minWaterDistance;
         cropIndex.minGrowthTemp = minGrowthTemp;
         cropIndex.minAliveTemp = minAliveTemp;
+        cropIndex.nutrientUsageMult = nutrientUsageMult;
 
         return this;
     }
 
     public CropBuilder goesDormantInFrost() {
         cropIndex.dormantInFrost = true;
-
-        return this;
-    }
-
-    public CropBuilder withNutrientUsage(float nutrientUsageMult) {
-        cropIndex.nutrientUsageMult = nutrientUsageMult;
 
         return this;
     }

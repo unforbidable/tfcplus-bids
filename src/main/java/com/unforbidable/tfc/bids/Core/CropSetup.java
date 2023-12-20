@@ -13,8 +13,7 @@ public class CropSetup {
 
     private static void registerCrops() {
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.SEEBEAT, "seebeet")
-            .grows(1, 16, 4, 4, 5, -2)
-            .withNutrientUsage(0.25f)
+            .grows(1, 16, 4, 4, 5, -2, 0.25f)
             .generates(new EnumRegion[]{ EnumRegion.EUROPE, EnumRegion.AFRICA, EnumRegion.ASIA },
                 150, 3000, 1, 18, EnumCropCoastal.COAST_ONLY)
             .withCommonness(7)
@@ -26,8 +25,7 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.BEETROOT, "beetroot")
-            .grows(1, 24, 4, 3, 5, -5)
-            .withNutrientUsage(0.9f)
+            .grows(1, 24, 4, 3, 5, -5, 0.9f)
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsBeetroot)
             .dropsOutput(BidsItems.beetroot, 20f)
@@ -36,8 +34,7 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.SUGARBEET, "sugarbeet")
-            .grows(1, 28, 4, 3, 5, -5)
-            .withNutrientUsage(1f)
+            .grows(1, 28, 4, 3, 5, -5, 1f)
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsSugarBeet)
             .dropsOutput(BidsItems.sugarBeet, 32f)
@@ -45,8 +42,7 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.WILDBEANS, "wildbeans")
-            .grows(1, 18, 7, 4, 5, 0)
-            .withNutrientUsage(0.4f)
+            .grows(1, 18, 7, 4, 5, 0, 0.4f)
             .generates(new EnumRegion[]{ EnumRegion.AFRICA, EnumRegion.ASIA },
                 120, 1200, 3, 18, EnumCropCoastal.INLAND_ONLY)
             .dropsSeed(BidsItems.seedsWildBeans)
@@ -56,8 +52,7 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.BROADBEANS, "broadbeens")
-            .grows(1, 24, 7, 4, 5, -5)
-            .withNutrientUsage(0.8f)
+            .grows(1, 24, 7, 4, 5, -5, 0.8f)
             .requiresPole()
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsBroadBeans)
