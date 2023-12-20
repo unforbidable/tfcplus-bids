@@ -33,6 +33,7 @@ public class TileEntityNewCrop extends TECrop {
 
     // Cloned private TFC members
     protected long growthTimer = TFC_Time.getTotalTicks();
+    protected long plantedTimer = TFC_Time.getTotalTicks();
     protected byte sunLevel = 1;
     protected int killLevel = 0;
 
@@ -70,6 +71,8 @@ public class TileEntityNewCrop extends TECrop {
                     getTotalDaysFromTick(growthTimer), xCoord, yCoord, zCoord);
                 boolean isDormant = false;
 
+                float growthPercentage = growth / (crop.numGrowthStages + 1);
+
                 // Attempt to start an infestation
                 /*
                  * if(cd != null) { //Works but removed until this feature can
@@ -97,7 +100,7 @@ public class TileEntityNewCrop extends TECrop {
                 {
                     // FIX: Determine young plant based to growth % rather than stage 0
                     // otherwise crop with more stages are at a disadvantage
-                    if (growth / (crop.numGrowthStages + 1) > 0.20)
+                    if (growthPercentage > 0.20)
                     {
                         int baseKillChance = 6;
                         if (this.worldObj.rand.nextInt(baseKillChance - this.killLevel) == 0) {
@@ -115,6 +118,32 @@ public class TileEntityNewCrop extends TECrop {
                 else
                 {
                     this.killLevel = 0;
+                }
+
+                if (crop.dormantInFrost && growthPercentage > 0.125 && growthPercentage < 0.20) {
+                    // Hardy crops require certain amount of consecutive warm days to follow
+                    // to avoid growing to soon during a streak of warm days in the middle of winter
+                    for (int i = 1; i < TFC_Time.daysInMonth; i++) {
+                        long growthTimerNextDay = growthTimer + (long) TFC_Time.DAY_LENGTH * i;
+                        float ambientTempNextDay = TFC_Climate.getHeightAdjustedTempSpecificDay(worldObj,
+                            getTotalDaysFromTick(growthTimerNextDay), xCoord, yCoord, zCoord);
+                        if (ambientTempNextDay < crop.minGrowthTemp) {
+                            isDormant = true;
+                            break;
+                        }
+                    }
+                }
+
+                float postWinterGrowthMultiplier = 1f;
+
+                if (!isDormant && crop.dormantInFrost && growthPercentage < 0.45) {
+                    // Once the crop can finally grow after winter it will do so at a higher rate
+                    // to simulate growth boost from added water from melted snow
+                    // but ensure that enough time passed since planting
+                    int daysSincePlanted = getTotalDaysFromTick(growthTimer - plantedTimer);
+                    if (daysSincePlanted > TFC_Time.daysInMonth * 3) {
+                        postWinterGrowthMultiplier = 1.5f;
+                    }
                 }
 
                 int minWaterDistance = crop.minWaterDistance;
@@ -175,6 +204,8 @@ public class TileEntityNewCrop extends TECrop {
                     ((((crop.numGrowthStages / ((float)crop.growthTime)))) * timeMultiplier * waterModifier * TFCOptions.cropGrowthMultiplier));
 
                 growthRate += (growthSpeedBonus - 0.5) * growthRate * (growth / crop.numGrowthStages) * 0.5;
+
+                growthRate *= postWinterGrowthMultiplier;
 
                 if (tef != null && tef.isInfested)
                     growthRate /= 2;
@@ -308,6 +339,7 @@ public class TileEntityNewCrop extends TECrop {
         super.readFromNBT(nbt);
 
         growthTimer = nbt.getLong("growthTimer");
+        plantedTimer = nbt.getLong("plantedTimer");
         killLevel = nbt.getInteger("killLevel");
         sunLevel = nbt.getByte("sunLevel");
 
@@ -319,6 +351,7 @@ public class TileEntityNewCrop extends TECrop {
         super.writeToNBT(nbt);
 
         nbt.setLong("growthTimer", growthTimer);
+        nbt.setLong("plantedTimer", plantedTimer);
         nbt.setInteger("killLevel", killLevel);
         nbt.setByte("sunLevel", sunLevel);
 
