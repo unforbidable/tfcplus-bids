@@ -149,6 +149,11 @@ public class ConfigHandler {
             BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes,
             "Set this to true if you want to add missing leather armor repair recipes.");
 
+        BidsOptions.Crops.enableCerealSeedAutoConversion = config.getBoolean(
+            "enableCerealSeedAutoConversion", "crops",
+            BidsOptions.Crops.enableCerealSeedAutoConversion,
+            "Set this to true if you want to automatically covert the seeds of eligible cereal crops to new seeds that allow winter cereal cultivation when picked up.");
+
         config.save();
     }
 
