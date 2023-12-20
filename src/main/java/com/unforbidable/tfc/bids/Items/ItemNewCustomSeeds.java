@@ -111,6 +111,10 @@ public class ItemNewCustomSeeds extends ItemCustomSeeds {
                 arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedCultivation") + " " + EnumChatFormatting.WHITE + seedItemStack.getDisplayName());
             }
         }
+
+        if (crop.dormantInFrost) {
+            arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedAutumnSowing"));
+        }
     }
 
 }
