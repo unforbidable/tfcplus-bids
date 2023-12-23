@@ -1059,10 +1059,11 @@ gui.CookingHeatLevel.None=No Heat
 gui.CookingHeatLevel.Low=Low Heat
 gui.CookingHeatLevel.Medium=Medium Heat
 gui.CookingHeatLevel.High=High Heat
-gui.SeedCultivation=Can be cultivated into
-gui.SeedAutumnSowing=Can be sown in Fall
-gui.SeedRequiresLadder=Requires a ladder to plant
-gui.SeedRequiresPole=Requires a pole to plant
+gui.SeedCultivation=Can be cultivated into §e
+gui.SeedAutumnSowing=Can be sown in §eFall
+gui.SeedWaterDistance=Water distance: §e
+gui.SeedRequiresLadder=Requires a §eladder §7 to grow
+gui.SeedRequiresPole=Requires a §epole §7to grow
 gui.seeds.failedPole=You need a pole for that to grow on
 
 key.BidsToolMode=Cycle Tool Mode

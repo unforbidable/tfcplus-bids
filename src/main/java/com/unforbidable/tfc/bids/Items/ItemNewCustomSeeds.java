@@ -11,6 +11,7 @@ import com.unforbidable.tfc.bids.Core.Crops.BidsCropIndex;
 import com.unforbidable.tfc.bids.Core.Crops.CropCultivation;
 import com.unforbidable.tfc.bids.Core.Crops.CropHelper;
 import com.unforbidable.tfc.bids.Core.Crops.BidsCropManager;
+import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.Block;
@@ -22,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -98,22 +100,28 @@ public class ItemNewCustomSeeds extends ItemCustomSeeds {
     public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
         super.addInformation(is, player, arraylist, flag);
 
-        BidsCropIndex crop = BidsCropManager.findCropById(cropId);
-        if (crop.requiresLadder) {
-            arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedRequiresLadder"));
-        } else if (crop.requiresPole) {
-            arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedRequiresPole"));
-        }
+        if (ItemHelper.showShiftInformation()) {
+            BidsCropIndex crop = BidsCropManager.findCropById(cropId);
+            arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedWaterDistance") + crop.minWaterDistance);
 
-        if (crop.cropCultivation != null) {
-            for (CropCultivation cultivation : crop.cropCultivation) {
-                ItemStack seedItemStack = new ItemStack(cultivation.getCultivatedSeedItem());
-                arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedCultivation") + " " + EnumChatFormatting.WHITE + seedItemStack.getDisplayName());
+            if (crop.requiresLadder) {
+                arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedRequiresLadder"));
+            } else if (crop.requiresPole) {
+                arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedRequiresPole"));
             }
-        }
 
-        if (crop.dormantInFrost) {
-            arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedAutumnSowing"));
+            if (crop.cropCultivation != null) {
+                for (CropCultivation cultivation : crop.cropCultivation) {
+                    ItemStack seedItemStack = new ItemStack(cultivation.getCultivatedSeedItem());
+                    arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedCultivation") + seedItemStack.getDisplayName());
+                }
+            }
+
+            if (crop.dormantInFrost) {
+                arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedAutumnSowing"));
+            }
+        } else {
+            arraylist.add(StatCollector.translateToLocal("gui.ShowHelp"));
         }
     }
 
