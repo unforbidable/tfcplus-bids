@@ -14,7 +14,7 @@ public class CropSetup {
 
     private static void registerCrops() {
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.SEEBEAT, "seebeet")
-            .grows(1, 16, 4, 4, 5, -2, 0.25f)
+            .grows(1, 16, 4, 4, 5, 0, 0.25f)
             .generates(new EnumRegion[]{ EnumRegion.EUROPE, EnumRegion.AFRICA, EnumRegion.ASIA },
                 150, 3000, 1, 18, EnumCropCoastal.COAST_ONLY)
             .withCommonness(7)
@@ -26,7 +26,7 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.BEETROOT, "beetroot")
-            .grows(1, 24, 4, 3, 5, -5, 0.9f)
+            .grows(1, 24, 4, 3, 5, 0, 0.9f)
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsBeetroot)
             .dropsOutput(BidsItems.beetroot, 20f)
@@ -35,7 +35,7 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.SUGARBEET, "sugarbeet")
-            .grows(1, 28, 4, 3, 5, -5, 1f)
+            .grows(1, 28, 4, 3, 5, 0, 1f)
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsSugarBeet)
             .dropsOutput(BidsItems.sugarBeet, 32f)
@@ -53,7 +53,7 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.BROADBEANS, "broadbeens")
-            .grows(1, 24, 7, 4, 5, -5, 0.8f)
+            .grows(1, 24, 7, 4, 5, 0, 0.8f)
             .requiresPole()
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsBroadBeans)
@@ -94,7 +94,7 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.WINTERBARLEY, "winterbarley")
-            .grows(0, 33, 7, 4, 4, -2, 0.85f)
+            .grows(0, 33, 7, 4, 4, 0, 0.85f)
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsWinterBarley)
             .dropsOutput(TFCItems.barleyWhole, 14.0f * 2)
@@ -102,7 +102,7 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.WINTEROAT, "winteroat")
-            .grows(0, 32, 7, 4, 4, -2, 0.9f)
+            .grows(0, 32, 7, 4, 4, 0, 0.9f)
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsWinterOat)
             .dropsOutput(TFCItems.oatWhole, 14.0f * 2)
@@ -110,7 +110,7 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.WINTERRYE, "winterrye")
-            .grows(0, 32, 7, 4, 4, -2, 0.9f)
+            .grows(0, 32, 7, 4, 4, 0, 0.9f)
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsWinterRye)
             .dropsOutput(TFCItems.ryeWhole, 14.0f * 2)
@@ -118,7 +118,7 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.WINTERWHEAT, "winterwheat")
-            .grows(0, 32, 7, 4, 4, -2, 0.9f)
+            .grows(0, 32, 7, 4, 4, 0, 0.9f)
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsWinterWheat)
             .dropsOutput(TFCItems.wheatWhole, 14.0f * 2)
