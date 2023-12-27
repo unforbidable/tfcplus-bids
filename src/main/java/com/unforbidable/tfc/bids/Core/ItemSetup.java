@@ -515,7 +515,7 @@ public class ItemSetup extends BidsItems {
         stuffedMushroom = new ItemMoreSandwich(new float[] { 2, 3, 2, 2, 1 })
             .setMetaNames(new String[]{"Stuffed Mushroom.Brown"})
             .setUnlocalizedName("Stuffed Mushroom");
-        pemmican = new ItemPemmican(new float[] { 0, 20, 10, 5, 5 })
+        pemmican = new ItemPemmican(new float[] { 0, 40, 20, 10, 10 })
             .setMetaNames(new String[]{"Pemmican"})
             .setUnlocalizedName("Pemmican");
     }
