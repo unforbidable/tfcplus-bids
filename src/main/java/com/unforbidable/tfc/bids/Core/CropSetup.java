@@ -35,10 +35,10 @@ public class CropSetup {
             .build());
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.SUGARBEET, "sugarbeet")
-            .grows(1, 28, 4, 3, 5, 0, 1f)
+            .grows(1, 28, 4, 3, 6, 0, 1.2f)
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsSugarBeet)
-            .dropsOutput(BidsItems.sugarBeet, 32f)
+            .dropsOutput(BidsItems.sugarBeet, 24f)
             .renders(new CropRenderer(EnumCropRenderType.CROSSED_SQUARES, 0.45, 1, "Sugar Beet"))
             .build());
 
