@@ -193,17 +193,14 @@ public class RecipeSetup {
         }
 
         for (int j = 0; j < Global.STONE_SED.length; j++) {
-            if (j == 0 || j == 4) {
-                // Shale and Sandstone can split into tiles
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_SED_START + j),
-                    "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_SED_START + j),
-                    "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_SED_START + j),
+                "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_SED_START + j),
+                "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
 
-                GameRegistry.addRecipe(
-                    new ItemStack(BidsBlocks.roughStoneTileSed, 2, j),
-                    "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_SED_START + j));
-            }
+            GameRegistry.addRecipe(
+                new ItemStack(BidsBlocks.roughStoneTileSed, 2, j),
+                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_SED_START + j));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_SED_START + j),
                 "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
@@ -219,17 +216,14 @@ public class RecipeSetup {
         }
 
         for (int j = 0; j < Global.STONE_MM.length; j++) {
-            if (j == 1) {
-                // Slate can split into tiles
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_MM_START + j),
-                    "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_MM_START + j),
-                    "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_MM_START + j),
+                "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_MM_START + j),
+                "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
 
-                GameRegistry.addRecipe(
-                    new ItemStack(BidsBlocks.roughStoneTileMM, 2, j),
-                    "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_MM_START + j));
-            }
+            GameRegistry.addRecipe(
+                new ItemStack(BidsBlocks.roughStoneTileMM, 2, j),
+                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_MM_START + j));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_MM_START + j),
                 "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
@@ -242,6 +236,15 @@ public class RecipeSetup {
         }
 
         for (int j = 0; j < Global.STONE_IGIN.length; j++) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_IGIN_START + j),
+                "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneIgIn, 1, j), 'A', "itemAdzeMetal"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_IGIN_START + j),
+                "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneIgIn, 1, j), 'A', "itemAdzeMetal"));
+
+            GameRegistry.addRecipe(
+                new ItemStack(BidsBlocks.roughStoneTileIgIn, 2, j),
+                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_IGIN_START + j));
+
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGIN_START + j),
                 "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneIgIn, 1, j), 'A', "itemAdzeMetal"));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGIN_START + j),
@@ -253,6 +256,15 @@ public class RecipeSetup {
         }
 
         for (int j = 0; j < Global.STONE_IGEX.length; j++) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_IGEX_START + j),
+                "SA", "  ", 'S', new ItemStack(BidsBlocks.roughStoneIgEx, 1, j), 'A', "itemAdzeMetal"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_IGEX_START + j),
+                "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneIgEx, 1, j), 'A', "itemAdzeMetal"));
+
+            GameRegistry.addRecipe(
+                new ItemStack(BidsBlocks.roughStoneTileIgEx, 2, j),
+                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_IGEX_START + j));
+
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGEX_START + j),
                 "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneIgEx, 1, j), 'A', "itemAdzeMetal"));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGEX_START + j),
