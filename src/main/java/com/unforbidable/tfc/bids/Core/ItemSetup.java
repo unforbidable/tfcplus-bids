@@ -380,6 +380,15 @@ public class ItemSetup extends BidsItems {
         seedsWinterWheat = new ItemNewCustomSeeds(BidsCrops.WINTERWHEAT)
             .setUnlocalizedName("Seeds Winter Wheat");
 
+        seedsNewOnion = new ItemNewCustomSeeds(BidsCrops.ONION)
+            .setUnlocalizedName("Seeds New Onion");
+        seedsNewCabbage = new ItemNewCustomSeeds(BidsCrops.CABBAGE)
+            .setUnlocalizedName("Seeds New Cabbage");
+        seedsNewGarlic = new ItemNewCustomSeeds(BidsCrops.GARLIC)
+            .setUnlocalizedName("Seeds New Garlic");
+        seedsNewCarrot = new ItemNewCustomSeeds(BidsCrops.CARROT)
+            .setUnlocalizedName("Seeds New Carrot");
+
         plugAndFeather = new ItemPlugAndFeather()
                 .setUnlocalizedName("Plug And Feather");
 
@@ -985,6 +994,11 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(seedsWinterOat, seedsWinterOat.getUnlocalizedName());
         GameRegistry.registerItem(seedsWinterRye, seedsWinterRye.getUnlocalizedName());
         GameRegistry.registerItem(seedsWinterWheat, seedsWinterWheat.getUnlocalizedName());
+
+        GameRegistry.registerItem(seedsNewOnion, seedsNewOnion.getUnlocalizedName());
+        GameRegistry.registerItem(seedsNewCabbage, seedsNewCabbage.getUnlocalizedName());
+        GameRegistry.registerItem(seedsNewGarlic, seedsNewGarlic.getUnlocalizedName());
+        GameRegistry.registerItem(seedsNewCarrot, seedsNewCarrot.getUnlocalizedName());
     }
 
 }

@@ -986,6 +986,10 @@ item.Seeds Winter Barley.name=Winter Barley Seeds
 item.Seeds Winter Oat.name=Winter Oat Seeds
 item.Seeds Winter Rye.name=Winter Rye Seeds
 item.Seeds Winter Wheat.name=Winter Wheat Seeds
+item.Seeds New Onion.name=Onion Seeds
+item.Seeds New Cabbage.name=Cabbage Seeds
+item.Seeds New Garlic.name=Garlic Seeds
+item.Seeds New Carrot.name=Carrot Seeds
 
 item.Steaming Mesh Cloth.name=Steaming Mesh
 

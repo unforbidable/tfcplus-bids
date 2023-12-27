@@ -185,6 +185,11 @@ public class BidsItems {
     public static Item seedsWinterRye;
     public static Item seedsWinterWheat;
 
+    public static Item seedsNewOnion;
+    public static Item seedsNewCabbage;
+    public static Item seedsNewGarlic;
+    public static Item seedsNewCarrot;
+
     public static Item suet;
     public static Item tallow;
 

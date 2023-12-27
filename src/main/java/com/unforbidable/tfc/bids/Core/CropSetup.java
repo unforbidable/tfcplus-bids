@@ -124,6 +124,38 @@ public class CropSetup {
             .dropsOutput(TFCItems.wheatWhole, 14.0f * 2)
             .renders(new CropRendererTFC(EnumCropRenderType.BLOCK, 0.5, 1, "Wheat"))
             .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.ONION, "onion")
+            .grows(1, 16, 6, 3, 8, 0, 1.2f)
+            .goesDormantInFrost()
+            .dropsSeed(BidsItems.seedsNewOnion)
+            .dropsOutput(TFCItems.onion, 36f)
+            .renders(new CropRendererTFC(EnumCropRenderType.CROSSED_SQUARES, 0.45, 1, "Onion"))
+            .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.CABBAGE, "cabbage")
+            .grows(1, 29, 5, 3, 7, 0, 0.9f)
+            .goesDormantInFrost()
+            .dropsSeed(BidsItems.seedsNewCabbage)
+            .dropsOutput(TFCItems.cabbage, 32f)
+            .renders(new CropRendererTFC(EnumCropRenderType.CROSSED_SQUARES, 0.45, 1, "Cabbage"))
+            .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.GARLIC, "garlic")
+            .grows(2, 25, 4, 3, 8, 0, 0.5f)
+            .goesDormantInFrost()
+            .dropsSeed(BidsItems.seedsNewGarlic)
+            .dropsOutput(TFCItems.garlic, 20f)
+            .renders(new CropRendererTFC(EnumCropRenderType.CROSSED_SQUARES, 0.45, 1, "Garlic"))
+            .build());
+
+        BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.CARROT, "carrot")
+            .grows(2, 23, 4, 3, 8, 0, 0.75f)
+            .goesDormantInFrost()
+            .dropsSeed(BidsItems.seedsNewCarrot)
+            .dropsOutput(TFCItems.carrot, 30f)
+            .renders(new CropRendererTFC(EnumCropRenderType.CROSSED_SQUARES, 0.45, 1, "Carrots"))
+            .build());
     }
 
 }
