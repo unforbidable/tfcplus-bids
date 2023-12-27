@@ -672,12 +672,20 @@ public class RecipeSetup {
         GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsOat), new ItemStack(BidsItems.seedsNewOat));
         GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsRye), new ItemStack(BidsItems.seedsNewRye));
         GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsWheat), new ItemStack(BidsItems.seedsNewWheat));
+        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsOnion), new ItemStack(BidsItems.seedsNewOnion));
+        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsCabbage), new ItemStack(BidsItems.seedsNewCabbage));
+        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsGarlic), new ItemStack(BidsItems.seedsNewGarlic));
+        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsCarrot), new ItemStack(BidsItems.seedsNewCarrot));
 
         // Reverse manual seed conversion
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewBarley), new ItemStack(TFCItems.seedsBarley));
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewOat), new ItemStack(TFCItems.seedsOat));
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewRye), new ItemStack(TFCItems.seedsRye));
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewWheat), new ItemStack(TFCItems.seedsWheat));
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewOnion), new ItemStack(TFCItems.seedsOnion));
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCabbage), new ItemStack(TFCItems.seedsCabbage));
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewGarlic), new ItemStack(TFCItems.seedsGarlic));
+        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCarrot), new ItemStack(TFCItems.seedsCarrot));
 
         // Re-crafting bronze anvils for achievement
         GameRegistry.addShapelessRecipe(BlockUnfinishedAnvil.getFinishedAnvil(2), BlockUnfinishedAnvil.getFinishedAnvil(2));

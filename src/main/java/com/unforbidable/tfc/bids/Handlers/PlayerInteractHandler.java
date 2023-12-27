@@ -72,6 +72,18 @@ public class PlayerInteractHandler {
                 convertPickedItem(entityItem, player, BidsItems.seedsNewWheat);
             }
         }
+
+        if (BidsOptions.Crops.enableHardySeedAutoConversion) {
+            if (entityItem.getEntityItem().getItem() == TFCItems.seedsOnion) {
+                convertPickedItem(entityItem, player, BidsItems.seedsNewOnion);
+            } else if (entityItem.getEntityItem().getItem() == TFCItems.seedsCabbage) {
+                convertPickedItem(entityItem, player, BidsItems.seedsNewCabbage);
+            } else if (entityItem.getEntityItem().getItem() == TFCItems.seedsGarlic) {
+                convertPickedItem(entityItem, player, BidsItems.seedsNewGarlic);
+            } else if (entityItem.getEntityItem().getItem() == TFCItems.seedsCarrot) {
+                convertPickedItem(entityItem, player, BidsItems.seedsNewCarrot);
+            }
+        }
     }
 
     private static void convertPickedItem(EntityItem entityItem, EntityPlayer player, Item targetItem) {

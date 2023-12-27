@@ -153,6 +153,10 @@ public class ConfigHandler {
             "enableCerealSeedAutoConversion", "crops",
             BidsOptions.Crops.enableCerealSeedAutoConversion,
             "Set this to true if you want to automatically covert the seeds of eligible cereal crops to new seeds that allow winter cereal cultivation when picked up.");
+        BidsOptions.Crops.enableHardySeedAutoConversion = config.getBoolean(
+            "enableHardySeedAutoConversion", "crops",
+            BidsOptions.Crops.enableHardySeedAutoConversion,
+            "Set this to true if you want to automatically covert the seeds of hardy crops (ie. onion, cabbage, garlic and carrot) to new seeds that allow sowing in fall when picked up.");
 
         config.save();
     }

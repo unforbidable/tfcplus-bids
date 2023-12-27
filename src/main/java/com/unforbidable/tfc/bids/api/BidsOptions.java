@@ -83,6 +83,7 @@ public class BidsOptions {
     public static class Crops {
 
         public static boolean enableCerealSeedAutoConversion = true;
+        public static boolean enableHardySeedAutoConversion = true;
 
     }
 
