@@ -621,6 +621,10 @@ public class ItemSetup extends BidsItems {
             }
         }
 
+        for (int i = 0; i < 5; i++) {
+            OreDictionary.registerOre("itemPlugAndFeather", new ItemStack(BidsItems.plugAndFeather, 1, i));
+        }
+
         final Item[] logs = new Item[]{logsSeasoned, peeledLog, peeledLogSeasoned};
         for (Item log : logs) {
             OreDictionary.registerOre("itemLogExtra", new ItemStack(log, 1, WILD));

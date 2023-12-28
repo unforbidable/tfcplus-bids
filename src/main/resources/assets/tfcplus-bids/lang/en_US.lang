@@ -1002,7 +1002,11 @@ item.Goat Cheese.name=Goat Cheese
 item.Suet.name=Suet
 item.Tallow.name=Tallow
 
-item.Plug And Feather.name=Plug and Feather
+item.Plug And Feather.Wood.name=Plug and Feather (Wood)
+item.Plug And Feather.Copper.name=Plug and Feather (Copper)
+item.Plug And Feather.Bronze.name=Plug and Feather (Bronze)
+item.Plug And Feather.Bismuth Bronze.name=Plug and Feather (Bismuth Bronze)
+item.Plug And Feather.Black Bronze.name=Plug and Feather (Black Bronze)
 
 item.Apple Crushed.name=Crushed Apple
 item.Olive Crushed.name=Crushed Olive

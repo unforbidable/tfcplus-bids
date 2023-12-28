@@ -130,10 +130,15 @@ public class QuarryHandler extends TemplateRecipeHandler implements IHandlerInfo
         @Override
         public List<PositionedStack> getOtherStacks() {
             List<PositionedStack> list = new ArrayList<PositionedStack>();
+
             List<ItemStack> drills = OreDictionary.getOres("itemDrill", false);
             final int i = cycleticks % (20 * drills.size());
             list.add(new PositionedStack(drills.get(i / 20), 19, 6));
-            list.add(new PositionedStack(new ItemStack(BidsItems.plugAndFeather), 19, 24));
+
+            List<ItemStack> plugAndFeathers = OreDictionary.getOres("itemPlugAndFeather", false);
+            final int j = cycleticks % (20 * plugAndFeathers.size());
+            list.add(new PositionedStack(plugAndFeathers.get(j / 20), 19, 24));
+
             return list;
         }
 

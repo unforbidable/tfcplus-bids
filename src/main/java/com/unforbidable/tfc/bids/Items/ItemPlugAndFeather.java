@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Items;
 
 import java.util.List;
 
+import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
@@ -15,39 +16,88 @@ import com.unforbidable.tfc.bids.api.Interfaces.IPlugAndFeather;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
-public class ItemPlugAndFeather extends Item implements ISize, IPlugAndFeather {
+public class ItemPlugAndFeather extends ItemTerra implements ISize, IPlugAndFeather {
+
+    private static final Block[] RENDER_BLOCKS = new Block[] {
+        TFCBlocks.woodSupportV,
+        TFCBlocks.anvil,
+        TFCBlocks.anvil,
+        TFCBlocks.anvil2,
+        TFCBlocks.anvil2
+    };
+
+    private static final int[] RENDER_METAS = new int[] {
+        5,
+        1,
+        2,
+        1,
+        2
+    };
 
     public ItemPlugAndFeather() {
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
+
+        metaNames = new String[] { "Wood", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze"};
     }
 
     @Override
     public int getPlugAndFeatherQuarryEquipmentTier(ItemStack itemStack) {
-        return 0;
+        switch (itemStack.getItemDamage()) {
+            // copper
+            case 1:
+                return 1;
+
+            // bronze
+            case 2:
+            case 3:
+            case 4:
+                return 2;
+
+            // wood
+            default:
+                return 0;
+        }
     }
 
     @Override
     public float getPlugAndFeatherDropRate(ItemStack itemStack) {
-        return 0.6f;
+        switch (itemStack.getItemDamage()) {
+            // copper
+            case 1:
+                return 0.95f;
+
+            // bronze
+            case 2:
+            case 3:
+            case 4:
+                return 0.98f;
+
+            // wood
+            default:
+                return 0.8f;
+        }
     }
 
     @Override
     public Block getPlugAndFeatherRenderBlock(ItemStack itemStack) {
-        return TFCBlocks.woodSupportV;
+        return RENDER_BLOCKS[itemStack.getItemDamage()];
     }
 
     @Override
     public int getPlugAndFeatherRenderBlockMetadata(ItemStack itemStack) {
-        return 5;
+        return RENDER_METAS[itemStack.getItemDamage()];
     }
 
     @Override
     public void registerIcons(IIconRegister registerer) {
-        itemIcon = registerer.registerIcon(Tags.MOD_ID + ":"
-                + this.getUnlocalizedName().replace("item.", ""));
+        metaIcons = new IIcon[metaNames.length];
+        for (int i = 0; i < metaNames.length; i++) {
+            metaIcons[i] = registerer.registerIcon(Tags.MOD_ID + ":tools/"
+                + this.getUnlocalizedName().replace("item.", "") + "." + metaNames[i]);
+        }
     }
 
     @Override
