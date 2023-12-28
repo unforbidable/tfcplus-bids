@@ -1579,6 +1579,17 @@ public class RecipeSetup {
             AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.blackBronzeIngot), null,
                 "drill", AnvilReq.BLACKBRONZE, new ItemStack(BidsItems.blackBronzeDrillHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
 
+            Bids.LOG.info("Registering plug and feather anvil plan and recipes");
+            AnvilManager.getInstance().addPlan("plugandfeather", new PlanRecipe(new RuleEnum[]{RuleEnum.HITLAST, RuleEnum.BENDSECONDFROMLAST, RuleEnum.SHRINKTHIRDFROMLAST }));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.copperIngot), null,
+                "plugandfeather", AnvilReq.COPPER, new ItemStack(BidsItems.plugAndFeather, 8, 1)).addRecipeSkill(Global.SKILL_GENERAL_SMITHING));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.bronzeIngot), null,
+                "plugandfeather", AnvilReq.BRONZE, new ItemStack(BidsItems.plugAndFeather, 8, 2)).addRecipeSkill(Global.SKILL_GENERAL_SMITHING));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.bismuthBronzeIngot), null,
+                "plugandfeather", AnvilReq.BISMUTHBRONZE, new ItemStack(BidsItems.plugAndFeather, 8, 3)).addRecipeSkill(Global.SKILL_GENERAL_SMITHING));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.blackBronzeIngot), null,
+                "plugandfeather", AnvilReq.BLACKBRONZE, new ItemStack(BidsItems.plugAndFeather, 8, 4)).addRecipeSkill(Global.SKILL_GENERAL_SMITHING));
+
             registerUnfinishedAnvilRecipeHelper(1, TFCItems.copperIngot2x, AnvilReq.STONE);
             registerUnfinishedAnvilRecipeHelper(2, TFCItems.bronzeIngot2x, AnvilReq.COPPER);
             registerUnfinishedAnvilRecipeHelper(3, TFCItems.wroughtIronIngot2x, AnvilReq.BRONZE);
