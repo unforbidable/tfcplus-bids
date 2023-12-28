@@ -113,8 +113,6 @@ public class NotEnoughItemsSetup {
 
         hideBlock(BidsBlocks.steamingMesh);
 
-        hideBlock(BidsBlocks.roughStoneTileIgEx);
-        hideBlock(BidsBlocks.roughStoneTileIgIn);
 
         // meta 11 does not exist but NEI still tries to show it and causes errors
         hideBlock(BidsBlocks.unfinishedAnvilStage1, 11);
