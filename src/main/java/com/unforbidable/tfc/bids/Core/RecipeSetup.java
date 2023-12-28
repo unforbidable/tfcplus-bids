@@ -287,6 +287,14 @@ public class RecipeSetup {
                 new ItemStack(BidsBlocks.roughStoneIgEx, 1, j), "itemChisel"));
         }
 
+        for (int j = 0; j < Global.STONE_ALL.length; j++) {
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stoneBrick, 1, j),
+                new ItemStack(BidsItems.roughStoneBrick, 1, j), "itemChisel"));
+
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stoneBrick, 1, j),
+                new ItemStack(BidsItems.roughStoneTile, 1, j), "itemChisel"));
+        }
+
         RecipeManager.addAction(new ActionDamageTool(1)
             .addTools("itemAdze")
             .matchCraftingItem(BidsItems.roughStoneBrick));
