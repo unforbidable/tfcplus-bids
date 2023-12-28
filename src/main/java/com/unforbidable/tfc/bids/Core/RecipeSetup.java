@@ -213,6 +213,9 @@ public class RecipeSetup {
 
             // Convert obsolete sedimentary rough bricks
             GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_SED_START + j), new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j));
+
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCBlocks.stoneSedSmooth, 2, j),
+                new ItemStack(BidsBlocks.roughStoneSed, 1, j), "itemChisel", "itemHammer"));
         }
 
         for (int j = 0; j < Global.STONE_MM.length; j++) {
@@ -233,6 +236,9 @@ public class RecipeSetup {
             GameRegistry.addRecipe(
                 new ItemStack(BidsBlocks.roughStoneBrickMM, 2, j),
                 "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_MM_START + j));
+
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCBlocks.stoneMMSmooth, 2, j),
+                new ItemStack(BidsBlocks.roughStoneMM, 1, j), "itemChisel", "itemHammer"));
         }
 
         for (int j = 0; j < Global.STONE_IGIN.length; j++) {
@@ -253,6 +259,9 @@ public class RecipeSetup {
             GameRegistry.addRecipe(
                 new ItemStack(BidsBlocks.roughStoneBrickIgIn, 2, j),
                 "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_IGIN_START + j));
+
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCBlocks.stoneIgInSmooth, 2, j),
+                new ItemStack(BidsBlocks.roughStoneIgIn, 1, j), "itemChisel", "itemHammer"));
         }
 
         for (int j = 0; j < Global.STONE_IGEX.length; j++) {
@@ -273,6 +282,9 @@ public class RecipeSetup {
             GameRegistry.addRecipe(
                 new ItemStack(BidsBlocks.roughStoneBrickIgEx, 2, j),
                 "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_IGEX_START + j));
+
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCBlocks.stoneIgExSmooth, 2, j),
+                new ItemStack(BidsBlocks.roughStoneIgEx, 1, j), "itemChisel", "itemHammer"));
         }
 
         RecipeManager.addAction(new ActionDamageTool(1)
@@ -281,6 +293,23 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionDamageTool(1)
             .addTools("itemAdze")
             .matchCraftingItem(BidsItems.roughStoneTile));
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemChisel")
+            .addTools("itemHammer")
+            .matchCraftingBlock(TFCBlocks.stoneSedSmooth));
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemChisel")
+            .addTools("itemHammer")
+            .matchCraftingBlock(TFCBlocks.stoneMMSmooth));
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemChisel")
+            .addTools("itemHammer")
+            .matchCraftingBlock(TFCBlocks.stoneIgInSmooth));
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemChisel")
+            .addTools("itemHammer")
+            .matchCraftingBlock(TFCBlocks.stoneIgExSmooth));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igInStoneDrill, 1, 0),
                 BidsItems.igInStoneDrillHead, "stickWood", TFCItems.bow));
