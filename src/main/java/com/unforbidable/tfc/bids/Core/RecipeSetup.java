@@ -198,18 +198,16 @@ public class RecipeSetup {
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_SED_START + j),
                 "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
 
-            GameRegistry.addRecipe(
-                new ItemStack(BidsBlocks.roughStoneTileSed, 2, j),
-                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_SED_START + j));
+            GameRegistry.addRecipe(new ItemStack(BidsBlocks.roughStoneTileSed, 1, j),
+                "BB", "  ", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_SED_START + j));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_SED_START + j),
                 "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_SED_START + j),
                 "S ", "A ", 'S', new ItemStack(BidsBlocks.roughStoneSed, 1, j), 'A', "itemAdze"));
 
-            GameRegistry.addRecipe(
-                new ItemStack(BidsBlocks.roughStoneBrickSed, 2, j),
-                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_SED_START + j));
+            GameRegistry.addRecipe(new ItemStack(BidsBlocks.roughStoneBrickSed, 1, j),
+                "BB", "  ", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_SED_START + j));
 
             // Convert obsolete sedimentary rough bricks
             GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_SED_START + j), new ItemStack(BidsItems.sedRoughStoneLooseBrick, 1, j));
@@ -224,18 +222,16 @@ public class RecipeSetup {
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_MM_START + j),
                 "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
 
-            GameRegistry.addRecipe(
-                new ItemStack(BidsBlocks.roughStoneTileMM, 2, j),
-                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_MM_START + j));
+            GameRegistry.addRecipe(new ItemStack(BidsBlocks.roughStoneTileMM, 1, j),
+                "BB", "  ", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_MM_START + j));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_MM_START + j),
                 "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_MM_START + j),
                 "S ", "A ", 'S', new ItemStack(BidsBlocks.roughStoneMM, 1, j), 'A', "itemAdzeMetal"));
 
-            GameRegistry.addRecipe(
-                new ItemStack(BidsBlocks.roughStoneBrickMM, 2, j),
-                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_MM_START + j));
+            GameRegistry.addRecipe(new ItemStack(BidsBlocks.roughStoneBrickMM, 1, j),
+                "BB", "  ", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_MM_START + j));
 
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCBlocks.stoneMMSmooth, 2, j),
                 new ItemStack(BidsBlocks.roughStoneMM, 1, j), "itemChisel"));
@@ -247,18 +243,16 @@ public class RecipeSetup {
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_IGIN_START + j),
                 "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneIgIn, 1, j), 'A', "itemAdzeMetal"));
 
-            GameRegistry.addRecipe(
-                new ItemStack(BidsBlocks.roughStoneTileIgIn, 2, j),
-                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_IGIN_START + j));
+            GameRegistry.addRecipe(new ItemStack(BidsBlocks.roughStoneTileIgIn, 1, j),
+                "BB", "  ", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_IGIN_START + j));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGIN_START + j),
                 "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneIgIn, 1, j), 'A', "itemAdzeMetal"));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGIN_START + j),
                 "S ", "A ", 'S', new ItemStack(BidsBlocks.roughStoneIgIn, 1, j), 'A', "itemAdzeMetal"));
 
-            GameRegistry.addRecipe(
-                new ItemStack(BidsBlocks.roughStoneBrickIgIn, 2, j),
-                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_IGIN_START + j));
+            GameRegistry.addRecipe(new ItemStack(BidsBlocks.roughStoneBrickIgIn, 1, j),
+                "BB", "  ", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_IGIN_START + j));
 
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCBlocks.stoneIgInSmooth, 2, j),
                 new ItemStack(BidsBlocks.roughStoneIgIn, 1, j), "itemChisel"));
@@ -270,18 +264,16 @@ public class RecipeSetup {
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneTile, 4, Global.STONE_IGEX_START + j),
                 "AS", "  ", 'S', new ItemStack(BidsBlocks.roughStoneIgEx, 1, j), 'A', "itemAdzeMetal"));
 
-            GameRegistry.addRecipe(
-                new ItemStack(BidsBlocks.roughStoneTileIgEx, 2, j),
-                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_IGEX_START + j));
+            GameRegistry.addRecipe(new ItemStack(BidsBlocks.roughStoneTileIgEx, 1, j),
+                "BB", "  ", 'B', new ItemStack(BidsItems.roughStoneTile, 1, Global.STONE_IGEX_START + j));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGEX_START + j),
                 "A ", "S ", 'S', new ItemStack(BidsBlocks.roughStoneIgEx, 1, j), 'A', "itemAdzeMetal"));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.roughStoneBrick, 4, Global.STONE_IGEX_START + j),
                 "S ", "A ", 'S', new ItemStack(BidsBlocks.roughStoneIgEx, 1, j), 'A', "itemAdzeMetal"));
 
-            GameRegistry.addRecipe(
-                new ItemStack(BidsBlocks.roughStoneBrickIgEx, 2, j),
-                "BB", "BB", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_IGEX_START + j));
+            GameRegistry.addRecipe(new ItemStack(BidsBlocks.roughStoneBrickIgEx, 1, j),
+                "BB", "  ", 'B', new ItemStack(BidsItems.roughStoneBrick, 1, Global.STONE_IGEX_START + j));
 
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCBlocks.stoneIgExSmooth, 2, j),
                 new ItemStack(BidsBlocks.roughStoneIgEx, 1, j), "itemChisel"));
