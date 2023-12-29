@@ -34,7 +34,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Saddle Quern](../../wiki/Saddle-Quern) - carved from rough stone, used for crushing and grinding grain
 * [Coarse Flour](../../wiki/Coarse-Flour) - made with Saddle Quern
 * [Porridge](../../wiki/Porridge) - early game food from grain
-* [Plug and Feather](../../wiki/Plug-And-Feather) - special wedges used for quarrying
+* [Plug and Feather](../../wiki/Plug-And-Feather) - wedges used for quarrying from wood and metal
 * [Stone Press](../../wiki/Stone-Press) - lever based pressing device, used for extracting juices and oils from berries and fruits
 * [~~Fluid Mixing~~](../../wiki/Fluid-Mixing) - ~~fluid mixing recipes for making Honey Water, Brine and Milk + Vinegar~~
 * [Clay Lamp](../../wiki/Clay-Lamp) - stationary light source that consumes olive oil
