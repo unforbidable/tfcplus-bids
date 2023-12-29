@@ -65,7 +65,13 @@ tile.RoughStoneBrickSed.Limestone.name=Rough Limestone Bricks
 tile.RoughStoneBrickSed.Rock Salt.name=Rough Rock Salt Bricks
 tile.RoughStoneBrickSed.Shale.name=Rough Shale Bricks
 
+tile.RoughStoneTileSed.Chalk.name=Rough Chalk Tiles
+tile.RoughStoneTileSed.Chert.name=Rough Chert Tiles
+tile.RoughStoneTileSed.Claystone.name=Rough Claystone Tiles
 tile.RoughStoneTileSed.Sandstone.name=Rough Sandstone Tiles
+tile.RoughStoneTileSed.Dolomite.name=Rough Dolomite Tiles
+tile.RoughStoneTileSed.Limestone.name=Rough Limestone Tiles
+tile.RoughStoneTileSed.Rock Salt.name=Rough Rock Salt Tiles
 tile.RoughStoneTileSed.Shale.name=Rough Shale Tiles
 
 tile.RoughStoneMM.Quartzite.name=Rough Quartzite
@@ -82,7 +88,12 @@ tile.RoughStoneBrickMM.Schist.name=Rough Schist Bricks
 tile.RoughStoneBrickMM.Gneiss.name=Rough Gneiss Bricks
 tile.RoughStoneBrickMM.Marble.name=Rough Marble Bricks
 
+tile.RoughStoneTileMM.Quartzite.name=Rough Quartzite Tiles
 tile.RoughStoneTileMM.Slate.name=Rough Slate Tiles
+tile.RoughStoneTileMM.Phyllite.name=Rough Phyllite Tiles
+tile.RoughStoneTileMM.Schist.name=Rough Schist Tiles
+tile.RoughStoneTileMM.Gneiss.name=Rough Gneiss Tiles
+tile.RoughStoneTileMM.Marble.name=Rough Marble Tiles
 
 tile.RoughStoneIgIn.Granite.name=Rough Granite
 tile.RoughStoneIgIn.Diorite.name=Rough Diorite
@@ -91,6 +102,10 @@ tile.RoughStoneIgIn.Gabbro.name=Rough Gabbro
 tile.RoughStoneBrickIgIn.Granite.name=Rough Granite Bricks
 tile.RoughStoneBrickIgIn.Diorite.name=Rough Diorite Bricks
 tile.RoughStoneBrickIgIn.Gabbro.name=Rough Gabbro Bricks
+
+tile.RoughStoneTileIgIn.Granite.name=Rough Granite Tiles
+tile.RoughStoneTileIgIn.Diorite.name=Rough Diorite Tiles
+tile.RoughStoneTileIgIn.Gabbro.name=Rough Gabbro Tiles
 
 tile.RoughStoneIgEx.Rhyolite.name=Rough Rhyolite
 tile.RoughStoneIgEx.Basalt.name=Rough Basalt
@@ -101,6 +116,11 @@ tile.RoughStoneBrickIgEx.Rhyolite.name=Rough Rhyolite Bricks
 tile.RoughStoneBrickIgEx.Basalt.name=Rough Basalt Bricks
 tile.RoughStoneBrickIgEx.Andesite.name=Rough Andesite Bricks
 tile.RoughStoneBrickIgEx.Dacite.name=Rough Dacite Bricks
+
+tile.RoughStoneTileIgEx.Rhyolite.name=Rough Rhyolite Tiles
+tile.RoughStoneTileIgEx.Basalt.name=Rough Basalt Tiles
+tile.RoughStoneTileIgEx.Andesite.name=Rough Andesite Tiles
+tile.RoughStoneTileIgEx.Dacite.name=Rough Dacite Tiles
 
 tile.LogWall.Ash.name=Ash Log Wall
 tile.LogWall.Aspen.name=Aspen Log Wall
@@ -675,10 +695,30 @@ item.Rough Stone Brick.Basalt.name=Rough Basalt Brick
 item.Rough Stone Brick.Andesite.name=Rough Andesite Brick
 item.Rough Stone Brick.Dacite.name=Rough Dacite Brick
 
+item.Rough Stone Tile.Chalk.name=Rough Chalk Tile
+item.Rough Stone Tile.Chert.name=Rough Chert Tile
+item.Rough Stone Tile.Claystone.name=Rough Claystone Tile
 item.Rough Stone Tile.Sandstone.name=Rough Sandstone Tile
+item.Rough Stone Tile.Dolomite.name=Rough Dolomite Tile
+item.Rough Stone Tile.Limestone.name=Rough Limestone Tile
+item.Rough Stone Tile.Rock Salt.name=Rough Rock Salt Tile
 item.Rough Stone Tile.Shale.name=Rough Shale Tile
 
+item.Rough Stone Tile.Quartzite.name=Rough Quartzite Tile
 item.Rough Stone Tile.Slate.name=Rough Slate Tile
+item.Rough Stone Tile.Phyllite.name=Rough Phyllite Tile
+item.Rough Stone Tile.Schist.name=Rough Schist Tile
+item.Rough Stone Tile.Gneiss.name=Rough Gneiss Tile
+item.Rough Stone Tile.Marble.name=Rough Marble Tile
+
+item.Rough Stone Tile.Granite.name=Rough Granite Tile
+item.Rough Stone Tile.Diorite.name=Rough Diorite Tile
+item.Rough Stone Tile.Gabbro.name=Rough Gabbro Tile
+
+item.Rough Stone Tile.Rhyolite.name=Rough Rhyolite Tile
+item.Rough Stone Tile.Basalt.name=Rough Basalt Tile
+item.Rough Stone Tile.Andesite.name=Rough Andesite Tile
+item.Rough Stone Tile.Dacite.name=Rough Dacite Tile
 
 item.Peeled Log.Acacia.name=Peeled Acacia Log
 item.Peeled Log.Ash.name=Peeled Ash Log
@@ -962,7 +1002,11 @@ item.Goat Cheese.name=Goat Cheese
 item.Suet.name=Suet
 item.Tallow.name=Tallow
 
-item.Plug And Feather.name=Plug and Feather
+item.Plug And Feather.Wood.name=Plug and Feather (Wood)
+item.Plug And Feather.Copper.name=Plug and Feather (Copper)
+item.Plug And Feather.Bronze.name=Plug and Feather (Bronze)
+item.Plug And Feather.Bismuth Bronze.name=Plug and Feather (Bismuth Bronze)
+item.Plug And Feather.Black Bronze.name=Plug and Feather (Black Bronze)
 
 item.Apple Crushed.name=Crushed Apple
 item.Olive Crushed.name=Crushed Olive
@@ -1036,6 +1080,7 @@ gui.Glassmaking=Glassmaking
 gui.plans.blowpipe=Blowpipe
 gui.plans.adze=Adze
 gui.plans.drill=Drill
+gui.plans.plugandfeather=Plud And Feather
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Days=Days

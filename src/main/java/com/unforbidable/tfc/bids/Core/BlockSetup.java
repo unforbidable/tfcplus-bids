@@ -87,7 +87,7 @@ public class BlockSetup extends BidsBlocks {
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
                 .setBlockTextureName("Rough");
         roughStoneMM = new BlockRoughStone()
-                .setMetaHavingTopTexture(1) // Slate
+                .setMetaHavingTopTexture(1, 2, 3) // Slate, Shist and Phyllite
                 .setNames(Global.STONE_MM).setBlockName("RoughStoneMM")
                 .setBlockTextureName("Rough");
         roughStoneIgIn = new BlockRoughStone()
@@ -102,7 +102,7 @@ public class BlockSetup extends BidsBlocks {
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneBrickSed")
                 .setBlockTextureName("Rough Brick");
         roughStoneBrickMM = new BlockRoughStoneBrick()
-                .setMetaHavingTopTexture(1) // Slate
+                .setMetaHavingTopTexture(1, 2, 3) // Slate, Shist and Phyllite
                 .setNames(Global.STONE_MM).setBlockName("RoughStoneBrickMM")
                 .setBlockTextureName("Rough Brick");
         roughStoneBrickIgIn = new BlockRoughStoneBrick()
@@ -114,20 +114,18 @@ public class BlockSetup extends BidsBlocks {
 
         roughStoneTileSed = new BlockRoughStoneBrick()
                 .setAllHaveTopTexture(true)
-                .setMetaOnly(0, 4) // Only Shale and Sandstone
                 .setNames(Global.STONE_SED).setBlockName("RoughStoneTileSed")
                 .setBlockTextureName("Rough Tile");
         roughStoneTileMM = new BlockRoughStoneBrick()
                 .setAllHaveTopTexture(true)
-                .setMetaOnly(1) // Only slate
                 .setNames(Global.STONE_MM).setBlockName("RoughStoneTileMM")
                 .setBlockTextureName("Rough Tile");
         roughStoneTileIgIn = new BlockRoughStoneBrick()
-                .setMetaOnly() // No blocks yet
+                .setAllHaveTopTexture(true)
                 .setNames(Global.STONE_IGIN).setBlockName("RoughStoneTileIgIn")
                 .setBlockTextureName("Rough Tile");
         roughStoneTileIgEx = new BlockRoughStoneBrick()
-                .setMetaOnly() // No blocks yet
+                .setAllHaveTopTexture(true)
                 .setNames(Global.STONE_IGEX).setBlockName("RoughStoneTileIgEx")
                 .setBlockTextureName("Rough Tile");
 

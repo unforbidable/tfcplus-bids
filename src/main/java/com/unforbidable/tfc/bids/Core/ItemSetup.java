@@ -183,7 +183,6 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Rough Stone Brick");
 
         roughStoneTile = new ItemRoughBrick().setNames(Global.STONE_ALL)
-                .setMetaOnly(Global.STONE_SED_START, Global.STONE_SED_START + 4, Global.STONE_MM_START + 1) // Shale, Sandstone and Slate only
                 .setTextureName("Rough Tile")
                 .setUnlocalizedName("Rough Stone Tile");
 
@@ -566,7 +565,7 @@ public class ItemSetup extends BidsItems {
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.OILYFISHWATER, 1000),
             new ItemStack(ceramicBucketOilyFishWater), new ItemStack(TFCItems.clayBucketEmpty));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.GOATMILK, 1000),
-            new ItemStack(ceramicBucketGoatMilk), new ItemStack(TFCItems.woodenBucketEmpty));
+            new ItemStack(ceramicBucketGoatMilk), new ItemStack(TFCItems.clayBucketEmpty));
 
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.BRINE, 1000),
             new ItemStack(woodenBucketBrine), new ItemStack(TFCItems.woodenBucketEmpty));
@@ -647,6 +646,10 @@ public class ItemSetup extends BidsItems {
             } else {
                 OreDictionary.registerOre("itemAdzeMetal", new ItemStack(adzes[i], 1, WILD));
             }
+        }
+
+        for (int i = 0; i < 5; i++) {
+            OreDictionary.registerOre("itemPlugAndFeather", new ItemStack(BidsItems.plugAndFeather, 1, i));
         }
 
         final Item[] logs = new Item[]{logsSeasoned, peeledLog, peeledLogSeasoned};
