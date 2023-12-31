@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.TileEntities;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
+import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarrySideWedgeData;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.Interfaces.IPlugAndFeather;
@@ -76,7 +77,7 @@ public class TileEntityQuarry extends TileEntity implements IMessageHanldingTile
                 if (data.storage.size() < WEDGE_PER_EDGE) {
                     data.storage.add(plugAndFeather);
 
-                    Bids.LOG.debug("Wedge added to side: " + d + ", total: " + getWedgeCount());
+                    Bids.LOG.debug("Wedge " + plugAndFeather.getUnlocalizedName() + " added to side: " + d + ", total: " + getWedgeCount());
 
                     clientNeedToUpdate = true;
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -149,8 +150,31 @@ public class TileEntityQuarry extends TileEntity implements IMessageHanldingTile
     }
 
     private void dropSingleWedgeAsItem(ItemStack is) {
-        EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
-        worldObj.spawnEntityInWorld(ei);
+        Bids.LOG.debug("Wedge " + is.getUnlocalizedName() + " dropped");
+        ForgeDirection d = getQuarryOrientation();
+        int qx = xCoord - d.offsetX;
+        int qy = yCoord - d.offsetY;
+        int qz = zCoord - d.offsetZ;
+        if (worldObj.isAirBlock(qx, qy, qz)) {
+            // Block has been mined, so drop wedges in its place, if possible above or below
+            if (worldObj.isAirBlock(qx, qy + 1, qz) || worldObj.getTileEntity(qx, qy + 1, qz) instanceof TileEntityQuarry) {
+                EntityItem ei = new EntityItem(worldObj, qx + 0.5, qy + 1.5, qz + 0.5, is);
+                worldObj.spawnEntityInWorld(ei);
+            } else if (worldObj.isAirBlock(qx, qy - 1, qz) || worldObj.getTileEntity(qx, qy - 1, qz) instanceof TileEntityQuarry) {
+                EntityItem ei = new EntityItem(worldObj, qx + 0.5, qy - 0.5, qz + 0.5, is);
+                worldObj.spawnEntityInWorld(ei);
+            } else {
+                EntityItem ei = new EntityItem(worldObj, qx + 0.5, qy + 0.5, qz + 0.5, is);
+                worldObj.spawnEntityInWorld(ei);
+            }
+        } else {
+            // Else drop wedges in front of the quarry
+            double dx = xCoord + 0.5 + d.offsetX * 0.5;
+            double dy = yCoord + 0.5 + d.offsetY * 0.5;
+            double dz = zCoord + 0.5 + d.offsetZ * 0.5;
+            EntityItem ei = new EntityItem(worldObj, dx, dy, dz, is);
+            worldObj.spawnEntityInWorld(ei);
+        }
     }
 
     @Override
