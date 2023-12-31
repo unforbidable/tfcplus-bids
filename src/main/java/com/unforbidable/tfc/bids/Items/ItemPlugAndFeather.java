@@ -39,8 +39,7 @@ public class ItemPlugAndFeather extends ItemTerra implements ISize, IPlugAndFeat
 
     public ItemPlugAndFeather() {
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
-
-        metaNames = new String[] { "Wood", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze"};
+        setMetaNames(new String[] { "Wood", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze"});
     }
 
     @Override
