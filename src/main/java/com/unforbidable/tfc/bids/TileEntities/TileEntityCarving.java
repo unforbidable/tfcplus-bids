@@ -198,7 +198,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
 
     private void dropCraftingResult() {
         ItemStack is = getCraftingResult();
-        EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
+        EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.25, zCoord + 0.5, is);
         worldObj.spawnEntityInWorld(ei);
         Bids.LOG.debug("Crafting result harvested: " + is.getDisplayName());
     }
@@ -212,7 +212,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
             int earnedCount = Math.min((int) Math.floor(maxCount * ratio), maxCount);
             while (earnedCount > harvestDroppedCount) {
                 ItemStack is = rewardStack[harvestDroppedCount++];
-                EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
+                EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.25, zCoord + 0.5, is);
                 worldObj.spawnEntityInWorld(ei);
                 Bids.LOG.debug("Harvested: " + is.getDisplayName() + "[" + is.stackSize + "]");
             }
@@ -224,7 +224,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
         ItemStack is = carving.getCarvingExtraHarvest(Block.getBlockById(getCarvedBlockId()),
                 getCarvedBlockMetadata(), worldObj.rand, 1f / getTotalBitCount());
         if (is != null) {
-            EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
+            EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.25, zCoord + 0.5, is);
             worldObj.spawnEntityInWorld(ei);
             Bids.LOG.debug("Harvested (extra): " + is.getDisplayName() + "[" + is.stackSize + "]");
         }

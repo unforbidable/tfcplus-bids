@@ -161,8 +161,16 @@ public class BlockQuarry extends BlockContainer {
                 int droppedMeta = quarriable.getQuarriedBlockMetadata(block, meta);
                 Bids.LOG.debug("Block " + droppedBlock.getUnlocalizedName() + ":" + droppedMeta + " will be dropped");
                 ItemStack is = new ItemStack(Item.getItemFromBlock(droppedBlock), 1, droppedMeta);
-                EntityItem entityItem = new EntityItem(world, x2, y2 + 1, z2, is);
-                world.spawnEntityInWorld(entityItem);
+                if (world.isAirBlock(x2, y2 + 1, z2) || world.getTileEntity(x2, y2 + 1, z2) instanceof TileEntityQuarry) {
+                    EntityItem entityItem = new EntityItem(world, x2 + 0.5, y2 + 1.5, z2 + 0.5, is);
+                    world.spawnEntityInWorld(entityItem);
+                } else if (world.isAirBlock(x2, y2 - 1, z2) || world.getTileEntity(x2, y2 - 1, z2) instanceof TileEntityQuarry) {
+                    EntityItem entityItem = new EntityItem(world, x2 + 0.5, y2 - 0.5, z2 + 0.5, is);
+                    world.spawnEntityInWorld(entityItem);
+                } else {
+                    EntityItem entityItem = new EntityItem(world, x2 + 0.5, y2 + 0.5, z2 + 0.5, is);
+                    world.spawnEntityInWorld(entityItem);
+                }
             }
         }
     }

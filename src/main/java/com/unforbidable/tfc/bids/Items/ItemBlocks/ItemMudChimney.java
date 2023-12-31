@@ -1,22 +1,20 @@
 package com.unforbidable.tfc.bids.Items.ItemBlocks;
 
-import com.dunk.tfc.api.Interfaces.ISize;
-import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
-import com.unforbidable.tfc.bids.Core.ItemHelper;
-
-import java.util.List;
-
-import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
-
+import com.dunk.tfc.api.Interfaces.ISize;
+import com.unforbidable.tfc.bids.Blocks.BlockMudChimney;
+import com.unforbidable.tfc.bids.Core.ItemHelper;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+
+import java.util.List;
 
 public class ItemMudChimney extends ItemBlock implements ISize {
 
@@ -69,7 +67,7 @@ public class ItemMudChimney extends ItemBlock implements ISize {
         Block b = Block.getBlockFromItem(is.getItem());
         if (b instanceof BlockMudChimney) {
             int dam = is.getItemDamage();
-            if (b == TFCBlocks.mudBricks2) {
+            if (b == BidsBlocks.mudBrickChimney2) {
                 dam += 16;
             }
 
