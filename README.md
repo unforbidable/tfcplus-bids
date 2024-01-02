@@ -50,6 +50,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Cooking Prep](../../wiki/Cooking-Prep) - for making classic salads and sandwiches and new meals such as stuffed peppers and stuffed mushrooms
 * [More Crops](../../wiki/More-Crops) - new crops such as sea beet, beetroot, sugar beet, wild beans and broad beans
 * [Tallow](../../wiki/Tallow) - made from Suet which drops from appropriate animal mobs, for consumption or making candles and Pemmican
+* [Axle Wall Bearing](../../wiki/Axle-Wall-Bearing) - allows seamless passage of axles through walls and ceilings
 
 ### Contributions
 
