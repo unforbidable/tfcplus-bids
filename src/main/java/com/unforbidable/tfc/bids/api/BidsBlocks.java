@@ -29,6 +29,8 @@ public class BidsBlocks {
 
     public static int newCropsRenderId;
 
+    public static int axleWallBearingRenderId;
+
     public static Block clayCrucible;
     public static Block fireClayCrucible;
 
@@ -130,5 +132,7 @@ public class BidsBlocks {
     public static Block newCrops;
     public static Block newTilledSoil;
     public static Block newTilledSoil2;
+
+    public static Block woodAxleWallBearing;
 
 }

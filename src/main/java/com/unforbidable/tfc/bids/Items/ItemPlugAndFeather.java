@@ -66,17 +66,17 @@ public class ItemPlugAndFeather extends ItemTerra implements ISize, IPlugAndFeat
         switch (itemStack.getItemDamage()) {
             // copper
             case 1:
-                return 0.95f;
+                return 0.90f;
 
             // bronze
             case 2:
             case 3:
             case 4:
-                return 0.98f;
+                return 0.95f;
 
             // wood
             default:
-                return 0.8f;
+                return 0.75f;
         }
     }
 

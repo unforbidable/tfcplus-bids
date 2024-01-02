@@ -29,6 +29,7 @@ public class ClientProxy extends CommonProxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new ClientGuiHandler());
         MinecraftForge.EVENT_BUS.register(new ClientGuiHandler());
         MinecraftForge.EVENT_BUS.register(new FarmlandHighlightHandler());
+        MinecraftForge.EVENT_BUS.register(new PlacementHighlightHandler());
 
         BlockSetup.preInitClientOnly();
     }
