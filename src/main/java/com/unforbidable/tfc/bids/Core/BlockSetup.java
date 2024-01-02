@@ -241,6 +241,11 @@ public class BlockSetup extends BidsBlocks {
             .setHardness(2F)
             .setStepSound(Block.soundTypeGravel)
             .setBlockName("NewTilledSoil");
+
+        woodAxleWallBearing = new BlockAxleWallBearing(Material.wood)
+            .setHardness(0.5F)
+            .setResistance(1F)
+            .setBlockName("WoodAxleWallBearing");
     }
 
     private static void updateBlocks() {
@@ -431,6 +436,9 @@ public class BlockSetup extends BidsBlocks {
 
         newCropsRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(newCropsRenderId, new RenderNewCrop());
+
+        axleWallBearingRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(axleWallBearingRenderId, new RenderAxleWallBearing());
     }
 
     private static void registerTileEntities() {
@@ -471,6 +479,8 @@ public class BlockSetup extends BidsBlocks {
 
         GameRegistry.registerTileEntity(TileEntityNewCrop.class, "BidsNewCrop");
         GameRegistry.registerTileEntity(TileEntityNewFarmland.class, "BidsNewFarmland");
+
+        GameRegistry.registerTileEntity(TileEntityAxleWallBearing.class, "BidsAxleWallBearing");
     }
 
     @SideOnly(Side.CLIENT)
@@ -617,6 +627,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(newCrops, ItemSoil.class, "NewCrop");
         GameRegistry.registerBlock(newTilledSoil, ItemSoil.class, "NewTilledSoil");
         GameRegistry.registerBlock(newTilledSoil2, ItemSoil.class, "NewTilledSoil2");
+
+        GameRegistry.registerBlock(woodAxleWallBearing, "WoodAxleWallBearing");
     }
 
 }

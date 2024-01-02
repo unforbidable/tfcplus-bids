@@ -217,6 +217,8 @@ tile.CookingPrep.name=Cooking Prep
 tile.NewTilledSoil.name=Farmland
 tile.NewTilledSoil2.name=Farmland
 
+tile.WoodAxleWallBearing.name=Wooden Axle Wall Bearing
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit
