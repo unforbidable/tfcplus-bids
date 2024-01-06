@@ -14,7 +14,6 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.TFCOptions;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Crops.BidsCropIndex;
 import com.unforbidable.tfc.bids.Core.Crops.CropAccess;
 import com.unforbidable.tfc.bids.Core.Crops.CropHelper;
@@ -291,8 +290,9 @@ public class TileEntityNewCrop extends TECrop {
     public void onHarvest(World world, EntityPlayer player, boolean isBreaking) {
         if (!world.isRemote) {
             CropAccess crop = new CropAccess(this);
+            Random random = crop.getCropRandomForTicks(plantedTimer);
 
-            List<ItemStack> produce = crop.getIndex().getHarvestProduce(crop, player);
+            List<ItemStack> produce = crop.getIndex().getHarvestProduce(crop, player, random);
             if (produce != null && produce.size() > 0) {
                 for (ItemStack is : produce) {
                     world.spawnEntityInWorld(new EntityItem(world, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, is));
@@ -301,7 +301,7 @@ public class TileEntityNewCrop extends TECrop {
                 // Only harvesting fully grown crops increases skill
                 if (crop.getIndex().isFullyGrown(crop)) {
                     // For crops found in the wild, consider the chance if applicable
-                    if (crop.hasFarmland() || crop.getIndex().giveSkillChanceWild == 100 || new Random().nextInt(100) < crop.getIndex().giveSkillChanceWild) {
+                    if (crop.hasFarmland() || crop.getIndex().giveSkillChanceWild == 100 || random.nextInt(100) < crop.getIndex().giveSkillChanceWild) {
                         TFC_Core.getSkillStats(player).increaseSkill(Global.SKILL_AGRICULTURE, 1);
                     }
                 }
@@ -314,8 +314,8 @@ public class TileEntityNewCrop extends TECrop {
             if (isBreaking) {
                 // Seeds drop when breaking the crop
                 // For crops found in the wild, consider the chance if applicable
-                if (crop.hasFarmland() || crop.getIndex().giveSeedChanceWild == 100 || new Random().nextInt(100) < crop.getIndex().giveSeedChanceWild) {
-                    List<ItemStack> seeds = crop.getIndex().getHarvestSeeds(crop, player);
+                if (crop.hasFarmland() || crop.getIndex().giveSeedChanceWild == 100 || random.nextInt(100) < crop.getIndex().giveSeedChanceWild) {
+                    List<ItemStack> seeds = crop.getIndex().getHarvestSeeds(crop, player, random);
                     if (seeds != null && seeds.size() > 0) {
                         for (ItemStack seedStack : seeds) {
                             world.spawnEntityInWorld(
