@@ -38,8 +38,8 @@ public class BidsCropIndex extends CropIndex {
         return new CropBuilder(new BidsCropIndex(cropId, cropName));
     }
 
-    public List<ItemStack> getHarvestProduce(CropAccess crop, EntityPlayer player) {
-        List<ItemStack> produce = new ArrayList<ItemStack>(getOutput(crop, player));
+    public List<ItemStack> getHarvestProduce(CropAccess crop, EntityPlayer player, Random random) {
+        List<ItemStack> produce = new ArrayList<ItemStack>(getOutput(crop, player, random));
 
         Bids.LOG.info("growth: " + crop.getGrowth());
         Bids.LOG.info("numGrowthStages: " + crop.getIndex().numGrowthStages);
@@ -61,22 +61,20 @@ public class BidsCropIndex extends CropIndex {
         return produce;
     }
 
-    protected List<ItemStack> getOutput(CropAccess crop, EntityPlayer player) {
+    protected List<ItemStack> getOutput(CropAccess crop, EntityPlayer player, Random random) {
         List<ItemStack> output = new ArrayList<ItemStack>();
 
         if (crop.getIndex().isAtLeastPartiallyGrown(crop)) {
-            Random rand = new Random();
-
-            if (output1 != null && rand.nextInt(100) < chanceForOutput1) {
+            if (output1 != null && random.nextInt(100) < chanceForOutput1) {
                 ItemStack is = new ItemStack(output1);
-                ItemFoodTFC.createTag(is, getWeight(output1Avg, rand));
+                ItemFoodTFC.createTag(is, getWeight(output1Avg, random));
                 addFlavorProfile(crop.getCropTileEntity(), is);
                 output.add(is);
             }
 
-            if (output2 != null && rand.nextInt(100) < chanceForOutput2) {
+            if (output2 != null && random.nextInt(100) < chanceForOutput2) {
                 ItemStack is = new ItemStack(output2);
-                ItemFoodTFC.createTag(is, getWeight(output2Avg, rand));
+                ItemFoodTFC.createTag(is, getWeight(output2Avg, random));
                 addFlavorProfile(crop.getCropTileEntity(), is);
                 output.add(is);
             }
@@ -85,7 +83,7 @@ public class BidsCropIndex extends CropIndex {
         return output;
     }
 
-    public List<ItemStack> getHarvestSeeds(CropAccess crop, EntityPlayer player) {
+    public List<ItemStack> getHarvestSeeds(CropAccess crop, EntityPlayer player, Random random) {
         List<ItemStack> seeds = new ArrayList<ItemStack>();
 
         if (crop.getIndex().seedItem != null) {
@@ -108,7 +106,7 @@ public class BidsCropIndex extends CropIndex {
                 chance *= crop.getNutrientMultiplier() * crop.getLastStageGrowthMultiplier();
                 Bids.LOG.info("Cultivation chance is " + chance + " for " + cultivation.getCultivatedSeedItem().getUnlocalizedName());
 
-                if (crop.getCropTileEntity().getWorldObj().rand.nextFloat() < chance) {
+                if (random.nextFloat() < chance) {
                     Item cultivatedSeed = cultivation.getCultivatedSeedItem();
                     seeds.add(new ItemStack(cultivatedSeed));
                 }

@@ -1,8 +1,11 @@
 package com.unforbidable.tfc.bids.Core.Crops;
 
+import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewCrop;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFarmland;
 import net.minecraft.world.IBlockAccess;
+
+import java.util.Random;
 
 public class CropAccess {
 
@@ -77,6 +80,11 @@ public class CropAccess {
 
     public float getLastStageGrowthMultiplier() {
         return getGrowth() < getIndex().numGrowthStages ? (getGrowth() - getIndex().numGrowthStages + 1) * 0.5f + 0.1f : 1f;
+    }
+
+    public Random getCropRandomForTicks(long ticks) {
+        int days = (int) (ticks / TFC_Time.DAY_LENGTH);
+        return new Random(getCropTileEntity().getWorldObj().getSeed() + (x * x * 4987142L) + (x * 5947611L) + (z * z * 4392871L + (z * 389711L) ^ days));
     }
 
 }
