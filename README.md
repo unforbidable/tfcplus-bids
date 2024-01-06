@@ -58,7 +58,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Translations
 
-* Chinese by Eternal130 (v0.36.x)
+* Chinese by Eternal130 (v0.38.x)
 * Japanese by dymanic.day (v0.28.x)
 
 ### Other credits

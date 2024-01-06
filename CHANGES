@@ -475,3 +475,11 @@
 - Changed: Plug and Feather will break slightly more often
 - Fixed: Prevent different kinds of Plug and Feathers merging into a single item stack
 - Fixed: Mud brick chimney blocks display the correct dirt source in their item description
+
+0.38.1 (2024-01-06)
+- Changed: Increased chance for Sugar Beet cultivation since Expert agriculture skill level is required
+- Changed: Increased Broad Bean harvest produce amount
+- Changed: Wild Beans and Broad Beans restore appropriate nutrients
+- Changed: Harvest produce bonus, extra seed drop and cultivated seed drop chance is seeded to world, location and planting time
+- Changed: Planks, Smooth Stone, Large and Small Brick, Rough Tiles and Plastered blocks can be used to anchor stone press lever
+- Changed: Updated Chinese translation by Eternal130

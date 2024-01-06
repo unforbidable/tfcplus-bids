@@ -1,7 +1,12 @@
 package com.unforbidable.tfc.bids.Core.SaddleQuern;
 
-import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.api.TFCBlocks;
+import com.dunk.tfc.Blocks.BlockPlanks;
+import com.dunk.tfc.Blocks.BlockPlasteredBlock;
+import com.dunk.tfc.Blocks.BlockWattleDaub;
+import com.dunk.tfc.Blocks.Terrain.BlockSmooth;
+import com.unforbidable.tfc.bids.Blocks.BlockLogWall;
+import com.unforbidable.tfc.bids.Blocks.BlockLogWallVert;
+import com.unforbidable.tfc.bids.Blocks.BlockRoughStoneBrick;
 import com.unforbidable.tfc.bids.Items.ItemPeeledLogSeasoned;
 import com.unforbidable.tfc.bids.TileEntities.TileEntitySaddleQuern;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityStonePressLever;
@@ -56,11 +61,13 @@ public class StonePressHelper {
 
     public static boolean isValidAnchorBlockAt(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
-        return block == BidsBlocks.roughStoneBrickSed ||
-            block == BidsBlocks.roughStoneTileSed ||
-            block == TFCBlocks.bricks ||
-            block == TFCBlocks.wattleDaub ||
-            TFC_Core.isBrickStone(block);
+        return block instanceof BlockRoughStoneBrick ||
+            block instanceof BlockLogWall ||
+            block instanceof BlockLogWallVert ||
+            block instanceof BlockSmooth ||
+            block instanceof BlockPlanks ||
+            block instanceof BlockWattleDaub ||
+            block instanceof BlockPlasteredBlock;
     }
 
     public static boolean isWeightLiftedAt(IBlockAccess world, int x, int y, int z) {

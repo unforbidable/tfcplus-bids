@@ -65,7 +65,13 @@ tile.RoughStoneBrickSed.Limestone.name=粗糙石灰岩砖块
 tile.RoughStoneBrickSed.Rock Salt.name=粗糙盐岩砖块
 tile.RoughStoneBrickSed.Shale.name=粗糙页岩砖块
 
+tile.RoughStoneTileSed.Chalk.name=粗糙白垩岩岩片砖块
+tile.RoughStoneTileSed.Chert.name=粗糙角岩岩片砖块
+tile.RoughStoneTileSed.Claystone.name=粗糙粘土岩岩片砖块
 tile.RoughStoneTileSed.Sandstone.name=粗糙砂岩岩片砖块
+tile.RoughStoneTileSed.Dolomite.name=粗糙白云岩岩片砖块
+tile.RoughStoneTileSed.Limestone.name=粗糙石灰岩岩片砖块
+tile.RoughStoneTileSed.Rock Salt.name=粗糙盐岩岩片砖块
 tile.RoughStoneTileSed.Shale.name=粗糙页岩岩片砖块
 
 tile.RoughStoneMM.Quartzite.name=粗糙硅岩
@@ -82,7 +88,12 @@ tile.RoughStoneBrickMM.Schist.name=粗糙片岩砖块
 tile.RoughStoneBrickMM.Gneiss.name=粗糙片麻岩砖块
 tile.RoughStoneBrickMM.Marble.name=粗糙大理石砖块
 
+tile.RoughStoneTileMM.Quartzite.name=粗糙硅岩岩片砖块
 tile.RoughStoneTileMM.Slate.name=粗糙板岩岩片砖块
+tile.RoughStoneTileMM.Phyllite.name=粗糙千枚岩岩片砖块
+tile.RoughStoneTileMM.Schist.name=粗糙片岩岩片砖块
+tile.RoughStoneTileMM.Gneiss.name=粗糙片麻岩岩片砖块
+tile.RoughStoneTileMM.Marble.name=粗糙花岗岩砖块
 
 tile.RoughStoneIgIn.Granite.name=粗糙花岗岩
 tile.RoughStoneIgIn.Diorite.name=粗糙闪长岩
@@ -91,6 +102,10 @@ tile.RoughStoneIgIn.Gabbro.name=粗糙辉长岩
 tile.RoughStoneBrickIgIn.Granite.name=粗糙花岗岩砖块
 tile.RoughStoneBrickIgIn.Diorite.name=粗糙闪长岩砖块
 tile.RoughStoneBrickIgIn.Gabbro.name=粗糙辉长岩砖块
+
+tile.RoughStoneTileIgIn.Granite.name=粗糙花岗岩岩片砖块
+tile.RoughStoneTileIgIn.Diorite.name=粗糙闪长岩岩片砖块
+tile.RoughStoneTileIgIn.Gabbro.name=粗糙辉长岩岩片砖块
 
 tile.RoughStoneIgEx.Rhyolite.name=粗糙流纹岩
 tile.RoughStoneIgEx.Basalt.name=粗糙玄武岩
@@ -101,6 +116,11 @@ tile.RoughStoneBrickIgEx.Rhyolite.name=粗糙流纹岩砖块
 tile.RoughStoneBrickIgEx.Basalt.name=粗糙玄武岩砖块
 tile.RoughStoneBrickIgEx.Andesite.name=粗糙安山岩砖块
 tile.RoughStoneBrickIgEx.Dacite.name=粗糙英安岩砖块
+
+tile.RoughStoneTileIgEx.Rhyolite.name=粗糙流纹岩岩片砖块
+tile.RoughStoneTileIgEx.Basalt.name=粗糙玄武岩岩片砖块
+tile.RoughStoneTileIgEx.Andesite.name=粗糙安山岩岩片砖块
+tile.RoughStoneTileIgEx.Dacite.name=粗糙英安岩岩片砖块
 
 tile.LogWall.Ash.name=白蜡原木墙
 tile.LogWall.Aspen.name=白杨原木墙
@@ -196,6 +216,8 @@ tile.CookingPrep.name=厨台
 
 tile.NewTilledSoil.name=农田
 tile.NewTilledSoil2.name=农田
+
+tile.WoodAxleWallBearing.name=木制轴承(整格)
 
 item.Ore Bit.Bismuthinite.name=辉铋矿碎片
 item.Ore Bit.Cassiterite.name=锡精矿碎片
@@ -675,10 +697,30 @@ item.Rough Stone Brick.Basalt.name=粗糙玄武岩砖
 item.Rough Stone Brick.Andesite.name=粗糙安山岩砖
 item.Rough Stone Brick.Dacite.name=粗糙英安岩砖
 
+item.Rough Stone Tile.Chalk.name=粗糙白垩岩岩片
+item.Rough Stone Tile.Chert.name=粗糙角岩岩片
+item.Rough Stone Tile.Claystone.name=粗糙粘土岩岩片
 item.Rough Stone Tile.Sandstone.name=粗糙砂岩岩片
+item.Rough Stone Tile.Dolomite.name=粗糙白云岩岩片
+item.Rough Stone Tile.Limestone.name=粗糙石灰岩岩片
+item.Rough Stone Tile.Rock Salt.name=粗糙盐岩岩片
 item.Rough Stone Tile.Shale.name=粗糙页岩岩片
 
+item.Rough Stone Tile.Quartzite.name=粗糙硅岩岩片
 item.Rough Stone Tile.Slate.name=粗糙板岩岩片
+item.Rough Stone Tile.Phyllite.name=粗糙千枚岩岩片
+item.Rough Stone Tile.Schist.name=粗糙片岩岩片
+item.Rough Stone Tile.Gneiss.name=粗糙片麻岩岩片
+item.Rough Stone Tile.Marble.name=粗糙大理石岩片
+
+item.Rough Stone Tile.Granite.name=粗糙花岗岩岩片
+item.Rough Stone Tile.Diorite.name=粗糙闪长岩岩片
+item.Rough Stone Tile.Gabbro.name=粗糙辉长岩岩片
+
+item.Rough Stone Tile.Rhyolite.name=粗糙流纹岩岩片
+item.Rough Stone Tile.Basalt.name=粗糙玄武岩岩片
+item.Rough Stone Tile.Andesite.name=粗糙安山岩岩片
+item.Rough Stone Tile.Dacite.name=粗糙英安岩岩片
 
 item.Peeled Log.Acacia.name=光滑金合欢原木
 item.Peeled Log.Ash.name=光滑白蜡原木
@@ -962,7 +1004,11 @@ item.Goat Cheese.name=羊奶酪
 item.Suet.name=板油
 item.Tallow.name=动物油脂
 
-item.Plug And Feather.name=楔子
+item.Plug And Feather.Wood.name=楔子(木)
+item.Plug And Feather.Copper.name=楔子(铜)
+item.Plug And Feather.Bronze.name=楔子(青铜)
+item.Plug And Feather.Bismuth Bronze.name=楔子(铋青铜)
+item.Plug And Feather.Black Bronze.name=楔子(黑青铜)
 
 item.Apple Crushed.name=碎苹果
 item.Olive Crushed.name=碎橄榄
@@ -1024,6 +1070,7 @@ gui.Glassmaking=玻璃吹制
 gui.plans.blowpipe=吹管
 gui.plans.adze=锛
 gui.plans.drill=钻头
+gui.plans.plugandfeather=楔子
 gui.Hours=小时
 gui.HoursRemaining=剩余小时
 gui.Days=天
