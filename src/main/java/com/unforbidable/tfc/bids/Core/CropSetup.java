@@ -31,7 +31,7 @@ public class CropSetup {
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsBeetroot)
             .dropsOutput(BidsItems.beetroot, 20f)
-            .canBeCultivated(new CropCultivation(BidsItems.seedsSugarBeet, 2, 0.05f))
+            .canBeCultivated(new CropCultivation(BidsItems.seedsSugarBeet, 2, 0.1f))
             .renders(new CropRenderer(EnumCropRenderType.CROSSED_SQUARES, 0.45, 1, "Beetroot"))
             .build());
 
