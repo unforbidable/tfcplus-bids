@@ -125,8 +125,8 @@ public class TileEntityNewCrop extends TECrop {
                     int month = TFC_Time.getSeasonAdjustedMonth(zCoord);
                     boolean isGettingColder = month >= TFC_Time.AUGUST && month <= TFC_Time.JANUARY;
                     // More optimistic about upcoming temperature during spring
-                    float dormantTemp = isGettingColder ? crop.minGrowthTemp : crop.minAliveTemp + 2f;
-                    for (int i = 1; i < TFC_Time.daysInMonth; i++) {
+                    float dormantTemp = isGettingColder ? crop.minGrowthTemp : crop.minAliveTemp + (crop.minGrowthTemp - crop.minAliveTemp) / 2f;
+                    for (int i = 1; i < TFC_Time.daysInMonth * 1.5; i++) {
                         long growthTimerNextDay = growthTimer + (long) TFC_Time.DAY_LENGTH * i;
                         float ambientTempNextDay = TFC_Climate.getHeightAdjustedTempSpecificDay(worldObj,
                             getTotalDaysFromTick(growthTimerNextDay), xCoord, yCoord, zCoord);
