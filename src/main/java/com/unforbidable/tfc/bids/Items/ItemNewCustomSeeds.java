@@ -103,6 +103,7 @@ public class ItemNewCustomSeeds extends ItemCustomSeeds {
         if (ItemHelper.showShiftInformation()) {
             BidsCropIndex crop = BidsCropManager.findCropById(cropId);
             arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedWaterDistance") + crop.minWaterDistance);
+            arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedGrowTemperature") + Math.round(crop.minGrowthTemp) + "C");
 
             if (crop.requiresLadder) {
                 arraylist.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.SeedRequiresLadder"));

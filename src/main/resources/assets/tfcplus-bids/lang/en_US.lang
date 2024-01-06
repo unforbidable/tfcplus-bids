@@ -1113,6 +1113,7 @@ gui.CookingHeatLevel.High=High Heat
 gui.SeedCultivation=Can be cultivated into §e
 gui.SeedAutumnSowing=Can be sown in §eFall
 gui.SeedWaterDistance=Water distance: §e
+gui.SeedGrowTemperature=Grow temperature: §e
 gui.SeedRequiresLadder=Requires a §eladder §7 to grow
 gui.SeedRequiresPole=Requires a §epole §7to grow
 gui.seeds.failedPole=You need a pole for that to grow on
