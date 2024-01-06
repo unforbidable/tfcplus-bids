@@ -44,6 +44,7 @@ public class CropSetup {
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.WILDBEANS, "wildbeans")
             .grows(1, 18, 7, 4, 5, 0, 0.4f)
+            .restoresNutrients(5, 0, 5)
             .generates(new EnumRegion[]{ EnumRegion.AFRICA, EnumRegion.ASIA },
                 120, 1200, 3, 18, EnumCropCoastal.INLAND_ONLY)
             .dropsSeed(BidsItems.seedsWildBeans)
@@ -54,6 +55,7 @@ public class CropSetup {
 
         BidsCropManager.registerCrop(BidsCropIndex.builder(BidsCrops.BROADBEANS, "broadbeens")
             .grows(1, 24, 7, 4, 5, 0, 0.8f)
+            .restoresNutrients(10, 0, 10)
             .requiresPole()
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsBroadBeans)

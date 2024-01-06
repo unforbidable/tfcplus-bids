@@ -25,6 +25,12 @@ public class CropBuilder {
         return this;
     }
 
+    public CropBuilder restoresNutrients(int a, int b, int c) {
+        cropIndex.nutrientExtraRestore = new int[] { a, b, c };
+
+        return this;
+    }
+
     public CropBuilder goesDormantInFrost() {
         cropIndex.dormantInFrost = true;
 
