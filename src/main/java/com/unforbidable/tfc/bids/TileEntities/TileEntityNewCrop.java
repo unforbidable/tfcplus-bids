@@ -32,6 +32,7 @@ public class TileEntityNewCrop extends TECrop {
 
     // Cloned private TFC members
     protected long growthTimer = TFC_Time.getTotalTicks();
+    protected long plantedTimer = TFC_Time.getTotalTicks();
     protected byte sunLevel = 1;
     protected int killLevel = 0;
 
@@ -308,6 +309,7 @@ public class TileEntityNewCrop extends TECrop {
         super.readFromNBT(nbt);
 
         growthTimer = nbt.getLong("growthTimer");
+        plantedTimer = nbt.getLong("plantedTimer");
         killLevel = nbt.getInteger("killLevel");
         sunLevel = nbt.getByte("sunLevel");
 
@@ -319,6 +321,7 @@ public class TileEntityNewCrop extends TECrop {
         super.writeToNBT(nbt);
 
         nbt.setLong("growthTimer", growthTimer);
+        nbt.setLong("plantedTimer", plantedTimer);
         nbt.setInteger("killLevel", killLevel);
         nbt.setByte("sunLevel", sunLevel);
 
