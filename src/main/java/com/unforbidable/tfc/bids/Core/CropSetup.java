@@ -63,7 +63,7 @@ public class CropSetup {
             .requiresPole()
             .goesDormantInFrost()
             .dropsSeed(BidsItems.seedsBroadBeans)
-            .dropsOutput(BidsItems.broadBeans, 16f)
+            .dropsOutput(BidsItems.broadBeans, 20f)
             .renders(new CropRenderer(EnumCropRenderType.CROSSED_SQUARES, 0.45, 1, "Broad Beans"))
             .build());
     }
