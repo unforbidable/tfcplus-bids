@@ -246,6 +246,11 @@ public class BlockSetup extends BidsBlocks {
             .setHardness(0.5F)
             .setResistance(1F)
             .setBlockName("WoodAxleWallBearing");
+
+        woodScrew = new BlockScrew(Material.wood)
+            .setHardness(0.5F)
+            .setBlockTextureName("Wood Screw")
+            .setBlockName("WoodScrew");
     }
 
     private static void updateBlocks() {
@@ -439,6 +444,9 @@ public class BlockSetup extends BidsBlocks {
 
         axleWallBearingRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(axleWallBearingRenderId, new RenderAxleWallBearing());
+
+        screwRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(screwRenderId, new RenderScrew());
     }
 
     private static void registerTileEntities() {
@@ -481,6 +489,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityNewFarmland.class, "BidsNewFarmland");
 
         GameRegistry.registerTileEntity(TileEntityAxleWallBearing.class, "BidsAxleWallBearing");
+
+        GameRegistry.registerTileEntity(TileEntityScrew.class, "BidsScrew");
     }
 
     @SideOnly(Side.CLIENT)
@@ -493,6 +503,7 @@ public class BlockSetup extends BidsBlocks {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWallHook.class, new RenderTileWallHook());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCookingPot.class, new RenderTileCookingPot());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCookingPrep.class, new RenderTileCookingPrep());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScrew.class, new RenderTileScrew());
     }
 
     private static void registerMessages() {
@@ -629,6 +640,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(newTilledSoil2, ItemSoil.class, "NewTilledSoil2");
 
         GameRegistry.registerBlock(woodAxleWallBearing, "WoodAxleWallBearing");
+
+        GameRegistry.registerBlock(woodScrew, "WoodScrew");
     }
 
 }
