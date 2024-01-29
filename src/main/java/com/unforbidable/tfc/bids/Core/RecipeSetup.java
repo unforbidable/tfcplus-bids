@@ -129,6 +129,27 @@ public class RecipeSetup {
 
         OreDictionary.registerOre("itemHoneycomb", TFCItems.honeycomb);
         OreDictionary.registerOre("itemHoneycomb", TFCItems.fertileHoneycomb);
+
+        OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLog, 1, WILD));
+        OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
+        OreDictionary.registerOre("logWoodPeeledSeasoned", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
+
+        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportH, 1, WILD));
+        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportH2, 1, WILD));
+        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportH3, 1, WILD));
+        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportV, 1, WILD));
+        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportV2, 1, WILD));
+        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportV3, 1, WILD));
+
+        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.copperSheet));
+        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.bronzeSheet));
+        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.bismuthBronzeSheet));
+        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blackBronzeSheet));
+        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.wroughtIronSheet));
+        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.steelSheet));
+        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blackSteelSheet));
+        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.redSteelSheet));
+        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blueSteelSheet));
     }
 
     private static void registerCustomRecipes() {
@@ -678,6 +699,26 @@ public class RecipeSetup {
             'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportV, 1, OreDictionary.WILDCARD_VALUE)));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.woodAxleWallBearing), "LSL", "L L", "LSL",
             'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportV2, 1, OreDictionary.WILDCARD_VALUE)));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsBlocks.woodScrew),
+            new ItemStack(TFCBlocks.woodAxle, 1), "itemChisel"));
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemChisel")
+            .matchCraftingBlock(BidsBlocks.woodScrew));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.screwPressRackBottom), "SLS", "S S", "SLS",
+            'L', "woodLumber", 'S', "supportWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.screwPressRackBridge), "SSS", "L L", "SSS",
+            'L', "woodLumber", 'S', "supportWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.screwPressBarrel), "LTL", "LLL", "LPL",
+            'T', "plateToolMetal", 'L', "woodLumber", 'P', "plankWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.screwPressDisc), "L L", "LPL", "   ",
+            'L', "woodLumber", 'P', "plankWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.screwPressLever), "LTL", " L ", " L ",
+            'T', "itemSaw", 'L', "logWoodPeeledSeasoned"));
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemSaw")
+            .matchCraftingBlock(BidsBlocks.screwPressLever));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.clayLamp),
             "S ", "B ", 'S', "materialString",
