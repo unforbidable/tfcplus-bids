@@ -353,6 +353,19 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(wallHook, 5, 5);
 
         Blocks.fire.setFireInfo(newCrops, 5, 5);
+
+        Blocks.fire.setFireInfo(woodAxleWallBearing, 5, 5);
+
+        Blocks.fire.setFireInfo(woodScrew, 5, 5);
+
+        Blocks.fire.setFireInfo(screwPressRackBottom, 5, 5);
+        Blocks.fire.setFireInfo(screwPressRackMiddle, 5, 5);
+        Blocks.fire.setFireInfo(screwPressRackTop, 5, 5);
+        Blocks.fire.setFireInfo(screwPressRackBridge, 5, 5);
+        Blocks.fire.setFireInfo(screwPressBarrel, 5, 5);
+        Blocks.fire.setFireInfo(screwPressDisc, 5, 5);
+        Blocks.fire.setFireInfo(screwPressLever, 5, 5);
+        Blocks.fire.setFireInfo(screwPressLeverTop, 5, 5);
     }
 
     private static void registerOre() {
