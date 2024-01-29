@@ -36,6 +36,9 @@ public class ClientGuiHandler extends GuiHandler {
 
             case BidsGui.cookingPrepGui:
                 return new GuiCookingPrep(player.inventory, (TileEntityCookingPrep) te, world, x, y, z);
+
+            case BidsGui.screwPressBarrelGui:
+                return new GuiScrewPress(player.inventory, (TileEntityScrewPressBarrel) te, world, x, y, z);
         }
 
         return null;
