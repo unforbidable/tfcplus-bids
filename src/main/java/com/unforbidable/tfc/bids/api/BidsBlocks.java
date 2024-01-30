@@ -31,6 +31,13 @@ public class BidsBlocks {
 
     public static int axleWallBearingRenderId;
 
+    public static int screwRenderId;
+    public static int axleHandleRenderId;
+    public static int screwPressRackRenderId;
+    public static int screwPressBarrelRenderId;
+    public static int screwPressDiscRenderId;
+    public static int screwPressLeverRenderId;
+
     public static Block clayCrucible;
     public static Block fireClayCrucible;
 
@@ -134,5 +141,16 @@ public class BidsBlocks {
     public static Block newTilledSoil2;
 
     public static Block woodAxleWallBearing;
+
+    public static Block woodScrew;
+
+    public static Block screwPressRackBottom;
+    public static Block screwPressRackMiddle;
+    public static Block screwPressRackTop;
+    public static Block screwPressRackBridge;
+    public static Block screwPressBarrel;
+    public static Block screwPressDisc;
+    public static Block screwPressLever;
+    public static Block screwPressLeverTop;
 
 }

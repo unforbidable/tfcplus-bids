@@ -219,6 +219,17 @@ tile.NewTilledSoil2.name=Farmland
 
 tile.WoodAxleWallBearing.name=Wooden Axle Wall Bearing
 
+tile.WoodScrew.name=Wooden Screw
+
+tile.ScrewPressRackBottom.name=Screw Press Bottom
+tile.ScrewPressRackMiddle.name=Screw Press Bottom
+tile.ScrewPressRackTop.name=Screw Press Top
+tile.ScrewPressRackBridge.name=Screw Press Top
+tile.ScrewPressBarrel.name=Basket and Basin
+tile.ScrewPressDisc.name=Pressing Disc
+tile.ScrewPressLever.name=Screw Press Lever
+tile.ScrewPressLeverTop.name=Screw Press Lever
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit
@@ -1117,5 +1128,7 @@ gui.SeedGrowTemperature=Grow temperature: §e
 gui.SeedRequiresLadder=Requires a §eladder §7 to grow
 gui.SeedRequiresPole=Requires a §epole §7to grow
 gui.seeds.failedPole=You need a pole for that to grow on
+gui.ScrewPress=Screw Press
+gui.Load=Load
 
 key.BidsToolMode=Cycle Tool Mode

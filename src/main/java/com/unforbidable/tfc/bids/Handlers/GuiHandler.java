@@ -40,6 +40,9 @@ public class GuiHandler implements IGuiHandler {
 
             case BidsGui.cookingPrepGui:
                 return new ContainerCookingPrep(player.inventory, (TileEntityCookingPrep) te, world, x, y, z);
+
+            case BidsGui.screwPressBarrelGui:
+                return new ContainerScrewPress(player.inventory, (TileEntityScrewPressBarrel) te, world, x, y, z);
         }
         return null;
     }

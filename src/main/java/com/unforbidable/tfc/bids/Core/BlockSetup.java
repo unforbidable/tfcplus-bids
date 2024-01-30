@@ -244,8 +244,29 @@ public class BlockSetup extends BidsBlocks {
 
         woodAxleWallBearing = new BlockAxleWallBearing(Material.wood)
             .setHardness(0.5F)
-            .setResistance(1F)
             .setBlockName("WoodAxleWallBearing");
+
+        woodScrew = new BlockScrew(Material.wood)
+            .setHardness(0.5F)
+            .setBlockTextureName("Wood Screw")
+            .setBlockName("WoodScrew");
+
+        screwPressRackBottom = new BlockScrewPressRackBottom()
+            .setBlockName("ScrewPressRackBottom");
+        screwPressRackMiddle = new BlockScrewPressRackMiddle()
+            .setBlockName("ScrewPressRackMiddle");
+        screwPressRackTop = new BlockScrewPressRackTop()
+            .setBlockName("ScrewPressRackTop");
+        screwPressRackBridge = new BlockScrewPressRackBridge()
+            .setBlockName("ScrewPressRackBridge");
+        screwPressBarrel = new BlockScrewPressBarrel()
+            .setBlockName("ScrewPressBarrel");
+        screwPressDisc = new BlockScrewPressDisc()
+            .setBlockName("ScrewPressDisc");
+        screwPressLever = new BlockScrewPressLever()
+            .setBlockName("ScrewPressLever");
+        screwPressLeverTop = new BlockScrewPressLeverTop()
+            .setBlockName("ScrewPressLeverTop");
     }
 
     private static void updateBlocks() {
@@ -332,6 +353,19 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(wallHook, 5, 5);
 
         Blocks.fire.setFireInfo(newCrops, 5, 5);
+
+        Blocks.fire.setFireInfo(woodAxleWallBearing, 5, 5);
+
+        Blocks.fire.setFireInfo(woodScrew, 5, 5);
+
+        Blocks.fire.setFireInfo(screwPressRackBottom, 5, 5);
+        Blocks.fire.setFireInfo(screwPressRackMiddle, 5, 5);
+        Blocks.fire.setFireInfo(screwPressRackTop, 5, 5);
+        Blocks.fire.setFireInfo(screwPressRackBridge, 5, 5);
+        Blocks.fire.setFireInfo(screwPressBarrel, 5, 5);
+        Blocks.fire.setFireInfo(screwPressDisc, 5, 5);
+        Blocks.fire.setFireInfo(screwPressLever, 5, 5);
+        Blocks.fire.setFireInfo(screwPressLeverTop, 5, 5);
     }
 
     private static void registerOre() {
@@ -439,6 +473,21 @@ public class BlockSetup extends BidsBlocks {
 
         axleWallBearingRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(axleWallBearingRenderId, new RenderAxleWallBearing());
+
+        screwRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(screwRenderId, new RenderScrew());
+
+        screwPressRackRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(screwPressRackRenderId, new RenderScrewPressRack());
+
+        screwPressBarrelRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(screwPressBarrelRenderId, new RenderScrewPressBarrel());
+
+        screwPressDiscRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(screwPressDiscRenderId, new RenderScrewPressDisc());
+
+        screwPressLeverRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(screwPressLeverRenderId, new RenderScrewPressLever());
     }
 
     private static void registerTileEntities() {
@@ -481,6 +530,12 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityNewFarmland.class, "BidsNewFarmland");
 
         GameRegistry.registerTileEntity(TileEntityAxleWallBearing.class, "BidsAxleWallBearing");
+
+        GameRegistry.registerTileEntity(TileEntityScrew.class, "BidsScrew");
+
+        GameRegistry.registerTileEntity(TileEntityScrewPressBarrel.class, "BidsScrewPressBarrel");
+        GameRegistry.registerTileEntity(TileEntityScrewPressDisc.class, "BidsScrewPressDisc");
+        GameRegistry.registerTileEntity(TileEntityScrewPressLever.class, "BidsScrewPressLever");
     }
 
     @SideOnly(Side.CLIENT)
@@ -493,6 +548,9 @@ public class BlockSetup extends BidsBlocks {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWallHook.class, new RenderTileWallHook());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCookingPot.class, new RenderTileCookingPot());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCookingPrep.class, new RenderTileCookingPrep());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScrew.class, new RenderTileScrew());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScrewPressDisc.class, new RenderTileScrewPressDisc());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScrewPressLever.class, new RenderTileScrewPressLever());
     }
 
     private static void registerMessages() {
@@ -629,6 +687,17 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(newTilledSoil2, ItemSoil.class, "NewTilledSoil2");
 
         GameRegistry.registerBlock(woodAxleWallBearing, "WoodAxleWallBearing");
+
+        GameRegistry.registerBlock(woodScrew, "WoodScrew");
+
+        GameRegistry.registerBlock(screwPressRackBottom, ItemScrewPress.class, "ScrewPressRackBottom");
+        GameRegistry.registerBlock(screwPressRackMiddle, ItemScrewPress.class, "ScrewPressRackMiddle");
+        GameRegistry.registerBlock(screwPressRackTop, ItemScrewPress.class, "ScrewPressRackTop");
+        GameRegistry.registerBlock(screwPressRackBridge, ItemScrewPress.class, "ScrewPressRackBridge");
+        GameRegistry.registerBlock(screwPressBarrel, ItemScrewPress.class, "ScrewPressBarrel");
+        GameRegistry.registerBlock(screwPressDisc, ItemScrewPress.class, "ScrewPressDisc");
+        GameRegistry.registerBlock(screwPressLever, ItemScrewPress.class, "ScrewPressLever");
+        GameRegistry.registerBlock(screwPressLeverTop, ItemScrewPress.class, "ScrewPressLeverTop");
     }
 
 }

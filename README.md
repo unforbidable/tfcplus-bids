@@ -1,3 +1,9 @@
+[![GitHub Release](https://img.shields.io/github/v/release/unforbidable/tfcplus-bids?include_prereleases)](https://github.com/unforbidable/tfcplus-bids/releases)
+[![CurseForge Version](https://img.shields.io/curseforge/v/630843)](https://www.curseforge.com/minecraft/mc-mods/tfcplus-bids/files?showAlphaFiles=show)
+[![CurseForge Game Versions](https://img.shields.io/curseforge/game-versions/630843)](https://www.curseforge.com/minecraft/mc-mods/tfcplus-bids/files?showAlphaFiles=show)
+[![CurseForge Downloads](https://img.shields.io/curseforge/dt/630843)](https://www.curseforge.com/minecraft/mc-mods/tfcplus-bids/files?showAlphaFiles=show)
+[![GitHub License](https://img.shields.io/github/license/unforbidable/tfcplus-bids)](https://github.com/unforbidable/tfcplus-bids/blob/main/LICENSE)
+
 # TFC Plus - Bids and Pieces
 A plugin for TerrafirmacraftPlus that aims to demonstrate various fully featured enhancements for gameplay and testing.
 
