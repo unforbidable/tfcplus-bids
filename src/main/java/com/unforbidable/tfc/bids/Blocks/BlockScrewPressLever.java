@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.Blocks;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.ScrewPress.ScrewPressHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityScrewPressLever;
@@ -83,8 +82,6 @@ public class BlockScrewPressLever extends BlockContainer {
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack is) {
         ForgeDirection screwDirection = ScrewPressHelper.getValidDirectionToPlaceLever(world, x, y, z);
         int meta = world.getBlockMetadata(x - screwDirection.offsetX, y, z - screwDirection.offsetZ);
-
-        Bids.LOG.info("meta (rack): " + meta);
 
         world.setBlockMetadataWithNotify(x, y, z, meta, 2);
 

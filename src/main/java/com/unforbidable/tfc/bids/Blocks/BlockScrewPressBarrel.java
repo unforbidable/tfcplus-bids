@@ -151,8 +151,6 @@ public class BlockScrewPressBarrel extends BlockContainer {
 
                     return true;
                 } else if (equippedItem.getItem() instanceof ItemBarrels || equippedItem.getItem() instanceof ItemLargeVessel) {
-                    Bids.LOG.info("Basin activated with barrel/large vessel: " + equippedItem.getDisplayName());
-
                     ItemStack is = equippedItem.copy();
                     is.stackSize = 1;
 

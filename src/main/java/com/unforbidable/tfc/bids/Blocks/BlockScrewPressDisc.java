@@ -2,19 +2,16 @@ package com.unforbidable.tfc.bids.Blocks;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.ScrewPress.ScrewPressBounds;
 import com.unforbidable.tfc.bids.Core.ScrewPress.ScrewPressHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityScrewPressBarrel;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityScrewPressDisc;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityScrewPressLever;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -65,12 +62,8 @@ public class BlockScrewPressDisc extends BlockContainer {
 
     @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
-        Bids.LOG.info("meta (disc): " + world.getBlockMetadata(x, y, z));
         int orientation = ScrewPressHelper.getOrientationFromMetadata(world.getBlockMetadata(x, y, z));
         ForgeDirection[] ds = ScrewPressHelper.getNeighborDirectionsForOrientation(orientation);
-
-        Bids.LOG.info("{}: {}", ds[0], world.getBlock(x + ds[0].offsetX, y, z + ds[0].offsetZ).getUnlocalizedName());
-        Bids.LOG.info("{}: {}", ds[1], world.getBlock(x + ds[1].offsetX, y, z + ds[1].offsetZ).getUnlocalizedName());
 
         // Rack middle on both sides, rack bridge above and barrel below
         return world.getBlock(x + ds[0].offsetX, y, z + ds[0].offsetZ) == BidsBlocks.screwPressRackMiddle &&
@@ -100,9 +93,6 @@ public class BlockScrewPressDisc extends BlockContainer {
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack is) {
         int meta = world.getBlockMetadata(x, y + 1, z);
-
-        Bids.LOG.info("meta (above): " + meta);
-
         world.setBlockMetadataWithNotify(x, y, z, meta, 2);
 
         TileEntityScrewPressBarrel teBarrel = (TileEntityScrewPressBarrel) world.getTileEntity(x, y - 1, z);

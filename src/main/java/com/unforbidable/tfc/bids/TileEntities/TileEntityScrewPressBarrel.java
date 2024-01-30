@@ -266,15 +266,13 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
             float progressMade = getProgressMadeForTicks(screwSpin, elapsedTicks);
             float availableProgress = progressMade * SLOT_OUTPUT_START + unusedProgress;
 
-            Bids.LOG.info("SERVER - elapsedTicks: " + elapsedTicks + ", progressMade: " + progressMade);
-
             int prevOutputFluidAmount = getOutputFluidAmount();
 
             float remainingProgress = availableProgress;
             int prevSuccessfulRecipeMultiplier = Integer.MAX_VALUE;
 
             while (true) {
-                Bids.LOG.info("remainingProgress: " + remainingProgress);
+                Bids.LOG.debug("remainingProgress: " + remainingProgress);
 
                 // Keep using the progress to press the input
                 // allowing to complete a recipe multiple times
@@ -284,11 +282,8 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
                     // Try to process multiple recipes at once
                     // Minimizes lag after skipping time / reloading chunks
                     for (int recipeMultiplier : TIME_SKIPPED_RECIPE_MULTIPLIERS) {
-                        Bids.LOG.info("recipeMultiplier: " + recipeMultiplier);
-
                         // Skip multipliers that were not successful
                         if (recipeMultiplier > prevSuccessfulRecipeMultiplier) {
-                            Bids.LOG.info("skipped: " + recipeMultiplier);
                             continue;
                         }
 
@@ -296,7 +291,7 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
 
                         // Until any progress in consumed
                         if (remainingProgress < prevRemainingProgress) {
-                            Bids.LOG.info("success: " + recipeMultiplier);
+                            Bids.LOG.debug("recipeMultiplier: " + recipeMultiplier);
                             prevSuccessfulRecipeMultiplier = recipeMultiplier;
                             break;
                         }
@@ -333,7 +328,7 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
                 nextProgress -= progressMade;
             }
 
-            Bids.LOG.info("currentProgress: " + currentProgress + ", nextProgress: " + nextProgress);
+            Bids.LOG.debug("currentProgress: " + currentProgress + ", nextProgress: " + nextProgress);
 
             updateOutputFluidFullnessForClient(prevOutputFluidAmount, getOutputFluidAmount());
         }
@@ -379,27 +374,27 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
                     float weightRequiredForRecipe = Food.getWeight(recipe.getInput()) * recipeMultiplier;
                     float weightActuallyConsumed = Math.min(weightRequiredForRecipe, weightThatCanBeConsumed);
 
-                    Bids.LOG.info("slot: " + slot);
-                    Bids.LOG.info("weight: " + weight);
-                    Bids.LOG.info("weightAvailable: " + weightAvailable);
-                    Bids.LOG.info("weightToBeConsumed: " + weightToBeConsumed);
-                    Bids.LOG.info("weightThatCanBeConsumed: " + weightThatCanBeConsumed);
-                    Bids.LOG.info("weightRequiredForRecipe: " + weightRequiredForRecipe);
-                    Bids.LOG.info("weightActuallyConsumed: " + weightActuallyConsumed);
+                    //Bids.LOG.info("slot: " + slot);
+                    //Bids.LOG.info("weight: " + weight);
+                    //Bids.LOG.info("weightAvailable: " + weightAvailable);
+                    //Bids.LOG.info("weightToBeConsumed: " + weightToBeConsumed);
+                    //Bids.LOG.info("weightThatCanBeConsumed: " + weightThatCanBeConsumed);
+                    //Bids.LOG.info("weightRequiredForRecipe: " + weightRequiredForRecipe);
+                    //Bids.LOG.info("weightActuallyConsumed: " + weightActuallyConsumed);
 
                     if (weightRequiredForRecipe > weightActuallyConsumed && weightRequiredForRecipe < weightAvailable) {
                         // When there is not enough progress to complete the recipe
                         // but there is enough weight to consume
                         // just carry the progress to the next run
-                        Bids.LOG.info("Not enough progress: " + progress);
+                        //Bids.LOG.info("Not enough progress: " + progress);
 
                         return progress;
                     } else {
                         float fluidAmountForRecipe = recipe.getFluidCraftingResult().amount * recipeMultiplier;
                         int fluidActuallyProduced = Math.round(fluidAmountForRecipe * (weightActuallyConsumed / weightRequiredForRecipe));
 
-                        Bids.LOG.info("fluidAmountForRecipe: " + fluidAmountForRecipe);
-                        Bids.LOG.info("fluidActuallyProduced: " + fluidActuallyProduced);
+                        //Bids.LOG.info("fluidAmountForRecipe: " + fluidAmountForRecipe);
+                        //Bids.LOG.info("fluidActuallyProduced: " + fluidActuallyProduced);
 
                         if (recipeMultiplier > 1 && fluidActuallyProduced + getOutputFluidAmount() > MAX_OUTPUT_FLUID) {
                             // When recipe is multiplied, we don't allow overflowing
@@ -416,8 +411,8 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
                         int fluidActuallyAdded = addFluid(recipe.getFluidCraftingResult().getFluid(), fluidActuallyProduced);
                         float progressUsed = weightActuallyConsumed / Global.FOOD_MAX_WEIGHT;
 
-                        Bids.LOG.info("fluidActuallyAdded: " + fluidActuallyAdded);
-                        Bids.LOG.info("progressUsed: " + progressUsed);
+                        //Bids.LOG.info("fluidActuallyAdded: " + fluidActuallyAdded);
+                        //Bids.LOG.info("progressUsed: " + progressUsed);
 
                         invalidateInputProperties();
 
@@ -431,27 +426,27 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
                     int sizeRequiredForRecipe = recipe.getInput().stackSize * recipeMultiplier;
                     int sizeActuallyConsumed = Math.min(sizeRequiredForRecipe, sizeThatCanBeConsumed);
 
-                    Bids.LOG.info("slot: " + slot);
-                    Bids.LOG.info("maxStackSize: " + maxStackSize);
-                    Bids.LOG.info("sizeAvailable: " + sizeAvailable);
-                    Bids.LOG.info("sizeToBeConsumed: " + sizeToBeConsumed);
-                    Bids.LOG.info("sizeThatCanBeConsumed: " + sizeThatCanBeConsumed);
-                    Bids.LOG.info("sizeRequiredForRecipe: " + sizeRequiredForRecipe);
-                    Bids.LOG.info("sizeActuallyConsumed: " + sizeActuallyConsumed);
+                    //Bids.LOG.info("slot: " + slot);
+                    //Bids.LOG.info("maxStackSize: " + maxStackSize);
+                    //Bids.LOG.info("sizeAvailable: " + sizeAvailable);
+                    //Bids.LOG.info("sizeToBeConsumed: " + sizeToBeConsumed);
+                    //Bids.LOG.info("sizeThatCanBeConsumed: " + sizeThatCanBeConsumed);
+                    //Bids.LOG.info("sizeRequiredForRecipe: " + sizeRequiredForRecipe);
+                    //Bids.LOG.info("sizeActuallyConsumed: " + sizeActuallyConsumed);
 
                     if (sizeRequiredForRecipe > sizeActuallyConsumed && sizeRequiredForRecipe < sizeAvailable) {
                         // When there is not enough progress to complete the recipe
                         // but there is enough to be consumed
                         // just carry the progress to the next run
-                        Bids.LOG.info("Not enough progress: " + progress);
+                        //Bids.LOG.info("Not enough progress: " + progress);
 
                         return progress;
                     } else {
                         float fluidAmountForRecipe = recipe.getFluidCraftingResult().amount * recipeMultiplier;
                         int fluidActuallyProduced = Math.round(fluidAmountForRecipe * ((float)sizeActuallyConsumed / sizeRequiredForRecipe));
 
-                        Bids.LOG.info("fluidAmountForRecipe: " + fluidAmountForRecipe);
-                        Bids.LOG.info("fluidActuallyProduced: " + fluidActuallyProduced);
+                        //Bids.LOG.info("fluidAmountForRecipe: " + fluidAmountForRecipe);
+                        //Bids.LOG.info("fluidActuallyProduced: " + fluidActuallyProduced);
 
                         if (recipeMultiplier > 1 && fluidActuallyProduced + getOutputFluidAmount() > MAX_OUTPUT_FLUID) {
                             // When recipe is multiplied, we don't allow overflowing
@@ -468,8 +463,8 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
                         int fluidActuallyAdded = addFluid(recipe.getFluidCraftingResult().getFluid(), fluidActuallyProduced);
                         float progressUsed = (float)sizeActuallyConsumed / maxStackSize;
 
-                        Bids.LOG.info("fluidActuallyAdded: " + fluidActuallyAdded);
-                        Bids.LOG.info("progressUsed: " + progressUsed);
+                        //Bids.LOG.info("fluidActuallyAdded: " + fluidActuallyAdded);
+                        //Bids.LOG.info("progressUsed: " + progressUsed);
 
                         invalidateInputProperties();
 
@@ -547,7 +542,7 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
 
                     worldObj.markBlockForUpdate(xCoord, zCoord, yCoord);
 
-                    Bids.LOG.info("Pressing is ready");
+                    Bids.LOG.debug("Pressing is ready");
                 }
             }
 
@@ -562,7 +557,7 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
 
                     worldObj.markBlockForUpdate(xCoord, zCoord, yCoord);
 
-                    Bids.LOG.info("Pressing stopped");
+                    Bids.LOG.debug("Pressing stopped");
                 }
             }
         }
@@ -735,14 +730,14 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
     @Override
     public void onTileEntityMessage(TileEntityUpdateMessage message) {
         worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-        Bids.LOG.info("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
+        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
             + message.getZCoord());
     }
 
     public static void sendUpdateMessage(World world, int x, int y, int z) {
         NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
         Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
-        Bids.LOG.info("Sent update message");
+        Bids.LOG.debug("Sent update message");
     }
 
 }

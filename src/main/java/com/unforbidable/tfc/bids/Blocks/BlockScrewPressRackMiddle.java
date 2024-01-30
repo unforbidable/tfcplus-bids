@@ -1,11 +1,8 @@
 package com.unforbidable.tfc.bids.Blocks;
 
 import com.dunk.tfc.Core.TFC_Core;
-import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.ScrewPress.ScrewPressBounds;
 import com.unforbidable.tfc.bids.Core.ScrewPress.ScrewPressHelper;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityScrewPressDisc;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -39,7 +36,6 @@ public class BlockScrewPressRackMiddle extends BlockScrewPressRackPart {
 
     @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
-        Bids.LOG.info("meta (middle): " + world.getBlockMetadata(x, y, z));
         return world.getBlock(x, y - 1, z) == BidsBlocks.screwPressRackBottom;
     }
 

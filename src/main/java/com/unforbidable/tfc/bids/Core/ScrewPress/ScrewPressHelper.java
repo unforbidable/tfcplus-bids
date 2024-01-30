@@ -33,15 +33,12 @@ public class ScrewPressHelper {
 
     public static ForgeDirection getValidDirectionToPlaceTopRackAt(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y - 1, z);
-        Bids.LOG.info("meta: " + meta);
         int orientation = ScrewPressHelper.getOrientationFromMetadata(meta);
         ForgeDirection[] dirs = ScrewPressHelper.getNeighborDirectionsForOrientation(orientation);
         for (ForgeDirection d : dirs) {
-            Bids.LOG.info("d: " + d);
             if (world.isAirBlock(x + d.offsetX, y, z + d.offsetZ) &&
                 world.isAirBlock(x + d.offsetX * 2, y, z + d.offsetZ * 2) &&
                 world.getBlock(x + d.offsetX * 2, y - 1, z + d.offsetZ * 2) == BidsBlocks.screwPressRackMiddle) {
-                Bids.LOG.info("d ok: " + d);
                 return d;
             }
         }
@@ -57,7 +54,7 @@ public class ScrewPressHelper {
 
                 TileEntity te = world.getTileEntity(x - d.offsetX * 4, y, z - d.offsetZ * 4);
                 if (te instanceof TileEntityScrewPressLever) {
-                    Bids.LOG.info("Already lever placed");
+                    Bids.LOG.debug("Already lever placed");
                 } else {
                     return d;
                 }

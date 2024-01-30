@@ -9,7 +9,6 @@ import net.minecraft.util.IIcon;
 
 public abstract class BlockScrewPressRackPart extends Block {
 
-    private static final AxisAlignedBB DEFAULT_BOUNDS = AxisAlignedBB.getBoundingBox(0, 0, 0, 1, 1, 1);
     private static final AxisAlignedBB[] DEFAULT_INDIVIDUAL_BOUNDS = new AxisAlignedBB[0];
     private static final AxisAlignedBB[] DEFAULT_INVENTORY_BOUNDS = new AxisAlignedBB[0];
 
@@ -17,10 +16,6 @@ public abstract class BlockScrewPressRackPart extends Block {
         super(Material.wood);
 
         setHardness(2f);
-    }
-
-    public AxisAlignedBB getTotalBoundsForOrientation(int orientation) {
-        return DEFAULT_BOUNDS;
     }
 
     public AxisAlignedBB[] getIndividualBoundsForOrientation(int orientation) {
