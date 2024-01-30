@@ -1113,5 +1113,7 @@ gui.SeedCultivation=Can be cultivated into
 gui.SeedRequiresLadder=Requires a ladder to plant
 gui.SeedRequiresPole=Requires a pole to plant
 gui.seeds.failedPole=You need a pole for that to grow on
+gui.ScrewPress=Screw Press
+gui.Load=Load
 
 key.BidsToolMode=Cycle Tool Mode

@@ -34,6 +34,7 @@ public class WailaSetup {
         WailaProvider.addProvider(new ClayLampProvider(), TileEntityClayLamp.class);
         WailaProvider.addProvider(new GenericSoilProvider(), BlockAquifer.class);
         WailaProvider.addProvider(new CookingPotProvider(), TileEntityCookingPot.class);
+        WailaProvider.addProvider(new ScrewPressBarrelProvider(), TileEntityScrewPressBarrel.class);
     }
 
     @SideOnly(Side.CLIENT)
