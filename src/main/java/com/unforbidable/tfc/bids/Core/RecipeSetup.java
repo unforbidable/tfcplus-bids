@@ -692,13 +692,7 @@ public class RecipeSetup {
         }
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.woodAxleWallBearing), "LSL", "L L", "LSL",
-            'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportH, 1, OreDictionary.WILDCARD_VALUE)));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.woodAxleWallBearing), "LSL", "L L", "LSL",
-            'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportH2, 1, OreDictionary.WILDCARD_VALUE)));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.woodAxleWallBearing), "LSL", "L L", "LSL",
-            'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportV, 1, OreDictionary.WILDCARD_VALUE)));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.woodAxleWallBearing), "LSL", "L L", "LSL",
-            'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportV2, 1, OreDictionary.WILDCARD_VALUE)));
+            'L', "woodLumber", 'S', "supportWood"));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsBlocks.woodScrew),
             new ItemStack(TFCBlocks.woodAxle, 1), "itemChisel"));
