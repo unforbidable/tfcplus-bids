@@ -40,7 +40,9 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
 
     private static final int MAX_OUTPUT_FLUID = 8000;
 
-    private static final float LOAD_MULTIPLIER = 250;
+    // Value 220 makes pressing apples and olives require roughly 5 full 18 to 9 gear step-downs (1/(2^5) spin)
+    // for a mechanism system powered by one waterwheel with 1 block high water column
+    private static final float LOAD_MULTIPLIER = 220;
 
     // Number of ticks it takes an axle to complete a revolution with spin 1
     // This is a constant value from TFC+
