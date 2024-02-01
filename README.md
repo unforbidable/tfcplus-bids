@@ -19,8 +19,8 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Ceramic Pipe](../../wiki/Ceramic-Pipe) - used in making a mud brick chimney
 * [Ceramic Mug](../../wiki/Clay-Mug) - a drinking container made out of clay
 * [Drill](../../wiki/Drill) - a tool for drilling raw stone, tool heads made from stone, copper or any bronze
-* [Quarry](../../wiki/Quarry) - for harvesting Rough Stone block using the drill and wedge method, sedimentary rocks only
-* [Rough Stone and Rough Stone Bricks](../../wiki/Rough-Stone) - new building blocks for sedimentary rocks
+* [Quarry](../../wiki/Quarry) - for harvesting Rough Stone block using the drill and wedge method
+* [Rough Stone and Rough Stone Bricks](../../wiki/Rough-Stone) - new building blocks from quarried rocks
 * [Adze](../../wiki/Adze) - a tool for carving blocks, making rough stone bricks, peeling logs and so on, tool head made from stone, copper and any bronze
 * [Carving](../../wiki/Carving) - for shaping blocks with an adze, in like manner to TFC detailing with a chisel, and carving recipes, using 3 carving modes
 * [Peeled Log](../../wiki/Peeled-Log) - logs that had their bark stripped used to craft log walls
@@ -57,6 +57,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [More Crops](../../wiki/More-Crops) - new crops such as sea beet, beetroot, sugar beet, wild beans and broad beans
 * [Tallow](../../wiki/Tallow) - made from Suet which drops from appropriate animal mobs, for consumption or making candles and Pemmican
 * [Axle Wall Bearing](../../wiki/Axle-Wall-Bearing) - allows seamless passage of axles through walls and ceilings
+* [Screw Press](../../wiki/Screw-Press) - screw based pressing device powered by TFC+ mechanisms
 
 ### Contributions
 

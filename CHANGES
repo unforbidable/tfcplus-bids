@@ -229,7 +229,7 @@
 
 0.22.0 (2022-09-05)
 - Added: Saddle Quern and handstone carved from Rough Stone
-- Added: Coarse flour made by crushing and gridning grain using a Saddle Quern
+- Added: Coarse flour made by crushing and grinding grain using a Saddle Quern
 - Added: Porridge as an early game meal from grain
 
 0.22.1 (2022-09-06)
@@ -483,3 +483,7 @@
 - Changed: Harvest produce bonus, extra seed drop and cultivated seed drop chance is seeded to world, location and planting time
 - Changed: Planks, Smooth Stone, Large and Small Brick, Rough Tiles and Plastered blocks can be used to anchor stone press lever
 - Changed: Updated Chinese translation by Eternal130
+
+0.39.0 (2024-02-01)
+- Added: Wooden Screw (TFC+ mechanisms)
+- Added: Screw Press
