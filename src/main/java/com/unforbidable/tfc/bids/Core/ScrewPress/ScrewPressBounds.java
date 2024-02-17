@@ -57,6 +57,7 @@ public class ScrewPressBounds {
     private final AxisAlignedBB[] basketSides;
     private final AxisAlignedBB[] basketHoops;
     private final AxisAlignedBB[] disc;
+    private final AxisAlignedBB[] discRotated;
     private final AxisAlignedBB[] lever;
     private final AxisAlignedBB[] leverInv;
     private final AxisAlignedBB[] nut;
@@ -221,6 +222,7 @@ public class ScrewPressBounds {
         }
 
         disc = new AxisAlignedBB[5];
+        discRotated = new AxisAlignedBB[5];
         {
             float ex = (1 - discEarW) * 0.5f;
             float eX = (1 + discEarW) * 0.5f;
@@ -235,6 +237,10 @@ public class ScrewPressBounds {
             // across
             disc[3] = AxisAlignedBB.getBoundingBox(ex, discBottomH, dz + discEarD, eX, discBottomH + discTopH, dZ - discEarD);
             disc[4] = AxisAlignedBB.getBoundingBox(ex, discBottomH + discTopH + discJointY, dz + discEarD, eX, discBottomH + discTopH + discJointY + discJointH, dZ - discEarD);
+
+            for (int i = 0; i < 5; i++) {
+                discRotated[i] = AxisAlignedBB.getBoundingBox(disc[i].minY, disc[i].minX, disc[i].minZ, disc[i].maxY, disc[i].maxX, disc[i].maxZ);
+            }
         }
 
         lever = new AxisAlignedBB[5];
@@ -363,6 +369,10 @@ public class ScrewPressBounds {
 
     public AxisAlignedBB[] getDisc() {
         return disc;
+    }
+
+    public AxisAlignedBB[] getDiscRotated() {
+        return discRotated;
     }
 
     public AxisAlignedBB[] getLever() {
