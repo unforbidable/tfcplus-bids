@@ -487,3 +487,10 @@
 0.39.0 (2024-02-01)
 - Added: Wooden Screw (TFC+ mechanisms)
 - Added: Screw Press
+
+0.39.1 (2024-02-17)
+- Added: NEI support for screw press recipes
+- Added: Recipes for making TFC+ quern base and mill stone from igneous and gneiss rough stones
+- Changed: Screw Press rack and pressing disc textures are more suitably rotated
+- Changed: Screw Press rack bottom block bounds reduced for easier movement and manipulation
+- Changed: Updated Chinese translation by Eternal130
