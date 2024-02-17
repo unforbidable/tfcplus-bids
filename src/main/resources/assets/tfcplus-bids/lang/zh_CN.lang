@@ -219,6 +219,17 @@ tile.NewTilledSoil2.name=农田
 
 tile.WoodAxleWallBearing.name=木制轴承(整格)
 
+tile.WoodScrew.name=木轴(螺纹)
+
+tile.ScrewPressRackBottom.name=螺旋压力机底部
+tile.ScrewPressRackMiddle.name=螺旋压力机底部
+tile.ScrewPressRackTop.name=螺旋压力机顶部
+tile.ScrewPressRackBridge.name=螺旋压力机顶部
+tile.ScrewPressBarrel.name=篮子和盆
+tile.ScrewPressDisc.name=压盘
+tile.ScrewPressLever.name=螺旋压杆
+tile.ScrewPressLeverTop.name=螺旋压杆
+
 item.Ore Bit.Bismuthinite.name=辉铋矿碎片
 item.Ore Bit.Cassiterite.name=锡精矿碎片
 item.Ore Bit.Galena.name=方铅矿碎片
@@ -1102,5 +1113,7 @@ gui.SeedCultivation=可以培养成
 gui.SeedRequiresLadder=需要梯子才能种植
 gui.SeedRequiresPole=需要木杆才能种植
 gui.seeds.failedPole=需要木杆才能让它生长
+gui.ScrewPress=螺旋压力机
+gui.Load=装载量
 
 key.BidsToolMode=循环工具模式
