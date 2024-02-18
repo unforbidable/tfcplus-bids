@@ -26,7 +26,8 @@ public class ItemPlugAndFeather extends ItemTerra implements ISize, IPlugAndFeat
         TFCBlocks.anvil,
         TFCBlocks.anvil,
         TFCBlocks.anvil2,
-        TFCBlocks.anvil2
+        TFCBlocks.anvil2,
+        TFCBlocks.anvil
     };
 
     private static final int[] RENDER_METAS = new int[] {
@@ -34,12 +35,13 @@ public class ItemPlugAndFeather extends ItemTerra implements ISize, IPlugAndFeat
         1,
         2,
         1,
-        2
+        2,
+        3
     };
 
     public ItemPlugAndFeather() {
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
-        setMetaNames(new String[] { "Wood", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze"});
+        setMetaNames(new String[] { "Wood", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze", "Wrought Iron"});
     }
 
     @Override
@@ -54,6 +56,10 @@ public class ItemPlugAndFeather extends ItemTerra implements ISize, IPlugAndFeat
             case 3:
             case 4:
                 return 2;
+
+            // wrought iron
+            case 5:
+                return 3;
 
             // wood
             default:
@@ -73,6 +79,10 @@ public class ItemPlugAndFeather extends ItemTerra implements ISize, IPlugAndFeat
             case 3:
             case 4:
                 return 0.95f;
+
+            // wrought iron
+            case 5:
+                return 0.98f;
 
             // wood
             default:
