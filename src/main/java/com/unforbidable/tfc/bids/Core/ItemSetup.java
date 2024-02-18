@@ -132,6 +132,8 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Bismuth Bronze Adze Head");
         blackBronzeAdzeHead = new ItemGenericToolHead()
             .setUnlocalizedName("Black Bronze Adze Head");
+        wroughtIronAdzeHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Wrought Iron Adze Head");
 
         copperDrillHead = new ItemGenericToolHead()
             .setUnlocalizedName("Copper Drill Head");
@@ -154,6 +156,9 @@ public class ItemSetup extends BidsItems {
         blackBronzeAdze = new ItemAdze(TFCItems.blackBronzeToolMaterial)
             .setEquipmentTier(2)
             .setUnlocalizedName("Black Bronze Adze");
+        wroughtIronAdze = new ItemAdze(TFCItems.ironToolMaterial)
+            .setEquipmentTier(3)
+            .setUnlocalizedName("Wrought Iron Adze");
 
         copperDrill = new ItemDrill(TFCItems.copperToolMaterial)
             .setEquipmentTier(1)
@@ -581,6 +586,7 @@ public class ItemSetup extends BidsItems {
         bronzeAdze.setHarvestLevel("shovel", 1);
         bismuthBronzeAdze.setHarvestLevel("shovel", 1);
         blackBronzeAdze.setHarvestLevel("shovel", 1);
+        wroughtIronAdze.setHarvestLevel("shovel", 1);
 
         sedStoneAdze.setHarvestLevel("axe", 1);
         mMStoneAdze.setHarvestLevel("axe", 1);
@@ -590,6 +596,7 @@ public class ItemSetup extends BidsItems {
         bronzeAdze.setHarvestLevel("axe", 1);
         bismuthBronzeAdze.setHarvestLevel("axe", 1);
         blackBronzeAdze.setHarvestLevel("axe", 1);
+        wroughtIronAdze.setHarvestLevel("axe", 1);
     }
 
     private static void registerOre() {
@@ -610,7 +617,7 @@ public class ItemSetup extends BidsItems {
         }
 
         final Item[] adzes = new Item[]{sedStoneAdze, mMStoneAdze, igInStoneAdze, igExStoneAdze,
-            copperAdze, bronzeAdze, bismuthBronzeAdze, blackBronzeAdze};
+            copperAdze, bronzeAdze, bismuthBronzeAdze, blackBronzeAdze, wroughtIronAdze};
         for (int i = 0; i < adzes.length; i++) {
             OreDictionary.registerOre("itemAdze", new ItemStack(adzes[i], 1, WILD));
 
@@ -961,6 +968,9 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(tallow, tallow.getUnlocalizedName());
 
         GameRegistry.registerItem(pemmican, pemmican.getUnlocalizedName());
+
+        GameRegistry.registerItem(wroughtIronAdze, wroughtIronAdze.getUnlocalizedName());
+        GameRegistry.registerItem(wroughtIronAdzeHead, wroughtIronAdzeHead.getUnlocalizedName());
     }
 
 }

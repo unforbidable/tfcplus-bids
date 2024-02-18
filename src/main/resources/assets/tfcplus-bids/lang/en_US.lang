@@ -660,11 +660,13 @@ item.Copper Adze Head.name=Copper Adze Head
 item.Bronze Adze Head.name=Bronze Adze Head
 item.Bismuth Bronze Adze Head.name=Bismuth Bronze Adze Head
 item.Black Bronze Adze Head.name=Black Bronze Adze Head
+item.Wrought Iron Adze Head.name=Wrought Iron Adze Head
 
 item.Copper Adze.name=Copper Adze
 item.Bronze Adze.name=Bronze Adze
 item.Bismuth Bronze Adze.name=Bismuth Bronze Adze
 item.Black Bronze Adze.name=Black Bronze Adze
+item.Wrought Iron Adze.name=Wrought Iron Adze
 
 item.Mold Drill.Clay.name=Clay Drill Mold
 item.Mold Drill.Ceramic.name=Drill Mold

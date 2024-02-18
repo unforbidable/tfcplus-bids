@@ -389,6 +389,7 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.bronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.bronzeAdzeHead, 1, 0), 'I', "stickWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.bismuthBronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.bismuthBronzeAdzeHead, 1, 0), 'I', "stickWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.blackBronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.blackBronzeAdzeHead, 1, 0), 'I', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.wroughtIronAdze, 1), "#", "I", '#', new ItemStack(BidsItems.wroughtIronAdzeHead, 1, 0), 'I', "stickWood"));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.copperDrill, 1, 0),
             BidsItems.copperDrillHead, "stickWood", TFCItems.bow));
@@ -1699,6 +1700,8 @@ public class RecipeSetup {
                 "adze", AnvilReq.BISMUTHBRONZE, new ItemStack(BidsItems.bismuthBronzeAdzeHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
             AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.blackBronzeIngot), null,
                 "adze", AnvilReq.BLACKBRONZE, new ItemStack(BidsItems.blackBronzeAdzeHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.wroughtIronIngot), null,
+                "adze", AnvilReq.WROUGHTIRON, new ItemStack(BidsItems.wroughtIronAdzeHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
 
             Bids.LOG.info("Registering drill anvil plan and recipes");
             AnvilManager.getInstance().addPlan("drill", new PlanRecipe(new RuleEnum[]{RuleEnum.HITLAST, RuleEnum.PUNCHNOTLAST, RuleEnum.DRAWNOTLAST }));
