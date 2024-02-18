@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockScrewPressRackBottom extends BlockScrewPressRackPart {
@@ -25,6 +26,13 @@ public class BlockScrewPressRackBottom extends BlockScrewPressRackPart {
     @Override
     public AxisAlignedBB[] getInventoryBlockBounds() {
         return ScrewPressBounds.getBounds().getRackBottomInv();
+    }
+
+    @Override
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+        int orientation = ScrewPressHelper.getOrientationFromMetadata(world.getBlockMetadata(x, y, z));
+        AxisAlignedBB bb = ScrewPressBounds.getBoundsForOrientation(orientation).getRackMiddleAll();
+        setBlockBounds((float) bb.minX, (float) bb.minY, (float) bb.minZ, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ);
     }
 
     @Override

@@ -150,6 +150,10 @@ public class RecipeSetup {
         OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blackSteelSheet));
         OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.redSteelSheet));
         OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blueSteelSheet));
+
+        OreDictionary.registerOre("stoneQuern", new ItemStack(BidsBlocks.roughStoneIgIn, 1, WILD));
+        OreDictionary.registerOre("stoneQuern", new ItemStack(BidsBlocks.roughStoneIgEx, 1, WILD));
+        OreDictionary.registerOre("stoneQuern", new ItemStack(BidsBlocks.roughStoneMM, 1, 4)); // Gneiss
     }
 
     private static void registerCustomRecipes() {
@@ -690,6 +694,9 @@ public class RecipeSetup {
                 }
             }
         }
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.quern, 1), "  W", "PPP", 'P', "stoneQuern", 'W', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.millstone, 1), "PPP", "P P", "PPP", 'P', "stoneQuern"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.woodAxleWallBearing), "LSL", "L L", "LSL",
             'L', "woodLumber", 'S', "supportWood"));

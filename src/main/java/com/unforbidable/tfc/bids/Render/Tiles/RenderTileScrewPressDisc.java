@@ -21,7 +21,7 @@ public class RenderTileScrewPressDisc extends TESRBase {
     private final List<Vec3[]> discVectors;
 
     public RenderTileScrewPressDisc() {
-        discVectors = RenderHelper.boundsToVectors(ScrewPressBounds.getBounds().getDisc(), -0.5, -0.5, 0);
+        discVectors = RenderHelper.boundsToVectors(ScrewPressBounds.getBounds().getDiscRotated(), -0.5, -0.5, 0);
     }
 
     private void renderTileEntityScrewPressDiscAt(TileEntityScrewPressDisc tileEntity, double posX, double posY, double posZ, float f) {
@@ -34,17 +34,20 @@ public class RenderTileScrewPressDisc extends TESRBase {
         int meta = tileEntity.getBlockMetadata();
         int orientation = ScrewPressHelper.getOrientationFromMetadata(meta);
 
+        GL11.glTranslated(0.5, 0.5, 0.5);
         if (orientation == 1) {
-            GL11.glTranslated(0.5, 0.5, 0.5);
             GL11.glRotatef(90, 0, 1, 0);
-            GL11.glTranslated(-0.5, -0.5, -0.5);
+            GL11.glRotatef(90, 0, 0, 1);
+        } else {
+            GL11.glRotatef(90, 0, 0, 1);
         }
+        GL11.glTranslated(-0.5, -0.5, -0.5);
 
         bindTexture(WOOD_TEXTURE);
 
         float discOffset = discPosition.getDiscOffset();
         for (Vec3[] vs : discVectors) {
-            RenderHelper.renderBoxWithOffsetAndRotation(vs, 0.5, discOffset - 0.5, 0, 0f);
+            RenderHelper.renderBoxWithOffsetAndRotation(vs, discOffset - 0.5, 0.5, 0, 0f);
         }
 
         GL11.glPopMatrix();

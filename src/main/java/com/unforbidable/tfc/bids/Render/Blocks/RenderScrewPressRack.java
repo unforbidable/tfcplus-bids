@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Render.Blocks;
 
 import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.Render.RenderBlocksWithRotation;
 import com.unforbidable.tfc.bids.Blocks.BlockScrewPressRackPart;
 import com.unforbidable.tfc.bids.Core.ScrewPress.ScrewPressHelper;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -33,17 +34,46 @@ public class RenderScrewPressRack implements ISimpleBlockRenderingHandler
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        renderer.renderAllFaces = true;
+        RenderBlocksWithRotation rendererWithRotation = new RenderBlocksWithRotation(renderer);
+        rendererWithRotation.renderAllFaces = true;
 
         int orientation = ScrewPressHelper.getOrientationFromMetadata(world.getBlockMetadata(x, y, z));
         BlockScrewPressRackPart part = (BlockScrewPressRackPart) block;
 
         for (AxisAlignedBB bb : part.getIndividualBoundsForOrientation(orientation)) {
-            renderer.setRenderBounds(bb.minX, bb.minY, bb.minZ, bb.maxX, bb.maxY, bb.maxZ);
-            renderer.renderStandardBlock(block, x, y, z);
+            boolean westbound = bb.maxX - bb.minX > bb.maxZ - bb.minZ && bb.maxX - bb.minX > bb.maxY - bb.minY;
+            boolean northbound = bb.maxZ - bb.minZ > bb.maxY - bb.minY && bb.maxZ - bb.minZ > bb.maxX - bb.minX;
+
+            if (westbound) {
+                rendererWithRotation.uvRotateTop = 1;
+                rendererWithRotation.uvRotateBottom = 1;
+                rendererWithRotation.uvRotateNorth = 1;
+                rendererWithRotation.uvRotateSouth = 1;
+                rendererWithRotation.uvRotateEast = 1;
+                rendererWithRotation.uvRotateWest = 1;
+            } else if (northbound) {
+                rendererWithRotation.uvRotateTop = 0;
+                rendererWithRotation.uvRotateBottom = 0;
+                rendererWithRotation.uvRotateEast = 1;
+                rendererWithRotation.uvRotateWest = 1;
+                rendererWithRotation.uvRotateNorth = 1;
+                rendererWithRotation.uvRotateSouth = 1;
+            } else {
+                rendererWithRotation.uvRotateTop = 0;
+                rendererWithRotation.uvRotateBottom = 0;
+                rendererWithRotation.uvRotateEast = 0;
+                rendererWithRotation.uvRotateWest = 0;
+                rendererWithRotation.uvRotateNorth = 0;
+                rendererWithRotation.uvRotateSouth = 0;
+            }
+
+            rendererWithRotation.setRenderBounds(bb.minX, bb.minY, bb.minZ, bb.maxX, bb.maxY, bb.maxZ);
+
+            // Use renderStandardBlockWithColorMultiplier to avoid AO from kicking in
+            rendererWithRotation.renderStandardBlockWithColorMultiplier(block, x, y, z, 1, 1, 1);
         }
 
-        renderer.renderAllFaces = false;
+        rendererWithRotation.renderAllFaces = false;
 
         return true;
 	}
@@ -53,7 +83,6 @@ public class RenderScrewPressRack implements ISimpleBlockRenderingHandler
 	{
 		return 0;
 	}
-
 
 	public static void renderInvBlock(Block block, RenderBlocks renderer)
 	{

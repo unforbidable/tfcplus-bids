@@ -65,7 +65,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Translations
 
-* Chinese by Eternal130 (v0.38.x)
+* Chinese by Eternal130 (v0.39.x)
 * Japanese by dymanic.day (v0.28.x)
 
 ### Other credits
@@ -74,8 +74,8 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Compatibility
 
-* WAILA - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, saddle quern, stone press, cooking pot, etc
-* NEI & NEI G.T.N.H. Unofficial - recipes for seasoning, quarrying, drying, carving, chopping, saddle quern, stone press, cooking and new firepit fuels
+* WAILA - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, saddle quern, stone press, screw press, cooking pot, etc
+* NEI & NEI G.T.N.H. Unofficial - recipes for seasoning, quarrying, drying, carving, chopping, saddle quern, stone press, screw press, cooking and new firepit fuels
 
 ### Compiling
 
