@@ -143,6 +143,8 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Bismuth Bronze Drill Head");
         blackBronzeDrillHead = new ItemGenericToolHead()
             .setUnlocalizedName("Black Bronze Drill Head");
+        wroughtIronDrillHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Wrought Iron Drill Head");
 
         copperAdze = new ItemAdze(TFCItems.copperToolMaterial)
             .setEquipmentTier(1)
@@ -176,6 +178,10 @@ public class ItemSetup extends BidsItems {
             .setEquipmentTier(2)
             .setDurationMultiplier(0.5f)
             .setUnlocalizedName("Black Bronze Drill");
+        wroughtIronDrill = new ItemDrill(TFCItems.ironToolMaterial)
+            .setEquipmentTier(3)
+            .setDurationMultiplier(0.25f)
+            .setUnlocalizedName("Wrought Iron Drill");
 
         // Obsolete - replaced with roughStoneBrick
         sedRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_SED)
@@ -605,7 +611,7 @@ public class ItemSetup extends BidsItems {
         final int WILD = OreDictionary.WILDCARD_VALUE;
 
         final Item[] drills = new Item[]{sedStoneDrill, mMStoneDrill, igInStoneDrill, igExStoneDrill,
-            copperDrill, bronzeDrill, bismuthBronzeDrill, blackBronzeDrill};
+            copperDrill, bronzeDrill, bismuthBronzeDrill, blackBronzeDrill, wroughtIronDrill};
         for (int i = 0; i < drills.length; i++) {
             OreDictionary.registerOre("itemDrill", new ItemStack(drills[i], 1, WILD));
 
@@ -971,6 +977,8 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(wroughtIronAdze, wroughtIronAdze.getUnlocalizedName());
         GameRegistry.registerItem(wroughtIronAdzeHead, wroughtIronAdzeHead.getUnlocalizedName());
+        GameRegistry.registerItem(wroughtIronDrill, wroughtIronDrill.getUnlocalizedName());
+        GameRegistry.registerItem(wroughtIronDrillHead, wroughtIronDrillHead.getUnlocalizedName());
     }
 
 }

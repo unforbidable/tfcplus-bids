@@ -679,11 +679,13 @@ item.Copper Drill Head.name=Copper Drill Head
 item.Bronze Drill Head.name=Bronze Drill Head
 item.Bismuth Bronze Drill Head.name=Bismuth Bronze Drill Head
 item.Black Bronze Drill Head.name=Black Bronze Drill Head
+item.Wrought Iron Drill Head.name=Wrought Iron Drill Head
 
 item.Copper Drill.name=Copper Drill
 item.Bronze Drill.name=Bronze Drill
 item.Bismuth Bronze Drill.name=Bismuth Bronze Drill
 item.Black Bronze Drill.name=Black Bronze Drill
+item.Wrought Iron Drill.name=Wrought Iron Drill
 
 item.Rough Stone Brick.Chalk.name=Rough Chalk Brick
 item.Rough Stone Brick.Chert.name=Rough Chert Brick

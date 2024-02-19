@@ -399,6 +399,8 @@ public class RecipeSetup {
             BidsItems.bismuthBronzeDrillHead, "stickWood", TFCItems.bow));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.blackBronzeDrill, 1, 0),
             BidsItems.blackBronzeDrillHead, "stickWood", TFCItems.bow));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.wroughtIronDrill, 1, 0),
+            BidsItems.wroughtIronDrillHead, "stickWood", TFCItems.bow));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.smallStickBundle),
                 "stickWood", "stickWood", "stickWood"));
@@ -1713,6 +1715,8 @@ public class RecipeSetup {
                 "drill", AnvilReq.BISMUTHBRONZE, new ItemStack(BidsItems.bismuthBronzeDrillHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
             AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.blackBronzeIngot), null,
                 "drill", AnvilReq.BLACKBRONZE, new ItemStack(BidsItems.blackBronzeDrillHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
+            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.wroughtIronIngot), null,
+                "drill", AnvilReq.WROUGHTIRON, new ItemStack(BidsItems.wroughtIronDrillHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
 
             Bids.LOG.info("Registering plug and feather anvil plan and recipes");
             AnvilManager.getInstance().addPlan("plugandfeather", new PlanRecipe(new RuleEnum[]{RuleEnum.HITLAST, RuleEnum.BENDSECONDFROMLAST, RuleEnum.SHRINKTHIRDFROMLAST }));

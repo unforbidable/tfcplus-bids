@@ -32,11 +32,13 @@ public class BidsItems {
     public static Item bronzeDrillHead;
     public static Item bismuthBronzeDrillHead;
     public static Item blackBronzeDrillHead;
+    public static Item wroughtIronDrillHead;
 
     public static Item copperDrill;
     public static Item bronzeDrill;
     public static Item bismuthBronzeDrill;
     public static Item blackBronzeDrill;
+    public static Item wroughtIronDrill;
 
     public static Item igInStoneAdzeHead;
     public static Item sedStoneAdzeHead;
