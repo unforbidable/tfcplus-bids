@@ -937,14 +937,14 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                         && CrucibleHelper.isMeltedAtTemp(liquidInputStack, TFC_ItemHeat.getTemp(liquidInputStack))) {
                     Metal inputMetal = CrucibleHelper.getMetalFromItem(liquidInputStack.getItem());
                     if (isValidInputMetal(inputMetal)) {
-                        int newDamage = liquidInputStack.getItemDamage() + 1;
-                        int maxDamage = liquidInputStack.getMaxDamage() - 1;
+                        ItemStack newMold = CrucibleHelper.drainMold(liquidInputStack, 1);
 
-                        int volumeAccepted = 1;
-                        if (newDamage >= maxDamage) {
-                            storage[getLiquidInputSlotIndex()] = new ItemStack(TFCItems.ceramicMold, 1, 1);
-                            volumeAccepted++;
+                        int prevUnits = CrucibleHelper.getMoldUnits(liquidInputStack);
+                        int newUnits = CrucibleHelper.getMoldUnits(newMold);
 
+                        storage[getLiquidInputSlotIndex()] = newMold;
+
+                        if (newUnits == 0) {
                             // Turn off liquid input indicator
                             // and turn on liquid output indicator if there is a mold already
                             // and start ejecting after a delay
@@ -954,13 +954,11 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
                                 liquidOutputTimer.delay(20);
                                 setFlags(FLAGS_LIQUID_OUT);
                             }
-                        } else {
-                            liquidInputStack.setItemDamage(newDamage);
                         }
 
                         float prevLiquidStorageHeatCapacity = liquidStorage.getHeatCapacity();
                         Bids.LOG.debug("Liquid metal " + inputMetal + " accepted");
-                        liquidStorage.addLiquid(inputMetal, volumeAccepted);
+                        liquidStorage.addLiquid(inputMetal, prevUnits - newUnits);
 
                         // Combine melted stack temp with liquid temp
                         float addedLiquidHeatCapacity = CrucibleHelper.getHeatCapacity(liquidInputStack);
@@ -991,9 +989,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
 
                     // For some molds, when we are 2 units away from full
                     // the mold gets filled up with only 1 unit added
-                    // Not sure why this happens but it means we cannot assume only 1 unit is added
+                    // Not sure why this happens, but it means we cannot assume only 1 unit is added
                     // when we try to add one unit
-                    // So we remove whatever amount of units was trully added
+                    // So we remove whatever amount of units was truly added
                     int prevUnits = CrucibleHelper.getMoldUnits(liquidOutputStack);
                     int newUnits = CrucibleHelper.getMoldUnits(newMold);
                     liquidStorage.removeLiquid(newUnits - prevUnits);
