@@ -132,6 +132,8 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Bismuth Bronze Adze Head");
         blackBronzeAdzeHead = new ItemGenericToolHead()
             .setUnlocalizedName("Black Bronze Adze Head");
+        wroughtIronAdzeHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Wrought Iron Adze Head");
 
         copperDrillHead = new ItemGenericToolHead()
             .setUnlocalizedName("Copper Drill Head");
@@ -141,6 +143,8 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Bismuth Bronze Drill Head");
         blackBronzeDrillHead = new ItemGenericToolHead()
             .setUnlocalizedName("Black Bronze Drill Head");
+        wroughtIronDrillHead = new ItemGenericToolHead()
+            .setUnlocalizedName("Wrought Iron Drill Head");
 
         copperAdze = new ItemAdze(TFCItems.copperToolMaterial)
             .setEquipmentTier(1)
@@ -154,6 +158,9 @@ public class ItemSetup extends BidsItems {
         blackBronzeAdze = new ItemAdze(TFCItems.blackBronzeToolMaterial)
             .setEquipmentTier(2)
             .setUnlocalizedName("Black Bronze Adze");
+        wroughtIronAdze = new ItemAdze(TFCItems.ironToolMaterial)
+            .setEquipmentTier(3)
+            .setUnlocalizedName("Wrought Iron Adze");
 
         copperDrill = new ItemDrill(TFCItems.copperToolMaterial)
             .setEquipmentTier(1)
@@ -171,6 +178,10 @@ public class ItemSetup extends BidsItems {
             .setEquipmentTier(2)
             .setDurationMultiplier(0.5f)
             .setUnlocalizedName("Black Bronze Drill");
+        wroughtIronDrill = new ItemDrill(TFCItems.ironToolMaterial)
+            .setEquipmentTier(3)
+            .setDurationMultiplier(0.25f)
+            .setUnlocalizedName("Wrought Iron Drill");
 
         // Obsolete - replaced with roughStoneBrick
         sedRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_SED)
@@ -608,6 +619,7 @@ public class ItemSetup extends BidsItems {
         bronzeAdze.setHarvestLevel("shovel", 1);
         bismuthBronzeAdze.setHarvestLevel("shovel", 1);
         blackBronzeAdze.setHarvestLevel("shovel", 1);
+        wroughtIronAdze.setHarvestLevel("shovel", 1);
 
         sedStoneAdze.setHarvestLevel("axe", 1);
         mMStoneAdze.setHarvestLevel("axe", 1);
@@ -617,6 +629,7 @@ public class ItemSetup extends BidsItems {
         bronzeAdze.setHarvestLevel("axe", 1);
         bismuthBronzeAdze.setHarvestLevel("axe", 1);
         blackBronzeAdze.setHarvestLevel("axe", 1);
+        wroughtIronAdze.setHarvestLevel("axe", 1);
     }
 
     private static void registerOre() {
@@ -625,7 +638,7 @@ public class ItemSetup extends BidsItems {
         final int WILD = OreDictionary.WILDCARD_VALUE;
 
         final Item[] drills = new Item[]{sedStoneDrill, mMStoneDrill, igInStoneDrill, igExStoneDrill,
-            copperDrill, bronzeDrill, bismuthBronzeDrill, blackBronzeDrill};
+            copperDrill, bronzeDrill, bismuthBronzeDrill, blackBronzeDrill, wroughtIronDrill};
         for (int i = 0; i < drills.length; i++) {
             OreDictionary.registerOre("itemDrill", new ItemStack(drills[i], 1, WILD));
 
@@ -637,7 +650,7 @@ public class ItemSetup extends BidsItems {
         }
 
         final Item[] adzes = new Item[]{sedStoneAdze, mMStoneAdze, igInStoneAdze, igExStoneAdze,
-            copperAdze, bronzeAdze, bismuthBronzeAdze, blackBronzeAdze};
+            copperAdze, bronzeAdze, bismuthBronzeAdze, blackBronzeAdze, wroughtIronAdze};
         for (int i = 0; i < adzes.length; i++) {
             OreDictionary.registerOre("itemAdze", new ItemStack(adzes[i], 1, WILD));
 
@@ -648,7 +661,7 @@ public class ItemSetup extends BidsItems {
             }
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             OreDictionary.registerOre("itemPlugAndFeather", new ItemStack(BidsItems.plugAndFeather, 1, i));
         }
 
@@ -988,6 +1001,11 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(tallow, tallow.getUnlocalizedName());
 
         GameRegistry.registerItem(pemmican, pemmican.getUnlocalizedName());
+
+        GameRegistry.registerItem(wroughtIronAdze, wroughtIronAdze.getUnlocalizedName());
+        GameRegistry.registerItem(wroughtIronAdzeHead, wroughtIronAdzeHead.getUnlocalizedName());
+        GameRegistry.registerItem(wroughtIronDrill, wroughtIronDrill.getUnlocalizedName());
+        GameRegistry.registerItem(wroughtIronDrillHead, wroughtIronDrillHead.getUnlocalizedName());
 
         GameRegistry.registerItem(seedsNewBarley, seedsNewBarley.getUnlocalizedName());
         GameRegistry.registerItem(seedsNewOat, seedsNewOat.getUnlocalizedName());

@@ -26,7 +26,7 @@ public class ScrewPressBarrelProvider extends WailaProvider {
 
             float inputFullness = teBarrel.getInputFullness();
             if (inputFullness > 0) {
-                currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Load") + " " + Math.round(inputFullness * 100) + "%");
+                currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Input") + " " + Math.round(inputFullness * 100) + "%");
             }
 
             FluidStack fluidStack = teBarrel.getOutputFluid();

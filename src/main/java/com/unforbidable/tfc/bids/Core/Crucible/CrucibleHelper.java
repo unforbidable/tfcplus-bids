@@ -176,13 +176,41 @@ public class CrucibleHelper {
     }
 
     public static ItemStack fillMold(ItemStack liquidOutputStack, Metal metal, int units) {
-        ItemPotteryMoldBase prevMoldItem = ((ItemPotteryMoldBase) (liquidOutputStack.getItem()));
-        int prev = prevMoldItem.getUnits(liquidOutputStack);
-        ItemStack mold = new ItemStack(metal.getResultFromMold(liquidOutputStack.getItem()), 1, 0);
-        mold.setItemDamage(metal.getBaseValueForResult(liquidOutputStack.getItem()));
-        mold = ((ItemPotteryMoldBase) (mold.getItem())).setToMinimumUnits(mold);
-        mold = ((ItemPotteryMoldBase) (mold.getItem())).addUnits(mold, units + prev);
+        int damage = metal.getBaseValueForResult(liquidOutputStack.getItem());
+        ItemStack mold = new ItemStack(metal.getResultFromMold(liquidOutputStack.getItem()), 1, damage);
+        mold = setMoldToMinimumUnits(mold);
+        int prev = getMoldUnits(liquidOutputStack);
+        mold = addMoldUnits(mold, prev + units);
+
+        int newUnits = getMoldUnits(mold);
+        if (newUnits == 0 && prev == 0) {
+            // Filling empty mold this way can produce a filled mold with 0 units and that is bad
+            // So we fill this new mold once again
+            mold = addMoldUnits(mold, units);
+        }
+
         return mold;
+    }
+
+    public static ItemStack drainMold(ItemStack liquidOutputStack, int units) {
+        ItemStack mold = addMoldUnits(liquidOutputStack.copy(), -units);
+
+        int newUnits = getMoldUnits(mold);
+        if (newUnits > 0) {
+            return mold;
+        } else {
+            // Filled mold becomes a filled mold containing 0 units
+            // So we replace it with the actual empty mold item
+            return new ItemStack(TFCItems.ceramicMold, 1, 1);
+        }
+    }
+
+    public static ItemStack setMoldToMinimumUnits(ItemStack mold) {
+        return ((ItemPotteryMoldBase) (mold.getItem())).setToMinimumUnits(mold);
+    }
+
+    public static ItemStack addMoldUnits(ItemStack mold, int units) {
+        return ((ItemPotteryMoldBase) (mold.getItem())).addUnits(mold, units);
     }
 
     public static int getMoldUnits(ItemStack mold) {

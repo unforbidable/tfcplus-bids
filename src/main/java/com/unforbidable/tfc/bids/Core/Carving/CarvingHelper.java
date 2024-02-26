@@ -157,6 +157,11 @@ public class CarvingHelper {
                 (float) bound.maxX, (float) bound.maxY, (float) bound.maxZ);
     }
 
+    private static void setBlockBoundsToNone(World world, int x, int y, int z) {
+        Block block = world.getBlock(x, y, z);
+        block.setBlockBounds(0, 0, 0, 0, 0, 0);
+    }
+
     public static void setBlockBounds(IBlockAccess access, int x, int y, int z, AxisAlignedBB bound) {
         Block block = access.getBlock(x, y, z);
         block.setBlockBounds((float) bound.minX, (float) bound.minY, (float) bound.minZ,
@@ -222,22 +227,6 @@ public class CarvingHelper {
     }
 
     @SideOnly(Side.CLIENT)
-    public static void updateBlockBoundsAfterCollisions(World world, int x, int y, int z, int side) {
-        if (world.isRemote) {
-            System.out.println("!");
-            TileEntityCarving te = (TileEntityCarving) world.getTileEntity(x, y, z);
-            ItemStack item = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
-            ICarvingTool tool = item != null && item.getItem() instanceof ICarvingTool ? (ICarvingTool) item.getItem()
-                    : null;
-            if (!te.isCarvingLocked() && !te.getSelectedBit().isEmpty() && tool != null) {
-                CarvingHelper.setBlockBoundsBasedOnSelection(world, x, y, z, side, getPlayerCarvingMode(Minecraft.getMinecraft().thePlayer));
-            } else {
-                CarvingHelper.setBlockBoundsBasedOnCarving(world, x, y, z);
-            }
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
     public static MovingObjectPosition onCarvingCollisionRayTrace(World world, int x, int y, int z,
             Vec3 startVec, Vec3 endVec) {
         // There won't be thePlayer when collision is checked for falling snow?
@@ -283,9 +272,10 @@ public class CarvingHelper {
                         TileEntityCarving.sendSelectBitMessage(world, x, y, z, nearestBit, nearestCol.side, carvingMode);
                     }
 
-                    setBlockBoundsBasedOnSelection(world, x, y, z, nearestCol.side, carvingMode);
+                    setBlockBoundsToNone(world, x, y, z);
 
                     setPlayerCarvingActive(Minecraft.getMinecraft().thePlayer, true);
+                    setPlayerCarvedSide(Minecraft.getMinecraft().thePlayer, nearestCol.side);
 
                     return new MovingObjectPosition(x, y, z,
                             nearestCol.side,
@@ -295,7 +285,7 @@ public class CarvingHelper {
                         TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, 0, carvingMode);
                     }
 
-                    setBlockBoundsBasedOnSelection(world, x, y, z, 0, carvingMode);
+                    setBlockBoundsBasedOnCarving(world, x, y, z);
 
                     setPlayerCarvingActive(Minecraft.getMinecraft().thePlayer, false);
 
@@ -349,6 +339,16 @@ public class CarvingHelper {
     }
 
     @SideOnly(Side.CLIENT)
+    public static int getPlayerCarvedSide(EntityPlayer player) {
+        CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
+        if (state == null) {
+            return 0;
+        } else {
+            return state.carvedSide;
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
     public static void setPlayerCarvingMode(EntityPlayer player) {
         CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
         if (state == null) {
@@ -357,6 +357,17 @@ public class CarvingHelper {
         }
 
         state.adzeMode = state.adzeMode.getNext();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void setPlayerCarvedSide(EntityPlayer player, int carvedSide) {
+        CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
+        if (state == null) {
+            state = new CarvingPlayerState();
+            PlayerStateManager.setPlayerState(player, state);
+        }
+
+        state.carvedSide = carvedSide;
     }
 
     @SideOnly(Side.CLIENT)

@@ -1,12 +1,8 @@
 package com.unforbidable.tfc.bids.Blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import com.unforbidable.tfc.bids.Core.Carving.CarvingHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -15,14 +11,19 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockCarving extends BlockContainer {
 
@@ -57,6 +58,12 @@ public class BlockCarving extends BlockContainer {
     @Override
     public boolean getBlocksMovement(IBlockAccess bAccess, int i, int j, int k) {
         return true;
+    }
+
+    @Override
+    public IIcon getIcon(IBlockAccess bAccess, int x, int y, int z, int side) {
+        TileEntityCarving teCarving = ((TileEntityCarving) bAccess.getTileEntity(x, y, z));
+        return teCarving.getBlockType().getIcon(side, teCarving.getCarvedBlockId());
     }
 
     @Override
@@ -143,7 +150,7 @@ public class BlockCarving extends BlockContainer {
         return null;
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"unchecked"})
     @Override
     public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list,
             Entity entity) {
@@ -162,16 +169,39 @@ public class BlockCarving extends BlockContainer {
                         float minZ = subZ * div;
                         float maxZ = minZ + div;
 
-                        this.setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
-                        super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
+                        // The way TFC+ makes this work for BlockDetailed is
+                        // setting the block bounds and calling the super to add the bit bounds
+                        // however here it produces a lot of flickering, perhaps understandably so,
+                        // although for some reason it works for TFC+ without causing noticeable flickering.
+                        // So instead, we just do what the super does,
+                        // using our own AxisAlignedBB created directly based on the bit,
+                        // never touching the actual block bounds.
+                        AxisAlignedBB aabbBit = AxisAlignedBB.getBoundingBox((double) x + minX, (double) y + minY, (double) z + minZ, (double) x + maxX, (double) y + maxY, (double) z + maxZ);
+                        if (aabb.intersectsWith(aabbBit)) {
+                            list.add(aabbBit);
+                        }
                     }
                 }
             }
         }
+    }
 
-        // This seems to do little to reduce the flickering of the sub click selection
-        // so its disabled for now
-        // CarvingHelper.updateBlockBoundsAfterCollisions(world, x, y, z);
+    @Override
+    public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        TileEntityCarving te = (TileEntityCarving) world.getTileEntity(x, y, z);
+        if(te.getCarvedBlockId() >= 0)
+            return Blocks.fire.getFlammability(Block.getBlockById(te.getCarvedBlockId()));
+        else
+            return 0;
+    }
+
+    @Override
+    public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        TileEntityCarving te = (TileEntityCarving) world.getTileEntity(x, y, z);
+        if(te.getCarvedBlockId() >= 0)
+            return Blocks.fire.getEncouragement(Block.getBlockById(te.getCarvedBlockId()));
+        else
+            return 0;
     }
 
 }

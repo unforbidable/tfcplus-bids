@@ -660,11 +660,13 @@ item.Copper Adze Head.name=Copper Adze Head
 item.Bronze Adze Head.name=Bronze Adze Head
 item.Bismuth Bronze Adze Head.name=Bismuth Bronze Adze Head
 item.Black Bronze Adze Head.name=Black Bronze Adze Head
+item.Wrought Iron Adze Head.name=Wrought Iron Adze Head
 
 item.Copper Adze.name=Copper Adze
 item.Bronze Adze.name=Bronze Adze
 item.Bismuth Bronze Adze.name=Bismuth Bronze Adze
 item.Black Bronze Adze.name=Black Bronze Adze
+item.Wrought Iron Adze.name=Wrought Iron Adze
 
 item.Mold Drill.Clay.name=Clay Drill Mold
 item.Mold Drill.Ceramic.name=Drill Mold
@@ -677,11 +679,13 @@ item.Copper Drill Head.name=Copper Drill Head
 item.Bronze Drill Head.name=Bronze Drill Head
 item.Bismuth Bronze Drill Head.name=Bismuth Bronze Drill Head
 item.Black Bronze Drill Head.name=Black Bronze Drill Head
+item.Wrought Iron Drill Head.name=Wrought Iron Drill Head
 
 item.Copper Drill.name=Copper Drill
 item.Bronze Drill.name=Bronze Drill
 item.Bismuth Bronze Drill.name=Bismuth Bronze Drill
 item.Black Bronze Drill.name=Black Bronze Drill
+item.Wrought Iron Drill.name=Wrought Iron Drill
 
 item.Rough Stone Brick.Chalk.name=Rough Chalk Brick
 item.Rough Stone Brick.Chert.name=Rough Chert Brick
@@ -1020,6 +1024,7 @@ item.Plug And Feather.Copper.name=Plug and Feather (Copper)
 item.Plug And Feather.Bronze.name=Plug and Feather (Bronze)
 item.Plug And Feather.Bismuth Bronze.name=Plug and Feather (Bismuth Bronze)
 item.Plug And Feather.Black Bronze.name=Plug and Feather (Black Bronze)
+item.Plug And Feather.Wrought Iron.name=Plug and Feather (Wrought Iron)
 
 item.Apple Crushed.name=Crushed Apple
 item.Olive Crushed.name=Crushed Olive
@@ -1129,6 +1134,7 @@ gui.SeedRequiresLadder=Requires a §eladder §7 to grow
 gui.SeedRequiresPole=Requires a §epole §7to grow
 gui.seeds.failedPole=You need a pole for that to grow on
 gui.ScrewPress=Screw Press
-gui.Load=Load
+gui.Input=Input
+gui.Resistance=Resistance
 
 key.BidsToolMode=Cycle Tool Mode
