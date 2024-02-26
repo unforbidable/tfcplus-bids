@@ -265,7 +265,7 @@ public class ScrewPressHandler extends TemplateRecipeHandler implements IHandler
         }
 
         public String getResistanceString() {
-            return String.format("%s: %d%%", StatCollector.translateToLocal("gui.Load"), Math.round(resistance * 100));
+            return String.format("%s: %d%%", StatCollector.translateToLocal("gui.Resistance"), Math.round(resistance * 100));
         }
 
     }
