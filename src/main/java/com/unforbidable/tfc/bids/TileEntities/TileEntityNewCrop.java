@@ -17,6 +17,7 @@ import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Core.Crops.BidsCropIndex;
 import com.unforbidable.tfc.bids.Core.Crops.CropAccess;
 import com.unforbidable.tfc.bids.Core.Crops.CropHelper;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -206,7 +207,9 @@ public class TileEntityNewCrop extends TECrop {
                 float growthRate = Math.max(0.0f,
                     ((((crop.numGrowthStages / ((float)crop.growthTime)))) * timeMultiplier * waterModifier * TFCOptions.cropGrowthMultiplier));
 
-                growthRate += (growthSpeedBonus - 0.5) * growthRate * (growth / crop.numGrowthStages) * 0.5;
+                if (BidsOptions.Crops.enableVariableCropGrowthSpeed) {
+                    growthRate += (growthSpeedBonus - 0.5) * growthRate * (growth / crop.numGrowthStages) * 0.5;
+                }
 
                 growthRate *= postWinterGrowthMultiplier;
 

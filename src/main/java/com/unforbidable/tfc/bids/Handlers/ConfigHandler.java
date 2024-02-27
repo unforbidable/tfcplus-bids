@@ -157,11 +157,15 @@ public class ConfigHandler {
         BidsOptions.Crops.enableCerealSeedAutoConversion = config.getBoolean(
             "enableCerealSeedAutoConversion", "crops",
             BidsOptions.Crops.enableCerealSeedAutoConversion,
-            "Set this to true if you want to automatically covert the seeds of eligible cereal crops to new seeds that allow winter cereal cultivation when picked up.");
+            "Set this to true if you want to automatically convert the seeds of eligible cereal crops to new seeds that allow winter cereal cultivation when picked up.");
         BidsOptions.Crops.enableHardySeedAutoConversion = config.getBoolean(
             "enableHardySeedAutoConversion", "crops",
             BidsOptions.Crops.enableHardySeedAutoConversion,
-            "Set this to true if you want to automatically covert the seeds of hardy crops (ie. onion, cabbage, garlic and carrot) to new seeds that allow sowing in fall when picked up.");
+            "Set this to true if you want to automatically convert the seeds of hardy crops (ie. onion, cabbage, garlic and carrot) to new seeds that allow sowing in fall when picked up.");
+        BidsOptions.Crops.enableVariableCropGrowthSpeed = config.getBoolean(
+            "enableVariableCropGrowthSpeed", "crops",
+            BidsOptions.Crops.enableVariableCropGrowthSpeed,
+            "Set this to true if you want crops to take variable time to mature. Some crops will mature a few days sooner, some later.");
 
         config.save();
     }

@@ -90,6 +90,7 @@ public class BidsOptions {
 
         public static boolean enableCerealSeedAutoConversion = true;
         public static boolean enableHardySeedAutoConversion = true;
+        public static boolean enableVariableCropGrowthSpeed = true;
 
     }
 
