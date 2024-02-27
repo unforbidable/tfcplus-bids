@@ -494,3 +494,11 @@
 - Changed: Screw Press rack and pressing disc textures are more suitably rotated
 - Changed: Screw Press rack bottom block bounds reduced for easier movement and manipulation
 - Changed: Updated Chinese translation by Eternal130
+
+0.40.0 (2024-02-26)
+- Added: Wrought iron adze, drill, and plug and feather can be forged on an anvil
+- Added: Plug and feather can be melted into respective metal returning 10 units per piece
+- Changed: Selected carving bit is highlighted yellow when the bit can be carved, or red when it can't
+- Changed: Changed some texts of potentially ambiguous terms involving the screw press
+- Fixed: Removed carving bit selection flickering when player is near the carved block
+- Fixed: Added yet another workaround for TFC mold filling and draining bugs

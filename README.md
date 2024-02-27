@@ -18,10 +18,10 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Mud Brick Chimney](../../wiki/Mud-brick-chimney) - allows furnace construction before acquiring metal tools
 * [Ceramic Pipe](../../wiki/Ceramic-Pipe) - used in making a mud brick chimney
 * [Ceramic Mug](../../wiki/Clay-Mug) - a drinking container made out of clay
-* [Drill](../../wiki/Drill) - a tool for drilling raw stone, tool heads made from stone, copper or any bronze
+* [Drill](../../wiki/Drill) - a tool for drilling raw stone, tool heads made from stone, copper, any bronze, and wrought iron
 * [Quarry](../../wiki/Quarry) - for harvesting Rough Stone block using the drill and wedge method
-* [Rough Stone and Rough Stone Bricks](../../wiki/Rough-Stone) - new building blocks from quarried rocks
-* [Adze](../../wiki/Adze) - a tool for carving blocks, making rough stone bricks, peeling logs and so on, tool head made from stone, copper and any bronze
+* [Rough Stone and Rough Stone Bricks and Tiles](../../wiki/Rough-Stone) - new building blocks from quarried rocks
+* [Adze](../../wiki/Adze) - a tool for carving blocks, making rough stone bricks, peeling logs and so on, tool head made from stone, copper, any bronze, and wrought iron
 * [Carving](../../wiki/Carving) - for shaping blocks with an adze, in like manner to TFC detailing with a chisel, and carving recipes, using 3 carving modes
 * [Peeled Log](../../wiki/Peeled-Log) - logs that had their bark stripped used to craft log walls
 * [Log Walls](../../wiki/Log-Wall) - new building block with 6 variations for log cabin construction, and 2 variations of vertical log walls
