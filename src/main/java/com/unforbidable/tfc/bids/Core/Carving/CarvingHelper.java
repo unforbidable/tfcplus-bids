@@ -376,7 +376,7 @@ public class CarvingHelper {
         if (state == null) {
             return false;
         } else {
-            return state.isCarvingActive;
+            return state.isCarvingActive && state.carvingActivityChangedTime + 20 > System.currentTimeMillis();
         }
     }
 
@@ -392,17 +392,4 @@ public class CarvingHelper {
         state.carvingActivityChangedTime = System.currentTimeMillis();
     }
 
-    @SideOnly(Side.CLIENT)
-    public static void trackPlayerCarvingActivity(EntityPlayer player) {
-        CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
-        if (state != null) {
-            if (state.isCarvingActive) {
-                // Checking if the player looked away from the carving
-                // This causes the carving activity not being refreshed
-                if (state.carvingActivityChangedTime + 20 < System.currentTimeMillis()) {
-                    state.isCarvingActive = false;
-                }
-            }
-        }
-    }
 }
