@@ -171,11 +171,10 @@ public class BlockCarving extends BlockContainer {
 
                         // The way TFC+ makes this work for BlockDetailed is
                         // setting the block bounds and calling the super to add the bit bounds
-                        // however here it produces a lot of flickering, perhaps understandably so,
-                        // although for some reason it works for TFC+ without causing noticeable flickering.
-                        // So instead, we just do what the super does,
+                        // Instead we just do what the super does,
                         // using our own AxisAlignedBB created directly based on the bit,
                         // never touching the actual block bounds.
+                        // This seems more efficient.
                         AxisAlignedBB aabbBit = AxisAlignedBB.getBoundingBox((double) x + minX, (double) y + minY, (double) z + minZ, (double) x + maxX, (double) y + maxY, (double) z + maxZ);
                         if (aabb.intersectsWith(aabbBit)) {
                             list.add(aabbBit);

@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core.Carving;
 
+import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
@@ -229,12 +230,12 @@ public class CarvingHelper {
     @SideOnly(Side.CLIENT)
     public static MovingObjectPosition onCarvingCollisionRayTrace(World world, int x, int y, int z,
             Vec3 startVec, Vec3 endVec) {
-        // There won't be thePlayer when collision is checked for falling snow?
-        if (Minecraft.getMinecraft().thePlayer != null) {
-            TileEntityCarving te = (TileEntityCarving) world.getTileEntity(x, y, z);
-            startVec = startVec.addVector(-x, -y, -z);
-            endVec = endVec.addVector(-x, -y, -z);
+        TileEntityCarving te = (TileEntityCarving) world.getTileEntity(x, y, z);
+        Vec3 startVecRel = startVec.addVector(-x, -y, -z);
+        Vec3 endVecRel = endVec.addVector(-x, -y, -z);
 
+        // Make sure the ray origin is the player
+        if (isCollisionRayTraceInvokedByPlayer(startVec, endVec)) {
             int dimension = TileEntityCarving.CARVING_DIMENSION;
             double stride = 1f / dimension;
 
@@ -252,7 +253,7 @@ public class CarvingHelper {
                         for (int bitZ = 0; bitZ < dimension; bitZ++) {
                             if (!te.isBitCarved(bitX, bitY, bitZ)) {
                                 AxisAlignedBB bound = getBitAABB(bitX, bitY, bitZ, stride);
-                                CollisionInfo col = CollisionHelper.rayTraceAABB(bound, startVec, endVec);
+                                CollisionInfo col = CollisionHelper.rayTraceAABB(bound, startVecRel, endVecRel);
 
                                 // When the bit collides
                                 // Save if first or closer than the nearest so far
@@ -292,20 +293,19 @@ public class CarvingHelper {
                     return null;
                 }
             } else {
-                // Ray tracing the whole carving cuboid when not wielding a ICarvingTool
-                // or if the carving is locked
-                AxisAlignedBB bounds = getCarvingBounds(te);
-                setBlockBounds(world, x, y, z, bounds);
-
                 if (te.setSelectedBit(CarvingBit.Empty)) {
                     TileEntityCarving.sendSelectBitMessage(world, x, y, z, CarvingBit.Empty, 0, carvingMode);
                 }
 
+                setBlockBoundsBasedOnCarving(world, x, y, z);
+
                 setPlayerCarvingActive(Minecraft.getMinecraft().thePlayer, false);
 
-                CollisionInfo col = CollisionHelper.rayTraceAABB(bounds, startVec, endVec);
+                // Ray tracing the whole carving cuboid when not wielding a ICarvingTool
+                // or if the carving is locked
+                AxisAlignedBB bounds = getCarvingBounds(te);
+                CollisionInfo col = CollisionHelper.rayTraceAABB(bounds, startVecRel, endVecRel);
                 if (col != null) {
-
                     return new MovingObjectPosition(x, y, z,
                             col.side,
                             col.hitVec.addVector(x, y, z));
@@ -314,8 +314,62 @@ public class CarvingHelper {
                 }
             }
         } else {
-            return null;
+            // Ray tracing the whole carving cuboid when non player is looking at the carving
+            // Without changing the bounds, selecting bits or activating/deactivating the carving
+            AxisAlignedBB bounds = getCarvingBounds(te);
+            CollisionInfo col = CollisionHelper.rayTraceAABB(bounds, startVecRel, endVecRel);
+            if (col != null) {
+                return new MovingObjectPosition(x, y, z,
+                    col.side,
+                    col.hitVec.addVector(x, y, z));
+            } else {
+                return null;
+            }
         }
+    }
+
+    private static boolean isCollisionRayTraceInvokedByPlayer(Vec3 startVec, Vec3 endVec) {
+        // Block.collisionRayTrace can be called from multiple sources
+        // other than the player, such as mob AI
+        // We use that method to determine what part of carving the player is looking at,
+        // so we need to ignore calls from other source other than the player
+
+        // One way option is to check the stack trace
+        // but beware, as this will break when our method chain call changes
+        // or when the EntityRenderTFC.getMouseOver implementation changes
+        // so this is far from ideal, but it can help with debugging false positive results
+        //return Thread.currentThread().getStackTrace()[5].getClassName().equals("net.minecraft.entity.EntityLivingBase");
+
+        if (Minecraft.getMinecraft().thePlayer != null && Minecraft.getMinecraft().renderViewEntity != null) {
+            // We can use the start and end vectors of the ray trace to determine, if the origin is player
+            // However the start vector is the point at the face where the player is looking at and that is tricky to make use of
+            // The end vector is where the player's "sight" ends, which allows us to calculate the "reach"
+
+            // The reach value is based on the held item's EnumItemReach
+            // When the player looks at a block, the reach should always be either NEAR, MEDIUM or FAR.
+            // This will include ray tracing made by WAILA which uses range equivalent to EnumItemReach.MEDIUM
+            // but WAILA ray tracing originates from the player, so it will not cause problems
+            // The sight range of mob's AI is rarely any of these values exactly and so those should be excluded
+            double baseReach = Minecraft.getMinecraft().playerController.getBlockReachDistance();
+            double shortReach = baseReach * EnumItemReach.SHORT.multiplier;
+            double mediumReach = baseReach * EnumItemReach.MEDIUM.multiplier;
+            double farReach = baseReach * EnumItemReach.FAR.multiplier;
+
+            // Reach value may not be exactly the expected reach value
+            // because the player could be moving and partial ticks might be involved
+            // when the player's position is determined,
+            // and also because of approximation and rounding errors along the way,
+            // so we need to round the distance
+            Vec3 playerPos = Minecraft.getMinecraft().renderViewEntity.getPosition(1f);
+            double reach = playerPos.distanceTo(endVec);
+            double roundedReach = Math.round(reach * 1000.0) / 1000.0;
+
+            //Bids.LOG.info("roundedReach: " + roundedReach);
+
+            return roundedReach == shortReach || roundedReach == mediumReach || roundedReach == farReach;
+        }
+
+        return false;
     }
 
     private static AxisAlignedBB getBitAABB(int bitX, int bitY, int bitZ, double stride) {
@@ -376,7 +430,7 @@ public class CarvingHelper {
         if (state == null) {
             return false;
         } else {
-            return state.isCarvingActive && state.carvingActivityChangedTime + 20 > System.currentTimeMillis();
+            return state.isCarvingActive && state.carvingActivityChangedTime + 100 > System.currentTimeMillis();
         }
     }
 
