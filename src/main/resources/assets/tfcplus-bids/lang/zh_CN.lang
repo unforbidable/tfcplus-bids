@@ -660,11 +660,13 @@ item.Copper Adze Head.name=铜锛头
 item.Bronze Adze Head.name=青铜锛头
 item.Bismuth Bronze Adze Head.name=铋青铜锛头
 item.Black Bronze Adze Head.name=黑青铜锛头
+item.Wrought Iron Adze Head.name=锻铁锛头
 
 item.Copper Adze.name=铜锛
 item.Bronze Adze.name=青铜锛
 item.Bismuth Bronze Adze.name=铋青铜锛
 item.Black Bronze Adze.name=黑青铜锛
+item.Wrought Iron Adze.name=锻铁锛
 
 item.Mold Drill.Clay.name=黏土钻头模具
 item.Mold Drill.Ceramic.name=钻头模具
@@ -677,11 +679,13 @@ item.Copper Drill Head.name=铜钻头
 item.Bronze Drill Head.name=青铜钻头
 item.Bismuth Bronze Drill Head.name=铋青铜钻头
 item.Black Bronze Drill Head.name=黑青铜钻头
+item.Wrought Iron Drill Head.name=锻铁钻头
 
 item.Copper Drill.name=铜采石钻
 item.Bronze Drill.name=青铜采石钻
 item.Bismuth Bronze Drill.name=铋青铜采石钻
 item.Black Bronze Drill.name=黑青铜采石钻
+item.Wrought Iron Drill.name=锻铁采石钻
 
 item.Rough Stone Brick.Chalk.name=粗糙白垩岩砖
 item.Rough Stone Brick.Chert.name=粗糙角岩砖
@@ -1020,6 +1024,7 @@ item.Plug And Feather.Copper.name=楔子(铜)
 item.Plug And Feather.Bronze.name=楔子(青铜)
 item.Plug And Feather.Bismuth Bronze.name=楔子(铋青铜)
 item.Plug And Feather.Black Bronze.name=楔子(黑青铜)
+item.Plug And Feather.Wrought Iron.name=楔子(锻铁)
 
 item.Apple Crushed.name=碎苹果
 item.Olive Crushed.name=碎橄榄
@@ -1114,6 +1119,7 @@ gui.SeedRequiresLadder=需要梯子才能种植
 gui.SeedRequiresPole=需要木杆才能种植
 gui.seeds.failedPole=需要木杆才能让它生长
 gui.ScrewPress=螺旋压力机
-gui.Load=装载量
+gui.Input=输入
+gui.Resistance=阻力
 
 key.BidsToolMode=循环工具模式
