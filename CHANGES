@@ -506,3 +506,14 @@
 0.40.1 (2024-02-29)
 - Changed: Updated Chinese translation by Eternal130
 - Fixed: Mob AI ray tracing will much less likely interfere with carving mechanics and cause flickering and occasionally wrong bit getting carved out
+
+0.41.0 (2024-03-04)
+- Added: Hardy crops from TFC (i.e. Cabbage, Carrot, Garlic and Onion) can be converted to benefit from new crop mechanics
+- Added: Cereal crops from TFC (i.e. Barley, Oat, Rye and Wheat) can be converted to benefit from new crop mechanics
+- Added: TFC corp seeds can be automatically converted to new crops when picked up e.g. after crop harvest (optional, disabled by default)
+- Added: Winter cereals Winter Barley, Winter Oat, Winter Rye and Winter Wheat as hardy crops can be cultivated from converted new cereal crops
+- Added: New hardy crops (ie. winter cereals and converted hardy crops) can be planted in Autumn and will much more likely stay dormant until Spring
+- Added: New crops seed items display more useful information in the tooltip
+- Added: Fences can be crafted using peeled and seasoned logs
+- Changed: Variable growth of new crops can be turned off in the options
+- Fixed: Draining an empty clay lamp by other plugins should not cause a crash anymore
