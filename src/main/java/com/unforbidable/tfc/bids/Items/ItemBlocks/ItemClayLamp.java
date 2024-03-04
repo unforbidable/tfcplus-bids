@@ -137,6 +137,12 @@ public class ItemClayLamp extends ItemTerraBlock implements ISize, IFluidContain
     @Override
     public FluidStack drain(ItemStack container, int maxDrain, boolean doDrain) {
         FluidStack fs = getFluid(container);
+        if (fs == null) {
+            // If someone tries to drain an empty lamp
+            // return null and hope they deal with it
+            return null;
+        }
+
         FluidStack fsOut = fs.copy();
         fsOut.amount = Math.min(maxDrain, fs.amount);
 
