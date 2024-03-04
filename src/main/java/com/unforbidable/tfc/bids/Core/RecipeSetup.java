@@ -668,6 +668,17 @@ public class RecipeSetup {
                         "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2), 'A', "itemSaw"));
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV, 8, j),
                         "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), 'A', "itemSaw"));
+
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.peeledLog, 1, i), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
+
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.peeledLogSeasoned, 1, i), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
+
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.logsSeasoned, 1, 2 * i), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.logsSeasoned, 1, 2 * i + 1), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
                 }
             } else if (i < 32) {
                 if (WoodHelper.canPeelLog(i)) {
@@ -681,6 +692,17 @@ public class RecipeSetup {
                         "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2), 'A', "itemSaw"));
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV2, 8, j),
                         "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), 'A', "itemSaw"));
+
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence2, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.peeledLog, 1, i), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
+
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence2, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.peeledLogSeasoned, 1, i), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
+
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence2, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.logsSeasoned, 1, 2 * i), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence2, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.logsSeasoned, 1, 2 * i + 1), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
                 }
             } else if (i < 48) {
                 if (WoodHelper.canPeelLog(i)) {
@@ -694,6 +716,17 @@ public class RecipeSetup {
                         "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2), 'A', "itemSaw"));
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV3, 8, j),
                         "A2", " 2", '2', new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), 'A', "itemSaw"));
+
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence3, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.peeledLog, 1, i), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
+
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence3, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.peeledLogSeasoned, 1, i), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
+
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence3, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.logsSeasoned, 1, 2 * i), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
+                    GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence3, 6, i), "LPL", "LPL",
+                        'L', new ItemStack(BidsItems.logsSeasoned, 1, 2 * i + 1), 'P', new ItemStack(TFCItems.singlePlank, 1, i));
                 }
             }
         }
