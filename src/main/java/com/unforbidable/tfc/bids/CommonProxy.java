@@ -21,6 +21,7 @@ public class CommonProxy {
 
         ItemSetup.preInit();
         BlockSetup.preInit();
+        FluidSetup.preInit();
         DrinkSetup.preInit();
         CropSetup.preInit();
         NetworkSetup.preInit();
