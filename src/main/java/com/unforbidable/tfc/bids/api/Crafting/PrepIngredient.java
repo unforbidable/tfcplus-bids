@@ -72,9 +72,9 @@ public class PrepIngredient {
             }
         } else {
             // Matches any allowed stack, ore or food group
-            if (allowedItemStacks.size() > 0 && !matchesAnyFromItemStacks(ingredient, allowedItemStacks) ||
-                allowedOreNames.size() > 0 && !matchesAnyFromOreNames(ingredient, allowedOreNames) ||
-                allowedFoodGroups.size() > 0 && !matchesAnyFromFoodGroups(ingredient, allowedFoodGroups)) {
+            if (!(allowedItemStacks.size() > 0 && matchesAnyFromItemStacks(ingredient, allowedItemStacks) ||
+                allowedOreNames.size() > 0 && matchesAnyFromOreNames(ingredient, allowedOreNames) ||
+                allowedFoodGroups.size() > 0 && matchesAnyFromFoodGroups(ingredient, allowedFoodGroups))) {
                 return false;
             }
         }
