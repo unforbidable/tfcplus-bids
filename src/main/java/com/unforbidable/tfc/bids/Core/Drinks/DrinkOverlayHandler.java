@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Drinks;
 
 import com.dunk.tfc.Items.ItemDrink;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingCloth;
 import com.unforbidable.tfc.bids.Items.ItemDrinkingGlass;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -31,7 +32,7 @@ public class DrinkOverlayHandler {
     private String getOverlayFolder() {
         if (isPottery) {
             return "pottery";
-        } else if (item.getContainerItem() instanceof ItemDrinkingGlass) {
+        } else if (item.getContainerItem() instanceof ItemDrinkingGlass || item.getContainerItem() == TFCItems.glassBottle) {
             return "glassware";
         } else if (item.getContainerItem() instanceof ItemDrinkingCloth) {
             return "armor/clothing";
