@@ -1594,6 +1594,7 @@ public class RecipeSetup {
             .allow(EnumFoodGroup.Protein)
             .allow(EnumFoodGroup.Vegetable)
             .allow(TFCItems.maizeEar)
+            .allow(TFCItems.riceGrain)
             .allow("foodGrainGround")
             .allow("foodGrainCrushed")
             .build();
@@ -1603,6 +1604,7 @@ public class RecipeSetup {
             .allow(EnumFoodGroup.Protein)
             .allow(EnumFoodGroup.Vegetable)
             .allow(TFCItems.maizeEar)
+            .allow(TFCItems.riceGrain)
             .allow("foodGrainGround")
             .allow("foodGrainCrushed")
             .build();
