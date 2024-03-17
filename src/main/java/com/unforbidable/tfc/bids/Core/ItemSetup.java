@@ -542,6 +542,19 @@ public class ItemSetup extends BidsItems {
         pemmican = new ItemPemmican(new float[] { 0, 40, 20, 10, 10 })
             .setMetaNames(new String[]{"Pemmican"})
             .setUnlocalizedName("Pemmican");
+
+        cookingMixture = new ItemCookingMixture()
+            .setUnlocalizedName("CookingMixture");
+
+        stew = new ItemCookedMeal()
+            .setMetaNames(new String[] {"Stew.Bean", "Stew.Meat", "Stew.Fish", "Stew.Vegetable"})
+            .setUnlocalizedName("Stew");
+        soup = new ItemCookedMeal()
+            .setMetaNames(new String[] {"Soup.Bean", "Soup.Meat", "Soup.Fish", "Soup.Vegetable"})
+            .setUnlocalizedName("Soup");
+        porridge = new ItemCookedMeal()
+            .setMetaNames(new String[] {"Porridge.Water", "Porridge.Milk"})
+            .setUnlocalizedName("Porridge");
     }
 
     private static void registerFluidContainers() {
@@ -735,12 +748,16 @@ public class ItemSetup extends BidsItems {
             MinecraftForgeClient.registerItemRenderer(item, new SeasonedItemRenderer());
         }
 
-        Item[] foodItems = { wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed,
-                cornmealCrushed, wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge,
-                cornmealPorridge, appleCrushed, oliveCrushed, goatCheese,
-                stuffedPepper, stuffedMushroom, pemmican,
-                seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
-                suet, tallow };
+        Item[] foodItems = {
+            wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed, cornmealCrushed,
+            wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge, cornmealPorridge,
+            appleCrushed, oliveCrushed,
+            goatCheese,
+            stuffedPepper, stuffedMushroom, pemmican,
+            seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
+            suet, tallow,
+            soup, stew, porridge
+        };
 
         for (Item item : foodItems) {
             MinecraftForgeClient.registerItemRenderer(item, new FoodItemRenderer());
@@ -1025,6 +1042,11 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(seedsNewCabbage, seedsNewCabbage.getUnlocalizedName());
         GameRegistry.registerItem(seedsNewGarlic, seedsNewGarlic.getUnlocalizedName());
         GameRegistry.registerItem(seedsNewCarrot, seedsNewCarrot.getUnlocalizedName());
+
+        GameRegistry.registerItem(cookingMixture, cookingMixture.getUnlocalizedName());
+        GameRegistry.registerItem(stew, stew.getUnlocalizedName());
+        GameRegistry.registerItem(soup, soup.getUnlocalizedName());
+        GameRegistry.registerItem(porridge, porridge.getUnlocalizedName());
     }
 
 }

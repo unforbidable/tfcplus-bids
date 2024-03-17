@@ -4,6 +4,7 @@ import com.unforbidable.tfc.bids.api.Crafting.Builders.CookingRecipeBuilder;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingLidUsage;
+import com.unforbidable.tfc.bids.api.Interfaces.ICookingMixtureFluid;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -97,11 +98,20 @@ public class CookingRecipe {
 
     protected boolean doesInputFluidMatch(CookingRecipe template) {
         boolean match = getInputFluidStack() == null && template.getInputFluidStack() == null ||
-            getInputFluidStack() != null && template.getInputFluidStack() != null && getInputFluidStack().isFluidEqual(template.getInputFluidStack()) ||
-            getInputFluidStack() == null && template.getInputFluidStack() != null && getOutputFluidStack().isFluidEqual(template.getInputFluidStack());
+            getInputFluidStack() != null && template.getInputFluidStack() != null && areFluidsEqual(template.getInputFluidStack(), getInputFluidStack()) ||
+            getInputFluidStack() == null && template.getInputFluidStack() != null && areFluidsEqual(template.getInputFluidStack(), getOutputFluidStack());
         //Bids.LOG.info("doesInputFluidMatch: " + match);
 
         return match;
+    }
+
+    protected boolean areFluidsEqual(FluidStack one, FluidStack other) {
+        if (one.getFluid() instanceof ICookingMixtureFluid) {
+            // For cooking fluids we use custom method
+            return ((ICookingMixtureFluid) one.getFluid()).areCookingFluidsEqual(one, other);
+        } else {
+            return one.isFluidEqual(other);
+        }
     }
 
     protected boolean doesSecondaryInputFluidMatch(CookingRecipe template) {
@@ -150,7 +160,23 @@ public class CookingRecipe {
     }
 
     public CookingRecipeCraftingResult getCraftingResult(CookingRecipe template) {
-        return new CookingRecipeCraftingResult(outputFluidStack, secondaryOutputFluidStack, outputItemStack);
+        if (getOutputFluidStack() != null && template.getInputFluidStack() != null &&
+            template.getInputFluidStack().getFluid() instanceof ICookingMixtureFluid) {
+            ICookingMixtureFluid cookingFluid = (ICookingMixtureFluid) template.getInputFluidStack().getFluid();
+
+            FluidStack fs = getOutputFluidStack().copy();
+            if (template.getSecondaryInputFluidStack() != null) {
+                // Cooking fluid was merged with another
+                cookingFluid.onCookingFluidMerged(fs, template.getInputFluidStack(), template.getSecondaryInputFluidStack());
+            } else {
+                // Cooking fluid was cooked or otherwise processed
+                cookingFluid.onCookingFluidCooked(fs, template.getInputFluidStack());
+            }
+
+            return new CookingRecipeCraftingResult(fs, getSecondaryOutputFluidStack(), getOutputItemStack());
+        }
+
+        return new CookingRecipeCraftingResult(getOutputFluidStack(), getSecondaryOutputFluidStack(), getOutputItemStack());
     }
 
     public boolean matchesOutput(FluidStack fluidStack) {

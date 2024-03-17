@@ -11,6 +11,7 @@ import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.Interfaces.ICookableFood;
 import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.CookingPotBounds;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.EnumCookingPotPlacement;
@@ -21,12 +22,16 @@ import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsFoodHeatIndex;
+import com.unforbidable.tfc.bids.api.Crafting.CookingMixture;
 import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingLidUsage;
+import com.unforbidable.tfc.bids.api.Interfaces.ICookedMeal;
+import com.unforbidable.tfc.bids.api.Interfaces.ICookingMixtureFluid;
+import com.unforbidable.tfc.bids.api.Interfaces.ICookingMixtureItem;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,6 +45,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -171,6 +177,74 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             return true;
         }
 
+        // Cooking mixes can be added if there is no lid and accessory
+        if (!hasLid() && !hasAccessory() && !hasTopLayerFluid() && itemStack.getItem() instanceof ICookingMixtureItem) {
+            ICookingMixtureItem cookingMix = (ICookingMixtureItem) itemStack.getItem();
+            FluidStack fluidStack = cookingMix.getCookingMixFluid(itemStack);
+            ItemStack emptyContainer = cookingMix.getEmptyContainer(itemStack);
+            ICookingMixtureFluid cookingFluid = (ICookingMixtureFluid) fluidStack.getFluid();
+
+            if (canPlaceCookingMix(fluidStack)) {
+                float decay = Math.max(0, Food.getDecay(itemStack));
+                float weight = Food.getWeight(itemStack);
+                float decayRatio = decay / weight;
+                if (decayRatio < 10) {
+                    if (hasFluid()) {
+                        FluidStack original = fluids[FLUID_PRIMARY].copy();
+                        fluids[FLUID_PRIMARY].amount += fluidStack.amount;
+                        cookingFluid.onCookingFluidCombined(fluids[FLUID_PRIMARY], original, fluidStack);
+                    } else {
+                        fluids[FLUID_PRIMARY] = fluidStack;
+                        cookingFluid.onCookingFluidPlaced(fluids[FLUID_PRIMARY]);
+                    }
+                } else {
+                    // Decay is too great and cooking mix is unusable
+                    TFC_Core.sendInfoMessage(player, new ChatComponentTranslation("gui.cooking.cookingMixDecayed"));
+                }
+
+                // Consume and return empty container even when spoiled
+                itemStack.stackSize--;
+                giveItemStackToPlayer(player, emptyContainer);
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                clientNeedToUpdate = true;
+
+                onRecipeParametersChanged(true);
+
+                return true;
+            }
+        }
+
+        // Cooked meals can be created from finished cooking mixes
+        // into valid meal containers
+        if (!hasLid() && !hasAccessory() && hasFluid() && getPrimaryFluidStack().getFluid() instanceof ICookingMixtureFluid) {
+            ICookingMixtureFluid cookingFluid = (ICookingMixtureFluid) getPrimaryFluidStack().getFluid();
+            CookingMixture mixture = CookingMixtureHelper.getCookingMixture(getPrimaryFluidStack());
+            if (mixture != null && mixture.isReady() && cookingFluid.isValidCookedMealContainer(getPrimaryFluidStack(), itemStack)) {
+                ItemStack cookedMeal = cookingFluid.retrieveCookedMeal(getPrimaryFluidStack(), itemStack, player, true);
+
+                if (cookedMeal != null) {
+                    if (cookedMeal.getItem() instanceof ICookedMeal) {
+                        ((ICookedMeal)cookedMeal.getItem()).onCookedMealCreated(cookedMeal, player);
+                    }
+
+                    if (getPrimaryFluidStack().amount <= 0) {
+                        fluids[FLUID_PRIMARY] = null;
+                    }
+
+                    itemStack.stackSize--;
+                    giveItemStackToPlayer(player, cookedMeal);
+
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    clientNeedToUpdate = true;
+
+                    onRecipeParametersChanged(true);
+
+                    return true;
+                }
+            }
+        }
+
         // If not lid or accessory, try to match item to a recipe
         // When there is no lid and top layer fluid
         if (!hasLid() && !hasTopLayerFluid()) {
@@ -250,6 +324,15 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         }
 
         return false;
+    }
+
+    private boolean canPlaceCookingMix(FluidStack fluidStack) {
+        if (hasFluid()) {
+            return getPrimaryFluidStack().amount + fluidStack.amount <= getMaxCombinedCookingFluidVolume() &&
+                CookingMixtureHelper.canCombineCookingFluids(getPrimaryFluidStack(), fluidStack);
+        } else {
+            return fluidStack.amount <= getMaxCombinedCookingFluidVolume();
+        }
     }
 
     private int getInputItemStackSizeForRecipe(ItemStack itemStack) {
@@ -538,7 +621,12 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                     drainingItemStack = FluidContainerRegistry.drainFluidContainer(drainingItemStack);
                 }
 
-                handleRecipeOutput(recipe);
+                // FluidContainerRegistry.getFluidForFilledItem will not produce the correct fluid amount
+                // for partial containers such as glass bottles
+                // The correct amount is needed to handle merging cooking mixes with other fluids
+                template.getSecondaryInputFluidStack().amount = secondaryAmountRequired;
+
+                handleRecipeOutput(recipe, template);
 
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 clientNeedToUpdate = true;
@@ -725,6 +813,10 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         return 5000;
     }
 
+    public int getMaxCombinedCookingFluidVolume() {
+        return 1000;
+    }
+
     public int getTotalLiquidVolume() {
         int total = 0;
 
@@ -868,7 +960,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 if (recipeProgress.getProgress() == 1f) {
                     Bids.LOG.debug("Recipe progress completed: " + recipeProgress.getOutputHashString());
 
-                    handleRecipeOutput(recipe);
+                    handleRecipeOutput(recipe, createRecipeTemplate());
 
                     recipeProgress = null;
 
@@ -922,10 +1014,10 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         recipeCanPauseWhenParametersChange = true;
     }
 
-    private void handleRecipeOutput(CookingRecipe recipe) {
+    private void handleRecipeOutput(CookingRecipe recipe, CookingRecipe template) {
         int runs = calculateTotalRecipeRuns(recipe);
 
-        CookingRecipeCraftingResult result = recipe.getCraftingResult(createRecipeTemplate());
+        CookingRecipeCraftingResult result = recipe.getCraftingResult(template);
         if (result.getOutputItemStack() != null) {
             // When the recipe has output item stack,
             // any input stack is always replaced with the output item stack

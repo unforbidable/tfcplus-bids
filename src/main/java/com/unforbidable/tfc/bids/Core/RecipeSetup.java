@@ -11,6 +11,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockUnfinishedAnvil;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
@@ -154,6 +155,37 @@ public class RecipeSetup {
         OreDictionary.registerOre("stoneQuern", new ItemStack(BidsBlocks.roughStoneIgIn, 1, WILD));
         OreDictionary.registerOre("stoneQuern", new ItemStack(BidsBlocks.roughStoneIgEx, 1, WILD));
         OreDictionary.registerOre("stoneQuern", new ItemStack(BidsBlocks.roughStoneMM, 1, 4)); // Gneiss
+
+        OreDictionary.registerOre("foodBeans", new ItemStack(TFCItems.soybean));
+        OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.wildBeans));
+        OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.broadBeans));
+
+        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.beefRaw));
+        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.porkchopRaw));
+        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.muttonRaw));
+        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.venisonRaw));
+        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.horseMeatRaw));
+
+        OreDictionary.registerOre("foodMeatPoultry", new ItemStack(TFCItems.chickenRaw));
+
+        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.fishRaw));
+        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.scallopRaw));
+        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.seastarRaw));
+        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.calamariRaw));
+
+        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.barleyGround));
+        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.oatGround));
+        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.ryeGround));
+        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.riceGround));
+        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.wheatGround));
+        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.cornmealGround));
+
+        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.barleyCrushed));
+        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.oatCrushed));
+        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.ryeCrushed));
+        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.riceCrushed));
+        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.wheatCrushed));
+        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.cornmealCrushed));
     }
 
     private static void registerCustomRecipes() {
@@ -1332,6 +1364,121 @@ public class RecipeSetup {
             .withHeat()
             .inTime(250 / 5000f)
             .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN, 500), new FluidStack(TFCFluids.FRESHWATER, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN_WATER, 1000))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT, 500), new FluidStack(TFCFluids.FRESHWATER, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT_WATER, 1000))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH, 500), new FluidStack(TFCFluids.FRESHWATER, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH_WATER, 1000))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE, 500), new FluidStack(TFCFluids.FRESHWATER, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE_WATER, 1000))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL, 500), new FluidStack(TFCFluids.FRESHWATER, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_WATER, 1000))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL, 500), new FluidStack(TFCFluids.MILK, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_MILK, 1000))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL, 500), new FluidStack(BidsFluids.GOATMILK, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_MILK, 1000))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN_STEW, 500))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .withLid()
+            .inFixedTime(1000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT_STEW, 500))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .withLid()
+            .inFixedTime(1500)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH_STEW, 500))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .withLid()
+            .inFixedTime(1500)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE_STEW, 500))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .withLid()
+            .inFixedTime(1000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN_WATER, 1000))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN_SOUP, 1000))
+            .withHeat(EnumCookingHeatLevel.LOW, EnumCookingHeatLevel.MEDIUM)
+            .withLid()
+            .inFixedTime(1500)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT_WATER, 1000))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT_SOUP, 1000))
+            .withHeat(EnumCookingHeatLevel.LOW, EnumCookingHeatLevel.MEDIUM)
+            .withLid()
+            .inFixedTime(2000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH_WATER, 1000))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH_SOUP, 1000))
+            .withHeat(EnumCookingHeatLevel.LOW, EnumCookingHeatLevel.MEDIUM)
+            .withLid()
+            .inFixedTime(2000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE_WATER, 1000))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE_SOUP, 1000))
+            .withHeat(EnumCookingHeatLevel.LOW, EnumCookingHeatLevel.MEDIUM)
+            .withLid()
+            .inFixedTime(1500)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_WATER, 1000))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.PORRIDGE_WATER, 1000))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .withLid()
+            .inFixedTime(1000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_MILK, 1000))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.PORRIDGE_MILK, 1000))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .withLid()
+            .inFixedTime(1000)
+            .build());
     }
 
     private static void registerPrepRecipes() {
@@ -1412,6 +1559,77 @@ public class RecipeSetup {
         PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.pemmican)), new PrepIngredientSpec[]{
             PrepIngredient.from(TFCItems.hide, 0).toSpec(),
             leanMeat.toSpec(40, true), tallow.toSpec(20, true), berriesAndFlours.toSpec(10), berriesAndFlours.toSpec(10)
+        }));
+
+        PrepIngredient vesselLargeBowl = PrepIngredient.builder()
+            .allow(BidsItems.largeClayBowl, 1)
+            .build();
+
+        PrepIngredient beans = PrepIngredient.builder()
+            .allow("foodBeans")
+            .build();
+
+        PrepIngredient meatNoFish = PrepIngredient.builder()
+            .allow("foodMeatRed")
+            .allow("foodMeatPoultry")
+            .build();
+
+        PrepIngredient meatFish = PrepIngredient.builder()
+            .allow("foodMeatFish")
+            .build();
+
+        PrepIngredient vegetable = PrepIngredient.builder()
+            .allow(EnumFoodGroup.Vegetable)
+            .build();
+
+        PrepIngredient grainPorridge = PrepIngredient.builder()
+            .allow(TFCItems.maizeEar)
+            .allow(TFCItems.riceGrain)
+            .allow("foodGrainGround")
+            .allow("foodGrainCrushed")
+            .build();
+
+        PrepIngredient foodNoFruit = PrepIngredient.builder()
+            .allow(EnumFoodGroup.Dairy)
+            .allow(EnumFoodGroup.Protein)
+            .allow(EnumFoodGroup.Vegetable)
+            .allow(TFCItems.maizeEar)
+            .allow("foodGrainGround")
+            .allow("foodGrainCrushed")
+            .build();
+
+        PrepIngredient foodNoDairy = PrepIngredient.builder()
+            .allow(EnumFoodGroup.Fruit)
+            .allow(EnumFoodGroup.Protein)
+            .allow(EnumFoodGroup.Vegetable)
+            .allow(TFCItems.maizeEar)
+            .allow("foodGrainGround")
+            .allow("foodGrainCrushed")
+            .build();
+
+        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.BEAN), new PrepIngredientSpec[]{
+            vesselLargeBowl.toSpec(),
+            beans.toSpec(20, true), foodNoFruit.toSpec(8, true), foodNoFruit.toSpec(8), foodNoFruit.toSpec(4)
+        }));
+
+        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.MEAT), new PrepIngredientSpec[]{
+            vesselLargeBowl.toSpec(),
+            meatNoFish.toSpec(20, true), foodNoFruit.toSpec(8, true), foodNoFruit.toSpec(8), foodNoFruit.toSpec(4)
+        }));
+
+        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.FISH), new PrepIngredientSpec[]{
+            vesselLargeBowl.toSpec(),
+            meatFish.toSpec(20, true), foodNoFruit.toSpec(8, true), foodNoFruit.toSpec(8), foodNoFruit.toSpec(4)
+        }));
+
+        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.VEGETABLE), new PrepIngredientSpec[]{
+            vesselLargeBowl.toSpec(),
+            vegetable.toSpec(20, true), foodNoFruit.toSpec(8, true), foodNoFruit.toSpec(8), foodNoFruit.toSpec(4)
+        }));
+
+        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.CEREAL), new PrepIngredientSpec[]{
+            vesselLargeBowl.toSpec(),
+            grainPorridge.toSpec(20, true), foodNoDairy.toSpec(8, true), foodNoDairy.toSpec(8), foodNoDairy.toSpec(4)
         }));
     }
 

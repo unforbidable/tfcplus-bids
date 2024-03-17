@@ -197,4 +197,10 @@ public class BidsItems {
     public static Item suet;
     public static Item tallow;
 
+    public static Item cookingMixture;
+
+    public static Item stew;
+    public static Item soup;
+    public static Item porridge;
+
 }

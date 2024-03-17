@@ -1,14 +1,19 @@
 package com.unforbidable.tfc.bids.api.Crafting;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CookingManager {
 
     private final static List<CookingRecipe> recipes = new ArrayList<CookingRecipe>();
+    private final static Map<String, CookingMixture> cookingMixtures = new HashMap<String, CookingMixture>();
+    private final static Map<Item, Item> cookingIngredientOverrides = new HashMap<Item, Item>();
 
     public static void addRecipe(CookingRecipe recipe) {
         recipes.add(recipe);
@@ -76,6 +81,22 @@ public class CookingManager {
         }
 
         return matches;
+    }
+
+    public static void registerCookingMixture(CookingMixture cookingMixture) {
+        cookingMixtures.put(cookingMixture.getName(), cookingMixture);
+    }
+
+    public static CookingMixture getCookingMixture(String name) {
+        return cookingMixtures.get(name);
+    }
+
+    public static void registerCookingIngredientOverride(Item original, Item override) {
+        cookingIngredientOverrides.put(original, override);
+    }
+
+    public static Item getCookingIngredientOverride(Item item) {
+        return cookingIngredientOverrides.get(item);
     }
 
 }

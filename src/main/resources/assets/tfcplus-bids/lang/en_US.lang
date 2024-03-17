@@ -1059,12 +1059,19 @@ item.Stuffed Pepper.name=Stuffed Pepper
 item.Stuffed Mushroom.name=Stuffed Mushroom
 item.Pemmican.name=Pemmican
 
+item.CookingMixture.name=Cooking Mix
+
+item.Stew.name=Stew
+item.Soup.name=Soup
+item.Porridge.name=Porridge
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk
 fluid.GoatMilkVinegar=Goat Milk + Vinegar Mix
 fluid.GoatMilkCurdled=Curdled Goat Milk
 fluid.Tallow=Tallow
+fluid.CookingMixture=Mix
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs
@@ -1073,6 +1080,28 @@ itemGroup.Bids.Materials=Bids and Pieces - Materials
 itemGroup.Bids.Tools=Bids and Pieces - Tools
 
 infusion.steamed.name=(Steamed)
+
+cookingMixture.bean=Bean Mix
+cookingMixture.beanWater=Bean + Water Mix
+cookingMixture.beanStew=Bean Stew
+cookingMixture.beanSoup=Bean Soup
+cookingMixture.meat=Meat Mix
+cookingMixture.meatWater=Meat + Water Mix
+cookingMixture.meatStew=Meat Stew
+cookingMixture.meatSoup=Meat Soup
+cookingMixture.fish=Fish Mix
+cookingMixture.fishWater=Fish + Water Mix
+cookingMixture.fishStew=Fish Stew
+cookingMixture.fishSoup=Fish Soup
+cookingMixture.vegetable=Vegetable Mix
+cookingMixture.vegetableWater=Vegetable + Water Mix
+cookingMixture.vegetableStew=Vegetable Stew
+cookingMixture.vegetableSoup=Vegetable Soup
+cookingMixture.cereal=Cereal Mix
+cookingMixture.cerealWater=Vegetable + Water Mix
+cookingMixture.cerealMilk=Vegetable + Milk Mix
+cookingMixture.porridgeWater=Porridge
+cookingMixture.porridgeMilk=Porridge (Milk)
 
 gui.ShowHelp=§8Help: (Hold §fShift§8)
 gui.Help=Help:
@@ -1136,5 +1165,6 @@ gui.seeds.failedPole=You need a pole for that to grow on
 gui.ScrewPress=Screw Press
 gui.Input=Input
 gui.Resistance=Resistance
+gui.cooking.cookingMixDecayed=Cooking Mix has decayed beyond use
 
 key.BidsToolMode=Cycle Tool Mode

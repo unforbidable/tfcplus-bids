@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.EnumCookingPotPlacement
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCookingPot;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.Interfaces.ICookingMixtureFluid;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -200,143 +201,146 @@ public class BlockCookingPot extends BlockContainer {
                         Bids.LOG.debug("Retrieving items from cooking pot");
                         te.retrieveItemStack(player);
                     }
-                } else if ((FluidContainerRegistry.isFilledContainer(equippedItem)
-                    || equippedItem.getItem() instanceof IFluidContainerItem && ((IFluidContainerItem) equippedItem.getItem()).getFluid(equippedItem) != null)) {
-                    ItemStack tmp = equippedItem.copy();
-                    tmp.stackSize = 1;
+                } else {
+                    // First try placing the item
+                    // then all the container mechanics
+                    if (te.placeItemStack(equippedItem, player)) {
+                        return true;
+                    } else if ((FluidContainerRegistry.isFilledContainer(equippedItem)
+                        || equippedItem.getItem() instanceof IFluidContainerItem && ((IFluidContainerItem) equippedItem.getItem()).getFluid(equippedItem) != null)) {
+                        ItemStack tmp = equippedItem.copy();
+                        tmp.stackSize = 1;
 
-                    ItemStack is = te.addLiquid(tmp);
-                    if (ItemStack.areItemStacksEqual(tmp, is)) {
-                        // Fluid could not be added, so let's try mixing instead
-                        is = te.mixLiquids(tmp);
+                        ItemStack is = te.addLiquid(tmp);
                         if (ItemStack.areItemStacksEqual(tmp, is)) {
-                            return false;
+                            // Fluid could not be added, so let's try mixing instead
+                            is = te.mixLiquids(tmp);
+                            if (ItemStack.areItemStacksEqual(tmp, is)) {
+                                return true;
+                            }
                         }
-                    }
 
-                    equippedItem.stackSize--;
+                        equippedItem.stackSize--;
 
-                    if (equippedItem.stackSize == 0) {
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-                    }
-
-                    if (equippedItem.stackSize == 0 && (is.getMaxStackSize() == 1 || !player.inventory.hasItemStack(is))) {
-                        // put empty container in the slot you used them from.
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, is);
-                    } else {
-                        if (!player.inventory.addItemStackToInventory(is)) {
-                            // if the new item doesn't fit, drop it.
-                            player.dropPlayerItemWithRandomChoice(is, false);
+                        if (equippedItem.stackSize == 0) {
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                         }
-                    }
 
-                    if (player.inventoryContainer != null) {
-                        // for some reason the players inventory won't update without this.
-                        player.inventoryContainer.detectAndSendChanges();
-                    }
+                        if (equippedItem.stackSize == 0 && (is.getMaxStackSize() == 1 || !player.inventory.hasItemStack(is))) {
+                            // put empty container in the slot you used them from.
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, is);
+                        } else {
+                            if (!player.inventory.addItemStackToInventory(is)) {
+                                // if the new item doesn't fit, drop it.
+                                player.dropPlayerItemWithRandomChoice(is, false);
+                            }
+                        }
 
-                    return true;
-                } else if (FluidContainerRegistry.isEmptyContainer(equippedItem) || equippedItem.getItem() instanceof IFluidContainerItem) {
-                    ItemStack tmp = equippedItem.copy();
-                    tmp.stackSize = 1;
-                    ItemStack is = te.removeLiquid(tmp);
+                        if (player.inventoryContainer != null) {
+                            // for some reason the players inventory won't update without this.
+                            player.inventoryContainer.detectAndSendChanges();
+                        }
 
-                    // If we cannot remove the liquid from the barrel, open the interface.
-                    if (ItemStack.areItemStacksEqual(equippedItem, is)) {
-                        return false;
-                    }
+                        return true;
+                    } else if (FluidContainerRegistry.isEmptyContainer(equippedItem) || equippedItem.getItem() instanceof IFluidContainerItem) {
+                        ItemStack tmp = equippedItem.copy();
+                        tmp.stackSize = 1;
+                        ItemStack is = te.removeLiquid(tmp);
 
-                    boolean finished = false;
+                        // If we cannot remove the liquid from the barrel, open the interface.
+                        if (ItemStack.areItemStacksEqual(equippedItem, is)) {
+                            return true;
+                        }
 
-                    while (!finished) {
-                        tmp = is.copy();
-                        is = te.removeLiquid(is);
+                        boolean finished = false;
 
-                        finished = ItemStack.areItemStacksEqual(tmp, is);
-                    }
+                        while (!finished) {
+                            tmp = is.copy();
+                            is = te.removeLiquid(is);
 
-                    if (is.getItem() == TFCItems.woodenBucketMilk) {
-                        ItemCustomBucketMilk.createTag(is, 20f);
-                    }
+                            finished = ItemStack.areItemStacksEqual(tmp, is);
+                        }
 
-                    equippedItem.stackSize--;
+                        if (is.getItem() == TFCItems.woodenBucketMilk) {
+                            ItemCustomBucketMilk.createTag(is, 20f);
+                        }
 
-                    if (equippedItem.stackSize == 0) {
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-                    }
+                        equippedItem.stackSize--;
 
-                    if (equippedItem.stackSize == 0 && (is.getMaxStackSize() == 1 || !player.inventory.hasItemStack(is))) { // put buckets in the slot you used them from.
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, is);
-                    } else {
-                        if (!player.inventory.addItemStackToInventory(is))
-                            player.dropPlayerItemWithRandomChoice(is, false); // if the new item dosn't fit, drop it.
-                    }
+                        if (equippedItem.stackSize == 0) {
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+                        }
 
-                    if (player.inventoryContainer != null) {
-                        // for some reason the players inventory won't update without this.
-                        player.inventoryContainer.detectAndSendChanges();
-                    }
+                        if (equippedItem.stackSize == 0 && (is.getMaxStackSize() == 1 || !player.inventory.hasItemStack(is))) { // put buckets in the slot you used them from.
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, is);
+                        } else {
+                            if (!player.inventory.addItemStackToInventory(is))
+                                player.dropPlayerItemWithRandomChoice(is, false); // if the new item dosn't fit, drop it.
+                        }
 
-                    return true;
-                } else if (equippedItem.getItem() instanceof ItemBarrels || equippedItem.getItem() instanceof ItemLargeVessel) {
-                    Bids.LOG.debug("Cooking pot activated with barrel/large vessel: " + equippedItem.getDisplayName());
+                        if (player.inventoryContainer != null) {
+                            // for some reason the players inventory won't update without this.
+                            player.inventoryContainer.detectAndSendChanges();
+                        }
 
-                    ItemStack is = equippedItem.copy();
-                    is.stackSize = 1;
+                        return true;
+                    } else if (equippedItem.getItem() instanceof ItemBarrels || equippedItem.getItem() instanceof ItemLargeVessel) {
+                        Bids.LOG.debug("Cooking pot activated with barrel/large vessel: " + equippedItem.getDisplayName());
 
-                    if (equippedItem.hasTagCompound()) {
-                        if (equippedItem.getTagCompound().hasKey("fluidNBT") && !equippedItem.getTagCompound().hasKey("Items") &&
-                            te.getTotalLiquidVolume() < te.getMaxFluidVolume()) {
-                            FluidStack fs = FluidStack.loadFluidStackFromNBT(equippedItem.getTagCompound().getCompoundTag("fluidNBT"));
-                            if (te.addLiquid(fs)) {
-                                if (fs.amount == 0) {
-                                    equippedItem.getTagCompound().removeTag("Sealed");
-                                    equippedItem.getTagCompound().removeTag("fluidNBT");
-                                    if (equippedItem.getTagCompound().hasNoTags())
-                                        equippedItem.setTagCompound(null);
-                                } else {
-                                    fs.writeToNBT(equippedItem.getTagCompound().getCompoundTag("fluidNBT"));
+                        ItemStack is = equippedItem.copy();
+                        is.stackSize = 1;
+
+                        if (equippedItem.hasTagCompound()) {
+                            if (equippedItem.getTagCompound().hasKey("fluidNBT") && !equippedItem.getTagCompound().hasKey("Items") &&
+                                te.getTotalLiquidVolume() < te.getMaxFluidVolume()) {
+                                FluidStack fs = FluidStack.loadFluidStackFromNBT(equippedItem.getTagCompound().getCompoundTag("fluidNBT"));
+                                if (te.addLiquid(fs)) {
+                                    if (fs.amount == 0) {
+                                        equippedItem.getTagCompound().removeTag("Sealed");
+                                        equippedItem.getTagCompound().removeTag("fluidNBT");
+                                        if (equippedItem.getTagCompound().hasNoTags())
+                                            equippedItem.setTagCompound(null);
+                                    } else {
+                                        fs.writeToNBT(equippedItem.getTagCompound().getCompoundTag("fluidNBT"));
+                                    }
+
+                                    return true;
+                                }
+                            }
+                        } else {
+                            if (te.getTopFluidStack() != null && !(te.getTopFluidStack().getFluid() instanceof ICookingMixtureFluid)) {
+                                if (is.getItem() instanceof ItemBarrels) {
+                                    FluidStack fs = te.getTopFluidStack();
+
+                                    NBTTagCompound nbt = new NBTTagCompound();
+                                    nbt.setTag("fluidNBT", fs.writeToNBT(new NBTTagCompound()));
+                                    nbt.setBoolean("Sealed", true);
+                                    is.setTagCompound(nbt);
+                                    equippedItem.stackSize--;
+                                    TFC_Core.giveItemToPlayer(is, player);
+
+                                    te.drainTopLiquid();
+                                } else if (is.getItem() instanceof ItemLargeVessel) {
+                                    if (is.getItemDamage() == 0) {
+                                        return false;
+                                    }
+
+                                    FluidStack fs = te.getTopFluidStack().copy();
+
+                                    NBTTagCompound nbt = new NBTTagCompound();
+                                    nbt.setTag("fluidNBT", fs.writeToNBT(new NBTTagCompound()));
+                                    nbt.setBoolean("Sealed", true);
+                                    is.setTagCompound(nbt);
+                                    equippedItem.stackSize--;
+                                    TFC_Core.giveItemToPlayer(is, player);
+
+                                    te.drainTopLiquid();
                                 }
 
                                 return true;
                             }
                         }
-                    } else {
-                        if (te.getTopFluidStack() != null) {
-                            if (is.getItem() instanceof ItemBarrels) {
-                                FluidStack fs = te.getTopFluidStack();
-
-                                NBTTagCompound nbt = new NBTTagCompound();
-                                nbt.setTag("fluidNBT", fs.writeToNBT(new NBTTagCompound()));
-                                nbt.setBoolean("Sealed", true);
-                                is.setTagCompound(nbt);
-                                equippedItem.stackSize--;
-                                TFC_Core.giveItemToPlayer(is, player);
-
-                                te.drainTopLiquid();
-                            } else if (is.getItem() instanceof ItemLargeVessel) {
-                                if (is.getItemDamage() == 0) {
-                                    return false;
-                                }
-
-                                FluidStack fs = te.getTopFluidStack().copy();
-
-                                NBTTagCompound nbt = new NBTTagCompound();
-                                nbt.setTag("fluidNBT", fs.writeToNBT(new NBTTagCompound()));
-                                nbt.setBoolean("Sealed", true);
-                                is.setTagCompound(nbt);
-                                equippedItem.stackSize--;
-                                TFC_Core.giveItemToPlayer(is, player);
-
-                                te.drainTopLiquid();
-                            }
-
-                            return true;
-                        }
                     }
-                } else {
-                    Bids.LOG.debug("Placing item on cooking pot: " + equippedItem.getDisplayName());
-                    te.placeItemStack(equippedItem, player);
                 }
             } else {
                 if (equippedItem == null) {

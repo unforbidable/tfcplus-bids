@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.api;
 
 import com.dunk.tfc.Core.FluidBaseTFC;
+import com.unforbidable.tfc.bids.Fluids.FluidCookingMixture;
 import net.minecraftforge.fluids.Fluid;
 
 public class BidsFluids {
@@ -11,5 +12,6 @@ public class BidsFluids {
     public static final Fluid GOATMILKVINEGAR = new FluidBaseTFC("GoatMilkVinegar").setBaseColor(0xfffbe8);
     public static final Fluid GOATMILKCURDLED = new FluidBaseTFC("GoatMilkCurdled").setBaseColor(0xfffbe8);
     public static final Fluid TALLOW = new FluidBaseTFC("Tallow").setBaseColor(0xf0db3a);
+    public static final Fluid COOKINGMIXTURE = new FluidCookingMixture("CookingMixture").setBaseColor(0xf58442);
 
 }
