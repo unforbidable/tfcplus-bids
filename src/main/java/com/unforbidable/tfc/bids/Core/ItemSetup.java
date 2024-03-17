@@ -20,6 +20,7 @@ import com.unforbidable.tfc.bids.Render.Item.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
 import com.unforbidable.tfc.bids.api.*;
+import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,6 +41,7 @@ public class ItemSetup extends BidsItems {
         registerOre();
         registerWoodPileItems();
         registerFirepitFuel();
+        registerCookingIngredientOverrides();
     }
 
     public static void postInit() {
@@ -281,21 +283,27 @@ public class ItemSetup extends BidsItems {
             .setArmorCoverage("SHORTS_LEGS", 3);
 
         wheatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+                .setIngredientOverride(TFCItems.wheatWhole)
                 .setDecayRate(1.5f)
                 .setUnlocalizedName("Wheat Crushed");
         barleyCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20, false, false)
+                .setIngredientOverride(TFCItems.barleyWhole)
                 .setDecayRate(1.5f)
                 .setUnlocalizedName("Barley Crushed");
         oatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+                .setIngredientOverride(TFCItems.oatWhole)
                 .setDecayRate(1.5f)
                 .setUnlocalizedName("Oat Crushed");
         ryeCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20, false, false)
+                .setIngredientOverride(TFCItems.ryeWhole)
                 .setDecayRate(1.5f)
                 .setUnlocalizedName("Rye Crushed");
         riceCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+                .setIngredientOverride(TFCItems.riceWhole)
                 .setDecayRate(1.5f)
                 .setUnlocalizedName("Rice Crushed");
         cornmealCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20, false, false)
+                .setIngredientOverride(TFCItems.maizeEar)
                 .setDecayRate(1.5f)
                 .setUnlocalizedName("Cornmeal Crushed");
 
@@ -734,6 +742,21 @@ public class ItemSetup extends BidsItems {
         if (BidsOptions.Firepit.allowFuelCharcoal) {
             FirepitRegistry.registerFuel(TFCItems.coal, FuelCoalTFC.class);
         }
+    }
+
+    private static void registerCookingIngredientOverrides() {
+        Bids.LOG.info("Register cooking ingredient overrides");
+
+        CookingManager.registerCookingIngredientOverride(TFCItems.barleyGrain, TFCItems.barleyWhole);
+        CookingManager.registerCookingIngredientOverride(TFCItems.oatGrain, TFCItems.oatWhole);
+        CookingManager.registerCookingIngredientOverride(TFCItems.ryeGrain, TFCItems.ryeWhole);
+        CookingManager.registerCookingIngredientOverride(TFCItems.wheatGrain, TFCItems.wheatWhole);
+        CookingManager.registerCookingIngredientOverride(TFCItems.riceGrain, TFCItems.riceWhole);
+        CookingManager.registerCookingIngredientOverride(TFCItems.barleyGround, TFCItems.barleyWhole);
+        CookingManager.registerCookingIngredientOverride(TFCItems.oatGround, TFCItems.oatWhole);
+        CookingManager.registerCookingIngredientOverride(TFCItems.ryeGround, TFCItems.ryeWhole);
+        CookingManager.registerCookingIngredientOverride(TFCItems.wheatGround, TFCItems.wheatWhole);
+        CookingManager.registerCookingIngredientOverride(TFCItems.riceGround, TFCItems.riceWhole);
     }
 
     @SideOnly(Side.CLIENT)
