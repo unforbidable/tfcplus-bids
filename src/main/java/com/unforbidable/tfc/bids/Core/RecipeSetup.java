@@ -186,6 +186,18 @@ public class RecipeSetup {
         OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.riceCrushed));
         OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.wheatCrushed));
         OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.cornmealCrushed));
+
+        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.blackberry));
+        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.blueberry));
+        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.wintergreenBerry));
+        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.bunchberry));
+        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.cranberry));
+        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.raspberry));
+        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.gooseberry));
+        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.elderberry));
+        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.cloudberry));
+        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.snowberry));
+        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.strawberry));
     }
 
     private static void registerCustomRecipes() {
@@ -1533,27 +1545,9 @@ public class RecipeSetup {
             .build();
 
         PrepIngredient berriesAndFlours = PrepIngredient.builder()
-            .allow(TFCItems.blackberry)
-            .allow(TFCItems.blueberry)
-            .allow(TFCItems.wintergreenBerry)
-            .allow(TFCItems.bunchberry)
-            .allow(TFCItems.cranberry)
-            .allow(TFCItems.raspberry)
-            .allow(TFCItems.gooseberry)
-            .allow(TFCItems.elderberry)
-            .allow(TFCItems.cloudberry)
-            .allow(TFCItems.snowberry)
-            .allow(TFCItems.strawberry)
-            .allow(TFCItems.oatGround)
-            .allow(TFCItems.wheatGround)
-            .allow(TFCItems.ryeGround)
-            .allow(TFCItems.barleyGround)
-            .allow(TFCItems.riceGround)
-            .allow(BidsItems.oatCrushed)
-            .allow(BidsItems.wheatCrushed)
-            .allow(BidsItems.ryeCrushed)
-            .allow(BidsItems.barleyCrushed)
-            .allow(BidsItems.riceCrushed)
+            .allow("foodFruitBerry")
+            .allow("foodGrainGround")
+            .allow("foodGrainCrushed")
             .build();
 
         PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.pemmican)), new PrepIngredientSpec[]{
