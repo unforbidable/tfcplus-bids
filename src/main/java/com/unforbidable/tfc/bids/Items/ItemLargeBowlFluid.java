@@ -109,7 +109,7 @@ public class ItemLargeBowlFluid extends ItemTerra implements ISmashable {
 
     @Override
     public void smashAnimate(World world, double x, double y, double z) {
-        String smashBlock = "blockdust_" + Block.getIdFromBlock(Blocks.glass) + "_0";
+        String smashBlock = "blockdust_" + Block.getIdFromBlock(TFCBlocks.pottery) + "_15";
 
         for(double i = 0.0; i < 6.283185307179586; i += 0.7853981633974483) {
             world.spawnParticle(smashBlock, x, y, z, Math.cos(i) * 0.2, 0.15 + world.rand.nextDouble() * 0.1, Math.sin(i) * 0.2);
