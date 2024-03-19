@@ -348,6 +348,12 @@ public class ItemSetup extends BidsItems {
             .setNutritionAsIfCooked(true)
             .setUnlocalizedName("Tallow");
 
+        bambooShoot = new ItemExtraFood(EnumFoodGroup.Vegetable, 20, 0, 0, 0, 10, true, true, true, true)
+            .setWaterPercentage(0.3f)
+            .setDecayRate(1.8f)
+            .setHasCookedIcon()
+            .setUnlocalizedName("Bamboo Shoot");
+
         seaBeet = new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 40, 10, 0)
             .setWaterPercentage(0.2f)
             .setDecayRate(1.4f)
@@ -778,7 +784,7 @@ public class ItemSetup extends BidsItems {
             goatCheese,
             stuffedPepper, stuffedMushroom, pemmican,
             seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
-            suet, tallow,
+            suet, tallow, bambooShoot,
             soup, stew, porridge
         };
 
@@ -850,6 +856,9 @@ public class ItemSetup extends BidsItems {
         reg.addIndex(new HeatIndex(new ItemStack(sugarBeet, 1), 1, 177, null));
         reg.addIndex(new HeatIndex(new ItemStack(wildBeans, 1), 1, 177, null));
         reg.addIndex(new HeatIndex(new ItemStack(broadBeans, 1), 1, 177, null));
+
+        // The melt temp needs to be less than the cooked temp, otherwise the cooked icon does not render properly
+        reg.addIndex(new HeatIndex(new ItemStack(bambooShoot, 1), 1, 82, null));
     }
 
     private static void registerHeatUnfinishedAnvilHelper(HeatRegistry reg, int mat, Item unshaped) {
@@ -1070,6 +1079,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(stew, stew.getUnlocalizedName());
         GameRegistry.registerItem(soup, soup.getUnlocalizedName());
         GameRegistry.registerItem(porridge, porridge.getUnlocalizedName());
+
+        GameRegistry.registerItem(bambooShoot, bambooShoot.getUnlocalizedName());
     }
 
 }

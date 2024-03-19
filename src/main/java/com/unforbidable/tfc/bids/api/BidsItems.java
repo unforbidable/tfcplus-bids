@@ -197,6 +197,8 @@ public class BidsItems {
     public static Item suet;
     public static Item tallow;
 
+    public static Item bambooShoot;
+
     public static Item cookingMixture;
 
     public static Item stew;

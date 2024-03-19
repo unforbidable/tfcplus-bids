@@ -1241,29 +1241,32 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 }
             }
 
-            if (lastCooked != Food.isCooked(getInputItemStack())) {
-                // When the food is cooked for the first time alter the taste
-                CookingHelper.setInputStackCookedNBT(getInputItemStack(), getPrimaryFluidStack(), hasSteamingMesh());
-            }
-
-            if (canCook && lastCookedLevel != CookingHelper.getItemStackCookedLevel(getInputItemStack())) {
-                // Whenever the cooked level is raised some liquid is consumed
-                fluids[FLUID_PRIMARY].amount -= requiredFluidAmount;
-                if (fluids[FLUID_PRIMARY].amount == 0) {
-                    fluids[FLUID_PRIMARY] = null;
+            // Make sure item has not decayed or burned
+            if (hasInputItem()) {
+                if (lastCooked != Food.isCooked(getInputItemStack())) {
+                    // When the food is cooked for the first time alter the taste
+                    CookingHelper.setInputStackCookedNBT(getInputItemStack(), getPrimaryFluidStack(), hasSteamingMesh());
                 }
 
-                // When steaming, the steaming mesh is damaged proportionally to the amount of liquid consumed
-                if (hasSteamingMesh()) {
-                    Bids.LOG.debug("accessoryDamage: " + accessoryDamage);
-                    accessoryDamage += requiredFluidAmount / 100;
-                    Bids.LOG.debug("accessoryDamage (after): " + accessoryDamage);
+                if (canCook && lastCookedLevel != CookingHelper.getItemStackCookedLevel(getInputItemStack())) {
+                    // Whenever the cooked level is raised some liquid is consumed
+                    fluids[FLUID_PRIMARY].amount -= requiredFluidAmount;
+                    if (fluids[FLUID_PRIMARY].amount == 0) {
+                        fluids[FLUID_PRIMARY] = null;
+                    }
+
+                    // When steaming, the steaming mesh is damaged proportionally to the amount of liquid consumed
+                    if (hasSteamingMesh()) {
+                        Bids.LOG.debug("accessoryDamage: " + accessoryDamage);
+                        accessoryDamage += requiredFluidAmount / 100;
+                        Bids.LOG.debug("accessoryDamage (after): " + accessoryDamage);
+                    }
+
+                    Bids.LOG.debug("Consumed input liquid amount: " + requiredFluidAmount);
+
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    clientNeedToUpdate = true;
                 }
-
-                Bids.LOG.debug("Consumed input liquid amount: " + requiredFluidAmount);
-
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                clientNeedToUpdate = true;
             }
         }
     }
