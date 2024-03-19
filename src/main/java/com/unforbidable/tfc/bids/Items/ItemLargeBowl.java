@@ -15,12 +15,12 @@ public class ItemLargeBowl extends ItemGenericPottery {
     public ItemLargeBowl() {
         super(true);
         setCreativeTab(BidsCreativeTabs.bidsTools);
-        setMaxStackSize(4);
+        setMaxStackSize(16);
     }
 
     @Override
     public int getItemStackLimit(ItemStack is) {
-        return 4;
+        return 16;
     }
 
     @Override
