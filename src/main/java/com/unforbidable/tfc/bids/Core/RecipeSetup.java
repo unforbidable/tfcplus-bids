@@ -851,6 +851,12 @@ public class RecipeSetup {
             new ItemStack(TFCItems.powder, 1, 9), new ItemStack(TFCItems.powder, 1, 9),
             new ItemStack(TFCItems.clayBucketWater), new ItemStack(TFCItems.clayBucketEmpty));
 
+        GameRegistry.addRecipe(new ShapelessOreRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.bambooShoot), 2.5f),
+            new ItemStack(TFCBlocks.sapling2, 1, 8), "itemKnife"));
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemKnife")
+            .matchCraftingItem(BidsItems.bambooShoot));
+
         // Manual seed conversion
         GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsBarley), new ItemStack(BidsItems.seedsNewBarley));
         GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsOat), new ItemStack(BidsItems.seedsNewOat));
