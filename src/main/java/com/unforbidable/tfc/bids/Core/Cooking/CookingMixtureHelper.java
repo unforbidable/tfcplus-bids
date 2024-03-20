@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Cooking;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.FoodRegistry;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -10,65 +11,32 @@ import com.unforbidable.tfc.bids.api.Interfaces.ICookingIngredientOverride;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CookingMixtureHelper {
 
     public static void addCookingFluidMergedFluid(FluidStack cookingFluid, FluidStack mergedFluid) {
-        List<FluidStack> list = getCookingFluidMergedFluids(cookingFluid);
-        list.add(mergedFluid);
+        CookingMixtureInfo info = CookingMixtureInfo.loadCookingMixtureInfoFromNBT(cookingFluid.tag);
 
-        if (cookingFluid.tag == null) {
-            cookingFluid.tag = new NBTTagCompound();
-        }
+        info.getMergedFluids().add(mergedFluid);
 
-        NBTTagList fluidTagList = new NBTTagList();
-        for (FluidStack fluid : list) {
-            NBTTagCompound fluidTag = new NBTTagCompound();
-            fluid.writeToNBT(fluidTag);
-            fluidTagList.appendTag(fluidTag);
-        }
-
-        cookingFluid.tag.setTag("mergedFluids", fluidTagList);
-
-        // Adding fluid raises the food weight by 80 oz per 1 bucket of fluid
-        float weight = cookingFluid.tag.getFloat("foodWeight");
+        float weight = info.getMixtureWeight();
         float addedWeight = 80f * (mergedFluid.amount / 1000f);
-        cookingFluid.tag.setFloat("foodWeight", weight + addedWeight);
+        info.setMixtureWeight(weight + addedWeight);
+
+        info.writeCookingMixtureInfoToNBT(cookingFluid.tag);
     }
 
     public static List<FluidStack> getCookingFluidMergedFluids(FluidStack cookingFluid) {
-        List<FluidStack> list = new ArrayList<FluidStack>();
-
-        if (cookingFluid.tag != null) {
-            NBTTagList tagList = cookingFluid.tag.getTagList("mergedFluids", 10);
-            for (int i = 0; i < tagList.tagCount(); i++) {
-                FluidStack fluid = FluidStack.loadFluidStackFromNBT(tagList.getCompoundTagAt(i));
-                if (fluid != null) {
-                    list.add(fluid);
-                }
-            }
-        }
-
-        return list;
+        return CookingMixtureInfo.loadCookingMixtureInfoFromNBT(cookingFluid.tag)
+            .getMergedFluids();
     }
 
     public static List<FluidStack> getCookedMealFluids(ItemStack cookedMeal) {
-        List<FluidStack> list = new ArrayList<FluidStack>();
-
-        if (cookedMeal.hasTagCompound()) {
-            NBTTagList tagList = cookedMeal.getTagCompound().getTagList("mergedFluids", 10);
-            for (int i = 0; i < tagList.tagCount(); i++) {
-                FluidStack fluid = FluidStack.loadFluidStackFromNBT(tagList.getCompoundTagAt(i));
-                list.add(fluid);
-            }
-        }
-
-        return list;
+        return CookingMixtureInfo.loadCookingMixtureInfoFromNBT(cookedMeal.getTagCompound())
+            .getMergedFluids();
     }
 
     public static FluidStack createCookingMixtureFluidStack(String mixtureName, int amount) {
@@ -125,40 +93,32 @@ public class CookingMixtureHelper {
     }
 
     public static void initCookingMixtureTags(FluidStack cookingFluid, ItemStack cookingMix) {
-        cookingFluid.tag.setFloat("foodWeight", cookingMix.getTagCompound().getFloat("foodWeight"));
-        cookingFluid.tag.setIntArray("FG", cookingMix.getTagCompound().getIntArray("FG"));
-        cookingFluid.tag.setInteger("tasteSweet", cookingMix.getTagCompound().getInteger("tasteSweet"));
-        cookingFluid.tag.setInteger("tasteSour", cookingMix.getTagCompound().getInteger("tasteSweet"));
-        cookingFluid.tag.setInteger("tasteSalty", cookingMix.getTagCompound().getInteger("tasteSweet"));
-        cookingFluid.tag.setInteger("tasteBitter", cookingMix.getTagCompound().getInteger("tasteSweet"));
-        cookingFluid.tag.setInteger("tasteUmami", cookingMix.getTagCompound().getInteger("tasteSweet"));
+        CookingMixtureInfo info = CookingMixtureInfo.loadCookingMixtureInfoFromNBT(cookingMix.getTagCompound());
+
+        // Cooking mix food weight as mixture weight
+        info.setMixtureWeight(Food.getWeight(cookingMix));
+        info.writeCookingMixtureInfoToNBT(cookingFluid.tag);
     }
 
     public static void combineCookingMixtureTags(FluidStack cookingFluid, FluidStack combinedFluid) {
-        float cookingFluidWeight = cookingFluid.tag.getFloat("foodWeight");
-        float combinedFluidWeight = combinedFluid.tag.getFloat("foodWeight");
-        cookingFluid.tag.setFloat("foodWeight", cookingFluidWeight + combinedFluidWeight);
+        CookingMixtureInfo cookingFluidInfo = CookingMixtureInfo.loadCookingMixtureInfoFromNBT(cookingFluid.tag);
+        CookingMixtureInfo combinedFluidInfo = CookingMixtureInfo.loadCookingMixtureInfoFromNBT(combinedFluid.tag);
+
+        cookingFluidInfo.setMixtureWeight(cookingFluidInfo.getMixtureWeight() + combinedFluidInfo.getMixtureWeight());
+        cookingFluidInfo.writeCookingMixtureInfoToNBT(cookingFluid.tag);
     }
 
     public static void copyCookingMixtureTags(FluidStack to, FluidStack from) {
-        to.tag.setFloat("foodWeight", from.tag.getFloat("foodWeight"));
-        to.tag.setIntArray("FG", from.tag.getIntArray("FG"));
-        to.tag.setInteger("tasteSweet", from.tag.getInteger("tasteSweet"));
-        to.tag.setInteger("tasteSour", from.tag.getInteger("tasteSweet"));
-        to.tag.setInteger("tasteSalty", from.tag.getInteger("tasteSweet"));
-        to.tag.setInteger("tasteBitter", from.tag.getInteger("tasteSweet"));
-        to.tag.setInteger("tasteUmami", from.tag.getInteger("tasteSweet"));
-        to.tag.setTag("mergedFluids", from.tag.getTagList("mergedFluids", 10));
+        CookingMixtureInfo info = CookingMixtureInfo.loadCookingMixtureInfoFromNBT(from.tag);
+        info.writeCookingMixtureInfoToNBT(to.tag);
     }
 
     public static void copyCookingMixtureTags(ItemStack cookedMeal, FluidStack cookingFluid) {
-        cookedMeal.getTagCompound().setIntArray("FG", cookingFluid.tag.getIntArray("FG"));
-        cookedMeal.getTagCompound().setInteger("tasteSweet", cookingFluid.tag.getInteger("tasteSweet"));
-        cookedMeal.getTagCompound().setInteger("tasteSour", cookingFluid.tag.getInteger("tasteSweet"));
-        cookedMeal.getTagCompound().setInteger("tasteSalty", cookingFluid.tag.getInteger("tasteSweet"));
-        cookedMeal.getTagCompound().setInteger("tasteBitter", cookingFluid.tag.getInteger("tasteSweet"));
-        cookedMeal.getTagCompound().setInteger("tasteUmami", cookingFluid.tag.getInteger("tasteSweet"));
-        cookedMeal.getTagCompound().setTag("mergedFluids", cookingFluid.tag.getTagList("mergedFluids", 10));
+        CookingMixtureInfo info = CookingMixtureInfo.loadCookingMixtureInfoFromNBT(cookingFluid.tag);
+
+        // Don't write mixture weight into cookedMeal
+        info.setMixtureWeight(0);
+        info.writeCookingMixtureInfoToNBT(cookedMeal.getTagCompound());
     }
 
     public static boolean canCombineCookingFluids(FluidStack one, FluidStack other) {

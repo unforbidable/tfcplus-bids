@@ -2,8 +2,10 @@ package com.unforbidable.tfc.bids.Fluids;
 
 import com.dunk.tfc.Core.FluidBaseTFC;
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureInfo;
 import com.unforbidable.tfc.bids.api.Crafting.CookingMixture;
 import com.unforbidable.tfc.bids.api.Interfaces.ICookingMixtureFluid;
 import net.minecraft.entity.player.EntityPlayer;
@@ -118,7 +120,8 @@ public class FluidCookingMixture extends FluidBaseTFC implements ICookingMixture
             cookedMeal.stackSize = 1;
 
             // The original weight of the cooking mix affects the cooked meal weight
-            float weight = cookingFluid.tag.getFloat("foodWeight");
+            CookingMixtureInfo info = CookingMixtureInfo.loadCookingMixtureInfoFromNBT(cookingFluid.tag);
+            float weight = info.getMixtureWeight();
             float consumedWeight = getCookingFluidConsumedWeight(cookingFluid, container);
             float actuallyConsumedWeight = Math.min(weight, consumedWeight);
             float remainingWeight = weight - actuallyConsumedWeight;
@@ -131,7 +134,8 @@ public class FluidCookingMixture extends FluidBaseTFC implements ICookingMixture
 
             if (consumeFluid) {
                 // Update the weight and amount
-                cookingFluid.tag.setFloat("foodWeight", remainingWeight);
+                info.setMixtureWeight(remainingWeight);
+                info.writeCookingMixtureInfoToNBT(cookingFluid.tag);
 
                 if (remainingWeight == 0) {
                     // Making sure there is no liquid left when weight has been consumed
