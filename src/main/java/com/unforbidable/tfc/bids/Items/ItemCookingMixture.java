@@ -20,7 +20,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -148,6 +147,12 @@ public class ItemCookingMixture extends ItemMeal implements ISmashable, IMoreSan
     public void onCrafted(ItemStack is, EntityPlayer player) {
         Food.setDecayTimer(is, (int) TFC_Time.getTotalHours() + 24);
         Food.setDecayRate(is, 2f);
+    }
+
+    @Override
+    public int getCookingSkillIncrease(ItemStack itemStack) {
+        // Making cooking mixes gives more skill increase that simple sandwiches
+        return 3;
     }
 
     @Override

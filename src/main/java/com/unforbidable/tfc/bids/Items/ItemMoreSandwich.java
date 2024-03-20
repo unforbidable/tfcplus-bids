@@ -51,6 +51,11 @@ public class ItemMoreSandwich extends ItemSandwich implements IMoreSandwich {
     }
 
     @Override
+    public int getCookingSkillIncrease(ItemStack itemStack) {
+        return 1;
+    }
+
+    @Override
     protected float getFillingBoost() {
         return 1.1f;
     }

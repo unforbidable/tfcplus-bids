@@ -6,5 +6,6 @@ import net.minecraft.item.ItemStack;
 public interface IMoreSandwich {
 
     void onCrafted(ItemStack is, EntityPlayer player);
+    int getCookingSkillIncrease(ItemStack itemStack);
 
 }

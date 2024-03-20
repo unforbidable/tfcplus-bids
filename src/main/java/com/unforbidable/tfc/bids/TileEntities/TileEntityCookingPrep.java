@@ -301,8 +301,10 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
             Food.setDecayRate(itemStack, 2);
 
             if (player != null && itemStack.getItem() instanceof ItemMeal) {
+                int skillIncrease = getCookingSkillIncrease(itemStack);
+
                 // Advance player's skill
-                TFC_Core.getSkillStats(player).increaseSkill(Global.SKILL_COOKING, 1);
+                TFC_Core.getSkillStats(player).increaseSkill(Global.SKILL_COOKING, skillIncrease);
 
                 // Save player's skill to the crafted item
                 Food.setMealSkill(itemStack, TFC_Core.getSkillStats(player).getSkillRank(Global.SKILL_COOKING).ordinal());
@@ -318,6 +320,14 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
         } else {
             needToUpdateWeights = true;
         }
+    }
+
+    private int getCookingSkillIncrease(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof IMoreSandwich) {
+            return ((IMoreSandwich) itemStack.getItem()).getCookingSkillIncrease(itemStack);
+        }
+
+        return 1;
     }
 
     private void removeConsumedIngredients() {
