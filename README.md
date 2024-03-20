@@ -49,15 +49,16 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Bucket and Rope](../../wiki/Bucket-and-Rope) - for drawing water from deep wells
 * [Large Bowl](../../wiki/Large-Bowl) - enables mixing barrel recipes that might require adding 500mB of liquid
 * [Unfinished Anvil](../../wiki/Unfinished-Anvil) - enables anvil creation by welding seven double ingots together
-* [Cooking Pot](../../wiki/Cooking-Pot) - for boiling and steaming foodstuffs and much more
+* [Cooking Pot](../../wiki/Cooking-Pot) - for boiling and steaming foodstuffs and much more, notably cooking meals form cooking mixes
 * [Steaming Mesh](../../wiki/Steaming-Mesh) - as an accessory for the cooking pot
 * [Fish Oil](../../wiki/Fish-Oil) - an alternative fuel for clay lamps
 * [More Milk](../../wiki/More-Milk) - goat milk and goat cheese
-* [Cooking Prep](../../wiki/Cooking-Prep) - for making classic salads and sandwiches and new meals such as stuffed peppers and stuffed mushrooms
+* [Cooking Prep](../../wiki/Cooking-Prep) - for making classic salads and sandwiches and new meals such as stuffed peppers and stuffed mushrooms, and cooking mixes
 * [More Crops](../../wiki/More-Crops) - new crops such as sea beet, beetroot, sugar beet, wild beans and broad beans and some converted TFC crops
 * [Tallow](../../wiki/Tallow) - made from Suet which drops from appropriate animal mobs, for consumption or making candles and Pemmican
 * [Axle Wall Bearing](../../wiki/Axle-Wall-Bearing) - allows seamless passage of axles through walls and ceilings
 * [Screw Press](../../wiki/Screw-Press) - screw based pressing device powered by TFC+ mechanisms
+* [Bamboo Shoots](../../wiki/Bamboo-Shoots) - vegetable source from Bamboo saplings, edible when cooked
 
 ### Contributions
 

@@ -517,3 +517,14 @@
 - Added: Fences can be crafted using peeled and seasoned logs
 - Changed: Variable growth of new crops can be turned off in the options
 - Fixed: Draining an empty clay lamp by other plugins should not cause a crash anymore
+
+0.42.0 (2024-03-20)
+- Added: Bamboo Shoots crafted by refining Bamboo saplings with a knife (poisonous when raw)
+- Added: Cooking Mixtures crafted on Cooking Prep with a large bowl and various ingredients
+- Added: Stews cooked from Cooking Mixtures in a Cooking Pot
+- Added: Soups cooked from Cooking Mixtures combined with Fresh Water in a Cooking Pot
+- Added: Porridge cooked from Cereal Cooking Mixtures combined with either Fresh Water or Milk in a Cooking Pot
+- Changed: Goat Milk can be drunk (partially) from a Glass Bottle providing Dairy nutrition
+- Changed: Increased the maximum stack size of empty large clay bowls from 4 to 16
+- Fixed: Recipes for fences from peeled and seasoned logs should work properly
+- Fixed: Smashing a large clay bowl containing a fluid shows the correct smash particles
