@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.Core.Cooking;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.FoodRegistry;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
@@ -20,8 +19,6 @@ import java.util.List;
 public class CookingMixtureHelper {
 
     public static void addCookingFluidMergedFluid(FluidStack cookingFluid, FluidStack mergedFluid) {
-        Bids.LOG.info(cookingFluid.tag);
-
         List<FluidStack> list = getCookingFluidMergedFluids(cookingFluid);
         list.add(mergedFluid);
 
@@ -42,8 +39,6 @@ public class CookingMixtureHelper {
         float weight = cookingFluid.tag.getFloat("foodWeight");
         float addedWeight = 80f * (mergedFluid.amount / 1000f);
         cookingFluid.tag.setFloat("foodWeight", weight + addedWeight);
-
-        Bids.LOG.info("after added: " + cookingFluid.tag);
     }
 
     public static List<FluidStack> getCookingFluidMergedFluids(FluidStack cookingFluid) {
