@@ -10,6 +10,7 @@ import java.util.List;
 
 public class CookingMixtureInfo {
 
+    private int mealSkill = 0;
     private float mixtureWeight = 0f;
     private int[] foodGroups = new int[5];
     private int[] tastes = new int[5];
@@ -17,6 +18,8 @@ public class CookingMixtureInfo {
 
     public void writeCookingMixtureInfoToNBT(NBTTagCompound nbt) {
         if (nbt != null) {
+            nbt.setInteger("mealSkill", mealSkill);
+
             if (mixtureWeight > 0) {
                 nbt.setFloat("mixtureWeight", mixtureWeight);
             }
@@ -47,6 +50,8 @@ public class CookingMixtureInfo {
         if (nbt != null) {
             CookingMixtureInfo info = new CookingMixtureInfo();
 
+            info.mealSkill = nbt.getInteger("mealSkill");
+
             info.mixtureWeight = nbt.getFloat("mixtureWeight");
 
             info.foodGroups = nbt.getIntArray("FG");
@@ -73,6 +78,14 @@ public class CookingMixtureInfo {
 
             return new CookingMixtureInfo();
         }
+    }
+
+    public int getMealSkill() {
+        return mealSkill;
+    }
+
+    public void setMealSkill(int mealSkill) {
+        this.mealSkill = mealSkill;
     }
 
     public float getMixtureWeight() {
