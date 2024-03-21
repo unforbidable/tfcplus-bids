@@ -263,7 +263,7 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
             Fluid fluid = fluids.getFluidStack(i).getFluid();
             IIcon fluidIcon = fluid.getIcon();
             Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-            int color = fluid.getColor();
+            int color = fluid.getColor(fluids.getFluidStack(i));
             GL11.glColor4ub((byte) ((color >> 16) & 255), (byte) ((color >> 8) & 255), (byte) (color & 255), (byte) (0xaa & 255));
 
             int part = Math.round(rect.height * fluids.getRatio(i));
