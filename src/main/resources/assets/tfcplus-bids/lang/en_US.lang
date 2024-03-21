@@ -1100,8 +1100,8 @@ cookingMixture.vegetableWater=Vegetable + Water Mix
 cookingMixture.vegetableStew=Vegetable Stew
 cookingMixture.vegetableSoup=Vegetable Soup
 cookingMixture.cereal=Cereal Mix
-cookingMixture.cerealWater=Vegetable + Water Mix
-cookingMixture.cerealMilk=Vegetable + Milk Mix
+cookingMixture.cerealWater=Cereal + Water Mix
+cookingMixture.cerealMilk=Cereal + Milk Mix
 cookingMixture.porridgeWater=Porridge
 cookingMixture.porridgeMilk=Porridge (Milk)
 
