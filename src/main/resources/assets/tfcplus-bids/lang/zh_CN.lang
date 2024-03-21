@@ -1019,6 +1019,8 @@ item.Goat Cheese.name=羊奶酪
 item.Suet.name=板油
 item.Tallow.name=动物油脂
 
+item.Bamboo Shoot.name=竹笋
+
 item.Plug And Feather.Wood.name=楔子(木)
 item.Plug And Feather.Copper.name=楔子(铜)
 item.Plug And Feather.Bronze.name=楔子(青铜)
@@ -1040,6 +1042,18 @@ item.Seeds Beetroot.name=甜菜根种子
 item.Seeds Sugar Beet.name=糖甜菜种子
 item.Seeds Wild Bean.name=野蚕豆种子
 item.Seeds Broad Bean.name=蚕豆种子
+item.Seeds New Barley.name=春大麦种子
+item.Seeds New Oat.name=春燕麦种子
+item.Seeds New Rye.name=春黑麦种子
+item.Seeds New Wheat.name=春小麦种子
+item.Seeds Winter Barley.name=冬大麦种子
+item.Seeds Winter Oat.name=冬燕麦种子
+item.Seeds Winter Rye.name=冬黑麦种子
+item.Seeds Winter Wheat.name=冬小麦种子
+item.Seeds New Onion.name=新洋葱种子
+item.Seeds New Cabbage.name=新卷心菜种子
+item.Seeds New Garlic.name=新大蒜种子
+item.Seeds New Carrot.name=新胡萝卜种子
 
 item.Steaming Mesh Cloth.name=蒸网
 
@@ -1047,12 +1061,19 @@ item.Stuffed Pepper.name=酿辣椒
 item.Stuffed Mushroom.name=酿蘑菇
 item.Pemmican.name=干肉饼
 
+item.CookingMixture.name=混合食材
+
+item.Stew.name=炖菜
+item.Soup.name=汤
+item.Porridge.name=粥
+
 fluid.FishOil=鱼油
 fluid.OilyFishWater=鱼糜
 fluid.GoatMilk=羊奶
 fluid.GoatMilkVinegar=羊奶醋
 fluid.GoatMilkCurdled=羊凝乳
 fluid.Tallow=动物油脂
+fluid.CookingMixture=混合食材
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
@@ -1061,6 +1082,28 @@ itemGroup.Bids.Materials=Bids and Pieces - 材料
 itemGroup.Bids.Tools=Bids and Pieces - 工具
 
 infusion.steamed.name=(蒸)
+
+cookingMixture.bean=豆类混合食材
+cookingMixture.beanWater=豆类(水)混合食材
+cookingMixture.beanStew=豆类炖菜
+cookingMixture.beanSoup=豆类汤
+cookingMixture.meat=肉类混合食材
+cookingMixture.meatWater=肉类(水)混合食材
+cookingMixture.meatStew=肉类炖菜
+cookingMixture.meatSoup=肉类汤
+cookingMixture.fish=鱼混合食材
+cookingMixture.fishWater=鱼(水)混合食材
+cookingMixture.fishStew=鱼炖菜
+cookingMixture.fishSoup=鱼汤
+cookingMixture.vegetable=蔬菜混合食材
+cookingMixture.vegetableWater=蔬菜(水)混合食材
+cookingMixture.vegetableStew=蔬菜炖菜
+cookingMixture.vegetableSoup=蔬菜汤
+cookingMixture.cereal=谷物混合食材
+cookingMixture.cerealWater=谷物(水)混合食材
+cookingMixture.cerealMilk=谷物(奶)混合食材
+cookingMixture.porridgeWater=粥
+cookingMixture.porridgeMilk=奶粥
 
 gui.ShowHelp=§8帮助: (按住 §fShift§8)
 gui.Help=帮助:
@@ -1115,11 +1158,15 @@ gui.CookingHeatLevel.Low=Low Heat
 gui.CookingHeatLevel.Medium=Medium Heat
 gui.CookingHeatLevel.High=High Heat
 gui.SeedCultivation=可以培养成
-gui.SeedRequiresLadder=需要梯子才能种植
-gui.SeedRequiresPole=需要木杆才能种植
+gui.SeedAutumnSowing=可以在§e秋天§r播种
+gui.SeedWaterDistance=水源距离: §e
+gui.SeedGrowTemperature=生长温度: §e
+gui.SeedRequiresLadder=需要§e梯子§r才能种植
+gui.SeedRequiresPole=需要§e木杆§r才能种植
 gui.seeds.failedPole=需要木杆才能让它生长
 gui.ScrewPress=螺旋压力机
 gui.Input=输入
 gui.Resistance=阻力
+gui.cooking.cookingMixDecayed=混合食材已经腐烂,无法使用
 
 key.BidsToolMode=循环工具模式
