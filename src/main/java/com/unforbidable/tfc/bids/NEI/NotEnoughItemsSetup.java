@@ -83,6 +83,11 @@ public class NotEnoughItemsSetup {
 
         hideItem(BidsItems.stuffedPepper);
         hideItem(BidsItems.stuffedMushroom);
+        hideItem(BidsItems.pemmican);
+        hideItem(BidsItems.cookingMixture);
+        hideItem(BidsItems.stew);
+        hideItem(BidsItems.soup);
+        hideItem(BidsItems.porridge);
 
         hideBlock(BidsBlocks.clayCrucible, 2);
         hideBlock(BidsBlocks.carvingRock);
