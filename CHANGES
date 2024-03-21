@@ -528,3 +528,9 @@
 - Changed: Increased the maximum stack size of empty large clay bowls from 4 to 16
 - Fixed: Recipes for fences from peeled and seasoned logs should work properly
 - Fixed: Smashing a large clay bowl containing a fluid shows the correct smash particles
+
+0.42.1 (2024-03-21)
+- Changed: Updated Chinese translation by Eternal130
+- Changed: Cooking mixes and cooked meals have been hidden from NEI
+- Fixed: NEI is now able to show the correct cooking mixture fluid color
+- Fixed: Corrected erroneous English localization of some cooking mixtures
