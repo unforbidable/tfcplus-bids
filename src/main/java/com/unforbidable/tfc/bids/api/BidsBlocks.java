@@ -37,6 +37,7 @@ public class BidsBlocks {
     public static int screwPressBarrelRenderId;
     public static int screwPressDiscRenderId;
     public static int screwPressLeverRenderId;
+    public static int palisadeRenderId;
 
     public static Block clayCrucible;
     public static Block fireClayCrucible;
@@ -152,5 +153,9 @@ public class BidsBlocks {
     public static Block screwPressDisc;
     public static Block screwPressLever;
     public static Block screwPressLeverTop;
+
+    public static Block palisade;
+    public static Block palisade2;
+    public static Block palisade3;
 
 }

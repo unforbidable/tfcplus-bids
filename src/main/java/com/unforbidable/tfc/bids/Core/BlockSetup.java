@@ -267,6 +267,13 @@ public class BlockSetup extends BidsBlocks {
             .setBlockName("ScrewPressLever");
         screwPressLeverTop = new BlockScrewPressLeverTop()
             .setBlockName("ScrewPressLeverTop");
+
+        palisade = new BlockPalisade(logWallVert, 0)
+            .setBlockName("Palisade");
+        palisade2 = new BlockPalisade(logWallVert2, 16)
+            .setBlockName("Palisade2");
+        palisade3 = new BlockPalisade(logWallVert3, 32)
+            .setBlockName("Palisade3");
     }
 
     private static void updateBlocks() {
@@ -311,6 +318,10 @@ public class BlockSetup extends BidsBlocks {
 
         mudBrickChimney.setHarvestLevel("shovel", 0);
         mudBrickChimney2.setHarvestLevel("shovel", 0);
+
+        palisade.setHarvestLevel("axe", 0);
+        palisade2.setHarvestLevel("axe", 0);
+        palisade3.setHarvestLevel("axe", 0);
     }
 
     private static void setupFireInfo() {
@@ -366,6 +377,10 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(screwPressDisc, 5, 5);
         Blocks.fire.setFireInfo(screwPressLever, 5, 5);
         Blocks.fire.setFireInfo(screwPressLeverTop, 5, 5);
+
+        Blocks.fire.setFireInfo(palisade, 5, 5);
+        Blocks.fire.setFireInfo(palisade2, 5, 5);
+        Blocks.fire.setFireInfo(palisade3, 5, 5);
     }
 
     private static void registerOre() {
@@ -488,6 +503,9 @@ public class BlockSetup extends BidsBlocks {
 
         screwPressLeverRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(screwPressLeverRenderId, new RenderScrewPressLever());
+
+        palisadeRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(palisadeRenderId, new RenderPalisade());
     }
 
     private static void registerTileEntities() {
@@ -698,6 +716,10 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(screwPressDisc, ItemScrewPress.class, "ScrewPressDisc");
         GameRegistry.registerBlock(screwPressLever, ItemScrewPress.class, "ScrewPressLever");
         GameRegistry.registerBlock(screwPressLeverTop, ItemScrewPress.class, "ScrewPressLeverTop");
+
+        GameRegistry.registerBlock(palisade, ItemPalisade.class, "Palisade");
+        GameRegistry.registerBlock(palisade2, ItemPalisade16.class, "Palisade2");
+        GameRegistry.registerBlock(palisade3, ItemPalisade32.class, "Palisade3");
     }
 
 }

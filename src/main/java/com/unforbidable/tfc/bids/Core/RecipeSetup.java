@@ -639,6 +639,10 @@ public class RecipeSetup {
                             'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWallVert, 1, j))));
+
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.palisade, 2, j),
+                            "A1", " 1", '1', "logWood" + suffix,
+                            'A', "itemAxe"));
                 } else if (i < 32) {
                     Block logWall = WoodHelper.getDefaultLogWallBlock(16);
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
@@ -653,6 +657,10 @@ public class RecipeSetup {
                             'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWallVert, 1, j))));
+
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.palisade2, 2, j),
+                            "A1", " 1", '1', "logWood" + suffix,
+                            'A', "itemAxe"));
                 } else if (i < 48) {
                     Block logWall = WoodHelper.getDefaultLogWallBlock(32);
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
@@ -667,6 +675,10 @@ public class RecipeSetup {
                             'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
                             Arrays.asList(new ItemStack(logWallVert, 1, j))));
+
+                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.palisade3, 2, j),
+                            "A1", " 1", '1', "logWood" + suffix,
+                            'A', "itemAxe"));
                 }
             }
 
@@ -923,6 +935,16 @@ public class RecipeSetup {
                     .matchIngredient(BidsItems.logsSeasoned)
                     .matchCraftingBlock(logWallVert));
         }
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemAxe")
+                .matchCraftingBlock(BidsBlocks.palisade));
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemAxe")
+                .matchCraftingBlock(BidsBlocks.palisade2));
+        RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemAxe")
+                .matchCraftingBlock(BidsBlocks.palisade3));
 
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemKnife")
