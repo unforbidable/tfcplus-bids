@@ -274,6 +274,10 @@ public class BlockSetup extends BidsBlocks {
             .setBlockName("Palisade2");
         palisade3 = new BlockPalisade(logWallVert3, 32)
             .setBlockName("Palisade3");
+
+        wattleGate = new BlockWattleGate()
+            .setBlockTextureName("Wattle Gate")
+            .setBlockName("WattleGate");
     }
 
     private static void updateBlocks() {
@@ -322,6 +326,8 @@ public class BlockSetup extends BidsBlocks {
         palisade.setHarvestLevel("axe", 0);
         palisade2.setHarvestLevel("axe", 0);
         palisade3.setHarvestLevel("axe", 0);
+
+        wattleGate.setHarvestLevel("axe", 0);
     }
 
     private static void setupFireInfo() {
@@ -381,6 +387,8 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(palisade, 5, 5);
         Blocks.fire.setFireInfo(palisade2, 5, 5);
         Blocks.fire.setFireInfo(palisade3, 5, 5);
+
+        Blocks.fire.setFireInfo(wattleGate, 5, 5);
     }
 
     private static void registerOre() {
@@ -506,6 +514,9 @@ public class BlockSetup extends BidsBlocks {
 
         palisadeRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(palisadeRenderId, new RenderPalisade());
+
+        wattleGateRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(wattleGateRenderId, new RenderWattleGate());
     }
 
     private static void registerTileEntities() {
@@ -720,6 +731,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(palisade, ItemPalisade.class, "Palisade");
         GameRegistry.registerBlock(palisade2, ItemPalisade16.class, "Palisade2");
         GameRegistry.registerBlock(palisade3, ItemPalisade32.class, "Palisade3");
+
+        GameRegistry.registerBlock(wattleGate, ItemWattleGate.class, "WattleGate");
     }
 
 }

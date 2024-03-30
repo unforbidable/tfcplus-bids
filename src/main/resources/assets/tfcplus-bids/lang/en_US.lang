@@ -40,6 +40,7 @@ tile.ChoppingBlock3.name=Chopping Block
 
 tile.WattleTrapDoor.name=Wattle Trapdoor
 tile.WattleTrapDoorCover.name=Covered Wattle Trapdoor
+tile.WattleGate.name=Wattle Gate
 
 tile.SaddleQuernSed.name=Saddle Quern
 tile.SaddleQuernHandstoneSed.name=Saddle Quern Handstone

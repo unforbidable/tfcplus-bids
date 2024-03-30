@@ -530,14 +530,15 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkSheet, 1, 0),
                 new ItemStack(BidsItems.bark, 1, 2), "itemKnife"));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.wattleGate),
                 "PW", "  ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.wattleGate),
                 "WP", "  ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle));
+
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
-                "  ", "PW", 'P', TFCItems.pole, 'W', TFCBlocks.wattle));
+                "P ", "W ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
-                "  ", "WP", 'P', TFCItems.pole, 'W', TFCBlocks.wattle));
+                "W ", "P ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle));
 
         // Select TFC recipes where bark cordage and bark fiber strips can be used
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.primitiveLoom, 1, 0),
