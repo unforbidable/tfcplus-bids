@@ -34,6 +34,9 @@ public class ItemCookedMeal extends ItemMeal implements ICookedMeal {
 
     public ItemCookedMeal() {
         setMaxStackSize(1);
+
+        metaNames = null;
+        hasSubtypes = false;
     }
 
     @Override

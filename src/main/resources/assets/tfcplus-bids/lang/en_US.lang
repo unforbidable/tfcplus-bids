@@ -1103,6 +1103,7 @@ item.CookingMixture.name=Cooking Mix
 item.Stew.name=Stew
 item.Soup.name=Soup
 item.Porridge.name=Porridge
+item.Omelet.name=Omelet
 
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
@@ -1141,6 +1142,8 @@ cookingMixture.cerealWater=Cereal + Water Mix
 cookingMixture.cerealMilk=Cereal + Milk Mix
 cookingMixture.porridgeWater=Porridge
 cookingMixture.porridgeMilk=Porridge (Milk)
+cookingMixture.egg=Egg
+cookingMixture.omelet=Omelet
 
 gui.ShowHelp=§8Help: (Hold §fShift§8)
 gui.Help=Help:

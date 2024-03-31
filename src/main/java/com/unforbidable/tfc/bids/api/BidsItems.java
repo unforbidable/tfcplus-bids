@@ -204,5 +204,6 @@ public class BidsItems {
     public static Item stew;
     public static Item soup;
     public static Item porridge;
+    public static Item omelet;
 
 }

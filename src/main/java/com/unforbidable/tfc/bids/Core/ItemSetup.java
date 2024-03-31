@@ -569,6 +569,8 @@ public class ItemSetup extends BidsItems {
         porridge = new ItemCookedMeal()
             .setMetaNames(new String[] {"Porridge.Water", "Porridge.Milk"})
             .setUnlocalizedName("Porridge");
+        omelet = new ItemCookedMeal()
+            .setUnlocalizedName("Omelet");
     }
 
     private static void registerFluidContainers() {
@@ -785,7 +787,7 @@ public class ItemSetup extends BidsItems {
             stuffedPepper, stuffedMushroom, pemmican,
             seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
             suet, tallow, bambooShoot,
-            soup, stew, porridge
+            soup, stew, porridge, omelet
         };
 
         for (Item item : foodItems) {
@@ -1081,6 +1083,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(porridge, porridge.getUnlocalizedName());
 
         GameRegistry.registerItem(bambooShoot, bambooShoot.getUnlocalizedName());
+
+        GameRegistry.registerItem(omelet, omelet.getUnlocalizedName());
     }
 
 }

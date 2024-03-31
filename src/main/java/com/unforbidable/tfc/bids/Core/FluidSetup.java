@@ -30,24 +30,28 @@ public class FluidSetup extends BidsFluids {
             new ItemStack(BidsItems.stew, 1, 0)));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.BEAN_SOUP, 0x633f2a,
             new ItemStack(BidsItems.soup, 1, 0)));
+
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.MEAT, 0xc2230e));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.MEAT_WATER, 0xc44b3b));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.MEAT_STEW, 0x6b150a,
             new ItemStack(BidsItems.stew, 1, 1)));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.MEAT_SOUP, 0x702b22,
             new ItemStack(BidsItems.soup, 1, 1)));
+
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.FISH, 0xcc5047));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.FISH_WATER, 0xc96f69));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.FISH_STEW, 0x732721,
             new ItemStack(BidsItems.stew, 1, 2)));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.FISH_SOUP, 0x78413d,
             new ItemStack(BidsItems.soup, 1, 2)));
+
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.VEGETABLE, 0x516b15));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.VEGETABLE_WATER, 0x5d6e38));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.VEGETABLE_STEW, 0x32330c,
             new ItemStack(BidsItems.stew, 1, 3)));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.VEGETABLE_SOUP, 0x3f4021,
             new ItemStack(BidsItems.soup, 1, 3)));
+
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.CEREAL, 0xaba557));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.CEREAL_WATER, 0xb3af7d));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.CEREAL_MILK, 0xe0ddb1));
@@ -55,6 +59,10 @@ public class FluidSetup extends BidsFluids {
             new ItemStack(BidsItems.porridge, 1, 0)));
         CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.PORRIDGE_MILK, 0xd1d0ba,
             new ItemStack(BidsItems.porridge, 1, 1)));
+
+        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.EGG, 0xe0d44a));
+        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.OMELET, 0xdbc386,
+            new ItemStack(BidsItems.omelet, 1, 0)));
     }
 
     private static void registerFluids() {

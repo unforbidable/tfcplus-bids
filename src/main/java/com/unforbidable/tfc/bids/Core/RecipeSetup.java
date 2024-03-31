@@ -231,6 +231,8 @@ public class RecipeSetup {
         OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.cloudberry));
         OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.snowberry));
         OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.strawberry));
+
+        OreDictionary.registerOre("foodEgg", new ItemStack(TFCItems.egg));
     }
 
     private static String getOreSuffixWood(int i) {
@@ -1462,6 +1464,14 @@ public class RecipeSetup {
             .withLid()
             .inFixedTime(1000)
             .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.EGG, 500))
+            .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.OMELET, 500))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .withLid()
+            .inFixedTime(250)
+            .build());
     }
 
     private static void registerPrepRecipes() {
@@ -1574,6 +1584,10 @@ public class RecipeSetup {
             .allow("foodGrainCrushed")
             .build();
 
+        PrepIngredient foodEgg = PrepIngredient.builder()
+            .allow("foodEgg")
+            .build();
+
         PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.BEAN), new PrepIngredientSpec[]{
             vesselLargeBowl.toSpec(),
             beans.toSpec(20, true), foodNoFruit.toSpec(8, true), foodNoFruit.toSpec(8), foodNoFruit.toSpec(4)
@@ -1597,6 +1611,11 @@ public class RecipeSetup {
         PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.CEREAL), new PrepIngredientSpec[]{
             vesselLargeBowl.toSpec(),
             grainPorridge.toSpec(20, true), foodNoDairy.toSpec(8, true), foodNoDairy.toSpec(8), foodNoDairy.toSpec(4)
+        }));
+
+        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.EGG), new PrepIngredientSpec[]{
+            vesselLargeBowl.toSpec(),
+            foodEgg.toSpec(20, true), foodNoFruit.toSpec(8, true), foodNoFruit.toSpec(8), foodNoFruit.toSpec(4)
         }));
     }
 

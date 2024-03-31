@@ -23,5 +23,7 @@ public class BidsCookingMixtures {
     public static final String CEREAL_MILK = "cerealMilk";
     public static final String PORRIDGE_WATER = "porridgeWater";
     public static final String PORRIDGE_MILK = "porridgeMilk";
+    public static final String EGG = "egg";
+    public static final String OMELET = "omelet";
 
 }
