@@ -39,6 +39,8 @@ public class CookingRecipeProgress {
     }
 
     public void setProgressPaused(boolean progressPaused) {
+        lastUpdateTicks = TFC_Time.getTotalTicks();
+
         this.progressPaused = progressPaused;
     }
 
