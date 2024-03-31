@@ -59,6 +59,9 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Axle Wall Bearing](../../wiki/Axle-Wall-Bearing) - allows seamless passage of axles through walls and ceilings
 * [Screw Press](../../wiki/Screw-Press) - screw based pressing device powered by TFC+ mechanisms
 * [Bamboo Shoots](../../wiki/Bamboo-Shoots) - vegetable source from Bamboo saplings, edible when cooked
+* [Wattle Gate](../../wiki/Wattle-Gate) - gate from wattle
+* [Palisade](../../wiki/Palisade) - wall made of logs placed upright
+* [Straw Nest](../../wiki/Straw-Nest) - primitive alternative to a Nest Box for chicken to lie eggs
 
 ### Contributions
 

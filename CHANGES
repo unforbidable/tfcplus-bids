@@ -534,3 +534,14 @@
 - Changed: Cooking mixes and cooked meals have been hidden from NEI
 - Fixed: NEI is now able to show the correct cooking mixture fluid color
 - Fixed: Corrected erroneous English localization of some cooking mixtures
+
+0.43.0 (2024-04-01)
+- Added: Wattle Gate
+- Added: Palisade
+- Added: Straw Nest
+- Added: Egg Omelet
+- Changed: Wattle Trapdoor recipe has changed and the previous recipe for crafting Wattle Trapdoor now produces Wattle Gate
+- Changed: Vertical Log Wall recipe flipped horizontally so that the tool is now placed in the top left corner in order to be more consistent with similar recipes
+- Changed: Many recipes that consume various types of logs now do so via ore dictionaries
+- Fixed: It should now be possible to craft Vertical Log Walls from all logs that have not been peeled yet
+- Fixed: Paused Cooking Recipes no longer catch up to lost progress when resumed
