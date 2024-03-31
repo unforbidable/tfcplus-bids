@@ -39,6 +39,7 @@ public class BidsBlocks {
     public static int screwPressLeverRenderId;
     public static int palisadeRenderId;
     public static int wattleGateRenderId;
+    public static int strawNestRenderId;
 
     public static Block clayCrucible;
     public static Block fireClayCrucible;
@@ -160,5 +161,7 @@ public class BidsBlocks {
     public static Block palisade3;
 
     public static Block wattleGate;
+
+    public static Block strawNest;
 
 }

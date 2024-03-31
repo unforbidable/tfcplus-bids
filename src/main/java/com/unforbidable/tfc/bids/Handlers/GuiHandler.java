@@ -43,6 +43,9 @@ public class GuiHandler implements IGuiHandler {
 
             case BidsGui.screwPressBarrelGui:
                 return new ContainerScrewPress(player.inventory, (TileEntityScrewPressBarrel) te, world, x, y, z);
+
+            case BidsGui.strawNestGui:
+                return new ContainerStrawNest(player.inventory, (TileEntityStrawNest) te, world, x, y, z);
         }
         return null;
     }

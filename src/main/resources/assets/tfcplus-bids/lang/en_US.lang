@@ -265,6 +265,8 @@ tile.ScrewPressDisc.name=Pressing Disc
 tile.ScrewPressLever.name=Screw Press Lever
 tile.ScrewPressLeverTop.name=Screw Press Lever
 
+tile.StrawNest.name=Straw Nest
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit

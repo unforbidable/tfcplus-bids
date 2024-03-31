@@ -278,6 +278,9 @@ public class BlockSetup extends BidsBlocks {
         wattleGate = new BlockWattleGate()
             .setBlockTextureName("Wattle Gate")
             .setBlockName("WattleGate");
+
+        strawNest = new BlockStrawNest()
+            .setBlockName("StrawNest");
     }
 
     private static void updateBlocks() {
@@ -389,6 +392,8 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(palisade3, 5, 5);
 
         Blocks.fire.setFireInfo(wattleGate, 5, 5);
+
+        Blocks.fire.setFireInfo(strawNest, 5, 5);
     }
 
     private static void registerOre() {
@@ -517,6 +522,9 @@ public class BlockSetup extends BidsBlocks {
 
         wattleGateRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(wattleGateRenderId, new RenderWattleGate());
+
+        strawNestRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(strawNestRenderId, new RenderStrawNest());
     }
 
     private static void registerTileEntities() {
@@ -565,6 +573,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityScrewPressBarrel.class, "BidsScrewPressBarrel");
         GameRegistry.registerTileEntity(TileEntityScrewPressDisc.class, "BidsScrewPressDisc");
         GameRegistry.registerTileEntity(TileEntityScrewPressLever.class, "BidsScrewPressLever");
+
+        GameRegistry.registerTileEntity(TileEntityStrawNest.class, "BidsStrawNest");
     }
 
     @SideOnly(Side.CLIENT)
@@ -733,6 +743,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(palisade3, ItemPalisade32.class, "Palisade3");
 
         GameRegistry.registerBlock(wattleGate, ItemWattleGate.class, "WattleGate");
+
+        GameRegistry.registerBlock(strawNest, "StrawNest");
     }
 
 }

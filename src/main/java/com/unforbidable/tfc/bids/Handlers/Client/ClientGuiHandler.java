@@ -39,6 +39,9 @@ public class ClientGuiHandler extends GuiHandler {
 
             case BidsGui.screwPressBarrelGui:
                 return new GuiScrewPress(player.inventory, (TileEntityScrewPressBarrel) te, world, x, y, z);
+
+            case BidsGui.strawNestGui:
+                return new GuiStrawNest(player.inventory, (TileEntityStrawNest) te, world, x, y, z);
         }
 
         return null;

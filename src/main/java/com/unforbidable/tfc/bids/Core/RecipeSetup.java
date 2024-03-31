@@ -1722,6 +1722,11 @@ public class RecipeSetup {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.steamingMeshCloth, 1),
                 new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#', flatItem });
         }
+
+        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.strawNest, 1),
+            new Object[] { "     ", "#   #", "#   #", " ### ", "     ", '#',
+                new ItemStack(TFCItems.flatStraw, 1) });
+
     }
 
     private static void registerSewingRecipes() {
