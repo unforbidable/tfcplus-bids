@@ -11,6 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -106,10 +107,17 @@ public class BlockPalisade extends BlockCustomWall {
     @Override
     public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity) {
         FenceConnections fc = new FenceConnections(world, x, y, z);
-        float width = 1f / 3;
-        float height = world.isAirBlock(x, y + 1, z) && fc.countConnections() == 1 ? 0.5f : (fc.canFenceFill() ? 1f : 1.5f);
-        AxisAlignedBB bounds = fc.getAllBounds(width, height);
-        bounds.offset(x, y, z);
+
+        AxisAlignedBB bounds;
+        if (entity instanceof EntityPlayer) {
+            float width = 1f / 3;
+            float height = world.isAirBlock(x, y + 1, z) && fc.countConnections() == 1 ? 0.5f : (fc.canFenceFill() ? 1f : 1.5f);
+            bounds = fc.getAllBounds(width, height)
+                .offset(x, y, z);
+        } else {
+            bounds = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + (fc.canFenceFill() ? 1f : 1.5f), z + 1);
+        }
+
         if (aabb.intersectsWith(bounds)) {
             list.add(bounds);
         }

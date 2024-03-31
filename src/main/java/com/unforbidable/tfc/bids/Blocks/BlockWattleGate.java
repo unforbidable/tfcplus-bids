@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -79,15 +80,23 @@ public class BlockWattleGate extends BlockCustomWall implements IConnectableFenc
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity) {
         int meta = world.getBlockMetadata(x, y, z);
-        if (isFenceGateOpen(meta)) {
-            return null;
-        } else {
-            if (meta != 2 && meta != 0) {
-                return AxisAlignedBB.getBoundingBox(x + 0.375F, y, z, x + 0.625F, y + 1.5F, z + 1);
+        if (!isFenceGateOpen(meta)) {
+            AxisAlignedBB bounds;
+
+            if (entity instanceof EntityPlayer) {
+                if (meta != 2 && meta != 0) {
+                    bounds = AxisAlignedBB.getBoundingBox(x + 0.375F, y, z, x + 0.625F, y + 1.5F, z + 1);
+                } else {
+                    bounds = AxisAlignedBB.getBoundingBox(x, y, z + 0.375F, x + 1, y + 1.5F, z + 0.625F);
+                }
             } else {
-                return AxisAlignedBB.getBoundingBox(x, y, z + 0.375F, x + 1, y + 1.5F, z + 0.625F);
+                bounds = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1.5f, z + 1);
+            }
+
+            if (aabb.intersectsWith(bounds)) {
+                list.add(bounds);
             }
         }
     }
