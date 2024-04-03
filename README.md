@@ -69,7 +69,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Translations
 
-* Chinese by Eternal130 (v0.42.x)
+* Chinese by Eternal130 (v0.43.x)
 * Japanese by dymanic.day (v0.28.x)
 
 ### Other credits

@@ -545,3 +545,8 @@
 - Changed: Many recipes that consume various types of logs now do so via ore dictionaries
 - Fixed: It should now be possible to craft Vertical Log Walls from all logs that have not been peeled yet
 - Fixed: Paused Cooking Recipes no longer catch up to lost progress when resumed
+
+0.43.1 (2024-04-03)
+- Changed: Updated Chinese translation by Eternal130
+- Changed: Palisades are able to fill more gaps with neighboring blocks
+- Fixed: Broken Wattle Gates are allowed to stack
