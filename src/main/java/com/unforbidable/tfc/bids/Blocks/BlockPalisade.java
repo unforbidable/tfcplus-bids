@@ -18,6 +18,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
 
@@ -129,6 +130,17 @@ public class BlockPalisade extends BlockCustomWall {
         float width = 1f / 3;
         AxisAlignedBB bounds = fc.getAllBounds(width, 1f);
         setBlockBounds((float) bounds.minX, (float) bounds.minY, (float) bounds.minZ, (float) bounds.maxX, (float) bounds.maxY, (float) bounds.maxZ);
+    }
+
+    @Override
+    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
+        if (side == ForgeDirection.UP) {
+            // Prevent falling blocks from breaking filled palisades
+            FenceConnections fc = new FenceConnections(world, x, y, z);
+            return fc.canFenceFill();
+        } else {
+            return false;
+        }
     }
 
 }
