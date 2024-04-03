@@ -38,8 +38,9 @@ tile.ChoppingBlock.name=柴墩
 tile.ChoppingBlock2.name=柴墩
 tile.ChoppingBlock3.name=柴墩
 
-tile.WattleTrapDoor.name=荆条活板门
+tile.WattleTrapDoor.name=编条活板门
 tile.WattleTrapDoorCover.name=茅草陷阱
+tile.WattleGate.name=编条门
 
 tile.SaddleQuernSed.name=手推磨
 tile.SaddleQuernHandstoneSed.name=手推磨石
@@ -190,6 +191,40 @@ tile.LogWallVert2.Limba.name=榄仁树原木墙
 tile.LogWallVert2.Joshua.name=约书亚树原木墙
 tile.LogWallVert3.Yew.name=红豆杉原木墙
 
+tile.Palisade.Ash.name=白蜡木栅栏
+tile.Palisade.Aspen.name=白杨木栅栏
+tile.Palisade.Birch.name=桦木栅栏
+tile.Palisade.Chestnut.name=栗木栅栏
+tile.Palisade.Douglas Fir.name=花旗松木栅栏
+tile.Palisade.Hickory.name=山核桃木栅栏
+tile.Palisade.Kapok.name=木棉木栅栏
+tile.Palisade.Maple.name=枫木栅栏
+tile.Palisade.Oak.name=橡木栅栏
+tile.Palisade.Pine.name=松木栅栏
+tile.Palisade.Sequoia.name=红杉木栅栏
+tile.Palisade.Spruce.name=云杉木栅栏
+tile.Palisade.Sycamore.name=悬铃木栅栏
+tile.Palisade.White Cedar.name=北美香柏木栅栏
+tile.Palisade.White Elm.name=榆木栅栏
+tile.Palisade.Willow.name=杨柳木栅栏
+tile.Palisade2.Acacia.name=金合欢木栅栏
+tile.Palisade2.Baobab.name=猴面包木栅栏
+tile.Palisade2.Bamboo.name=竹栅栏
+tile.Palisade2.Palm.name=棕榈木栅栏
+tile.Palisade2.Ebony.name=黑檀木栅栏
+tile.Palisade2.Fever.name=金鸡纳木栅栏
+tile.Palisade2.Mahogany.name=桃花心木栅栏
+tile.Palisade2.Teak.name=柚木栅栏
+tile.Palisade2.Gingko.name=银杏木栅栏
+tile.Palisade2.Fruitwood.name=果木栅栏
+tile.Palisade2.Mangrove.name=红树木栅栏
+tile.Palisade2.Ghaf.name=牧豆木栅栏
+tile.Palisade2.Mahoe.name=黄槿木栅栏
+tile.Palisade2.Laurel.name=月桂木栅栏
+tile.Palisade2.Limba.name=榄仁木栅栏
+tile.Palisade2.Joshua.name=约书亚木栅栏
+tile.Palisade3.Yew.name=红豆杉木栅栏
+
 tile.ClayLamp.name=油灯
 
 tile.WallHook.name=挂钩
@@ -229,6 +264,8 @@ tile.ScrewPressBarrel.name=篮子和盆
 tile.ScrewPressDisc.name=压盘
 tile.ScrewPressLever.name=螺旋压杆
 tile.ScrewPressLeverTop.name=螺旋压杆
+
+tile.StrawNest.name=草窝
 
 item.Ore Bit.Bismuthinite.name=辉铋矿碎片
 item.Ore Bit.Cassiterite.name=锡精矿碎片
@@ -1066,6 +1103,7 @@ item.CookingMixture.name=混合食材
 item.Stew.name=炖菜
 item.Soup.name=汤
 item.Porridge.name=粥
+item.Omelet.name=煎蛋卷
 
 fluid.FishOil=鱼油
 fluid.OilyFishWater=鱼糜
@@ -1104,6 +1142,8 @@ cookingMixture.cerealWater=谷物(水)混合食材
 cookingMixture.cerealMilk=谷物(奶)混合食材
 cookingMixture.porridgeWater=粥
 cookingMixture.porridgeMilk=奶粥
+cookingMixture.egg=鸡蛋
+cookingMixture.omelet=煎蛋卷
 
 gui.ShowHelp=§8帮助: (按住 §fShift§8)
 gui.Help=帮助:
