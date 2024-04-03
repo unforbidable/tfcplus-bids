@@ -5,10 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FenceConnections {
 
@@ -16,6 +13,10 @@ public class FenceConnections {
     private final static int SOUTH = 1;
     private final static int WEST = 2;
     private final static int EAST = 3;
+    private final static int CORNER_NW = 4;
+    private final static int CORNER_NE = 5;
+    private final static int CORNER_SW = 6;
+    private final static int CORNER_SE = 7;
 
     private final static Map<Integer, int[]> OTHERS_OPPOSITE_FIRST = new HashMap<Integer, int[]>();
 
@@ -27,20 +28,27 @@ public class FenceConnections {
     }
 
     private final boolean[] connections;
-    private final boolean canFenceFill;
+    private final boolean[] fills;
+    private final int connectionCount;
 
     public FenceConnections(IBlockAccess world, int x, int y, int z) {
-        Block[] blocks = new Block[4];
-        blocks[NORTH] = world.getBlock(x, y, z - 1);
-        blocks[SOUTH] = world.getBlock(x, y, z + 1);
-        blocks[WEST] = world.getBlock(x - 1, y, z);
-        blocks[EAST] = world.getBlock(x + 1, y, z);
-
         connections = new boolean[4];
+        fills = new boolean[8];
+
         int count = 0;
         int last = -1;
 
         if (world.getBlock(x, y, z) instanceof BlockPalisade) {
+            Block[] blocks = new Block[8];
+            blocks[NORTH] = world.getBlock(x, y, z - 1);
+            blocks[SOUTH] = world.getBlock(x, y, z + 1);
+            blocks[WEST] = world.getBlock(x - 1, y, z);
+            blocks[EAST] = world.getBlock(x + 1, y, z);
+            blocks[CORNER_NW] = world.getBlock(x - 1, y, z - 1);
+            blocks[CORNER_NE] = world.getBlock(x + 1, y, z - 1);
+            blocks[CORNER_SW] = world.getBlock(x - 1, y, z + 1);
+            blocks[CORNER_SE] = world.getBlock(x + 1, y, z + 1);
+
             BlockPalisade block = (BlockPalisade) world.getBlock(x, y, z);
 
             // Look for all fence connections
@@ -58,77 +66,94 @@ public class FenceConnections {
                 for (int i : OTHERS_OPPOSITE_FIRST.get(last)) {
                     if (block.canFenceConnectToBlock(blocks[i])) {
                         connections[i] = true;
+                        count++;
                         break;
                     }
                 }
             }
 
-            canFenceFill = getCanFenceFill(world, x, y, z, block);
+            connectionCount = count;
+
+            if (count > 1) {
+                if (isNorth() && isSouth()) {
+                    if (!isWest() && block.canFenceFillWithBlock(blocks[WEST])) {
+                        fills[WEST] = true;
+                    }
+
+                    if (!isEast() && block.canFenceFillWithBlock(blocks[EAST])) {
+                        fills[EAST] = true;
+                    }
+                }
+
+                if (isWest() && isEast()) {
+                    if (!isNorth() && block.canFenceFillWithBlock(blocks[NORTH])) {
+                        fills[NORTH] = true;
+                    }
+
+                    if (!isSouth() && block.canFenceFillWithBlock(blocks[SOUTH])) {
+                        fills[SOUTH] = true;
+                    }
+                }
+
+                if (isNorth() && isWest()) {
+                    if (block.canFenceFillWithBlock(blocks[CORNER_NW])) {
+                        fills[CORNER_NW] = true;
+                    }
+
+                    if (!isSouth() && block.canFenceFillWithBlock(blocks[SOUTH])) {
+                        fills[SOUTH] = true;
+                    }
+
+                    if (!isEast()  && block.canFenceFillWithBlock(blocks[EAST])) {
+                        fills[EAST] = true;
+                    }
+                }
+
+                if (isNorth() && isEast()) {
+                    if (block.canFenceFillWithBlock(blocks[CORNER_NE])) {
+                        fills[CORNER_NE] = true;
+                    }
+
+                    if (!isSouth() && block.canFenceFillWithBlock(blocks[SOUTH])) {
+                        fills[SOUTH] = true;
+                    }
+
+                    if (!isWest()  && block.canFenceFillWithBlock(blocks[WEST])) {
+                        fills[WEST] = true;
+                    }
+                }
+
+                if (isSouth() && isWest()) {
+                    if (block.canFenceFillWithBlock(blocks[CORNER_SW])) {
+                        fills[CORNER_SW] = true;
+                    }
+
+                    if (!isNorth() && block.canFenceFillWithBlock(blocks[NORTH])) {
+                        fills[NORTH] = true;
+                    }
+
+                    if (!isEast()  && block.canFenceFillWithBlock(blocks[EAST])) {
+                        fills[EAST] = true;
+                    }
+                }
+
+                if (isSouth() && isEast()) {
+                    if (block.canFenceFillWithBlock(blocks[CORNER_SE])) {
+                        fills[CORNER_SE] = true;
+                    }
+
+                    if (!isNorth() && block.canFenceFillWithBlock(blocks[NORTH])) {
+                        fills[NORTH] = true;
+                    }
+
+                    if (!isWest() && block.canFenceFillWithBlock(blocks[WEST])) {
+                        fills[WEST] = true;
+                    }
+                }
+            }
         } else {
-            canFenceFill = false;
+            connectionCount = 0;
         }
-    }
-
-    private boolean getCanFenceFill(IBlockAccess world, int x, int y, int z, BlockPalisade block) {
-        if (isNorth() && isSouth()) {
-            if (!isWest()) {
-                Block west = world.getBlock(x - 1, y, z);
-                if (block.canFenceFillWithBlock(west)) {
-                    return true;
-                }
-            }
-            if (!isEast()) {
-                Block east = world.getBlock(x + 1, y, z);
-                if (block.canFenceFillWithBlock(east)) {
-                    return true;
-                }
-            }
-        }
-
-        if (isWest() && isEast()) {
-            if (!isNorth()) {
-                Block north = world.getBlock(x, y, z - 1);
-                if (block.canFenceFillWithBlock(north)) {
-                    return true;
-                }
-            }
-            if (!isSouth()) {
-                Block south = world.getBlock(x, y, z + 1);
-                if (block.canFenceFillWithBlock(south)) {
-                    return true;
-                }
-            }
-        }
-
-        if (isNorth() && isWest()) {
-            Block nw = world.getBlock(x - 1, y, z - 1);
-            if (block.canFenceFillWithBlock(nw)) {
-                return true;
-            }
-        }
-
-        if (isNorth() && isEast()) {
-            Block ne = world.getBlock(x + 1, y, z - 1);
-            if (block.canFenceFillWithBlock(ne)) {
-                return true;
-            }
-        }
-
-        if (isSouth() && isWest()) {
-            Block sw = world.getBlock(x - 1, y, z + 1);
-            if (block.canFenceFillWithBlock(sw)) {
-                return true;
-            }
-        }
-
-        if (isSouth() && isEast()) {
-            Block sw = world.getBlock(x + 1, y, z + 1);
-            if (block.canFenceFillWithBlock(sw)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public boolean isNorth() {
@@ -147,16 +172,8 @@ public class FenceConnections {
         return connections[EAST];
     }
 
-    public int countConnections() {
-        int count = 0;
-
-        for (int i = 0; i < connections.length; i++) {
-            if (connections[i]) {
-                count++;
-            }
-        }
-
-        return count;
+    public int getConnectionCount() {
+        return connectionCount;
     }
 
     public AxisAlignedBB getAllBounds(float width, float height) {
@@ -205,7 +222,45 @@ public class FenceConnections {
     }
 
     public boolean canFenceFill() {
-        return canFenceFill;
+        for (boolean fill : fills) {
+            if (fill) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isFillNorth() {
+        return fills[NORTH];
+    }
+
+    public boolean isFillSouth() {
+        return fills[SOUTH];
+    }
+
+    public boolean isFillWest() {
+        return fills[WEST];
+    }
+
+    public boolean isFillEast() {
+        return fills[EAST];
+    }
+
+    public boolean isFillCornerNW() {
+        return fills[CORNER_NW];
+    }
+
+    public boolean isFillCornerNE() {
+        return fills[CORNER_NE];
+    }
+
+    public boolean isFillCornerSW() {
+        return fills[CORNER_SW];
+    }
+
+    public boolean isFillCornerSE() {
+        return fills[CORNER_SE];
     }
 
 }

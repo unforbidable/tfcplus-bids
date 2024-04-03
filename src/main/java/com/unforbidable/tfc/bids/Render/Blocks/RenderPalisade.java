@@ -39,78 +39,72 @@ public class RenderPalisade implements ISimpleBlockRenderingHandler {
         RenderBlocksWithMeta rendererMeta = new RenderBlocksWithMeta(renderer);
         rendererMeta.renderAllFaces = true;
 
-        if (fc.isNorth() && fc.isSouth()) {
-            if (!fc.isWest()) {
-                Block west = world.getBlock(x - 1, y, z);
-                if (fence.canFenceFillWithBlock(west)) {
-                    rendererMeta.overrideMetadata = world.getBlockMetadata(x - 1, y, z);
-                    rendererMeta.setRenderBounds(0, 0, 0, minX, 1, 1);
-                    renderFilledBlock(west, x, y, z, rendererMeta);
-                }
+        if (fc.isFillNorth()) {
+            Block north = world.getBlock(x, y, z - 1);
+            rendererMeta.overrideMetadata = world.getBlockMetadata(x, y, z - 1);
+            if (fc.isFillWest()) {
+                rendererMeta.setRenderBounds(minX, 0, 0, 1, 1, minX);
+            } else if (fc.isFillEast()) {
+                rendererMeta.setRenderBounds(0, 0, 0, maxX, 1, minX);
+            } else {
+                rendererMeta.setRenderBounds(0, 0, 0, 1, 1, minX);
             }
-            if (!fc.isEast()) {
-                Block east = world.getBlock(x + 1, y, z);
-                if (fence.canFenceFillWithBlock(east)) {
-                    rendererMeta.overrideMetadata = world.getBlockMetadata(x + 1, y, z);
-                    rendererMeta.setRenderBounds(maxX, 0, 0, 1, 1, 1);
-                    renderFilledBlock(east, x, y, z, rendererMeta);
-                }
-            }
+            renderFilledBlock(north, x, y, z, rendererMeta);
         }
 
-        if (fc.isWest() && fc.isEast()) {
-            if (!fc.isNorth()) {
-                Block north = world.getBlock(x, y, z - 1);
-                if (fence.canFenceFillWithBlock(north)) {
-                    rendererMeta.overrideMetadata = world.getBlockMetadata(x, y, z - 1);
-                    rendererMeta.setRenderBounds(0, 0, 0, 1, 1, minX);
-                    renderFilledBlock(north, x, y, z, rendererMeta);
-                }
+        if (fc.isFillSouth()) {
+            Block south = world.getBlock(x, y, z + 1);
+            rendererMeta.overrideMetadata = world.getBlockMetadata(x, y, z + 1);
+            if (fc.isFillWest()) {
+                rendererMeta.setRenderBounds(minX, 0, maxZ, 1, 1, 1);
+            } else if (fc.isFillEast()) {
+                rendererMeta.setRenderBounds(0, 0, maxZ, maxX, 1, 1);
+            } else {
+                rendererMeta.setRenderBounds(0, 0, maxZ, 1, 1, 1);
             }
-            if (!fc.isSouth()) {
-                Block south = world.getBlock(x, y, z + 1);
-                if (fence.canFenceFillWithBlock(south)) {
-                    rendererMeta.overrideMetadata = world.getBlockMetadata(x, y, z + 1);
-                    rendererMeta.setRenderBounds(0, 0, maxZ, 1, 1, 1);
-                    renderFilledBlock(south, x, y, z, rendererMeta);
-                }
-            }
+            renderFilledBlock(south, x, y, z, rendererMeta);
         }
 
-        if (fc.isNorth() && fc.isWest()) {
+        if (fc.isFillWest()) {
+            Block west = world.getBlock(x - 1, y, z);
+            rendererMeta.overrideMetadata = world.getBlockMetadata(x - 1, y, z);
+            rendererMeta.setRenderBounds(0, 0, 0, minX, 1, 1);
+            renderFilledBlock(west, x, y, z, rendererMeta);
+        }
+
+        if (fc.isFillEast()) {
+            Block east = world.getBlock(x + 1, y, z);
+            rendererMeta.overrideMetadata = world.getBlockMetadata(x + 1, y, z);
+            rendererMeta.setRenderBounds(maxX, 0, 0, 1, 1, 1);
+            renderFilledBlock(east, x, y, z, rendererMeta);
+        }
+
+        if (fc.isFillCornerNW()) {
             Block nw = world.getBlock(x - 1, y, z - 1);
-            if (fence.canFenceFillWithBlock(nw)) {
-                rendererMeta.overrideMetadata = world.getBlockMetadata(x - 1, y, z - 1);
-                rendererMeta.setRenderBounds(0, 0, 0, minX, 1, minZ);
-                renderFilledBlock(nw, x, y, z, rendererMeta);
-            }
+            rendererMeta.overrideMetadata = world.getBlockMetadata(x - 1, y, z - 1);
+            rendererMeta.setRenderBounds(0, 0, 0, minX, 1, minZ);
+            renderFilledBlock(nw, x, y, z, rendererMeta);
         }
 
-        if (fc.isNorth() && fc.isEast()) {
+        if (fc.isFillCornerNE()) {
             Block ne = world.getBlock(x + 1, y, z - 1);
-            if (fence.canFenceFillWithBlock(ne)) {
-                rendererMeta.overrideMetadata = world.getBlockMetadata(x + 1, y, z - 1);
-                rendererMeta.setRenderBounds(maxX, 0, 0, 1, 1, minZ);
-                renderFilledBlock(ne, x, y, z, rendererMeta);
-            }
+            rendererMeta.overrideMetadata = world.getBlockMetadata(x + 1, y, z - 1);
+            rendererMeta.setRenderBounds(maxX, 0, 0, 1, 1, minZ);
+            renderFilledBlock(ne, x, y, z, rendererMeta);
         }
 
-        if (fc.isSouth() && fc.isWest()) {
+        if (fc.isFillCornerSW()) {
             Block sw = world.getBlock(x - 1, y, z + 1);
-            if (fence.canFenceFillWithBlock(sw)) {
-                rendererMeta.overrideMetadata = world.getBlockMetadata(x - 1, y, z + 1);
-                rendererMeta.setRenderBounds(0, 0, maxZ, minX, 1, 1);
-                renderFilledBlock(sw, x, y, z, rendererMeta);
-            }
+            rendererMeta.overrideMetadata = world.getBlockMetadata(x - 1, y, z + 1);
+            rendererMeta.setRenderBounds(0, 0, maxZ, minX, 1, 1);
+            renderFilledBlock(sw, x, y, z, rendererMeta);
         }
 
-        if (fc.isSouth() && fc.isEast()) {
-            Block sw = world.getBlock(x + 1, y, z + 1);
-            if (fence.canFenceFillWithBlock(sw)) {
-                rendererMeta.overrideMetadata = world.getBlockMetadata(x + 1, y, z + 1);
-                rendererMeta.setRenderBounds(maxX, 0, maxZ, 1, 1, 1);
-                renderFilledBlock(sw, x, y, z, rendererMeta);
-            }
+        if (fc.isFillCornerSE()) {
+            Block se = world.getBlock(x + 1, y, z + 1);
+            rendererMeta.overrideMetadata = world.getBlockMetadata(x + 1, y, z + 1);
+            rendererMeta.setRenderBounds(maxX, 0, maxZ, 1, 1, 1);
+            renderFilledBlock(se, x, y, z, rendererMeta);
         }
 
         RenderBlocksWithRotation rendererWithRotation = new RenderBlocksWithRotation(renderer);
@@ -147,7 +141,7 @@ public class RenderPalisade implements ISimpleBlockRenderingHandler {
             }
         }
 
-        if (fc.countConnections() == 1 && world.isAirBlock(x, y + 1, z)) {
+        if (fc.getConnectionCount() == 1 && world.isAirBlock(x, y + 1, z)) {
             height = 0.5f;
         }
 

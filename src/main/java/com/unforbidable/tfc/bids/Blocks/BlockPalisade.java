@@ -112,7 +112,7 @@ public class BlockPalisade extends BlockCustomWall {
         AxisAlignedBB bounds;
         if (entity instanceof EntityPlayer) {
             float width = 1f / 3;
-            float height = world.isAirBlock(x, y + 1, z) && fc.countConnections() == 1 ? 0.5f : (fc.canFenceFill() ? 1f : 1.5f);
+            float height = world.isAirBlock(x, y + 1, z) && fc.getConnectionCount() == 1 ? 0.5f : (fc.canFenceFill() ? 1f : 1.5f);
             bounds = fc.getAllBounds(width, height)
                 .offset(x, y, z);
         } else {
