@@ -57,6 +57,7 @@ public class BlockWattleGate extends BlockCustomWall implements IConnectableFenc
         world.setBlockMetadataWithNotify(x, y, z, dir, 2);
     }
 
+    @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int size, float hitX, float hitY, float hitZ) {
         int meta = world.getBlockMetadata(x, y, z);
         if (isFenceGateOpen(meta)) {
@@ -67,6 +68,11 @@ public class BlockWattleGate extends BlockCustomWall implements IConnectableFenc
 
         world.playAuxSFXAtEntity(player, 1003, x, y, z, 0);
         return true;
+    }
+
+    @Override
+    public int damageDropped(int meta) {
+        return 0;
     }
 
     @Override
