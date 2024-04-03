@@ -177,10 +177,10 @@ public class FenceConnections {
     }
 
     public AxisAlignedBB getAllBounds(float width, float height) {
-        float minX = isWest() ? 0 : (1 - width) * 0.5f;
-        float minZ = isNorth() ? 0 : (1 - width) * 0.5f;
-        float maxX = isEast() ? 1 : (1 + width) * 0.5f;
-        float maxZ = isSouth() ? 1 : (1 + width) * 0.5f;
+        float minX = isWest() || isFillWest() ? 0 : (1 - width) * 0.5f;
+        float minZ = isNorth() || isFillNorth() ? 0 : (1 - width) * 0.5f;
+        float maxX = isEast() || isFillEast() ? 1 : (1 + width) * 0.5f;
+        float maxZ = isSouth() || isFillSouth() ? 1 : (1 + width) * 0.5f;
 
         return AxisAlignedBB.getBoundingBox(minX, 0, minZ, maxX, height, maxZ);
     }
