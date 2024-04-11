@@ -29,6 +29,7 @@ import com.unforbidable.tfc.bids.api.Crafting.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingLidUsage;
+import com.unforbidable.tfc.bids.api.Events.CookingPotPlayerEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.ICookedMeal;
 import com.unforbidable.tfc.bids.api.Interfaces.ICookingMixtureFluid;
 import com.unforbidable.tfc.bids.api.Interfaces.ICookingMixtureItem;
@@ -47,6 +48,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
@@ -228,19 +230,24 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                         ((ICookedMeal)cookedMeal.getItem()).onCookedMealCreated(cookedMeal, player);
                     }
 
-                    if (getPrimaryFluidStack().amount <= 0) {
-                        fluids[FLUID_PRIMARY] = null;
+                    CookingPotPlayerEvent event = new CookingPotPlayerEvent(player, this, CookingPotPlayerEvent.Action.RETRIEVE_COOKED_MEAL, cookedMeal);
+                    MinecraftForge.EVENT_BUS.post(event);
+
+                    if (!event.isCanceled()) {
+                        if (getPrimaryFluidStack().amount <= 0) {
+                            fluids[FLUID_PRIMARY] = null;
+                        }
+
+                        itemStack.stackSize--;
+                        giveItemStackToPlayer(player, cookedMeal);
+
+                        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                        clientNeedToUpdate = true;
+
+                        onRecipeParametersChanged(true);
+
+                        return true;
                     }
-
-                    itemStack.stackSize--;
-                    giveItemStackToPlayer(player, cookedMeal);
-
-                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                    clientNeedToUpdate = true;
-
-                    onRecipeParametersChanged(true);
-
-                    return true;
                 }
             }
         }
