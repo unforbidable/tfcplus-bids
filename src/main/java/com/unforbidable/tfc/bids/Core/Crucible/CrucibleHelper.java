@@ -1,31 +1,21 @@
 package com.unforbidable.tfc.bids.Core.Crucible;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.dunk.tfc.Core.Metal.*;
 import com.dunk.tfc.Core.TFC_Achievements;
-import com.dunk.tfc.Core.Metal.Alloy;
-import com.dunk.tfc.Core.Metal.AlloyManager;
-import com.dunk.tfc.Core.Metal.AlloyMetal;
-import com.dunk.tfc.Core.Metal.AlloyMetalCompare;
-import com.dunk.tfc.Core.Metal.MetalRegistry;
+import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMold;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMoldBase;
 import com.dunk.tfc.Items.Pottery.ItemPotterySheetMold;
 import com.dunk.tfc.TileEntities.TEForge;
-import com.dunk.tfc.api.HeatIndex;
-import com.dunk.tfc.api.HeatRegistry;
-import com.dunk.tfc.api.Metal;
-import com.dunk.tfc.api.TFCItems;
-import com.dunk.tfc.api.TFC_ItemHeat;
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.*;
 import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
+import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Interfaces.IExtraSmeltable;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -33,6 +23,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class CrucibleHelper {
 
@@ -171,6 +164,8 @@ public class CrucibleHelper {
     public static boolean isFullToolMold(ItemStack itemStack) {
         return itemStack.getItem() instanceof ItemPotteryMold
                 && !(itemStack.getItem() instanceof ItemPotterySheetMold)
+                && !(itemStack.getItem() instanceof ItemPotteryBlowpipe)
+                && !(itemStack.getItem() instanceof ItemMetalBlowpipe)
                 && itemStack.getItemDamage() > 1 /* Ceramic */
                 && itemStack.getItemDamage() <= 5 /* Full of Metal */;
     }
