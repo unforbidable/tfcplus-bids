@@ -214,6 +214,8 @@ public class BlockSetup extends BidsBlocks {
             .setBlockName("UnfinishedAnvilStage4");
         unfinishedAnvilStage5 = new BlockUnfinishedAnvil(4)
             .setBlockName("UnfinishedAnvilStage5");
+        unfinishedAnvilStage6 = new BlockUnfinishedAnvil(5)
+            .setBlockName("UnfinishedAnvilStage6");
 
         cookingPot = new BlockCookingPot()
             .setBlockTextureName("Cooking Pot")
@@ -490,6 +492,9 @@ public class BlockSetup extends BidsBlocks {
         unfinishedAnvilStage5RenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(unfinishedAnvilStage5RenderId, new RenderUnfinishedAnvil(4));
 
+        unfinishedAnvilStage6RenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage6RenderId, new RenderUnfinishedAnvil(5));
+
         cookingPotRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(cookingPotRenderId, new RenderCookingPot());
 
@@ -745,6 +750,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(wattleGate, ItemWattleGate.class, "WattleGate");
 
         GameRegistry.registerBlock(strawNest, "StrawNest");
+
+        GameRegistry.registerBlock(unfinishedAnvilStage6, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage6");
     }
 
 }

@@ -42,6 +42,7 @@ public class ItemUnfinishedAnvil extends ItemBlock implements ISize, ISmeltable,
                 .replace("Stage3", "")
                 .replace("Stage4", "")
                 .replace("Stage5", "")
+                .replace("Stage6", "")
                 .concat("." + META_NAMES[is.getItemDamage()]);
 
         return super.getUnlocalizedName(is);

@@ -20,7 +20,7 @@ public class BlockUnfinishedAnvil extends Block {
 
     private final int stage;
 
-    public static final int NUM_STAGES = 5;
+    public static final int NUM_STAGES = 6;
     public static final String[] META_NAMES = new String[] { "Stone", "Copper", "Bronze", "Wrought Iron", "Steel", "Black Steel", "Blue Steel", "Red Steel",
         "Rose Gold", "Bismuth Bronze", "Black Bronze" };
 
@@ -71,8 +71,10 @@ public class BlockUnfinishedAnvil extends Block {
             case 3:
                 return BidsBlocks.unfinishedAnvilStage4RenderId;
             case 4:
-            default:
                 return BidsBlocks.unfinishedAnvilStage5RenderId;
+            case 5:
+            default:
+                return BidsBlocks.unfinishedAnvilStage6RenderId;
         }
     }
 
@@ -114,8 +116,10 @@ public class BlockUnfinishedAnvil extends Block {
             case 3:
                 return new ItemStack(BidsBlocks.unfinishedAnvilStage4, 1, mat);
             case 4:
-            default:
                 return new ItemStack(BidsBlocks.unfinishedAnvilStage5, 1, mat);
+            case 5:
+            default:
+                return new ItemStack(BidsBlocks.unfinishedAnvilStage6, 1, mat);
         }
     }
 

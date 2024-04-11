@@ -1993,6 +1993,8 @@ public class RecipeSetup {
             AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.wroughtIronIngot), null,
                 "plugandfeather", AnvilReq.WROUGHTIRON, new ItemStack(BidsItems.plugAndFeather, 8, 5)).addRecipeSkill(Global.SKILL_GENERAL_SMITHING));
 
+            AnvilManager.getInstance().addPlan("anvil", new PlanRecipe(new RuleEnum[]{RuleEnum.HITLAST, RuleEnum.HITSECONDFROMLAST, RuleEnum.HITTHIRDFROMLAST}));
+
             registerUnfinishedAnvilRecipeHelper(1, TFCItems.copperIngot2x, AnvilReq.STONE);
             registerUnfinishedAnvilRecipeHelper(2, TFCItems.bronzeIngot2x, AnvilReq.COPPER);
             registerUnfinishedAnvilRecipeHelper(3, TFCItems.wroughtIronIngot2x, AnvilReq.BRONZE);
@@ -2019,6 +2021,11 @@ public class RecipeSetup {
             req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 4)));
         AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 4),
             req, BlockUnfinishedAnvil.getFinishedAnvil(mat)));
+            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 5)));
+
+        AnvilManager.getInstance().addRecipe(new AnvilRecipe(BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 5), null,
+            "anvil", req, BlockUnfinishedAnvil.getFinishedAnvil(mat)).addRecipeSkill(Global.SKILL_GENERAL_SMITHING));
+
     }
 
     private static void registerHandlers() {
