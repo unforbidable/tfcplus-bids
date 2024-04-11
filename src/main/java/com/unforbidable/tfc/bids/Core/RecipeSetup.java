@@ -2020,7 +2020,6 @@ public class RecipeSetup {
         AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 3),
             req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 4)));
         AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 4),
-            req, BlockUnfinishedAnvil.getFinishedAnvil(mat)));
             req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 5)));
 
         AnvilManager.getInstance().addRecipe(new AnvilRecipe(BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 5), null,
