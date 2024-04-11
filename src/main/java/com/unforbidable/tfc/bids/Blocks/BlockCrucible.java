@@ -5,6 +5,7 @@ import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCrucible;
+import com.unforbidable.tfc.bids.api.Events.CruciblePlayerEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.ILiquidMetalContainer;
 
 import cpw.mods.fml.relauncher.Side;
@@ -21,6 +22,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 public abstract class BlockCrucible extends BlockContainer {
 
@@ -73,6 +75,9 @@ public abstract class BlockCrucible extends BlockContainer {
             }
 
             if (itemDamage != itemstack.getItemDamage()) {
+                CruciblePlayerEvent event = new CruciblePlayerEvent(player, crucible, CruciblePlayerEvent.Action.FILL_BLOWPIPE, itemstack);
+                MinecraftForge.EVENT_BUS.post(event);
+
                 itemstack.setItemDamage(itemDamage);
                 return true;
             }

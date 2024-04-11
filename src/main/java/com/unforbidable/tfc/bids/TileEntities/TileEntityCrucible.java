@@ -6,7 +6,6 @@ import java.util.Random;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemMeltedMetal;
 import com.dunk.tfc.api.Metal;
-import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.TFC_ItemHeat;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Interfaces.IHeatSourceTE;
@@ -19,6 +18,7 @@ import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleInputMonitor;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleLiquidStorage;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.Events.CruciblePlayerEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.ILiquidMetalContainer;
 
 import cpw.mods.fml.relauncher.Side;
@@ -32,6 +32,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.MinecraftForge;
 
 public abstract class TileEntityCrucible extends TileEntity implements IInventory, ISlotTracker, ILiquidMetalContainer {
 
@@ -651,6 +652,9 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         if (CrucibleHelper.isFullToolMold(itemStack)) {
             CrucibleHelper.triggerCopperAgeAchievement(player);
         }
+
+        CruciblePlayerEvent event = new CruciblePlayerEvent(player, this, CruciblePlayerEvent.Action.RETRIEVE_OUTPUT, itemStack);
+        MinecraftForge.EVENT_BUS.post(event);
     }
 
     private float combineTemp(float tempA, float heatCapacityA, float tempB, float heatCapacityB) {
