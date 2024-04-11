@@ -5,6 +5,7 @@ import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.Events.QuarryPlayerEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
 import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -21,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -133,7 +135,7 @@ public class BlockQuarry extends BlockContainer {
                 if (isHammer) {
                     if (QuarryHelper.isQuarryReadyAt(world, x, y, z)) {
                         Bids.LOG.debug("Quarry completed");
-                        dropQuarriedBlock(world, x, y, z);
+                        dropQuarriedBlock(world, x, y, z, player);
                     }
                 }
             }
@@ -142,7 +144,7 @@ public class BlockQuarry extends BlockContainer {
         super.onBlockHarvested(world, x, y, z, meta, player);
     }
 
-    protected void dropQuarriedBlock(World world, int x, int y, int z) {
+    protected void dropQuarriedBlock(World world, int x, int y, int z, EntityPlayer player) {
         TileEntity te = world.getTileEntity(x, y, z);
         if (te != null && te instanceof TileEntityQuarry) {
             TileEntityQuarry quarry = (TileEntityQuarry) te;
@@ -171,6 +173,9 @@ public class BlockQuarry extends BlockContainer {
                     EntityItem entityItem = new EntityItem(world, x2 + 0.5, y2 + 0.5, z2 + 0.5, is);
                     world.spawnEntityInWorld(entityItem);
                 }
+
+                QuarryPlayerEvent event = new QuarryPlayerEvent(player, quarry, QuarryPlayerEvent.Action.QUARRY_FINISHED, is);
+                MinecraftForge.EVENT_BUS.post(event);
             }
         }
     }
