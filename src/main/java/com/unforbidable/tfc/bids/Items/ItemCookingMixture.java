@@ -45,10 +45,10 @@ public class ItemCookingMixture extends ItemMeal implements ISmashable, IMoreSan
     public String getItemStackDisplayName(ItemStack is) {
         StringBuilder sb = new StringBuilder();
 
-        String mainIngredientName = CookingMixtureHelper.getMainIngredientName(is);
-        if (mainIngredientName != null) {
+        Item mainIngredient = CookingMixtureHelper.getMainIngredient(is);
+        if (mainIngredient != null) {
             // Add main ingredient name before the item name
-            sb.append(mainIngredientName);
+            sb.append(new ItemStack(mainIngredient).getDisplayName());
             sb.append(' ');
         }
 

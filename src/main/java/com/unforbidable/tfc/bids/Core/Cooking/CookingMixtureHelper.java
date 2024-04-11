@@ -1,8 +1,11 @@
 package com.unforbidable.tfc.bids.Core.Cooking;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.Items.ItemDrink;
+import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.FoodRegistry;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
@@ -11,6 +14,7 @@ import com.unforbidable.tfc.bids.api.Interfaces.ICookingIngredientOverride;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
@@ -149,34 +153,33 @@ public class CookingMixtureHelper {
         return true;
     }
 
-    public static String getMainIngredientName(FluidStack fs) {
+    public static Item getMainIngredient(FluidStack fs) {
         if (fs.tag != null) {
             int[] fg = fs.tag.getIntArray("FG");
             if (fg != null && fg.length > 0) {
-                return getIngredientName(fg[0]);
+                return getIngredient(fg[0]);
             }
         }
 
         return null;
     }
 
-    public static String getMainIngredientName(ItemStack is) {
+    public static Item getMainIngredient(ItemStack is) {
         if (is.hasTagCompound()) {
             int[] fg = is.getTagCompound().getIntArray("FG");
             if (fg != null && fg.length > 0) {
-                return getIngredientName(fg[0]);
+                return getIngredient(fg[0]);
             }
         }
 
         return null;
     }
 
-    private static String getIngredientName(int ingredientFoodId) {
+    private static Item getIngredient(int ingredientFoodId) {
         Item ingredient = FoodRegistry.getInstance().getFood(ingredientFoodId);
         if (ingredient != null) {
             // Add main ingredient name after the fluid name
-            Item ingredientOverride = getIngredientOverride(ingredient);
-            return ingredientOverride.getItemStackDisplayName(new ItemStack(ingredientOverride));
+            return getIngredientOverride(ingredient);
         }
 
         return null;
@@ -193,6 +196,18 @@ public class CookingMixtureHelper {
         }
 
         return ingredient;
+    }
+
+    public static EnumFoodGroup getFluidFoodGroup(FluidStack fluid) {
+        // Try to put the fluid into a bottle
+        // and if it is drinkable, get the food group
+        // At the time of writing, only milk and beer have food group
+        ItemStack fluidBottle = FluidContainerRegistry.fillFluidContainer(fluid, new ItemStack(TFCItems.glassBottle));
+        if (fluidBottle != null && fluidBottle.getItem() instanceof ItemDrink) {
+            return ((ItemDrink) fluidBottle.getItem()).getFoodGroup();
+        }
+
+        return null;
     }
 
 }

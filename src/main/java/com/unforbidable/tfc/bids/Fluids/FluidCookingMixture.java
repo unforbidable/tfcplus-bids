@@ -2,13 +2,13 @@ package com.unforbidable.tfc.bids.Fluids;
 
 import com.dunk.tfc.Core.FluidBaseTFC;
 import com.dunk.tfc.Food.ItemFoodTFC;
-import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureInfo;
 import com.unforbidable.tfc.bids.api.Crafting.CookingMixture;
 import com.unforbidable.tfc.bids.api.Interfaces.ICookingMixtureFluid;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
@@ -38,11 +38,11 @@ public class FluidCookingMixture extends FluidBaseTFC implements ICookingMixture
         CookingMixture mixture = CookingMixtureHelper.getCookingMixture(stack);
         if (mixture != null) {
             if (!mixture.isUseDefaultName()) {
-                String mainIngredientName = CookingMixtureHelper.getMainIngredientName(stack);
-                if (mainIngredientName != null) {
+                Item mainIngredient = CookingMixtureHelper.getMainIngredient(stack);
+                if (mainIngredient != null) {
                     // The name of the main ingredient first
                     // May be overridden
-                    sb.append(mainIngredientName);
+                    sb.append(new ItemStack(mainIngredient).getDisplayName());
 
                     if (mixture.isReady()) {
                         // For mixtures that are ready meals to be retrieved,

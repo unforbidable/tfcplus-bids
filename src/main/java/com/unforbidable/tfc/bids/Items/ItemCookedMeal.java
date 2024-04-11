@@ -6,7 +6,6 @@ import com.dunk.tfc.Core.TFC_Sounds;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Food.ItemMeal;
-import com.dunk.tfc.Items.ItemDrink;
 import com.dunk.tfc.TerraFirmaCraft;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Food;
@@ -18,11 +17,11 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.Interfaces.ICookedMeal;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
@@ -43,10 +42,10 @@ public class ItemCookedMeal extends ItemMeal implements ICookedMeal {
     public String getItemStackDisplayName(ItemStack is) {
         StringBuilder sb = new StringBuilder();
 
-        String mainIngredientName = CookingMixtureHelper.getMainIngredientName(is);
-        if (mainIngredientName != null) {
+        Item mainIngredient = CookingMixtureHelper.getMainIngredient(is);
+        if (mainIngredient != null) {
             // Add main ingredient name before the item name
-            sb.append(mainIngredientName);
+            sb.append(new ItemStack(mainIngredient).getDisplayName());
             sb.append(' ');
         }
 
@@ -101,7 +100,7 @@ public class ItemCookedMeal extends ItemMeal implements ICookedMeal {
         // add liquid names
         List<FluidStack> fluids = CookingMixtureHelper.getCookedMealFluids(is);
         for (FluidStack fluid : fluids) {
-            EnumFoodGroup foodGroup = getFluidFoodGroup(fluid);
+            EnumFoodGroup foodGroup = CookingMixtureHelper.getFluidFoodGroup(fluid);
             if (foodGroup != null && foodGroup != EnumFoodGroup.None) {
                 arraylist.add(ItemFoodTFC.getFoodGroupColor(foodGroup) + getFluidString(fluid));
             } else {
@@ -114,18 +113,6 @@ public class ItemCookedMeal extends ItemMeal implements ICookedMeal {
 
     protected String getFluidString(FluidStack fluid) {
         return TFC_Core.translate(fluid.getLocalizedName());
-    }
-
-    private EnumFoodGroup getFluidFoodGroup(FluidStack fluid) {
-        // Try to put the fluid into a bottle
-        // and if it is drinkable, get the food group
-        // At the time of writing, only milk and beer have food group
-        ItemStack fluidBottle = FluidContainerRegistry.fillFluidContainer(fluid, new ItemStack(TFCItems.glassBottle));
-        if (fluidBottle != null && fluidBottle.getItem() instanceof ItemDrink) {
-            return ((ItemDrink) fluidBottle.getItem()).getFoodGroup();
-        }
-
-        return null;
     }
 
     @Override
@@ -159,7 +146,7 @@ public class ItemCookedMeal extends ItemMeal implements ICookedMeal {
 
                 int waterToRestore = 0;
                 for (FluidStack fluid : fluids) {
-                    EnumFoodGroup foodGroup = getFluidFoodGroup(fluid);
+                    EnumFoodGroup foodGroup = CookingMixtureHelper.getFluidFoodGroup(fluid);
                     if (foodGroup != null && foodGroup != EnumFoodGroup.None) {
                         // Any fluids that have food group
                         // contribute to the nutrition
