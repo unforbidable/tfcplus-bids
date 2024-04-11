@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.ItemClothing;
-import com.dunk.tfc.Render.Item.FoodItemRenderer;
 import com.dunk.tfc.api.*;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
@@ -15,6 +14,7 @@ import com.unforbidable.tfc.bids.Core.Firepit.Fuels.*;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderThickLogsTFC;
 import com.unforbidable.tfc.bids.Items.*;
+import com.unforbidable.tfc.bids.Render.Item.FoodItemRenderer;
 import com.unforbidable.tfc.bids.Render.Item.SeasonableItemRenderer;
 import com.unforbidable.tfc.bids.Render.Item.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.Tags;
