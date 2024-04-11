@@ -4,6 +4,7 @@ import com.unforbidable.tfc.bids.Core.SaddleQuern.LeverBounds;
 import com.unforbidable.tfc.bids.Core.SaddleQuern.StonePressHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityStonePressLever;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.Events.SaddleQuernPlayerEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -18,6 +19,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
@@ -55,14 +57,25 @@ public class BlockStonePressLever extends BlockContainer {
         if (!world.isRemote) {
             TileEntityStonePressLever leverTileEntity = (TileEntityStonePressLever) world.getTileEntity(x, y, z);
             ItemStack heldItemStack = player.getCurrentEquippedItem();
-            if (heldItemStack != null && leverTileEntity.isValidRopeItem(heldItemStack)
-                && leverTileEntity.setRopeItem(heldItemStack)) {
-                return true;
-            } else if (heldItemStack == null
-                && leverTileEntity.retrieveRope(player)) {
-                return true;
+            if (heldItemStack != null && leverTileEntity.isValidRopeItem(heldItemStack)) {
+                if (leverTileEntity.setRopeItem(heldItemStack)) {
+                    SaddleQuernPlayerEvent event = new SaddleQuernPlayerEvent(player, null, SaddleQuernPlayerEvent.Action.ATTACH_WEIGHT_STONE);
+                    MinecraftForge.EVENT_BUS.post(event);
+
+                    return true;
+                }
+            } else if (heldItemStack == null) {
+                if (leverTileEntity.retrieveRope(player)) {
+                    SaddleQuernPlayerEvent event = new SaddleQuernPlayerEvent(player, null, SaddleQuernPlayerEvent.Action.DETACH_WEIGHT_STONE);
+                    MinecraftForge.EVENT_BUS.post(event);
+
+                    return true;
+                }
             }
+
+            return false;
         }
+
         return true;
     }
 

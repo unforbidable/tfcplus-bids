@@ -3,11 +3,13 @@ package com.unforbidable.tfc.bids.Blocks;
 import java.util.List;
 
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
+import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
 import com.unforbidable.tfc.bids.Core.SaddleQuern.StonePressHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntitySaddleQuern;
 import com.unforbidable.tfc.bids.TileEntities.TileEntitySaddleQuern.Selection;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 
+import com.unforbidable.tfc.bids.api.Events.SaddleQuernPlayerEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -22,6 +24,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 public class BlockSaddleQuern extends BlockContainer {
 
@@ -58,24 +61,45 @@ public class BlockSaddleQuern extends BlockContainer {
         ItemStack heldItemStack = player.getCurrentEquippedItem();
         if (!world.isRemote) {
             if (heldItemStack == null) {
+                boolean isLeverPresent = world.getBlock(x, y + 1, z) == BidsBlocks.stonePressLever;
                 if (player.isSneaking() && side == 1) {
                     boolean isItemHit = getIsItemHit(saddleQuern, side, hitX, hitY, hitZ);
-                    boolean isLeverPresent = world.getBlock(x, y + 1, z) == BidsBlocks.stonePressLever;
                     if (isItemHit) {
                         saddleQuern.retrieveInputStack(player);
                     } else if (!isLeverPresent) {
-                        saddleQuern.retrieveWorkStone(player);
+                        SaddleQuernPlayerEvent event = new SaddleQuernPlayerEvent(player, saddleQuern, SaddleQuernPlayerEvent.Action.RETRIEVE_WORK_STONE, saddleQuern.getWorkStoneType());
+                        MinecraftForge.EVENT_BUS.post(event);
+
+                        if (!event.isCanceled()) {
+                            saddleQuern.retrieveWorkStone(player);
+                        }
                     }
-                } else {
-                    saddleQuern.operate();
+                } else if (!isLeverPresent) {
+                    SaddleQuernPlayerEvent event = new SaddleQuernPlayerEvent(player, saddleQuern, SaddleQuernPlayerEvent.Action.USE_WORK_STONE, saddleQuern.getWorkStoneType());
+                    MinecraftForge.EVENT_BUS.post(event);
+
+                    if (!event.isCanceled()) {
+                        saddleQuern.operate();
+                    }
                 }
             } else {
                 if (saddleQuern.isValidWorkStone(heldItemStack)) {
-                    saddleQuern.setWorkStone(heldItemStack);
+                    EnumWorkStoneType workStoneType = EnumWorkStoneType.getWorkStoneType(heldItemStack);
+                    SaddleQuernPlayerEvent event = new SaddleQuernPlayerEvent(player, saddleQuern, SaddleQuernPlayerEvent.Action.PLACE_WORK_STONE, workStoneType);
+                    MinecraftForge.EVENT_BUS.post(event);
+
+                    if (!event.isCanceled()) {
+                        saddleQuern.setWorkStone(heldItemStack);
+                    }
                 } else if (saddleQuern.isValidInput(heldItemStack)) {
                     saddleQuern.setInputStack(heldItemStack);
                 } else if (StonePressHelper.isValidLever(heldItemStack) && StonePressHelper.canPlaceLeverAt(world, x, y, z)) {
-                    StonePressHelper.placeLeverAt(world, x, y, z, heldItemStack);
+                    SaddleQuernPlayerEvent event = new SaddleQuernPlayerEvent(player, saddleQuern, SaddleQuernPlayerEvent.Action.PLACE_LEVER, EnumWorkStoneType.SADDLE_QUERN_PRESSING);
+                    MinecraftForge.EVENT_BUS.post(event);
+
+                    if (!event.isCanceled()) {
+                        StonePressHelper.placeLeverAt(world, x, y, z, heldItemStack);
+                    }
                 }
             }
         }
