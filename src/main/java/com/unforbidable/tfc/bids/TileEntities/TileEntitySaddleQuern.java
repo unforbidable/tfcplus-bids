@@ -103,7 +103,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     public EnumWorkStoneType getWorkStoneType() {
         if (!isCachedWorkStoneTypeValid) {
             if (hasWorkStone()) {
-                cachedWorkStoneType = ((BlockWorkStone) Block.getBlockFromItem(storage[SLOT_WORK_STONE].getItem())).getWorkStoneType();
+                cachedWorkStoneType = EnumWorkStoneType.getWorkStoneType(storage[SLOT_WORK_STONE]);
             } else {
                 cachedWorkStoneType = EnumWorkStoneType.NONE;
             }
