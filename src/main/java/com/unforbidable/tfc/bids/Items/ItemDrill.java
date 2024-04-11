@@ -1,30 +1,24 @@
 package com.unforbidable.tfc.bids.Items;
 
-import java.util.HashSet;
-import java.util.List;
-
-import com.dunk.tfc.Items.Tools.ItemTerraTool;
-import com.dunk.tfc.api.Crafting.AnvilManager;
-import com.dunk.tfc.api.TFCItems;
+import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
-import com.dunk.tfc.api.Interfaces.ISize;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillDataAgent;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillTarget;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Interfaces.IPlugAndFeather;
-import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
-
+import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,13 +26,15 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ItemDrill extends ItemTerraTool implements ISize {
+import java.util.List;
+
+public class ItemDrill extends ItemTerra {
 
     static final int MAX_USE_DURATION = 72000;
 
@@ -46,8 +42,6 @@ public class ItemDrill extends ItemTerraTool implements ISize {
     private float durationMultiplier = 1f;
 
     public ItemDrill(ToolMaterial material) {
-        super(0, material, new HashSet<Block>());
-
         maxStackSize = 1;
 
         setCreativeTab(BidsCreativeTabs.bidsTools);
