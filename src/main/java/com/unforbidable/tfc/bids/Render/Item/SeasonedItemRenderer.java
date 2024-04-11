@@ -21,7 +21,6 @@ public class SeasonedItemRenderer implements IItemRenderer {
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack is, Object... data) {
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_BLEND);
@@ -31,7 +30,6 @@ public class SeasonedItemRenderer implements IItemRenderer {
         renderQuad(1, 14, 14, 1, 0xffffaa00);
 
         GL11.glPopAttrib();
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public static void renderIcon(int x, int y, IIcon icon, int sizeX, int sizeY) {
