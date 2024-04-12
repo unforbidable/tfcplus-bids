@@ -550,3 +550,9 @@
 - Changed: Updated Chinese translation by Eternal130
 - Changed: Palisades are able to fill more gaps with neighboring blocks
 - Fixed: Broken Wattle Gates are allowed to stack
+
+0.44.0 (2024-04-12)
+- Added: Stats and achievements
+- Changed: Hammering unfinished anvil added as the last step of making anvils by welding double ingots
+- Changed: The Bronze Age achievement is now triggered when an appropriate anvil has been welded and hammered
+- Fixed: Filling a blowpipe with glass using the crucible output slot should no longer incorrectly trigger the Chalcolithic! achievement
