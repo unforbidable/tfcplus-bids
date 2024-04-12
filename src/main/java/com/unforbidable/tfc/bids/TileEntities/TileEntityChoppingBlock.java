@@ -6,6 +6,7 @@ import com.unforbidable.tfc.bids.Core.ChoppingBlock.ChoppingBlockHelper;
 import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
 import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockRecipe;
 
+import com.unforbidable.tfc.bids.api.Events.ChoppingBlockPlayerEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -20,6 +21,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.MinecraftForge;
 
 public class TileEntityChoppingBlock extends TileEntity {
 
@@ -158,19 +160,24 @@ public class TileEntityChoppingBlock extends TileEntity {
                 final ItemStack ingredient = storage[slot].copy();
                 final ItemStack result = recipe.getCraftingResult(ingredient);
 
-                onChoppingBlockRecipeCrafted(player, result, itemStack, ingredient);
+                ChoppingBlockPlayerEvent event = new ChoppingBlockPlayerEvent(player, this, ChoppingBlockPlayerEvent.Action.ITEM_CRAFTED, result);
+                MinecraftForge.EVENT_BUS.post(event);
 
-                Bids.LOG.debug("Item crafted: " + result.getDisplayName() + "[" + result.stackSize + "]");
+                if (!event.isCanceled()) {
+                    onChoppingBlockRecipeCrafted(player, result, itemStack, ingredient);
 
-                storage[slot] = result;
+                    Bids.LOG.debug("Item crafted: " + result.getDisplayName() + "[" + result.stackSize + "]");
 
-                if (!ChoppingBlockManager.isChoppingBlockInput(material, result)) {
-                    ejectItemAwayFromPlayer(slot, player);
+                    storage[slot] = result;
+
+                    if (!ChoppingBlockManager.isChoppingBlockInput(material, result)) {
+                        ejectItemAwayFromPlayer(slot, player);
+                    }
+
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+                    return true;
                 }
-
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-
-                return true;
             }
         }
 
