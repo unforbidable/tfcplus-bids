@@ -647,12 +647,6 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
     }
 
     private void onPickupFromLiquidOutputSlot(EntityPlayer player, ItemStack itemStack) {
-        // Trigger the copper age achievement when a full
-        // tool mold is removed from the output slot
-        if (CrucibleHelper.isFullToolMold(itemStack)) {
-            CrucibleHelper.triggerCopperAgeAchievement(player);
-        }
-
         CruciblePlayerEvent event = new CruciblePlayerEvent(player, this, CruciblePlayerEvent.Action.RETRIEVE_OUTPUT, itemStack);
         MinecraftForge.EVENT_BUS.post(event);
     }

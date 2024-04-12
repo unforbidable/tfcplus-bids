@@ -713,6 +713,18 @@ public class ItemSetup extends BidsItems {
         // Items that are automatically consumed as a vessel from the cooking prep storage slots
         OreDictionary.registerOre("itemCookingPrepVessel",  new ItemStack(TFCItems.potteryBowl, 1, 1));
         OreDictionary.registerOre("itemCookingPrepVessel",  new ItemStack(TFCItems.potteryBowl, 1, 2));
+
+        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsBeetroot));
+        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsSugarBeet));
+        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsWinterBarley));
+        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsWinterOat));
+        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsWinterRye));
+        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsWinterWheat));
+
+        OreDictionary.registerOre("seedWinterCereal", new ItemStack(BidsItems.seedsWinterBarley));
+        OreDictionary.registerOre("seedWinterCereal", new ItemStack(BidsItems.seedsWinterOat));
+        OreDictionary.registerOre("seedWinterCereal", new ItemStack(BidsItems.seedsWinterRye));
+        OreDictionary.registerOre("seedWinterCereal", new ItemStack(BidsItems.seedsWinterWheat));
     }
 
     private static void registerWoodPileItems() {

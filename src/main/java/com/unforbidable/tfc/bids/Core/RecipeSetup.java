@@ -233,6 +233,9 @@ public class RecipeSetup {
         OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.strawberry));
 
         OreDictionary.registerOre("foodEgg", new ItemStack(TFCItems.egg));
+
+        OreDictionary.registerOre("foodMushroom", new ItemStack(TFCItems.mushroomFoodB));
+        OreDictionary.registerOre("foodMushroom", new ItemStack(TFCItems.mushroomFoodR));
     }
 
     private static String getOreSuffixWood(int i) {

@@ -29,11 +29,13 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         RecipeSetup.init();
+        AchievementSetup.init();
 
         MinecraftForge.EVENT_BUS.register(new PlayerInteractHandler());
         MinecraftForge.EVENT_BUS.register(new ChunkEventHandler());
         MinecraftForge.EVENT_BUS.register(new LivingDropsEventHandler());
         MinecraftForge.EVENT_BUS.register(new EntitySpawnHandler());
+        MinecraftForge.EVENT_BUS.register(new AchievementHandler());
     }
 
     public void postInit(FMLPostInitializationEvent event) {
