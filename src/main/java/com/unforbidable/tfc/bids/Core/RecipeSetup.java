@@ -837,12 +837,6 @@ public class RecipeSetup {
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewGarlic), new ItemStack(TFCItems.seedsGarlic));
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCarrot), new ItemStack(TFCItems.seedsCarrot));
 
-        // Re-crafting bronze anvils for achievement
-        GameRegistry.addShapelessRecipe(BlockUnfinishedAnvil.getFinishedAnvil(2), BlockUnfinishedAnvil.getFinishedAnvil(2));
-        GameRegistry.addShapelessRecipe(BlockUnfinishedAnvil.getFinishedAnvil(8), BlockUnfinishedAnvil.getFinishedAnvil(8));
-        GameRegistry.addShapelessRecipe(BlockUnfinishedAnvil.getFinishedAnvil(9), BlockUnfinishedAnvil.getFinishedAnvil(9));
-        GameRegistry.addShapelessRecipe(BlockUnfinishedAnvil.getFinishedAnvil(10), BlockUnfinishedAnvil.getFinishedAnvil(10));
-
         DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreStrip, 1, 1),
                 new ItemStack(BidsItems.barkFibreStrip, 1, 0), 12, false));
 
