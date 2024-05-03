@@ -556,3 +556,7 @@
 - Changed: Hammering unfinished anvil added as the last step of making anvils by welding double ingots
 - Changed: The Bronze Age achievement is now triggered when an appropriate anvil has been welded and hammered
 - Fixed: Filling a blowpipe with glass using the crucible output slot should no longer incorrectly trigger the Chalcolithic! achievement
+
+0.44.1 (2024-05-03)
+- Changed: Updated Chinese translation by Eternal130
+- Fixed: Placing a tool on the wall hook should always consume the item in the correct slot

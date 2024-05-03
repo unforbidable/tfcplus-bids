@@ -49,7 +49,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Bucket and Rope](../../wiki/Bucket-and-Rope) - for drawing water from deep wells
 * [Large Bowl](../../wiki/Large-Bowl) - enables mixing barrel recipes that might require adding 500mB of liquid
 * [Unfinished Anvil](../../wiki/Unfinished-Anvil) - enables anvil creation by welding seven double ingots together
-* [Cooking Pot](../../wiki/Cooking-Pot) - for boiling and steaming foodstuffs and much more, notably cooking meals form cooking mixes
+* [Cooking Pot](../../wiki/Cooking-Pot) - for boiling and steaming foodstuffs and much more, notably making cooked meals form prepared mixtures
 * [Steaming Mesh](../../wiki/Steaming-Mesh) - as an accessory for the cooking pot
 * [Fish Oil](../../wiki/Fish-Oil) - an alternative fuel for clay lamps
 * [More Milk](../../wiki/More-Milk) - goat milk and goat cheese
@@ -69,7 +69,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Translations
 
-* Chinese by Eternal130 (v0.43.x)
+* Chinese by Eternal130 (v0.44.x)
 * Japanese by dymanic.day (v0.28.x)
 
 ### Other credits
