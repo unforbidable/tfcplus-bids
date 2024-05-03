@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Core;
 
-import com.unforbidable.tfc.bids.Bids;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -10,8 +9,6 @@ public class OreDictionaryHelper {
 
     public static boolean itemMatchesOre(ItemStack is, List<ItemStack> oreList, boolean strict) {
         for (ItemStack ore : oreList) {
-            Bids.LOG.info("Match? " + ore + " - " + is);
-
             if (OreDictionary.itemMatches(ore, is, strict)) {
                 return true;
             }
