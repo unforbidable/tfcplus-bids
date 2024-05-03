@@ -62,7 +62,7 @@ public class TileEntityWallHook extends TileEntity implements IMessageHanldingTi
 
             clientNeedToUpdate = true;
 
-            player.inventory.consumeInventoryItem(itemStack.getItem());
+            player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 
             return true;
         }
