@@ -177,13 +177,15 @@ public class AchievementHandler {
 
     @SubscribeEvent
     public void onAnvilCraft(AnvilCraftEvent event) {
-        if (event.result.getItem() == Item.getItemFromBlock(TFCBlocks.anvil) || event.result.getItem() == Item.getItemFromBlock(TFCBlocks.anvil2)) {
-            ((EntityPlayer) event.entity).triggerAchievement(BidsAchievements.WELDED_ANVIL);
-        }
+        if (event.result != null) {
+            if (event.result.getItem() == Item.getItemFromBlock(TFCBlocks.anvil) || event.result.getItem() == Item.getItemFromBlock(TFCBlocks.anvil2)) {
+                ((EntityPlayer) event.entity).triggerAchievement(BidsAchievements.WELDED_ANVIL);
+            }
 
-        if (event.result.getItem() == Item.getItemFromBlock(TFCBlocks.anvil) && event.result.getItemDamage() == 2 ||
-            event.result.getItem() == Item.getItemFromBlock(TFCBlocks.anvil2) && (event.result.getItemDamage() == 1 || event.result.getItemDamage() == 2)) {
-            ((EntityPlayer) event.entity).triggerAchievement(TFC_Achievements.achBronzeAge);
+            if (event.result.getItem() == Item.getItemFromBlock(TFCBlocks.anvil) && event.result.getItemDamage() == 2 ||
+                event.result.getItem() == Item.getItemFromBlock(TFCBlocks.anvil2) && (event.result.getItemDamage() == 1 || event.result.getItemDamage() == 2)) {
+                ((EntityPlayer) event.entity).triggerAchievement(TFC_Achievements.achBronzeAge);
+            }
         }
     }
 
