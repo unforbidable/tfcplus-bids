@@ -1062,6 +1062,14 @@ public class RecipeSetup {
                 new ItemStack(TFCItems.redApple)));
         SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(BidsItems.oliveCrushed),
                 new ItemStack(TFCItems.olive)));
+
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 2, 9), // Salt
+            new ItemStack(TFCItems.looseRock, 1, 5)));
+
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(TFCItems.dye, 1, 15), // Bone Meal
+            new ItemStack(TFCItems.bone, 1)));
+        SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(TFCItems.dye, 1, 15), // Bone Meal
+            new ItemStack(TFCItems.boneFragment, 1)));
     }
 
     private static void registerStonePressRecipes() {
