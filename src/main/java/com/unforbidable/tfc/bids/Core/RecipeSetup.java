@@ -1070,6 +1070,23 @@ public class RecipeSetup {
             new ItemStack(TFCItems.bone, 1)));
         SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(TFCItems.dye, 1, 15), // Bone Meal
             new ItemStack(TFCItems.boneFragment, 1)));
+
+        if (BidsOptions.SaddleQuern.allowGrindHematite) {
+            SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 1, 5), // Hematite
+                new ItemStack(TFCItems.smallOreChunk, 1, 3)));
+        }
+        if (BidsOptions.SaddleQuern.allowGrindLimonite) {
+            SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 1, 7), // Limonite
+                new ItemStack(TFCItems.smallOreChunk, 1, 11)));
+        }
+        if (BidsOptions.SaddleQuern.allowGrindMalachite) {
+            SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 1, 8), // Malachite
+                new ItemStack(TFCItems.smallOreChunk, 1, 9)));
+        }
+        if (BidsOptions.SaddleQuern.allowGrindLapisLazuli) {
+            SaddleQuernManager.addRecipe(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 2, 6), // Lapis Lazuli
+                new ItemStack(TFCItems.oreChunk, 1, 318)));
+        }
     }
 
     private static void registerStonePressRecipes() {

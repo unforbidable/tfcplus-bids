@@ -109,6 +109,23 @@ public class ConfigHandler {
                 BidsOptions.Bark.dropSplittingSeasonedChance, 0f, 1f,
                 "The chance of a bark piece dropping when splitting seasoned logs into firewood (0 = never, 1 = always)");
 
+        BidsOptions.SaddleQuern.allowGrindHematite = config.getBoolean(
+            "allowGrindHematite", "saddleQuern", BidsOptions.SaddleQuern.allowGrindHematite,
+            "Set this to true to be able to grind Small Hematite ore using Saddle Quern"
+        );
+        BidsOptions.SaddleQuern.allowGrindLimonite = config.getBoolean(
+            "allowGrindLimonite", "saddleQuern", BidsOptions.SaddleQuern.allowGrindLimonite,
+            "Set this to true to be able to grind Small Limonite ore using Saddle Quern"
+        );
+        BidsOptions.SaddleQuern.allowGrindMalachite = config.getBoolean(
+            "allowGrindMalachite", "saddleQuern", BidsOptions.SaddleQuern.allowGrindMalachite,
+            "Set this to true to be able to grind Small Malachite ore using Saddle Quern"
+        );
+        BidsOptions.SaddleQuern.allowGrindLapisLazuli = config.getBoolean(
+            "allowGrindLapisLazuli", "saddleQuern", BidsOptions.SaddleQuern.allowGrindLapisLazuli,
+            "Set this to true to be able to grind Lapis Lazuli using Saddle Quern"
+        );
+
         BidsOptions.StonePress.efficiency = config.getFloat(
                 "efficiency", "stonePress",
                 BidsOptions.StonePress.efficiency, 0.5f, 1.5f,
