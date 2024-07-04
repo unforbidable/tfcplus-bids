@@ -560,3 +560,9 @@
 0.44.1 (2024-05-03)
 - Changed: Updated Chinese translation by Eternal130
 - Fixed: Placing a tool on the wall hook should always consume the item in the correct slot
+
+0.44.2 (2024-07-04)
+- Changed: Enabled grinding of Rock Salt rocks into Salt using a Saddle Quern
+- Changed: Enabled grinding of Bones and Bone Fragments into Bone Meal using a Saddle Quern
+- Changed: Ability to grind Hematite, Limonite, Malachite nuggets and Lapis Lazuli into powders using a Saddle Quern can be configured
+- Fixed: Splitting iron blooms should no longer cause a crash
