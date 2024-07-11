@@ -21,6 +21,7 @@ import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.Events.WoodPileBurningEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
 
@@ -41,6 +42,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileEntityWoodPile extends TileEntity implements IInventory, IMessageHanldingTileEntity<WoodPileMessage> {
@@ -71,7 +73,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     long lastBurningTicks = 0;
     Timer burningTimer = new Timer(10);
-    int burningCounter = 0;
+    int totalBurningTemp = 0;
+    long totalBurningTicks = 0;
 
     boolean isItemBoundsCacheActual = false;
     List<WoodPileItemBounds> itemBoundsCache = new ArrayList<WoodPileItemBounds>();
@@ -422,6 +425,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // One time only right after creation
             if (!initialized) {
                 lastSeasoningTicks = TFC_Time.getTotalTicks();
+                lastBurningTicks = TFC_Time.getTotalTicks();
 
                 sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
 
@@ -456,28 +460,25 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
             // Check if enough time had passed
             // for seasoning interval
-            if (seasoningTimer.tick() && TFC_Time.getTotalTicks() > lastSeasoningTicks + SEASONING_INTERVAL) {
-                if (onFire) {
-                    // No seasoning when making charcoal
-                    lastSeasoningTicks = TFC_Time.getTotalTicks();
-                } else {
-                    seasonItems();
-                }
+            if (!onFire && seasoningTimer.tick() && TFC_Time.getTotalTicks() > lastSeasoningTicks + SEASONING_INTERVAL) {
+                seasonItems();
             }
 
             // Burn off logs when on fire and not in a charcoal pit
             // Burning logs is paused when the UI is open
             // to avoid sync glitches
-            if (burningTimer.tick() && woodPileOpeningCounter == 0) {
+            if (onFire && burningTimer.tick() && woodPileOpeningCounter == 0) {
+                WoodPileBurningItem burningItem = findNextBurningItem();
                 float burningRate = getBurningRate();
-                if (onFire && burningRate > 0) {
-                    burnItems(burningRate);
+                if (burningItem != null && burningRate > 0) {
+                    // Wood pile can burn and there is anything inside to burn
+                    handleBurningItem(burningItem, burningRate);
                 } else {
                     // Reset burn ticks and reduce strength
                     lastBurningTicks = TFC_Time.getTotalTicks();
 
-                    if (burningCounter > 0) {
-                        burningCounter = Math.max(0, burningCounter - BURNING_COUNTER_COOLING_STEP);
+                    if (totalBurningTemp > 0) {
+                        totalBurningTemp = Math.max(0, totalBurningTemp - BURNING_COUNTER_COOLING_STEP);
                     }
                 }
             }
@@ -524,62 +525,53 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         }
     }
 
-    private void burnItems(float burningRate) {
+    private WoodPileBurningItem findNextBurningItem() {
         for (int i = 0; i < MAX_STORAGE; i++) {
-            if (storage[i] != null && storage[i].getItem() == BidsItems.firewoodSeasoned) {
-                if (tryToBurnItem(storage[i], burningRate)) {
-                    storage[i] = null;
-
-                    onStorageChanged();
+            if (storage[i] != null) {
+                IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(storage[i].getItem());
+                if (fuel != null && fuel.isFuelValid(storage[i])) {
+                    return new WoodPileBurningItem(i, storage[i], fuel);
                 }
-
-                // Item could not be burned, try next cycle
-                // lastBurningTicks is not reset, so ticks will roll over
-                return;
             }
         }
 
-        // No items to burn, no ticks rolled over
-        lastBurningTicks = TFC_Time.getTotalTicks();
+        Bids.LOG.info("Nothing to burn!");
+
+        return null;
     }
 
-    private void onItemBurned(ItemStack itemStack, int burningTemp) {
-        Bids.LOG.debug("Item burned: " + itemStack.getDisplayName());
+    private void handleBurningItem(WoodPileBurningItem burningItem, float burningRate) {
+        long ticksNeededToBurnItem = burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack());
+        long ticksNeededToBurnItemForBurningRate = (long) (ticksNeededToBurnItem / burningRate);
+        long ticksSincePreviousLogBurning = TFC_Time.getTotalTicks() - lastBurningTicks;
 
-        // A wood pile above will also be burning
-        // but any logs in it would still fall into the wood pile below
-        tryToPullItemsFromAbove();
+        if (ticksNeededToBurnItemForBurningRate <= ticksSincePreviousLogBurning) {
+            // Enough ticks have passed to burn this item
+            lastBurningTicks += ticksNeededToBurnItemForBurningRate;
 
-        // When the last log burns off
-        // the wood pile disappears
-        if (isEmpty()) {
-            setOnFire(false);
-            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-        }
+            int burningTemp = burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack());
 
-        burningCounter += burningTemp;
-        Bids.LOG.debug("burningCounter: " + burningCounter);
-    }
+            totalBurningTemp += burningTemp;
+            totalBurningTicks += ticksNeededToBurnItemForBurningRate;
 
-    private boolean tryToBurnItem(ItemStack itemStack, float burningRate) {
-        IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(itemStack.getItem());
-        if (fuel != null && fuel.isFuelValid(itemStack)) {
-            long ticksNeededToBurnItem = fuel.getFuelBurnTime(itemStack);
-            long timeNeededToBurnItemAdjustedToBurningRate = (long) (ticksNeededToBurnItem / burningRate);
-            long ticksSincePreviousLogBurning = TFC_Time.getTotalTicks() - lastBurningTicks;
+            WoodPileBurningEvent event = new WoodPileBurningEvent(this, totalBurningTicks, totalBurningTemp);
+            MinecraftForge.EVENT_BUS.post(event);
 
-            if (timeNeededToBurnItemAdjustedToBurningRate <= ticksSincePreviousLogBurning) {
-                // Enough ticks have passed to burn this item
-                lastBurningTicks += timeNeededToBurnItemAdjustedToBurningRate;
+            storage[burningItem.getIndex()] = null;
 
-                int burningTemp = fuel.getFuelMaxTemp(itemStack);
-                onItemBurned(itemStack, burningTemp);
+            // A wood pile above will also be burning
+            // but any logs in it would still fall into the wood pile below
+            tryToPullItemsFromAbove();
 
-                return true;
+            // When the last log burns off
+            // the wood pile disappears
+            if (isEmpty()) {
+                setOnFire(false);
+                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            } else {
+                onStorageChanged();
             }
         }
-
-        return false;
     }
 
     @Override
@@ -617,7 +609,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         tag.setBoolean("onFire", onFire);
         tag.setLong("hoursOnFire", hoursOnFire);
         tag.setLong("lastBurningTicks", lastBurningTicks);
-        tag.setInteger("burningCounter", burningCounter);
+        tag.setLong("totalBurningTicks", totalBurningTicks);
+        tag.setInteger("totalBurningTemp", totalBurningTemp);
 
         NBTTagList itemTagList = new NBTTagList();
         for (int i = 0; i < MAX_STORAGE; i++) {
@@ -638,7 +631,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         onFire = tag.getBoolean("onFire");
         hoursOnFire = tag.getLong("hoursOnFire");
         lastBurningTicks = tag.getLong("lastBurningTicks");
-        burningCounter = tag.getInteger("burningCounter");
+        totalBurningTicks = tag.getLong("totalBurningTicks");
+        totalBurningTemp = tag.getInteger("totalBurningTemp");
 
         for (int i = 0; i < MAX_STORAGE; i++) {
             storage[i] = null;
@@ -842,7 +836,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     public boolean isBurning() {
-        return isOnFire() && getBurningRate() > 0;
+        return isOnFire() && getBurningRate() > 0 && findNextBurningItem() != null;
     }
 
     public boolean isOnFire() {
@@ -859,6 +853,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
             doSpreadFire();
+
+            // Reset burning tick progress
+            lastBurningTicks = TFC_Time.getTotalTicks();
+            totalBurningTicks = 0;
         } else if (!onFire && this.onFire) {
             this.onFire = false;
             hoursOnFire = 0;
@@ -868,6 +866,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
             doExtinguishFire();
+
+            // Reset seasoning tick progress
+            lastSeasoningTicks = TFC_Time.getTotalTicks();
         }
     }
 
@@ -875,7 +876,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         // For charcoal to be created the burning counter must be 0
         // This means that no item in the wood pile has been burned
         // or enough time passed since then
-        if (isOnFire() && burningCounter == 0) {
+        if (isOnFire() && totalBurningTemp == 0) {
             Bids.LOG.debug("Trying to create charcoal at " + xCoord + "," + yCoord + "," + zCoord);
 
             if (hoursOnFire + TFCOptions.charcoalPitBurnTime < TFC_Time.getTotalHours()) {
@@ -963,10 +964,13 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 // except for air block above
                 // because setting fire on top of a non-opaque non-flammable block causes an infinite loop
                 if (!isValidCharcoalPitBlock(block, d) && !(d == ForgeDirection.UP && block == Blocks.air)) {
+                    Bids.LOG.info("Spread fire: " + d);
                     blocksToBeSetOnFire.add(new Vector3f(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
                 }
             }
         }
+
+        Bids.LOG.info("Spread fire: " + blocksToBeSetOnFire.size());
 
         while (blocksToBeSetOnFire.size() > 0) {
             Vector3f pos = blocksToBeSetOnFire.poll();
