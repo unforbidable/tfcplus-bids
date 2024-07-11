@@ -363,8 +363,6 @@ public class BlockSetup extends BidsBlocks {
 
         Blocks.fire.setFireInfo(carvingWood, 5, 5);
 
-        Blocks.fire.setFireInfo(woodPile, 10, 10);
-
         Blocks.fire.setFireInfo(choppingBlock, 5, 5);
 
         Blocks.fire.setFireInfo(wattleTrapdoor, 10, 30);
