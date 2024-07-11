@@ -160,6 +160,16 @@ public class BlockWoodPile extends BlockContainer {
     }
 
     @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        if (world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
+            TileEntityWoodPile woodPile = (TileEntityWoodPile) world.getTileEntity(x, y, z);
+            return woodPile.isBurning() ? 15 : 0;
+        }
+
+        return super.getLightValue(world, x, y, z);
+    }
+
+    @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
             TileEntityWoodPile woodPile = (TileEntityWoodPile) world.getTileEntity(x, y, z);
