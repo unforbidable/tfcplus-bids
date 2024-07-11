@@ -58,7 +58,18 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     static final int ACTION_UPDATE = 1;
     static final int ACTION_RETRIEVE_ITEM = 2;
 
-    private static final int BURNING_COUNTER_COOLING_STEP = 100;
+    // TFC kiln burns 16 logs in 18000 ticks
+    // A log will burn in a fire pit for a minimum of 2000 ticks
+    // with oak burning the longest for 4500 ticks
+    // This means at rate of 1f our 16 firewood will burn for at least 32000 ticks
+    // therefore at rate of 0.5625f those 16 firewood will burn for 18000 ticks
+    // At the rate of 0.5625f our 16 oak firewood will burn for cca 40500 ticks
+    // 8 oak firewood will burn 20250 ticks
+    // 7 oak firewood will burn 17718.75 ticks
+    // and so on
+    // Using this mechanics later on kiln could require 7 or 8 oak firewood or 16 baobab firewood per cycle
+    // instead of always 16 logs as per TFC kiln
+    static final float KILN_FACTOR = 0.5625f;
 
     private static final int SET_ON_FIRE_FROM_SOURCE_DELAY = 200;
     private static final ForgeDirection[] VALID_NEARBY_FIRE_SOURCE_DIRECTIONS = { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST };
@@ -79,6 +90,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     Timer burningTimer = new Timer(10);
     int totalBurningTemp = 0;
     long totalBurningTicks = 0;
+    int totalBurningItems = 0;
 
     Timer setOnFireFromSourceCheckTimer = new Timer(100);
     Timer setOnFireFromSourceDelayedTimer = new Timer(0);
@@ -392,11 +404,11 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     private void tryToPullItemsFromAbove() {
         TileEntity teAbove = worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
         if (teAbove instanceof TileEntityWoodPile) {
-            Bids.LOG.info("Wood pile above found");
+            Bids.LOG.debug("Wood pile above found");
 
             int occupied = getActualOccupiedSlotCount();
             while (occupied < 16) {
-                Bids.LOG.info("Trying to pull an item from wood pile above");
+                Bids.LOG.debug("Trying to pull an item from wood pile above");
 
                 TileEntityWoodPile woodPileAbove = (TileEntityWoodPile) teAbove;
 
@@ -404,7 +416,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 boolean largeItemFits = occupied <= 12;
                 ItemStack retrieved = woodPileAbove.retrieveFirstAvailableItemToPullDown(largeItemFits);
                 if (retrieved != null) {
-                    Bids.LOG.info("Pulled item " + retrieved.getDisplayName() + "[" + retrieved.stackSize + "] from wood pile above");
+                    Bids.LOG.debug("Pulled item " + retrieved.getDisplayName() + "[" + retrieved.stackSize + "] from wood pile above");
 
                     addItem(retrieved);
 
@@ -498,10 +510,6 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 } else {
                     // Reset burn ticks and reduce strength
                     lastBurningTicks = TFC_Time.getTotalTicks();
-
-                    if (totalBurningTemp > 0) {
-                        totalBurningTemp = Math.max(0, totalBurningTemp - BURNING_COUNTER_COOLING_STEP);
-                    }
                 }
             }
 
@@ -583,10 +591,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             return 0f;
         } else if (exposedSides.size() + woodPileSides.size() <= 2 && exposedSides.contains(ForgeDirection.UP)) {
             // At most two sides exposed or touching another burning wood pile - some sort of kiln
-            return 0.5f;
+            return 1f;
         } else {
             // More exposure - pyres
-            return 2;
+            return 2f;
         }
     }
 
@@ -600,13 +608,11 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             }
         }
 
-        Bids.LOG.info("Nothing to burn!");
-
         return null;
     }
 
     private void handleBurningItem(WoodPileBurningItem burningItem, float burningRate) {
-        long ticksNeededToBurnItem = burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack());
+        long ticksNeededToBurnItem = (long) (burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) * KILN_FACTOR);
         long ticksNeededToBurnItemForBurningRate = (long) (ticksNeededToBurnItem / burningRate);
         long ticksSincePreviousLogBurning = TFC_Time.getTotalTicks() - lastBurningTicks;
 
@@ -615,11 +621,14 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             lastBurningTicks += ticksNeededToBurnItemForBurningRate;
 
             int burningTemp = burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack());
+            float burningTimeBonus = burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) / 1000f;
 
-            totalBurningTemp += burningTemp;
+            // Longer burning time accumulates more temp per tick each time
+            totalBurningTemp += burningTemp * burningTimeBonus;
             totalBurningTicks += ticksNeededToBurnItemForBurningRate;
+            totalBurningItems++;
 
-            WoodPileBurningEvent event = new WoodPileBurningEvent(this, totalBurningTicks, totalBurningTemp);
+            WoodPileBurningEvent event = new WoodPileBurningEvent(this, totalBurningTicks, totalBurningTemp, totalBurningItems);
             MinecraftForge.EVENT_BUS.post(event);
 
             storage[burningItem.getIndex()] = null;
@@ -676,6 +685,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         tag.setLong("lastBurningTicks", lastBurningTicks);
         tag.setLong("totalBurningTicks", totalBurningTicks);
         tag.setInteger("totalBurningTemp", totalBurningTemp);
+        tag.setInteger("totalBurningItems", totalBurningItems);
 
         NBTTagList itemTagList = new NBTTagList();
         for (int i = 0; i < MAX_STORAGE; i++) {
@@ -698,6 +708,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         lastBurningTicks = tag.getLong("lastBurningTicks");
         totalBurningTicks = tag.getLong("totalBurningTicks");
         totalBurningTemp = tag.getInteger("totalBurningTemp");
+        totalBurningItems = tag.getInteger("totalBurningItems");
 
         for (int i = 0; i < MAX_STORAGE; i++) {
             storage[i] = null;
@@ -922,6 +933,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // Reset burning tick progress
             lastBurningTicks = TFC_Time.getTotalTicks();
             totalBurningTicks = 0;
+            totalBurningTemp = 0;
+            totalBurningItems = 0;
         } else if (!onFire && this.onFire) {
             this.onFire = false;
             hoursOnFire = 0;
@@ -1029,13 +1042,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 // except for air block above
                 // because setting fire on top of a non-opaque non-flammable block causes an infinite loop
                 if (!isValidCharcoalPitBlock(block, d) && !(d == ForgeDirection.UP && block == Blocks.air)) {
-                    Bids.LOG.info("Spread fire: " + d);
                     blocksToBeSetOnFire.add(new Vector3f(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
                 }
             }
         }
-
-        Bids.LOG.info("Spread fire: " + blocksToBeSetOnFire.size());
 
         while (blocksToBeSetOnFire.size() > 0) {
             Vector3f pos = blocksToBeSetOnFire.poll();
