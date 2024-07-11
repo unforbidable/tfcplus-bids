@@ -841,6 +841,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         return false;
     }
 
+    public boolean isBurning() {
+        return isOnFire() && getBurningRate() > 0;
+    }
+
     public boolean isOnFire() {
         return onFire;
     }
