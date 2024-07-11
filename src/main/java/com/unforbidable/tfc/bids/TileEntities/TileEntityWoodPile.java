@@ -469,7 +469,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // Burning logs is paused when the UI is open
             // to avoid sync glitches
             if (burningTimer.tick() && woodPileOpeningCounter == 0) {
-                float burningRate = getBriningRate();
+                float burningRate = getBurningRate();
                 if (onFire && burningRate > 0) {
                     burnItems(burningRate);
                 } else {
@@ -496,7 +496,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         }
     }
 
-    private float getBriningRate() {
+    private float getBurningRate() {
         Set<ForgeDirection> exposedSides = new HashSet<ForgeDirection>();
         Set<ForgeDirection> woodPileSides = new HashSet<ForgeDirection>();
 
