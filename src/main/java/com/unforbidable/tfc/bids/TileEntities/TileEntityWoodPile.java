@@ -9,6 +9,7 @@ import com.dunk.tfc.Blocks.Vanilla.BlockCustomLeaves;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Core.Vector3f;
+import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
@@ -59,6 +60,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     private static final int BURNING_COUNTER_COOLING_STEP = 100;
 
+    private static final int SET_ON_FIRE_FROM_SOURCE_DELAY = 200;
+    private static final ForgeDirection[] VALID_NEARBY_FIRE_SOURCE_DIRECTIONS = { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST };
+
     final ItemStack[] storage = new ItemStack[MAX_STORAGE];
 
     long lastSeasoningTicks = 0;
@@ -75,6 +79,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     Timer burningTimer = new Timer(10);
     int totalBurningTemp = 0;
     long totalBurningTicks = 0;
+
+    Timer setOnFireFromSourceCheckTimer = new Timer(100);
+    Timer setOnFireFromSourceDelayedTimer = new Timer(0);
 
     boolean isItemBoundsCacheActual = false;
     List<WoodPileItemBounds> itemBoundsCache = new ArrayList<WoodPileItemBounds>();
@@ -458,6 +465,21 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 }
             }
 
+            // Wood pile can catch fire from lit fire pit nearby
+            // that is sufficiently enclosed
+            if (!onFire && setOnFireFromSourceDelayedTimer.getTicksToGo() == 0 && setOnFireFromSourceCheckTimer.tick()) {
+                if (canSetOnFireFromSourceNearby()) {
+                    setOnFireFromSourceDelayedTimer.delay(SET_ON_FIRE_FROM_SOURCE_DELAY);
+                }
+            }
+
+            // Actually catch fire from lit fire pit nearby after a delay
+            if (!onFire && setOnFireFromSourceDelayedTimer.tick()) {
+                if (canSetOnFireFromSourceNearby()) {
+                    setOnFire(true);
+                }
+            }
+
             // Check if enough time had passed
             // for seasoning interval
             if (!onFire && seasoningTimer.tick() && TFC_Time.getTotalTicks() > lastSeasoningTicks + SEASONING_INTERVAL) {
@@ -494,6 +516,49 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                     worldObj.spawnParticle("lava", xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat());
                 }
             }
+        }
+    }
+
+    private boolean canSetOnFireFromSourceNearby() {
+        for (ForgeDirection d : VALID_NEARBY_FIRE_SOURCE_DIRECTIONS) {
+            if (isValidSetOnFireSource(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isValidSetOnFireSource(int x, int y, int z) {
+        TileEntity te = worldObj.getTileEntity(x, y, z);
+
+        // Both TFC fire pit and new fire pit are accepted
+        if (te instanceof TEFirepit) {
+            TEFirepit teFirepit = (TEFirepit) te;
+            // Is fire pit lit and burning fuel
+            if (teFirepit.fireTemp > 100) {
+                int exposedSides = 0;
+                for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+                    if (isSetOnFireSourceSideExposed(x + d.offsetX, y + d.offsetY, z + d.offsetZ, d)) {
+                        exposedSides++;
+                    }
+                }
+
+                // Exactly one side must be exposed
+                return exposedSides == 1;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isSetOnFireSourceSideExposed(int x, int y, int z, ForgeDirection d) {
+        if (worldObj.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
+            // Wood piles don't cause fire source exposure
+            return false;
+        } else {
+            // Otherwise check if the side that faces the fire source is solid
+            return !worldObj.isSideSolid(x, y, z, d.getOpposite());
         }
     }
 
