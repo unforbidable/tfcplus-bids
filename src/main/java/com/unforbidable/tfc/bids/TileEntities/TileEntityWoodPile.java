@@ -1050,7 +1050,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         while (blocksToBeSetOnFire.size() > 0) {
             Vector3f pos = blocksToBeSetOnFire.poll();
             if (worldObj.getBlock((int) pos.x, (int) pos.y, (int) pos.z) != Blocks.fire
-                && worldObj.getBlock((int) pos.x, (int) pos.y - 1, (int) pos.z) != Blocks.air) {
+                && Blocks.fire.canPlaceBlockAt(worldObj, (int) pos.x, (int) pos.y, (int) pos.z)) {
                 worldObj.setBlock((int) pos.x, (int) pos.y, (int) pos.z, Blocks.fire);
                 worldObj.markBlockForUpdate((int) pos.x, (int) pos.y, (int) pos.z);
             }
