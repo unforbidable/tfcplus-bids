@@ -8,12 +8,12 @@ import com.dunk.tfc.Blocks.Flora.BlockFruitLeaves;
 import com.dunk.tfc.Blocks.Vanilla.BlockCustomLeaves;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
-import com.dunk.tfc.Core.Vector3f;
 import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
+import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
@@ -1029,7 +1029,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private void doSpreadFire() {
-        ArrayDeque<Vector3f> blocksToBeSetOnFire = new ArrayDeque<Vector3f>();
+        ArrayDeque<BlockCoord> blocksToBeSetOnFire = new ArrayDeque<BlockCoord>();
 
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity te = worldObj.getTileEntity(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
@@ -1042,17 +1042,17 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 // except for air block above
                 // because setting fire on top of a non-opaque non-flammable block causes an infinite loop
                 if (!isValidCharcoalPitBlock(block, d) && !(d == ForgeDirection.UP && block == Blocks.air)) {
-                    blocksToBeSetOnFire.add(new Vector3f(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
+                    blocksToBeSetOnFire.add(new BlockCoord(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
                 }
             }
         }
 
         while (blocksToBeSetOnFire.size() > 0) {
-            Vector3f pos = blocksToBeSetOnFire.poll();
-            if (worldObj.getBlock((int) pos.x, (int) pos.y, (int) pos.z) != Blocks.fire
-                && Blocks.fire.canPlaceBlockAt(worldObj, (int) pos.x, (int) pos.y, (int) pos.z)) {
-                worldObj.setBlock((int) pos.x, (int) pos.y, (int) pos.z, Blocks.fire);
-                worldObj.markBlockForUpdate((int) pos.x, (int) pos.y, (int) pos.z);
+            BlockCoord bc = blocksToBeSetOnFire.poll();
+            if (worldObj.getBlock(bc.x, bc.y, bc.z) != Blocks.fire
+                && Blocks.fire.canPlaceBlockAt(worldObj, bc.x, bc.y, bc.z)) {
+                worldObj.setBlock(bc.x, bc.y, bc.z, Blocks.fire);
+                worldObj.markBlockForUpdate(bc.x, bc.y, bc.z);
             }
         }
     }
