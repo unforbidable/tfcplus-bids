@@ -23,8 +23,20 @@ public class BlockCrackedMM extends BlockMM {
     }
 
     @Override
-    public void onNeighborBlockChange(World world, int i, int j, int k, Block l) {
-        // No dropping carved stone
+    public void dropCarvedStone(World world, int x, int y, int z) {
+        if(!world.getBlock(x + 1, y, z).isOpaqueCube() &&
+            !world.getBlock(x - 1, y, z).isOpaqueCube() &&
+            !world.getBlock(x, y, z + 1).isOpaqueCube() &&
+            !world.getBlock(x, y, z - 1).isOpaqueCube() &&
+            !world.getBlock(x, y + 1, z).isOpaqueCube() &&
+            !world.getBlock(x, y - 1, z).isOpaqueCube()) {
+
+            // Drop loose rocks
+            int meta = world.getBlockMetadata(x, y, z);
+            this.dropBlockAsItem(world, x, y, z, new ItemStack(TFCItems.looseRock, world.rand.nextInt(2) + 1, meta + this.looseStart));
+
+            world.setBlockToAir(x, y, z);
+        }
     }
 
     @Override
