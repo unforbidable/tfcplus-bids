@@ -12,6 +12,8 @@ import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
+import com.unforbidable.tfc.bids.Core.WoodPile.FireSetting.CrackableBlocks.CrackableBlockOre;
+import com.unforbidable.tfc.bids.Core.WoodPile.FireSetting.CrackableBlocks.CrackableBlockStone;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.*;
 import com.unforbidable.tfc.bids.Render.Blocks.*;
@@ -40,6 +42,7 @@ public class BlockSetup extends BidsBlocks {
         registerOre();
         registerCarvings();
         registerQuarryBlocks();
+        registerCrackableBlocks();
         registerTileEntities();
         registerMessages();
     }
@@ -470,6 +473,19 @@ public class BlockSetup extends BidsBlocks {
         QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, roughStoneMM, 2, 1.5f));
         QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneIgIn, roughStoneIgIn, 4, 3f));
         QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneIgEx, roughStoneIgEx, 4, 3f));
+    }
+
+    private static void registerCrackableBlocks() {
+        Bids.LOG.info("Register crackable blocks");
+
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneSed, BidsBlocks.crackedStoneSed, 1f));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneMM, BidsBlocks.crackedStoneMM, 1.2f));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneIgIn, BidsBlocks.crackedStoneIgIn, 1.5f));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneIgEx, BidsBlocks.crackedStoneIgEx, 2f));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore, BidsBlocks.crackedOre));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore1b, BidsBlocks.crackedOre1b));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore2, BidsBlocks.crackedOre2));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore3, BidsBlocks.crackedOre3));
     }
 
     @SideOnly(Side.CLIENT)
