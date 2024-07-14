@@ -12,6 +12,13 @@ public class BlockCoord {
         this.z = z;
     }
 
+    public double distanceTo(BlockCoord bc) {
+        int d0 = bc.x - x;
+        int d1 = bc.y - y;
+        int d2 = bc.z - z;
+        return Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

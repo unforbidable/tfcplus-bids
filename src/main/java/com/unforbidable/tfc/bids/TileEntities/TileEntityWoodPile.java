@@ -1,7 +1,5 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
-import java.util.*;
-
 import com.dunk.tfc.Blocks.BlockRoof;
 import com.dunk.tfc.Blocks.Devices.BlockHopper;
 import com.dunk.tfc.Blocks.Flora.BlockFruitLeaves;
@@ -14,18 +12,18 @@ import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
-import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
+import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.WoodPile.*;
+import com.unforbidable.tfc.bids.Core.WoodPile.FireSetting.StoneCracker;
 import com.unforbidable.tfc.bids.api.*;
-import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import com.unforbidable.tfc.bids.api.Events.WoodPileBurningEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
-
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
@@ -45,6 +43,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.*;
 
 public class TileEntityWoodPile extends TileEntity implements IInventory, IMessageHanldingTileEntity<WoodPileMessage> {
 
@@ -628,6 +628,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             totalBurningTicks += ticksNeededToBurnItemForBurningRate;
             totalBurningItems++;
 
+            onItemBurned();
+
             WoodPileBurningEvent event = new WoodPileBurningEvent(this, totalBurningTicks, totalBurningTemp, totalBurningItems);
             MinecraftForge.EVENT_BUS.post(event);
 
@@ -644,6 +646,33 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 worldObj.setBlockToAir(xCoord, yCoord, zCoord);
             } else {
                 onStorageChanged();
+            }
+        }
+    }
+
+    private void onItemBurned() {
+        handleFireSetting();
+    }
+
+    private void handleFireSetting() {
+        List<BlockCoord> stonesToCrack = StoneCracker.findNearbyStoneToCrack(worldObj, xCoord, yCoord, zCoord, totalBurningTemp);
+        if (stonesToCrack.size() > 0) {
+            Random rand = new Random();
+
+            int actuallyCrackedStones = 0;
+            for (BlockCoord bc : stonesToCrack) {
+                if (rand.nextFloat() < 0.4f) {
+                    StoneCracker.replaceStoneWithCracked(worldObj, bc.x, bc.y, bc.z);
+
+                    actuallyCrackedStones++;
+                }
+            }
+
+            Bids.LOG.info("Cracked {} out of {} blocks", actuallyCrackedStones, stonesToCrack.size());
+
+            if (actuallyCrackedStones > 0) {
+                worldObj.playSoundEffect(xCoord, yCoord, zCoord, "dig.stone",
+                    0.4F + (rand.nextFloat() / 2), 0.7F + rand.nextFloat());
             }
         }
     }
