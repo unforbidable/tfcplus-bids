@@ -1,24 +1,19 @@
 package com.unforbidable.tfc.bids.Blocks;
 
-import java.util.Random;
-
 import com.dunk.tfc.api.Interfaces.IHeatSource;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileHelper;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsGui;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -27,7 +22,8 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.Random;
 
 public class BlockWoodPile extends BlockContainer implements IHeatSource {
 
@@ -55,16 +51,6 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
     @Override
     public IIcon getIcon(int side, int meta) {
         return icon;
-    }
-
-    @Override
-    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-        TileEntity te = world.getTileEntity(x, y, z);
-        if (te != null && te instanceof TileEntityWoodPile) {
-            return ((TileEntityWoodPile) te).isFull();
-        }
-
-        return false;
     }
 
     @Override

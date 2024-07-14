@@ -7,7 +7,10 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
@@ -25,13 +28,11 @@ public class WoodPileHelper {
             int x2 = x + d.offsetX;
             int y2 = y + d.offsetY;
             int z2 = z + d.offsetZ;
-            if (world.isAirBlock(x2, y2, z2)
-                    && world.isSideSolid(x2 + ForgeDirection.DOWN.offsetX, y2 + ForgeDirection.DOWN.offsetY,
-                            z2 + ForgeDirection.DOWN.offsetZ, ForgeDirection.UP)) {
+            if (canCreateWoodPileAt(world, x2, y2, z2)) {
                 // The neighbor block in the direction of the side that was hit
-                // must be air and block below needs to have solid side UP
+                // must allow placing woodpile on top
                 final int orientation = getWoodPileOrientation(player);
-                world.setBlock(x2, y2, z2, BidsBlocks.woodPile, orientation, 2);
+                world.setBlock(x2, y2, z2, BidsBlocks.woodPile, orientation, 3);
                 TileEntity te = world.getTileEntity(x2, y2, z2);
                 if (te instanceof TileEntityWoodPile) {
                     TileEntityWoodPile woodPile = (TileEntityWoodPile) te;
@@ -62,6 +63,21 @@ public class WoodPileHelper {
         }
 
         return false;
+    }
+
+    private static boolean canCreateWoodPileAt(World world, int x, int y, int z) {
+        if (world.isAirBlock(x, y, z) || world.getBlock(x, y, z) == Blocks.fire) {
+            TileEntity te = world.getTileEntity(x, y - 1, z);
+            if (te instanceof TileEntityWoodPile) {
+                // Either a wood pile that is full
+                return ((TileEntityWoodPile) te).isFull();
+            } else {
+                // Or the block below has solid top side
+                return world.isSideSolid(x, y - 1, z, ForgeDirection.UP);
+            }
+        } else {
+            return false;
+        }
     }
 
     public static boolean insertIntoWoodPileAt(ItemStack itemStack, EntityPlayer player, World world,
