@@ -2,7 +2,7 @@ package com.unforbidable.tfc.bids.WAILA;
 
 import com.dunk.tfc.TileEntities.TEChimney;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Blocks.BlockAquifer;
+import com.unforbidable.tfc.bids.Blocks.*;
 import com.unforbidable.tfc.bids.TileEntities.*;
 import com.unforbidable.tfc.bids.WAILA.Providers.*;
 
@@ -35,6 +35,7 @@ public class WailaSetup {
         WailaProvider.addProvider(new GenericSoilProvider(), BlockAquifer.class);
         WailaProvider.addProvider(new CookingPotProvider(), TileEntityCookingPot.class);
         WailaProvider.addProvider(new ScrewPressBarrelProvider(), TileEntityScrewPressBarrel.class);
+        WailaProvider.addProvider(new CrackedOreProvider(), BlockCrackedOre.class, BlockCrackedOre2.class, BlockCrackedOre3.class);
     }
 
     @SideOnly(Side.CLIENT)
