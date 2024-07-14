@@ -1105,9 +1105,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         // Try to ignite neighbors only when actually burning items
         if (isBurning()) {
             for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
-                Block block = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
                 // Set fire to non-charcoal pit cover blocks
-                if (!isValidCharcoalPitBlock(block, d) && block != BidsBlocks.woodPile) {
+                if (!isValidCharcoalPitBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ, d)) {
                     blocksToBeSetOnFire.add(new BlockCoord(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
                 }
             }
@@ -1147,12 +1146,25 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         return false;
     }
 
-    private boolean isValidCharcoalPitBlock(Block block, ForgeDirection d) {
+    private boolean isValidCharcoalPitBlock(int x, int y, int z, ForgeDirection d) {
+        Block block = worldObj.getBlock(x, y, z);
+
+        // Another woodpile is allowed
+        if (block == BidsBlocks.woodPile) {
+            return true;
+        }
+
         // Hopper below is allowed
         if (d == ForgeDirection.DOWN && block instanceof BlockHopper) {
             return true;
         }
 
+        // Non-flammable non-opaque block with solid side facing the charcoal pit
+        if (!block.isOpaqueCube() && Blocks.fire.getFlammability(block) == 0 && worldObj.isSideSolid(x, y, z, d.getOpposite())) {
+            return true;
+        }
+
+        // Or default to TFC rules
         return TFC_Core.isValidCharcoalPitCover(block);
     }
 
