@@ -7,6 +7,7 @@ import com.dunk.tfc.Blocks.Vanilla.BlockCustomLeaves;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.TileEntities.TEFirepit;
+import com.dunk.tfc.api.Interfaces.IHeatSourceTE;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
@@ -45,7 +46,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.*;
 
-public class TileEntityWoodPile extends TileEntity implements IInventory, IMessageHanldingTileEntity<WoodPileMessage> {
+public class TileEntityWoodPile extends TileEntity implements IInventory, IMessageHanldingTileEntity<WoodPileMessage>, IHeatSourceTE {
 
     public static final int MAX_STORAGE = 16;
 
@@ -94,6 +95,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     int totalBurningTemp = 0;
     long totalBurningTicks = 0;
     int totalBurningItems = 0;
+
+    int cachedHeatSourceTemp = 0;
 
     Timer setOnFireFromSourceCheckTimer = new Timer(100);
     Timer setOnFireFromSourceDelayedTimer = new Timer(0);
@@ -518,12 +521,18 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 WoodPileBurningItem burningItem = findNextBurningItem();
                 float burningRate = getBurningRate();
                 if (burningItem != null && burningRate > 0) {
+                    // Cache heat source temp
+                    cachedHeatSourceTemp = (int) (burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack()) * burningRate);
+
                     // Wood pile can burn and there is anything inside to burn
                     handleBurningItem(burningItem, burningRate);
 
                     // Make sure fire is spreading when burning items
                     doSpreadFire();
                 } else {
+                    // Reset cached heat source temp
+                    cachedHeatSourceTemp = 0;
+
                     // Reset burn ticks and reduce strength
                     lastBurningTicks = TFC_Time.getTotalTicks();
                 }
@@ -1146,6 +1155,11 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         }
 
         return null;
+    }
+
+    @Override
+    public float getHeatSourceTemp() {
+        return cachedHeatSourceTemp;
     }
 
     @Override

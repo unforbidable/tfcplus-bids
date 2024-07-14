@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Blocks;
 
 import java.util.Random;
 
+import com.dunk.tfc.api.Interfaces.IHeatSource;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileHelper;
@@ -28,7 +29,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockWoodPile extends BlockContainer {
+public class BlockWoodPile extends BlockContainer implements IHeatSource {
 
     IIcon icon;
 
@@ -186,6 +187,16 @@ public class BlockWoodPile extends BlockContainer {
             world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.1D, 0.0D);
             world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.15D, 0.0D);
         }
+    }
+
+    @Override
+    public float getHeatSourceRadius() {
+        return 7;
+    }
+
+    @Override
+    public Class getTileEntityType() {
+        return TileEntityWoodPile.class;
     }
 
 }
