@@ -15,6 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -145,14 +146,7 @@ public class BlockWoodPile extends BlockContainer {
 
             // Set woodpile on fire from nearby fire blocks
             if (!woodPile.isOnFire()) {
-                ForgeDirection[] dirs = new ForgeDirection[]{ForgeDirection.EAST, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST};
-                for (ForgeDirection d : dirs) {
-                    Block block = world.getBlock(x + d.offsetX, y, z + d.offsetZ);
-                    if (block == Blocks.fire) {
-                        woodPile.setOnFire(true);
-                        break;
-                    }
-                }
+                woodPile.tryToCatchFire();
             }
 
             woodPile.tryToCreateCharcoal();
@@ -173,6 +167,7 @@ public class BlockWoodPile extends BlockContainer {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
             TileEntityWoodPile woodPile = (TileEntityWoodPile) world.getTileEntity(x, y, z);
+            woodPile.tryToCatchFire();
             woodPile.tryToSpreadFire();
         }
     }

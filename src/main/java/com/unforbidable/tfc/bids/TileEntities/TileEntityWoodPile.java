@@ -70,8 +70,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     // instead of always 16 logs as per TFC kiln
     static final float KILN_FACTOR = 0.5625f;
 
+    // How long it takes to catch fire from a fire pit
     private static final int SET_ON_FIRE_FROM_SOURCE_DELAY = 200;
     private static final ForgeDirection[] VALID_NEARBY_FIRE_SOURCE_DIRECTIONS = { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST };
+
+    // How long it takes to catch fire from a Blocks.fire
+    private static final int CATCH_FIRE_DELAY = 100;
 
     final ItemStack[] storage = new ItemStack[MAX_STORAGE];
 
@@ -93,6 +97,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     Timer setOnFireFromSourceCheckTimer = new Timer(100);
     Timer setOnFireFromSourceDelayedTimer = new Timer(0);
+
+    Timer catchFireDelayedTimer = new Timer(0);
 
     boolean isItemBoundsCacheActual = false;
     List<WoodPileItemBounds> itemBoundsCache = new ArrayList<WoodPileItemBounds>();
@@ -487,6 +493,14 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // Actually catch fire from lit fire pit nearby after a delay
             if (!onFire && setOnFireFromSourceDelayedTimer.tick()) {
                 if (canSetOnFireFromSourceNearby()) {
+                    setOnFire(true);
+                }
+            }
+
+            // Wood piles are not flammable anymore,
+            // so they are now set on fire from fire blocks manually after delay
+            if (!onFire && catchFireDelayedTimer.tick()) {
+                if (canCatchFire()) {
                     setOnFire(true);
                 }
             }
@@ -1079,6 +1093,22 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 }
             }
         }
+    }
+
+    public void tryToCatchFire() {
+        if (!onFire && canCatchFire()) {
+            catchFireDelayedTimer.delay(CATCH_FIRE_DELAY);
+        }
+    }
+
+    private boolean canCatchFire() {
+        for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+            if (worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ) == Blocks.fire) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private boolean isValidCharcoalPitBlock(Block block, ForgeDirection d) {

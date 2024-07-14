@@ -48,6 +48,9 @@ public class WoodPileHelper {
                         woodPile.openDelayedGUI(player);
                     }
 
+                    // Catch fire from fire blocks nearby after placing
+                    woodPile.tryToCatchFire();
+
                     return true;
                 } else {
                     // This would happen in BlockWoodPile did not create a TileEntityWoodPile
