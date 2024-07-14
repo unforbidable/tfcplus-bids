@@ -487,6 +487,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                         }
                     }
 
+                    handleDroppedItem(entityItem);
+
                     if (onFire) {
                         entityItem.setFire(100);
                     }
@@ -563,6 +565,16 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                         worldObj.spawnParticle("lava", xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat());
                     }
                 }
+            }
+        }
+    }
+
+    private void handleDroppedItem(EntityItem entityItem) {
+        ItemStack itemStack = entityItem.getEntityItem();
+        if (WoodPileHelper.isItemValidWoodPileItem(itemStack)) {
+            addItem(itemStack);
+            if (itemStack.stackSize == 0) {
+                entityItem.setDead();
             }
         }
     }
