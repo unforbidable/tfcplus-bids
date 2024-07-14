@@ -16,12 +16,11 @@ import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.WoodPile.*;
-import com.unforbidable.tfc.bids.Core.WoodPile.FireSetting.StoneCracker;
 import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
-import com.unforbidable.tfc.bids.api.Events.WoodPileBurningEvent;
+import com.unforbidable.tfc.bids.api.Events.FireSettingEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
@@ -630,8 +629,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
             onItemBurned();
 
-            WoodPileBurningEvent event = new WoodPileBurningEvent(this, totalBurningTicks, totalBurningTemp, totalBurningItems);
-            MinecraftForge.EVENT_BUS.post(event);
+            Bids.LOG.info("Wood pile has been burning for {} ticks with total temperature of {} and {} items burned: {}", totalBurningTicks, totalBurningTemp, totalBurningItems, burningItem.getItemStack().getDisplayName());
 
             storage[burningItem.getIndex()] = null;
 
@@ -655,26 +653,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private void handleFireSetting() {
-        List<BlockCoord> stonesToCrack = StoneCracker.findNearbyStoneToCrack(worldObj, xCoord, yCoord, zCoord, totalBurningTemp);
-        if (stonesToCrack.size() > 0) {
-            Random rand = new Random();
-
-            int actuallyCrackedStones = 0;
-            for (BlockCoord bc : stonesToCrack) {
-                if (rand.nextFloat() < 0.4f) {
-                    StoneCracker.replaceStoneWithCracked(worldObj, bc.x, bc.y, bc.z);
-
-                    actuallyCrackedStones++;
-                }
-            }
-
-            Bids.LOG.info("Cracked {} out of {} blocks", actuallyCrackedStones, stonesToCrack.size());
-
-            if (actuallyCrackedStones > 0) {
-                worldObj.playSoundEffect(xCoord, yCoord, zCoord, "dig.stone",
-                    0.4F + (rand.nextFloat() / 2), 0.7F + rand.nextFloat());
-            }
-        }
+        // Fire setting is handled through events
+        FireSettingEvent.BurningEvent event = new FireSettingEvent.BurningEvent(worldObj, xCoord, yCoord, zCoord, totalBurningTicks, totalBurningTemp, totalBurningItems);
+        MinecraftForge.EVENT_BUS.post(event);
     }
 
     @Override
