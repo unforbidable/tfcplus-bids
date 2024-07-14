@@ -469,18 +469,31 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // Better to do this on the entity item
             // but that's a TFC torch
             // So we detect torches above, when not already on fire
-            if (!onFire && torchDetectionTimer.tick()) {
-                EntityItem ei = detectTorch();
-                if (ei != null) {
-                    Bids.LOG.debug("Torch detected above woodpile at " + xCoord + "," + yCoord + "," + zCoord);
+            if (torchDetectionTimer.tick()) {
+                boolean torchDetected = false;
 
-                    if (torchDetectedTicks == 0) {
-                        torchDetectedTicks = TFC_Time.getTotalTicks();
-                    } else if (torchDetectedTicks + 160 < TFC_Time.getTotalTicks()) {
-                        setOnFire(true);
-                        ei.setDead();
+                for (EntityItem entityItem : detectEntityItems()) {
+                    if (!onFire) {
+                        if (entityItem.getEntityItem().getItem() == Item.getItemFromBlock(TFCBlocks.torch)) {
+                            Bids.LOG.info("Torch detected above woodpile at " + xCoord + "," + yCoord + "," + zCoord);
+
+                            if (torchDetectedTicks == 0) {
+                                torchDetectedTicks = TFC_Time.getTotalTicks();
+                            } else if (torchDetectedTicks + 160 <= TFC_Time.getTotalTicks()) {
+                                setOnFire(true);
+                            }
+
+                            torchDetected = true;
+                        }
                     }
-                } else {
+
+                    if (onFire) {
+                        entityItem.setFire(100);
+                    }
+                }
+
+                if (!torchDetected) {
+                    // Reset detection ticks in case the torch was picked up
                     torchDetectedTicks = 0;
                 }
             }
@@ -545,8 +558,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         } else {
             // Torch detection client side to show sparks
             if (!onFire && torchDetectionClientTimer.tick()) {
-                if (detectTorch() != null) {
-                    worldObj.spawnParticle("lava", xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat());
+                for (EntityItem entityItem : detectEntityItems()) {
+                    if (!isOnFire() && entityItem.getEntityItem().getItem() == Item.getItemFromBlock(TFCBlocks.torch)) {
+                        worldObj.spawnParticle("lava", xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat());
+                    }
                 }
             }
         }
@@ -1140,21 +1155,14 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     @SuppressWarnings("unchecked")
-    protected EntityItem detectTorch() {
+    protected List<EntityItem> detectEntityItems() {
         if (worldObj.isAirBlock(xCoord, yCoord + 1, zCoord)) {
             final AxisAlignedBB bounds = AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord,
                 xCoord + 1, yCoord + 1.1, zCoord + 1);
-            final List<EntityItem> list = (List<EntityItem>) worldObj.getEntitiesWithinAABB(EntityItem.class, bounds);
-
-            for (EntityItem entity : list) {
-                final ItemStack is = entity.getEntityItem();
-                if (is.getItem() == Item.getItemFromBlock(TFCBlocks.torch)) {
-                    return entity;
-                }
-            }
+            return (List<EntityItem>) worldObj.getEntitiesWithinAABB(EntityItem.class, bounds);
         }
 
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
