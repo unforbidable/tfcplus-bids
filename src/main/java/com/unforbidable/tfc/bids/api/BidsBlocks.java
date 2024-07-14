@@ -41,6 +41,8 @@ public class BidsBlocks {
     public static int palisadeRenderId;
     public static int wattleGateRenderId;
     public static int strawNestRenderId;
+    public static int crackedStoneRenderId;
+    public static int crackedOreRenderId;
 
     public static Block clayCrucible;
     public static Block fireClayCrucible;
@@ -54,6 +56,15 @@ public class BidsBlocks {
     public static Block carvingWood;
 
     public static Block woodPile;
+
+    public static Block crackedStoneSed;
+    public static Block crackedStoneMM;
+    public static Block crackedStoneIgIn;
+    public static Block crackedStoneIgEx;
+    public static Block crackedOre;
+    public static Block crackedOre1b;
+    public static Block crackedOre2;
+    public static Block crackedOre3;
 
     public static Block newFirepit;
     public static Block firepitTFC;
