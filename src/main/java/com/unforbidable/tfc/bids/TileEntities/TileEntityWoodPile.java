@@ -432,9 +432,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         if (!worldObj.isRemote) {
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
-        } else {
-            isItemBoundsCacheActual = false;
         }
+
+        isItemBoundsCacheActual = false;
     }
 
     @Override
@@ -506,6 +506,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 if (burningItem != null && burningRate > 0) {
                     // Wood pile can burn and there is anything inside to burn
                     handleBurningItem(burningItem, burningRate);
+
+                    // Make sure fire is spreading when burning items
+                    doSpreadFire();
                 } else {
                     // Reset burn ticks and reduce strength
                     lastBurningTicks = TFC_Time.getTotalTicks();
@@ -1046,23 +1049,34 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             if (te instanceof TileEntityWoodPile) {
                 TileEntityWoodPile neighbor = (TileEntityWoodPile) te;
                 neighbor.setOnFire(true);
-            } else {
-                Block block = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
-                // Set fire to non-charcoal pit cover blocks
-                // except for air block above
-                // because setting fire on top of a non-opaque non-flammable block causes an infinite loop
-                if (!isValidCharcoalPitBlock(block, d) && !(d == ForgeDirection.UP && block == Blocks.air)) {
-                    blocksToBeSetOnFire.add(new BlockCoord(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
-                }
             }
         }
 
-        while (blocksToBeSetOnFire.size() > 0) {
-            BlockCoord bc = blocksToBeSetOnFire.poll();
-            if (worldObj.getBlock(bc.x, bc.y, bc.z) != Blocks.fire
-                && Blocks.fire.canPlaceBlockAt(worldObj, bc.x, bc.y, bc.z)) {
-                worldObj.setBlock(bc.x, bc.y, bc.z, Blocks.fire);
-                worldObj.markBlockForUpdate(bc.x, bc.y, bc.z);
+        // Try to ignite neighbors only when actually burning items
+        if (isBurning()) {
+            for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+                Block block = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
+                // Set fire to non-charcoal pit cover blocks
+                if (!isValidCharcoalPitBlock(block, d) && block != BidsBlocks.woodPile) {
+                    blocksToBeSetOnFire.add(new BlockCoord(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
+                }
+            }
+
+            // When the wood pile is large enough
+            // Fire is spread 2 blocks above to any flammable blocks around
+            if (worldObj.isAirBlock(xCoord, yCoord + 1, zCoord) && worldObj.isAirBlock(xCoord, yCoord + 2, zCoord)) {
+                if (getActualBlockHeight() > 0.25f) {
+                    blocksToBeSetOnFire.add(new BlockCoord(xCoord, yCoord + 2, zCoord));
+                }
+            }
+
+            while (blocksToBeSetOnFire.size() > 0) {
+                BlockCoord bc = blocksToBeSetOnFire.poll();
+                if (worldObj.getBlock(bc.x, bc.y, bc.z) != Blocks.fire
+                    && Blocks.fire.canPlaceBlockAt(worldObj, bc.x, bc.y, bc.z)) {
+                    worldObj.setBlock(bc.x, bc.y, bc.z, Blocks.fire);
+                    worldObj.markBlockForUpdate(bc.x, bc.y, bc.z);
+                }
             }
         }
     }
