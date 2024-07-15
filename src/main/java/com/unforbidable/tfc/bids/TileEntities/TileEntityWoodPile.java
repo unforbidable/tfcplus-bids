@@ -718,7 +718,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private void onItemBurned() {
-        handleFireSetting();
+        if (BidsOptions.WoodPile.enableFireSetting) {
+            handleFireSetting();
+        }
     }
 
     private void handleFireSetting() {
