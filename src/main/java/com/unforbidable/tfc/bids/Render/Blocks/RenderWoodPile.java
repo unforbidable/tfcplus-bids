@@ -49,7 +49,7 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
         rendererAlt.renderAllFaces = false;
 
         if (te.isBurning()) {
-            float fireOffsetY = world.isAirBlock(x, y + 1, z) ? te.getActualBlockHeight() : 0.25f;
+            float fireOffsetY = world.getBlock(x, y + 1, z).isOpaqueCube() ? 0.25f : te.getActualBlockHeight();
             renderBlockFireWithOffsetY(x, y, z, fireOffsetY, renderer);
         }
 
