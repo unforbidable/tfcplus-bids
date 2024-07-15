@@ -125,12 +125,7 @@ public class StoneCracker {
     }
 
     public static boolean canBlockPropagateHeat(World world, int x, int y, int z) {
-        // Air can propagate
-        if (world.isAirBlock(x, y, z)) {
-            return true;
-        }
-
-        // And any potentially crackable or already cracked block
+        // Any potentially crackable or already cracked block
         // Although we are not checking individual crackable block logic though
         Block block = world.getBlock(x, y, z);
         for (ICrackableBlock crackable : WoodPileRegistry.getCrackableBlocks()) {
