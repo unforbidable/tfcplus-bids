@@ -28,6 +28,7 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.BlockStainedGlass;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -640,15 +641,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         Set<ForgeDirection> exposedSides = new HashSet<ForgeDirection>();
         Set<ForgeDirection> woodPileSides = new HashSet<ForgeDirection>();
 
-        // Flammable blocks will eventually get replaced with Blocks.fire
-        // except the block above which will remain Blocks.air
-        // rendering the wood pile exposed
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             Block b = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
-            if (b == Blocks.fire || b == Blocks.air) {
-                exposedSides.add(d);
-            } else if (b instanceof BlockWoodPile) {
+            if (b instanceof BlockWoodPile) {
                 woodPileSides.add(d);
+            } else if (!isValidCharcoalPitBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ, d)) {
+                exposedSides.add(d);
             }
         }
 
@@ -1120,7 +1118,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         if (isBurning()) {
             for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
                 // Set fire to non-charcoal pit cover blocks
-                if (!isValidCharcoalPitBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ, d)) {
+                if (canCharcoalPitBlockBurnDown(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ, d)) {
                     blocksToBeSetOnFire.add(new BlockCoord(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
                 }
             }
@@ -1135,10 +1133,14 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
             while (blocksToBeSetOnFire.size() > 0) {
                 BlockCoord bc = blocksToBeSetOnFire.poll();
-                if (worldObj.getBlock(bc.x, bc.y, bc.z) != Blocks.fire
-                    && Blocks.fire.canPlaceBlockAt(worldObj, bc.x, bc.y, bc.z)) {
-                    worldObj.setBlock(bc.x, bc.y, bc.z, Blocks.fire);
-                    worldObj.markBlockForUpdate(bc.x, bc.y, bc.z);
+                Block block = worldObj.getBlock(bc.x, bc.y, bc.z);
+                // Place fire if possible, otherwise air
+                if (block != Blocks.fire) {
+                    if (Blocks.fire.canPlaceBlockAt(worldObj, bc.x, bc.y, bc.z)) {
+                        worldObj.setBlock(bc.x, bc.y, bc.z, Blocks.fire);
+                    } else if (block != Blocks.air) {
+                        worldObj.setBlockToAir(bc.x, bc.y, bc.z);
+                    }
                 }
             }
         }
@@ -1161,6 +1163,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private boolean isValidCharcoalPitBlock(int x, int y, int z, ForgeDirection d) {
+        // Check if the block keeps char coal pit from burning
         Block block = worldObj.getBlock(x, y, z);
 
         // Another woodpile is allowed
@@ -1173,13 +1176,33 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             return true;
         }
 
-        // Non-flammable non-opaque block with solid side facing the charcoal pit
-        if (!block.isOpaqueCube() && Blocks.fire.getFlammability(block) == 0 && worldObj.isSideSolid(x, y, z, d.getOpposite())) {
-            return true;
-        }
-
         // Or default to TFC rules
         return TFC_Core.isValidCharcoalPitCover(block);
+    }
+
+    private boolean canCharcoalPitBlockBurnDown(int x, int y, int z, ForgeDirection d) {
+        // Check if block burns down when touching a wood pile that is on fire
+        Block block = worldObj.getBlock(x, y, z);
+
+        // Non-opaque blocks made from materials that are obviously not flammable
+        // Basically these are the blocks that should not burn down
+        // even though they might not keep the charcoal pit closed airtight
+        // Examples are anvils, hoppers, stone walls and rock carvings
+        // This also protects chiseled plank blocks, because they are technically Material.rock,
+        // and any other block with incorrect material for the matter,
+        // however it is not the scope of this check to make exceptions for blocks with incorrect material,
+        // and it is left to the player's discretion to do foolish things, or not.
+        if (!block.isOpaqueCube() &&
+            (block.getMaterial() == Material.rock ||
+            block.getMaterial() == Material.iron ||
+            block.getMaterial() == Material.glass ||
+            block.getMaterial() == Material.ground ||
+            block.getMaterial() == Material.sand)) {
+            return false;
+        }
+
+        // Else burn any blocks that aren't a valid charcoal pit wall
+        return !isValidCharcoalPitBlock(x, y, z, d);
     }
 
     private void doExtinguishFire() {
