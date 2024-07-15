@@ -5,7 +5,6 @@ import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileItemBounds;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileRenderHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
-
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -15,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class RenderWoodPile implements ISimpleBlockRenderingHandler {
 
@@ -49,14 +49,19 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
         rendererAlt.renderAllFaces = false;
 
         if (te.isBurning()) {
-            float fireOffsetY = world.getBlock(x, y + 1, z).isOpaqueCube() ? 0.25f : te.getActualBlockHeight();
-            renderBlockFireWithOffsetY(x, y, z, fireOffsetY, renderer);
+            float height = te.getActualBlockHeight();
+            float fireHeight = Math.max(0, height - 0.25f);
+
+            renderBlockFireSideUp(x, y, z, renderer, fireHeight);
+            renderBlockFireSides(x, y, z, renderer, fireHeight);
         }
 
         return true;
     }
 
-    private void renderBlockFireWithOffsetY(int x, int y, int z, float offsetY, RenderBlocks renderer) {
+    private void renderBlockFireSideUp(int x, int y, int z, RenderBlocks renderer, float fireHeight) {
+        float offsetY = renderer.blockAccess.getBlock(x, y + 1, z).isOpaqueCube() ? 0 : fireHeight;
+
         Tessellator tessellator = Tessellator.instance;
         IIcon iicon = Blocks.fire.getFireIcon(0);
         IIcon iicon1 = Blocks.fire.getFireIcon(1);
@@ -69,10 +74,10 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
 
         tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
         tessellator.setBrightness(Blocks.fire.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z));
-        double d0 = (double)iicon2.getMinU();
-        double d1 = (double)iicon2.getMinV();
-        double d2 = (double)iicon2.getMaxU();
-        double d3 = (double)iicon2.getMaxV();
+        double d0 = iicon2.getMinU();
+        double d1 = iicon2.getMinV();
+        double d2 = iicon2.getMaxU();
+        double d3 = iicon2.getMaxV();
         float f = 1.4F;
         double d5;
         double d6;
@@ -90,26 +95,26 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
         d9 = (double)x + 0.5D + 0.3D;
         d10 = (double)z + 0.5D - 0.3D;
         d11 = (double)z + 0.5D + 0.3D;
-        tessellator.addVertexWithUV(d8, (double)((float)y + f + offsetY), (double)(z + 1), d2, d1);
-        tessellator.addVertexWithUV(d4, (double)(y + 0 + offsetY), (double)(z + 1), d2, d3);
-        tessellator.addVertexWithUV(d4, (double)(y + 0 + offsetY), (double)(z + 0), d0, d3);
-        tessellator.addVertexWithUV(d8, (double)((float)y + f + offsetY), (double)(z + 0), d0, d1);
-        tessellator.addVertexWithUV(d9, (double)((float)y + f + offsetY), (double)(z + 0), d2, d1);
-        tessellator.addVertexWithUV(d5, (double)(y + 0 + offsetY), (double)(z + 0), d2, d3);
-        tessellator.addVertexWithUV(d5, (double)(y + 0 + offsetY), (double)(z + 1), d0, d3);
-        tessellator.addVertexWithUV(d9, (double)((float)y + f + offsetY), (double)(z + 1), d0, d1);
-        d0 = (double)iicon1.getMinU();
-        d1 = (double)iicon1.getMinV();
-        d2 = (double)iicon1.getMaxU();
-        d3 = (double)iicon1.getMaxV();
-        tessellator.addVertexWithUV((double)(x + 1), (double)((float)y + f + offsetY), d11, d2, d1);
-        tessellator.addVertexWithUV((double)(x + 1), (double)(y + 0 + offsetY), d7, d2, d3);
-        tessellator.addVertexWithUV((double)(x + 0), (double)(y + 0 + offsetY), d7, d0, d3);
-        tessellator.addVertexWithUV((double)(x + 0), (double)((float)y + f + offsetY), d11, d0, d1);
-        tessellator.addVertexWithUV((double)(x + 0), (double)((float)y + f + offsetY), d10, d2, d1);
-        tessellator.addVertexWithUV((double)(x + 0), (double)(y + 0 + offsetY), d6, d2, d3);
-        tessellator.addVertexWithUV((double)(x + 1), (double)(y + 0 + offsetY), d6, d0, d3);
-        tessellator.addVertexWithUV((double)(x + 1), (double)((float)y + f + offsetY), d10, d0, d1);
+        tessellator.addVertexWithUV(d8, (float)y + f + offsetY, z + 1, d2, d1);
+        tessellator.addVertexWithUV(d4, y + 0 + offsetY, z + 1, d2, d3);
+        tessellator.addVertexWithUV(d4, y + 0 + offsetY, z, d0, d3);
+        tessellator.addVertexWithUV(d8, (float)y + f + offsetY, z, d0, d1);
+        tessellator.addVertexWithUV(d9, (float)y + f + offsetY, z, d2, d1);
+        tessellator.addVertexWithUV(d5, y + 0 + offsetY, z, d2, d3);
+        tessellator.addVertexWithUV(d5, y + 0 + offsetY, z + 1, d0, d3);
+        tessellator.addVertexWithUV(d9, (float)y + f + offsetY, z + 1, d0, d1);
+        d0 = iicon1.getMinU();
+        d1 = iicon1.getMinV();
+        d2 = iicon1.getMaxU();
+        d3 = iicon1.getMaxV();
+        tessellator.addVertexWithUV(x + 1, (float)y + f + offsetY, d11, d2, d1);
+        tessellator.addVertexWithUV(x + 1, y + 0 + offsetY, d7, d2, d3);
+        tessellator.addVertexWithUV(x, y + 0 + offsetY, d7, d0, d3);
+        tessellator.addVertexWithUV(x, (float)y + f + offsetY, d11, d0, d1);
+        tessellator.addVertexWithUV(x, (float)y + f + offsetY, d10, d2, d1);
+        tessellator.addVertexWithUV(x, y + 0 + offsetY, d6, d2, d3);
+        tessellator.addVertexWithUV(x + 1, y + 0 + offsetY, d6, d0, d3);
+        tessellator.addVertexWithUV(x + 1, (float)y + f + offsetY, d10, d0, d1);
         d4 = (double)x + 0.5D - 0.5D;
         d5 = (double)x + 0.5D + 0.5D;
         d6 = (double)z + 0.5D - 0.5D;
@@ -118,26 +123,119 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
         d9 = (double)x + 0.5D + 0.4D;
         d10 = (double)z + 0.5D - 0.4D;
         d11 = (double)z + 0.5D + 0.4D;
-        tessellator.addVertexWithUV(d8, (double)((float)y + f + offsetY), (double)(z + 0), d0, d1);
-        tessellator.addVertexWithUV(d4, (double)(y + 0 + offsetY), (double)(z + 0), d0, d3);
-        tessellator.addVertexWithUV(d4, (double)(y + 0 + offsetY), (double)(z + 1), d2, d3);
-        tessellator.addVertexWithUV(d8, (double)((float)y + f + offsetY), (double)(z + 1), d2, d1);
-        tessellator.addVertexWithUV(d9, (double)((float)y + f + offsetY), (double)(z + 1), d0, d1);
-        tessellator.addVertexWithUV(d5, (double)(y + 0 + offsetY), (double)(z + 1), d0, d3);
-        tessellator.addVertexWithUV(d5, (double)(y + 0 + offsetY), (double)(z + 0), d2, d3);
-        tessellator.addVertexWithUV(d9, (double)((float)y + f + offsetY), (double)(z + 0), d2, d1);
-        d0 = (double)iicon.getMinU();
-        d1 = (double)iicon.getMinV();
-        d2 = (double)iicon.getMaxU();
-        d3 = (double)iicon.getMaxV();
-        tessellator.addVertexWithUV((double)(x + 0), (double)((float)y + f + offsetY), d11, d0, d1);
-        tessellator.addVertexWithUV((double)(x + 0), (double)(y + 0 + offsetY), d7, d0, d3);
-        tessellator.addVertexWithUV((double)(x + 1), (double)(y + 0 + offsetY), d7, d2, d3);
-        tessellator.addVertexWithUV((double)(x + 1), (double)((float)y + f + offsetY), d11, d2, d1);
-        tessellator.addVertexWithUV((double)(x + 1), (double)((float)y + f + offsetY), d10, d0, d1);
-        tessellator.addVertexWithUV((double)(x + 1), (double)(y + 0 + offsetY), d6, d0, d3);
-        tessellator.addVertexWithUV((double)(x + 0), (double)(y + 0 + offsetY), d6, d2, d3);
-        tessellator.addVertexWithUV((double)(x + 0), (double)((float)y + f + offsetY), d10, d2, d1);
+        tessellator.addVertexWithUV(d8, (float)y + f + offsetY, z, d0, d1);
+        tessellator.addVertexWithUV(d4, y + 0 + offsetY, z, d0, d3);
+        tessellator.addVertexWithUV(d4, y + 0 + offsetY, z + 1, d2, d3);
+        tessellator.addVertexWithUV(d8, (float)y + f + offsetY, z + 1, d2, d1);
+        tessellator.addVertexWithUV(d9, (float)y + f + offsetY, z + 1, d0, d1);
+        tessellator.addVertexWithUV(d5, y + 0 + offsetY, z + 1, d0, d3);
+        tessellator.addVertexWithUV(d5, y + 0 + offsetY, z, d2, d3);
+        tessellator.addVertexWithUV(d9, (float)y + f + offsetY, z, d2, d1);
+        d0 = iicon.getMinU();
+        d1 = iicon.getMinV();
+        d2 = iicon.getMaxU();
+        d3 = iicon.getMaxV();
+        tessellator.addVertexWithUV(x, (float)y + f + offsetY, d11, d0, d1);
+        tessellator.addVertexWithUV(x, y + 0 + offsetY, d7, d0, d3);
+        tessellator.addVertexWithUV(x + 1, y + 0 + offsetY, d7, d2, d3);
+        tessellator.addVertexWithUV(x + 1, (float)y + f + offsetY, d11, d2, d1);
+        tessellator.addVertexWithUV(x + 1, (float)y + f + offsetY, d10, d0, d1);
+        tessellator.addVertexWithUV(x + 1, y + 0 + offsetY, d6, d0, d3);
+        tessellator.addVertexWithUV(x, y + 0 + offsetY, d6, d2, d3);
+        tessellator.addVertexWithUV(x, (float)y + f + offsetY, d10, d2, d1);
+    }
+
+    private boolean isFireRenderedSide(IBlockAccess world, int x, int y, int z, ForgeDirection d) {
+        Block block = world.getBlock(x + d.offsetX, y + d.offsetY, z + d.offsetZ);
+        return !block.isOpaqueCube();
+    }
+
+    private void renderBlockFireSides(int x, int y, int z, RenderBlocks renderer, float fireHeight) {
+        Tessellator tessellator = Tessellator.instance;
+        IIcon iicon = Blocks.fire.getFireIcon(0);
+        IIcon iicon1 = Blocks.fire.getFireIcon(1);
+        IIcon iicon2 = iicon;
+
+        if (renderer.hasOverrideBlockTexture()) {
+            iicon2 = renderer.overrideBlockTexture;
+        }
+
+        tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
+        tessellator.setBrightness(Blocks.fire.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z));
+        double d0 = iicon2.getMinU();
+        double d1 = iicon2.getMinV();
+        double d2 = iicon2.getMaxU();
+        double d3 = iicon2.getMaxV();
+        float f = 1.4F;
+        double d5;
+
+        float f2 = 0.2F;
+        float f1 = 0.0625F;
+
+        if ((x + y + z & 1) == 1) {
+            d0 = iicon1.getMinU();
+            d1 = iicon1.getMinV();
+            d2 = iicon1.getMaxU();
+            d3 = iicon1.getMaxV();
+        }
+
+        if ((x / 2 + y / 2 + z / 2 & 1) == 1) {
+            d5 = d2;
+            d2 = d0;
+            d0 = d5;
+        }
+
+        if (fireHeight > 0 && isFireRenderedSide(renderer.blockAccess, x, y, z, ForgeDirection.EAST)) {
+            x++;
+            tessellator.addVertexWithUV((float) x + f2, (float) y + f + f1, z + 1, d2, d1);
+            tessellator.addVertexWithUV(x, (float) (y) + f1, z + 1, d2, d3);
+            tessellator.addVertexWithUV(x, (float) (y) + f1, z, d0, d3);
+            tessellator.addVertexWithUV((float) x + f2, (float) y + f + f1, z, d0, d1);
+            tessellator.addVertexWithUV((float) x + f2, (float) y + f + f1, z, d0, d1);
+            tessellator.addVertexWithUV(x, (float) (y) + f1, z, d0, d3);
+            tessellator.addVertexWithUV(x, (float) (y) + f1, z + 1, d2, d3);
+            tessellator.addVertexWithUV((float) x + f2, (float) y + f + f1, z + 1, d2, d1);
+            x--;
+        }
+
+        if (fireHeight > 0 && isFireRenderedSide(renderer.blockAccess, x, y, z, ForgeDirection.WEST)) {
+            x--;
+            tessellator.addVertexWithUV((float) (x + 1) - f2, (float) y + f + f1, z, d0, d1);
+            tessellator.addVertexWithUV(x + 1, (float) (y) + f1, z, d0, d3);
+            tessellator.addVertexWithUV(x + 1, (float) (y) + f1, z + 1, d2, d3);
+            tessellator.addVertexWithUV((float) (x + 1) - f2, (float) y + f + f1, z + 1, d2, d1);
+            tessellator.addVertexWithUV((float) (x + 1) - f2, (float) y + f + f1, z + 1, d2, d1);
+            tessellator.addVertexWithUV(x + 1, (float) (y) + f1, z + 1, d2, d3);
+            tessellator.addVertexWithUV(x + 1, (float) (y) + f1, z, d0, d3);
+            tessellator.addVertexWithUV((float) (x + 1) - f2, (float) y + f + f1, z, d0, d1);
+            x++;
+        }
+
+        if (fireHeight > 0 && isFireRenderedSide(renderer.blockAccess, x, y, z, ForgeDirection.SOUTH)) {
+            z++;
+            tessellator.addVertexWithUV(x, (float) y + f + f1, (float) z + f2, d2, d1);
+            tessellator.addVertexWithUV(x, (float) (y) + f1, z, d2, d3);
+            tessellator.addVertexWithUV(x + 1, (float) (y) + f1, z, d0, d3);
+            tessellator.addVertexWithUV(x + 1, (float) y + f + f1, (float) z + f2, d0, d1);
+            tessellator.addVertexWithUV(x + 1, (float) y + f + f1, (float) z + f2, d0, d1);
+            tessellator.addVertexWithUV(x + 1, (float) (y) + f1, z, d0, d3);
+            tessellator.addVertexWithUV(x, (float) (y) + f1, z, d2, d3);
+            tessellator.addVertexWithUV(x, (float) y + f + f1, (float) z + f2, d2, d1);
+            z--;
+        }
+
+        if (fireHeight > 0 && isFireRenderedSide(renderer.blockAccess, x, y, z, ForgeDirection.NORTH)) {
+            z--;
+            tessellator.addVertexWithUV(x + 1, (float) y + f + f1, (float) (z + 1) - f2, d0, d1);
+            tessellator.addVertexWithUV(x + 1, (float) (y) + f1, z + 1, d0, d3);
+            tessellator.addVertexWithUV(x, (float) (y) + f1, z + 1, d2, d3);
+            tessellator.addVertexWithUV(x, (float) y + f + f1, (float) (z + 1) - f2, d2, d1);
+            tessellator.addVertexWithUV(x, (float) y + f + f1, (float) (z + 1) - f2, d2, d1);
+            tessellator.addVertexWithUV(x, (float) (y) + f1, z + 1, d2, d3);
+            tessellator.addVertexWithUV(x + 1, (float) (y) + f1, z + 1, d0, d3);
+            tessellator.addVertexWithUV(x + 1, (float) y + f + f1, (float) (z + 1) - f2, d0, d1);
+            //z++;
+        }
     }
 
     @Override
