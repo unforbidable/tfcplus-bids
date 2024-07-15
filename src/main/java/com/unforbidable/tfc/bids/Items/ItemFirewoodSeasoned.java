@@ -81,9 +81,9 @@ public class ItemFirewoodSeasoned extends ItemFirewood implements IFirepitFuelMa
 
                     world.markBlockForUpdate(x, y, z);
                 }
-            }
 
-            return true;
+                return true;
+            }
         }
 
         return super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
