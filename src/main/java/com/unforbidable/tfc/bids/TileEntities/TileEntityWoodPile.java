@@ -28,6 +28,7 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.BlockStainedGlass;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -544,6 +545,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
                     // Make sure fire is spreading when burning items
                     doSpreadFire();
+
+                    // Harm entities
+                    doHarmToLivingEntities();
                 } else {
                     // Reset cached heat source temp
                     cachedHeatSourceTemp = 0;
@@ -565,6 +569,16 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                         worldObj.spawnParticle("lava", xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat());
                     }
                 }
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void doHarmToLivingEntities() {
+        if (!worldObj.getBlock(xCoord, yCoord + 1, zCoord).isOpaqueCube()) {
+            AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1, zCoord, xCoord + 1, yCoord + 3, zCoord + 1);
+            for (EntityLivingBase entityLiving : (List<EntityLivingBase>)worldObj.getEntitiesWithinAABB(EntityLivingBase.class, aabb)) {
+                entityLiving.setFire(2);
             }
         }
     }
