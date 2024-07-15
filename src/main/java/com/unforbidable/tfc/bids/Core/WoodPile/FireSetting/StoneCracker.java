@@ -25,6 +25,9 @@ public class StoneCracker {
     // Additional hear requirement for blocks not directly touching the wood pile per block distance squared (distance > 1 block)
     static final int BLOCK_CRACKING_HEAT_PER_DISTANCE_SQUARED = 4000;
 
+    // Cap on propagation distance
+    static final int MAX_PROPAGATION_DISTANCE = 7;
+
     public static List<BlockCoord> findNearbyStoneToCrack(World world, int x, int y, int z, int heat) {
         List<BlockCoord> blocksFound = new ArrayList<BlockCoord>();
 
@@ -64,8 +67,8 @@ public class StoneCracker {
                     }
                 }
 
-                if (canBlockPropagateHeat(world, bc.x, bc.y, bc.z)) {
-                    if (heat >= heatRequiredForBlockDistance) {
+                if (heat >= heatRequiredForBlockDistance && distance < MAX_PROPAGATION_DISTANCE - 1) {
+                    if (canBlockPropagateHeat(world, bc.x, bc.y, bc.z)) {
                         blocksToCheck.add(bc);
                     }
                 }
