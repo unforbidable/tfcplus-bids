@@ -472,17 +472,21 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // but that's a TFC torch
             // So we detect torches above, when not already on fire
             if (torchDetectionTimer.tick()) {
+                Item torchItem = Item.getItemFromBlock(TFCBlocks.torch);
                 boolean torchDetected = false;
 
                 for (EntityItem entityItem : detectEntityItems()) {
                     if (!onFire) {
-                        if (entityItem.getEntityItem().getItem() == Item.getItemFromBlock(TFCBlocks.torch)) {
+                        if (entityItem.getEntityItem().getItem() == torchItem) {
                             Bids.LOG.info("Torch detected above woodpile at " + xCoord + "," + yCoord + "," + zCoord);
 
                             if (torchDetectedTicks == 0) {
                                 torchDetectedTicks = TFC_Time.getTotalTicks();
                             } else if (torchDetectedTicks + 160 <= TFC_Time.getTotalTicks()) {
                                 setOnFire(true);
+
+                                // Torches are not flammable, so just set that one dead
+                                entityItem.setDead();
                             }
 
                             torchDetected = true;
