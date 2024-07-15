@@ -6,9 +6,6 @@ import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -41,6 +38,11 @@ public class WoodPileHelper {
                     if (isItemValidWoodPileItem(itemStack)) {
                         ItemStack one = itemStack.copy();
                         one.stackSize = 1;
+
+                        if (player.capabilities.isCreativeMode) {
+                            one.stackSize = 16;
+                        }
+
                         if (woodPile.addItem(one)) {
                             itemStack.stackSize = itemStack.stackSize - 1;
                         }
