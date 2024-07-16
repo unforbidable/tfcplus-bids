@@ -96,7 +96,7 @@ public class CarvingHelper {
                     Bids.LOG.debug("Block " + block.getUnlocalizedName() + ":" + metadata
                             + " at " + x + ", " + y + ", " + z + " can be carved");
 
-                    world.setBlock(x, y, z, carving.getCarvingBlock(block, metadata));
+                    world.setBlock(x, y, z, carving.getCarvingBlock(block, metadata), 0, 2);
                     te = world.getTileEntity(x, y, z);
                     if (te != null && te instanceof TileEntityCarving) {
                         Bids.LOG.debug("Carving started at " + x + ", " + y + ", " + z);
@@ -110,7 +110,7 @@ public class CarvingHelper {
                     } else {
                         // We get here when the carving block
                         // fails to create a TileEntityCarving
-                        world.setBlock(x, y, z, block, metadata, 3);
+                        world.setBlock(x, y, z, block, metadata, 2);
                         Bids.LOG.warn("Carving block " + carving.getCarvingBlock(block, metadata).getUnlocalizedName()
                                 + " at " + x + ", " + y + ", " + z + " did not create TileEntityCarving tile entity");
                     }
