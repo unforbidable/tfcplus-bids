@@ -103,13 +103,13 @@ public class FluidHelper {
     private static ItemStack fillContainerFromEntity(ItemStack is, World world, EntityPlayer player, MovingObjectPosition mop) {
         Fluid fluid = EntityFluidHelper.getFluidFromEntity(mop.entityHit, player);
         if (fluid == null) {
-            Bids.LOG.info("Entity is unable to provide fluid");
+            Bids.LOG.debug("Entity is unable to provide fluid");
             return is;
         }
 
         int totalCapacity = getTotalContainerCapacity(is, fluid);
         if (totalCapacity == 0) {
-            Bids.LOG.info("Container does not accept fluid from entity: " + fluid.getUnlocalizedName());
+            Bids.LOG.debug("Container does not accept fluid from entity: " + fluid.getUnlocalizedName());
             return is;
         }
 

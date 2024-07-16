@@ -125,7 +125,7 @@ public class BlockClayCrucible extends BlockCrucible {
     private boolean dropLiquidContentAsLump(TileEntityCrucible crucible) {
         // Only glass
         if (crucible.isLiquidMetal(Global.GLASS)) {
-            Bids.LOG.info("Glass retrieved from crucible: " + crucible.getLiquidMetalVolume());
+            Bids.LOG.debug("Glass retrieved from crucible: " + crucible.getLiquidMetalVolume());
             ItemStack lump = new ItemStack(BidsItems.glassLump);
             NBTTagCompound nbt = new NBTTagCompound();
             nbt.setInteger("volume", crucible.getLiquidMetalVolume());

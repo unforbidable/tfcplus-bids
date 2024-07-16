@@ -41,12 +41,12 @@ public class BidsCropIndex extends CropIndex {
     public List<ItemStack> getHarvestProduce(CropAccess crop, EntityPlayer player, Random random) {
         List<ItemStack> produce = new ArrayList<ItemStack>(getOutput(crop, player, random));
 
-        Bids.LOG.info("growth: " + crop.getGrowth());
-        Bids.LOG.info("numGrowthStages: " + crop.getIndex().numGrowthStages);
-        Bids.LOG.info("nutrients: " + crop.getCropTileEntity().nutrients);
-        Bids.LOG.info("nutrients expected: " + crop.getIndex().growthTime * 92.4f);
-        Bids.LOG.info("growthMultiplier: " + crop.getLastStageGrowthMultiplier());
-        Bids.LOG.info("nutrientMultiplier: " + crop.getNutrientMultiplier());
+        Bids.LOG.debug("growth: " + crop.getGrowth());
+        Bids.LOG.debug("numGrowthStages: " + crop.getIndex().numGrowthStages);
+        Bids.LOG.debug("nutrients: " + crop.getCropTileEntity().nutrients);
+        Bids.LOG.debug("nutrients expected: " + crop.getIndex().growthTime * 92.4f);
+        Bids.LOG.debug("growthMultiplier: " + crop.getLastStageGrowthMultiplier());
+        Bids.LOG.debug("nutrientMultiplier: " + crop.getNutrientMultiplier());
 
         if (isAtLeastPartiallyGrown(crop)) {
             float growthMultiplier = crop.getLastStageGrowthMultiplier();
@@ -94,7 +94,7 @@ public class BidsCropIndex extends CropIndex {
                 seedStack.stackSize = 1 + (crop.getCropTileEntity().getWorldObj().rand.nextInt(1 + skill) == 0 ? 1 : 0);
             }
 
-            Bids.LOG.info("Seed drop: " + seedStack.getUnlocalizedName() + "[" + seedStack.stackSize + "]");
+            Bids.LOG.debug("Seed drop: " + seedStack.getUnlocalizedName() + "[" + seedStack.stackSize + "]");
 
             seeds.add(seedStack);
         }
@@ -104,7 +104,7 @@ public class BidsCropIndex extends CropIndex {
                 float chance = cultivation.getPlayerCultivationChance(crop, player);
 
                 chance *= crop.getNutrientMultiplier() * crop.getLastStageGrowthMultiplier();
-                Bids.LOG.info("Cultivation chance is " + chance + " for " + cultivation.getCultivatedSeedItem().getUnlocalizedName());
+                Bids.LOG.debug("Cultivation chance is " + chance + " for " + cultivation.getCultivatedSeedItem().getUnlocalizedName());
 
                 if (random.nextFloat() < chance) {
                     Item cultivatedSeed = cultivation.getCultivatedSeedItem();
