@@ -569,8 +569,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         } else {
             // Torch detection client side to show sparks
             if (!onFire && torchDetectionClientTimer.tick()) {
+                Item torchItem = Item.getItemFromBlock(TFCBlocks.torch);
+
                 for (EntityItem entityItem : detectEntityItems()) {
-                    if (!isOnFire() && entityItem.getEntityItem().getItem() == Item.getItemFromBlock(TFCBlocks.torch)) {
+                    if (entityItem.getEntityItem().getItem() == torchItem) {
                         worldObj.spawnParticle("lava", xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat());
                     }
                 }
