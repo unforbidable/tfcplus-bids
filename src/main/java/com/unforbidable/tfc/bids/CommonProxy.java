@@ -36,6 +36,7 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(new LivingDropsEventHandler());
         MinecraftForge.EVENT_BUS.register(new EntitySpawnHandler());
         MinecraftForge.EVENT_BUS.register(new AchievementHandler());
+        MinecraftForge.EVENT_BUS.register(new FireSettingHandler());
     }
 
     public void postInit(FMLPostInitializationEvent event) {

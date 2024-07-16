@@ -1,14 +1,12 @@
 package com.unforbidable.tfc.bids.Blocks;
 
-import java.util.Random;
-
+import com.dunk.tfc.api.Interfaces.IHeatSource;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileHelper;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsGui;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -16,7 +14,6 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -25,9 +22,10 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockWoodPile extends BlockContainer {
+import java.util.Random;
+
+public class BlockWoodPile extends BlockContainer implements IHeatSource {
 
     IIcon icon;
 
@@ -53,16 +51,6 @@ public class BlockWoodPile extends BlockContainer {
     @Override
     public IIcon getIcon(int side, int meta) {
         return icon;
-    }
-
-    @Override
-    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-        TileEntity te = world.getTileEntity(x, y, z);
-        if (te != null && te instanceof TileEntityWoodPile) {
-            return ((TileEntityWoodPile) te).isFull();
-        }
-
-        return false;
     }
 
     @Override
@@ -145,14 +133,7 @@ public class BlockWoodPile extends BlockContainer {
 
             // Set woodpile on fire from nearby fire blocks
             if (!woodPile.isOnFire()) {
-                ForgeDirection[] dirs = new ForgeDirection[]{ForgeDirection.EAST, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST};
-                for (ForgeDirection d : dirs) {
-                    Block block = world.getBlock(x + d.offsetX, y, z + d.offsetZ);
-                    if (block == Blocks.fire) {
-                        woodPile.setOnFire(true);
-                        break;
-                    }
-                }
+                woodPile.tryToCatchFire();
             }
 
             woodPile.tryToCreateCharcoal();
@@ -160,9 +141,20 @@ public class BlockWoodPile extends BlockContainer {
     }
 
     @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        if (world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
+            TileEntityWoodPile woodPile = (TileEntityWoodPile) world.getTileEntity(x, y, z);
+            return woodPile.isBurning() ? 15 : 0;
+        }
+
+        return super.getLightValue(world, x, y, z);
+    }
+
+    @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
             TileEntityWoodPile woodPile = (TileEntityWoodPile) world.getTileEntity(x, y, z);
+            woodPile.tryToCatchFire();
             woodPile.tryToSpreadFire();
         }
     }
@@ -181,6 +173,16 @@ public class BlockWoodPile extends BlockContainer {
             world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.1D, 0.0D);
             world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.15D, 0.0D);
         }
+    }
+
+    @Override
+    public float getHeatSourceRadius() {
+        return 7;
+    }
+
+    @Override
+    public Class getTileEntityType() {
+        return TileEntityWoodPile.class;
     }
 
 }

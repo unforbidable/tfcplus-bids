@@ -1,20 +1,21 @@
 package com.unforbidable.tfc.bids.api;
 
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.Interfaces.ICrackableBlock;
+import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
+import net.minecraft.item.Item;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
-
-import net.minecraft.item.Item;
 
 public class WoodPileRegistry {
 
     static final Map<Item, IWoodPileRenderProvider> entries = new HashMap<Item, IWoodPileRenderProvider>();
     static final List<Item> seasonableItems = new ArrayList<Item>();
     static final List<Item> seasonedItems = new ArrayList<Item>();
+    static final List<ICrackableBlock> crackableBlocks = new ArrayList<ICrackableBlock>();
 
     public static void registerSeasonableItem(Item seasonableItem) {
         seasonableItems.add(seasonableItem);
@@ -26,6 +27,10 @@ public class WoodPileRegistry {
         seasonedItems.add(seasonedItem);
 
         registerItem(seasonedItem);
+    }
+
+    public static void registerCrackableBlock(ICrackableBlock crackable) {
+        crackableBlocks.add(crackable);
     }
 
     public static void registerItem(Item item) {
@@ -75,6 +80,10 @@ public class WoodPileRegistry {
 
     public static List<Item> getSeasonedItems() {
         return new ArrayList<Item>(seasonedItems);
+    }
+
+    public static List<ICrackableBlock> getCrackableBlocks() {
+        return crackableBlocks;
     }
 
 }

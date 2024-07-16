@@ -29,6 +29,7 @@ public class BidsOptions {
 
         public static float seasoningDurationMultiplier = 5f;
         public static boolean rotateItems = true;
+        public static boolean enableFireSetting = true;
 
     }
 

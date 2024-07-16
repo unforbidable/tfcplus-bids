@@ -81,6 +81,9 @@ public class ConfigHandler {
         BidsOptions.WoodPile.seasoningDurationMultiplier = config.getFloat(
                 "seasoningDurationMultiplier", "woodpile", BidsOptions.WoodPile.seasoningDurationMultiplier, 1f, 100f,
                 "Higher values increase the time it takes for wood to season in a wood pile");
+        BidsOptions.WoodPile.enableFireSetting = config.getBoolean(
+            "enableFireSetting", "woodpile", BidsOptions.WoodPile.enableFireSetting,
+            "Set this to true if you want burning wood piles to crack nearby raw stone and ore bocks, aka fire-setting");
 
         BidsOptions.Firepit.allowFuelLogsTFC = config.getBoolean(
                 "allowFuelLogsTFC", "firepit", BidsOptions.Firepit.allowFuelLogsTFC,

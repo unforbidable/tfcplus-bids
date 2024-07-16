@@ -12,6 +12,8 @@ import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
+import com.unforbidable.tfc.bids.Core.WoodPile.FireSetting.CrackableBlocks.CrackableBlockOre;
+import com.unforbidable.tfc.bids.Core.WoodPile.FireSetting.CrackableBlocks.CrackableBlockStone;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
 import com.unforbidable.tfc.bids.Items.ItemBlocks.*;
 import com.unforbidable.tfc.bids.Render.Blocks.*;
@@ -40,6 +42,7 @@ public class BlockSetup extends BidsBlocks {
         registerOre();
         registerCarvings();
         registerQuarryBlocks();
+        registerCrackableBlocks();
         registerTileEntities();
         registerMessages();
     }
@@ -283,6 +286,37 @@ public class BlockSetup extends BidsBlocks {
 
         strawNest = new BlockStrawNest()
             .setBlockName("StrawNest");
+
+        crackedStoneSed = new BlockCrackedSed(Material.rock)
+            .setHardness(3.5F)
+            .setBlockName("CrackedSedRock");
+        crackedStoneMM = new BlockCrackedMM(Material.rock)
+            .setHardness(4F)
+            .setBlockName("CrackedMMRock");
+        crackedStoneIgIn = new BlockCrackedIgIn(Material.rock)
+            .setHardness(4F)
+            .setBlockName("CrackedIgInRock");
+        crackedStoneIgEx = new BlockCrackedIgEx(Material.rock)
+            .setHardness(4F)
+            .setBlockName("CrackedIgExRock");
+
+        crackedOre = new BlockCrackedOre(Material.rock)
+            .setHardness(5F)
+            .setResistance(5F)
+            .setBlockName("Ore");
+        crackedOre1b = new BlockCrackedOre(Material.rock)
+            .setDamageOffset(16)
+            .setHardness(5F)
+            .setResistance(5F)
+            .setBlockName("Ore");
+        crackedOre2 = new BlockCrackedOre2(Material.rock)
+            .setHardness(5F)
+            .setResistance(5F)
+            .setBlockName("Ore");
+        crackedOre3 = new BlockCrackedOre3(Material.rock)
+            .setHardness(5F)
+            .setResistance(5F)
+            .setBlockName("Ore");
     }
 
     private static void updateBlocks() {
@@ -316,6 +350,15 @@ public class BlockSetup extends BidsBlocks {
         roughStoneIgEx.setHarvestLevel("shovel", 0);
         roughStoneBrickIgEx.setHarvestLevel("shovel", 0);
         roughStoneTileIgEx.setHarvestLevel("shovel", 0);
+
+        crackedStoneSed.setHarvestLevel("shovel", 0);
+        crackedStoneMM.setHarvestLevel("shovel", 0);
+        crackedStoneIgIn.setHarvestLevel("shovel", 0);
+        crackedStoneIgEx.setHarvestLevel("shovel", 0);
+        crackedOre.setHarvestLevel("shovel", 0);
+        crackedOre1b.setHarvestLevel("shovel", 0);
+        crackedOre2.setHarvestLevel("shovel", 0);
+        crackedOre3.setHarvestLevel("shovel", 0);
 
         carvingRock.setHarvestLevel("shovel", 0);
         carvingWood.setHarvestLevel("axe", 0);
@@ -362,8 +405,6 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(logWallVert3, 5, 5);
 
         Blocks.fire.setFireInfo(carvingWood, 5, 5);
-
-        Blocks.fire.setFireInfo(woodPile, 10, 10);
 
         Blocks.fire.setFireInfo(choppingBlock, 5, 5);
 
@@ -432,6 +473,19 @@ public class BlockSetup extends BidsBlocks {
         QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneMM, roughStoneMM, 2, 1.5f));
         QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneIgIn, roughStoneIgIn, 4, 3f));
         QuarryRegistry.registerQuarryBlock(new QuarriableStone(TFCBlocks.stoneIgEx, roughStoneIgEx, 4, 3f));
+    }
+
+    private static void registerCrackableBlocks() {
+        Bids.LOG.info("Register crackable blocks");
+
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneSed, BidsBlocks.crackedStoneSed, 1f));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneMM, BidsBlocks.crackedStoneMM, 1.2f));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneIgIn, BidsBlocks.crackedStoneIgIn, 1.5f));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneIgEx, BidsBlocks.crackedStoneIgEx, 2f));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore, BidsBlocks.crackedOre));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore1b, BidsBlocks.crackedOre1b));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore2, BidsBlocks.crackedOre2));
+        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore3, BidsBlocks.crackedOre3));
     }
 
     @SideOnly(Side.CLIENT)
@@ -530,6 +584,12 @@ public class BlockSetup extends BidsBlocks {
 
         strawNestRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(strawNestRenderId, new RenderStrawNest());
+
+        crackedStoneRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(crackedStoneRenderId, new RenderCrackedStone());
+
+        crackedOreRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(crackedOreRenderId, new RenderCrackedOre());
     }
 
     private static void registerTileEntities() {
@@ -752,6 +812,16 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(strawNest, "StrawNest");
 
         GameRegistry.registerBlock(unfinishedAnvilStage6, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage6");
+
+        GameRegistry.registerBlock(crackedStoneSed, ItemCrackedStone.class, "CrackedStoneSed");
+        GameRegistry.registerBlock(crackedStoneMM, ItemCrackedStone.class, "CrackedStoneMM");
+        GameRegistry.registerBlock(crackedStoneIgIn, ItemCrackedStone.class, "CrackedStoneIgIn");
+        GameRegistry.registerBlock(crackedStoneIgEx, ItemCrackedStone.class, "CrackedStoneIgEx");
+
+        GameRegistry.registerBlock(crackedOre, "CrackedOre");
+        GameRegistry.registerBlock(crackedOre1b, "CrackedOre1b");
+        GameRegistry.registerBlock(crackedOre2, "CrackedOre2");
+        GameRegistry.registerBlock(crackedOre3, "CrackedOre3");
     }
 
 }

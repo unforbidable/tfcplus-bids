@@ -48,6 +48,12 @@ public class ItemAdze extends ItemTerraTool implements ISize, ICarvingTool {
         setNoRepair();
     }
 
+    @Override
+    public boolean func_150897_b(Block block) {
+        // Without cracked ore blocks do not drop ore chunks, even though the block is harvestable by adzes
+        return block == BidsBlocks.crackedOre || block == BidsBlocks.crackedOre1b || block == BidsBlocks.crackedOre2 || block == BidsBlocks.crackedOre3;
+    }
+
     public int getEquipmentTier() {
         return equipmentTier;
     }

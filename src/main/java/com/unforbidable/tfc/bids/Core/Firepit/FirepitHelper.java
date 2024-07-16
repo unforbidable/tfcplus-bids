@@ -111,8 +111,66 @@ public class FirepitHelper {
     }
 
     public static EnumFuelMaterial getEnumFuelMaterial(ItemStack itemStack) {
-        final ItemStack log = new ItemStack(TFCItems.logs, 1, itemStack.getItemDamage() * 2);
-        return TFC_Core.getFuelMaterial(log);
+        // The following method returns ASH material for Oak and OAK material for Oak
+        // TFC_Core.getFuelMaterial(log);
+        // So instead of calling it the logic is cloned here and corrected
+        int dam = itemStack.getItemDamage();
+        if (dam == 0)
+            return EnumFuelMaterial.OAK;
+        else if (dam == 1)
+            return EnumFuelMaterial.ASPEN;
+        else if (dam == 2)
+            return EnumFuelMaterial.BIRCH;
+        else if (dam == 3)
+            return EnumFuelMaterial.CHESTNUT;
+        else if (dam == 4)
+            return EnumFuelMaterial.DOUGLASFIR;
+        else if (dam == 5)
+            return EnumFuelMaterial.HICKORY;
+        else if (dam == 6)
+            return EnumFuelMaterial.MAPLE;
+        else if (dam == 7)
+            return EnumFuelMaterial.ASH;
+        else if (dam == 8)
+            return EnumFuelMaterial.PINE;
+        else if (dam == 9)
+            return EnumFuelMaterial.REDWOOD;
+        else if (dam == 10)
+            return EnumFuelMaterial.SPRUCE;
+        else if (dam == 11)
+            return EnumFuelMaterial.SYCAMORE;
+        else if (dam == 12)
+            return EnumFuelMaterial.WHITECEDAR;
+        else if (dam == 13)
+            return EnumFuelMaterial.WHITEELM;
+        else if (dam == 14)
+            return EnumFuelMaterial.WILLOW;
+        else if (dam == 15)
+            return EnumFuelMaterial.KAPOK;
+        else if (dam == 16)
+            return EnumFuelMaterial.ACACIA;
+        else if (dam == 17)
+            return EnumFuelMaterial.PALM;
+        else if (dam == 18)
+            return EnumFuelMaterial.EBONY;
+        else if (dam == 19)
+            return EnumFuelMaterial.FEVER;
+        else if (dam == 20)
+            return EnumFuelMaterial.BAOBAB;
+        else if (dam == 21)
+            return EnumFuelMaterial.LIMBA;
+        else if (dam == 22)
+            return EnumFuelMaterial.MAHOGANY;
+        else if (dam == 23)
+            return EnumFuelMaterial.TEAK;
+        else if (dam == 24)
+            return EnumFuelMaterial.BAMBOO;
+        else if (dam == 25)
+            return EnumFuelMaterial.GINGKO;
+        else if (dam == 26)
+            return EnumFuelMaterial.FRUITWOOD;
+        else
+            return EnumFuelMaterial.ASPEN;
     }
 
 }

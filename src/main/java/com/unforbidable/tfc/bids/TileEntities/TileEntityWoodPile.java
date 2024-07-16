@@ -1,37 +1,35 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.dunk.tfc.Blocks.BlockRoof;
 import com.dunk.tfc.Blocks.Devices.BlockHopper;
 import com.dunk.tfc.Blocks.Flora.BlockFruitLeaves;
 import com.dunk.tfc.Blocks.Vanilla.BlockCustomLeaves;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
-import com.dunk.tfc.Core.Vector3f;
+import com.dunk.tfc.TileEntities.TEFirepit;
+import com.dunk.tfc.api.Interfaces.IHeatSourceTE;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Timer;
+import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
+import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
+import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.WoodPile.*;
-import com.unforbidable.tfc.bids.api.BidsGui;
-import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
-import com.unforbidable.tfc.bids.api.WoodPileRegistry;
+import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
+import com.unforbidable.tfc.bids.api.Events.FireSettingEvent;
+import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
-
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.BlockStainedGlass;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -45,9 +43,12 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileEntityWoodPile extends TileEntity implements IInventory, IMessageHanldingTileEntity<WoodPileMessage> {
+import java.util.*;
+
+public class TileEntityWoodPile extends TileEntity implements IInventory, IMessageHanldingTileEntity<WoodPileMessage>, IHeatSourceTE {
 
     public static final int MAX_STORAGE = 16;
 
@@ -58,6 +59,26 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     static final int ACTION_UPDATE = 1;
     static final int ACTION_RETRIEVE_ITEM = 2;
+
+    // TFC kiln burns 16 logs in 18000 ticks
+    // A log will burn in a fire pit for a minimum of 2000 ticks
+    // with oak burning the longest for 4500 ticks
+    // This means at rate of 1f our 16 firewood will burn for at least 32000 ticks
+    // therefore at rate of 0.5625f those 16 firewood will burn for 18000 ticks
+    // At the rate of 0.5625f our 16 oak firewood will burn for cca 40500 ticks
+    // 8 oak firewood will burn 20250 ticks
+    // 7 oak firewood will burn 17718.75 ticks
+    // and so on
+    // Using this mechanics later on kiln could require 7 or 8 oak firewood or 16 baobab firewood per cycle
+    // instead of always 16 logs as per TFC kiln
+    static final float KILN_FACTOR = 0.5625f;
+
+    // How long it takes to catch fire from a fire pit
+    private static final int SET_ON_FIRE_FROM_SOURCE_DELAY = 200;
+    private static final ForgeDirection[] VALID_NEARBY_FIRE_SOURCE_DIRECTIONS = { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST };
+
+    // How long it takes to catch fire from a Blocks.fire
+    private static final int CATCH_FIRE_DELAY = 100;
 
     final ItemStack[] storage = new ItemStack[MAX_STORAGE];
 
@@ -70,6 +91,19 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     boolean clientNeedToUpdate = false;
     Timer seasoningTimer = new Timer(10);
     int woodPileOpeningCounter = 0;
+
+    long lastBurningTicks = 0;
+    Timer burningTimer = new Timer(10);
+    int totalBurningTemp = 0;
+    long totalBurningTicks = 0;
+    int totalBurningItems = 0;
+
+    int cachedHeatSourceTemp = 0;
+
+    Timer setOnFireFromSourceCheckTimer = new Timer(100);
+    Timer setOnFireFromSourceDelayedTimer = new Timer(0);
+
+    Timer catchFireDelayedTimer = new Timer(0);
 
     boolean isItemBoundsCacheActual = false;
     List<WoodPileItemBounds> itemBoundsCache = new ArrayList<WoodPileItemBounds>();
@@ -380,11 +414,11 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     private void tryToPullItemsFromAbove() {
         TileEntity teAbove = worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
         if (teAbove instanceof TileEntityWoodPile) {
-            Bids.LOG.info("Wood pile above found");
+            Bids.LOG.debug("Wood pile above found");
 
             int occupied = getActualOccupiedSlotCount();
             while (occupied < 16) {
-                Bids.LOG.info("Trying to pull an item from wood pile above");
+                Bids.LOG.debug("Trying to pull an item from wood pile above");
 
                 TileEntityWoodPile woodPileAbove = (TileEntityWoodPile) teAbove;
 
@@ -392,7 +426,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 boolean largeItemFits = occupied <= 12;
                 ItemStack retrieved = woodPileAbove.retrieveFirstAvailableItemToPullDown(largeItemFits);
                 if (retrieved != null) {
-                    Bids.LOG.info("Pulled item " + retrieved.getDisplayName() + "[" + retrieved.stackSize + "] from wood pile above");
+                    Bids.LOG.debug("Pulled item " + retrieved.getDisplayName() + "[" + retrieved.stackSize + "] from wood pile above");
 
                     addItem(retrieved);
 
@@ -409,9 +443,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         if (!worldObj.isRemote) {
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
-        } else {
-            isItemBoundsCacheActual = false;
         }
+
+        isItemBoundsCacheActual = false;
     }
 
     @Override
@@ -420,6 +454,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // One time only right after creation
             if (!initialized) {
                 lastSeasoningTicks = TFC_Time.getTotalTicks();
+                lastBurningTicks = TFC_Time.getTotalTicks();
 
                 sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
 
@@ -436,30 +471,94 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // Better to do this on the entity item
             // but that's a TFC torch
             // So we detect torches above, when not already on fire
-            if (!onFire && torchDetectionTimer.tick()) {
-                EntityItem ei = detectTorch();
-                if (ei != null) {
-                    Bids.LOG.debug("Torch detected above woodpile at " + xCoord + "," + yCoord + "," + zCoord);
+            if (torchDetectionTimer.tick()) {
+                Item torchItem = Item.getItemFromBlock(TFCBlocks.torch);
+                boolean torchDetected = false;
 
-                    if (torchDetectedTicks == 0) {
-                        torchDetectedTicks = TFC_Time.getTotalTicks();
-                    } else if (torchDetectedTicks + 160 < TFC_Time.getTotalTicks()) {
-                        setOnFire(true);
-                        ei.setDead();
+                for (EntityItem entityItem : detectEntityItems()) {
+                    if (!onFire) {
+                        if (entityItem.getEntityItem().getItem() == torchItem) {
+                            Bids.LOG.debug("Torch detected above woodpile at " + xCoord + "," + yCoord + "," + zCoord);
+
+                            if (torchDetectedTicks == 0) {
+                                torchDetectedTicks = TFC_Time.getTotalTicks();
+                            } else if (torchDetectedTicks + 160 <= TFC_Time.getTotalTicks()) {
+                                setOnFire(true);
+
+                                // Torches are not flammable, so just set that one dead
+                                entityItem.setDead();
+                            }
+
+                            torchDetected = true;
+                        }
                     }
-                } else {
+
+                    handleDroppedItem(entityItem);
+
+                    if (onFire) {
+                        entityItem.setFire(100);
+                    }
+                }
+
+                if (!torchDetected) {
+                    // Reset detection ticks in case the torch was picked up
                     torchDetectedTicks = 0;
+                }
+            }
+
+            // Wood pile can catch fire from lit fire pit nearby
+            // that is sufficiently enclosed
+            if (!onFire && setOnFireFromSourceDelayedTimer.getTicksToGo() == 0 && setOnFireFromSourceCheckTimer.tick()) {
+                if (canSetOnFireFromSourceNearby()) {
+                    setOnFireFromSourceDelayedTimer.delay(SET_ON_FIRE_FROM_SOURCE_DELAY);
+                }
+            }
+
+            // Actually catch fire from lit fire pit nearby after a delay
+            if (!onFire && setOnFireFromSourceDelayedTimer.tick()) {
+                if (canSetOnFireFromSourceNearby()) {
+                    setOnFire(true);
+                }
+            }
+
+            // Wood piles are not flammable anymore,
+            // so they are now set on fire from fire blocks manually after delay
+            if (!onFire && catchFireDelayedTimer.tick()) {
+                if (canCatchFire()) {
+                    setOnFire(true);
                 }
             }
 
             // Check if enough time had passed
             // for seasoning interval
-            if (seasoningTimer.tick() && TFC_Time.getTotalTicks() > lastSeasoningTicks + SEASONING_INTERVAL) {
-                if (onFire) {
-                    // No seasoning when making charcoal
-                    lastSeasoningTicks = TFC_Time.getTotalTicks();
+            if (!onFire && seasoningTimer.tick() && TFC_Time.getTotalTicks() > lastSeasoningTicks + SEASONING_INTERVAL) {
+                seasonItems();
+            }
+
+            // Burn off logs when on fire and not in a charcoal pit
+            // Burning logs is paused when the UI is open
+            // to avoid sync glitches
+            if (onFire && burningTimer.tick() && woodPileOpeningCounter == 0) {
+                WoodPileBurningItem burningItem = findNextBurningItem();
+                float burningRate = getBurningRate();
+                if (burningItem != null && burningRate > 0) {
+                    // Cache heat source temp
+                    cachedHeatSourceTemp = (int) (burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack()) * burningRate);
+
+                    // Wood pile can burn and there is anything inside to burn
+                    handleBurningItem(burningItem, burningRate);
+
+                    // Make sure fire is spreading when burning items
+                    doSpreadFire();
+
+                    // Harm entities
+                    doHarmToLivingEntities();
                 } else {
-                    seasonItems();
+                    // Reset cached heat source temp
+                    cachedHeatSourceTemp = 0;
+
+                    // Reset burn ticks and reduce strength
+                    lastBurningTicks = TFC_Time.getTotalTicks();
                 }
             }
 
@@ -470,11 +569,166 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         } else {
             // Torch detection client side to show sparks
             if (!onFire && torchDetectionClientTimer.tick()) {
-                if (detectTorch() != null) {
-                    worldObj.spawnParticle("lava", xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat());
+                Item torchItem = Item.getItemFromBlock(TFCBlocks.torch);
+
+                for (EntityItem entityItem : detectEntityItems()) {
+                    if (entityItem.getEntityItem().getItem() == torchItem) {
+                        worldObj.spawnParticle("lava", xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat(), -0.5F + worldObj.rand.nextFloat());
+                    }
                 }
             }
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void doHarmToLivingEntities() {
+        if (!worldObj.getBlock(xCoord, yCoord + 1, zCoord).isOpaqueCube()) {
+            AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1, zCoord, xCoord + 1, yCoord + 3, zCoord + 1);
+            for (EntityLivingBase entityLiving : (List<EntityLivingBase>)worldObj.getEntitiesWithinAABB(EntityLivingBase.class, aabb)) {
+                entityLiving.setFire(2);
+            }
+        }
+    }
+
+    private void handleDroppedItem(EntityItem entityItem) {
+        ItemStack itemStack = entityItem.getEntityItem();
+        if (WoodPileHelper.isItemValidWoodPileItem(itemStack)) {
+            addItem(itemStack);
+            if (itemStack.stackSize == 0) {
+                entityItem.setDead();
+            }
+        }
+    }
+
+    private boolean canSetOnFireFromSourceNearby() {
+        for (ForgeDirection d : VALID_NEARBY_FIRE_SOURCE_DIRECTIONS) {
+            if (isValidSetOnFireSource(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isValidSetOnFireSource(int x, int y, int z) {
+        TileEntity te = worldObj.getTileEntity(x, y, z);
+
+        // Both TFC fire pit and new fire pit are accepted
+        if (te instanceof TEFirepit) {
+            TEFirepit teFirepit = (TEFirepit) te;
+            // Is fire pit lit and burning fuel
+            if (teFirepit.fireTemp > 100) {
+                int exposedSides = 0;
+                for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+                    if (isSetOnFireSourceSideExposed(x + d.offsetX, y + d.offsetY, z + d.offsetZ, d)) {
+                        exposedSides++;
+                    }
+                }
+
+                // Exactly one side must be exposed
+                return exposedSides == 1;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isSetOnFireSourceSideExposed(int x, int y, int z, ForgeDirection d) {
+        if (worldObj.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
+            // Wood piles don't cause fire source exposure
+            return false;
+        } else {
+            // Otherwise check if the side that faces the fire source is solid
+            return !worldObj.isSideSolid(x, y, z, d.getOpposite());
+        }
+    }
+
+    private float getBurningRate() {
+        Set<ForgeDirection> exposedSides = new HashSet<ForgeDirection>();
+        Set<ForgeDirection> woodPileSides = new HashSet<ForgeDirection>();
+
+        for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+            Block b = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
+            if (b instanceof BlockWoodPile) {
+                woodPileSides.add(d);
+            } else if (!isValidCharcoalPitBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ, d)) {
+                exposedSides.add(d);
+            }
+        }
+
+        if (exposedSides.isEmpty()) {
+            // No exposure - making charcoal
+            return 0f;
+        } else if (exposedSides.size() + woodPileSides.size() <= 2 && exposedSides.contains(ForgeDirection.UP)) {
+            // At most two sides exposed or touching another burning wood pile - some sort of kiln
+            return 1f;
+        } else {
+            // More exposure - pyres
+            return 2f;
+        }
+    }
+
+    private WoodPileBurningItem findNextBurningItem() {
+        for (int i = 0; i < MAX_STORAGE; i++) {
+            if (storage[i] != null) {
+                IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(storage[i].getItem());
+                if (fuel != null && fuel.isFuelValid(storage[i])) {
+                    return new WoodPileBurningItem(i, storage[i], fuel);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private void handleBurningItem(WoodPileBurningItem burningItem, float burningRate) {
+        long ticksNeededToBurnItem = (long) (burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) * KILN_FACTOR);
+        long ticksNeededToBurnItemForBurningRate = (long) (ticksNeededToBurnItem / burningRate);
+        long ticksSincePreviousLogBurning = TFC_Time.getTotalTicks() - lastBurningTicks;
+
+        if (ticksNeededToBurnItemForBurningRate <= ticksSincePreviousLogBurning) {
+            // Enough ticks have passed to burn this item
+            lastBurningTicks += ticksNeededToBurnItemForBurningRate;
+
+            int burningTemp = burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack());
+            float burningTimeBonus = burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) / 1000f;
+
+            // Longer burning time accumulates more temp per tick each time
+            totalBurningTemp += burningTemp * burningTimeBonus;
+            totalBurningTicks += ticksNeededToBurnItemForBurningRate;
+            totalBurningItems++;
+
+            onItemBurned();
+
+            Bids.LOG.debug("Wood pile has been burning for {} ticks with total temperature of {} and {} items burned: {}", totalBurningTicks, totalBurningTemp, totalBurningItems, burningItem.getItemStack().getDisplayName());
+
+            storage[burningItem.getIndex()] = null;
+
+            // A wood pile above will also be burning
+            // but any logs in it would still fall into the wood pile below
+            tryToPullItemsFromAbove();
+
+            // When the last log burns off
+            // the wood pile disappears
+            if (isEmpty()) {
+                setOnFire(false);
+                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            } else {
+                onStorageChanged();
+            }
+        }
+    }
+
+    private void onItemBurned() {
+        if (BidsOptions.WoodPile.enableFireSetting) {
+            handleFireSetting();
+        }
+    }
+
+    private void handleFireSetting() {
+        // Fire setting is handled through events
+        FireSettingEvent.BurningEvent event = new FireSettingEvent.BurningEvent(worldObj, xCoord, yCoord, zCoord, totalBurningTicks, totalBurningTemp, totalBurningItems);
+        MinecraftForge.EVENT_BUS.post(event);
     }
 
     @Override
@@ -511,6 +765,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         tag.setInteger("orientation", orientation);
         tag.setBoolean("onFire", onFire);
         tag.setLong("hoursOnFire", hoursOnFire);
+        tag.setLong("lastBurningTicks", lastBurningTicks);
+        tag.setLong("totalBurningTicks", totalBurningTicks);
+        tag.setInteger("totalBurningTemp", totalBurningTemp);
+        tag.setInteger("totalBurningItems", totalBurningItems);
 
         NBTTagList itemTagList = new NBTTagList();
         for (int i = 0; i < MAX_STORAGE; i++) {
@@ -530,6 +788,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         orientation = tag.getInteger("orientation");
         onFire = tag.getBoolean("onFire");
         hoursOnFire = tag.getLong("hoursOnFire");
+        lastBurningTicks = tag.getLong("lastBurningTicks");
+        totalBurningTicks = tag.getLong("totalBurningTicks");
+        totalBurningTemp = tag.getInteger("totalBurningTemp");
+        totalBurningItems = tag.getInteger("totalBurningItems");
 
         for (int i = 0; i < MAX_STORAGE; i++) {
             storage[i] = null;
@@ -732,6 +994,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         return false;
     }
 
+    public boolean isBurning() {
+        return isOnFire() && getBurningRate() > 0 && findNextBurningItem() != null;
+    }
+
     public boolean isOnFire() {
         return onFire;
     }
@@ -746,6 +1012,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
             doSpreadFire();
+
+            // Reset burning tick progress
+            lastBurningTicks = TFC_Time.getTotalTicks();
+            totalBurningTicks = 0;
+            totalBurningTemp = 0;
+            totalBurningItems = 0;
         } else if (!onFire && this.onFire) {
             this.onFire = false;
             hoursOnFire = 0;
@@ -755,14 +1027,22 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
             doExtinguishFire();
+
+            // Reset seasoning tick progress
+            lastSeasoningTicks = TFC_Time.getTotalTicks();
         }
     }
 
     public void tryToCreateCharcoal() {
-        Bids.LOG.debug("Trying to create charcoal at " + xCoord + "," + yCoord + "," + zCoord);
+        // For charcoal to be created the burning counter must be 0
+        // This means that no item in the wood pile has been burned
+        // or enough time passed since then
+        if (isOnFire() && totalBurningTemp == 0) {
+            Bids.LOG.debug("Trying to create charcoal at " + xCoord + "," + yCoord + "," + zCoord);
 
-        if (isOnFire() && hoursOnFire + TFCOptions.charcoalPitBurnTime < TFC_Time.getTotalHours()) {
-            doCreateCharcoal();
+            if (hoursOnFire + TFCOptions.charcoalPitBurnTime < TFC_Time.getTotalHours()) {
+                doCreateCharcoal();
+            }
         }
     }
 
@@ -832,32 +1112,105 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private void doSpreadFire() {
-        ArrayDeque<Vector3f> blocksToBeSetOnFire = new ArrayDeque<Vector3f>();
+        ArrayDeque<BlockCoord> blocksToBeSetOnFire = new ArrayDeque<BlockCoord>();
 
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity te = worldObj.getTileEntity(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
             if (te instanceof TileEntityWoodPile) {
                 TileEntityWoodPile neighbor = (TileEntityWoodPile) te;
                 neighbor.setOnFire(true);
-            } else {
-                Block block = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
-                if (!TFC_Core.isValidCharcoalPitCover(block)) {
-                    // Hopper below is allowed
-                    if (!(d.offsetY == -1 && block instanceof BlockHopper)) {
-                        blocksToBeSetOnFire.add(new Vector3f(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
+            }
+        }
+
+        // Try to ignite neighbors only when actually burning items
+        if (isBurning()) {
+            for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+                // Set fire to non-charcoal pit cover blocks
+                if (canCharcoalPitBlockBurnDown(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ, d)) {
+                    blocksToBeSetOnFire.add(new BlockCoord(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
+                }
+            }
+
+            // When the wood pile is large enough
+            // Fire is spread 2 blocks above to any flammable blocks around
+            if (worldObj.isAirBlock(xCoord, yCoord + 1, zCoord) && worldObj.isAirBlock(xCoord, yCoord + 2, zCoord)) {
+                if (getActualBlockHeight() > 0.25f) {
+                    blocksToBeSetOnFire.add(new BlockCoord(xCoord, yCoord + 2, zCoord));
+                }
+            }
+
+            while (blocksToBeSetOnFire.size() > 0) {
+                BlockCoord bc = blocksToBeSetOnFire.poll();
+                Block block = worldObj.getBlock(bc.x, bc.y, bc.z);
+                // Place fire if possible, otherwise air
+                if (block != Blocks.fire) {
+                    if (Blocks.fire.canPlaceBlockAt(worldObj, bc.x, bc.y, bc.z)) {
+                        worldObj.setBlock(bc.x, bc.y, bc.z, Blocks.fire);
+                    } else if (block != Blocks.air) {
+                        worldObj.setBlockToAir(bc.x, bc.y, bc.z);
                     }
                 }
             }
         }
+    }
 
-        while (blocksToBeSetOnFire.size() > 0) {
-            Vector3f pos = blocksToBeSetOnFire.poll();
-            if (worldObj.getBlock((int) pos.x, (int) pos.y, (int) pos.z) != Blocks.fire
-                && worldObj.getBlock((int) pos.x, (int) pos.y - 1, (int) pos.z) != Blocks.air) {
-                worldObj.setBlock((int) pos.x, (int) pos.y, (int) pos.z, Blocks.fire);
-                worldObj.markBlockForUpdate((int) pos.x, (int) pos.y, (int) pos.z);
+    public void tryToCatchFire() {
+        if (!onFire && canCatchFire()) {
+            catchFireDelayedTimer.delay(CATCH_FIRE_DELAY);
+        }
+    }
+
+    private boolean canCatchFire() {
+        for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
+            if (worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ) == Blocks.fire) {
+                return true;
             }
         }
+
+        return false;
+    }
+
+    private boolean isValidCharcoalPitBlock(int x, int y, int z, ForgeDirection d) {
+        // Check if the block keeps char coal pit from burning
+        Block block = worldObj.getBlock(x, y, z);
+
+        // Another woodpile is allowed
+        if (block == BidsBlocks.woodPile) {
+            return true;
+        }
+
+        // Hopper below is allowed
+        if (d == ForgeDirection.DOWN && block instanceof BlockHopper) {
+            return true;
+        }
+
+        // Or default to TFC rules
+        return TFC_Core.isValidCharcoalPitCover(block);
+    }
+
+    private boolean canCharcoalPitBlockBurnDown(int x, int y, int z, ForgeDirection d) {
+        // Check if block burns down when touching a wood pile that is on fire
+        Block block = worldObj.getBlock(x, y, z);
+
+        // Non-opaque blocks made from materials that are obviously not flammable
+        // Basically these are the blocks that should not burn down
+        // even though they might not keep the charcoal pit closed airtight
+        // Examples are anvils, hoppers, stone walls and rock carvings
+        // This also protects chiseled plank blocks, because they are technically Material.rock,
+        // and any other block with incorrect material for the matter,
+        // however it is not the scope of this check to make exceptions for blocks with incorrect material,
+        // and it is left to the player's discretion to do foolish things, or not.
+        if (!block.isOpaqueCube() &&
+            (block.getMaterial() == Material.rock ||
+            block.getMaterial() == Material.iron ||
+            block.getMaterial() == Material.glass ||
+            block.getMaterial() == Material.ground ||
+            block.getMaterial() == Material.sand)) {
+            return false;
+        }
+
+        // Else burn any blocks that aren't a valid charcoal pit wall
+        return !isValidCharcoalPitBlock(x, y, z, d);
     }
 
     private void doExtinguishFire() {
@@ -871,21 +1224,19 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     @SuppressWarnings("unchecked")
-    protected EntityItem detectTorch() {
+    protected List<EntityItem> detectEntityItems() {
         if (worldObj.isAirBlock(xCoord, yCoord + 1, zCoord)) {
             final AxisAlignedBB bounds = AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord,
                 xCoord + 1, yCoord + 1.1, zCoord + 1);
-            final List<EntityItem> list = (List<EntityItem>) worldObj.getEntitiesWithinAABB(EntityItem.class, bounds);
-
-            for (EntityItem entity : list) {
-                final ItemStack is = entity.getEntityItem();
-                if (is.getItem() == Item.getItemFromBlock(TFCBlocks.torch)) {
-                    return entity;
-                }
-            }
+            return (List<EntityItem>) worldObj.getEntitiesWithinAABB(EntityItem.class, bounds);
         }
 
-        return null;
+        return Collections.emptyList();
+    }
+
+    @Override
+    public float getHeatSourceTemp() {
+        return cachedHeatSourceTemp;
     }
 
     @Override
