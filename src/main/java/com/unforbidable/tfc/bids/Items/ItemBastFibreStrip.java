@@ -36,8 +36,7 @@ public class ItemBastFibreStrip extends ItemLooseRock {
     }
 
     @Override
-    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side,
-            float hitX, float hitY, float hitZ) {
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         if (itemstack.getItemDamage() == 1 && itemstack.stackSize >= 5) {
             // Open bark crafting gui
             PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(entityplayer);
@@ -50,7 +49,7 @@ public class ItemBastFibreStrip extends ItemLooseRock {
                     (int) entityplayer.posY, (int) entityplayer.posZ);
         }
 
-        return true;
+        return itemstack;
     }
 
     @Override
