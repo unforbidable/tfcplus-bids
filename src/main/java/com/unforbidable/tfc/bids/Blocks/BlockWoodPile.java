@@ -22,6 +22,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
@@ -35,6 +36,16 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
         setHardness(10f);
 
         setTickRandomly(true);
+    }
+
+    @Override
+    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (te instanceof TileEntityWoodPile) {
+            return ((TileEntityWoodPile) te).isFull();
+        }
+
+        return false;
     }
 
     @Override
