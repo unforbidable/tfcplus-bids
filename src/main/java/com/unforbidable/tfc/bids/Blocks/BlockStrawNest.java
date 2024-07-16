@@ -20,6 +20,7 @@ public class BlockStrawNest extends BlockContainer {
     public BlockStrawNest() {
         super(Material.grass);
 
+        setHardness(1f);
         setCreativeTab(BidsCreativeTabs.bidsDefault);
         setBlockBounds(0.2f, 0, 0.2f, 0.8f, 0.3f, 0.8f);
     }
