@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
 import com.dunk.tfc.Blocks.BlockRoof;
+import com.dunk.tfc.Blocks.Devices.BlockFirepit;
 import com.dunk.tfc.Blocks.Devices.BlockHopper;
 import com.dunk.tfc.Blocks.Flora.BlockFruitLeaves;
 import com.dunk.tfc.Blocks.Vanilla.BlockCustomLeaves;
@@ -1191,6 +1192,13 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     private boolean canCharcoalPitBlockBurnDown(int x, int y, int z, ForgeDirection d) {
         // Check if block burns down when touching a wood pile that is on fire
         Block block = worldObj.getBlock(x, y, z);
+
+        // As an exception to the condition below
+        // firepit needs to burn down, and it realistically should,
+        // which is non-opaque block with material set as ground
+        if (block instanceof BlockFirepit) {
+            return true;
+        }
 
         // Non-opaque blocks made from materials that are obviously not flammable
         // Basically these are the blocks that should not burn down
