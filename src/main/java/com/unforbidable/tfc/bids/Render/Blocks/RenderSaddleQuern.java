@@ -43,6 +43,12 @@ public class RenderSaddleQuern implements ISimpleBlockRenderingHandler {
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
             RenderBlocks renderer) {
+        if (renderer.hasOverrideBlockTexture()) {
+            renderer.setRenderBounds(0F, 0F, 0F, 1F, 3 / 4f, 1F);
+            renderer.renderStandardBlock(block, x, y, z);
+
+            return true;
+        }
 
         return true;
     }

@@ -34,6 +34,12 @@ public class RenderScrewPressRack implements ISimpleBlockRenderingHandler
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+        if (renderer.hasOverrideBlockTexture()) {
+            renderer.renderStandardBlock(block, x, y, z);
+
+            return true;
+        }
+
         RenderBlocksWithRotation rendererWithRotation = new RenderBlocksWithRotation(renderer);
         rendererWithRotation.renderAllFaces = true;
 

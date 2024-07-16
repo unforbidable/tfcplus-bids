@@ -21,6 +21,12 @@ public class RenderCarving implements ISimpleBlockRenderingHandler {
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
             RenderBlocks renderer) {
+        if (renderer.hasOverrideBlockTexture()) {
+            renderer.renderStandardBlock(block, x, y, z);
+
+            return true;
+        }
+
         TileEntityCarving te = (TileEntityCarving) world.getTileEntity(x, y, z);
 
         if (lightCacheRenderer == null)
