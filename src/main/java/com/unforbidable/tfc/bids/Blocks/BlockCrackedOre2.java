@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.Blocks;
 
 import com.dunk.tfc.Blocks.Terrain.BlockOre2;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,8 +19,6 @@ public class BlockCrackedOre2 extends BlockOre2 {
 
     @Override
     public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-        Bids.LOG.info(player.canHarvestBlock(this));
-
         return super.removedByPlayer(world, player, x, y, z);
     }
 

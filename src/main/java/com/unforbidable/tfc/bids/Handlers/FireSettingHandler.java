@@ -32,7 +32,7 @@ public class FireSettingHandler {
                 }
             }
 
-            Bids.LOG.info("Cracked {} out of {} blocks", actuallyCrackedStones, stonesToCrack.size());
+            Bids.LOG.debug("Cracked {} out of {} blocks", actuallyCrackedStones, stonesToCrack.size());
 
             Random rand = new Random();
 

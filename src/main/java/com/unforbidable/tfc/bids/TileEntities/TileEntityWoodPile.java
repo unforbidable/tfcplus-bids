@@ -478,7 +478,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 for (EntityItem entityItem : detectEntityItems()) {
                     if (!onFire) {
                         if (entityItem.getEntityItem().getItem() == torchItem) {
-                            Bids.LOG.info("Torch detected above woodpile at " + xCoord + "," + yCoord + "," + zCoord);
+                            Bids.LOG.debug("Torch detected above woodpile at " + xCoord + "," + yCoord + "," + zCoord);
 
                             if (torchDetectedTicks == 0) {
                                 torchDetectedTicks = TFC_Time.getTotalTicks();
@@ -698,7 +698,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
             onItemBurned();
 
-            Bids.LOG.info("Wood pile has been burning for {} ticks with total temperature of {} and {} items burned: {}", totalBurningTicks, totalBurningTemp, totalBurningItems, burningItem.getItemStack().getDisplayName());
+            Bids.LOG.debug("Wood pile has been burning for {} ticks with total temperature of {} and {} items burned: {}", totalBurningTicks, totalBurningTemp, totalBurningItems, burningItem.getItemStack().getDisplayName());
 
             storage[burningItem.getIndex()] = null;
 
