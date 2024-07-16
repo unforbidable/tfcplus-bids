@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core.WoodPile.FireSetting.CrackableBlocks;
 
 import com.dunk.tfc.TileEntities.TEOre;
+import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.WoodPile.FireSetting.CrackableBlock;
 import com.unforbidable.tfc.bids.Core.WoodPile.FireSetting.StoneCracker;
@@ -41,7 +42,12 @@ public class CrackableBlockOre extends CrackableBlock {
 
     @Override
     public boolean isCrackable(World world, int x, int y, int z) {
-        // Ore blocks can be cracked, as long as their base block can be
+        // First make sure the ore block itself is crackable
+        if (!super.isCrackable(world, x, y, z)) {
+            return false;
+        }
+
+        // And also the base block has to be crackable
         TileEntity te = world.getTileEntity(x, y, z);
         if (te instanceof TEOre) {
             TEOre ore = (TEOre) te;
@@ -49,6 +55,24 @@ public class CrackableBlockOre extends CrackableBlock {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean isCrackable(Block block, int metadata) {
+        // Coal ore blocks cannot crack
+        // This is mainly for progression reasons
+        // so that coal cannot be acquired before metal tools,
+        // and also realistically coal would likely just burn instead
+        if (block == TFCBlocks.ore && (metadata == 14 || metadata == 15)) {
+            return false;
+        }
+
+        // Same with jet
+        if (block == TFCBlocks.ore2 && metadata == 8) {
+            return false;
+        }
+
+        return super.isCrackable(block, metadata);
     }
 
     @Override
