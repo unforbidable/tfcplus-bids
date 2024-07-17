@@ -25,7 +25,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Carving](../../wiki/Carving) - for shaping blocks with an adze, in like manner to TFC detailing with a chisel, and carving recipes, using 3 carving modes
 * [Peeled Log](../../wiki/Peeled-Log) - logs that had their bark stripped used to craft log walls
 * [Log Walls](../../wiki/Log-Wall) - new building block with 6 variations for log cabin construction, and 2 variations of vertical log walls
-* [Wood Pile](../../wiki/Wood-Pile) - for wood storage and seasoning peeled logs, stick bundles, and making charcoal
+* [Wood Pile](../../wiki/Wood-Pile) - for wood storage and seasoning peeled logs, stick bundles, and making charcoal, building pyres and fire-setting
 * [New Firepit](../../wiki/Firepit) - new firepit that can consume custom fuels, requires kindling to light
 * [Kindling](../../wiki/Kindling) - kindling for lighting new firepit
 * [More Stick Bundles](../../wiki/Stick-Bundle) - small and tied bundles of sticks as fuel in new firepit

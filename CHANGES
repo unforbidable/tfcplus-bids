@@ -566,3 +566,16 @@
 - Changed: Enabled grinding of Bones and Bone Fragments into Bone Meal using a Saddle Quern
 - Changed: Ability to grind Hematite, Limonite, Malachite nuggets and Lapis Lazuli into powders using a Saddle Quern can be configured
 - Fixed: Splitting iron blooms should no longer cause a crash
+
+0.45.0 (2024-07-17)
+- Added: Burning wood piles over time causes nearby raw stone and ore blocks to crack
+- Added: Mining cracked raw stone and ore blocks is faster and will never cause a cave-in
+- Added: Adzes can be used to mine cracked raw stone and ore blocks
+- Added: Wood piles can be set on fire from a lit firepit nearby if the firepit is sufficiently enclosed
+- Added: Wood piles can accept items dropped on them, even while they are burning
+- Added: Burning wood piles act as a TFC heat source for the player's comfort
+- Changed: Wood piles set on fire now burn their flammable content over a long period of time when exposed to air, rather than in seconds
+- Fixed: Added a workaround for a TFC bug where the fuel properties of Ash and Oak are swapped
+- Fixed: Several blocks now properly render their breaking animation
+- Fixed: Straw nest can no longer be broken instantly
+- Fixed: Correct amount of cured fibre strips is always consumed when knapping
