@@ -58,7 +58,13 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
             float height = te.getActualBlockHeight();
             float fireHeight = Math.max(0, height - 0.25f);
 
+            // An idea could be not to render fire on top when the wood pile is full
+            // because when wood pile is full, a Blocks.fire will be placed on top
+            // however the Block.fire is not placed immediately
+            // and there can be a second or two when no fire is rendered
+            // so for now we will render two fires that partially overlap
             renderBlockFireSideUp(x, y, z, renderer, fireHeight);
+
             renderBlockFireSides(x, y, z, renderer, fireHeight);
         }
 
@@ -153,7 +159,7 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
 
     private boolean isFireRenderedSide(IBlockAccess world, int x, int y, int z, ForgeDirection d) {
         Block block = world.getBlock(x + d.offsetX, y + d.offsetY, z + d.offsetZ);
-        return !block.isOpaqueCube();
+        return !block.isOpaqueCube() && !block.isSideSolid(world, x + d.offsetX, y + d.offsetY, z + d.offsetZ, d.getOpposite());
     }
 
     private void renderBlockFireSides(int x, int y, int z, RenderBlocks renderer, float fireHeight) {
