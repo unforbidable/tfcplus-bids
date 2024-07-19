@@ -3,10 +3,13 @@ package com.unforbidable.tfc.bids.Blocks;
 import java.util.List;
 import java.util.Random;
 
+import com.dunk.tfc.Effects.FastFlameFX;
 import com.dunk.tfc.Reference;
 import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.TileEntities.TEChimney;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Constant.Global;
+import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChimney;
 
@@ -15,6 +18,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -111,38 +115,61 @@ public class BlockMudChimney extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
-        if (world.getTileEntity(x, y, z) instanceof TileEntityChimney) {
-            if (((TileEntityChimney) world.getTileEntity(x, y, z)).getChimneySmoke() > 0
-                    && world.isAirBlock(x, y + 1, z)) {
-                double centerX = x + 0.5F;
-                double centerY = y + 2F;
-                double centerZ = z + 0.5F;
-                // double d3 = 0.2199999988079071D;
-                // double d4 = 0.27000001072883606D;
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
+        if (world.isAirBlock(x, y + 1, z)) {
+            TileEntity te = world.getTileEntity(x, y, z);
+            if (te instanceof TileEntityChimney) {
+                TileEntityChimney chimney = (TileEntityChimney) te;
+
+                if (chimney.getChimneySmoke() > 0) {
+                    double centerX = x + 0.5F;
+                    double centerY = y + 2F;
+                    double centerZ = z + 0.5F;
+                    // double d3 = 0.2199999988079071D;
+                    // double d4 = 0.27000001072883606D;
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.1D, 0.0D);
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.15D, 0.0D);
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.1D, 0.0D);
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.15D, 0.0D);
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.1D, 0.0D);
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.15D, 0.0D);
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.1D, 0.0D);
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.15D, 0.0D);
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.1D, 0.0D);
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 2,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.15D, 0.0D);
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.1D, 0.0D);
-                world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
+                    world.spawnParticle("smoke", centerX + ((rand.nextDouble() - 0.5) * 0.5), centerY - 1,
                         centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0.0D, 0.15D, 0.0D);
+                }
+
+                if (chimney.getChimneyFire() > 0) {
+                    double centerX = x + 0.5F;
+                    double centerY = y + 2F;
+                    double centerZ = z + 0.5F;
+                    // double d3 = 0.2199999988079071D;
+                    // double d4 = 0.27000001072883606D;
+                    int n = 10;
+                    for (int i = 0; i < n; i++) {
+                        Minecraft.getMinecraft().effectRenderer.addEffect(new FastFlameFX(world, centerX + ((rand.nextDouble() - 0.5) * 0.5)
+                            , centerY - 1, centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0d, 0.05D, 0d, (int) (8.0D / (Math.random() * 0.8D + 0.2D)) + 4, i));
+                        Minecraft.getMinecraft().effectRenderer.addEffect(new FastFlameFX(world, centerX + ((rand.nextDouble() - 0.5) * 0.5)
+                            , centerY - 1, centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0d, 0.1D, 0d, (int) (8.0D / (Math.random() * 0.8D + 0.2D)) + 4, i));
+                        Minecraft.getMinecraft().effectRenderer.addEffect(new FastFlameFX(world, centerX + ((rand.nextDouble() - 0.5) * 0.5)
+                            , centerY - 2, centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0d, 0.05D, 0d, (int) (8.0D / (Math.random() * 0.8D + 0.2D)) + 4, i));
+                        Minecraft.getMinecraft().effectRenderer.addEffect(new FastFlameFX(world, centerX + ((rand.nextDouble() - 0.5) * 0.5)
+                            , centerY - 2, centerZ + ((rand.nextDouble() - 0.5) * 0.5), 0d, 0.1D, 0d, (int) (8.0D / (Math.random() * 0.8D + 0.2D)) + 4, i));
+                    }
+                }
             }
         }
     }

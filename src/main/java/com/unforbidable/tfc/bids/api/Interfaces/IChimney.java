@@ -8,4 +8,8 @@ public interface IChimney {
 
     int getChimneySmoke();
 
+    void setChimneyFire(int fire);
+
+    int getChimneyFire();
+
 }
