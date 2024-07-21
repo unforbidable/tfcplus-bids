@@ -683,7 +683,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private void handleBurningItem(WoodPileBurningItem burningItem, float burningRate) {
-        long ticksNeededToBurnItem = (long) (burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) * KILN_FACTOR);
+        long fuelBurnTime = (long) (burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) * BidsOptions.WoodPile.burnTimeMultiplier);
+        int fuelBurnTemp = burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack());
+
+        long ticksNeededToBurnItem = (long) (fuelBurnTime * KILN_FACTOR);
         long ticksNeededToBurnItemForBurningRate = (long) (ticksNeededToBurnItem / burningRate);
         long ticksSincePreviousLogBurning = TFC_Time.getTotalTicks() - lastBurningTicks;
 
@@ -691,17 +694,14 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // Enough ticks have passed to burn this item
             lastBurningTicks += ticksNeededToBurnItemForBurningRate;
 
-            int burningTemp = burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack());
-            float burningTimeBonus = burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) / 1000f;
-
-            // Longer burning time accumulates more temp per tick each time
-            totalBurningTemp += burningTemp * burningTimeBonus;
+            // Burning rate increases the temp
+            totalBurningTemp += fuelBurnTemp * burningRate;
             totalBurningTicks += ticksNeededToBurnItemForBurningRate;
             totalBurningItems++;
 
             onItemBurned();
 
-            Bids.LOG.debug("Wood pile has been burning for {} ticks with total temperature of {} and {} items burned: {}", totalBurningTicks, totalBurningTemp, totalBurningItems, burningItem.getItemStack().getDisplayName());
+            Bids.LOG.debug("Wood pile has been burning for {} ticks with total temperature of {}, average temperature {} and {} items burned: {}", totalBurningTicks, totalBurningTemp, getAverageBurningTemp(), totalBurningItems, burningItem.getItemStack().getDisplayName());
 
             storage[burningItem.getIndex()] = null;
 

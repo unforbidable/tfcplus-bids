@@ -14,7 +14,11 @@ public class FireSettingHandler {
 
     @SubscribeEvent
     public void onBurning(FireSettingEvent.BurningEvent event) {
-        List<BlockCoord> stonesToCrack = StoneCracker.findNearbyStoneToCrack(event.world, event.sourceX, event.sourceY, event.sourceZ, event.temp);
+        float avgTemp = event.items > 0 ? event.temp / (float)event.items : 0;
+        int heat = (int) (event.ticks * avgTemp / 1000);
+        Bids.LOG.debug("Accumulated fire-setting heat: " + heat);
+
+        List<BlockCoord> stonesToCrack = StoneCracker.findNearbyStoneToCrack(event.world, event.sourceX, event.sourceY, event.sourceZ, heat);
         if (stonesToCrack.size() > 0) {
             BlockCoord lastCracked = null;
             int actuallyCrackedStones = 0;
