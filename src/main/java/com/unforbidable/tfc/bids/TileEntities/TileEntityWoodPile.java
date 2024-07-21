@@ -724,6 +724,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         if (BidsOptions.WoodPile.enableFireSetting) {
             handleFireSetting();
         }
+
+        // This resets the charcoal time to now
+        hoursOnFire = TFC_Time.getTotalHours();
     }
 
     private void handleFireSetting() {
@@ -1035,10 +1038,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     public void tryToCreateCharcoal() {
-        // For charcoal to be created the burning counter must be 0
-        // This means that no item in the wood pile has been burned
-        // or enough time passed since then
-        if (isOnFire() && totalBurningTemp == 0) {
+        // For charcoal to be created the burning rate must be 0
+        if (isOnFire() && getBurningRate() == 0) {
             Bids.LOG.debug("Trying to create charcoal at " + xCoord + "," + yCoord + "," + zCoord);
 
             if (hoursOnFire + TFCOptions.charcoalPitBurnTime < TFC_Time.getTotalHours()) {
