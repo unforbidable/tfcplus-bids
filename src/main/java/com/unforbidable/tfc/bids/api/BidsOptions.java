@@ -43,6 +43,14 @@ public class BidsOptions {
 
     }
 
+    public static class Kiln {
+
+        public static boolean enableTunnelKiln = true;
+        public static boolean enableSquareKiln = true;
+        public static boolean enableBeehiveKiln = true;
+
+    }
+
     public static class Bark {
 
         public static float dropPeelingChance = 0.25f;

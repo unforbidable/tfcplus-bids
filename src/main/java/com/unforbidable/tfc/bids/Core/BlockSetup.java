@@ -495,9 +495,15 @@ public class BlockSetup extends BidsBlocks {
     private static void registerKilnChambers() {
         Bids.LOG.info("Register kiln chambers");
 
-        KilnRegistry.registerKilnChamber(TunnelKilnChamber.class);
-        KilnRegistry.registerKilnChamber(SquareKilnChamber.class);
-        KilnRegistry.registerKilnChamber(BeehiveKilnChamber.class);
+        if (BidsOptions.Kiln.enableTunnelKiln) {
+            KilnRegistry.registerKilnChamber(TunnelKilnChamber.class);
+        }
+        if (BidsOptions.Kiln.enableSquareKiln) {
+            KilnRegistry.registerKilnChamber(SquareKilnChamber.class);
+        }
+        if (BidsOptions.Kiln.enableBeehiveKiln) {
+            KilnRegistry.registerKilnChamber(BeehiveKilnChamber.class);
+        }
     }
 
     @SideOnly(Side.CLIENT)

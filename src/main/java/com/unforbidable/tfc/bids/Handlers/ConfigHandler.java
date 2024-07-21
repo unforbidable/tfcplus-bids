@@ -101,6 +101,16 @@ public class ConfigHandler {
             "burnTimeMultiplier", "firepit", BidsOptions.WoodPile.burnTimeMultiplier, 0.25f, 2f,
             "Higher values increase the time fuel burns in a firepit");
 
+        BidsOptions.Kiln.enableBeehiveKiln = config.getBoolean(
+            "enableBeehiveKiln", "kiln", BidsOptions.Kiln.enableBeehiveKiln,
+            "Set this to true if you want to add Beehive kiln as an available kiln structure");
+        BidsOptions.Kiln.enableTunnelKiln = config.getBoolean(
+            "enableTunnelKiln", "kiln", BidsOptions.Kiln.enableTunnelKiln,
+            "Set this to true if you want to add Tunnel kiln as an available kiln structure");
+        BidsOptions.Kiln.enableSquareKiln = config.getBoolean(
+            "enableSquareKiln", "kiln", BidsOptions.Kiln.enableSquareKiln,
+            "Set this to true if you want to add Square kiln as an available kiln structure");
+
         BidsOptions.Bark.dropPeelingChance = config.getFloat(
                 "dropPeelingChance", "bark",
                 BidsOptions.Bark.dropPeelingChance, 0f, 1f,
