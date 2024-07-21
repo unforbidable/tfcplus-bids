@@ -84,6 +84,9 @@ public class ConfigHandler {
         BidsOptions.WoodPile.enableFireSetting = config.getBoolean(
             "enableFireSetting", "woodpile", BidsOptions.WoodPile.enableFireSetting,
             "Set this to true if you want burning wood piles to crack nearby raw stone and ore bocks, aka fire-setting");
+        BidsOptions.WoodPile.burnTimeMultiplier = config.getFloat(
+            "burnTimeMultiplier", "woodpile", BidsOptions.WoodPile.burnTimeMultiplier, 0.25f, 2f,
+            "Higher values increase the time fuel burns in a wood pile (also affects kiln fuel consumption)");
 
         BidsOptions.Firepit.allowFuelLogsTFC = config.getBoolean(
                 "allowFuelLogsTFC", "firepit", BidsOptions.Firepit.allowFuelLogsTFC,
