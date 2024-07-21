@@ -8,6 +8,9 @@ import com.unforbidable.tfc.bids.Blocks.*;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.*;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackMessage;
+import com.unforbidable.tfc.bids.Core.Kilns.BeehiveKiln.BeehiveKilnChamber;
+import com.unforbidable.tfc.bids.Core.Kilns.SquareKiln.SquareKilnChamber;
+import com.unforbidable.tfc.bids.Core.Kilns.TunnelKiln.TunnelKilnChamber;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
@@ -43,6 +46,7 @@ public class BlockSetup extends BidsBlocks {
         registerCarvings();
         registerQuarryBlocks();
         registerCrackableBlocks();
+        registerKilnChambers();
         registerTileEntities();
         registerMessages();
     }
@@ -486,6 +490,14 @@ public class BlockSetup extends BidsBlocks {
         WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore1b, BidsBlocks.crackedOre1b));
         WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore2, BidsBlocks.crackedOre2));
         WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore3, BidsBlocks.crackedOre3));
+    }
+
+    private static void registerKilnChambers() {
+        Bids.LOG.info("Register kiln chambers");
+
+        KilnRegistry.registerKilnChamber(TunnelKilnChamber.class);
+        KilnRegistry.registerKilnChamber(SquareKilnChamber.class);
+        KilnRegistry.registerKilnChamber(BeehiveKilnChamber.class);
     }
 
     @SideOnly(Side.CLIENT)
