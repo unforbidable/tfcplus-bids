@@ -14,6 +14,7 @@ import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
+import com.unforbidable.tfc.bids.Core.Kilns.KilnManager;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Timer;
@@ -74,6 +75,31 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     // instead of always 16 logs as per TFC kiln
     static final float KILN_FACTOR = 0.5625f;
 
+    // The numbers bellow are calculated as follows:
+    // 18000 * X + 450 * X * R = 1
+    // 18000 * (Y / R) + 450 * Y = 1
+    // where
+    // X is the weight of ticks
+    // Y is the weight of temperature
+    // R is the ratio of contribution of ticks and temperature
+    // The value of R is chosen as 13 meaning temperature contributes 13 times as much as ticks
+    // 18000 is the number of ticks it takes 16 firewood of Baobab to burn
+    // and 450 is the average temperature produced by burning 16 firewood of Baobab
+    // hence for Baobab the progress will reach 1 when 16 firewood of Baobab has been burned
+    // using firewood that burns hotter and longer than Baobab will consume lest firewood and complete sooner.
+    // At the same time using firewood that runs less hot will consume more fuel and complete later.
+    // For instance, tied bundles of sticks can be used, but it will consume 22 items and take 19 hours.
+    private static final double KILN_PROGRESS_TEMP_TO_TICKS_RATIO = 12f;
+    private static final double KILN_PROGRESS_TICKS_WEIGHT = 1 / (450f * (KILN_PROGRESS_TEMP_TO_TICKS_RATIO + 40));
+    private static final double KILN_PROGRESS_TEMP_WEIGHT = KILN_PROGRESS_TEMP_TO_TICKS_RATIO / 23850f;
+
+    // This is the maximum temp value that can contribute to the progress
+    // This prevents the process from being able to finish too early,
+    // when high heat wood type is burned at an increased rate
+    // Low heat wood types will still benefit from burning at an increased rate
+    // and the kiln may finish earlier as long as enough wood items (more than 16) is provided
+    private static final int KILN_PROGRESS_TEMP_CAP = 800;
+
     // How long it takes to catch fire from a fire pit
     private static final int SET_ON_FIRE_FROM_SOURCE_DELAY = 200;
     private static final ForgeDirection[] VALID_NEARBY_FIRE_SOURCE_DIRECTIONS = { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST };
@@ -117,6 +143,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     Timer torchDetectionTimer = new Timer(20);
     Timer torchDetectionClientTimer = new Timer(10);
     long torchDetectedTicks = 0;
+
+    private final KilnManager kilnManager = new KilnManager(new WoodPileKilnHeatSource(this));
 
     public TileEntityWoodPile() {
     }
@@ -563,6 +591,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 }
             }
 
+            // Invoke the kiln manager deferred update
+            // with an inexpensive onFire check to see if anything can actually happen
+            if (onFire) {
+                kilnManager.update();
+            }
+
             if (openDelayedGUIplayer != null) {
                 openDelayedGUIplayer.openGui(Bids.instance, BidsGui.woodPileGui, worldObj, xCoord, yCoord, zCoord);
                 openDelayedGUIplayer = null;
@@ -579,6 +613,22 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 }
             }
         }
+    }
+
+    private float getAverageBurningTemp() {
+        return totalBurningItems > 0 ? (totalBurningTemp / (float)totalBurningItems) : 0;
+    }
+
+    public double getKilnProgress() {
+        double temp = Math.min(KILN_PROGRESS_TEMP_CAP, getAverageBurningTemp());
+        return totalBurningTicks * KILN_PROGRESS_TICKS_WEIGHT + temp * KILN_PROGRESS_TEMP_WEIGHT;
+    }
+
+    public void resetKilnProgress() {
+        totalBurningTicks = 0;
+        totalBurningTemp = 0;
+        totalBurningItems = 0;
+        lastBurningTicks = TFC_Time.getTotalTicks();
     }
 
     @SuppressWarnings("unchecked")
@@ -784,6 +834,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             }
         }
         tag.setTag("items", itemTagList);
+
+        kilnManager.writeKilnManagerToNBT(tag);
     }
 
     public void readWoodPileDataFromNBT(NBTTagCompound tag) {
@@ -808,6 +860,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             storage[slot] = ItemStack.loadItemStackFromNBT(itemTag);
         }
         isItemBoundsCacheActual = false;
+
+        kilnManager.readKilnManagerFromNBT(tag);
     }
 
     public void onWoodPileBroken() {
