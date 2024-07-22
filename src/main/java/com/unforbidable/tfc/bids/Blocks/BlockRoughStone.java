@@ -1,12 +1,9 @@
 package com.unforbidable.tfc.bids.Blocks;
 
-import java.util.*;
-
 import com.dunk.tfc.Blocks.Terrain.BlockCollapsible;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -18,12 +15,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class BlockRoughStone extends Block {
 
-    protected IIcon topIcons[];
-    protected IIcon icons[];
+    protected IIcon[] topIcons;
+    protected IIcon[] icons;
     protected String[] names;
     protected List<Integer> metaWhitelist = null;
     protected boolean allHaveTopTexture = false;
@@ -48,18 +48,6 @@ public class BlockRoughStone extends Block {
     public BlockRoughStone setMetaHavingTopTexture(Integer ...metaHavingTopTexture) {
         this.metaHavingTopTexture = Arrays.asList(metaHavingTopTexture);
         return this;
-    }
-
-    @Override
-    public float getBlockHardness(World world, int x, int y, int z) {
-        // When the top of the block is exposed to air
-        // reduce hardness to allow breaking by hand
-        if (world.isAirBlock(x, y + 1, z)
-                || !world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
-            return 1f;
-        }
-
-        return super.getBlockHardness(world, x, y, z);
     }
 
     public BlockRoughStone setNames(String[] names) {
