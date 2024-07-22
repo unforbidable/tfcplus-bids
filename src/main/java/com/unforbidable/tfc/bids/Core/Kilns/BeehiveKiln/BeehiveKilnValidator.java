@@ -2,15 +2,12 @@ package com.unforbidable.tfc.bids.Core.Kilns.BeehiveKiln;
 
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidationHelper;
+import com.unforbidable.tfc.bids.Core.Kilns.KilnValidationParams;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidator;
-import com.unforbidable.tfc.bids.Core.Kilns.KilnValidatorResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import static com.unforbidable.tfc.bids.Core.Kilns.KilnValidatorResult.failure;
-import static com.unforbidable.tfc.bids.Core.Kilns.KilnValidatorResult.success;
-
-public class BeehiveKilnValidator extends KilnValidator<KilnValidatorResult> {
+public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
 
     static final ForgeDirection[] HORIZONTAL_DIRECTIONS = new ForgeDirection[] { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST };
 
@@ -19,20 +16,20 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidatorResult> {
     }
 
     @Override
-    protected KilnValidatorResult validateStructure() {
+    protected KilnValidationParams validateStructure() {
         if (!validateCenter()) {
-            return failure();
+            return null;
         }
 
         if (!validateChamber()) {
-            return failure();
+            return null;
         }
 
         if (!validateOuterWalls()) {
-            return failure();
+            return null;
         }
 
-        return success();
+        return new KilnValidationParams();
     }
 
     private boolean validateCenter() {

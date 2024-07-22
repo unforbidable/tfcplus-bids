@@ -27,20 +27,20 @@ public class SquareKilnChamber extends KilnChamber<SquareKilnValidator> {
 
     @Override
     protected BlockCoord getChimneyLocation() {
-        ForgeDirection chamberDir = getValidator().getDirection();
-        SquareKilnChimneyRotation chimneyRotation = getValidator().getChimneyRotation();
+        ForgeDirection chamberDir = getValidator().getParams().direction;
+        SquareKilnChimneyRotation chimneyRotation = getValidator().getParams().chimneyRotation;
         ForgeDirection chimneyDir = chamberDir.getRotation(chimneyRotation.getAxis());
 
         int x = heatSource.getTileX() + chamberDir.offsetX * 2 + chimneyDir.offsetX;
-        int y = heatSource.getTileY() + 2;
+        int y = heatSource.getTileY() + 1 + getValidator().getParams().height;
         int z = heatSource.getTileZ() + chamberDir.offsetZ * 2 + chimneyDir.offsetZ;
         return new BlockCoord(x, y, z);
     }
 
     @Override
     protected List<BlockCoord> getPotteryLocations() {
-        ForgeDirection chamberDir = getValidator().getDirection();
-        SquareKilnChimneyRotation chimneyRotation = getValidator().getChimneyRotation();
+        ForgeDirection chamberDir = getValidator().getParams().direction;
+        SquareKilnChimneyRotation chimneyRotation = getValidator().getParams().chimneyRotation;
         ForgeDirection chimneyDir = chamberDir.getRotation(chimneyRotation.getAxis());
 
         int entryX = chamberDir.offsetX;
