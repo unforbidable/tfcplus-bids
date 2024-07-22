@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.Blocks;
 
 import com.dunk.tfc.Blocks.Terrain.BlockCollapsible;
-import com.dunk.tfc.Blocks.Terrain.BlockGravel;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
@@ -74,7 +73,7 @@ public class BlockAquifer extends BlockContainer {
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
         ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
-        ret.add(new ItemStack(new BlockGravel(textureOffset), 1, damageDropped(metadata)));
+        ret.add(new ItemStack(Item.getItemFromBlock(gravelBlock), 1, gravelBlock.damageDropped(metadata)));
         return ret;
     }
 
