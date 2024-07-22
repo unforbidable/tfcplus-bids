@@ -40,6 +40,7 @@ public class BlockAquifer extends BlockContainer {
 
         setCreativeTab(BidsCreativeTabs.bidsBuildingBlocks);
         setTickRandomly(true);
+        setHardness(3f);
     }
 
     public BlockAquifer setGravelBlock(Block gravelBlock) {
