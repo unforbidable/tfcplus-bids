@@ -5,6 +5,7 @@ import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnChamber;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnHeatSource;
+import com.unforbidable.tfc.bids.api.Interfaces.IKilnManager;
 import com.unforbidable.tfc.bids.api.KilnRegistry;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -13,7 +14,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KilnManager {
+public class KilnManager implements IKilnManager {
 
     private final Timer kilnDiscoveryTimer = new Timer(200);
     private final Timer kilnValidationTimer = new Timer(20);
@@ -31,6 +32,7 @@ public class KilnManager {
         this.kilns = createKilnInstances(kilnHeatSource);
     }
 
+    @Override
     public void writeKilnManagerToNBT(NBTTagCompound tag) {
         if (currentKiln != null) {
             NBTTagCompound kilnManagerTag = new NBTTagCompound();
@@ -41,6 +43,7 @@ public class KilnManager {
         }
     }
 
+    @Override
     public void readKilnManagerFromNBT(NBTTagCompound tag) {
         if (tag.hasKey("kilnManager")) {
             NBTTagCompound kilnManagerTag = tag.getCompoundTag("kilnManager");
@@ -56,6 +59,7 @@ public class KilnManager {
         }
     }
 
+    @Override
     public void update() {
         if (!kilnHeatSource.getWorld().isRemote) {
             // Look for new kiln

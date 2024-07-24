@@ -14,7 +14,6 @@ import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
-import com.unforbidable.tfc.bids.Core.Kilns.KilnManager;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Timer;
@@ -25,7 +24,9 @@ import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import com.unforbidable.tfc.bids.api.Events.FireSettingEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.Interfaces.IKilnManager;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
+import com.unforbidable.tfc.bids.api.Providers.KilnManagerProvider;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
@@ -144,7 +145,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     Timer torchDetectionClientTimer = new Timer(10);
     long torchDetectedTicks = 0;
 
-    private final KilnManager kilnManager = new KilnManager(new WoodPileKilnHeatSource(this));
+    private final IKilnManager kilnManager = KilnManagerProvider.getKilnManager(new WoodPileKilnHeatSource(this));
 
     public TileEntityWoodPile() {
     }
