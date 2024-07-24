@@ -31,7 +31,45 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
             return null;
         }
 
+        if (!validateChamber(params)) {
+            return null;
+        }
+
         return params;
+    }
+
+    private boolean validateChamber(SquareKilnValidationParams params) {
+        ForgeDirection chamberDir = params.direction;
+        SquareKilnChimneyRotation chimneyRotation = params.chimneyRotation;
+        ForgeDirection chimneyDir = chamberDir.getRotation(chimneyRotation.getAxis());
+
+        int entryX = chamberDir.offsetX;
+        int entryZ = chamberDir.offsetZ;
+        int chimneyX = chamberDir.offsetX * 2 + chimneyDir.offsetX;
+        int chimneyZ =  chamberDir.offsetZ * 2 + chimneyDir.offsetZ;
+        int minX = Math.min(entryX, chimneyX);
+        int minZ = Math.min(entryZ, chimneyZ);
+
+        for (int i = minX; i < minX + 2; i++) {
+            for (int j = minZ; j < minZ + 2; j++) {
+                int x = sourceX + i;
+                int y = sourceY + 1;
+                int z = sourceZ + j;
+                if (!KilnValidationHelper.isAirOrPottery(world, x, y, z)) {
+                    Bids.LOG.debug("Expected air or pottery at {},{} +1", i, j);
+                    return false;
+                }
+
+                for (int k = 1; k < params.height; k++) {
+                    if (!KilnValidationHelper.isAir(world, x, y + k, z)) {
+                        Bids.LOG.debug("Expected air at {},{} +{}", i, j, (k + 1));
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     private boolean validateFireHole() {
