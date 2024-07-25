@@ -570,10 +570,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // to avoid sync glitches
             if (onFire && burningTimer.tick() && woodPileOpeningCounter == 0) {
                 WoodPileBurningItem burningItem = findNextBurningItem();
-                float burningRate = getBurningRate();
-                if (burningItem != null && burningRate > 0) {
+                EnumBurningRate burningRate = getBurningRate();
+                if (burningItem != null && burningRate != EnumBurningRate.NONE) {
                     // Cache heat source temp
-                    cachedHeatSourceTemp = (int) (burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack()) * burningRate);
+                    cachedHeatSourceTemp = (int) (burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack()) * burningRate.getBurningRate());
 
                     // Wood pile can burn and there is anything inside to burn
                     handleBurningItem(burningItem, burningRate);
@@ -695,28 +695,28 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         }
     }
 
-    private float getBurningRate() {
-        Set<ForgeDirection> exposedSides = new HashSet<ForgeDirection>();
-        Set<ForgeDirection> woodPileSides = new HashSet<ForgeDirection>();
+    private EnumBurningRate getBurningRate() {
+        int exposedSides = 0;
+        int woodPileSides = 0;
 
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             Block b = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
             if (b instanceof BlockWoodPile) {
-                woodPileSides.add(d);
+                woodPileSides++;
             } else if (!isValidCharcoalPitBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ, d)) {
-                exposedSides.add(d);
+                exposedSides++;
             }
         }
 
-        if (exposedSides.isEmpty()) {
-            // No exposure - making charcoal
-            return 0f;
-        } else if (exposedSides.size() + woodPileSides.size() <= 2 && exposedSides.contains(ForgeDirection.UP)) {
-            // At most two sides exposed or touching another burning wood pile - some sort of kiln
-            return 1f;
+        if (exposedSides == 0) {
+            // No exposure unless touching another burning wood pile - making charcoal
+            return EnumBurningRate.NONE;
+        } else if (exposedSides + woodPileSides == 2) {
+            // Two sides exposed or touching another burning wood pile - some sort of kiln
+            return EnumBurningRate.NORMAL;
         } else {
             // More exposure - pyres
-            return 2f;
+            return EnumBurningRate.INCREASED;
         }
     }
 
@@ -733,12 +733,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         return null;
     }
 
-    private void handleBurningItem(WoodPileBurningItem burningItem, float burningRate) {
+    private void handleBurningItem(WoodPileBurningItem burningItem, EnumBurningRate burningRate) {
         long fuelBurnTime = (long) (burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) * BidsOptions.WoodPile.burnTimeMultiplier);
         int fuelBurnTemp = burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack());
 
         long ticksNeededToBurnItem = (long) (fuelBurnTime * KILN_FACTOR);
-        long ticksNeededToBurnItemForBurningRate = (long) (ticksNeededToBurnItem / burningRate);
+        long ticksNeededToBurnItemForBurningRate = (long) (ticksNeededToBurnItem / burningRate.getBurningRate());
         long ticksSincePreviousLogBurning = TFC_Time.getTotalTicks() - lastBurningTicks;
 
         if (ticksNeededToBurnItemForBurningRate <= ticksSincePreviousLogBurning) {
@@ -746,8 +746,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             lastBurningTicks += ticksNeededToBurnItemForBurningRate;
 
             // Burning rate increases the temp
-            totalBurningTemp += fuelBurnTemp * burningRate;
+            totalBurningTemp += fuelBurnTemp * burningRate.getBurningRate();
             totalBurningTicks += ticksNeededToBurnItemForBurningRate;
+
             totalBurningItems++;
 
             onItemBurned();
@@ -1054,7 +1055,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     public boolean isBurning() {
-        return isOnFire() && getBurningRate() > 0 && findNextBurningItem() != null;
+        return isOnFire() && getBurningRate() != EnumBurningRate.NONE && findNextBurningItem() != null;
     }
 
     public boolean isOnFire() {
@@ -1094,7 +1095,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     public void tryToCreateCharcoal() {
         // For charcoal to be created the burning rate must be 0
-        if (isOnFire() && getBurningRate() == 0) {
+        if (isOnFire() && getBurningRate() == EnumBurningRate.NONE) {
             Bids.LOG.debug("Trying to create charcoal at " + xCoord + "," + yCoord + "," + zCoord);
 
             if (hoursOnFire + TFCOptions.charcoalPitBurnTime < TFC_Time.getTotalHours()) {
