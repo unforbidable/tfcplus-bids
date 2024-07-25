@@ -83,16 +83,21 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     // X is the weight of ticks
     // Y is the weight of temperature
     // R is the ratio of contribution of ticks and temperature
-    // The value of R is chosen as 13 meaning temperature contributes 13 times as much as ticks
+    // The value of R is chosen as 12 meaning temperature contributes 12 times as much as ticks
     // 18000 is the number of ticks it takes 16 firewood of Baobab to burn
     // and 450 is the average temperature produced by burning 16 firewood of Baobab
     // hence for Baobab the progress will reach 1 when 16 firewood of Baobab has been burned
     // using firewood that burns hotter and longer than Baobab will consume lest firewood and complete sooner.
     // At the same time using firewood that runs less hot will consume more fuel and complete later.
-    // For instance, tied bundles of sticks can be used, but it will consume 22 items and take 19 hours.
-    private static final double KILN_PROGRESS_TEMP_TO_TICKS_RATIO = 12f;
-    private static final double KILN_PROGRESS_TICKS_WEIGHT = 1 / (450f * (KILN_PROGRESS_TEMP_TO_TICKS_RATIO + 40));
-    private static final double KILN_PROGRESS_TEMP_WEIGHT = KILN_PROGRESS_TEMP_TO_TICKS_RATIO / 23850f;
+    private static final double KILN_PROGRESS_TEMP_TO_TICKS_RATIO = 12.0;
+    private static final double KILN_PROGRESS_TEMP_TARGET = 450.0;
+    private static final double KILN_PROGRESS_TICKS_TARGET = 18000.0;
+    private static final double KILN_PROGRESS_TICKS_WEIGHT = 1 / (KILN_PROGRESS_TEMP_TARGET * (KILN_PROGRESS_TEMP_TO_TICKS_RATIO + KILN_PROGRESS_TICKS_TARGET / KILN_PROGRESS_TEMP_TARGET));
+    private static final double KILN_PROGRESS_TEMP_WEIGHT = KILN_PROGRESS_TEMP_TO_TICKS_RATIO / (KILN_PROGRESS_TEMP_TARGET * (KILN_PROGRESS_TEMP_TO_TICKS_RATIO + KILN_PROGRESS_TICKS_TARGET / KILN_PROGRESS_TEMP_TARGET));
+
+    // Choose such a value of R so that the value below adds up to exactly 1.0
+    // For certain R the value will not add up to exactly 1.0 due to rounding errors
+    private static final double THIS_VALUE_MUST_ADD_UP_TO_EXACTLY_ONE = KILN_PROGRESS_TEMP_WEIGHT * KILN_PROGRESS_TEMP_TARGET + KILN_PROGRESS_TICKS_WEIGHT * KILN_PROGRESS_TICKS_TARGET;
 
     // This is the maximum temp value that can contribute to the progress
     // This prevents the process from being able to finish too early,
