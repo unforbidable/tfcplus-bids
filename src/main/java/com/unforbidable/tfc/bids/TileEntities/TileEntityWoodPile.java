@@ -735,6 +735,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         if (exposedSides == 0) {
             // No exposure unless touching another burning wood pile - making charcoal
             return EnumBurningRate.NONE;
+        } else if (exposedSides + woodPileSides == 1) {
+            // One side exposed or touching another burning wood pile - burning hole or cauldron
+            return EnumBurningRate.REDUCED;
         } else if (exposedSides + woodPileSides == 2) {
             // Two sides exposed or touching another burning wood pile - some sort of kiln
             return EnumBurningRate.NORMAL;
@@ -781,7 +784,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
             onItemBurned();
 
-            Bids.LOG.debug("Wood pile has been burning for {} ticks with total temperature of {}, average temperature {} and {} items burned: {}", totalBurningTicks, totalBurningTemp, getAverageBurningTemp(), totalBurningItems, burningItem.getItemStack().getDisplayName());
+            Bids.LOG.debug("Wood pile has been burning at rate {} for {} ticks with total temperature of {}, average temperature {} and {} items burned: {}", burningRate, totalBurningTicks, totalBurningTemp, getAverageBurningTemp(), totalBurningItems, burningItem.getItemStack().getDisplayName());
 
             storage[burningItem.getIndex()] = null;
 
