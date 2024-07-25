@@ -30,6 +30,8 @@ public class KilnManager implements IKilnManager {
     private IKilnChamber currentKiln;
     private double lastKilnProgress = 0;
 
+    private boolean initialized = false;
+
     public KilnManager(IKilnHeatSource kilnHeatSource) {
         this.kilnHeatSource = kilnHeatSource;
         this.kilns = createKilnInstances(kilnHeatSource);
@@ -65,6 +67,15 @@ public class KilnManager implements IKilnManager {
     @Override
     public void update() {
         if (!kilnHeatSource.getWorld().isRemote) {
+            if (!initialized) {
+                // Look for new kiln immediately
+                if (currentKiln == null && kilnHeatSource.isActive()) {
+                    handleKilnValidation();
+                }
+
+                initialized = true;
+            }
+
             // Look for new kiln
             if (kilnDiscoveryTimer.tick()) {
                 if (currentKiln == null && kilnHeatSource.isActive()) {
