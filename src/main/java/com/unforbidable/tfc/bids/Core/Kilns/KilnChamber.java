@@ -1,14 +1,11 @@
 package com.unforbidable.tfc.bids.Core.Kilns;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnChamber;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnHeatSource;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class KilnChamber<TValidator extends KilnValidator<?>> implements IKilnChamber {
