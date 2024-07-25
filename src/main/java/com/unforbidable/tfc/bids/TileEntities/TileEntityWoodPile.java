@@ -573,7 +573,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 EnumBurningRate burningRate = getBurningRate();
                 if (burningItem != null && burningRate != EnumBurningRate.NONE) {
                     // Cache heat source temp
-                    cachedHeatSourceTemp = (int) (burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack()) * burningRate.getBurningRate());
+                    cachedHeatSourceTemp = (int) (burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack()) * burningRate.getBurnTimeMultiplier());
 
                     // Wood pile can burn and there is anything inside to burn
                     handleBurningItem(burningItem, burningRate);
@@ -738,7 +738,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         int fuelBurnTemp = burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack());
 
         long ticksNeededToBurnItem = (long) (fuelBurnTime * KILN_FACTOR);
-        long ticksNeededToBurnItemForBurningRate = (long) (ticksNeededToBurnItem / burningRate.getBurningRate());
+        long ticksNeededToBurnItemForBurningRate = (long) (ticksNeededToBurnItem / burningRate.getBurnTimeMultiplier());
         long ticksSincePreviousLogBurning = TFC_Time.getTotalTicks() - lastBurningTicks;
 
         if (ticksNeededToBurnItemForBurningRate <= ticksSincePreviousLogBurning) {
@@ -746,7 +746,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             lastBurningTicks += ticksNeededToBurnItemForBurningRate;
 
             // Burning rate increases the temp
-            totalBurningTemp += fuelBurnTemp * burningRate.getBurningRate();
+            totalBurningTemp += fuelBurnTemp * burningRate.getBurnTempMultiplier();
             totalBurningTicks += ticksNeededToBurnItemForBurningRate;
 
             totalBurningItems++;
