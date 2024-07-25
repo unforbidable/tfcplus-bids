@@ -106,6 +106,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     // and the kiln may finish earlier as long as enough wood items (more than 16) is provided
     private static final int KILN_PROGRESS_TEMP_CAP = 800;
 
+    // This is the maximum ticks value that can contribute to the progress
+    // This prevents the progress from being completed timely,
+    // even if the temperature is not quite high enough
+    // especially at burning at reduced rate
+    private static final int KILN_PROGRESS_TICKS_CAP = 18000;
+
     // How long it takes to catch fire from a fire pit
     private static final int SET_ON_FIRE_FROM_SOURCE_DELAY = 200;
     private static final ForgeDirection[] VALID_NEARBY_FIRE_SOURCE_DIRECTIONS = { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST };
@@ -626,8 +632,21 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     public double getKilnProgress() {
-        double temp = Math.min(KILN_PROGRESS_TEMP_CAP, getAverageBurningTemp());
-        return totalBurningTicks * KILN_PROGRESS_TICKS_WEIGHT + temp * KILN_PROGRESS_TEMP_WEIGHT;
+        // Values over cap is not necessarily truncated
+        // however it is greatly diminished
+        // In case of ticks, diminish factor of 0.1 allows the progress to complete
+        // when burning tied bundles of sticks at relatively low temperature, having burned 28 items, in 24 hours
+        double temp = getCappedProgressValue(getAverageBurningTemp(), KILN_PROGRESS_TEMP_CAP, 0);
+        double ticks = getCappedProgressValue(totalBurningTicks, KILN_PROGRESS_TICKS_CAP, 0.1);
+        return ticks * KILN_PROGRESS_TICKS_WEIGHT + temp * KILN_PROGRESS_TEMP_WEIGHT;
+    }
+
+    private static double getCappedProgressValue(double value, double cap, double diminishFactor) {
+        if (value > cap) {
+            return cap + (value - cap) * diminishFactor;
+        } else {
+            return value;
+        }
     }
 
     public void resetKilnProgress() {
