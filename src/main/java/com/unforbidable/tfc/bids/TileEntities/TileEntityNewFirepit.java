@@ -8,6 +8,7 @@ import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.FirepitRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
@@ -53,10 +54,10 @@ public class TileEntityNewFirepit extends TEFirepit {
     public void initWithKindling(ItemStack kindling, boolean setOnFire) {
         IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(kindling.getItem());
         if (setOnFire && fuel != null) {
-            fuelTimeLeft = fuel.getFuelBurnTime(kindling);
+            fuelTimeLeft = fuel.getFuelBurnTime(kindling) * BidsOptions.Firepit.burnTimeMultiplier;
             fuelBurnTemp = fuel.getFuelMaxTemp(kindling);
             fuelTasteProfile = fuel.getFuelTasteProfile(kindling).ordinal();
-            fireTemp = fuelBurnTemp / 2;
+            fireTemp = fuelBurnTemp / 2f;
             ashNumber = 1;
         } else {
             fireItemStacks[FUEL_BURN_SLOT] = new ItemStack(kindling.getItem(), 1, kindling.getItemDamage());
@@ -171,7 +172,7 @@ public class TileEntityNewFirepit extends TEFirepit {
             final IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(itemStack.getItem());
 
             fuelTasteProfile = fuel.getFuelTasteProfile(itemStack).ordinal();
-            fuelTimeLeft = fuel.getFuelBurnTime(itemStack);
+            fuelTimeLeft = fuel.getFuelBurnTime(itemStack) * BidsOptions.Firepit.burnTimeMultiplier;
             fuelBurnTemp = fuel.getFuelMaxTemp(itemStack);
 
             if (ashNumber < 5) {

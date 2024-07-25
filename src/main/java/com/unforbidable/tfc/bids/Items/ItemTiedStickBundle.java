@@ -91,7 +91,7 @@ public class ItemTiedStickBundle extends Item implements ISize, IFirepitFuelMate
 
     @Override
     public int getFuelMaxTemp(ItemStack itemStack) {
-        return (int) (EnumFuelMaterial.STICKBUNDLE.burnTempMax * 1.1f);
+        return (int) (EnumFuelMaterial.STICKBUNDLE.burnTempMax * 1f);
     }
 
     @Override

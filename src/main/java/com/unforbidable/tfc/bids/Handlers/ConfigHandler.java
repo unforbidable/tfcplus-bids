@@ -84,6 +84,9 @@ public class ConfigHandler {
         BidsOptions.WoodPile.enableFireSetting = config.getBoolean(
             "enableFireSetting", "woodpile", BidsOptions.WoodPile.enableFireSetting,
             "Set this to true if you want burning wood piles to crack nearby raw stone and ore bocks, aka fire-setting");
+        BidsOptions.WoodPile.burnTimeMultiplier = config.getFloat(
+            "burnTimeMultiplier", "woodpile", BidsOptions.WoodPile.burnTimeMultiplier, 0.25f, 2f,
+            "Higher values increase the time fuel burns in a wood pile (also affects kiln fuel consumption)");
 
         BidsOptions.Firepit.allowFuelLogsTFC = config.getBoolean(
                 "allowFuelLogsTFC", "firepit", BidsOptions.Firepit.allowFuelLogsTFC,
@@ -94,6 +97,19 @@ public class ConfigHandler {
         BidsOptions.Firepit.replaceFirepitTFC = config.getBoolean(
                 "replaceFirepitTFC", "firepit", BidsOptions.Firepit.replaceFirepitTFC,
                 "Set this to true if you want to replace TFC firepit");
+        BidsOptions.Firepit.burnTimeMultiplier = config.getFloat(
+            "burnTimeMultiplier", "firepit", BidsOptions.WoodPile.burnTimeMultiplier, 0.25f, 2f,
+            "Higher values increase the time fuel burns in a firepit");
+
+        BidsOptions.Kiln.enableBeehiveKiln = config.getBoolean(
+            "enableBeehiveKiln", "kiln", BidsOptions.Kiln.enableBeehiveKiln,
+            "Set this to true if you want to add Beehive kiln as an available kiln structure");
+        BidsOptions.Kiln.enableTunnelKiln = config.getBoolean(
+            "enableTunnelKiln", "kiln", BidsOptions.Kiln.enableTunnelKiln,
+            "Set this to true if you want to add Tunnel kiln as an available kiln structure");
+        BidsOptions.Kiln.enableSquareKiln = config.getBoolean(
+            "enableSquareKiln", "kiln", BidsOptions.Kiln.enableSquareKiln,
+            "Set this to true if you want to add Square kiln as an available kiln structure");
 
         BidsOptions.Bark.dropPeelingChance = config.getFloat(
                 "dropPeelingChance", "bark",

@@ -172,17 +172,19 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(World world, int x, int y, int z, Random rand)
-    {
-        if (world.getTileEntity(x, y, z) instanceof TileEntityWoodPile && ((TileEntityWoodPile) world.getTileEntity(x, y, z)).isOnFire())
-        {
-            double centerX = x + 0.5F;
-            double centerY = y + 2F;
-            double centerZ = z + 0.5F;
-            world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.1D, 0.0D);
-            world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.15D, 0.0D);
-            world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.1D, 0.0D);
-            world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.15D, 0.0D);
+    public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (te instanceof TileEntityWoodPile) {
+            TileEntityWoodPile woodPile = (TileEntityWoodPile) te;
+            if (woodPile.isOnFire() && !woodPile.isBurning()) {
+                double centerX = x + 0.5F;
+                double centerY = y + 2F;
+                double centerZ = z + 0.5F;
+                world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.1D, 0.0D);
+                world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.15D, 0.0D);
+                world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.1D, 0.0D);
+                world.spawnParticle("smoke", centerX + (rand.nextDouble() - 0.5), centerY - 1, centerZ + (rand.nextDouble() - 0.5), 0.0D, 0.15D, 0.0D);
+            }
         }
     }
 

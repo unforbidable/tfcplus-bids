@@ -30,6 +30,7 @@ public class BidsOptions {
         public static float seasoningDurationMultiplier = 5f;
         public static boolean rotateItems = true;
         public static boolean enableFireSetting = true;
+        public static float burnTimeMultiplier = 1f;
 
     }
 
@@ -38,6 +39,15 @@ public class BidsOptions {
         public static boolean allowFuelLogsTFC = false;
         public static boolean allowFuelCharcoal = true;
         public static boolean replaceFirepitTFC = false;
+        public static float burnTimeMultiplier = 1f;
+
+    }
+
+    public static class Kiln {
+
+        public static boolean enableTunnelKiln = true;
+        public static boolean enableSquareKiln = true;
+        public static boolean enableBeehiveKiln = true;
 
     }
 

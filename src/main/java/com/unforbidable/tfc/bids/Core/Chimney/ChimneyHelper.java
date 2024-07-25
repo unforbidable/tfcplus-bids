@@ -35,6 +35,26 @@ public class ChimneyHelper {
         }
     }
 
+    public static int getChimneyFire(TileEntity tileEntity) {
+        if (tileEntity instanceof IChimney) {
+            return ((IChimney) tileEntity).getChimneyFire();
+        } else if (tileEntity instanceof TEChimney) {
+            return ((TEChimney) tileEntity).onFire;
+        }
+
+        return 0;
+    }
+
+    public static void setChimneyFire(TileEntity tileEntity, int fire) {
+        if (tileEntity instanceof IChimney) {
+            ((IChimney) tileEntity).setChimneyFire(fire);
+            tileEntity.getWorldObj().markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
+        } else if (tileEntity instanceof TEChimney) {
+            ((TEChimney) tileEntity).onFire = fire;
+            tileEntity.getWorldObj().markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
+        }
+    }
+
     public static int getChimneyTier(TileEntity tileEntity) {
         if (tileEntity instanceof IChimney) {
             return ((IChimney) tileEntity).getChimneyTier();

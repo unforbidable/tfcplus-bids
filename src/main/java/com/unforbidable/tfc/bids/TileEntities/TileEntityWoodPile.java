@@ -24,7 +24,9 @@ import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import com.unforbidable.tfc.bids.api.Events.FireSettingEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.Interfaces.IKilnManager;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
+import com.unforbidable.tfc.bids.api.Providers.KilnManagerProvider;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
@@ -74,6 +76,42 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     // instead of always 16 logs as per TFC kiln
     static final float KILN_FACTOR = 0.5625f;
 
+    // The numbers bellow are calculated as follows:
+    // 18000 * X + 450 * X * R = 1
+    // 18000 * (Y / R) + 450 * Y = 1
+    // where
+    // X is the weight of ticks
+    // Y is the weight of temperature
+    // R is the ratio of contribution of ticks and temperature
+    // The value of R is chosen as 12 meaning temperature contributes 12 times as much as ticks
+    // 18000 is the number of ticks it takes 16 firewood of Baobab to burn
+    // and 450 is the average temperature produced by burning 16 firewood of Baobab
+    // hence for Baobab the progress will reach 1 when 16 firewood of Baobab has been burned
+    // using firewood that burns hotter and longer than Baobab will consume lest firewood and complete sooner.
+    // At the same time using firewood that runs less hot will consume more fuel and complete later.
+    private static final double KILN_PROGRESS_TEMP_TO_TICKS_RATIO = 12.0;
+    private static final double KILN_PROGRESS_TEMP_TARGET = 450.0;
+    private static final double KILN_PROGRESS_TICKS_TARGET = 18000.0;
+    private static final double KILN_PROGRESS_TICKS_WEIGHT = 1 / (KILN_PROGRESS_TEMP_TARGET * (KILN_PROGRESS_TEMP_TO_TICKS_RATIO + KILN_PROGRESS_TICKS_TARGET / KILN_PROGRESS_TEMP_TARGET));
+    private static final double KILN_PROGRESS_TEMP_WEIGHT = KILN_PROGRESS_TEMP_TO_TICKS_RATIO / (KILN_PROGRESS_TEMP_TARGET * (KILN_PROGRESS_TEMP_TO_TICKS_RATIO + KILN_PROGRESS_TICKS_TARGET / KILN_PROGRESS_TEMP_TARGET));
+
+    // Choose such a value of R so that the value below adds up to exactly 1.0
+    // For certain R the value will not add up to exactly 1.0 due to rounding errors
+    private static final double THIS_VALUE_MUST_ADD_UP_TO_EXACTLY_ONE = KILN_PROGRESS_TEMP_WEIGHT * KILN_PROGRESS_TEMP_TARGET + KILN_PROGRESS_TICKS_WEIGHT * KILN_PROGRESS_TICKS_TARGET;
+
+    // This is the maximum temp value that can contribute to the progress
+    // This prevents the process from being able to finish too early,
+    // when high heat wood type is burned at an increased rate
+    // Low heat wood types will still benefit from burning at an increased rate
+    // and the kiln may finish earlier as long as enough wood items (more than 16) is provided
+    private static final int KILN_PROGRESS_TEMP_CAP = 800;
+
+    // This is the maximum ticks value that can contribute to the progress
+    // This prevents the progress from being completed timely,
+    // even if the temperature is not quite high enough
+    // especially at burning at reduced rate
+    private static final int KILN_PROGRESS_TICKS_CAP = 18000;
+
     // How long it takes to catch fire from a fire pit
     private static final int SET_ON_FIRE_FROM_SOURCE_DELAY = 200;
     private static final ForgeDirection[] VALID_NEARBY_FIRE_SOURCE_DIRECTIONS = { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST };
@@ -93,10 +131,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     Timer seasoningTimer = new Timer(10);
     int woodPileOpeningCounter = 0;
 
-    long lastBurningTicks = 0;
+    float lastBurningTicks = 0;
     Timer burningTimer = new Timer(10);
     int totalBurningTemp = 0;
-    long totalBurningTicks = 0;
+    float totalBurningTicks = 0;
     int totalBurningItems = 0;
 
     int cachedHeatSourceTemp = 0;
@@ -117,6 +155,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     Timer torchDetectionTimer = new Timer(20);
     Timer torchDetectionClientTimer = new Timer(10);
     long torchDetectedTicks = 0;
+
+    private final IKilnManager kilnManager = KilnManagerProvider.getKilnManager(new WoodPileKilnHeatSource(this));
 
     public TileEntityWoodPile() {
     }
@@ -541,10 +581,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // to avoid sync glitches
             if (onFire && burningTimer.tick() && woodPileOpeningCounter == 0) {
                 WoodPileBurningItem burningItem = findNextBurningItem();
-                float burningRate = getBurningRate();
-                if (burningItem != null && burningRate > 0) {
+                EnumBurningRate burningRate = getBurningRate();
+                if (burningItem != null && burningRate != EnumBurningRate.NONE) {
                     // Cache heat source temp
-                    cachedHeatSourceTemp = (int) (burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack()) * burningRate);
+                    cachedHeatSourceTemp = (int) (burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack()) * burningRate.getBurnTimeMultiplier());
 
                     // Wood pile can burn and there is anything inside to burn
                     handleBurningItem(burningItem, burningRate);
@@ -563,6 +603,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 }
             }
 
+            // Invoke the kiln manager deferred update
+            // with an inexpensive onFire check to see if anything can actually happen
+            if (onFire) {
+                kilnManager.update();
+            }
+
             if (openDelayedGUIplayer != null) {
                 openDelayedGUIplayer.openGui(Bids.instance, BidsGui.woodPileGui, worldObj, xCoord, yCoord, zCoord);
                 openDelayedGUIplayer = null;
@@ -579,6 +625,35 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 }
             }
         }
+    }
+
+    private float getAverageBurningTemp() {
+        return totalBurningItems > 0 ? (totalBurningTemp / (float)totalBurningItems) : 0;
+    }
+
+    public double getKilnProgress() {
+        // Values over cap is not necessarily truncated
+        // however it is greatly diminished
+        // In case of ticks, diminish factor of 0.1 allows the progress to complete
+        // when burning tied bundles of sticks at relatively low temperature, having burned 28 items, in 24 hours
+        double temp = getCappedProgressValue(getAverageBurningTemp(), KILN_PROGRESS_TEMP_CAP, 0);
+        double ticks = getCappedProgressValue(totalBurningTicks, KILN_PROGRESS_TICKS_CAP, 0.1);
+        return ticks * KILN_PROGRESS_TICKS_WEIGHT + temp * KILN_PROGRESS_TEMP_WEIGHT;
+    }
+
+    private static double getCappedProgressValue(double value, double cap, double diminishFactor) {
+        if (value > cap) {
+            return cap + (value - cap) * diminishFactor;
+        } else {
+            return value;
+        }
+    }
+
+    public void resetKilnProgress() {
+        totalBurningTicks = 0;
+        totalBurningTemp = 0;
+        totalBurningItems = 0;
+        lastBurningTicks = TFC_Time.getTotalTicks();
     }
 
     @SuppressWarnings("unchecked")
@@ -644,28 +719,31 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         }
     }
 
-    private float getBurningRate() {
-        Set<ForgeDirection> exposedSides = new HashSet<ForgeDirection>();
-        Set<ForgeDirection> woodPileSides = new HashSet<ForgeDirection>();
+    private EnumBurningRate getBurningRate() {
+        int exposedSides = 0;
+        int woodPileSides = 0;
 
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             Block b = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
             if (b instanceof BlockWoodPile) {
-                woodPileSides.add(d);
+                woodPileSides++;
             } else if (!isValidCharcoalPitBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ, d)) {
-                exposedSides.add(d);
+                exposedSides++;
             }
         }
 
-        if (exposedSides.isEmpty()) {
-            // No exposure - making charcoal
-            return 0f;
-        } else if (exposedSides.size() + woodPileSides.size() <= 2 && exposedSides.contains(ForgeDirection.UP)) {
-            // At most two sides exposed or touching another burning wood pile - some sort of kiln
-            return 1f;
+        if (exposedSides == 0) {
+            // No exposure unless touching another burning wood pile - making charcoal
+            return EnumBurningRate.NONE;
+        } else if (exposedSides + woodPileSides == 1) {
+            // One side exposed or touching another burning wood pile - burning hole or cauldron
+            return EnumBurningRate.REDUCED;
+        } else if (exposedSides + woodPileSides == 2) {
+            // Two sides exposed or touching another burning wood pile - some sort of kiln
+            return EnumBurningRate.NORMAL;
         } else {
             // More exposure - pyres
-            return 2f;
+            return EnumBurningRate.INCREASED;
         }
     }
 
@@ -682,26 +760,31 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         return null;
     }
 
-    private void handleBurningItem(WoodPileBurningItem burningItem, float burningRate) {
-        long ticksNeededToBurnItem = (long) (burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) * KILN_FACTOR);
-        long ticksNeededToBurnItemForBurningRate = (long) (ticksNeededToBurnItem / burningRate);
-        long ticksSincePreviousLogBurning = TFC_Time.getTotalTicks() - lastBurningTicks;
+    private void handleBurningItem(WoodPileBurningItem burningItem, EnumBurningRate burningRate) {
+        float fuelBurnTime = burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) * BidsOptions.WoodPile.burnTimeMultiplier;
+        int fuelBurnTemp = burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack());
+
+        float ticksNeededToBurnItem = fuelBurnTime * KILN_FACTOR;
+        float ticksNeededToBurnItemForBurningRate = (ticksNeededToBurnItem / burningRate.getBurnTimeMultiplier());
+        float ticksSincePreviousLogBurning = TFC_Time.getTotalTicks() - lastBurningTicks;
 
         if (ticksNeededToBurnItemForBurningRate <= ticksSincePreviousLogBurning) {
             // Enough ticks have passed to burn this item
             lastBurningTicks += ticksNeededToBurnItemForBurningRate;
 
-            int burningTemp = burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack());
-            float burningTimeBonus = burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) / 1000f;
+            double lastKilnProgress = getKilnProgress();
 
-            // Longer burning time accumulates more temp per tick each time
-            totalBurningTemp += burningTemp * burningTimeBonus;
+            // Burning rate increases the temp
+            totalBurningTemp += fuelBurnTemp * burningRate.getBurnTempMultiplier();
             totalBurningTicks += ticksNeededToBurnItemForBurningRate;
             totalBurningItems++;
 
+            double currentKilnProgress = getKilnProgress();
+            kilnManager.updateProgress(lastKilnProgress, currentKilnProgress);
+
             onItemBurned();
 
-            Bids.LOG.debug("Wood pile has been burning for {} ticks with total temperature of {} and {} items burned: {}", totalBurningTicks, totalBurningTemp, totalBurningItems, burningItem.getItemStack().getDisplayName());
+            Bids.LOG.debug("Wood pile has been burning at rate {} for {} ticks with total temperature of {}, average temperature {} and {} items burned: {}", burningRate, totalBurningTicks, totalBurningTemp, getAverageBurningTemp(), totalBurningItems, burningItem.getItemStack().getDisplayName());
 
             storage[burningItem.getIndex()] = null;
 
@@ -724,11 +807,14 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         if (BidsOptions.WoodPile.enableFireSetting) {
             handleFireSetting();
         }
+
+        // This resets the charcoal time to now
+        hoursOnFire = TFC_Time.getTotalHours();
     }
 
     private void handleFireSetting() {
         // Fire setting is handled through events
-        FireSettingEvent.BurningEvent event = new FireSettingEvent.BurningEvent(worldObj, xCoord, yCoord, zCoord, totalBurningTicks, totalBurningTemp, totalBurningItems);
+        FireSettingEvent.BurningEvent event = new FireSettingEvent.BurningEvent(worldObj, xCoord, yCoord, zCoord, (long)totalBurningTicks, totalBurningTemp, totalBurningItems);
         MinecraftForge.EVENT_BUS.post(event);
     }
 
@@ -766,8 +852,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         tag.setInteger("orientation", orientation);
         tag.setBoolean("onFire", onFire);
         tag.setLong("hoursOnFire", hoursOnFire);
-        tag.setLong("lastBurningTicks", lastBurningTicks);
-        tag.setLong("totalBurningTicks", totalBurningTicks);
+        tag.setFloat("lastBurningTicks", lastBurningTicks);
+        tag.setFloat("totalBurningTicks", totalBurningTicks);
         tag.setInteger("totalBurningTemp", totalBurningTemp);
         tag.setInteger("totalBurningItems", totalBurningItems);
 
@@ -781,6 +867,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             }
         }
         tag.setTag("items", itemTagList);
+
+        kilnManager.writeKilnManagerToNBT(tag);
     }
 
     public void readWoodPileDataFromNBT(NBTTagCompound tag) {
@@ -789,8 +877,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         orientation = tag.getInteger("orientation");
         onFire = tag.getBoolean("onFire");
         hoursOnFire = tag.getLong("hoursOnFire");
-        lastBurningTicks = tag.getLong("lastBurningTicks");
-        totalBurningTicks = tag.getLong("totalBurningTicks");
+        lastBurningTicks = tag.getFloat("lastBurningTicks");
+        totalBurningTicks = tag.getFloat("totalBurningTicks");
         totalBurningTemp = tag.getInteger("totalBurningTemp");
         totalBurningItems = tag.getInteger("totalBurningItems");
 
@@ -805,6 +893,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             storage[slot] = ItemStack.loadItemStackFromNBT(itemTag);
         }
         isItemBoundsCacheActual = false;
+
+        kilnManager.readKilnManagerFromNBT(tag);
     }
 
     public void onWoodPileBroken() {
@@ -996,7 +1086,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     public boolean isBurning() {
-        return isOnFire() && getBurningRate() > 0 && findNextBurningItem() != null;
+        return isOnFire() && getBurningRate() != EnumBurningRate.NONE && findNextBurningItem() != null;
     }
 
     public boolean isOnFire() {
@@ -1035,10 +1125,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     public void tryToCreateCharcoal() {
-        // For charcoal to be created the burning counter must be 0
-        // This means that no item in the wood pile has been burned
-        // or enough time passed since then
-        if (isOnFire() && totalBurningTemp == 0) {
+        // For charcoal to be created the burning rate must be 0
+        if (isOnFire() && getBurningRate() == EnumBurningRate.NONE) {
             Bids.LOG.debug("Trying to create charcoal at " + xCoord + "," + yCoord + "," + zCoord);
 
             if (hoursOnFire + TFCOptions.charcoalPitBurnTime < TFC_Time.getTotalHours()) {
