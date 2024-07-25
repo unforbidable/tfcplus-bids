@@ -162,14 +162,16 @@ public class KilnManager implements IKilnManager {
     }
 
     public void setCurrentKilnChimneyEffect(int ticks) {
-        BlockCoord bc = currentKiln.getChimneyLocation();
-        if (bc != null) {
-            TileEntity te = kilnHeatSource.getWorld().getTileEntity(bc.x, bc.y, bc.z);
-            if (te != null) {
-                if (ChimneyHelper.isChimney(te)) {
-                    ChimneyHelper.setChimneyFire(te, ticks);
-                } else {
-                    Bids.LOG.warn("Expected chimney at {},{},{}", bc.x, bc.y, bc.z);
+        if (currentKiln.isValid()) {
+            BlockCoord bc = currentKiln.getChimneyLocation();
+            if (bc != null) {
+                TileEntity te = kilnHeatSource.getWorld().getTileEntity(bc.x, bc.y, bc.z);
+                if (te != null) {
+                    if (ChimneyHelper.isChimney(te)) {
+                        ChimneyHelper.setChimneyFire(te, ticks);
+                    } else {
+                        Bids.LOG.warn("Expected chimney at {},{},{}", bc.x, bc.y, bc.z);
+                    }
                 }
             }
         }
