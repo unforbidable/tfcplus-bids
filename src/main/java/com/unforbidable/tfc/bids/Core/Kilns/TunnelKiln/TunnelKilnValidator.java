@@ -27,6 +27,10 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
             return null;
         }
 
+        if (!validateEntryTunnel(params)) {
+            return null;
+        }
+
         if (!validateTunnelEnd(params)) {
             return null;
         }
@@ -73,9 +77,9 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
 
         // Find the chimney
         // Require any chimney top
-        int tunnelEndX = sourceX + direction.offsetX * 4;
+        int tunnelEndX = sourceX + direction.offsetX * 5;
         int tunnelEndY = sourceY + 1;
-        int tunnelEndZ = sourceZ + direction.offsetZ * 4;
+        int tunnelEndZ = sourceZ + direction.offsetZ * 5;
 
         int height = 0;
         for (int i = 1; i <= MAX_HEIGHT; i++) {
@@ -93,12 +97,54 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
         return new TunnelKilnValidatorParams(direction, height);
     }
 
+    private boolean validateEntryTunnel(TunnelKilnValidatorParams params) {
+        ForgeDirection chamberDir = params.direction;
+        ForgeDirection leftDir = chamberDir.getRotation(ForgeDirection.UP);
+        ForgeDirection rightDir = chamberDir.getRotation(ForgeDirection.DOWN);
+
+        int x = sourceX + chamberDir.offsetX;
+        int y = sourceY + 1;
+        int z = sourceZ + chamberDir.offsetZ;
+
+        // Air
+        if (!KilnValidationHelper.isAir(world, x, y, z)) {
+            Bids.LOG.debug("Expected air in entry tunnel +1");
+            return false;
+        }
+
+        // Floor
+        if (!KilnValidationHelper.isWall(world, x, y - 1, z, ForgeDirection.DOWN)) {
+            Bids.LOG.debug("Expected floor in entry tunnel +1");
+            return false;
+        }
+
+        // Roof
+        if (!KilnValidationHelper.isWall(world, x, y + 1, z, ForgeDirection.UP)) {
+            Bids.LOG.debug("Expected roof in entry tunnel +1");
+            return false;
+        }
+
+        // Left
+        if (!KilnValidationHelper.isWall(world, x + leftDir.offsetX, y, z + leftDir.offsetZ, leftDir)) {
+            Bids.LOG.debug("Expected left wall in entry tunnel +1");
+            return false;
+        }
+
+        // Right
+        if (!KilnValidationHelper.isWall(world, x + rightDir.offsetX, y, z + rightDir.offsetZ, rightDir)) {
+            Bids.LOG.debug("Expected right wall in entry tunnel +1");
+            return false;
+        }
+
+        return true;
+    }
+
     private boolean validateTunnelEnd(TunnelKilnValidatorParams params) {
         ForgeDirection dir = params.direction;
 
-        int tunnelX = sourceX + dir.offsetX * 4;
+        int tunnelX = sourceX + dir.offsetX * 5;
         int tunnelY = sourceY + 1;
-        int tunnelZ = sourceZ + dir.offsetZ * 4;
+        int tunnelZ = sourceZ + dir.offsetZ * 5;
 
         // Require air or pottery
         if (!KilnValidationHelper.isAirOrPottery(world, tunnelX, tunnelY, tunnelZ)) {
@@ -146,7 +192,7 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
     }
 
     private boolean validateTunnel(TunnelKilnValidatorParams params) {
-        for (int i = 1; i < 4; i++) {
+        for (int i = 2; i < 5; i++) {
             int tunnelX = sourceX + params.direction.offsetX * i;
             int tunnelY = sourceY + 1;
             int tunnelZ = sourceZ + params.direction.offsetZ * i;
