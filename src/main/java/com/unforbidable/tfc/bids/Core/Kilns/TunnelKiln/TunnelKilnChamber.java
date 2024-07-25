@@ -26,7 +26,7 @@ public class TunnelKilnChamber extends KilnChamber<TunnelKilnValidator> {
     }
 
     @Override
-    protected BlockCoord getChimneyLocation() {
+    public BlockCoord getChimneyLocation() {
         ForgeDirection d = getValidator().getParams().direction;
         int x = heatSource.getTileX() + d.offsetX * 4;
         int y = heatSource.getTileY() + 1 + getValidator().getParams().height;
@@ -36,7 +36,7 @@ public class TunnelKilnChamber extends KilnChamber<TunnelKilnValidator> {
     }
 
     @Override
-    protected List<BlockCoord> getPotteryLocations() {
+    public List<BlockCoord> getPotteryLocations() {
         ForgeDirection d = getValidator().getParams().direction;
 
         List<BlockCoord> list = new ArrayList<BlockCoord>();

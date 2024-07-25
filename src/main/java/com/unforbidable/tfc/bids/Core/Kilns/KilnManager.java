@@ -2,13 +2,16 @@ package com.unforbidable.tfc.bids.Core.Kilns;
 
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
+import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Timer;
+import com.unforbidable.tfc.bids.api.Events.KilnEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnChamber;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnHeatSource;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnManager;
 import com.unforbidable.tfc.bids.api.KilnRegistry;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -89,20 +92,19 @@ public class KilnManager implements IKilnManager {
                     if (lastKilnProgress != kilnHeatSource.getProgress()) {
                         lastKilnProgress = kilnProgress;
 
-                        Bids.LOG.info("Kiln progress {}", kilnProgress);
+                        Bids.LOG.debug("Kiln progress {}", kilnProgress);
 
                         if (kilnProgress >= 1f) {
-                            Bids.LOG.info("Kiln done");
+                            Bids.LOG.debug("Kiln done");
 
                             // Deactivate smoke
                             setCurrentKilnChimneyEffect(0);
+                        }
 
-                            // Process content
-                            List<TileEntity> potteries = currentKiln.getPottery();
-                            Bids.LOG.info("Processing locations: " + potteries.size());
-                            for (TileEntity te : potteries) {
-                                KilnHelper.firePottery(te);
-                            }
+                        // Process content
+                        for (BlockCoord bc : currentKiln.getPotteryLocations()) {
+                            KilnEvent.FireBlock event = new KilnEvent.FireBlock(kilnHeatSource.getWorld(), bc.x, bc.y, bc.z, kilnProgress);
+                            MinecraftForge.EVENT_BUS.post(event);
                         }
                     }
                 }
@@ -160,9 +162,16 @@ public class KilnManager implements IKilnManager {
     }
 
     public void setCurrentKilnChimneyEffect(int ticks) {
-        TileEntity te = currentKiln.getChimney();
-        if (te != null) {
-            ChimneyHelper.setChimneyFire(te, ticks);
+        BlockCoord bc = currentKiln.getChimneyLocation();
+        if (bc != null) {
+            TileEntity te = kilnHeatSource.getWorld().getTileEntity(bc.x, bc.y, bc.z);
+            if (te != null) {
+                if (ChimneyHelper.isChimney(te)) {
+                    ChimneyHelper.setChimneyFire(te, ticks);
+                } else {
+                    Bids.LOG.warn("Expected chimney at {},{},{}", bc.x, bc.y, bc.z);
+                }
+            }
         }
     }
 

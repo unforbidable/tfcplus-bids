@@ -26,7 +26,7 @@ public class SquareKilnChamber extends KilnChamber<SquareKilnValidator> {
     }
 
     @Override
-    protected BlockCoord getChimneyLocation() {
+    public BlockCoord getChimneyLocation() {
         ForgeDirection chamberDir = getValidator().getParams().direction;
         SquareKilnChimneyRotation chimneyRotation = getValidator().getParams().chimneyRotation;
         ForgeDirection chimneyDir = chamberDir.getRotation(chimneyRotation.getAxis());
@@ -38,7 +38,7 @@ public class SquareKilnChamber extends KilnChamber<SquareKilnValidator> {
     }
 
     @Override
-    protected List<BlockCoord> getPotteryLocations() {
+    public List<BlockCoord> getPotteryLocations() {
         ForgeDirection chamberDir = getValidator().getParams().direction;
         SquareKilnChimneyRotation chimneyRotation = getValidator().getParams().chimneyRotation;
         ForgeDirection chimneyDir = chamberDir.getRotation(chimneyRotation.getAxis());

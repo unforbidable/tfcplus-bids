@@ -57,47 +57,9 @@ public abstract class KilnChamber<TValidator extends KilnValidator<?>> implement
     }
 
     @Override
-    public List<TileEntity> getPottery() {
-        List<TileEntity> list = new ArrayList<TileEntity>();
-
-        List<BlockCoord> potteryLocations = getPotteryLocations();
-        if (potteryLocations != null) {
-            for (BlockCoord bc : potteryLocations) {
-                TileEntity te = heatSource.getWorld().getTileEntity(bc.x, bc.y, bc.z);
-                if (te != null) {
-                    if (KilnHelper.isPottery(te)) {
-                        list.add(te);
-                    } else {
-                        Bids.LOG.warn("Expected pottery at {},{},{}", bc.x, bc.y, bc.z);
-                    }
-                }
-            }
-        }
-
-        return list;
-    }
+    public abstract BlockCoord getChimneyLocation();
 
     @Override
-    public TileEntity getChimney() {
-        BlockCoord chimneyLocation = getChimneyLocation();
-        if (chimneyLocation != null) {
-            TileEntity te = heatSource.getWorld().getTileEntity(chimneyLocation.x, chimneyLocation.y, chimneyLocation.z);
-            if (ChimneyHelper.isChimney(te)) {
-                return te;
-            } else {
-                Bids.LOG.warn("Expected chimney at {},{},{}", chimneyLocation.x, chimneyLocation.y, chimneyLocation.z);
-            }
-        }
-
-        return null;
-    }
-
-    protected BlockCoord getChimneyLocation() {
-        return null;
-    }
-
-    protected List<BlockCoord> getPotteryLocations() {
-        return null;
-    }
+    public abstract List<BlockCoord> getPotteryLocations();
 
 }

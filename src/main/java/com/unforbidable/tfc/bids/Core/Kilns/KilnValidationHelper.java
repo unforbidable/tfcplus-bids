@@ -1,11 +1,12 @@
 package com.unforbidable.tfc.bids.Core.Kilns;
 
-import com.dunk.tfc.Blocks.Devices.BlockPottery;
 import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
+import com.unforbidable.tfc.bids.api.Events.KilnEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class KilnValidationHelper {
@@ -20,8 +21,13 @@ public class KilnValidationHelper {
     }
 
     public static boolean isAirOrPottery(World world, int x, int y, int z) {
-        Block block = world.getBlock(x, y, z);
-        return block.getMaterial() == Material.air || block instanceof BlockPottery;
+        return isAir(world, x, y, z) || isPottery(world, x, y, z);
+    }
+
+    private static boolean isPottery(World world, int x, int y, int z) {
+        KilnEvent.FireBlockCheck event = new KilnEvent.FireBlockCheck(world, x, y, z, false);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.success;
     }
 
     public static boolean isWall(World world, int x, int y, int z, ForgeDirection d) {

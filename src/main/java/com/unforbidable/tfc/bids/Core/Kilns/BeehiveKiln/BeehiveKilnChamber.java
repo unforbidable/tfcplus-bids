@@ -25,12 +25,12 @@ public class BeehiveKilnChamber extends KilnChamber<BeehiveKilnValidator> {
     }
 
     @Override
-    protected BlockCoord getChimneyLocation() {
+    public BlockCoord getChimneyLocation() {
         return new BlockCoord(heatSource.getTileX(), heatSource.getTileY() + 4, heatSource.getTileZ());
     }
 
     @Override
-    protected List<BlockCoord> getPotteryLocations() {
+    public List<BlockCoord> getPotteryLocations() {
         List<BlockCoord> list = new ArrayList<BlockCoord>();
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
