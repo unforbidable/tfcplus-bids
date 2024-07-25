@@ -31,9 +31,9 @@ public class SquareKilnChamber extends KilnChamber<SquareKilnValidator> {
         SquareKilnChimneyRotation chimneyRotation = getValidator().getParams().chimneyRotation;
         ForgeDirection chimneyDir = chamberDir.getRotation(chimneyRotation.getAxis());
 
-        int x = heatSource.getTileX() + chamberDir.offsetX * 2 + chimneyDir.offsetX;
+        int x = heatSource.getTileX() + chamberDir.offsetX * 3 + chimneyDir.offsetX;
         int y = heatSource.getTileY() + 1 + getValidator().getParams().height;
-        int z = heatSource.getTileZ() + chamberDir.offsetZ * 2 + chimneyDir.offsetZ;
+        int z = heatSource.getTileZ() + chamberDir.offsetZ * 3 + chimneyDir.offsetZ;
         return new BlockCoord(x, y, z);
     }
 
@@ -43,10 +43,10 @@ public class SquareKilnChamber extends KilnChamber<SquareKilnValidator> {
         SquareKilnChimneyRotation chimneyRotation = getValidator().getParams().chimneyRotation;
         ForgeDirection chimneyDir = chamberDir.getRotation(chimneyRotation.getAxis());
 
-        int entryX = chamberDir.offsetX;
-        int entryZ = chamberDir.offsetZ;
-        int chimneyX = chamberDir.offsetX * 2 + chimneyDir.offsetX;
-        int chimneyZ =  chamberDir.offsetZ * 2 + chimneyDir.offsetZ;
+        int entryX = chamberDir.offsetX * 2;
+        int entryZ = chamberDir.offsetZ * 2;
+        int chimneyX = chamberDir.offsetX * 3 + chimneyDir.offsetX;
+        int chimneyZ =  chamberDir.offsetZ * 3 + chimneyDir.offsetZ;
         int minX = Math.min(entryX, chimneyX);
         int minZ = Math.min(entryZ, chimneyZ);
 
