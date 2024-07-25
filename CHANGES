@@ -579,3 +579,15 @@
 - Fixed: Several blocks now properly render their breaking animation
 - Fixed: Straw nest can no longer be broken instantly
 - Fixed: Correct amount of cured fibre strips is always consumed when knapping
+
+0.46.0 (2024-07-25)
+- Added: Tunnel kiln
+- Added: Square kiln
+- Added: Beehive kiln adapted from TFC+ to work with a wood pile instead of a log pile
+- Added: Options to adjust burning time for items in wood piles and fuel in new firepit
+- Changed: Slightly lowered burning temperature of tied bundles of sticks
+- Changed: Wood piles spawn smoke particles only when they are set on fire and not burning (i.e. when making charcoal)
+- Changed: Updated Chinese translation by Eternal130
+- Changed: Rough stone blocks including bricks and tiles have consistent hardness
+- Fixed: Aquifer blocks can no longer be broken instantly
+- Fixed: Aquifer blocks now drop as gravel as intended when broken

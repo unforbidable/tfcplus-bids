@@ -62,6 +62,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Wattle Gate](../../wiki/Wattle-Gate) - gate from wattle
 * [Palisade](../../wiki/Palisade) - wall made of logs placed upright
 * [Straw Nest](../../wiki/Straw-Nest) - primitive alternative to a Nest Box for chicken to lie eggs
+* [More Kilns](../../wiki/Kiln) - Tunnel Kiln, Square Kiln and Beehive Kiln adapted from TFC+, powered by a wood pile
 
 ### Contributions
 
@@ -69,7 +70,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 
 ### Translations
 
-* Chinese by Eternal130 (v0.44.x)
+* Chinese by Eternal130 (v0.46.x)
 * Japanese by dymanic.day (v0.28.x)
 
 ### Other credits
