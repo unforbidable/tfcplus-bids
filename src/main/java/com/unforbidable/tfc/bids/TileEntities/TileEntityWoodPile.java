@@ -131,10 +131,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     Timer seasoningTimer = new Timer(10);
     int woodPileOpeningCounter = 0;
 
-    long lastBurningTicks = 0;
+    float lastBurningTicks = 0;
     Timer burningTimer = new Timer(10);
     int totalBurningTemp = 0;
-    long totalBurningTicks = 0;
+    float totalBurningTicks = 0;
     int totalBurningItems = 0;
 
     int cachedHeatSourceTemp = 0;
@@ -758,12 +758,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private void handleBurningItem(WoodPileBurningItem burningItem, EnumBurningRate burningRate) {
-        long fuelBurnTime = (long) (burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) * BidsOptions.WoodPile.burnTimeMultiplier);
+        float fuelBurnTime = burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) * BidsOptions.WoodPile.burnTimeMultiplier;
         int fuelBurnTemp = burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack());
 
-        long ticksNeededToBurnItem = (long) (fuelBurnTime * KILN_FACTOR);
-        long ticksNeededToBurnItemForBurningRate = (long) (ticksNeededToBurnItem / burningRate.getBurnTimeMultiplier());
-        long ticksSincePreviousLogBurning = TFC_Time.getTotalTicks() - lastBurningTicks;
+        float ticksNeededToBurnItem = fuelBurnTime * KILN_FACTOR;
+        float ticksNeededToBurnItemForBurningRate = (ticksNeededToBurnItem / burningRate.getBurnTimeMultiplier());
+        float ticksSincePreviousLogBurning = TFC_Time.getTotalTicks() - lastBurningTicks;
 
         if (ticksNeededToBurnItemForBurningRate <= ticksSincePreviousLogBurning) {
             // Enough ticks have passed to burn this item
@@ -807,7 +807,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     private void handleFireSetting() {
         // Fire setting is handled through events
-        FireSettingEvent.BurningEvent event = new FireSettingEvent.BurningEvent(worldObj, xCoord, yCoord, zCoord, totalBurningTicks, totalBurningTemp, totalBurningItems);
+        FireSettingEvent.BurningEvent event = new FireSettingEvent.BurningEvent(worldObj, xCoord, yCoord, zCoord, (long)totalBurningTicks, totalBurningTemp, totalBurningItems);
         MinecraftForge.EVENT_BUS.post(event);
     }
 
@@ -845,8 +845,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         tag.setInteger("orientation", orientation);
         tag.setBoolean("onFire", onFire);
         tag.setLong("hoursOnFire", hoursOnFire);
-        tag.setLong("lastBurningTicks", lastBurningTicks);
-        tag.setLong("totalBurningTicks", totalBurningTicks);
+        tag.setFloat("lastBurningTicks", lastBurningTicks);
+        tag.setFloat("totalBurningTicks", totalBurningTicks);
         tag.setInteger("totalBurningTemp", totalBurningTemp);
         tag.setInteger("totalBurningItems", totalBurningItems);
 
@@ -870,8 +870,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         orientation = tag.getInteger("orientation");
         onFire = tag.getBoolean("onFire");
         hoursOnFire = tag.getLong("hoursOnFire");
-        lastBurningTicks = tag.getLong("lastBurningTicks");
-        totalBurningTicks = tag.getLong("totalBurningTicks");
+        lastBurningTicks = tag.getFloat("lastBurningTicks");
+        totalBurningTicks = tag.getFloat("totalBurningTicks");
         totalBurningTemp = tag.getInteger("totalBurningTemp");
         totalBurningItems = tag.getInteger("totalBurningItems");
 
