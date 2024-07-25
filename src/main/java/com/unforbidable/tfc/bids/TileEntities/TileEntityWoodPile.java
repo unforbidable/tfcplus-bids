@@ -769,11 +769,15 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // Enough ticks have passed to burn this item
             lastBurningTicks += ticksNeededToBurnItemForBurningRate;
 
+            double lastKilnProgress = getKilnProgress();
+
             // Burning rate increases the temp
             totalBurningTemp += fuelBurnTemp * burningRate.getBurnTempMultiplier();
             totalBurningTicks += ticksNeededToBurnItemForBurningRate;
-
             totalBurningItems++;
+
+            double currentKilnProgress = getKilnProgress();
+            kilnManager.updateProgress(lastKilnProgress, currentKilnProgress);
 
             onItemBurned();
 

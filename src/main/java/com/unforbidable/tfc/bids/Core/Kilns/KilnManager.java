@@ -22,13 +22,11 @@ public class KilnManager implements IKilnManager {
     private final Timer kilnDiscoveryTimer = new Timer(200);
     private final Timer kilnValidationTimer = new Timer(20);
     private final Timer kilnChimneyEffectTimer = new Timer(100);
-    private final Timer kilnProgressTimer = new Timer(20);
 
     private final IKilnHeatSource kilnHeatSource;
     private final List<IKilnChamber> kilns;
 
     private IKilnChamber currentKiln;
-    private double lastKilnProgress = 0;
 
     private boolean initialized = false;
 
@@ -96,29 +94,26 @@ public class KilnManager implements IKilnManager {
                     setCurrentKilnChimneyEffect(kilnChimneyEffectTimer.getTicksToGo());
                 }
             }
+        }
+    }
 
-            if (kilnProgressTimer.tick()) {
-                if (currentKiln != null && kilnHeatSource.isActive()) {
-                    double kilnProgress = kilnHeatSource.getProgress();
-                    if (lastKilnProgress != kilnHeatSource.getProgress()) {
-                        lastKilnProgress = kilnProgress;
+    @Override
+    public void updateProgress(double lastKilnProgress, double currentKilnProgress) {
+        // Watch for progress
+        if (currentKiln != null) {
+            Bids.LOG.debug("Kiln progress {}", currentKilnProgress);
 
-                        Bids.LOG.debug("Kiln progress {}", kilnProgress);
+            if (currentKilnProgress >= 1f) {
+                Bids.LOG.debug("Kiln done");
 
-                        if (kilnProgress >= 1f) {
-                            Bids.LOG.debug("Kiln done");
+                // Deactivate smoke
+                setCurrentKilnChimneyEffect(0);
+            }
 
-                            // Deactivate smoke
-                            setCurrentKilnChimneyEffect(0);
-                        }
-
-                        // Process content
-                        for (BlockCoord bc : currentKiln.getPotteryLocations()) {
-                            KilnEvent.FireBlock event = new KilnEvent.FireBlock(kilnHeatSource.getWorld(), bc.x, bc.y, bc.z, kilnProgress);
-                            MinecraftForge.EVENT_BUS.post(event);
-                        }
-                    }
-                }
+            // Process content
+            for (BlockCoord bc : currentKiln.getPotteryLocations()) {
+                KilnEvent.FireBlock event = new KilnEvent.FireBlock(kilnHeatSource.getWorld(), bc.x, bc.y, bc.z, currentKilnProgress);
+                MinecraftForge.EVENT_BUS.post(event);
             }
         }
     }
@@ -160,7 +155,7 @@ public class KilnManager implements IKilnManager {
         kilnChimneyEffectTimer.reset();
         setCurrentKilnChimneyEffect(kilnChimneyEffectTimer.getTicksToGo());
 
-        // Anytime kill is detected the burning item counters are reset
+        // Anytime kiln is detected the burning item counters are reset
         // This includes re-detection after being broken, at which point the progress should reset
         kilnHeatSource.resetProgress();
     }
