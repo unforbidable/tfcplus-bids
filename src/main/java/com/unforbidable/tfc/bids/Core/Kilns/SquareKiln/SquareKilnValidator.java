@@ -53,14 +53,14 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
         int minX = Math.min(entryX, chimneyX);
         int minZ = Math.min(entryZ, chimneyZ);
 
-        for (int i = minX; i < minX + 2; i++) {
-            for (int j = minZ; j < minZ + 2; j++) {
-                if (!requireAirOrPottery(i, 1, j)) {
+        for (int x = minX; x < minX + 2; x++) {
+            for (int z = minZ; z < minZ + 2; z++) {
+                if (!requireAirOrPottery(x, 1, z)) {
                     return false;
                 }
 
-                for (int k = 1; k < params.height; k++) {
-                    if (!requireAir(i, 1 + k, j)) {
+                for (int y = 2; y < params.height + 1; y++) {
+                    if (!requireAir(x, y, z)) {
                         return false;
                     }
                 }
@@ -185,54 +185,54 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
         int minX = Math.min(entryX, chimneyX);
         int minZ = Math.min(entryZ, chimneyZ);
 
-        for (int i = minX; i < minX + 2; i++) {
-            for (int j = minZ; j < minZ + 2; j++) {
+        for (int x = minX; x < minX + 2; x++) {
+            for (int z = minZ; z < minZ + 2; z++) {
                 // No need to check chimney
-                if (i != chimneyX || j != chimneyZ) {
-                    if (!requireWall(i, 1 + params.height, j, ForgeDirection.UP)) {
+                if (x != chimneyX || z != chimneyZ) {
+                    if (!requireWall(x, 1 + params.height, z, ForgeDirection.UP)) {
                         return false;
                     }
                 }
 
-                if (!requireWall(i, 0, j, ForgeDirection.DOWN)) {
+                if (!requireWall(x, 0, z, ForgeDirection.DOWN)) {
                     return false;
                 }
             }
         }
 
-        for (int i = 0; i < params.height; i++) {
+        for (int y = 1; y < params.height + 1; y++) {
 
             // Opposite wall
-            if (!requireWall(chamberDir.offsetX * 4, 1 + i, chamberDir.offsetZ * 4, chamberDir)) {
+            if (!requireWall(chamberDir.offsetX * 4, y, chamberDir.offsetZ * 4, chamberDir)) {
                 return false;
             }
-            if (!requireWall(chamberDir.offsetX * 4 + chimneyDir.offsetX, 1 + i, chamberDir.offsetZ * 4 + chimneyDir.offsetZ, chamberDir)) {
+            if (!requireWall(chamberDir.offsetX * 4 + chimneyDir.offsetX, y, chamberDir.offsetZ * 4 + chimneyDir.offsetZ, chamberDir)) {
                 return false;
             }
 
             // Near wall
-            if (!requireWall(chimneyDirOpp.offsetX + chamberDir.offsetX * 2, 1 + i, chimneyDirOpp.offsetZ + chamberDir.offsetZ * 2, chimneyDirOpp)) {
+            if (!requireWall(chimneyDirOpp.offsetX + chamberDir.offsetX * 2, y, chimneyDirOpp.offsetZ + chamberDir.offsetZ * 2, chimneyDirOpp)) {
                 return false;
             }
-            if (!requireWall(chimneyDirOpp.offsetX + chamberDir.offsetX * 3, 1 + i, chimneyDirOpp.offsetZ + chamberDir.offsetZ * 3, chimneyDirOpp)) {
+            if (!requireWall(chimneyDirOpp.offsetX + chamberDir.offsetX * 3, y, chimneyDirOpp.offsetZ + chamberDir.offsetZ * 3, chimneyDirOpp)) {
                 return false;
             }
 
             // Far wall
-            if (!requireWall(chimneyDir.offsetX * 2 + chamberDir.offsetX * 2, 1 + i, chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 2, chimneyDir)) {
+            if (!requireWall(chimneyDir.offsetX * 2 + chamberDir.offsetX * 2, y, chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 2, chimneyDir)) {
                 return false;
             }
-            if (!requireWall(chimneyDir.offsetX * 2 + chamberDir.offsetX * 3, 1 + i, chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 3, chimneyDir)) {
+            if (!requireWall(chimneyDir.offsetX * 2 + chamberDir.offsetX * 3, y, chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 3, chimneyDir)) {
                 return false;
             }
 
             // Short wall
-            if (!requireWall(chamberDir.offsetX + chimneyDir.offsetX, 1 + i, chimneyDir.offsetZ + chamberDir.offsetZ, chamberDirOpp)) {
+            if (!requireWall(chamberDir.offsetX + chimneyDir.offsetX, y, chimneyDir.offsetZ + chamberDir.offsetZ, chamberDirOpp)) {
                 return false;
             }
 
-            if (i > 1) {
-                if (!requireWall(chamberDir.offsetX, 1 + i, chamberDir.offsetZ, chamberDirOpp)) {
+            if (y > 1) {
+                if (!requireWall(chamberDir.offsetX, y, chamberDir.offsetZ, chamberDirOpp)) {
                     return false;
                 }
             }

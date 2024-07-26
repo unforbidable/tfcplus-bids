@@ -45,8 +45,8 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
             }
         }
 
-        for (int i = 2; i < 4; i++) {
-            if (!requireAir(0, i, 0)) {
+        for (int y = 2; y < 4; y++) {
+            if (!requireAir(0, y, 0)) {
                 return false;
             }
         }
@@ -55,26 +55,26 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
     }
 
     private boolean validateChamber() {
-        for (int i = -1; i < 2; i++) {
-            for (int j = -1; j < 2; j++) {
-                if (i == 0 && j == 0) {
+        for (int x = -1; x < 2; x++) {
+            for (int z = -1; z < 2; z++) {
+                if (x == 0 && z == 0) {
                     // Skip center
                     continue;
                 }
 
-                if (!requireWall(i, 1, j, ForgeDirection.UP)) {
+                if (!requireWall(x, 1, z, ForgeDirection.UP)) {
                     return false;
                 }
 
-                if (!requireAirOrPottery(i, 2, j)) {
+                if (!requireAirOrPottery(x, 2, z)) {
                     return false;
                 }
 
-                if (!requireAir(i, 3, j)) {
+                if (!requireAir(x, 3, z)) {
                     return false;
                 }
 
-                if (!requireWall(i, 4, j, ForgeDirection.DOWN)) {
+                if (!requireWall(x, 4, z, ForgeDirection.DOWN)) {
                     return false;
                 }
             }
@@ -90,16 +90,16 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
             int x = d.offsetX * 2;
             int z = d.offsetZ * 2;
 
-            for (int i = 2; i < 4; i++) {
-                if (!requireWall(x + r.offsetX, i, z + r.offsetZ, d)) {
+            for (int y = 2; y < 4; y++) {
+                if (!requireWall(x + r.offsetX, y, z + r.offsetZ, d)) {
                     return false;
                 }
 
-                if (!requireWall(x, i, z, d)) {
+                if (!requireWall(x, y, z, d)) {
                     return false;
                 }
 
-                if (!requireWall(x - r.offsetX, i, z - r.offsetZ, d)) {
+                if (!requireWall(x - r.offsetX, y, z - r.offsetZ, d)) {
                     return false;
                 }
             }

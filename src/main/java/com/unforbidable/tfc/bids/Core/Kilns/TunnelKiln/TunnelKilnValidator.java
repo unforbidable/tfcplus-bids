@@ -75,13 +75,12 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
         // Find the chimney
         // Require any chimney top
         int tunnelEndX = direction.offsetX * 5;
-        int tunnelEndY = 1;
         int tunnelEndZ = direction.offsetZ * 5;
 
         int height = 0;
-        for (int i = 1; i <= MAX_HEIGHT; i++) {
-            if (checkChimneyTier(tunnelEndX, tunnelEndY + i, tunnelEndZ, 0)) {
-                height = i;
+        for (int h = 1; h <= MAX_HEIGHT; h++) {
+            if (checkChimneyTier(tunnelEndX, 1 + h, tunnelEndZ, 0)) {
+                height = h;
                 break;
             }
         }
@@ -100,31 +99,30 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
         ForgeDirection rightDir = chamberDir.getRotation(ForgeDirection.DOWN);
 
         int x = chamberDir.offsetX;
-        int y = 1;
         int z = chamberDir.offsetZ;
 
         // Air
-        if (!requireAir(x, y, z)) {
+        if (!requireAir(x, 1, z)) {
             return false;
         }
 
         // Floor
-        if (!requireWall(x, y - 1, z, ForgeDirection.DOWN)) {
+        if (!requireWall(x, 0, z, ForgeDirection.DOWN)) {
             return false;
         }
 
         // Roof
-        if (!requireWall(x, y + 1, z, ForgeDirection.UP)) {
+        if (!requireWall(x, 2, z, ForgeDirection.UP)) {
             return false;
         }
 
         // Left
-        if (!requireWall(x + leftDir.offsetX, y, z + leftDir.offsetZ, leftDir)) {
+        if (!requireWall(x + leftDir.offsetX, 1, z + leftDir.offsetZ, leftDir)) {
             return false;
         }
 
         // Right
-        if (!requireWall(x + rightDir.offsetX, y, z + rightDir.offsetZ, rightDir)) {
+        if (!requireWall(x + rightDir.offsetX, 1, z + rightDir.offsetZ, rightDir)) {
             return false;
         }
 
@@ -143,8 +141,8 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
         }
 
         // Require air
-        for (int j = 1; j < params.height; j++) {
-            if (!requireAir(tunnelX, 1 + j, tunnelZ)) {
+        for (int y = 2; y < params.height + 1; y++) {
+            if (!requireAir(tunnelX, y, tunnelZ)) {
                 return false;
             }
         }
@@ -154,21 +152,21 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
             return false;
         }
 
-        for (int j = 0; j < params.height; j++) {
+        for (int y = 1; y < params.height + 1; y++) {
             // Require wall side 1
             ForgeDirection side1 = dir.getRotation(ForgeDirection.UP);
-            if (!requireWall(tunnelX + side1.offsetX, 1 + j, tunnelZ + side1.offsetZ, side1)) {
+            if (!requireWall(tunnelX + side1.offsetX, y, tunnelZ + side1.offsetZ, side1)) {
                 return false;
             }
 
             // Require wall side 2
             ForgeDirection side2 = dir.getRotation(ForgeDirection.DOWN);
-            if (!requireWall(tunnelX + side2.offsetX, 1 + j, tunnelZ + side2.offsetZ, side2)) {
+            if (!requireWall(tunnelX + side2.offsetX, y, tunnelZ + side2.offsetZ, side2)) {
                 return false;
             }
 
             // Require wall front
-            if (!requireWall(tunnelX + dir.offsetX, 1 + j, tunnelZ + dir.offsetZ, dir)) {
+            if (!requireWall(tunnelX + dir.offsetX, y, tunnelZ + dir.offsetZ, dir)) {
                 return false;
             }
         }
@@ -187,8 +185,8 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
             }
 
             // Require air
-            for (int j = 1; j < params.height; j++) {
-                if (!requireAir(tunnelX, 1 + j, tunnelZ)) {
+            for (int y = 2; y < params.height + 1; y++) {
+                if (!requireAir(tunnelX, y, tunnelZ)) {
                     return false;
                 }
             }
@@ -203,24 +201,24 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
                 return false;
             }
 
-            for (int j = 0; j < params.height; j++) {
+            for (int y = 1; y < params.height + 1; y++) {
                 // Require wall side 1
                 ForgeDirection side1 = params.direction.getRotation(ForgeDirection.UP);
-                if (!requireWall(tunnelX + side1.offsetX, 1 + j, tunnelZ + side1.offsetZ, side1)) {
+                if (!requireWall(tunnelX + side1.offsetX, y, tunnelZ + side1.offsetZ, side1)) {
                     return false;
                 }
 
                 // Require wall side 2
                 ForgeDirection side2 = params.direction.getRotation(ForgeDirection.DOWN);
-                if (!requireWall(tunnelX + side2.offsetX, 1 + j, tunnelZ + side2.offsetZ, side2)) {
+                if (!requireWall(tunnelX + side2.offsetX, y, tunnelZ + side2.offsetZ, side2)) {
                     return false;
                 }
             }
         }
 
         // Wall above heat source
-        for (int i = 1; i < params.height; i++) {
-            if (!requireWall(0, 1 + i, 0, params.direction.getOpposite())) {
+        for (int y = 2; y < params.height + 1; y++) {
+            if (!requireWall(0, y, 0, params.direction.getOpposite())) {
                 return false;
             }
         }
