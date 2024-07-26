@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core.Kilns;
 
+import com.dunk.tfc.Blocks.BlockFireBrick;
 import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.api.Events.KilnEvent;
 import net.minecraft.block.Block;
@@ -38,6 +39,11 @@ public class KilnValidationHelper {
     public static boolean isAirOrFire(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
         return block.getMaterial() == Material.air || block.getMaterial() == Material.fire;
+    }
+
+    public static boolean isFireBrick(World world, int x, int y, int z) {
+        Block block = world.getBlock(x, y, z);
+        return block instanceof BlockFireBrick;
     }
 
 }

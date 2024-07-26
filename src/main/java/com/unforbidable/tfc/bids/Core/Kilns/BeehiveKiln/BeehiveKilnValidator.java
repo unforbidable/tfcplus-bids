@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Core.Kilns.BeehiveKiln;
 
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidationParams;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidator;
 import net.minecraft.world.World;
@@ -32,26 +31,22 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
     }
 
     private boolean validateCenter() {
-        if (!checkAirOrFire(0, 1, 0)) {
-            Bids.LOG.debug("Expected air or fire at +1");
+        if (!requireAirOrFire(0, 1, 0)) {
             return false;
         }
 
         if (!checkChimneyTier(0, 4, 0, 1)) {
-            Bids.LOG.debug("Expected chimney at +4");
             return false;
         }
 
         for (ForgeDirection d : HORIZONTAL_DIRECTIONS) {
-            if (!checkWall(d.offsetX, 1, d.offsetZ, d)) {
-                Bids.LOG.debug("Expected wall {} at +1", d);
+            if (!requireWall(d.offsetX, 1, d.offsetZ, d)) {
                 return false;
             }
         }
 
         for (int i = 2; i < 4; i++) {
-            if (!checkAir(0, i, 0)) {
-                Bids.LOG.debug("Expected air above at +{}", i);
+            if (!requireAir(0, i, 0)) {
                 return false;
             }
         }
@@ -67,23 +62,19 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
                     continue;
                 }
 
-                if (!checkWall(i, 1, j, ForgeDirection.UP)) {
-                    Bids.LOG.debug("Expected floor at +1 {}, {}", i, j);
+                if (!requireWall(i, 1, j, ForgeDirection.UP)) {
                     return false;
                 }
 
-                if (!checkAirOrPottery(i, 2, j)) {
-                    Bids.LOG.debug("Expected air or pottery at +2 {}, {}", i, j);
+                if (!requireAirOrPottery(i, 2, j)) {
                     return false;
                 }
 
-                if (!checkAir(i, 3, j)) {
-                    Bids.LOG.debug("Expected air at +3 {}, {}", i, j);
+                if (!requireAir(i, 3, j)) {
                     return false;
                 }
 
-                if (!checkWall(i, 4, j, ForgeDirection.DOWN)) {
-                    Bids.LOG.debug("Expected roof at +4 {}, {}", i, j);
+                if (!requireWall(i, 4, j, ForgeDirection.DOWN)) {
                     return false;
                 }
             }
@@ -100,18 +91,15 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
             int z = d.offsetZ * 2;
 
             for (int i = 2; i < 4; i++) {
-                if (!checkWall(x + r.offsetX, i, z + r.offsetZ, d)) {
-                    Bids.LOG.debug("Expected outer wall at +{} {} +1", i, d);
+                if (!requireWall(x + r.offsetX, i, z + r.offsetZ, d)) {
                     return false;
                 }
 
-                if (!checkWall(x, i, z, d)) {
-                    Bids.LOG.debug("Expected outer wall at +{} {} 0", i, d);
+                if (!requireWall(x, i, z, d)) {
                     return false;
                 }
 
-                if (!checkWall(x - r.offsetX, i, z - r.offsetZ, d)) {
-                    Bids.LOG.debug("Expected outer wall at +{} {} -1", i, d);
+                if (!requireWall(x - r.offsetX, i, z - r.offsetZ, d)) {
                     return false;
                 }
             }

@@ -55,14 +55,12 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
 
         for (int i = minX; i < minX + 2; i++) {
             for (int j = minZ; j < minZ + 2; j++) {
-                if (!checkAirOrPottery(i, 1, j)) {
-                    Bids.LOG.debug("Expected air or pottery at {},{} +1", i, j);
+                if (!requireAirOrPottery(i, 1, j)) {
                     return false;
                 }
 
                 for (int k = 1; k < params.height; k++) {
-                    if (!checkAir(i, 1 + k, j)) {
-                        Bids.LOG.debug("Expected air at {},{} +{}", i, j, (k + 1));
+                    if (!requireAir(i, 1 + k, j)) {
                         return false;
                     }
                 }
@@ -73,13 +71,11 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
     }
 
     private boolean validateFireHole() {
-        if (!checkAirOrFire(0, 1, 0)) {
-            Bids.LOG.debug("Expected air or fire at +1");
+        if (!requireAirOrFire(0, 1, 0)) {
             return false;
         }
 
-        if (!checkWall(0, 2, 0, ForgeDirection.UP)) {
-            Bids.LOG.debug("Expected roof at +2");
+        if (!requireWall(0, 2, 0, ForgeDirection.UP)) {
             return false;
         }
 
@@ -95,32 +91,27 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
         int z = chamberDir.offsetZ;
 
         // Air
-        if (!checkAir(x, 1, z)) {
-            Bids.LOG.debug("Expected air in entry tunnel +1");
+        if (!requireAir(x, 1, z)) {
             return false;
         }
 
         // Floor
-        if (!checkWall(x, 0, z, ForgeDirection.DOWN)) {
-            Bids.LOG.debug("Expected floor in entry tunnel +1");
+        if (!requireWall(x, 0, z, ForgeDirection.DOWN)) {
             return false;
         }
 
         // Roof
-        if (!checkWall(x, 2, z, ForgeDirection.UP)) {
-            Bids.LOG.debug("Expected roof in entry tunnel +1");
+        if (!requireWall(x, 2, z, ForgeDirection.UP)) {
             return false;
         }
 
         // Left
-        if (!checkWall(x + leftDir.offsetX, 1, z + leftDir.offsetZ, leftDir)) {
-            Bids.LOG.debug("Expected left wall in entry tunnel +1");
+        if (!requireWall(x + leftDir.offsetX, 1, z + leftDir.offsetZ, leftDir)) {
             return false;
         }
 
         // Right
-        if (!checkWall(x + rightDir.offsetX, 1, z + rightDir.offsetZ, rightDir)) {
-            Bids.LOG.debug("Expected right wall in entry tunnel +1");
+        if (!requireWall(x + rightDir.offsetX, 1, z + rightDir.offsetZ, rightDir)) {
             return false;
         }
 
@@ -198,14 +189,12 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
             for (int j = minZ; j < minZ + 2; j++) {
                 // No need to check chimney
                 if (i != chimneyX || j != chimneyZ) {
-                    if (!checkWall(i, 1 + params.height, j, ForgeDirection.UP)) {
-                        Bids.LOG.debug("Expected roof at {},{} +{}", i, j, (params.height + 1));
+                    if (!requireWall(i, 1 + params.height, j, ForgeDirection.UP)) {
                         return false;
                     }
                 }
 
-                if (!checkWall(i, 0, j, ForgeDirection.DOWN)) {
-                    Bids.LOG.debug("Expected floor at {},{}", i, j);
+                if (!requireWall(i, 0, j, ForgeDirection.DOWN)) {
                     return false;
                 }
             }
@@ -214,44 +203,36 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
         for (int i = 0; i < params.height; i++) {
 
             // Opposite wall
-            if (!checkWall(chamberDir.offsetX * 4, 1 + i, chamberDir.offsetZ * 4, chamberDir)) {
-                Bids.LOG.debug("Expected opposite wall 1 {} at +{}", chamberDir, (1 + i));
+            if (!requireWall(chamberDir.offsetX * 4, 1 + i, chamberDir.offsetZ * 4, chamberDir)) {
                 return false;
             }
-            if (!checkWall(chamberDir.offsetX * 4 + chimneyDir.offsetX, 1 + i, chamberDir.offsetZ * 4 + chimneyDir.offsetZ, chamberDir)) {
-                Bids.LOG.debug("Expected opposite wall 2 {} at +{}", chamberDir, (1 + i));
+            if (!requireWall(chamberDir.offsetX * 4 + chimneyDir.offsetX, 1 + i, chamberDir.offsetZ * 4 + chimneyDir.offsetZ, chamberDir)) {
                 return false;
             }
 
             // Near wall
-            if (!checkWall(chimneyDirOpp.offsetX + chamberDir.offsetX * 2, 1 + i, chimneyDirOpp.offsetZ + chamberDir.offsetZ * 2, chimneyDirOpp)) {
-                Bids.LOG.debug("Expected near wall 1 {} at +{}", chimneyDirOpp, (1 + i));
+            if (!requireWall(chimneyDirOpp.offsetX + chamberDir.offsetX * 2, 1 + i, chimneyDirOpp.offsetZ + chamberDir.offsetZ * 2, chimneyDirOpp)) {
                 return false;
             }
-            if (!checkWall(chimneyDirOpp.offsetX + chamberDir.offsetX * 3, 1 + i, chimneyDirOpp.offsetZ + chamberDir.offsetZ * 3, chimneyDirOpp)) {
-                Bids.LOG.debug("Expected near wall 2 {} at +{}", chimneyDirOpp, (1 + i));
+            if (!requireWall(chimneyDirOpp.offsetX + chamberDir.offsetX * 3, 1 + i, chimneyDirOpp.offsetZ + chamberDir.offsetZ * 3, chimneyDirOpp)) {
                 return false;
             }
 
             // Far wall
-            if (!checkWall(chimneyDir.offsetX * 2 + chamberDir.offsetX * 2, 1 + i, chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 2, chimneyDir)) {
-                Bids.LOG.debug("Expected far wall 1 {} at +{}", chimneyDir, (1 + i));
+            if (!requireWall(chimneyDir.offsetX * 2 + chamberDir.offsetX * 2, 1 + i, chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 2, chimneyDir)) {
                 return false;
             }
-            if (!checkWall(chimneyDir.offsetX * 2 + chamberDir.offsetX * 3, 1 + i, chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 3, chimneyDir)) {
-                Bids.LOG.debug("Expected far wall 2 {} at +{}", chimneyDir, (1 + i));
+            if (!requireWall(chimneyDir.offsetX * 2 + chamberDir.offsetX * 3, 1 + i, chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 3, chimneyDir)) {
                 return false;
             }
 
             // Short wall
-            if (!checkWall(chamberDir.offsetX + chimneyDir.offsetX, 1 + i, chimneyDir.offsetZ + chamberDir.offsetZ, chamberDirOpp)) {
-                Bids.LOG.debug("Expected short wall {} at +{}", chamberDirOpp, (1 + i));
+            if (!requireWall(chamberDir.offsetX + chimneyDir.offsetX, 1 + i, chimneyDir.offsetZ + chamberDir.offsetZ, chamberDirOpp)) {
                 return false;
             }
 
             if (i > 1) {
-                if (!checkWall(chamberDir.offsetX, 1 + i, chamberDir.offsetZ, chamberDirOpp)) {
-                    Bids.LOG.debug("Expected short wall {} at +{}", chamberDirOpp, (1 + i));
+                if (!requireWall(chamberDir.offsetX, 1 + i, chamberDir.offsetZ, chamberDirOpp)) {
                     return false;
                 }
             }

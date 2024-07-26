@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core.Kilns;
 
+import com.unforbidable.tfc.bids.Bids;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -42,24 +43,48 @@ public abstract class KilnValidator<TResultParams> {
         return KilnValidationHelper.isChimneyTier(world, sourceX + x, sourceY + y, sourceZ + z, tier);
     }
 
-    protected boolean checkAir(int x, int y, int z) {
-        return KilnValidationHelper.isAir(world, sourceX + x, sourceY + y, sourceZ + z);
+    protected boolean requireAir(int x, int y, int z) {
+        boolean success = KilnValidationHelper.isAir(world, sourceX + x, sourceY + y, sourceZ + z);
+        if (!success) {
+            Bids.LOG.info("Expected air at {},{},{}", x, y, z);
+        }
+        return success;
     }
 
-    protected boolean checkAirOrPottery(int x, int y, int z) {
-        return KilnValidationHelper.isAirOrPottery(world, sourceX + x, sourceY + y, sourceZ + z);
+    protected boolean requireAirOrPottery(int x, int y, int z) {
+        boolean success = KilnValidationHelper.isAirOrPottery(world, sourceX + x, sourceY + y, sourceZ + z);
+        if (!success) {
+            Bids.LOG.info("Expected air or pottery at {},{},{}", x, y, z);
+        }
+        return success;
     }
 
     protected boolean checkWall(int x, int y, int z, ForgeDirection d) {
         return KilnValidationHelper.isWall(world, sourceX + x, sourceY + y, sourceZ + z, d);
     }
 
-    protected boolean checkAirOrFire(int x, int y, int z) {
-        return KilnValidationHelper.isAirOrFire(world, sourceX + x, sourceY + y, sourceZ + z);
+    protected boolean requireWall(int x, int y, int z, ForgeDirection d) {
+        boolean success = KilnValidationHelper.isWall(world, sourceX + x, sourceY + y, sourceZ + z, d);
+        if (!success) {
+            Bids.LOG.info("Expected wall {} at {},{},{}", d, x, y, z);
+        }
+        return success;
     }
 
-    protected boolean checkFireBrick(int x, int y, int z) {
-        return KilnValidationHelper.isFireBrick(world, sourceX + x, sourceY + y, sourceZ + z);
+    protected boolean requireAirOrFire(int x, int y, int z) {
+        boolean success = KilnValidationHelper.isAirOrFire(world, sourceX + x, sourceY + y, sourceZ + z);
+        if (!success) {
+            Bids.LOG.info("Expected air or fire at {},{},{}", x, y, z);
+        }
+        return success;
+    }
+
+    protected boolean requireFireBrick(int x, int y, int z) {
+        boolean success = KilnValidationHelper.isFireBrick(world, sourceX + x, sourceY + y, sourceZ + z);
+        if (!success) {
+            Bids.LOG.info("Expected fire brick at {},{},{}", x, y, z);
+        }
+        return success;
     }
 
 }
