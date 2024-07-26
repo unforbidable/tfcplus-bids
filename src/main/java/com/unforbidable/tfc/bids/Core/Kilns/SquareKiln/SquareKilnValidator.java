@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.Core.Kilns.SquareKiln;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Kilns.KilnValidationHelper;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidator;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -56,16 +55,13 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
 
         for (int i = minX; i < minX + 2; i++) {
             for (int j = minZ; j < minZ + 2; j++) {
-                int x = sourceX + i;
-                int y = sourceY + 1;
-                int z = sourceZ + j;
-                if (!KilnValidationHelper.isAirOrPottery(world, x, y, z)) {
+                if (!checkAirOrPottery(i, 1, j)) {
                     Bids.LOG.debug("Expected air or pottery at {},{} +1", i, j);
                     return false;
                 }
 
                 for (int k = 1; k < params.height; k++) {
-                    if (!KilnValidationHelper.isAir(world, x, y + k, z)) {
+                    if (!checkAir(i, 1 + k, j)) {
                         Bids.LOG.debug("Expected air at {},{} +{}", i, j, (k + 1));
                         return false;
                     }
@@ -77,12 +73,12 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
     }
 
     private boolean validateFireHole() {
-        if (!KilnValidationHelper.isAirOrFire(world, sourceX, sourceY + 1, sourceZ)) {
+        if (!checkAirOrFire(0, 1, 0)) {
             Bids.LOG.debug("Expected air or fire at +1");
             return false;
         }
 
-        if (!KilnValidationHelper.isWall(world, sourceX, sourceY + 2, sourceZ, ForgeDirection.UP)) {
+        if (!checkWall(0, 2, 0, ForgeDirection.UP)) {
             Bids.LOG.debug("Expected roof at +2");
             return false;
         }
@@ -95,36 +91,35 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
         ForgeDirection leftDir = chamberDir.getRotation(ForgeDirection.UP);
         ForgeDirection rightDir = chamberDir.getRotation(ForgeDirection.DOWN);
 
-        int x = sourceX + chamberDir.offsetX;
-        int y = sourceY + 1;
-        int z = sourceZ + chamberDir.offsetZ;
+        int x = chamberDir.offsetX;
+        int z = chamberDir.offsetZ;
 
         // Air
-        if (!KilnValidationHelper.isAir(world, x, y, z)) {
+        if (!checkAir(x, 1, z)) {
             Bids.LOG.debug("Expected air in entry tunnel +1");
             return false;
         }
 
         // Floor
-        if (!KilnValidationHelper.isWall(world, x, y - 1, z, ForgeDirection.DOWN)) {
+        if (!checkWall(x, 0, z, ForgeDirection.DOWN)) {
             Bids.LOG.debug("Expected floor in entry tunnel +1");
             return false;
         }
 
         // Roof
-        if (!KilnValidationHelper.isWall(world, x, y + 1, z, ForgeDirection.UP)) {
+        if (!checkWall(x, 2, z, ForgeDirection.UP)) {
             Bids.LOG.debug("Expected roof in entry tunnel +1");
             return false;
         }
 
         // Left
-        if (!KilnValidationHelper.isWall(world, x + leftDir.offsetX, y, z + leftDir.offsetZ, leftDir)) {
+        if (!checkWall(x + leftDir.offsetX, 1, z + leftDir.offsetZ, leftDir)) {
             Bids.LOG.debug("Expected left wall in entry tunnel +1");
             return false;
         }
 
         // Right
-        if (!KilnValidationHelper.isWall(world, x + rightDir.offsetX, y, z + rightDir.offsetZ, rightDir)) {
+        if (!checkWall(x + rightDir.offsetX, 1, z + rightDir.offsetZ, rightDir)) {
             Bids.LOG.debug("Expected right wall in entry tunnel +1");
             return false;
         }
@@ -136,7 +131,7 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
         ForgeDirection direction = ForgeDirection.UNKNOWN;
         int wallCount = 0;
         for (ForgeDirection d : HORIZONTAL_DIRECTIONS) {
-            if (KilnValidationHelper.isWall(world, sourceX + d.offsetX, sourceY + 1, sourceZ + d.offsetZ, d)) {
+            if (checkWall(d.offsetX, 1, d.offsetZ, d)) {
                 wallCount++;
             } else {
                 direction = d;
@@ -155,9 +150,9 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
         SquareKilnChimneyRotation chimneyRotation = SquareKilnChimneyRotation.UNKNOWN;
 
         for (int h = 1; h <= MAX_HEIGHT; h++) {
-            int x = sourceX + direction.offsetX * 3;
-            int y = sourceY + 1 + h;
-            int z = sourceZ + direction.offsetZ * 3;
+            int x = direction.offsetX * 3;
+            int y = 1 + h;
+            int z = direction.offsetZ * 3;
 
             int chimneyCount = 0;
             SquareKilnChimneyRotation lastChimneyRotation = SquareKilnChimneyRotation.UNKNOWN;
@@ -165,7 +160,7 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
             for (SquareKilnChimneyRotation rotation : SquareKilnChimneyRotation.VALID_OFFSETS) {
                 ForgeDirection r = direction.getRotation(rotation.getAxis());
 
-                if (KilnValidationHelper.isChimneyTier(world, x + r.offsetX, y, z + r.offsetZ, 0)) {
+                if (checkChimneyTier(x + r.offsetX, y, z + r.offsetZ, 0)) {
                     chimneyCount++;
                     lastChimneyRotation = rotation;
                 }
@@ -203,13 +198,13 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
             for (int j = minZ; j < minZ + 2; j++) {
                 // No need to check chimney
                 if (i != chimneyX || j != chimneyZ) {
-                    if (!KilnValidationHelper.isWall(world, sourceX + i, sourceY + 1 + params.height, sourceZ + j, ForgeDirection.UP)) {
+                    if (!checkWall(i, 1 + params.height, j, ForgeDirection.UP)) {
                         Bids.LOG.debug("Expected roof at {},{} +{}", i, j, (params.height + 1));
                         return false;
                     }
                 }
 
-                if (!KilnValidationHelper.isWall(world, sourceX + i, sourceY, sourceZ + j, ForgeDirection.DOWN)) {
+                if (!checkWall(i, 0, j, ForgeDirection.DOWN)) {
                     Bids.LOG.debug("Expected floor at {},{}", i, j);
                     return false;
                 }
@@ -219,43 +214,43 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
         for (int i = 0; i < params.height; i++) {
 
             // Opposite wall
-            if (!KilnValidationHelper.isWall(world, sourceX + chamberDir.offsetX * 4, sourceY + 1 + i, sourceZ + chamberDir.offsetZ * 4, chamberDir)) {
+            if (!checkWall(chamberDir.offsetX * 4, 1 + i, chamberDir.offsetZ * 4, chamberDir)) {
                 Bids.LOG.debug("Expected opposite wall 1 {} at +{}", chamberDir, (1 + i));
                 return false;
             }
-            if (!KilnValidationHelper.isWall(world, sourceX + chamberDir.offsetX * 4 + chimneyDir.offsetX, sourceY + 1 + i, sourceZ + chamberDir.offsetZ * 4 + chimneyDir.offsetZ, chamberDir)) {
+            if (!checkWall(chamberDir.offsetX * 4 + chimneyDir.offsetX, 1 + i, chamberDir.offsetZ * 4 + chimneyDir.offsetZ, chamberDir)) {
                 Bids.LOG.debug("Expected opposite wall 2 {} at +{}", chamberDir, (1 + i));
                 return false;
             }
 
             // Near wall
-            if (!KilnValidationHelper.isWall(world, sourceX + chimneyDirOpp.offsetX + chamberDir.offsetX * 2, sourceY + 1 + i, sourceZ + chimneyDirOpp.offsetZ + chamberDir.offsetZ * 2, chimneyDirOpp)) {
+            if (!checkWall(chimneyDirOpp.offsetX + chamberDir.offsetX * 2, 1 + i, chimneyDirOpp.offsetZ + chamberDir.offsetZ * 2, chimneyDirOpp)) {
                 Bids.LOG.debug("Expected near wall 1 {} at +{}", chimneyDirOpp, (1 + i));
                 return false;
             }
-            if (!KilnValidationHelper.isWall(world, sourceX + chimneyDirOpp.offsetX + chamberDir.offsetX * 3, sourceY + 1 + i, sourceZ + chimneyDirOpp.offsetZ + chamberDir.offsetZ * 3, chimneyDirOpp)) {
+            if (!checkWall(chimneyDirOpp.offsetX + chamberDir.offsetX * 3, 1 + i, chimneyDirOpp.offsetZ + chamberDir.offsetZ * 3, chimneyDirOpp)) {
                 Bids.LOG.debug("Expected near wall 2 {} at +{}", chimneyDirOpp, (1 + i));
                 return false;
             }
 
             // Far wall
-            if (!KilnValidationHelper.isWall(world, sourceX + chimneyDir.offsetX * 2 + chamberDir.offsetX * 2, sourceY + 1 + i, sourceZ + chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 2, chimneyDir)) {
+            if (!checkWall(chimneyDir.offsetX * 2 + chamberDir.offsetX * 2, 1 + i, chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 2, chimneyDir)) {
                 Bids.LOG.debug("Expected far wall 1 {} at +{}", chimneyDir, (1 + i));
                 return false;
             }
-            if (!KilnValidationHelper.isWall(world, sourceX + chimneyDir.offsetX * 2 + chamberDir.offsetX * 3, sourceY + 1 + i, sourceZ + chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 3, chimneyDir)) {
+            if (!checkWall(chimneyDir.offsetX * 2 + chamberDir.offsetX * 3, 1 + i, chimneyDir.offsetZ * 2 + chamberDir.offsetZ * 3, chimneyDir)) {
                 Bids.LOG.debug("Expected far wall 2 {} at +{}", chimneyDir, (1 + i));
                 return false;
             }
 
             // Short wall
-            if (!KilnValidationHelper.isWall(world, sourceX + chamberDir.offsetX + chimneyDir.offsetX, sourceY + 1 + i, sourceZ + chimneyDir.offsetZ + chamberDir.offsetZ, chamberDirOpp)) {
+            if (!checkWall(chamberDir.offsetX + chimneyDir.offsetX, 1 + i, chimneyDir.offsetZ + chamberDir.offsetZ, chamberDirOpp)) {
                 Bids.LOG.debug("Expected short wall {} at +{}", chamberDirOpp, (1 + i));
                 return false;
             }
 
             if (i > 1) {
-                if (!KilnValidationHelper.isWall(world, sourceX + chamberDir.offsetX, sourceY + 1 + i, sourceZ + chamberDir.offsetZ, chamberDirOpp)) {
+                if (!checkWall(chamberDir.offsetX, 1 + i, chamberDir.offsetZ, chamberDirOpp)) {
                     Bids.LOG.debug("Expected short wall {} at +{}", chamberDirOpp, (1 + i));
                     return false;
                 }
