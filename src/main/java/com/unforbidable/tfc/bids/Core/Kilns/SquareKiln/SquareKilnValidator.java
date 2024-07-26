@@ -9,8 +9,6 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
 
     private static final int MAX_HEIGHT = 2;
 
-    static final ForgeDirection[] HORIZONTAL_DIRECTIONS = new ForgeDirection[] { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST };
-
     public SquareKilnValidator(World world, int sourceX, int sourceY, int sourceZ) {
         super(world, sourceX, sourceY, sourceZ);
     }

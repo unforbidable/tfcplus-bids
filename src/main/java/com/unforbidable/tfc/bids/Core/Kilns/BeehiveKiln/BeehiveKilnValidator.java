@@ -7,8 +7,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
 
-    static final ForgeDirection[] HORIZONTAL_DIRECTIONS = new ForgeDirection[] { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST };
-
     public BeehiveKilnValidator(World world, int sourceX, int sourceY, int sourceZ) {
         super(world, sourceX, sourceY, sourceZ);
     }

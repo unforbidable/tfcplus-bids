@@ -6,6 +6,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class KilnValidator<TResultParams> {
 
+    protected static final ForgeDirection[] HORIZONTAL_DIRECTIONS = new ForgeDirection[] { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST };
+
     private final World world;
     private final int sourceX;
     private final int sourceY;
