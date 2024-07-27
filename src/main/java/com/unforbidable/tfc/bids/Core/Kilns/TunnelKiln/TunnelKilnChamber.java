@@ -1,15 +1,10 @@
 package com.unforbidable.tfc.bids.Core.Kilns.TunnelKiln;
 
-import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
-import com.unforbidable.tfc.bids.api.Interfaces.IKilnHeatSource;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnChamber;
+import com.unforbidable.tfc.bids.api.Interfaces.IKilnHeatSource;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class TunnelKilnChamber extends KilnChamber<TunnelKilnValidator> {
+public class TunnelKilnChamber extends KilnChamber<TunnelKilnValidator, TunnelKilnValidationParams> {
 
     public TunnelKilnChamber(IKilnHeatSource heatSource) {
         super(heatSource);
@@ -23,32 +18,6 @@ public class TunnelKilnChamber extends KilnChamber<TunnelKilnValidator> {
     @Override
     public String getName() {
         return "TUNNEL_KILN";
-    }
-
-    @Override
-    public BlockCoord getChimneyLocation() {
-        ForgeDirection d = getValidator().getParams().direction;
-        int x = heatSource.getTileX() + d.offsetX * 5;
-        int y = heatSource.getTileY() + 1 + getValidator().getParams().height;
-        int z = heatSource.getTileZ() + d.offsetZ * 5;
-
-        return new BlockCoord(x, y, z);
-    }
-
-    @Override
-    public List<BlockCoord> getPotteryLocations() {
-        ForgeDirection d = getValidator().getParams().direction;
-
-        List<BlockCoord> list = new ArrayList<BlockCoord>();
-
-        for (int i = 2; i <= 5; i++) {
-            int x = heatSource.getTileX() + d.offsetX * i;
-            int y = heatSource.getTileY() + 1;
-            int z = heatSource.getTileZ() + d.offsetZ * i;
-            list.add(new BlockCoord(x, y, z));
-        }
-
-        return list;
     }
 
 }

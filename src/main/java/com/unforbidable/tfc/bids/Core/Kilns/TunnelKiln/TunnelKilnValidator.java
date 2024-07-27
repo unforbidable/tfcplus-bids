@@ -1,11 +1,15 @@
 package com.unforbidable.tfc.bids.Core.Kilns.TunnelKiln;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidator;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParams> {
 
     private static final int MAX_HEIGHT = 2;
 
@@ -14,12 +18,38 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
     }
 
     @Override
-    protected TunnelKilnValidatorParams validateStructure() {
+    public BlockCoord getChimneyLocation(TunnelKilnValidationParams params) {
+        ForgeDirection d = params.direction;
+        int x = sourceX + d.offsetX * 5;
+        int y = sourceY + 1 + params.height;
+        int z = sourceZ + d.offsetZ * 5;
+
+        return new BlockCoord(x, y, z);
+    }
+
+    @Override
+    public List<BlockCoord> getPotteryLocations(TunnelKilnValidationParams params) {
+        ForgeDirection d = params.direction;
+
+        List<BlockCoord> list = new ArrayList<BlockCoord>();
+
+        for (int i = 2; i <= 5; i++) {
+            int x = sourceX + d.offsetX * i;
+            int y = sourceY + 1;
+            int z = sourceZ + d.offsetZ * i;
+            list.add(new BlockCoord(x, y, z));
+        }
+
+        return list;
+    }
+
+    @Override
+    protected TunnelKilnValidationParams validateStructure() {
         if (!validateFireHole()) {
             return null;
         }
 
-        TunnelKilnValidatorParams params = determineKilnParams();
+        TunnelKilnValidationParams params = determineKilnParams();
         if (params == null) {
             return null;
         }
@@ -53,7 +83,7 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
         return true;
     }
 
-    private TunnelKilnValidatorParams determineKilnParams() {
+    private TunnelKilnValidationParams determineKilnParams() {
         ForgeDirection direction = ForgeDirection.UNKNOWN;
         int wallCount = 0;
         for (ForgeDirection d : HORIZONTAL_DIRECTIONS) {
@@ -88,10 +118,10 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
             return null;
         }
 
-        return new TunnelKilnValidatorParams(direction, height);
+        return new TunnelKilnValidationParams(direction, height);
     }
 
-    private boolean validateEntryTunnel(TunnelKilnValidatorParams params) {
+    private boolean validateEntryTunnel(TunnelKilnValidationParams params) {
         ForgeDirection chamberDir = params.direction;
         ForgeDirection leftDir = chamberDir.getRotation(ForgeDirection.UP);
         ForgeDirection rightDir = chamberDir.getRotation(ForgeDirection.DOWN);
@@ -127,7 +157,7 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
         return true;
     }
 
-    private boolean validateTunnelEnd(TunnelKilnValidatorParams params) {
+    private boolean validateTunnelEnd(TunnelKilnValidationParams params) {
         ForgeDirection dir = params.direction;
 
         int tunnelX = dir.offsetX * 5;
@@ -172,7 +202,7 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidatorParams
         return true;
     }
 
-    private boolean validateTunnel(TunnelKilnValidatorParams params) {
+    private boolean validateTunnel(TunnelKilnValidationParams params) {
         for (int i = 2; i < 5; i++) {
             int tunnelX = params.direction.offsetX * i;
             int tunnelZ = params.direction.offsetZ * i;

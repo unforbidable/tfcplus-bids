@@ -1,9 +1,13 @@
 package com.unforbidable.tfc.bids.Core.Kilns.SquareKiln;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidator;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParams> {
 
@@ -11,6 +15,42 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
 
     public SquareKilnValidator(World world, int sourceX, int sourceY, int sourceZ) {
         super(world, sourceX, sourceY, sourceZ);
+    }
+
+    @Override
+    public BlockCoord getChimneyLocation(SquareKilnValidationParams params) {
+        ForgeDirection chamberDir = params.direction;
+        SquareKilnChimneyRotation chimneyRotation = params.chimneyRotation;
+        ForgeDirection chimneyDir = chamberDir.getRotation(chimneyRotation.getAxis());
+
+        int x = sourceX + chamberDir.offsetX * 3 + chimneyDir.offsetX;
+        int y = sourceY + 1 + params.height;
+        int z = sourceZ + chamberDir.offsetZ * 3 + chimneyDir.offsetZ;
+        return new BlockCoord(x, y, z);
+    }
+
+    @Override
+    public List<BlockCoord> getPotteryLocations(SquareKilnValidationParams params) {
+        ForgeDirection chamberDir = params.direction;
+        SquareKilnChimneyRotation chimneyRotation = params.chimneyRotation;
+        ForgeDirection chimneyDir = chamberDir.getRotation(chimneyRotation.getAxis());
+
+        int entryX = chamberDir.offsetX * 2;
+        int entryZ = chamberDir.offsetZ * 2;
+        int chimneyX = chamberDir.offsetX * 3 + chimneyDir.offsetX;
+        int chimneyZ =  chamberDir.offsetZ * 3 + chimneyDir.offsetZ;
+        int minX = Math.min(entryX, chimneyX);
+        int minZ = Math.min(entryZ, chimneyZ);
+
+        List<BlockCoord> list = new ArrayList<BlockCoord>();
+
+        for (int x = minX; x < minX + 2; x++) {
+            for (int z = minZ; z < minZ + 2; z++) {
+                list.add(new BlockCoord(sourceX + x, sourceY + 1, sourceZ + z));
+            }
+        }
+
+        return list;
     }
 
     @Override

@@ -1,15 +1,42 @@
 package com.unforbidable.tfc.bids.Core.Kilns.BeehiveKiln;
 
+import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidationParams;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidator;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
 
     public BeehiveKilnValidator(World world, int sourceX, int sourceY, int sourceZ) {
         super(world, sourceX, sourceY, sourceZ);
     }
+
+    @Override
+    public BlockCoord getChimneyLocation(KilnValidationParams params) {
+        return new BlockCoord(sourceX, sourceY + 4, sourceZ);
+    }
+
+    @Override
+    public List<BlockCoord> getPotteryLocations(KilnValidationParams params) {
+        List<BlockCoord> list = new ArrayList<BlockCoord>();
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                if (i == 0 && j == 0) {
+                    // Skip center
+                    continue;
+                }
+
+                list.add(new BlockCoord(sourceX + i, sourceY + 2, sourceZ + j));
+            }
+        }
+
+        return list;
+    }
+
 
     @Override
     protected KilnValidationParams validateStructure() {

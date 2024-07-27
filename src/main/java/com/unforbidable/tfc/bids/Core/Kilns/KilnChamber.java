@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public abstract class KilnChamber<TValidator extends KilnValidator<?>> implements IKilnChamber {
+public abstract class KilnChamber<TValidator extends KilnValidator<TParams>, TParams extends KilnValidationParams> implements IKilnChamber {
 
     protected final IKilnHeatSource heatSource;
     protected TValidator validator;
@@ -54,9 +54,13 @@ public abstract class KilnChamber<TValidator extends KilnValidator<?>> implement
     }
 
     @Override
-    public abstract BlockCoord getChimneyLocation();
+    public BlockCoord getChimneyLocation() {
+        return getValidator().getChimneyLocation();
+    }
 
     @Override
-    public abstract List<BlockCoord> getPotteryLocations();
+    public List<BlockCoord> getPotteryLocations() {
+        return getValidator().getPotteryLocations();
+    }
 
 }

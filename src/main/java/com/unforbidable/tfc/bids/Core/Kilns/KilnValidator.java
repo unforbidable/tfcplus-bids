@@ -1,17 +1,21 @@
 package com.unforbidable.tfc.bids.Core.Kilns;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public abstract class KilnValidator<TResultParams> {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class KilnValidator<TResultParams extends KilnValidationParams> {
 
     protected static final ForgeDirection[] HORIZONTAL_DIRECTIONS = new ForgeDirection[] { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST };
 
-    private final World world;
-    private final int sourceX;
-    private final int sourceY;
-    private final int sourceZ;
+    protected final World world;
+    protected final int sourceX;
+    protected final int sourceY;
+    protected final int sourceZ;
 
     KilnValidatorResult<TResultParams> result;
 
@@ -26,17 +30,37 @@ public abstract class KilnValidator<TResultParams> {
         return getResult().valid;
     }
 
-    public TResultParams getParams() {
-        return result.params;
-    }
-
-    protected KilnValidatorResult<TResultParams> getResult() {
+    public KilnValidatorResult<TResultParams> getResult() {
         if (result == null) {
             TResultParams params = validateStructure();
             result = new KilnValidatorResult<TResultParams>(params != null, params);
         }
 
         return result;
+    }
+
+    public final BlockCoord getChimneyLocation() {
+        if (getResult().valid) {
+            return getChimneyLocation(getResult().params);
+        } else {
+            return null;
+        }
+    }
+
+    public final List<BlockCoord> getPotteryLocations() {
+        if (getResult().valid) {
+            return getPotteryLocations(getResult().params);
+        } else {
+            return new ArrayList<BlockCoord>();
+        }
+    }
+
+    public BlockCoord getChimneyLocation(TResultParams params) {
+        return null;
+    }
+
+    public List<BlockCoord> getPotteryLocations(TResultParams params) {
+        return new ArrayList<BlockCoord>();
     }
 
     protected abstract TResultParams validateStructure();
