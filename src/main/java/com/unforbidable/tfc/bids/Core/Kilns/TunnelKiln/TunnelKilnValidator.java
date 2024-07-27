@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Kilns.TunnelKiln;
 
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
+import com.unforbidable.tfc.bids.Core.Kilns.KilnValidationException;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidator;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -44,46 +44,27 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParam
     }
 
     @Override
-    public TunnelKilnValidationParams validate() {
-        if (!validateFireHole()) {
-            return null;
-        }
+    public TunnelKilnValidationParams validate() throws KilnValidationException {
+        validateFireHole();
 
         TunnelKilnValidationParams params = determineKilnParams();
-        if (params == null) {
-            return null;
-        }
 
-        if (!validateEntryTunnel(params)) {
-            return null;
-        }
-
-        if (!validateTunnelEnd(params)) {
-            return null;
-        }
-
-        if (!validateTunnel(params)) {
-            return null;
-        }
+        validateEntryTunnel(params);
+        validateTunnelEnd(params);
+        validateTunnel(params);
 
         return params;
     }
 
-    private boolean validateFireHole() {
+    private void validateFireHole() throws KilnValidationException {
         // Require air or fire above
-        if (!requireAirOrFire(0, 1, 0)) {
-            return false;
-        }
+        requireAirOrFire(0, 1, 0);
 
         // Require wall above
-        if (!requireWall(0, 2, 0, ForgeDirection.UP)) {
-            return false;
-        }
-
-        return true;
+        requireWall(0, 2, 0, ForgeDirection.UP);
     }
 
-    private TunnelKilnValidationParams determineKilnParams() {
+    private TunnelKilnValidationParams determineKilnParams() throws KilnValidationException {
         ForgeDirection direction = ForgeDirection.UNKNOWN;
         int wallCount = 0;
         for (ForgeDirection d : HORIZONTAL_DIRECTIONS) {
@@ -96,8 +77,7 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParam
 
         // Require exactly 3 wall
         if (wallCount != 3) {
-            Bids.LOG.debug("Expected exactly 3 walls surrounding +1");
-            return null;
+            throw new KilnValidationException("Expected exactly 3 walls surrounding +1");
         }
 
         // Find the chimney
@@ -114,14 +94,13 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParam
         }
 
         if (height == 0) {
-            Bids.LOG.debug("Expected chimney in tunnel end");
-            return null;
+            throw new KilnValidationException(String.format("Expected chimney %s in tunnel end at +2 or +3", direction));
         }
 
         return new TunnelKilnValidationParams(direction, height);
     }
 
-    private boolean validateEntryTunnel(TunnelKilnValidationParams params) {
+    private void validateEntryTunnel(TunnelKilnValidationParams params) throws KilnValidationException {
         ForgeDirection chamberDir = params.direction;
         ForgeDirection leftDir = chamberDir.getRotation(ForgeDirection.UP);
         ForgeDirection rightDir = chamberDir.getRotation(ForgeDirection.DOWN);
@@ -129,129 +108,78 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParam
         int x = chamberDir.offsetX;
         int z = chamberDir.offsetZ;
 
-        // Air
-        if (!requireAir(x, 1, z)) {
-            return false;
-        }
-
-        // Floor
-        if (!requireWall(x, 0, z, ForgeDirection.DOWN)) {
-            return false;
-        }
-
-        // Roof
-        if (!requireWall(x, 2, z, ForgeDirection.UP)) {
-            return false;
-        }
-
-        // Left
-        if (!requireWall(x + leftDir.offsetX, 1, z + leftDir.offsetZ, leftDir)) {
-            return false;
-        }
-
-        // Right
-        if (!requireWall(x + rightDir.offsetX, 1, z + rightDir.offsetZ, rightDir)) {
-            return false;
-        }
-
-        return true;
+        requireAir(x, 1, z);
+        requireWall(x, 0, z, ForgeDirection.DOWN);
+        requireWall(x, 2, z, ForgeDirection.UP);
+        requireWall(x + leftDir.offsetX, 1, z + leftDir.offsetZ, leftDir);
+        requireWall(x + rightDir.offsetX, 1, z + rightDir.offsetZ, rightDir);
     }
 
-    private boolean validateTunnelEnd(TunnelKilnValidationParams params) {
+    private void validateTunnelEnd(TunnelKilnValidationParams params) throws KilnValidationException {
         ForgeDirection dir = params.direction;
 
         int tunnelX = dir.offsetX * 5;
         int tunnelZ = dir.offsetZ * 5;
 
         // Require air or pottery
-        if (!requireAirOrPottery(tunnelX, 1, tunnelZ)) {
-            return false;
-        }
+        requireAirOrPottery(tunnelX, 1, tunnelZ);
 
         // Require air
         for (int y = 2; y < params.height + 1; y++) {
-            if (!requireAir(tunnelX, y, tunnelZ)) {
-                return false;
-            }
+            requireAir(tunnelX, y, tunnelZ);
         }
 
         // Require wall bottom
-        if (!requireWall(tunnelX, 0, tunnelZ, ForgeDirection.DOWN)) {
-            return false;
-        }
+        requireWall(tunnelX, 0, tunnelZ, ForgeDirection.DOWN);
 
         for (int y = 1; y < params.height + 1; y++) {
-            // Require wall side 1
-            ForgeDirection side1 = dir.getRotation(ForgeDirection.UP);
-            if (!requireWall(tunnelX + side1.offsetX, y, tunnelZ + side1.offsetZ, side1)) {
-                return false;
-            }
+            // Require wall right
+            ForgeDirection right = dir.getRotation(ForgeDirection.UP);
+            requireWall(tunnelX + right.offsetX, y, tunnelZ + right.offsetZ, right);
 
-            // Require wall side 2
-            ForgeDirection side2 = dir.getRotation(ForgeDirection.DOWN);
-            if (!requireWall(tunnelX + side2.offsetX, y, tunnelZ + side2.offsetZ, side2)) {
-                return false;
-            }
+            // Require wall left
+            ForgeDirection left = dir.getRotation(ForgeDirection.DOWN);
+            requireWall(tunnelX + left.offsetX, y, tunnelZ + left.offsetZ, left);
 
             // Require wall front
-            if (!requireWall(tunnelX + dir.offsetX, y, tunnelZ + dir.offsetZ, dir)) {
-                return false;
-            }
+            requireWall(tunnelX + dir.offsetX, y, tunnelZ + dir.offsetZ, dir);
         }
-
-        return true;
     }
 
-    private boolean validateTunnel(TunnelKilnValidationParams params) {
+    private void validateTunnel(TunnelKilnValidationParams params) throws KilnValidationException {
         for (int i = 2; i < 5; i++) {
             int tunnelX = params.direction.offsetX * i;
             int tunnelZ = params.direction.offsetZ * i;
 
             // Require air or pottery
-            if (!requireAirOrPottery(tunnelX, 1, tunnelZ)) {
-                return false;
-            }
+            requireAirOrPottery(tunnelX, 1, tunnelZ);
 
             // Require air
             for (int y = 2; y < params.height + 1; y++) {
-                if (!requireAir(tunnelX, y, tunnelZ)) {
-                    return false;
-                }
+                requireAir(tunnelX, y, tunnelZ);
             }
 
             // Require wall top
-            if (!requireWall(tunnelX, 1 + params.height, tunnelZ, ForgeDirection.UP)) {
-                return false;
-            }
+            requireWall(tunnelX, 1 + params.height, tunnelZ, ForgeDirection.UP);
 
             // Require wall bottom
-            if (!requireWall(tunnelX, 0, tunnelZ, ForgeDirection.DOWN)) {
-                return false;
-            }
+            requireWall(tunnelX, 0, tunnelZ, ForgeDirection.DOWN);
 
             for (int y = 1; y < params.height + 1; y++) {
-                // Require wall side 1
-                ForgeDirection side1 = params.direction.getRotation(ForgeDirection.UP);
-                if (!requireWall(tunnelX + side1.offsetX, y, tunnelZ + side1.offsetZ, side1)) {
-                    return false;
-                }
+                // Require wall right
+                ForgeDirection right = params.direction.getRotation(ForgeDirection.UP);
+                requireWall(tunnelX + right.offsetX, y, tunnelZ + right.offsetZ, right);
 
-                // Require wall side 2
-                ForgeDirection side2 = params.direction.getRotation(ForgeDirection.DOWN);
-                if (!requireWall(tunnelX + side2.offsetX, y, tunnelZ + side2.offsetZ, side2)) {
-                    return false;
-                }
+                // Require wall left
+                ForgeDirection left = params.direction.getRotation(ForgeDirection.DOWN);
+                requireWall(tunnelX + left.offsetX, y, tunnelZ + left.offsetZ, left);
             }
         }
 
         // Wall above heat source
         for (int y = 2; y < params.height + 1; y++) {
-            if (!requireWall(0, y, 0, params.direction.getOpposite())) {
-                return false;
-            }
+            requireWall(0, y, 0, params.direction.getOpposite());
         }
-
-        return true;
     }
 
 }

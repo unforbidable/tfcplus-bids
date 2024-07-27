@@ -15,4 +15,13 @@ public class SquareKilnValidationParams extends KilnValidationParams {
         this.height = height;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            "direction=" + direction +
+            ", chimneyRotation=" + chimneyRotation +
+            ", height=" + height +
+            '}';
+    }
+
 }

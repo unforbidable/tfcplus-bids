@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core.Kilns;
 
+import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnChamber;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnHeatSource;
@@ -36,15 +37,21 @@ public abstract class KilnChamber<TValidator extends KilnValidator<TParams>, TPa
 
     @Override
     public boolean validate() {
-        TParams temp = getValidator().validate();
-        if (temp != null) {
+        try {
+            params = getValidator().validate();
+
+            if (!valid) {
+                Bids.LOG.info("{}: validated with params {}", getName(), params);
+            }
+
             valid = true;
-            params = temp;
-        } else {
+        } catch (KilnValidationException e) {
             // Keep the previous validation params
             // whether valid or not
             // This is needed to get to the chimney that isn't right above the heat source
             valid = false;
+
+            Bids.LOG.info("{}: {}", getName(), e.getMessage());
         }
 
         return valid;

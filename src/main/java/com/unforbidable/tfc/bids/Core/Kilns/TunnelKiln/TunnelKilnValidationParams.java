@@ -13,4 +13,12 @@ public class TunnelKilnValidationParams extends KilnValidationParams {
         this.height = height;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            "direction=" + direction +
+            ", height=" + height +
+            '}';
+    }
+
 }

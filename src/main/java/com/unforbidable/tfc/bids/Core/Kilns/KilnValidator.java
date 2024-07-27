@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Core.Kilns;
 
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -32,54 +31,56 @@ public abstract class KilnValidator<TParams extends KilnValidationParams> {
         return new ArrayList<BlockCoord>();
     }
 
-    public abstract TParams validate();
+    public abstract TParams validate() throws KilnValidationException;
 
     protected boolean checkChimneyTier(int x, int y, int z, int tier) {
         return KilnValidationHelper.isChimneyTier(world, sourceX + x, sourceY + y, sourceZ + z, tier);
     }
 
-    protected boolean requireAir(int x, int y, int z) {
-        boolean success = KilnValidationHelper.isAir(world, sourceX + x, sourceY + y, sourceZ + z);
+    protected void requireChimneyTier(int x, int y, int z, int tier) throws KilnValidationException {
+        boolean success = KilnValidationHelper.isChimneyTier(world, sourceX + x, sourceY + y, sourceZ + z, tier);
         if (!success) {
-            Bids.LOG.info("Expected air at {},{},{}", x, y, z);
+            throw new KilnValidationException(String.format("Expected chimney tier %d or higher at %d,%d,%d", tier, x, y, z));
         }
-        return success;
     }
 
-    protected boolean requireAirOrPottery(int x, int y, int z) {
+    protected void requireAir(int x, int y, int z) throws KilnValidationException {
+        boolean success = KilnValidationHelper.isAir(world, sourceX + x, sourceY + y, sourceZ + z);
+        if (!success) {
+            throw new KilnValidationException(String.format("Expected air at %d,%d,%d", x, y, z));
+        }
+    }
+
+    protected void requireAirOrPottery(int x, int y, int z) throws KilnValidationException {
         boolean success = KilnValidationHelper.isAirOrPottery(world, sourceX + x, sourceY + y, sourceZ + z);
         if (!success) {
-            Bids.LOG.info("Expected air or pottery at {},{},{}", x, y, z);
+            throw new KilnValidationException(String.format("Expected air or pottery at %d,%d,%d", x, y, z));
         }
-        return success;
     }
 
     protected boolean checkWall(int x, int y, int z, ForgeDirection d) {
         return KilnValidationHelper.isWall(world, sourceX + x, sourceY + y, sourceZ + z, d);
     }
 
-    protected boolean requireWall(int x, int y, int z, ForgeDirection d) {
+    protected void requireWall(int x, int y, int z, ForgeDirection d) throws KilnValidationException {
         boolean success = KilnValidationHelper.isWall(world, sourceX + x, sourceY + y, sourceZ + z, d);
         if (!success) {
-            Bids.LOG.info("Expected wall {} at {},{},{}", d, x, y, z);
+            throw new KilnValidationException(String.format("Expected wall %s at %d,%d,%d", d, x, y, z));
         }
-        return success;
     }
 
-    protected boolean requireAirOrFire(int x, int y, int z) {
+    protected void requireAirOrFire(int x, int y, int z) throws KilnValidationException {
         boolean success = KilnValidationHelper.isAirOrFire(world, sourceX + x, sourceY + y, sourceZ + z);
         if (!success) {
-            Bids.LOG.info("Expected air or fire at {},{},{}", x, y, z);
+            throw new KilnValidationException(String.format("Expected air or fire at %d,%d,%d", x, y, z));
         }
-        return success;
     }
 
-    protected boolean requireFireBrick(int x, int y, int z) {
+    protected void requireFireBrick(int x, int y, int z) throws KilnValidationException {
         boolean success = KilnValidationHelper.isFireBrick(world, sourceX + x, sourceY + y, sourceZ + z);
         if (!success) {
-            Bids.LOG.info("Expected fire brick at {},{},{}", x, y, z);
+            throw new KilnValidationException(String.format("Expected fire brick at %d,%d,%d", x, y, z));
         }
-        return success;
     }
 
 }

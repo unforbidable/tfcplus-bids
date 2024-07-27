@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Kilns.BeehiveKiln;
 
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
+import com.unforbidable.tfc.bids.Core.Kilns.KilnValidationException;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidationParams;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidator;
 import net.minecraft.world.World;
@@ -38,47 +39,28 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
     }
 
     @Override
-    public KilnValidationParams validate() {
-        if (!validateCenter()) {
-            return null;
-        }
-
-        if (!validateChamber()) {
-            return null;
-        }
-
-        if (!validateOuterWalls()) {
-            return null;
-        }
+    public KilnValidationParams validate() throws KilnValidationException {
+        validateCenter();
+        validateChamber();
+        validateOuterWalls();
 
         return new KilnValidationParams();
     }
 
-    private boolean validateCenter() {
-        if (!requireAirOrFire(0, 1, 0)) {
-            return false;
-        }
-
-        if (!checkChimneyTier(0, 4, 0, 1)) {
-            return false;
-        }
+    private void validateCenter() throws KilnValidationException {
+        requireAirOrFire(0, 1, 0);
+        requireChimneyTier(0, 4, 0, 1);
 
         for (ForgeDirection d : HORIZONTAL_DIRECTIONS) {
-            if (!requireWall(d.offsetX, 1, d.offsetZ, d)) {
-                return false;
-            }
+            requireWall(d.offsetX, 1, d.offsetZ, d);
         }
 
         for (int y = 2; y < 4; y++) {
-            if (!requireAir(0, y, 0)) {
-                return false;
-            }
+            requireAir(0, y, 0);
         }
-
-        return true;
     }
 
-    private boolean validateChamber() {
+    private void validateChamber() throws KilnValidationException {
         for (int x = -1; x < 2; x++) {
             for (int z = -1; z < 2; z++) {
                 if (x == 0 && z == 0) {
@@ -86,50 +68,27 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
                     continue;
                 }
 
-                if (!requireWall(x, 1, z, ForgeDirection.UP)) {
-                    return false;
-                }
-
-                if (!requireAirOrPottery(x, 2, z)) {
-                    return false;
-                }
-
-                if (!requireAir(x, 3, z)) {
-                    return false;
-                }
-
-                if (!requireWall(x, 4, z, ForgeDirection.DOWN)) {
-                    return false;
-                }
+                requireWall(x, 1, z, ForgeDirection.UP);
+                requireAirOrPottery(x, 2, z);
+                requireAir(x, 3, z);
+                requireWall(x, 4, z, ForgeDirection.DOWN);
             }
         }
-
-        return true;
     }
 
 
-    private boolean validateOuterWalls() {
+    private void validateOuterWalls() throws KilnValidationException {
         for (ForgeDirection d : HORIZONTAL_DIRECTIONS) {
             ForgeDirection r = d.getRotation(ForgeDirection.UP);
             int x = d.offsetX * 2;
             int z = d.offsetZ * 2;
 
             for (int y = 2; y < 4; y++) {
-                if (!requireWall(x + r.offsetX, y, z + r.offsetZ, d)) {
-                    return false;
-                }
-
-                if (!requireWall(x, y, z, d)) {
-                    return false;
-                }
-
-                if (!requireWall(x - r.offsetX, y, z - r.offsetZ, d)) {
-                    return false;
-                }
+                requireWall(x + r.offsetX, y, z + r.offsetZ, d);
+                requireWall(x, y, z, d);
+                requireWall(x - r.offsetX, y, z - r.offsetZ, d);
             }
         }
-
-        return true;
     }
 
 }
