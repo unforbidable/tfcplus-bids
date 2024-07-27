@@ -44,7 +44,7 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParam
     }
 
     @Override
-    protected TunnelKilnValidationParams validateStructure() {
+    public TunnelKilnValidationParams validate() {
         if (!validateFireHole()) {
             return null;
         }

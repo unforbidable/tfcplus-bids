@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class KilnValidator<TResultParams extends KilnValidationParams> {
+public abstract class KilnValidator<TParams extends KilnValidationParams> {
 
     protected static final ForgeDirection[] HORIZONTAL_DIRECTIONS = new ForgeDirection[] { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST };
 
@@ -17,8 +17,6 @@ public abstract class KilnValidator<TResultParams extends KilnValidationParams> 
     protected final int sourceY;
     protected final int sourceZ;
 
-    KilnValidatorResult<TResultParams> result;
-
     public KilnValidator(World world, int sourceX, int sourceY, int sourceZ) {
         this.world = world;
         this.sourceX = sourceX;
@@ -26,44 +24,15 @@ public abstract class KilnValidator<TResultParams extends KilnValidationParams> 
         this.sourceZ = sourceZ;
     }
 
-    public boolean isValid() {
-        return getResult().valid;
-    }
-
-    public KilnValidatorResult<TResultParams> getResult() {
-        if (result == null) {
-            TResultParams params = validateStructure();
-            result = new KilnValidatorResult<TResultParams>(params != null, params);
-        }
-
-        return result;
-    }
-
-    public final BlockCoord getChimneyLocation() {
-        if (getResult().valid) {
-            return getChimneyLocation(getResult().params);
-        } else {
-            return null;
-        }
-    }
-
-    public final List<BlockCoord> getPotteryLocations() {
-        if (getResult().valid) {
-            return getPotteryLocations(getResult().params);
-        } else {
-            return new ArrayList<BlockCoord>();
-        }
-    }
-
-    public BlockCoord getChimneyLocation(TResultParams params) {
+    public BlockCoord getChimneyLocation(TParams params) {
         return null;
     }
 
-    public List<BlockCoord> getPotteryLocations(TResultParams params) {
+    public List<BlockCoord> getPotteryLocations(TParams params) {
         return new ArrayList<BlockCoord>();
     }
 
-    protected abstract TResultParams validateStructure();
+    public abstract TParams validate();
 
     protected boolean checkChimneyTier(int x, int y, int z, int tier) {
         return KilnValidationHelper.isChimneyTier(world, sourceX + x, sourceY + y, sourceZ + z, tier);

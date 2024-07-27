@@ -37,9 +37,8 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
         return list;
     }
 
-
     @Override
-    protected KilnValidationParams validateStructure() {
+    public KilnValidationParams validate() {
         if (!validateCenter()) {
             return null;
         }

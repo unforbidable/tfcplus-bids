@@ -1,17 +1,20 @@
 package com.unforbidable.tfc.bids.Core.Kilns;
 
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnChamber;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnHeatSource;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class KilnChamber<TValidator extends KilnValidator<TParams>, TParams extends KilnValidationParams> implements IKilnChamber {
 
     protected final IKilnHeatSource heatSource;
-    protected TValidator validator;
+
+    private TValidator validator;
+    private boolean valid;
+    private TParams params;
 
     public KilnChamber(IKilnHeatSource heatSource) {
         this.heatSource = heatSource;
@@ -19,9 +22,6 @@ public abstract class KilnChamber<TValidator extends KilnValidator<TParams>, TPa
 
     protected TValidator getValidator() {
         if (validator == null) {
-            Bids.LOG.warn("Validator was accessed prior to validation");
-            Thread.dumpStack();
-
             validator = createValidator();
         }
 
@@ -36,31 +36,41 @@ public abstract class KilnChamber<TValidator extends KilnValidator<TParams>, TPa
 
     @Override
     public boolean validate() {
-        TValidator temp = createValidator();
-        if (temp.isValid()) {
-            validator = temp;
-            return true;
+        TParams temp = getValidator().validate();
+        if (temp != null) {
+            valid = true;
+            params = temp;
         } else {
-            // Keep the previous validator
-            // so that the previous validation result is available
+            // Keep the previous validation params
+            // whether valid or not
             // This is needed to get to the chimney that isn't right above the heat source
-            return false;
+            valid = false;
         }
+
+        return valid;
     }
 
     @Override
     public boolean isValid() {
-        return getValidator().isValid();
+        return valid;
     }
 
     @Override
     public BlockCoord getChimneyLocation() {
-        return getValidator().getChimneyLocation();
+        if (params != null) {
+            return getValidator().getChimneyLocation(params);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public List<BlockCoord> getPotteryLocations() {
-        return getValidator().getPotteryLocations();
+        if (params != null) {
+            return getValidator().getPotteryLocations(params);
+        } else {
+            return new ArrayList<BlockCoord>();
+        }
     }
 
 }

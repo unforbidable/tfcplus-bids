@@ -54,7 +54,7 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
     }
 
     @Override
-    protected SquareKilnValidationParams validateStructure() {
+    public SquareKilnValidationParams validate() {
         if (!validateFireHole()) {
             return null;
         }
