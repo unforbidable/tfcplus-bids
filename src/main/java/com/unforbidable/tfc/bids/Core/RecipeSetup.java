@@ -840,6 +840,10 @@ public class RecipeSetup {
         DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreStrip, 1, 1),
                 new ItemStack(BidsItems.barkFibreStrip, 1, 0), 12, false));
 
+        GameRegistry.addRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2, 0), "P P", "X X", "P P",
+            'P', new ItemStack(TFCItems.fireBrick, 1, 1),
+            'X', new ItemStack(TFCItems.mortar, 1));
+
         // Meat and cheese drying from TFC
         final Item[] foodToDry = new Item[] { TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
                 TFCItems.porkchopRaw, TFCItems.fishRaw, TFCItems.seastarRaw, TFCItems.scallopRaw,
