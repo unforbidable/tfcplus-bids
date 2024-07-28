@@ -176,7 +176,7 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
         TileEntity te = world.getTileEntity(x, y, z);
         if (te instanceof TileEntityWoodPile) {
             TileEntityWoodPile woodPile = (TileEntityWoodPile) te;
-            if (woodPile.isOnFire() && !woodPile.isBurning()) {
+            if (woodPile.isOnFire()) {
                 double centerX = x + 0.5F;
                 double centerY = y + 2F;
                 double centerZ = z + 0.5F;
