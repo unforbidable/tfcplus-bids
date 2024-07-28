@@ -1044,6 +1044,22 @@ public class RecipeSetup {
             CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.stonePressWeightSed, 1, i),
                 new ItemStack(BidsBlocks.roughStoneSed, 1, i), weightStonePattern));
         }
+
+        CarvingRecipePattern chimneyPattern =  new CarvingRecipePattern()
+            .carveLayer("    ", " ## ", " ## ", "    ")
+            .carveLayer("    ", " ## ", " ## ", "    ")
+            .carveLayer("    ", " ## ", " ## ", "    ")
+            .carveLayer("    ", " ## ", " ## ", "    ");
+
+        for (int i = 0; i < 16; i++) {
+            CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.mudBrickChimney, 1, i),
+                new ItemStack(TFCBlocks.mudBricks, 1, i), chimneyPattern));
+        }
+
+        for (int i = 16; i < Global.STONE_ALL.length; i++) {
+            CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.mudBrickChimney2, 1, i),
+                new ItemStack(TFCBlocks.mudBricks2, 1, i), chimneyPattern));
+        }
     }
 
     private static void registerSaddleQuernRecipes() {
