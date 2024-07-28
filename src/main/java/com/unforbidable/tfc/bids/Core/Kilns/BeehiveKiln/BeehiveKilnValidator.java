@@ -18,20 +18,20 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
 
     @Override
     public BlockCoord getChimneyLocation(KilnValidationParams params) {
-        return new BlockCoord(sourceX, sourceY + 4, sourceZ);
+        return new BlockCoord(0, 4, 0);
     }
 
     @Override
     public List<BlockCoord> getPotteryLocations(KilnValidationParams params) {
         List<BlockCoord> list = new ArrayList<BlockCoord>();
-        for (int i = -1; i < 2; i++) {
-            for (int j = -1; j < 2; j++) {
-                if (i == 0 && j == 0) {
+        for (int x = -1; x < 2; x++) {
+            for (int z = -1; z < 2; z++) {
+                if (x == 0 && z == 0) {
                     // Skip center
                     continue;
                 }
 
-                list.add(new BlockCoord(sourceX + i, sourceY + 2, sourceZ + j));
+                list.add(new BlockCoord(x, 2, z));
             }
         }
 

@@ -23,10 +23,7 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
         SquareKilnChimneyRotation chimneyRotation = params.chimneyRotation;
         ForgeDirection chimneyDir = chamberDir.getRotation(chimneyRotation.getAxis());
 
-        int x = sourceX + chamberDir.offsetX * 3 + chimneyDir.offsetX;
-        int y = sourceY + 1 + params.height;
-        int z = sourceZ + chamberDir.offsetZ * 3 + chimneyDir.offsetZ;
-        return new BlockCoord(x, y, z);
+        return new BlockCoord(chamberDir.offsetX * 3 + chimneyDir.offsetX, 1 + params.height, chamberDir.offsetZ * 3 + chimneyDir.offsetZ);
     }
 
     @Override
@@ -46,7 +43,7 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
 
         for (int x = minX; x < minX + 2; x++) {
             for (int z = minZ; z < minZ + 2; z++) {
-                list.add(new BlockCoord(sourceX + x, sourceY + 1, sourceZ + z));
+                list.add(new BlockCoord(x, 1, z));
             }
         }
 

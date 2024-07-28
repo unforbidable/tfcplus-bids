@@ -12,6 +12,10 @@ public class BlockCoord {
         this.z = z;
     }
 
+    public BlockCoord offset(int x, int y, int z) {
+        return new BlockCoord(this.x + x, this.y + y, this.z + z);
+    }
+
     public double distanceTo(BlockCoord bc) {
         int d0 = bc.x - x;
         int d1 = bc.y - y;

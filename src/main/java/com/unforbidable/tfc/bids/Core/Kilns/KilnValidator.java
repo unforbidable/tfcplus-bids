@@ -11,10 +11,10 @@ public abstract class KilnValidator<TParams extends KilnValidationParams> {
 
     protected static final ForgeDirection[] HORIZONTAL_DIRECTIONS = new ForgeDirection[] { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST };
 
-    protected final World world;
-    protected final int sourceX;
-    protected final int sourceY;
-    protected final int sourceZ;
+    private final World world;
+    private final int sourceX;
+    private final int sourceY;
+    private final int sourceZ;
 
     public KilnValidator(World world, int sourceX, int sourceY, int sourceZ) {
         this.world = world;

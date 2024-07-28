@@ -1,9 +1,12 @@
 package com.unforbidable.tfc.bids.Core.Kilns;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnChamber;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnHeatSource;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -41,7 +44,7 @@ public abstract class KilnChamber<TValidator extends KilnValidator<TParams>, TPa
             params = getValidator().validate();
 
             if (!valid) {
-                Bids.LOG.info("{}: validated with params {}", getName(), params);
+                Bids.LOG.info("{}: Validated with params {}", getName(), params);
             }
 
             valid = true;
@@ -63,21 +66,42 @@ public abstract class KilnChamber<TValidator extends KilnValidator<TParams>, TPa
     }
 
     @Override
-    public BlockCoord getChimneyLocation() {
+    public TileEntity getChimney() {
         if (params != null) {
-            return getValidator().getChimneyLocation(params);
-        } else {
-            return null;
+            BlockCoord bc = getValidator().getChimneyLocation(params);
+            if (bc != null) {
+                BlockCoord bc2 = bc.offset(heatSource.getTileX(), heatSource.getTileY(), heatSource.getTileZ());
+                TileEntity te = heatSource.getWorld().getTileEntity(bc2.x, bc2.y, bc2.z);
+                if (ChimneyHelper.isChimney(te)) {
+                    return te;
+                } else {
+                    Bids.LOG.warn("{}: Expected chimney at {},{},{}", getName(), bc.x, bc.y, bc.z);
+                }
+            }
         }
+
+        return null;
     }
 
     @Override
-    public List<BlockCoord> getPotteryLocations() {
+    public List<BlockCoord> getPotteryBlocks() {
+        ArrayList<BlockCoord> list = new ArrayList<BlockCoord>();
+
         if (params != null) {
-            return getValidator().getPotteryLocations(params);
-        } else {
-            return new ArrayList<BlockCoord>();
+            for (BlockCoord bc : getValidator().getPotteryLocations(params)) {
+                BlockCoord bc2 = bc.offset(heatSource.getTileX(), heatSource.getTileY(), heatSource.getTileZ());
+                // Skip air blocks
+                if (!heatSource.getWorld().isAirBlock(bc2.x, bc2.y, bc2.z)) {
+                    if (BidsEventFactory.onKilnFireBlockCheck(heatSource.getWorld(), bc2.x, bc2.y, bc2.z)) {
+                        list.add(bc2);
+                    } else {
+                        Bids.LOG.warn("{}: Expected pottery at {},{},{}", getName(), bc.x, bc.y, bc.z);
+                    }
+                }
+            }
         }
+
+        return list;
     }
 
 }

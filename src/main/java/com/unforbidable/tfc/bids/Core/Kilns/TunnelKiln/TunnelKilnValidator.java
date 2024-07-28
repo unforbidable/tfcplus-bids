@@ -20,11 +20,7 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParam
     @Override
     public BlockCoord getChimneyLocation(TunnelKilnValidationParams params) {
         ForgeDirection d = params.direction;
-        int x = sourceX + d.offsetX * 5;
-        int y = sourceY + 1 + params.height;
-        int z = sourceZ + d.offsetZ * 5;
-
-        return new BlockCoord(x, y, z);
+        return new BlockCoord(d.offsetX * 5, 1 + params.height, d.offsetZ * 5);
     }
 
     @Override
@@ -33,11 +29,8 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParam
 
         List<BlockCoord> list = new ArrayList<BlockCoord>();
 
-        for (int i = 2; i <= 5; i++) {
-            int x = sourceX + d.offsetX * i;
-            int y = sourceY + 1;
-            int z = sourceZ + d.offsetZ * i;
-            list.add(new BlockCoord(x, y, z));
+        for (int i = 3; i <= 6; i++) {
+            list.add(new BlockCoord(d.offsetX * i, 1, d.offsetZ * i));
         }
 
         return list;

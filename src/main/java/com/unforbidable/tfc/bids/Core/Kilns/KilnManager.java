@@ -4,14 +4,13 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Timer;
-import com.unforbidable.tfc.bids.api.Events.KilnEvent;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnChamber;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnHeatSource;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnManager;
 import com.unforbidable.tfc.bids.api.KilnRegistry;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -111,9 +110,8 @@ public class KilnManager implements IKilnManager {
             }
 
             // Process content
-            for (BlockCoord bc : currentKiln.getPotteryLocations()) {
-                KilnEvent.FireBlock event = new KilnEvent.FireBlock(kilnHeatSource.getWorld(), bc.x, bc.y, bc.z, currentKilnProgress);
-                MinecraftForge.EVENT_BUS.post(event);
+            for (BlockCoord bc : currentKiln.getPotteryBlocks()) {
+                BidsEventFactory.onKilnFireBlock(kilnHeatSource.getWorld(), bc.x, bc.y, bc.z, currentKilnProgress);
             }
         }
     }
@@ -169,16 +167,9 @@ public class KilnManager implements IKilnManager {
 
     public void setCurrentKilnChimneyEffect(int ticks) {
         if (currentKiln.isValid()) {
-            BlockCoord bc = currentKiln.getChimneyLocation();
-            if (bc != null) {
-                TileEntity te = kilnHeatSource.getWorld().getTileEntity(bc.x, bc.y, bc.z);
-                if (te != null) {
-                    if (ChimneyHelper.isChimney(te)) {
-                        ChimneyHelper.setChimneyFire(te, ticks);
-                    } else {
-                        Bids.LOG.warn("Expected chimney at {},{},{}", bc.x, bc.y, bc.z);
-                    }
-                }
+            TileEntity te = currentKiln.getChimney();
+            if (te != null) {
+                ChimneyHelper.setChimneyFire(te, ticks);
             }
         }
     }

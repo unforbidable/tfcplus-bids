@@ -9,8 +9,8 @@ public interface IKilnChamber {
 
     String getName();
     boolean validate();
-    List<BlockCoord> getPotteryLocations();
-    BlockCoord getChimneyLocation();
+    List<BlockCoord> getPotteryBlocks();
+    TileEntity getChimney();
     boolean isValid();
 
 }
