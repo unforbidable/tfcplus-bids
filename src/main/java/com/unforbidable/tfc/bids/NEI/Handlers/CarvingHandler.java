@@ -121,8 +121,10 @@ public class CarvingHandler extends TemplateRecipeHandler implements IHandlerInf
         for (CarvingRecipe recipe : CarvingManager.getRecipes()) {
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getCraftingResult();
-            if (ItemStack.areItemStacksEqual(result, output)) {
-                arecipes.add(new CachedCarvingRecipe(input, output, recipe.getPattern()));
+            final ItemStack outputOne = output.copy();
+            outputOne.stackSize = 1;
+            if (ItemStack.areItemStacksEqual(result, outputOne)) {
+                arecipes.add(new CachedCarvingRecipe(input, outputOne, recipe.getPattern()));
             }
         }
     }
@@ -131,7 +133,8 @@ public class CarvingHandler extends TemplateRecipeHandler implements IHandlerInf
     public void loadUsageRecipes(ItemStack ingredient) {
         for (CarvingRecipe recipe : CarvingManager.getRecipes()) {
             if (recipe.matchCarving(ingredient)) {
-                final ItemStack input = ingredient;
+                final ItemStack input = ingredient.copy();
+                input.stackSize = 1;
                 final ItemStack result = recipe.getCraftingResult();
                 arecipes.add(new CachedCarvingRecipe(input, result, recipe.getPattern()));
             }
