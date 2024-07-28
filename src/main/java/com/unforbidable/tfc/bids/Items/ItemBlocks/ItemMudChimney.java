@@ -23,6 +23,11 @@ public class ItemMudChimney extends ItemBlock implements ISize {
     }
 
     @Override
+    public boolean getHasSubtypes() {
+        return true;
+    }
+
+    @Override
     public int getItemStackLimit(ItemStack is) {
         return 32;
     }
