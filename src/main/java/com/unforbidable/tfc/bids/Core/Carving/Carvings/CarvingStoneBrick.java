@@ -35,26 +35,9 @@ public class CarvingStoneBrick implements ICarving {
 
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
-        int damage = getLooseStoneBrickDamage(block, metadata);
         return new ItemStack[] {
-            new ItemStack(TFCItems.stoneBrick, 1, damage),
-            new ItemStack(TFCItems.stoneBrick, 1, damage),
-            new ItemStack(TFCItems.stoneBrick, 1, damage),
-            new ItemStack(TFCItems.stoneBrick, 1, damage),
-            new ItemStack(TFCItems.stoneBrick, 1, damage)
+            new ItemStack(block, 1, metadata)
         };
-    }
-
-    protected int getLooseStoneBrickDamage(Block block, int metadata) {
-        if (block == TFCBlocks.stoneSedBrick) {
-            return metadata + Global.STONE_SED_START;
-        } else if (block == TFCBlocks.stoneIgIn) {
-            return metadata + Global.STONE_IGIN_START;
-        } else if (block == TFCBlocks.stoneIgExBrick) {
-            return metadata + Global.STONE_IGEX_START;
-        } else {
-            return metadata + Global.STONE_MM_START;
-        }
     }
 
     @Override

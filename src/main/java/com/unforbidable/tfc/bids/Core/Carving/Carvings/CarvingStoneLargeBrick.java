@@ -33,26 +33,9 @@ public class CarvingStoneLargeBrick implements ICarving {
 
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
-        Block smooth = getSmoothStoneBlock(block, metadata);
         return new ItemStack[] {
-            new ItemStack(smooth, 1, metadata),
-            new ItemStack(smooth, 1, metadata),
-            new ItemStack(smooth, 1, metadata),
-            new ItemStack(smooth, 1, metadata),
-            new ItemStack(smooth, 1, metadata)
+            new ItemStack(block, 1, metadata)
         };
-    }
-
-    protected Block getSmoothStoneBlock(Block block, int metadata) {
-        if (block == TFCBlocks.stoneSedLargeBrick) {
-            return TFCBlocks.stoneSedSmooth;
-        } else if (block == TFCBlocks.stoneIgInLargeBrick) {
-            return TFCBlocks.stoneIgInSmooth;
-        } else if (block == TFCBlocks.stoneIgExLargeBrick) {
-            return TFCBlocks.stoneIgExSmooth;
-        } else {
-            return TFCBlocks.stoneMMSmooth;
-        }
     }
 
     @Override
