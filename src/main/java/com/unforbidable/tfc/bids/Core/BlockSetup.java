@@ -468,6 +468,7 @@ public class BlockSetup extends BidsBlocks {
         CarvingRegistry.registerCarving(new CarvingStoneBrick());
         CarvingRegistry.registerCarving(new CarvingStoneLargeBrick());
         CarvingRegistry.registerCarving(new CarvingSmoothStone());
+        CarvingRegistry.registerCarving(new CarvingBrick());
     }
 
     private static void registerQuarryBlocks() {
