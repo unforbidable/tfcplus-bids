@@ -25,6 +25,12 @@ public class BidsOptions {
 
     }
 
+    public static class Carving {
+
+        public static boolean enableCarvingAnyBit = true;
+
+    }
+
     public static class WoodPile {
 
         public static float seasoningDurationMultiplier = 5f;

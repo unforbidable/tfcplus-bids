@@ -4,6 +4,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingBit;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingBitMap;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarvingMode;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -22,6 +23,10 @@ public class CarvingModeSingle implements ICarvingMode {
 
     @Override
     public boolean canCarveBit(final CarvingBit bit, final int side, final CarvingBitMap carvedBits) {
+        if (BidsOptions.Carving.enableCarvingAnyBit) {
+            return true;
+        }
+
         // Can be carved if bit is at the edge
         final int maxBit = CARVING_DIMENSION - 1;
         if (bit.bitX == 0 || bit.bitX == maxBit ||

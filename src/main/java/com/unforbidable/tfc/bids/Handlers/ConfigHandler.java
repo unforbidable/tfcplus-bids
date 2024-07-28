@@ -75,6 +75,10 @@ public class ConfigHandler {
                 "enableDrillAutoRepair", "quarry", BidsOptions.Quarry.enableDrillAutoRepair,
                 "Set this to true if you want to see stone drills automatically repaired using material from the hotbar");
 
+        BidsOptions.Carving.enableCarvingAnyBit = config.getBoolean(
+            "enableCarvingAnyBit", "carving", BidsOptions.Carving.enableCarvingAnyBit,
+            "Set this to true if you want to be able to carve any bit with an Adze; if set to false, chimney blocks cannot be carved");
+
         BidsOptions.WoodPile.rotateItems = config.getBoolean(
                 "rotateItems", "woodpile", BidsOptions.WoodPile.rotateItems,
                 "Set this to true if you want odd rows in the wood pile appear rotated");
