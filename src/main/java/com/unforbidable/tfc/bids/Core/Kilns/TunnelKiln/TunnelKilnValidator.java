@@ -30,7 +30,7 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParam
 
         List<BlockCoord> list = new ArrayList<BlockCoord>();
 
-        for (int i = 3; i <= 6; i++) {
+        for (int i = 2; i < 6; i++) {
             list.add(new BlockCoord(d.offsetX * i, 1, d.offsetZ * i));
         }
 
