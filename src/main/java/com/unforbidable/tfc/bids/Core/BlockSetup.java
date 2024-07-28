@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.*;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackMessage;
 import com.unforbidable.tfc.bids.Core.Kilns.BeehiveKiln.BeehiveKilnChamber;
+import com.unforbidable.tfc.bids.Core.Kilns.ClimbingKiln.ClimbingKilnChamber;
 import com.unforbidable.tfc.bids.Core.Kilns.SquareKiln.SquareKilnChamber;
 import com.unforbidable.tfc.bids.Core.Kilns.TunnelKiln.TunnelKilnChamber;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
@@ -508,6 +509,9 @@ public class BlockSetup extends BidsBlocks {
         }
         if (BidsOptions.Kiln.enableBeehiveKiln) {
             KilnRegistry.registerKilnChamber(BeehiveKilnChamber.class);
+        }
+        if (BidsOptions.Kiln.enableClimbingKiln) {
+            KilnRegistry.registerKilnChamber(ClimbingKilnChamber.class);
         }
     }
 

@@ -114,6 +114,9 @@ public class ConfigHandler {
         BidsOptions.Kiln.enableSquareKiln = config.getBoolean(
             "enableSquareKiln", "kiln", BidsOptions.Kiln.enableSquareKiln,
             "Set this to true if you want to add Square kiln as an available kiln structure");
+        BidsOptions.Kiln.enableClimbingKiln = config.getBoolean(
+            "enableClimbingKiln", "kiln", BidsOptions.Kiln.enableClimbingKiln,
+            "Set this to true if you want to add Climbing kiln as an available kiln structure");
 
         BidsOptions.Bark.dropPeelingChance = config.getFloat(
                 "dropPeelingChance", "bark",
