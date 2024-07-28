@@ -117,6 +117,18 @@ public class ConfigHandler {
         BidsOptions.Kiln.enableClimbingKiln = config.getBoolean(
             "enableClimbingKiln", "kiln", BidsOptions.Kiln.enableClimbingKiln,
             "Set this to true if you want to add Climbing kiln as an available kiln structure");
+        BidsOptions.Kiln.maxTunnelKilnHeight = config.getInt(
+            "maxTunnelKilnHeight", "kiln",
+            BidsOptions.Kiln.maxTunnelKilnHeight, 1, 2,
+            "Maximum allowed height of the Tunnel kiln chamber; setting this to 2 allows the Tunnel kiln to be walked in");
+        BidsOptions.Kiln.maxSquareKilnHeight = config.getInt(
+            "maxSquareKilnHeight", "kiln",
+            BidsOptions.Kiln.maxSquareKilnHeight, 1, 2,
+            "Maximum allowed height of the Square kiln chamber; setting this to 2 allows the Square kiln to be walked in");
+        BidsOptions.Kiln.maxClimbingKilnHeight = config.getInt(
+            "maxClimbingKilnHeight", "kiln",
+            BidsOptions.Kiln.maxClimbingKilnHeight, 1, 3,
+            "Maximum allowed height of the Climbing kiln chamber; one unit of height corresponds to one section adding 6 more pottery slots on top of the initial 6");
 
         BidsOptions.Bark.dropPeelingChance = config.getFloat(
                 "dropPeelingChance", "bark",

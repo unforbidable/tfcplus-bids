@@ -55,6 +55,9 @@ public class BidsOptions {
         public static boolean enableSquareKiln = true;
         public static boolean enableBeehiveKiln = true;
         public static boolean enableClimbingKiln = true;
+        public static int maxTunnelKilnHeight = 2;
+        public static int maxSquareKilnHeight = 2;
+        public static int maxClimbingKilnHeight = 3;
 
     }
 

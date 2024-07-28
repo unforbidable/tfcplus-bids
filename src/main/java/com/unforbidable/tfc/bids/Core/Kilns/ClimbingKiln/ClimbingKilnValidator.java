@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Core.Kilns.ClimbingKiln;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidationException;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidator;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -11,7 +12,6 @@ import java.util.List;
 
 public class ClimbingKilnValidator extends KilnValidator<ClimbingKilnValidationParams> {
 
-    private static final int MAX_HEIGHT = 3;
     private static final int MIN_CHIMNEY_TIER = 2;
 
     public ClimbingKilnValidator(World world, int sourceX, int sourceY, int sourceZ) {
@@ -82,7 +82,7 @@ public class ClimbingKilnValidator extends KilnValidator<ClimbingKilnValidationP
             throw new KilnValidationException("Expected exactly 1 wall surrounding +2");
         }
 
-        for (int h = 1; h <= MAX_HEIGHT; h++) {
+        for (int h = 1; h <= getMaxHeight(); h++) {
             int x = direction.offsetX * (2 + 2 * h);
             int y = 4 + h;
             int z = direction.offsetZ * (2 + 2 * h);
@@ -182,6 +182,10 @@ public class ClimbingKilnValidator extends KilnValidator<ClimbingKilnValidationP
                 }
             }
         }
+    }
+
+    protected int getMaxHeight() {
+        return BidsOptions.Kiln.maxClimbingKilnHeight;
     }
 
 }

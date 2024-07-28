@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Core.Kilns.TunnelKiln;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidationException;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidator;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParams> {
 
-    private static final int MAX_HEIGHT = 2;
+    private static final int MIN_CHIMNEY_TIER = 0;
 
     public TunnelKilnValidator(World world, int sourceX, int sourceY, int sourceZ) {
         super(world, sourceX, sourceY, sourceZ);
@@ -79,8 +80,8 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParam
         int tunnelEndZ = direction.offsetZ * 5;
 
         int height = 0;
-        for (int h = 1; h <= MAX_HEIGHT; h++) {
-            if (checkChimneyTier(tunnelEndX, 1 + h, tunnelEndZ, 0)) {
+        for (int h = 1; h <= getMaxHeight(); h++) {
+            if (checkChimneyTier(tunnelEndX, 1 + h, tunnelEndZ, MIN_CHIMNEY_TIER)) {
                 height = h;
                 break;
             }
@@ -173,6 +174,10 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParam
         for (int y = 2; y < params.height + 1; y++) {
             requireWall(0, y, 0, params.direction.getOpposite());
         }
+    }
+
+    protected int getMaxHeight() {
+        return BidsOptions.Kiln.maxTunnelKilnHeight;
     }
 
 }

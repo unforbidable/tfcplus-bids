@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Core.Kilns.SquareKiln;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidationException;
 import com.unforbidable.tfc.bids.Core.Kilns.KilnValidator;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParams> {
 
-    private static final int MAX_HEIGHT = 2;
+    private static final int MIN_CHIMNEY_TIER = 0;
 
     public SquareKilnValidator(World world, int sourceX, int sourceY, int sourceZ) {
         super(world, sourceX, sourceY, sourceZ);
@@ -127,7 +128,7 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
         int height = 0;
         SquareKilnChimneyRotation chimneyRotation = SquareKilnChimneyRotation.UNKNOWN;
 
-        for (int h = 1; h <= MAX_HEIGHT; h++) {
+        for (int h = 1; h <= getMaxHeight(); h++) {
             int x = direction.offsetX * 3;
             int y = 1 + h;
             int z = direction.offsetZ * 3;
@@ -138,7 +139,7 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
             for (SquareKilnChimneyRotation rotation : SquareKilnChimneyRotation.VALID_OFFSETS) {
                 ForgeDirection r = direction.getRotation(rotation.getAxis());
 
-                if (checkChimneyTier(x + r.offsetX, y, z + r.offsetZ, 0)) {
+                if (checkChimneyTier(x + r.offsetX, y, z + r.offsetZ, MIN_CHIMNEY_TIER)) {
                     chimneyCount++;
                     lastChimneyRotation = rotation;
                 }
@@ -202,6 +203,10 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
                 requireWall(chamberDir.offsetX, y, chamberDir.offsetZ, chamberDirOpp);
             }
         }
+    }
+
+    protected int getMaxHeight() {
+        return BidsOptions.Kiln.maxSquareKilnHeight;
     }
 
 }

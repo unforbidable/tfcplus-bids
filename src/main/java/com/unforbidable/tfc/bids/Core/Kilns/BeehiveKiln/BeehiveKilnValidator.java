@@ -12,6 +12,8 @@ import java.util.List;
 
 public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
 
+    private static final int MIN_CHIMNEY_TIER = 1;
+
     public BeehiveKilnValidator(World world, int sourceX, int sourceY, int sourceZ) {
         super(world, sourceX, sourceY, sourceZ);
     }
@@ -49,7 +51,7 @@ public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
 
     private void validateCenter() throws KilnValidationException {
         requireAirOrFire(0, 1, 0);
-        requireChimneyTier(0, 4, 0, 1);
+        requireChimneyTier(0, 4, 0, MIN_CHIMNEY_TIER);
 
         for (ForgeDirection d : HORIZONTAL_DIRECTIONS) {
             requireWall(d.offsetX, 1, d.offsetZ, d);
