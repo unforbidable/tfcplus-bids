@@ -1232,12 +1232,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 BlockCoord bc = blocksToBeSetOnFire.poll();
                 Block block = worldObj.getBlock(bc.x, bc.y, bc.z);
                 // Place fire if possible, otherwise air
-                if (block != Blocks.fire) {
-                    if (Blocks.fire.canPlaceBlockAt(worldObj, bc.x, bc.y, bc.z)) {
+                if (WoodPileHelper.canPlaceFireBlockAt(worldObj, bc.x, bc.y, bc.z)) {
+                    if (block != Blocks.fire) {
                         worldObj.setBlock(bc.x, bc.y, bc.z, Blocks.fire);
-                    } else if (block != Blocks.air) {
-                        worldObj.setBlockToAir(bc.x, bc.y, bc.z);
                     }
+                } else if (block != Blocks.air) {
+                    worldObj.setBlockToAir(bc.x, bc.y, bc.z);
                 }
             }
         }

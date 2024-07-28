@@ -1,11 +1,13 @@
 package com.unforbidable.tfc.bids.Core.WoodPile;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -14,6 +16,9 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import static net.minecraftforge.common.util.ForgeDirection.*;
+import static net.minecraftforge.common.util.ForgeDirection.NORTH;
 
 public class WoodPileHelper {
 
@@ -159,6 +164,28 @@ public class WoodPileHelper {
         }
 
         return null;
+    }
+
+    public static boolean canPlaceFireBlockAt(World world, int x, int y, int z) {
+        // This is a clone of Blocks.fire.canPlaceBlockAt method
+        // except the top surface of wood piles is never considered solid
+        // for the fire to be placed on
+        // The fire block will still be placed if any neighbor can burn
+        return doesBlockHaveSolidTopSurfaceAndIsNotWoodPile(world, x, y - 1, z) || canFireBlockNeighborBurn(world, x, y, z);
+    }
+
+    private static boolean doesBlockHaveSolidTopSurfaceAndIsNotWoodPile(World world, int x, int y, int z) {
+        Block block = world.getBlock(x, y, z);
+        return !(block instanceof BlockWoodPile) && block.isSideSolid(world, x, y, z, ForgeDirection.UP);
+    }
+
+    private static boolean canFireBlockNeighborBurn(World world, int x, int y, int z) {
+        return Blocks.fire.canCatchFire(world, x + 1, y, z, WEST ) ||
+            Blocks.fire.canCatchFire(world, x - 1, y, z, EAST ) ||
+            Blocks.fire.canCatchFire(world, x, y - 1, z, UP   ) ||
+            Blocks.fire.canCatchFire(world, x, y + 1, z, DOWN ) ||
+            Blocks.fire.canCatchFire(world, x, y, z - 1, SOUTH) ||
+            Blocks.fire.canCatchFire(world, x, y, z + 1, NORTH);
     }
 
 }
