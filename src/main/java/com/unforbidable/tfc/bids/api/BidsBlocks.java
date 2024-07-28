@@ -177,4 +177,6 @@ public class BidsBlocks {
 
     public static Block strawNest;
 
+    public static Block fireBrickChimney;
+
 }

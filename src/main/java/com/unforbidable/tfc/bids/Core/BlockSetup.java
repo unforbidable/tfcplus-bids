@@ -321,6 +321,9 @@ public class BlockSetup extends BidsBlocks {
             .setHardness(5F)
             .setResistance(5F)
             .setBlockName("Ore");
+
+        fireBrickChimney = new BlockFireBrickChimney()
+            .setBlockName("FireBrickChimney");
     }
 
     private static void updateBlocks() {
@@ -660,6 +663,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityScrewPressLever.class, "BidsScrewPressLever");
 
         GameRegistry.registerTileEntity(TileEntityStrawNest.class, "BidsStrawNest");
+
+        GameRegistry.registerTileEntity(TileEntityFireBrickChimney.class, "BidsFireBrickChimney");
     }
 
     @SideOnly(Side.CLIENT)
@@ -842,6 +847,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(crackedOre1b, "CrackedOre1b");
         GameRegistry.registerBlock(crackedOre2, "CrackedOre2");
         GameRegistry.registerBlock(crackedOre3, "CrackedOre3");
+
+        GameRegistry.registerBlock(fireBrickChimney, ItemFireBrickChimney.class, "FireBrickChimney");
     }
 
 }

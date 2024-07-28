@@ -26,6 +26,8 @@ tile.MudBrickChimney2.Schist.name=Mudbrick Chimney
 tile.MudBrickChimney.Shale.name=Mudbrick Chimney
 tile.MudBrickChimney2.Slate.name=Mudbrick Chimney
 
+tile.FireBrickChimney.FireBrick.name=Fire Brick Chimney
+
 tile.Quarry.name=Quarry
 
 tile.WoodPile.name=Wood Pile
