@@ -44,7 +44,7 @@ public abstract class KilnChamber<TValidator extends KilnValidator<TParams>, TPa
             params = getValidator().validate();
 
             if (!valid) {
-                Bids.LOG.info("{}: Validated with params {}", getName(), params);
+                Bids.LOG.debug("{}: Validated with params {}", getName(), params);
             }
 
             valid = true;
@@ -54,7 +54,7 @@ public abstract class KilnChamber<TValidator extends KilnValidator<TParams>, TPa
             // This is needed to get to the chimney that isn't right above the heat source
             valid = false;
 
-            Bids.LOG.info("{}: {}", getName(), e.getMessage());
+            Bids.LOG.debug("{}: {}", getName(), e.getMessage());
         }
 
         return valid;
