@@ -15,7 +15,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Metal Blowpipe](../../wiki/Metal-Blowpipe) - recipe based glassware crafting
 * [Drinking Glass](../../wiki/Drinking-Glass) - various new drinking containers made out of glass
 * [Furnace](../../wiki/Furnace) - for making glass in a crucible
-* [Mud Brick Chimney](../../wiki/Mud-brick-chimney) - allows furnace construction before acquiring metal tools
+* [Mud Brick Chimney](../../wiki/Mud-brick-chimney) - allows furnace and basic kiln construction before acquiring metal tools
 * [Ceramic Pipe](../../wiki/Ceramic-Pipe) - used in making a mud brick chimney
 * [Ceramic Mug](../../wiki/Clay-Mug) - a drinking container made out of clay
 * [Drill](../../wiki/Drill) - a tool for drilling raw stone, tool heads made from stone, copper, any bronze, and wrought iron
@@ -62,7 +62,8 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Wattle Gate](../../wiki/Wattle-Gate) - gate from wattle
 * [Palisade](../../wiki/Palisade) - wall made of logs placed upright
 * [Straw Nest](../../wiki/Straw-Nest) - primitive alternative to a Nest Box for chicken to lie eggs
-* [More Kilns](../../wiki/Kiln) - Tunnel Kiln, Square Kiln and Beehive Kiln adapted from TFC+, powered by a wood pile
+* [More Kilns](../../wiki/Kiln) - Tunnel Kiln, Square Kiln, Beehive Kiln adapted from TFC+ and Climbing Kiln, powered by a wood pile
+* [Fire Brick Chimney](../../wiki/Fire-Brick-Chimney) - for advanced kiln construction
 
 ### Contributions
 

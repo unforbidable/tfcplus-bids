@@ -591,3 +591,16 @@
 - Changed: Rough stone blocks including bricks and tiles have consistent hardness
 - Fixed: Aquifer blocks can no longer be broken instantly
 - Fixed: Aquifer blocks now drop as gravel as intended when broken
+
+0.47.0 (2024-07-28)
+- Added: Fire brick chimney
+- Added: Climbing kiln
+- Added: Brick blocks can be carved with an Adze
+- Added: Fire Brick blocks can be carved with an Adze
+- Added: Mud Brick Chimney block can be carved out from a Mud Brick block using an Adze
+- Changed: Inner bits of blocks can be carved out using an Adze without restrictions (optional)
+- Changed: A fire block should never spawn above a burning wood pile unless there is something to burn
+- Changed: Wood piles once again spawn smoke particles when set on fire and burning
+- Changed: Minor changes to Kiln interfaces (API)
+- Fixed: Proper amount of material drops when carving Stone Brick and Large Stone Brick blocks
+- Fixed: NEI should now be able to match Carving recipe output stacks larger than 1
