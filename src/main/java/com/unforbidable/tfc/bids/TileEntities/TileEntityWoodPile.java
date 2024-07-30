@@ -150,7 +150,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     EntityPlayer openDelayedGUIplayer = null;
 
     boolean onFire = false;
-    long hoursOnFire = 0;
+
+    Timer charcoalTimer = new Timer(200);
+    int charcoalProgress = 0;
+    long lastCharcoalTicks = 0;
 
     Timer torchDetectionTimer = new Timer(20);
     Timer torchDetectionClientTimer = new Timer(10);
@@ -496,6 +499,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             if (!initialized) {
                 lastSeasoningTicks = TFC_Time.getTotalTicks();
                 lastBurningTicks = TFC_Time.getTotalTicks();
+                lastCharcoalTicks = TFC_Time.getTotalTicks();
 
                 sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
 
@@ -609,6 +613,17 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 kilnManager.update();
             }
 
+            // Charcoal making
+            // when on fire and if charcoal can be made
+            if (onFire && charcoalTimer.tick() && canMakeCharcoal()) {
+                EnumBurningRate burningRate = getBurningRate();
+                if (burningRate == EnumBurningRate.NONE) {
+                    handleMakingCharcoal();
+                } else {
+                    lastCharcoalTicks = TFC_Time.getTotalTicks();
+                }
+            }
+
             if (openDelayedGUIplayer != null) {
                 openDelayedGUIplayer.openGui(Bids.instance, BidsGui.woodPileGui, worldObj, xCoord, yCoord, zCoord);
                 openDelayedGUIplayer = null;
@@ -625,6 +640,53 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 }
             }
         }
+    }
+
+    private boolean canMakeCharcoal() {
+        for (ItemStack is : storage) {
+            if (is != null && !WoodPileHelper.isItemValidWoodPileItemForCharcoal(is)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void handleMakingCharcoal() {
+        // By default, it takes 18 hours to process 16 items,
+        // using the charcoal time from the config, we calculate the ticks to process one item
+        long ticksNeededForCharcoal = (long) (TFCOptions.charcoalPitBurnTime * TFC_Time.HOUR_LENGTH / 16);
+        long ticksSincePreviousCharcoal = TFC_Time.getTotalTicks() - lastCharcoalTicks;
+        if (ticksSincePreviousCharcoal >= ticksNeededForCharcoal) {
+            // When time is skipped, multiple items can be processed at a time
+            int count = (int) (ticksSincePreviousCharcoal / (float)ticksNeededForCharcoal);
+            int targetProgress = Math.min(16, charcoalProgress + count);
+
+            while (charcoalProgress < targetProgress) {
+                ItemStack is = storage[charcoalProgress];
+                if (is != null) {
+                    processItemForCharcoal(is);
+                }
+
+                charcoalProgress++;
+            }
+
+            lastCharcoalTicks += ticksNeededForCharcoal * count;
+
+            Bids.LOG.info("charcoalProgress: {}/16", charcoalProgress);
+        }
+    }
+
+    private boolean isCharcoalDone() {
+        return charcoalProgress == 16;
+    }
+
+    private boolean isMakingCharcoal() {
+        return charcoalProgress > 0;
+    }
+
+    private void processItemForCharcoal(ItemStack is) {
+        Bids.LOG.info("processItemForCharcoal: {}", is.getDisplayName());
     }
 
     private float getAverageBurningTemp() {
@@ -807,9 +869,6 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         if (BidsOptions.WoodPile.enableFireSetting) {
             handleFireSetting();
         }
-
-        // This resets the charcoal time to now
-        hoursOnFire = TFC_Time.getTotalHours();
     }
 
     private void handleFireSetting() {
@@ -851,11 +910,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         tag.setBoolean("clientInitialized", initialized);
         tag.setInteger("orientation", orientation);
         tag.setBoolean("onFire", onFire);
-        tag.setLong("hoursOnFire", hoursOnFire);
         tag.setFloat("lastBurningTicks", lastBurningTicks);
         tag.setFloat("totalBurningTicks", totalBurningTicks);
         tag.setInteger("totalBurningTemp", totalBurningTemp);
         tag.setInteger("totalBurningItems", totalBurningItems);
+        tag.setLong("lastCharcoalTicks", lastCharcoalTicks);
+        tag.setInteger("charcoalProgress", charcoalProgress);
 
         NBTTagList itemTagList = new NBTTagList();
         for (int i = 0; i < MAX_STORAGE; i++) {
@@ -876,11 +936,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         initialized = tag.getBoolean("clientInitialized");
         orientation = tag.getInteger("orientation");
         onFire = tag.getBoolean("onFire");
-        hoursOnFire = tag.getLong("hoursOnFire");
         lastBurningTicks = tag.getFloat("lastBurningTicks");
         totalBurningTicks = tag.getFloat("totalBurningTicks");
         totalBurningTemp = tag.getInteger("totalBurningTemp");
         totalBurningItems = tag.getInteger("totalBurningItems");
+        lastCharcoalTicks = tag.getLong("lastCharcoalTicks");
+        charcoalProgress = tag.getInteger("charcoalProgress");
 
         for (int i = 0; i < MAX_STORAGE; i++) {
             storage[i] = null;
@@ -1096,7 +1157,6 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     public void setOnFire(boolean onFire) {
         if (onFire && !this.onFire) {
             this.onFire = true;
-            hoursOnFire = TFC_Time.getTotalHours();
 
             Bids.LOG.debug("Woodpile set on fire at " + xCoord + "," + yCoord + "," + zCoord);
 
@@ -1109,9 +1169,11 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             totalBurningTicks = 0;
             totalBurningTemp = 0;
             totalBurningItems = 0;
+
+            // Reset charcoal ticks
+            lastCharcoalTicks = TFC_Time.getTotalTicks();
         } else if (!onFire && this.onFire) {
             this.onFire = false;
-            hoursOnFire = 0;
 
             Bids.LOG.debug("Woodpile extinguished at " + xCoord + "," + yCoord + "," + zCoord);
 
@@ -1125,11 +1187,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     public void tryToCreateCharcoal() {
-        // For charcoal to be created the burning rate must be 0
-        if (isOnFire() && getBurningRate() == EnumBurningRate.NONE) {
-            Bids.LOG.debug("Trying to create charcoal at " + xCoord + "," + yCoord + "," + zCoord);
+        if (isOnFire()) {
+            Bids.LOG.info("Trying to create charcoal at " + xCoord + "," + yCoord + "," + zCoord);
 
-            if (hoursOnFire + TFCOptions.charcoalPitBurnTime < TFC_Time.getTotalHours()) {
+            if (isCharcoalDone()) {
                 doCreateCharcoal();
             }
         }
