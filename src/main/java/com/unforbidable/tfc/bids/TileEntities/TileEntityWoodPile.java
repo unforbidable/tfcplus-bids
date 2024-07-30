@@ -1197,61 +1197,48 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private void doCreateCharcoal() {
-        boolean invalidItemsFound = false;
-        int charcoalCount = 0;
+        int totalCharcoalCount = 0;
 
         for (ItemStack itemStack : storage) {
             if (itemStack != null) {
-                if (itemStack.getItem() == BidsItems.firewoodSeasoned) {
-                    float percent = getCharcoalPercentageForWoodType(itemStack);
-                    charcoalCount += worldObj.rand.nextInt(100) < percent ? 1 : 0;
-                } else {
-                    invalidItemsFound = true;
-                    break;
+                if (WoodPileHelper.isItemValidWoodPileItemForCharcoal(itemStack)) {
+                    totalCharcoalCount += getCharcoalCountForWoodType(itemStack);
                 }
             }
         }
 
-        if (invalidItemsFound) {
-            // Invalid woodpile for charcoal making, leave as is
-            setOnFire(false);
+        int charcoalCount = Math.round(totalCharcoalCount / 16f);
 
-            Bids.LOG.debug("Invalid item found for charcoal at " + xCoord + "," + yCoord + "," + zCoord);
+        Arrays.fill(storage, null);
+
+        if (charcoalCount > 0) {
+            worldObj.setBlock(xCoord, yCoord, zCoord, TFCBlocks.charcoal, Math.min(charcoalCount, 8), 0x2);
+            Bids.LOG.info("Created " + charcoalCount + " charcoal at " + xCoord + "," + yCoord + "," + zCoord);
         } else {
-            Arrays.fill(storage, null);
-
-            if (charcoalCount > 0)
-            {
-                worldObj.setBlock(xCoord, yCoord, zCoord, TFCBlocks.charcoal, Math.min(charcoalCount, 8), 0x2);
-                Bids.LOG.debug("Created " + charcoalCount + " charcoal at " + xCoord + "," + yCoord + "," + zCoord);
-            }
-            else
-            {
-                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-                Bids.LOG.debug("Created no charcoal at " + xCoord + "," + yCoord + "," + zCoord);
-            }
+            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            Bids.LOG.info("Created no charcoal at " + xCoord + "," + yCoord + "," + zCoord);
         }
 
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity te = worldObj.getTileEntity(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
             if (te instanceof TileEntityWoodPile) {
                 TileEntityWoodPile neighbor = (TileEntityWoodPile) te;
-                if (neighbor.isOnFire()) {
+                if (neighbor.isOnFire() && neighbor.isMakingCharcoal()) {
                     neighbor.doCreateCharcoal();
                 }
             }
         }
     }
 
-    private float getCharcoalPercentageForWoodType(ItemStack itemStack) {
+    private int getCharcoalCountForWoodType(ItemStack itemStack) {
         EnumWoodHardness hardness = EnumWoodHardness.fromDamage(itemStack.getItemDamage());
         switch (hardness) {
             case HARD:
-                return 45 + worldObj.rand.nextInt(6); // ~7.7
+                return 7 + worldObj.rand.nextInt(2); // 7-8
             case MODERATE:
-                return 35 + worldObj.rand.nextInt(16); // ~6.9
+                return 5 + worldObj.rand.nextInt(3); // 5-7
             default:
-                return 25 + worldObj.rand.nextInt(26); // ~6.1 (original TFC+ rating)
+                return 4 + worldObj.rand.nextInt(3); // 4-6
         }
     }
 
