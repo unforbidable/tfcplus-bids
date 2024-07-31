@@ -8,6 +8,7 @@ import com.dunk.tfc.Blocks.Vanilla.BlockCustomLeaves;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.TileEntities.TEFirepit;
+import com.dunk.tfc.TileEntities.TEHopper;
 import com.dunk.tfc.api.Interfaces.IHeatSourceTE;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCOptions;
@@ -21,6 +22,7 @@ import com.unforbidable.tfc.bids.Core.WoodPile.*;
 import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.Enums.EnumWoodFatness;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import com.unforbidable.tfc.bids.api.Events.FireSettingEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
@@ -114,10 +116,25 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     // How long it takes to catch fire from a fire pit
     private static final int SET_ON_FIRE_FROM_SOURCE_DELAY = 200;
-    private static final ForgeDirection[] VALID_NEARBY_FIRE_SOURCE_DIRECTIONS = { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST };
+
+    private static final ForgeDirection[] HORIZONTAL_FORGE_DIRECTIONS = { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST };
 
     // How long it takes to catch fire from a Blocks.fire
     private static final int CATCH_FIRE_DELAY = 100;
+
+    // With default settings,
+    // a log pile produces about 135 mB of pitch during the process of making charcoal
+    // that is about 8.5 mB per log,
+    // although the log pile needs to be ticking, so you can't leave, sleep or otherwise skip time
+    // 8 mB is a neat baseline for any wood type
+    // although perhaps way too much for non-resinous wood types
+    private static final float PITCH_PER_ITEM = 8;
+
+    // How much pitch moves to neighbor wood pile or hopper below per cycle
+    private static final int PITCH_MOVE_AMOUNT = 32;
+
+    // Pitch is moved faster when a large amount builds up
+    private static final int PITCH_MOVE_BULK_AMOUNT = PITCH_MOVE_AMOUNT * 5;
 
     final ItemStack[] storage = new ItemStack[MAX_STORAGE];
 
@@ -152,8 +169,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     boolean onFire = false;
 
     Timer charcoalTimer = new Timer(200);
+    Timer pitchTimer = new Timer(10);
     int charcoalProgress = 0;
     long lastCharcoalTicks = 0;
+    int pitchCounter = 0;
 
     Timer torchDetectionTimer = new Timer(20);
     Timer torchDetectionClientTimer = new Timer(10);
@@ -624,6 +643,11 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 }
             }
 
+            // Try to move pitch towards a hopper
+            if (pitchCounter > 0 && pitchTimer.tick()) {
+                handlePitch();
+            }
+
             if (openDelayedGUIplayer != null) {
                 openDelayedGUIplayer.openGui(Bids.instance, BidsGui.woodPileGui, worldObj, xCoord, yCoord, zCoord);
                 openDelayedGUIplayer = null;
@@ -640,6 +664,41 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 }
             }
         }
+    }
+
+    private void handlePitch() {
+        // If there is a lot of pitch, move it faster
+        int amountToMove = pitchCounter >= PITCH_MOVE_BULK_AMOUNT ? PITCH_MOVE_BULK_AMOUNT : Math.min(pitchCounter, PITCH_MOVE_AMOUNT);
+
+        Bids.LOG.info("Pitch moving: {}/{}", amountToMove, pitchCounter);
+
+        TileEntity teBelow = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
+        if (teBelow instanceof TEHopper) {
+            // Hopper below
+            int amountMoved = WoodPileHelper.offerPitchToHopper(worldObj, xCoord, yCoord - 1, zCoord, amountToMove);
+            pitchCounter -= amountMoved;
+        } else if (teBelow instanceof TileEntityWoodPile) {
+            // Wood pile below
+            TileEntityWoodPile woodPileBelow = (TileEntityWoodPile) teBelow;
+            woodPileBelow.takePitch(amountToMove);
+            pitchCounter -= amountToMove;
+        } else {
+            // Wood pile to any side, which also has wood pile or hopper below
+            for (ForgeDirection d : HORIZONTAL_FORGE_DIRECTIONS) {
+                TileEntity teSide = worldObj.getTileEntity(xCoord + d.offsetX, yCoord, zCoord + d.offsetZ);
+                TileEntity teSideBelow = worldObj.getTileEntity(xCoord + d.offsetX, yCoord - 1, zCoord + d.offsetZ);
+                if (teSide instanceof TileEntityWoodPile && (teSideBelow instanceof TileEntityWoodPile || teSideBelow instanceof TEHopper)) {
+                    TileEntityWoodPile woodPileSide = (TileEntityWoodPile) teSide;
+                    woodPileSide.takePitch(amountToMove);
+                    pitchCounter -= amountToMove;
+                    break;
+                }
+            }
+        }
+    }
+
+    private void takePitch(int pitch) {
+        pitchCounter += pitch;
     }
 
     private boolean canMakeCharcoal() {
@@ -686,7 +745,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private void processItemForCharcoal(ItemStack is) {
-        Bids.LOG.info("processItemForCharcoal: {}", is.getDisplayName());
+        int pitchAmount = Math.round(getPitchRateForWoodType(is) * PITCH_PER_ITEM);
+        pitchCounter += pitchAmount;
     }
 
     private float getAverageBurningTemp() {
@@ -739,7 +799,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private boolean canSetOnFireFromSourceNearby() {
-        for (ForgeDirection d : VALID_NEARBY_FIRE_SOURCE_DIRECTIONS) {
+        for (ForgeDirection d : HORIZONTAL_FORGE_DIRECTIONS) {
             if (isValidSetOnFireSource(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ)) {
                 return true;
             }
@@ -1240,6 +1300,11 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             default:
                 return 4 + worldObj.rand.nextInt(3); // 4-6
         }
+    }
+
+    private float getPitchRateForWoodType(ItemStack itemStack) {
+        EnumWoodFatness fatness = EnumWoodFatness.fromDamage(itemStack.getItemDamage());
+        return fatness.getResinRate();
     }
 
     public void tryToSpreadFire() {

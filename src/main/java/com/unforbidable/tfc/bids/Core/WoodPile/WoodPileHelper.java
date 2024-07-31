@@ -1,11 +1,17 @@
 package com.unforbidable.tfc.bids.Core.WoodPile;
 
+import com.dunk.tfc.Blocks.Devices.BlockBarrel;
+import com.dunk.tfc.Blocks.Devices.BlockHopper;
+import com.dunk.tfc.TileEntities.TEBarrel;
+import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
+import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +22,10 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static net.minecraftforge.common.util.ForgeDirection.*;
 import static net.minecraftforge.common.util.ForgeDirection.NORTH;
@@ -137,6 +147,10 @@ public class WoodPileHelper {
         return WoodPileRegistry.findItem(itemStack.getItem()) != null;
     }
 
+    public static boolean isItemValidWoodPileItemForCharcoal(ItemStack itemStack) {
+        return itemStack.getItem() == BidsItems.firewoodSeasoned;
+    }
+
     public static MovingObjectPosition onWoodPileCollisionRayTrace(World world, int x, int y, int z, Vec3 startVec,
             Vec3 endVec) {
         TileEntityWoodPile te = (TileEntityWoodPile) world.getTileEntity(x, y, z);
@@ -186,6 +200,55 @@ public class WoodPileHelper {
             Blocks.fire.canCatchFire(world, x, y + 1, z, DOWN ) ||
             Blocks.fire.canCatchFire(world, x, y, z - 1, SOUTH) ||
             Blocks.fire.canCatchFire(world, x, y, z + 1, NORTH);
+    }
+
+    public static int offerPitchToHopper(World world, int x, int y, int z, int pitch) {
+        BlockCoord bc = findHopperDestination(world, x, y, z);
+        if (bc != null) {
+            TileEntity bar = world.getTileEntity(bc.x, bc.y, bc.z);
+            if (bar instanceof TEBarrel && ((TEBarrel) bar).canAcceptLiquids()) {
+                TEBarrel barrel = (TEBarrel) bar;
+
+                FluidStack fs = new FluidStack(TFCFluids.PITCH, pitch);
+                if (barrel.addLiquid(fs)) {
+                    // At least some pitch was accepted
+                    return pitch - fs.amount;
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    private static BlockCoord findHopperDestination(World world, int x, int y, int z) {
+        List<BlockCoord> checked = new ArrayList<BlockCoord>();
+        BlockCoord start = new BlockCoord(x, y, z);
+        checked.add(start);
+        return findHopperDestination(world, start, checked, 1);
+    }
+
+    private static BlockCoord findHopperDestination(World world, BlockCoord bc, List<BlockCoord> checked, int distance) {
+        ForgeDirection dir = getHopperDirection(world, bc.x, bc.y, bc.z);
+        BlockCoord next = bc.offset(dir.offsetX, dir.offsetY, dir.offsetZ);
+        Block block = world.getBlock(next.x, next.y, next.z);
+        if (block instanceof BlockBarrel) {
+            Bids.LOG.info("Found barrel {} in distance {}", dir, distance);
+            return next;
+        } else {
+            if (distance < 32 && block instanceof BlockHopper && !checked.contains(next)) {
+                checked.add(next);
+                Bids.LOG.info("Following hopper {}", dir);
+                return findHopperDestination(world, next, checked, distance + 1);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    private static ForgeDirection getHopperDirection(World world, int x, int y, int z) {
+        int meta = world.getBlockMetadata(x, y, z);
+        int dir = BlockHopper.getDirectionFromMetadata(meta);
+        return ForgeDirection.VALID_DIRECTIONS[dir];
     }
 
 }
