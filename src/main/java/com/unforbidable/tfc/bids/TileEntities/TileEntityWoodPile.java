@@ -136,6 +136,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     // Pitch is moved faster when a large amount builds up
     private static final int PITCH_MOVE_BULK_AMOUNT = PITCH_MOVE_AMOUNT * 5;
 
+    // After pitch movement fails, set a time out for the next attempt
+    private static final int PITCH_MOVEMENT_FAILURE_DELAY = 200;
+
     final ItemStack[] storage = new ItemStack[MAX_STORAGE];
 
     long lastSeasoningTicks = 0;
@@ -645,7 +648,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
             // Try to move pitch towards a hopper
             if (pitchCounter > 0 && pitchTimer.tick()) {
-                handlePitch();
+                if (!handlePitch()) {
+                    // Either the pitch has nowhere to go at all
+                    // or the destination barrel is full,
+                    // so next attempt is delayed
+                    pitchTimer.delay(PITCH_MOVEMENT_FAILURE_DELAY);
+                };
             }
 
             if (openDelayedGUIplayer != null) {
@@ -666,7 +674,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         }
     }
 
-    private void handlePitch() {
+    private boolean handlePitch() {
         // If there is a lot of pitch, move it faster
         int amountToMove = pitchCounter >= PITCH_MOVE_BULK_AMOUNT ? PITCH_MOVE_BULK_AMOUNT : Math.min(pitchCounter, PITCH_MOVE_AMOUNT);
 
@@ -677,11 +685,13 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // Hopper below
             int amountMoved = WoodPileHelper.offerPitchToHopper(worldObj, xCoord, yCoord - 1, zCoord, amountToMove);
             pitchCounter -= amountMoved;
+            return amountMoved != 0;
         } else if (teBelow instanceof TileEntityWoodPile) {
             // Wood pile below
             TileEntityWoodPile woodPileBelow = (TileEntityWoodPile) teBelow;
             woodPileBelow.takePitch(amountToMove);
             pitchCounter -= amountToMove;
+            return true;
         } else {
             // Wood pile to any side, which also has wood pile or hopper below
             for (ForgeDirection d : HORIZONTAL_FORGE_DIRECTIONS) {
@@ -691,10 +701,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                     TileEntityWoodPile woodPileSide = (TileEntityWoodPile) teSide;
                     woodPileSide.takePitch(amountToMove);
                     pitchCounter -= amountToMove;
-                    break;
+                    return true;
                 }
             }
         }
+
+        return false;
     }
 
     private void takePitch(int pitch) {
