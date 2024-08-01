@@ -693,7 +693,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             int amountToMove = pitchCounter < PITCH_MOVE_BULK_AMOUNT ?
                 Math.min(pitchCounter, PITCH_MOVE_AMOUNT) :
                 PITCH_MOVE_BULK_AMOUNT * (pitchCounter / PITCH_MOVE_BULK_AMOUNT);
-            Bids.LOG.info("Pitch moving to hopper: {}/{}", amountToMove, pitchCounter);
+            Bids.LOG.debug("Pitch moving to hopper: {}/{}", amountToMove, pitchCounter);
             int amountMoved = WoodPileHelper.offerPitchToHopper(worldObj, xCoord, yCoord - 1, zCoord, amountToMove);
             pitchCounter -= amountMoved;
             // Failure if no pitch was moved
@@ -758,7 +758,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
             lastCharcoalTicks += ticksNeededForCharcoal * count;
 
-            Bids.LOG.info("charcoalProgress: {}/16", charcoalProgress);
+            Bids.LOG.debug("charcoalProgress: {}/16", charcoalProgress);
         }
     }
 
@@ -1289,10 +1289,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
         if (charcoalCount > 0) {
             worldObj.setBlock(xCoord, yCoord, zCoord, TFCBlocks.charcoal, charcoalCount, 0x2);
-            Bids.LOG.info("Created " + charcoalCount + " charcoal at " + xCoord + "," + yCoord + "," + zCoord);
+            Bids.LOG.debug("Created " + charcoalCount + " charcoal at " + xCoord + "," + yCoord + "," + zCoord);
         } else {
             worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-            Bids.LOG.info("Created no charcoal at " + xCoord + "," + yCoord + "," + zCoord);
+            Bids.LOG.debug("Created no charcoal at " + xCoord + "," + yCoord + "," + zCoord);
         }
 
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
