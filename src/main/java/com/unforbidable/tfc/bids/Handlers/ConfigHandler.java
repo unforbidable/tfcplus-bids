@@ -91,6 +91,12 @@ public class ConfigHandler {
         BidsOptions.WoodPile.burnTimeMultiplier = config.getFloat(
             "burnTimeMultiplier", "woodpile", BidsOptions.WoodPile.burnTimeMultiplier, 0.25f, 2f,
             "Higher values increase the time fuel burns in a wood pile (also affects kiln fuel consumption)");
+        BidsOptions.WoodPile.pitchResinousWoodOnly = config.getBoolean(
+            "pitchResinousWoodOnly", "woodpile", BidsOptions.WoodPile.pitchResinousWoodOnly,
+            "Set this to true if you want only resinous wood to produce pitch in a charcoal pit");
+        BidsOptions.WoodPile.pitchYieldMultiplier = config.getFloat(
+            "pitchYieldMultiplier", "woodpile", BidsOptions.WoodPile.pitchYieldMultiplier, 0.25f, 2f,
+            "Higher values increase the amount of pitch extracted during the production of charcoal");
 
         BidsOptions.Firepit.allowFuelLogsTFC = config.getBoolean(
                 "allowFuelLogsTFC", "firepit", BidsOptions.Firepit.allowFuelLogsTFC,

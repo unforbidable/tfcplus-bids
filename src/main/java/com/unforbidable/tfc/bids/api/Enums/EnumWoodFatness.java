@@ -2,15 +2,21 @@ package com.unforbidable.tfc.bids.api.Enums;
 
 public enum EnumWoodFatness {
 
-    INVALID(0),
-    POOR(1f),
-    GOOD(3f),
-    EXCELLENT(4f);
+    INVALID(false, 0),
+    POOR(false, 1f),
+    GOOD(true, 3f),
+    EXCELLENT(true, 4f);
 
+    private final boolean resinous;
     private final float resinRate;
 
-    EnumWoodFatness(float resinRate) {
+    EnumWoodFatness(boolean resinous, float resinRate) {
+        this.resinous = resinous;
         this.resinRate = resinRate;
+    }
+
+    public boolean isResinous() {
+        return resinous;
     }
 
     public float getResinRate() {

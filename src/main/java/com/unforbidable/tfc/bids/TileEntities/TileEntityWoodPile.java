@@ -1315,7 +1315,11 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     private float getPitchRateForWoodType(ItemStack itemStack) {
         EnumWoodFatness fatness = EnumWoodFatness.fromDamage(itemStack.getItemDamage());
-        return fatness.getResinRate();
+        if (!BidsOptions.WoodPile.pitchResinousWoodOnly || fatness.isResinous()) {
+            return fatness.getResinRate() * BidsOptions.WoodPile.pitchYieldMultiplier;
+        } else {
+            return 0;
+        }
     }
 
     public void tryToSpreadFire() {

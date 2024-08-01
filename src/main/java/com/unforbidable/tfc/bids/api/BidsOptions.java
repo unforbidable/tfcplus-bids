@@ -37,6 +37,8 @@ public class BidsOptions {
         public static boolean rotateItems = true;
         public static boolean enableFireSetting = true;
         public static float burnTimeMultiplier = 1f;
+        public static float pitchYieldMultiplier = 1f;
+        public static boolean pitchResinousWoodOnly = false;
 
     }
 
