@@ -114,7 +114,7 @@ public class FirepitHelper {
         // The following method returns ASH material for Oak and OAK material for Oak
         // TFC_Core.getFuelMaterial(log);
         // So instead of calling it the logic is cloned here and corrected
-        int dam = itemStack.getItemDamage();
+        int dam = itemStack.getItem() == TFCItems.logs ? itemStack.getItemDamage() / 2 : itemStack.getItemDamage();
         if (dam == 0)
             return EnumFuelMaterial.OAK;
         else if (dam == 1)
