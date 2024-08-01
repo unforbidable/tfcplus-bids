@@ -640,7 +640,14 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             if (onFire && charcoalTimer.tick() && canMakeCharcoal()) {
                 EnumBurningRate burningRate = getBurningRate();
                 if (burningRate == EnumBurningRate.NONE) {
-                    handleMakingCharcoal();
+                    if (isCharcoalDone()) {
+                        // After the charcoal process is complete
+                        // it takes another timer cycle to create it
+                        // This allows time to move out any remaining pitch
+                        doCreateCharcoal();
+                    } else {
+                        handleMakingCharcoal();
+                    }
                 } else {
                     lastCharcoalTicks = TFC_Time.getTotalTicks();
                 }
@@ -1255,16 +1262,6 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
             // Reset seasoning tick progress
             lastSeasoningTicks = TFC_Time.getTotalTicks();
-        }
-    }
-
-    public void tryToCreateCharcoal() {
-        if (isOnFire()) {
-            Bids.LOG.info("Trying to create charcoal at " + xCoord + "," + yCoord + "," + zCoord);
-
-            if (isCharcoalDone()) {
-                doCreateCharcoal();
-            }
         }
     }
 

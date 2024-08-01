@@ -34,8 +34,6 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
         super(Material.wood);
 
         setHardness(10f);
-
-        setTickRandomly(true);
     }
 
     @Override
@@ -135,20 +133,6 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
         }
 
         return super.collisionRayTrace(world, x, y, z, startVec, endVec);
-    }
-
-    @Override
-    public void updateTick(World world, int x, int y, int z, Random rand) {
-        if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
-            TileEntityWoodPile woodPile = (TileEntityWoodPile) world.getTileEntity(x, y, z);
-
-            // Set woodpile on fire from nearby fire blocks
-            if (!woodPile.isOnFire()) {
-                woodPile.tryToCatchFire();
-            }
-
-            woodPile.tryToCreateCharcoal();
-        }
     }
 
     @Override
