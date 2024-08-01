@@ -14,7 +14,6 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
-import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Timer;
@@ -51,7 +50,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class TileEntityWoodPile extends TileEntity implements IInventory, IMessageHanldingTileEntity<WoodPileMessage>, IHeatSourceTE {
 
