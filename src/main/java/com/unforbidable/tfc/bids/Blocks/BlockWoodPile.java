@@ -38,12 +38,7 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
 
     @Override
     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-        TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof TileEntityWoodPile) {
-            return ((TileEntityWoodPile) te).isFull();
-        }
-
-        return false;
+        return true;
     }
 
     @Override
