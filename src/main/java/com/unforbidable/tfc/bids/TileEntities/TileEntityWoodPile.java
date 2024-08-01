@@ -1050,7 +1050,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             }
         }
 
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        setOnFire(false);
     }
 
     protected void seasonItems() {
@@ -1332,8 +1332,6 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private void doSpreadFire() {
-        ArrayDeque<BlockCoord> blocksToBeSetOnFire = new ArrayDeque<BlockCoord>();
-
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity te = worldObj.getTileEntity(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
             if (te instanceof TileEntityWoodPile) {
@@ -1347,30 +1345,28 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
                 // Set fire to non-charcoal pit cover blocks
                 if (canCharcoalPitBlockBurnDown(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ, d)) {
-                    blocksToBeSetOnFire.add(new BlockCoord(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ));
+                    replaceNeighborBlockWithFire(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ, BidsBlocks.light);
                 }
             }
 
             // When the wood pile is large enough
             // Fire is spread 2 blocks above to any flammable blocks around
             if (worldObj.isAirBlock(xCoord, yCoord + 1, zCoord) && worldObj.isAirBlock(xCoord, yCoord + 2, zCoord)) {
-                if (getActualBlockHeight() > 0.25f) {
-                    blocksToBeSetOnFire.add(new BlockCoord(xCoord, yCoord + 2, zCoord));
-                }
+                replaceNeighborBlockWithFire(xCoord, yCoord + 2, zCoord, Blocks.air);
             }
+        }
+    }
 
-            while (blocksToBeSetOnFire.size() > 0) {
-                BlockCoord bc = blocksToBeSetOnFire.poll();
-                Block block = worldObj.getBlock(bc.x, bc.y, bc.z);
-                // Place fire if possible, otherwise air
-                if (WoodPileHelper.canPlaceFireBlockAt(worldObj, bc.x, bc.y, bc.z)) {
-                    if (block != Blocks.fire) {
-                        worldObj.setBlock(bc.x, bc.y, bc.z, Blocks.fire);
-                    }
-                } else if (block != Blocks.air) {
-                    worldObj.setBlockToAir(bc.x, bc.y, bc.z);
-                }
+    private void replaceNeighborBlockWithFire(int x, int y, int z, Block alternativeBlock) {
+        Block block = worldObj.getBlock(x, y, z);
+        if (WoodPileHelper.canPlaceFireBlockAt(worldObj, x, y, z)) {
+            if (block != Blocks.fire) {
+                Bids.LOG.debug("{} => {}", block.getUnlocalizedName(), Blocks.fire.getUnlocalizedName());
+                worldObj.setBlock(x, y, z, Blocks.fire);
             }
+        } else if (block != alternativeBlock) {
+            Bids.LOG.debug("{} => {}", block.getUnlocalizedName(), alternativeBlock.getUnlocalizedName());
+            worldObj.setBlock(x, y, z, alternativeBlock);
         }
     }
 
@@ -1443,7 +1439,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     private void doExtinguishFire() {
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             Block block = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
-            if (block == Blocks.fire) {
+            if (block == Blocks.fire || block == BidsBlocks.light) {
+                Bids.LOG.debug("{} => {}", block.getUnlocalizedName(), Blocks.air.getUnlocalizedName());
                 worldObj.setBlockToAir(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
                 worldObj.markBlockForUpdate(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
             }
