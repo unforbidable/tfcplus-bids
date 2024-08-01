@@ -1279,12 +1279,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             }
         }
 
-        int charcoalCount = Math.round(totalCharcoalCount / 16f);
+        int charcoalCount = Math.min(Math.round(totalCharcoalCount / 16f) + worldObj.rand.nextInt(3), 8);
 
         Arrays.fill(storage, null);
 
         if (charcoalCount > 0) {
-            worldObj.setBlock(xCoord, yCoord, zCoord, TFCBlocks.charcoal, Math.min(charcoalCount, 8), 0x2);
+            worldObj.setBlock(xCoord, yCoord, zCoord, TFCBlocks.charcoal, charcoalCount, 0x2);
             Bids.LOG.info("Created " + charcoalCount + " charcoal at " + xCoord + "," + yCoord + "," + zCoord);
         } else {
             worldObj.setBlockToAir(xCoord, yCoord, zCoord);
@@ -1306,11 +1306,11 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         EnumWoodHardness hardness = EnumWoodHardness.fromDamage(itemStack.getItemDamage());
         switch (hardness) {
             case HARD:
-                return 7 + worldObj.rand.nextInt(2); // 7-8
+                return 7; // 7 - 8
             case MODERATE:
-                return 5 + worldObj.rand.nextInt(3); // 5-7
+                return 5; // 5 - 7
             default:
-                return 4 + worldObj.rand.nextInt(3); // 4-6
+                return 4; // 4 - 6;
         }
     }
 
