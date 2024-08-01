@@ -126,9 +126,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     // a log pile produces about 135 mB of pitch during the process of making charcoal
     // that is about 8.5 mB per log,
     // although the log pile needs to be ticking, so you can't leave, sleep or otherwise skip time
-    // 8 mB is a neat baseline for any wood type
+    // 5 mB is used a neat baseline for any wood type
     // although perhaps way too much for non-resinous wood types
-    private static final float PITCH_PER_ITEM = 8;
+    // to encourage the use of resinous woods
+    private static final float PITCH_PER_ITEM = 5;
 
     // How much pitch moves to neighbor wood pile or hopper below per cycle
     private static final int PITCH_MOVE_AMOUNT = 32;
