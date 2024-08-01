@@ -4,8 +4,7 @@ public enum EnumWoodFatness {
 
     INVALID(false, 0),
     POOR(false, 1f),
-    GOOD(true, 3f),
-    EXCELLENT(true, 4f);
+    GOOD(true, 4f);
 
     private final boolean resinous;
     private final float resinRate;
@@ -40,10 +39,8 @@ public enum EnumWoodFatness {
             case 31: // Joshua (technically not wood)
                 return INVALID;
 
-            case 8: // Pine
-                return EXCELLENT;
-
             case 4: // Douglas Fir
+            case 8: // Pine
             case 9: // Sequoia
             case 10: // Spruce
             case 12: // White Cedar
