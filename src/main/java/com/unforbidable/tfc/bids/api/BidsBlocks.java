@@ -56,6 +56,7 @@ public class BidsBlocks {
     public static Block carvingWood;
 
     public static Block woodPile;
+    public static Block light;
 
     public static Block crackedStoneSed;
     public static Block crackedStoneMM;

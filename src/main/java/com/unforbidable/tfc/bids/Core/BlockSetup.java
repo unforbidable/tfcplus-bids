@@ -325,6 +325,9 @@ public class BlockSetup extends BidsBlocks {
 
         fireBrickChimney = new BlockFireBrickChimney()
             .setBlockName("FireBrickChimney");
+
+        light = new BlockLight()
+            .setBlockName("Light");
     }
 
     private static void updateBlocks() {
@@ -853,6 +856,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(crackedOre3, "CrackedOre3");
 
         GameRegistry.registerBlock(fireBrickChimney, ItemFireBrickChimney.class, "FireBrickChimney");
+
+        GameRegistry.registerBlock(light, "Light");
     }
 
 }

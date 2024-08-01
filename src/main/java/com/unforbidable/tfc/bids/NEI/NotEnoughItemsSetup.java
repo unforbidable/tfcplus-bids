@@ -134,6 +134,8 @@ public class NotEnoughItemsSetup {
         hideBlock(BidsBlocks.unfinishedAnvilStage4, 11);
         hideBlock(BidsBlocks.unfinishedAnvilStage5, 11);
         hideBlock(BidsBlocks.unfinishedAnvilStage6, 11);
+
+        hideBlock(BidsBlocks.light);
     }
 
     private static void hideBlock(Block block) {
