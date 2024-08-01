@@ -132,10 +132,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     private static final float PITCH_PER_ITEM = 5;
 
     // How much pitch moves to neighbor wood pile or hopper below per cycle
-    private static final int PITCH_MOVE_AMOUNT = 32;
+    private static final int PITCH_MOVE_AMOUNT = 20;
 
     // Pitch is moved faster when a large amount builds up
-    private static final int PITCH_MOVE_BULK_AMOUNT = PITCH_MOVE_AMOUNT * 5;
+    private static final int PITCH_MOVE_BULK_AMOUNT = 100;
 
     // After pitch movement fails, set a time out for the next attempt
     private static final int PITCH_MOVEMENT_FAILURE_DELAY = 200;
@@ -688,7 +688,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // Hopper below
             // Pitch is moved bit by bit into the hopper (and barrel)
             // If there is a lot of pitch, move it faster
-            int amountToMove = pitchCounter >= PITCH_MOVE_BULK_AMOUNT ? PITCH_MOVE_BULK_AMOUNT : Math.min(pitchCounter, PITCH_MOVE_AMOUNT);
+            int amountToMove = pitchCounter < PITCH_MOVE_BULK_AMOUNT ?
+                Math.min(pitchCounter, PITCH_MOVE_AMOUNT) :
+                PITCH_MOVE_BULK_AMOUNT * (pitchCounter / PITCH_MOVE_BULK_AMOUNT);
             Bids.LOG.info("Pitch moving to hopper: {}/{}", amountToMove, pitchCounter);
             int amountMoved = WoodPileHelper.offerPitchToHopper(worldObj, xCoord, yCoord - 1, zCoord, amountToMove);
             pitchCounter -= amountMoved;
