@@ -102,7 +102,7 @@ public class ConfigHandler {
                 "replaceFirepitTFC", "firepit", BidsOptions.Firepit.replaceFirepitTFC,
                 "Set this to true if you want to replace TFC firepit");
         BidsOptions.Firepit.burnTimeMultiplier = config.getFloat(
-            "burnTimeMultiplier", "firepit", BidsOptions.WoodPile.burnTimeMultiplier, 0.25f, 2f,
+            "burnTimeMultiplier", "firepit", BidsOptions.Firepit.burnTimeMultiplier, 0.25f, 2f,
             "Higher values increase the time fuel burns in a firepit");
 
         BidsOptions.Kiln.enableBeehiveKiln = config.getBoolean(
