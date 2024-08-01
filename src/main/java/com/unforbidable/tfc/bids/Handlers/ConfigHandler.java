@@ -104,6 +104,9 @@ public class ConfigHandler {
         BidsOptions.Firepit.allowFuelCharcoal = config.getBoolean(
                 "allowFuelCharcoal", "firepit", BidsOptions.Firepit.allowFuelCharcoal,
                 "Set this to true if you want to be able to use charcoal as fuel in a firepit");
+        BidsOptions.Firepit.allowFuelUnseasonedFirewood = config.getBoolean(
+            "allowFuelUnseasonedFirewood", "firepit", BidsOptions.Firepit.allowFuelUnseasonedFirewood,
+            "Set this to true if you want to be able to use unseasoned Firewood as fuel in a firepit");
         BidsOptions.Firepit.replaceFirepitTFC = config.getBoolean(
                 "replaceFirepitTFC", "firepit", BidsOptions.Firepit.replaceFirepitTFC,
                 "Set this to true if you want to replace TFC firepit");

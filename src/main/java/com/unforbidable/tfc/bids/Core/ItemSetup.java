@@ -762,6 +762,10 @@ public class ItemSetup extends BidsItems {
         if (BidsOptions.Firepit.allowFuelCharcoal) {
             FirepitRegistry.registerFuel(TFCItems.coal, FuelCoalTFC.class);
         }
+
+        if (BidsOptions.Firepit.allowFuelUnseasonedFirewood) {
+            FirepitRegistry.registerFuel(firewood, FuelUnseasonedFirewood.class);
+        }
     }
 
     private static void registerCookingIngredientOverrides() {
