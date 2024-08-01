@@ -682,22 +682,20 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private boolean handlePitch() {
-        // If there is a lot of pitch, move it faster
-        int amountToMove = pitchCounter >= PITCH_MOVE_BULK_AMOUNT ? PITCH_MOVE_BULK_AMOUNT : Math.min(pitchCounter, PITCH_MOVE_AMOUNT);
-
-        Bids.LOG.info("Pitch moving: {}/{}", amountToMove, pitchCounter);
-
         TileEntity teBelow = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
         if (teBelow instanceof TEHopper) {
             // Hopper below
+            // Pitch is moved bit by bit into the hopper (and barrel)
+            // If there is a lot of pitch, move it faster
+            int amountToMove = pitchCounter >= PITCH_MOVE_BULK_AMOUNT ? PITCH_MOVE_BULK_AMOUNT : Math.min(pitchCounter, PITCH_MOVE_AMOUNT);
+            Bids.LOG.info("Pitch moving to hopper: {}/{}", amountToMove, pitchCounter);
             int amountMoved = WoodPileHelper.offerPitchToHopper(worldObj, xCoord, yCoord - 1, zCoord, amountToMove);
             pitchCounter -= amountMoved;
+            // Failure if no pitch was moved
             return amountMoved != 0;
         } else if (teBelow instanceof TileEntityWoodPile) {
             // Wood pile below
-            TileEntityWoodPile woodPileBelow = (TileEntityWoodPile) teBelow;
-            woodPileBelow.takePitch(amountToMove);
-            pitchCounter -= amountToMove;
+            movePitchToNeighbor((TileEntityWoodPile) teBelow);
             return true;
         } else {
             // Wood pile to any side, which also has wood pile or hopper below
@@ -705,15 +703,19 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 TileEntity teSide = worldObj.getTileEntity(xCoord + d.offsetX, yCoord, zCoord + d.offsetZ);
                 TileEntity teSideBelow = worldObj.getTileEntity(xCoord + d.offsetX, yCoord - 1, zCoord + d.offsetZ);
                 if (teSide instanceof TileEntityWoodPile && (teSideBelow instanceof TileEntityWoodPile || teSideBelow instanceof TEHopper)) {
-                    TileEntityWoodPile woodPileSide = (TileEntityWoodPile) teSide;
-                    woodPileSide.takePitch(amountToMove);
-                    pitchCounter -= amountToMove;
+                    movePitchToNeighbor((TileEntityWoodPile) teSide);
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    private void movePitchToNeighbor(TileEntityWoodPile woodPile) {
+        // Pitch is moved in its entirety between wood piles
+        woodPile.takePitch(pitchCounter);
+        pitchCounter = 0;
     }
 
     private void takePitch(int pitch) {
