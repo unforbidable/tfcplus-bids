@@ -30,13 +30,8 @@ public class WoodScheme {
         return findWood(getWoodIndex(is));
     }
 
-    public ItemStack getItemStack(WoodIndex wood, EnumWoodItemType type, boolean seasoned, int stackSize) {
-        ItemStack itemStack = getWoodItemStack(wood.index, type, seasoned);
-        if (stackSize != 1) {
-            itemStack.stackSize = stackSize;
-        }
-
-        return itemStack;
+    public ItemStack getItemStack(WoodIndex wood, EnumWoodItemType type) {
+        return getWoodItemStack(wood.index, type);
     }
 
     protected int getWoodIndex(ItemStack is) {
@@ -47,21 +42,53 @@ public class WoodScheme {
         }
     }
 
-    protected ItemStack getWoodItemStack(int index, EnumWoodItemType type, boolean seasoned) {
+    protected ItemStack getWoodItemStack(int index, EnumWoodItemType type) {
         switch (type) {
             case LOG:
-                return seasoned ? new ItemStack(BidsItems.logsSeasoned, 1, index * 2) : new ItemStack(TFCItems.logs, 1, index * 2);
+                return new ItemStack(TFCItems.logs, 1, index * 2);
             case CHOPPED_LOG:
-                return seasoned ? new ItemStack(BidsItems.logsSeasoned, 1, index * 2 + 1) :new ItemStack(TFCItems.logs, 1, index * 2 + 1);
+                return new ItemStack(TFCItems.logs, 1, index * 2 + 1);
             case PEELED_LOG:
-                return seasoned ? new ItemStack(BidsItems.peeledLogSeasoned, 1, index) : new ItemStack(BidsItems.peeledLog, 1, index);
+                return new ItemStack(BidsItems.peeledLog, 1, index);
             case FIREWOOD:
-                return seasoned ? new ItemStack(BidsItems.firewoodSeasoned, 1, index) : new ItemStack(BidsItems.firewood, 1, index);
+                return new ItemStack(BidsItems.firewood, 1, index);
+            case SEASONED_LOG:
+                return new ItemStack(BidsItems.logsSeasoned, 1, index * 2);
+            case SEASONED_CHOPPED_LOG:
+                return new ItemStack(BidsItems.logsSeasoned, 1, index * 2 + 1);
+            case SEASONED_PEELED_LOG:
+                return new ItemStack(BidsItems.peeledLogSeasoned, 1, index);
+            case SEASONED_FIREWOOD:
+                return new ItemStack(BidsItems.firewoodSeasoned, 1, index);
             case BARK:
                 return new ItemStack(BidsItems.bark, 1, index);
         }
 
         return null;
+    }
+
+    public boolean hasItemStack(WoodIndex wood, EnumWoodItemType type) {
+        switch (type) {
+            case LOG:
+            case CHOPPED_LOG:
+                return true;
+            case PEELED_LOG:
+            case SEASONED_LOG:
+            case SEASONED_CHOPPED_LOG:
+            case SEASONED_PEELED_LOG:
+            case SEASONED_FIREWOOD:
+            case BARK:
+                return !wood.irregular;
+            case FIREWOOD:
+                // Firewood exists for any regular wood and also irregular wood that is flammable fresh
+                return !wood.irregular || wood.flammableFresh;
+        }
+
+        return false;
+    }
+
+    public WoodItemProvider getWoodItemProvider(WoodIndex wood) {
+        return new WoodItemProvider(wood, this);
     }
 
 }
