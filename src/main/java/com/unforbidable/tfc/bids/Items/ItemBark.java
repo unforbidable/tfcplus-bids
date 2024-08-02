@@ -3,12 +3,12 @@ package com.unforbidable.tfc.bids.Items;
 import java.util.List;
 
 import com.dunk.tfc.api.Constant.Global;
-import com.dunk.tfc.api.Enums.EnumFuelMaterial;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Firepit.FirepitHelper;
@@ -123,17 +123,17 @@ public class ItemBark extends Item implements ISize, IFirepitFuelMaterial {
 
     @Override
     public int getFuelBurnTime(ItemStack itemStack) {
-        return (int) (FirepitHelper.getEnumFuelMaterial(itemStack).burnTimeMax * 0.1f);
+        return WoodScheme.DEFAULT.findWood(itemStack).maxBurnTime;
     }
 
     @Override
     public int getFuelMaxTemp(ItemStack itemStack) {
-        return (int) (FirepitHelper.getEnumFuelMaterial(itemStack).burnTempMax * 0.5f);
+        return WoodScheme.DEFAULT.findWood(itemStack).maxBurnTemp;
     }
 
     @Override
-    public EnumFuelMaterial getFuelTasteProfile(ItemStack itemStack) {
-        return FirepitHelper.getEnumFuelMaterial(itemStack);
+    public int getFuelTasteProfile(ItemStack itemStack) {
+        return WoodScheme.DEFAULT.findWood(itemStack).tasteProfile;
     }
 
 }

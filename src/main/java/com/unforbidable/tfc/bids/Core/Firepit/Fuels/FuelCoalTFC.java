@@ -31,8 +31,8 @@ public class FuelCoalTFC implements IFirepitFuelMaterial {
     }
 
     @Override
-    public EnumFuelMaterial getFuelTasteProfile(ItemStack itemStack) {
-        return EnumFuelMaterial.CHARCOAL;
+    public int getFuelTasteProfile(ItemStack itemStack) {
+        return EnumFuelMaterial.CHARCOAL.ordinal();
     }
 
 }

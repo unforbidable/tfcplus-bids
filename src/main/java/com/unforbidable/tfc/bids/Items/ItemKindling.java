@@ -108,8 +108,8 @@ public class ItemKindling extends Item implements ISize, IFirepitFuelMaterial {
     }
 
     @Override
-    public EnumFuelMaterial getFuelTasteProfile(ItemStack itemStack) {
-        return EnumFuelMaterial.STICKBUNDLE;
+    public int getFuelTasteProfile(ItemStack itemStack) {
+        return EnumFuelMaterial.STICKBUNDLE.ordinal();
     }
 
 }

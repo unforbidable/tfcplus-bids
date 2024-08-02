@@ -91,8 +91,8 @@ public class ItemSmallStickBundle extends Item implements ISize, IFirepitFuelMat
     }
 
     @Override
-    public EnumFuelMaterial getFuelTasteProfile(ItemStack itemStack) {
-        return EnumFuelMaterial.STICKBUNDLE;
+    public int getFuelTasteProfile(ItemStack itemStack) {
+        return EnumFuelMaterial.STICKBUNDLE.ordinal();
     }
 
 }

@@ -37,8 +37,8 @@ public class FuelStickTFC implements IFirepitFuelMaterial {
     }
 
     @Override
-    public EnumFuelMaterial getFuelTasteProfile(ItemStack itemStack) {
-        return EnumFuelMaterial.STICK;
+    public int getFuelTasteProfile(ItemStack itemStack) {
+        return EnumFuelMaterial.STICK.ordinal();
     }
 
 }

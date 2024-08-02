@@ -28,8 +28,8 @@ public class FuelPeatTFC implements IFirepitFuelMaterial {
     }
 
     @Override
-    public EnumFuelMaterial getFuelTasteProfile(ItemStack itemStack) {
-        return EnumFuelMaterial.PEAT;
+    public int getFuelTasteProfile(ItemStack itemStack) {
+        return EnumFuelMaterial.PEAT.ordinal();
     }
 
 }

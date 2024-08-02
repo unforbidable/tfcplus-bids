@@ -56,7 +56,7 @@ public class TileEntityNewFirepit extends TEFirepit {
         if (setOnFire && fuel != null) {
             fuelTimeLeft = fuel.getFuelBurnTime(kindling) * BidsOptions.Firepit.burnTimeMultiplier;
             fuelBurnTemp = fuel.getFuelMaxTemp(kindling);
-            fuelTasteProfile = fuel.getFuelTasteProfile(kindling).ordinal();
+            fuelTasteProfile = fuel.getFuelTasteProfile(kindling);
             fireTemp = fuelBurnTemp / 2f;
             ashNumber = 1;
         } else {
@@ -171,7 +171,7 @@ public class TileEntityNewFirepit extends TEFirepit {
             final ItemStack itemStack = fireItemStacks[FUEL_BURN_SLOT];
             final IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(itemStack.getItem());
 
-            fuelTasteProfile = fuel.getFuelTasteProfile(itemStack).ordinal();
+            fuelTasteProfile = fuel.getFuelTasteProfile(itemStack);
             fuelTimeLeft = fuel.getFuelBurnTime(itemStack) * BidsOptions.Firepit.burnTimeMultiplier;
             fuelBurnTemp = fuel.getFuelMaxTemp(itemStack);
 

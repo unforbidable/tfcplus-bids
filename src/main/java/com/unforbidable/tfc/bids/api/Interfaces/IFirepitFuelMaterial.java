@@ -1,7 +1,5 @@
 package com.unforbidable.tfc.bids.api.Interfaces;
 
-import com.dunk.tfc.api.Enums.EnumFuelMaterial;
-
 import net.minecraft.item.ItemStack;
 
 public interface IFirepitFuelMaterial {
@@ -14,6 +12,6 @@ public interface IFirepitFuelMaterial {
 
     int getFuelMaxTemp(ItemStack itemStack);
 
-    EnumFuelMaterial getFuelTasteProfile(ItemStack itemStack);
+    int getFuelTasteProfile(ItemStack itemStack);
 
 }

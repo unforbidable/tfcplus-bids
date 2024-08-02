@@ -1,9 +1,8 @@
 package com.unforbidable.tfc.bids.Items;
 
 import com.dunk.tfc.TileEntities.TEPottery;
-import com.dunk.tfc.api.Enums.EnumFuelMaterial;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Firepit.FirepitHelper;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -101,17 +100,17 @@ public class ItemFirewoodSeasoned extends ItemFirewood implements IFirepitFuelMa
 
     @Override
     public int getFuelBurnTime(ItemStack itemStack) {
-        return (int) (FirepitHelper.getEnumFuelMaterial(itemStack).burnTimeMax);
+        return WoodScheme.DEFAULT.findWood(itemStack).maxBurnTime;
     }
 
     @Override
     public int getFuelMaxTemp(ItemStack itemStack) {
-        return (int) (FirepitHelper.getEnumFuelMaterial(itemStack).burnTempMax);
+        return WoodScheme.DEFAULT.findWood(itemStack).maxBurnTemp;
     }
 
     @Override
-    public EnumFuelMaterial getFuelTasteProfile(ItemStack itemStack) {
-        return FirepitHelper.getEnumFuelMaterial(itemStack);
+    public int getFuelTasteProfile(ItemStack itemStack) {
+        return WoodScheme.DEFAULT.findWood(itemStack).tasteProfile;
     }
 
 }
