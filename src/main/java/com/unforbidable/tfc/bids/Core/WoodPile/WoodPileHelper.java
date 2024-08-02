@@ -9,6 +9,8 @@ import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -148,7 +150,14 @@ public class WoodPileHelper {
     }
 
     public static boolean isItemValidWoodPileItemForCharcoal(ItemStack itemStack) {
-        return itemStack.getItem() == BidsItems.firewoodSeasoned;
+        // Item is allowed
+        if (itemStack.getItem() != BidsItems.firewoodSeasoned) {
+            return false;
+        }
+
+        // Wood type is flammable
+        WoodIndex wood = WoodScheme.DEFAULT.findWood(itemStack);
+        return !wood.inflammable;
     }
 
     public static MovingObjectPosition onWoodPileCollisionRayTrace(World world, int x, int y, int z, Vec3 startVec,

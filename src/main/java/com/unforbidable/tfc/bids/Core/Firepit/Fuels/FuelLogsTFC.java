@@ -8,7 +8,7 @@ public class FuelLogsTFC implements IFirepitFuelMaterial {
 
     @Override
     public boolean isFuelValid(ItemStack itemStack) {
-        return true;
+        return !WoodScheme.DEFAULT.findWood(itemStack).inflammable;
     }
 
     @Override
