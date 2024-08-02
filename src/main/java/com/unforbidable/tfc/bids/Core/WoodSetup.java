@@ -151,6 +151,7 @@ public class WoodSetup {
         DEFAULT.registerWood(new WoodBuilder(24, "BAMBOO")
             .setFuelMaterial(EnumFuelMaterial.BAMBOO)
             .setIrregular()
+            .setFlammableFresh()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(25, "GINKGO")
