@@ -19,13 +19,14 @@ import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelItemDemandingRecipe;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
 import com.unforbidable.tfc.bids.Recipes.RecipeCrucibleConversion;
 import com.unforbidable.tfc.bids.Recipes.RecipeEmptyCookingPot;
 import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.*;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
-import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -137,6 +138,7 @@ public class RecipeSetup {
         OreDictionary.registerOre("logWoodPeeledSeasoned", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
 
         for (int i = 0; i < Global.WOOD_ALL.length; i++) {
+            WoodIndex wood = WoodScheme.DEFAULT.findWood(i);
             String suffix = getOreSuffixWood(i);
 
             OreDictionary.registerOre("logWoodAny", new ItemStack(TFCItems.logs, 1, i * 2));
@@ -162,7 +164,7 @@ public class RecipeSetup {
                 OreDictionary.registerOre("logWood" + suffix, new ItemStack(BidsItems.peeledLogSeasoned, 1, i));
                 OreDictionary.registerOre("logWoodSeasoned" + suffix, new ItemStack(BidsItems.peeledLogSeasoned, 1, i));
 
-                if (EnumWoodHardness.fromDamage(i) == EnumWoodHardness.HARD) {
+                if (wood.hardwood) {
                     OreDictionary.registerOre("logWoodPlugAndFeather", new ItemStack(BidsItems.peeledLogSeasoned, 1, i));
                 }
             }

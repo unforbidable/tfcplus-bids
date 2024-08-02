@@ -17,12 +17,12 @@ import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Timer;
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.Core.WoodPile.*;
 import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
-import com.unforbidable.tfc.bids.api.Enums.EnumWoodFatness;
-import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
 import com.unforbidable.tfc.bids.api.Events.FireSettingEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnManager;
@@ -141,6 +141,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     // After pitch movement fails, set a time out for the next attempt
     private static final int PITCH_MOVEMENT_FAILURE_DELAY = 200;
+
+    // Pitch rate from resinous wood
+    private static final float PITCH_RATE_RESINOUS = 4;
+
+    // Pitch rate from non-resinous wood, unless pitch from non-resinous wood is disabled
+    private static final float PITCH_RATE_NON_RESINOUS = 1;
 
     final ItemStack[] storage = new ItemStack[MAX_STORAGE];
 
@@ -771,7 +777,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private void processItemForCharcoal(ItemStack is) {
-        int pitchAmount = Math.round(getPitchRateForWoodType(is) * PITCH_PER_ITEM);
+        float rate = getPitchRateForWoodType(is);
+        int pitchAmount = Math.round(rate * PITCH_PER_ITEM * BidsOptions.WoodPile.pitchYieldMultiplier);
         pitchCounter += pitchAmount;
     }
 
@@ -1307,21 +1314,20 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private int getCharcoalCountForWoodType(ItemStack itemStack) {
-        EnumWoodHardness hardness = EnumWoodHardness.fromDamage(itemStack.getItemDamage());
-        switch (hardness) {
-            case HARD:
-                return 7; // 7 - 8
-            case MODERATE:
-                return 5; // 5 - 7
-            default:
-                return 4; // 4 - 6;
+        WoodIndex wood = WoodScheme.DEFAULT.findWood(itemStack);
+        if (wood.hardwood) {
+            return 7; // 7-8
+        } else {
+            return 4; // 4-6
         }
     }
 
     private float getPitchRateForWoodType(ItemStack itemStack) {
-        EnumWoodFatness fatness = EnumWoodFatness.fromDamage(itemStack.getItemDamage());
-        if (!BidsOptions.WoodPile.pitchResinousWoodOnly || fatness.isResinous()) {
-            return fatness.getResinRate() * BidsOptions.WoodPile.pitchYieldMultiplier;
+        WoodIndex wood = WoodScheme.DEFAULT.findWood(itemStack);
+        if (wood.resinous) {
+            return PITCH_RATE_RESINOUS;
+        } else if (!BidsOptions.WoodPile.pitchResinousWoodOnly) {
+            return PITCH_RATE_NON_RESINOUS;
         } else {
             return 0;
         }

@@ -1,11 +1,11 @@
 package com.unforbidable.tfc.bids.Core.Seasoning;
 
-import java.util.List;
-
-import com.unforbidable.tfc.bids.api.Enums.EnumWoodHardness;
-
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.List;
 
 public class SeasoningHelper {
 
@@ -49,7 +49,8 @@ public class SeasoningHelper {
     }
 
     public static int getWoodSeasoningDuration(int damage) {
-        return EnumWoodHardness.fromDamage(damage).getSeasoningDuration();
+        WoodIndex wood = WoodScheme.DEFAULT.findWood(damage);
+        return wood.hardwood ? 24 : 18;
     }
 
 }
