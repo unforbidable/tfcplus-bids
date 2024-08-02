@@ -1,17 +1,15 @@
 package com.unforbidable.tfc.bids.Items;
 
-import java.util.List;
-
 import com.dunk.tfc.Items.ItemLogs;
-import com.dunk.tfc.api.TFCItems;
-import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
-
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 public class ItemLogsSeasoned extends ItemLogs {
 
@@ -29,9 +27,12 @@ public class ItemLogsSeasoned extends ItemLogs {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list) {
-        for (int i = 0; i < Global.WOOD_ALL.length * 2; i++) {
-            if (SeasoningManager.hasMatchingRecipe(new ItemStack(TFCItems.logs, 1, i))) {
-                list.add(new ItemStack(this, 1, i));
+        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
+            if (wood.items.hasSeasonedLog()) {
+                list.add(wood.items.getSeasonedLog());
+            }
+            if (wood.items.hasSeasonedChoppedLog()) {
+                list.add(wood.items.getSeasonedChoppedLog());
             }
         }
     }

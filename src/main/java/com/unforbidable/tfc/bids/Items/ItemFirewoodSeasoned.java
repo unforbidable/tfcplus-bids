@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Items;
 
 import com.dunk.tfc.TileEntities.TEPottery;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -11,6 +12,16 @@ public class ItemFirewoodSeasoned extends ItemFirewood {
 
     public ItemFirewoodSeasoned() {
         super();
+    }
+
+    @Override
+    protected boolean hasSubItem(WoodIndex wood) {
+        return wood.items.hasSeasonedFirewood();
+    }
+
+    @Override
+    protected Object getSubItem(WoodIndex wood) {
+        return wood.items.getSeasonedFirewood();
     }
 
     @Override
