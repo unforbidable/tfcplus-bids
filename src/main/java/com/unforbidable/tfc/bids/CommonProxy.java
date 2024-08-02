@@ -24,6 +24,7 @@ public class CommonProxy {
         FluidSetup.preInit();
         DrinkSetup.preInit();
         CropSetup.preInit();
+        WoodSetup.preInit();
         NetworkSetup.preInit();
     }
 
