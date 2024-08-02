@@ -8,11 +8,14 @@ import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderer;
 
@@ -24,7 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class ItemFirewood extends Item implements ISize, IWoodPileRenderProvider {
+public class ItemFirewood extends Item implements ISize, IWoodPileRenderProvider, IFirepitFuelMaterial {
 
     private IIcon[] icons;
     protected String[] names;
@@ -172,6 +175,31 @@ public class ItemFirewood extends Item implements ISize, IWoodPileRenderProvider
             default: // 32
                 return BidsBlocks.stackedFirewood3.getIcon(side, meta);
         }
+    }
+
+    @Override
+    public boolean isFuelValid(ItemStack itemStack) {
+        return WoodScheme.DEFAULT.findWood(itemStack).flammableFresh || BidsOptions.Firepit.allowFuelUnseasonedFirewood;
+    }
+
+    @Override
+    public float getFuelKindlingQuality(ItemStack itemStack) {
+        return 0;
+    }
+
+    @Override
+    public int getFuelBurnTime(ItemStack itemStack) {
+        return WoodScheme.DEFAULT.findWood(itemStack).maxBurnTime;
+    }
+
+    @Override
+    public int getFuelMaxTemp(ItemStack itemStack) {
+        return WoodScheme.DEFAULT.findWood(itemStack).maxBurnTemp;
+    }
+
+    @Override
+    public int getFuelTasteProfile(ItemStack itemStack) {
+        return WoodScheme.DEFAULT.findWood(itemStack).tasteProfile;
     }
 
 }

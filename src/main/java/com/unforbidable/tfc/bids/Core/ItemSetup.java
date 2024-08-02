@@ -754,6 +754,7 @@ public class ItemSetup extends BidsItems {
         FirepitRegistry.registerFuel(barkFibreKindling);
         FirepitRegistry.registerFuel(birchBarkKindling);
         FirepitRegistry.registerFuel(firewoodSeasoned);
+        FirepitRegistry.registerFuel(firewood);
 
         if (BidsOptions.Firepit.allowFuelLogsTFC) {
             FirepitRegistry.registerFuel(TFCItems.logs, FuelLogsTFC.class);
@@ -761,10 +762,6 @@ public class ItemSetup extends BidsItems {
 
         if (BidsOptions.Firepit.allowFuelCharcoal) {
             FirepitRegistry.registerFuel(TFCItems.coal, FuelCoalTFC.class);
-        }
-
-        if (BidsOptions.Firepit.allowFuelUnseasonedFirewood) {
-            FirepitRegistry.registerFuel(firewood, FuelUnseasonedFirewood.class);
         }
     }
 

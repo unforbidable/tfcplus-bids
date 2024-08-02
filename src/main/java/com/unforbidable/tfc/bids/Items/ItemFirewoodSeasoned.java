@@ -2,15 +2,12 @@ package com.unforbidable.tfc.bids.Items;
 
 import com.dunk.tfc.TileEntities.TEPottery;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
-import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class ItemFirewoodSeasoned extends ItemFirewood implements IFirepitFuelMaterial {
+public class ItemFirewoodSeasoned extends ItemFirewood {
 
     public ItemFirewoodSeasoned() {
         super();
@@ -91,26 +88,6 @@ public class ItemFirewoodSeasoned extends ItemFirewood implements IFirepitFuelMa
     @Override
     public boolean isFuelValid(ItemStack itemStack) {
         return true;
-    }
-
-    @Override
-    public float getFuelKindlingQuality(ItemStack itemStack) {
-        return 0;
-    }
-
-    @Override
-    public int getFuelBurnTime(ItemStack itemStack) {
-        return WoodScheme.DEFAULT.findWood(itemStack).maxBurnTime;
-    }
-
-    @Override
-    public int getFuelMaxTemp(ItemStack itemStack) {
-        return WoodScheme.DEFAULT.findWood(itemStack).maxBurnTemp;
-    }
-
-    @Override
-    public int getFuelTasteProfile(ItemStack itemStack) {
-        return WoodScheme.DEFAULT.findWood(itemStack).tasteProfile;
     }
 
 }
