@@ -1326,7 +1326,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         WoodIndex wood = WoodScheme.DEFAULT.findWood(itemStack);
         if (wood.resinous) {
             return PITCH_RATE_RESINOUS;
-        } else if (!BidsOptions.WoodPile.pitchResinousWoodOnly) {
+        } else if (BidsOptions.WoodPile.allowPitchFromNonResinousWood) {
             return PITCH_RATE_NON_RESINOUS;
         } else {
             return 0;
