@@ -15,6 +15,7 @@ public class WoodBuilder {
     private boolean hardwood;
     private boolean resinous;
     private boolean inflammable;
+    private boolean flammableFresh;
 
     public WoodBuilder(int index, String name) {
         this.index = index;
@@ -75,6 +76,12 @@ public class WoodBuilder {
         return this;
     }
 
+    public WoodBuilder setFlammableFresh() {
+        this.flammableFresh = true;
+
+        return this;
+    }
+
     public WoodBuilder setFuelMaterial(EnumFuelMaterial fuelMaterial) {
         this.maxBurnTemp = fuelMaterial.burnTempMax;
         this.maxBurnTime = fuelMaterial.burnTimeMax;
@@ -84,7 +91,7 @@ public class WoodBuilder {
     }
 
     public WoodIndex build() {
-        return new WoodIndex(index, name, maxBurnTemp, maxBurnTime, tasteProfile, hasBarkFibers, hasBarkTannin, irregular, hardwood, resinous, inflammable);
+        return new WoodIndex(index, name, maxBurnTemp, maxBurnTime, tasteProfile, hasBarkFibers, hasBarkTannin, irregular, hardwood, resinous, inflammable, flammableFresh);
     }
 
 }
