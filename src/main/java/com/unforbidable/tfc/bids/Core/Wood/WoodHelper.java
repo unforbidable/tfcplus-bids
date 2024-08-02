@@ -9,18 +9,8 @@ import net.minecraft.block.Block;
 
 public class WoodHelper {
 
-    // 0 - "Oak","Aspen","Birch","Chestnut",
-    // 4 - "Douglas Fir","Hickory","Maple","Ash",
-    // 8 - "Pine","Sequoia","Spruce","Sycamore",
-    // 12 - "White Cedar","White Elm","Willow","Kapok",
-    // 16 - "Acacia","Palm","Ebony","Fever",
-    // 20 - "Baobab","Limba","Mahogany","Teak",
-    // 24 - "Bamboo","Gingko","Fruitwood","Mangrove",
-    // 28 - "Ghaf","Mahoe","Laurel","Joshua",
-    // 32 - "Yew"
-
     public static boolean canPeelLog(int meta) {
-        return meta != 17 && meta != 24 && meta != 31;
+        return !WoodScheme.DEFAULT.findWood(meta).irregular;
     }
 
     public static boolean canBuildLogWall(int meta) {
@@ -114,45 +104,19 @@ public class WoodHelper {
     }
 
     public static boolean canBarkMakeTannin(int meta) {
-        switch (meta) {
-            // Values are identical to making tannin from logs
-            case 0:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 9:
-            case 16:
-            case 19:
-            case 21:
-            case 22:
-                return true;
-
-            default:
-                return false;
-        }
+        return WoodScheme.DEFAULT.findWood(meta).hasBarkTannin;
     }
 
     public static boolean canBarkMakeFibers(int meta) {
-        switch (meta) {
-            // Popular trees with fibrous inner bark
-            case 12:
-            case 13:
-            case 14:
-                return true;
-
-            default:
-                return false;
-        }
+        return WoodScheme.DEFAULT.findWood(meta).hasBarkFibers;
     }
 
     public static boolean canMakeFirewood(int meta) {
-        return meta != 17 && meta != 24 && meta != 31;
+        return !WoodScheme.DEFAULT.findWood(meta).irregular;
     }
 
     public static boolean canMakeChoppingBlock(int meta) {
-        return meta != 17 && meta != 24 && meta != 31;
+        return !WoodScheme.DEFAULT.findWood(meta).irregular;
     }
 
     public static EnumLogWallVertType getDefaultLogWallVertType() {
