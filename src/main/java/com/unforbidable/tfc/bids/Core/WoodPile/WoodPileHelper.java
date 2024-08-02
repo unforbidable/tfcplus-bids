@@ -151,15 +151,20 @@ public class WoodPileHelper {
     }
 
     public static boolean isItemValidWoodPileItemForCharcoal(ItemStack itemStack) {
-        // Item is allowed
-        if (!(itemStack.getItem() == BidsItems.firewoodSeasoned
-            || itemStack.getItem() == BidsItems.firewood && BidsOptions.WoodPile.allowCharcoalFromUnseasonedFirewood)) {
+        // Wood type must be flammable
+        WoodIndex wood = WoodScheme.DEFAULT.findWood(itemStack);
+        if (wood.inflammable) {
             return false;
         }
 
-        // Wood type is flammable
-        WoodIndex wood = WoodScheme.DEFAULT.findWood(itemStack);
-        return !wood.inflammable;
+        // Allow seasoned firewood
+        if (itemStack.getItem() == BidsItems.firewoodSeasoned) {
+            return true;
+        }
+
+        // Allow fresh firewood if flammable fresh or per config
+        return itemStack.getItem() == BidsItems.firewood
+            && (BidsOptions.WoodPile.allowCharcoalFromUnseasonedFirewood || wood.flammableFresh);
     }
 
     public static MovingObjectPosition onWoodPileCollisionRayTrace(World world, int x, int y, int z, Vec3 startVec,
