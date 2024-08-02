@@ -23,6 +23,7 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(1, "ASPEN")
             .setFuelMaterial(EnumFuelMaterial.ASPEN)
+            .setHasBark()
             .setHardwood()
             .build());
 
@@ -58,11 +59,13 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(7, "ASH")
             .setFuelMaterial(EnumFuelMaterial.ASH)
+            .setHasBark()
             .setHardwood()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(8, "PINE")
             .setFuelMaterial(EnumFuelMaterial.PINE)
+            .setHasBark()
             .setResinous()
             .build());
 
@@ -74,11 +77,13 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(10, "SPRUCE")
             .setFuelMaterial(EnumFuelMaterial.SPRUCE)
+            .setHasBark()
             .setResinous()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(11, "SYCAMORE")
             .setFuelMaterial(EnumFuelMaterial.SYCAMORE)
+            .setHasBark()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(12, "WHITE_CEDAR")
@@ -101,6 +106,7 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(15, "KAPOK")
             .setFuelMaterial(EnumFuelMaterial.KAPOK)
+            .setHasBark()
             .setHardwood()
             .build());
 
@@ -118,6 +124,7 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(18, "EBONY")
             .setFuelMaterial(EnumFuelMaterial.EBONY)
+            .setHasBark()
             .setHardwood()
             .build());
 
@@ -129,6 +136,7 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(20, "BAOBAB")
             .setFuelMaterial(EnumFuelMaterial.BAOBAB)
+            .setHasBark()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(21, "LIMBA")
@@ -145,41 +153,47 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(23, "TEAK")
             .setFuelMaterial(EnumFuelMaterial.TEAK)
+            .setHasBark()
             .setHardwood()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(24, "BAMBOO")
             .setFuelMaterial(EnumFuelMaterial.BAMBOO)
             .setIrregular()
-            .setFlammableFresh()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(25, "GINKGO")
             .setFuelMaterial(EnumFuelMaterial.GINGKO)
+            .setHasBark()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(26, "FRUIT_WOOD")
             .setFuelMaterial(EnumFuelMaterial.FRUITWOOD)
+            .setHasBark()
             .setHardwood()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(27, "MANGROVE")
             .setFuelMaterial(EnumFuelMaterial.ASPEN)
+            .setHasBark()
             .setHardwood()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(28, "GHAF")
             .setFuelMaterial(EnumFuelMaterial.ASPEN)
+            .setHasBark()
             .setHardwood()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(29, "MAHAOE")
             .setFuelMaterial(EnumFuelMaterial.ASPEN)
+            .setHasBark()
             .setHardwood()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(30, "LAUREL")
             .setFuelMaterial(EnumFuelMaterial.ASPEN)
+            .setHasBark()
             .setHardwood()
             .build());
 
@@ -191,6 +205,7 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(32, "YEW")
             .setFuelMaterial(EnumFuelMaterial.ASPEN)
+            .setHasBark()
             .setHardwood()
             .build());
 

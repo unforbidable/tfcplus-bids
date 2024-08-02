@@ -72,16 +72,19 @@ public class WoodScheme {
             case LOG:
             case CHOPPED_LOG:
                 return true;
-            case PEELED_LOG:
+
             case SEASONED_LOG:
             case SEASONED_CHOPPED_LOG:
             case SEASONED_PEELED_LOG:
-            case SEASONED_FIREWOOD:
-            case BARK:
-                return !wood.irregular;
+                return !wood.inflammable && wood.hasBark;
+
             case FIREWOOD:
-                // Firewood exists for any regular wood and also irregular wood that is flammable fresh
-                return !wood.irregular || wood.flammableFresh;
+            case SEASONED_FIREWOOD:
+                return !wood.inflammable;
+
+            case PEELED_LOG:
+            case BARK:
+                return wood.hasBark;
         }
 
         return false;
