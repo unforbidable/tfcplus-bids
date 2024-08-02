@@ -97,6 +97,9 @@ public class ConfigHandler {
         BidsOptions.WoodPile.pitchYieldMultiplier = config.getFloat(
             "pitchYieldMultiplier", "woodpile", BidsOptions.WoodPile.pitchYieldMultiplier, 0.25f, 2f,
             "Higher values increase the amount of pitch extracted during the production of charcoal");
+        BidsOptions.WoodPile.allowCharcoalFromUnseasonedFirewood = config.getBoolean(
+            "allowCharcoalFromUnseasonedFirewood", "woodpile", BidsOptions.WoodPile.allowCharcoalFromUnseasonedFirewood,
+            "Set this to true if you want to be able to make charcoal and extract pitch from unseasoned firewood");
 
         BidsOptions.Firepit.allowFuelLogsTFC = config.getBoolean(
                 "allowFuelLogsTFC", "firepit", BidsOptions.Firepit.allowFuelLogsTFC,

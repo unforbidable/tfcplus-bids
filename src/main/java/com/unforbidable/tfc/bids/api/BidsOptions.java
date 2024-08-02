@@ -39,6 +39,7 @@ public class BidsOptions {
         public static float burnTimeMultiplier = 1f;
         public static float pitchYieldMultiplier = 1f;
         public static boolean pitchResinousWoodOnly = false;
+        public static boolean allowCharcoalFromUnseasonedFirewood = false;
 
     }
 

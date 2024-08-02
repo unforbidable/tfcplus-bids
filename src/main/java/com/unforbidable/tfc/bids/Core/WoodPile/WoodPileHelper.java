@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -151,7 +152,8 @@ public class WoodPileHelper {
 
     public static boolean isItemValidWoodPileItemForCharcoal(ItemStack itemStack) {
         // Item is allowed
-        if (itemStack.getItem() != BidsItems.firewoodSeasoned) {
+        if (!(itemStack.getItem() == BidsItems.firewoodSeasoned
+            || itemStack.getItem() == BidsItems.firewood && BidsOptions.WoodPile.allowCharcoalFromUnseasonedFirewood)) {
             return false;
         }
 
