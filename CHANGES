@@ -604,3 +604,13 @@
 - Changed: Minor changes to Kiln interfaces (API)
 - Fixed: Proper amount of material drops when carving Stone Brick and Large Stone Brick blocks
 - Fixed: NEI should now be able to match Carving recipe output stacks larger than 1
+
+0.48.0 (2024-08-04)
+- Added: Bamboo firewood
+- Added: Log walls and palisade from Bamboo, Joshua and Palm logs
+- Added: Pitch can be collected from charcoal pit using TFC hoppers
+- Added: Wood can be quickly seasoned/dried in kiln chambers
+- Changed: Updated Chinese translation by Eternal130
+- Changed: Minor changes to firepit fuel interface (API)
+- Fixed: Correct fuel properties should now be used when burning TFC logs in new firepit
+- Fixed: NEI should now be able to match Chopping Block recipe output stacks larger than 1
