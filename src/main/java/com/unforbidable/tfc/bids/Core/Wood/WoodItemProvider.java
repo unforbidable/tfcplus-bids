@@ -13,7 +13,7 @@ public class WoodItemProvider {
     }
 
     protected boolean hasItemStack(EnumWoodItemType type) {
-        return scheme.hasItemStack(wood, type);
+        return scheme.hasWoodItemStack(wood, type);
     }
 
     protected ItemStack getItemStack(EnumWoodItemType type) {

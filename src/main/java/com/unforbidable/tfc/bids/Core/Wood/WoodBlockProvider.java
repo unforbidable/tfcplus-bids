@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Core.Wood;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 public class WoodBlockProvider {
@@ -14,7 +13,7 @@ public class WoodBlockProvider {
     }
 
     protected boolean hasBlockStack(EnumWoodBlockType type) {
-        return scheme.hasBlockStack(wood, type);
+        return scheme.hasWoodBlockStack(wood, type);
     }
 
     protected ItemStack getBlockStack(EnumWoodBlockType type) {

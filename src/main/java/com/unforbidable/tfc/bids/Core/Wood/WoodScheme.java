@@ -69,7 +69,7 @@ public class WoodScheme {
         return null;
     }
 
-    public boolean hasItemStack(WoodIndex wood, EnumWoodItemType type) {
+    public boolean hasWoodItemStack(WoodIndex wood, EnumWoodItemType type) {
         switch (type) {
             case LOG:
             case LUMBER:
@@ -118,7 +118,7 @@ public class WoodScheme {
         return null;
     }
 
-    public boolean hasBlockStack(WoodIndex wood, EnumWoodBlockType type) {
+    public boolean hasWoodBlockStack(WoodIndex wood, EnumWoodBlockType type) {
         switch (type) {
             case WOOD_VERT:
             case WOOD_SUPPORT:
