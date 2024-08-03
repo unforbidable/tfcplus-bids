@@ -26,6 +26,8 @@ tile.MudBrickChimney2.Schist.name=烟囱(片岩泥砖)
 tile.MudBrickChimney.Shale.name=烟囱(页岩泥砖)
 tile.MudBrickChimney2.Slate.name=烟囱(板岩泥砖)
 
+tile.FireBrickChimney.FireBrick.name=烟囱(耐火砖)
+
 tile.Quarry.name=采石
 
 tile.WoodPile.name=原木垛
