@@ -63,12 +63,14 @@ public class ChoppingBlockHandler extends TemplateRecipeHandler implements IHand
     @Override
     public void loadCraftingRecipes(ItemStack output) {
         for (ChoppingBlockRecipe recipe : ChoppingBlockManager.getRecipes()) {
+            final ItemStack output2 = output.copy();
+            output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getCraftingResult(input);
-            if (ItemStack.areItemStacksEqual(result, output)) {
+            if (ItemStack.areItemStacksEqual(result, output2)) {
                 List<ItemStack> tools = OreDictionary.getOres(recipe.getToolOreName(), false);
                 List<ItemStack> blocks = OreDictionary.getOres("blockChoppingBlock", false);
-                arecipes.add(new CachedChoppingRecipe(input, output, tools, blocks));
+                arecipes.add(new CachedChoppingRecipe(input, output2, tools, blocks));
             }
         }
     }
