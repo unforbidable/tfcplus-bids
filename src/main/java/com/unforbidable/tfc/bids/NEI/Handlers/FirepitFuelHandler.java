@@ -51,11 +51,30 @@ public class FirepitFuelHandler extends TemplateRecipeHandler implements IHandle
         if (outputId.equals(HANDLER_ID) && getClass() == FirepitFuelHandler.class) {
             for (Item item : FirepitRegistry.getFuels()) {
                 IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(item);
-                arecipes.add(new CachedFirepitFuelRecipe(fuel, item));
+
+                // Ensure any sub items are valid fuel
+                List<ItemStack> temp = getValidFuelSubItems(fuel, item);
+                if (temp.size() > 0) {
+                    arecipes.add(new CachedFirepitFuelRecipe(fuel, item));
+                }
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
         }
+    }
+
+    private static List<ItemStack> getValidFuelSubItems(IFirepitFuelMaterial fuel, Item item) {
+        final List<ItemStack> temp = new ArrayList<ItemStack>();
+        item.getSubItems(item, null, temp);
+
+        final List<ItemStack> list = new ArrayList<ItemStack>();
+        for (ItemStack is : temp) {
+            if (fuel.isFuelValid(is)) {
+                list.add(is);
+            }
+        }
+
+        return list;
     }
 
     @Override
@@ -100,14 +119,7 @@ public class FirepitFuelHandler extends TemplateRecipeHandler implements IHandle
             this.fuel = fuel;
             this.ingred = ingred;
 
-            final List<ItemStack> temp = new ArrayList<ItemStack>();
-            ingred.getSubItems(ingred, null, temp);
-
-            for (ItemStack is : temp) {
-                if (fuel.isFuelValid(is)) {
-                    ingreds.add(is);
-                }
-            }
+            ingreds.addAll(getValidFuelSubItems(fuel, ingred));
         }
 
         public String getKindlingString() {
