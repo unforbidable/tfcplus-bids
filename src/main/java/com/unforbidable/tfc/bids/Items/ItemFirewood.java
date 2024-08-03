@@ -181,7 +181,7 @@ public class ItemFirewood extends Item implements ISize, IWoodPileRenderProvider
 
     @Override
     public boolean isFuelValid(ItemStack itemStack) {
-        return BidsOptions.Firepit.allowFuelUnseasonedFirewood;
+        return true;
     }
 
     @Override
