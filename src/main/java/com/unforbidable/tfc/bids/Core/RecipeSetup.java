@@ -110,10 +110,6 @@ public class RecipeSetup {
         OreDictionary.registerOre("materialStringStrong", BidsItems.barkCordage);
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            int i = wood.index;
-            int j = i % 16;
-            int o = i / 16 * 16;
-
             if (wood.blocks.hasChoppingBlock()) {
                 OreDictionary.registerOre("blockChoppingBlock", wood.blocks.getChoppingBlock());
             }
@@ -576,25 +572,29 @@ public class RecipeSetup {
             if (wood.items.hasPeeledLog()) {
                 GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getPeeledLog(),
                     wood.items.getLog(), "itemAdze"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getPeeledLog(),
-                    wood.items.getChoppedLog(), "itemAdze"));
-
                 ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
                     wood.items.getPeeledLog(), wood.items.getLog()));
-                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                    wood.items.getPeeledLog(), wood.items.getChoppedLog()));
+
+                if (wood.items.hasChoppedLog()) {
+                    GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getPeeledLog(),
+                        wood.items.getChoppedLog(), "itemAdze"));
+                    ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+                        wood.items.getPeeledLog(), wood.items.getChoppedLog()));
+                }
             }
 
             if (wood.items.hasSeasonedPeeledLog()) {
                 GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedPeeledLog(),
                     wood.items.getSeasonedLog(), "itemAdze"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedPeeledLog(),
-                    wood.items.getSeasonedChoppedLog(), "itemAdze"));
-
                 ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
                     wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedLog()));
-                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                    wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog()));
+
+                if (wood.items.hasSeasonedChoppedLog()) {
+                    GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedPeeledLog(),
+                        wood.items.getSeasonedChoppedLog(), "itemAdze"));
+                    ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+                        wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog()));
+                }
 
                 SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedPeeledLog(),
                     wood.items.getPeeledLog(),
@@ -605,9 +605,12 @@ public class RecipeSetup {
                 SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedLog(),
                     wood.items.getLog(),
                     SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.LOG)));
-                SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedChoppedLog(),
-                    wood.items.getChoppedLog(),
-                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.CHOPPED_LOG)));
+
+                if (wood.items.hasChoppedLog()) {
+                    SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedChoppedLog(),
+                        wood.items.getChoppedLog(),
+                        SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.CHOPPED_LOG)));
+                }
             }
 
             if (wood.items.hasFirewood()) {
@@ -617,9 +620,12 @@ public class RecipeSetup {
                 ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
                     wood.items.getFirewood(),
                     wood.items.getLog()));
-                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                    wood.items.getFirewood(),
-                    wood.items.getChoppedLog()));
+
+                if (wood.items.hasChoppedLog()) {
+                    ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                        wood.items.getFirewood(),
+                        wood.items.getChoppedLog()));
+                }
 
                 if (wood.items.hasPeeledLog()) {
                     ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
@@ -636,6 +642,9 @@ public class RecipeSetup {
                     ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
                         wood.items.getSeasonedFirewood(),
                         wood.items.getSeasonedLog()));
+                }
+
+                if (wood.items.hasSeasonedChoppedLog()) {
                     ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
                         wood.items.getSeasonedFirewood(),
                         wood.items.getSeasonedChoppedLog()));

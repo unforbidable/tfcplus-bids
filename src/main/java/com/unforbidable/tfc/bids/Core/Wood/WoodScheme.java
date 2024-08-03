@@ -72,17 +72,21 @@ public class WoodScheme {
     public boolean hasItemStack(WoodIndex wood, EnumWoodItemType type) {
         switch (type) {
             case LOG:
-            case CHOPPED_LOG:
             case LUMBER:
                 return true;
+
+            case CHOPPED_LOG:
+                return wood.hasLargeLogs;
 
             case FIREWOOD:
             case SEASONED_FIREWOOD:
                 return !wood.inflammable;
 
+            case SEASONED_CHOPPED_LOG:
+                return wood.hasBark && wood.hasLargeLogs;
+
             case PEELED_LOG:
             case SEASONED_LOG:
-            case SEASONED_CHOPPED_LOG:
             case SEASONED_PEELED_LOG:
             case BARK:
                 return wood.hasBark;
