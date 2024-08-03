@@ -1062,6 +1062,20 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         setOnFire(false);
     }
 
+    public void seasonItemsFully() {
+        for (int i = 0; i < MAX_STORAGE; i++) {
+            if (storage[i] != null) {
+                final SeasoningRecipe recipe = SeasoningManager.getMatchingRecipe(storage[i]);
+                if (recipe != null) {
+                    Bids.LOG.debug("Item fully seasoned in slot: " + i);
+                    ItemStack output = recipe.getCraftingResult(storage[i]);
+                    storage[i] = output.copy();
+                    onStorageChanged();
+                }
+            }
+        }
+    }
+
     protected void seasonItems() {
         final long ticksSinceLastSeasoning = TFC_Time.getTotalTicks() - lastSeasoningTicks;
         lastSeasoningTicks = TFC_Time.getTotalTicks();

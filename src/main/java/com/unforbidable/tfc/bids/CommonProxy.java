@@ -39,6 +39,7 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(new AchievementHandler());
         MinecraftForge.EVENT_BUS.register(new FireSettingHandler());
         MinecraftForge.EVENT_BUS.register(new KilnPotteryFiringHandler());
+        MinecraftForge.EVENT_BUS.register(new KilnWoodDryingHandler());
     }
 
     public void postInit(FMLPostInitializationEvent event) {
