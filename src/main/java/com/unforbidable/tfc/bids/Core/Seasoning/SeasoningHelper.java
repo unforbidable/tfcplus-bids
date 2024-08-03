@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.Core.Seasoning;
 
 import com.unforbidable.tfc.bids.Core.Wood.EnumWoodItemType;
 import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
-import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -50,7 +49,9 @@ public class SeasoningHelper {
     }
 
     public static int getWoodSeasoningDuration(WoodIndex wood, EnumWoodItemType type) {
-        int baseDuration = wood.hardwood ? 24 : 18;
+        // Wood types without bark season very fast - i.e. bamboo
+        // Hardwoods season slowest
+        int baseDuration = !wood.hasBark ? 12 : (wood.hardwood ? 24 : 18);
 
         switch (type) {
             case FIREWOOD:
