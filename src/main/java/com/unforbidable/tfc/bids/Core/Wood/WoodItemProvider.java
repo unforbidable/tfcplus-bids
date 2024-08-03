@@ -12,12 +12,16 @@ public class WoodItemProvider {
         this.scheme = scheme;
     }
 
-    public boolean hasItemStack(EnumWoodItemType type) {
+    protected boolean hasItemStack(EnumWoodItemType type) {
         return scheme.hasItemStack(wood, type);
     }
 
-    public ItemStack getItemStack(EnumWoodItemType type) {
-        return scheme.getItemStack(wood, type);
+    protected ItemStack getItemStack(EnumWoodItemType type) {
+        return getItemStack(type, 1);
+    }
+
+    protected ItemStack getItemStack(EnumWoodItemType type, int stackSize) {
+        return scheme.getItemStack(wood, type, stackSize);
     }
 
     public boolean hasLog() {

@@ -30,8 +30,8 @@ public class WoodScheme {
         return findWood(getWoodIndex(is));
     }
 
-    public ItemStack getItemStack(WoodIndex wood, EnumWoodItemType type) {
-        return getWoodItemStack(wood.index, type);
+    public ItemStack getItemStack(WoodIndex wood, EnumWoodItemType type, int stackSize) {
+        return getWoodItemStack(wood.index, type, stackSize);
     }
 
     protected int getWoodIndex(ItemStack is) {
@@ -42,26 +42,28 @@ public class WoodScheme {
         }
     }
 
-    protected ItemStack getWoodItemStack(int index, EnumWoodItemType type) {
+    protected ItemStack getWoodItemStack(int index, EnumWoodItemType type, int stackSize) {
         switch (type) {
             case LOG:
-                return new ItemStack(TFCItems.logs, 1, index * 2);
+                return new ItemStack(TFCItems.logs, stackSize, index * 2);
             case CHOPPED_LOG:
-                return new ItemStack(TFCItems.logs, 1, index * 2 + 1);
+                return new ItemStack(TFCItems.logs, stackSize, index * 2 + 1);
             case PEELED_LOG:
-                return new ItemStack(BidsItems.peeledLog, 1, index);
+                return new ItemStack(BidsItems.peeledLog, stackSize, index);
             case FIREWOOD:
-                return new ItemStack(BidsItems.firewood, 1, index);
+                return new ItemStack(BidsItems.firewood, stackSize, index);
             case SEASONED_LOG:
-                return new ItemStack(BidsItems.logsSeasoned, 1, index * 2);
+                return new ItemStack(BidsItems.logsSeasoned, stackSize, index * 2);
             case SEASONED_CHOPPED_LOG:
-                return new ItemStack(BidsItems.logsSeasoned, 1, index * 2 + 1);
+                return new ItemStack(BidsItems.logsSeasoned, stackSize, index * 2 + 1);
             case SEASONED_PEELED_LOG:
-                return new ItemStack(BidsItems.peeledLogSeasoned, 1, index);
+                return new ItemStack(BidsItems.peeledLogSeasoned, stackSize, index);
             case SEASONED_FIREWOOD:
-                return new ItemStack(BidsItems.firewoodSeasoned, 1, index);
+                return new ItemStack(BidsItems.firewoodSeasoned, stackSize, index);
             case BARK:
-                return new ItemStack(BidsItems.bark, 1, index);
+                return new ItemStack(BidsItems.bark, stackSize, index);
+            case LUMBER:
+                return new ItemStack(TFCItems.singlePlank, stackSize, index);
         }
 
         return null;
@@ -71,6 +73,7 @@ public class WoodScheme {
         switch (type) {
             case LOG:
             case CHOPPED_LOG:
+            case LUMBER:
                 return true;
 
             case SEASONED_PEELED_LOG:
