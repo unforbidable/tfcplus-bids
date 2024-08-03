@@ -9,5 +9,6 @@ public enum EnumWoodItemType {
     SEASONED_CHOPPED_LOG,
     SEASONED_PEELED_LOG,
     SEASONED_FIREWOOD,
-    BARK
+    BARK,
+    LUMBER
 }

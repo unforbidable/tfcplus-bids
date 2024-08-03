@@ -96,4 +96,16 @@ public class WoodItemProvider {
         return getItemStack(EnumWoodItemType.BARK);
     }
 
+    public boolean hasLumber() {
+        return hasItemStack(EnumWoodItemType.LUMBER);
+    }
+
+    public ItemStack getLumber() {
+        return getItemStack(EnumWoodItemType.LUMBER);
+    }
+
+    public ItemStack getLumber(int stackSize) {
+        return getItemStack(EnumWoodItemType.LUMBER, stackSize);
+    }
+
 }

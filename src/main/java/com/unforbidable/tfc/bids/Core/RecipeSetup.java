@@ -718,8 +718,10 @@ public class RecipeSetup {
             }
 
             // Copies of TFC recipes for items made logs
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.singlePlank, 8, i),
-                "logWoodSeasoned" + suffix, "itemSaw"));
+            if (wood.items.hasLumber()) {
+                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getLumber(8),
+                    "logWoodSeasoned" + suffix, "itemSaw"));
+            }
 
             // Copies of TFC recipes for block made from logs
             if (wood.items.hasPeeledLog() || wood.items.hasSeasonedLog()) {
@@ -728,19 +730,19 @@ public class RecipeSetup {
                         "A2", " 2", '2', "logWood" + suffix, 'A', "itemSaw"));
 
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.fence, 6, j),
-                        "LPL", "LPL", 'L', "logWood" + suffix, 'P', new ItemStack(TFCItems.singlePlank, 1, i)));
+                        "LPL", "LPL", 'L', "logWood" + suffix, 'P', wood.items.getLumber()));
                 } else if (i < 32) {
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV2, 8, j),
                         "A2", " 2", '2', "logWood" + suffix, 'A', "itemSaw"));
 
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.fence2, 6, j),
-                        "LPL", "LPL", 'L', "logWood" + suffix, 'P', new ItemStack(TFCItems.singlePlank, 1, i)));
+                        "LPL", "LPL", 'L', "logWood" + suffix, 'P', wood.items.getLumber()));
                 } else if (i < 48) {
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV3, 8, j),
                         "A2", " 2", '2', "logWood" + suffix, 'A', "itemSaw"));
 
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.fence3, 6, j),
-                        "LPL", "LPL", 'L', "logWood" + suffix, 'P', new ItemStack(TFCItems.singlePlank, 1, i)));
+                        "LPL", "LPL", 'L', "logWood" + suffix, 'P', wood.items.getLumber()));
                 }
             }
         }
