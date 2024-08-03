@@ -915,6 +915,11 @@ public class RecipeSetup {
                     .matchIngredient(BidsItems.logsSeasoned)
                     .matchIngredient(BidsItems.logsSeasoned)
                     .matchCraftingBlock(logWall));
+            RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemAdze")
+                .matchIngredient(TFCItems.logs)
+                .matchIngredient(TFCItems.logs)
+                .matchCraftingBlock(logWall));
 
             Block logWallVert = WoodHelper.getDefaultLogWallVertBlock(i * 16);
             RecipeManager.addAction(new ActionDamageTool(1)
@@ -927,6 +932,11 @@ public class RecipeSetup {
                     .matchIngredient(BidsItems.logsSeasoned)
                     .matchIngredient(BidsItems.logsSeasoned)
                     .matchCraftingBlock(logWallVert));
+            RecipeManager.addAction(new ActionDamageTool(1)
+                .addTools("itemAdze")
+                .matchIngredient(TFCItems.logs)
+                .matchIngredient(TFCItems.logs)
+                .matchCraftingBlock(logWallVert));
         }
 
         RecipeManager.addAction(new ActionDamageTool(1)
