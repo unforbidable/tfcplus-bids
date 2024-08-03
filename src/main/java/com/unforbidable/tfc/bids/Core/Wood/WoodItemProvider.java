@@ -32,6 +32,10 @@ public class WoodItemProvider {
         return getItemStack(EnumWoodItemType.LOG);
     }
 
+    public ItemStack getLog(int stackSize) {
+        return getItemStack(EnumWoodItemType.LOG, stackSize);
+    }
+
     public boolean hasChoppedLog() {
         return hasItemStack(EnumWoodItemType.CHOPPED_LOG);
     }

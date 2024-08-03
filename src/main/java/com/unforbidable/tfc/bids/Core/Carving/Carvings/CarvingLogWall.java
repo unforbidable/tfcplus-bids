@@ -3,10 +3,10 @@ package com.unforbidable.tfc.bids.Core.Carving.Carvings;
 import java.util.Random;
 
 import com.unforbidable.tfc.bids.Blocks.BlockLogWall;
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
-import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -36,11 +36,23 @@ public class CarvingLogWall implements ICarving {
 
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
-        final int damage = ((BlockLogWall) block).getOffset() + metadata;
-        return new ItemStack[] {
-                new ItemStack(BidsItems.peeledLogSeasoned, 1, damage),
-                new ItemStack(BidsItems.peeledLogSeasoned, 1, damage)
-        };
+        int damage = getItemDamage(block, metadata);
+        WoodIndex wood = WoodScheme.DEFAULT.findWood(damage);
+        if (wood.items.hasPeeledLog()) {
+            return new ItemStack[] {
+                wood.items.getSeasonedPeeledLog(),
+                wood.items.getSeasonedPeeledLog()
+            };
+        } else {
+            return new ItemStack[] {
+                wood.items.getLog(),
+                wood.items.getLog()
+            };
+        }
+    }
+
+    protected int getItemDamage(Block block, int metadata) {
+        return ((BlockLogWall)block).getOffset() + metadata;
     }
 
     @Override

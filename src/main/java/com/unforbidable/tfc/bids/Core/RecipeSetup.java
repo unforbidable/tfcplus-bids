@@ -632,12 +632,14 @@ public class RecipeSetup {
                 GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedFirewood(),
                     "logWoodSeasoned" + suffix, "itemAxe"));
 
-                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                    wood.items.getSeasonedFirewood(),
-                    wood.items.getSeasonedLog()));
-                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                    wood.items.getSeasonedFirewood(),
-                    wood.items.getSeasonedChoppedLog()));
+                if (wood.items.hasSeasonedLog()) {
+                    ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                        wood.items.getSeasonedFirewood(),
+                        wood.items.getSeasonedLog()));
+                    ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                        wood.items.getSeasonedFirewood(),
+                        wood.items.getSeasonedChoppedLog()));
+                }
 
                 if (wood.items.hasSeasonedPeeledLog()) {
                     ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
@@ -651,17 +653,31 @@ public class RecipeSetup {
             }
 
             if (wood.blocks.hasLogWall()) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWall(),
-                    "A ", "11", '1', "logWoodSeasoned" + suffix,
-                    'A', "itemAdze"));
-                GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getSeasonedPeeledLog(2),
-                    Collections.singletonList(wood.blocks.getLogWall())));
+                if (wood.items.hasSeasonedPeeledLog()) {
+                    GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWall(),
+                        "A ", "11", '1', "logWoodSeasoned" + suffix,
+                        'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getSeasonedPeeledLog(2),
+                        Collections.singletonList(wood.blocks.getLogWall())));
 
-                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWallVert(),
-                    "A1", " 1", '1', "logWoodSeasoned" + suffix,
-                    'A', "itemAdze"));
-                GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getSeasonedPeeledLog(2),
-                    Collections.singletonList(wood.blocks.getLogWallVert())));
+                    GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWallVert(),
+                        "A1", " 1", '1', "logWoodSeasoned" + suffix,
+                        'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getSeasonedPeeledLog(2),
+                        Collections.singletonList(wood.blocks.getLogWallVert())));
+                } else {
+                    GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWall(),
+                        "A ", "11", '1', "logWood" + suffix,
+                        'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getLog(2),
+                        Collections.singletonList(wood.blocks.getLogWall())));
+
+                    GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWallVert(),
+                        "A1", " 1", '1', "logWood" + suffix,
+                        'A', "itemAdze"));
+                    GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getLog(2),
+                        Collections.singletonList(wood.blocks.getLogWallVert())));
+                }
             }
 
             if (wood.blocks.hasPalisade()) {
