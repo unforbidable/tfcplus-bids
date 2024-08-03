@@ -247,12 +247,12 @@ public class WoodPileHelper {
         BlockCoord next = bc.offset(dir.offsetX, dir.offsetY, dir.offsetZ);
         Block block = world.getBlock(next.x, next.y, next.z);
         if (block instanceof BlockBarrel) {
-            Bids.LOG.info("Found barrel {} in distance {}", dir, distance);
+            Bids.LOG.debug("Found barrel {} in distance {}", dir, distance);
             return next;
         } else {
             if (distance < 32 && block instanceof BlockHopper && !checked.contains(next)) {
                 checked.add(next);
-                Bids.LOG.info("Following hopper {}", dir);
+                Bids.LOG.debug("Following hopper {}", dir);
                 return findHopperDestination(world, next, checked, distance + 1);
             } else {
                 return null;

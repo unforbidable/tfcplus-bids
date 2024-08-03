@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Core.Recipes.Actions;
 
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeAction;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import net.minecraft.item.ItemStack;
@@ -34,7 +33,6 @@ public class ActionKeepItem extends RecipeAction {
             if (event.craftMatrix.getStackInSlot(i) != null) {
                 for (ItemStack is : items) {
                     if (event.craftMatrix.getStackInSlot(i).getItem() == is.getItem()) {
-                        Bids.LOG.info("Found matching item to be kept: " + event.craftMatrix.getStackInSlot(i).getDisplayName());
                         increaseItemStackSizeInSlot(event, i);
                     }
                 }
@@ -48,8 +46,6 @@ public class ActionKeepItem extends RecipeAction {
             int stackSize = event.craftMatrix.getStackInSlot(i).stackSize;
             stackSize++;
             event.craftMatrix.getStackInSlot(i).stackSize = stackSize;
-
-            Bids.LOG.info("Item was kept");
         }
     }
 }
