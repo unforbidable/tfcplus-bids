@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core.Seasoning;
 
+import com.unforbidable.tfc.bids.Core.Wood.EnumWoodItemType;
 import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
 import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import net.minecraft.item.ItemStack;
@@ -48,9 +49,19 @@ public class SeasoningHelper {
         // }
     }
 
-    public static int getWoodSeasoningDuration(int damage) {
-        WoodIndex wood = WoodScheme.DEFAULT.findWood(damage);
-        return wood.hardwood ? 24 : 18;
+    public static int getWoodSeasoningDuration(WoodIndex wood, EnumWoodItemType type) {
+        int baseDuration = wood.hardwood ? 24 : 18;
+
+        switch (type) {
+            case FIREWOOD:
+                return baseDuration - 4;
+
+            case PEELED_LOG:
+                return baseDuration - 2;
+
+            default:
+                return baseDuration;
+        }
     }
 
 }

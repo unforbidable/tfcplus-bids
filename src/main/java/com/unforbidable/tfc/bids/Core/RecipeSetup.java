@@ -18,6 +18,7 @@ import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelItemDemandingRecipe;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
+import com.unforbidable.tfc.bids.Core.Wood.EnumWoodItemType;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
 import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
@@ -107,7 +108,8 @@ public class RecipeSetup {
 
         OreDictionary.registerOre("materialStringStrong", BidsItems.barkCordage);
 
-        for (int i = 0; i < Global.WOOD_ALL.length; i++) {
+        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
+            int i = wood.index;
             int j = i % 16;
             int o = i / 16 * 16;
 
@@ -137,35 +139,46 @@ public class RecipeSetup {
         OreDictionary.registerOre("logWood", new ItemStack(BidsItems.logsSeasoned, 1, WILD));
         OreDictionary.registerOre("logWoodPeeledSeasoned", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
 
-        for (int i = 0; i < Global.WOOD_ALL.length; i++) {
-            WoodIndex wood = WoodScheme.DEFAULT.findWood(i);
-            String suffix = getOreSuffixWood(i);
+        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
+            String suffix = getOreSuffixWood(wood.index);
 
-            OreDictionary.registerOre("logWoodAny", new ItemStack(TFCItems.logs, 1, i * 2));
-            OreDictionary.registerOre("logWoodAny", new ItemStack(TFCItems.logs, 1, i * 2 + 1));
-            OreDictionary.registerOre("logWood" + suffix, new ItemStack(TFCItems.logs, 1, i * 2));
-            OreDictionary.registerOre("logWood" + suffix, new ItemStack(TFCItems.logs, 1, i * 2 + 1));
-            OreDictionary.registerOre("logWoodFresh" + suffix, new ItemStack(TFCItems.logs, 1, i * 2));
-            OreDictionary.registerOre("logWoodFresh" + suffix, new ItemStack(TFCItems.logs, 1, i * 2 + 1));
+            if (wood.items.hasLog()) {
+                OreDictionary.registerOre("logWoodAny", wood.items.getLog());
+                OreDictionary.registerOre("logWood" + suffix, wood.items.getLog());
+                OreDictionary.registerOre("logWoodFresh" + suffix, wood.items.getLog());
+            }
 
-            if (WoodHelper.canPeelLog(i)) {
-                OreDictionary.registerOre("logWoodAny", new ItemStack(BidsItems.peeledLog, 1, i));
-                OreDictionary.registerOre("logWood" + suffix, new ItemStack(BidsItems.peeledLog, 1, i));
-                OreDictionary.registerOre("logWoodFresh" + suffix, new ItemStack(BidsItems.peeledLog, 1, i));
+            if (wood.items.hasChoppedLog()) {
+                OreDictionary.registerOre("logWoodAny", wood.items.getChoppedLog());
+                OreDictionary.registerOre("logWood" + suffix, wood.items.getChoppedLog());
+                OreDictionary.registerOre("logWoodFresh" + suffix, wood.items.getChoppedLog());
+            }
 
-                OreDictionary.registerOre("logWoodAny", new ItemStack(BidsItems.logsSeasoned, 1, i * 2));
-                OreDictionary.registerOre("logWoodAny", new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1));
-                OreDictionary.registerOre("logWood" + suffix, new ItemStack(BidsItems.logsSeasoned, 1, i * 2));
-                OreDictionary.registerOre("logWood" + suffix, new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1));
-                OreDictionary.registerOre("logWoodSeasoned" + suffix, new ItemStack(BidsItems.logsSeasoned, 1, i * 2));
-                OreDictionary.registerOre("logWoodSeasoned" + suffix, new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1));
+            if (wood.items.hasSeasonedLog()) {
+                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedLog());
+                OreDictionary.registerOre("logWood" + suffix, wood.items.getSeasonedLog());
+                OreDictionary.registerOre("logWoodSeasoned" + suffix, wood.items.getSeasonedLog());
+            }
 
-                OreDictionary.registerOre("logWoodAny", new ItemStack(BidsItems.peeledLogSeasoned, 1, i));
-                OreDictionary.registerOre("logWood" + suffix, new ItemStack(BidsItems.peeledLogSeasoned, 1, i));
-                OreDictionary.registerOre("logWoodSeasoned" + suffix, new ItemStack(BidsItems.peeledLogSeasoned, 1, i));
+            if (wood.items.hasSeasonedChoppedLog()) {
+                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedChoppedLog());
+                OreDictionary.registerOre("logWood" + suffix, wood.items.getSeasonedChoppedLog());
+                OreDictionary.registerOre("logWoodSeasoned" + suffix, wood.items.getSeasonedChoppedLog());
+            }
+
+            if (wood.items.hasPeeledLog()) {
+                OreDictionary.registerOre("logWoodAny", wood.items.getPeeledLog());
+                OreDictionary.registerOre("logWood" + suffix, wood.items.getPeeledLog());
+                OreDictionary.registerOre("logWoodFresh" + suffix, wood.items.getPeeledLog());
+            }
+
+            if (wood.items.hasSeasonedPeeledLog()) {
+                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedPeeledLog());
+                OreDictionary.registerOre("logWood" + suffix, wood.items.getSeasonedPeeledLog());
+                OreDictionary.registerOre("logWoodSeasoned" + suffix, wood.items.getSeasonedPeeledLog());
 
                 if (wood.hardwood) {
-                    OreDictionary.registerOre("logWoodPlugAndFeather", new ItemStack(BidsItems.peeledLogSeasoned, 1, i));
+                    OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getSeasonedPeeledLog());
                 }
             }
         }
@@ -564,72 +577,86 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.splint, 1),
                 TFCItems.stick, new ItemStack(BidsItems.barkFibreStrip, 1, 1)));
 
-        for (int i = 0; i < Global.WOOD_ALL.length; i++) {
+        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
+            int i = wood.index;
             int j = i % 16;
             String suffix = getOreSuffixWood(i);
 
-            if (WoodHelper.canPeelLog(i)) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
-                        new ItemStack(TFCItems.logs, 1, i * 2), "itemAdze"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLog, 1, i),
-                        new ItemStack(TFCItems.logs, 1, i * 2 + 1), "itemAdze"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
-                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2), "itemAdze"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
-                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1), "itemAdze"));
+            if (wood.items.hasPeeledLog()) {
+                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getPeeledLog(),
+                    wood.items.getLog(), "itemAdze"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getPeeledLog(),
+                    wood.items.getChoppedLog(), "itemAdze"));
 
                 ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                        new ItemStack(BidsItems.peeledLog, 1, i),
-                        new ItemStack(TFCItems.logs, 1, i * 2)));
+                    wood.items.getPeeledLog(), wood.items.getLog()));
                 ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                        new ItemStack(BidsItems.peeledLog, 1, i),
-                        new ItemStack(TFCItems.logs, 1, i * 2 + 1)));
-                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                        new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
-                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2)));
-                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                        new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
-                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1)));
-
-                SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.peeledLogSeasoned, 1, i),
-                        new ItemStack(BidsItems.peeledLog, 1, i),
-                        SeasoningHelper.getWoodSeasoningDuration(i) - 2));
-                SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.logsSeasoned, 1, i * 2),
-                        new ItemStack(TFCItems.logs, 1, i * 2),
-                        SeasoningHelper.getWoodSeasoningDuration(i)));
-                SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1),
-                        new ItemStack(TFCItems.logs, 1, i * 2 + 1),
-                        SeasoningHelper.getWoodSeasoningDuration(i)));
+                    wood.items.getPeeledLog(), wood.items.getChoppedLog()));
             }
 
-            if (WoodHelper.canMakeFirewood(i)) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.firewood, 1, i),
-                        "logWoodFresh" + suffix, "itemAxe"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
-                        "logWoodSeasoned" + suffix, "itemAxe"));
+            if (wood.items.hasSeasonedPeeledLog()) {
+                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedPeeledLog(),
+                    wood.items.getSeasonedLog(), "itemAdze"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedPeeledLog(),
+                    wood.items.getSeasonedChoppedLog(), "itemAdze"));
+
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+                    wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedLog()));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+                    wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog()));
+
+                SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedPeeledLog(),
+                    wood.items.getPeeledLog(),
+                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.PEELED_LOG)));
+            }
+
+            if (wood.items.hasSeasonedLog()) {
+                SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedLog(),
+                    wood.items.getLog(),
+                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.LOG)));
+                SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedChoppedLog(),
+                    wood.items.getChoppedLog(),
+                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.CHOPPED_LOG)));
+            }
+
+            if (wood.items.hasFirewood()) {
+                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getFirewood(),
+                    "logWoodFresh" + suffix, "itemAxe"));
 
                 ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        new ItemStack(BidsItems.firewood, 1, i),
-                        new ItemStack(TFCItems.logs, 1, i * 2)));
+                    wood.items.getFirewood(),
+                    wood.items.getLog()));
                 ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        new ItemStack(BidsItems.firewood, 1, i),
-                        new ItemStack(TFCItems.logs, 1, i * 2 + 1)));
-                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        new ItemStack(BidsItems.firewood, 1, i),
-                        new ItemStack(BidsItems.peeledLog, 1, i)));
-                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        new ItemStack(BidsItems.firewoodSeasoned, 1, i),
-                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2)));
-                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        new ItemStack(BidsItems.firewoodSeasoned, 1, i),
-                        new ItemStack(BidsItems.logsSeasoned, 1, i * 2 + 1)));
-                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        new ItemStack(BidsItems.firewoodSeasoned, 1, i),
-                        new ItemStack(BidsItems.peeledLogSeasoned, 1, i)));
+                    wood.items.getFirewood(),
+                    wood.items.getChoppedLog()));
 
-                SeasoningManager.addRecipe(new SeasoningRecipe(new ItemStack(BidsItems.firewoodSeasoned, 1, i),
-                        new ItemStack(BidsItems.firewood, 1, i),
-                        SeasoningHelper.getWoodSeasoningDuration(i) - 4));
+                if (wood.items.hasPeeledLog()) {
+                    ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                        wood.items.getFirewood(),
+                        wood.items.getPeeledLog()));
+                }
+            }
+
+            if (wood.items.hasSeasonedFirewood()) {
+                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedFirewood(),
+                    "logWoodSeasoned" + suffix, "itemAxe"));
+
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                    wood.items.getSeasonedFirewood(),
+                    wood.items.getSeasonedLog()));
+                ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                    wood.items.getSeasonedFirewood(),
+                    wood.items.getSeasonedChoppedLog()));
+
+                if (wood.items.hasSeasonedPeeledLog()) {
+                    ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                        wood.items.getSeasonedFirewood(),
+                        wood.items.getSeasonedPeeledLog()));
+                }
+
+                SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedFirewood(),
+                    wood.items.getFirewood(),
+                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.FIREWOOD)));
             }
 
             if (WoodHelper.canBuildLogWall(i)) {
@@ -690,34 +717,25 @@ public class RecipeSetup {
                 }
             }
 
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.plugAndFeather, 4),
-                    "logWoodPlugAndFeather", "itemAdze"));
-
             // Copies of TFC recipes for items made logs
-            if (WoodHelper.canPeelLog(i)) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.singlePlank, 8, i),
-                    "logWoodSeasoned" + suffix, "itemSaw"));
-            }
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.singlePlank, 8, i),
+                "logWoodSeasoned" + suffix, "itemSaw"));
 
             // Copies of TFC recipes for block made from logs
-            if (i < 16) {
-                if (WoodHelper.canPeelLog(i)) {
+            if (wood.items.hasPeeledLog() || wood.items.hasSeasonedLog()) {
+                if (i < 16) {
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV, 8, j),
                         "A2", " 2", '2', "logWood" + suffix, 'A', "itemSaw"));
 
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.fence, 6, j),
                         "LPL", "LPL", 'L', "logWood" + suffix, 'P', new ItemStack(TFCItems.singlePlank, 1, i)));
-                }
-            } else if (i < 32) {
-                if (WoodHelper.canPeelLog(i)) {
+                } else if (i < 32) {
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV2, 8, j),
                         "A2", " 2", '2', "logWood" + suffix, 'A', "itemSaw"));
 
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.fence2, 6, j),
                         "LPL", "LPL", 'L', "logWood" + suffix, 'P', new ItemStack(TFCItems.singlePlank, 1, i)));
-                }
-            } else if (i < 48) {
-                if (WoodHelper.canPeelLog(i)) {
+                } else if (i < 48) {
                     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV3, 8, j),
                         "A2", " 2", '2', "logWood" + suffix, 'A', "itemSaw"));
 
@@ -726,6 +744,9 @@ public class RecipeSetup {
                 }
             }
         }
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.plugAndFeather, 4),
+            "logWoodPlugAndFeather", "itemAdze"));
 
         // Copies of TFC recipes for generic wood items made logs
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 1),
@@ -1943,21 +1964,21 @@ public class RecipeSetup {
     private static void registerBarrelRecipes() {
         Bids.LOG.info("Register TFC barrel recipes");
 
-        for (int i = 0; i < Global.WOOD_ALL.length; i++) {
+        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             // Retting fibers from bark
-            if (WoodHelper.canBarkMakeFibers(i)) {
+            if (wood.hasBarkFibers) {
                 BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(
-                        new ItemStack(BidsItems.bark, 1, i), new FluidStack(TFCFluids.FRESHWATER, 625),
-                        new ItemStack(BidsItems.barkFibre, 1, 0), new FluidStack(TFCFluids.FRESHWATER, 500))
-                        .setSealTime(8).setMinTechLevel(0));
+                    wood.items.getBark(), new FluidStack(TFCFluids.FRESHWATER, 625),
+                    new ItemStack(BidsItems.barkFibre, 1, 0), new FluidStack(TFCFluids.FRESHWATER, 500))
+                    .setSealTime(8).setMinTechLevel(0));
             }
 
             // Extracting tannin from bark
-            if (WoodHelper.canBarkMakeTannin(i)) {
+            if (wood.hasBarkTannin) {
                 BarrelManager.getInstance().addRecipe(new BarrelItemDemandingRecipe(
-                        new ItemStack(BidsItems.bark, 1, i), new FluidStack(TFCFluids.FRESHWATER, 625),
-                        null, new FluidStack(TFCFluids.TANNIN, 500))
-                        .setMinTechLevel(0));
+                    wood.items.getBark(), new FluidStack(TFCFluids.FRESHWATER, 625),
+                    null, new FluidStack(TFCFluids.TANNIN, 500))
+                    .setMinTechLevel(0));
             }
         }
 

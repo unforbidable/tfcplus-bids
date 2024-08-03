@@ -9,16 +9,12 @@ import net.minecraft.block.Block;
 
 public class WoodHelper {
 
-    public static boolean canPeelLog(int meta) {
-        return !WoodScheme.DEFAULT.findWood(meta).irregular;
-    }
-
     public static boolean canBuildLogWall(int meta) {
         return canBuildLogWallFromPeeled(meta) || canBuildLogWallFromNormal(meta);
     }
 
     public static boolean canBuildLogWallFromPeeled(int meta) {
-        return canPeelLog(meta);
+        return WoodScheme.DEFAULT.findWood(meta).items.hasSeasonedPeeledLog();
     }
 
     public static boolean canBuildLogWallFromNormal(int meta) {
@@ -101,14 +97,6 @@ public class WoodHelper {
         } else /* if (offset == 32) */ {
             return BidsBlocks.logWallEast3;
         }
-    }
-
-    public static boolean canBarkMakeTannin(int meta) {
-        return WoodScheme.DEFAULT.findWood(meta).hasBarkTannin;
-    }
-
-    public static boolean canBarkMakeFibers(int meta) {
-        return WoodScheme.DEFAULT.findWood(meta).hasBarkFibers;
     }
 
     public static boolean canMakeFirewood(int meta) {
