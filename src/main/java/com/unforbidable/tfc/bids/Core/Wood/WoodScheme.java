@@ -119,12 +119,10 @@ public class WoodScheme {
             case WOOD_VERT:
             case WOOD_SUPPORT:
             case FENCE:
-                return true;
-
             case LOG_WALL:
             case LOG_WALL_VERT:
             case PALISADE:
-                return wood.hasBark;
+                return true;
 
             case CHOPPING_BLOCK:
                 return wood.hasLargeLogs;
