@@ -1,10 +1,9 @@
 package com.unforbidable.tfc.bids.Blocks;
 
-import java.util.List;
-
-import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
-
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
+import com.unforbidable.tfc.bids.Tags;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -12,8 +11,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+
+import java.util.List;
 
 public class BlockStackedFirewood extends Block {
 
@@ -40,7 +40,8 @@ public class BlockStackedFirewood extends Block {
         iconsSide = new IIcon[names.length];
 
         for (int i = 0; i < names.length; i++) {
-            if (WoodHelper.canMakeFirewood(i + offset)) {
+            WoodIndex wood = WoodScheme.DEFAULT.findWood(i + offset);
+            if (wood.blocks.hasStackedFirewood()) {
                 iconsTop[i] = iconRegisterer.registerIcon(Tags.MOD_ID + ":wood/"
                         + names[i] + " Firewood Top");
                 iconsSide[i] = iconRegisterer.registerIcon(Tags.MOD_ID + ":wood/"
@@ -51,7 +52,8 @@ public class BlockStackedFirewood extends Block {
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        if (WoodHelper.canMakeFirewood(meta + offset)) {
+        WoodIndex wood = WoodScheme.DEFAULT.findWood(meta + offset);
+        if (wood.blocks.hasStackedFirewood()) {
             if (side < 2) {
                 return iconsTop[meta];
             } else {
@@ -67,8 +69,10 @@ public class BlockStackedFirewood extends Block {
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (int i = 0; i < names.length; i++) {
-            if (WoodHelper.canMakeFirewood(i + offset))
-                par3List.add(new ItemStack(par1, 1, i));
+            WoodIndex wood = WoodScheme.DEFAULT.findWood(i + offset);
+            if (wood.blocks.hasStackedFirewood()) {
+                par3List.add(wood.blocks.getStackedFirewood());
+            }
         }
     }
 

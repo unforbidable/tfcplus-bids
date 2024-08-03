@@ -1,12 +1,11 @@
 package com.unforbidable.tfc.bids.Blocks;
 
-import java.util.List;
-
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.Enums.EnumLogWallVertType;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -17,6 +16,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class BlockLogWallVert extends Block {
 
@@ -46,7 +47,8 @@ public class BlockLogWallVert extends Block {
         for (int j = 0; j < 3; j++) {
             icons[j] = new IIcon[names.length];
             for (int i = 0; i < names.length; i++) {
-                if (WoodHelper.canBuildLogWall(i + offset)) {
+                WoodIndex wood = WoodScheme.DEFAULT.findWood(offset + i);
+                if (wood.blocks.hasLogWall()) {
                     icons[j][i] = iconRegisterer.registerIcon(Tags.MOD_ID + ":wood/"
                             + names[i] + " Log Wall " + getTextureSuffix(j));
                 }
@@ -83,7 +85,8 @@ public class BlockLogWallVert extends Block {
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        if (WoodHelper.canBuildLogWall(meta + offset)) {
+        WoodIndex wood = WoodScheme.DEFAULT.findWood(offset + meta);
+        if (wood.blocks.hasLogWall()) {
             return icons[side / 2][meta];
         }
 
@@ -96,8 +99,10 @@ public class BlockLogWallVert extends Block {
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         if (WoodHelper.getDefaultLogWallVertType() == type) {
             for (int i = 0; i < names.length; i++) {
-                if (WoodHelper.canBuildLogWall(i + offset))
-                    par3List.add(new ItemStack(par1, 1, i));
+                WoodIndex wood = WoodScheme.DEFAULT.findWood(offset + i);
+                if (wood.blocks.hasLogWall()) {
+                    par3List.add(wood.blocks.getLogWallVert());
+                }
             }
         }
     }
@@ -109,7 +114,6 @@ public class BlockLogWallVert extends Block {
 
     @Override
     protected void dropBlockAsItem(World world, int x, int y, int z, ItemStack is) {
-
         Block block = WoodHelper.getDefaultLogWallVertBlock(offset);
         is = new ItemStack(block, 1, is.getItemDamage());
 

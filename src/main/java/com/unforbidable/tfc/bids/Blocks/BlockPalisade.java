@@ -5,6 +5,8 @@ import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.Fences.FenceConnections;
 import com.unforbidable.tfc.bids.Core.Fences.FenceHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,7 +15,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -37,12 +38,14 @@ public class BlockPalisade extends BlockCustomWall {
         setHardness(4f);
     }
 
+    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
         for (int i = 0; i < metaNames.length; i++) {
-            if (WoodHelper.canBuildLogWall(offset + i)) {
-                list.add(new ItemStack(this, 1, i));
+            WoodIndex wood = WoodScheme.DEFAULT.findWood(offset + i);
+            if (wood.blocks.hasPalisade()) {
+                list.add(wood.blocks.getPalisade());
             }
         }
     }

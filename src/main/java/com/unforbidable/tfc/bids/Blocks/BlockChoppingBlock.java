@@ -1,14 +1,12 @@
 package com.unforbidable.tfc.bids.Blocks;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.ChoppingBlock.ChoppingBlockHelper;
-import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChoppingBlock;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -24,6 +22,8 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.List;
 
 public class BlockChoppingBlock extends BlockContainer {
 
@@ -42,13 +42,12 @@ public class BlockChoppingBlock extends BlockContainer {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
-        List<ItemStack> materialBlockSubBlocks = new ArrayList<ItemStack>();
-        materialBlock.getSubBlocks(item, tabs, materialBlockSubBlocks);
-
-        for (ItemStack is : materialBlockSubBlocks) {
-            final int dmg = materialBlock.damageDropped(is.getItemDamage());
-            if (WoodHelper.canMakeChoppingBlock(dmg)) {
-                list.add(new ItemStack(this, 1, is.getItemDamage()));
+        int offset = materialBlock.damageDropped(0);
+        int size = Math.max(0, Math.min(16, Global.WOOD_ALL.length - offset));
+        for (int i = 0; i < size; i++) {
+            WoodIndex wood = WoodScheme.DEFAULT.findWood(offset + i);
+            if (wood.blocks.hasChoppingBlock()) {
+                list.add(wood.blocks.getChoppingBlock());
             }
         }
     }

@@ -93,8 +93,54 @@ public class WoodScheme {
         return false;
     }
 
+    public ItemStack getWoodBlockStack(WoodIndex wood, EnumWoodBlockType type, int stackSize) {
+        switch (type) {
+            case CHOPPING_BLOCK:
+                return WoodBlockGroup.CHOPPING_BLOCK.getBlockStack(wood.index, stackSize);
+            case PALISADE:
+                return WoodBlockGroup.PALISADE.getBlockStack(wood.index, stackSize);
+            case STACKED_FIREWOOD:
+                return WoodBlockGroup.STACKED_FIREWOOD.getBlockStack(wood.index, stackSize);
+            case LOG_WALL:
+                return WoodBlockGroup.LOG_WALL.getBlockStack(wood.index, stackSize);
+            case LOG_WALL_VERT:
+                return WoodBlockGroup.LOG_WALL_VERT.getBlockStack(wood.index, stackSize);
+            case WOOD_VERT:
+                return WoodBlockGroup.WOOD_VERT.getBlockStack(wood.index, stackSize);
+            case WOOD_SUPPORT:
+                return WoodBlockGroup.WOOD_SUPPORT.getBlockStack(wood.index, stackSize);
+            case FENCE:
+                return WoodBlockGroup.FENCE.getBlockStack(wood.index, stackSize);
+        }
+
+        return null;
+    }
+
+    public boolean hasBlockStack(WoodIndex wood, EnumWoodBlockType type) {
+        switch (type) {
+            case WOOD_VERT:
+            case WOOD_SUPPORT:
+            case FENCE:
+                return true;
+
+            case LOG_WALL:
+            case LOG_WALL_VERT:
+            case PALISADE:
+            case CHOPPING_BLOCK:
+                return !wood.irregular;
+
+            case STACKED_FIREWOOD:
+                return !wood.inflammable;
+        }
+
+        return false;
+    }
+
     public WoodItemProvider getWoodItemProvider(WoodIndex wood) {
         return new WoodItemProvider(wood, this);
+    }
+    public WoodBlockProvider getWoodBlockProvider(WoodIndex wood) {
+        return new WoodBlockProvider(wood, this);
     }
 
 }

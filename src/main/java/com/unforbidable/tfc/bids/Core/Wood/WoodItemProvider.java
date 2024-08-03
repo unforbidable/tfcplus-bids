@@ -72,6 +72,10 @@ public class WoodItemProvider {
         return getItemStack(EnumWoodItemType.SEASONED_PEELED_LOG);
     }
 
+    public ItemStack getSeasonedPeeledLog(int stackSize) {
+        return getItemStack(EnumWoodItemType.SEASONED_PEELED_LOG, stackSize);
+    }
+
     public boolean hasFirewood() {
         return hasItemStack(EnumWoodItemType.FIREWOOD);
     }

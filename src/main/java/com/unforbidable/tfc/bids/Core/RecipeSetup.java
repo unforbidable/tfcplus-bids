@@ -42,6 +42,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static com.dunk.tfc.Core.Recipes.getStackNoTemp;
 
@@ -113,21 +114,13 @@ public class RecipeSetup {
             int j = i % 16;
             int o = i / 16 * 16;
 
-            if (WoodHelper.canMakeChoppingBlock(i)) {
-                if (i < 16) {
-                    OreDictionary.registerOre("blockChoppingBlock", new ItemStack(BidsBlocks.choppingBlock, 1, j));
-                } else if (i < 32) {
-                    OreDictionary.registerOre("blockChoppingBlock", new ItemStack(BidsBlocks.choppingBlock2, 1, j));
-                } else {
-                    OreDictionary.registerOre("blockChoppingBlock", new ItemStack(BidsBlocks.choppingBlock3, 1, j));
-                }
+            if (wood.blocks.hasChoppingBlock()) {
+                OreDictionary.registerOre("blockChoppingBlock", wood.blocks.getChoppingBlock());
             }
 
-            if (WoodHelper.canBuildLogWall(i)) {
-                OreDictionary.registerOre("blockLogWall",
-                        new ItemStack(WoodHelper.getDefaultLogWallBlock(o), 1, j));
-                OreDictionary.registerOre("blockLogWall",
-                        new ItemStack(WoodHelper.getDefaultLogWallVertBlock(o), 1, j));
+            if (wood.blocks.hasLogWall()) {
+                OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWall());
+                OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWallVert());
             }
         }
 
@@ -578,9 +571,7 @@ public class RecipeSetup {
                 TFCItems.stick, new ItemStack(BidsItems.barkFibreStrip, 1, 1)));
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            int i = wood.index;
-            int j = i % 16;
-            String suffix = getOreSuffixWood(i);
+            String suffix = getOreSuffixWood(wood.index);
 
             if (wood.items.hasPeeledLog()) {
                 GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getPeeledLog(),
@@ -659,62 +650,24 @@ public class RecipeSetup {
                     SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.FIREWOOD)));
             }
 
-            if (WoodHelper.canBuildLogWall(i)) {
-                if (i < 16) {
-                    Block logWall = WoodHelper.getDefaultLogWallBlock(0);
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
-                            "A ", "11", '1', "logWoodSeasoned" + suffix,
-                            'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
-                            Arrays.asList(new ItemStack(logWall, 1, j))));
+            if (wood.blocks.hasLogWall()) {
+                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWall(),
+                    "A ", "11", '1', "logWoodSeasoned" + suffix,
+                    'A', "itemAdze"));
+                GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getSeasonedPeeledLog(2),
+                    Collections.singletonList(wood.blocks.getLogWall())));
 
-                    Block logWallVert = WoodHelper.getDefaultLogWallVertBlock(0);
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWallVert, 1, j),
-                            "A1", " 1", '1', "logWoodSeasoned" + suffix,
-                            'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
-                            Arrays.asList(new ItemStack(logWallVert, 1, j))));
+                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWallVert(),
+                    "A1", " 1", '1', "logWoodSeasoned" + suffix,
+                    'A', "itemAdze"));
+                GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getSeasonedPeeledLog(2),
+                    Collections.singletonList(wood.blocks.getLogWallVert())));
+            }
 
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.palisade, 2, j),
-                            "A1", " 1", '1', "logWood" + suffix,
-                            'A', "itemAxe"));
-                } else if (i < 32) {
-                    Block logWall = WoodHelper.getDefaultLogWallBlock(16);
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
-                            "A ", "11", '1', "logWoodSeasoned" + suffix,
-                            'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
-                            Arrays.asList(new ItemStack(logWall, 1, j))));
-
-                    Block logWallVert = WoodHelper.getDefaultLogWallVertBlock(16);
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWallVert, 1, j),
-                            "A1", " 1", '1', "logWoodSeasoned" + suffix,
-                            'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
-                            Arrays.asList(new ItemStack(logWallVert, 1, j))));
-
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.palisade2, 2, j),
-                            "A1", " 1", '1', "logWood" + suffix,
-                            'A', "itemAxe"));
-                } else if (i < 48) {
-                    Block logWall = WoodHelper.getDefaultLogWallBlock(32);
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWall, 1, j),
-                            "A ", "11", '1', "logWoodSeasoned" + suffix,
-                            'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
-                            Arrays.asList(new ItemStack(logWall, 1, j))));
-
-                    Block logWallVert = WoodHelper.getDefaultLogWallVertBlock(32);
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(logWallVert, 1, j),
-                            "A1", " 1", '1', "logWoodSeasoned" + suffix,
-                            'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(BidsItems.peeledLogSeasoned, 2, i),
-                            Arrays.asList(new ItemStack(logWallVert, 1, j))));
-
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.palisade3, 2, j),
-                            "A1", " 1", '1', "logWood" + suffix,
-                            'A', "itemAxe"));
-                }
+            if (wood.blocks.hasPalisade()) {
+                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getPalisade(2),
+                    "A1", " 1", '1', "logWood" + suffix,
+                    'A', "itemAxe"));
             }
 
             // Copies of TFC recipes for items made logs
@@ -725,25 +678,11 @@ public class RecipeSetup {
 
             // Copies of TFC recipes for block made from logs
             if (wood.items.hasPeeledLog() || wood.items.hasSeasonedLog()) {
-                if (i < 16) {
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV, 8, j),
-                        "A2", " 2", '2', "logWood" + suffix, 'A', "itemSaw"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getWoodSupport(8),
+                    "A2", " 2", '2', "logWood" + suffix, 'A', "itemSaw"));
 
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.fence, 6, j),
-                        "LPL", "LPL", 'L', "logWood" + suffix, 'P', wood.items.getLumber()));
-                } else if (i < 32) {
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV2, 8, j),
-                        "A2", " 2", '2', "logWood" + suffix, 'A', "itemSaw"));
-
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.fence2, 6, j),
-                        "LPL", "LPL", 'L', "logWood" + suffix, 'P', wood.items.getLumber()));
-                } else if (i < 48) {
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.woodSupportV3, 8, j),
-                        "A2", " 2", '2', "logWood" + suffix, 'A', "itemSaw"));
-
-                    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.fence3, 6, j),
-                        "LPL", "LPL", 'L', "logWood" + suffix, 'P', wood.items.getLumber()));
-                }
+                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getFence(6),
+                    "LPL", "LPL", 'L', "logWood" + suffix, 'P', wood.items.getLumber()));
             }
         }
 
@@ -998,20 +937,10 @@ public class RecipeSetup {
         CarvingRecipePattern choppingBlockPattern = new CarvingRecipePattern()
                 .carveEntireLayer();
 
-        for (int i = 0; i < Global.WOOD_ALL.length; i++) {
-            int j = i % 16;
-
-            if (WoodHelper.canMakeChoppingBlock(i)) {
-                if (i < 16) {
-                    CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock, 1, i % 16),
-                            new ItemStack(TFCBlocks.woodVert, 1, j), choppingBlockPattern));
-                } else if (i < 32) {
-                    CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock2, 1, i % 16),
-                            new ItemStack(TFCBlocks.woodVert2, 1, j), choppingBlockPattern));
-                } else {
-                    CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.choppingBlock3, 1, i % 16),
-                            new ItemStack(TFCBlocks.woodVert3, 1, j), choppingBlockPattern));
-                }
+        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
+            if (wood.blocks.hasChoppingBlock()) {
+                CarvingManager.addRecipe(new CarvingRecipe(wood.blocks.getChoppingBlock(),
+                    wood.blocks.getWoodVert(), choppingBlockPattern));
             }
         }
 

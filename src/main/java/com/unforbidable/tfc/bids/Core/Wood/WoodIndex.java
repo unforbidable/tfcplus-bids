@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Core.Wood;
 public class WoodIndex {
 
     public final WoodItemProvider items = WoodScheme.DEFAULT.getWoodItemProvider(this);
+    public final WoodBlockProvider blocks = WoodScheme.DEFAULT.getWoodBlockProvider(this);
 
     public final int index;
     public final String name;

@@ -9,18 +9,6 @@ import net.minecraft.block.Block;
 
 public class WoodHelper {
 
-    public static boolean canBuildLogWall(int meta) {
-        return canBuildLogWallFromPeeled(meta) || canBuildLogWallFromNormal(meta);
-    }
-
-    public static boolean canBuildLogWallFromPeeled(int meta) {
-        return WoodScheme.DEFAULT.findWood(meta).items.hasSeasonedPeeledLog();
-    }
-
-    public static boolean canBuildLogWallFromNormal(int meta) {
-        return false;
-    }
-
     public static Block getLogWallBlock(int offset, int side, boolean alt) {
         if (offset == 0) {
             switch (side) {
@@ -97,14 +85,6 @@ public class WoodHelper {
         } else /* if (offset == 32) */ {
             return BidsBlocks.logWallEast3;
         }
-    }
-
-    public static boolean canMakeFirewood(int meta) {
-        return !WoodScheme.DEFAULT.findWood(meta).irregular;
-    }
-
-    public static boolean canMakeChoppingBlock(int meta) {
-        return !WoodScheme.DEFAULT.findWood(meta).irregular;
     }
 
     public static EnumLogWallVertType getDefaultLogWallVertType() {
