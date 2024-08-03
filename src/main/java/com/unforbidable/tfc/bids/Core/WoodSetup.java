@@ -118,7 +118,6 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(17, "PALM")
             .setFuelMaterial(EnumFuelMaterial.PALM)
-            .setIrregular()
             .setInflammable()
             .build());
 
@@ -159,7 +158,6 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(24, "BAMBOO")
             .setFuelMaterial(EnumFuelMaterial.BAMBOO)
-            .setIrregular()
             .build());
 
         DEFAULT.registerWood(new WoodBuilder(25, "GINKGO")
@@ -199,7 +197,6 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(31, "JOSHUA")
             .setFuelMaterial(EnumFuelMaterial.ASPEN)
-            .setIrregular()
             .setInflammable()
             .build());
 

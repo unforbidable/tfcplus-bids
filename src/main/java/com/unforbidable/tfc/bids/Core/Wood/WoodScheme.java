@@ -127,7 +127,7 @@ public class WoodScheme {
             case LOG_WALL_VERT:
             case PALISADE:
             case CHOPPING_BLOCK:
-                return !wood.irregular;
+                return wood.hasBark;
 
             case STACKED_FIREWOOD:
                 return !wood.inflammable;

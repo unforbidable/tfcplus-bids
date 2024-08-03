@@ -13,12 +13,11 @@ public class WoodIndex {
     public final boolean hasBark;
     public final boolean hasBarkFibers;
     public final boolean hasBarkTannin;
-    public final boolean irregular;
     public final boolean hardwood;
     public final boolean resinous;
     public final boolean inflammable;
 
-    public WoodIndex(int index, String name, int maxBurnTemp, int maxBurnTime, int tasteProfile, boolean hasBark, boolean hasBarkFibers, boolean hasBarkTannin, boolean irregular, boolean hardwood, boolean resinous, boolean inflammable) {
+    public WoodIndex(int index, String name, int maxBurnTemp, int maxBurnTime, int tasteProfile, boolean hasBark, boolean hasBarkFibers, boolean hasBarkTannin, boolean hardwood, boolean resinous, boolean inflammable) {
         this.index = index;
         this.name = name;
         this.maxBurnTemp = maxBurnTemp;
@@ -27,7 +26,6 @@ public class WoodIndex {
         this.hasBark = hasBark;
         this.hasBarkFibers = hasBarkFibers;
         this.hasBarkTannin = hasBarkTannin;
-        this.irregular = irregular;
         this.hardwood = hardwood;
         this.resinous = resinous;
         this.inflammable = inflammable;
