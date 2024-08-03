@@ -76,16 +76,14 @@ public class WoodScheme {
             case LUMBER:
                 return true;
 
-            case SEASONED_PEELED_LOG:
-                return !wood.inflammable && wood.hasBark;
-
-            case SEASONED_LOG:
-            case SEASONED_CHOPPED_LOG:
             case FIREWOOD:
             case SEASONED_FIREWOOD:
                 return !wood.inflammable;
 
             case PEELED_LOG:
+            case SEASONED_LOG:
+            case SEASONED_CHOPPED_LOG:
+            case SEASONED_PEELED_LOG:
             case BARK:
                 return wood.hasBark;
         }
