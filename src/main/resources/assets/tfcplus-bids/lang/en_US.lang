@@ -1096,6 +1096,20 @@ item.Rice Hardtack.name=Rice Hardtack
 item.Rye Hardtack.name=Rye Hardtack
 item.Cornmeal Hardtack.name=Corn Hardtack
 
+item.Wheat Dough Flatbread.name=Wheat Flatbread Dough
+item.Barley Dough Flatbread.name=Barley Flatbread Dough
+item.Oat Dough Flatbread.name=Oat Flatbread Dough
+item.Rice Dough Flatbread.name=Rice Flatbread Dough
+item.Rye Dough Flatbread.name=Rye Flatbread Dough
+item.Cornmeal Dough Flatbread.name=Cornmeal Flatbread Dough
+
+item.Wheat Flatbread.name=Wheat Flatbread
+item.Barley Flatbread.name=Barley Flatbread
+item.Oat Flatbread.name=Oat Flatbread
+item.Rice Flatbread.name=Rice Flatbread
+item.Rye Flatbread.name=Rye Flatbread
+item.Cornmeal Flatbread.name=Corn Flatbread
+
 item.Flat Dough.name=Unshaped Dough
 
 item.Goat Cheese.name=Goat Cheese

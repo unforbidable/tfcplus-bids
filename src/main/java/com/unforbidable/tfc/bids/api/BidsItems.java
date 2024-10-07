@@ -122,6 +122,13 @@ public class BidsItems {
     public static Item riceDoughUnshaped;
     public static Item cornmealDoughUnshaped;
 
+    public static Item wheatDoughFlatbread;
+    public static Item barleyDoughFlatbread;
+    public static Item oatDoughFlatbread;
+    public static Item ryeDoughFlatbread;
+    public static Item riceDoughFlatbread;
+    public static Item cornmealDoughFlatbread;
+
     public static Item wheatDoughHardtack;
     public static Item barleyDoughHardtack;
     public static Item oatDoughHardtack;
@@ -135,6 +142,13 @@ public class BidsItems {
     public static Item ryeHardtack;
     public static Item riceHardtack;
     public static Item cornmealHardtack;
+
+    public static Item wheatFlatbread;
+    public static Item barleyFlatbread;
+    public static Item oatFlatbread;
+    public static Item ryeFlatbread;
+    public static Item riceFlatbread;
+    public static Item cornmealFlatbread;
 
     public static Item flatDough;
 
