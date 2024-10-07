@@ -1860,6 +1860,24 @@ public class RecipeSetup {
             new Object[] { "     ", "#   #", "#   #", " ### ", "     ", '#',
                 new ItemStack(TFCItems.flatStraw, 1) });
 
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatDoughHardtack, 1), 160),
+            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 0) });
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyDoughHardtack, 1), 160),
+            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 1) });
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.oatDoughHardtack, 1), 160),
+            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 2) });
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.riceDoughHardtack, 1), 160),
+            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 3) });
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeDoughHardtack, 1), 160),
+            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 4) });
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealDoughHardtack, 1), 160),
+            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 5) });
 
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.wheatDough, 1), 160),
             new Object[] { "     ", " ### ", "#####", "#####", "#####", '#',
