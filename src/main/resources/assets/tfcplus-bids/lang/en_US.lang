@@ -1082,6 +1082,20 @@ item.Rice Dough Unshaped.name=Unshaped Rice Dough
 item.Rye Dough Unshaped.name=Unshaped Rye Dough
 item.Cornmeal Dough Unshaped.name=Unshaped Cornmeal Dough
 
+item.Wheat Dough Hardtack.name=Wheat Hardtack Dough
+item.Barley Dough Hardtack.name=Barley Hardtack Dough
+item.Oat Dough Hardtack.name=Oat Hardtack Dough
+item.Rice Dough Hardtack.name=Rice Hardtack Dough
+item.Rye Dough Hardtack.name=Rye Hardtack Dough
+item.Cornmeal Dough Hardtack.name=Corn Hardtack Dough
+
+item.Wheat Hardtack.name=Wheat Hardtack
+item.Barley Hardtack.name=Barley Hardtack
+item.Oat Hardtack.name=Oat Hardtack
+item.Rice Hardtack.name=Rice Hardtack
+item.Rye Hardtack.name=Rye Hardtack
+item.Cornmeal Hardtack.name=Corn Hardtack
+
 item.Flat Dough.name=Unshaped Dough
 
 item.Goat Cheese.name=Goat Cheese

@@ -357,6 +357,50 @@ public class ItemSetup extends BidsItems {
             .setWaterPercentage(0.7f)
             .setUnlocalizedName("Cornmeal Dough Unshaped");
 
+        wheatDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Wheat Dough Hardtack");
+        barleyDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Barley Dough Hardtack");
+        oatDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Oat Dough Hardtack");
+        ryeDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Rye Dough Hardtack");
+        riceDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Rice Dough Hardtack");
+        cornmealDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Cornmeal Dough Hardtack");
+
+        wheatHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+            .setDecayRate(0.02f)
+            .setNutritionAsIfCooked(true)
+            .setUnlocalizedName("Wheat Hardtack");
+        barleyHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
+            .setDecayRate(0.02f)
+            .setNutritionAsIfCooked(true)
+            .setUnlocalizedName("Barley Hardtack");
+        oatHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+            .setDecayRate(0.02f)
+            .setNutritionAsIfCooked(true)
+            .setUnlocalizedName("Oat Hardtack");
+        ryeHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
+            .setDecayRate(0.02f)
+            .setNutritionAsIfCooked(true)
+            .setUnlocalizedName("Rye Hardtack");
+        riceHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+            .setDecayRate(0.02f)
+            .setNutritionAsIfCooked(true)
+            .setUnlocalizedName("Rice Hardtack");
+        cornmealHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
+            .setDecayRate(0.02f)
+            .setNutritionAsIfCooked(true)
+            .setUnlocalizedName("Cornmeal Hardtack");
+
         flatDough = new ItemGenericFlat().setTextureFolder("food")
             .setUnlocalizedName("Flat Dough");
 
@@ -827,6 +871,8 @@ public class ItemSetup extends BidsItems {
             wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed, cornmealCrushed,
             wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge, cornmealPorridge,
             wheatDoughUnshaped, barleyDoughUnshaped, oatDoughUnshaped, riceDoughUnshaped, ryeDoughUnshaped, cornmealDoughUnshaped,
+            wheatDoughHardtack, barleyDoughHardtack, oatDoughHardtack, riceDoughHardtack, ryeDoughHardtack, cornmealDoughHardtack,
+            wheatHardtack, barleyHardtack, oatHardtack, riceHardtack, ryeHardtack, cornmealHardtack,
             appleCrushed, oliveCrushed,
             goatCheese,
             stuffedPepper, stuffedMushroom, pemmican,
@@ -906,6 +952,20 @@ public class ItemSetup extends BidsItems {
 
         // The melt temp needs to be less than the cooked temp, otherwise the cooked icon does not render properly
         reg.addIndex(new HeatIndex(new ItemStack(bambooShoot, 1), 1, 82, null));
+
+        reg.addIndex(new HeatIndex(new ItemStack(wheatDoughHardtack, 1), 1, 88, new ItemStack(wheatHardtack, 1)).setKeepNBT(true));
+        reg.addIndex(new HeatIndex(new ItemStack(barleyDoughHardtack, 1), 1, 88, new ItemStack(barleyHardtack, 1)).setKeepNBT(true));
+        reg.addIndex(new HeatIndex(new ItemStack(oatDoughHardtack, 1), 1, 88, new ItemStack(oatHardtack, 1)).setKeepNBT(true));
+        reg.addIndex(new HeatIndex(new ItemStack(ryeDoughHardtack, 1), 1, 88, new ItemStack(ryeHardtack, 1)).setKeepNBT(true));
+        reg.addIndex(new HeatIndex(new ItemStack(riceDoughHardtack, 1), 1, 88, new ItemStack(riceHardtack, 1)).setKeepNBT(true));
+        reg.addIndex(new HeatIndex(new ItemStack(cornmealDoughHardtack, 1), 1, 88, new ItemStack(cornmealHardtack, 1)).setKeepNBT(true));
+
+        reg.addIndex(new HeatIndex(new ItemStack(wheatHardtack, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(barleyHardtack, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(oatHardtack, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(ryeHardtack, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(riceHardtack, 1), 1, 177, null));
+        reg.addIndex(new HeatIndex(new ItemStack(cornmealHardtack, 1), 1, 177, null));
     }
 
     private static void registerHeatUnfinishedAnvilHelper(HeatRegistry reg, int mat, Item unshaped) {
@@ -1137,6 +1197,20 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(ryeDoughUnshaped, ryeDoughUnshaped.getUnlocalizedName());
         GameRegistry.registerItem(riceDoughUnshaped, riceDoughUnshaped.getUnlocalizedName());
         GameRegistry.registerItem(cornmealDoughUnshaped, cornmealDoughUnshaped.getUnlocalizedName());
+
+        GameRegistry.registerItem(wheatDoughHardtack, wheatDoughHardtack.getUnlocalizedName());
+        GameRegistry.registerItem(barleyDoughHardtack, barleyDoughHardtack.getUnlocalizedName());
+        GameRegistry.registerItem(oatDoughHardtack, oatDoughHardtack.getUnlocalizedName());
+        GameRegistry.registerItem(ryeDoughHardtack, ryeDoughHardtack.getUnlocalizedName());
+        GameRegistry.registerItem(riceDoughHardtack, riceDoughHardtack.getUnlocalizedName());
+        GameRegistry.registerItem(cornmealDoughHardtack, cornmealDoughHardtack.getUnlocalizedName());
+
+        GameRegistry.registerItem(wheatHardtack, wheatHardtack.getUnlocalizedName());
+        GameRegistry.registerItem(barleyHardtack, barleyHardtack.getUnlocalizedName());
+        GameRegistry.registerItem(oatHardtack, oatHardtack.getUnlocalizedName());
+        GameRegistry.registerItem(ryeHardtack, ryeHardtack.getUnlocalizedName());
+        GameRegistry.registerItem(riceHardtack, riceHardtack.getUnlocalizedName());
+        GameRegistry.registerItem(cornmealHardtack, cornmealHardtack.getUnlocalizedName());
 
         GameRegistry.registerItem(flatDough, flatDough.getUnlocalizedName());
     }
