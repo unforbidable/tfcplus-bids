@@ -1686,6 +1686,14 @@ public class RecipeSetup {
             foodNoGrainExceptRiceAndBread.toSpec(3), foodNoGrainExceptRiceAndBread.toSpec(2), foodNoGrainExceptRiceAndBread.toSpec(2), foodNoGrainExceptRiceAndBread.toSpec(1)
         }, 7));
 
+        Item[] flatbread = new Item[] { BidsItems.wheatFlatbread, BidsItems.oatFlatbread, BidsItems.barleyFlatbread, BidsItems.ryeFlatbread, BidsItems.cornmealFlatbread, BidsItems.riceFlatbread };
+        for (int i = 0; i < breads.length; i++) {
+            PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.wrap, 1, i)), new PrepIngredientSpec[]{
+                PrepIngredient.from(flatbread[i]).toSpec(2),
+                foodNoGrainExceptRice.toSpec(3), foodNoGrainExceptRice.toSpec(2), foodNoGrainExceptRice.toSpec(2), foodNoGrainExceptRice.toSpec(1)
+            }, 7));
+        }
+
         PrepIngredient leanMeat = PrepIngredient.builder()
             .allow(TFCItems.beefRaw)
             .allow(TFCItems.venisonRaw)

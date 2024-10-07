@@ -666,6 +666,9 @@ public class ItemSetup extends BidsItems {
         pemmican = new ItemPemmican(new float[] { 0, 40, 20, 10, 10 })
             .setMetaNames(new String[]{"Pemmican"})
             .setUnlocalizedName("Pemmican");
+        wrap = new ItemWrap(new float[] { 3, 6, 4, 2, 1 })
+            .setMetaNames(new String[]{"Wrap.Wheat", "Wrap.Barley", "Wrap.Oat", "Wrap.Rye", "Wrap.Corn", "Wrap.Rice" })
+            .setUnlocalizedName("Wrap");
 
         cookingMixture = new ItemCookingMixture()
             .setUnlocalizedName("CookingMixture");
@@ -915,7 +918,7 @@ public class ItemSetup extends BidsItems {
             wheatFlatbread, barleyFlatbread, oatFlatbread, riceFlatbread, ryeFlatbread, cornmealFlatbread,
             appleCrushed, oliveCrushed,
             goatCheese,
-            stuffedPepper, stuffedMushroom, pemmican,
+            stuffedPepper, stuffedMushroom, pemmican, wrap,
             seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
             suet, tallow, bambooShoot,
             soup, stew, porridge, omelet
@@ -1281,6 +1284,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(cornmealFlatbread, cornmealFlatbread.getUnlocalizedName());
 
         GameRegistry.registerItem(flatDough, flatDough.getUnlocalizedName());
+
+        GameRegistry.registerItem(wrap, wrap.getUnlocalizedName());
     }
 
 }
