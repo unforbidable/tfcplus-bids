@@ -114,6 +114,13 @@ public class BidsItems {
     public static Item ricePorridge;
     public static Item cornmealPorridge;
 
+    public static Item wheatDoughUnshaped;
+    public static Item barleyDoughUnshaped;
+    public static Item oatDoughUnshaped;
+    public static Item ryeDoughUnshaped;
+    public static Item riceDoughUnshaped;
+    public static Item cornmealDoughUnshaped;
+
     public static Item plugAndFeather;
 
     public static Item appleCrushed;

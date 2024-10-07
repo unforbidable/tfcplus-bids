@@ -1075,6 +1075,13 @@ item.Rice Porridge.name=Rice Porridge
 item.Rye Porridge.name=Rye Porridge
 item.Cornmeal Porridge.name=Cornmeal Porridge
 
+item.Wheat Dough Unshaped.name=Unshaped Wheat Dough
+item.Barley Dough Unshaped.name=Unshaped Barley Dough
+item.Oat Dough Unshaped.name=Unshaped Oat Dough
+item.Rice Dough Unshaped.name=Unshaped Rice Dough
+item.Rye Dough Unshaped.name=Unshaped Rye Dough
+item.Cornmeal Dough Unshaped.name=Unshaped Cornmeal Dough
+
 item.Goat Cheese.name=Goat Cheese
 
 item.Suet.name=Suet
@@ -1182,6 +1189,7 @@ gui.Help.Kindling2=Requires 2 loose rocks on the ground.
 gui.Help.Pottery=Sneak and §bRight Click §7block to place.
 gui.Help.CookingPot=§bRight Click §7block to place.
 gui.Help.CookingPotLid=§bRight Click §7block to place.
+gui.Help.UnshapedDough=§bRight Click §7 to shape dough.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified

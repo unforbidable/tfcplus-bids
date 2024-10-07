@@ -332,6 +332,31 @@ public class ItemSetup extends BidsItems {
                 .setDecayRate(2f)
                 .setUnlocalizedName("Cornmeal Porridge");
 
+        wheatDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+            .setFlatDoughDamage(0)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Wheat Dough Unshaped");
+        barleyDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
+            .setFlatDoughDamage(1)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Barley Dough Unshaped");
+        oatDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+            .setFlatDoughDamage(2)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Oat Dough Unshaped");
+        ryeDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
+            .setFlatDoughDamage(3)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Rye Dough Unshaped");
+        riceDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+            .setFlatDoughDamage(4)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Rice Dough Unshaped");
+        cornmealDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
+            .setFlatDoughDamage(5)
+            .setWaterPercentage(0.7f)
+            .setUnlocalizedName("Cornmeal Dough Unshaped");
+
         goatCheese = new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20)
             .setWaterPercentage(0.6f)
             .setDecayRate(0.5f)
@@ -798,6 +823,7 @@ public class ItemSetup extends BidsItems {
         Item[] foodItems = {
             wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed, cornmealCrushed,
             wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge, cornmealPorridge,
+            wheatDoughUnshaped, barleyDoughUnshaped, oatDoughUnshaped, riceDoughUnshaped, ryeDoughUnshaped, cornmealDoughUnshaped,
             appleCrushed, oliveCrushed,
             goatCheese,
             stuffedPepper, stuffedMushroom, pemmican,
@@ -1101,6 +1127,13 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(bambooShoot, bambooShoot.getUnlocalizedName());
 
         GameRegistry.registerItem(omelet, omelet.getUnlocalizedName());
+
+        GameRegistry.registerItem(wheatDoughUnshaped, wheatDoughUnshaped.getUnlocalizedName());
+        GameRegistry.registerItem(barleyDoughUnshaped, barleyDoughUnshaped.getUnlocalizedName());
+        GameRegistry.registerItem(oatDoughUnshaped, oatDoughUnshaped.getUnlocalizedName());
+        GameRegistry.registerItem(ryeDoughUnshaped, ryeDoughUnshaped.getUnlocalizedName());
+        GameRegistry.registerItem(riceDoughUnshaped, riceDoughUnshaped.getUnlocalizedName());
+        GameRegistry.registerItem(cornmealDoughUnshaped, cornmealDoughUnshaped.getUnlocalizedName());
     }
 
 }
