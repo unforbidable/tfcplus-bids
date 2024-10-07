@@ -28,6 +28,19 @@ public class ItemUnshapedDough extends ItemExtraFood {
     }
 
     @Override
+    public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player) {
+        PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(player);
+        pi.specialCraftingType = new ItemStack(BidsItems.flatDough, 1, flatDoughDamage);
+        pi.specialCraftingTypeAlternate = null;
+
+        if(is.stackSize > 0) {
+            player.openGui(Bids.instance, BidsGui.doughKnappingGui, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
+        }
+
+        return is;
+    }
+
+    @Override
     public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> arraylist) {
         if (TFC_Core.showShiftInformation())
         {

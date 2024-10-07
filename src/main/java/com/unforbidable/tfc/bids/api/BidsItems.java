@@ -107,6 +107,7 @@ public class BidsItems {
     public static Item ryeCrushed;
     public static Item riceCrushed;
     public static Item cornmealCrushed;
+
     public static Item wheatPorridge;
     public static Item barleyPorridge;
     public static Item oatPorridge;
@@ -120,6 +121,8 @@ public class BidsItems {
     public static Item ryeDoughUnshaped;
     public static Item riceDoughUnshaped;
     public static Item cornmealDoughUnshaped;
+
+    public static Item flatDough;
 
     public static Item plugAndFeather;
 

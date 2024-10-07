@@ -1,5 +1,7 @@
 package com.unforbidable.tfc.bids.Handlers.Client;
 
+import com.dunk.tfc.Core.Player.PlayerInfo;
+import com.dunk.tfc.Core.Player.PlayerManagerTFC;
 import com.unforbidable.tfc.bids.Gui.*;
 import com.unforbidable.tfc.bids.Handlers.GuiHandler;
 import com.unforbidable.tfc.bids.TileEntities.*;
@@ -42,6 +44,10 @@ public class ClientGuiHandler extends GuiHandler {
 
             case BidsGui.strawNestGui:
                 return new GuiStrawNest(player.inventory, (TileEntityStrawNest) te, world, x, y, z);
+
+            case BidsGui.doughKnappingGui:
+                PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(player);
+                return new GuiKnappingDough(player.inventory, pi.specialCraftingType, world, x, y, z);
         }
 
         return null;

@@ -357,6 +357,9 @@ public class ItemSetup extends BidsItems {
             .setWaterPercentage(0.7f)
             .setUnlocalizedName("Cornmeal Dough Unshaped");
 
+        flatDough = new ItemGenericFlat().setTextureFolder("food")
+            .setUnlocalizedName("Flat Dough");
+
         goatCheese = new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20)
             .setWaterPercentage(0.6f)
             .setDecayRate(0.5f)
@@ -1134,6 +1137,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(ryeDoughUnshaped, ryeDoughUnshaped.getUnlocalizedName());
         GameRegistry.registerItem(riceDoughUnshaped, riceDoughUnshaped.getUnlocalizedName());
         GameRegistry.registerItem(cornmealDoughUnshaped, cornmealDoughUnshaped.getUnlocalizedName());
+
+        GameRegistry.registerItem(flatDough, flatDough.getUnlocalizedName());
     }
 
 }

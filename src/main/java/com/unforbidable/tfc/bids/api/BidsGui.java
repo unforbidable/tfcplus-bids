@@ -11,5 +11,6 @@ public class BidsGui {
     public static final int cookingPrepGui = 6;
     public static final int screwPressBarrelGui = 7;
     public static final int strawNestGui = 8;
+    public static final int doughKnappingGui = 9;
 
 }
