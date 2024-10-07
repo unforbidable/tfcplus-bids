@@ -1916,6 +1916,26 @@ public class RecipeSetup {
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.cornmealDough, 1), 160),
             new Object[] { "     ", " ### ", "#####", "#####", "#####", '#',
                 new ItemStack(BidsItems.flatDough, 1, 5) });
+
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatDoughFlatbread, 1), 160),
+            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 0) });
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyDoughFlatbread, 1), 160),
+            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 1) });
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.oatDoughFlatbread, 1), 160),
+            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 2) });
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.riceDoughFlatbread, 1), 160),
+            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 3) });
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeDoughFlatbread, 1), 160),
+            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 4) });
+        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealDoughFlatbread, 1), 160),
+            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 5) });
+
     }
 
     private static void registerSewingRecipes() {
