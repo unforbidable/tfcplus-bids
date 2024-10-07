@@ -110,6 +110,25 @@ public class RecipeSetup {
         addFoodDoughRecipe(TFCItems.oatGround, BidsItems.oatDoughUnshaped, TFCItems.redSteelBucketWater);
         addFoodDoughRecipe(TFCItems.riceGround, BidsItems.riceDoughUnshaped, TFCItems.redSteelBucketWater);
         addFoodDoughRecipe(TFCItems.cornmealGround, BidsItems.cornmealDoughUnshaped, TFCItems.redSteelBucketWater);
+
+        addFoodDoughRecipe(BidsItems.wheatCrushed, BidsItems.wheatDoughFlatbread, TFCItems.woodenBucketWater);
+        addFoodDoughRecipe(BidsItems.barleyCrushed, BidsItems.barleyFlatbread, TFCItems.woodenBucketWater);
+        addFoodDoughRecipe(BidsItems.ryeCrushed, BidsItems.ryeDoughFlatbread, TFCItems.woodenBucketWater);
+        addFoodDoughRecipe(BidsItems.oatCrushed, BidsItems.oatDoughFlatbread, TFCItems.woodenBucketWater);
+        addFoodDoughRecipe(BidsItems.riceCrushed, BidsItems.riceDoughFlatbread, TFCItems.woodenBucketWater);
+        addFoodDoughRecipe(BidsItems.cornmealCrushed, BidsItems.cornmealDoughFlatbread, TFCItems.woodenBucketWater);
+        addFoodDoughRecipe(BidsItems.wheatCrushed, BidsItems.wheatDoughFlatbread, TFCItems.clayBucketWater);
+        addFoodDoughRecipe(BidsItems.barleyCrushed, BidsItems.barleyFlatbread, TFCItems.clayBucketWater);
+        addFoodDoughRecipe(BidsItems.ryeCrushed, BidsItems.ryeDoughFlatbread, TFCItems.clayBucketWater);
+        addFoodDoughRecipe(BidsItems.oatCrushed, BidsItems.oatDoughFlatbread, TFCItems.clayBucketWater);
+        addFoodDoughRecipe(BidsItems.riceCrushed, BidsItems.riceDoughFlatbread, TFCItems.clayBucketWater);
+        addFoodDoughRecipe(BidsItems.cornmealCrushed, BidsItems.cornmealDoughFlatbread, TFCItems.clayBucketWater);
+        addFoodDoughRecipe(BidsItems.wheatCrushed, BidsItems.wheatDoughFlatbread, TFCItems.redSteelBucketWater);
+        addFoodDoughRecipe(BidsItems.barleyCrushed, BidsItems.barleyFlatbread, TFCItems.redSteelBucketWater);
+        addFoodDoughRecipe(BidsItems.ryeCrushed, BidsItems.ryeDoughFlatbread, TFCItems.redSteelBucketWater);
+        addFoodDoughRecipe(BidsItems.oatCrushed, BidsItems.oatDoughFlatbread, TFCItems.redSteelBucketWater);
+        addFoodDoughRecipe(BidsItems.riceCrushed, BidsItems.riceDoughFlatbread, TFCItems.redSteelBucketWater);
+        addFoodDoughRecipe(BidsItems.cornmealCrushed, BidsItems.cornmealDoughFlatbread, TFCItems.redSteelBucketWater);
     }
 
     private static void removeFoodDoughRecipe(Item foodInput, Item foodOutput, Item bucket) {
