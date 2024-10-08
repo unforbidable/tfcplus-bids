@@ -53,17 +53,19 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Steaming Mesh](../../wiki/Steaming-Mesh) - as an accessory for the cooking pot
 * [Fish Oil](../../wiki/Fish-Oil) - an alternative fuel for clay lamps
 * [More Milk](../../wiki/More-Milk) - goat milk and goat cheese
-* [Cooking Prep](../../wiki/Cooking-Prep) - for making classic salads and sandwiches and new meals such as stuffed peppers and stuffed mushrooms, and cooking mixes
+* [Cooking Prep](../../wiki/Cooking-Prep) - for making classic salads and sandwiches and new meals such as stuffed peppers and stuffed mushrooms, wraps, and cooking mixes
 * [More Crops](../../wiki/More-Crops) - new crops such as sea beet, beetroot, sugar beet, wild beans and broad beans and some converted TFC crops
 * [Tallow](../../wiki/Tallow) - made from Suet which drops from appropriate animal mobs, for consumption or making candles and Pemmican
 * [Axle Wall Bearing](../../wiki/Axle-Wall-Bearing) - allows seamless passage of axles through walls and ceilings
-* [Screw Press](../../wiki/Screw-Press) - screw based pressing device powered by TFC+ mechanisms
-* [Bamboo Shoots](../../wiki/Bamboo-Shoots) - vegetable source from Bamboo saplings, edible when cooked
+* [Screw Press](../../wiki/Screw-Press) - screw operated pressing device powered by TFC+ mechanisms
+* [Bamboo Shoots](../../wiki/Bamboo-Shoots) - vegetable source from Bamboo saplings, only edible when cooked
 * [Wattle Gate](../../wiki/Wattle-Gate) - gate from wattle
 * [Palisade](../../wiki/Palisade) - wall made of logs placed upright
 * [Straw Nest](../../wiki/Straw-Nest) - primitive alternative to a Nest Box for chicken to lie eggs
 * [More Kilns](../../wiki/Kiln) - Tunnel Kiln, Square Kiln, Beehive Kiln adapted from TFC+ and Climbing Kiln, powered by a wood pile, for pottery and wood drying
 * [Fire Brick Chimney](../../wiki/Fire-Brick-Chimney) - for advanced kiln construction
+* [Unshaped Dough](../../wiki/Unshaped-Dough) - unshaped flour and water mixture which can be formed into dough for Bread, Flatbread and Hardtack
+* [More Hides](../../wiki/More-Hides) - introducing a tiny rawhide dropped from animals for making Pemmican
 
 ### Contributions
 

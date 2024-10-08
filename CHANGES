@@ -614,3 +614,18 @@
 - Changed: Minor changes to firepit fuel interface (API)
 - Fixed: Correct fuel properties should now be used when burning TFC logs in new firepit
 - Fixed: NEI should now be able to match Chopping Block recipe output stacks larger than 1
+
+0.49.0 (2024-10-08)
+- Added: Medium and large animals now also drop 1 or 2 tiny raw hides when slaughtered
+- Added: 2 pieces of tiny raw hide can be merged into a small raw hide using a threaded needle
+- Added: 2 pieces of small raw hide can be merged into a medium raw hide using a threaded needle
+- Added: 2 pieces of medium raw hide can be merged into a large raw hide using a threaded needle
+- Added: Small raw hide can be cut into 2 tiny raw hides using a knife
+- Added: Combining flour and a large bowl of water now produces Unshaped dough
+- Added: Combining coarse flour and a large bowl of water produces Flatbread dough
+- Added: Unshaped dough can be formed into TFC (bread) dough, Flatbread dough and Hardtack dough using the knapping interface
+- Added: Flatbread can be baked from Flatbread dough
+- Added: Hardtack can be baked from Hardtack dough
+- Added: Wrap meals can be crafted on a Cooking Prep using Flatbread and food ingredients
+- Changed: Pemmican now uses tiny raw hide for wrapping instead of small raw hide
+- Fixed: Some cooking mix recipes no longer erroneously allow bread and grain as ingredients
