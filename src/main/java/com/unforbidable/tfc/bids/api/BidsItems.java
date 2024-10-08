@@ -245,4 +245,6 @@ public class BidsItems {
     public static Item porridge;
     public static Item omelet;
 
+    public static Item moreHide;
+
 }

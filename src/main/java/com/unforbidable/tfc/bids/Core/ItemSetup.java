@@ -684,6 +684,9 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Porridge");
         omelet = new ItemCookedMeal()
             .setUnlocalizedName("Omelet");
+
+        moreHide = new ItemMoreRawhide()
+            .setUnlocalizedName("More Hide");
     }
 
     private static void registerFluidContainers() {
@@ -1286,6 +1289,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(flatDough, flatDough.getUnlocalizedName());
 
         GameRegistry.registerItem(wrap, wrap.getUnlocalizedName());
+
+        GameRegistry.registerItem(moreHide, moreHide.getUnlocalizedName());
     }
 
 }
