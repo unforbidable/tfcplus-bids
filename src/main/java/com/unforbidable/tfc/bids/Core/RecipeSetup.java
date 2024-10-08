@@ -35,8 +35,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -45,7 +43,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static com.dunk.tfc.Core.Recipes.getStackNoTemp;
 
@@ -73,101 +70,24 @@ public class RecipeSetup {
     }
 
     private static void registerDoughRecipes() {
-        removeFoodDoughRecipe(TFCItems.wheatGround, TFCItems.wheatDough, TFCItems.woodenBucketWater);
-        removeFoodDoughRecipe(TFCItems.barleyGround, TFCItems.barleyDough, TFCItems.woodenBucketWater);
-        removeFoodDoughRecipe(TFCItems.ryeGround, TFCItems.ryeDough, TFCItems.woodenBucketWater);
-        removeFoodDoughRecipe(TFCItems.oatGround, TFCItems.oatDough, TFCItems.woodenBucketWater);
-        removeFoodDoughRecipe(TFCItems.riceGround, TFCItems.riceDough, TFCItems.woodenBucketWater);
-        removeFoodDoughRecipe(TFCItems.cornmealGround, TFCItems.cornmealDough, TFCItems.woodenBucketWater);
-        removeFoodDoughRecipe(TFCItems.wheatGround, TFCItems.wheatDough, TFCItems.clayBucketWater);
-        removeFoodDoughRecipe(TFCItems.barleyGround, TFCItems.barleyDough, TFCItems.clayBucketWater);
-        removeFoodDoughRecipe(TFCItems.ryeGround, TFCItems.ryeDough, TFCItems.clayBucketWater);
-        removeFoodDoughRecipe(TFCItems.oatGround, TFCItems.oatDough, TFCItems.clayBucketWater);
-        removeFoodDoughRecipe(TFCItems.riceGround, TFCItems.riceDough, TFCItems.clayBucketWater);
-        removeFoodDoughRecipe(TFCItems.cornmealGround, TFCItems.cornmealDough, TFCItems.clayBucketWater);
-        removeFoodDoughRecipe(TFCItems.wheatGround, TFCItems.wheatDough, TFCItems.redSteelBucketWater);
-        removeFoodDoughRecipe(TFCItems.barleyGround, TFCItems.barleyDough, TFCItems.redSteelBucketWater);
-        removeFoodDoughRecipe(TFCItems.ryeGround, TFCItems.ryeDough, TFCItems.redSteelBucketWater);
-        removeFoodDoughRecipe(TFCItems.oatGround, TFCItems.oatDough, TFCItems.redSteelBucketWater);
-        removeFoodDoughRecipe(TFCItems.riceGround, TFCItems.riceDough, TFCItems.redSteelBucketWater);
-        removeFoodDoughRecipe(TFCItems.cornmealGround, TFCItems.cornmealDough, TFCItems.redSteelBucketWater);
+        addFoodDoughRecipe(TFCItems.wheatGround, BidsItems.wheatDoughUnshaped);
+        addFoodDoughRecipe(TFCItems.barleyGround, BidsItems.barleyDoughUnshaped);
+        addFoodDoughRecipe(TFCItems.ryeGround, BidsItems.ryeDoughUnshaped);
+        addFoodDoughRecipe(TFCItems.oatGround, BidsItems.oatDoughUnshaped);
+        addFoodDoughRecipe(TFCItems.riceGround, BidsItems.riceDoughUnshaped);
+        addFoodDoughRecipe(TFCItems.cornmealGround, BidsItems.cornmealDoughUnshaped);
 
-        addFoodDoughRecipe(TFCItems.wheatGround, BidsItems.wheatDoughUnshaped, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(TFCItems.barleyGround, BidsItems.barleyDoughUnshaped, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(TFCItems.ryeGround, BidsItems.ryeDoughUnshaped, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(TFCItems.oatGround, BidsItems.oatDoughUnshaped, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(TFCItems.riceGround, BidsItems.riceDoughUnshaped, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(TFCItems.cornmealGround, BidsItems.cornmealDoughUnshaped, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(TFCItems.wheatGround, BidsItems.wheatDoughUnshaped, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(TFCItems.barleyGround, BidsItems.barleyDoughUnshaped, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(TFCItems.ryeGround, BidsItems.ryeDoughUnshaped, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(TFCItems.oatGround, BidsItems.oatDoughUnshaped, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(TFCItems.riceGround, BidsItems.riceDoughUnshaped, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(TFCItems.cornmealGround, BidsItems.cornmealDoughUnshaped, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(TFCItems.wheatGround, BidsItems.wheatDoughUnshaped, TFCItems.redSteelBucketWater);
-        addFoodDoughRecipe(TFCItems.barleyGround, BidsItems.barleyDoughUnshaped, TFCItems.redSteelBucketWater);
-        addFoodDoughRecipe(TFCItems.ryeGround, BidsItems.ryeDoughUnshaped, TFCItems.redSteelBucketWater);
-        addFoodDoughRecipe(TFCItems.oatGround, BidsItems.oatDoughUnshaped, TFCItems.redSteelBucketWater);
-        addFoodDoughRecipe(TFCItems.riceGround, BidsItems.riceDoughUnshaped, TFCItems.redSteelBucketWater);
-        addFoodDoughRecipe(TFCItems.cornmealGround, BidsItems.cornmealDoughUnshaped, TFCItems.redSteelBucketWater);
-
-        addFoodDoughRecipe(BidsItems.wheatCrushed, BidsItems.wheatDoughFlatbread, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(BidsItems.barleyCrushed, BidsItems.barleyFlatbread, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(BidsItems.ryeCrushed, BidsItems.ryeDoughFlatbread, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(BidsItems.oatCrushed, BidsItems.oatDoughFlatbread, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(BidsItems.riceCrushed, BidsItems.riceDoughFlatbread, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(BidsItems.cornmealCrushed, BidsItems.cornmealDoughFlatbread, TFCItems.woodenBucketWater);
-        addFoodDoughRecipe(BidsItems.wheatCrushed, BidsItems.wheatDoughFlatbread, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(BidsItems.barleyCrushed, BidsItems.barleyFlatbread, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(BidsItems.ryeCrushed, BidsItems.ryeDoughFlatbread, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(BidsItems.oatCrushed, BidsItems.oatDoughFlatbread, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(BidsItems.riceCrushed, BidsItems.riceDoughFlatbread, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(BidsItems.cornmealCrushed, BidsItems.cornmealDoughFlatbread, TFCItems.clayBucketWater);
-        addFoodDoughRecipe(BidsItems.wheatCrushed, BidsItems.wheatDoughFlatbread, TFCItems.redSteelBucketWater);
-        addFoodDoughRecipe(BidsItems.barleyCrushed, BidsItems.barleyFlatbread, TFCItems.redSteelBucketWater);
-        addFoodDoughRecipe(BidsItems.ryeCrushed, BidsItems.ryeDoughFlatbread, TFCItems.redSteelBucketWater);
-        addFoodDoughRecipe(BidsItems.oatCrushed, BidsItems.oatDoughFlatbread, TFCItems.redSteelBucketWater);
-        addFoodDoughRecipe(BidsItems.riceCrushed, BidsItems.riceDoughFlatbread, TFCItems.redSteelBucketWater);
-        addFoodDoughRecipe(BidsItems.cornmealCrushed, BidsItems.cornmealDoughFlatbread, TFCItems.redSteelBucketWater);
+        addFoodDoughRecipe(BidsItems.wheatCrushed, BidsItems.wheatDoughFlatbread);
+        addFoodDoughRecipe(BidsItems.barleyCrushed, BidsItems.barleyFlatbread);
+        addFoodDoughRecipe(BidsItems.ryeCrushed, BidsItems.ryeDoughFlatbread);
+        addFoodDoughRecipe(BidsItems.oatCrushed, BidsItems.oatDoughFlatbread);
+        addFoodDoughRecipe(BidsItems.riceCrushed, BidsItems.riceDoughFlatbread);
+        addFoodDoughRecipe(BidsItems.cornmealCrushed, BidsItems.cornmealDoughFlatbread);
     }
 
-    private static void removeFoodDoughRecipe(Item foodInput, Item foodOutput, Item bucket) {
-        List<IRecipe> list = (List<IRecipe>) CraftingManager.getInstance().getRecipeList();
-        for (int i = 0; i < list.size(); i++) {
-            IRecipe recipe = list.get(i);
-            if (recipe instanceof ShapelessRecipes) {
-                ShapelessRecipes shapelessRecipe = (ShapelessRecipes) recipe;
-                ItemStack result = shapelessRecipe.getRecipeOutput();
-                if (result.getItem() == foodOutput) {
-                    int bucketCount = 0;
-                    int flourCount = 0;
-                    int otherCount = 0;
-                    for (ItemStack is : (List<ItemStack>)shapelessRecipe.recipeItems) {
-                        if (is.getItem() == foodInput) {
-                            flourCount++;
-                        } else if (is.getItem() == bucket) {
-                            bucketCount++;
-                        } else {
-                            otherCount++;
-                        }
-                    }
-
-                    if (bucketCount == 1 && flourCount == 1 && otherCount == 0) {
-                        // Making sure it is the dough making recipe
-                        // and not a food combining recipe
-                        Bids.LOG.info("Removed TFC dough recipe for " + result.getDisplayName());
-                        list.remove(i);
-
-                        // Only one such recipe exists
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    private static void addFoodDoughRecipe(Item foodInput, Item foodOutput, Item bucket) {
-        GameRegistry.addShapelessRecipe(ItemFoodTFC.createTag(new ItemStack(foodOutput, 1)), ItemFoodTFC.createTag(new ItemStack(foodInput, 1)), bucket);
+    private static void addFoodDoughRecipe(Item foodInput, Item foodOutput) {
+        GameRegistry.addRecipe(new ShapelessOreRecipe(ItemFoodTFC.createTag(new ItemStack(foodOutput, 1)),
+            ItemFoodTFC.createTag(new ItemStack(foodInput, 1)), "itemLargeBowlWater"));
     }
 
     public static void onServerWorldLoad() {
@@ -224,6 +144,9 @@ public class RecipeSetup {
 
         OreDictionary.registerOre("itemHoneycomb", TFCItems.honeycomb);
         OreDictionary.registerOre("itemHoneycomb", TFCItems.fertileHoneycomb);
+
+        // Used for mixing flour and water into unshaped dough or flatbread dough
+        OreDictionary.registerOre("itemLargeBowlWater", BidsItems.freshWaterLargeBowl);
 
         OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLog, 1, WILD));
         OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
