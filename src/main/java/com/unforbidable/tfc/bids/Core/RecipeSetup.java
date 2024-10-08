@@ -1669,7 +1669,7 @@ public class RecipeSetup {
             .build();
 
         PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.pemmican)), new PrepIngredientSpec[]{
-            PrepIngredient.from(TFCItems.hide, 0).toSpec(),
+            PrepIngredient.from(BidsItems.moreHide, 0).toSpec(),
             leanMeat.toSpec(40, true), tallow.toSpec(20, true), berriesAndFlours.toSpec(10), berriesAndFlours.toSpec(10)
         }));
 
