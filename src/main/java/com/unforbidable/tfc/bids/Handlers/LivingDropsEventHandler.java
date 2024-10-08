@@ -6,6 +6,8 @@ import com.dunk.tfc.Entities.Mobs.EntityCowTFC;
 import com.dunk.tfc.Entities.Mobs.EntityGoat;
 import com.dunk.tfc.Entities.Mobs.EntitySheepTFC;
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.Items.ItemLeather;
+import com.dunk.tfc.Items.ItemRawHide;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Entities.IAnimal;
 import com.dunk.tfc.api.Food;
@@ -17,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class LivingDropsEventHandler {
@@ -34,6 +37,13 @@ public class LivingDropsEventHandler {
                 if (suetBaseWeight > 0) {
                     float suetWeight = ageMod * (sizeMod * suetBaseWeight);
                     dropButcheredMeat(event, butcherPlayer, BidsItems.suet, suetWeight);
+                }
+
+                int tinyRawHideCount = getTinyRawHideCountForDrops(event.drops);
+                if (tinyRawHideCount > 0) {
+                    ItemStack tinyRawHideItemStack = new ItemStack(BidsItems.moreHide, tinyRawHideCount, 0);
+                    EntityItem entityItem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, tinyRawHideItemStack);
+                    event.drops.add(entityItem);
                 }
             }
         }
@@ -81,6 +91,27 @@ public class LivingDropsEventHandler {
         } else {
             return 0;
         }
+    }
+
+    private int getTinyRawHideCountForDrops(ArrayList<EntityItem> drops) {
+        int count = 0;
+        for (EntityItem ei : drops) {
+            // Each dropped hide, fur, or sheep skin contributes to tiny raw hide count
+            // small = 0
+            // medium = 1
+            // large = 2
+            if (ei.getEntityItem() != null) {
+                Item item = ei.getEntityItem().getItem();
+
+                if (item instanceof ItemLeather && ((ItemLeather) item).getHasSizes()
+                    || item instanceof ItemRawHide) {
+                    int damage = ei.getEntityItem().getItemDamage();
+                    count += damage;
+                }
+            }
+        }
+
+        return count;
     }
 
 }
