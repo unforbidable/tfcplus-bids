@@ -148,6 +148,9 @@ public class RecipeSetup {
         // Used for mixing flour and water into unshaped dough or flatbread dough
         OreDictionary.registerOre("itemLargeBowlWater", BidsItems.freshWaterLargeBowl);
 
+        OreDictionary.registerOre("itemNeedleAndThread", new ItemStack(TFCItems.boneNeedleStrung, 1, WILD));
+        OreDictionary.registerOre("itemNeedleAndThread", new ItemStack(TFCItems.ironNeedleStrung, 1, WILD));
+
         OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLog, 1, WILD));
         OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
         OreDictionary.registerOre("logWood", new ItemStack(BidsItems.logsSeasoned, 1, WILD));
@@ -758,6 +761,21 @@ public class RecipeSetup {
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.plugAndFeather, 4),
             "logWoodPlugAndFeather", "itemAdze"));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.hide, 1, 0),
+            new ItemStack(BidsItems.moreHide, 1, 0), new ItemStack(BidsItems.moreHide, 1, 0),
+            "itemNeedleAndThread"));
+
+        RecipeManager.addAction(new ActionDamageTool(10)
+            .addTools("itemNeedleAndThread")
+            .matchCraftingItem(TFCItems.hide, 0));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.moreHide, 2),
+            new ItemStack(TFCItems.hide, 1, 0), "itemKnife"));
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemKnife")
+            .matchCraftingItem(BidsItems.moreHide, 0));
 
         // Copies of TFC recipes for generic wood items made logs
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 1),
