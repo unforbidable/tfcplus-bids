@@ -766,9 +766,25 @@ public class RecipeSetup {
             new ItemStack(BidsItems.moreHide, 1, 0), new ItemStack(BidsItems.moreHide, 1, 0),
             "itemNeedleAndThread"));
 
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.hide, 1, 1),
+            new ItemStack(TFCItems.hide, 1, 0), new ItemStack(TFCItems.hide, 1, 0),
+            "itemNeedleAndThread"));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.hide, 1, 2),
+            new ItemStack(TFCItems.hide, 1, 1), new ItemStack(TFCItems.hide, 1, 1),
+            "itemNeedleAndThread"));
+
         RecipeManager.addAction(new ActionDamageTool(10)
             .addTools("itemNeedleAndThread")
             .matchCraftingItem(TFCItems.hide, 0));
+
+        RecipeManager.addAction(new ActionDamageTool(20)
+            .addTools("itemNeedleAndThread")
+            .matchCraftingItem(TFCItems.hide, 1));
+
+        RecipeManager.addAction(new ActionDamageTool(40)
+            .addTools("itemNeedleAndThread")
+            .matchCraftingItem(TFCItems.hide, 2));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.moreHide, 2),
             new ItemStack(TFCItems.hide, 1, 0), "itemKnife"));
