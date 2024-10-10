@@ -77,6 +77,24 @@ tile.RoughStoneTileSed.Limestone.name=Rough Limestone Tiles
 tile.RoughStoneTileSed.Rock Salt.name=Rough Rock Salt Tiles
 tile.RoughStoneTileSed.Shale.name=Rough Shale Tiles
 
+tile.RoughStoneBrickFenceSed.Chalk.name=Rough Chalk Brick Fence
+tile.RoughStoneBrickFenceSed.Chert.name=Rough Chert Brick Fence
+tile.RoughStoneBrickFenceSed.Claystone.name=Rough Claystone Brick Fence
+tile.RoughStoneBrickFenceSed.Sandstone.name=Rough Sandstone Brick Fence
+tile.RoughStoneBrickFenceSed.Dolomite.name=Rough Dolomite Brick Fence
+tile.RoughStoneBrickFenceSed.Limestone.name=Rough Limestone Brick Fence
+tile.RoughStoneBrickFenceSed.Rock Salt.name=Rough Rock Salt Brick Fence
+tile.RoughStoneBrickFenceSed.Shale.name=Rough Shale Brick Fence
+
+tile.RoughStoneTileFenceSed.Chalk.name=Rough Chalk Tile Fence
+tile.RoughStoneTileFenceSed.Chert.name=Rough Chert Tile Fence
+tile.RoughStoneTileFenceSed.Claystone.name=Rough Claystone Tile Fence
+tile.RoughStoneTileFenceSed.Sandstone.name=Rough Sandstone Tile Fence
+tile.RoughStoneTileFenceSed.Dolomite.name=Rough Dolomite Tile Fence
+tile.RoughStoneTileFenceSed.Limestone.name=Rough Limestone Tile Fence
+tile.RoughStoneTileFenceSed.Rock Salt.name=Rough Rock Salt Tile Fence
+tile.RoughStoneTileFenceSed.Shale.name=Rough Shale Tile Fence
+
 tile.RoughStoneMM.Quartzite.name=Rough Quartzite
 tile.RoughStoneMM.Slate.name=Rough Slate
 tile.RoughStoneMM.Phyllite.name=Rough Phyllite
@@ -98,6 +116,20 @@ tile.RoughStoneTileMM.Schist.name=Rough Schist Tiles
 tile.RoughStoneTileMM.Gneiss.name=Rough Gneiss Tiles
 tile.RoughStoneTileMM.Marble.name=Rough Marble Tiles
 
+tile.RoughStoneBrickFenceMM.Quartzite.name=Rough Quartzite Brick Fence
+tile.RoughStoneBrickFenceMM.Slate.name=Rough Slate Brick Fence
+tile.RoughStoneBrickFenceMM.Phyllite.name=Rough Phyllite Brick Fence
+tile.RoughStoneBrickFenceMM.Schist.name=Rough Schist Brick Fence
+tile.RoughStoneBrickFenceMM.Gneiss.name=Rough Gneiss Brick Fence
+tile.RoughStoneBrickFenceMM.Marble.name=Rough Marble Brick Fence
+
+tile.RoughStoneTileFenceMM.Quartzite.name=Rough Quartzite Tile Fence
+tile.RoughStoneTileFenceMM.Slate.name=Rough Slate Tile Fence
+tile.RoughStoneTileFenceMM.Phyllite.name=Rough Phyllite Tile Fence
+tile.RoughStoneTileFenceMM.Schist.name=Rough Schist Tile Fence
+tile.RoughStoneTileFenceMM.Gneiss.name=Rough Gneiss Tile Fence
+tile.RoughStoneTileFenceMM.Marble.name=Rough Marble Tile Fence
+
 tile.RoughStoneIgIn.Granite.name=Rough Granite
 tile.RoughStoneIgIn.Diorite.name=Rough Diorite
 tile.RoughStoneIgIn.Gabbro.name=Rough Gabbro
@@ -109,6 +141,14 @@ tile.RoughStoneBrickIgIn.Gabbro.name=Rough Gabbro Bricks
 tile.RoughStoneTileIgIn.Granite.name=Rough Granite Tiles
 tile.RoughStoneTileIgIn.Diorite.name=Rough Diorite Tiles
 tile.RoughStoneTileIgIn.Gabbro.name=Rough Gabbro Tiles
+
+tile.RoughStoneBrickFenceIgIn.Granite.name=Rough Granite Brick Fence
+tile.RoughStoneBrickFenceIgIn.Diorite.name=Rough Diorite Brick Fence
+tile.RoughStoneBrickFenceIgIn.Gabbro.name=Rough Gabbro Brick Fence
+
+tile.RoughStoneTileFenceIgIn.Granite.name=Rough Granite Tile Fence
+tile.RoughStoneTileFenceIgIn.Diorite.name=Rough Diorite Tile Fence
+tile.RoughStoneTileFenceIgIn.Gabbro.name=Rough Gabbro Tile Fence
 
 tile.RoughStoneIgEx.Rhyolite.name=Rough Rhyolite
 tile.RoughStoneIgEx.Basalt.name=Rough Basalt
@@ -124,6 +164,16 @@ tile.RoughStoneTileIgEx.Rhyolite.name=Rough Rhyolite Tiles
 tile.RoughStoneTileIgEx.Basalt.name=Rough Basalt Tiles
 tile.RoughStoneTileIgEx.Andesite.name=Rough Andesite Tiles
 tile.RoughStoneTileIgEx.Dacite.name=Rough Dacite Tiles
+
+tile.RoughStoneBrickFenceIgEx.Rhyolite.name=Rough Rhyolite Brick Fence
+tile.RoughStoneBrickFenceIgEx.Basalt.name=Rough Basalt Brick Fence
+tile.RoughStoneBrickFenceIgEx.Andesite.name=Rough Andesite Brick Fence
+tile.RoughStoneBrickFenceIgEx.Dacite.name=Rough Dacite Brick Fence
+
+tile.RoughStoneTileFenceIgEx.Rhyolite.name=Rough Rhyolite Tile Fence
+tile.RoughStoneTileFenceIgEx.Basalt.name=Rough Basalt Tile Fence
+tile.RoughStoneTileFenceIgEx.Andesite.name=Rough Andesite Tile Fence
+tile.RoughStoneTileFenceIgEx.Dacite.name=Rough Dacite Tile Fence
 
 tile.CrackedIgExRock.Andesite.name=Cracked Andesite
 tile.CrackedIgExRock.Basalt.name=Cracked Basalt

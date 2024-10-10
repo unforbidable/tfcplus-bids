@@ -137,6 +137,28 @@ public class BlockSetup extends BidsBlocks {
                 .setNames(Global.STONE_IGEX).setBlockName("RoughStoneTileIgEx")
                 .setBlockTextureName("Rough Tile");
 
+        roughStoneBrickFenceSed = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickSed)
+            .setMaterialBlockTopBottom(roughStoneTileSed)
+            .setBlockName("RoughStoneBrickFenceSed");
+        roughStoneBrickFenceMM = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickMM)
+            .setMaterialBlockTopBottom(roughStoneTileMM)
+            .setBlockName("RoughStoneBrickFenceMM");
+        roughStoneBrickFenceIgIn = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickIgIn)
+            .setMaterialBlockTopBottom(roughStoneTileIgIn)
+            .setBlockName("RoughStoneBrickFenceIgIn");
+        roughStoneBrickFenceIgEx = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickIgEx)
+            .setMaterialBlockTopBottom(roughStoneTileIgEx)
+            .setBlockName("RoughStoneBrickFenceIgEx");
+
+        roughStoneTileFenceSed = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileSed)
+            .setBlockName("RoughStoneTileFenceSed");
+        roughStoneTileFenceMM = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileMM)
+            .setBlockName("RoughStoneTileFenceMM");
+        roughStoneTileFenceIgIn = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileIgIn)
+            .setBlockName("RoughStoneTileFenceIgIn");
+        roughStoneTileFenceIgEx = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileIgEx)
+            .setBlockName("RoughStoneTileFenceIgEx");
+
         logWallEast = new BlockLogWall(EnumLogWallType.EAST, 0).setBlockName("LogWallEast");
         logWallNorth = new BlockLogWall(EnumLogWallType.NORTH, 0).setBlockName("LogWallNorth");
         logWallCorner = new BlockLogWall(EnumLogWallType.CORNER, 0).setBlockName("LogWallCorner");
@@ -352,15 +374,23 @@ public class BlockSetup extends BidsBlocks {
         roughStoneSed.setHarvestLevel("shovel", 0);
         roughStoneBrickSed.setHarvestLevel("shovel", 0);
         roughStoneTileSed.setHarvestLevel("shovel", 0);
+        roughStoneBrickFenceSed.setHarvestLevel("shovel", 0);
+        roughStoneTileFenceSed.setHarvestLevel("shovel", 0);
         roughStoneMM.setHarvestLevel("shovel", 0);
         roughStoneBrickMM.setHarvestLevel("shovel", 0);
         roughStoneTileMM.setHarvestLevel("shovel", 0);
+        roughStoneBrickFenceMM.setHarvestLevel("shovel", 0);
+        roughStoneTileFenceMM.setHarvestLevel("shovel", 0);
         roughStoneIgIn.setHarvestLevel("shovel", 0);
         roughStoneBrickIgIn.setHarvestLevel("shovel", 0);
         roughStoneTileIgIn.setHarvestLevel("shovel", 0);
+        roughStoneBrickFenceIgIn.setHarvestLevel("shovel", 0);
+        roughStoneTileFenceIgIn.setHarvestLevel("shovel", 0);
         roughStoneIgEx.setHarvestLevel("shovel", 0);
         roughStoneBrickIgEx.setHarvestLevel("shovel", 0);
         roughStoneTileIgEx.setHarvestLevel("shovel", 0);
+        roughStoneBrickFenceIgEx.setHarvestLevel("shovel", 0);
+        roughStoneTileFenceIgEx.setHarvestLevel("shovel", 0);
 
         crackedStoneSed.setHarvestLevel("shovel", 0);
         crackedStoneMM.setHarvestLevel("shovel", 0);
@@ -620,6 +650,9 @@ public class BlockSetup extends BidsBlocks {
 
         crackedOreRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(crackedOreRenderId, new RenderCrackedOre());
+
+        roughStoneFenceRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(roughStoneFenceRenderId, new RenderRoughStoneFence());
     }
 
     private static void registerTileEntities() {
@@ -858,6 +891,17 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(fireBrickChimney, ItemFireBrickChimney.class, "FireBrickChimney");
 
         GameRegistry.registerBlock(light, "Light");
+
+        GameRegistry.registerBlock(roughStoneBrickFenceSed, ItemRoughStoneFence.class, "RoughStoneBrickFenceSed");
+        GameRegistry.registerBlock(roughStoneBrickFenceMM, ItemRoughStoneFence.class, "RoughStoneBrickFenceMM");
+        GameRegistry.registerBlock(roughStoneBrickFenceIgIn, ItemRoughStoneFence.class, "RoughStoneBrickFenceIgIn");
+        GameRegistry.registerBlock(roughStoneBrickFenceIgEx, ItemRoughStoneFence.class, "RoughStoneBrickFenceIgEx");
+
+        GameRegistry.registerBlock(roughStoneTileFenceSed, ItemRoughStoneFence.class, "RoughStoneTileFenceSed");
+        GameRegistry.registerBlock(roughStoneTileFenceMM, ItemRoughStoneFence.class, "RoughStoneTileFenceMM");
+        GameRegistry.registerBlock(roughStoneTileFenceIgIn, ItemRoughStoneFence.class, "RoughStoneTileFenceIgIn");
+        GameRegistry.registerBlock(roughStoneTileFenceIgEx, ItemRoughStoneFence.class, "RoughStoneTileFenceIgEx");
+
     }
 
 }

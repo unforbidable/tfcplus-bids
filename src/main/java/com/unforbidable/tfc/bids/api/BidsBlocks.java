@@ -39,6 +39,7 @@ public class BidsBlocks {
     public static int screwPressDiscRenderId;
     public static int screwPressLeverRenderId;
     public static int palisadeRenderId;
+    public static int roughStoneFenceRenderId;
     public static int wattleGateRenderId;
     public static int strawNestRenderId;
     public static int crackedStoneRenderId;
@@ -173,6 +174,16 @@ public class BidsBlocks {
     public static Block palisade;
     public static Block palisade2;
     public static Block palisade3;
+
+    public static Block roughStoneBrickFenceSed;
+    public static Block roughStoneBrickFenceMM;
+    public static Block roughStoneBrickFenceIgIn;
+    public static Block roughStoneBrickFenceIgEx;
+
+    public static Block roughStoneTileFenceSed;
+    public static Block roughStoneTileFenceMM;
+    public static Block roughStoneTileFenceIgIn;
+    public static Block roughStoneTileFenceIgEx;
 
     public static Block wattleGate;
 
