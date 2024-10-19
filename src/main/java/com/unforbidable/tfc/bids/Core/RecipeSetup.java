@@ -977,7 +977,7 @@ public class RecipeSetup {
         Bids.LOG.info("Register carving recipes");
 
         CarvingRecipePattern choppingBlockPattern = new CarvingRecipePattern()
-                .carveEntireLayer();
+            .carveEntireLayer();
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             if (wood.blocks.hasChoppingBlock()) {
@@ -987,48 +987,32 @@ public class RecipeSetup {
         }
 
         CarvingRecipePattern saddleQuernPattern = new CarvingRecipePattern()
-                .carveLayer("    ", " ## ", " ## ", " ## ");
-
-        for (int i = 0; i < Global.STONE_SED.length; i++) {
-            CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.saddleQuernBaseSed, 1, i),
-                    new ItemStack(BidsBlocks.roughStoneSed, 1, i), saddleQuernPattern));
-        }
+            .carveLayer("    ", " ## ", " ## ", " ## ");
 
         CarvingRecipePattern[] handstonePatterns = {
-                new CarvingRecipePattern()
-                        .carveEntireLayer()
-                        .carveEntireLayer()
-                        .carveLayer("####", "#  #", "#  #", "#  #")
-                        .carveLayer("####", "#  #", "#  #", "#  #"),
-                new CarvingRecipePattern()
-                        .carveEntireLayer()
-                        .carveEntireLayer()
-                        .carveLayer("####", "  ##", "  ##", "  ##")
-                        .carveLayer("####", "  ##", "  ##", "  ##"),
-                new CarvingRecipePattern()
-                        .carveEntireLayer()
-                        .carveEntireLayer()
-                        .carveLayer("####", "##  ", "##  ", "##  ")
-                        .carveLayer("####", "##  ", "##  ", "##  ")
+            new CarvingRecipePattern()
+                .carveEntireLayer()
+                .carveEntireLayer()
+                .carveLayer("####", "#  #", "#  #", "#  #")
+                .carveLayer("####", "#  #", "#  #", "#  #"),
+            new CarvingRecipePattern()
+                .carveEntireLayer()
+                .carveEntireLayer()
+                .carveLayer("####", "  ##", "  ##", "  ##")
+                .carveLayer("####", "  ##", "  ##", "  ##"),
+            new CarvingRecipePattern()
+                .carveEntireLayer()
+                .carveEntireLayer()
+                .carveLayer("####", "##  ", "##  ", "##  ")
+                .carveLayer("####", "##  ", "##  ", "##  ")
         };
 
-        for (int j = 0; j < handstonePatterns.length; j++) {
-            for (int i = 0; i < Global.STONE_SED.length; i++) {
-                CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.saddleQuernHandstoneSed, 1, i),
-                        new ItemStack(BidsBlocks.roughStoneSed, 1, i), handstonePatterns[j]));
-            }
-        }
-
         CarvingRecipePattern pressingStonePattern =  new CarvingRecipePattern()
-                .carveEntireLayer()
-                .carveEntireLayer()
-                .carveLayer("####", "#   ", "#   ", "#   ")
-                .carveLayer("####", "#   ", "#   ", "#   ");
+            .carveEntireLayer()
+            .carveEntireLayer()
+            .carveLayer("####", "#   ", "#   ", "#   ")
+            .carveLayer("####", "#   ", "#   ", "#   ");
 
-        for (int i = 0; i < Global.STONE_SED.length; i++) {
-            CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.saddleQuernPressingStoneSed, 1, i),
-                new ItemStack(BidsBlocks.roughStoneSed, 1, i), pressingStonePattern));
-        }
 
         CarvingRecipePattern weightStonePattern =  new CarvingRecipePattern()
             .carveEntireLayer()
@@ -1036,25 +1020,32 @@ public class RecipeSetup {
             .carveLayer("####", "#   ", "#   ", "#   ")
             .carveLayer("####", "#   ", "#   ", "#   ");
 
-        for (int i = 0; i < Global.STONE_SED.length; i++) {
-            CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.stonePressWeightSed, 1, i),
-                new ItemStack(BidsBlocks.roughStoneSed, 1, i), weightStonePattern));
-        }
-
         CarvingRecipePattern chimneyPattern =  new CarvingRecipePattern()
             .carveLayer("    ", " ## ", " ## ", "    ")
             .carveLayer("    ", " ## ", " ## ", "    ")
             .carveLayer("    ", " ## ", " ## ", "    ")
             .carveLayer("    ", " ## ", " ## ", "    ");
 
-        for (int i = 0; i < 16; i++) {
-            CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.mudBrickChimney, 1, i),
-                new ItemStack(TFCBlocks.mudBricks, 1, i), chimneyPattern));
-        }
 
-        for (int i = 16; i < Global.STONE_ALL.length; i++) {
-            CarvingManager.addRecipe(new CarvingRecipe(new ItemStack(BidsBlocks.mudBrickChimney2, 1, i),
-                new ItemStack(TFCBlocks.mudBricks2, 1, i), chimneyPattern));
+        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
+            if (stone.soft) {
+                CarvingManager.addRecipe(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.SADDLE_QUERN),
+                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), saddleQuernPattern));
+
+                for (int j = 0; j < handstonePatterns.length; j++) {
+                    CarvingManager.addRecipe(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.HAND_STONE),
+                        stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), handstonePatterns[j]));
+                }
+
+                CarvingManager.addRecipe(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.PRESSING_STONE),
+                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), pressingStonePattern));
+
+                CarvingManager.addRecipe(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.WEIGHT_STONE),
+                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), weightStonePattern));
+            }
+
+            CarvingManager.addRecipe(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY),
+                stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICKS), chimneyPattern));
         }
     }
 
