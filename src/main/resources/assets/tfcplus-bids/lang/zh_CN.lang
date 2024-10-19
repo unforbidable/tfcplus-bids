@@ -1062,6 +1062,8 @@ item.Coat Front.Leather.name=皮革大衣正面
 item.Coat Back.Leather.name=皮革大衣背面
 item.Leather Coat.name=皮革大衣
 
+item.More Hide.Tiny.name=微块兽皮
+
 item.Wheat Crushed.name=粗小麦粉
 item.Barley Crushed.name=粗大麦粉
 item.Oat Crushed.name=粗燕麦粉
@@ -1074,6 +1076,43 @@ item.Oat Porridge.name=粗燕麦糊
 item.Rice Porridge.name=粗米糊
 item.Rye Porridge.name=粗黑麦糊
 item.Cornmeal Porridge.name=玉米糁粥
+
+item.Wheat Dough Unshaped.name=未定型小麦面团
+item.Barley Dough Unshaped.name=未定型大麦面团
+item.Oat Dough Unshaped.name=未定型燕麦面团
+item.Rice Dough Unshaped.name=未定型大米面团
+item.Rye Dough Unshaped.name=未定型黑麦面团
+item.Cornmeal Dough Unshaped.name=未定型玉米面团
+
+item.Wheat Dough Hardtack.name=小麦硬饼干面团
+item.Barley Dough Hardtack.name=大麦硬饼干面团
+item.Oat Dough Hardtack.name=燕麦硬饼干面团
+item.Rice Dough Hardtack.name=大米硬饼干面团
+item.Rye Dough Hardtack.name=黑麦硬饼干面团
+item.Cornmeal Dough Hardtack.name=玉米硬饼干面团
+
+item.Wheat Hardtack.name=小麦硬饼干
+item.Barley Hardtack.name=大麦硬饼干
+item.Oat Hardtack.name=燕麦硬饼干
+item.Rice Hardtack.name=大米硬饼干
+item.Rye Hardtack.name=黑麦硬饼干
+item.Cornmeal Hardtack.name=玉米硬饼干
+
+item.Wheat Dough Flatbread.name=小麦饼面团
+item.Barley Dough Flatbread.name=大麦饼面团
+item.Oat Dough Flatbread.name=燕麦饼面团
+item.Rice Dough Flatbread.name=大米饼面团
+item.Rye Dough Flatbread.name=黑麦饼面团
+item.Cornmeal Dough Flatbread.name=玉米饼面团
+
+item.Wheat Flatbread.name=小麦饼
+item.Barley Flatbread.name=大麦饼
+item.Oat Flatbread.name=燕麦饼
+item.Rice Flatbread.name=大米饼
+item.Rye Flatbread.name=黑麦饼
+item.Cornmeal Flatbread.name=玉米饼
+
+item.Flat Dough.name=未定型面团
 
 item.Goat Cheese.name=羊奶酪
 
@@ -1121,6 +1160,7 @@ item.Steaming Mesh Cloth.name=蒸网
 item.Stuffed Pepper.name=酿辣椒
 item.Stuffed Mushroom.name=酿蘑菇
 item.Pemmican.name=干肉饼
+item.Wrap.name=卷饼
 
 item.CookingMixture.name=混合食材
 
@@ -1182,6 +1222,7 @@ gui.Help.Kindling2=地上要扔两个石子.
 gui.Help.Pottery=潜行时§b右击§7以放置物品.
 gui.Help.CookingPot=§b右击§7方块以放置.
 gui.Help.CookingPotLid=§b右击§7方块以放置.
+gui.Help.UnshapedDough=§b右击§7来塑形面团.
 gui.Units=单位
 gui.Empty=空
 gui.Solidified=凝固

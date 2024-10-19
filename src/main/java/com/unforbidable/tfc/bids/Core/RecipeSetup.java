@@ -1703,7 +1703,7 @@ public class RecipeSetup {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.sedStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_SED_START) });
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.sedStoneAdzeHead, 1),
                     new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_SED_START) });
         }
@@ -1712,7 +1712,7 @@ public class RecipeSetup {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igExStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGEX_START) });
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igExStoneAdzeHead, 1),
                     new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGEX_START) });
         }
@@ -1721,7 +1721,7 @@ public class RecipeSetup {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.mMStoneDrillHead, 1),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_MM_START) });
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.mMStoneAdzeHead, 1),
                     new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
                             '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_MM_START) });
         }

@@ -4,7 +4,7 @@ public class Tags {
 
     public static final String MOD_ID = "tfcplus-bids";
     public static final String MOD_NAME = "TFCPlus Bids";
-    public static final String VERSION = "0.49.0";
+    public static final String VERSION = "0.49.1";
     public static final String PACKAGE = "com.unforbidable.tfc.bids";
 
 }

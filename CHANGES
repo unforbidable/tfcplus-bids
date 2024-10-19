@@ -629,3 +629,7 @@
 - Added: Wrap meals can be crafted on a Cooking Prep using Flatbread and food ingredients
 - Changed: Pemmican now uses tiny raw hide for wrapping instead of small raw hide
 - Fixed: Some cooking mix recipes no longer erroneously allow bread and grain as ingredients
+
+0.49.1 (2024-10-19)
+- Changed: Updated Chinese translation by Eternal130
+- Fixed: Knapping rocks now produces the correct stone Adze head.
