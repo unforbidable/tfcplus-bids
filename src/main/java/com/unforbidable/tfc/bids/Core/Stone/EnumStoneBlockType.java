@@ -1,0 +1,21 @@
+package com.unforbidable.tfc.bids.Core.Stone;
+
+public enum EnumStoneBlockType {
+    RAW,
+    SMOOTH_STONE,
+    ROUGH_STONE,
+    ROUGH_STONE_BRICKS,
+    ROUGH_STONE_TILES,
+    SADDLE_QUERN,
+    HAND_STONE,
+    PRESSING_STONE,
+    WEIGHT_STONE,
+    STONE_BRICKS,
+    STONE_BRICK_CHIMNEY,
+    STONE_LARGE_BRICKS,
+    STONE_LARGE_BRICK_CHIMNEY,
+    MUD_BRICKS,
+    MUD_BRICK_CHIMNEY,
+    ROUGH_BRICK_FENCE,
+    ROUGH_TILE_FENCE
+}
