@@ -15,8 +15,8 @@ public class GoatMilkHandler implements IMilkHandler<EntityGoat> {
     public boolean canAnimalBeMilkedByPlayer(EntityGoat animal, EntityPlayer player) {
         return animal.isAdult() &&
             animal.getGender() == IAnimal.GenderEnum.FEMALE &&
-            animal.isMilkable() &&
-            animal.checkFamiliarity(IAnimal.InteractionEnum.MILK, player);
+            GoatMilkHelper.isMilkable(animal) &&
+            GoatMilkHelper.checkFamiliarity(animal, IAnimal.InteractionEnum.MILK, player);
     }
 
     @Override
