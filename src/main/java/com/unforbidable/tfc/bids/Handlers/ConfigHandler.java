@@ -234,6 +234,11 @@ public class ConfigHandler {
             BidsOptions.Crops.enableVariableCropGrowthSpeed,
             "Set this to true if you want crops to take variable time to mature. Some crops will mature a few days sooner, some later.");
 
+        BidsOptions.Husbandry.enableGoatMilkFromGoats = config.getBoolean(
+            "enableGoatMilkFromGoats", "husbandry",
+            BidsOptions.Husbandry.enableGoatMilkFromGoats,
+            "Set this to true if you want to get goat milk from Goats instead of regular milk.");
+
         config.save();
     }
 

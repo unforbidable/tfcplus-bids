@@ -5,6 +5,7 @@ import com.dunk.tfc.Entities.Mobs.EntityGoat;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Core.Drinks.Milk.MilkHelper;
 import com.unforbidable.tfc.bids.api.BidsFluids;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fluids.Fluid;
@@ -17,7 +18,11 @@ public class EntityFluidHelper {
         }
 
         if (entity instanceof EntityGoat && MilkHelper.canEntityBeMilkedByPlayerSafe(entity, player)) {
-            return BidsFluids.GOATMILK;
+            if (BidsOptions.Husbandry.enableGoatMilkFromGoats) {
+                return BidsFluids.GOATMILK;
+            } else {
+                return TFCFluids.MILK;
+            }
         }
 
         return null;
