@@ -238,6 +238,10 @@ public class ConfigHandler {
             "enableGoatMilkFromGoats", "husbandry",
             BidsOptions.Husbandry.enableGoatMilkFromGoats,
             "Set this to true if you want to get goat milk from Goats instead of regular milk.");
+        BidsOptions.Husbandry.enableIbexHavingMilk = config.getBoolean(
+            "enableIbexHavingMilk", "husbandry",
+            BidsOptions.Husbandry.enableIbexHavingMilk,
+            "Set this to true if you want to be able to milk Ibex for a very limited amount of milk.");
 
         config.save();
     }

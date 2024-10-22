@@ -5,6 +5,7 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Entities.Mobs.EntityAnimalTFC;
 import com.dunk.tfc.Entities.Mobs.EntityGoat;
 import com.dunk.tfc.api.Entities.IAnimal;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentTranslation;
 
@@ -48,7 +49,7 @@ public class GoatMilkHelper {
                 break;
             case MILK:
                 // 15 is used for milking cows
-                flag = animal.getFamiliarity() > 15 || animal.isDomesticated();
+                flag = BidsOptions.Husbandry.enableIbexHavingMilk && animal.getFamiliarity() > 15 || animal.isDomesticated();
                 break;
         }
 

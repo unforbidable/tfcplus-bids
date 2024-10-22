@@ -131,6 +131,7 @@ public class BidsOptions {
     public static class Husbandry {
 
         public static boolean enableGoatMilkFromGoats = true;
+        public static boolean enableIbexHavingMilk = true;
 
     }
 
