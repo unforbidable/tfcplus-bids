@@ -43,6 +43,7 @@ public class WailaSetup {
         Bids.LOG.info("Register WAILA setup callback");
 
         FMLInterModComms.sendMessage("Waila", "register", WailaProvider.class.getCanonicalName() + ".setup");
+        FMLInterModComms.sendMessage("Waila", "register", WailaEntityProvider.class.getCanonicalName() + ".setup");
     }
 
 }
