@@ -13,20 +13,6 @@ import java.lang.reflect.Field;
 
 public class GoatMilkHelper {
 
-    private static final int GOAT_CAN_MILK_DATA_WATCHER_ID = 25;
-
-    public static void initCanMilkDataWatcherValue(EntityGoat goat) {
-        goat.getDataWatcher().addObject(GOAT_CAN_MILK_DATA_WATCHER_ID, 0);
-    }
-
-    public static void setCanMilkDataWatcherValue(EntityGoat goat, boolean canMilk) {
-        goat.getDataWatcher().updateObject(GOAT_CAN_MILK_DATA_WATCHER_ID, canMilk ? 1 : 0);
-    }
-
-    public static boolean getCanMilkDataWatcherValue(EntityGoat goat) {
-        return goat.getDataWatcher().getWatchableObjectInt(GOAT_CAN_MILK_DATA_WATCHER_ID) == 1;
-    }
-
     public static boolean isMilkable(EntityGoat goat) {
         // EntityGoat.isMilkable() checks familiarity which in turn relies on goat being domesticated
         // so this method only considers whether any milk is due
