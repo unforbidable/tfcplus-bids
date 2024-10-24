@@ -20,7 +20,7 @@ public class CowMilkHandler implements IMilkHandler<EntityCowTFC> {
 
     @Override
     public boolean doMilkAnimalByPlayer(EntityCowTFC animal, EntityPlayer player, int amount) {
-        long time = TFC_Time.getTotalTicks() + Math.round((amount / 1000f) * TICKS_PER_BUCKET);
+        long time = TFC_Time.getTotalTicks() + Math.round((amount / 1000f) * TICKS_PER_BUCKET) - 2 * TFC_Time.HOUR_LENGTH;
         animal.setHasMilkTime(time);
 
         return true;

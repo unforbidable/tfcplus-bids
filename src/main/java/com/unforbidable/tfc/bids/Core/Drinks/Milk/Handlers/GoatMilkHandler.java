@@ -22,7 +22,7 @@ public class GoatMilkHandler implements IMilkHandler<EntityGoat> {
     @Override
     public boolean doMilkAnimalByPlayer(EntityGoat animal, EntityPlayer player, int amount) {
         int multiplier = animal.isDomesticated() ? 1 : 4;
-        long time = TFC_Time.getTotalTicks() + Math.round((amount / 1000f) * TICKS_PER_BUCKET * multiplier);
+        long time = TFC_Time.getTotalTicks() + Math.round((amount / 1000f) * TICKS_PER_BUCKET * multiplier) - 2 * TFC_Time.HOUR_LENGTH;
         GoatMilkHelper.setHasMilkTime(animal, time);
 
         return true;
