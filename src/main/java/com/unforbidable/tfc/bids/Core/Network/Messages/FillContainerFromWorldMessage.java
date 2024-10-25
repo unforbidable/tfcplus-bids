@@ -121,7 +121,7 @@ public class FillContainerFromWorldMessage implements IMessage {
 
         @Override
         public IMessage onMessage(FillContainerFromWorldMessage message, MessageContext ctx) {
-            Bids.LOG.info("Received FillContainerFromMobMessage");
+            Bids.LOG.debug("Received FillContainerFromMobMessage");
             FluidHelper.onContainerFilledFromWorld(message.containerItemStack, message.getPlayer(), message.getMovingObjectPosition());
 
             return null;
