@@ -47,7 +47,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Wall Hook](../../wiki/Wall-Hook) - for hanging some tools, clothes and some other items on a wall
 * [Aquifer](../../wiki/Aquifer) - generates below the surface and spawns water blocks above when exposed
 * [Bucket and Rope](../../wiki/Bucket-and-Rope) - for drawing water from deep wells
-* [Large Bowl](../../wiki/Large-Bowl) - enables mixing barrel recipes that might require adding 500mB of liquid
+* [Large Bowl](../../wiki/Large-Bowl) - enables mixing barrel recipes that might require adding 500mB of liquid, used to milk animals (including Ibex)
 * [Unfinished Anvil](../../wiki/Unfinished-Anvil) - enables anvil creation by welding seven double ingots together
 * [Cooking Pot](../../wiki/Cooking-Pot) - for boiling and steaming foodstuffs and much more, notably making cooked meals form prepared mixtures
 * [Steaming Mesh](../../wiki/Steaming-Mesh) - as an accessory for the cooking pot
@@ -66,6 +66,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Fire Brick Chimney](../../wiki/Fire-Brick-Chimney) - for advanced kiln construction
 * [Unshaped Dough](../../wiki/Unshaped-Dough) - unshaped flour and water mixture which can be formed into dough for Bread, Flatbread and Hardtack
 * [More Hides](../../wiki/More-Hides) - introducing a tiny rawhide dropped from animals for making Pemmican
+* [Rough Stone Fences](../../wiki/Rough-Stone-Fence) - walls from rough stone bricks and tiles, behaving much like palisade
 
 ### Contributions
 

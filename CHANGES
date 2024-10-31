@@ -633,3 +633,10 @@
 0.49.1 (2024-10-19)
 - Changed: Updated Chinese translation by Eternal130
 - Fixed: Knapping rocks now produces the correct stone Adze head.
+
+0.50.0 (2024-10-31)
+- Added: Rough stone brick fence
+- Added: Rough stone tile fence
+- Added: A small amount of milk can be milked from familiarized female Ibex using a large bowl
+- Added: Option to get regular Milk when milking Goats and Ibex instead of Goat Milk using a large bowl
+- Changed: Animals milked using a large bowl replenish their milk 2 hours sooner allowing a rough daily milking schedule
