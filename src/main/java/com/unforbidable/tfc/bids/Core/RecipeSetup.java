@@ -1681,40 +1681,13 @@ public class RecipeSetup {
     private static void registerKnappingRecipes() {
         Bids.LOG.info("Register TFC knapping recipes");
 
-        for (int i = 0; i < Global.STONE_IGIN.length; i++) {
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneDrillHead, 1),
+        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
+            CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.DRILL_HEAD),
                     new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
-                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGIN_START) });
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igInStoneAdzeHead, 1),
+                            '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK) });
+            CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.ADZE_HEAD),
                     new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
-                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGIN_START) });
-        }
-
-        for (int i = 0; i < Global.STONE_SED.length; i++) {
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.sedStoneDrillHead, 1),
-                    new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
-                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_SED_START) });
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.sedStoneAdzeHead, 1),
-                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
-                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_SED_START) });
-        }
-
-        for (int i = 0; i < Global.STONE_IGEX.length; i++) {
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igExStoneDrillHead, 1),
-                    new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
-                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGEX_START) });
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.igExStoneAdzeHead, 1),
-                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
-                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_IGEX_START) });
-        }
-
-        for (int i = 0; i < Global.STONE_MM.length; i++) {
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.mMStoneDrillHead, 1),
-                    new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
-                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_MM_START) });
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.mMStoneAdzeHead, 1),
-                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
-                            '#', new ItemStack(TFCItems.flatRock, 1, i + Global.STONE_MM_START) });
+                            '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK) });
         }
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMoldAdze, 1),

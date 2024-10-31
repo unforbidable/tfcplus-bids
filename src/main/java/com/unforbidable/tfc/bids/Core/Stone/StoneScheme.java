@@ -28,6 +28,9 @@ public class StoneScheme {
             case ROUGH_STONE_TILE:
             case ROUGH_STONE_BRICK:
             case MUD_BRICK:
+            case FLAT_ROCK:
+            case ADZE_HEAD:
+            case DRILL_HEAD:
                 return true;
 
             case SHINGLE:
@@ -56,6 +59,15 @@ public class StoneScheme {
 
             case MUD_BRICK:
                 return new ItemStack(TFCItems.mudBrick, stackSize, stone.index);
+
+            case FLAT_ROCK:
+                return new ItemStack(TFCItems.flatRock, stackSize, stone.index);
+
+            case ADZE_HEAD:
+                return StoneToolHeadGroup.ADZE_HEAD.getToolHead(stone.index, stackSize);
+
+            case DRILL_HEAD:
+                return StoneToolHeadGroup.DRILL_HEAD.getToolHead(stone.index, stackSize);
         }
 
         Bids.LOG.warn("Unhandled getStoneItemStack for type {}", type);
