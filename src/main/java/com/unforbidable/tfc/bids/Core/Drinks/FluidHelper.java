@@ -5,6 +5,7 @@ import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.Util.Helper;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -42,6 +43,8 @@ public class FluidHelper {
                 int amount = getTotalContainerCapacity(is, fluid);
                 ItemStack filledContainer = getFilledContainer(is, fluid, amount);
                 if (filledContainer != null) {
+                    BidsEventFactory.onFillContainer(player, is, filledContainer);
+
                     return giveFilledContainerToPlayer(filledContainer, player);
                 }
             }
@@ -175,6 +178,7 @@ public class FluidHelper {
 
             ItemStack filledContainer = getFilledContainer(emptyContainer, fluid, amount);
             if (filledContainer != null) {
+                BidsEventFactory.onFillContainer(player, emptyContainer, filledContainer);
 
                 EntityFluidHelper.drainEntityFluid(entity, player, amount);
 

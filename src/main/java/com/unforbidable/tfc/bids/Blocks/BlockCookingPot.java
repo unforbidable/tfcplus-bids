@@ -13,6 +13,8 @@ import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.EnumCookingPotPlacement
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCookingPot;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
+import com.unforbidable.tfc.bids.api.Events.FillContainerEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.ICookingMixtureFluid;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -261,9 +263,7 @@ public class BlockCookingPot extends BlockContainer {
                             finished = ItemStack.areItemStacksEqual(tmp, is);
                         }
 
-                        if (is.getItem() == TFCItems.woodenBucketMilk) {
-                            ItemCustomBucketMilk.createTag(is, 20f);
-                        }
+                        BidsEventFactory.onFillContainer(player, equippedItem, is);
 
                         equippedItem.stackSize--;
 

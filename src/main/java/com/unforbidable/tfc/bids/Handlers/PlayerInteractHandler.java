@@ -1,13 +1,16 @@
 package com.unforbidable.tfc.bids.Handlers;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.Items.Tools.ItemCustomBucketMilk;
 import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
 import com.unforbidable.tfc.bids.Items.ItemExtraFood;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.Events.FillContainerEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +23,10 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 public class PlayerInteractHandler {
 
@@ -49,6 +55,13 @@ public class PlayerInteractHandler {
         Bids.LOG.debug("Invalid milking container: " + heldItem);
 
         return false;
+    }
+
+    @SubscribeEvent
+    public void onFillContainer(FillContainerEvent event) {
+        if (event.output.getItem() instanceof IFood) {
+            ItemCustomBucketMilk.createTag(event.output, 20f);
+        }
     }
 
     @SubscribeEvent
