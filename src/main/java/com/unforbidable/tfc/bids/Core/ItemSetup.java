@@ -841,6 +841,10 @@ public class ItemSetup extends BidsItems {
         OreDictionary.registerOre("seedWinterCereal", new ItemStack(BidsItems.seedsWinterOat));
         OreDictionary.registerOre("seedWinterCereal", new ItemStack(BidsItems.seedsWinterRye));
         OreDictionary.registerOre("seedWinterCereal", new ItemStack(BidsItems.seedsWinterWheat));
+
+        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(TFCItems.clayBucketEmpty));
+        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(TFCItems.woodenBucketEmpty));
+        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.largeClayBowl, 1, 1));
     }
 
     private static void registerWoodPileItems() {

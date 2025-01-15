@@ -4,6 +4,7 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
 import com.unforbidable.tfc.bids.Items.ItemExtraFood;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
@@ -14,17 +15,41 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class PlayerInteractHandler {
 
     private Map<UUID, Integer> lastOpenContainerWindowId = new HashMap<UUID, Integer>();
+
+    @SubscribeEvent
+    public void onEntityInteract(EntityInteractEvent event) {
+        if (!event.entityPlayer.worldObj.isRemote) {
+            if (isValidMilkingContainer(event.entityPlayer.getHeldItem())) {
+                if (FluidHelper.fillContainerOnEntityInteractEvent(event.entityPlayer, event.target)) {
+                    event.setCanceled(true);
+                }
+            }
+        }
+    }
+
+    private boolean isValidMilkingContainer(ItemStack heldItem) {
+        for (ItemStack ore : OreDictionary.getOres("itemMilkingContainer")) {
+            if (OreDictionary.itemMatches(ore, heldItem, true)) {
+                Bids.LOG.debug("Valid milking container: " + heldItem);
+
+                return true;
+            }
+        }
+
+        Bids.LOG.debug("Invalid milking container: " + heldItem);
+
+        return false;
+    }
 
     @SubscribeEvent
     public void onPlayerOpenContainer(PlayerOpenContainerEvent event) {

@@ -25,7 +25,7 @@ public class ItemLargeBowl extends ItemGenericPottery {
 
     @Override
     public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player) {
-        return FluidHelper.fillContainerFromWorld(is, world, player, true);
+        return FluidHelper.fillContainerFromWorld(is, world, player);
     }
 
     @Override
