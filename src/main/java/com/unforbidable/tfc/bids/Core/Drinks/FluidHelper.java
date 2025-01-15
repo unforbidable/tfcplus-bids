@@ -169,16 +169,19 @@ public class FluidHelper {
         int slot = player.inventory.currentItem;
         ItemStack emptyContainer = player.inventory.getStackInSlot(slot);
         Fluid fluid = EntityFluidHelper.getFluidFromEntity(entity, player);
-        int capacity = getTotalContainerCapacity(emptyContainer, fluid);
-        int amount = Math.min(capacity, 1000);
+        if (fluid != null) {
+            int capacity = getTotalContainerCapacity(emptyContainer, fluid);
+            int amount = Math.min(capacity, 1000);
 
-        ItemStack filledContainer = getFilledContainer(emptyContainer, fluid, amount);
-        if (filledContainer != null) {
-            EntityFluidHelper.drainEntityFluid(entity, player, amount);
+            ItemStack filledContainer = getFilledContainer(emptyContainer, fluid, amount);
+            if (filledContainer != null) {
 
-            giveFilledContainerToPlayer(filledContainer, player);
+                EntityFluidHelper.drainEntityFluid(entity, player, amount);
 
-            return true;
+                giveFilledContainerToPlayer(filledContainer, player);
+
+                return true;
+            }
         }
 
         return false;
