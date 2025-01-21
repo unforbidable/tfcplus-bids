@@ -118,6 +118,8 @@ public class BidsOptions {
 
         public static boolean craftingAddMissingLeatherRepairRecipes = true;
 
+        public static boolean enableSmallAndMediumRawhideSewing = true;
+
     }
 
     public static class Crops {
@@ -132,6 +134,10 @@ public class BidsOptions {
 
         public static boolean enableGoatMilkFromGoats = true;
         public static boolean enableIbexHavingMilk = true;
+        public static float ibexMilkingTimerMultiplier = 4f;
+
+        public static boolean enableDefaultMilkingInteractionOverride = false;
+        public static int milkingTimerReductionHours = 4;
 
     }
 

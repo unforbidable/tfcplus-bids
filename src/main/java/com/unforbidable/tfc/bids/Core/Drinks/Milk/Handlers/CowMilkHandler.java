@@ -4,6 +4,7 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Entities.Mobs.EntityCowTFC;
 import com.dunk.tfc.api.Entities.IAnimal;
 import com.unforbidable.tfc.bids.Core.Drinks.Milk.IMilkHandler;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class CowMilkHandler implements IMilkHandler<EntityCowTFC> {
@@ -20,7 +21,7 @@ public class CowMilkHandler implements IMilkHandler<EntityCowTFC> {
 
     @Override
     public boolean doMilkAnimalByPlayer(EntityCowTFC animal, EntityPlayer player, int amount) {
-        long time = TFC_Time.getTotalTicks() + Math.round((amount / 1000f) * TICKS_PER_BUCKET) - 2 * TFC_Time.HOUR_LENGTH;
+        long time = TFC_Time.getTotalTicks() + Math.round((amount / 1000f) * TICKS_PER_BUCKET) - BidsOptions.Husbandry.milkingTimerReductionHours * TFC_Time.HOUR_LENGTH;
         animal.setHasMilkTime(time);
 
         return true;

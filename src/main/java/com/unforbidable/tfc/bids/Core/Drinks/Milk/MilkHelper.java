@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Core.Drinks.Milk;
 
 import com.dunk.tfc.Entities.Mobs.EntityCowTFC;
 import com.dunk.tfc.Entities.Mobs.EntityGoat;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Drinks.Milk.Handlers.CowMilkHandler;
 import com.unforbidable.tfc.bids.Core.Drinks.Milk.Handlers.GoatMilkHandler;
@@ -57,6 +58,15 @@ public class MilkHelper {
         }
 
         return false;
+    }
+
+    public static boolean alwaysOverrideMilkingInteraction(EntityPlayer entityPlayer, Entity target) {
+        // Always override default milking interaction when enabled
+        // or for Ibex
+        // or when a non TFC milking container is used
+        return target instanceof EntityGoat && !((EntityGoat)target).isDomesticated() ||
+            (entityPlayer.getHeldItem().getItem() != TFCItems.woodenBucketEmpty &&
+                entityPlayer.getHeldItem().getItem() != TFCItems.clayBucketEmpty);
     }
 
 }

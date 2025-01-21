@@ -242,6 +242,18 @@ public class ConfigHandler {
             "enableIbexHavingMilk", "husbandry",
             BidsOptions.Husbandry.enableIbexHavingMilk,
             "Set this to true if you want to be able to milk Ibex for a very limited amount of milk.");
+        BidsOptions.Husbandry.ibexMilkingTimerMultiplier = config.getFloat(
+            "ibexMilkingTimerMultiplier", "husbandry",
+            BidsOptions.Husbandry.ibexMilkingTimerMultiplier, 1f, 4f,
+            "Higher values increase the milking timer for Ibex. This value can further prolong the already extended timer for milking Goats which is 5 days. For example, setting this value to 4 sets the Ibex milking timer to 20 days.");
+        BidsOptions.Husbandry.enableDefaultMilkingInteractionOverride = config.getBoolean(
+            "enableDefaultMilkingInteractionOverride", "husbandry",
+            BidsOptions.Husbandry.enableDefaultMilkingInteractionOverride,
+            "Set this to true if you want to override the default milking interaction which means new mechanics are used even when milking using TFC buckets. If set to false, the new mechanics is used only when using large bowl or when milking an Ibex.");
+        BidsOptions.Husbandry.milkingTimerReductionHours = config.getInt(
+            "aquiferMaxSurfaceHeight", "husbandry",
+            BidsOptions.Husbandry.milkingTimerReductionHours, 0, 6,
+            "Sets the number of hours by which the animal milking timer is reduced. For example, setting this value to 4 allows a cow to be milked every 20 hours which should allow milking daily on a loose schedule, 2 hours earlier or later.");
 
         config.save();
     }

@@ -5,6 +5,7 @@ import com.dunk.tfc.Entities.Mobs.EntityGoat;
 import com.dunk.tfc.api.Entities.IAnimal;
 import com.unforbidable.tfc.bids.Core.Drinks.Milk.GoatMilkHelper;
 import com.unforbidable.tfc.bids.Core.Drinks.Milk.IMilkHandler;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class GoatMilkHandler implements IMilkHandler<EntityGoat> {
@@ -21,8 +22,8 @@ public class GoatMilkHandler implements IMilkHandler<EntityGoat> {
 
     @Override
     public boolean doMilkAnimalByPlayer(EntityGoat animal, EntityPlayer player, int amount) {
-        int multiplier = animal.isDomesticated() ? 1 : 4;
-        long time = TFC_Time.getTotalTicks() + Math.round((amount / 1000f) * TICKS_PER_BUCKET * multiplier) - 2 * TFC_Time.HOUR_LENGTH;
+        float multiplier = animal.isDomesticated() ? 1f : BidsOptions.Husbandry.ibexMilkingTimerMultiplier;
+        long time = TFC_Time.getTotalTicks() + Math.round((amount / 1000f) * TICKS_PER_BUCKET * multiplier) - BidsOptions.Husbandry.milkingTimerReductionHours * TFC_Time.HOUR_LENGTH;
         GoatMilkHelper.setHasMilkTime(animal, time);
 
         return true;

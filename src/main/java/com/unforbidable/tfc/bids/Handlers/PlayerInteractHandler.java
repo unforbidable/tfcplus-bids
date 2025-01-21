@@ -7,11 +7,13 @@ import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
+import com.unforbidable.tfc.bids.Core.Drinks.Milk.MilkHelper;
 import com.unforbidable.tfc.bids.Items.ItemExtraFood;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Events.FillContainerEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
@@ -36,11 +38,18 @@ public class PlayerInteractHandler {
     public void onEntityInteract(EntityInteractEvent event) {
         if (!event.entityPlayer.worldObj.isRemote) {
             if (isValidMilkingContainer(event.entityPlayer.getHeldItem())) {
-                if (FluidHelper.fillContainerOnEntityInteractEvent(event.entityPlayer, event.target)) {
-                    event.setCanceled(true);
+                if (canOverrideMilkingInteraction(event.entityPlayer, event.target)) {
+                    if (FluidHelper.fillContainerOnEntityInteractEvent(event.entityPlayer, event.target)) {
+                        event.setCanceled(true);
+                    }
                 }
             }
         }
+    }
+
+    private boolean canOverrideMilkingInteraction(EntityPlayer entityPlayer, Entity target) {
+        return BidsOptions.Husbandry.enableDefaultMilkingInteractionOverride ||
+            MilkHelper.alwaysOverrideMilkingInteraction(entityPlayer, target);
     }
 
     private boolean isValidMilkingContainer(ItemStack heldItem) {
