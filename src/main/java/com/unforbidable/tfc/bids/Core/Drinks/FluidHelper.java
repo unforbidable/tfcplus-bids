@@ -171,7 +171,7 @@ public class FluidHelper {
     public static boolean fillContainerOnEntityInteractEvent(EntityPlayer player, Entity entity) {
         int slot = player.inventory.currentItem;
         ItemStack emptyContainer = player.inventory.getStackInSlot(slot);
-        Fluid fluid = EntityFluidHelper.getFluidFromEntity(entity, player);
+        Fluid fluid = BidsEventFactory.onAnimalMilkCheck(player, entity);
         if (fluid != null) {
             int capacity = getTotalContainerCapacity(emptyContainer, fluid);
             int amount = Math.min(capacity, 1000);
@@ -180,11 +180,13 @@ public class FluidHelper {
             if (filledContainer != null) {
                 BidsEventFactory.onFillContainer(player, emptyContainer, filledContainer);
 
-                EntityFluidHelper.drainEntityFluid(entity, player, amount);
+                if (BidsEventFactory.onAnimalMilking(player, entity, amount)) {
+                    giveFilledContainerToPlayer(filledContainer, player);
 
-                giveFilledContainerToPlayer(filledContainer, player);
+                    BidsEventFactory.onAnimalMilked(player, entity, new FluidStack(fluid, amount));
 
-                return true;
+                    return true;
+                }
             }
         }
 
