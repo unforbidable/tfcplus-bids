@@ -54,7 +54,7 @@ public class PlayerInteractHandler {
 
     private boolean isValidMilkingContainer(ItemStack heldItem) {
         for (ItemStack ore : OreDictionary.getOres("itemMilkingContainer")) {
-            if (OreDictionary.itemMatches(ore, heldItem, true)) {
+            if (OreDictionary.itemMatches(ore, heldItem, false)) {
                 Bids.LOG.debug("Valid milking container: " + heldItem);
 
                 return true;
