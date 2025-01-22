@@ -109,6 +109,11 @@ public class FluidHelper {
         return total;
     }
 
+    private static int getPartialContainerCapacity(ItemStack is, Fluid fluid) {
+        FluidStack fs = new FluidStack(fluid, 1);
+        return FluidContainerRegistry.getContainerCapacity(fs, is);
+    }
+
     public static ItemStack getFilledContainer(ItemStack container, Fluid fluid, int amount) {
         if (!FluidContainerRegistry.isEmptyContainer(container)) {
             Bids.LOG.warn("Item " + container + " is not a registered fluid container");
@@ -139,7 +144,7 @@ public class FluidHelper {
             Bids.LOG.debug("Filled: " + temp);
         }
 
-        if (amountFilled < amount) {
+        if (amountFilled != amount) {
             Bids.LOG.warn("Item " + container + " could not accept total amount of " + amount);
 
             return null;
@@ -173,19 +178,26 @@ public class FluidHelper {
         ItemStack emptyContainer = player.inventory.getStackInSlot(slot);
         Fluid fluid = BidsEventFactory.onAnimalMilkCheck(player, entity);
         if (fluid != null) {
-            int capacity = getTotalContainerCapacity(emptyContainer, fluid);
-            int amount = Math.min(capacity, 1000);
+            int remainingCapacity = getTotalContainerCapacity(emptyContainer, fluid);
+            int partialCapacity = getPartialContainerCapacity(emptyContainer, fluid);
+            boolean isPartialContainer = remainingCapacity != partialCapacity || FluidContainerRegistry.isFilledContainer(emptyContainer);
 
-            ItemStack filledContainer = getFilledContainer(emptyContainer, fluid, amount);
-            if (filledContainer != null) {
-                BidsEventFactory.onFillContainer(player, emptyContainer, filledContainer);
+            // partial volume containers can only milk 1000 exactly (pail)
+            // fixed volume containers can milk between 500 (large bowl) and 1000 (bucket)
+            if (isPartialContainer && remainingCapacity >= 1000 || !isPartialContainer && remainingCapacity >= 500 && remainingCapacity <= 1000) {
+                int amount = Math.min(remainingCapacity, 1000);
 
-                if (BidsEventFactory.onAnimalMilking(player, entity, amount)) {
-                    giveFilledContainerToPlayer(filledContainer, player);
+                ItemStack filledContainer = getFilledContainer(emptyContainer, fluid, amount);
+                if (filledContainer != null) {
+                    BidsEventFactory.onFillContainer(player, emptyContainer, filledContainer);
 
-                    BidsEventFactory.onAnimalMilked(player, entity, new FluidStack(fluid, amount));
+                    if (BidsEventFactory.onAnimalMilking(player, entity, amount)) {
+                        giveFilledContainerToPlayer(filledContainer, player);
 
-                    return true;
+                        BidsEventFactory.onAnimalMilked(player, entity, new FluidStack(fluid, amount));
+
+                        return true;
+                    }
                 }
             }
         }
