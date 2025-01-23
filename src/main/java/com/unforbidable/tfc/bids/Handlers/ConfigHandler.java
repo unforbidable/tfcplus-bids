@@ -251,7 +251,7 @@ public class ConfigHandler {
             BidsOptions.Husbandry.enableDefaultMilkingInteractionOverride,
             "Set this to true if you want to override the default milking interaction which means new mechanics are used even when milking using TFC buckets. If set to false, the new mechanics is used only when using large bowl or when milking an Ibex.");
         BidsOptions.Husbandry.milkingTimerReductionHours = config.getInt(
-            "aquiferMaxSurfaceHeight", "husbandry",
+            "milkingTimerReductionHours", "husbandry",
             BidsOptions.Husbandry.milkingTimerReductionHours, 0, 6,
             "Sets the number of hours by which the animal milking timer is reduced. For example, setting this value to 4 allows a cow to be milked every 20 hours which should allow milking daily on a loose schedule, 2 hours earlier or later.");
 
