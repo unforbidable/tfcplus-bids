@@ -189,4 +189,9 @@ public class AchievementHandler {
         }
     }
 
+    @SubscribeEvent
+    public void onAnimalMilk(AnimalMilkEvent.Milked event) {
+        event.player.addStat(BidsStats.MILK_MILKED, event.result.amount);
+    }
+
 }
