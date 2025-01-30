@@ -602,36 +602,34 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 int primaryAmountRequired = recipe.getInputFluidStack().amount;
                 int primaryAmountAvailable = getTopFluidStack().amount;
 
-                // Ensure the primary amount is divisible by required amount precisely
-                if (primaryAmountAvailable % primaryAmountRequired != 0) {
-                    Bids.LOG.debug("Input liquid amount must be multiple of recipe input");
-                    continue;
-                }
-
-                int runs = primaryAmountAvailable / primaryAmountRequired;
-                int secondaryAmountRequired = recipe.getSecondaryInputFluidStack().amount * runs;
-                int secondaryAmountAvailable = fluidStack.amount;
-
+                float runs = (float)primaryAmountAvailable / primaryAmountRequired;
+                int secondaryAmountRequired = Math.round(recipe.getSecondaryInputFluidStack().amount * runs);
                 Bids.LOG.debug("secondaryAmountRequired: " + secondaryAmountRequired);
-                Bids.LOG.debug("secondaryAmountAvailable: " + secondaryAmountAvailable);
 
-                int drains = getDrainCountForAmount(itemStack, secondaryAmountRequired);
-                if (drains == 0) {
+                int minAmountToDrainRequired = Math.round(secondaryAmountRequired * 0.6f);
+                int maxAmountToDrainRequired = Math.round(secondaryAmountRequired * 1.3f);
+                Bids.LOG.debug("minAmountToDrainRequired: " + minAmountToDrainRequired);
+                Bids.LOG.debug("maxAmountToDrainRequired: " + maxAmountToDrainRequired);
+
+                int drainedAmount = checkDrainAmount(itemStack, secondaryAmountRequired);
+                Bids.LOG.debug("Input container will be drained for amount: " + drainedAmount);
+
+                if (drainedAmount < minAmountToDrainRequired || drainedAmount > maxAmountToDrainRequired) {
                     Bids.LOG.debug("The container cannot be drained as required");
                     continue;
                 }
 
-                Bids.LOG.debug("Input container will be drained times: " + drains);
-
-                ItemStack drainingItemStack = itemStack;
-                for (int i = 0; i < drains; i++) {
-                    drainingItemStack = FluidContainerRegistry.drainFluidContainer(drainingItemStack);
+                if (drainedAmount + getTotalLiquidVolume() > getMaxFluidVolume()) {
+                    Bids.LOG.debug("The cooking pot cannot fit the drained amount");
+                    continue;
                 }
+
+                ItemStack drainingItemStack = doDrainAmount(itemStack, drainedAmount);
 
                 // FluidContainerRegistry.getFluidForFilledItem will not produce the correct fluid amount
                 // for partial containers such as glass bottles
                 // The correct amount is needed to handle merging cooking mixes with other fluids
-                template.getSecondaryInputFluidStack().amount = secondaryAmountRequired;
+                template.getSecondaryInputFluidStack().amount = drainedAmount;
 
                 handleRecipeOutput(recipe, template);
 
@@ -645,12 +643,26 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         return itemStack;
     }
 
-    private int getDrainCountForAmount(ItemStack itemStack, int requiredAmount) {
+    private ItemStack doDrainAmount(ItemStack itemStack, int requiredAmount) {
         int drainedAmount = 0;
-        int drainedCount = 0;
+        ItemStack drainedItemStack = itemStack;
+        while (drainedAmount < requiredAmount && FluidContainerRegistry.isFilledContainer(drainedItemStack)) {
+            FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(drainedItemStack);
+
+            int availableAmount = fluidStack.amount;
+            drainedItemStack = FluidContainerRegistry.drainFluidContainer(drainedItemStack);
+            drainedAmount += availableAmount;
+        }
+
+        return drainedItemStack;
+    }
+
+    private int checkDrainAmount(ItemStack itemStack, int requiredAmount) {
+        int drainedAmount = 0;
+        int tolerance = FluidContainerRegistry.getContainerCapacity(itemStack) / 2;
         ItemStack drainedItemStack = itemStack;
         FluidStack originalFluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
-        while (drainedAmount < requiredAmount && FluidContainerRegistry.isFilledContainer(drainedItemStack)) {
+        while (drainedAmount + tolerance < requiredAmount && FluidContainerRegistry.isFilledContainer(drainedItemStack)) {
             FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(drainedItemStack);
             // Ensure the fluid is still the same
             if (!originalFluidStack.isFluidEqual(fluidStack)) {
@@ -660,12 +672,11 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             int availableAmount = fluidStack.amount;
             drainedItemStack = FluidContainerRegistry.drainFluidContainer(drainedItemStack);
             drainedAmount += availableAmount;
-            drainedCount++;
         }
 
         // Ensure the exact amount was drained
-        if (drainedAmount == requiredAmount) {
-            return drainedCount;
+        if (drainedAmount <= requiredAmount + tolerance) {
+            return drainedAmount;
         } else {
             return 0;
         }
@@ -1087,7 +1098,24 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 FluidStack originalFluid = fluids[FLUID_PRIMARY];
 
                 fluids[FLUID_PRIMARY] = result.getOutputFluidStack().copy();
-                fluids[FLUID_PRIMARY].amount *= runs;
+
+                if (recipe.getInputFluidStack() != null && recipe.getSecondaryInputFluidStack() != null) {
+                    // For fluid mixing
+                    // the volume of both input liquids is considered rather than number of runs
+                    // to handle tolerance
+                    int inputAmount = recipe.getInputFluidStack().amount + recipe.getSecondaryInputFluidStack().amount;
+                    int outputAmount = recipe.getOutputFluidStack().amount;
+
+                    // Always 1 for lossless and gain-less fluid mixing
+                    float inputOutputRatio = (float)inputAmount / outputAmount;
+
+                    int actualInputAmount = template.getInputFluidStack().amount + template.getSecondaryInputFluidStack().amount;
+                    float actualOutputAmount = actualInputAmount / inputOutputRatio;
+
+                    fluids[FLUID_PRIMARY].amount = Math.round(actualOutputAmount);
+                } else {
+                    fluids[FLUID_PRIMARY].amount *= runs;
+                }
 
                 // When two liquids are created, the secondary one goes to the top
                 if (result.getSecondaryOutputFluidStack() != null) {
