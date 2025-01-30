@@ -180,6 +180,8 @@ public class BidsItems {
     public static Item honeyLargeBowl;
     public static Item goatMilkLargeBowl;
 
+    public static Item woodenPailEmpty;
+
     public static Item woodenBucketBrine;
     public static Item woodenBucketHoneyWater;
     public static Item woodenBucketMilkVinegar;

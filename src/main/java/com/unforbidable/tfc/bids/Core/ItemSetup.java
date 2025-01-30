@@ -610,6 +610,9 @@ public class ItemSetup extends BidsItems {
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.GoatMilk");
 
+        woodenPailEmpty = new ItemPailEmpty()
+            .setUnlocalizedName("Wooden Pail");
+
         ceramicBucketBrine = new ItemBucketFluid(true)
             .setContainerItem((TFCItems.clayBucketEmpty))
             .setUnlocalizedName("Ceramic Bucket.Brine");
@@ -1295,6 +1298,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(wrap, wrap.getUnlocalizedName());
 
         GameRegistry.registerItem(moreHide, moreHide.getUnlocalizedName());
+
+        GameRegistry.registerItem(woodenPailEmpty, woodenPailEmpty.getUnlocalizedName());
     }
 
 }
