@@ -757,6 +757,9 @@ public class RecipeSetup {
             .addTools("itemSaw")
             .matchCraftingBlock(BidsBlocks.screwPressLever));
 
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.woodenPailEmpty, 1),
+            "w  ", "wxw", " w ", 'w', "woodLumber", 'x', "plateToolMetal"));
+
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.clayLamp),
             "S ", "B ", 'S', "materialString",
             'B', new ItemStack(TFCItems.potteryBowl, 1, 1)));
