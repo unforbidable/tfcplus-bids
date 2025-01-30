@@ -613,6 +613,19 @@ public class ItemSetup extends BidsItems {
         woodenPailEmpty = new ItemPailEmpty()
             .setUnlocalizedName("Wooden Pail");
 
+        woodenPailFreshWater = new ItemPailFluid(4000)
+            .setContainerItem(woodenPailEmpty)
+            .setUnlocalizedName("Wooden Pail.FreshWater");
+        woodenPailMilk = new ItemPailFluid(4000)
+            .setContainerItem(woodenPailEmpty)
+            .setUnlocalizedName("Wooden Pail.Milk");
+        woodenPailGoatMilk = new ItemPailFluid(4000)
+            .setContainerItem(woodenPailEmpty)
+            .setUnlocalizedName("Wooden Pail.GoatMilk");
+        woodenPailVinegar= new ItemPailFluid(4000)
+            .setContainerItem(woodenPailEmpty)
+            .setUnlocalizedName("Wooden Pail.Vinegar");
+
         ceramicBucketBrine = new ItemBucketFluid(true)
             .setContainerItem((TFCItems.clayBucketEmpty))
             .setUnlocalizedName("Ceramic Bucket.Brine");
@@ -759,6 +772,11 @@ public class ItemSetup extends BidsItems {
             new ItemStack(honeyLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.GOATMILK, 500),
             new ItemStack(goatMilkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+
+        FluidHelper.registerPartialFluidContainer(TFCFluids.FRESHWATER, woodenPailEmpty, 0, woodenPailFreshWater, 50, 4000);
+        FluidHelper.registerPartialFluidContainer(TFCFluids.MILK, woodenPailEmpty, 0, woodenPailMilk, 50, 4000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, woodenPailEmpty, 0, woodenPailGoatMilk, 50, 4000);
+        FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, woodenPailEmpty, 0, woodenPailVinegar, 50, 4000);
     }
 
     private static void setupToolHarvest() {
@@ -1300,6 +1318,10 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(moreHide, moreHide.getUnlocalizedName());
 
         GameRegistry.registerItem(woodenPailEmpty, woodenPailEmpty.getUnlocalizedName());
+        GameRegistry.registerItem(woodenPailFreshWater, woodenPailFreshWater.getUnlocalizedName());
+        GameRegistry.registerItem(woodenPailMilk, woodenPailMilk.getUnlocalizedName());
+        GameRegistry.registerItem(woodenPailGoatMilk, woodenPailGoatMilk.getUnlocalizedName());
+        GameRegistry.registerItem(woodenPailVinegar, woodenPailVinegar.getUnlocalizedName());
     }
 
 }
