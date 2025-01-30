@@ -168,6 +168,10 @@ public class BidsItems {
     public static Item oilyFishWaterBottle;
     public static Item goatMilkBottle;
 
+    public static Item potteryJugVinegar;
+    public static Item potteryJugOliveOil;
+    public static Item potteryJugFishOil;
+
     public static Item vinegarBowl;
     public static Item oliveOilBowl;
     public static Item fishOilBowl;

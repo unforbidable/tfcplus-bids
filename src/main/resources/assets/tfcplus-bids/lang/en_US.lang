@@ -702,6 +702,10 @@ item.Glass Bottle.FishOil.name=Bottle of Fish Oil
 item.Glass Bottle.OilyFishWater.name=Bottle of Oily Fish Water
 item.Glass Bottle.GoatMilk.name=Bottle of Goat Milk
 
+item.Pottery Jug.Vinegar.name=Vinegar Jug
+item.Pottery Jug.OliveOil.name=Olive Oil Jug
+item.Pottery Jug.FishOil.name=Fish Oil Jug
+
 item.Bowl Vinegar.PotteryBowl.name=Ceramic Bowl (Vinegar)
 item.Bowl Vinegar.Bowl.name=Bowl (Vinegar)
 item.Bowl Olive Oil.PotteryBowl.name=Ceramic Bowl (Olive Oil)

@@ -703,6 +703,16 @@ public class ItemSetup extends BidsItems {
 
         moreHide = new ItemMoreRawhide()
             .setUnlocalizedName("More Hide");
+
+        potteryJugVinegar = new ItemPotteryFluid(1000)
+            .setContainerItem(TFCItems.potteryJug)
+            .setUnlocalizedName("Pottery Jug.Vinegar");
+        potteryJugOliveOil = new ItemPotteryFluid(1000)
+            .setContainerItem(TFCItems.potteryJug)
+            .setUnlocalizedName("Pottery Jug.OliveOil");
+        potteryJugFishOil = new ItemPotteryFluid(1000)
+            .setContainerItem(TFCItems.potteryJug)
+            .setUnlocalizedName("Pottery Jug.FishOil");
     }
 
     private static void registerFluidContainers() {
@@ -714,6 +724,10 @@ public class ItemSetup extends BidsItems {
         FluidHelper.registerPartialFluidContainer(BidsFluids.FISHOIL, TFCItems.glassBottle, 0, fishOilBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.OILYFISHWATER, TFCItems.glassBottle, 0, oilyFishWaterBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, TFCItems.glassBottle, 0, goatMilkBottle, 50, 1000);
+
+        FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, TFCItems.potteryJug, 1, potteryJugVinegar, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(TFCFluids.OLIVEOIL, TFCItems.potteryJug, 1, potteryJugOliveOil, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.FISHOIL, TFCItems.potteryJug, 1, potteryJugFishOil, 50, 1000);
 
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
             new ItemStack(honeyWaterBottle), new ItemStack(TFCItems.glassBottle));
@@ -1325,6 +1339,10 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(woodenPailMilk, woodenPailMilk.getUnlocalizedName());
         GameRegistry.registerItem(woodenPailGoatMilk, woodenPailGoatMilk.getUnlocalizedName());
         GameRegistry.registerItem(woodenPailVinegar, woodenPailVinegar.getUnlocalizedName());
+
+        GameRegistry.registerItem(potteryJugVinegar, potteryJugVinegar.getUnlocalizedName());
+        GameRegistry.registerItem(potteryJugOliveOil, potteryJugOliveOil.getUnlocalizedName());
+        GameRegistry.registerItem(potteryJugFishOil, potteryJugFishOil.getUnlocalizedName());
     }
 
 }
