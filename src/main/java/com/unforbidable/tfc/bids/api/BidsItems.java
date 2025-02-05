@@ -188,7 +188,6 @@ public class BidsItems {
     public static Item woodenPailFreshWater;
     public static Item woodenPailMilk;
     public static Item woodenPailGoatMilk;
-    public static Item woodenPailVinegar;
 
     public static Item woodenBucketBrine;
     public static Item woodenBucketHoneyWater;

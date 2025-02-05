@@ -622,9 +622,6 @@ public class ItemSetup extends BidsItems {
         woodenPailGoatMilk = new ItemPailFluid(4000)
             .setContainerItem(woodenPailEmpty)
             .setUnlocalizedName("Wooden Pail.GoatMilk");
-        woodenPailVinegar= new ItemPailFluid(4000)
-            .setContainerItem(woodenPailEmpty)
-            .setUnlocalizedName("Wooden Pail.Vinegar");
 
         ceramicBucketBrine = new ItemBucketFluid(true)
             .setContainerItem((TFCItems.clayBucketEmpty))
@@ -790,7 +787,6 @@ public class ItemSetup extends BidsItems {
         FluidHelper.registerPartialFluidContainer(TFCFluids.FRESHWATER, woodenPailEmpty, 0, woodenPailFreshWater, 50, 4000);
         FluidHelper.registerPartialFluidContainer(TFCFluids.MILK, woodenPailEmpty, 0, woodenPailMilk, 50, 4000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, woodenPailEmpty, 0, woodenPailGoatMilk, 50, 4000);
-        FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, woodenPailEmpty, 0, woodenPailVinegar, 50, 4000);
     }
 
     private static void setupToolHarvest() {
@@ -1338,7 +1334,6 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(woodenPailFreshWater, woodenPailFreshWater.getUnlocalizedName());
         GameRegistry.registerItem(woodenPailMilk, woodenPailMilk.getUnlocalizedName());
         GameRegistry.registerItem(woodenPailGoatMilk, woodenPailGoatMilk.getUnlocalizedName());
-        GameRegistry.registerItem(woodenPailVinegar, woodenPailVinegar.getUnlocalizedName());
 
         GameRegistry.registerItem(potteryJugVinegar, potteryJugVinegar.getUnlocalizedName());
         GameRegistry.registerItem(potteryJugOliveOil, potteryJugOliveOil.getUnlocalizedName());
