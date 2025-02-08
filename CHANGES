@@ -640,3 +640,15 @@
 - Added: A small amount of milk can be milked from familiarized female Ibex using a large bowl
 - Added: Option to get regular Milk when milking Goats and Ibex instead of Goat Milk using a large bowl
 - Changed: Animals milked using a large bowl replenish their milk 2 hours sooner allowing a rough daily milking schedule
+
+0.51.0 (2025-02-08)
+- Added: Wooden Pail for Fresh water, Milk and Goat Milk, usable to milk animals
+- Added: Ceramic Jug as a partial container for Vinegar, Olive Oil and Fish Oil
+- Added: Milk milked statistics
+- Changed: Cooking Pot no longer requires exact ratio when mixing two fluids (this allows making cheese from pretty much any amount of milk for instance)
+- Changed: Ibex can be milked using a wooden bucket or a ceramic bucket
+- Changed: Ibex milking interval can be configured (20 days by default)
+- Changed: Milking interval grace period can be configured (4 hours by default)
+- Changed: Using new milking mechanics even when milking with a TFC containers can be configured (disabled by default)
+- Changed: Wooden and ceramic bucket fluid overlays render with slightly brighter colors
+- Fixed: Ceramic bucked with milk now has the correct NBT data when used for milking animals or when filled from a cooking pot

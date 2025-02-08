@@ -67,6 +67,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Unshaped Dough](../../wiki/Unshaped-Dough) - unshaped flour and water mixture which can be formed into dough for Bread, Flatbread and Hardtack
 * [More Hides](../../wiki/More-Hides) - introducing a tiny rawhide dropped from animals for making Pemmican
 * [Rough Stone Fences](../../wiki/Rough-Stone-Fence) - walls from rough stone bricks and tiles, behaving much like palisade
+* [Pail](../../wiki/Pail) - a large wooden container for transferring liquids and milking up to 4 animals in one go (including Ibex)
 
 ### Contributions
 
