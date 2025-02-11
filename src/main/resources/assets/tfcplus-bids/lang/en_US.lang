@@ -1301,6 +1301,7 @@ gui.Help.Pottery=Sneak and §bRight Click §7block to place.
 gui.Help.CookingPot=§bRight Click §7block to place.
 gui.Help.CookingPotLid=§bRight Click §7block to place.
 gui.Help.UnshapedDough=§bRight Click §7 to shape dough.
+gui.Help.Waterskin.Churn=Hold §bRight Click §7to churn into butter.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified
@@ -1353,6 +1354,7 @@ gui.ScrewPress=Screw Press
 gui.Input=Input
 gui.Resistance=Resistance
 gui.cooking.cookingMixDecayed=Cooking Mix has decayed beyond use
+gui.Butter=Butter
 
 key.BidsToolMode=Cycle Tool Mode
 

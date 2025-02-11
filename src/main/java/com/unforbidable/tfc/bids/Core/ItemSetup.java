@@ -577,7 +577,7 @@ public class ItemSetup extends BidsItems {
             .setMaxDamage(1000 / 50)
             .setUnlocalizedName("Glass Bottle.Cream");
 
-        waterskinCream = new ItemWaterskinFluid()
+        waterskinCream = new ItemWaterskinChurn()
             .setContainerItem(TFCItems.waterskinEmpty)
             .setMaxDamage(4000 / 50)
             .setUnlocalizedName("Waterskin.Cream");
