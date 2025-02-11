@@ -464,6 +464,11 @@ public class ItemSetup extends BidsItems {
             .setNutritionAsIfCooked(true)
             .setUnlocalizedName("Tallow");
 
+        butter = new ItemExtraFood(EnumFoodGroup.Dairy, 35, 0, 10, 0, 50)
+            .setDecayRate(0.5f)
+            .setNutritionAsIfCooked(true)
+            .setUnlocalizedName("Butter");
+
         bambooShoot = new ItemExtraFood(EnumFoodGroup.Vegetable, 20, 0, 0, 0, 10, true, true, true, true)
             .setWaterPercentage(0.3f)
             .setDecayRate(1.8f)
@@ -1016,6 +1021,7 @@ public class ItemSetup extends BidsItems {
             wheatFlatbread, barleyFlatbread, oatFlatbread, riceFlatbread, ryeFlatbread, cornmealFlatbread,
             appleCrushed, oliveCrushed,
             goatCheese, hardCheese,
+            butter,
             stuffedPepper, stuffedMushroom, pemmican, wrap,
             seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
             suet, tallow, bambooShoot,
@@ -1395,6 +1401,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(potteryJugVinegar, potteryJugVinegar.getUnlocalizedName());
         GameRegistry.registerItem(potteryJugOliveOil, potteryJugOliveOil.getUnlocalizedName());
         GameRegistry.registerItem(potteryJugFishOil, potteryJugFishOil.getUnlocalizedName());
+
+        GameRegistry.registerItem(butter, butter.getUnlocalizedName());
 
         GameRegistry.registerItem(hardCheese, hardCheese.getUnlocalizedName());
 
