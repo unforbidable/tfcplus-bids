@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.Core.Churning.ChurningPlayerState;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Player.PlayerStateManager;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsSounds;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -62,6 +63,7 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
                 state.slot = player.inventory.currentItem;
                 state.ticksStarted = TFC_Time.getTotalTicks();
                 state.ticksUpdated = TFC_Time.getTotalTicks();
+                state.ticksSoundPlayed = 0;
                 state.progress = getChurningProgress(is);
                 PlayerStateManager.setPlayerState(player, state);
             }
@@ -101,6 +103,11 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
                 // After 50 ticks or when the progress is done
                 // stop the churning cycle to update the item
                 player.stopUsingItem();
+            } else if (ticksElapsedSinceSoundPlayed >= 27) {
+                // Sound last 26 ticks and is played twice per churning cycle
+                player.worldObj.playSoundAtEntity(player, BidsSounds.WATERSKIN_SLOSH, 1F, 1f);
+
+                state.ticksSoundPlayed = TFC_Time.getTotalTicks();
             }
         }
     }

@@ -1,0 +1,8 @@
+{
+    "item.waterskin.slosh": {
+        "category": "block",
+        "sounds": [
+            "waterskin-slosh"
+        ]
+    }
+}
