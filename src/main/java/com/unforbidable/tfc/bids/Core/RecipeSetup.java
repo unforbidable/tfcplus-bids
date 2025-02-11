@@ -1354,6 +1354,28 @@ public class RecipeSetup {
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.SKIMMEDMILK, 9), new FluidStack(TFCFluids.VINEGAR, 1))
+            .produces(new FluidStack(BidsFluids.SKIMMEDMILKVINEGAR, 10))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.SKIMMEDMILKVINEGAR, 1))
+            .produces(new FluidStack(BidsFluids.SKIMMEDMILKCURDLED, 1))
+            .withoutHeat()
+            .withLid()
+            .inFixedTime(8000)
+            .build());
+
+        CookingManager.addRecipe(CookingCheeseRecipe.builder()
+            .allowingInfusion()
+            .consumes(new FluidStack(BidsFluids.SKIMMEDMILKCURDLED, 1))
+            .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.hardCheese), Global.FOOD_MAX_WEIGHT / 10000))
+            .withoutHeat()
+            .withLid()
+            .inFixedTime(8000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.OILYFISHWATER, 1000))
             .produces(new FluidStack(TFCFluids.FRESHWATER, 950), new FluidStack(BidsFluids.FISHOIL, 50))
             .withoutHeat()
