@@ -1251,6 +1251,8 @@ fluid.GoatMilkCurdled=Curdled Goat Milk
 fluid.Tallow=Tallow
 fluid.CookingMixture=Mix
 fluid.SkimmedMilk=Skimmed Milk
+fluid.SkimmedMilkVinegar=Skimmed Milk + Vinegar Mix
+fluid.SkimmedMilkCurdled=Curdled Skimmed Milk
 fluid.Cream=Cream
 
 itemGroup.Bids.Default=Bids and Pieces

@@ -14,6 +14,8 @@ public class BidsFluids {
     public static final Fluid TALLOW = new FluidBaseTFC("Tallow").setBaseColor(0xf0db3a);
     public static final Fluid COOKINGMIXTURE = new FluidCookingMixture("CookingMixture").setBaseColor(0xf58442);
     public static final Fluid SKIMMEDMILK = new FluidBaseTFC("SkimmedMilk").setBaseColor(0xffffff);
+    public static final Fluid SKIMMEDMILKVINEGAR = new FluidBaseTFC("SkimmedMilkVinegar").setBaseColor(0xfffbe8);
+    public static final Fluid SKIMMEDMILKCURDLED = new FluidBaseTFC("SkimmedMilkCurdled").setBaseColor(0xfffbe8);
     public static final Fluid CREAM = new FluidBaseTFC("Cream").setBaseColor(0xfffdd0);
 
 }
