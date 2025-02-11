@@ -40,6 +40,9 @@ public class DrinkSetup extends BidsItems {
         DrinkRegistry.registerDrink(new Drink(BidsFluids.GOATMILK, "GoatMilk")
                 .setCalories(0.642f).setFoodGroup(EnumFoodGroup.Dairy)
                 .setWaterRestoreRatio(1));
+        DrinkRegistry.registerDrink(new Drink(BidsFluids.SKIMMEDMILK, "SkimmedMilk")
+                .setCalories(0.321f).setFoodGroup(EnumFoodGroup.Dairy)
+                .setWaterRestoreRatio(1));
 
         DrinkRegistry.registerDrink(new Drink(TFCFluids.GRAPEJUICE, "GrapeJuice")
                 .setCalories(152 / 250f).setFoodGroup(EnumFoodGroup.Fruit)

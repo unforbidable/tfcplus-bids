@@ -167,11 +167,13 @@ public class BidsItems {
     public static Item fishOilBottle;
     public static Item oilyFishWaterBottle;
     public static Item goatMilkBottle;
+    public static Item skimmedMilkBottle;
 
     public static Item potteryJugVinegar;
     public static Item potteryJugOliveOil;
     public static Item potteryJugFishOil;
     public static Item potteryJugGoatMilk;
+    public static Item potteryJugSkimmedMilk;
 
     public static Item vinegarBowl;
     public static Item oliveOilBowl;
@@ -184,6 +186,7 @@ public class BidsItems {
     public static Item milkLargeBowl;
     public static Item honeyLargeBowl;
     public static Item goatMilkLargeBowl;
+    public static Item skimmedMilkLargeBowl;
 
     public static Item woodenPailEmpty;
     public static Item woodenPailFreshWater;

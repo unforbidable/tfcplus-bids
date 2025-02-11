@@ -75,6 +75,7 @@ public class FluidSetup extends BidsFluids {
         FluidRegistry.registerFluid(GOATMILKCURDLED);
         FluidRegistry.registerFluid(TALLOW);
         FluidRegistry.registerFluid(COOKINGMIXTURE);
+        FluidRegistry.registerFluid(SKIMMEDMILK);
     }
 
     private static void registerLampFuels() {

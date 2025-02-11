@@ -570,6 +570,14 @@ public class ItemSetup extends BidsItems {
             .setContainerItem((TFCItems.glassBottle))
             .setMaxDamage(1000 / 50)
             .setUnlocalizedName("Glass Bottle.GoatMilk");
+        skimmedMilkBottle = new ItemGenericDrink(1000, false, 0, 20, 40, 60, 80, 100)
+            .setCanDrinkInParts(true)
+            .setFoodGroup(EnumFoodGroup.Dairy)
+            .setCalories(0.321f)
+            .setWaterRestoreRatio(1f)
+            .setContainerItem((TFCItems.glassBottle))
+            .setMaxDamage(1000 / 50)
+            .setUnlocalizedName("Glass Bottle.SkimmedMilk");
 
         honeyWaterBottle = new ItemGlassBottleFluid()
             .setContainerItem((TFCItems.glassBottle))
@@ -609,6 +617,9 @@ public class ItemSetup extends BidsItems {
         goatMilkLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.GoatMilk");
+        skimmedMilkLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+            .setContainerItem(BidsItems.largeClayBowl)
+            .setUnlocalizedName("Large Bowl.SkimmedMilk");
 
         woodenPailEmpty = new ItemPailEmpty()
             .setUnlocalizedName("Wooden Pail");
@@ -719,6 +730,15 @@ public class ItemSetup extends BidsItems {
             .setContainerItem((TFCItems.potteryJug))
             .setMaxDamage(1000 / 50)
             .setUnlocalizedName("Pottery Jug.GoatMilk");
+        potteryJugSkimmedMilk = new ItemGenericDrink(1000, true, 0, 20, 40, 60, 80, 100)
+            .setCanDrinkInParts(true)
+            .setFoodGroup(EnumFoodGroup.Dairy)
+            .setCalories(0.321f)
+            .setWaterRestoreRatio(1f)
+            .setContainerItem((TFCItems.potteryJug))
+            .setMaxDamage(1000 / 50)
+            .setUnlocalizedName("Pottery Jug.SkimmedMilk");
+
     }
 
     private static void registerFluidContainers() {
@@ -730,11 +750,13 @@ public class ItemSetup extends BidsItems {
         FluidHelper.registerPartialFluidContainer(BidsFluids.FISHOIL, TFCItems.glassBottle, 0, fishOilBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.OILYFISHWATER, TFCItems.glassBottle, 0, oilyFishWaterBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, TFCItems.glassBottle, 0, goatMilkBottle, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.SKIMMEDMILK, TFCItems.glassBottle, 0, skimmedMilkBottle, 50, 1000);
 
         FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, TFCItems.potteryJug, 1, potteryJugVinegar, 50, 1000);
         FluidHelper.registerPartialFluidContainer(TFCFluids.OLIVEOIL, TFCItems.potteryJug, 1, potteryJugOliveOil, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.FISHOIL, TFCItems.potteryJug, 1, potteryJugFishOil, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, TFCItems.potteryJug, 1, potteryJugGoatMilk, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.SKIMMEDMILK, TFCItems.potteryJug, 1, potteryJugSkimmedMilk, 50, 1000);
 
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
             new ItemStack(honeyWaterBottle), new ItemStack(TFCItems.glassBottle));
@@ -793,6 +815,8 @@ public class ItemSetup extends BidsItems {
             new ItemStack(honeyLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.GOATMILK, 500),
             new ItemStack(goatMilkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.SKIMMEDMILK, 500),
+            new ItemStack(skimmedMilkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
 
         FluidHelper.registerPartialFluidContainer(TFCFluids.FRESHWATER, woodenPailEmpty, 0, woodenPailFreshWater, 50, 4000);
         FluidHelper.registerPartialFluidContainer(TFCFluids.MILK, woodenPailEmpty, 0, woodenPailMilk, 50, 4000);
@@ -1350,6 +1374,9 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(potteryJugFishOil, potteryJugFishOil.getUnlocalizedName());
 
         GameRegistry.registerItem(potteryJugGoatMilk, potteryJugGoatMilk.getUnlocalizedName());
+        GameRegistry.registerItem(potteryJugSkimmedMilk, potteryJugSkimmedMilk.getUnlocalizedName());
+        GameRegistry.registerItem(skimmedMilkBottle, skimmedMilkBottle.getUnlocalizedName());
+        GameRegistry.registerItem(skimmedMilkLargeBowl, skimmedMilkLargeBowl.getUnlocalizedName());
     }
 
 }
