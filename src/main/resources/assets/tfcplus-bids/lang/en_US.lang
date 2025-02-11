@@ -707,6 +707,9 @@ item.Glass Bottle.FishOil.name=Bottle of Fish Oil
 item.Glass Bottle.OilyFishWater.name=Bottle of Oily Fish Water
 item.Glass Bottle.GoatMilk.name=Bottle of Goat Milk
 item.Glass Bottle.SkimmedMilk.name=Bottle of Skimmed Milk
+item.Glass Bottle.Cream.name=Bottle of Cream
+
+item.Waterskin.Cream.name=Waterskin (Cream)
 
 item.Pottery Jug.Vinegar.name=Vinegar Jug
 item.Pottery Jug.OliveOil.name=Olive Oil Jug
@@ -743,6 +746,7 @@ item.Large Bowl.Milk.Pottery.name=Large Ceramic Bowl (Milk)
 item.Large Bowl.Honey.Pottery.name=Large Ceramic Bowl (Honey)
 item.Large Bowl.GoatMilk.Pottery.name=Large Ceramic Bowl (Goat Milk)
 item.Large Bowl.SkimmedMilk.Pottery.name=Large Ceramic Bowl (Skimmed Milk)
+item.Large Bowl.Cream.Pottery.name=Large Ceramic Bowl (Cream)
 
 item.Wooden Pail.name=Wooden Pail (Empty)
 item.Wooden Pail.FreshWater.name=Wooden Pail (Fresh Water)
@@ -1245,6 +1249,7 @@ fluid.GoatMilkCurdled=Curdled Goat Milk
 fluid.Tallow=Tallow
 fluid.CookingMixture=Mix
 fluid.SkimmedMilk=Skimmed Milk
+fluid.Cream=Cream
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs
