@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Churning.ChurningPlayerState;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Player.PlayerStateManager;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsSounds;
 import net.minecraft.entity.player.EntityPlayer;
@@ -78,6 +79,8 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
             float weight = BUTTER_WEIGHT_PER_BUCKET_OF_CREAM / 1000 * volume;
 
             ItemStack butter = ItemFoodTFC.createTag(new ItemStack(BidsItems.butter), weight);
+            BidsEventFactory.onWaterskinChurnDone(player, is, butter);
+
             TFC_Core.giveItemToPlayer(butter, player);
 
             return getContainerItem(is);

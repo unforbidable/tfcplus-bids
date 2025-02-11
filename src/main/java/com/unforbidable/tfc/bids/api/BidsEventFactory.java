@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.api;
 
 import com.unforbidable.tfc.bids.api.Events.AnimalMilkEvent;
+import com.unforbidable.tfc.bids.api.Events.WaterskinChurnEvent;
 import com.unforbidable.tfc.bids.api.Events.FillContainerEvent;
 import com.unforbidable.tfc.bids.api.Events.KilnEvent;
 import net.minecraft.entity.Entity;
@@ -43,6 +44,11 @@ public class BidsEventFactory {
 
     public static void onAnimalMilked(EntityPlayer player, Entity entity, FluidStack result) {
         AnimalMilkEvent.Milked event = new AnimalMilkEvent.Milked(player, entity, result);
+        MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static void onWaterskinChurnDone(EntityPlayer player, ItemStack waterskin, ItemStack result) {
+        WaterskinChurnEvent event = new WaterskinChurnEvent(player, WaterskinChurnEvent.Action.DONE, waterskin, result);
         MinecraftForge.EVENT_BUS.post(event);
     }
 
