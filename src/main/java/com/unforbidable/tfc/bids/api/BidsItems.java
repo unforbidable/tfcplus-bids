@@ -171,6 +171,7 @@ public class BidsItems {
     public static Item potteryJugVinegar;
     public static Item potteryJugOliveOil;
     public static Item potteryJugFishOil;
+    public static Item potteryJugGoatMilk;
 
     public static Item vinegarBowl;
     public static Item oliveOilBowl;

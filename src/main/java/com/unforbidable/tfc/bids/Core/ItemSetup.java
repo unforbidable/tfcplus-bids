@@ -710,6 +710,15 @@ public class ItemSetup extends BidsItems {
         potteryJugFishOil = new ItemPotteryFluid(1000)
             .setContainerItem(TFCItems.potteryJug)
             .setUnlocalizedName("Pottery Jug.FishOil");
+
+        potteryJugGoatMilk = new ItemGenericDrink(1000, true, 0, 20, 40, 60, 80, 100)
+            .setCanDrinkInParts(true)
+            .setFoodGroup(EnumFoodGroup.Dairy)
+            .setCalories(0.642f)
+            .setWaterRestoreRatio(1f)
+            .setContainerItem((TFCItems.potteryJug))
+            .setMaxDamage(1000 / 50)
+            .setUnlocalizedName("Pottery Jug.GoatMilk");
     }
 
     private static void registerFluidContainers() {
@@ -725,6 +734,7 @@ public class ItemSetup extends BidsItems {
         FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, TFCItems.potteryJug, 1, potteryJugVinegar, 50, 1000);
         FluidHelper.registerPartialFluidContainer(TFCFluids.OLIVEOIL, TFCItems.potteryJug, 1, potteryJugOliveOil, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.FISHOIL, TFCItems.potteryJug, 1, potteryJugFishOil, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, TFCItems.potteryJug, 1, potteryJugGoatMilk, 50, 1000);
 
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
             new ItemStack(honeyWaterBottle), new ItemStack(TFCItems.glassBottle));
@@ -1338,6 +1348,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(potteryJugVinegar, potteryJugVinegar.getUnlocalizedName());
         GameRegistry.registerItem(potteryJugOliveOil, potteryJugOliveOil.getUnlocalizedName());
         GameRegistry.registerItem(potteryJugFishOil, potteryJugFishOil.getUnlocalizedName());
+
+        GameRegistry.registerItem(potteryJugGoatMilk, potteryJugGoatMilk.getUnlocalizedName());
     }
 
 }
