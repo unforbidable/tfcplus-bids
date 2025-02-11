@@ -1361,6 +1361,20 @@ public class RecipeSetup {
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.MILK, 500))
+            .produces(new FluidStack(BidsFluids.SKIMMEDMILK, 450), new FluidStack(BidsFluids.CREAM, 50))
+            .withoutHeat()
+            .inFixedTime(24000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.GOATMILK, 500))
+            .produces(new FluidStack(BidsFluids.SKIMMEDMILK, 450), new FluidStack(BidsFluids.CREAM, 50))
+            .withoutHeat()
+            .inFixedTime(24000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
             .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.suet), Global.FOOD_MAX_WEIGHT / 8000))
             .produces(new FluidStack(BidsFluids.TALLOW, 1))
             .withHeat(EnumCookingHeatLevel.LOW)
