@@ -448,6 +448,12 @@ public class ItemSetup extends BidsItems {
             .setCanSmoke()
             .setUnlocalizedName("Goat Cheese");
         ((ItemFoodTFC) goatCheese).setSmokeAbsorbMultiplier(1F);
+        hardCheese = new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20)
+            .setWaterPercentage(0.3f)
+            .setDecayRate(0.25f)
+            .setCanSmoke()
+            .setUnlocalizedName("Hard Cheese");
+        ((ItemFoodTFC) hardCheese).setSmokeAbsorbMultiplier(0.5F);
 
         suet = new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 30)
             .setDecayRate(2.5f)
@@ -1009,7 +1015,7 @@ public class ItemSetup extends BidsItems {
             wheatDoughFlatbread, barleyDoughFlatbread, oatDoughFlatbread, riceDoughFlatbread, ryeDoughFlatbread, cornmealDoughFlatbread,
             wheatFlatbread, barleyFlatbread, oatFlatbread, riceFlatbread, ryeFlatbread, cornmealFlatbread,
             appleCrushed, oliveCrushed,
-            goatCheese,
+            goatCheese, hardCheese,
             stuffedPepper, stuffedMushroom, pemmican, wrap,
             seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
             suet, tallow, bambooShoot,
@@ -1389,6 +1395,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(potteryJugVinegar, potteryJugVinegar.getUnlocalizedName());
         GameRegistry.registerItem(potteryJugOliveOil, potteryJugOliveOil.getUnlocalizedName());
         GameRegistry.registerItem(potteryJugFishOil, potteryJugFishOil.getUnlocalizedName());
+
+        GameRegistry.registerItem(hardCheese, hardCheese.getUnlocalizedName());
 
         GameRegistry.registerItem(potteryJugGoatMilk, potteryJugGoatMilk.getUnlocalizedName());
         GameRegistry.registerItem(potteryJugSkimmedMilk, potteryJugSkimmedMilk.getUnlocalizedName());

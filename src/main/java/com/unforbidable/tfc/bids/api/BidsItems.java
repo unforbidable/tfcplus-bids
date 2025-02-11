@@ -216,6 +216,7 @@ public class BidsItems {
 
     public static Item steamingMeshCloth;
 
+    public static Item hardCheese;
     public static Item goatCheese;
 
     public static Item stuffedPepper;
