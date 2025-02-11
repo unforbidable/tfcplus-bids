@@ -6,6 +6,7 @@ import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMoldBase;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Events.AnvilCraftEvent;
+import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Blocks.BlockAquifer;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
@@ -192,6 +193,17 @@ public class AchievementHandler {
     @SubscribeEvent
     public void onAnimalMilk(AnimalMilkEvent.Milked event) {
         event.player.addStat(BidsStats.MILK_MILKED, event.result.amount);
+    }
+
+    @SubscribeEvent
+    public void onChurnWaterskin(WaterskinChurnEvent event) {
+        if (event.action == WaterskinChurnEvent.Action.DONE) {
+            ((EntityPlayer) event.entity).triggerAchievement(BidsAchievements.BUTTER);
+
+            float weight = Food.getWeight(event.result);
+
+            ((EntityPlayer) event.entity).addStat(BidsStats.BUTTER_CHURNED, Math.round(weight));
+        }
     }
 
 }

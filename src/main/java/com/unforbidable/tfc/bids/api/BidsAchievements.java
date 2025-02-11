@@ -71,6 +71,9 @@ public class BidsAchievements {
     public static final Achievement MILK_PORRIDGE = new Achievement("achievement.bidsMilkPorridge", "bidsMilkPorridge",
         6, 5, new ItemStack(BidsItems.porridge), COOKED_MEAL).setSpecial();
 
+    public static final Achievement BUTTER = new Achievement("achievement.bidsButter", "bidsButter",
+        -2, 7, new ItemStack(BidsItems.butter), null);
+
     public static final Achievement AQUIFER = new Achievement("achievement.bidsAquifer", "bidsAquifer",
         0, 7, new ItemStack(Items.water_bucket), null);
 

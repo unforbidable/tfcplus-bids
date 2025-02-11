@@ -34,6 +34,7 @@ public class AchievementSetup {
             BidsAchievements.COOKED_MEAL,
             BidsAchievements.MUSHROOM_STEW,
             BidsAchievements.MILK_PORRIDGE,
+            BidsAchievements.BUTTER,
             BidsAchievements.AQUIFER,
             BidsAchievements.CULTIVATED_SEED,
             BidsAchievements.WINTER_CEREAL_SEED
@@ -50,7 +51,8 @@ public class AchievementSetup {
             BidsStats.SADDLE_QUERN_USED,
             BidsStats.MEALS_COOKED,
             BidsStats.FIREWOOD_CHOPPED,
-            BidsStats.MILK_MILKED
+            BidsStats.MILK_MILKED,
+            BidsStats.BUTTER_CHURNED
         };
 
         for (StatBase s : stats) {

@@ -19,6 +19,13 @@ public class BidsStats {
         }
     };
 
+    private static final IStatType WEIGHT_STAT_TYPE = new IStatType() {
+        @Override
+        public String format(int value) {
+            return VOLUME_DECIMAL_FORMAT.format(value) + " oz";
+        }
+    };
+
     public static final StatBase BLOCKS_QUARRIED = new StatBasic("stat.bidsBlocksQuarried", new ChatComponentTranslation("stat.bidsBlocksQuarried"))
         .initIndependentStat();
 
@@ -32,6 +39,9 @@ public class BidsStats {
         .initIndependentStat();
 
     public static final StatBase MILK_MILKED = new StatBasic("stat.bidsMilkMilked", new ChatComponentTranslation("stat.bidsMilkMilked"), VOLUME_STAT_TYPE)
+        .initIndependentStat();
+
+    public static final StatBase BUTTER_CHURNED = new StatBasic("stat.bidsButterChurned", new ChatComponentTranslation("stat.bidsButterChurned"), WEIGHT_STAT_TYPE)
         .initIndependentStat();
 
 }
