@@ -198,11 +198,12 @@ public class AchievementHandler {
     @SubscribeEvent
     public void onChurnWaterskin(WaterskinChurnEvent event) {
         if (event.action == WaterskinChurnEvent.Action.DONE) {
-            ((EntityPlayer) event.entity).triggerAchievement(BidsAchievements.BUTTER);
+            if (event.result.getItem() == BidsItems.butter) {
+                ((EntityPlayer) event.entity).triggerAchievement(BidsAchievements.BUTTER);
 
-            float weight = Food.getWeight(event.result);
-
-            ((EntityPlayer) event.entity).addStat(BidsStats.BUTTER_CHURNED, Math.round(weight));
+                int weight = Math.round(Food.getWeight(event.result));
+                ((EntityPlayer) event.entity).addStat(BidsStats.BUTTER_CHURNED, weight);
+            }
         }
     }
 
