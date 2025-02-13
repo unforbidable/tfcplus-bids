@@ -579,7 +579,7 @@ public class ItemSetup extends BidsItems {
 
         waterskinCream = new ItemWaterskinChurn()
             .setContainerItem(TFCItems.waterskinEmpty)
-            .setMaxDamage(4000 / 50)
+            .setMaxDamage(2000 / 50)
             .setUnlocalizedName("Waterskin.Cream");
 
         goatMilkBottle = new ItemGenericDrink(1000, false, 0, 20, 40, 60, 80, 100)
@@ -776,7 +776,7 @@ public class ItemSetup extends BidsItems {
         FluidHelper.registerPartialFluidContainer(BidsFluids.SKIMMEDMILK, TFCItems.glassBottle, 0, skimmedMilkBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.CREAM, TFCItems.glassBottle, 0, creamBottle, 50, 1000);
 
-        FluidHelper.registerPartialFluidContainer(BidsFluids.CREAM, TFCItems.waterskinEmpty, 0, waterskinCream, 50, 4000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.CREAM, TFCItems.waterskinEmpty, 0, waterskinCream, 50, 2000);
 
         FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, TFCItems.potteryJug, 1, potteryJugVinegar, 50, 1000);
         FluidHelper.registerPartialFluidContainer(TFCFluids.OLIVEOIL, TFCItems.potteryJug, 1, potteryJugOliveOil, 50, 1000);
