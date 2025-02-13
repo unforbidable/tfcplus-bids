@@ -11,8 +11,8 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockUnfinishedAnvil;
-import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
@@ -61,6 +61,7 @@ public class RecipeSetup {
         registerScrewPressRecipes();
         registerCookingRecipes();
         registerPrepRecipes();
+        registerChurningRecipes();
         registerHandlers();
     }
 
@@ -1723,6 +1724,13 @@ public class RecipeSetup {
             vesselLargeBowl.toSpec(),
             foodEgg.toSpec(20, true), foodNoFruitNoGrain.toSpec(8, true), foodNoFruitNoGrain.toSpec(8), foodNoFruitNoGrain.toSpec(4)
         }));
+    }
+
+    private static void registerChurningRecipes() {
+        Bids.LOG.info("Register churning recipes");
+
+        ChurningManager.addRecipe(new ChurningRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.butter), Global.FOOD_MAX_WEIGHT / 4000),
+            new FluidStack(BidsFluids.CREAM, 1), 1));
     }
 
     private static void registerKnappingRecipes() {
