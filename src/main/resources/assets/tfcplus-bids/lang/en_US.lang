@@ -1354,6 +1354,7 @@ gui.ScrewPress=Screw Press
 gui.Input=Input
 gui.Resistance=Resistance
 gui.cooking.cookingMixDecayed=Cooking Mix has decayed beyond use
+gui.Churning=Churning
 
 key.BidsToolMode=Cycle Tool Mode
 
