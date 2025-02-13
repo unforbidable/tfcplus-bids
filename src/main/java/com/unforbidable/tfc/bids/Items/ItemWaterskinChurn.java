@@ -166,22 +166,24 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
     public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> arraylist) {
         super.addExtraInformation(is, player, arraylist);
 
-        int progress = Math.round(getChurningProgress(is) * 100);
-        if (progress > 0) {
-            FluidStack fs = getFluidToChurn(is);
-            if (fs != null) {
-                ChurningRecipe recipe = ChurningManager.findMatchingRecipe(fs);
-                if (recipe != null) {
+        FluidStack fs = getFluidToChurn(is);
+        if (fs != null) {
+            ChurningRecipe recipe = ChurningManager.findMatchingRecipe(fs);
+            if (recipe != null) {
+                int progress = Math.round(getChurningProgress(is) * 100);
+                if (progress > 0) {
                     arraylist.add(EnumChatFormatting.WHITE + recipe.getResult(fs).getDisplayName() + ": " + progress + "%");
                 }
-            }
-        }
 
-        if (ItemHelper.showShiftInformation()) {
-            arraylist.add(StatCollector.translateToLocal("gui.Help"));
-            arraylist.add(StatCollector.translateToLocal("gui.Help.Waterskin.Churn"));
-        } else {
-            arraylist.add(StatCollector.translateToLocal("gui.ShowHelp"));
+                if (ItemHelper.showShiftInformation()) {
+                    arraylist.add(StatCollector.translateToLocal("gui.Help"));
+                    arraylist.add(StatCollector.translateToLocal("gui.Help.Waterskin.Churn") +
+                            recipe.getResult(fs).getDisplayName() +
+                            StatCollector.translateToLocal("gui.Help.Waterskin.Churn2"));
+                } else {
+                    arraylist.add(StatCollector.translateToLocal("gui.ShowHelp"));
+                }
+            }
         }
     }
 
