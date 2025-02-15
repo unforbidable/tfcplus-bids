@@ -98,7 +98,7 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
             // Churn cycle is in progress
             // check validity and restart if needed
             long ticksSinceStart = TFC_Time.getTotalTicks() - state.ticksStarted;
-            if (ticksSinceStart > CHURN_CYCLE_TICKS) {
+            if (ticksSinceStart > CHURN_CYCLE_TICKS + 10) {
                 // In case the previous churning wasn't stopped when player released the right mouse button
                 // too much time has passed, we restart the churn cycle
                 Bids.LOG.warn("Too many ticks since start: " + ticksSinceStart);
