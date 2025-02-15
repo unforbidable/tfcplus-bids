@@ -465,7 +465,7 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Tallow");
 
         butter = new ItemExtraFood(EnumFoodGroup.Dairy, 35, 0, 10, 0, 50)
-            .setDecayRate(0.5f)
+            .setDecayRate(1f)
             .setNutritionAsIfCooked(true)
             .setUnlocalizedName("Butter");
 
