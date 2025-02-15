@@ -652,3 +652,12 @@
 - Changed: Using new milking mechanics even when milking with a TFC containers can be configured (disabled by default)
 - Changed: Wooden and ceramic bucket fluid overlays render with slightly brighter colors
 - Fixed: Ceramic bucked with milk now has the correct NBT data when used for milking animals or when filled from a cooking pot
+
+0.52.0 (2025-02-15)
+- Added: Cream
+- Added: Butter
+- Added: Skimmed Milk
+- Added: Hard Cheese
+- Added: Butter can be churned in a waterskin
+- Added: Butter churning stat and achievement
+- Added: Goat milk can now be drunk from a ceramic jug

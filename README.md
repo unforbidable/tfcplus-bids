@@ -52,7 +52,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Cooking Pot](../../wiki/Cooking-Pot) - for boiling and steaming foodstuffs and much more, notably making cooked meals form prepared mixtures
 * [Steaming Mesh](../../wiki/Steaming-Mesh) - as an accessory for the cooking pot
 * [Fish Oil](../../wiki/Fish-Oil) - an alternative fuel for clay lamps
-* [More Milk](../../wiki/More-Milk) - goat milk and goat cheese
+* [More Milk](../../wiki/More-Milk) - goat milk, skimmed milk, goat cheese and hard cheese
 * [Cooking Prep](../../wiki/Cooking-Prep) - for making classic salads and sandwiches and new meals such as stuffed peppers and stuffed mushrooms, wraps, and cooking mixes
 * [More Crops](../../wiki/More-Crops) - new crops such as sea beet, beetroot, sugar beet, wild beans and broad beans and some converted TFC crops
 * [Tallow](../../wiki/Tallow) - made from Suet which drops from appropriate animal mobs, for consumption or making candles and Pemmican
@@ -68,6 +68,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [More Hides](../../wiki/More-Hides) - introducing a tiny rawhide dropped from animals for making Pemmican
 * [Rough Stone Fences](../../wiki/Rough-Stone-Fence) - walls from rough stone bricks and tiles, behaving much like palisade
 * [Pail](../../wiki/Pail) - a large wooden container for transferring liquids and milking up to 4 animals in one go (including Ibex)
+* [Butter](../../wiki/Butter) - a dairy foodstuff made by churning Cream which is separated from milk
 
 ### Contributions
 
