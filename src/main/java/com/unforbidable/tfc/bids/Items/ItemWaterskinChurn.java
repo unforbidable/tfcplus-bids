@@ -58,7 +58,9 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
                     // If completed
                     // give butter to player
                     // and return empty waterskin
-                    PlayerStateManager.clearPlayerState(player, ChurningPlayerState.class);
+                    if (!world.isRemote) {
+                        PlayerStateManager.clearPlayerState(player, ChurningPlayerState.class);
+                    }
 
                     ItemStack result = recipe.getResult(fluidToChurn);
 
@@ -69,16 +71,18 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
                     return getContainerItem(is);
                 }
 
-                // Validate current churning cycle if any
-                // or start a new one if needed
-                if (!doesPlayerHaveValidChurningState(player)) {
-                    // Tracking churning cycle over multiple use actions
-                    // Player state is used
-                    ChurningPlayerState state = new ChurningPlayerState();
-                    state.slot = player.inventory.currentItem;
-                    state.ticksStarted = TFC_Time.getTotalTicks();
-                    state.ticksSoundPlayed = 0;
-                    PlayerStateManager.setPlayerState(player, state);
+                if (!world.isRemote) {
+                    // Validate current churning cycle if any
+                    // or start a new one if needed
+                    if (!doesPlayerHaveValidChurningState(player)) {
+                        // Tracking churning cycle over multiple use actions
+                        // Player state is used
+                        ChurningPlayerState state = new ChurningPlayerState();
+                        state.slot = player.inventory.currentItem;
+                        state.ticksStarted = TFC_Time.getTotalTicks();
+                        state.ticksSoundPlayed = 0;
+                        PlayerStateManager.setPlayerState(player, state);
+                    }
                 }
 
                 player.setItemInUse(is, getMaxItemUseDuration(is));
