@@ -77,6 +77,24 @@ tile.RoughStoneTileSed.Limestone.name=粗糙石灰岩岩片砖块
 tile.RoughStoneTileSed.Rock Salt.name=粗糙盐岩岩片砖块
 tile.RoughStoneTileSed.Shale.name=粗糙页岩岩片砖块
 
+tile.RoughStoneBrickFenceSed.Chalk.name=粗糙白垩岩砖栅栏
+tile.RoughStoneBrickFenceSed.Chert.name=粗糙角岩砖栅栏
+tile.RoughStoneBrickFenceSed.Claystone.name=粗糙粘土岩砖栅栏
+tile.RoughStoneBrickFenceSed.Sandstone.name=粗糙砂岩砖栅栏
+tile.RoughStoneBrickFenceSed.Dolomite.name=粗糙白云岩砖栅栏
+tile.RoughStoneBrickFenceSed.Limestone.name=粗糙石灰岩砖栅栏
+tile.RoughStoneBrickFenceSed.Rock Salt.name=粗糙盐岩砖栅栏
+tile.RoughStoneBrickFenceSed.Shale.name=粗糙页岩砖栅栏
+
+tile.RoughStoneTileFenceSed.Chalk.name=粗糙白垩岩岩片栅栏
+tile.RoughStoneTileFenceSed.Chert.name=粗糙角岩岩片栅栏
+tile.RoughStoneTileFenceSed.Claystone.name=粗糙粘土岩岩片栅栏
+tile.RoughStoneTileFenceSed.Sandstone.name=粗糙砂岩岩片栅栏
+tile.RoughStoneTileFenceSed.Dolomite.name=粗糙白云岩岩片栅栏
+tile.RoughStoneTileFenceSed.Limestone.name=粗糙石灰岩岩片栅栏
+tile.RoughStoneTileFenceSed.Rock Salt.name=粗糙盐岩岩片栅栏
+tile.RoughStoneTileFenceSed.Shale.name=粗糙页岩岩片栅栏
+
 tile.RoughStoneMM.Quartzite.name=粗糙硅岩
 tile.RoughStoneMM.Slate.name=粗糙板岩
 tile.RoughStoneMM.Phyllite.name=粗糙千枚岩
@@ -98,6 +116,20 @@ tile.RoughStoneTileMM.Schist.name=粗糙片岩岩片砖块
 tile.RoughStoneTileMM.Gneiss.name=粗糙片麻岩岩片砖块
 tile.RoughStoneTileMM.Marble.name=粗糙花岗岩砖块
 
+tile.RoughStoneBrickFenceMM.Quartzite.name=粗糙硅岩砖栅栏
+tile.RoughStoneBrickFenceMM.Slate.name=粗糙板岩砖栅栏
+tile.RoughStoneBrickFenceMM.Phyllite.name=粗糙千枚岩砖栅栏
+tile.RoughStoneBrickFenceMM.Schist.name=粗糙片岩砖栅栏
+tile.RoughStoneBrickFenceMM.Gneiss.name=粗糙片麻岩砖栅栏
+tile.RoughStoneBrickFenceMM.Marble.name=粗糙大理石砖栅栏
+
+tile.RoughStoneTileFenceMM.Quartzite.name=粗糙硅岩岩片栅栏
+tile.RoughStoneTileFenceMM.Slate.name=粗糙板岩岩片栅栏
+tile.RoughStoneTileFenceMM.Phyllite.name=粗糙千枚岩岩片栅栏
+tile.RoughStoneTileFenceMM.Schist.name=粗糙片岩岩片栅栏
+tile.RoughStoneTileFenceMM.Gneiss.name=粗糙片麻岩岩片栅栏
+tile.RoughStoneTileFenceMM.Marble.name=粗糙大理石砖栅栏
+
 tile.RoughStoneIgIn.Granite.name=粗糙花岗岩
 tile.RoughStoneIgIn.Diorite.name=粗糙闪长岩
 tile.RoughStoneIgIn.Gabbro.name=粗糙辉长岩
@@ -109,6 +141,14 @@ tile.RoughStoneBrickIgIn.Gabbro.name=粗糙辉长岩砖块
 tile.RoughStoneTileIgIn.Granite.name=粗糙花岗岩岩片砖块
 tile.RoughStoneTileIgIn.Diorite.name=粗糙闪长岩岩片砖块
 tile.RoughStoneTileIgIn.Gabbro.name=粗糙辉长岩岩片砖块
+
+tile.RoughStoneBrickFenceIgIn.Granite.name=粗糙花岗岩砖栅栏
+tile.RoughStoneBrickFenceIgIn.Diorite.name=粗糙闪长岩砖栅栏
+tile.RoughStoneBrickFenceIgIn.Gabbro.name=粗糙辉长岩砖栅栏
+
+tile.RoughStoneTileFenceIgIn.Granite.name=粗糙花岗岩岩片栅栏
+tile.RoughStoneTileFenceIgIn.Diorite.name=粗糙闪长岩岩片栅栏
+tile.RoughStoneTileFenceIgIn.Gabbro.name=粗糙辉长岩岩片栅栏
 
 tile.RoughStoneIgEx.Rhyolite.name=粗糙流纹岩
 tile.RoughStoneIgEx.Basalt.name=粗糙玄武岩
@@ -124,6 +164,16 @@ tile.RoughStoneTileIgEx.Rhyolite.name=粗糙流纹岩岩片砖块
 tile.RoughStoneTileIgEx.Basalt.name=粗糙玄武岩岩片砖块
 tile.RoughStoneTileIgEx.Andesite.name=粗糙安山岩岩片砖块
 tile.RoughStoneTileIgEx.Dacite.name=粗糙英安岩岩片砖块
+
+tile.RoughStoneBrickFenceIgEx.Rhyolite.name=粗糙流纹岩砖栅栏
+tile.RoughStoneBrickFenceIgEx.Basalt.name=粗糙玄武岩砖栅栏
+tile.RoughStoneBrickFenceIgEx.Andesite.name=粗糙安山岩砖栅栏
+tile.RoughStoneBrickFenceIgEx.Dacite.name=粗糙英安岩砖栅栏
+
+tile.RoughStoneTileFenceIgEx.Rhyolite.name=粗糙流纹岩岩片栅栏
+tile.RoughStoneTileFenceIgEx.Basalt.name=粗糙玄武岩岩片栅栏
+tile.RoughStoneTileFenceIgEx.Andesite.name=粗糙安山岩岩片栅栏
+tile.RoughStoneTileFenceIgEx.Dacite.name=粗糙英安岩岩片栅栏
 
 tile.CrackedIgExRock.Andesite.name=破裂的安山岩
 tile.CrackedIgExRock.Basalt.name=破裂的玄武岩
@@ -327,8 +377,9 @@ item.Drinking Glass.CornWine.name=玻璃杯(玉米酒)
 item.Drinking Glass.RyeWine.name=玻璃杯(黑麦酒)
 item.Drinking Glass.BarleyWine.name=玻璃杯(大麦酒)
 item.Drinking Glass.PotatoWine.name=玻璃杯(马铃薯酒)
-item.Drinking Glass.Milk.name=玻璃杯(奶)
+item.Drinking Glass.Milk.name=玻璃杯(牛奶)
 item.Drinking Glass.GoatMilk.name=玻璃杯(羊奶)
+item.Drinking Glass.SkimmedMilk.name=玻璃杯(脱脂奶)
 item.Drinking Glass.Shochu.name=玻璃杯(烧酒)
 item.Drinking Glass.Brandy.name=玻璃杯(白兰地)
 item.Drinking Glass.BerryBrandy.name=玻璃杯(浆果白兰地)
@@ -392,8 +443,9 @@ item.Glass Jug.CornWine.name=玻璃壶(玉米酒)
 item.Glass Jug.RyeWine.name=玻璃壶(黑麦酒)
 item.Glass Jug.BarleyWine.name=玻璃壶(大麦酒)
 item.Glass Jug.PotatoWine.name=玻璃壶(马铃薯酒)
-item.Glass Jug.Milk.name=玻璃壶(奶)
+item.Glass Jug.Milk.name=玻璃壶(牛奶)
 item.Glass Jug.GoatMilk.name=玻璃壶(羊奶)
+item.Glass Jug.SkimmedMilk.name=玻璃壶(脱脂奶)
 item.Glass Jug.Shochu.name=玻璃壶(烧酒)
 item.Glass Jug.Brandy.name=玻璃壶(白兰地)
 item.Glass Jug.BerryBrandy.name=玻璃壶(浆果白兰地)
@@ -457,8 +509,9 @@ item.Shot Glass.CornWine.name=子弹杯(玉米酒)
 item.Shot Glass.RyeWine.name=子弹杯(黑麦酒)
 item.Shot Glass.BarleyWine.name=子弹杯(大麦酒)
 item.Shot Glass.PotatoWine.name=子弹杯(马铃薯酒)
-item.Shot Glass.Milk.name=子弹杯(奶)
+item.Shot Glass.Milk.name=子弹杯(牛奶)
 item.Shot Glass.GoatMilk.name=子弹杯(羊奶)
+item.Shot Glass.SkimmedMilk.name=子弹杯(脱脂奶)
 item.Shot Glass.Shochu.name=子弹杯(烧酒)
 item.Shot Glass.Brandy.name=子弹杯(白兰地)
 item.Shot Glass.BerryBrandy.name=子弹杯(浆果白兰地)
@@ -523,8 +576,9 @@ item.Pottery Mug.CornWine.name=陶瓷杯(玉米酒)
 item.Pottery Mug.RyeWine.name=陶瓷杯(黑麦酒)
 item.Pottery Mug.BarleyWine.name=陶瓷杯(大麦酒)
 item.Pottery Mug.PotatoWine.name=陶瓷杯(马铃薯酒)
-item.Pottery Mug.Milk.name=陶瓷杯(奶)
+item.Pottery Mug.Milk.name=陶瓷杯(牛奶)
 item.Pottery Mug.GoatMilk.name=陶瓷杯(羊奶)
+item.Pottery Mug.SkimmedMilk.name=陶瓷杯(脱脂奶)
 item.Pottery Mug.Shochu.name=陶瓷杯(烧酒)
 item.Pottery Mug.Brandy.name=陶瓷杯(白兰地)
 item.Pottery Mug.BerryBrandy.name=陶瓷杯(浆果白兰地)
@@ -588,8 +642,9 @@ item.Birch Bark Cup.CornWine.name=桦树皮杯(玉米酒)
 item.Birch Bark Cup.RyeWine.name=桦树皮杯(黑麦酒)
 item.Birch Bark Cup.BarleyWine.name=桦树皮杯(大麦酒)
 item.Birch Bark Cup.PotatoWine.name=桦树皮杯(马铃薯酒)
-item.Birch Bark Cup.Milk.name=桦树皮杯(奶)
+item.Birch Bark Cup.Milk.name=桦树皮杯(牛奶)
 item.Birch Bark Cup.GoatMilk.name=桦树皮杯(羊奶)
+item.Birch Bark Cup.SkimmedMilk.name=桦树皮杯(脱脂奶)
 item.Birch Bark Cup.Shochu.name=桦树皮杯(烧酒)
 item.Birch Bark Cup.Brandy.name=桦树皮杯(白兰地)
 item.Birch Bark Cup.BerryBrandy.name=桦树皮杯(浆果白兰地)
@@ -651,6 +706,16 @@ item.Glass Bottle.MilkVinegar.name=瓶装奶醋
 item.Glass Bottle.FishOil.name=瓶装鱼油
 item.Glass Bottle.OilyFishWater.name=瓶装鱼糜
 item.Glass Bottle.GoatMilk.name=瓶装羊奶
+item.Glass Bottle.SkimmedMilk.name=瓶装脱脂奶
+item.Glass Bottle.Cream.name=瓶装奶油
+
+item.Waterskin.Cream.name=皮革水袋(奶油)
+
+item.Pottery Jug.Vinegar.name=陶瓷壶(醋)
+item.Pottery Jug.OliveOil.name=陶瓷壶(橄榄油)
+item.Pottery Jug.FishOil.name=陶瓷壶(鱼油)
+item.Pottery Jug.GoatMilk.name=陶瓷壶(羊奶)
+item.Pottery Jug.SkimmedMilk.name=陶瓷壶(脱脂奶)
 
 item.Bowl Vinegar.PotteryBowl.name=陶瓷碗(醋)
 item.Bowl Vinegar.Bowl.name=碗(醋)
@@ -677,9 +742,16 @@ item.Large Bowl.Ceramic.name=大陶瓷碗
 item.Large Bowl.FreshWater.Pottery.name=大陶瓷碗(淡水)
 item.Large Bowl.SaltWater.Pottery.name=大陶瓷碗(盐水)
 item.Large Bowl.Vinegar.Pottery.name=大陶瓷碗(醋)
-item.Large Bowl.Milk.Pottery.name=大陶瓷碗(奶)
+item.Large Bowl.Milk.Pottery.name=大陶瓷碗(牛奶)
 item.Large Bowl.Honey.Pottery.name=大陶瓷碗(蜂蜜)
 item.Large Bowl.GoatMilk.Pottery.name=大陶瓷碗(羊奶)
+item.Large Bowl.SkimmedMilk.Pottery.name=大陶瓷碗(脱脂奶)
+item.Large Bowl.Cream.Pottery.name=大陶瓷碗(奶油)
+
+item.Wooden Pail.name=木提桶(Empty)
+item.Wooden Pail.FreshWater.name=木提桶(淡水)
+item.Wooden Pail.Milk.name=木提桶(牛奶)
+item.Wooden Pail.GoatMilk.name=木提桶(羊奶)
 
 item.Ceramic Bucket Rope.name=带绳陶瓷桶
 item.Ceramic Bucket Rope.FreshWater.name=带绳陶瓷桶(淡水)
@@ -1115,9 +1187,11 @@ item.Cornmeal Flatbread.name=玉米饼
 item.Flat Dough.name=未定型面团
 
 item.Goat Cheese.name=羊奶酪
+item.Hard Cheese.name=硬奶酪
 
 item.Suet.name=板油
 item.Tallow.name=动物油脂
+item.Butter.name=黄油
 
 item.Bamboo Shoot.name=竹笋
 
@@ -1176,6 +1250,10 @@ fluid.GoatMilkVinegar=羊奶醋
 fluid.GoatMilkCurdled=羊凝乳
 fluid.Tallow=动物油脂
 fluid.CookingMixture=混合食材
+fluid.SkimmedMilk=脱脂奶
+fluid.SkimmedMilkVinegar=脱脂奶醋
+fluid.SkimmedMilkCurdled=脱脂凝乳
+fluid.Cream=奶油
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
@@ -1223,6 +1301,8 @@ gui.Help.Pottery=潜行时§b右击§7以放置物品.
 gui.Help.CookingPot=§b右击§7方块以放置.
 gui.Help.CookingPotLid=§b右击§7方块以放置.
 gui.Help.UnshapedDough=§b右击§7来塑形面团.
+gui.Help.Waterskin.Churn=Hold §bRight Click §7to churn into §e
+gui.Help.Waterskin.Churn2=§7.
 gui.Units=单位
 gui.Empty=空
 gui.Solidified=凝固
@@ -1275,6 +1355,7 @@ gui.ScrewPress=螺旋压力机
 gui.Input=输入
 gui.Resistance=阻力
 gui.cooking.cookingMixDecayed=混合食材已经腐烂,无法使用
+gui.Churning=Churning
 
 key.BidsToolMode=循环工具模式
 
@@ -1320,6 +1401,8 @@ achievement.bidsMushroomStew=屡试不爽
 achievement.bidsMushroomStew.desc=烹饪蘑菇炖菜
 achievement.bidsMilkPorridge=丰盛的粥
 achievement.bidsMilkPorridge.desc=将谷物混合食材与奶混合煮粥
+achievement.bidsButter=大奶场主
+achievement.bidsButter.desc=用皮革水袋把奶油搅成黄油
 achievement.bidsAquifer=哇, 水井!
 achievement.bidsAquifer.desc=发现地下含水层
 achievement.bidsCultivatedSeed=农夫
@@ -1331,3 +1414,5 @@ stat.bidsBlocksQuarried=采石数
 stat.bidsSaddleQuernUsed=手推磨使用次数
 stat.bidsMealsCooked=烹饪次数
 stat.bidsFirewoodChopped=劈柴数
+stat.bidsMilkMilked=挤奶量
+stat.bidsButterChurned=黄油产量
