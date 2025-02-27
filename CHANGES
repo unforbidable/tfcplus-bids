@@ -661,3 +661,7 @@
 - Added: Butter can be churned in a waterskin
 - Added: Butter churning stat and achievement
 - Added: Goat milk can now be drunk from a ceramic jug
+
+0.52.1 (2025-02-27)
+- Changed: Butter churning duration made configurable (2 ticks per 1 mB by default)
+- Changed: Updated Chinese translation by Eternal130
