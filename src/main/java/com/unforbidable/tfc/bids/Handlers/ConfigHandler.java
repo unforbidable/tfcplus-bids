@@ -79,6 +79,11 @@ public class ConfigHandler {
             "enableCarvingAnyBit", "carving", BidsOptions.Carving.enableCarvingAnyBit,
             "Set this to true if you want to be able to carve any bit with an Adze; if set to false, chimney blocks cannot be carved");
 
+        BidsOptions.Churning.churningDurationMultiplier = config.getFloat(
+            "churningDurationMultiplier", "quarry",
+            BidsOptions.Churning.churningDurationMultiplier, 0.5f, 4f,
+            "Higher values increase the time it takes to churn butter");
+
         BidsOptions.WoodPile.rotateItems = config.getBoolean(
                 "rotateItems", "woodpile", BidsOptions.WoodPile.rotateItems,
                 "Set this to true if you want odd rows in the wood pile appear rotated");

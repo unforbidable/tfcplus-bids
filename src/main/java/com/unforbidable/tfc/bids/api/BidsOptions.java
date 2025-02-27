@@ -95,6 +95,12 @@ public class BidsOptions {
 
     }
 
+    public static class Churning {
+
+        public static float churningDurationMultiplier = 2f;
+
+    }
+
     public static class LightSources {
 
         public static float clayLampOliveOilLightLevel = 0.8f;

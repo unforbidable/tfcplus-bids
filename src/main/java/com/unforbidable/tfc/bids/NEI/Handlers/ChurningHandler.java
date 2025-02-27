@@ -13,6 +13,7 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.ChurningManager;
 import com.unforbidable.tfc.bids.api.Crafting.ChurningRecipe;
 import net.minecraft.client.Minecraft;
@@ -66,7 +67,7 @@ public class ChurningHandler extends TemplateRecipeHandler implements IHandlerIn
                 final FluidStack input = recipe.getInput().copy();
                 input.amount = 4000;
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input)));
+                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input) * BidsOptions.Churning.churningDurationMultiplier));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -80,7 +81,7 @@ public class ChurningHandler extends TemplateRecipeHandler implements IHandlerIn
             input.amount = 4000;
             final ItemStack result = recipe.getResult(input);
             if (ItemStack.areItemStacksEqual(result, output) || result.getItem() instanceof IFood && result.getItem() == output.getItem()) {
-                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input)));
+                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input) * BidsOptions.Churning.churningDurationMultiplier));
             }
         }
     }
@@ -92,7 +93,7 @@ public class ChurningHandler extends TemplateRecipeHandler implements IHandlerIn
             if (input != null && recipe.matches(input)) {
                 input.amount = 4000;
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input)));
+                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input) * BidsOptions.Churning.churningDurationMultiplier));
             }
         }
     }

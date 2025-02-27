@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.Core.Churning.ChurningPlayerState;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Player.PlayerStateManager;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.BidsSounds;
 import com.unforbidable.tfc.bids.api.Crafting.ChurningManager;
 import com.unforbidable.tfc.bids.api.Crafting.ChurningRecipe;
@@ -156,7 +157,7 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
                     ChurningRecipe recipe = ChurningManager.findMatchingRecipe(fluidToChurn);
                     if (recipe != null) {
                         long ticksElapsedSinceStart = TFC_Time.getTotalTicks() - state.ticksStarted;
-                        float progress = ticksElapsedSinceStart / recipe.getTotalDuration(fluidToChurn);
+                        float progress = ticksElapsedSinceStart / recipe.getTotalDuration(fluidToChurn) * BidsOptions.Churning.churningDurationMultiplier;
                         setChurningProgress(stack, getChurningProgress(stack) + progress);
 
                         player.inventoryContainer.detectAndSendChanges();
