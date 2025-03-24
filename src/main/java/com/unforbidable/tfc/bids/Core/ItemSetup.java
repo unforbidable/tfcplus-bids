@@ -1074,7 +1074,7 @@ public class ItemSetup extends BidsItems {
         registerHeatUnfinishedAnvilHelper(reg, 6, TFCItems.redSteelUnshaped);
         registerHeatUnfinishedAnvilHelper(reg, 7, TFCItems.blueSteelUnshaped);
         registerHeatUnfinishedAnvilHelper(reg, 8, TFCItems.roseGoldUnshaped);
-        registerHeatUnfinishedAnvilHelper(reg, 9, TFCItems.bismuthUnshaped);
+        registerHeatUnfinishedAnvilHelper(reg, 9, TFCItems.bismuthBronzeUnshaped);
         registerHeatUnfinishedAnvilHelper(reg, 10, TFCItems.blackBronzeUnshaped);
 
         reg.addIndex(new BidsFoodHeatIndex(new ItemStack(wheatCrushed, 1), 1, 88, null, new ItemStack(wheatPorridge, 1), null).setKeepNBT(true));
