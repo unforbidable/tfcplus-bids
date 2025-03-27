@@ -126,6 +126,8 @@ public class BidsOptions {
 
         public static boolean enableSmallAndMediumRawhideSewing = true;
 
+        public static boolean enableProcessingSurfaceLeatherRackOverride = false;
+
     }
 
     public static class Crops {

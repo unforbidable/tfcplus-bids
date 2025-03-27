@@ -226,6 +226,11 @@ public class ConfigHandler {
             BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes,
             "Set this to true if you want to add missing leather armor repair recipes.");
 
+        BidsOptions.Crafting.enableProcessingSurfaceLeatherRackOverride = config.getBoolean(
+            "enableProcessingSurfaceLeatherRackOverride", "crafting",
+            BidsOptions.Crafting.enableProcessingSurfaceLeatherRackOverride,
+            "Set this to true if you want to scrap leathers using the Processing Surface, instead of the TFC Leather Rack.");
+
         BidsOptions.Crops.enableCerealSeedAutoConversion = config.getBoolean(
             "enableCerealSeedAutoConversion", "crops",
             BidsOptions.Crops.enableCerealSeedAutoConversion,
