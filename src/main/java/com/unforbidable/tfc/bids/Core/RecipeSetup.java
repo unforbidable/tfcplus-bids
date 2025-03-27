@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core;
 
+import com.dunk.tfc.Core.Recipes;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.*;
@@ -14,6 +15,7 @@ import com.unforbidable.tfc.bids.Blocks.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
+import com.unforbidable.tfc.bids.Core.ProcessingSurface.IconProviders.LeatherRackIconProviderTFC;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelItemDemandingRecipe;
@@ -62,6 +64,7 @@ public class RecipeSetup {
         registerCookingRecipes();
         registerPrepRecipes();
         registerChurningRecipes();
+        registerProcessingSurfaceRecipes();
         registerHandlers();
     }
 
@@ -144,6 +147,16 @@ public class RecipeSetup {
                 OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWall());
                 OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWallVert());
             }
+
+            if (wood.blocks.hasThickLog()) {
+                OreDictionary.registerOre("blockLeatherRack", wood.blocks.getThickLog());
+                OreDictionary.registerOre("blockLeatherRack", wood.blocks.getThickLogAlt());
+            }
+
+            if (wood.blocks.hasStackedLogs()) {
+                OreDictionary.registerOre("blockLeatherRack", wood.blocks.getStackedLogs());
+                OreDictionary.registerOre("blockLeatherRack", wood.blocks.getStackedLogsAlt());
+            }
         }
 
         OreDictionary.registerOre("itemHoneycomb", TFCItems.honeycomb);
@@ -225,6 +238,10 @@ public class RecipeSetup {
             if (stone.quern) {
                 OreDictionary.registerOre("stoneQuern", stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE));
             }
+        }
+
+        for (Item knife : Recipes.knives) {
+            OreDictionary.registerOre("itemScrapingTool", new ItemStack(knife, 1, WILD));
         }
 
         OreDictionary.registerOre("foodBeans", new ItemStack(TFCItems.soybean));
@@ -1731,6 +1748,22 @@ public class RecipeSetup {
 
         ChurningManager.addRecipe(new ChurningRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.butter), Global.FOOD_MAX_WEIGHT / 4000),
             new FluidStack(BidsFluids.CREAM, 1), 1));
+    }
+
+    private static void registerProcessingSurfaceRecipes() {
+        Bids.LOG.info("Register processing surface recipes");
+
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 0),
+            new ItemStack(TFCItems.soakedHide, 1, 0),
+            "itemScrapingTool", "blockLeatherRack", 1));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 1),
+            new ItemStack(TFCItems.soakedHide, 1, 1),
+            "itemScrapingTool", "blockLeatherRack", 2));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 2),
+            new ItemStack(TFCItems.soakedHide, 1, 2),
+            "itemScrapingTool", "blockLeatherRack", 4));
+
+        ProcessingSurfaceManager.registerIconProvider(new LeatherRackIconProviderTFC());
     }
 
     private static void registerKnappingRecipes() {
