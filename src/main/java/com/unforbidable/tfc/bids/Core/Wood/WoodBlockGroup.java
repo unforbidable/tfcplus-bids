@@ -15,17 +15,27 @@ public class WoodBlockGroup {
     public static final WoodBlockGroup WOOD_VERT = new WoodBlockGroup(16, TFCBlocks.woodVert, TFCBlocks.woodVert2, TFCBlocks.woodVert3);
     public static final WoodBlockGroup WOOD_SUPPORT = new WoodBlockGroup(16, TFCBlocks.woodSupportV, TFCBlocks.woodSupportV2, TFCBlocks.woodSupportV3);
     public static final WoodBlockGroup FENCE = new WoodBlockGroup(16, TFCBlocks.fence, TFCBlocks.fence2, TFCBlocks.fence3);
+    public static final WoodBlockGroup THICK_LOG = new WoodBlockGroup(8, 0, TFCBlocks.woodHoriz, TFCBlocks.woodHoriz2, TFCBlocks.woodHoriz3, TFCBlocks.woodHoriz4, TFCBlocks.woodHoriz5, TFCBlocks.woodHoriz6);
+    public static final WoodBlockGroup THICK_LOG_ALT = new WoodBlockGroup(8, 1, TFCBlocks.woodHoriz, TFCBlocks.woodHoriz2, TFCBlocks.woodHoriz3, TFCBlocks.woodHoriz4, TFCBlocks.woodHoriz5, TFCBlocks.woodHoriz6);
+    public static final WoodBlockGroup STACKED_LOGS = new WoodBlockGroup(8, 0, TFCBlocks.stackedWoodHoriz, TFCBlocks.stackedWoodHoriz2, TFCBlocks.stackedWoodHoriz3, TFCBlocks.stackedWoodHoriz4, TFCBlocks.stackedWoodHoriz5, TFCBlocks.stackedWoodHoriz6);
+    public static final WoodBlockGroup STACKED_LOGS_ALT = new WoodBlockGroup(8, 1,  TFCBlocks.stackedWoodHoriz, TFCBlocks.stackedWoodHoriz2, TFCBlocks.stackedWoodHoriz3, TFCBlocks.stackedWoodHoriz4, TFCBlocks.stackedWoodHoriz5, TFCBlocks.stackedWoodHoriz6);
 
     private final int stride;
+    private final int offset;
     private final Block[] blocks;
 
     public WoodBlockGroup(int stride, Block... blocks) {
+        this(stride, 0, blocks);
+    }
+
+    public WoodBlockGroup(int stride, int offset, Block... blocks) {
         this.stride = stride;
+        this.offset = offset;
         this.blocks = blocks;
     }
 
     public ItemStack getBlockStack(int index, int stackSize) {
-        return new ItemStack(blocks[index / stride], stackSize, index % stride);
+        return new ItemStack(blocks[index / stride], stackSize, (index % stride) * (16 / stride) + offset);
     }
 
 }

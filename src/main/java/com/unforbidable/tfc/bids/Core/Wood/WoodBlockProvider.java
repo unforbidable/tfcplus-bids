@@ -76,4 +76,28 @@ public class WoodBlockProvider {
         return getBlockStack(EnumWoodBlockType.STACKED_FIREWOOD);
     }
 
+    public boolean hasThickLog() {
+        return hasBlockStack(EnumWoodBlockType.THICK_LOG);
+    }
+
+    public ItemStack getThickLog() {
+        return getBlockStack(EnumWoodBlockType.THICK_LOG);
+    }
+
+    public ItemStack getThickLogAlt() {
+        return getBlockStack(EnumWoodBlockType.THICK_LOG_ALT);
+    }
+
+    public boolean hasStackedLogs() {
+        return hasBlockStack(EnumWoodBlockType.STACKED_LOGS);
+    }
+
+    public ItemStack getStackedLogs() {
+        return getBlockStack(EnumWoodBlockType.STACKED_LOGS);
+    }
+
+    public ItemStack getStackedLogsAlt() {
+        return getBlockStack(EnumWoodBlockType.STACKED_LOGS_ALT);
+    }
+
 }

@@ -8,6 +8,10 @@ public enum EnumWoodBlockType {
     PALISADE,
     WOOD_VERT,
     WOOD_SUPPORT,
-    FENCE
+    FENCE,
+    THICK_LOG,
+    STACKED_LOGS,
+    THICK_LOG_ALT,
+    STACKED_LOGS_ALT,
 
 }
