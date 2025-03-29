@@ -1,9 +1,7 @@
 package com.unforbidable.tfc.bids.api;
 
-import com.unforbidable.tfc.bids.api.Events.AnimalMilkEvent;
-import com.unforbidable.tfc.bids.api.Events.WaterskinChurnEvent;
-import com.unforbidable.tfc.bids.api.Events.FillContainerEvent;
-import com.unforbidable.tfc.bids.api.Events.KilnEvent;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityProcessingSurface;
+import com.unforbidable.tfc.bids.api.Events.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -49,6 +47,17 @@ public class BidsEventFactory {
 
     public static void onWaterskinChurnDone(EntityPlayer player, ItemStack waterskin, ItemStack result) {
         WaterskinChurnEvent event = new WaterskinChurnEvent(player, WaterskinChurnEvent.Action.DONE, waterskin, result);
+        MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static float onProcessingSurfaceToolEfficiencyCheck(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float efficiency) {
+        ProcessingSurfaceEvent.ToolEfficiencyCheck event = new ProcessingSurfaceEvent.ToolEfficiencyCheck(tileEntity, input, result, tool, player, efficiency);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.efficiency;
+    }
+
+    public static void onProcessingSurfaceProgress(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float progress) {
+        ProcessingSurfaceEvent.Progress event = new ProcessingSurfaceEvent.Progress(tileEntity, input, result, tool, player, progress);
         MinecraftForge.EVENT_BUS.post(event);
     }
 
