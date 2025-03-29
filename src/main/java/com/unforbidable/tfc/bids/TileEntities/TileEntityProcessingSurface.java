@@ -25,6 +25,8 @@ public class TileEntityProcessingSurface extends TileEntity {
     private static final float DEFAULT_MAX_WORK = 16;
 
     private ItemStack inputItem = null;
+    private ItemStack resultItem = null;
+
     private float workCounter = 0;
 
     private ProcessingSurfaceRecipe cachedRecipe = null;
@@ -34,14 +36,7 @@ public class TileEntityProcessingSurface extends TileEntity {
     }
 
     public ItemStack getResultItem() {
-        if (inputItem != null) {
-            ProcessingSurfaceRecipe recipe = getCurrentRecipe();
-            if (recipe != null) {
-                return recipe.getResult(inputItem);
-            }
-        }
-
-        return null;
+        return resultItem;
     }
 
     private ProcessingSurfaceRecipe getCurrentRecipe() {
@@ -54,6 +49,13 @@ public class TileEntityProcessingSurface extends TileEntity {
 
     public void setInputItem(ItemStack inputItem) {
         this.inputItem = inputItem;
+
+        if (inputItem != null) {
+            ProcessingSurfaceRecipe recipe = getCurrentRecipe();
+            if (recipe != null) {
+                resultItem = recipe.getResult(inputItem);
+            }
+        }
     }
 
     public void workItem(EntityPlayer player) {
@@ -159,6 +161,10 @@ public class TileEntityProcessingSurface extends TileEntity {
         NBTTagCompound itemTag = new NBTTagCompound();
         inputItem.writeToNBT(itemTag);
         tag.setTag("inputItem", itemTag);
+
+        NBTTagCompound resultTag = new NBTTagCompound();
+        resultItem.writeToNBT(resultTag);
+        tag.setTag("resultItem", resultTag);
     }
 
     public void readTileEntityDataFromNBT(NBTTagCompound tag) {
@@ -166,6 +172,9 @@ public class TileEntityProcessingSurface extends TileEntity {
 
         NBTTagCompound itemTag = tag.getCompoundTag("inputItem");
         inputItem = ItemStack.loadItemStackFromNBT(itemTag);
+
+        NBTTagCompound resultTag = tag.getCompoundTag("resultItem");
+        resultItem = ItemStack.loadItemStackFromNBT(resultTag);
     }
 
 }
