@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.TileEntities;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceManager;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceRecipe;
 import net.minecraft.entity.item.EntityItem;
@@ -62,20 +63,26 @@ public class TileEntityProcessingSurface extends TileEntity {
         if (!isWorkDone()) {
             ProcessingSurfaceRecipe recipe = getCurrentRecipe();
             if (recipe != null && recipe.matchesTool(player.getHeldItem())) {
-                float workAmount = ProcessingSurfaceHelper.getToolEfficiency(player.getHeldItem()) * WORK_AMOUNT_PER_TOOL_EFFICIENCY;
+                // Efficiency is based on tool material
+                float efficiency = ProcessingSurfaceHelper.getToolEfficiency(player.getHeldItem());
+                // and it can be further modified in event
+                float modifiedEfficiency = BidsEventFactory.onProcessingSurfaceToolEfficiencyCheck(this, inputItem, resultItem, player.getHeldItem(), player, efficiency);
+                if (modifiedEfficiency > 0) {
+                    float workAmount = modifiedEfficiency * WORK_AMOUNT_PER_TOOL_EFFICIENCY;
 
-                float prevWorkCounter = workCounter;
-                workCounter += workAmount;
+                    float prevWorkCounter = workCounter;
+                    workCounter += workAmount;
 
-                int toolDamage = (int) Math.floor(workCounter) - (int) Math.floor(prevWorkCounter);
-                if (toolDamage > 0) {
-                    player.getHeldItem().damageItem(toolDamage, player);
-                }
+                    int toolDamage = (int) Math.floor(workCounter) - (int) Math.floor(prevWorkCounter);
+                    if (toolDamage > 0) {
+                        player.getHeldItem().damageItem(toolDamage, player);
+                    }
 
-                if (worldObj.isRemote) {
-                    int visualProgress = (int) Math.floor(workCounter / recipe.getEffort()) - (int) Math.floor(prevWorkCounter / recipe.getEffort());
-                    if (visualProgress > 0) {
-                        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    if (worldObj.isRemote) {
+                        int visualProgress = (int) Math.floor(workCounter / recipe.getEffort()) - (int) Math.floor(prevWorkCounter / recipe.getEffort());
+                        if (visualProgress > 0) {
+                            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                        }
                     }
                 }
             }
