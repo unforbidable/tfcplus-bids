@@ -73,6 +73,9 @@ public class TileEntityProcessingSurface extends TileEntity {
                     float prevWorkCounter = workCounter;
                     workCounter += workAmount;
 
+                    float progress = getWorkProgress();
+                    BidsEventFactory.onProcessingSurfaceProgress(this, inputItem, resultItem, player.getHeldItem(), player, progress);
+
                     int toolDamage = (int) Math.floor(workCounter) - (int) Math.floor(prevWorkCounter);
                     if (toolDamage > 0) {
                         player.getHeldItem().damageItem(toolDamage, player);
