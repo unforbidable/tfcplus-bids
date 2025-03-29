@@ -37,6 +37,7 @@ public class WailaSetup {
         WailaProvider.addProvider(new CookingPotProvider(), TileEntityCookingPot.class);
         WailaProvider.addProvider(new ScrewPressBarrelProvider(), TileEntityScrewPressBarrel.class);
         WailaProvider.addProvider(new CrackedOreProvider(), BlockCrackedOre.class, BlockCrackedOre2.class, BlockCrackedOre3.class);
+        WailaProvider.addProvider(new ProcessingSurfaceProvider(), TileEntityProcessingSurface.class);
 
         WailaEntityProvider.addProvider(new AnimalMilkProvider(), IAnimal.class);
     }
