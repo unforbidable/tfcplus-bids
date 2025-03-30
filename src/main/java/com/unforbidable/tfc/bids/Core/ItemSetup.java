@@ -913,6 +913,19 @@ public class ItemSetup extends BidsItems {
             }
         }
 
+        final Item[] handAxes = new Item[] { sedHandAxe, mMHandAxe, igInHandAxe, igExHandAxe };
+        for (int i = 0; i < handAxes.length; i++) {
+            OreDictionary.registerOre("itemHandAxe", new ItemStack(handAxes[i], 1, WILD));
+
+            // Registering "itemKnifeStone" allow straw harvestable with a hand axe
+            // but no usable in recipes where "itemKnife" is used
+            OreDictionary.registerOre("itemKnifeStone", new ItemStack(handAxes[i], 1, WILD));
+
+            // Registering "itemAxeStone" allow bushes (and trees) harvestable with a hand axe
+            // but no usable in recipes where "itemAxe" is used
+            OreDictionary.registerOre("itemAxeStone", new ItemStack(handAxes[i], 1, WILD));
+        }
+
         for (int i = 0; i < 6; i++) {
             OreDictionary.registerOre("itemPlugAndFeather", new ItemStack(BidsItems.plugAndFeather, 1, i));
         }
