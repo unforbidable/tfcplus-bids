@@ -50,6 +50,11 @@ public class BidsItems {
     public static Item igExStoneAdze;
     public static Item mMStoneAdze;
 
+    public static Item igInHandAxe;
+    public static Item sedHandAxe;
+    public static Item igExHandAxe;
+    public static Item mMHandAxe;
+
     public static Item clayMoldAdze;
     public static Item copperAdzeHead;
     public static Item bronzeAdzeHead;

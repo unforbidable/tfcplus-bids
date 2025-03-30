@@ -782,6 +782,11 @@ item.Sed Stone Adze.name=Stone Adze
 item.IgEx Stone Adze.name=Stone Adze
 item.MM Stone Adze.name=Stone Adze
 
+item.IgIn Hand Axe.name=Hand Axe
+item.Sed Hand Axe.name=Hand Axe
+item.IgEx Hand Axe.name=Hand Axe
+item.MM Hand Axe.name=Hand Axe
+
 item.Mold Adze.Clay.name=Clay Adze Mold
 item.Mold Adze.Ceramic.name=Adze Mold
 item.Mold Adze.Copper.name=Adze Mold (Copper)

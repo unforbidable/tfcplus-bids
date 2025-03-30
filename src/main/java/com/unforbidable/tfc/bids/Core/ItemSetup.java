@@ -114,6 +114,15 @@ public class ItemSetup extends BidsItems {
         mMStoneAdze = new ItemAdze(TFCItems.mMToolMaterial)
                 .setUnlocalizedName("MM Stone Adze");
 
+        igInHandAxe = new ItemHandAxe(TFCItems.igInToolMaterial)
+            .setUnlocalizedName("IgIn Hand Axe");
+        sedHandAxe = new ItemHandAxe(TFCItems.sedToolMaterial)
+            .setUnlocalizedName("Sed Hand Axe");
+        igExHandAxe = new ItemHandAxe(TFCItems.igExToolMaterial)
+            .setUnlocalizedName("IgEx Hand Axe");
+        mMHandAxe = new ItemHandAxe(TFCItems.mMToolMaterial)
+            .setUnlocalizedName("MM Hand Axe");
+
         Metal[] toolMetals = new Metal[] { Global.COPPER, Global.BRONZE, Global.BISMUTHBRONZE, Global.BLACKBRONZE };
         clayMoldAdze = new ItemGenericPotteryMold()
             .setCounter(4)
@@ -1414,6 +1423,11 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(creamLargeBowl, creamLargeBowl.getUnlocalizedName());
 
         GameRegistry.registerItem(waterskinCream, waterskinCream.getUnlocalizedName());
+
+        GameRegistry.registerItem(igInHandAxe, igInHandAxe.getUnlocalizedName());
+        GameRegistry.registerItem(sedHandAxe, sedHandAxe.getUnlocalizedName());
+        GameRegistry.registerItem(igExHandAxe, igExHandAxe.getUnlocalizedName());
+        GameRegistry.registerItem(mMHandAxe, mMHandAxe.getUnlocalizedName());
     }
 
 }
