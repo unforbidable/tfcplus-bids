@@ -1361,6 +1361,7 @@ gui.Input=Input
 gui.Resistance=Resistance
 gui.cooking.cookingMixDecayed=Cooking Mix has decayed beyond use
 gui.Churning=Churning
+gui.ProcessingSurface=Processing Surface
 
 key.BidsToolMode=Cycle Tool Mode
 
