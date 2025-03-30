@@ -244,6 +244,11 @@ public class RecipeSetup {
             OreDictionary.registerOre("itemScrapingTool", new ItemStack(knife, 1, WILD));
         }
 
+        final Item[] handAxes = new Item[] {BidsItems.sedHandAxe, BidsItems.mMHandAxe, BidsItems.igInHandAxe, BidsItems.igExHandAxe };
+        for (Item handAxe : handAxes) {
+            OreDictionary.registerOre("itemScrapingTool", new ItemStack(handAxe, 1, WILD));
+        }
+
         OreDictionary.registerOre("foodBeans", new ItemStack(TFCItems.soybean));
         OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.wildBeans));
         OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.broadBeans));
