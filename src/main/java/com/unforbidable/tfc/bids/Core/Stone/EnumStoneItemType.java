@@ -9,5 +9,6 @@ public enum EnumStoneItemType {
     MUD_BRICK,
     FLAT_ROCK,
     ADZE_HEAD,
-    DRILL_HEAD
+    DRILL_HEAD,
+    HAND_AXE,
 }

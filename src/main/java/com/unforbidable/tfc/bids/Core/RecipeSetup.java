@@ -1776,6 +1776,9 @@ public class RecipeSetup {
             CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.ADZE_HEAD),
                     new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
                             '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK) });
+            CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.HAND_AXE),
+                    new Object[] { "  #  ", " ### ", " ### ", "#####", " ### ",
+                        '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK) });
         }
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMoldAdze, 1),

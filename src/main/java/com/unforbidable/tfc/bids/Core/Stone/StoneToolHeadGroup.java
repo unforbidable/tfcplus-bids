@@ -9,6 +9,7 @@ public class StoneToolHeadGroup {
 
     public static final StoneToolHeadGroup ADZE_HEAD = new StoneToolHeadGroup(BidsItems.sedStoneAdzeHead, BidsItems.mMStoneAdzeHead, BidsItems.igExStoneAdzeHead, BidsItems.igInStoneAdzeHead);
     public static final StoneToolHeadGroup DRILL_HEAD = new StoneToolHeadGroup(BidsItems.sedStoneDrillHead, BidsItems.mMStoneDrillHead, BidsItems.igExStoneDrillHead, BidsItems.igInStoneDrillHead);
+    public static final StoneToolHeadGroup HAND_AXE = new StoneToolHeadGroup(BidsItems.sedHandAxe, BidsItems.mMHandAxe, BidsItems.igExHandAxe, BidsItems.igInHandAxe);
 
     private final Item sed;
     private final Item mm;

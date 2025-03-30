@@ -31,6 +31,7 @@ public class StoneScheme {
             case FLAT_ROCK:
             case ADZE_HEAD:
             case DRILL_HEAD:
+            case HAND_AXE:
                 return true;
 
             case SHINGLE:
@@ -68,6 +69,9 @@ public class StoneScheme {
 
             case DRILL_HEAD:
                 return StoneToolHeadGroup.DRILL_HEAD.getToolHead(stone.index, stackSize);
+
+            case HAND_AXE:
+                return StoneToolHeadGroup.HAND_AXE.getToolHead(stone.index, stackSize);
         }
 
         Bids.LOG.warn("Unhandled getStoneItemStack for type {}", type);
