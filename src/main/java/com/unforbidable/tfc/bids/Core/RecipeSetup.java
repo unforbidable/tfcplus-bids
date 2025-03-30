@@ -247,6 +247,7 @@ public class RecipeSetup {
         final Item[] handAxes = new Item[] {BidsItems.sedHandAxe, BidsItems.mMHandAxe, BidsItems.igInHandAxe, BidsItems.igExHandAxe };
         for (Item handAxe : handAxes) {
             OreDictionary.registerOre("itemScrapingTool", new ItemStack(handAxe, 1, WILD));
+            OreDictionary.registerOre("itemPrimitiveTool", new ItemStack(handAxe, 1, WILD));
         }
 
         OreDictionary.registerOre("foodBeans", new ItemStack(TFCItems.soybean));

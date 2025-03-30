@@ -7,9 +7,11 @@ import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceManager;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.Events.ProcessingSurfaceEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ProcessingSurfaceCraftingHandler {
 
@@ -43,6 +45,20 @@ public class ProcessingSurfaceCraftingHandler {
         // Only allow soaked hides to be scrapped if enabled in the config
         return BidsOptions.Crafting.enableProcessingSurfaceLeatherRackOverride ||
             heldItem.getItem() != TFCItems.soakedHide;
+    }
+
+    @SubscribeEvent
+    public void onProcessingSurfaceToolEfficiencyCheck(ProcessingSurfaceEvent.ToolEfficiencyCheck event) {
+        if (event.tool != null) {
+            int primitiveToolId = OreDictionary.getOreID("itemPrimitiveTool");
+            for (int id : OreDictionary.getOreIDs(event.tool)) {
+                if (id == primitiveToolId) {
+                    // Primitive tools have reduced efficiency
+                    event.efficiency *= 0.5;
+                    break;
+                }
+            }
+        }
     }
 
 }
