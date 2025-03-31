@@ -4,6 +4,8 @@ import net.minecraft.item.Item;
 
 public class BidsItems {
 
+    public static Item.ToolMaterial hardenedWoodToolMaterial;
+
     public static Item clayCrucible;
     public static Item fireClayCrucible;
     public static Item oreBit;
@@ -54,6 +56,8 @@ public class BidsItems {
     public static Item sedHandAxe;
     public static Item igExHandAxe;
     public static Item mMHandAxe;
+
+    public static Item hardenedWoodenSpear;
 
     public static Item clayMoldAdze;
     public static Item copperAdzeHead;

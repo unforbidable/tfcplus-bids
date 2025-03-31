@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.ItemClothing;
+import com.dunk.tfc.Render.Item.PoleItemRenderer;
 import com.dunk.tfc.api.*;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
@@ -28,6 +29,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -57,6 +59,8 @@ public class ItemSetup extends BidsItems {
 
     private static void initItems() {
         Bids.LOG.info("Initialize items");
+
+        hardenedWoodToolMaterial = EnumHelper.addToolMaterial("Wood", 0, 60, 4.0f, 100, 1);
 
         oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");
 
@@ -122,6 +126,11 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("IgEx Hand Axe");
         mMHandAxe = new ItemHandAxe(TFCItems.mMToolMaterial)
             .setUnlocalizedName("MM Hand Axe");
+
+        hardenedWoodenSpear = new ItemHardenedWoodenSpear(hardenedWoodToolMaterial)
+            .setPierceDamageShape("2X2")
+            .setAttackSpeed(12)
+            .setUnlocalizedName("Hardened Wooden Spear");
 
         Metal[] toolMetals = new Metal[] { Global.COPPER, Global.BRONZE, Global.BISMUTHBRONZE, Global.BLACKBRONZE };
         clayMoldAdze = new ItemGenericPotteryMold()
@@ -1053,6 +1062,8 @@ public class ItemSetup extends BidsItems {
         for (Item item : foodItems) {
             MinecraftForgeClient.registerItemRenderer(item, new FoodItemRenderer());
         }
+
+        MinecraftForgeClient.registerItemRenderer(hardenedWoodenSpear, new PoleItemRenderer());
     }
 
     private static void registerPartialMolds() {
@@ -1149,6 +1160,8 @@ public class ItemSetup extends BidsItems {
         reg.addIndex(new HeatIndex(new ItemStack(ryeFlatbread, 1), 1, 177, null));
         reg.addIndex(new HeatIndex(new ItemStack(riceFlatbread, 1), 1, 177, null));
         reg.addIndex(new HeatIndex(new ItemStack(cornmealFlatbread, 1), 1, 177, null));
+
+        reg.addIndex(new HeatIndex(new ItemStack(TFCItems.woodenSpear, 1), 1, 100, new ItemStack(BidsItems.hardenedWoodenSpear, 1)));
     }
 
     private static void registerHeatUnfinishedAnvilHelper(HeatRegistry reg, int mat, Item unshaped) {
@@ -1441,6 +1454,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(sedHandAxe, sedHandAxe.getUnlocalizedName());
         GameRegistry.registerItem(igExHandAxe, igExHandAxe.getUnlocalizedName());
         GameRegistry.registerItem(mMHandAxe, mMHandAxe.getUnlocalizedName());
+
+        GameRegistry.registerItem(hardenedWoodenSpear, hardenedWoodenSpear.getUnlocalizedName());
     }
 
 }
