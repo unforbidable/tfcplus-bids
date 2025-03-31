@@ -711,6 +711,13 @@ public class RecipeSetup {
             }
         }
 
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.woodenSpear, 1),
+            TFCItems.pole, "itemHandAxe"));
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemHandAxe")
+            .matchCraftingItem(TFCItems.woodenSpear));
+
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.plugAndFeather, 4),
             "logWoodPlugAndFeather", "itemAdze"));
 
