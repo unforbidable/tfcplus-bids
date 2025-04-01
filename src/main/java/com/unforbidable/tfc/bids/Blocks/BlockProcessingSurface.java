@@ -77,7 +77,8 @@ public class BlockProcessingSurface extends BlockContainer {
     }
 
     @Override
-    public void registerBlockIcons(IIconRegister p_149651_1_) {
+    public void registerBlockIcons(IIconRegister registerer) {
+        ProcessingSurfaceHelper.registerProcessingSurfaceRecipeIcons(registerer);
     }
 
     @Override

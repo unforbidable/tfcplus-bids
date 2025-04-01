@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.api.Crafting;
 
 import com.unforbidable.tfc.bids.api.Interfaces.IProcessingSurfaceIconProvider;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -40,9 +41,9 @@ public class ProcessingSurfaceManager {
         iconProviders.add(iconProvider);
     }
 
-    public static IIcon getIcon(ItemStack is) {
+    public static IIcon registerIcon(IIconRegister registerer, ItemStack is) {
         for (IProcessingSurfaceIconProvider provider : iconProviders) {
-            IIcon icon = provider.getProcessingSurfaceIcon(is);
+            IIcon icon = provider.registerProcessingSurfaceIcon(registerer, is);
             if (icon != null) {
                 return icon;
             }
