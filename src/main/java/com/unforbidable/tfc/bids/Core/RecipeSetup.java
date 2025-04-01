@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.Blocks.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
+import com.unforbidable.tfc.bids.Core.ProcessingSurface.IconProviders.HideIconProvider;
 import com.unforbidable.tfc.bids.Core.ProcessingSurface.IconProviders.LeatherRackIconProviderTFC;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
@@ -1776,7 +1777,65 @@ public class RecipeSetup {
             new ItemStack(TFCItems.soakedHide, 1, 2),
             "itemScrapingTool", "blockLeatherRack", 4));
 
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+            new ItemStack(TFCItems.fur, 1, 0),
+            "itemScrapingTool", "blockLeatherRack", 1));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+            new ItemStack(TFCItems.fur, 1, 1),
+            "itemScrapingTool", "blockLeatherRack", 2));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+            new ItemStack(TFCItems.fur, 1, 2),
+            "itemScrapingTool", "blockLeatherRack", 4));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+            new ItemStack(TFCItems.furScrap, 1, 0),
+            "itemScrapingTool", "blockLeatherRack", 1));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+            new ItemStack(TFCItems.furScrap, 1, 1),
+            "itemScrapingTool", "blockLeatherRack", 2));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+            new ItemStack(TFCItems.furScrap, 1, 2),
+            "itemScrapingTool", "blockLeatherRack", 4));
+
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+            new ItemStack(TFCItems.wolfFur, 1, 0),
+            "itemScrapingTool", "blockLeatherRack", 1));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+            new ItemStack(TFCItems.wolfFur, 1, 1),
+            "itemScrapingTool", "blockLeatherRack", 2));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+            new ItemStack(TFCItems.wolfFur, 1, 2),
+            "itemScrapingTool", "blockLeatherRack", 4));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+            new ItemStack(TFCItems.wolfFurScrap, 1, 0),
+            "itemScrapingTool", "blockLeatherRack", 1));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+            new ItemStack(TFCItems.wolfFurScrap, 1, 1),
+            "itemScrapingTool", "blockLeatherRack", 2));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+            new ItemStack(TFCItems.wolfFurScrap, 1, 2),
+            "itemScrapingTool", "blockLeatherRack", 4));
+
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+            new ItemStack(TFCItems.bearFur, 1, 0),
+            "itemScrapingTool", "blockLeatherRack", 1));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+            new ItemStack(TFCItems.bearFur, 1, 1),
+            "itemScrapingTool", "blockLeatherRack", 2));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+            new ItemStack(TFCItems.bearFur, 1, 2),
+            "itemScrapingTool", "blockLeatherRack", 4));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+            new ItemStack(TFCItems.bearFurScrap, 1, 0),
+            "itemScrapingTool", "blockLeatherRack", 1));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+            new ItemStack(TFCItems.bearFurScrap, 1, 1),
+            "itemScrapingTool", "blockLeatherRack", 2));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+            new ItemStack(TFCItems.bearFurScrap, 1, 2),
+            "itemScrapingTool", "blockLeatherRack", 4));
+
         ProcessingSurfaceManager.registerIconProvider(new LeatherRackIconProviderTFC());
+        ProcessingSurfaceManager.registerIconProvider(new HideIconProvider());
     }
 
     private static void registerKnappingRecipes() {
