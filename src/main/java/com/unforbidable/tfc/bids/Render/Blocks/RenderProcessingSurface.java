@@ -2,11 +2,9 @@ package com.unforbidable.tfc.bids.Render.Blocks;
 
 import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityProcessingSurface;
-import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceManager;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
@@ -32,9 +30,9 @@ public class RenderProcessingSurface implements ISimpleBlockRenderingHandler {
                 for (int k = 0; k < 4; k++) {
                     for (int i = 0; i < 4; i++) {
                         if (n++ >= te.getWorkCounter()) {
-                            renderer.overrideBlockTexture = resultIcon;
-                        } else {
                             renderer.overrideBlockTexture = inputIcon;
+                        } else {
+                            renderer.overrideBlockTexture = resultIcon;
                         }
 
                         renderer.setRenderBounds(0.25 * i, 0, 0.25 * k, 0.25 * i + 0.25, 0.001, 0.25 * k + 0.25);
