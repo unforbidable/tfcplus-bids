@@ -6,24 +6,25 @@ import net.minecraft.util.Vec3;
 public class DryingRackBounds {
 
     static final float unit = 1 / 32f;
-    static final float poleStart = unit * 7;
+    static final float poleStartXZ = unit * 7;
+    static final float poleStartY = unit * 9;
     static final float poleWidth = unit * 2;
     static final float knotStartXZ = unit * 6.5f;
-    static final float knotStartY = unit * 6.5f;
+    static final float knotStartY = poleStartY - unit * 0.5f;
     static final float knotWidth = unit * 3;
     static final float knotHeight = unit * 3;
     static final float stringStartXZ = unit * 7.75f;
-    static final float stringStartY = unit * 1;
+    static final float stringStartY = poleStartY - unit * 6;
     static final float stringWidth = unit * 0.5f;
     static final float stringHeight = unit * 6;
     static final float half = unit * 16;
     static final float itemOffsetSub = unit * 8;
     static final float itemOffsetPole = unit * 6.4f;
     static final float itemStridePole = unit * 19;
-    static final float itemOffsetY = unit * 12;
+    static final float itemOffsetY = poleStartY + unit * 5;
     static final float itemTiedOffsetPole = unit * 7.8f;
     static final float itemTiedStridePole = unit * 16;
-    static final float itemTiedOffsetY = unit * 7;
+    static final float itemTiedOffsetY = poleStartY;
 
     public final AxisAlignedBB[] poles;
     public final AxisAlignedBB[] sections;
@@ -39,7 +40,7 @@ public class DryingRackBounds {
     }
 
     public static AxisAlignedBB getEntireDryingRackBounds() {
-        double minY = half + poleStart;
+        double minY = half + poleStartY;
         double maxY = minY + poleWidth;
 
         return AxisAlignedBB.getBoundingBox(0, minY, 0, 1, maxY, 1);
@@ -93,11 +94,11 @@ public class DryingRackBounds {
         final boolean isNorthSouthOrientation = orientation % 2 == 0;
 
         for (int i = 0; i < 2; i++) {
-            double minY = half + poleStart;
+            double minY = half + poleStartY;
             double maxY = minY + poleWidth;
 
             if (isNorthSouthOrientation) {
-                double minX = poleStart + half * i;
+                double minX = poleStartXZ + half * i;
                 double minZ = 0;
                 double maxX = minX + poleWidth;
                 double maxZ = 1;
@@ -105,7 +106,7 @@ public class DryingRackBounds {
                 poles[i] = AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
             } else {
                 double minX = 0;
-                double minZ = poleStart + half * i;
+                double minZ = poleStartXZ + half * i;
                 double maxX = 1;
                 double maxZ = minZ + poleWidth;
 
@@ -117,7 +118,7 @@ public class DryingRackBounds {
             int section = i % 2;
             int pole = i < 2 ? 0 : 1;
 
-            double minY = half + poleStart;
+            double minY = half + poleStartY;
             double maxY = minY + poleWidth;
 
             if (isNorthSouthOrientation) {
@@ -146,13 +147,13 @@ public class DryingRackBounds {
 
             if (isNorthSouthOrientation) {
                 double minX = knotStartXZ + half * pole;
-                double minZ = poleStart + half * section;
+                double minZ = poleStartXZ + half * section;
                 double maxX = minX + knotWidth;
                 double maxZ = minZ + poleWidth;
 
                 knots[i] = AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
             } else {
-                double minX = poleStart + half * section;
+                double minX = poleStartXZ + half * section;
                 double minZ = knotStartXZ + half * pole;
                 double maxX = minX + poleWidth;
                 double maxZ = minZ + knotWidth;
