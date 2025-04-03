@@ -2,6 +2,9 @@ package com.unforbidable.tfc.bids.Core.ProcessingSurface;
 
 import com.dunk.tfc.Core.TFC_Textures;
 import com.dunk.tfc.Items.Tools.ItemWeapon;
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceManager;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceRecipe;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -67,20 +70,25 @@ public class ProcessingSurfaceHelper {
     private static void registerProcessingSurfaceItemIcon(IIconRegister registerer, ItemStack itemStack) {
         int key = getItemKey(itemStack);
         if (!icons.containsKey(key)) {
-            IIcon providedIcon = ProcessingSurfaceManager.registerIcon(registerer, itemStack);
-            if (providedIcon != null) {
-                icons.put(key, providedIcon);
-            } else {
-                // When icon is not provided,
-                // look for the block icon in the same path as where item icon is
-                IIcon icon = registerer.registerIcon(getIconName(itemStack));
-                icons.put(key, icon);
-            }
+            String blockIconName = getIconName(itemStack);
+            Bids.LOG.info("Surface block texture {} will be used for item {}:{}", blockIconName, itemStack.getUnlocalizedName(), itemStack.getItemDamage());
+
+            IIcon icon = registerer.registerIcon(blockIconName);
+            icons.put(key, icon);
         }
     }
 
     private static String getIconName(ItemStack itemStack) {
-        return itemStack.getIconIndex().getIconName();
+        String itemIconName = itemStack.getIconIndex().getIconName();
+        String blockIconName = getDefaultBlockIconName(itemIconName);
+        return BidsEventFactory.onSurfaceItemIcon(itemStack, blockIconName);
+    }
+
+    private static String getDefaultBlockIconName(String itemIconName) {
+        int modPartEnd = itemIconName.indexOf(':');
+        int filePartStart = itemIconName.lastIndexOf('/');
+        String filePart = filePartStart < 0 ? itemIconName.substring(modPartEnd + 1) : itemIconName.substring(filePartStart + 1);
+        return Tags.MOD_ID + ":surface/" + filePart;
     }
 
     private static int getItemKey(ItemStack itemStack) {

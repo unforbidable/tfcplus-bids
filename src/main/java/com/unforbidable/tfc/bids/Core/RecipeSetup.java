@@ -15,8 +15,6 @@ import com.unforbidable.tfc.bids.Blocks.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
-import com.unforbidable.tfc.bids.Core.ProcessingSurface.IconProviders.HideIconProvider;
-import com.unforbidable.tfc.bids.Core.ProcessingSurface.IconProviders.LeatherRackIconProviderTFC;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelItemDemandingRecipe;
@@ -1833,9 +1831,6 @@ public class RecipeSetup {
         ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
             new ItemStack(TFCItems.bearFurScrap, 1, 2),
             "itemScrapingTool", "blockLeatherRack", 4));
-
-        ProcessingSurfaceManager.registerIconProvider(new LeatherRackIconProviderTFC());
-        ProcessingSurfaceManager.registerIconProvider(new HideIconProvider());
     }
 
     private static void registerKnappingRecipes() {

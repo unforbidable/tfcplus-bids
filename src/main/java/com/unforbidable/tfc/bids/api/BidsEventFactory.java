@@ -61,4 +61,10 @@ public class BidsEventFactory {
         MinecraftForge.EVENT_BUS.post(event);
     }
 
+    public static String onSurfaceItemIcon(ItemStack itemStack, String iconName) {
+        SurfaceItemEvent.Icon event = new SurfaceItemEvent.Icon(itemStack, iconName);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.iconName;
+    }
+
 }
