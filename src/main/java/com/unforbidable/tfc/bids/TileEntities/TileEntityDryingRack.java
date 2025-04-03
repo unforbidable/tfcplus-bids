@@ -7,11 +7,8 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.ItemClothing;
 import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackHelper;
+import com.unforbidable.tfc.bids.Core.DryingRack.*;
 import com.unforbidable.tfc.bids.Core.Timer;
-import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
-import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItemInfo;
-import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackMessage;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
@@ -47,6 +44,7 @@ public class TileEntityDryingRack extends TileEntity
     long lastDryingTicks = 0;
     boolean initialized;
     int orientation = -1;
+    boolean cordless = false;
 
     boolean clientNeedToUpdate = false;
 
@@ -65,6 +63,14 @@ public class TileEntityDryingRack extends TileEntity
 
     public int getOrientation() {
         return orientation;
+    }
+
+    public boolean isCordless() {
+        return cordless;
+    }
+
+    public void setCordless(boolean cordless) {
+        this.cordless = cordless;
     }
 
     public void setSelectedSection(int selectedSection) {
@@ -247,6 +253,7 @@ public class TileEntityDryingRack extends TileEntity
         tag.setLong("lastDryingTicks", lastDryingTicks);
         tag.setBoolean("clientInitialized", initialized);
         tag.setInteger("orientation", orientation);
+        tag.setBoolean("cordless", cordless);
 
         NBTTagList itemTagList = new NBTTagList();
         for (int i = 0; i < MAX_STORAGE; i++) {
@@ -264,6 +271,7 @@ public class TileEntityDryingRack extends TileEntity
         lastDryingTicks = tag.getLong("lastDryingTicks");
         initialized = tag.getBoolean("clientInitialized");
         orientation = tag.getInteger("orientation");
+        cordless = tag.getBoolean("cordless");
 
         for (int i = 0; i < MAX_STORAGE; i++) {
             storage[i] = null;

@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Blocks;
 
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackBounds;
@@ -22,6 +23,9 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class BlockDryingRack extends BlockContainer {
 
@@ -72,6 +76,15 @@ public class BlockDryingRack extends BlockContainer {
         te.onDryingRackBroken();
 
         super.breakBlock(world, x, y, z, block, meta);
+    }
+
+    @Override
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+        if (((metadata & 8) != 0)) {
+            return new ArrayList<ItemStack>(Collections.singleton(new ItemStack(TFCItems.pole, 2, 0)));
+        } else {
+            return super.getDrops(world, x, y, z, metadata, fortune);
+        }
     }
 
     private boolean isBlockRackOrSolidSide(World world, int x, int y, int z, ForgeDirection d) {

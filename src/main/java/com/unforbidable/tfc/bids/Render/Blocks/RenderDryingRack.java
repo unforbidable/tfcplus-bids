@@ -1,13 +1,10 @@
 package com.unforbidable.tfc.bids.Render.Blocks;
 
-import org.lwjgl.opengl.GL11;
-
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackBounds;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingManager.TyingEquipment;
-
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -16,6 +13,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
+import org.lwjgl.opengl.GL11;
 
 public class RenderDryingRack implements ISimpleBlockRenderingHandler {
 
@@ -57,6 +55,7 @@ public class RenderDryingRack implements ISimpleBlockRenderingHandler {
                     tyingEquipmentBlockMetadata = tyingEquipment.renderBlockMetadata;
                 }
 
+                int prevMeta = Minecraft.getMinecraft().theWorld.getBlockMetadata(x, y, z);
                 Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, tyingEquipmentBlockMetadata, 0);
 
                 if (item.tyingItemUsedUp) {
@@ -68,7 +67,7 @@ public class RenderDryingRack implements ISimpleBlockRenderingHandler {
                     renderPart(renderer, x, y, z, tyingEquipmentBlock, rackBounds.strings[i]);
                 }
 
-                Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, orientation, 0);
+                Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, prevMeta, 0);
             }
         }
 

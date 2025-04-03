@@ -76,6 +76,24 @@ public class DryingRackHelper {
         }
     }
 
+    public static void placeCordlessDryingRackAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z,
+                                         ForgeDirection side) {
+        int span = DryingRackHelper.getRequiredDryingRackSpan(world, x, y, z, side, 1);
+        if (span == 1) {
+            final int orientation = side.ordinal() / 2 - 1;
+            int x2 = x + side.offsetX;
+            int z2 = z + side.offsetZ;
+
+            if (world.isAirBlock(x2, y, z2)) {
+                world.setBlock(x2, y, z2, BidsBlocks.dryingRack, orientation % 4 + 8, 2);
+                TileEntityDryingRack te = (TileEntityDryingRack) world.getTileEntity(x2, y, z2);
+                te.setOrientation(orientation);
+                te.setCordless(true);
+                stack.stackSize -= 2;
+            }
+        }
+    }
+
     public static MovingObjectPosition onDryingRackCollisionRayTrace(World world, int x, int y, int z, Vec3 startVec,
             Vec3 endVec) {
         TileEntityDryingRack te = (TileEntityDryingRack) world.getTileEntity(x, y, z);
