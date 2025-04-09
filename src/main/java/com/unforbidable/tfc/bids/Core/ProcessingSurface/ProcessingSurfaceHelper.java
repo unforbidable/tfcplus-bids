@@ -8,10 +8,12 @@ import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceManager;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceRecipe;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -26,7 +28,13 @@ public class ProcessingSurfaceHelper {
         if (icons.containsKey(key)) {
             return icons.get(key);
         } else {
-            return TFC_Textures.invisibleTexture;
+            ItemStack itemStackWild = new ItemStack(itemStack.getItem(), 1, OreDictionary.WILDCARD_VALUE);
+            int keyWild = getItemKey(itemStackWild);
+            if (icons.containsKey(keyWild)) {
+                return icons.get(keyWild);
+            } else {
+                return TFC_Textures.invisibleTexture;
+            }
         }
     }
 
@@ -62,24 +70,32 @@ public class ProcessingSurfaceHelper {
             ItemStack input = recipe.getInput();
             ItemStack result = recipe.getResult(input);
 
-            registerProcessingSurfaceItemIcon(registerer, input);
-            registerProcessingSurfaceItemIcon(registerer, result);
+            registerSurfaceItemIcon(registerer, input);
+            registerSurfaceItemIcon(registerer, result);
         }
     }
 
-    private static void registerProcessingSurfaceItemIcon(IIconRegister registerer, ItemStack itemStack) {
-        int key = getItemKey(itemStack);
-        if (!icons.containsKey(key)) {
-            String blockIconName = getIconName(itemStack);
-            Bids.LOG.info("Surface block texture {} will be used for item {}:{}", blockIconName, itemStack.getUnlocalizedName(), itemStack.getItemDamage());
-
-            IIcon icon = registerer.registerIcon(blockIconName);
-            icons.put(key, icon);
+    public static void registerDecorativeSurfaceIcons(IIconRegister registerer) {
+        for (ItemStack is : OreDictionary.getOres("itemDecorativeSurface")) {
+            registerSurfaceItemIcon(registerer, is);
         }
+    }
+
+    private static void registerSurfaceItemIcon(IIconRegister registerer, ItemStack itemStack) {
+        String blockIconName = getIconName(itemStack);
+        Bids.LOG.info("Surface block texture {} will be used for item {}", blockIconName, itemStack);
+
+        IIcon icon = registerer.registerIcon(blockIconName);
+        icons.put(getItemKey(itemStack), icon);
+    }
+
+    public static int getOrientation(EntityPlayer player) {
+        int dir = (int) Math.floor(player.rotationYaw * 4F / 360F + 0.5D);
+        return dir & 3;
     }
 
     private static String getIconName(ItemStack itemStack) {
-        String itemIconName = itemStack.getIconIndex().getIconName();
+        String itemIconName = itemStack.getItem().getUnlocalizedName().replace("item.", "");
         String blockIconName = getDefaultBlockIconName(itemIconName);
         return BidsEventFactory.onSurfaceItemIcon(itemStack, blockIconName);
     }

@@ -353,6 +353,9 @@ public class BlockSetup extends BidsBlocks {
 
         processingSurface = new BlockProcessingSurface()
             .setBlockName("ProcessingSurface");
+
+        decorativeSurface = new BlockDecorativeSurface()
+            .setBlockName("DecorativeSurface");
     }
 
     private static void updateBlocks() {
@@ -659,6 +662,9 @@ public class BlockSetup extends BidsBlocks {
 
         processingSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(processingSurfaceRenderId, new RenderProcessingSurface());
+
+        decorativeSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(decorativeSurfaceRenderId, new RenderDecorativeSurface());
     }
 
     private static void registerTileEntities() {
@@ -713,6 +719,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityFireBrickChimney.class, "BidsFireBrickChimney");
 
         GameRegistry.registerTileEntity(TileEntityProcessingSurface.class, "BidsProcessingSurface");
+
+        GameRegistry.registerTileEntity(TileEntityDecorativeSurface.class, "BidsDecorativeSurface");
     }
 
     @SideOnly(Side.CLIENT)
@@ -911,6 +919,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(roughStoneTileFenceIgEx, ItemRoughStoneFence.class, "RoughStoneTileFenceIgEx");
 
         GameRegistry.registerBlock(processingSurface, "ProcessingSurface");
+
+        GameRegistry.registerBlock(decorativeSurface, "DecorativeSurface");
     }
 
 }

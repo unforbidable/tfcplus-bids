@@ -1,0 +1,145 @@
+package com.unforbidable.tfc.bids.Blocks;
+
+import com.dunk.tfc.Core.TFC_Textures;
+import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityDecorativeSurface;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.Random;
+
+public class BlockDecorativeSurface extends BlockContainer {
+
+    public BlockDecorativeSurface() {
+        super(Material.wood);
+
+        this.setBlockBounds(0, 0, 0, 0, 0, 0);
+    }
+
+    @Override
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+        int meta = world.getBlockMetadata(x, y, z);
+        if ((meta & 8) == 0) {
+            // vertical
+            setBlockBounds(0, 0, 0, 1, 0.01f, 1);
+        } else {
+            switch (meta & 3) {
+                case 0:
+                    setBlockBounds(0, 0, 0.99f, 1, 1, 1);
+                    break;
+
+                case 1:
+                    setBlockBounds(0, 0, 0, 1, 1, 0.01f);
+                    break;
+
+                case 2:
+                    setBlockBounds(0.99f, 0, 0, 1, 1, 1);
+                    break;
+
+                case 3:
+                    setBlockBounds(0, 0, 0, 0.01f, 1, 1);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
+        if (entityplayer.getHeldItem() == null) {
+            if (!world.isRemote && entityplayer.isSneaking()) {
+                world.setBlock(x, y, z, Blocks.air, 0, 2);
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        Block block = world.getBlock(x, y - 1, z);
+        return block.isSideSolid(world, x, y - 1, z, ForgeDirection.UP);
+    }
+
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block par5) {
+        if (!canBlockStay(world, x, y ,z)) {
+            world.setBlock(x, y, z, Blocks.air, 0, 2);
+        }
+    }
+
+    @Override
+    public void onBlockPreDestroy(World world, int x, int y, int z, int meta) {
+        TileEntityDecorativeSurface te = (TileEntityDecorativeSurface)world.getTileEntity(x, y, z);
+        te.onDecorativeSurfaceBroken();
+    }
+
+    @Override
+    public Item getItemDropped(int meta, Random rnd, int fortune) {
+        return null;
+    }
+
+    @Override
+    public boolean canBeReplacedByLeaves(IBlockAccess w, int x, int y, int z) {
+        return false;
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister registerer) {
+        ProcessingSurfaceHelper.registerDecorativeSurfaceIcons(registerer);
+    }
+
+    @Override
+    public IIcon getIcon(int side, int meta) {
+        return TFC_Textures.invisibleTexture;
+    }
+
+    @Override
+    public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
+        TileEntityDecorativeSurface te = (TileEntityDecorativeSurface) world.getTileEntity(x, y, z);
+        if (te.getItem() != null) {
+            return ProcessingSurfaceHelper.getIconForItem(te.getItem());
+        } else {
+            return super.getIcon(world, x, y, z, side);
+        }
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+
+    @Override
+    public int getRenderType() {
+        return BidsBlocks.decorativeSurfaceRenderId;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockAccess access, int x, int y, int z, int side) {
+        return true;
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World world, int meta) {
+        return new TileEntityDecorativeSurface();
+    }
+
+}

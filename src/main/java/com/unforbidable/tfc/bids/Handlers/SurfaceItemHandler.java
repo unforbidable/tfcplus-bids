@@ -3,7 +3,8 @@ package com.unforbidable.tfc.bids.Handlers;
 import com.dunk.tfc.Reference;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityDecorativeSurface;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityProcessingSurface;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
@@ -12,20 +13,23 @@ import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.Events.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.Events.SurfaceItemEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ProcessingSurfaceCraftingHandler {
+public class SurfaceItemHandler {
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (!event.world.isRemote) {
             if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                if (event.entityPlayer.getHeldItem() != null && isItemAllowed(event.entityPlayer.getHeldItem())) {
-                    if (tryPlaceProcessingSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer)) {
+                if (event.entityPlayer.getHeldItem() != null) {
+                    if (tryPlaceProcessingSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer) ||
+                        tryPlaceDecorativeSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer)) {
                         event.setCanceled(true);
                     }
                 }
@@ -34,20 +38,65 @@ public class ProcessingSurfaceCraftingHandler {
     }
 
     private boolean tryPlaceProcessingSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
-        if (face == 1) {
+        if (isItemAllowed(itemStack) && face == 1) {
             ProcessingSurfaceRecipe recipe = ProcessingSurfaceManager.findMatchingRecipe(itemStack, world, x, y, z);
             if (recipe != null) {
                 Bids.LOG.debug("Found matching ProcessingSurfaceRecipe");
 
-                if (world.setBlock(x, y + 1, z, BidsBlocks.processingSurface, 0, 2)) {
+                if (world.isAirBlock(x, y + 1, z) &&
+                    world.setBlock(x, y + 1, z, BidsBlocks.processingSurface, 0, 2)) {
                     TileEntityProcessingSurface te = (TileEntityProcessingSurface) world.getTileEntity(x, y + 1, z);
-                    ItemStack heldItem = player.getHeldItem().copy();
+                    ItemStack heldItem = itemStack.copy();
                     heldItem.stackSize = 1;
                     te.setInputItem(heldItem);
                     player.getHeldItem().stackSize--;
 
                     return true;
                 }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean tryPlaceDecorativeSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
+        if (isItemAllowed(itemStack) && face > 0) {
+            if (isDecorativeSurfaceItem(itemStack)) {
+                ForgeDirection dir = ForgeDirection.getOrientation(face);
+                int x2 = x + dir.offsetX;
+                int y2 = y + dir.offsetY;
+                int z2 = z + dir.offsetZ;
+
+                if (world.isAirBlock(x2, y2, z2)) {
+                    Block block = world.getBlock(x, y, z);
+                    if (block.isSideSolid(world, x, y, z, dir)) {
+                        // meta is player's orientation (angle) for vertical placement
+                        // and forge direction (face) for horizontal placement
+                        int meta = face == 1 ? ProcessingSurfaceHelper.getOrientation(player) : (face - 2) | 0x8;
+                        Bids.LOG.info("meta: " + meta);
+
+                        if (world.setBlock(x2, y2, z2, BidsBlocks.decorativeSurface, meta, 2)) {
+                            TileEntityDecorativeSurface te = (TileEntityDecorativeSurface) world.getTileEntity(x2, y2, z2);
+                            ItemStack heldItem = itemStack.copy();
+                            heldItem.stackSize = 1;
+                            te.setItem(heldItem);
+                            player.getHeldItem().stackSize--;
+
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isDecorativeSurfaceItem(ItemStack itemStack) {
+        int decorativeSurfaceItemOreId = OreDictionary.getOreID("itemDecorativeSurface");
+        for (int oreId : OreDictionary.getOreIDs(itemStack)) {
+            if (oreId == decorativeSurfaceItemOreId) {
+                return true;
             }
         }
 

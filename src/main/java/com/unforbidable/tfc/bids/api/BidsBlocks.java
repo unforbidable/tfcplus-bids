@@ -44,8 +44,8 @@ public class BidsBlocks {
     public static int strawNestRenderId;
     public static int crackedStoneRenderId;
     public static int crackedOreRenderId;
-
     public static int processingSurfaceRenderId;
+    public static int decorativeSurfaceRenderId;
 
     public static Block clayCrucible;
     public static Block fireClayCrucible;
@@ -194,5 +194,7 @@ public class BidsBlocks {
     public static Block fireBrickChimney;
 
     public static Block processingSurface;
+
+    public static Block decorativeSurface;
 
 }
