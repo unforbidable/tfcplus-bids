@@ -972,6 +972,17 @@ public class ItemSetup extends BidsItems {
         OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailEmpty));
         OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailMilk, 1, WILD));
         OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailGoatMilk, 1, WILD));
+
+        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.fur, 1, WILD));
+        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.furScrap, 1, WILD));
+        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.wolfFur, 1, WILD));
+        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.wolfFurScrap, 1, WILD));
+        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.bearFur, 1, WILD));
+        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.bearFurScrap, 1, WILD));
+        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.hide, 1, WILD));
+        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 0));
+        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 1));
+        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 2));
     }
 
     private static void registerWoodPileItems() {
