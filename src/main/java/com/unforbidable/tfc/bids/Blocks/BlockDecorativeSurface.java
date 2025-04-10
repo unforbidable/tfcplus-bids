@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Blocks;
 
 import com.dunk.tfc.Core.TFC_Textures;
+import com.unforbidable.tfc.bids.Core.Common.Metadata.DecorativeSurfaceMetadata;
 import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDecorativeSurface;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -21,9 +22,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.List;
 import java.util.Random;
 
 public class BlockDecorativeSurface extends BlockContainer {
+
+    private static final float ITEM_DEPTH = 0.06f;
 
     public BlockDecorativeSurface() {
         super(Material.cloth);
@@ -34,26 +38,25 @@ public class BlockDecorativeSurface extends BlockContainer {
 
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z);
-        if ((meta & 8) == 0) {
-            // vertical
-            setBlockBounds(0, 0, 0, 1, 0.01f, 1);
+        DecorativeSurfaceMetadata meta = DecorativeSurfaceMetadata.at(world, x, y, z);
+        if (meta.isHorizontal()) {
+            setBlockBounds(0, 0, 0, 1, ITEM_DEPTH, 1);
         } else {
-            switch (meta & 3) {
-                case 0:
-                    setBlockBounds(0, 0, 0.99f, 1, 1, 1);
+            switch (meta.getVerticalFace()) {
+                case NORTH:
+                    setBlockBounds(0, 0, 1 - ITEM_DEPTH, 1, 1, 1);
                     break;
 
-                case 1:
-                    setBlockBounds(0, 0, 0, 1, 1, 0.01f);
+                case SOUTH:
+                    setBlockBounds(0, 0, 0, 1, 1, ITEM_DEPTH);
                     break;
 
-                case 2:
-                    setBlockBounds(0.99f, 0, 0, 1, 1, 1);
+                case WEST:
+                    setBlockBounds(1 - ITEM_DEPTH, 0, 0, 1, 1, 1);
                     break;
 
-                case 3:
-                    setBlockBounds(0, 0, 0, 0.01f, 1, 1);
+                case EAST:
+                    setBlockBounds(0, 0, 0, 0.05f, 1, 1);
                     break;
             }
         }
