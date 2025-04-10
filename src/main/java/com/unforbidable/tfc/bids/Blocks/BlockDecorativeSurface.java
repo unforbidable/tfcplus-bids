@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.Blocks;
 
 import com.dunk.tfc.Core.TFC_Textures;
 import com.unforbidable.tfc.bids.Core.Common.Metadata.DecorativeSurfaceMetadata;
-import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDecorativeSurface;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.relauncher.Side;
@@ -119,7 +118,6 @@ public class BlockDecorativeSurface extends BlockContainer {
 
     @Override
     public void registerBlockIcons(IIconRegister registerer) {
-        ProcessingSurfaceHelper.registerDecorativeSurfaceIcons(registerer);
     }
 
     @Override
@@ -129,12 +127,7 @@ public class BlockDecorativeSurface extends BlockContainer {
 
     @Override
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-        TileEntityDecorativeSurface te = (TileEntityDecorativeSurface) world.getTileEntity(x, y, z);
-        if (te.getItem() != null) {
-            return ProcessingSurfaceHelper.getIconForItem(te.getItem());
-        } else {
-            return super.getIcon(world, x, y, z, side);
-        }
+        return TFC_Textures.invisibleTexture;
     }
 
     @Override

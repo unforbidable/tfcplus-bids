@@ -75,12 +75,6 @@ public class ProcessingSurfaceHelper {
         }
     }
 
-    public static void registerDecorativeSurfaceIcons(IIconRegister registerer) {
-        for (ItemStack is : OreDictionary.getOres("itemDecorativeSurface")) {
-            registerSurfaceItemIcon(registerer, is);
-        }
-    }
-
     private static void registerSurfaceItemIcon(IIconRegister registerer, ItemStack itemStack) {
         String blockIconName = getIconName(itemStack);
         Bids.LOG.info("Surface block texture {} will be used for item {}", blockIconName, itemStack);
