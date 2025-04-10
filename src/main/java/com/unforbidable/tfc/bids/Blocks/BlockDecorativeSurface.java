@@ -24,9 +24,10 @@ import java.util.Random;
 public class BlockDecorativeSurface extends BlockContainer {
 
     public BlockDecorativeSurface() {
-        super(Material.wood);
+        super(Material.cloth);
 
-        this.setBlockBounds(0, 0, 0, 0, 0, 0);
+        setHardness(1f);
+        setBlockBounds(0, 0, 0, 0, 0, 0);
     }
 
     @Override
