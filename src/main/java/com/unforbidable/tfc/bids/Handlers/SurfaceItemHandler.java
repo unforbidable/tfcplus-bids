@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Handlers;
 import com.dunk.tfc.Reference;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Common.Metadata.DecorativeSurfaceMetadata;
 import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDecorativeSurface;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityProcessingSurface;
@@ -72,10 +73,11 @@ public class SurfaceItemHandler {
                     if (block.isSideSolid(world, x, y, z, dir)) {
                         // meta is player's orientation (angle) for vertical placement
                         // and forge direction (face) for horizontal placement
-                        int meta = face == 1 ? ProcessingSurfaceHelper.getOrientation(player) : (face - 2) | 0x8;
-                        Bids.LOG.info("meta: " + meta);
+                        DecorativeSurfaceMetadata meta = face == 1
+                            ? DecorativeSurfaceMetadata.forHorizontalOrientation(ProcessingSurfaceHelper.getOrientation(player))
+                            : DecorativeSurfaceMetadata.forVerticalFace(dir);
 
-                        if (world.setBlock(x2, y2, z2, BidsBlocks.decorativeSurface, meta, 2)) {
+                        if (world.setBlock(x2, y2, z2, BidsBlocks.decorativeSurface, meta.getMetadata(), 2)) {
                             TileEntityDecorativeSurface te = (TileEntityDecorativeSurface) world.getTileEntity(x2, y2, z2);
                             ItemStack heldItem = itemStack.copy();
                             heldItem.stackSize = 1;
