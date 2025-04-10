@@ -26,8 +26,9 @@ import java.util.Random;
 public class BlockProcessingSurface extends BlockContainer {
 
     public BlockProcessingSurface() {
-        super(Material.wood);
+        super(Material.cloth);
 
+        this.setHardness(1f);
         this.setBlockBounds(0, 0, 0, 1, 0.001f, 1);
     }
 
