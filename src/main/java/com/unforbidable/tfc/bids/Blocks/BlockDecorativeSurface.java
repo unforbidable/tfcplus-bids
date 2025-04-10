@@ -79,8 +79,19 @@ public class BlockDecorativeSurface extends BlockContainer {
 
     @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
-        Block block = world.getBlock(x, y - 1, z);
-        return block.isSideSolid(world, x, y - 1, z, ForgeDirection.UP);
+        DecorativeSurfaceMetadata meta = DecorativeSurfaceMetadata.at(world, x, y, z);
+        if (meta.isHorizontal()) {
+            Block block = world.getBlock(x, y - 1, z);
+            return block.isSideSolid(world, x, y - 1, z, ForgeDirection.UP);
+        } else {
+            ForgeDirection dir = meta.getVerticalFace();
+            ForgeDirection opposite = dir.getOpposite();
+            int x2 = x + opposite.offsetX;
+            int y2 = y + opposite.offsetY;
+            int z2 = z + opposite.offsetZ;
+            Block block = world.getBlock(x2, y2, z2);
+            return block.isSideSolid(world, x2, y2, z2, dir);
+        }
     }
 
     @Override
