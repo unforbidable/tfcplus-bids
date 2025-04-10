@@ -736,6 +736,7 @@ public class BlockSetup extends BidsBlocks {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScrew.class, new RenderTileScrew());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScrewPressDisc.class, new RenderTileScrewPressDisc());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScrewPressLever.class, new RenderTileScrewPressLever());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDecorativeSurface.class, new RenderTileDecorativeSurface());
     }
 
     private static void registerMessages() {
