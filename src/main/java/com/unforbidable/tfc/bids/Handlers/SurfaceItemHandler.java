@@ -134,6 +134,8 @@ public class SurfaceItemHandler {
                     TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.wolfFurHat, 1, 0), event.player);
                 } else if (event.input.getItem() == TFCItems.bearFur) {
                     TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.bearFurHat, 1, 0), event.player);
+                } else if (event.input.getItem() == TFCItems.sheepSkin) {
+                    TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.wool, event.result.getItemDamage() + 1, 0), event.player);
                 }
             }
         }
