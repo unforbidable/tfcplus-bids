@@ -39,6 +39,8 @@ public class RenderProcessingSurface implements ISimpleBlockRenderingHandler {
                         renderer.renderStandardBlock(block, x, y, z);
                     }
                 }
+
+                renderer.clearOverrideBlockTexture();
             }
         }
 
