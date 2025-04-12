@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Handlers;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Reference;
 import com.dunk.tfc.api.TFCItems;
+import com.dunk.tfc.api.Util.Helper;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.Metadata.DecorativeSurfaceMetadata;
 import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
@@ -18,6 +19,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -27,16 +29,56 @@ public class SurfaceItemHandler {
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (!event.world.isRemote) {
+        if (event.entityPlayer.getHeldItem() != null) {
             if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                if (event.entityPlayer.getHeldItem() != null) {
+                if (!event.world.isRemote) {
                     if (tryPlaceProcessingSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer) ||
                         tryPlaceDecorativeSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer)) {
                         event.setCanceled(true);
                     }
                 }
+            } else if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
+                // After placing surface item above,
+                // to prevent right-clicking with the remaining stack
+                // this event needs to be cancelled too
+                if (event.world.isRemote) {
+                    MovingObjectPosition mop = Helper.getMouseOverObject(event.entityPlayer, event.world);
+                    if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+                        if (canPlaceProcessingSurface(event.entityPlayer.getHeldItem(), event.world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, event.entityPlayer) ||
+                            canPlaceDecorativeSurface(event.entityPlayer.getHeldItem(), event.world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, event.entityPlayer)) {
+                            event.setCanceled(true);
+                        }
+                    }
+                }
             }
         }
+    }
+
+    private boolean canPlaceProcessingSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
+        if (isItemAllowed(itemStack) && face == 1) {
+            ProcessingSurfaceRecipe recipe = ProcessingSurfaceManager.findMatchingRecipe(itemStack, world, x, y, z);
+            return recipe != null;
+        }
+
+        return false;
+    }
+
+    private boolean canPlaceDecorativeSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
+        if (isItemAllowed(itemStack) && face > 0) {
+            if (isDecorativeSurfaceItem(itemStack)) {
+                ForgeDirection dir = ForgeDirection.getOrientation(face);
+                int x2 = x + dir.offsetX;
+                int y2 = y + dir.offsetY;
+                int z2 = z + dir.offsetZ;
+
+                if (world.isAirBlock(x2, y2, z2)) {
+                    Block block = world.getBlock(x, y, z);
+                    return block.isSideSolid(world, x, y, z, dir);
+                }
+            }
+        }
+
+        return false;
     }
 
     private boolean tryPlaceProcessingSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
