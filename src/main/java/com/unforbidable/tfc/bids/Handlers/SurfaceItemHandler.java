@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Handlers;
 
+import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Reference;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
@@ -120,6 +121,19 @@ public class SurfaceItemHandler {
                     // Primitive tools have reduced efficiency
                     event.efficiency *= 0.5;
                     break;
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onProcessingSurfaceProgress(ProcessingSurfaceEvent.Progress event) {
+        if (event.progress == 1f) {
+            if (event.result.getItem() == TFCItems.hide) {
+                if (event.input.getItem() == TFCItems.wolfFur) {
+                    TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.wolfFurHat, 1, 0), event.player);
+                } else if (event.input.getItem() == TFCItems.bearFur) {
+                    TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.bearFurHat, 1, 0), event.player);
                 }
             }
         }
