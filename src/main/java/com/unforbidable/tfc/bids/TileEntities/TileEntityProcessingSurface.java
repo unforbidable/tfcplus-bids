@@ -64,11 +64,11 @@ public class TileEntityProcessingSurface extends TileEntity {
             ProcessingSurfaceRecipe recipe = getCurrentRecipe();
             if (recipe != null && recipe.matchesTool(player.getHeldItem())) {
                 // Efficiency is based on tool material
-                float efficiency = ProcessingSurfaceHelper.getToolEfficiency(player.getHeldItem());
+                float originalEfficiency = ProcessingSurfaceHelper.getToolEfficiency(player.getHeldItem());
                 // and it can be further modified in event
-                float modifiedEfficiency = BidsEventFactory.onProcessingSurfaceToolEfficiencyCheck(this, inputItem, resultItem, player.getHeldItem(), player, efficiency);
-                if (modifiedEfficiency > 0) {
-                    float workAmount = modifiedEfficiency * WORK_AMOUNT_PER_TOOL_EFFICIENCY;
+                float newEfficiency = BidsEventFactory.onProcessingSurfaceToolEfficiencyCheck(this, inputItem, resultItem, player.getHeldItem(), player, originalEfficiency);
+                if (newEfficiency > 0) {
+                    float workAmount = newEfficiency * WORK_AMOUNT_PER_TOOL_EFFICIENCY;
 
                     float prevWorkCounter = workCounter;
                     workCounter += workAmount;

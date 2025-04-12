@@ -161,7 +161,7 @@ public class SurfaceItemHandler {
             for (int id : OreDictionary.getOreIDs(event.tool)) {
                 if (id == primitiveToolId) {
                     // Primitive tools have reduced efficiency
-                    event.efficiency *= 0.5;
+                    event.newEfficiency = event.originalEfficiency * 0.5f;
                     break;
                 }
             }

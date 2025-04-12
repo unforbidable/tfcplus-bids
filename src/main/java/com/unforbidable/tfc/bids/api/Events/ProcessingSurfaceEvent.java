@@ -23,12 +23,13 @@ public abstract class ProcessingSurfaceEvent extends Event {
 
     public static class ToolEfficiencyCheck extends ProcessingSurfaceEvent {
 
-        public float efficiency;
+        public final float originalEfficiency;
+        public float newEfficiency;
 
-        public ToolEfficiencyCheck(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float efficiency) {
+        public ToolEfficiencyCheck(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float originalEfficiency) {
             super(tileEntity, input, result, tool, player);
 
-            this.efficiency = efficiency;
+            this.originalEfficiency = originalEfficiency;
         }
     }
 
