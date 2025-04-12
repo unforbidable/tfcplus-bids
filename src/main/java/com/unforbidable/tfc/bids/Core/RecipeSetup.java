@@ -1831,6 +1831,16 @@ public class RecipeSetup {
         ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
             new ItemStack(TFCItems.bearFurScrap, 1, 2),
             "itemScrapingTool", "blockLeatherRack", 4));
+
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+            new ItemStack(TFCItems.sheepSkin, 1, 0),
+            "itemScrapingTool", "blockLeatherRack", 1));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+            new ItemStack(TFCItems.sheepSkin, 1, 1),
+            "itemScrapingTool", "blockLeatherRack", 2));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+            new ItemStack(TFCItems.sheepSkin, 1, 2),
+            "itemScrapingTool", "blockLeatherRack", 4));
     }
 
     private static void registerKnappingRecipes() {
