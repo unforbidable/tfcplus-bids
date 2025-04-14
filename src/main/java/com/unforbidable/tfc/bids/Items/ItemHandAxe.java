@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Items;
 
+import com.dunk.tfc.Items.Tools.ItemTerraTool;
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
@@ -16,11 +17,10 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 
 import java.util.Set;
 
-public class ItemHandAxe extends ItemTool implements ISize, IKnife {
+public class ItemHandAxe extends ItemTerraTool implements ISize, IKnife {
 
     private static final Set<Block> BLOCKS_EFFECTIVE_AGAINST = Sets.newHashSet();
 
