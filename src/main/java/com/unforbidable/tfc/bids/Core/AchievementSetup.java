@@ -52,7 +52,8 @@ public class AchievementSetup {
             BidsStats.MEALS_COOKED,
             BidsStats.FIREWOOD_CHOPPED,
             BidsStats.MILK_MILKED,
-            BidsStats.BUTTER_CHURNED
+            BidsStats.BUTTER_CHURNED,
+            BidsStats.MATERIAL_SCRAPED
         };
 
         for (StatBase s : stats) {

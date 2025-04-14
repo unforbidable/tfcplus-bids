@@ -207,4 +207,11 @@ public class AchievementHandler {
         }
     }
 
+    @SubscribeEvent
+    public void onProcessingSurfaceProgress(ProcessingSurfaceEvent.Progress event) {
+        if (event.progress == 1f) {
+            event.player.addStat(BidsStats.MATERIAL_SCRAPED, Math.round(event.effort));
+        }
+    }
+
 }

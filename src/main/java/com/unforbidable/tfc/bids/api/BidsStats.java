@@ -44,4 +44,7 @@ public class BidsStats {
     public static final StatBase BUTTER_CHURNED = new StatBasic("stat.bidsButterChurned", new ChatComponentTranslation("stat.bidsButterChurned"), WEIGHT_STAT_TYPE)
         .initIndependentStat();
 
+    public static final StatBase MATERIAL_SCRAPED = new StatBasic("stat.bidsMaterialScraped", new ChatComponentTranslation("stat.bidsMaterialScraped"))
+        .initIndependentStat();
+
 }
