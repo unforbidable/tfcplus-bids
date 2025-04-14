@@ -12,13 +12,15 @@ public abstract class ProcessingSurfaceEvent extends Event {
     public final ItemStack result;
     public final ItemStack tool;
     public final EntityPlayer player;
+    public final float effort;
 
-    public ProcessingSurfaceEvent(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player) {
+    public ProcessingSurfaceEvent(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float effort) {
         this.tileEntity = tileEntity;
         this.input = input;
         this.result = result;
         this.tool = tool;
         this.player = player;
+        this.effort = effort;
     }
 
     public static class ToolEfficiencyCheck extends ProcessingSurfaceEvent {
@@ -26,8 +28,8 @@ public abstract class ProcessingSurfaceEvent extends Event {
         public final float originalEfficiency;
         public float newEfficiency;
 
-        public ToolEfficiencyCheck(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float originalEfficiency) {
-            super(tileEntity, input, result, tool, player);
+        public ToolEfficiencyCheck(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float effort, float originalEfficiency) {
+            super(tileEntity, input, result, tool, player, effort);
 
             this.originalEfficiency = originalEfficiency;
         }
@@ -37,8 +39,8 @@ public abstract class ProcessingSurfaceEvent extends Event {
 
         public final float progress;
 
-        public Progress(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float progress) {
-            super(tileEntity, input, result, tool, player);
+        public Progress(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float effort, float progress) {
+            super(tileEntity, input, result, tool, player, effort);
 
             this.progress = progress;
         }
