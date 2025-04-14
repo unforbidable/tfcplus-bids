@@ -36,7 +36,7 @@ public class RenderProcessingSurface implements ISimpleBlockRenderingHandler {
                         }
 
                         renderer.setRenderBounds(0.25 * i, 0, 0.25 * k, 0.25 * i + 0.25, 0.001, 0.25 * k + 0.25);
-                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.renderStandardBlockWithColorMultiplier(block, x, y, z, 1, 1, 1);
                     }
                 }
 
