@@ -121,21 +121,20 @@ public class RecipeSetup {
         OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.redSteelHammer, 1, WILD));
 
         for (ItemStack is : OreDictionary.getOres("materialString")) {
-            OreDictionary.registerOre("materialStringAny", is);
-            OreDictionary.registerOre("materialStringDecent", is);
-            OreDictionary.registerOre("materialStringStrong", is);
+            OreDictionary.registerOre("materialBowstring", is);
+            OreDictionary.registerOre("materialBinding", is);
+            OreDictionary.registerOre("materialBindingStrong", is);
         }
 
-        OreDictionary.registerOre("materialStringAny", TFCItems.grassCordage);
-        OreDictionary.registerOre("materialStringAny", TFCItems.sinew);
-        OreDictionary.registerOre("materialStringAny", new ItemStack(BidsItems.barkFibreStrip, 1, 0));
-        OreDictionary.registerOre("materialStringAny", new ItemStack(BidsItems.barkFibreStrip, 1, 1));
-        OreDictionary.registerOre("materialStringAny", BidsItems.barkCordage);
+        OreDictionary.registerOre("materialBinding", TFCItems.grassCordage);
+        OreDictionary.registerOre("materialBindingPoor", TFCItems.grassCordage);
 
-        OreDictionary.registerOre("materialStringDecent", TFCItems.sinew);
-        OreDictionary.registerOre("materialStringDecent", BidsItems.barkCordage);
+        OreDictionary.registerOre("materialBinding", TFCItems.sinew);
+        OreDictionary.registerOre("materialBindingDecent", TFCItems.sinew);
 
-        OreDictionary.registerOre("materialStringStrong", BidsItems.barkCordage);
+        OreDictionary.registerOre("materialBowstring", BidsItems.barkCordage);
+        OreDictionary.registerOre("materialBinding", BidsItems.barkCordage);
+        OreDictionary.registerOre("materialBindingStrong", BidsItems.barkCordage);
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             if (wood.blocks.hasChoppingBlock()) {
@@ -513,9 +512,9 @@ public class RecipeSetup {
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
                 new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.smallStickBundle),
-                new ItemStack(BidsItems.smallStickBundle), "materialStringAny"));
+                new ItemStack(BidsItems.smallStickBundle), TFCItems.grassCordage));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
-                new ItemStack(TFCItems.stickBundle), "materialStringAny"));
+                new ItemStack(TFCItems.stickBundle), TFCItems.grassCordage));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stick, 9, 0),
                 new ItemStack(BidsItems.tiedStickBundle)));

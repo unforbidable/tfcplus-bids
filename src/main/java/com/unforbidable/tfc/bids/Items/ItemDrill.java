@@ -366,7 +366,7 @@ public class ItemDrill extends ItemTerra {
         boolean bowstringBroke = BidsOptions.Quarry.bowStringBreakChance > player.worldObj.rand.nextDouble();
 
         if (BidsOptions.Quarry.enableDrillAutoRepair) {
-            List<ItemStack> bowstrings = bowstringBroke ? OreDictionary.getOres("materialStringDecent", false) : null;
+            List<ItemStack> bowstrings = bowstringBroke ? OreDictionary.getOres("materialBowstring", false) : null;
 
             // Try to repair the drill automatically
             // Stick and drill head is needed on the hot bar
