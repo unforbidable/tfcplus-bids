@@ -135,10 +135,14 @@ public class RecipeHelper {
 
     private static List<Integer> getStoneToolOreIds() {
         List<Integer> oreIds = new ArrayList<Integer>();
-        for (String ore : new String[] { "itemAxeStone", "itemHammerStone", "itemKnifeStone", "itemShovelStone", "itemHoeStone", "itemJavelinStone", "itemAdzeStone", "itemDrillStone" }) {
+        for (String ore : getStoneToolOreNames()) {
             oreIds.add(OreDictionary.getOreID(ore));
         }
         return oreIds;
+    }
+
+    public static String[] getStoneToolOreNames() {
+        return new String[]{"itemAxeStone", "itemHammerStone", "itemKnifeStone", "itemShovelStone", "itemHoeStone", "itemJavelinStone", "itemAdzeStone", "itemDrillStone"};
     }
 
     public static void applyCompositeToolBindingBonus(ItemStack tool, ItemStack binding) {

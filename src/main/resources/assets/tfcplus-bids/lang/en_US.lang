@@ -1364,6 +1364,7 @@ gui.Resistance=Resistance
 gui.cooking.cookingMixDecayed=Cooking Mix has decayed beyond use
 gui.Churning=Churning
 gui.ProcessingSurface=Processing Surface
+gui.BindingBonus=Binding Bonus
 
 key.BidsToolMode=Cycle Tool Mode
 

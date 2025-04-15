@@ -44,6 +44,7 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(new KilnPotteryFiringHandler());
         MinecraftForge.EVENT_BUS.register(new KilnWoodDryingHandler());
         MinecraftForge.EVENT_BUS.register(new AnimalMilkHandler());
+        MinecraftForge.EVENT_BUS.register(new TooltipHandler());
     }
 
     public void postInit(FMLPostInitializationEvent event) {
