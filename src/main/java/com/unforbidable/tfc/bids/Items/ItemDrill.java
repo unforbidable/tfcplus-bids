@@ -1,6 +1,8 @@
 package com.unforbidable.tfc.bids.Items;
 
 import com.dunk.tfc.Items.ItemTerra;
+import com.dunk.tfc.Items.Tools.ItemTerraTool;
+import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
@@ -100,6 +102,11 @@ public class ItemDrill extends ItemTerra {
     @Override
     public int getMaxItemUseDuration(ItemStack is) {
         return MAX_USE_DURATION;
+    }
+
+    @Override
+    public int getMaxDamage(ItemStack stack) {
+        return (int) (getMaxDamage()+(getMaxDamage() * AnvilManager.getDurabilityBuff(stack)));
     }
 
     @Override
@@ -252,12 +259,15 @@ public class ItemDrill extends ItemTerra {
     }
 
     protected int getDrillDuration(ItemStack stack, EntityPlayer player) {
+        // Bonus based on smith bonus or binding
+        float bonus = 1 - Math.min(1, AnvilManager.getDurabilityBuff(stack)) * 0.25f;
+
         if (!QuarryDrillDataAgent.hasPlayerData(player)) {
             Bids.LOG.warn("Missing drill duration info for player");
-            return getBaseDrillDuration();
+            return Math.round(getBaseDrillDuration() * bonus);
         }
 
-        return QuarryDrillDataAgent.getDuration(player);
+        return Math.round(QuarryDrillDataAgent.getDuration(player) * bonus);
     }
 
     protected void onBlockDrilled(World world, int x, int y, int z, int side, ItemStack stack, EntityPlayer player) {
@@ -465,6 +475,8 @@ public class ItemDrill extends ItemTerra {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> list) {
+        ItemTerraTool.addSmithingBonusInformation(is, list);
+
         if (ItemHelper.showShiftInformation()) {
             list.add(StatCollector.translateToLocal("gui.Help"));
             list.add(StatCollector.translateToLocal("gui.Help.Drill"));
