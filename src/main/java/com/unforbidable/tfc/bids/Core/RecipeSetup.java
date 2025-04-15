@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
+import com.unforbidable.tfc.bids.Core.Recipes.RecipeHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelItemDemandingRecipe;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
@@ -1006,6 +1007,8 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionKeepItem()
             .addItems("itemLogExtra")
             .matchCraftingItem(TFCItems.clayTile));
+
+        RecipeHelper.handleCompositeToolRecipes();
     }
 
     private static void registerCarvingRecipes() {
