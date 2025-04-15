@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillDataAgent;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillTarget;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
+import com.unforbidable.tfc.bids.Core.Recipes.RecipeHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -375,16 +376,22 @@ public class ItemDrill extends ItemTerra {
 
         boolean bowstringBroke = BidsOptions.Quarry.bowStringBreakChance > player.worldObj.rand.nextDouble();
 
+        // Require binding if previous drill had binding
+        boolean requireBinding = AnvilManager.getDurabilityBuff(stack) > 0;
+
         if (BidsOptions.Quarry.enableDrillAutoRepair) {
             List<ItemStack> bowstrings = bowstringBroke ? OreDictionary.getOres("materialBowstring", false) : null;
+            List<ItemStack> bindings = OreDictionary.getOres("materialBinding", false);
 
             // Try to repair the drill automatically
             // Stick and drill head is needed on the hot bar
+            // If binding is required look for one too
             // If the bowstring has broken too,
             // a new one will be needed too
             ItemStack foundToolHandle = null;
             ItemStack foundDrillHead = null;
             ItemStack foundBowstring = null;
+            ItemStack foundBinding = null;
 
             for (int i = 0; i < 9; i++) {
                 ItemStack is = player.inventory.getStackInSlot(i);
@@ -393,20 +400,33 @@ public class ItemDrill extends ItemTerra {
                         foundToolHandle = is;
                     } else if (foundDrillHead == null && isDrillHead(is)) {
                         foundDrillHead = is;
-                    } else if (bowstringBroke
-                            && foundBowstring == null && isBowstring(is, bowstrings)) {
+                    } else if (bowstringBroke && foundBowstring == null && isOreList(is, bowstrings)) {
                         foundBowstring = is;
+
+                        // See if the same stack can be used for binding as well
+                        if (requireBinding && foundBowstring.stackSize > 1 && foundBinding == null && isOreList(is, bindings)) {
+                            foundBinding = is;
+                        }
+                    } else if (requireBinding && foundBinding == null && isOreList(is, bindings)) {
+                        foundBinding = is;
                     }
                 }
             }
 
             if (foundToolHandle != null && foundDrillHead != null
+                    && (!requireBinding || foundBinding != null)
                     && (!bowstringBroke || foundBowstring != null)) {
                 newStack = getDrillForHead(foundDrillHead);
 
                 if (newStack != null) {
                     player.inventory.consumeInventoryItem(foundToolHandle.getItem());
                     player.inventory.consumeInventoryItem(foundDrillHead.getItem());
+
+                    if (requireBinding) {
+                        player.inventory.consumeInventoryItem(foundBinding.getItem());
+
+                        RecipeHelper.applyCompositeToolBindingBonus(newStack, foundBinding);
+                    }
 
                     if (bowstringBroke) {
                         player.inventory.consumeInventoryItem(foundBowstring.getItem());
@@ -418,6 +438,10 @@ public class ItemDrill extends ItemTerra {
                     + (foundDrillHead != null ? foundDrillHead.getDisplayName() : "none"));
             Bids.LOG.debug("Needed tool handle found: "
                     + (foundToolHandle != null ? foundToolHandle.getDisplayName() : "none"));
+            if (requireBinding) {
+                Bids.LOG.debug("Needed binding found: "
+                    + (foundBinding != null ? foundBinding.getDisplayName() : "none"));
+            }
             if (bowstringBroke) {
                 Bids.LOG.debug("Needed bowstring found: "
                         + (foundBowstring != null ? foundBowstring.getDisplayName() : "none"));
@@ -446,7 +470,7 @@ public class ItemDrill extends ItemTerra {
                 || itemStack.getItem() == BidsItems.igInStoneDrillHead;
     }
 
-    protected boolean isBowstring(ItemStack itemStack, List<ItemStack> ores) {
+    protected boolean isOreList(ItemStack itemStack, List<ItemStack> ores) {
         for (ItemStack ore : ores) {
             if (ore.getItem() == itemStack.getItem()
                     && (ore.getItemDamage() == itemStack.getItemDamage()
