@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Core.Recipes;
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionToolBinding;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -31,8 +32,10 @@ public class RecipeHelper {
                 if (compositeRecipe != null) {
                     compositeRecipes.add(compositeRecipe);
 
-                    recipes.remove(i--);
-                    Bids.LOG.info("Original stone tool recipe removed: " + recipe.getRecipeOutput());
+                    if (BidsOptions.Crafting.removeOriginalStoneToolRecipes) {
+                        recipes.remove(i--);
+                        Bids.LOG.info("Original stone tool recipe removed: " + recipe.getRecipeOutput());
+                    }
                 }
             }
         }

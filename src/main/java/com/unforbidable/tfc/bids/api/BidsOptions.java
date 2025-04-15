@@ -128,6 +128,8 @@ public class BidsOptions {
 
         public static boolean enableProcessingSurfaceLeatherRackOverride = false;
 
+        public static boolean removeOriginalStoneToolRecipes = false;
+
     }
 
     public static class Crops {

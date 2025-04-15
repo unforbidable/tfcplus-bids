@@ -231,6 +231,11 @@ public class ConfigHandler {
             BidsOptions.Crafting.enableProcessingSurfaceLeatherRackOverride,
             "Set this to true if you want to scrap leathers using the Processing Surface, instead of the TFC Leather Rack.");
 
+        BidsOptions.Crafting.removeOriginalStoneToolRecipes = config.getBoolean(
+            "removeOriginalStoneToolRecipes", "crafting",
+            BidsOptions.Crafting.removeOriginalStoneToolRecipes,
+            "Set this to true if you want to remove recipes for crafting stone tools and weapons without binding.");
+
         BidsOptions.Crops.enableCerealSeedAutoConversion = config.getBoolean(
             "enableCerealSeedAutoConversion", "crops",
             BidsOptions.Crops.enableCerealSeedAutoConversion,
