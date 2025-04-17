@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Handlers;
 
+import com.dunk.tfc.Core.TFC_Achievements;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Core.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
@@ -35,6 +36,10 @@ public class CraftingHandler {
 
         if (OreDictionaryHelper.itemMatchesOre(e.crafting, "itemDrillMetal", false)) {
             e.player.triggerAchievement(BidsAchievements.METAL_DRILL);
+        }
+
+        if (OreDictionaryHelper.itemMatchesOre(e.crafting, "itemHandAxe", false)) {
+            e.player.triggerAchievement(TFC_Achievements.achStoneAge);
         }
 
         if (e.crafting.getItem() == BidsItems.barkCordage) {
