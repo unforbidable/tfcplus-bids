@@ -126,7 +126,7 @@ public class RecipeHelper {
     }
 
 
-    private static List<Integer> getStoneToolOreIds() {
+    public static List<Integer> getStoneToolOreIds() {
         List<Integer> oreIds = new ArrayList<Integer>();
         for (String ore : getStoneToolOreNames()) {
             oreIds.add(OreDictionary.getOreID(ore));

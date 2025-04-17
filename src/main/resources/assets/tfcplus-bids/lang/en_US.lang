@@ -1368,6 +1368,8 @@ gui.BindingBonus=Binding Bonus
 
 key.BidsToolMode=Cycle Tool Mode
 
+achievement.bidsCompositeTool=Mesolithic!
+achievement.bidsCompositeTool.desc=Craft a composite stone tool or weapon
 achievement.bidsStoneAdze=Neolithic!
 achievement.bidsStoneAdze.desc=Craft a stone adze because you are not quite done with the Stone Age
 achievement.bidsBark=Bark!

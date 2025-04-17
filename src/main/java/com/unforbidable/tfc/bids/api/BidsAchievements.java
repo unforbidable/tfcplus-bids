@@ -8,17 +8,20 @@ import net.minecraft.stats.Achievement;
 
 public class BidsAchievements {
 
+    public static final Achievement COMPOSITE_TOOL = new Achievement("achievement.bidsCompositeTool", "bidsCompositeTool",
+        -2, 0, new ItemStack(TFCItems.sedStoneJavelin), null);
+
     public static final Achievement STONE_ADZE = new Achievement("achievement.bidsStoneAdze", "bidsStoneAdze",
         0, 0, new ItemStack(BidsItems.sedStoneAdze), null);
 
     public static final Achievement BARK = new Achievement("achievement.bidsBark", "bidsBark",
-        -2, 0, new ItemStack(BidsItems.bark, 1, 0), STONE_ADZE);
+        -2, -2, new ItemStack(BidsItems.bark, 1, 0), null);
 
     public static final Achievement BARK_CORDAGE = new Achievement("achievement.bidsBarkCordage", "bidsBarkCordage",
-        -4, 0, new ItemStack(BidsItems.barkCordage), BARK);
+        0, -2, new ItemStack(BidsItems.barkCordage), BARK);
 
     public static final Achievement BARK_ROPE = new Achievement("achievement.bidsBarkRope", "bidsBarkRope",
-        -6, 0, new ItemStack(TFCItems.rope), BARK_CORDAGE).setSpecial();
+        2, -2, new ItemStack(TFCItems.rope), BARK_CORDAGE).setSpecial();
 
     public static final Achievement STONE_DRILL = new Achievement("achievement.bidsStoneDrill", "bidsStoneDrill",
         2, 0, new ItemStack(BidsItems.sedStoneDrill), STONE_ADZE);
@@ -27,10 +30,10 @@ public class BidsAchievements {
         4, 0, new ItemStack(BidsBlocks.roughStoneSed, 1, 6), STONE_DRILL);
 
     public static final Achievement METAL_DRILL = new Achievement("achievement.bidsMetalDrill", "bidsMetalDrill",
-        6, -3, new ItemStack(BidsItems.bronzeDrill, 1, 0), ROUGH_STONE);
+        6, -2, new ItemStack(BidsItems.bronzeDrill, 1, 0), ROUGH_STONE);
 
     public static final Achievement HARD_QUERN = new Achievement("achievement.bidsHardQuern", "bidsHardQuern",
-        8, -3, new ItemStack(TFCItems.quern), METAL_DRILL).setSpecial();
+        8, -2, new ItemStack(TFCItems.quern), METAL_DRILL).setSpecial();
 
     public static final Achievement SADDLE_QUERN = new Achievement("achievement.bidsSaddleQuern", "bidsSaddleQuern",
         6, 0, new ItemStack(BidsBlocks.saddleQuernBaseSed, 1, 6), ROUGH_STONE);

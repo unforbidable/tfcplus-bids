@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Handlers;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Core.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
+import com.unforbidable.tfc.bids.Core.Recipes.RecipeHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.api.BidsAchievements;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -60,6 +61,17 @@ public class CraftingHandler {
                         e.player.triggerAchievement(BidsAchievements.BARK_ROPE);
                         break;
                     }
+                }
+            }
+        }
+
+        List<Integer> stoneToolOreIds = RecipeHelper.getStoneToolOreIds();
+        if (OreDictionaryHelper.itemHasAnyOreId(e.crafting, stoneToolOreIds)) {
+            for (int i = 0; i < e.craftMatrix.getSizeInventory(); i++) {
+                ItemStack is = e.craftMatrix.getStackInSlot(i);
+                if (OreDictionaryHelper.itemMatchesOre(is, "materialBinding", false)) {
+                    e.player.triggerAchievement(BidsAchievements.COMPOSITE_TOOL);
+                    break;
                 }
             }
         }
