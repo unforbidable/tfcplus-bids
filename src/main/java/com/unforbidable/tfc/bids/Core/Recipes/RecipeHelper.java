@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Core.Recipes;
 
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionToolBinding;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -27,7 +28,7 @@ public class RecipeHelper {
         for (int i = 0; i < recipes.size(); i++) {
             IRecipe recipe = recipes.get(i);
             ItemStack output = recipe.getRecipeOutput();
-            if (hasAnyOreId(output, stoneToolOreIds)) {
+            if (OreDictionaryHelper.itemHasAnyOreId(output, stoneToolOreIds)) {
                 IRecipe compositeRecipe = createCompositeToolRecipe(recipe);
                 if (compositeRecipe != null) {
                     compositeRecipes.add(compositeRecipe);
@@ -124,17 +125,6 @@ public class RecipeHelper {
         }
     }
 
-    private static boolean hasAnyOreId(ItemStack output, List<Integer> stoneToolOreIds) {
-        for (int oreId : OreDictionary.getOreIDs(output)) {
-            for (int stoneToolOreId : stoneToolOreIds) {
-                if (stoneToolOreId == oreId) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
 
     private static List<Integer> getStoneToolOreIds() {
         List<Integer> oreIds = new ArrayList<Integer>();

@@ -25,4 +25,16 @@ public class OreDictionaryHelper {
         }
     }
 
+    public static boolean itemHasAnyOreId(ItemStack output, List<Integer> stoneToolOreIds) {
+        for (int oreId : OreDictionary.getOreIDs(output)) {
+            for (int stoneToolOreId : stoneToolOreIds) {
+                if (stoneToolOreId == oreId) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 }
