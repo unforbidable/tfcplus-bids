@@ -12,7 +12,7 @@ public class BidsAchievements {
         -2, 0, new ItemStack(TFCItems.sedStoneJavelin), null);
 
     public static final Achievement STONE_ADZE = new Achievement("achievement.bidsStoneAdze", "bidsStoneAdze",
-        0, 0, new ItemStack(BidsItems.sedStoneAdze), null);
+        0, 0, new ItemStack(BidsItems.sedStoneAdze), COMPOSITE_TOOL);
 
     public static final Achievement BARK = new Achievement("achievement.bidsBark", "bidsBark",
         -2, -2, new ItemStack(BidsItems.bark, 1, 0), null);

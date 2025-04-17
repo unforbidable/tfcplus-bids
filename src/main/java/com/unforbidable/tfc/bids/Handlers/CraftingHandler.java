@@ -26,6 +26,17 @@ public class CraftingHandler {
             CrucibleHelper.triggerCrucibleAchievement(e.player);
         }
 
+        List<Integer> stoneToolOreIds = RecipeHelper.getStoneToolOreIds();
+        if (OreDictionaryHelper.itemHasAnyOreId(e.crafting, stoneToolOreIds)) {
+            for (int i = 0; i < e.craftMatrix.getSizeInventory(); i++) {
+                ItemStack is = e.craftMatrix.getStackInSlot(i);
+                if (OreDictionaryHelper.itemMatchesOre(is, "materialBinding", false)) {
+                    e.player.triggerAchievement(BidsAchievements.COMPOSITE_TOOL);
+                    break;
+                }
+            }
+        }
+
         if (OreDictionaryHelper.itemMatchesOre(e.crafting, "itemAdzeStone", false)) {
             e.player.triggerAchievement(BidsAchievements.STONE_ADZE);
         }
@@ -66,17 +77,6 @@ public class CraftingHandler {
                         e.player.triggerAchievement(BidsAchievements.BARK_ROPE);
                         break;
                     }
-                }
-            }
-        }
-
-        List<Integer> stoneToolOreIds = RecipeHelper.getStoneToolOreIds();
-        if (OreDictionaryHelper.itemHasAnyOreId(e.crafting, stoneToolOreIds)) {
-            for (int i = 0; i < e.craftMatrix.getSizeInventory(); i++) {
-                ItemStack is = e.craftMatrix.getStackInSlot(i);
-                if (OreDictionaryHelper.itemMatchesOre(is, "materialBinding", false)) {
-                    e.player.triggerAchievement(BidsAchievements.COMPOSITE_TOOL);
-                    break;
                 }
             }
         }
