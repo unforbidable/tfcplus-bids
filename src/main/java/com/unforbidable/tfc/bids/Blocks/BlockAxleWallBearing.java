@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -31,6 +32,10 @@ public class BlockAxleWallBearing extends BlockAxleBearing {
         super(m);
 
         setCreativeTab(BidsCreativeTabs.bidsBuildingBlocks);
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister registerer) {
     }
 
     @Override

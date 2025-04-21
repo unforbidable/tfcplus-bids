@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -36,6 +37,10 @@ public class BlockWorkStone extends Block {
 
     public EnumWorkStoneType getWorkStoneType() {
         return workStoneType;
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister registerer) {
     }
 
     @Override

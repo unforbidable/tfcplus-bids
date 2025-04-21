@@ -11,6 +11,7 @@ import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -38,6 +39,10 @@ public class BlockScrewPressDisc extends BlockContainer {
         AxisAlignedBB[] bounds = ScrewPressBounds.getBoundsForOrientation(orientation).getDisc();
         AxisAlignedBB bb = bounds[0]; // disc bottom
         setBlockBounds((float) bb.minX, 0f, (float) bb.minZ, (float) bb.maxX, 1f, (float) bb.maxZ);
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister registerer) {
     }
 
     @Override

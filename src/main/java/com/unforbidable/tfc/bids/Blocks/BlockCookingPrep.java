@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -31,6 +32,10 @@ public class BlockCookingPrep extends BlockContainer {
 
         setHardness(1);
         this.setBlockBounds(0, 0, 0, 1, 0.15f, 1);
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister registerer) {
     }
 
     @Override

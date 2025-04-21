@@ -11,6 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -37,6 +38,10 @@ public class BlockChoppingBlock extends BlockContainer {
         setHardness(10);
         setCreativeTab(BidsCreativeTabs.bidsDefault);
         setBlockBounds(0, 0, 0, 1, ChoppingBlockHelper.getChoppingBlockBoundsHeight(), 1);
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister registerer) {
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityScrewPressLever;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -32,6 +33,10 @@ public class BlockScrewPressLeverTop extends Block {
                 .offset(0, -1, 0);
             setBlockBounds((float) bb.minX, (float) bb.minY, (float) bb.minZ, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ);
         }
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister registerer) {
     }
 
     @Override

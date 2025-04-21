@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityStonePressWeight;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -42,6 +43,10 @@ public class BlockStonePressWeight extends BlockContainer {
         AxisAlignedBB bounds = WeightBounds.fromLifted(lifted).getWeight();
         setBlockBounds((float) bounds.minX, (float) bounds.minY, (float) bounds.minZ,
             (float) bounds.maxX, (float) bounds.maxY, (float) bounds.maxZ);
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister registerer) {
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

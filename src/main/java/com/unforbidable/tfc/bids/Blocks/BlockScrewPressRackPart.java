@@ -4,6 +4,7 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 
@@ -24,6 +25,10 @@ public abstract class BlockScrewPressRackPart extends Block {
 
     public AxisAlignedBB[] getInventoryBlockBounds() {
         return DEFAULT_INVENTORY_BOUNDS;
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister registerer) {
     }
 
     @Override

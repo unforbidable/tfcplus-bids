@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -31,6 +32,10 @@ public class BlockScrewPressLever extends BlockContainer {
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
         AxisAlignedBB bb = ScrewPressHelper.getLeverBlockBoundsAt(world, x, y, z);
         setBlockBounds((float) bb.minX, (float) bb.minY, (float) bb.minZ, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ);
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister registerer) {
     }
 
     @Override
