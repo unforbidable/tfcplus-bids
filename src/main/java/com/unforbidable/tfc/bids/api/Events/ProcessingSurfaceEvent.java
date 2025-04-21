@@ -32,6 +32,7 @@ public abstract class ProcessingSurfaceEvent extends Event {
             super(tileEntity, input, result, tool, player, effort);
 
             this.originalEfficiency = originalEfficiency;
+            newEfficiency = originalEfficiency;
         }
     }
 
