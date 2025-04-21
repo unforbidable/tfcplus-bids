@@ -956,6 +956,7 @@ public class ItemSetup extends BidsItems {
 
         OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsBeetroot));
         OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsSugarBeet));
+        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsBroadBeans));
         OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsWinterBarley));
         OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsWinterOat));
         OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsWinterRye));
