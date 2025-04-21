@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Handlers;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileHelper;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -25,7 +26,7 @@ public class WoodPileHandler {
     }
 
     private boolean canItemCreateWoodPile(ItemStack heldItem) {
-        return heldItem.getItem() == TFCItems.logs;
+        return heldItem.getItem() == TFCItems.logs && BidsOptions.WoodPile.enablePlacementUsingLogsTFC;
     }
 
 }

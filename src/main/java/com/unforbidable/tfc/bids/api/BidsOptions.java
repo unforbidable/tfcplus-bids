@@ -33,6 +33,7 @@ public class BidsOptions {
 
     public static class WoodPile {
 
+        public static boolean enablePlacementUsingLogsTFC = false;
         public static float seasoningDurationMultiplier = 5f;
         public static boolean rotateItems = true;
         public static boolean enableFireSetting = true;

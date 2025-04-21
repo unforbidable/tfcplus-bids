@@ -84,6 +84,9 @@ public class ConfigHandler {
             BidsOptions.Churning.churningDurationMultiplier, 0.5f, 4f,
             "Higher values increase the time it takes to churn butter");
 
+        BidsOptions.WoodPile.enablePlacementUsingLogsTFC = config.getBoolean(
+            "enablePlacementUsingLogsTFC", "woodpile", BidsOptions.WoodPile.enablePlacementUsingLogsTFC,
+            "Set this to true if you want TFC logs to place a Wood Pile instead of TFC Log Pile");
         BidsOptions.WoodPile.rotateItems = config.getBoolean(
                 "rotateItems", "woodpile", BidsOptions.WoodPile.rotateItems,
                 "Set this to true if you want odd rows in the wood pile appear rotated");
