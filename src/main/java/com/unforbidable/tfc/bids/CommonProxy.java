@@ -35,6 +35,7 @@ public class CommonProxy {
 
         MinecraftForge.EVENT_BUS.register(new PlayerInteractHandler());
         MinecraftForge.EVENT_BUS.register(new SurfaceItemHandler());
+        MinecraftForge.EVENT_BUS.register(new WoodPileHandler());
         MinecraftForge.EVENT_BUS.register(new DryingRackHandler());
         MinecraftForge.EVENT_BUS.register(new ChunkEventHandler());
         MinecraftForge.EVENT_BUS.register(new LivingDropsEventHandler());
