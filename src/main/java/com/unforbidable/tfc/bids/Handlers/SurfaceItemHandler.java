@@ -55,7 +55,7 @@ public class SurfaceItemHandler {
     }
 
     private boolean canPlaceProcessingSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
-        if (isItemAllowed(itemStack) && face == 1) {
+        if (!player.isSneaking() && isItemAllowed(itemStack) && face == 1) {
             ProcessingSurfaceRecipe recipe = ProcessingSurfaceManager.findMatchingRecipe(itemStack, world, x, y, z);
             return recipe != null;
         }
@@ -64,7 +64,7 @@ public class SurfaceItemHandler {
     }
 
     private boolean canPlaceDecorativeSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
-        if (isItemAllowed(itemStack) && face > 0) {
+        if (player.isSneaking() && isItemAllowed(itemStack) && face > 0) {
             if (isDecorativeSurfaceItem(itemStack)) {
                 ForgeDirection dir = ForgeDirection.getOrientation(face);
                 int x2 = x + dir.offsetX;
@@ -82,7 +82,7 @@ public class SurfaceItemHandler {
     }
 
     private boolean tryPlaceProcessingSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
-        if (isItemAllowed(itemStack) && face == 1) {
+        if (!player.isSneaking() && isItemAllowed(itemStack) && face == 1) {
             ProcessingSurfaceRecipe recipe = ProcessingSurfaceManager.findMatchingRecipe(itemStack, world, x, y, z);
             if (recipe != null) {
                 Bids.LOG.debug("Found matching ProcessingSurfaceRecipe");
@@ -104,7 +104,7 @@ public class SurfaceItemHandler {
     }
 
     private boolean tryPlaceDecorativeSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
-        if (isItemAllowed(itemStack) && face > 0) {
+        if (player.isSneaking() && isItemAllowed(itemStack) && face > 0) {
             if (isDecorativeSurfaceItem(itemStack)) {
                 ForgeDirection dir = ForgeDirection.getOrientation(face);
                 int x2 = x + dir.offsetX;
