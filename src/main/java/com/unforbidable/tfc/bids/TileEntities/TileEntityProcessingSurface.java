@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
-import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
@@ -20,10 +19,13 @@ import net.minecraft.world.World;
 
 public class TileEntityProcessingSurface extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
 
+    // Copper material is used for the base efficiency
+    private static final float BASE_TOOL_EFFICIENCY = 8.0f;
+
     // How much work one block activation does
     // Stone knife is used as the baseline, which should match the TFC Leather Rack speed
     // Better material will do more work with each block activation
-    private static final float WORK_AMOUNT_PER_TOOL_EFFICIENCY = 1f / TFCItems.igExToolMaterial.getEfficiencyOnProperMaterial();
+    private static final float WORK_AMOUNT_PER_TOOL_EFFICIENCY = 1f / BASE_TOOL_EFFICIENCY;
 
     // Default max work is multiplied by recipe difficulty
     // This allows scrapping larger hides to take more time and more tool durability
