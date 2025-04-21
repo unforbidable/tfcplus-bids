@@ -158,6 +158,12 @@ public class RecipeSetup {
             }
         }
 
+        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
+            if (stone.blocks.hasBlockStack(EnumStoneBlockType.RAW)) {
+                OreDictionary.registerOre("blockScrapingSurface", stone.blocks.getBlockStack(EnumStoneBlockType.RAW));
+            }
+        }
+
         OreDictionary.registerOre("itemHoneycomb", TFCItems.honeycomb);
         OreDictionary.registerOre("itemHoneycomb", TFCItems.fertileHoneycomb);
 
