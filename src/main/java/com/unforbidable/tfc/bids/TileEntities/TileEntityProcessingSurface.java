@@ -1,10 +1,14 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
+import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceManager;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceRecipe;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -12,8 +16,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
-public class TileEntityProcessingSurface extends TileEntity {
+public class TileEntityProcessingSurface extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
 
     // How much work one block activation does
     // Stone knife is used as the baseline, which should match the TFC Leather Rack speed
@@ -29,6 +34,8 @@ public class TileEntityProcessingSurface extends TileEntity {
     private ItemStack resultItem = null;
 
     private float workCounter = 0;
+
+    boolean clientNeedToUpdate = true;
 
     private ProcessingSurfaceRecipe cachedRecipe = null;
 
@@ -137,6 +144,17 @@ public class TileEntityProcessingSurface extends TileEntity {
     }
 
     @Override
+    public void updateEntity() {
+        if (!worldObj.isRemote) {
+            if (clientNeedToUpdate) {
+                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+
+                clientNeedToUpdate = false;
+            }
+        }
+    }
+
+    @Override
     public S35PacketUpdateTileEntity getDescriptionPacket() {
         NBTTagCompound tag = new NBTTagCompound();
         writeTileEntityDataToNBT(tag);
@@ -185,6 +203,19 @@ public class TileEntityProcessingSurface extends TileEntity {
 
         NBTTagCompound resultTag = tag.getCompoundTag("resultItem");
         resultItem = ItemStack.loadItemStackFromNBT(resultTag);
+    }
+
+    @Override
+    public void onTileEntityMessage(TileEntityUpdateMessage message) {
+        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
+        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
+            + message.getZCoord());
+    }
+
+    public static void sendUpdateMessage(World world, int x, int y, int z) {
+        NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
+        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
+        Bids.LOG.debug("Sent update message");
     }
 
 }
