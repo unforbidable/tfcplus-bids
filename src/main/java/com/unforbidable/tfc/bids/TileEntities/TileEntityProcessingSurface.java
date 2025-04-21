@@ -186,13 +186,17 @@ public class TileEntityProcessingSurface extends TileEntity implements IMessageH
     public void writeTileEntityDataToNBT(NBTTagCompound tag) {
         tag.setFloat("workCounter", workCounter);
 
-        NBTTagCompound itemTag = new NBTTagCompound();
-        inputItem.writeToNBT(itemTag);
-        tag.setTag("inputItem", itemTag);
+        if (inputItem != null) {
+            NBTTagCompound itemTag = new NBTTagCompound();
+            inputItem.writeToNBT(itemTag);
+            tag.setTag("inputItem", itemTag);
+        }
 
-        NBTTagCompound resultTag = new NBTTagCompound();
-        resultItem.writeToNBT(resultTag);
-        tag.setTag("resultItem", resultTag);
+        if (resultItem != null) {
+            NBTTagCompound resultTag = new NBTTagCompound();
+            resultItem.writeToNBT(resultTag);
+            tag.setTag("resultItem", resultTag);
+        }
     }
 
     public void readTileEntityDataFromNBT(NBTTagCompound tag) {

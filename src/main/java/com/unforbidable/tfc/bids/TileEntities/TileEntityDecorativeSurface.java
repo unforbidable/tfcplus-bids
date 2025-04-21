@@ -65,9 +65,11 @@ public class TileEntityDecorativeSurface extends TileEntity {
     }
 
     public void writeTileEntityDataToNBT(NBTTagCompound tag) {
-        NBTTagCompound itemTag = new NBTTagCompound();
-        item.writeToNBT(itemTag);
-        tag.setTag("item", itemTag);
+        if (item != null) {
+            NBTTagCompound itemTag = new NBTTagCompound();
+            item.writeToNBT(itemTag);
+            tag.setTag("item", itemTag);
+        }
     }
 
     public void readTileEntityDataFromNBT(NBTTagCompound tag) {
