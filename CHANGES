@@ -668,3 +668,19 @@
 
 0.52.2 (2025-03-24)
 - Fixed: Unfinished bismuth bronze anvil now uses the correct heat index
+
+0.53.0 (2025-04-21)
+- Added: Hand Axe
+- Added: Hardened Wooden Spear
+- Added: Composite stone tools requiring binding material for longer durability and faster digging speed
+- Added: Original recipes for crafting stone tools without binding can be removed (disabled by default)
+- Added: Single block drying rack can be constructed by placing 2 poles between two blocks
+- Added: Recipe-based Processing Surface crafting (similar to TFC Leather Rack) with NEI integration
+- Added: Soaked hides can be scraped using Processing Surface instead of the TFC Leather Rack (disabled by default)
+- Added: Soaked hide scraping is now shown as a recipe in NEI (even if the original TFC Leather Rack is used)
+- Added: Furs can be de-haired using Processing Surface
+- Added: Wool can be removed from Sheepskin using Processing Surface
+- Added: Furs and hides can be placed as decorative surface on floors and walls
+- Changed: Instead of TFC Log Piles, Wood Piles can be created by placing down TFC logs (disabled by default)
+- Changed: Drying rack poles are rendered slightly higher
+- Fixed: Cultivating broad beans from wild beans now grants the appropriate achievement
