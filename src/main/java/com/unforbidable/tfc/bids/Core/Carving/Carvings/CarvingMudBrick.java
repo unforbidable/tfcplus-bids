@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Carving.Carvings;
 
 import com.dunk.tfc.Blocks.BlockMudBricks;
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
@@ -34,7 +35,9 @@ public class CarvingMudBrick implements ICarving {
 
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
-        int damage = block.damageDropped(metadata);
+        int offset = block == TFCBlocks.mudBricks ? 0 : 16;
+        int damage = block.damageDropped(metadata) + offset;
+
         return new ItemStack[] {
             new ItemStack(TFCItems.mudBrick, 1, damage),
             new ItemStack(TFCItems.mudBrick, 1, damage)
