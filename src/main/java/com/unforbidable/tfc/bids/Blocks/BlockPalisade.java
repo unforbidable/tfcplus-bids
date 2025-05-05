@@ -101,11 +101,11 @@ public class BlockPalisade extends BlockCustomWall {
     }
 
     public boolean canFenceConnectToBlock(Block block) {
-        return block.renderAsNormalBlock() && block.getMaterial().isOpaque();
+        return block.renderAsNormalBlock() && block.isOpaqueCube() && block.getMaterial().isOpaque();
     }
 
     public boolean canFenceFillWithBlock(Block block) {
-        return block.renderAsNormalBlock() && block.getMaterial().isOpaque();
+        return block.renderAsNormalBlock() && block.isOpaqueCube() && block.getMaterial().isOpaque();
     }
 
     @Override
