@@ -528,7 +528,7 @@ public class RecipeSetup {
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.dryingRack),
                 "PP", "SS", 'P', new ItemStack(TFCItems.pole),
-                'S', "materialStringDecent"));
+                'S', "materialBindingStrong"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 2, 0),
                 new ItemStack(BidsBlocks.dryingRack)));
 
