@@ -684,3 +684,9 @@
 - Changed: Instead of TFC Log Piles, Wood Piles can be created by placing down TFC logs (disabled by default)
 - Changed: Drying rack poles are rendered slightly higher
 - Fixed: Cultivating broad beans from wild beans now grants the appropriate achievement
+
+0.53.1 (2025-06-03)
+- Fixed: Carved mud brick blocks should now return the appropriate kind of loose mud brick
+- Fixed: Palisades and fences no longer try to fill gaps with Tee Pees
+- Fixed: Drying Rack block can be crafted again
+- Fixed: Primitive straw nest collision bounds should be less harmful to chicken

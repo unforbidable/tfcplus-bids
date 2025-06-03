@@ -69,6 +69,11 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Rough Stone Fences](../../wiki/Rough-Stone-Fence) - walls from rough stone bricks and tiles, behaving much like palisade
 * [Pail](../../wiki/Pail) - a large wooden container for transferring liquids and milking up to 4 animals in one go (including Ibex)
 * [Butter](../../wiki/Butter) - a dairy foodstuff made by churning Cream which is separated from milk
+* [Hand Axe](../../wiki/Hand-Axe) - primitive stone tool for cutting and scraping
+* [Hardened Wooden Spear](../../wiki/Hardened-Wooden-Spear) - fire enhanced wooded spear
+* [Composite Tools](../../wiki/Composite-Tools) - stone tools made with a binding material for enhanced durability and mining speed
+* [Processing Surface](../../wiki/Processing-Surface) - for processing material such as furs and hides placed on a surface using a tool (based on TFC leather rack)
+* [Decorative Surface](../../wiki/Decorative-Surface) - ability to place certain items such as furs and hides on floors and walls for decoration
 
 ### Contributions
 
@@ -86,7 +91,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 ### Compatibility
 
 * WAILA - block information for crucible, quarrying, glassmaking, wood pile items, drying rack, saddle quern, stone press, screw press, cooking pot, etc
-* NEI & NEI G.T.N.H. Unofficial - recipes for seasoning, quarrying, drying, carving, chopping, saddle quern, stone press, screw press, cooking and new firepit fuels
+* NEI & NEI G.T.N.H. Unofficial - recipes for seasoning, quarrying, drying, carving, chopping, saddle quern, stone press, screw press, cooking, new firepit fuels, processing surface, etc
 
 ### Compiling
 
