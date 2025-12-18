@@ -7,6 +7,7 @@ import com.dunk.tfc.api.Util.Helper;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.Metadata.DecorativeSurfaceMetadata;
 import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
+import com.unforbidable.tfc.bids.Core.SoakingSurface.SoakingSurfaceHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDecorativeSurface;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityProcessingSurface;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -33,7 +34,8 @@ public class SurfaceItemHandler {
             if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
                 if (!event.world.isRemote) {
                     if (tryPlaceProcessingSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer) ||
-                        tryPlaceDecorativeSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer)) {
+                        tryPlaceDecorativeSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer) ||
+                        tryPlaceSoakingSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer)) {
                         event.setCanceled(true);
                     }
                 }
@@ -45,7 +47,8 @@ public class SurfaceItemHandler {
                     MovingObjectPosition mop = Helper.getMouseOverObject(event.entityPlayer, event.world);
                     if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                         if (canPlaceProcessingSurface(event.entityPlayer.getHeldItem(), event.world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, event.entityPlayer) ||
-                            canPlaceDecorativeSurface(event.entityPlayer.getHeldItem(), event.world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, event.entityPlayer)) {
+                            canPlaceDecorativeSurface(event.entityPlayer.getHeldItem(), event.world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, event.entityPlayer) ||
+                            canPlaceSoakingSurface(event.entityPlayer.getHeldItem(), event.world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, event.entityPlayer)) {
                             event.setCanceled(true);
                         }
                     }
@@ -76,6 +79,14 @@ public class SurfaceItemHandler {
                     return block.isSideSolid(world, x, y, z, dir);
                 }
             }
+        }
+
+        return false;
+    }
+
+    private boolean canPlaceSoakingSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
+        if (player.isSneaking() && isItemAllowed(itemStack) && face == 1) {
+            return SoakingSurfaceHelper.canPlaceSoakingItemAt(world, x, y, z, itemStack);
         }
 
         return false;
@@ -131,6 +142,21 @@ public class SurfaceItemHandler {
                         }
                     }
                 }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean tryPlaceSoakingSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
+        if (player.isSneaking() && isItemAllowed(itemStack) && face == 1) {
+            ItemStack heldItem = itemStack.copy();
+            heldItem.stackSize = 1;
+
+            if (SoakingSurfaceHelper.placeSoakingItemAt(world, x, y, z, heldItem)) {
+                player.getHeldItem().stackSize--;
+
+                return true;
             }
         }
 

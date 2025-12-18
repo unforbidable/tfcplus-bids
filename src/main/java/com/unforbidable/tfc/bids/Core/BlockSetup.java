@@ -356,6 +356,9 @@ public class BlockSetup extends BidsBlocks {
 
         decorativeSurface = new BlockDecorativeSurface()
             .setBlockName("DecorativeSurface");
+
+        soakingSurface = new BlockSoakingSurface()
+            .setBlockName("SoakingSurface");
     }
 
     private static void updateBlocks() {
@@ -665,6 +668,9 @@ public class BlockSetup extends BidsBlocks {
 
         decorativeSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(decorativeSurfaceRenderId, new RenderDecorativeSurface());
+
+        soakingSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(soakingSurfaceRenderId, new RenderSoakingSurface());
     }
 
     private static void registerTileEntities() {
@@ -721,6 +727,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityProcessingSurface.class, "BidsProcessingSurface");
 
         GameRegistry.registerTileEntity(TileEntityDecorativeSurface.class, "BidsDecorativeSurface");
+
+        GameRegistry.registerTileEntity(TileEntitySoakingSurface.class, "BidsSoakingSurface");
     }
 
     @SideOnly(Side.CLIENT)
@@ -737,6 +745,7 @@ public class BlockSetup extends BidsBlocks {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScrewPressDisc.class, new RenderTileScrewPressDisc());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScrewPressLever.class, new RenderTileScrewPressLever());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDecorativeSurface.class, new RenderTileDecorativeSurface());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySoakingSurface.class, new RenderTileSoakingSurface());
     }
 
     private static void registerMessages() {
@@ -922,6 +931,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(processingSurface, "ProcessingSurface");
 
         GameRegistry.registerBlock(decorativeSurface, "DecorativeSurface");
+
+        GameRegistry.registerBlock(soakingSurface, "SoakingSurface");
     }
 
 }
