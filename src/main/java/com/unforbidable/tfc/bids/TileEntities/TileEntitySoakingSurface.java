@@ -157,10 +157,11 @@ public class TileEntitySoakingSurface extends TileEntity implements IMessageHanl
                 long elapsed = TFC_Time.getTotalTicks() - storage[slot].soakingStartTicks;
                 float ticksNeeded = recipe.getHours() * TFC_Time.HOUR_LENGTH;
                 float progress = elapsed > ticksNeeded ? 1 : elapsed / ticksNeeded;
-                return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, recipe.getResult(storage[slot].soakingItem).copy(), progress);
+                float hoursRemaining = (ticksNeeded - elapsed) / TFC_Time.HOUR_LENGTH;
+                return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, recipe.getResult(storage[slot].soakingItem).copy(), progress, hoursRemaining);
             } else {
                 // dummy slot progress when recipe gets invalidated
-                return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, storage[slot].soakingItem, 0);
+                return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, storage[slot].soakingItem, 0, 0);
             }
         }
 

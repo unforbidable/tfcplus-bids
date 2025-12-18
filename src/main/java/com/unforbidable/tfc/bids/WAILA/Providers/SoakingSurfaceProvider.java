@@ -34,8 +34,8 @@ public class SoakingSurfaceProvider extends WailaProvider {
             TileEntitySoakingSurface soakingSurface = (TileEntitySoakingSurface) accessor.getTileEntity();
             SoakingSurfaceSlotProgress progress = soakingSurface.getSelectedItemProgress();
             if (progress != null && progress.progress < 1) {
-                currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
-                    + progress.result.getDisplayName() + " (" + (Math.round(progress.progress * 1000) / 10f)  + "%)");
+                currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": " + progress.result.getDisplayName());
+                currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.HoursRemaining") + ": " + ((int)Math.ceil(progress.hoursRemaining)));
             }
         }
 
