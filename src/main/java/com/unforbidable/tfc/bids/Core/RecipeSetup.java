@@ -65,6 +65,7 @@ public class RecipeSetup {
         registerPrepRecipes();
         registerChurningRecipes();
         registerProcessingSurfaceRecipes();
+        registerSoakingSurfaceRecipes();
         registerHandlers();
     }
 
@@ -163,6 +164,9 @@ public class RecipeSetup {
                 OreDictionary.registerOre("blockScrapingSurface", stone.blocks.getBlockStack(EnumStoneBlockType.RAW));
             }
         }
+
+        OreDictionary.registerOre("blockFreshWater", TFCBlocks.freshWater);
+        OreDictionary.registerOre("blockFreshWater", TFCBlocks.freshWaterStationary);
 
         OreDictionary.registerOre("itemHoneycomb", TFCItems.honeycomb);
         OreDictionary.registerOre("itemHoneycomb", TFCItems.fertileHoneycomb);
@@ -1849,6 +1853,15 @@ public class RecipeSetup {
         ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
             new ItemStack(TFCItems.sheepSkin, 1, 2),
             "itemScrapingTool", "blockScrapingSurface", 4));
+    }
+
+    private static void registerSoakingSurfaceRecipes() {
+        Bids.LOG.info("Register soaking surface recipes");
+
+        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(TFCItems.flaxFiber, 1, 0),
+            new ItemStack(TFCItems.flax, 1, 0), "blockFreshWater", 20));
+        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(TFCItems.juteFiber, 1, 0),
+            new ItemStack(TFCItems.jute, 1, 0), "blockFreshWater", 20));
     }
 
     private static void registerKnappingRecipes() {
