@@ -1367,6 +1367,7 @@ gui.cooking.cookingMixDecayed=Cooking Mix has decayed beyond use
 gui.Churning=Churning
 gui.ProcessingSurface=Processing Surface
 gui.BindingBonus=Binding Bonus
+gui.SoakingSurface=Soaking
 
 key.BidsToolMode=Cycle Tool Mode
 

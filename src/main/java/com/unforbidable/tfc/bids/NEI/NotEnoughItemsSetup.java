@@ -40,6 +40,7 @@ public class NotEnoughItemsSetup {
         registerHandler(new ScrewPressHandler());
         registerHandler(new ChurningHandler());
         registerHandler(new ProcessingSurfaceHandler());
+        registerHandler(new SoakingSurfaceHandler());
     }
 
     private static void registerHandler(TemplateRecipeHandler handler) {
