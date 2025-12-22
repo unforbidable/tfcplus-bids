@@ -780,6 +780,8 @@ public class ItemSetup extends BidsItems {
             .setMaxDamage(1000 / 50)
             .setUnlocalizedName("Pottery Jug.SkimmedMilk");
 
+        whorl = new ItemWhorl()
+            .setUnlocalizedName("Whorl");
     }
 
     private static void registerFluidContainers() {
@@ -1468,6 +1470,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(mMHandAxe, mMHandAxe.getUnlocalizedName());
 
         GameRegistry.registerItem(hardenedWoodenSpear, hardenedWoodenSpear.getUnlocalizedName());
+
+        GameRegistry.registerItem(whorl, whorl.getUnlocalizedName());
     }
 
 }

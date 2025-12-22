@@ -1252,6 +1252,8 @@ item.Soup.name=Soup
 item.Porridge.name=Porridge
 item.Omelet.name=Omelet
 
+item.Whorl.Stone.name=Stone Whorl
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk
