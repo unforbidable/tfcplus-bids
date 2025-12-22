@@ -447,6 +447,13 @@ public class RecipeSetup {
             .addTools("itemChisel")
             .matchCraftingBlock(TFCBlocks.stoneIgExSmooth));
 
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.whorl, 1, 0),
+            "itemRock", "itemDrill"));
+
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemDrill")
+            .matchCraftingItem(BidsItems.whorl));
+
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igInStoneDrill, 1, 0),
                 BidsItems.igInStoneDrillHead, "stickWood", TFCItems.bow));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.sedStoneDrill, 1, 0),
