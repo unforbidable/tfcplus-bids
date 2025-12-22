@@ -41,6 +41,7 @@ public class NotEnoughItemsSetup {
         registerHandler(new ChurningHandler());
         registerHandler(new ProcessingSurfaceHandler());
         registerHandler(new SoakingSurfaceHandler());
+        registerHandler(new SpinningHandler());
     }
 
     private static void registerHandler(TemplateRecipeHandler handler) {

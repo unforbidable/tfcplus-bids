@@ -1377,6 +1377,7 @@ gui.Churning=Churning
 gui.ProcessingSurface=Processing Surface
 gui.BindingBonus=Binding Bonus
 gui.SoakingSurface=Soaking
+gui.Spinning=Spinning
 
 key.BidsToolMode=Cycle Tool Mode
 
