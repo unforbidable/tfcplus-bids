@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.Core.Handwork.HandworkHelper;
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -96,7 +97,7 @@ public abstract class ItemHandworkTool extends ItemTerra implements ISize {
         HandworkProgress progress = HandworkHelper.loadHandworkProgress(is);
         if (progress != null) {
             // Duration per stage
-            return progress.duration / (getNumStages() - 1);
+            return Math.round((progress.duration * BidsOptions.Crafting.spinningDurationMultiplier) / (getNumStages() - 1));
         } else {
             return 20;
         }
