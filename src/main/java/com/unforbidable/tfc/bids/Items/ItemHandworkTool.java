@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 
 import java.util.List;
 
@@ -80,6 +81,18 @@ public abstract class ItemHandworkTool extends ItemTerra implements ISize {
         }
 
         return null;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public int getColorFromItemStack(ItemStack is, int pass) {
+        if (pass == 1) {
+            HandworkProgress progress = HandworkHelper.loadHandworkProgress(is);
+            if (progress != null) {
+                return HandworkHelper.getColorFromMaterial(progress.outputItem, pass);
+            }
+        }
+
+        return super.getColorFromItemStack(is, pass);
     }
 
     @SideOnly(Side.CLIENT)
