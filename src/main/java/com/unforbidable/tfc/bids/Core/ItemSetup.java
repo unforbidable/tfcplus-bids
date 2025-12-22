@@ -902,6 +902,12 @@ public class ItemSetup extends BidsItems {
 
         final int WILD = OreDictionary.WILDCARD_VALUE;
 
+        final Item[] drillHeads = new Item[]{sedStoneDrillHead, mMStoneDrillHead, igInStoneDrillHead, igExStoneDrillHead,
+            copperDrillHead, bronzeDrillHead, bismuthBronzeDrillHead, blackBronzeDrillHead, wroughtIronDrillHead};
+        for (int i = 0; i < drillHeads.length; i++) {
+            OreDictionary.registerOre("itemDrillHead", new ItemStack(drillHeads[i], 1, WILD));
+        }
+
         final Item[] drills = new Item[]{sedStoneDrill, mMStoneDrill, igInStoneDrill, igExStoneDrill,
             copperDrill, bronzeDrill, bismuthBronzeDrill, blackBronzeDrill, wroughtIronDrill};
         for (int i = 0; i < drills.length; i++) {
