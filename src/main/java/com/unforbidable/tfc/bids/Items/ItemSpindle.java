@@ -13,7 +13,7 @@ public class ItemSpindle extends ItemHandworkTool {
 
     @Override
     protected int getNumStages() {
-        return 9;
+        return 10;
     }
 
     @Override
