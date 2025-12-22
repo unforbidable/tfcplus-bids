@@ -239,6 +239,10 @@ public class ConfigHandler {
             BidsOptions.Crafting.removeOriginalStoneToolRecipes,
             "Set this to true if you want to remove recipes for crafting stone tools and weapons without binding.");
 
+        BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes = config.getBoolean(
+            "removeOriginalSpindleSpinningRecipes", "crafting",
+            BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes,
+            "Set this to true if you want to remove recipes for crafting strings and yarns with spindle in the crafting grid.");
         BidsOptions.Crafting.spinningDurationMultiplier = config.getFloat(
             "spinningDurationMultiplier", "crafting",
             BidsOptions.Crafting.spinningDurationMultiplier, 0.5f, 4f,

@@ -133,6 +133,8 @@ public class BidsOptions {
 
         public static float spinningDurationMultiplier = 1f;
 
+        public static boolean removeOriginalSpindleSpinningRecipes = false;
+
     }
 
     public static class Crops {

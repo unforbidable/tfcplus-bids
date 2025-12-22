@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Recipes;
 
 import com.dunk.tfc.api.Crafting.AnvilManager;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionToolBinding;
@@ -151,6 +152,25 @@ public class RecipeHelper {
                 AnvilManager.setDurabilityBuff(tool, 0.5f);
             } else if (id == goodOreId) {
                 AnvilManager.setDurabilityBuff(tool, 1f);
+            }
+        }
+    }
+
+    @SuppressWarnings({"unchecked" })
+    public static void handleSpindleSpinningRecipes() {
+        if (BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes) {
+            List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
+            for (int i = 0; i < recipes.size(); i++) {
+                IRecipe recipe = recipes.get(i);
+                List<Object> input = getRecipeInput(recipe);
+                if (input != null) {
+                    for (Object o : input) {
+                        if (o instanceof ItemStack && ((ItemStack) o).getItem() == TFCItems.spindle) {
+                            recipes.remove(i--);
+                            Bids.LOG.info("Original spindle spinning recipe removed: " + recipe.getRecipeOutput());
+                        }
+                    }
+                }
             }
         }
     }

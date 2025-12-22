@@ -1034,6 +1034,7 @@ public class RecipeSetup {
             .matchCraftingItem(TFCItems.clayTile));
 
         RecipeHelper.handleCompositeToolRecipes();
+        RecipeHelper.handleSpindleSpinningRecipes();
     }
 
     private static void registerCarvingRecipes() {
