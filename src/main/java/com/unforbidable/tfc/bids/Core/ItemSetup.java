@@ -782,6 +782,8 @@ public class ItemSetup extends BidsItems {
 
         whorl = new ItemWhorl()
             .setUnlocalizedName("Whorl");
+        spindle = new ItemSpindle()
+            .setUnlocalizedName("Spindle");
     }
 
     private static void registerFluidContainers() {
@@ -1472,6 +1474,7 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(hardenedWoodenSpear, hardenedWoodenSpear.getUnlocalizedName());
 
         GameRegistry.registerItem(whorl, whorl.getUnlocalizedName());
+        GameRegistry.registerItem(spindle, spindle.getUnlocalizedName());
     }
 
 }

@@ -277,4 +277,6 @@ public class BidsItems {
     public static Item moreHide;
 
     public static Item whorl;
+    public static Item spindle;
+
 }

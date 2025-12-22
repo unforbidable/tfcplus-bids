@@ -1254,6 +1254,8 @@ item.Omelet.name=Omelet
 
 item.Whorl.Stone.name=Stone Whorl
 
+item.Spindle.name=Spindle
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk
@@ -1314,6 +1316,11 @@ gui.Help.CookingPotLid=§bRight Click §7block to place.
 gui.Help.UnshapedDough=§bRight Click §7 to shape dough.
 gui.Help.Waterskin.Churn=Hold §bRight Click §7to churn into §e
 gui.Help.Waterskin.Churn2=§7.
+gui.Help.Spinning.Start=§bRight Click §7to spin fiber on the hotbar.
+gui.Help.Spinning.Process=Hold §bRight Click §7to spin §e
+gui.Help.Spinning.Process2=§7.
+gui.Help.Spinning.Finish=Hold §fShift §7and §bRight Click §7to retrieve §e
+gui.Help.Spinning.Finish2=§7.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified
