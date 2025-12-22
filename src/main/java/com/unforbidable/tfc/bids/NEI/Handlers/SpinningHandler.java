@@ -62,8 +62,10 @@ public class SpinningHandler extends TemplateRecipeHandler implements IHandlerIn
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getResult(input);
-            if (ItemStack.areItemStacksEqual(result, output2)) {
-                arecipes.add(new CachedHandcraftRecipe(input, output2));
+            final ItemStack result2 = result.copy();
+            result2.stackSize = 1;
+            if (ItemStack.areItemStacksEqual(result2, output2)) {
+                arecipes.add(new CachedHandcraftRecipe(input, result));
             }
         }
     }
