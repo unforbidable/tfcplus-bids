@@ -66,6 +66,7 @@ public class RecipeSetup {
         registerChurningRecipes();
         registerProcessingSurfaceRecipes();
         registerSoakingSurfaceRecipes();
+        registerSpinningRecipes();
         registerHandlers();
     }
 
@@ -1876,6 +1877,14 @@ public class RecipeSetup {
             new ItemStack(TFCItems.flax, 1, 0), "blockFreshWater", 20));
         SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(TFCItems.juteFiber, 1, 0),
             new ItemStack(TFCItems.jute, 1, 0), "blockFreshWater", 20));
+    }
+
+    private static void registerSpinningRecipes() {
+        Bids.LOG.info("Register spinning recipes");
+
+        SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
+        SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(TFCItems.cotton), 120));
+        SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(TFCItems.wool), 120));
     }
 
     private static void registerKnappingRecipes() {
