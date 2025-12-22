@@ -259,6 +259,10 @@ public class RecipeSetup {
             OreDictionary.registerOre("itemPrimitiveTool", new ItemStack(handAxe, 1, WILD));
         }
 
+        OreDictionary.registerOre("itemWhorl", new ItemStack(BidsItems.whorl, 1, WILD));
+
+        OreDictionary.registerOre("itemSpindle", new ItemStack(BidsItems.spindle));
+
         OreDictionary.registerOre("foodBeans", new ItemStack(TFCItems.soybean));
         OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.wildBeans));
         OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.broadBeans));
@@ -453,6 +457,9 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionDamageTool(1)
             .addTools("itemDrill")
             .matchCraftingItem(BidsItems.whorl));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.spindle, 1, 0),
+            "itemWhorl", "stickWood"));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igInStoneDrill, 1, 0),
                 BidsItems.igInStoneDrillHead, "stickWood", TFCItems.bow));
