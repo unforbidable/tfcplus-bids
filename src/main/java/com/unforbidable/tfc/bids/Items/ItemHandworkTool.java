@@ -151,16 +151,15 @@ public abstract class ItemHandworkTool extends ItemTerra implements ISize {
                 }
             } else {
                 if (!world.isRemote && !player.isSneaking()) {
-                    for (int i = 0; i < 9; i++) {
-                        if (i != player.inventory.currentItem) {
-                            ItemStack ingredient = player.inventory.getStackInSlot(i);
-                            if (ingredient != null) {
-                                HandworkProgress progress = tryStartProcessUsingIngredient(ingredient);
-                                if (progress != null) {
-                                    player.inventory.decrStackSize(i, 1);
-                                    HandworkHelper.writeHandworkProgress(is, progress);
-                                    break;
-                                }
+                    if (player.inventory.currentItem < 9) {
+                        // Check adjacent (right side) slot
+                        int i = player.inventory.currentItem + 1;
+                        ItemStack ingredient = player.inventory.getStackInSlot(i);
+                        if (ingredient != null) {
+                            HandworkProgress progress = tryStartProcessUsingIngredient(ingredient);
+                            if (progress != null) {
+                                player.inventory.decrStackSize(i, 1);
+                                HandworkHelper.writeHandworkProgress(is, progress);
                             }
                         }
                     }
