@@ -67,6 +67,7 @@ public class RecipeSetup {
         registerProcessingSurfaceRecipes();
         registerSoakingSurfaceRecipes();
         registerSpinningRecipes();
+        registerRopeMakingRecipes();
         registerHandlers();
     }
 
@@ -1882,6 +1883,13 @@ public class RecipeSetup {
         SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
         SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(TFCItems.cotton), 120));
         SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(TFCItems.wool), 120));
+    }
+
+    private static void registerRopeMakingRecipes() {
+        Bids.LOG.info("Register rope making recipes");
+
+        RopeMakingManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 1200));
+        RopeMakingManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.barkCordage, 12), 1200));
     }
 
     private static void registerKnappingRecipes() {
