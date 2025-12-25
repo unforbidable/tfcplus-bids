@@ -553,8 +553,6 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 2, 0),
                 new ItemStack(BidsBlocks.dryingRack)));
 
-        GameRegistry.addRecipe(new ItemStack(TFCItems.rope),
-                "11", "11", '1', BidsItems.barkCordage);
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibre),
                 "itemBarkHasFibers", "itemKnife"));
 
