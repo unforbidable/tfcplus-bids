@@ -137,6 +137,8 @@ public class BidsOptions {
 
         public static float ropeMakingDurationMultiplier = 1f;
 
+        public static boolean removeOriginalRopeMakingRecipes = false;
+
     }
 
     public static class Crops {

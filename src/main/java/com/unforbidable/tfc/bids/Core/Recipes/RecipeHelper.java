@@ -175,4 +175,19 @@ public class RecipeHelper {
         }
     }
 
+    @SuppressWarnings({"unchecked" })
+    public static void handleRopeMakingRecipes() {
+        if (BidsOptions.Crafting.removeOriginalRopeMakingRecipes) {
+            List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
+            for (int i = 0; i < recipes.size(); i++) {
+                IRecipe recipe = recipes.get(i);
+                ItemStack o = recipe.getRecipeOutput();
+                if (o != null && o.getItem() == TFCItems.rope) {
+                    recipes.remove(i--);
+                    Bids.LOG.info("Original rope making recipe removed: " + recipe.getRecipeOutput());
+                }
+            }
+        }
+    }
+
 }

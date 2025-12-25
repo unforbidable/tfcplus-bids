@@ -248,6 +248,10 @@ public class ConfigHandler {
             BidsOptions.Crafting.spinningDurationMultiplier, 0.5f, 4f,
             "Higher values increase the time it takes to spin strings and yarns using a spindle.");
 
+        BidsOptions.Crafting.removeOriginalRopeMakingRecipes = config.getBoolean(
+            "removeOriginalRopeMakingRecipes", "crafting",
+            BidsOptions.Crafting.removeOriginalRopeMakingRecipes,
+            "Set this to true if you want to remove recipes for crafting ropes from fibers in crafting grid.");
         BidsOptions.Crafting.ropeMakingDurationMultiplier = config.getFloat(
             "ropeMakingDurationMultiplier", "crafting",
             BidsOptions.Crafting.ropeMakingDurationMultiplier, 0.5f, 4f,

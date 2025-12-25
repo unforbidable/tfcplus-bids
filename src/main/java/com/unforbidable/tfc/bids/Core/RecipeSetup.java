@@ -1041,6 +1041,7 @@ public class RecipeSetup {
 
         RecipeHelper.handleCompositeToolRecipes();
         RecipeHelper.handleSpindleSpinningRecipes();
+        RecipeHelper.handleRopeMakingRecipes();
     }
 
     private static void registerCarvingRecipes() {
