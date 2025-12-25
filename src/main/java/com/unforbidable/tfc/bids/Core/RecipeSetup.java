@@ -126,9 +126,15 @@ public class RecipeSetup {
         OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.redSteelHammer, 1, WILD));
 
         for (ItemStack is : OreDictionary.getOres("materialString")) {
-            OreDictionary.registerOre("materialBowstring", is);
             OreDictionary.registerOre("materialBinding", is);
-            OreDictionary.registerOre("materialBindingStrong", is);
+
+            // wool and cotton make poor binding material
+            if (is.getItem() == TFCItems.cottonYarn || is.getItem() == TFCItems.woolYarn) {
+                OreDictionary.registerOre("materialBindingPoor", is);
+            } else {
+                OreDictionary.registerOre("materialBowstring", is);
+                OreDictionary.registerOre("materialBindingStrong", is);
+            }
         }
 
         OreDictionary.registerOre("materialBinding", TFCItems.grassCordage);
