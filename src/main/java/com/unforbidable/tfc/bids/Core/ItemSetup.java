@@ -243,9 +243,9 @@ public class ItemSetup extends BidsItems {
         barkFibre = new ItemTextile()
                 .addHint(EnumTextileHint.DRYING_FIBRE)
                 .setUnlocalizedName("Bark Fibre");
-        barkFibreDried = new ItemTextile()
+        barkFibreCoarse = new ItemTextile()
                 .addHint(EnumTextileHint.RUBBING)
-                .setUnlocalizedName("Bark Fibre Dried");
+                .setUnlocalizedName("Bark Fibre Coarse");
         barkFibreSmooth = new ItemTextile()
                 .addHint(EnumTextileHint.SPINNING_CORDAGE)
                 .setUnlocalizedName("Bark Fibre Smooth");
@@ -1499,7 +1499,7 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(primitiveRopeMaker, primitiveRopeMaker.getUnlocalizedName());
 
-        GameRegistry.registerItem(barkFibreDried, barkFibreDried.getUnlocalizedName());
+        GameRegistry.registerItem(barkFibreCoarse, barkFibreCoarse.getUnlocalizedName());
         GameRegistry.registerItem(barkFibreSmooth, barkFibreSmooth.getUnlocalizedName());
     }
 

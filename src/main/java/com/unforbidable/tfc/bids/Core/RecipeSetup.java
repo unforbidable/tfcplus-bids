@@ -541,9 +541,9 @@ public class RecipeSetup {
                 new ItemStack(BidsItems.smallStickBundle), new ItemStack(TFCItems.straw)));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreKindling),
-                "stickWood", "stickWood", "stickWood", new ItemStack(BidsItems.barkFibreDried, 1, 1)));
+                "stickWood", "stickWood", "stickWood", new ItemStack(BidsItems.barkFibreCoarse, 1, 1)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreKindling),
-                new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.barkFibreDried, 1, 1)));
+                new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.barkFibreCoarse, 1, 1)));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkKindling),
                 "stickWood", "stickWood", "stickWood", new ItemStack(BidsItems.birchBarkStrap)));
@@ -900,7 +900,7 @@ public class RecipeSetup {
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewGarlic), new ItemStack(TFCItems.seedsGarlic));
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCarrot), new ItemStack(TFCItems.seedsCarrot));
 
-        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreDried),
+        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreCoarse),
                 new ItemStack(BidsItems.barkFibre), 12, false));
 
         GameRegistry.addRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2, 0), "P P", "X X", "P P",
@@ -1899,7 +1899,7 @@ public class RecipeSetup {
     private static void registerHandworkRecipes() {
         Bids.LOG.info("Register handwork recipes");
 
-        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.barkFibreSmooth), new ItemStack(BidsItems.barkFibreDried), 80));
+        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.barkFibreSmooth), new ItemStack(BidsItems.barkFibreCoarse), 80));
     }
 
     private static void registerRopeMakingRecipes() {

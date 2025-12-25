@@ -88,7 +88,7 @@ public class BidsItems {
 
     public static Item bark;
     public static Item barkFibre;
-    public static Item barkFibreDried;
+    public static Item barkFibreCoarse;
     public static Item barkFibreSmooth;
     // OBSOLETE
     public static Item barkFibreStrip;
