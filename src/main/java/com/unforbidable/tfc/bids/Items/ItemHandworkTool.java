@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,7 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 
 import java.util.List;
 
@@ -156,9 +156,10 @@ public abstract class ItemHandworkTool extends ItemTerra implements ISize {
                         int i = player.inventory.currentItem + 1;
                         ItemStack ingredient = player.inventory.getStackInSlot(i);
                         if (ingredient != null) {
-                            HandworkProgress progress = tryStartProcessUsingIngredient(ingredient);
-                            if (progress != null) {
-                                player.inventory.decrStackSize(i, 1);
+                            HandworkRecipe recipe = tryMatchIngredient(ingredient);
+                            if (recipe != null && ingredient.stackSize >= recipe.getInput().stackSize) {
+                                player.inventory.decrStackSize(i, recipe.getInput().stackSize);
+                                HandworkProgress progress = new HandworkProgress(recipe.getResult(ingredient), recipe.getDuration(), 0);
                                 HandworkHelper.writeHandworkProgress(is, progress);
                             }
                         }
@@ -170,7 +171,7 @@ public abstract class ItemHandworkTool extends ItemTerra implements ISize {
         return is;
     }
 
-    protected abstract HandworkProgress tryStartProcessUsingIngredient(ItemStack is);
+    protected abstract HandworkRecipe tryMatchIngredient(ItemStack is);
 
     @Override
     public String getItemStackDisplayName(ItemStack is) {

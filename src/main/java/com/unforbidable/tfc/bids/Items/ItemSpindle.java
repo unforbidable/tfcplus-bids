@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.Items;
 
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
+import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.SpinningManager;
-import com.unforbidable.tfc.bids.api.Crafting.SpinningRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
@@ -17,15 +17,8 @@ public class ItemSpindle extends ItemHandworkTool {
     }
 
     @Override
-    protected HandworkProgress tryStartProcessUsingIngredient(ItemStack is) {
-        SpinningRecipe recipe = SpinningManager.getMatchingRecipe(is);
-        if (recipe != null) {
-            ItemStack outputItem = recipe.getResult(is);
-            int duration = recipe.getDuration();
-            return new HandworkProgress(outputItem, duration, 0);
-        } else {
-            return null;
-        }
+    protected HandworkRecipe tryMatchIngredient(ItemStack is) {
+        return SpinningManager.getMatchingRecipe(is);
     }
 
     @Override
