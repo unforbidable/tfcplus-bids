@@ -23,6 +23,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
+import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.HashMap;
@@ -143,6 +144,17 @@ public class PlayerInteractHandler {
         player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((rand.nextFloat() - rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
         ItemStack targetIs = new ItemStack(targetItem, count);
         player.inventory.addItemStackToInventory(targetIs);
+    }
+
+    @SubscribeEvent
+    public void onUseItemStart(PlayerUseItemEvent.Start event) {
+        if (BidsOptions.Crafting.preventRopeMakingByRightClickingFibers) {
+            if (event.item.getItem() == TFCItems.flaxFiber ||
+                event.item.getItem() == TFCItems.juteFiber ||
+                event.item.getItem() == TFCItems.sisalFiber) {
+                event.setCanceled(true);
+            }
+        }
     }
 
 }

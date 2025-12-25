@@ -248,6 +248,10 @@ public class ConfigHandler {
             BidsOptions.Crafting.spinningDurationMultiplier, 0.5f, 4f,
             "Higher values increase the time it takes to spin strings and yarns using a spindle.");
 
+        BidsOptions.Crafting.preventRopeMakingByRightClickingFibers = config.getBoolean(
+            "preventRopeMakingByRightClickingFibers", "crafting",
+            BidsOptions.Crafting.preventRopeMakingByRightClickingFibers,
+            "Set this to true if you want to prevent players from making ropes by right clicking fibers in hand.");
         BidsOptions.Crafting.removeOriginalRopeMakingRecipes = config.getBoolean(
             "removeOriginalRopeMakingRecipes", "crafting",
             BidsOptions.Crafting.removeOriginalRopeMakingRecipes,
