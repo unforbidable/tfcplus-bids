@@ -31,9 +31,6 @@ public class GuiHandler implements IGuiHandler {
             case BidsGui.glassKnappingGui:
                 return new ContainerSpecialCraftingGlass(player.inventory, world, x, y, z);
 
-            case BidsGui.barkFibreKnappingGui:
-                return new ContainerSpecialCraftingBarkFibre(player.inventory, world, x, y, z);
-
             case BidsGui.woodPileGui:
                 return new ContainerWoodPile(player.inventory, (TileEntityWoodPile) te, world, x, y, z);
 

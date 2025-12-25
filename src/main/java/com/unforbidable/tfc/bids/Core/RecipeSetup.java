@@ -67,6 +67,7 @@ public class RecipeSetup {
         registerProcessingSurfaceRecipes();
         registerSoakingSurfaceRecipes();
         registerSpinningRecipes();
+        registerHandworkRecipes();
         registerRopeMakingRecipes();
         registerHandlers();
     }
@@ -225,6 +226,10 @@ public class RecipeSetup {
                 if (wood.hardwood) {
                     OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getSeasonedPeeledLog());
                 }
+            }
+
+            if (wood.hasBarkFibers) {
+                OreDictionary.registerOre("itemBarkHasFibers", wood.items.getBark());
             }
         }
 
@@ -524,9 +529,9 @@ public class RecipeSetup {
                 new ItemStack(BidsItems.smallStickBundle), new ItemStack(TFCItems.straw)));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreKindling),
-                "stickWood", "stickWood", "stickWood", new ItemStack(BidsItems.barkFibreStrip, 1, 1)));
+                "stickWood", "stickWood", "stickWood", new ItemStack(BidsItems.barkFibreDried, 1, 1)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreKindling),
-                new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.barkFibreStrip, 1, 1)));
+                new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.barkFibreDried, 1, 1)));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkKindling),
                 "stickWood", "stickWood", "stickWood", new ItemStack(BidsItems.birchBarkStrap)));
@@ -548,11 +553,10 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 2, 0),
                 new ItemStack(BidsBlocks.dryingRack)));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreStrip, 4, 0),
-                new ItemStack(BidsItems.barkFibre, 1, 0), "itemKnife"));
-
         GameRegistry.addRecipe(new ItemStack(TFCItems.rope),
                 "11", "11", '1', BidsItems.barkCordage);
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibre),
+                "itemBarkHasFibers", "itemKnife"));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkCup, 1, 0),
                 BidsItems.birchBarkCupUnfinished, Items.slime_ball));
@@ -581,11 +585,6 @@ public class RecipeSetup {
                 new ItemStack(TFCItems.unstrungBow), new ItemStack(BidsItems.barkCordage)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.splint, 1),
                 TFCItems.stick, BidsItems.barkCordage));
-
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.splint, 1),
-                TFCItems.stick, new ItemStack(BidsItems.barkFibreStrip, 1, 0)));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.splint, 1),
-                TFCItems.stick, new ItemStack(BidsItems.barkFibreStrip, 1, 1)));
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             String suffix = getOreSuffixWood(wood.index);
@@ -891,8 +890,8 @@ public class RecipeSetup {
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewGarlic), new ItemStack(TFCItems.seedsGarlic));
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCarrot), new ItemStack(TFCItems.seedsCarrot));
 
-        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreStrip, 1, 1),
-                new ItemStack(BidsItems.barkFibreStrip, 1, 0), 12, false));
+        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreDried),
+                new ItemStack(BidsItems.barkFibre), 12, false));
 
         GameRegistry.addRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2, 0), "P P", "X X", "P P",
             'P', new ItemStack(TFCItems.fireBrick, 1, 1),
@@ -1016,7 +1015,7 @@ public class RecipeSetup {
 
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemKnife")
-                .matchCraftingItem(BidsItems.barkFibreStrip, 0));
+                .matchCraftingItem(BidsItems.barkFibre));
 
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemKnife")
@@ -1883,6 +1882,13 @@ public class RecipeSetup {
         SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
         SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(TFCItems.cotton), 120));
         SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(TFCItems.wool), 120));
+        SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreSmooth), 80));
+    }
+
+    private static void registerHandworkRecipes() {
+        Bids.LOG.info("Register handwork recipes");
+
+        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.barkFibreSmooth), new ItemStack(BidsItems.barkFibreDried), 80));
     }
 
     private static void registerRopeMakingRecipes() {
@@ -1947,20 +1953,6 @@ public class RecipeSetup {
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.glassJug, 1),
                 new Object[] { " #   ", "# ## ", "# # #", "# ## ", "###  ", '#',
                         new ItemStack(BidsItems.flatGlass, 1) });
-
-        Object[][] cordagePatterns = new Object[][] {
-                new Object[] { "#####", "    #", "### #", "#   #", "#####", '#', null },
-                new Object[] { "### #", "# # #", "# # #", "#   #", "#####", '#', null },
-                new Object[] { "#####", "#   #", "# ###", "#    ", "#####", '#', null },
-                new Object[] { "#####", "#   #", "# # #", "# # #", "# ###", '#', null },
-                new Object[] { "#####", "#    ", "# ###", "#   #", "#####", '#', null },
-                new Object[] { "# ###", "# # #", "# # #", "#   #", "#####", '#', null },
-                new Object[] { "#####", "#   #", "### #", "    #", "#####", '#', null },
-                new Object[] { "#####", "#   #", "# # #", "# # #", "### #", '#', null } };
-        for (Object[] pattern : cordagePatterns) {
-            pattern[6] = new ItemStack(BidsItems.flatBarkFibre, 1, 1);
-            CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.barkCordage), pattern);
-        }
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkStrap, 3),
                 new Object[] { "# # #", "# # #", "# # #", "# # #", "# # #", '#', BidsItems.flatBirchBark });
@@ -2206,14 +2198,6 @@ public class RecipeSetup {
         Bids.LOG.info("Register TFC barrel recipes");
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            // Retting fibers from bark
-            if (wood.hasBarkFibers) {
-                BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(
-                    wood.items.getBark(), new FluidStack(TFCFluids.FRESHWATER, 625),
-                    new ItemStack(BidsItems.barkFibre, 1, 0), new FluidStack(TFCFluids.FRESHWATER, 500))
-                    .setSealTime(8).setMinTechLevel(0));
-            }
-
             // Extracting tannin from bark
             if (wood.hasBarkTannin) {
                 BarrelManager.getInstance().addRecipe(new BarrelItemDemandingRecipe(

@@ -27,9 +27,6 @@ public class ClientGuiHandler extends GuiHandler {
             case BidsGui.glassKnappingGui:
                 return new GuiKnappingGlass(player.inventory, world, x, y, z);
 
-            case BidsGui.barkFibreKnappingGui:
-                return new GuiKnappingBarkFibre(player.inventory, world, x, y, z);
-
             case BidsGui.woodPileGui:
                 return new GuiWoodPile(player.inventory, (TileEntityWoodPile) te, world, x, y, z);
 

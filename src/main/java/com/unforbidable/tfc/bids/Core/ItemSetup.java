@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.ItemClothing;
+import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.Render.Item.PoleItemRenderer;
 import com.dunk.tfc.api.*;
 import com.dunk.tfc.api.Constant.Global;
@@ -237,14 +238,21 @@ public class ItemSetup extends BidsItems {
 
         bark = new ItemBark().setNames(Global.WOOD_ALL)
                 .setUnlocalizedName("Bark");
-        barkFibre = new ItemBastFibre()
+
+        barkFibre = new ItemTextile()
                 .setUnlocalizedName("Bark Fibre");
-        flatBarkFibre = new ItemGenericFlat().setTextureFolder("plants")
-                .setUnlocalizedName("Flat Bark Fibre");
-        barkFibreStrip = new ItemBastFibreStrip().setSpecialCraftingType(flatBarkFibre)
-                .setUnlocalizedName("Bark Fibre Strip");
-        barkCordage = new ItemBastCordage()
+        barkFibreDried = new ItemTextile()
+                .setUnlocalizedName("Bark Fibre Dried");
+        barkFibreSmooth = new ItemTextile()
+                .setUnlocalizedName("Bark Fibre Smooth");
+        barkCordage = new ItemTextile().setMaterialColor(0x8c7a4b)
                 .setUnlocalizedName("Bark Cordage");
+
+        // OBSOLETE
+        barkFibreStrip = new ItemTerra()
+                .setMetaNames(new String[] { "Fresh", "Cured" })
+                .setUnlocalizedName("Bark Fibre Strip");
+
         barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1f)
                 .setUnlocalizedName("Bark Fibre Kindling");
 
@@ -1252,7 +1260,6 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(bark, bark.getUnlocalizedName());
         GameRegistry.registerItem(barkFibre, barkFibre.getUnlocalizedName());
         GameRegistry.registerItem(barkFibreStrip, barkFibreStrip.getUnlocalizedName());
-        GameRegistry.registerItem(flatBarkFibre, flatBarkFibre.getUnlocalizedName());
         GameRegistry.registerItem(barkCordage, barkCordage.getUnlocalizedName());
         GameRegistry.registerItem(barkFibreKindling, barkFibreKindling.getUnlocalizedName());
 
@@ -1486,6 +1493,9 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(spindle, spindle.getUnlocalizedName());
 
         GameRegistry.registerItem(primitiveRopeMaker, primitiveRopeMaker.getUnlocalizedName());
+
+        GameRegistry.registerItem(barkFibreDried, barkFibreDried.getUnlocalizedName());
+        GameRegistry.registerItem(barkFibreSmooth, barkFibreSmooth.getUnlocalizedName());
     }
 
 }
