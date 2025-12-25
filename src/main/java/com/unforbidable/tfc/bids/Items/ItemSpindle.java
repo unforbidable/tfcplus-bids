@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Items;
 
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.SpinningManager;
 import net.minecraft.item.ItemStack;
@@ -9,6 +10,11 @@ import net.minecraft.util.StatCollector;
 public class ItemSpindle extends ItemHandworkTool {
 
     public ItemSpindle() {
+    }
+
+    @Override
+    public int getMaxItemUseDuration(ItemStack is) {
+        return Math.round(super.getMaxItemUseDuration(is) * BidsOptions.Crafting.spinningDurationMultiplier);
     }
 
     @Override
