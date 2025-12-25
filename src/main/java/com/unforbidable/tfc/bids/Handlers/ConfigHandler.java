@@ -248,6 +248,11 @@ public class ConfigHandler {
             BidsOptions.Crafting.spinningDurationMultiplier, 0.5f, 4f,
             "Higher values increase the time it takes to spin strings and yarns using a spindle.");
 
+        BidsOptions.Crafting.ropeMakingDurationMultiplier = config.getFloat(
+            "ropeMakingDurationMultiplier", "crafting",
+            BidsOptions.Crafting.ropeMakingDurationMultiplier, 0.5f, 4f,
+            "Higher values increase the time it takes to twist rope using a primitive rope maker.");
+
         BidsOptions.Crops.enableCerealSeedAutoConversion = config.getBoolean(
             "enableCerealSeedAutoConversion", "crops",
             BidsOptions.Crops.enableCerealSeedAutoConversion,

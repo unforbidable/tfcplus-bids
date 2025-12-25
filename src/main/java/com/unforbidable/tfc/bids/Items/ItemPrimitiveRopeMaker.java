@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Items;
 
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.RopeMakingManager;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,11 @@ public class ItemPrimitiveRopeMaker extends ItemHandworkTool {
     @Override
     protected int getNumStages() {
         return 10;
+    }
+
+    @Override
+    public int getMaxItemUseDuration(ItemStack is) {
+        return Math.round(super.getMaxItemUseDuration(is) * BidsOptions.Crafting.ropeMakingDurationMultiplier);
     }
 
     @Override

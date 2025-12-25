@@ -135,6 +135,8 @@ public class BidsOptions {
 
         public static boolean removeOriginalSpindleSpinningRecipes = false;
 
+        public static float ropeMakingDurationMultiplier = 1f;
+
     }
 
     public static class Crops {
