@@ -6,6 +6,7 @@ import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Textile.EnumTextileHint;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.RopeMakingManager;
@@ -65,7 +66,10 @@ public class ItemTextile extends ItemTerra implements IHandworkToolMaterial {
             if (count <= 1 && player.isUsingItem()) {
                 HandworkRecipe recipe = HandworkManager.getMatchingRecipe(stack);
                 if (recipe != null) {
-                    TFC_Core.giveItemToPlayer(recipe.getResult(stack), player);
+                    ItemStack outputItem = recipe.getResult(stack);
+                    BidsEventFactory.onHandworkItemCrafted(player, stack, outputItem, null);
+
+                    TFC_Core.giveItemToPlayer(outputItem, player);
                     stack.stackSize -= recipe.getInput().stackSize;
                 }
 

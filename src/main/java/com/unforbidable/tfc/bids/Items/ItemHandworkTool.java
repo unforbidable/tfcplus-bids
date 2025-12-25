@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.Core.Handwork.HandworkHelper;
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -141,8 +142,9 @@ public abstract class ItemHandworkTool extends ItemTerra implements ISize {
             if (currentProgress != null) {
                 if (currentProgress.stage >= getNumStages() - 1) {
                     if (!world.isRemote && player.isSneaking()) {
-                        ItemStack outputItem = currentProgress.outputItem;
-                        TFC_Core.giveItemToPlayer(outputItem, player);
+                        BidsEventFactory.onHandworkItemCrafted(player, currentProgress.inputItem, currentProgress.outputItem, is);
+
+                        TFC_Core.giveItemToPlayer(currentProgress.outputItem, player);
                         HandworkHelper.clearHandworkProgress(is);
                     }
                 } else {
@@ -158,7 +160,9 @@ public abstract class ItemHandworkTool extends ItemTerra implements ISize {
                             HandworkRecipe recipe = tryMatchIngredient(ingredient);
                             if (recipe != null && ingredient.stackSize >= recipe.getInput().stackSize) {
                                 player.inventory.decrStackSize(i, recipe.getInput().stackSize);
-                                HandworkProgress progress = new HandworkProgress(recipe.getResult(ingredient), recipe.getDuration(), 0);
+                                ItemStack input = ingredient.copy();
+                                input.stackSize = recipe.getInput().stackSize;
+                                HandworkProgress progress = new HandworkProgress(recipe.getResult(ingredient), input, recipe.getDuration(), 0);
                                 HandworkHelper.writeHandworkProgress(is, progress);
                             }
                         }

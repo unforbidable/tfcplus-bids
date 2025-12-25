@@ -67,4 +67,9 @@ public class BidsEventFactory {
         return event.iconName;
     }
 
+    public static void onHandworkItemCrafted(EntityPlayer player, ItemStack input, ItemStack result, ItemStack tool) {
+        HandworkPlayerEvent event = new HandworkPlayerEvent(player, HandworkPlayerEvent.Action.ITEM_CRAFTED, input, result, tool);
+        MinecraftForge.EVENT_BUS.post(event);
+    }
+
 }
