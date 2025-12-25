@@ -4,9 +4,12 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Items.ItemTerra;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
+import com.unforbidable.tfc.bids.Core.Textile.EnumTextileHint;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.RopeMakingManager;
+import com.unforbidable.tfc.bids.api.Crafting.RopeMakingRecipe;
 import com.unforbidable.tfc.bids.api.Interfaces.IHandworkToolMaterial;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +26,7 @@ public class ItemTextile extends ItemTerra implements IHandworkToolMaterial {
 
     private boolean hasMaterialColor = false;
     private int materialColor = 0;
+    private final Set<EnumTextileHint> hints = new HashSet<EnumTextileHint>();
 
     public ItemTextile() {
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
@@ -32,6 +36,11 @@ public class ItemTextile extends ItemTerra implements IHandworkToolMaterial {
     public ItemTextile setMaterialColor(int materialColor) {
         this.materialColor = materialColor;
         this.hasMaterialColor = true;
+        return this;
+    }
+
+    public ItemTextile addHint(EnumTextileHint hint) {
+        this.hints.add(hint);
         return this;
     }
 
@@ -88,6 +97,30 @@ public class ItemTextile extends ItemTerra implements IHandworkToolMaterial {
             }
         }
         return is;
+    }
+
+    @Override
+    public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> arraylist) {
+        super.addExtraInformation(is, player, arraylist);
+
+        if (hints.size() > 0) {
+            if (ItemHelper.showShiftInformation()) {
+                arraylist.add(StatCollector.translateToLocal("gui.Help"));
+
+                for (EnumTextileHint hint : hints) {
+                    arraylist.add(StatCollector.translateToLocal("gui.Help.Textile." + hint.helpString));
+                }
+
+                RopeMakingRecipe recipe = RopeMakingManager.getMatchingRecipe(is);
+                if (recipe != null) {
+                    arraylist.add(StatCollector.translateToLocal("gui.Help.Textile.Twisting.AmountRequired") +
+                        recipe.getInput().stackSize +
+                        StatCollector.translateToLocal("gui.Help.Textile.Twisting.AmountRequired2"));
+                }
+            } else {
+                arraylist.add(StatCollector.translateToLocal("gui.ShowHelp"));
+            }
+        }
     }
 
     @Override

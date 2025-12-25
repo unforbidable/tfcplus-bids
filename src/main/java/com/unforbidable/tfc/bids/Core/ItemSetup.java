@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.*;
+import com.unforbidable.tfc.bids.Core.Textile.EnumTextileHint;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderThickLogsTFC;
 import com.unforbidable.tfc.bids.Items.*;
@@ -240,12 +241,16 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Bark");
 
         barkFibre = new ItemTextile()
+                .addHint(EnumTextileHint.DRYING_FIBRE)
                 .setUnlocalizedName("Bark Fibre");
         barkFibreDried = new ItemTextile()
+                .addHint(EnumTextileHint.RUBBING)
                 .setUnlocalizedName("Bark Fibre Dried");
         barkFibreSmooth = new ItemTextile()
+                .addHint(EnumTextileHint.SPINNING_CORDAGE)
                 .setUnlocalizedName("Bark Fibre Smooth");
         barkCordage = new ItemTextile().setMaterialColor(0x8c7a4b)
+                .addHint(EnumTextileHint.TWISTING)
                 .setUnlocalizedName("Bark Cordage");
 
         // OBSOLETE
