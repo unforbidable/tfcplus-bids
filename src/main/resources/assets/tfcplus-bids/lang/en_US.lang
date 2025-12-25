@@ -1384,6 +1384,7 @@ gui.BindingBonus=Binding Bonus
 gui.SoakingSurface=Soaking
 gui.Spinning=Spinning
 gui.RopeMaking=Rope Making
+gui.Handwork=Handwork
 
 key.BidsToolMode=Cycle Tool Mode
 
