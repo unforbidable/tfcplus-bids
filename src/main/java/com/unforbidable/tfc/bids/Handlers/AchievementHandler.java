@@ -8,6 +8,7 @@ import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Events.AnvilCraftEvent;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCBlocks;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Blocks.BlockAquifer;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
@@ -211,6 +212,19 @@ public class AchievementHandler {
     public void onProcessingSurfaceProgress(ProcessingSurfaceEvent.Progress event) {
         if (event.progress == 1f) {
             event.player.addStat(BidsStats.MATERIAL_SCRAPED, Math.round(event.effort));
+        }
+    }
+
+    @SubscribeEvent
+    public void onHandwork(HandworkPlayerEvent event) {
+        if (event.action == HandworkPlayerEvent.Action.ITEM_CRAFTED) {
+            if (event.result.getItem() == BidsItems.barkCordage) {
+                event.entityPlayer.triggerAchievement(BidsAchievements.BARK_CORDAGE);
+            }
+
+            if (event.result.getItem() == TFCItems.rope && event.input.getItem() == BidsItems.barkCordage) {
+                event.entityPlayer.triggerAchievement(BidsAchievements.BARK_ROPE);
+            }
         }
     }
 

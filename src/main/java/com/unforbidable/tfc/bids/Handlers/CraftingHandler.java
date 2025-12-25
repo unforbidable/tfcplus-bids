@@ -2,14 +2,12 @@ package com.unforbidable.tfc.bids.Handlers;
 
 import com.dunk.tfc.Core.TFC_Achievements;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.Core.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
+import com.unforbidable.tfc.bids.Core.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.api.BidsAchievements;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-
-import com.unforbidable.tfc.bids.api.BidsItems;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraft.item.Item;
@@ -53,10 +51,6 @@ public class CraftingHandler {
             e.player.triggerAchievement(TFC_Achievements.achStoneAge);
         }
 
-        if (e.crafting.getItem() == BidsItems.barkCordage) {
-            e.player.triggerAchievement(BidsAchievements.BARK_CORDAGE);
-        }
-
         if (e.crafting.getItem() == TFCItems.quern) {
             List<ItemStack> stoneQuernOres = OreDictionary.getOres("stoneQuern");
 
@@ -65,18 +59,6 @@ public class CraftingHandler {
                  if (is != null && OreDictionaryHelper.itemMatchesOre(is, stoneQuernOres, false)) {
                     e.player.triggerAchievement(BidsAchievements.HARD_QUERN);
                     break;
-                }
-            }
-        }
-
-        if (e.crafting.getItem() == TFCItems.rope) {
-            for (int i = 0; i < e.craftMatrix.getSizeInventory(); i++) {
-                ItemStack is = e.craftMatrix.getStackInSlot(i);
-                if (is != null) {
-                    if (is.getItem() == BidsItems.barkCordage) {
-                        e.player.triggerAchievement(BidsAchievements.BARK_ROPE);
-                        break;
-                    }
                 }
             }
         }
