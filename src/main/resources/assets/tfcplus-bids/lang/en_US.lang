@@ -1256,6 +1256,8 @@ item.Whorl.Stone.name=Stone Whorl
 
 item.Spindle.name=Spindle
 
+item.Primitive Rope Maker.name=Primitive Rope Maker
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk
@@ -1321,6 +1323,9 @@ gui.Help.Spinning.Process=Hold §bRight Click §7to spin §e
 gui.Help.Spinning.Process2=§7.
 gui.Help.Spinning.Finish=Hold §fShift §7and §bRight Click §7to retrieve §e
 gui.Help.Spinning.Finish2=§7.
+gui.Help.Twisting.Start=§bRight Click §7to twist material in adjacent (right) slot.
+gui.Help.Twisting.Process=Hold §bRight Click §7to twist rope.
+gui.Help.Twisting.Finish=Hold §fShift §7and §bRight Click §7to retrieve rope.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified

@@ -784,6 +784,9 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Whorl");
         spindle = new ItemSpindle()
             .setUnlocalizedName("Spindle");
+
+        primitiveRopeMaker = new ItemPrimitiveRopeMaker()
+            .setUnlocalizedName("Primitive Rope Maker");
     }
 
     private static void registerFluidContainers() {
@@ -1481,6 +1484,8 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(whorl, whorl.getUnlocalizedName());
         GameRegistry.registerItem(spindle, spindle.getUnlocalizedName());
+
+        GameRegistry.registerItem(primitiveRopeMaker, primitiveRopeMaker.getUnlocalizedName());
     }
 
 }
