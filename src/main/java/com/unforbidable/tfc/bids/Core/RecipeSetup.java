@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.Core.Recipes;
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.TileEntities.TELoom;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.*;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
@@ -42,6 +43,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -78,6 +80,7 @@ public class RecipeSetup {
         registerSewingRecipes();
         registerKilnRecipes();
         registerBarrelRecipes();
+        registerLoomRecipes();
     }
 
     private static void registerDoughRecipes() {
@@ -2240,6 +2243,15 @@ public class RecipeSetup {
         BarrelManager.getInstance().addRecipe(new BarrelLiquidToLiquidRecipe(new FluidStack(TFCFluids.FRESHWATER, 4500), new FluidStack(TFCFluids.HONEY, 500), new FluidStack(TFCFluids.HONEYWATER, 5000))
                 .setSealTime(0).setSealedRecipe(false).setMinTechLevel(0).setRemovesLiquid(false));
 
+    }
+
+    private static void registerLoomRecipes() {
+        Bids.LOG.info("Register TFC loom recipes");
+
+        LoomManager.getInstance().addRecipe(new LoomRecipe(new ItemStack(BidsItems.sisalTwine, 20), new ItemStack(TFCItems.burlapCloth, 1)),
+            new ResourceLocation("terrafirmacraftplus", "textures/blocks/Rope.png"));
+        LoomManager.getInstance().addRecipe(new LoomRecipe(new ItemStack(BidsItems.juteTwine, 16), new ItemStack(TFCItems.burlapCloth, 1)),
+            new ResourceLocation("terrafirmacraftplus", "textures/blocks/Rope.png"));
     }
 
     private static void registerAnvilRecipes() {
