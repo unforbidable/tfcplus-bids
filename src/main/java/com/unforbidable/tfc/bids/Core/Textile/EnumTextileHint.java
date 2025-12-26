@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Textile;
 
 public enum EnumTextileHint {
+    EXTRACTING("Extracting"),
     REFINING_STALK("RefiningStalk"),
     REFINING_BOLL("RefiningBoll"),
     WASHING("Washing"),
