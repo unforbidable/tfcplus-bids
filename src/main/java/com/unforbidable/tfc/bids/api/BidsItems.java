@@ -95,6 +95,10 @@ public class BidsItems {
     public static Item barkCordage;
     public static Item barkFibreKindling;
 
+    public static Item sisalTwine;
+
+    public static Item juteTwine;
+
     public static Item flatBirchBark;
     public static Item birchBarkSheet;
     public static Item birchBarkStrap;

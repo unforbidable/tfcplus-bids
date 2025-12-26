@@ -261,6 +261,16 @@ public class ItemSetup extends BidsItems {
         barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1f)
                 .setUnlocalizedName("Bark Fibre Kindling");
 
+        sisalTwine = new ItemTextile().setMaterialColor(0x97784f)
+                .addHint(EnumTextileHint.TWISTING)
+                .addHint(EnumTextileHint.WEAVING_BURLAP)
+                .setUnlocalizedName("Sisal Twine");
+
+        juteTwine = new ItemTextile().setMaterialColor(0x765d42)
+                .addHint(EnumTextileHint.TWISTING)
+                .addHint(EnumTextileHint.WEAVING_BURLAP)
+                .setUnlocalizedName("Jute Twine");
+
         flatBirchBark = new ItemGenericFlat().setTextureFolder("armor/clothing")
                 .setUnlocalizedName("Flat Birch Bark");
         birchBarkSheet = new ItemGenericClothSheet().setSpecialCraftingType(flatBirchBark)
@@ -1501,6 +1511,9 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(barkFibreCoarse, barkFibreCoarse.getUnlocalizedName());
         GameRegistry.registerItem(barkFibreSmooth, barkFibreSmooth.getUnlocalizedName());
+
+        GameRegistry.registerItem(sisalTwine, sisalTwine.getUnlocalizedName());
+        GameRegistry.registerItem(juteTwine, juteTwine.getUnlocalizedName());
     }
 
 }

@@ -1132,6 +1132,10 @@ item.Flat Bark Fibre.name=Flat Bark Fiber
 item.Bark Cordage.name=Bark Cordage
 item.Bark Fibre Kindling.name=Bark Fiber Kindling
 
+item.Sisal Twine.name=Sisal Twine
+
+item.Jute Twine.name=Jute Twine
+
 item.Flat Birch Bark.name=Flat Birch Bark
 item.Birch Bark Sheet.name=Birch Bark Sheet
 item.Strap.Birch Bark.name=Birch Bark Strap
@@ -1333,6 +1337,7 @@ gui.Help.Twisting.Finish=Hold §fShift §7and §bRight Click §7to retrieve rope
 gui.Help.Textile.DryingFibre=Use a §eDrying Rack §7to dry freshly extracted fibers.
 gui.Help.Textile.Rubbing=Hold §bRight Click §7to rub fibers together to increase pliability.
 gui.Help.Textile.SpinningCordage=Use a §eSpindle §7to spin into cordage.
+gui.Help.Textile.WeavingBurlap=Use a §eLoom §7to weave burlap.
 gui.Help.Textile.Twisting=Use a §eRope Maker §7to twist into rope.
 gui.Units=Units
 gui.Empty=Empty
