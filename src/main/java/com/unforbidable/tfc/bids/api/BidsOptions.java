@@ -140,6 +140,8 @@ public class BidsOptions {
         public static boolean removeOriginalRopeMakingRecipes = false;
         public static boolean preventRopeMakingByRightClickingFibers = false;
 
+        public static boolean removeOriginalBurlapFiberLoomRecipes = false;
+
     }
 
     public static class Crops {

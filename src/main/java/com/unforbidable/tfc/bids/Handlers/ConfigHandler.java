@@ -261,6 +261,11 @@ public class ConfigHandler {
             BidsOptions.Crafting.ropeMakingDurationMultiplier, 0.5f, 4f,
             "Higher values increase the time it takes to twist rope using a primitive rope maker.");
 
+        BidsOptions.Crafting.removeOriginalBurlapFiberLoomRecipes = config.getBoolean(
+            "removeOriginalBurlapFiberLoomRecipes", "crafting",
+            BidsOptions.Crafting.removeOriginalBurlapFiberLoomRecipes,
+            "Set this to true if you want to remove recipes for crafting burlap directly from sisal and jute fibers on a Loom. Burlap can still be crafted from sisal and jute twine.");
+
         BidsOptions.Crops.enableCerealSeedAutoConversion = config.getBoolean(
             "enableCerealSeedAutoConversion", "crops",
             BidsOptions.Crops.enableCerealSeedAutoConversion,

@@ -1,6 +1,8 @@
 package com.unforbidable.tfc.bids.Core.Recipes;
 
 import com.dunk.tfc.api.Crafting.AnvilManager;
+import com.dunk.tfc.api.Crafting.LoomManager;
+import com.dunk.tfc.api.Crafting.LoomRecipe;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.OreDictionaryHelper;
@@ -185,6 +187,20 @@ public class RecipeHelper {
                 if (o != null && o.getItem() == TFCItems.rope) {
                     recipes.remove(i--);
                     Bids.LOG.info("Original rope making recipe removed: " + recipe.getRecipeOutput());
+                }
+            }
+        }
+    }
+
+    public static void handleLoomRecipes() {
+        if (BidsOptions.Crafting.removeOriginalBurlapFiberLoomRecipes) {
+            List<LoomRecipe> recipes = LoomManager.getInstance().getRecipes();
+            for (int i = 0; i < recipes.size(); i++) {
+                LoomRecipe recipe = recipes.get(i);
+                if (recipe.getInItem().getItem() == TFCItems.sisalFiber ||
+                    recipe.getInItem().getItem() == TFCItems.juteFiber) {
+                    recipes.remove(i--);
+                    Bids.LOG.info("Original burlap from fiber loom recipe removed: " + recipe.getInItem().getDisplayName());
                 }
             }
         }
