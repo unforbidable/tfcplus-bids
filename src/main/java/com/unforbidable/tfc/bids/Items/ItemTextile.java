@@ -114,13 +114,6 @@ public class ItemTextile extends ItemTerra implements IHandworkToolMaterial {
                 for (EnumTextileHint hint : hints) {
                     arraylist.add(StatCollector.translateToLocal("gui.Help.Textile." + hint.helpString));
                 }
-
-                RopeMakingRecipe recipe = RopeMakingManager.getMatchingRecipe(is);
-                if (recipe != null) {
-                    arraylist.add(StatCollector.translateToLocal("gui.Help.Textile.Twisting.AmountRequired") +
-                        recipe.getInput().stackSize +
-                        StatCollector.translateToLocal("gui.Help.Textile.Twisting.AmountRequired2"));
-                }
             } else {
                 arraylist.add(StatCollector.translateToLocal("gui.ShowHelp"));
             }
