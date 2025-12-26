@@ -1905,8 +1905,8 @@ public class RecipeSetup {
     private static void registerRopeMakingRecipes() {
         Bids.LOG.info("Register rope making recipes");
 
-        RopeMakingManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 1200));
-        RopeMakingManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.barkCordage, 12), 1200));
+        RopeMakingManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 600));
+        RopeMakingManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.barkCordage, 12), 600));
     }
 
     private static void registerKnappingRecipes() {
