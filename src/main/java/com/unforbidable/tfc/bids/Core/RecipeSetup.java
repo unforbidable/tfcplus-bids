@@ -1225,11 +1225,8 @@ public class RecipeSetup {
                 new ItemStack(TFCItems.agave, 1)));
 
         ItemStack steamedFish = BidsFood.setSteamed(ItemFoodTFC.createTag(new ItemStack(TFCItems.fishRaw), 0.5f * inputMult), true);
-        // Require fish to be cooked (steamed) to medium level
+        // Require fish to be steamed to medium level
         Food.setCooked(steamedFish, CookingHelper.getTempForItemStackCookedLevel(steamedFish, 3));
-        // Set infusion to show item with "(Steamed)" text
-        // It does not affect recipe matching
-        Food.setInfusion(steamedFish, "infusion.steamed");
         StonePressManager.addRecipe(new StonePressRecipe(new FluidStack(BidsFluids.OILYFISHWATER, 10), steamedFish));
     }
 
@@ -1294,11 +1291,8 @@ public class RecipeSetup {
             new ItemStack(TFCItems.agave, 1), 0.8f));
 
         ItemStack steamedFish = BidsFood.setSteamed(ItemFoodTFC.createTag(new ItemStack(TFCItems.fishRaw), 0.5f * inputMult), true);
-        // Require fish to be cooked (steamed) to medium level
+        // Require fish to be steamed to medium level
         Food.setCooked(steamedFish, CookingHelper.getTempForItemStackCookedLevel(steamedFish, 3));
-        // Set infusion to show item with "(Steamed)" text
-        // It does not affect recipe matching
-        Food.setInfusion(steamedFish, "infusion.steamed");
         ScrewPressManager.addRecipe(new ScrewPressRecipe(new FluidStack(BidsFluids.OILYFISHWATER, 10), steamedFish, 0.65f));
     }
 

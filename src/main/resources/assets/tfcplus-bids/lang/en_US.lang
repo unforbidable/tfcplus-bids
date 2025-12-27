@@ -1284,7 +1284,10 @@ itemGroup.Bids.BuildingBlocks=Bids and Pieces - Building Blocks
 itemGroup.Bids.Materials=Bids and Pieces - Materials
 itemGroup.Bids.Tools=Bids and Pieces - Tools
 
-infusion.steamed.name=(Steamed)
+infusion.steamed.name=
+
+word.steamed=Steamed
+word.boiled=Boiled
 
 cookingMixture.bean=Bean Mix
 cookingMixture.beanWater=Bean + Water Mix
