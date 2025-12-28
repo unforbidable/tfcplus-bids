@@ -263,10 +263,14 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Bark Fibre Kindling");
 
         sisalFiberRinsed = new ItemTextile()
+                .addHint(EnumTextileHint.DRYING_FIBRE)
                 .setUnlocalizedName("Sisal Fibre Rinsed");
         sisalFiberCoarse = new ItemTextile()
+                .addHint(EnumTextileHint.CARDING)
+                .addHint(EnumTextileHint.SPINNING_TWINE)
                 .setUnlocalizedName("Sisal Fibre Coarse");
         sisalFiberRefined = new ItemTextile().setMaterialColor(0xfdd9ab)
+                .addHint(EnumTextileHint.SPINNING_TWINE)
                 .setUnlocalizedName("Sisal Fibre Refined");
         sisalTwine = new ItemTextile().setMaterialColor(0x97784f)
                 .addHint(EnumTextileHint.TWISTING)

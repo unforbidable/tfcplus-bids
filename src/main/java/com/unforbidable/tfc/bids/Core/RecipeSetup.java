@@ -915,6 +915,8 @@ public class RecipeSetup {
 
         DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreCoarse),
                 new ItemStack(BidsItems.barkFibre), 12, false));
+        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.sisalFiberCoarse),
+                new ItemStack(BidsItems.sisalFiberRinsed), 12, false));
 
         GameRegistry.addRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2, 0), "P P", "X X", "P P",
             'P', new ItemStack(TFCItems.fireBrick, 1, 1),
@@ -1899,6 +1901,9 @@ public class RecipeSetup {
             new ItemStack(TFCItems.flax, 1, 0), "blockFreshWater", 20));
         SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(TFCItems.juteFiber, 1, 0),
             new ItemStack(TFCItems.jute, 1, 0), "blockFreshWater", 20));
+
+        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.sisalFiberRinsed, 1, 0),
+            new ItemStack(TFCItems.sisalFiber, 1, 0), "blockFreshWater", 0));
     }
 
     private static void registerHandworkRecipes() {
@@ -1910,15 +1915,18 @@ public class RecipeSetup {
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(TFCItems.cotton), 120));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(TFCItems.wool), 120));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreSmooth), 80));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(TFCItems.sisalFiber), 100));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(TFCItems.juteFiber), 100));
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberRefined), 120));
 
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberCoarse), 120 * 4));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreCoarse), 80 * 4));
 
         HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 600));
         HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.barkCordage, 12), 600));
         HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.sisalTwine, 8), 600));
         HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.juteTwine, 12), 600));
+
+        HandworkManager.addRecipe(new CardingRecipe(new ItemStack(BidsItems.sisalFiberRefined), new ItemStack(BidsItems.sisalFiberCoarse), 80));
     }
 
     private static void registerKnappingRecipes() {
@@ -2248,6 +2256,8 @@ public class RecipeSetup {
         BarrelManager.getInstance().addRecipe(new BarrelLiquidToLiquidRecipe(new FluidStack(TFCFluids.FRESHWATER, 4500), new FluidStack(TFCFluids.HONEY, 500), new FluidStack(TFCFluids.HONEYWATER, 5000))
                 .setSealTime(0).setSealedRecipe(false).setMinTechLevel(0).setRemovesLiquid(false));
 
+        BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(TFCItems.sisalFiber), new FluidStack(TFCFluids.FRESHWATER, 100),
+            new ItemStack(BidsItems.sisalFiberRinsed), new FluidStack(TFCFluids.FRESHWATER, 100)).setSealedRecipe(false).setSealTime(0).setMinTechLevel(0));
         BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.sisalTwine), new FluidStack(TFCFluids.WAX, 200),
             new ItemStack(TFCBlocks.candleOff, 1), new FluidStack(TFCFluids.WAX, 200)).setKeepStackSize(false).setSealTime(0).setSealedRecipe(false).setMinTechLevel(0));
         BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.juteTwine), new FluidStack(TFCFluids.WAX, 200),
