@@ -1132,6 +1132,9 @@ item.Flat Bark Fibre.name=Flat Bark Fiber
 item.Bark Cordage.name=Bark Cordage
 item.Bark Fibre Kindling.name=Bark Fiber Kindling
 
+item.Sisal Fibre Rinsed.name=Rinsed Sisal Fibers
+item.Sisal Fibre Coarse.name=Coarse Sisal Fibers
+item.Sisal Fibre Refined.name=Refined Sisal Fibers
 item.Sisal Twine.name=Sisal Twine
 
 item.Jute Twine.name=Jute Twine
