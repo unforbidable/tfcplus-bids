@@ -44,6 +44,7 @@ public class NotEnoughItemsSetup {
         registerHandler(new SpinningHandler());
         registerHandler(new RopeMakingHandler());
         registerHandler(new HandworkHandler());
+        registerHandler(new CardingHandler());
     }
 
     private static void registerHandler(TemplateRecipeHandler handler) {

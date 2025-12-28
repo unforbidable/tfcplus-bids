@@ -1409,6 +1409,7 @@ gui.SoakingSurface=Soaking
 gui.Spinning=Spinning
 gui.RopeMaking=Rope Making
 gui.Handwork=Handwork
+gui.Carding=Carding
 
 key.BidsToolMode=Cycle Tool Mode
 
