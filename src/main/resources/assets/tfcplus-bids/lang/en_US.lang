@@ -1356,6 +1356,7 @@ gui.plans.plugandfeather=Plud And Feather
 gui.plans.anvil=Anvil Finish
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
+gui.Seconds=Seconds
 gui.Days=Days
 gui.Instant=Instant
 gui.Ruined=Ruined
