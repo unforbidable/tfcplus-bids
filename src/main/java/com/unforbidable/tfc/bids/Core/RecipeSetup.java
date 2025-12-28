@@ -68,9 +68,7 @@ public class RecipeSetup {
         registerChurningRecipes();
         registerProcessingSurfaceRecipes();
         registerSoakingSurfaceRecipes();
-        registerSpinningRecipes();
         registerHandworkRecipes();
-        registerRopeMakingRecipes();
         registerHandlers();
     }
 
@@ -1891,30 +1889,22 @@ public class RecipeSetup {
             new ItemStack(TFCItems.jute, 1, 0), "blockFreshWater", 20));
     }
 
-    private static void registerSpinningRecipes() {
-        Bids.LOG.info("Register spinning recipes");
-
-        SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
-        SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(TFCItems.cotton), 120));
-        SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(TFCItems.wool), 120));
-        SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreSmooth), 80));
-        SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(TFCItems.sisalFiber), 100));
-        SpinningManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(TFCItems.juteFiber), 100));
-    }
-
     private static void registerHandworkRecipes() {
         Bids.LOG.info("Register handwork recipes");
 
         HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.barkFibreSmooth), new ItemStack(BidsItems.barkFibreCoarse), 80));
-    }
 
-    private static void registerRopeMakingRecipes() {
-        Bids.LOG.info("Register rope making recipes");
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(TFCItems.cotton), 120));
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(TFCItems.wool), 120));
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreSmooth), 80));
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(TFCItems.sisalFiber), 100));
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(TFCItems.juteFiber), 100));
 
-        RopeMakingManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 600));
-        RopeMakingManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.barkCordage, 12), 600));
-        RopeMakingManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.sisalTwine, 8), 600));
-        RopeMakingManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.juteTwine, 12), 600));
+        HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 600));
+        HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.barkCordage, 12), 600));
+        HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.sisalTwine, 8), 600));
+        HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.juteTwine, 12), 600));
     }
 
     private static void registerKnappingRecipes() {

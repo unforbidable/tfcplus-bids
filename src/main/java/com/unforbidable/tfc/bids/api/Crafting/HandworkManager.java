@@ -13,18 +13,27 @@ public class HandworkManager {
         recipes.add(recipe);
     }
 
-    public static HandworkRecipe getMatchingRecipe(ItemStack ingredient) {
+    @SuppressWarnings({"unchecked"})
+    public static <T> T getMatchingRecipe(ItemStack ingredient, Class<T> type) {
         for (HandworkRecipe recipe : recipes) {
-            if (recipe.matches(ingredient)) {
-                return recipe;
+            if (recipe.getClass() == type && recipe.matches(ingredient)) {
+                return (T)recipe;
             }
         }
 
         return null;
     }
 
-    public static List<HandworkRecipe> getRecipes() {
-        return new ArrayList<HandworkRecipe>(recipes);
+    @SuppressWarnings({"unchecked"})
+    public static <T> List<T> getRecipes(Class<T> type) {
+        ArrayList<T> typedRecipes = new ArrayList<T>();
+        for (HandworkRecipe recipe : recipes) {
+            if (recipe.getClass() == type) {
+                typedRecipes.add((T) recipe);
+            }
+        }
+
+        return typedRecipes;
     }
 
 }

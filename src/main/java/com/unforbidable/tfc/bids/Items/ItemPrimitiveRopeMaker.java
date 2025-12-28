@@ -2,8 +2,9 @@ package com.unforbidable.tfc.bids.Items;
 
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.RopeMakingManager;
+import com.unforbidable.tfc.bids.api.Crafting.RopeMakingRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
@@ -21,7 +22,7 @@ public class ItemPrimitiveRopeMaker extends ItemHandworkTool {
 
     @Override
     protected HandworkRecipe tryMatchIngredient(ItemStack is) {
-        return RopeMakingManager.getMatchingRecipe(is);
+        return HandworkManager.getMatchingRecipe(is, RopeMakingRecipe.class);
     }
 
     @Override

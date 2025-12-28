@@ -46,7 +46,7 @@ public class HandworkHandler extends TemplateRecipeHandler implements IHandlerIn
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == HandworkHandler.class) {
-            for (HandworkRecipe recipe : HandworkManager.getRecipes()) {
+            for (HandworkRecipe recipe : HandworkManager.getRecipes(HandworkRecipe.class)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
                 arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration()));
@@ -58,7 +58,7 @@ public class HandworkHandler extends TemplateRecipeHandler implements IHandlerIn
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (HandworkRecipe recipe : HandworkManager.getRecipes()) {
+        for (HandworkRecipe recipe : HandworkManager.getRecipes(HandworkRecipe.class)) {
             final ItemStack output2 = output.copy();
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
@@ -73,7 +73,7 @@ public class HandworkHandler extends TemplateRecipeHandler implements IHandlerIn
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (HandworkRecipe recipe : HandworkManager.getRecipes()) {
+        for (HandworkRecipe recipe : HandworkManager.getRecipes(HandworkRecipe.class)) {
             if (recipe.matchesIngredient(ingredient)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
