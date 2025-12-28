@@ -105,6 +105,9 @@ public class SoakingSurfaceHandler extends TemplateRecipeHandler implements IHan
             if (cachedSoakingSurfaceRecipe.duration > 0) {
                 drawCenteredString(Minecraft.getMinecraft().fontRenderer,
                     cachedSoakingSurfaceRecipe.getDurationString(), 83, 49, 0x555555);
+            } else {
+                drawCenteredString(Minecraft.getMinecraft().fontRenderer,
+                    StatCollector.translateToLocal("gui.Instant"), 83, 49, 0x555555);
             }
 
             // Because TFC water blocks don't have items
