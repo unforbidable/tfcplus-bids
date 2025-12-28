@@ -1267,6 +1267,8 @@ item.Spindle.name=Spindle
 item.Thorn Bunch.name=Thorns
 item.Thorn Card.name=Thorn Card
 
+item.Bone Heckle.name=Bone Heckle
+
 item.Primitive Rope Maker.name=Primitive Rope Maker
 
 fluid.FishOil=Fish Oil
@@ -1329,6 +1331,11 @@ gui.Help.CookingPotLid=§bRight Click §7block to place.
 gui.Help.UnshapedDough=§bRight Click §7 to shape dough.
 gui.Help.Waterskin.Churn=Hold §bRight Click §7to churn into §e
 gui.Help.Waterskin.Churn2=§7.
+gui.Help.Heckling.Start=§bRight Click §7to start heckling fiber in adjacent (right) slot.
+gui.Help.Heckling.Process=Hold §bRight Click §7to heckle §e
+gui.Help.Heckling.Process2=§7.
+gui.Help.Heckling.Finish=Hold §fShift §7and §bRight Click §7to retrieve §e
+gui.Help.Heckling.Finish2=§7.
 gui.Help.Carding.Start=§bRight Click §7to start carding fiber in adjacent (right) slot.
 gui.Help.Carding.Process=Hold §bRight Click §7to card §e
 gui.Help.Carding.Process2=§7.

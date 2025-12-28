@@ -816,6 +816,9 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Thorn Bunch");
         thornCard = new ItemCard()
             .setUnlocalizedName("Thorn Card");
+
+        boneHeckle = new ItemHeckle()
+            .setUnlocalizedName("Bone Heckle");
     }
 
     private static void registerFluidContainers() {
@@ -1523,6 +1526,8 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(thornBunch, thornBunch.getUnlocalizedName());
         GameRegistry.registerItem(thornCard, thornCard.getUnlocalizedName());
+
+        GameRegistry.registerItem(boneHeckle, boneHeckle.getUnlocalizedName());
     }
 
 }
