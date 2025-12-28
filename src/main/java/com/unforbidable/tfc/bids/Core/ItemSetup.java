@@ -245,6 +245,7 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Bark Fibre");
         barkFibreCoarse = new ItemTextile()
                 .addHint(EnumTextileHint.RUBBING)
+                .addHint(EnumTextileHint.SPINNING_TWINE)
                 .setUnlocalizedName("Bark Fibre Coarse");
         barkFibreSmooth = new ItemTextile()
                 .addHint(EnumTextileHint.SPINNING_CORDAGE)
