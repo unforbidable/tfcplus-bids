@@ -63,6 +63,7 @@ public class DryingRackHandler extends TemplateRecipeHandler implements IHandler
         for (DryingRecipe recipe : DryingManager.getRecipes()) {
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getCraftingResult(input);
+            output.stackSize = result.stackSize;
             if (ItemStack.areItemStacksEqual(result, output)) {
                 arecipes.add(new CachedDryingRecipe(input, output, recipe.getDuration()));
             }
