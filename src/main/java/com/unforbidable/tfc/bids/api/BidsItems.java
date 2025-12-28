@@ -100,6 +100,10 @@ public class BidsItems {
     public static Item sisalFiberRefined;
     public static Item sisalTwine;
 
+    public static Item juteStalk;
+    public static Item juteStalkRetted;
+    public static Item juteFiberCoarse;
+    public static Item juteFiberRefined;
     public static Item juteTwine;
 
     public static Item flatBirchBark;

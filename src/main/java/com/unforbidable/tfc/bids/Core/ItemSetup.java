@@ -277,6 +277,14 @@ public class ItemSetup extends BidsItems {
                 .addHint(EnumTextileHint.WEAVING_BURLAP)
                 .setUnlocalizedName("Sisal Twine");
 
+        juteStalk = new ItemTextile()
+                .setUnlocalizedName("Jute Stalk");
+        juteStalkRetted = new ItemTextile()
+                .setUnlocalizedName("Jute Stalk Retted");
+        juteFiberCoarse = new ItemTextile()
+                .setUnlocalizedName("Jute Fibre Coarse");
+        juteFiberRefined = new ItemTextile().setMaterialColor(0xddccb7)
+                .setUnlocalizedName("Jute Fibre Refined");
         juteTwine = new ItemTextile().setMaterialColor(0x765d42)
                 .addHint(EnumTextileHint.TWISTING)
                 .addHint(EnumTextileHint.WEAVING_BURLAP)
@@ -1535,6 +1543,11 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(sisalFiberCoarse, sisalFiberCoarse.getUnlocalizedName());
         GameRegistry.registerItem(sisalFiberRefined, sisalFiberRefined.getUnlocalizedName());
         GameRegistry.registerItem(sisalTwine, sisalTwine.getUnlocalizedName());
+
+        GameRegistry.registerItem(juteStalk, juteStalk.getUnlocalizedName());
+        GameRegistry.registerItem(juteStalkRetted, juteStalkRetted.getUnlocalizedName());
+        GameRegistry.registerItem(juteFiberCoarse, juteFiberCoarse.getUnlocalizedName());
+        GameRegistry.registerItem(juteFiberRefined, juteFiberRefined.getUnlocalizedName());
         GameRegistry.registerItem(juteTwine, juteTwine.getUnlocalizedName());
 
         GameRegistry.registerItem(thornBunch, thornBunch.getUnlocalizedName());
