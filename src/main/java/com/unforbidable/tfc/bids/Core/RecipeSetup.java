@@ -1345,7 +1345,7 @@ public class RecipeSetup {
             .inTime(750)
             .build());
 
-        for (Item stringItem : new Item[] { TFCItems.silkString, TFCItems.woolYarn, TFCItems.linenString, TFCItems.cottonYarn, TFCItems.juteFiber, TFCItems.sisalFiber }) {
+        for (Item stringItem : new Item[] { TFCItems.silkString, TFCItems.woolYarn, TFCItems.linenString, TFCItems.cottonYarn, BidsItems.juteTwine, BidsItems.sisalTwine } ) {
             CookingManager.addRecipe(CookingRecipe.builder()
                 .consumes(new FluidStack(TFCFluids.WAX, 200), new ItemStack(stringItem))
                 .produces(new ItemStack(TFCBlocks.candleOff, 1))
@@ -2234,6 +2234,10 @@ public class RecipeSetup {
         BarrelManager.getInstance().addRecipe(new BarrelLiquidToLiquidRecipe(new FluidStack(TFCFluids.FRESHWATER, 4500), new FluidStack(TFCFluids.HONEY, 500), new FluidStack(TFCFluids.HONEYWATER, 5000))
                 .setSealTime(0).setSealedRecipe(false).setMinTechLevel(0).setRemovesLiquid(false));
 
+        BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.sisalTwine), new FluidStack(TFCFluids.WAX, 200),
+            new ItemStack(TFCBlocks.candleOff, 1), new FluidStack(TFCFluids.WAX, 200)).setKeepStackSize(false).setSealTime(0).setSealedRecipe(false).setMinTechLevel(0));
+        BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.juteTwine), new FluidStack(TFCFluids.WAX, 200),
+            new ItemStack(TFCBlocks.candleOff, 1), new FluidStack(TFCFluids.WAX, 200)).setKeepStackSize(false).setSealTime(0).setSealedRecipe(false).setMinTechLevel(0));
     }
 
     private static void registerLoomRecipes() {
