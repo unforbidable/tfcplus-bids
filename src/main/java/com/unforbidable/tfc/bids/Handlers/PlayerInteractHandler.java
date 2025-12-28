@@ -1,10 +1,13 @@
 package com.unforbidable.tfc.bids.Handlers;
 
+import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.Tools.ItemCustomBucketMilk;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
+import com.dunk.tfc.api.Tools.IKnife;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
 import com.unforbidable.tfc.bids.Core.Drinks.Milk.MilkHelper;
@@ -13,6 +16,7 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Events.FillContainerEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,10 +24,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.event.entity.player.EntityInteractEvent;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
-import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
+import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.HashMap;
@@ -153,6 +154,29 @@ public class PlayerInteractHandler {
                 event.item.getItem() == TFCItems.juteFiber ||
                 event.item.getItem() == TFCItems.sisalFiber) {
                 event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (!event.world.isRemote) {
+            if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                ItemStack heldItem = event.entityPlayer.getHeldItem();
+                if (heldItem != null && heldItem.getItem() instanceof IKnife) {
+                    Block block = event.world.getBlock(event.x, event.y, event.z);
+                    if (block == TFCBlocks.shrub) {
+                        // This action is also used in TFC+ to harvest resin from shrubs
+                        // so the knife already takes damage
+                        if (event.world.rand.nextInt(16) == 0) {
+                            ItemStack is = new ItemStack(BidsItems.thornBunch);
+                            EntityItem ei = new EntityItem(event.world, event.x, event.y, event.z, is);
+                            event.world.spawnEntityInWorld(ei);
+                            event.world.playSoundEffect(event.x, event.y, event.z, "dig.wood",
+                                0.4F + (event.world.rand.nextFloat() / 2), 0.7F + event.world.rand.nextFloat());
+                        }
+                    }
+                }
             }
         }
     }
