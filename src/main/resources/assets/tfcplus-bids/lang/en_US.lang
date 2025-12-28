@@ -1264,6 +1264,9 @@ item.Whorl.Stone.name=Stone Whorl
 
 item.Spindle.name=Spindle
 
+item.Thorn Bunch.name=Thorns
+item.Thorn Card.name=Thorn Card
+
 item.Primitive Rope Maker.name=Primitive Rope Maker
 
 fluid.FishOil=Fish Oil
@@ -1326,6 +1329,11 @@ gui.Help.CookingPotLid=§bRight Click §7block to place.
 gui.Help.UnshapedDough=§bRight Click §7 to shape dough.
 gui.Help.Waterskin.Churn=Hold §bRight Click §7to churn into §e
 gui.Help.Waterskin.Churn2=§7.
+gui.Help.Carding.Start=§bRight Click §7to start carding fiber in adjacent (right) slot.
+gui.Help.Carding.Process=Hold §bRight Click §7to card §e
+gui.Help.Carding.Process2=§7.
+gui.Help.Carding.Finish=Hold §fShift §7and §bRight Click §7to retrieve §e
+gui.Help.Carding.Finish2=§7.
 gui.Help.Spinning.Start=§bRight Click §7to spin fiber in adjacent (right) slot.
 gui.Help.Spinning.Process=Hold §bRight Click §7to spin §e
 gui.Help.Spinning.Process2=§7.
