@@ -581,6 +581,12 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibre),
                 "itemBarkHasFibers", "itemKnife"));
 
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.juteStalk),
+            TFCItems.jute, "itemKnife"));
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemKnife")
+            .matchCraftingItem(BidsItems.juteStalk));
+
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkCup, 1, 0),
                 BidsItems.birchBarkCupUnfinished, Items.slime_ball));
 
@@ -917,6 +923,8 @@ public class RecipeSetup {
                 new ItemStack(BidsItems.barkFibre), 12, false));
         DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.sisalFiberCoarse),
                 new ItemStack(BidsItems.sisalFiberRinsed), 12, false));
+        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.juteFiberCoarse),
+                new ItemStack(TFCItems.juteFiber), 12, false));
 
         GameRegistry.addRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2, 0), "P P", "X X", "P P",
             'P', new ItemStack(TFCItems.fireBrick, 1, 1),
@@ -1899,8 +1907,8 @@ public class RecipeSetup {
 
         SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(TFCItems.flaxFiber, 1, 0),
             new ItemStack(TFCItems.flax, 1, 0), "blockFreshWater", 20));
-        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(TFCItems.juteFiber, 1, 0),
-            new ItemStack(TFCItems.jute, 1, 0), "blockFreshWater", 20));
+        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.juteStalkRetted, 1, 0),
+            new ItemStack(BidsItems.juteStalk, 1, 0), "blockFreshWater", 20));
 
         SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.sisalFiberRinsed, 1, 0),
             new ItemStack(TFCItems.sisalFiber, 1, 0), "blockFreshWater", 0));
@@ -1910,15 +1918,18 @@ public class RecipeSetup {
         Bids.LOG.info("Register handwork recipes");
 
         HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.barkFibreSmooth), new ItemStack(BidsItems.barkFibreCoarse), 80));
+        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(TFCItems.juteFiber), new ItemStack(BidsItems.juteStalkRetted), 80));
 
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(TFCItems.cotton), 120));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(TFCItems.wool), 120));
+
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreSmooth), 80));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(TFCItems.juteFiber), 100));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberRefined), 120));
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberRefined), 120));
 
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberCoarse), 120 * 4));
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberCoarse), 120 * 4));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreCoarse), 80 * 4));
 
         HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 600));
@@ -1927,6 +1938,8 @@ public class RecipeSetup {
         HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.juteTwine, 12), 600));
 
         HandworkManager.addRecipe(new CardingRecipe(new ItemStack(BidsItems.sisalFiberRefined), new ItemStack(BidsItems.sisalFiberCoarse), 80));
+
+        HandworkManager.addRecipe(new HecklingRecipe(new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.juteFiberCoarse), 120));
     }
 
     private static void registerKnappingRecipes() {
@@ -2258,6 +2271,9 @@ public class RecipeSetup {
 
         BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(TFCItems.sisalFiber), new FluidStack(TFCFluids.FRESHWATER, 100),
             new ItemStack(BidsItems.sisalFiberRinsed), new FluidStack(TFCFluids.FRESHWATER, 100)).setSealedRecipe(false).setSealTime(0).setMinTechLevel(0));
+        BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(BidsItems.juteStalk), new FluidStack(TFCFluids.FRESHWATER, 200),
+            new ItemStack(BidsItems.juteStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200)).setSealedRecipe(false).setMinTechLevel(0));
+
         BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.sisalTwine), new FluidStack(TFCFluids.WAX, 200),
             new ItemStack(TFCBlocks.candleOff, 1), new FluidStack(TFCFluids.WAX, 200)).setKeepStackSize(false).setSealTime(0).setSealedRecipe(false).setMinTechLevel(0));
         BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.juteTwine), new FluidStack(TFCFluids.WAX, 200),

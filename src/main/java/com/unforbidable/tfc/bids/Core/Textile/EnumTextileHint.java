@@ -7,6 +7,8 @@ public enum EnumTextileHint {
     WASHING("Washing"),
     RINSING_FIBRE("RinsingFibre"),
     RINSING_WOOL("RinsingWool"),
+    RETTING_STALK("RettingStalk"),
+    PEELING_STALK("PeelingStalk"),
     DRYING_FIBRE("DryingFibre"),
     DRYING_STALK("DryingStalk"),
     DRYING_WOOL("DryingWool"),

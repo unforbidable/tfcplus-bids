@@ -278,12 +278,17 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Sisal Twine");
 
         juteStalk = new ItemTextile()
+                .addHint(EnumTextileHint.RETTING_STALK)
                 .setUnlocalizedName("Jute Stalk");
         juteStalkRetted = new ItemTextile()
+                .addHint(EnumTextileHint.PEELING_STALK)
                 .setUnlocalizedName("Jute Stalk Retted");
         juteFiberCoarse = new ItemTextile()
+                .addHint(EnumTextileHint.HECKLING)
+                .addHint(EnumTextileHint.SPINNING_TWINE)
                 .setUnlocalizedName("Jute Fibre Coarse");
         juteFiberRefined = new ItemTextile().setMaterialColor(0xddccb7)
+                .addHint(EnumTextileHint.SPINNING_TWINE)
                 .setUnlocalizedName("Jute Fibre Refined");
         juteTwine = new ItemTextile().setMaterialColor(0x765d42)
                 .addHint(EnumTextileHint.TWISTING)
