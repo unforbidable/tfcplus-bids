@@ -31,6 +31,10 @@ public class TooltipHandler {
     private void handleTextileTooltipHints(List<String> toolTip, ItemStack itemStack) {
         Set<EnumTextileHint> hints = new HashSet<EnumTextileHint>();
 
+        if (isTextileForWashingWool(itemStack)) {
+            hints.add(EnumTextileHint.WASHING_WOOL);
+            hints.add(EnumTextileHint.RINSING_WOOL);
+        }
         if (isTextileForExtracting(itemStack)) {
             hints.add(EnumTextileHint.EXTRACTING);
         }
@@ -64,6 +68,10 @@ public class TooltipHandler {
                 toolTip.add(StatCollector.translateToLocal("gui.ShowHelp"));
             }
         }
+    }
+
+    private boolean isTextileForWashingWool(ItemStack itemStack) {
+        return itemStack.getItem() == TFCItems.wool;
     }
 
     private boolean isTextileForRefiningBoll(ItemStack itemStack) {

@@ -952,6 +952,8 @@ public class RecipeSetup {
                 new ItemStack(TFCItems.juteFiber), 12, false));
         DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.flaxStalkDried),
                 new ItemStack(BidsItems.flaxStalkRetted), 18, false));
+        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.woolDried),
+                new ItemStack(BidsItems.woolRinsed), 8, false));
 
         GameRegistry.addRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2, 0), "P P", "X X", "P P",
             'P', new ItemStack(TFCItems.fireBrick, 1, 1),
@@ -1949,6 +1951,13 @@ public class RecipeSetup {
 
         SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.sisalFiberRinsed, 1, 0),
             new ItemStack(TFCItems.sisalFiber, 1, 0), "blockFreshWater", 0));
+
+        // Washing wool can be skipped however the wool needs to be rinsed for a extended period of time
+        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed, 1, 0),
+            new ItemStack(TFCItems.wool, 1, 0), "blockFreshWater", 20));
+
+        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed, 1, 0),
+            new ItemStack(BidsItems.woolWashed, 1, 0), "blockFreshWater", 0));
     }
 
     private static void registerHandworkRecipes() {
@@ -1959,21 +1968,22 @@ public class RecipeSetup {
         HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.flaxStalkBroken), new ItemStack(BidsItems.flaxStalkDried), 240));
         HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.flaxFiberCoarse), new ItemStack(BidsItems.flaxStalkBroken), 240));
         HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.cottonFiberCoarse), new ItemStack(BidsItems.cottonBollRefined), 60));
+        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.woolFiberCoarse), new ItemStack(BidsItems.woolDried), 60));
 
         // Flax fiber spinning recipe is preserved as a way to convert TFC+ Flax fibers to string
         // since unlike other fibers it is not used as an intermediate material in the new extended textile processing
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
 
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(TFCItems.wool), 120));
-
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberRefined), 120));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberRefined), 120));
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberRefined), 120));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreSmooth), 80));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberRefined), 120));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberRefined), 120));
 
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberCoarse), 120 * 4));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberCoarse), 120 * 4));
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberCoarse), 120 * 4));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberCoarse), 120 * 4));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberCoarse), 120 * 4));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreCoarse), 80 * 4));
@@ -1985,6 +1995,7 @@ public class RecipeSetup {
 
         HandworkManager.addRecipe(new CardingRecipe(new ItemStack(BidsItems.sisalFiberRefined), new ItemStack(BidsItems.sisalFiberCoarse), 80));
         HandworkManager.addRecipe(new CardingRecipe(new ItemStack(BidsItems.cottonFiberRefined), new ItemStack(BidsItems.cottonFiberCoarse), 80));
+        HandworkManager.addRecipe(new CardingRecipe(new ItemStack(BidsItems.woolFiberRefined), new ItemStack(BidsItems.woolFiberCoarse), 80));
 
         HandworkManager.addRecipe(new HecklingRecipe(new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.juteFiberCoarse), 120));
         HandworkManager.addRecipe(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(BidsItems.flaxFiberCoarse), 120));
@@ -2323,6 +2334,10 @@ public class RecipeSetup {
             new ItemStack(BidsItems.juteStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200)).setSealedRecipe(false).setMinTechLevel(0));
         BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(BidsItems.flaxStalk), new FluidStack(TFCFluids.FRESHWATER, 200),
             new ItemStack(BidsItems.flaxStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200)).setSealedRecipe(false).setMinTechLevel(0));
+        BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(TFCItems.wool), new FluidStack(TFCFluids.FRESHWATER, 200),
+            new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 200)).setSealedRecipe(false).setSealTime(16).setMinTechLevel(0));
+        BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(BidsItems.woolWashed), new FluidStack(TFCFluids.FRESHWATER, 200),
+            new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 200)).setSealedRecipe(false).setSealTime(0).setMinTechLevel(0));
 
         BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.sisalTwine), new FluidStack(TFCFluids.WAX, 200),
             new ItemStack(TFCBlocks.candleOff, 1), new FluidStack(TFCFluids.WAX, 200)).setKeepStackSize(false).setSealTime(0).setSealedRecipe(false).setMinTechLevel(0));

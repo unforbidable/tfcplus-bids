@@ -332,14 +332,20 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Cotton Fibre Refined");
 
         woolWashed = new ItemTextile()
+            .addHint(EnumTextileHint.RINSING_WOOL)
             .setUnlocalizedName("Wool Washed");
         woolRinsed = new ItemTextile()
+            .addHint(EnumTextileHint.DRYING_WOOL)
             .setUnlocalizedName("Wool Rinsed");
         woolDried = new ItemTextile()
+            .addHint(EnumTextileHint.WILLOWING_WOOL)
             .setUnlocalizedName("Wool Dried");
         woolFiberCoarse = new ItemTextile()
+            .addHint(EnumTextileHint.CARDING)
+            .addHint(EnumTextileHint.SPINNING_YARN)
             .setUnlocalizedName("Wool Fibre Coarse");
         woolFiberRefined = new ItemTextile().setMaterialColor(0xf7f7e6)
+            .addHint(EnumTextileHint.SPINNING_YARN)
             .setUnlocalizedName("Wool Fibre Refined");
 
         flatBirchBark = new ItemGenericFlat().setTextureFolder("armor/clothing")
