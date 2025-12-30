@@ -69,7 +69,7 @@ public class ProcessingSurfaceRecipe {
     }
 
     public ItemStack getResult(ItemStack ingredient) {
-        return getOutput();
+        return getOutput().copy();
     }
 
 }
