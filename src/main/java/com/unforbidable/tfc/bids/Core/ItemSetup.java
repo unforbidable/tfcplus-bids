@@ -323,11 +323,11 @@ public class ItemSetup extends BidsItems {
         cottonBollRefined = new ItemTextile()
             .addHint(EnumTextileHint.WILLOWING_COTTON)
             .setUnlocalizedName("Cotton Boll Refined");
-        cottonFibreCoarse = new ItemTextile()
+        cottonFiberCoarse = new ItemTextile()
             .addHint(EnumTextileHint.CARDING)
             .addHint(EnumTextileHint.SPINNING_YARN)
             .setUnlocalizedName("Cotton Fibre Coarse");
-        cottonFibreRefined = new ItemTextile().setMaterialColor(0xf3faf0)
+        cottonFiberRefined = new ItemTextile().setMaterialColor(0xf3faf0)
             .addHint(EnumTextileHint.SPINNING_YARN)
             .setUnlocalizedName("Cotton Fibre Refined");
 
@@ -1600,8 +1600,8 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(cottonBoll, cottonBoll.getUnlocalizedName());
         GameRegistry.registerItem(cottonBollRefined, cottonBollRefined.getUnlocalizedName());
-        GameRegistry.registerItem(cottonFibreCoarse, cottonFibreCoarse.getUnlocalizedName());
-        GameRegistry.registerItem(cottonFibreRefined, cottonFibreRefined.getUnlocalizedName());
+        GameRegistry.registerItem(cottonFiberCoarse, cottonFiberCoarse.getUnlocalizedName());
+        GameRegistry.registerItem(cottonFiberRefined, cottonFiberRefined.getUnlocalizedName());
 
         GameRegistry.registerItem(thornBunch, thornBunch.getUnlocalizedName());
         GameRegistry.registerItem(thornCard, thornCard.getUnlocalizedName());
