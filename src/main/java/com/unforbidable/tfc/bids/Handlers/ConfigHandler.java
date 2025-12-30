@@ -239,6 +239,11 @@ public class ConfigHandler {
             BidsOptions.Crafting.removeOriginalStoneToolRecipes,
             "Set this to true if you want to remove recipes for crafting stone tools and weapons without binding.");
 
+        BidsOptions.Crafting.enableGrassCordageAsToolBinding = config.getBoolean(
+            "enableGrassCordageAsToolBinding", "crafting",
+            BidsOptions.Crafting.enableGrassCordageAsToolBinding,
+            "Set this to true if you want to be able to use grass cordage as composite tool binding.");
+
         BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes = config.getBoolean(
             "removeOriginalSpindleSpinningRecipes", "crafting",
             BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes,

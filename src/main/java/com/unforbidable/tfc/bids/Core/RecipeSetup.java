@@ -125,8 +125,12 @@ public class RecipeSetup {
         OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.blueSteelHammer, 1, WILD));
         OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.redSteelHammer, 1, WILD));
 
-        for (Item item : new Item[] { TFCItems.cottonYarn, TFCItems.woolYarn, TFCItems.silkString, TFCItems.grassCordage }) {
+        for (Item item : new Item[] { TFCItems.cottonYarn, TFCItems.woolYarn, TFCItems.silkString }) {
             OreDictionary.registerOre("materialBinding", item);
+        }
+
+        if (BidsOptions.Crafting.enableGrassCordageAsToolBinding) {
+            OreDictionary.registerOre("materialBinding", TFCItems.grassCordage);
         }
 
         for (Item item : new Item[] { TFCItems.sinew }) {

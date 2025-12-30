@@ -131,6 +131,8 @@ public class BidsOptions {
 
         public static boolean removeOriginalStoneToolRecipes = false;
 
+        public static boolean enableGrassCordageAsToolBinding = true;
+
         public static float spinningDurationMultiplier = 1f;
 
         public static boolean removeOriginalSpindleSpinningRecipes = false;
