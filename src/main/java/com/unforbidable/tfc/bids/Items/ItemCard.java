@@ -19,8 +19,8 @@ public class ItemCard extends ItemHandworkTool {
     }
 
     @Override
-    public int getMaxItemUseDuration(ItemStack is) {
-        return Math.round(super.getMaxItemUseDuration(is) * BidsOptions.Crafting.cardingDurationMultiplier);
+    protected float getActualMaxItemDuration(float duration) {
+        return duration * BidsOptions.Crafting.cardingDurationMultiplier;
     }
 
     @Override

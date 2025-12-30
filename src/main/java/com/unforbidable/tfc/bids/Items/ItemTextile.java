@@ -85,10 +85,14 @@ public class ItemTextile extends ItemTerra implements IHandworkToolMaterial {
     public int getMaxItemUseDuration(ItemStack is) {
         HandworkRecipe recipe = HandworkManager.getMatchingRecipe(is, HandworkRecipe.class);
         if (recipe != null) {
-            return Math.round(recipe.getDuration() * BidsOptions.Crafting.handworkDurationMultiplier);
+            return getActualMaxItemDuration(recipe.getDuration());
         }
 
         return 20;
+    }
+
+    protected int getActualMaxItemDuration(int duration) {
+        return Math.round(duration * BidsOptions.Crafting.handworkDurationMultiplier);
     }
 
     @Override
@@ -96,7 +100,7 @@ public class ItemTextile extends ItemTerra implements IHandworkToolMaterial {
         if (!player.isUsingItem()) {
             HandworkRecipe recipe = HandworkManager.getMatchingRecipe(is, HandworkRecipe.class);
             if (recipe != null && is.stackSize >= recipe.getInput().stackSize) {
-                player.setItemInUse(is, recipe.getDuration());
+                player.setItemInUse(is, getActualMaxItemDuration(recipe.getDuration()));
             }
         }
         return is;

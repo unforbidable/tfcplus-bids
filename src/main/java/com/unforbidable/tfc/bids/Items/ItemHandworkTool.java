@@ -106,14 +106,18 @@ public abstract class ItemHandworkTool extends ItemTerra implements ISize {
     }
 
     @Override
-    public int getMaxItemUseDuration(ItemStack is) {
+    public final int getMaxItemUseDuration(ItemStack is) {
         HandworkProgress progress = HandworkHelper.loadHandworkProgress(is);
         if (progress != null) {
             // Duration per stage
-            return Math.round((float)(progress.duration) / (getNumStages() - 1));
+            return Math.round(getActualMaxItemDuration(progress.duration) / (getNumStages() - 1));
         } else {
             return 20;
         }
+    }
+
+    protected float getActualMaxItemDuration(float duration) {
+        return duration;
     }
 
     @Override

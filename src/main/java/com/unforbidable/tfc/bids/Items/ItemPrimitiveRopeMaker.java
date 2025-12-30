@@ -15,9 +15,10 @@ public class ItemPrimitiveRopeMaker extends ItemHandworkTool {
         return 10;
     }
 
+
     @Override
-    public int getMaxItemUseDuration(ItemStack is) {
-        return Math.round(super.getMaxItemUseDuration(is) * BidsOptions.Crafting.ropeMakingDurationMultiplier);
+    protected float getActualMaxItemDuration(float duration) {
+        return duration * BidsOptions.Crafting.ropeMakingDurationMultiplier;
     }
 
     @Override

@@ -19,8 +19,8 @@ public class ItemHeckle extends ItemHandworkTool {
     }
 
     @Override
-    public int getMaxItemUseDuration(ItemStack is) {
-        return Math.round(super.getMaxItemUseDuration(is) * BidsOptions.Crafting.hecklingDurationMultiplier);
+    protected float getActualMaxItemDuration(float duration) {
+        return duration * BidsOptions.Crafting.hecklingDurationMultiplier;
     }
 
     @Override
