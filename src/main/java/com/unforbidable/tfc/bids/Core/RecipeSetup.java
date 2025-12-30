@@ -966,6 +966,8 @@ public class RecipeSetup {
         DryingManager.registerTyingEquipment(TFCItems.linenString, false, Blocks.wool, 0);
         DryingManager.registerTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0);
         DryingManager.registerTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0);
+        DryingManager.registerTyingEquipment(BidsItems.sisalTwine, false, Blocks.wool, 1);
+        DryingManager.registerTyingEquipment(BidsItems.juteTwine, false, Blocks.wool, 1);
 
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemAdze", "itemAxe")
