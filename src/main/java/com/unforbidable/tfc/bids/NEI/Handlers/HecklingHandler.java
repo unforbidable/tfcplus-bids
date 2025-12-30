@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.NEI.Handlers;
 
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
 import com.unforbidable.tfc.bids.api.Crafting.HecklingRecipe;
 import net.minecraft.item.ItemStack;
@@ -27,7 +28,7 @@ public class HecklingHandler extends HandworkHandler {
             for (HecklingRecipe recipe : HandworkManager.getRecipes(HecklingRecipe.class)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new HandworkHandler.CachedHandworkRecipe(input, result, recipe.getDuration()));
+                arecipes.add(new HandworkHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * BidsOptions.Crafting.hecklingDurationMultiplier));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -44,7 +45,7 @@ public class HecklingHandler extends HandworkHandler {
             final ItemStack result2 = result.copy();
             result2.stackSize = 1;
             if (ItemStack.areItemStacksEqual(result2, output2)) {
-                arecipes.add(new HandworkHandler.CachedHandworkRecipe(input, result, recipe.getDuration()));
+                arecipes.add(new HandworkHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * BidsOptions.Crafting.hecklingDurationMultiplier));
             }
         }
     }
@@ -55,7 +56,7 @@ public class HecklingHandler extends HandworkHandler {
             if (recipe.matchesIngredient(ingredient)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new HandworkHandler.CachedHandworkRecipe(input, result, recipe.getDuration()));
+                arecipes.add(new HandworkHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * BidsOptions.Crafting.hecklingDurationMultiplier));
             }
         }
     }

@@ -276,6 +276,11 @@ public class ConfigHandler {
             BidsOptions.Crafting.cardingDurationMultiplier, 0.5f, 4f,
             "Higher values increase the time it takes to card fibers using a thorn or metal card.");
 
+        BidsOptions.Crafting.hecklingDurationMultiplier = config.getFloat(
+            "hecklingDurationMultiplier", "crafting",
+            BidsOptions.Crafting.hecklingDurationMultiplier, 0.5f, 4f,
+            "Higher values increase the time it takes to heckle fibers using a bone heckle.");
+
         BidsOptions.Crops.enableCerealSeedAutoConversion = config.getBoolean(
             "enableCerealSeedAutoConversion", "crops",
             BidsOptions.Crops.enableCerealSeedAutoConversion,
