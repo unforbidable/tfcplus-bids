@@ -142,20 +142,37 @@ public class RecipeHelper {
     }
 
     public static void applyCompositeToolBindingBonus(ItemStack tool, ItemStack binding) {
-        int poorOreId = OreDictionary.getOreID("materialBindingPoor");
+        float bindingBonus = getBestBindingBonus(binding);
+        if (bindingBonus > 0) {
+            AnvilManager.setDurabilityBuff(tool, bindingBonus);
+        }
+    }
+
+    private static float getBestBindingBonus(ItemStack binding) {
+        int poorOreId = OreDictionary.getOreID("materialBinding");
         int decentOreId = OreDictionary.getOreID("materialBindingDecent");
         int goodOreId = OreDictionary.getOreID("materialBindingStrong");
 
         int[] ids = OreDictionary.getOreIDs(binding);
         for (int id : ids) {
-            if (id == poorOreId) {
-                AnvilManager.setDurabilityBuff(tool, 0.1f);
-            } else if (id == decentOreId) {
-                AnvilManager.setDurabilityBuff(tool, 0.5f);
-            } else if (id == goodOreId) {
-                AnvilManager.setDurabilityBuff(tool, 1f);
+            if (id == goodOreId) {
+                return 1f;
             }
         }
+
+        for (int id : ids) {
+            if (id == decentOreId) {
+                return 0.5f;
+            }
+        }
+
+        for (int id : ids) {
+            if (id == poorOreId) {
+                return 0.1f;
+            }
+        }
+
+        return 0;
     }
 
     @SuppressWarnings({"unchecked" })

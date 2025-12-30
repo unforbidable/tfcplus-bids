@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.Core.Recipes;
 import com.dunk.tfc.Food.ItemFoodTFC;
-import com.dunk.tfc.TileEntities.TELoom;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.*;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
@@ -126,27 +125,21 @@ public class RecipeSetup {
         OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.blueSteelHammer, 1, WILD));
         OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.redSteelHammer, 1, WILD));
 
-        for (ItemStack is : OreDictionary.getOres("materialString")) {
-            OreDictionary.registerOre("materialBinding", is);
-
-            // wool and cotton make poor binding material
-            if (is.getItem() == TFCItems.cottonYarn || is.getItem() == TFCItems.woolYarn) {
-                OreDictionary.registerOre("materialBindingPoor", is);
-            } else {
-                OreDictionary.registerOre("materialBowstring", is);
-                OreDictionary.registerOre("materialBindingStrong", is);
-            }
+        for (Item item : new Item[] { TFCItems.cottonYarn, TFCItems.woolYarn, TFCItems.silkString, TFCItems.grassCordage }) {
+            OreDictionary.registerOre("materialBinding", item);
         }
 
-        OreDictionary.registerOre("materialBinding", TFCItems.grassCordage);
-        OreDictionary.registerOre("materialBindingPoor", TFCItems.grassCordage);
+        for (Item item : new Item[] { TFCItems.sinew }) {
+            OreDictionary.registerOre("materialBinding", item);
+            OreDictionary.registerOre("materialBindingDecent", item);
+        }
 
-        OreDictionary.registerOre("materialBinding", TFCItems.sinew);
-        OreDictionary.registerOre("materialBindingDecent", TFCItems.sinew);
-
-        OreDictionary.registerOre("materialBowstring", BidsItems.barkCordage);
-        OreDictionary.registerOre("materialBinding", BidsItems.barkCordage);
-        OreDictionary.registerOre("materialBindingStrong", BidsItems.barkCordage);
+        for (Item item : new Item[] { TFCItems.linenString, BidsItems.barkCordage, BidsItems.sisalTwine, BidsItems.juteTwine }) {
+            OreDictionary.registerOre("materialBinding", item);
+            OreDictionary.registerOre("materialBindingDecent", item);
+            OreDictionary.registerOre("materialBindingStrong", item);
+            OreDictionary.registerOre("materialBowstring", item);
+        }
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             if (wood.blocks.hasChoppingBlock()) {
@@ -619,17 +612,17 @@ public class RecipeSetup {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
                 "W ", "P ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle));
 
-        // Select TFC recipes where bark cordage and bark fiber strips can be used
+        // Select TFC recipes where new cordage and twines can be used
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.primitiveLoom, 1, 0),
-                "LS", "SL", 'L', "stickWood", 'S', BidsItems.barkCordage));
+                "LS", "SL", 'L', "stickWood", 'S', "materialBindingStrong"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.primitiveLoom, 1, 0),
-                "LS", "SL", 'S', "stickWood", 'L', BidsItems.barkCordage));
+                "LS", "SL", 'S', "stickWood", 'L', "materialBindingStrong"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.unstrungBow, 1),
-                new ItemStack(TFCItems.pole), "itemKnife", new ItemStack(BidsItems.barkCordage)));
+                new ItemStack(TFCItems.pole), "itemKnife", "materialBindingStrong"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.bow, 1),
-                new ItemStack(TFCItems.unstrungBow), new ItemStack(BidsItems.barkCordage)));
+                new ItemStack(TFCItems.unstrungBow), "materialBindingStrong"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.splint, 1),
-                TFCItems.stick, BidsItems.barkCordage));
+                TFCItems.stick, "materialBindingStrong"));
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             String suffix = getOreSuffixWood(wood.index);
