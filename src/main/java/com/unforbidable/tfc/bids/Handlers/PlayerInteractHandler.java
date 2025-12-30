@@ -134,9 +134,11 @@ public class PlayerInteractHandler {
             }
         }
 
-        // When harvesting cotton, return unrefined cotton boll instead
-        if (entityItem.getEntityItem().getItem() == TFCItems.cotton) {
-            convertPickedItem(entityItem, player, BidsItems.cottonBoll);
+        if (BidsOptions.Crafting.enableCottonBollAutoConversion) {
+            // When harvesting cotton, return unrefined cotton boll instead
+            if (entityItem.getEntityItem().getItem() == TFCItems.cotton) {
+                convertPickedItem(entityItem, player, BidsItems.cottonBoll);
+            }
         }
     }
 

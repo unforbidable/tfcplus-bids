@@ -281,6 +281,11 @@ public class ConfigHandler {
             BidsOptions.Crafting.hecklingDurationMultiplier, 0.5f, 4f,
             "Higher values increase the time it takes to heckle fibers using a bone heckle.");
 
+        BidsOptions.Crafting.enableCottonBollAutoConversion = config.getBoolean(
+            "enableCottonBollAutoConversion", "crafting",
+            BidsOptions.Crafting.enableCottonBollAutoConversion,
+            "Set this to true if you want to automatically convert harvested cotton boll when picked up.");
+
         BidsOptions.Crops.enableCerealSeedAutoConversion = config.getBoolean(
             "enableCerealSeedAutoConversion", "crops",
             BidsOptions.Crops.enableCerealSeedAutoConversion,

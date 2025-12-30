@@ -148,6 +148,8 @@ public class BidsOptions {
 
         public static float hecklingDurationMultiplier = 1f;
 
+        public static boolean enableCottonBollAutoConversion = false;
+
     }
 
     public static class Crops {
