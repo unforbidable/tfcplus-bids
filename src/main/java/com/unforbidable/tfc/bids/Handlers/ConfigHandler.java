@@ -271,6 +271,11 @@ public class ConfigHandler {
             BidsOptions.Crafting.removeOriginalBurlapFiberLoomRecipes,
             "Set this to true if you want to remove recipes for crafting burlap directly from sisal and jute fibers on a Loom. Burlap can still be crafted from sisal and jute twine.");
 
+        BidsOptions.Crafting.cardingDurationMultiplier = config.getFloat(
+            "cardingDurationMultiplier", "crafting",
+            BidsOptions.Crafting.cardingDurationMultiplier, 0.5f, 4f,
+            "Higher values increase the time it takes to card fibers using a thorn or metal card.");
+
         BidsOptions.Crops.enableCerealSeedAutoConversion = config.getBoolean(
             "enableCerealSeedAutoConversion", "crops",
             BidsOptions.Crops.enableCerealSeedAutoConversion,

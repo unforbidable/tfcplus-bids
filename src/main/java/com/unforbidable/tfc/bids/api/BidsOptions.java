@@ -144,6 +144,8 @@ public class BidsOptions {
 
         public static boolean removeOriginalBurlapFiberLoomRecipes = false;
 
+        public static float cardingDurationMultiplier = 1f;
+
     }
 
     public static class Crops {

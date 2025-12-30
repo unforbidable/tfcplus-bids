@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Items;
 
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.CardingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
@@ -15,6 +16,11 @@ public class ItemCard extends ItemHandworkTool {
     @Override
     protected int getNumStages() {
         return 5;
+    }
+
+    @Override
+    public int getMaxItemUseDuration(ItemStack is) {
+        return Math.round(super.getMaxItemUseDuration(is) * BidsOptions.Crafting.cardingDurationMultiplier);
     }
 
     @Override
