@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Textile.EnumTextileHint;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
 import com.unforbidable.tfc.bids.api.Interfaces.IHandworkToolMaterial;
@@ -84,7 +85,7 @@ public class ItemTextile extends ItemTerra implements IHandworkToolMaterial {
     public int getMaxItemUseDuration(ItemStack is) {
         HandworkRecipe recipe = HandworkManager.getMatchingRecipe(is, HandworkRecipe.class);
         if (recipe != null) {
-            return recipe.getDuration();
+            return Math.round(recipe.getDuration() * BidsOptions.Crafting.handworkDurationMultiplier);
         }
 
         return 20;

@@ -281,6 +281,11 @@ public class ConfigHandler {
             BidsOptions.Crafting.hecklingDurationMultiplier, 0.5f, 4f,
             "Higher values increase the time it takes to heckle fibers using a bone heckle.");
 
+        BidsOptions.Crafting.handworkDurationMultiplier = config.getFloat(
+            "handworkDurationMultiplier", "crafting",
+            BidsOptions.Crafting.handworkDurationMultiplier, 0.5f, 4f,
+            "Higher values increase the time it takes to process items by hand by holding right-mouse button.");
+
         BidsOptions.Crafting.enableCottonBollAutoConversion = config.getBoolean(
             "enableCottonBollAutoConversion", "crafting",
             BidsOptions.Crafting.enableCottonBollAutoConversion,
