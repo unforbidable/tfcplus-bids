@@ -623,6 +623,8 @@ public class RecipeSetup {
                 new ItemStack(TFCItems.unstrungBow), "materialBindingStrong"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.splint, 1),
                 TFCItems.stick, "materialBindingStrong"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.compositeBow),
+                TFCItems.unstrungCompositeBow, "materialBindingStrong"));
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             String suffix = getOreSuffixWood(wood.index);
