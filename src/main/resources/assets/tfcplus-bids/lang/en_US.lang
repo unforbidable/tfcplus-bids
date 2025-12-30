@@ -1150,6 +1150,11 @@ item.Flax Stalk Broken.name=Broken Flax Stalks
 item.Flax Fibre Coarse.name=Coarse Flax Fibers
 item.Flax Fibre Refined.name=Refined Flax Fibers
 
+item.Cotton Boll.name=Cotton Boll
+item.Cotton Boll Refined.name=Refined Cotton Boll
+item.Cotton Fibre Coarse.name=Coarse Cotton Fiber
+item.Cotton Fibre Refined.name=Refined Cotton Fiber
+
 item.Flat Birch Bark.name=Flat Birch Bark
 item.Birch Bark Sheet.name=Birch Bark Sheet
 item.Strap.Birch Bark.name=Birch Bark Strap
