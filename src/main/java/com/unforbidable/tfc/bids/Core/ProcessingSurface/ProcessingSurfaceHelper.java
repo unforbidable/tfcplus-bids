@@ -21,15 +21,15 @@ import java.util.Map;
 
 public class ProcessingSurfaceHelper {
 
-    private static final Map<Integer, IIcon> icons = new HashMap<Integer, IIcon>();
+    private static final Map<String, IIcon> icons = new HashMap<String, IIcon>();
 
     public static IIcon getIconForItem(ItemStack itemStack) {
-        int key = getItemKey(itemStack);
+        String key = getItemKey(itemStack);
         if (icons.containsKey(key)) {
             return icons.get(key);
         } else {
             ItemStack itemStackWild = new ItemStack(itemStack.getItem(), 1, OreDictionary.WILDCARD_VALUE);
-            int keyWild = getItemKey(itemStackWild);
+            String keyWild = getItemKey(itemStackWild);
             if (icons.containsKey(keyWild)) {
                 return icons.get(keyWild);
             } else {
@@ -101,8 +101,8 @@ public class ProcessingSurfaceHelper {
         return Tags.MOD_ID + ":surface/" + filePart;
     }
 
-    private static int getItemKey(ItemStack itemStack) {
-        return Item.getIdFromItem(itemStack.getItem()) << 16 + itemStack.getItemDamage();
+    private static String getItemKey(ItemStack itemStack) {
+        return itemStack.getUnlocalizedName() + "@" + itemStack.getItemDamage();
     }
 
 }
