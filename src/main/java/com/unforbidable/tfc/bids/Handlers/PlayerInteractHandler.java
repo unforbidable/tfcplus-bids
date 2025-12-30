@@ -133,6 +133,11 @@ public class PlayerInteractHandler {
                 convertPickedItem(entityItem, player, BidsItems.seedsNewCarrot);
             }
         }
+
+        // When harvesting cotton, return unrefined cotton boll instead
+        if (entityItem.getEntityItem().getItem() == TFCItems.cotton) {
+            convertPickedItem(entityItem, player, BidsItems.cottonBoll);
+        }
     }
 
     private static void convertPickedItem(EntityItem entityItem, EntityPlayer player, Item targetItem) {
