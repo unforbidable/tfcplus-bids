@@ -331,6 +331,17 @@ public class ItemSetup extends BidsItems {
             .addHint(EnumTextileHint.SPINNING_YARN)
             .setUnlocalizedName("Cotton Fibre Refined");
 
+        woolWashed = new ItemTextile()
+            .setUnlocalizedName("Wool Washed");
+        woolRinsed = new ItemTextile()
+            .setUnlocalizedName("Wool Rinsed");
+        woolDried = new ItemTextile()
+            .setUnlocalizedName("Wool Dried");
+        woolFiberCoarse = new ItemTextile()
+            .setUnlocalizedName("Wool Fibre Coarse");
+        woolFiberRefined = new ItemTextile().setMaterialColor(0xf7f7e6)
+            .setUnlocalizedName("Wool Fibre Refined");
+
         flatBirchBark = new ItemGenericFlat().setTextureFolder("armor/clothing")
                 .setUnlocalizedName("Flat Birch Bark");
         birchBarkSheet = new ItemGenericClothSheet().setSpecialCraftingType(flatBirchBark)
@@ -1602,6 +1613,12 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(cottonBollRefined, cottonBollRefined.getUnlocalizedName());
         GameRegistry.registerItem(cottonFiberCoarse, cottonFiberCoarse.getUnlocalizedName());
         GameRegistry.registerItem(cottonFiberRefined, cottonFiberRefined.getUnlocalizedName());
+
+        GameRegistry.registerItem(woolWashed, woolWashed.getUnlocalizedName());
+        GameRegistry.registerItem(woolRinsed, woolRinsed.getUnlocalizedName());
+        GameRegistry.registerItem(woolDried, woolDried.getUnlocalizedName());
+        GameRegistry.registerItem(woolFiberCoarse, woolFiberCoarse.getUnlocalizedName());
+        GameRegistry.registerItem(woolFiberRefined, woolFiberRefined.getUnlocalizedName());
 
         GameRegistry.registerItem(thornBunch, thornBunch.getUnlocalizedName());
         GameRegistry.registerItem(thornCard, thornCard.getUnlocalizedName());

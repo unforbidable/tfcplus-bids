@@ -118,6 +118,12 @@ public class BidsItems {
     public static Item cottonFiberCoarse;
     public static Item cottonFiberRefined;
 
+    public static Item woolWashed;
+    public static Item woolRinsed;
+    public static Item woolDried;
+    public static Item woolFiberCoarse;
+    public static Item woolFiberRefined;
+
     public static Item flatBirchBark;
     public static Item birchBarkSheet;
     public static Item birchBarkStrap;

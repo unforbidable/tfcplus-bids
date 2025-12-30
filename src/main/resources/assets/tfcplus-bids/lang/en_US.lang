@@ -1155,6 +1155,12 @@ item.Cotton Boll Refined.name=Refined Cotton Boll
 item.Cotton Fibre Coarse.name=Coarse Cotton Fiber
 item.Cotton Fibre Refined.name=Refined Cotton Fiber
 
+item.Wool Washed.name=Washed Wool
+item.Wool Rinsed.name=Rinsed Wool
+item.Wool Dried.name=Dried Wool
+item.Wool Fibre Coarse.name=Coarse Wool Fiber
+item.Wool Fibre Refined.name=Refined Wool Fiber
+
 item.Flat Birch Bark.name=Flat Birch Bark
 item.Birch Bark Sheet.name=Birch Bark Sheet
 item.Strap.Birch Bark.name=Birch Bark Strap
