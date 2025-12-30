@@ -13,7 +13,7 @@ public enum EnumTextileHint {
     DRYING_STALK("DryingStalk"),
     DRYING_WOOL("DryingWool"),
     RUBBING("Rubbing"),
-    THINNING("Thinning"),
+    WILLOWING_COTTON("WillowingCotton"),
     BREAKING_HAND("BreakingHand"),
     BREAKING_SURFACE("BreakingSurface"),
     SCUTCHING_HAND("ScutchingHand"),
