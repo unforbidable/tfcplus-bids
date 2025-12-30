@@ -296,16 +296,25 @@ public class ItemSetup extends BidsItems {
                 .setUnlocalizedName("Jute Twine");
 
         flaxStalk = new ItemTextile()
+                .addHint(EnumTextileHint.RETTING_STALK)
                 .setUnlocalizedName("Flax Stalk");
         flaxStalkRetted = new ItemTextile()
+                .addHint(EnumTextileHint.DRYING_FIBRE)
                 .setUnlocalizedName("Flax Stalk Retted");
         flaxStalkDried = new ItemTextile()
+                .addHint(EnumTextileHint.BREAKING_HAND)
+                .addHint(EnumTextileHint.BREAKING_SURFACE)
                 .setUnlocalizedName("Flax Stalk Dried");
         flaxStalkBroken = new ItemTextile()
+                .addHint(EnumTextileHint.SCUTCHING_HAND)
+                .addHint(EnumTextileHint.SCUTCHING_SURFACE)
                 .setUnlocalizedName("Flax Stalk Broken");
         flaxFiberCoarse = new ItemTextile()
+                .addHint(EnumTextileHint.HECKLING)
+                .addHint(EnumTextileHint.SPINNING_STRING)
                 .setUnlocalizedName("Flax Fibre Coarse");
         flaxFiberRefined = new ItemTextile().setMaterialColor(0xb0c389)
+                .addHint(EnumTextileHint.SPINNING_STRING)
                 .setUnlocalizedName("Flax Fibre Refined");
 
         flatBirchBark = new ItemGenericFlat().setTextureFolder("armor/clothing")

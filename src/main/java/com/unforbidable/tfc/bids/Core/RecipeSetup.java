@@ -161,6 +161,8 @@ public class RecipeSetup {
             if (wood.blocks.hasThickLog()) {
                 OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getThickLog());
                 OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getThickLogAlt());
+
+                OreDictionary.registerOre("blockFlaxWorkingSurface", wood.blocks.getThickVert());
             }
 
             if (wood.blocks.hasStackedLogs()) {
@@ -223,12 +225,16 @@ public class RecipeSetup {
                 OreDictionary.registerOre("logWoodAny", wood.items.getPeeledLog());
                 OreDictionary.registerOre("logWood" + suffix, wood.items.getPeeledLog());
                 OreDictionary.registerOre("logWoodFresh" + suffix, wood.items.getPeeledLog());
+
+                OreDictionary.registerOre("itemFlaxBreakingTool", wood.items.getPeeledLog());
             }
 
             if (wood.items.hasSeasonedPeeledLog()) {
                 OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedPeeledLog());
                 OreDictionary.registerOre("logWood" + suffix, wood.items.getSeasonedPeeledLog());
                 OreDictionary.registerOre("logWoodSeasoned" + suffix, wood.items.getSeasonedPeeledLog());
+
+                OreDictionary.registerOre("itemFlaxBreakingTool", wood.items.getSeasonedPeeledLog());
 
                 if (wood.hardwood) {
                     OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getSeasonedPeeledLog());
@@ -265,6 +271,10 @@ public class RecipeSetup {
 
         for (Item knife : Recipes.knives) {
             OreDictionary.registerOre("itemScrapingTool", new ItemStack(knife, 1, WILD));
+        }
+
+        for (Item knife : new Item[] { TFCItems.pole } ) {
+            OreDictionary.registerOre("itemFlaxScutchingTool", new ItemStack(knife, 1, WILD));
         }
 
         final Item[] handAxes = new Item[] {BidsItems.sedHandAxe, BidsItems.mMHandAxe, BidsItems.igInHandAxe, BidsItems.igExHandAxe };
@@ -586,6 +596,12 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionDamageTool(1)
             .addTools("itemKnife")
             .matchCraftingItem(BidsItems.juteStalk));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.flaxStalk),
+            TFCItems.flax, "itemKnife"));
+        RecipeManager.addAction(new ActionDamageTool(1)
+            .addTools("itemKnife")
+            .matchCraftingItem(BidsItems.flaxStalk));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkCup, 1, 0),
                 BidsItems.birchBarkCupUnfinished, Items.slime_ball));
@@ -925,6 +941,8 @@ public class RecipeSetup {
                 new ItemStack(BidsItems.sisalFiberRinsed), 12, false));
         DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.juteFiberCoarse),
                 new ItemStack(TFCItems.juteFiber), 12, false));
+        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.flaxStalkDried),
+                new ItemStack(BidsItems.flaxStalkRetted), 18, false));
 
         GameRegistry.addRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2, 0), "P P", "X X", "P P",
             'P', new ItemStack(TFCItems.fireBrick, 1, 1),
@@ -1900,13 +1918,21 @@ public class RecipeSetup {
         ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
             new ItemStack(TFCItems.sheepSkin, 1, 2),
             "itemScrapingTool", "blockScrapingSurface", 4));
+
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkBroken),
+            new ItemStack(BidsItems.flaxStalkDried),
+            "itemFlaxBreakingTool", "blockFlaxWorkingSurface", 0.25f));
+        ProcessingSurfaceManager.addRecipe(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxFiberCoarse),
+            new ItemStack(BidsItems.flaxStalkBroken),
+            "itemFlaxScutchingTool", "blockFlaxWorkingSurface", 0.25f));
     }
 
     private static void registerSoakingSurfaceRecipes() {
         Bids.LOG.info("Register soaking surface recipes");
 
-        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(TFCItems.flaxFiber, 1, 0),
-            new ItemStack(TFCItems.flax, 1, 0), "blockFreshWater", 20));
+        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkRetted, 1, 0),
+            new ItemStack(BidsItems.flaxStalk, 1, 0), "blockFreshWater", 20));
+
         SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.juteStalkRetted, 1, 0),
             new ItemStack(BidsItems.juteStalk, 1, 0), "blockFreshWater", 20));
 
@@ -1919,15 +1945,22 @@ public class RecipeSetup {
 
         HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.barkFibreSmooth), new ItemStack(BidsItems.barkFibreCoarse), 80));
         HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(TFCItems.juteFiber), new ItemStack(BidsItems.juteStalkRetted), 80));
+        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.flaxStalkBroken), new ItemStack(BidsItems.flaxStalkDried), 240));
+        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.flaxFiberCoarse), new ItemStack(BidsItems.flaxStalkBroken), 240));
 
+        // Flax fiber spinning recipe is preserved as a way to convert TFC+ Flax fibers to string
+        // since unlike other fibers it is not used as an intermediate material in the new extended textile processing
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
+
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(TFCItems.cotton), 120));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(TFCItems.wool), 120));
 
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberRefined), 120));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreSmooth), 80));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberRefined), 120));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberRefined), 120));
 
+        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberCoarse), 120 * 4));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberCoarse), 120 * 4));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberCoarse), 120 * 4));
         HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreCoarse), 80 * 4));
@@ -1940,6 +1973,7 @@ public class RecipeSetup {
         HandworkManager.addRecipe(new CardingRecipe(new ItemStack(BidsItems.sisalFiberRefined), new ItemStack(BidsItems.sisalFiberCoarse), 80));
 
         HandworkManager.addRecipe(new HecklingRecipe(new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.juteFiberCoarse), 120));
+        HandworkManager.addRecipe(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(BidsItems.flaxFiberCoarse), 120));
     }
 
     private static void registerKnappingRecipes() {
@@ -2273,6 +2307,8 @@ public class RecipeSetup {
             new ItemStack(BidsItems.sisalFiberRinsed), new FluidStack(TFCFluids.FRESHWATER, 100)).setSealedRecipe(false).setSealTime(0).setMinTechLevel(0));
         BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(BidsItems.juteStalk), new FluidStack(TFCFluids.FRESHWATER, 200),
             new ItemStack(BidsItems.juteStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200)).setSealedRecipe(false).setMinTechLevel(0));
+        BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(BidsItems.flaxStalk), new FluidStack(TFCFluids.FRESHWATER, 200),
+            new ItemStack(BidsItems.flaxStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200)).setSealedRecipe(false).setMinTechLevel(0));
 
         BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.sisalTwine), new FluidStack(TFCFluids.WAX, 200),
             new ItemStack(TFCBlocks.candleOff, 1), new FluidStack(TFCFluids.WAX, 200)).setKeepStackSize(false).setSealTime(0).setSealedRecipe(false).setMinTechLevel(0));

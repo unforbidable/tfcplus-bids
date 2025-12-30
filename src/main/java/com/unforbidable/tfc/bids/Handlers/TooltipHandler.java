@@ -34,6 +34,9 @@ public class TooltipHandler {
         if (isTextileForExtracting(itemStack)) {
             hints.add(EnumTextileHint.EXTRACTING);
         }
+        if (isTextileForRefiningStalk(itemStack)) {
+            hints.add(EnumTextileHint.REFINING_STALK);
+        }
         if (isTextileForRinsingFiber(itemStack)) {
             hints.add(EnumTextileHint.RINSING_FIBRE);
         }
@@ -58,6 +61,10 @@ public class TooltipHandler {
                 toolTip.add(StatCollector.translateToLocal("gui.ShowHelp"));
             }
         }
+    }
+
+    private boolean isTextileForRefiningStalk(ItemStack itemStack) {
+        return itemStack.getItem() == TFCItems.jute || itemStack.getItem() == TFCItems.flax;
     }
 
     private boolean isTextileForDryingFiber(ItemStack itemStack) {
