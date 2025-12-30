@@ -106,6 +106,13 @@ public class BidsItems {
     public static Item juteFiberRefined;
     public static Item juteTwine;
 
+    public static Item flaxStalk;
+    public static Item flaxStalkRetted;
+    public static Item flaxStalkDried;
+    public static Item flaxStalkBroken;
+    public static Item flaxFiberCoarse;
+    public static Item flaxFiberRefined;
+
     public static Item flatBirchBark;
     public static Item birchBarkSheet;
     public static Item birchBarkStrap;

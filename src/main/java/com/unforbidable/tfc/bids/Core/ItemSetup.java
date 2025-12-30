@@ -295,6 +295,19 @@ public class ItemSetup extends BidsItems {
                 .addHint(EnumTextileHint.WEAVING_BURLAP)
                 .setUnlocalizedName("Jute Twine");
 
+        flaxStalk = new ItemTextile()
+                .setUnlocalizedName("Flax Stalk");
+        flaxStalkRetted = new ItemTextile()
+                .setUnlocalizedName("Flax Stalk Retted");
+        flaxStalkDried = new ItemTextile()
+                .setUnlocalizedName("Flax Stalk Dried");
+        flaxStalkBroken = new ItemTextile()
+                .setUnlocalizedName("Flax Stalk Broken");
+        flaxFiberCoarse = new ItemTextile()
+                .setUnlocalizedName("Flax Fibre Coarse");
+        flaxFiberRefined = new ItemTextile().setMaterialColor(0xb0c389)
+                .setUnlocalizedName("Flax Fibre Refined");
+
         flatBirchBark = new ItemGenericFlat().setTextureFolder("armor/clothing")
                 .setUnlocalizedName("Flat Birch Bark");
         birchBarkSheet = new ItemGenericClothSheet().setSpecialCraftingType(flatBirchBark)
@@ -1554,6 +1567,13 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(juteFiberCoarse, juteFiberCoarse.getUnlocalizedName());
         GameRegistry.registerItem(juteFiberRefined, juteFiberRefined.getUnlocalizedName());
         GameRegistry.registerItem(juteTwine, juteTwine.getUnlocalizedName());
+
+        GameRegistry.registerItem(flaxStalk, flaxStalk.getUnlocalizedName());
+        GameRegistry.registerItem(flaxStalkRetted, flaxStalkRetted.getUnlocalizedName());
+        GameRegistry.registerItem(flaxStalkDried, flaxStalkDried.getUnlocalizedName());
+        GameRegistry.registerItem(flaxStalkBroken, flaxStalkBroken.getUnlocalizedName());
+        GameRegistry.registerItem(flaxFiberCoarse, flaxFiberCoarse.getUnlocalizedName());
+        GameRegistry.registerItem(flaxFiberRefined, flaxFiberRefined.getUnlocalizedName());
 
         GameRegistry.registerItem(thornBunch, thornBunch.getUnlocalizedName());
         GameRegistry.registerItem(thornCard, thornCard.getUnlocalizedName());
