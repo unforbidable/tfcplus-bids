@@ -17,6 +17,7 @@ public class WoodBlockGroup {
     public static final WoodBlockGroup FENCE = new WoodBlockGroup(16, TFCBlocks.fence, TFCBlocks.fence2, TFCBlocks.fence3);
     public static final WoodBlockGroup THICK_LOG = new WoodBlockGroup(8, 0, TFCBlocks.woodHoriz, TFCBlocks.woodHoriz2, TFCBlocks.woodHoriz3, TFCBlocks.woodHoriz4, TFCBlocks.woodHoriz5, TFCBlocks.woodHoriz6);
     public static final WoodBlockGroup THICK_LOG_ALT = new WoodBlockGroup(8, 1, TFCBlocks.woodHoriz, TFCBlocks.woodHoriz2, TFCBlocks.woodHoriz3, TFCBlocks.woodHoriz4, TFCBlocks.woodHoriz5, TFCBlocks.woodHoriz6);
+    public static final WoodBlockGroup THICK_LOG_VERT = new WoodBlockGroup(16, TFCBlocks.woodVert, TFCBlocks.woodVert2, TFCBlocks.woodVert3);
     public static final WoodBlockGroup STACKED_LOGS = new WoodBlockGroup(8, 0, TFCBlocks.stackedWoodHoriz, TFCBlocks.stackedWoodHoriz2, TFCBlocks.stackedWoodHoriz3, TFCBlocks.stackedWoodHoriz4, TFCBlocks.stackedWoodHoriz5, TFCBlocks.stackedWoodHoriz6);
     public static final WoodBlockGroup STACKED_LOGS_ALT = new WoodBlockGroup(8, 1,  TFCBlocks.stackedWoodHoriz, TFCBlocks.stackedWoodHoriz2, TFCBlocks.stackedWoodHoriz3, TFCBlocks.stackedWoodHoriz4, TFCBlocks.stackedWoodHoriz5, TFCBlocks.stackedWoodHoriz6);
 

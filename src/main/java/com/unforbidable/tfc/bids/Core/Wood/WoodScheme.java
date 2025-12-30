@@ -121,6 +121,8 @@ public class WoodScheme {
                 return WoodBlockGroup.STACKED_LOGS.getBlockStack(wood.index, stackSize);
             case STACKED_LOGS_ALT:
                 return WoodBlockGroup.STACKED_LOGS_ALT.getBlockStack(wood.index, stackSize);
+            case THICK_LOG_VERT:
+                return WoodBlockGroup.THICK_LOG_VERT.getBlockStack(wood.index, stackSize);
         }
 
         return null;
@@ -141,6 +143,7 @@ public class WoodScheme {
             case CHOPPING_BLOCK:
             case THICK_LOG:
             case THICK_LOG_ALT:
+            case THICK_LOG_VERT:
                 return wood.hasLargeLogs;
 
             case STACKED_FIREWOOD:

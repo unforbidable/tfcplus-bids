@@ -13,5 +13,6 @@ public enum EnumWoodBlockType {
     STACKED_LOGS,
     THICK_LOG_ALT,
     STACKED_LOGS_ALT,
+    THICK_LOG_VERT,
 
 }

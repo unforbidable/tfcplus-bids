@@ -100,4 +100,8 @@ public class WoodBlockProvider {
         return getBlockStack(EnumWoodBlockType.STACKED_LOGS_ALT);
     }
 
+    public ItemStack getThickVert() {
+        return getBlockStack(EnumWoodBlockType.THICK_LOG_VERT);
+    }
+
 }
