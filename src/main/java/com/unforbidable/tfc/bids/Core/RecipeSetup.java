@@ -2328,6 +2328,9 @@ public class RecipeSetup {
             new ItemStack(TFCBlocks.candleOff, 1), new FluidStack(TFCFluids.WAX, 200)).setKeepStackSize(false).setSealTime(0).setSealedRecipe(false).setMinTechLevel(0));
         BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.juteTwine), new FluidStack(TFCFluids.WAX, 200),
             new ItemStack(TFCBlocks.candleOff, 1), new FluidStack(TFCFluids.WAX, 200)).setKeepStackSize(false).setSealTime(0).setSealedRecipe(false).setMinTechLevel(0));
+
+        BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.cottonBollRefined, 1, 0), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250),
+            new ItemStack(TFCItems.ammoniumChlorideBall, 1, 0), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250)).setSealedRecipe(false).setSealTime(0).setMinTechLevel(0));
     }
 
     private static void registerLoomRecipes() {
