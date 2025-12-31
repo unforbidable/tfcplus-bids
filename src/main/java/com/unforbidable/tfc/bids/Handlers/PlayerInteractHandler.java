@@ -172,7 +172,7 @@ public class PlayerInteractHandler {
                 ItemStack heldItem = event.entityPlayer.getHeldItem();
                 if (heldItem != null && heldItem.getItem() instanceof IKnife) {
                     Block block = event.world.getBlock(event.x, event.y, event.z);
-                    if (block == TFCBlocks.shrub) {
+                    if ((block == TFCBlocks.shrub || block == TFCBlocks.undergrowthPalm || block == TFCBlocks.undergrowth) && !event.entityPlayer.isSneaking()) {
                         // This action is also used in TFC+ to harvest resin from shrubs
                         // so the knife already takes damage
                         if (event.world.rand.nextInt(16) == 0) {
