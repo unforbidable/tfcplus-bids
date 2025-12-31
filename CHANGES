@@ -690,3 +690,32 @@
 - Fixed: Palisades and fences no longer try to fill gaps with Tee Pees
 - Fixed: Drying Rack block can be crafted again
 - Fixed: Primitive straw nest collision bounds should be less harmful to chicken
+
+0.54.0 (2025-12-31)
+- Added: Thorns
+- Added: Thorn Card
+- Added: Bone Heckle
+- Added: Spindle
+- Added: Jute Twine
+- Added: Sisal Twine
+- Added: Primitive Rope Maker
+- Added: Soaking surface for soaking, rinsing and retting material pre-pottery
+- Added: Carding recipes with NEI support
+- Added: Heckling recipes with NEI support
+- Added: Spinning recipes with NEI support
+- Added: Rope-making recipes with NEI support
+- Added: Handwork recipes with NEI support
+- Added: Expanded textile processing of Sisal, Jute, Flax, Cotton and Wool
+- Added: Option to remove TFC spindle fiber spinning crafting grid recipe
+- Added: Option to remove TFC loom jute and sisal fiber recipes in favor of using twine
+- Added: Option to remove TFC fiber to rope crafting grid recipes
+- Added: Option to prevent TFC+ style rope-making by right clicking fibers
+- Added: Option to automatically convert harvested cotton boll to an unrefined cotton pod
+- Added: Options to adjust the speed of Carding, Heckling, Spinning, Rope-Making and Handwork activities
+- Added: Option to disable Grass Cordage as a valid binding for Composite Tools
+- Added: Material spun statistic
+- Changed: Boiled and Steamed food tag is indicated in the tooltip instead of cheese infusion
+- Changed: Cotton and Wool yarns and Silk string are now only poor bindings for Composite Tools
+- Changed: Bark fiber processing simplified and adapted to new extended textile processing
+- Removed: Bark fiber strips are no longer used as a part of bark fiber processing
+- Fixed: Drying rack recipe output should now ignore stack size when matching in NEI
