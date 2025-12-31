@@ -143,6 +143,12 @@ public abstract class ItemHandworkTool extends ItemTerra implements ISize {
 
                         TFC_Core.giveItemToPlayer(currentProgress.outputItem, player);
                         HandworkHelper.clearHandworkProgress(is);
+
+                        is.damageItem(1, player);
+                        if (is.stackSize == 0) {
+                            world.playSoundEffect(player.posX, player.posY, player.posZ, "random.break",
+                                0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
+                        }
                     }
                 } else {
                     player.setItemInUse(is, this.getMaxItemUseDuration(is));

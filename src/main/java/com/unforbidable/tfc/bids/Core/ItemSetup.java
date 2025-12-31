@@ -884,17 +884,21 @@ public class ItemSetup extends BidsItems {
         whorl = new ItemWhorl()
             .setUnlocalizedName("Whorl");
         spindle = new ItemSpindle()
+            .setMaxDamage(TFCItems.woodUses)
             .setUnlocalizedName("Spindle");
 
         primitiveRopeMaker = new ItemPrimitiveRopeMaker()
+            .setMaxDamage(TFCItems.woodUses)
             .setUnlocalizedName("Primitive Rope Maker");
 
         thornBunch = new ItemThornBunch()
             .setUnlocalizedName("Thorn Bunch");
         thornCard = new ItemCard()
+            .setMaxDamage(TFCItems.boneUses)
             .setUnlocalizedName("Thorn Card");
 
         boneHeckle = new ItemHeckle()
+            .setMaxDamage(TFCItems.boneUses)
             .setUnlocalizedName("Bone Heckle");
     }
 
