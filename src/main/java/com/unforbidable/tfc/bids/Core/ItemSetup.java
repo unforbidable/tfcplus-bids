@@ -18,6 +18,7 @@ import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderThickLogsTFC;
 import com.unforbidable.tfc.bids.Items.*;
 import com.unforbidable.tfc.bids.Render.Item.FoodItemRenderer;
+import com.unforbidable.tfc.bids.Render.Item.HandworkToolItemRenderer;
 import com.unforbidable.tfc.bids.Render.Item.SeasonableItemRenderer;
 import com.unforbidable.tfc.bids.Render.Item.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.Tags;
@@ -1194,6 +1195,14 @@ public class ItemSetup extends BidsItems {
 
         for (Item item : foodItems) {
             MinecraftForgeClient.registerItemRenderer(item, new FoodItemRenderer());
+        }
+
+        Item[] handworkTools = {
+            thornCard, boneHeckle, spindle, primitiveRopeMaker
+        };
+
+        for (Item item : handworkTools) {
+            MinecraftForgeClient.registerItemRenderer(item, new HandworkToolItemRenderer());
         }
 
         MinecraftForgeClient.registerItemRenderer(hardenedWoodenSpear, new PoleItemRenderer());

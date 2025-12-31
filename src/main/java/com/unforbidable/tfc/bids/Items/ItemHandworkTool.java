@@ -34,17 +34,10 @@ public abstract class ItemHandworkTool extends ItemTerra implements ISize {
 
     protected abstract int getNumStages();
 
-    @Override
-    public boolean showDurabilityBar(ItemStack stack) {
-        HandworkProgress progress = HandworkHelper.loadHandworkProgress(stack);
-        return progress != null;
-    }
-
-    @Override
-    public double getDurabilityForDisplay(ItemStack stack) {
+    public float getHandworkProgressPercentage(ItemStack stack) {
         HandworkProgress progress = HandworkHelper.loadHandworkProgress(stack);
         if (progress != null) {
-            return 1 - (progress.stage / (double) (getNumStages() - 1));
+            return (progress.stage / (float) (getNumStages() - 1));
         }
 
         return 0;
