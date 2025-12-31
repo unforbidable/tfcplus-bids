@@ -47,4 +47,7 @@ public class BidsStats {
     public static final StatBase MATERIAL_SCRAPED = new StatBasic("stat.bidsMaterialScraped", new ChatComponentTranslation("stat.bidsMaterialScraped"))
         .initIndependentStat();
 
+    public static final StatBase MATERIAL_SPUN = new StatBasic("stat.bidsMaterialSpun", new ChatComponentTranslation("stat.bidsMaterialSpun"))
+        .initIndependentStat();
+
 }

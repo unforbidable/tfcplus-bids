@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.Core.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
 import com.unforbidable.tfc.bids.Items.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.Items.ItemNewCustomSeeds;
+import com.unforbidable.tfc.bids.Items.ItemSpindle;
 import com.unforbidable.tfc.bids.api.BidsAchievements;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -231,6 +232,10 @@ public class AchievementHandler {
 
             if (event.result.getItem() == TFCItems.rope && event.input.getItem() == BidsItems.barkCordage) {
                 event.entityPlayer.triggerAchievement(BidsAchievements.BARK_ROPE);
+            }
+
+            if (event.tool != null && event.tool.getItem() instanceof ItemSpindle) {
+                event.entityPlayer.addStat(BidsStats.MATERIAL_SPUN, event.result.stackSize);
             }
         }
     }
