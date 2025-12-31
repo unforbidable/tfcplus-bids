@@ -211,7 +211,14 @@ public class AchievementHandler {
     @SubscribeEvent
     public void onProcessingSurfaceProgress(ProcessingSurfaceEvent.Progress event) {
         if (event.progress == 1f) {
-            event.player.addStat(BidsStats.MATERIAL_SCRAPED, Math.round(event.effort));
+            int itemScrapingToolOreId = OreDictionary.getOreID("itemScrapingTool");
+            for (int oreId : OreDictionary.getOreIDs(event.tool)) {
+                if (oreId == itemScrapingToolOreId) {
+                    // Only counts for the stat increase when a scraping tool was used
+                    event.player.addStat(BidsStats.MATERIAL_SCRAPED, Math.round(event.effort));
+                    break;
+                }
+            }
         }
     }
 
