@@ -1,14 +1,17 @@
 package com.unforbidable.tfc.bids.Handlers;
 
 import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeHelper;
 import com.unforbidable.tfc.bids.Core.Textile.EnumTextileHint;
+import com.unforbidable.tfc.bids.api.BidsFood;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -26,6 +29,18 @@ public class TooltipHandler {
         }
 
         handleTextileTooltipHints(event.toolTip, event.itemStack);
+
+        if (event.itemStack.getItem() instanceof ItemFoodTFC) {
+            handleFood(event.toolTip, event.itemStack);
+        }
+    }
+
+    private void handleFood(List<String> toolTip, ItemStack itemStack) {
+        if (BidsFood.isBoiled(itemStack)) {
+            toolTip.add(2, StatCollector.translateToLocal(EnumChatFormatting.AQUA + StatCollector.translateToLocal("word.boiled")));
+        } else if (BidsFood.isSteamed(itemStack)) {
+            toolTip.add(2, StatCollector.translateToLocal(EnumChatFormatting.AQUA + StatCollector.translateToLocal("word.steamed")));
+        }
     }
 
     private void handleTextileTooltipHints(List<String> toolTip, ItemStack itemStack) {

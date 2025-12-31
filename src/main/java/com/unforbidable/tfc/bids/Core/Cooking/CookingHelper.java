@@ -158,7 +158,6 @@ public class CookingHelper {
                 BidsFood.setBoiled(itemStack, true);
                 BidsFood.setBoiledLiquid(itemStack, fluidStack.getUnlocalizedName());
             } else {
-                Food.setInfusion(itemStack, "infusion.steamed");
                 BidsFood.setSteamed(itemStack, true);
             }
         }
