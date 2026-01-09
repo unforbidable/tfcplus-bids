@@ -32,6 +32,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         RecipeSetup.init();
+        WoodworkingSetup.init();
         AchievementSetup.init();
 
         MinecraftForge.EVENT_BUS.register(new PlayerInteractHandler());

@@ -2,8 +2,8 @@ package com.unforbidable.tfc.bids.api.Interfaces;
 
 public interface IWoodworkingActionSpec {
 
-    int getOriginX();
-    int getOriginY();
+    float getOriginX();
+    float getOriginY();
     IWoodworkingShape[] getCutoutShapes();
     IWoodworkingShape[] getClearanceShapes();
     IWoodworkingShape[] getMarginShapes();

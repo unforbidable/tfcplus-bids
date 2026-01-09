@@ -1,26 +1,16 @@
 package com.unforbidable.tfc.bids.api;
 
-import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingActionGroup;
-import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingMaterial;
-
 public class BidsWoodworking {
 
-    public static class Materials {
+    public static final String MATERIAL_LOG = "log";
+    public static final String MATERIAL_BOARD = "board";
 
-        public static IWoodworkingMaterial LOG;
-        public static IWoodworkingMaterial BOARD;
+    public static final String TOOL_AXE = "axe";
+    public static final String TOOL_SAW = "saw";
+    public static final String TOOL_KNIFE = "knife";
+    public static final String TOOL_HAND_AXE = "handAxe";
+    public static final String TOOL_CHISEL = "chisel";
+    public static final String TOOL_DRILL = "drill";
 
-    }
-
-    public static class Actions {
-
-        public static IWoodworkingActionGroup DRILL_DRILL;
-        public static IWoodworkingActionGroup SAW_CUT;
-        public static IWoodworkingActionGroup AXE_CHOP;
-        public static IWoodworkingActionGroup AXE_CARVE;
-        public static IWoodworkingActionGroup KNIFE_CARVE;
-        public static IWoodworkingActionGroup CHISEL_CUT;
-
-    }
 
 }

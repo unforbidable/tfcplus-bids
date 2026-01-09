@@ -25,4 +25,9 @@ public class ActionGroup implements IWoodworkingActionGroup {
         return actions;
     }
 
+    @Override
+    public ActionGroupUsage getUsage() {
+        return usage;
+    }
+
 }

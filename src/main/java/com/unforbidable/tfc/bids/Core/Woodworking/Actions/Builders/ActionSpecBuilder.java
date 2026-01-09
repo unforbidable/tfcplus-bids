@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Woodworking.Actions.Builders;
 
 import com.unforbidable.tfc.bids.Core.Woodworking.Actions.ActionSpec;
-import com.unforbidable.tfc.bids.Core.Woodworking.Geometry.Point;
+import com.unforbidable.tfc.bids.Core.Woodworking.Geometry.PointF;
 import com.unforbidable.tfc.bids.Core.Woodworking.Geometry.Shape;
 import com.unforbidable.tfc.bids.Core.Woodworking.Geometry.ShapeSet;
 
@@ -10,12 +10,12 @@ import java.util.List;
 
 public class ActionSpecBuilder {
 
-    private Point origin = Point.ZERO;
+    private PointF origin = PointF.ZERO;
     private final List<Shape> cutout = new ArrayList<Shape>();
     private final List<Shape> clearance = new ArrayList<Shape>();
     private final List<Shape> margin = new ArrayList<Shape>();
 
-    public ActionSpecBuilder origin(Point origin) {
+    public ActionSpecBuilder origin(PointF origin) {
         this.origin = origin;
 
         return this;
