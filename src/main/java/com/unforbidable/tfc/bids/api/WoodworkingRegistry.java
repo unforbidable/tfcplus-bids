@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.api;
 
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingMaterial;
+import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingPlan;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingTool;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,8 @@ public class WoodworkingRegistry {
     private final static Map<String, IWoodworkingMaterial> materials = new HashMap<String, IWoodworkingMaterial>();
     private final static Map<Integer, String> materialItemIds = new HashMap<Integer, String>();
     private final static Map<Integer, String> materialOreIds = new HashMap<Integer, String>();
+
+    private final static Map<String, IWoodworkingPlan> plans = new HashMap<String, IWoodworkingPlan>();
 
     public static void registerTool(String name, IWoodworkingTool tool) {
         tools.put(name, tool);
@@ -46,10 +49,9 @@ public class WoodworkingRegistry {
         return null;
     }
 
-    private static IWoodworkingTool getToolByName(String name) {
+    public static IWoodworkingTool getToolByName(String name) {
         return tools.get(name);
     }
-
 
     public static void registerMaterial(String name, IWoodworkingMaterial material) {
         materials.put(name, material);
@@ -78,8 +80,16 @@ public class WoodworkingRegistry {
         return null;
     }
 
-    private static IWoodworkingMaterial getMaterialByName(String name) {
+    public static IWoodworkingMaterial getMaterialByName(String name) {
         return materials.get(name);
+    }
+
+    public static void registerPlan(String name, IWoodworkingPlan plan) {
+        plans.put(name, plan);
+    }
+
+    public static IWoodworkingPlan getPlanByName(String name) {
+        return plans.get(name);
     }
 
 }

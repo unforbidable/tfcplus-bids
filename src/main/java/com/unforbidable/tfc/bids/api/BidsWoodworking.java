@@ -12,5 +12,6 @@ public class BidsWoodworking {
     public static final String TOOL_CHISEL = "chisel";
     public static final String TOOL_DRILL = "drill";
 
+    public static final String PLAN_PLANK_2X = "plank2x";
 
 }

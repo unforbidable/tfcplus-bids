@@ -1,23 +1,60 @@
 package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
+import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.Core.Woodworking.Actions.ActionTool;
+import com.unforbidable.tfc.bids.Core.Woodworking.Geometry.Shape;
 import com.unforbidable.tfc.bids.Core.Woodworking.Material.Material;
+import com.unforbidable.tfc.bids.Core.Woodworking.Plans.Plan;
 import com.unforbidable.tfc.bids.Core.Woodworking.WoodworkingSpecs;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsWoodworking;
+import com.unforbidable.tfc.bids.api.Crafting.WoodworkingManager;
+import com.unforbidable.tfc.bids.api.Crafting.WoodworkingRecipe;
 import com.unforbidable.tfc.bids.api.WoodworkingRegistry;
+import net.minecraft.item.ItemStack;
 
 public class WoodworkingSetup {
 
     public static void preInit() {
         registerActions();
         registerMaterials();
+        registerPlans();
+        registerRecipes();
     }
 
     public static void init() {
         registerToolItems();
         registerMaterialItems();
+    }
+
+    private static void registerRecipes() {
+        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
+            if (wood.items.hasLog()) {
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getLog(), wood.items.getLumber(2)));
+            }
+
+            if (wood.items.hasSeasonedLog()) {
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getSeasonedLog(), wood.items.getLumber(2)));
+            }
+
+            if (wood.items.hasChoppedLog()) {
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getChoppedLog(), wood.items.getLumber(2)));
+            }
+
+            if (wood.items.hasSeasonedChoppedLog()) {
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getSeasonedChoppedLog(), wood.items.getLumber(2)));
+            }
+
+            if (wood.items.hasPeeledLog()) {
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getPeeledLog(), wood.items.getLumber(2)));
+            }
+
+            if (wood.items.hasSeasonedPeeledLog()) {
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getSeasonedPeeledLog(), wood.items.getLumber(2)));
+            }
+        }
     }
 
     private static void registerMaterialItems() {
@@ -68,8 +105,16 @@ public class WoodworkingSetup {
     }
 
     private static void registerMaterials() {
-        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_LOG, new Material(9, 17, false));
-        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_BOARD, new Material(9, 17, true));
+        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_LOG, new Material(13, 25, false));
+        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_BOARD, new Material(13, 25, true));
+    }
+
+    private static void registerPlans() {
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_PLANK_2X, Plan.create()
+            .cutout(Shape.rectFrom(0, 0).size(4, 25)) // left cut off
+            .cutout(Shape.rectFrom(6, 0).size(1, 25)) // middle saw cut
+            .cutout(Shape.rectFrom(9, 0).size(4, 25)) // right cut off
+            .build());
     }
 
 }
