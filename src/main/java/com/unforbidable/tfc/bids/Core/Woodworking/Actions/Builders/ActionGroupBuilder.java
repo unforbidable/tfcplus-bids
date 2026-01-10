@@ -12,9 +12,16 @@ public class ActionGroupBuilder {
     private final String name;
     private final List<IWoodworkingAction> actions = new ArrayList<IWoodworkingAction>();
     private ActionGroupUsage usage = ActionGroupUsage.ANY;
+    private float toolDamage = 0;
 
     public ActionGroupBuilder(String name) {
         this.name = name;
+    }
+
+    public ActionGroupBuilder damage(float toolDamage) {
+        this.toolDamage = toolDamage;
+
+        return this;
     }
 
     public ActionGroupBuilder usage(ActionGroupUsage usage) {
@@ -30,7 +37,7 @@ public class ActionGroupBuilder {
     }
 
     public ActionGroup build() {
-        return new ActionGroup(name, actions.toArray(new IWoodworkingAction[0]), usage);
+        return new ActionGroup(name, actions.toArray(new IWoodworkingAction[0]), toolDamage, usage);
     }
 
 }

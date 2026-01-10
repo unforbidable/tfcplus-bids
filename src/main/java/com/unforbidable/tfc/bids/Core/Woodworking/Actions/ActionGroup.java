@@ -8,11 +8,13 @@ public class ActionGroup implements IWoodworkingActionGroup {
 
     private final String name;
     private final IWoodworkingAction[] actions;
+    private final float toolDamage;
     private final ActionGroupUsage usage;
 
-    public ActionGroup(String name, IWoodworkingAction[] actions, ActionGroupUsage usage) {
+    public ActionGroup(String name, IWoodworkingAction[] actions, float toolDamage, ActionGroupUsage usage) {
         this.name = name;
         this.actions = actions;
+        this.toolDamage = toolDamage;
         this.usage = usage;
     }
 
@@ -21,8 +23,18 @@ public class ActionGroup implements IWoodworkingActionGroup {
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public IWoodworkingAction[] getActions() {
         return actions;
+    }
+
+    @Override
+    public float getToolDamage() {
+        return toolDamage;
     }
 
     @Override
