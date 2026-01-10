@@ -13,11 +13,11 @@ import java.util.Map;
 public class WoodworkingRegistry {
 
     private final static Map<String, IWoodworkingTool> tools = new HashMap<String, IWoodworkingTool>();
-    private final static Map<Integer, String> toolItemIds = new HashMap<Integer, String>();
+    private final static Map<Item, String> toolItems = new HashMap<Item, String>();
     private final static Map<Integer, String> toolOreIds = new HashMap<Integer, String>();
 
     private final static Map<String, IWoodworkingMaterial> materials = new HashMap<String, IWoodworkingMaterial>();
-    private final static Map<Integer, String> materialItemIds = new HashMap<Integer, String>();
+    private final static Map<Item, String> materialItems = new HashMap<Item, String>();
     private final static Map<Integer, String> materialOreIds = new HashMap<Integer, String>();
 
     private final static Map<String, IWoodworkingPlan> plans = new HashMap<String, IWoodworkingPlan>();
@@ -27,7 +27,7 @@ public class WoodworkingRegistry {
     }
 
     public static void addItemAsTool(String name, Item item) {
-        toolItemIds.put(Item.getIdFromItem(item), name);
+        toolItems.put(item, name);
     }
 
     public static void addOreAsTool(String name, String ore) {
@@ -35,9 +35,8 @@ public class WoodworkingRegistry {
     }
 
     public static IWoodworkingTool findToolForItem(Item item) {
-        int itemId = Item.getIdFromItem(item);
-        if (toolItemIds.containsKey(itemId)) {
-            return getToolByName(toolItemIds.get(itemId));
+        if (toolItems.containsKey(item)) {
+            return getToolByName(toolItems.get(item));
         }
 
         for (int oreId : OreDictionary.getOreIDs(new ItemStack(item))) {
@@ -58,7 +57,7 @@ public class WoodworkingRegistry {
     }
 
     public static void addItemAsMaterial(String name, Item item) {
-        materialItemIds.put(Item.getIdFromItem(item), name);
+        materialItems.put(item, name);
     }
 
     public static void addOreAsMaterial(String name, String ore) {
@@ -66,9 +65,8 @@ public class WoodworkingRegistry {
     }
 
     public static IWoodworkingMaterial findMaterialForItem(Item item) {
-        int itemId = Item.getIdFromItem(item);
-        if (materialItemIds.containsKey(itemId)) {
-            return getMaterialByName(materialItemIds.get(itemId));
+        if (materialItems.containsKey(item)) {
+            return getMaterialByName(materialItems.get(item));
         }
 
         for (int oreId : OreDictionary.getOreIDs(new ItemStack(item))) {
