@@ -7,16 +7,14 @@ import com.unforbidable.tfc.bids.Core.Woodworking.Workspace.WorkspaceAction;
 public class WorkspaceActionBuilder {
 
     private final Workspace workspace;
-    private final int x;
-    private final int y;
+    private final IWoodworkingAction action;
 
-    public WorkspaceActionBuilder(Workspace workspace, int x, int y) {
+    public WorkspaceActionBuilder(Workspace workspace, IWoodworkingAction action) {
         this.workspace = workspace;
-        this.x = x;
-        this.y = y;
+        this.action = action;
     }
 
-    public WorkspaceAction action(IWoodworkingAction action) {
+    public WorkspaceAction at(int x, int y) {
         return new WorkspaceAction(workspace, x, y, action);
     }
 

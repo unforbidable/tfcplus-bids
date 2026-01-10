@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Woodworking.Workspace;
 
 import com.unforbidable.tfc.bids.Core.Woodworking.Workspace.Builders.WorkspaceActionBuilder;
+import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingAction;
 
 import java.awt.Polygon;
 import java.awt.Rectangle;
@@ -25,8 +26,12 @@ public class Workspace {
         cutout = new Area();
     }
 
-    public WorkspaceActionBuilder at(int x, int y) {
-        return new WorkspaceActionBuilder(this, x, y);
+    public WorkspaceActionBuilder action(IWoodworkingAction action) {
+        return new WorkspaceActionBuilder(this, action);
+    }
+
+    public Area getCutout() {
+        return cutout;
     }
 
     public boolean canPerformAction(WorkspaceAction action) {
@@ -64,10 +69,14 @@ public class Workspace {
         return false;
     }
 
-    private void tryToRemoveFallingOffParts() {
+    public Area getInvertedCutout() {
         Area invertedCutout = new Area(master);
         invertedCutout.subtract(cutout);
+        return invertedCutout;
+    }
 
+    private void tryToRemoveFallingOffParts() {
+        Area invertedCutout = getInvertedCutout();
         if (!invertedCutout.isSingular()) {
             // Getting a list of all remaining parts
             List<Polygon> polygons = WorkspaceHelper.getPolygons(invertedCutout);
@@ -165,6 +174,10 @@ public class Workspace {
 
         // no intersection if cropped area is outside the cut area
         return areaCopy.isEmpty();
+    }
+
+    public void reset() {
+        cutout.reset();
     }
 
 }

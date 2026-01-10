@@ -1,8 +1,6 @@
 package com.unforbidable.tfc.bids.api;
 
-import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingMaterial;
-import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingPlan;
-import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingTool;
+import com.unforbidable.tfc.bids.api.Interfaces.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -22,8 +20,20 @@ public class WoodworkingRegistry {
 
     private final static Map<String, IWoodworkingPlan> plans = new HashMap<String, IWoodworkingPlan>();
 
+    private final static HashMap<String, IWoodworkingAction> actions = new HashMap<String, IWoodworkingAction>();
+    private final static HashMap<String, Float> actionToolDamages = new HashMap<String, Float>();
+
     public static void registerTool(String name, IWoodworkingTool tool) {
         tools.put(name, tool);
+
+        for (IWoodworkingActionGroup group : tool.getActionGroups()) {
+            for (IWoodworkingAction action : group.getActions()) {
+                if (!actions.containsKey(action.getName())) {
+                    actions.put(action.getName(), action);
+                    actionToolDamages.put(action.getName(), group.getToolDamage());
+                }
+            }
+        }
     }
 
     public static void addItemAsTool(String name, Item item) {
@@ -88,6 +98,14 @@ public class WoodworkingRegistry {
 
     public static IWoodworkingPlan getPlanByName(String name) {
         return plans.get(name);
+    }
+
+    public static IWoodworkingAction getActionByName(String actionName) {
+        return actions.get(actionName);
+    }
+
+    public static float getActionToolDamageByName(String actionName) {
+        return actionToolDamages.get(actionName);
     }
 
 }

@@ -1,11 +1,14 @@
 package com.unforbidable.tfc.bids.Core;
 
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
 import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.Core.Woodworking.Actions.ActionTool;
 import com.unforbidable.tfc.bids.Core.Woodworking.Geometry.Shape;
 import com.unforbidable.tfc.bids.Core.Woodworking.Material.Material;
+import com.unforbidable.tfc.bids.Core.Woodworking.Network.WoodworkingMessage;
 import com.unforbidable.tfc.bids.Core.Woodworking.Plans.Plan;
 import com.unforbidable.tfc.bids.Core.Woodworking.WoodworkingSpecs;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -13,7 +16,7 @@ import com.unforbidable.tfc.bids.api.BidsWoodworking;
 import com.unforbidable.tfc.bids.api.Crafting.WoodworkingManager;
 import com.unforbidable.tfc.bids.api.Crafting.WoodworkingRecipe;
 import com.unforbidable.tfc.bids.api.WoodworkingRegistry;
-import net.minecraft.item.ItemStack;
+import cpw.mods.fml.relauncher.Side;
 
 public class WoodworkingSetup {
 
@@ -22,6 +25,7 @@ public class WoodworkingSetup {
         registerMaterials();
         registerPlans();
         registerRecipes();
+        registerNetworkMessages();
     }
 
     public static void init() {
@@ -115,6 +119,13 @@ public class WoodworkingSetup {
             .cutout(Shape.rectFrom(6, 0).size(1, 25)) // middle saw cut
             .cutout(Shape.rectFrom(9, 0).size(4, 25)) // right cut off
             .build());
+    }
+
+    private static void registerNetworkMessages() {
+        Bids.network.registerMessage(WoodworkingMessage.ServerHandler.class, WoodworkingMessage.class,
+            NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
+        Bids.network.registerMessage(WoodworkingMessage.ClientHandler.class, WoodworkingMessage.class,
+            NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
     }
 
 }

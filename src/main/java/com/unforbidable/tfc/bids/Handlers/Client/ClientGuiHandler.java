@@ -45,6 +45,9 @@ public class ClientGuiHandler extends GuiHandler {
             case BidsGui.doughKnappingGui:
                 PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(player);
                 return new GuiKnappingDough(player.inventory, pi.specialCraftingType, world, x, y, z);
+
+            case BidsGui.woodworkingGui:
+                return new GuiWoodworking(player.inventory, world, x, y, z);
         }
 
         return null;

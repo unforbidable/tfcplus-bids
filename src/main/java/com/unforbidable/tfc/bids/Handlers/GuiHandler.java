@@ -49,6 +49,9 @@ public class GuiHandler implements IGuiHandler {
             case BidsGui.doughKnappingGui:
                 PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(player);
                 return new ContainerSpecialCraftingDough(player.inventory, pi.specialCraftingType, world, x, y, z);
+
+            case BidsGui.woodworkingGui:
+                return new ContainerWoodworking(player.inventory, world, x, y, z);
         }
         return null;
     }

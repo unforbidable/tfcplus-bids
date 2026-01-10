@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.Core.Woodworking.Workspace;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodworkingActionSide;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingAction;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingShape;
-import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.geom.Area;
 
@@ -14,7 +13,6 @@ public class WorkspaceAction {
     public final int y;
     public final IWoodworkingAction action;
 
-    private Point origin;
     private Area cutout;
     private Area clearance;
     private Area margin;
@@ -34,19 +32,12 @@ public class WorkspaceAction {
         return workspace.performAction(this);
     }
 
-    public EnumWoodworkingActionSide getSide() {
-        return action.getSide();
+    public Area getEffectiveCutoutArea() {
+        return workspace.getEffectiveCutoutArea(this);
     }
 
-    public Point getOrigin() {
-        if (origin != null) {
-            return origin;
-        }
-
-        origin = new Point(action.getSpec().getOriginX(), action.getSpec().getOriginY());
-        origin.translate(x, y);
-
-        return origin;
+    public EnumWoodworkingActionSide getSide() {
+        return action.getSide();
     }
 
     public Area getCutout() {
