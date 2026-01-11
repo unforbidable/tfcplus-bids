@@ -82,6 +82,9 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
                 player.inventory.setItemStack(null);
             }
 
+            world.playSoundEffect(player.posX, player.posY, player.posZ, "dig.wood",
+                0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
+
             tryToMatchCutout();
         }
 
