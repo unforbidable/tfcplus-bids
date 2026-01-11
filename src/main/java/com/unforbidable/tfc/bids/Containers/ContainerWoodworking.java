@@ -1,9 +1,11 @@
 package com.unforbidable.tfc.bids.Containers;
 
 import com.dunk.tfc.Containers.ContainerTFC;
-import com.dunk.tfc.Containers.Slots.SlotOutputOnly;
 import com.dunk.tfc.Core.Player.PlayerInventory;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Containers.Inventories.IInventorySlotTracker;
+import com.unforbidable.tfc.bids.Containers.Inventories.InventoryCraftingTracked;
+import com.unforbidable.tfc.bids.Containers.Slots.SlotOutputOnlyTracked;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHandlingContainer;
 import com.unforbidable.tfc.bids.Core.Woodworking.Network.NetworkAction;
 import com.unforbidable.tfc.bids.Core.Woodworking.Network.WoodworkingMessage;
@@ -15,15 +17,16 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ContainerWoodworking extends ContainerTFC implements IMessageHandlingContainer<WoodworkingMessage> {
+public class ContainerWoodworking extends ContainerTFC implements IMessageHandlingContainer<WoodworkingMessage>, IInventorySlotTracker {
 
-    private final InventoryCrafting outputInv = new InventoryCrafting(this, 1, 1);
+    private final InventoryCrafting outputInv = new InventoryCraftingTracked(this, 1, 1);
 
     private final World world;
     private final WorkspaceServer workspaceServer;
@@ -40,25 +43,7 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
     }
 
     protected void buildLayout() {
-        this.addSlotToContainer(new SlotOutputOnly(outputInv, 0, 152, 126));
-    }
-
-    @Override
-    public void onContainerClosed(EntityPlayer player) {
-        super.onContainerClosed(player);
-
-        if (!player.worldObj.isRemote) {
-            dropInventory(player, outputInv);
-        }
-    }
-
-    private void dropInventory(EntityPlayer player, InventoryCrafting inventoryCrafting) {
-        ItemStack itemstack = inventoryCrafting.getStackInSlotOnClosing(0);
-        if (itemstack != null) {
-            player.dropPlayerItemWithRandomChoice(itemstack, false);
-        }
-
-        inventoryCrafting.setInventorySlotContents(0, (ItemStack) null);
+        this.addSlotToContainer(new SlotOutputOnlyTracked(outputInv, 0, 152, 126));
     }
 
     @SideOnly(Side.CLIENT)
@@ -87,30 +72,15 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
 
             tryToMatchCutout();
         }
-
-        if (world.isRemote && message.getEvent() == WoodworkingMessage.EVENT_RESET_WORKSPACE) {
-            GuiWoodworking clientGui = getClientGui();
-            if (clientGui != null) {
-                clientGui.resetWorkspace();
-            }
-        }
     }
 
     private void tryToMatchCutout() {
         PlanInstance matchingPlan = workspaceServer.findMatchingPlan();
         if (matchingPlan != null) {
             ItemStack result = matchingPlan.getResult().copy();
-            if (!placeItemInOutputSlot(result)) {
-                player.dropPlayerItemWithRandomChoice(result, false);
-            }
-
-            player.inventory.decrStackSize(player.inventory.currentItem, 1);
-
-            workspaceServer.reset();
-
-            WoodworkingMessage message = new WoodworkingMessage();
-            message.setEvent(WoodworkingMessage.EVENT_RESET_WORKSPACE);
-            Bids.network.sendTo(message, (EntityPlayerMP) player);
+            outputInv.setInventorySlotContents(0, result);
+        } else {
+            outputInv.setInventorySlotContents(0, null);
         }
     }
 
@@ -130,6 +100,24 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
         }
 
         return false;
+    }
+
+    @Override
+    public void onSlotChanged(IInventory inventory, Slot slot) {
+    }
+
+    @Override
+    public void onPickupFromSlot(IInventory inventory, Slot slot, EntityPlayer player, ItemStack itemStack) {
+        player.inventory.decrStackSize(player.inventory.currentItem, 1);
+
+        if (!world.isRemote) {
+            workspaceServer.reset();
+        } else {
+            GuiWoodworking clientGui = getClientGui();
+            if (clientGui != null) {
+                clientGui.resetWorkspace();
+            }
+        }
     }
 
 }

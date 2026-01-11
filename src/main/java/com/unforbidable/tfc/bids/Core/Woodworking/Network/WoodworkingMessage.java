@@ -9,7 +9,6 @@ import java.util.List;
 public class WoodworkingMessage extends ContainerMessageBase {
 
     public static final int EVENT_PERFORM_ACTION = 1;
-    public static final int EVENT_RESET_WORKSPACE = 2;
 
     private int event;
     private int damage;
