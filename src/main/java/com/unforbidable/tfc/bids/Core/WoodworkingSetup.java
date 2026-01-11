@@ -36,27 +36,27 @@ public class WoodworkingSetup {
     private static void registerRecipes() {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             if (wood.items.hasLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getLog(), wood.items.getLumber(2)));
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getLog(), wood.items.getLumber(2)));
             }
 
             if (wood.items.hasSeasonedLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getSeasonedLog(), wood.items.getLumber(2)));
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getSeasonedLog(), wood.items.getLumber(2)));
             }
 
             if (wood.items.hasChoppedLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getChoppedLog(), wood.items.getLumber(2)));
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getChoppedLog(), wood.items.getLumber(2)));
             }
 
             if (wood.items.hasSeasonedChoppedLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getSeasonedChoppedLog(), wood.items.getLumber(2)));
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getSeasonedChoppedLog(), wood.items.getLumber(2)));
             }
 
             if (wood.items.hasPeeledLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getPeeledLog(), wood.items.getLumber(2)));
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getPeeledLog(), wood.items.getLumber(2)));
             }
 
             if (wood.items.hasSeasonedPeeledLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANK_2X, wood.items.getSeasonedPeeledLog(), wood.items.getLumber(2)));
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getSeasonedPeeledLog(), wood.items.getLumber(2)));
             }
         }
     }
@@ -114,7 +114,7 @@ public class WoodworkingSetup {
     }
 
     private static void registerPlans() {
-        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_PLANK_2X, Plan.create()
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_PLANKS, Plan.create()
             .cutout(Shape.rectFrom(0, 0).size(4, 25)) // left cut off
             .cutout(Shape.rectFrom(6, 0).size(1, 25)) // middle saw cut
             .cutout(Shape.rectFrom(9, 0).size(4, 25)) // right cut off
