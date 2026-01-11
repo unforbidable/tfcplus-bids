@@ -2,11 +2,14 @@ package com.unforbidable.tfc.bids.api.Crafting;
 
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WoodworkingRecipe {
 
-    private final String planName;
-    private final ItemStack input;
-    private final ItemStack output;
+    protected final String planName;
+    protected final ItemStack input;
+    protected final ItemStack output;
 
     public WoodworkingRecipe(String planName, ItemStack input, ItemStack output) {
         this.planName = planName;
@@ -33,6 +36,10 @@ public class WoodworkingRecipe {
 
     public ItemStack getResult(ItemStack ingredient) {
         return getOutput().copy();
+    }
+
+    public List<ItemStack> getIngredients() {
+        return new ArrayList<ItemStack>() {{ add(input); }};
     }
 
 }
