@@ -1,12 +1,14 @@
 package com.unforbidable.tfc.bids.api.Interfaces;
 
-import com.unforbidable.tfc.bids.Core.Woodworking.Actions.ActionGroupUsage;
+import com.unforbidable.tfc.bids.api.Enums.EnumWoodworkingMaterialType;
+
+import java.util.EnumSet;
 
 public interface IWoodworkingActionGroup {
 
     String getName();
     IWoodworkingAction[] getActions();
-    ActionGroupUsage getUsage();
+    EnumSet<EnumWoodworkingMaterialType> getUsage();
     float getToolDamage();
 
 }

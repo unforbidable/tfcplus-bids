@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Core.Woodworking.Workspace;
 
-import com.unforbidable.tfc.bids.Core.Woodworking.Actions.ActionGroupUsage;
 import com.unforbidable.tfc.bids.Core.Woodworking.Plans.PlanInstance;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodworkingActionSide;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingAction;
@@ -264,7 +263,7 @@ public class WorkspaceClient {
 
             for (IWoodworkingActionGroup group : tool.getActionGroups()) {
                 for (IWoodworkingAction action : group.getActions()) {
-                    if (group.getUsage() != ActionGroupUsage.FLAT_MATERIAL_ONLY || material.isFlat()) {
+                    if (group.getUsage().contains(material.getType())) {
                         availableActions.add(action);
                     }
                 }

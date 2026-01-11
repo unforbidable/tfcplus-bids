@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsWoodworking;
 import com.unforbidable.tfc.bids.api.Crafting.WoodworkingManager;
 import com.unforbidable.tfc.bids.api.Crafting.WoodworkingRecipe;
+import com.unforbidable.tfc.bids.api.Enums.EnumWoodworkingMaterialType;
 import com.unforbidable.tfc.bids.api.WoodworkingRegistry;
 import cpw.mods.fml.relauncher.Side;
 
@@ -109,8 +110,8 @@ public class WoodworkingSetup {
     }
 
     private static void registerMaterials() {
-        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_LOG, new Material(13, 25, false));
-        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_BOARD, new Material(13, 25, true));
+        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_LOG, new Material(13, 25, EnumWoodworkingMaterialType.THICK));
+        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_BOARD, new Material(13, 25, EnumWoodworkingMaterialType.FLAT));
     }
 
     private static void registerPlans() {
