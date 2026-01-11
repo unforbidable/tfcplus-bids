@@ -102,9 +102,9 @@ public class WorkspaceClient {
         }
     }
 
-    public Point getEffectiveActionLocation() {
-        float originX = availableActions.get(selectedActionIndex).getSpec().getOriginX();
-        float originY = availableActions.get(selectedActionIndex).getSpec().getOriginY();
+    public Point getEffectiveActionLocation(int actionIndex) {
+        float originX = availableActions.get(actionIndex).getSpec().getOriginX();
+        float originY = availableActions.get(actionIndex).getSpec().getOriginY();
         int x = Math.round(cursor.x - originX + tool.getOffsetX() / (float)guiScale);
         int y = Math.round(cursor.y - originY + tool.getOffsetY() / (float)guiScale);
         return new Point(x, y);
@@ -119,8 +119,13 @@ public class WorkspaceClient {
     }
 
     public boolean isMouseInsideGui() {
-        return mouseLocation != null && mouseLocation.x > guiX && mouseLocation.x < guiX + guiWidth
-            && mouseLocation.y > guiY && mouseLocation.y < guiY + guiHeight;
+        if (mouseLocation != null) {
+            int x = mouseLocation.x + (tool != null ? tool.getOffsetX() : 0);
+            int y = mouseLocation.y + (tool != null ? tool.getOffsetY() : 0);
+            return x > guiX && x < guiX + guiWidth && y > guiY && y < guiY + guiHeight;
+        }
+
+        return false;
     }
 
     public List<Polygon> getCurrentCutout() {
@@ -142,7 +147,7 @@ public class WorkspaceClient {
         }
 
         if (workspace != null && selectedActionIndex != -1) {
-            Point pos = getEffectiveActionLocation();
+            Point pos = getEffectiveActionLocation(selectedActionIndex);
             return (currentAction = workspace.action(availableActions.get(selectedActionIndex)).at(pos.x, pos.y));
         }
 
@@ -221,8 +226,11 @@ public class WorkspaceClient {
     private void onGuiChanged() {
         workspaceRect = null;
 
-        float guiScaleX = (guiWidth - 12) / (float)material.getWorkspaceWidth();
-        float guiScaleY = (guiHeight - 12) / (float)material.getWorkspaceHeight();
+        int borderX = 1;
+        int borderY = 1;
+
+        float guiScaleX = (guiWidth - 4) / (float)(material.getWorkspaceWidth() + borderX);
+        float guiScaleY = (guiHeight - 4) / (float)(material.getWorkspaceHeight() + borderY);
         guiScale = (int)Math.floor(Math.min(guiScaleX, guiScaleY));
 
         int centerX = guiX + guiWidth / 2;
@@ -232,9 +240,6 @@ public class WorkspaceClient {
         int x = centerX - width / 2;
         int y = centerY - height / 2;
         workspaceRect = new Rectangle(x, y, width, height);
-
-        int borderX = 1;
-        int borderY = 1;
 
         border = new Area(new Rectangle(-borderX, -borderY, material.getWorkspaceWidth() + borderX * 2, material.getWorkspaceHeight() + borderY * 2));
         borderRect = new Rectangle(x - borderX * guiScale, y - borderY * guiScale, width + borderX * 2 * guiScale, height + borderY * 2 * guiScale);
@@ -276,7 +281,7 @@ public class WorkspaceClient {
     private void onCursorChanged() {
         // Moving the cursor may invalidate the current action
         if (currentAction != null) {
-            Point pos = getEffectiveActionLocation();
+            Point pos = getEffectiveActionLocation(selectedActionIndex);
             if (currentAction.x != pos.x || currentAction.y != pos.y) {
                 currentAction = null;
 
@@ -333,7 +338,7 @@ public class WorkspaceClient {
     private boolean findNextAllowedAction() {
         for (int i = 0; i < availableActions.size(); i++) {
             int j = (i + selectedActionIndex + 1) % availableActions.size();
-            Point pos = getEffectiveActionLocation();
+            Point pos = getEffectiveActionLocation(j);
             WorkspaceAction action = workspace.action(availableActions.get(j)).at(pos.x, pos.y);
             if (action.canPerform()) {
                 selectedActionIndex = j;
