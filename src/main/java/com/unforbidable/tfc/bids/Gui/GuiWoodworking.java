@@ -14,11 +14,13 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodworkingActionSide;
 import com.unforbidable.tfc.bids.api.WoodworkingRegistry;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -63,19 +65,18 @@ public class GuiWoodworking extends GuiContainerTFC {
         buttonList.clear();
 
         int xOffset = guiLeft + 151;
-        int yOffset = guiTop + 7;
+        int yOffset = guiTop + 103;
         int iconsPerRow = 2;
 
         int i = 0;
         int x = 0;
         int y = 0;
         for (PlanInstance plan : workspaceClient.getPlans()) {
-            buttonList.add(i, new GuiWoodworkingSelectPlanButton(i, xOffset - x * 18, yOffset + y * 18, 16, 16, plan.getResult(), this,
+            buttonList.add(i, new GuiWoodworkingSelectPlanButton(i, xOffset - x * 18, yOffset - y * 18, 16, 16, plan.getResult(), this,
                 StatCollector.translateToLocal("gui.plans." + plan.getName())));
 
             i++;
-            x++;
-            if (x < iconsPerRow) {
+            if (x < iconsPerRow - 1) {
                 x++;
             } else {
                 x = 0;
@@ -84,6 +85,16 @@ public class GuiWoodworking extends GuiContainerTFC {
         }
 
         workspaceClient.initGui(guiLeft + 5, guiTop + 5, 112, 138);
+    }
+
+    @Override
+    public void drawTooltip(int mx, int my, String text) {
+        List<String> list = new ArrayList<String>();
+        list.add(text);
+        this.drawHoveringTextZLevel(list, mx, my + 15, this.fontRendererObj, 400);
+        RenderHelper.disableStandardItemLighting();
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
     }
 
     @Override
