@@ -12,7 +12,7 @@ public class BidsWoodworking {
     public static final String TOOL_CHISEL = "chisel";
     public static final String TOOL_DRILL = "drill";
 
-    public static final String PLAN_PLANKS = "planks";
+    public static final String PLAN_LUMBER = "lumber";
     public static final String PLAN_BOARD = "board";
     public static final String PLAN_SHAFT = "shaft";
     public static final String PLAN_PADDLE = "paddle";

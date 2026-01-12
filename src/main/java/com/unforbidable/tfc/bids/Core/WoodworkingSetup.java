@@ -39,7 +39,7 @@ public class WoodworkingSetup {
     private static void registerRecipes() {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             String suffix = RecipeSetup.getOreSuffixWood(wood.index);
-            WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_PLANKS, "logWood" + suffix, wood.items.getLumber(2)));
+            WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_LUMBER, "logWood" + suffix, wood.items.getLumber(2)));
 
             if (wood.items.hasBoard()) {
                 WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD, "logWood" + suffix, wood.items.getBoard()));
@@ -106,8 +106,8 @@ public class WoodworkingSetup {
     }
 
     private static void registerPlans() {
-        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_PLANKS, Plan.create()
             .cutout(Shape.rectFrom(0, 0).size(4, 25)) // left cut off
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_LUMBER, Plan.create()
             .cutout(Shape.rectFrom(6, 0).size(1, 25)) // middle saw cut
             .cutout(Shape.rectFrom(9, 0).size(4, 25)) // right cut off
             .build());
