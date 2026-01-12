@@ -241,6 +241,14 @@ public class RecipeSetup {
             if (wood.hasBarkFibers) {
                 OreDictionary.registerOre("itemBarkHasFibers", wood.items.getBark());
             }
+
+            if (wood.items.hasBoard()) {
+                OreDictionary.registerOre("woodBoard", wood.items.getBoard());
+            }
+
+            if (wood.items.hasShaft()) {
+                OreDictionary.registerOre("woodShaft", wood.items.getShaft());
+            }
         }
 
         OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportH, 1, WILD));

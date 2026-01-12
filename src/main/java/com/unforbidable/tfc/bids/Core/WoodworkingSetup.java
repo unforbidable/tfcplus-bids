@@ -39,6 +39,11 @@ public class WoodworkingSetup {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             String suffix = RecipeSetup.getOreSuffixWood(wood.index);
             WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_PLANKS, "logWood" + suffix, wood.items.getLumber(2)));
+
+            if (wood.items.hasBoard()) {
+                WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD, "logWood" + suffix, wood.items.getBoard()));
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_SHAFT, wood.items.getBoard(), wood.items.getShaft()));
+            }
         }
     }
 
@@ -47,7 +52,7 @@ public class WoodworkingSetup {
         WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_LOG, BidsItems.logsSeasoned);
         WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_LOG, BidsItems.peeledLog);
         WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_LOG, BidsItems.peeledLogSeasoned);
-        WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_BOARD, TFCItems.singlePlank);
+        WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_BOARD, BidsItems.board);
     }
 
     private static void registerToolItems() {
@@ -102,6 +107,16 @@ public class WoodworkingSetup {
             .cutout(Shape.rectFrom(0, 0).size(4, 25)) // left cut off
             .cutout(Shape.rectFrom(6, 0).size(1, 25)) // middle saw cut
             .cutout(Shape.rectFrom(9, 0).size(4, 25)) // right cut off
+            .build());
+
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_BOARD, Plan.create()
+            .cutout(Shape.rectFrom(0, 0).size(5, 25)) // left cut off
+            .cutout(Shape.rectFrom(8, 0).size(5, 25)) // right cut off
+            .build());
+
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_SHAFT, Plan.create()
+            .cutout(Shape.rectFrom(0, 0).size(5, 25)) // left cut off
+            .cutout(Shape.rectFrom(8, 0).size(5, 25)) // right cut off
             .build());
     }
 
