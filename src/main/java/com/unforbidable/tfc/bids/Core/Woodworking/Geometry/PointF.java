@@ -45,4 +45,9 @@ public class PointF {
         return PointF.at(this.x + x, this.y + y);
     }
 
+    @Override
+    public String toString() {
+        return "{" + x + "," + y + "}";
+    }
+
 }
