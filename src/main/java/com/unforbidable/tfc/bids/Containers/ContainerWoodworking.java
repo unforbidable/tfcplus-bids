@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.Core.Woodworking.Plans.PlanInstance;
 import com.unforbidable.tfc.bids.Core.Woodworking.WoodworkingHelper;
 import com.unforbidable.tfc.bids.Core.Woodworking.Workspace.WorkspaceServer;
 import com.unforbidable.tfc.bids.Gui.GuiWoodworking;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -80,6 +81,8 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
         PlanInstance matchingPlan = workspaceServer.findMatchingPlan();
         if (matchingPlan != null) {
             ItemStack result = matchingPlan.getResult().copy();
+            BidsEventFactory.onWoodworkingItemCrafted(player, player.getHeldItem(), result);
+
             outputInv.setInventorySlotContents(0, result);
         } else {
             outputInv.setInventorySlotContents(0, null);

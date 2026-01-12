@@ -72,4 +72,9 @@ public class BidsEventFactory {
         MinecraftForge.EVENT_BUS.post(event);
     }
 
+    public static void onWoodworkingItemCrafted(EntityPlayer player, ItemStack input, ItemStack result) {
+        WoodworkingPlayerEvent event = new WoodworkingPlayerEvent(player, WoodworkingPlayerEvent.Action.ITEM_CRAFTED, input, result);
+        MinecraftForge.EVENT_BUS.post(event);
+    }
+
 }
