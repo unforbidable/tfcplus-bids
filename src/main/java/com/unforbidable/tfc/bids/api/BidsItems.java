@@ -309,6 +309,7 @@ public class BidsItems {
     public static Item omelet;
 
     public static Item moreHide;
+    public static Item morePowder;
 
     public static Item whorl;
     public static Item spindle;

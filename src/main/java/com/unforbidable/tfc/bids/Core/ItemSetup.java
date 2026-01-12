@@ -858,6 +858,8 @@ public class ItemSetup extends BidsItems {
 
         moreHide = new ItemMoreRawhide()
             .setUnlocalizedName("More Hide");
+        morePowder = new ItemMorePowder()
+            .setUnlocalizedName("More Powder");
 
         potteryJugVinegar = new ItemPotteryFluid(1000)
             .setContainerItem(TFCItems.potteryJug)
@@ -1659,6 +1661,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(woodenMallet, woodenMallet.getUnlocalizedName());
         GameRegistry.registerItem(scutchingKnife, scutchingKnife.getUnlocalizedName());
         GameRegistry.registerItem(woodenBrushPaddle, woodenBrushPaddle.getUnlocalizedName());
+
+        GameRegistry.registerItem(morePowder, morePowder.getUnlocalizedName());
     }
 
 }
