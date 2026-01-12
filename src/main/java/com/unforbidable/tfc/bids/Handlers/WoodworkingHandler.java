@@ -1,10 +1,14 @@
 package com.unforbidable.tfc.bids.Handlers;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.ItemHelper;
+import com.unforbidable.tfc.bids.Core.Textile.EnumTextileHint;
 import com.unforbidable.tfc.bids.Core.Woodworking.WoodworkingHelper;
 import com.unforbidable.tfc.bids.api.BidsGui;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class WoodworkingHandler {
@@ -27,4 +31,17 @@ public class WoodworkingHandler {
             }
         }
     }
+
+    @SubscribeEvent
+    public void onItemTooltip(ItemTooltipEvent event) {
+        if (WoodworkingHelper.isValidWoodworkingMaterial(event.itemStack)) {
+            if (ItemHelper.showShiftInformation()) {
+                event.toolTip.add(StatCollector.translateToLocal("gui.Help"));
+                event.toolTip.add(StatCollector.translateToLocal("gui.Help.Woodworking"));
+            } else {
+                event.toolTip.add(StatCollector.translateToLocal("gui.ShowHelp"));
+            }
+        }
+    }
+
 }

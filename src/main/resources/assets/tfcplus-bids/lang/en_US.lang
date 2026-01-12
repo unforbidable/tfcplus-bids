@@ -1477,6 +1477,7 @@ gui.Help.Textile.SpinningYarn=Use a §eSpindle §7to spin fibers into yarn.
 gui.Help.Textile.WeavingBurlap=Use a §eLoom §7to weave into burlap.
 gui.Help.Textile.WeavingCloth=Use a §eLoom §7to weave into cloth.
 gui.Help.Textile.Twisting=Use a §eRope Maker §7to twist into rope.
+gui.Help.Woodworking=§bRight Click §7to work material.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified
