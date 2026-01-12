@@ -39,7 +39,7 @@ public class WoodworkingSetup {
     private static void registerRecipes() {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             String suffix = RecipeSetup.getOreSuffixWood(wood.index);
-            WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_LUMBER, "logWood" + suffix, wood.items.getLumber(2)));
+            WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_LUMBER, "logWood" + suffix, wood.items.getLumber(4)));
 
             if (wood.items.hasBoard()) {
                 WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD, "logWood" + suffix, wood.items.getBoard()));
