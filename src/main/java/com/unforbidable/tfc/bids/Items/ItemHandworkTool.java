@@ -1,9 +1,7 @@
 package com.unforbidable.tfc.bids.Items;
 
 import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.api.Interfaces.ISize;
-import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkHelper;
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
@@ -22,14 +20,12 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public abstract class ItemHandworkTool extends ItemTerra implements ISize {
+public abstract class ItemHandworkTool extends ItemGenericTool implements ISize {
 
     IIcon[] overlayIcons;
 
-    public ItemHandworkTool() {
-        setCreativeTab(BidsCreativeTabs.bidsTools);
-        setMaxStackSize(1);
-        setFolder("tools");
+    public ItemHandworkTool(ToolMaterial material) {
+        super(material);
     }
 
     protected abstract int getNumStages();

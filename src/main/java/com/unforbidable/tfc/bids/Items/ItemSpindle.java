@@ -11,9 +11,9 @@ import net.minecraft.util.StatCollector;
 
 public class ItemSpindle extends ItemHandworkTool {
 
-    public ItemSpindle() {
+    public ItemSpindle(ToolMaterial material) {
+        super(material);
     }
-
 
     @Override
     protected float getActualMaxItemDuration(float duration) {

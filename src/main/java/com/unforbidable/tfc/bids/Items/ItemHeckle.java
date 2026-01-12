@@ -10,7 +10,8 @@ import net.minecraft.util.StatCollector;
 
 public class ItemHeckle extends ItemHandworkTool {
 
-    public ItemHeckle() {
+    public ItemHeckle(ToolMaterial material) {
+        super(material);
     }
 
     @Override

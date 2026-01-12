@@ -10,6 +10,10 @@ import net.minecraft.util.StatCollector;
 
 public class ItemPrimitiveRopeMaker extends ItemHandworkTool {
 
+    public ItemPrimitiveRopeMaker(ToolMaterial material) {
+        super(material);
+    }
+
     @Override
     protected int getNumStages() {
         return 10;

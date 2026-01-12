@@ -6,6 +6,7 @@ import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Items.ItemBucketRopeEmpty;
+import com.unforbidable.tfc.bids.Items.ItemGenericTool;
 import com.unforbidable.tfc.bids.api.Enums.EnumWallHookPos;
 import com.unforbidable.tfc.bids.api.Interfaces.IHangable;
 import net.minecraft.item.*;
@@ -18,6 +19,7 @@ public class WallHookHelper {
             return ((IHangable)is.getItem()).canPlaceOnWallHook(is);
         } else {
             return is.getItem() instanceof ItemTool ||
+                is.getItem() instanceof ItemGenericTool ||
                 is.getItem() instanceof ItemHoe ||
                 is.getItem() instanceof ItemProPick ||
                 is.getItem() instanceof ItemBow ||

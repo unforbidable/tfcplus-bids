@@ -10,7 +10,8 @@ import net.minecraft.util.StatCollector;
 
 public class ItemCard extends ItemHandworkTool {
 
-    public ItemCard() {
+    public ItemCard(ToolMaterial material) {
+        super(material);
     }
 
     @Override

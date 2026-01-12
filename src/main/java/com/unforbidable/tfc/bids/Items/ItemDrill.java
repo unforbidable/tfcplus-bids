@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Items;
 
-import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.Items.Tools.ItemTerraTool;
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.dunk.tfc.api.Enums.EnumItemReach;
@@ -8,7 +7,6 @@ import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillDataAgent;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarryDrillTarget;
@@ -37,7 +35,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 
-public class ItemDrill extends ItemTerra {
+public class ItemDrill extends ItemGenericTool {
 
     static final int MAX_USE_DURATION = 72000;
 
@@ -45,11 +43,7 @@ public class ItemDrill extends ItemTerra {
     private float durationMultiplier = 1f;
 
     public ItemDrill(ToolMaterial material) {
-        maxStackSize = 1;
-
-        setCreativeTab(BidsCreativeTabs.bidsTools);
-        setMaxDamage(material.getMaxUses());
-        setNoRepair();
+        super(material);
     }
 
     public ItemDrill setEquipmentTier(int equipmentTier) {
