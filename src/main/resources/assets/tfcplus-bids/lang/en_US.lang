@@ -1606,6 +1606,8 @@ achievement.bidsCultivatedSeed=Farmer
 achievement.bidsCultivatedSeed.desc=Harvest a cultivated crop seed
 achievement.bidsWinterCerealSeed=Winter farmer
 achievement.bidsWinterCerealSeed.desc=Harvest a cultivated winter cereal crop seed
+achievement.bidsDoubleFortune=Double Fortune
+achievement.bidsDoubleFortune.desc=Make two wooden boards or shafts at once
 
 stat.bidsBlocksQuarried=Blocks Quarried
 stat.bidsSaddleQuernUsed=Saddle Quern Used

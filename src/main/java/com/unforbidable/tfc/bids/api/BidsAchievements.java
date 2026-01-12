@@ -8,6 +8,9 @@ import net.minecraft.stats.Achievement;
 
 public class BidsAchievements {
 
+    public static final Achievement DOUBLE_FORTUNE = new Achievement("achievement.bidsDoubleFortune", "bidsDoubleFortune",
+        0, -4, new ItemStack(BidsItems.board, 1, 0), null);
+
     public static final Achievement COMPOSITE_TOOL = new Achievement("achievement.bidsCompositeTool", "bidsCompositeTool",
         -2, 0, new ItemStack(TFCItems.sedStoneJavelin), null);
 

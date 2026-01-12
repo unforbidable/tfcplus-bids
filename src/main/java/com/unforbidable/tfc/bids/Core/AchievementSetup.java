@@ -13,6 +13,7 @@ public class AchievementSetup {
         Bids.LOG.info("Setup achievements and stats");
 
         Achievement[] achievements = new Achievement[] {
+            BidsAchievements.DOUBLE_FORTUNE,
             BidsAchievements.COMPOSITE_TOOL,
             BidsAchievements.STONE_ADZE,
             BidsAchievements.BARK,

@@ -240,4 +240,14 @@ public class AchievementHandler {
         }
     }
 
+    @SubscribeEvent
+    public void onWoodworking(WoodworkingPlayerEvent event) {
+        if (event.action == WoodworkingPlayerEvent.Action.ITEM_CRAFTED) {
+            if (event.result.getItem() == BidsItems.board && event.result.stackSize == 2 ||
+            event.result.getItem() == BidsItems.shaft && event.result.stackSize == 2) {
+                event.entityPlayer.triggerAchievement(BidsAchievements.DOUBLE_FORTUNE);
+            }
+        }
+    }
+
 }
