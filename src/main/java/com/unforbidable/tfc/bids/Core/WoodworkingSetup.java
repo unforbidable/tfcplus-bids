@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.Core.Woodworking.WoodworkingSpecs;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsWoodworking;
 import com.unforbidable.tfc.bids.api.Crafting.WoodworkingManager;
+import com.unforbidable.tfc.bids.api.Crafting.WoodworkingOreRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.WoodworkingRecipe;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodworkingMaterialType;
 import com.unforbidable.tfc.bids.api.WoodworkingRegistry;
@@ -36,33 +37,15 @@ public class WoodworkingSetup {
 
     private static void registerRecipes() {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            if (wood.items.hasLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getLog(), wood.items.getLumber(2)));
-            }
-
-            if (wood.items.hasSeasonedLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getSeasonedLog(), wood.items.getLumber(2)));
-            }
-
-            if (wood.items.hasChoppedLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getChoppedLog(), wood.items.getLumber(2)));
-            }
-
-            if (wood.items.hasSeasonedChoppedLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getSeasonedChoppedLog(), wood.items.getLumber(2)));
-            }
-
-            if (wood.items.hasPeeledLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getPeeledLog(), wood.items.getLumber(2)));
-            }
-
-            if (wood.items.hasSeasonedPeeledLog()) {
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_PLANKS, wood.items.getSeasonedPeeledLog(), wood.items.getLumber(2)));
-            }
+            String suffix = RecipeSetup.getOreSuffixWood(wood.index);
+            WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_PLANKS, "logWood" + suffix, wood.items.getLumber(2)));
         }
     }
 
     private static void registerMaterialItems() {
+        WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_LOG, TFCItems.logs);
+        WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_LOG, BidsItems.logsSeasoned);
+        WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_LOG, BidsItems.peeledLog);
         WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_LOG, BidsItems.peeledLogSeasoned);
         WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_BOARD, TFCItems.singlePlank);
     }

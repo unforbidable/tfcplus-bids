@@ -353,7 +353,7 @@ public class RecipeSetup {
         OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.riceHardtack));
     }
 
-    private static String getOreSuffixWood(int i) {
+    public static String getOreSuffixWood(int i) {
         return Global.WOOD_ALL[i].replace(" ", "");
     }
 
