@@ -28,12 +28,12 @@ public class WoodworkingSetup {
         registerMaterials();
         registerPlans();
         registerRecipes();
-        registerNetworkMessages();
     }
 
     public static void init() {
         registerToolItems();
         registerMaterialItems();
+        registerNetworkMessages();
     }
 
     private static void registerRecipes() {
