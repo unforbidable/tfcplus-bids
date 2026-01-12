@@ -106,20 +106,20 @@ public class WoodworkingSetup {
     }
 
     private static void registerPlans() {
-            .cutout(Shape.rectFrom(0, 0).size(4, 25)) // left cut off
         WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_LUMBER, Plan.create()
+            .cutout(Shape.rectFrom(0, 0).size(3, 25)) // left cut off
             .cutout(Shape.rectFrom(6, 0).size(1, 25)) // middle saw cut
-            .cutout(Shape.rectFrom(9, 0).size(4, 25)) // right cut off
+            .cutout(Shape.rectFrom(10, 0).size(3, 25)) // right cut off
             .build());
 
         WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_BOARD, Plan.create()
-            .cutout(Shape.rectFrom(0, 0).size(5, 25)) // left cut off
-            .cutout(Shape.rectFrom(8, 0).size(5, 25)) // right cut off
+            .cutout(Shape.rectFrom(0, 0).size(4, 25)) // left cut off
+            .cutout(Shape.rectFrom(9, 0).size(4, 25)) // right cut off
             .build());
 
         WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_SHAFT, Plan.create()
-            .cutout(Shape.rectFrom(0, 0).size(5, 25)) // left cut off
-            .cutout(Shape.rectFrom(8, 0).size(5, 25)) // right cut off
+            .cutout(Shape.rectFrom(0, 0).size(4, 25)) // left cut off
+            .cutout(Shape.rectFrom(9, 0).size(4, 25)) // right cut off
             .build());
 
         WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_PADDLE, Plan.create()
