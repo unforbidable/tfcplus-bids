@@ -1488,6 +1488,7 @@ gui.plans.anvil=Anvil Finish
 gui.plans.planks=Planks
 gui.plans.board=Board
 gui.plans.shaft=Shaft
+gui.plans.paddle=Paddle
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Seconds=Seconds

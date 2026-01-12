@@ -19,6 +19,7 @@ import com.unforbidable.tfc.bids.api.Crafting.WoodworkingRecipe;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodworkingMaterialType;
 import com.unforbidable.tfc.bids.api.WoodworkingRegistry;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.item.ItemStack;
 
 public class WoodworkingSetup {
 
@@ -45,6 +46,8 @@ public class WoodworkingSetup {
                 WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_SHAFT, wood.items.getBoard(), wood.items.getShaft()));
             }
         }
+
+        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_PADDLE, "woodBoard", new ItemStack(TFCItems.paddle)));
     }
 
     private static void registerMaterialItems() {
@@ -117,6 +120,17 @@ public class WoodworkingSetup {
         WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_SHAFT, Plan.create()
             .cutout(Shape.rectFrom(0, 0).size(5, 25)) // left cut off
             .cutout(Shape.rectFrom(8, 0).size(5, 25)) // right cut off
+            .build());
+
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_PADDLE, Plan.create()
+            .cutout(Shape.rectFrom(0, 0).size(5, 16)) // top 2/3 left cut off
+            .cutout(Shape.rectFrom(8, 0).size(5, 16)) // top 2/3 right cut off
+            .cutout(Shape.rectFrom(0, 16).size(2, 9)) // bottom 1/3 left cut off
+            .cutout(Shape.rectFrom(11, 16).size(2, 9)) // bottom 1/3 right cut off
+            .cutout(Shape.from(2, 19).to(2, 16).to(5, 16).build()) // top left corner
+            .cutout(Shape.from(11, 19).to(8, 16).to(11, 16).build()) // top right corner
+            .cutout(Shape.from(2, 24).to(3, 25).to(2, 25).build()) // bottom left corner
+            .cutout(Shape.from(11, 24).to(11, 25).to(10, 25).build()) // bottom right corner
             .build());
     }
 
