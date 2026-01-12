@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Containers;
 
 import com.dunk.tfc.Containers.ContainerTFC;
 import com.dunk.tfc.Core.Player.PlayerInventory;
+import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Containers.Inventories.IInventorySlotTracker;
 import com.unforbidable.tfc.bids.Containers.Inventories.InventoryCraftingTracked;
@@ -14,6 +15,7 @@ import com.unforbidable.tfc.bids.Core.Woodworking.WoodworkingHelper;
 import com.unforbidable.tfc.bids.Core.Woodworking.Workspace.WorkspaceServer;
 import com.unforbidable.tfc.bids.Gui.GuiWoodworking;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -25,12 +27,15 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class ContainerWoodworking extends ContainerTFC implements IMessageHandlingContainer<WoodworkingMessage>, IInventorySlotTracker {
 
     private final InventoryCrafting outputInv = new InventoryCraftingTracked(this, 1, 1);
 
     private final World world;
     private final WorkspaceServer workspaceServer;
+    private float sawdustAmount = 0;
 
     public ContainerWoodworking(InventoryPlayer inventory, World world, int x, int y, int z) {
         workspaceServer = new WorkspaceServer(WoodworkingHelper.getWoodworkingMaterial(inventory.player.getHeldItem()),
@@ -62,6 +67,10 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
             for (NetworkAction action : message.getActions()) {
                 boolean result = workspaceServer.performAction(action.name, action.x, action.y);
 
+                if (result) {
+                    sawdustAmount += getSawdustAmountForAction(action.name);
+                }
+
                 Bids.LOG.info("ACTION(\"{}\", {}, {}) => {}", action.name, action.x, action.y, result ? "OK" : "SUCCESS");
             }
 
@@ -77,6 +86,18 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
         }
     }
 
+    private float getSawdustAmountForAction(String actionName) {
+        if (actionName.startsWith("saw_cut_")) {
+            // Sawing a whole length of a material gives 1 sawdust
+            return 1 / 25f;
+        } else if (actionName.startsWith("drill_")) {
+            // Drilling 15 holes gives 1 sawdust
+            return 1 / 15f;
+        }
+
+        return 0;
+    }
+
     private void tryToMatchCutout() {
         PlanInstance matchingPlan = workspaceServer.findMatchingPlan();
         if (matchingPlan != null) {
@@ -87,24 +108,6 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
         } else {
             outputInv.setInventorySlotContents(0, null);
         }
-    }
-
-    private boolean placeItemInOutputSlot(ItemStack result) {
-        ItemStack output = outputInv.getStackInSlot(0);
-
-        if (output == null) {
-            outputInv.setInventorySlotContents(0, result);
-            return true;
-        } else if (output.isItemEqual(result) && ItemStack.areItemStackTagsEqual(output, result)) {
-            int newStackSize = output.stackSize + result.stackSize;
-            if (newStackSize <= output.getMaxStackSize()) {
-                output.stackSize = newStackSize;
-                outputInv.setInventorySlotContents(0, output);
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @Override
@@ -120,12 +123,31 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
         player.inventory.decrStackSize(player.inventory.currentItem, 1);
 
         if (!world.isRemote) {
+            // Sawdust is collected during the sawing and drilling
+            // only dropped when the output is retrieved
+            dropSawdust();
+
             workspaceServer.reset();
         } else {
             GuiWoodworking clientGui = getClientGui();
             if (clientGui != null) {
                 clientGui.resetWorkspace();
             }
+        }
+    }
+
+    private void dropSawdust() {
+        if (sawdustAmount > 0) {
+            int integralAmount = (int) Math.floor(sawdustAmount);
+            float partialAmount = sawdustAmount - integralAmount;
+            int totalAmount = integralAmount + (new Random().nextFloat() < partialAmount ? 1 : 0);
+
+            if (totalAmount > 0) {
+                ItemStack is = new ItemStack(BidsItems.morePowder, totalAmount, 0);
+                TFC_Core.giveItemToPlayer(is, player);
+            }
+
+            sawdustAmount = 0;
         }
     }
 
