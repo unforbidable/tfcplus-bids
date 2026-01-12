@@ -44,7 +44,9 @@ public class WoodworkingSetup {
 
             if (wood.items.hasBoard()) {
                 WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD, "logWood" + suffix, wood.items.getBoard()));
+                WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD_2, "logWood" + suffix, wood.items.getBoard(2)));
                 WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_SHAFT, wood.items.getBoard(), wood.items.getShaft()));
+                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_SHAFT_2, wood.items.getBoard(), wood.items.getShaft(2)));
             }
         }
 
@@ -127,6 +129,18 @@ public class WoodworkingSetup {
         WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_SHAFT, Plan.create()
             .cutout(Shape.rectFrom(0, 0).size(4, 25)) // left cut off
             .cutout(Shape.rectFrom(9, 0).size(4, 25)) // right cut off
+            .build());
+
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_BOARD_2, Plan.create()
+            .cutout(Shape.rectFrom(0, 0).size(2, 25)) // left cut off
+            .cutout(Shape.rectFrom(6, 0).size(1, 25)) // middle saw cut
+            .cutout(Shape.rectFrom(11, 0).size(2, 25)) // right cut off
+            .build());
+
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_SHAFT_2, Plan.create()
+            .cutout(Shape.rectFrom(0, 0).size(2, 25)) // left cut off
+            .cutout(Shape.rectFrom(6, 0).size(1, 25)) // middle saw cut
+            .cutout(Shape.rectFrom(11, 0).size(2, 25)) // right cut off
             .build());
 
         WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_PADDLE, Plan.create()
