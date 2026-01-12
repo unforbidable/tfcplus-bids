@@ -73,7 +73,7 @@ public class GuiWoodworking extends GuiContainerTFC {
         int y = 0;
         for (PlanInstance plan : workspaceClient.getPlans()) {
             buttonList.add(i, new GuiWoodworkingSelectPlanButton(i, xOffset - x * 18, yOffset - y * 18, 16, 16, plan.getResult(), this,
-                StatCollector.translateToLocal("gui.plans." + plan.getName())));
+                getPlanTooltipText(plan)));
 
             i++;
             if (x < iconsPerRow - 1) {
@@ -85,6 +85,15 @@ public class GuiWoodworking extends GuiContainerTFC {
         }
 
         workspaceClient.initGui(guiLeft + 5, guiTop + 5, 112, 138);
+    }
+
+    private String getPlanTooltipText(PlanInstance plan) {
+        String localizedPlanName = StatCollector.translateToLocal("gui.plans." + plan.getName());
+        if (plan.getResult().stackSize > 1) {
+            return plan.getResult().stackSize + "x " + localizedPlanName;
+        } else {
+            return localizedPlanName;
+        }
     }
 
     @Override
