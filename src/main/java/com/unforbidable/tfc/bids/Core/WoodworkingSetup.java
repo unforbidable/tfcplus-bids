@@ -53,6 +53,7 @@ public class WoodworkingSetup {
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_PADDLE, "woodBoard", new ItemStack(TFCItems.paddle)));
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_MALLET, "logWood", new ItemStack(BidsItems.woodenMallet)));
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_SCUTCHING_KNIFE, "woodBoard", new ItemStack(BidsItems.scutchingKnife)));
+        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BRUSH_PADDLE, "woodBoard", new ItemStack(BidsItems.woodenBrushPaddle)));
     }
 
     private static void registerMaterialItems() {
@@ -172,6 +173,29 @@ public class WoodworkingSetup {
             .cutout(Shape.rectFrom(4, 20).size(1, 1)) // hole
             .build());
 
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_BRUSH_PADDLE, Plan.create()
+            .cutout(Shape.rectFrom(0, 0).size(5, 12)) // top 1/2 left cut off
+            .cutout(Shape.rectFrom(8, 0).size(5, 12)) // top 1/2 right cut off
+            .cutout(Shape.rectFrom(0, 12).size(3, 13)) // bottom 1/2 left cut off
+            .cutout(Shape.rectFrom(10, 12).size(3, 13)) // bottom 1/2 right cut off
+            .cutout(Shape.from(3, 14).to(3, 12).to(5, 12).build()) // top left corner
+            .cutout(Shape.from(10, 14).to(8, 12).to(10, 12).build()) // top right corner
+            .cutout(Shape.rectFrom(4, 23).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(6, 23).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(8, 23).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(4, 21).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(6, 21).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(8, 21).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(4, 19).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(6, 19).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(8, 19).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(4, 17).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(6, 17).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(8, 17).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(4, 15).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(6, 15).size(1, 1)) // hole
+            .cutout(Shape.rectFrom(8, 15).size(1, 1)) // hole
+            .build());
     }
 
     private static void registerNetworkMessages() {
