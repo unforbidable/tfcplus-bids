@@ -115,7 +115,7 @@ public class WoodworkingSpecs {
         .usage(EnumWoodworkingMaterialType.DELICATE)
         .add(new Action("knife_carve_right_a", KNIFE_CARVE_RIGHT_A, EnumWoodworkingActionSide.RIGHT))
         .add(new Action("knife_carve_right_b", KNIFE_CARVE_RIGHT_B, EnumWoodworkingActionSide.RIGHT))
-        .add(new Action("knife_carve_right_d", KNIFE_CARVE_RIGHT_C, EnumWoodworkingActionSide.RIGHT))
+        .add(new Action("knife_carve_right_c", KNIFE_CARVE_RIGHT_C, EnumWoodworkingActionSide.RIGHT))
         .add(new Action("knife_carve_right_d", KNIFE_CARVE_RIGHT_D, EnumWoodworkingActionSide.RIGHT))
         .add(new Action("knife_carve_left_a", KNIFE_CARVE_LEFT_A, EnumWoodworkingActionSide.LEFT))
         .add(new Action("knife_carve_left_b", KNIFE_CARVE_LEFT_B, EnumWoodworkingActionSide.LEFT))
