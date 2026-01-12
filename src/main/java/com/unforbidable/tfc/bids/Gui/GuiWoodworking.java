@@ -31,14 +31,14 @@ public class GuiWoodworking extends GuiContainerTFC {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Tags.MOD_ID, "textures/gui/gui_woodworking.png");
 
-    private static final int WORKSPACE_COLOR = 0xffd7bc42;
-    private static final int WORKSPACE_PLAN_CUTOUT_COLOR = 0xfff1f1ae;
-    private static final int WORKSPACE_PLAN_ERRONEOUS_CUTOUT_COLOR = 0xfffdb1b1;
-    private static final int WORKSPACE_BORDER_COLOR = 0xffffffff;
-    private static final int WORKSPACE_CUTOUT_COLOR = 0xffffffff;
-    private static final int ACTION_CUTOUT_GHOST_COLOR = 0x7711aa22;
-    private static final int ACTION_CUTOUT_PREVIEW_COLOR = 0xff116622;
-    private static final int ACTION_BLOCKED_CLEARANCE_COLOR = 0x44cc3311;
+    public static final int WORKSPACE_COLOR = 0xffd7bc42;
+    public static final int WORKSPACE_PLAN_CUTOUT_COLOR = 0xfff1f1ae;
+    public static final int WORKSPACE_PLAN_ERRONEOUS_CUTOUT_COLOR = 0xfffdb1b1;
+    public static final int WORKSPACE_BORDER_COLOR = 0xffffffff;
+    public static final int WORKSPACE_CUTOUT_COLOR = 0xffffffff;
+    public static final int ACTION_CUTOUT_GHOST_COLOR = 0x7711aa22;
+    public static final int ACTION_CUTOUT_PREVIEW_COLOR = 0xff116622;
+    public static final int ACTION_BLOCKED_CLEARANCE_COLOR = 0x44cc3311;
 
     private final WorkspaceClient workspaceClient;
 

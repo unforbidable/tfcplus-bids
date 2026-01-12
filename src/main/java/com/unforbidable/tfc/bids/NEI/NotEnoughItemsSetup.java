@@ -46,6 +46,7 @@ public class NotEnoughItemsSetup {
         registerHandler(new HandworkHandler());
         registerHandler(new CardingHandler());
         registerHandler(new HecklingHandler());
+        registerHandler(new WoodworkingHandler());
     }
 
     private static void registerHandler(TemplateRecipeHandler handler) {
