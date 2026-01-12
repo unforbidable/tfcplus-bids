@@ -129,4 +129,32 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
         }
     }
 
+    @Override
+    public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)
+    {
+        ItemStack origStack = null;
+        Slot slot = (Slot) this.inventorySlots.get(slotNum);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack slotStack = slot.getStack();
+            origStack = slotStack.copy();
+
+            if (slotNum < 1 && !this.mergeItemStack(slotStack, 1, inventorySlots.size(), true))
+                return null;
+
+            if (slotStack.stackSize <= 0)
+                slot.putStack(null);
+            else
+                slot.onSlotChanged();
+
+            if (slotStack.stackSize == origStack.stackSize)
+                return null;
+
+            slot.onPickupFromSlot(player, slotStack);
+        }
+
+        return origStack;
+    }
+
 }
