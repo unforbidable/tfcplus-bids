@@ -52,6 +52,7 @@ public class WoodworkingSetup {
 
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_PADDLE, "woodBoard", new ItemStack(TFCItems.paddle)));
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_MALLET, "logWood", new ItemStack(BidsItems.woodenMallet)));
+        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_SCUTCHING_KNIFE, "woodBoard", new ItemStack(BidsItems.scutchingKnife)));
     }
 
     private static void registerMaterialItems() {
@@ -161,6 +162,16 @@ public class WoodworkingSetup {
             .cutout(Shape.rectFrom(0, 9).size(2, 16)) // bottom 2/3 left cut off
             .cutout(Shape.rectFrom(11, 9).size(2, 16)) // bottom 2/3 right cut off
             .build());
+
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_SCUTCHING_KNIFE, Plan.create()
+            .cutout(Shape.rectFrom(8, 0).size(5, 25)) // right cut off
+            .cutout(Shape.rectFrom(0, 0).size(5, 9)) // top 1/3 left cut off
+            .cutout(Shape.rectFrom(0, 9).size(2, 16)) // bottom 2/3 left cut off
+            .cutout(Shape.from(2, 12).to(2, 9).to(5, 9).build()) // top left corner
+            .cutout(Shape.from(2, 22).to(5, 25).to(2, 25).build()) // bottom left corner
+            .cutout(Shape.rectFrom(4, 20).size(1, 1)) // hole
+            .build());
+
     }
 
     private static void registerNetworkMessages() {

@@ -317,5 +317,6 @@ public class BidsItems {
     public static Item thornCard;
     public static Item boneHeckle;
     public static Item woodenMallet;
+    public static Item scutchingKnife;
 
 }

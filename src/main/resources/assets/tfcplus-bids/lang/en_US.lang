@@ -1365,6 +1365,8 @@ item.Bone Heckle.name=Bone Heckle
 item.Primitive Rope Maker.name=Primitive Rope Maker
 
 item.Wooden Mallet.name=Wooden Mallet
+item.Scutching Knife.name=Scutching Knife
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk
@@ -1494,6 +1496,7 @@ gui.plans.shaft=Shaft
 gui.plans.shaft2=Shaft
 gui.plans.paddle=Paddle
 gui.plans.mallet=Wooden Mallet
+gui.plans.scutchingKnife=Scutching Knife
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Seconds=Seconds
