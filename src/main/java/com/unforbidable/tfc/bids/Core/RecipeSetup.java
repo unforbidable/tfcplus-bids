@@ -222,16 +222,12 @@ public class RecipeSetup {
                 OreDictionary.registerOre("logWoodAny", wood.items.getPeeledLog());
                 OreDictionary.registerOre("logWood" + suffix, wood.items.getPeeledLog());
                 OreDictionary.registerOre("logWoodFresh" + suffix, wood.items.getPeeledLog());
-
-                OreDictionary.registerOre("itemFlaxBreakingTool", wood.items.getPeeledLog());
             }
 
             if (wood.items.hasSeasonedPeeledLog()) {
                 OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedPeeledLog());
                 OreDictionary.registerOre("logWood" + suffix, wood.items.getSeasonedPeeledLog());
                 OreDictionary.registerOre("logWoodSeasoned" + suffix, wood.items.getSeasonedPeeledLog());
-
-                OreDictionary.registerOre("itemFlaxBreakingTool", wood.items.getSeasonedPeeledLog());
 
                 if (wood.hardwood) {
                     OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getSeasonedPeeledLog());
@@ -278,9 +274,15 @@ public class RecipeSetup {
             OreDictionary.registerOre("itemScrapingTool", new ItemStack(knife, 1, WILD));
         }
 
-        for (Item knife : new Item[] { TFCItems.pole } ) {
-            OreDictionary.registerOre("itemFlaxScutchingTool", new ItemStack(knife, 1, WILD));
+        for (Item item : new Item[] { TFCItems.pole, TFCItems.stick } ) {
+            OreDictionary.registerOre("itemFlaxBreakingTool", new ItemStack(item, 1, WILD));
+            OreDictionary.registerOre("itemFlaxScutchingTool", new ItemStack(item, 1, WILD));
+            OreDictionary.registerOre("itemPrimitiveTool", new ItemStack(item, 1, WILD));
         }
+
+        OreDictionary.registerOre("itemFlaxBreakingTool", new ItemStack(BidsItems.woodenMallet, 1, WILD));
+
+        OreDictionary.registerOre("itemFlaxScutchingTool", new ItemStack(BidsItems.scutchingKnife, 1, WILD));
 
         final Item[] handAxes = new Item[] {BidsItems.sedHandAxe, BidsItems.mMHandAxe, BidsItems.igInHandAxe, BidsItems.igExHandAxe };
         for (Item handAxe : handAxes) {
