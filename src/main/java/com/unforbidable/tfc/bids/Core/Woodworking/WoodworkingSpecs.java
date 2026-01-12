@@ -75,16 +75,16 @@ public class WoodworkingSpecs {
 
     public static final ActionGroup DRILL_DRILL = ActionGroup.create("drill_drill")
         .damage(1f)
-        .usage(EnumWoodworkingMaterialType.FLAT)
-        .usage(EnumWoodworkingMaterialType.DELICATE)
+        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
+        .usage(EnumWoodworkingMaterialType.WOOD_DELICATE)
         .add(new Action("drill_drill", DRILL_DRILL_1X1))
         .build();
 
     public static final ActionGroup SAW_CUT = ActionGroup.create("saw_cut")
         .damage(0.05f)
-        .usage(EnumWoodworkingMaterialType.THICK)
-        .usage(EnumWoodworkingMaterialType.FLAT)
-        .usage(EnumWoodworkingMaterialType.DELICATE)
+        .usage(EnumWoodworkingMaterialType.WOOD_THICK)
+        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
+        .usage(EnumWoodworkingMaterialType.WOOD_DELICATE)
         .add(new Action("saw_cut_top", SAW_CUT_TOP, EnumWoodworkingActionSide.TOP))
         .add(new Action("saw_cut_bottom", SAW_CUT_BOTTOM, EnumWoodworkingActionSide.BOTTOM))
         .add(new Action("saw_cut_right", SAW_CUT_RIGHT, EnumWoodworkingActionSide.RIGHT))
@@ -93,16 +93,16 @@ public class WoodworkingSpecs {
 
     public static final ActionGroup AXE_CHOP = ActionGroup.create("axe_chop")
         .damage(1f)
-        .usage(EnumWoodworkingMaterialType.THICK)
-        .usage(EnumWoodworkingMaterialType.FLAT)
+        .usage(EnumWoodworkingMaterialType.WOOD_THICK)
+        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
         .add(new Action("axe_chop_top", AXE_CHOP_TOP, EnumWoodworkingActionSide.TOP))
         .add(new Action("axe_chop_bottom", AXE_CHOP_BOTTOM, EnumWoodworkingActionSide.BOTTOM))
         .build();
 
     public static final ActionGroup AXE_CARVE = ActionGroup.create("axe_carve")
         .damage(0.5f)
-        .usage(EnumWoodworkingMaterialType.THICK)
-        .usage(EnumWoodworkingMaterialType.FLAT)
+        .usage(EnumWoodworkingMaterialType.WOOD_THICK)
+        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
         .add(new Action("axe_carve_right_a", AXE_CARVE_RIGHT_A, EnumWoodworkingActionSide.RIGHT))
         .add(new Action("axe_carve_right_b", AXE_CARVE_RIGHT_B, EnumWoodworkingActionSide.RIGHT))
         .add(new Action("axe_carve_left_a", AXE_CARVE_LEFT_A, EnumWoodworkingActionSide.LEFT))
@@ -111,8 +111,8 @@ public class WoodworkingSpecs {
 
     public static final ActionGroup KNIFE_CARVE = ActionGroup.create("knife_carve")
         .damage(0.2f)
-        .usage(EnumWoodworkingMaterialType.FLAT)
-        .usage(EnumWoodworkingMaterialType.DELICATE)
+        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
+        .usage(EnumWoodworkingMaterialType.WOOD_DELICATE)
         .add(new Action("knife_carve_right_a", KNIFE_CARVE_RIGHT_A, EnumWoodworkingActionSide.RIGHT))
         .add(new Action("knife_carve_right_b", KNIFE_CARVE_RIGHT_B, EnumWoodworkingActionSide.RIGHT))
         .add(new Action("knife_carve_right_c", KNIFE_CARVE_RIGHT_C, EnumWoodworkingActionSide.RIGHT))
@@ -125,8 +125,8 @@ public class WoodworkingSpecs {
 
     public static final ActionGroup CHISEL_CUT = ActionGroup.create("chisel_cut")
         .damage(1f)
-        .usage(EnumWoodworkingMaterialType.FLAT)
-        .usage(EnumWoodworkingMaterialType.DELICATE)
+        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
+        .usage(EnumWoodworkingMaterialType.WOOD_DELICATE)
         .add(new Action("chisel_cut_h", CHISEL_CUT_H))
         .add(new Action("chisel_cut_v", CHISEL_CUT_V))
         .build();

@@ -107,8 +107,8 @@ public class WoodworkingSetup {
     }
 
     private static void registerMaterials() {
-        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_LOG, new Material(13, 25, EnumWoodworkingMaterialType.THICK));
-        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_BOARD, new Material(13, 25, EnumWoodworkingMaterialType.FLAT));
+        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_LOG, new Material(13, 25, EnumWoodworkingMaterialType.WOOD_THICK));
+        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_BOARD, new Material(13, 25, EnumWoodworkingMaterialType.WOOD_FLAT));
     }
 
     private static void registerPlans() {

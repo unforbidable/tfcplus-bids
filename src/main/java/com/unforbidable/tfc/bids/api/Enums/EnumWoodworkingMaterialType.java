@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.api.Enums;
 
 public enum EnumWoodworkingMaterialType {
-    THICK,
-    FLAT,
-    DELICATE
+    WOOD_THICK,
+    WOOD_FLAT,
+    WOOD_DELICATE
 }
