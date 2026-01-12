@@ -11,5 +11,6 @@ public enum EnumWoodItemType {
     SEASONED_FIREWOOD,
     BARK,
     BOARD,
+    SHAFT,
     LUMBER
 }

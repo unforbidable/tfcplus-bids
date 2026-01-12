@@ -128,4 +128,16 @@ public class WoodItemProvider {
         return getItemStack(EnumWoodItemType.BOARD, stackSize);
     }
 
+    public boolean hasShaft() {
+        return hasItemStack(EnumWoodItemType.SHAFT);
+    }
+
+    public ItemStack getShaft() {
+        return getItemStack(EnumWoodItemType.SHAFT);
+    }
+
+    public ItemStack getShaft(int stackSize) {
+        return getItemStack(EnumWoodItemType.SHAFT, stackSize);
+    }
+
 }
