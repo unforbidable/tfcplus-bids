@@ -7,7 +7,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 public class WoodworkingPlayerEvent extends PlayerEvent {
 
     public enum Action {
-        ITEM_CRAFTED
+        ITEM_CRAFTED,
+        ITEM_PICKED_UP
     }
 
     public final Action action;

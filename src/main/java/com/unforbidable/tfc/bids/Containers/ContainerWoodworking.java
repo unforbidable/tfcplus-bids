@@ -113,6 +113,10 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
 
     @Override
     public void onPickupFromSlot(IInventory inventory, Slot slot, EntityPlayer player, ItemStack itemStack) {
+        if (!world.isRemote) {
+            BidsEventFactory.onWoodworkingItemPickedUp(player, player.getHeldItem(), itemStack);
+        }
+
         player.inventory.decrStackSize(player.inventory.currentItem, 1);
 
         if (!world.isRemote) {

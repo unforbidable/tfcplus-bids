@@ -2,6 +2,8 @@ package com.unforbidable.tfc.bids.api;
 
 import com.unforbidable.tfc.bids.TileEntities.TileEntityProcessingSurface;
 import com.unforbidable.tfc.bids.api.Events.*;
+import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingAction;
+import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingMaterial;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -74,6 +76,11 @@ public class BidsEventFactory {
 
     public static void onWoodworkingItemCrafted(EntityPlayer player, ItemStack input, ItemStack result) {
         WoodworkingPlayerEvent event = new WoodworkingPlayerEvent(player, WoodworkingPlayerEvent.Action.ITEM_CRAFTED, input, result);
+        MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static void onWoodworkingItemPickedUp(EntityPlayer player, ItemStack input, ItemStack result) {
+        WoodworkingPlayerEvent event = new WoodworkingPlayerEvent(player, WoodworkingPlayerEvent.Action.ITEM_PICKED_UP, input, result);
         MinecraftForge.EVENT_BUS.post(event);
     }
 
