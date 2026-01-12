@@ -51,7 +51,7 @@ public class WoodworkingSetup {
         }
 
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_PADDLE, "woodBoard", new ItemStack(TFCItems.paddle)));
-        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_MALLET, "logWood", new ItemStack(BidsItems.woodenMallet)));
+        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_MALLET, "logWoodAny", new ItemStack(BidsItems.woodenMallet)));
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_SCUTCHING_KNIFE, "woodBoard", new ItemStack(BidsItems.scutchingKnife)));
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BRUSH_PADDLE, "woodBoard", new ItemStack(BidsItems.woodenBrushPaddle)));
     }
