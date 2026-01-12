@@ -1486,6 +1486,7 @@ gui.plans.drill=Drill
 gui.plans.plugandfeather=Plud And Feather
 gui.plans.anvil=Anvil Finish
 gui.plans.lumber=Lumber
+gui.plans.support=Support
 gui.plans.board=Board
 gui.plans.shaft=Shaft
 gui.plans.paddle=Paddle
