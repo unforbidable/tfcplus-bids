@@ -59,7 +59,9 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
     public void onContainerMessage(WoodworkingMessage message) {
         if (!world.isRemote && message.getEvent() == WoodworkingMessage.EVENT_PERFORM_ACTION) {
             for (NetworkAction action : message.getActions()) {
-                workspaceServer.performAction(action.name, action.x, action.y);
+                boolean result = workspaceServer.performAction(action.name, action.x, action.y);
+
+                Bids.LOG.info("ACTION(\"{}\", {}, {}) => {}", action.name, action.x, action.y, result ? "OK" : "SUCCESS");
             }
 
             player.inventory.getItemStack().damageItem(message.getDamage(), player);
