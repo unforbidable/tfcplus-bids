@@ -909,8 +909,8 @@ public class ItemSetup extends BidsItems {
         scutchingKnife = new ItemGenericTool(TFCItems.woodToolMaterial)
             .setUnlocalizedName("Scutching Knife");
 
-        woodenBrushPaddle = new ItemGenericToolPart()
-            .setUnlocalizedName("Wooden Brush Paddle");
+        woodenCombPaddle = new ItemGenericToolPart()
+            .setUnlocalizedName("Wooden Comb Paddle");
     }
 
     private static void registerFluidContainers() {
@@ -1660,7 +1660,7 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(woodenMallet, woodenMallet.getUnlocalizedName());
         GameRegistry.registerItem(scutchingKnife, scutchingKnife.getUnlocalizedName());
-        GameRegistry.registerItem(woodenBrushPaddle, woodenBrushPaddle.getUnlocalizedName());
+        GameRegistry.registerItem(woodenCombPaddle, woodenCombPaddle.getUnlocalizedName());
 
         GameRegistry.registerItem(morePowder, morePowder.getUnlocalizedName());
     }

@@ -21,6 +21,6 @@ public class BidsWoodworking {
     public static final String PLAN_PADDLE = "paddle";
     public static final String PLAN_MALLET = "mallet";
     public static final String PLAN_SCUTCHING_KNIFE = "scutchingKnife";
-    public static final String PLAN_BRUSH_PADDLE = "brushPaddle";
+    public static final String PLAN_COMB_PADDLE = "combPaddle";
 
 }

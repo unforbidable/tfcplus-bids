@@ -53,7 +53,7 @@ public class WoodworkingSetup {
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_PADDLE, "woodBoard", new ItemStack(TFCItems.paddle)));
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_MALLET, "logWoodAny", new ItemStack(BidsItems.woodenMallet)));
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_SCUTCHING_KNIFE, "woodBoard", new ItemStack(BidsItems.scutchingKnife)));
-        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BRUSH_PADDLE, "woodBoard", new ItemStack(BidsItems.woodenBrushPaddle)));
+        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_COMB_PADDLE, "woodBoard", new ItemStack(BidsItems.woodenCombPaddle)));
     }
 
     private static void registerMaterialItems() {
@@ -173,7 +173,7 @@ public class WoodworkingSetup {
             .cutout(Shape.rectFrom(4, 20).size(1, 1)) // hole
             .build());
 
-        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_BRUSH_PADDLE, Plan.create()
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_COMB_PADDLE, Plan.create()
             .cutout(Shape.rectFrom(0, 0).size(5, 12)) // top 1/2 left cut off
             .cutout(Shape.rectFrom(8, 0).size(5, 12)) // top 1/2 right cut off
             .cutout(Shape.rectFrom(0, 12).size(3, 13)) // bottom 1/2 left cut off
