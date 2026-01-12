@@ -231,6 +231,9 @@ public class ItemSetup extends BidsItems {
         firewoodSeasoned = new ItemFirewoodSeasoned().setNames(Global.WOOD_ALL)
                 .setUnlocalizedName("Firewood Seasoned");
 
+        board = new ItemBoard().setNames(Global.WOOD_ALL)
+            .setUnlocalizedName("Board");
+
         smallStickBundle = new ItemSmallStickBundle()
                 .setUnlocalizedName("Small Stick Bundle");
         tiedStickBundle = new ItemTiedStickBundle()
@@ -1643,6 +1646,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(thornCard, thornCard.getUnlocalizedName());
 
         GameRegistry.registerItem(boneHeckle, boneHeckle.getUnlocalizedName());
+
+        GameRegistry.registerItem(board, board.getUnlocalizedName());
     }
 
 }

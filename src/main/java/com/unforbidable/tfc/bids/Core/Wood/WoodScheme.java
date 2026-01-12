@@ -64,6 +64,8 @@ public class WoodScheme {
                 return new ItemStack(BidsItems.bark, stackSize, index);
             case LUMBER:
                 return new ItemStack(TFCItems.singlePlank, stackSize, index);
+            case BOARD:
+                return new ItemStack(BidsItems.board, stackSize, index);
         }
 
         return null;
@@ -89,6 +91,7 @@ public class WoodScheme {
             case SEASONED_LOG:
             case SEASONED_PEELED_LOG:
             case BARK:
+            case BOARD:
                 return wood.hasBark;
         }
 
