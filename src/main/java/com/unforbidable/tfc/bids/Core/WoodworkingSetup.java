@@ -51,6 +51,7 @@ public class WoodworkingSetup {
         }
 
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_PADDLE, "woodBoard", new ItemStack(TFCItems.paddle)));
+        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_MALLET, "logWood", new ItemStack(BidsItems.woodenMallet)));
     }
 
     private static void registerMaterialItems() {
@@ -152,6 +153,13 @@ public class WoodworkingSetup {
             .cutout(Shape.from(11, 19).to(8, 16).to(11, 16).build()) // top right corner
             .cutout(Shape.from(2, 24).to(3, 25).to(2, 25).build()) // bottom left corner
             .cutout(Shape.from(11, 24).to(11, 25).to(10, 25).build()) // bottom right corner
+            .build());
+
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_MALLET, Plan.create()
+            .cutout(Shape.rectFrom(0, 0).size(5, 9)) // top 1/3 left cut off
+            .cutout(Shape.rectFrom(8, 0).size(5, 9)) // top 1/3 right cut off
+            .cutout(Shape.rectFrom(0, 9).size(2, 16)) // bottom 2/3 left cut off
+            .cutout(Shape.rectFrom(11, 9).size(2, 16)) // bottom 2/3 right cut off
             .build());
     }
 

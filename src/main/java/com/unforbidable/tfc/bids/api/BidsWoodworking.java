@@ -19,5 +19,6 @@ public class BidsWoodworking {
     public static final String PLAN_SHAFT = "shaft";
     public static final String PLAN_SHAFT_2 = "shaft2";
     public static final String PLAN_PADDLE = "paddle";
+    public static final String PLAN_MALLET = "mallet";
 
 }

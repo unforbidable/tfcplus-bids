@@ -901,6 +901,9 @@ public class ItemSetup extends BidsItems {
 
         boneHeckle = new ItemHeckle(TFCItems.boneToolMaterial)
             .setUnlocalizedName("Bone Heckle");
+
+        woodenMallet = new ItemGenericTool(TFCItems.woodToolMaterial)
+            .setUnlocalizedName("Wooden Mallet");
     }
 
     private static void registerFluidContainers() {
@@ -1647,6 +1650,8 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(board, board.getUnlocalizedName());
         GameRegistry.registerItem(shaft, shaft.getUnlocalizedName());
+
+        GameRegistry.registerItem(woodenMallet, woodenMallet.getUnlocalizedName());
     }
 
 }
