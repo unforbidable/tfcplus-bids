@@ -495,10 +495,7 @@ public class RecipeSetup {
             .matchCraftingItem(BidsItems.primitiveRopeMaker));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.thornCard, 1, 0),
-            BidsItems.thornBunch, TFCItems.resin, "logWoodPeeledSeasoned", "itemKnife"));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemKnife")
-            .matchCraftingItem(BidsItems.thornCard));
+            BidsItems.thornBunch, BidsItems.thornBunch, TFCItems.resin, BidsItems.woodenBrushPaddle));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.boneHeckle, 1, 0),
             TFCItems.bone, TFCItems.resin, "materialBindingDecent", "itemKnife"));
