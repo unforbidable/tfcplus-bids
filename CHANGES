@@ -719,3 +719,23 @@
 - Changed: Bark fiber processing simplified and adapted to new extended textile processing
 - Removed: Bark fiber strips are no longer used as a part of bark fiber processing
 - Fixed: Drying rack recipe output should now ignore stack size when matching in NEI
+
+0.55.0 (2026-01-13)
+- Added: Woodworking mini-game with plans and recipes and NEI support
+- Added: Sawdust
+- Added: Wooden Boards
+- Added: Wooden Shafts
+- Added: Wooden Mallet
+- Added: Scutching Knife
+- Added: Wooden Comb Paddle
+- Added: Bone Knife Blade
+- Added: 4x Planks can be cut from a log
+- Added: 4x Support Beams can be cut from a log
+- Added: Paddle can be carved from a Board
+- Added: Bone Needle can be carved from a Bone
+- Changed: Thorn Card now requires a Wooden Comb Paddle to craft
+- Changed: Bone Heckle now requires 2 Bone Knife Blades to craft
+- Changed: Wooden Mallet and Scutching Knife are now the preferred Flax dressing tools
+- Changed: Stick and pole can be used to dress Flax with reduced speed
+- Changed: New textile processing tools can be hanged on a wall hook
+- Fixed: Unshaped dough item information includes intended help text
