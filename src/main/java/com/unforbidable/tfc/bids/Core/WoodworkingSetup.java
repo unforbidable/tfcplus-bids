@@ -79,35 +79,35 @@ public class WoodworkingSetup {
 
     private static void registerActions() {
         WoodworkingRegistry.registerTool(BidsWoodworking.TOOL_CHISEL, ActionTool.create()
-            .offset(-10, -10)
+            .offset(-7, -7)
             .addActions(WoodworkingSpecs.CHISEL_CUT)
             .build());
 
         WoodworkingRegistry.registerTool(BidsWoodworking.TOOL_SAW, ActionTool.create()
-            .offset(-10, -10)
+            .offset(-7, -6)
             .addActions(WoodworkingSpecs.SAW_CUT)
             .build());
 
         WoodworkingRegistry.registerTool(BidsWoodworking.TOOL_AXE, ActionTool.create()
-            .offset(-6, -4)
+            .offset(-2, -4)
             .addActions(WoodworkingSpecs.AXE_CHOP)
             .addActions(WoodworkingSpecs.AXE_CARVE)
             .build());
 
         WoodworkingRegistry.registerTool(BidsWoodworking.TOOL_KNIFE, ActionTool.create()
-            .offset(-12, -12)
+            .offset(-5, -6)
             .addActions(WoodworkingSpecs.KNIFE_CARVE)
             .addActions(WoodworkingSpecs.KNIFE_FILE)
             .build());
 
         WoodworkingRegistry.registerTool(BidsWoodworking.TOOL_HAND_AXE, ActionTool.create()
-            .offset(-8, -6)
+            .offset(-6, -6)
             .addActions(WoodworkingSpecs.AXE_CARVE)
             .addActions(WoodworkingSpecs.KNIFE_FILE)
             .build());
 
         WoodworkingRegistry.registerTool(BidsWoodworking.TOOL_DRILL, ActionTool.create()
-            .offset(-8, 6)
+            .offset(-6, 6)
             .addActions(WoodworkingSpecs.DRILL_DRILL)
             .build());
     }
