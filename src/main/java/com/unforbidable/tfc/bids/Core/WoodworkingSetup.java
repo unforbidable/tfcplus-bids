@@ -54,6 +54,8 @@ public class WoodworkingSetup {
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_MALLET, "logWoodAny", new ItemStack(BidsItems.woodenMallet)));
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_SCUTCHING_KNIFE, "woodBoard", new ItemStack(BidsItems.scutchingKnife)));
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_COMB_PADDLE, "woodBoard", new ItemStack(BidsItems.woodenCombPaddle)));
+
+        WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_NEEDLE, new ItemStack(TFCItems.bone), new ItemStack(TFCItems.boneNeedle)));
     }
 
     private static void registerMaterialItems() {
@@ -199,6 +201,16 @@ public class WoodworkingSetup {
             .cutout(Shape.rectFrom(4, 15).size(1, 1)) // hole
             .cutout(Shape.rectFrom(6, 15).size(1, 1)) // hole
             .cutout(Shape.rectFrom(8, 15).size(1, 1)) // hole
+            .build());
+
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_NEEDLE, Plan.create()
+            .cutout(Shape.rectFrom(0, 0).size(2, 17)) // left
+            .cutout(Shape.rectFrom(4, 0).size(3, 11)) // right top
+            .cutout(Shape.rectFrom(5, 11).size(2, 6)) // right bottom
+            .cutout(Shape.from(2, 0).to(3, 0).to(2, 1).build()) // left tip corner
+            .cutout(Shape.from(3, 0).to(4, 0).to(4, 1).build()) // right tip corner
+            .cutout(Shape.from(4, 11).to(5, 11).to(5, 12).build()) // lower right tip corner
+            .cutout(Shape.rectFrom(3, 15).size(1, 1)) // hole
             .build());
     }
 
