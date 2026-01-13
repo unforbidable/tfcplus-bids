@@ -56,6 +56,7 @@ public class WoodworkingSetup {
         WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_COMB_PADDLE, "woodBoard", new ItemStack(BidsItems.woodenCombPaddle)));
 
         WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_NEEDLE, new ItemStack(TFCItems.bone), new ItemStack(TFCItems.boneNeedle)));
+        WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_KNIFE_HEAD, new ItemStack(TFCItems.bone), new ItemStack(BidsItems.boneKnifeHead)));
     }
 
     private static void registerMaterialItems() {
@@ -212,6 +213,18 @@ public class WoodworkingSetup {
             .cutout(Shape.from(4, 11).to(5, 11).to(5, 12).build()) // lower right tip corner
             .cutout(Shape.rectFrom(3, 15).size(1, 1)) // hole
             .build());
+
+        WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_KNIFE_HEAD, Plan.create()
+            .cutout(Shape.rectFrom(0, 0).size(2, 17)) // left
+            .cutout(Shape.rectFrom(4, 0).size(3, 1)) // right top
+            .cutout(Shape.rectFrom(5, 1).size(2, 10)) // right middle
+            .cutout(Shape.rectFrom(4, 11).size(3, 6)) // right bottom
+            .cutout(Shape.from(3, 0).to(4, 0).to(4, 1).build()) // right top corner
+            .cutout(Shape.from(4, 1).to(5, 1).to(5, 2).build()) // right lower corner
+            .cutout(Shape.from(4, 11).to(5, 11).to(5, 10).build()) // right lower corner
+            .cutout(Shape.from(2, 0).to(3, 0).to(2, 1).build()) // right middle top corner
+            .build());
+
     }
 
     private static void registerNetworkMessages() {

@@ -1371,6 +1371,8 @@ item.Scutching Knife.name=Scutching Knife
 
 item.Wooden Brush Paddle.name=Wooden Brush Paddle
 
+item.Bone Knife Blade.name=Bone Knife Blade
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk
@@ -1504,6 +1506,7 @@ gui.plans.mallet=Wooden Mallet
 gui.plans.scutchingKnife=Scutching Knife
 gui.plans.combPaddle=Comb Paddle
 gui.plans.needle=Needle
+gui.plans.knifeHead=Knife Blade
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Seconds=Seconds

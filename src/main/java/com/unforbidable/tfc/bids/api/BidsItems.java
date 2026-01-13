@@ -320,5 +320,6 @@ public class BidsItems {
     public static Item woodenMallet;
     public static Item scutchingKnife;
     public static Item woodenCombPaddle;
+    public static Item boneKnifeHead;
 
 }
