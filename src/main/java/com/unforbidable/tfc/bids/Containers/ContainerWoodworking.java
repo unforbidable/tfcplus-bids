@@ -12,10 +12,12 @@ import com.unforbidable.tfc.bids.Core.Woodworking.Network.NetworkAction;
 import com.unforbidable.tfc.bids.Core.Woodworking.Network.WoodworkingMessage;
 import com.unforbidable.tfc.bids.Core.Woodworking.Plans.PlanInstance;
 import com.unforbidable.tfc.bids.Core.Woodworking.WoodworkingHelper;
+import com.unforbidable.tfc.bids.Core.Woodworking.Workspace.WorkspaceClient;
 import com.unforbidable.tfc.bids.Core.Woodworking.Workspace.WorkspaceServer;
 import com.unforbidable.tfc.bids.Gui.GuiWoodworking;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsWoodworking;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingMaterial;
 import com.unforbidable.tfc.bids.api.WoodworkingRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -29,6 +31,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class ContainerWoodworking extends ContainerTFC implements IMessageHandlingContainer<WoodworkingMessage>, IInventorySlotTracker {
@@ -40,14 +44,28 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
     private float sawdustAmount = 0;
 
     public ContainerWoodworking(InventoryPlayer inventory, World world, int x, int y, int z) {
-        workspaceServer = new WorkspaceServer(WoodworkingHelper.getWoodworkingMaterial(inventory.player.getHeldItem()),
-            WoodworkingHelper.getWoodworkingPlans(inventory.player.getHeldItem()));
+        workspaceServer = createServer(inventory.player.getHeldItem());
 
         this.world = world;
         player = inventory.player;
         bagsSlotNum = player.inventory.currentItem;
         buildLayout();
         PlayerInventory.buildInventoryLayout(this, inventory, 8, 154, true, true);
+    }
+
+    private WorkspaceServer createServer(ItemStack heldItem) {
+        if (heldItem != null) {
+            IWoodworkingMaterial material = WoodworkingHelper.getWoodworkingMaterial(heldItem);
+            List<PlanInstance> plans = WoodworkingHelper.getWoodworkingPlans(heldItem);
+            if (material != null && !plans.isEmpty()) {
+                return new WorkspaceServer(material, plans);
+            }
+        }
+
+        Bids.LOG.warn("Woodworking server cannot be initialized.");
+
+        // create a dummy server
+        return new WorkspaceServer(WoodworkingRegistry.getMaterialByName(BidsWoodworking.MATERIAL_LOG), new ArrayList<PlanInstance>() {});
     }
 
     protected void buildLayout() {

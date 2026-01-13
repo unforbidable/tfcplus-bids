@@ -11,7 +11,9 @@ import com.unforbidable.tfc.bids.Core.Woodworking.WoodworkingHelper;
 import com.unforbidable.tfc.bids.Core.Woodworking.Workspace.WorkspaceAction;
 import com.unforbidable.tfc.bids.Core.Woodworking.Workspace.WorkspaceClient;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsWoodworking;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodworkingActionSide;
+import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingMaterial;
 import com.unforbidable.tfc.bids.api.WoodworkingRegistry;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
@@ -51,10 +53,24 @@ public class GuiWoodworking extends GuiContainerTFC {
         super(new ContainerWoodworking(inventory, world, x, y, z), 176, 149);
 
         rand = new Random();
-        workspaceClient = new WorkspaceClient(WoodworkingHelper.getWoodworkingMaterial(inventory.player.getHeldItem()),
-            WoodworkingHelper.getWoodworkingPlans(inventory.player.getHeldItem()));
+        workspaceClient = createClient(inventory.player.getHeldItem());
 
         drawInventory = true;
+    }
+
+    private WorkspaceClient createClient(ItemStack heldItem) {
+        if (heldItem != null) {
+            IWoodworkingMaterial material = WoodworkingHelper.getWoodworkingMaterial(heldItem);
+            List<PlanInstance> plans = WoodworkingHelper.getWoodworkingPlans(heldItem);
+            if (material != null && !plans.isEmpty()) {
+                return new WorkspaceClient(material, plans);
+            }
+        }
+
+        Bids.LOG.warn("Woodworking client cannot be initialized.");
+
+        // create a dummy client
+        return new WorkspaceClient(WoodworkingRegistry.getMaterialByName(BidsWoodworking.MATERIAL_LOG), new ArrayList<PlanInstance>() {});
     }
 
     @SuppressWarnings({"unchecked"})
