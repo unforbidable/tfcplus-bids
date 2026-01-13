@@ -94,7 +94,7 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
                     sawdustAmount += getSawdustAmountForAction(action.name) * sawdustMaterialMultiplier;
                 }
 
-                Bids.LOG.info("ACTION(\"{}\", {}, {}) => {}", action.name, action.x, action.y, result ? "OK" : "SUCCESS");
+                Bids.LOG.debug("ACTION(\"{}\", {}, {}) => {}", action.name, action.x, action.y, result ? "OK" : "SUCCESS");
             }
 
             player.inventory.getItemStack().damageItem(message.getDamage(), player);
@@ -132,6 +132,8 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
     private void tryToMatchCutout() {
         PlanInstance matchingPlan = workspaceServer.findMatchingPlan();
         if (matchingPlan != null) {
+            Bids.LOG.debug("MATCH(\"{}\", {})", matchingPlan.getName(), matchingPlan.getResult().toString());
+
             ItemStack result = matchingPlan.getResult().copy();
             BidsEventFactory.onWoodworkingItemCrafted(player, player.getHeldItem(), result);
 
