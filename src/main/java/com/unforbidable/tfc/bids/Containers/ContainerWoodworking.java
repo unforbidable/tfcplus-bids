@@ -16,6 +16,8 @@ import com.unforbidable.tfc.bids.Core.Woodworking.Workspace.WorkspaceServer;
 import com.unforbidable.tfc.bids.Gui.GuiWoodworking;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingMaterial;
+import com.unforbidable.tfc.bids.api.WoodworkingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -64,11 +66,14 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
     @Override
     public void onContainerMessage(WoodworkingMessage message) {
         if (!world.isRemote && message.getEvent() == WoodworkingMessage.EVENT_PERFORM_ACTION) {
+            IWoodworkingMaterial material = WoodworkingRegistry.findMaterialForItem(player.getHeldItem().getItem());
+            float sawdustMaterialMultiplier = material != null ? getSawdustMaterialMultiplier(material) : 0;
+
             for (NetworkAction action : message.getActions()) {
                 boolean result = workspaceServer.performAction(action.name, action.x, action.y);
 
                 if (result) {
-                    sawdustAmount += getSawdustAmountForAction(action.name);
+                    sawdustAmount += getSawdustAmountForAction(action.name) * sawdustMaterialMultiplier;
                 }
 
                 Bids.LOG.info("ACTION(\"{}\", {}, {}) => {}", action.name, action.x, action.y, result ? "OK" : "SUCCESS");
@@ -86,13 +91,24 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
         }
     }
 
+    private float getSawdustMaterialMultiplier(IWoodworkingMaterial material) {
+        switch (material.getType()) {
+            case WOOD_THICK:
+                return 1;
+            case WOOD_FLAT:
+                return 0.5f;
+        }
+
+        return 0;
+    }
+
     private float getSawdustAmountForAction(String actionName) {
         if (actionName.startsWith("saw_cut_")) {
-            // Sawing a whole length of a material gives 1 sawdust
+            // Sawing a whole length of a thick material gives 1 sawdust
             return 1 / 25f;
         } else if (actionName.startsWith("drill_")) {
-            // Drilling 15 holes gives 1 sawdust
-            return 1 / 15f;
+            // Drilling 15 holes in flat gives 1 sawdust
+            return 1 / 7.5f;
         }
 
         return 0;
