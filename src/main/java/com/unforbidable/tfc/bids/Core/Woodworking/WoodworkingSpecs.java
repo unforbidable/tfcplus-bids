@@ -12,7 +12,7 @@ import com.unforbidable.tfc.bids.api.Enums.EnumWoodworkingMaterialType;
 public class WoodworkingSpecs {
 
     public static final ActionSpec DRILL_DRILL_1X1 = ActionSpec.create()
-        .cutout(Shape.rectFrom(0, 0).size(1, 1))
+        .cutout(Shape.pointAt(0, 0))
         .margin(Shape.rectFrom(-1, -1).size(3, 3))
         .origin(PointF.at(0.5f, 0.5f))
         .build();
@@ -24,7 +24,7 @@ public class WoodworkingSpecs {
         .build();
 
     public static final ActionSpec SAW_CUT_TOP = ActionSpec.create()
-        .cutout(Shape.rectFrom(0, 0).to(1, 1))
+        .cutout(Shape.pointAt(0, 0))
         .clearance(Shape.rectFrom(0, 0).to(1, -3))
         .origin(PointF.at(0.5f, 0.5f))
         .build();
@@ -49,13 +49,13 @@ public class WoodworkingSpecs {
     public static final ActionSpec AXE_CARVE_LEFT_B = AXE_CARVE_RIGHT_B.flip(Orientation.HORIZONTAL);
 
     public static final ActionSpec KNIFE_CARVE_RIGHT_A = ActionSpec.create()
-        .cutout(Shape.from(0, 0).to(2, 0).to(2, 2).build())
+        .cutout(Shape.triFrom(2, 0).size(-2, 2))
         .clearance(Shape.from(2, 0).to(2, 2).to(4, 2).to(4, 0).build())
         .origin(PointF.at(1, 1))
         .build();
     public static final ActionSpec KNIFE_CARVE_RIGHT_B = KNIFE_CARVE_RIGHT_A.flip(Orientation.VERTICAL);
     public static final ActionSpec KNIFE_CARVE_RIGHT_C = ActionSpec.create()
-        .cutout(Shape.from(0, 0).to(2, 0).to(0, 2).build())
+        .cutout(Shape.triFrom(0, 0).size(2, 2))
         .clearance(Shape.from(2, 0).to(0, 2).to(2, 2).to(4, 0).build())
         .origin(PointF.at(1, 1))
         .build();
@@ -66,9 +66,9 @@ public class WoodworkingSpecs {
     public static final ActionSpec KNIFE_CARVE_LEFT_D = KNIFE_CARVE_RIGHT_D.flip(Orientation.HORIZONTAL);
 
     public static final ActionSpec CHISEL_CUT_H = ActionSpec.create()
-        .cutout(Shape.rectFrom(0, 0).size(1, 1))
-        .clearance(Shape.rectFrom(0, 0).size(-1, 1))
-        .clearance(Shape.rectFrom(1, 0).size(1, 1))
+        .cutout(Shape.pointAt(0, 0))
+        .clearance(Shape.pointAt(-1, 0))
+        .clearance(Shape.pointAt(1, 0))
         .origin(PointF.at(0.5f, 0.5f))
         .build();
     public static final ActionSpec CHISEL_CUT_V = CHISEL_CUT_H.rotate(1);
@@ -133,12 +133,12 @@ public class WoodworkingSpecs {
         .build();
 
     public static final ActionSpec KNIFE_FILE_FULL = ActionSpec.create()
-        .cutout(Shape.rectFrom(0, 0).to(1, 1))
+        .cutout(Shape.pointAt(0, 0))
         .origin(PointF.at(0.5f, 0.5f))
         .build();
 
     public static final ActionSpec KNIFE_FILE_CORNER_LEFT_A = ActionSpec.create()
-        .cutout(Shape.from(0, 0).to(1, 0).to(0, 1).build())
+        .cutout(Shape.triFrom(0, 0).size(1, 1))
         .clearance(Shape.rectFrom(0, 0).size(-1, 1))
         .origin(PointF.at(0.5f, 0.5f))
         .build();

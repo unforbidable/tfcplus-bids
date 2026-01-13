@@ -158,10 +158,10 @@ public class WoodworkingSetup {
             .cutout(Shape.rectFrom(8, 0).size(5, 16)) // top 2/3 right cut off
             .cutout(Shape.rectFrom(0, 16).size(2, 9)) // bottom 1/3 left cut off
             .cutout(Shape.rectFrom(11, 16).size(2, 9)) // bottom 1/3 right cut off
-            .cutout(Shape.from(2, 19).to(2, 16).to(5, 16).build()) // top left corner
-            .cutout(Shape.from(11, 19).to(8, 16).to(11, 16).build()) // top right corner
-            .cutout(Shape.from(2, 24).to(3, 25).to(2, 25).build()) // bottom left corner
-            .cutout(Shape.from(11, 24).to(11, 25).to(10, 25).build()) // bottom right corner
+            .cutout(Shape.triFrom(2, 16).size(3, 3)) // top left corner
+            .cutout(Shape.triFrom(11, 16).size(-3, 3)) // top right corner
+            .cutout(Shape.triFrom(2, 25).size(1, -1)) // bottom left corner
+            .cutout(Shape.triFrom(11, 25).size(-1, -1)) // bottom right corner
             .build());
 
         WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_MALLET, Plan.create()
@@ -175,9 +175,9 @@ public class WoodworkingSetup {
             .cutout(Shape.rectFrom(8, 0).size(5, 25)) // right cut off
             .cutout(Shape.rectFrom(0, 0).size(5, 9)) // top 1/3 left cut off
             .cutout(Shape.rectFrom(0, 9).size(2, 16)) // bottom 2/3 left cut off
-            .cutout(Shape.from(2, 12).to(2, 9).to(5, 9).build()) // top left corner
-            .cutout(Shape.from(2, 22).to(5, 25).to(2, 25).build()) // bottom left corner
-            .cutout(Shape.rectFrom(4, 20).size(1, 1)) // hole
+            .cutout(Shape.triFrom(2, 9).size(3, 3)) // top left corner
+            .cutout(Shape.triFrom(2, 25).size(3, -3)) // bottom left corner
+            .cutout(Shape.pointAt(4, 20)) // hole
             .build());
 
         WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_COMB_PADDLE, Plan.create()
@@ -185,33 +185,33 @@ public class WoodworkingSetup {
             .cutout(Shape.rectFrom(8, 0).size(5, 12)) // top 1/2 right cut off
             .cutout(Shape.rectFrom(0, 12).size(3, 13)) // bottom 1/2 left cut off
             .cutout(Shape.rectFrom(10, 12).size(3, 13)) // bottom 1/2 right cut off
-            .cutout(Shape.from(3, 14).to(3, 12).to(5, 12).build()) // top left corner
-            .cutout(Shape.from(10, 14).to(8, 12).to(10, 12).build()) // top right corner
-            .cutout(Shape.rectFrom(4, 23).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(6, 23).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(8, 23).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(4, 21).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(6, 21).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(8, 21).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(4, 19).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(6, 19).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(8, 19).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(4, 17).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(6, 17).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(8, 17).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(4, 15).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(6, 15).size(1, 1)) // hole
-            .cutout(Shape.rectFrom(8, 15).size(1, 1)) // hole
+            .cutout(Shape.triFrom(3, 12).size(2, 2)) // top left corner
+            .cutout(Shape.triFrom(10, 12).size(-2, 2)) // top right corner
+            .cutout(Shape.pointAt(4, 23)) // hole
+            .cutout(Shape.pointAt(6, 23)) // hole
+            .cutout(Shape.pointAt(8, 23)) // hole
+            .cutout(Shape.pointAt(4, 21)) // hole
+            .cutout(Shape.pointAt(6, 21)) // hole
+            .cutout(Shape.pointAt(8, 21)) // hole
+            .cutout(Shape.pointAt(4, 19)) // hole
+            .cutout(Shape.pointAt(6, 19)) // hole
+            .cutout(Shape.pointAt(8, 19)) // hole
+            .cutout(Shape.pointAt(4, 17)) // hole
+            .cutout(Shape.pointAt(6, 17)) // hole
+            .cutout(Shape.pointAt(8, 17)) // hole
+            .cutout(Shape.pointAt(4, 15)) // hole
+            .cutout(Shape.pointAt(6, 15)) // hole
+            .cutout(Shape.pointAt(8, 15)) // hole
             .build());
 
         WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_NEEDLE, Plan.create()
             .cutout(Shape.rectFrom(0, 0).size(2, 17)) // left
             .cutout(Shape.rectFrom(4, 0).size(3, 11)) // right top
             .cutout(Shape.rectFrom(5, 11).size(2, 6)) // right bottom
-            .cutout(Shape.from(2, 0).to(3, 0).to(2, 1).build()) // left tip corner
-            .cutout(Shape.from(3, 0).to(4, 0).to(4, 1).build()) // right tip corner
-            .cutout(Shape.from(4, 11).to(5, 11).to(5, 12).build()) // lower right tip corner
-            .cutout(Shape.rectFrom(3, 15).size(1, 1)) // hole
+            .cutout(Shape.triFrom(2, 0).size(1, 1)) // left tip corner
+            .cutout(Shape.triFrom(4, 0).size(-1, 1)) // right tip corner
+            .cutout(Shape.triFrom(5, 11).size(-1, 1)) // lower right tip corner
+            .cutout(Shape.pointAt(3, 15)) // hole
             .build());
 
         WoodworkingRegistry.registerPlan(BidsWoodworking.PLAN_KNIFE_HEAD, Plan.create()
@@ -219,10 +219,10 @@ public class WoodworkingSetup {
             .cutout(Shape.rectFrom(4, 0).size(3, 1)) // right top
             .cutout(Shape.rectFrom(5, 1).size(2, 10)) // right middle
             .cutout(Shape.rectFrom(4, 11).size(3, 6)) // right bottom
-            .cutout(Shape.from(3, 0).to(4, 0).to(4, 1).build()) // right top corner
-            .cutout(Shape.from(4, 1).to(5, 1).to(5, 2).build()) // right lower corner
-            .cutout(Shape.from(4, 11).to(5, 11).to(5, 10).build()) // right lower corner
-            .cutout(Shape.from(2, 0).to(3, 0).to(2, 1).build()) // right middle top corner
+            .cutout(Shape.triFrom(4, 0).size(-1, 1)) // right top corner
+            .cutout(Shape.triFrom(5, 1).size(-1, 1)) // right lower corner
+            .cutout(Shape.triFrom(5, 11).size(-1, -1)) // right lower corner
+            .cutout(Shape.triFrom(2, 0).size(1, 1)) // right top corner
             .build());
 
     }

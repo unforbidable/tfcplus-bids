@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Core.Woodworking.Geometry;
 
 import com.unforbidable.tfc.bids.Core.Woodworking.Geometry.Builders.RectShapeBuilder;
 import com.unforbidable.tfc.bids.Core.Woodworking.Geometry.Builders.ShapeBuilder;
+import com.unforbidable.tfc.bids.Core.Woodworking.Geometry.Builders.TriShapeBuilder;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingShape;
 
 import java.awt.Polygon;
@@ -16,6 +17,12 @@ public class Shape implements IWoodworkingShape {
 
     public static RectShapeBuilder rectFrom(int x, int y) {
         return new RectShapeBuilder(x, y);
+    }
+
+    public static TriShapeBuilder triFrom(int x, int y) { return new TriShapeBuilder(x, y); }
+
+    public static Shape pointAt(int x, int y) {
+        return new RectShapeBuilder(x, y).size(1, 1);
     }
 
     public static ShapeBuilder from(int x, int y) {
