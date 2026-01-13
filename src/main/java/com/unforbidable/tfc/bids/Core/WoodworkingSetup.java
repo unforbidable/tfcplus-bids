@@ -62,6 +62,7 @@ public class WoodworkingSetup {
         WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_LOG, BidsItems.peeledLog);
         WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_LOG, BidsItems.peeledLogSeasoned);
         WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_BOARD, BidsItems.board);
+        WoodworkingRegistry.addItemAsMaterial(BidsWoodworking.MATERIAL_BONE, TFCItems.bone);
     }
 
     private static void registerToolItems() {
@@ -93,11 +94,13 @@ public class WoodworkingSetup {
         WoodworkingRegistry.registerTool(BidsWoodworking.TOOL_KNIFE, ActionTool.create()
             .offset(-12, -12)
             .addActions(WoodworkingSpecs.KNIFE_CARVE)
+            .addActions(WoodworkingSpecs.KNIFE_FILE)
             .build());
 
         WoodworkingRegistry.registerTool(BidsWoodworking.TOOL_HAND_AXE, ActionTool.create()
             .offset(-8, -6)
             .addActions(WoodworkingSpecs.AXE_CARVE)
+            .addActions(WoodworkingSpecs.KNIFE_FILE)
             .build());
 
         WoodworkingRegistry.registerTool(BidsWoodworking.TOOL_DRILL, ActionTool.create()
@@ -109,6 +112,7 @@ public class WoodworkingSetup {
     private static void registerMaterials() {
         WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_LOG, new Material(13, 25, EnumWoodworkingMaterialType.WOOD_THICK));
         WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_BOARD, new Material(13, 25, EnumWoodworkingMaterialType.WOOD_FLAT));
+        WoodworkingRegistry.registerMaterial(BidsWoodworking.MATERIAL_BONE, new Material(7, 17, EnumWoodworkingMaterialType.BONE));
     }
 
     private static void registerPlans() {

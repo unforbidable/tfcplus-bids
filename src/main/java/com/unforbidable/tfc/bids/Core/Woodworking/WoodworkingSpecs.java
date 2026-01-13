@@ -85,6 +85,7 @@ public class WoodworkingSpecs {
         .usage(EnumWoodworkingMaterialType.WOOD_THICK)
         .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
         .usage(EnumWoodworkingMaterialType.WOOD_DELICATE)
+        .usage(EnumWoodworkingMaterialType.BONE)
         .add(new Action("saw_cut_top", SAW_CUT_TOP, EnumWoodworkingActionSide.TOP))
         .add(new Action("saw_cut_bottom", SAW_CUT_BOTTOM, EnumWoodworkingActionSide.BOTTOM))
         .add(new Action("saw_cut_right", SAW_CUT_RIGHT, EnumWoodworkingActionSide.RIGHT))
@@ -129,6 +130,30 @@ public class WoodworkingSpecs {
         .usage(EnumWoodworkingMaterialType.WOOD_DELICATE)
         .add(new Action("chisel_cut_h", CHISEL_CUT_H))
         .add(new Action("chisel_cut_v", CHISEL_CUT_V))
+        .build();
+
+    public static final ActionSpec KNIFE_FILE_FULL = ActionSpec.create()
+        .cutout(Shape.rectFrom(0, 0).to(1, 1))
+        .origin(PointF.at(0.5f, 0.5f))
+        .build();
+
+    public static final ActionSpec KNIFE_FILE_CORNER_LEFT_A = ActionSpec.create()
+        .cutout(Shape.from(0, 0).to(1, 0).to(0, 1).build())
+        .clearance(Shape.rectFrom(0, 0).size(-1, 1))
+        .origin(PointF.at(0.5f, 0.5f))
+        .build();
+    public static final ActionSpec KNIFE_FILE_CORNER_LEFT_B = KNIFE_FILE_CORNER_LEFT_A.flip(Orientation.VERTICAL);
+    public static final ActionSpec KNIFE_FILE_CORNER_RIGHT_A = KNIFE_FILE_CORNER_LEFT_A.flip(Orientation.HORIZONTAL);
+    public static final ActionSpec KNIFE_FILE_CORNER_RIGHT_B = KNIFE_FILE_CORNER_RIGHT_A.flip(Orientation.VERTICAL);
+
+    public static final ActionGroup KNIFE_FILE = ActionGroup.create("knife_file")
+        .damage(0.1f)
+        .usage(EnumWoodworkingMaterialType.BONE)
+        .add(new Action("knife_file_full", KNIFE_FILE_FULL))
+        .add(new Action("knife_file_corner_left_a", KNIFE_FILE_CORNER_LEFT_A))
+        .add(new Action("knife_file_corner_left_b", KNIFE_FILE_CORNER_LEFT_B))
+        .add(new Action("knife_file_corner_right_a", KNIFE_FILE_CORNER_RIGHT_A))
+        .add(new Action("knife_file_corner_right_b", KNIFE_FILE_CORNER_RIGHT_B))
         .build();
 
 }

@@ -4,6 +4,7 @@ public class BidsWoodworking {
 
     public static final String MATERIAL_LOG = "log";
     public static final String MATERIAL_BOARD = "board";
+    public static final String MATERIAL_BONE = "bone";
 
     public static final String TOOL_AXE = "axe";
     public static final String TOOL_SAW = "saw";
