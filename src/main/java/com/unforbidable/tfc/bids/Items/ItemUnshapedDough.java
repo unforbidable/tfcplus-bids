@@ -40,6 +40,15 @@ public class ItemUnshapedDough extends ItemExtraFood {
         return is;
     }
 
+    @SuppressWarnings({"unchecked"})
+    @Override
+    public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
+        super.addInformation(is, player, arraylist, flag);
+
+        // ItemFoodTFC addInformation does not invoke addExtraInformation
+        addExtraInformation(is, player, arraylist);
+    }
+
     @Override
     public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> arraylist) {
         if (TFC_Core.showShiftInformation())
