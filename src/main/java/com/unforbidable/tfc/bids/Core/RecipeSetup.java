@@ -498,10 +498,7 @@ public class RecipeSetup {
             BidsItems.thornBunch, BidsItems.thornBunch, TFCItems.resin, BidsItems.woodenCombPaddle));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.boneHeckle, 1, 0),
-            TFCItems.bone, TFCItems.resin, "materialBindingDecent", "itemKnife"));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemKnife")
-            .matchCraftingItem(BidsItems.boneHeckle));
+            BidsItems.boneKnifeHead, BidsItems.boneKnifeHead, TFCItems.resin, "materialBindingDecent"));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igInStoneDrill, 1, 0),
                 BidsItems.igInStoneDrillHead, "stickWood", TFCItems.bow));
