@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Workspace {
 
-    private static final int STICKY_AREA_WIDTH = 4;
+    private static final int STICKY_AREA_WIDTH = 2;
     private static final int STICKY_AREA_HEIGHT = 4;
 
     private final Area master;
