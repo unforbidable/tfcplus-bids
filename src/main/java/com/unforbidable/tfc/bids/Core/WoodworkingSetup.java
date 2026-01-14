@@ -38,13 +38,12 @@ public class WoodworkingSetup {
 
     private static void registerRecipes() {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            String suffix = RecipeSetup.getOreSuffixWood(wood.index);
-            WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_LUMBER, "logWood" + suffix, wood.items.getLumber(4)));
-            WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_SUPPORT, "logWood" + suffix, wood.blocks.getWoodSupport(4)));
+            WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_LUMBER, wood.getOreWithSuffix("logWood"), wood.items.getLumber(4)));
+            WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_SUPPORT, wood.getOreWithSuffix("logWood"), wood.blocks.getWoodSupport(4)));
 
             if (wood.items.hasBoard()) {
-                WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD, "logWood" + suffix, wood.items.getBoard()));
-                WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD_2, "logWood" + suffix, wood.items.getBoard(2)));
+                WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD, wood.getOreWithSuffix("logWood"), wood.items.getBoard()));
+                WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD_2, wood.getOreWithSuffix("logWood"), wood.items.getBoard(2)));
                 WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_SHAFT, wood.items.getBoard(), wood.items.getShaft()));
                 WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_SHAFT_2, wood.items.getBoard(), wood.items.getShaft(2)));
             }

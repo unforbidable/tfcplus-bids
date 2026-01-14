@@ -43,7 +43,6 @@ public class BlockSetup extends BidsBlocks {
         initBlocks();
         setupHarvest();
         registerBlocks();
-        registerOre();
         registerCarvings();
         registerQuarryBlocks();
         registerCrackableBlocks();
@@ -487,15 +486,6 @@ public class BlockSetup extends BidsBlocks {
         Blocks.fire.setFireInfo(wattleGate, 5, 5);
 
         Blocks.fire.setFireInfo(strawNest, 5, 5);
-    }
-
-    private static void registerOre() {
-        Bids.LOG.info("Register block ores");
-
-        final int WILD = OreDictionary.WILDCARD_VALUE;
-
-        OreDictionary.registerOre("stoneRough", new ItemStack(roughStoneSed, 1, WILD));
-        OreDictionary.registerOre("stoneRoughBricks", new ItemStack(roughStoneBrickSed, 1, WILD));
     }
 
     private static void registerCarvings() {

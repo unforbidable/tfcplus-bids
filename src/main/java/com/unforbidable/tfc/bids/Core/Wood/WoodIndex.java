@@ -1,5 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Wood;
 
+import com.dunk.tfc.api.Constant.Global;
+
 public class WoodIndex {
 
     public final WoodItemProvider items = WoodScheme.DEFAULT.getWoodItemProvider(this);
@@ -31,6 +33,11 @@ public class WoodIndex {
         this.hardwood = hardwood;
         this.resinous = resinous;
         this.inflammable = inflammable;
+    }
+
+    public String getOreWithSuffix(String ore) {
+        String suffix = Global.WOOD_ALL[index].replace(" ", "");
+        return ore + suffix;
     }
 
 }

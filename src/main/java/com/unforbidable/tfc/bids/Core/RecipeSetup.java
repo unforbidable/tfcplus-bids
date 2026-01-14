@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Core;
 
-import com.dunk.tfc.Core.Recipes;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.*;
@@ -55,7 +54,6 @@ import static com.dunk.tfc.Core.Recipes.getStackNoTemp;
 public class RecipeSetup {
 
     public static void init() {
-        registerOre();
         registerRecipes();
         registerCustomRecipes();
         registerCarvingRecipes();
@@ -109,262 +107,6 @@ public class RecipeSetup {
     public static void onClientWorldInit() {
         registerAnvilRecipes();
         registerSewingRepairRecipes();
-    }
-
-    private static void registerOre() {
-        Bids.LOG.info("Register recipe ores");
-
-        final int WILD = OreDictionary.WILDCARD_VALUE;
-
-        // Hammers that are able to break iron ores into bits
-        // You could realstically break iron ore with a stone hammer
-        // so this is for ballance only
-        // Also breaking iron ore will cause more damage to the hammer
-        OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.steelHammer, 1, WILD));
-        OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.blackSteelHammer, 1, WILD));
-        OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.blueSteelHammer, 1, WILD));
-        OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.redSteelHammer, 1, WILD));
-
-        for (Item item : new Item[] { TFCItems.cottonYarn, TFCItems.woolYarn, TFCItems.silkString }) {
-            OreDictionary.registerOre("materialBinding", item);
-        }
-
-        if (BidsOptions.Crafting.enableGrassCordageAsToolBinding) {
-            OreDictionary.registerOre("materialBinding", TFCItems.grassCordage);
-        }
-
-        for (Item item : new Item[] { TFCItems.sinew }) {
-            OreDictionary.registerOre("materialBinding", item);
-            OreDictionary.registerOre("materialBindingDecent", item);
-        }
-
-        for (Item item : new Item[] { TFCItems.linenString, BidsItems.barkCordage, BidsItems.sisalTwine, BidsItems.juteTwine }) {
-            OreDictionary.registerOre("materialBinding", item);
-            OreDictionary.registerOre("materialBindingDecent", item);
-            OreDictionary.registerOre("materialBindingStrong", item);
-            OreDictionary.registerOre("materialBowstring", item);
-        }
-
-        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            if (wood.blocks.hasChoppingBlock()) {
-                OreDictionary.registerOre("blockChoppingBlock", wood.blocks.getChoppingBlock());
-            }
-
-            if (wood.blocks.hasLogWall()) {
-                OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWall());
-                OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWallVert());
-            }
-
-            if (wood.blocks.hasThickLog()) {
-                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getThickLog());
-                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getThickLogAlt());
-
-                OreDictionary.registerOre("blockFlaxWorkingSurface", wood.blocks.getThickVert());
-            }
-
-            if (wood.blocks.hasStackedLogs()) {
-                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getStackedLogs());
-                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getStackedLogsAlt());
-            }
-        }
-
-        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
-            if (stone.blocks.hasBlockStack(EnumStoneBlockType.RAW)) {
-                OreDictionary.registerOre("blockScrapingSurface", stone.blocks.getBlockStack(EnumStoneBlockType.RAW));
-            }
-        }
-
-        OreDictionary.registerOre("blockFreshWater", TFCBlocks.freshWater);
-        OreDictionary.registerOre("blockFreshWater", TFCBlocks.freshWaterStationary);
-
-        OreDictionary.registerOre("itemHoneycomb", TFCItems.honeycomb);
-        OreDictionary.registerOre("itemHoneycomb", TFCItems.fertileHoneycomb);
-
-        // Used for mixing flour and water into unshaped dough or flatbread dough
-        OreDictionary.registerOre("itemLargeBowlWater", BidsItems.freshWaterLargeBowl);
-
-        OreDictionary.registerOre("itemNeedleAndThread", new ItemStack(TFCItems.boneNeedleStrung, 1, WILD));
-        OreDictionary.registerOre("itemNeedleAndThread", new ItemStack(TFCItems.ironNeedleStrung, 1, WILD));
-
-        OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLog, 1, WILD));
-        OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
-        OreDictionary.registerOre("logWood", new ItemStack(BidsItems.logsSeasoned, 1, WILD));
-        OreDictionary.registerOre("logWoodPeeledSeasoned", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
-
-        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            String suffix = getOreSuffixWood(wood.index);
-
-            if (wood.items.hasLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getLog());
-                OreDictionary.registerOre("logWood" + suffix, wood.items.getLog());
-                OreDictionary.registerOre("logWoodFresh" + suffix, wood.items.getLog());
-            }
-
-            if (wood.items.hasChoppedLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getChoppedLog());
-                OreDictionary.registerOre("logWood" + suffix, wood.items.getChoppedLog());
-                OreDictionary.registerOre("logWoodFresh" + suffix, wood.items.getChoppedLog());
-            }
-
-            if (wood.items.hasSeasonedLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedLog());
-                OreDictionary.registerOre("logWood" + suffix, wood.items.getSeasonedLog());
-                OreDictionary.registerOre("logWoodSeasoned" + suffix, wood.items.getSeasonedLog());
-            }
-
-            if (wood.items.hasSeasonedChoppedLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedChoppedLog());
-                OreDictionary.registerOre("logWood" + suffix, wood.items.getSeasonedChoppedLog());
-                OreDictionary.registerOre("logWoodSeasoned" + suffix, wood.items.getSeasonedChoppedLog());
-            }
-
-            if (wood.items.hasPeeledLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getPeeledLog());
-                OreDictionary.registerOre("logWood" + suffix, wood.items.getPeeledLog());
-                OreDictionary.registerOre("logWoodFresh" + suffix, wood.items.getPeeledLog());
-            }
-
-            if (wood.items.hasSeasonedPeeledLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedPeeledLog());
-                OreDictionary.registerOre("logWood" + suffix, wood.items.getSeasonedPeeledLog());
-                OreDictionary.registerOre("logWoodSeasoned" + suffix, wood.items.getSeasonedPeeledLog());
-
-                if (wood.hardwood) {
-                    OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getSeasonedPeeledLog());
-                }
-            }
-
-            if (wood.hasBarkFibers) {
-                OreDictionary.registerOre("itemBarkHasFibers", wood.items.getBark());
-            }
-
-            if (wood.items.hasBoard()) {
-                OreDictionary.registerOre("woodBoard", wood.items.getBoard());
-            }
-
-            if (wood.items.hasShaft()) {
-                OreDictionary.registerOre("woodShaft", wood.items.getShaft());
-            }
-        }
-
-        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportH, 1, WILD));
-        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportH2, 1, WILD));
-        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportH3, 1, WILD));
-        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportV, 1, WILD));
-        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportV2, 1, WILD));
-        OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportV3, 1, WILD));
-
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.copperSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.bronzeSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.bismuthBronzeSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blackBronzeSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.wroughtIronSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.steelSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blackSteelSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.redSteelSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blueSteelSheet));
-
-        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
-            if (stone.quern) {
-                OreDictionary.registerOre("stoneQuern", stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE));
-            }
-        }
-
-        for (Item knife : Recipes.knives) {
-            OreDictionary.registerOre("itemScrapingTool", new ItemStack(knife, 1, WILD));
-        }
-
-        for (Item item : new Item[] { TFCItems.pole, TFCItems.stick } ) {
-            OreDictionary.registerOre("itemFlaxBreakingTool", new ItemStack(item, 1, WILD));
-            OreDictionary.registerOre("itemFlaxScutchingTool", new ItemStack(item, 1, WILD));
-            OreDictionary.registerOre("itemPrimitiveTool", new ItemStack(item, 1, WILD));
-        }
-
-        OreDictionary.registerOre("itemFlaxBreakingTool", new ItemStack(BidsItems.woodenMallet, 1, WILD));
-
-        OreDictionary.registerOre("itemFlaxScutchingTool", new ItemStack(BidsItems.scutchingKnife, 1, WILD));
-
-        final Item[] handAxes = new Item[] {BidsItems.sedHandAxe, BidsItems.mMHandAxe, BidsItems.igInHandAxe, BidsItems.igExHandAxe };
-        for (Item handAxe : handAxes) {
-            OreDictionary.registerOre("itemScrapingTool", new ItemStack(handAxe, 1, WILD));
-            OreDictionary.registerOre("itemPrimitiveTool", new ItemStack(handAxe, 1, WILD));
-        }
-
-        OreDictionary.registerOre("itemWhorl", new ItemStack(BidsItems.whorl, 1, WILD));
-
-        OreDictionary.registerOre("itemSpindle", new ItemStack(BidsItems.spindle));
-
-        OreDictionary.registerOre("foodBeans", new ItemStack(TFCItems.soybean));
-        OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.wildBeans));
-        OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.broadBeans));
-
-        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.beefRaw));
-        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.porkchopRaw));
-        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.muttonRaw));
-        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.venisonRaw));
-        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.horseMeatRaw));
-
-        OreDictionary.registerOre("foodMeatPoultry", new ItemStack(TFCItems.chickenRaw));
-
-        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.fishRaw));
-        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.scallopRaw));
-        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.seastarRaw));
-        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.calamariRaw));
-
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.barleyGround));
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.oatGround));
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.ryeGround));
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.riceGround));
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.wheatGround));
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.cornmealGround));
-
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.barleyCrushed));
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.oatCrushed));
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.ryeCrushed));
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.riceCrushed));
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.wheatCrushed));
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.cornmealCrushed));
-
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.blackberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.blueberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.wintergreenBerry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.bunchberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.cranberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.raspberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.gooseberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.elderberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.cloudberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.snowberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.strawberry));
-
-        OreDictionary.registerOre("foodEgg", new ItemStack(TFCItems.egg));
-
-        OreDictionary.registerOre("foodMushroom", new ItemStack(TFCItems.mushroomFoodB));
-        OreDictionary.registerOre("foodMushroom", new ItemStack(TFCItems.mushroomFoodR));
-
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.wheatBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.barleyBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.oatBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.ryeBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.cornBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.riceBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.wheatFlatbread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.barleyFlatbread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.oatFlatbread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.ryeFlatbread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.cornmealFlatbread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.riceFlatbread));
-
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.wheatHardtack));
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.barleyHardtack));
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.oatHardtack));
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.ryeHardtack));
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.cornmealHardtack));
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.riceHardtack));
-    }
-
-    public static String getOreSuffixWood(int i) {
-        return Global.WOOD_ALL[i].replace(" ", "");
     }
 
     private static void registerCustomRecipes() {
@@ -645,8 +387,6 @@ public class RecipeSetup {
                 TFCItems.unstrungCompositeBow, "materialBindingStrong"));
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            String suffix = getOreSuffixWood(wood.index);
-
             if (wood.items.hasPeeledLog()) {
                 GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getPeeledLog(),
                     wood.items.getLog(), "itemAdze"));
@@ -692,8 +432,7 @@ public class RecipeSetup {
             }
 
             if (wood.items.hasFirewood()) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getFirewood(),
-                    "logWoodFresh" + suffix, "itemAxe"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getFirewood(),wood.getOreWithSuffix("logWoodFresh"), "itemAxe"));
 
                 ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
                     wood.items.getFirewood(),
@@ -713,8 +452,7 @@ public class RecipeSetup {
             }
 
             if (wood.items.hasSeasonedFirewood()) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedFirewood(),
-                    "logWoodSeasoned" + suffix, "itemAxe"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedFirewood(), wood.getOreWithSuffix("logWoodSeasoned"), "itemAxe"));
 
                 if (wood.items.hasSeasonedLog()) {
                     ChoppingBlockManager.addRecipe(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
@@ -742,25 +480,25 @@ public class RecipeSetup {
             if (wood.blocks.hasLogWall()) {
                 if (wood.items.hasSeasonedPeeledLog()) {
                     GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWall(),
-                        "A ", "11", '1', "logWoodSeasoned" + suffix,
+                        "A ", "11", '1', wood.getOreWithSuffix("logWoodSeasoned"),
                         'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getSeasonedPeeledLog(2),
                         Collections.singletonList(wood.blocks.getLogWall())));
 
                     GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWallVert(),
-                        "A1", " 1", '1', "logWoodSeasoned" + suffix,
+                        "A1", " 1", '1', wood.getOreWithSuffix("logWoodSeasoned"),
                         'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getSeasonedPeeledLog(2),
                         Collections.singletonList(wood.blocks.getLogWallVert())));
                 } else {
                     GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWall(),
-                        "A ", "11", '1', "logWood" + suffix,
+                        "A ", "11", '1', wood.getOreWithSuffix("logWood"),
                         'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getLog(2),
                         Collections.singletonList(wood.blocks.getLogWall())));
 
                     GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWallVert(),
-                        "A1", " 1", '1', "logWood" + suffix,
+                        "A1", " 1", '1', wood.getOreWithSuffix("logWood"),
                         'A', "itemAdze"));
                     GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getLog(2),
                         Collections.singletonList(wood.blocks.getLogWallVert())));
@@ -769,23 +507,24 @@ public class RecipeSetup {
 
             if (wood.blocks.hasPalisade()) {
                 GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getPalisade(2),
-                    "A1", " 1", '1', "logWood" + suffix,
+                    "A1", " 1", '1', wood.getOreWithSuffix("logWood"),
                     'A', "itemAxe"));
             }
 
             // Copies of TFC recipes for items made logs
             if (wood.items.hasLumber()) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getLumber(8),
-                    "logWoodSeasoned" + suffix, "itemSaw"));
+                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getLumber(8), wood.getOreWithSuffix("logWoodSeasoned"), "itemSaw"));
             }
 
             // Copies of TFC recipes for block made from logs
             if (wood.items.hasPeeledLog() || wood.items.hasSeasonedLog()) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getWoodSupport(8),
-                    "A2", " 2", '2', "logWood" + suffix, 'A', "itemSaw"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getWoodSupport(8),"A2", " 2",
+                    '2', wood.getOreWithSuffix("logWood"),
+                    'A', "itemSaw"));
 
-                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getFence(6),
-                    "LPL", "LPL", 'L', "logWood" + suffix, 'P', wood.items.getLumber()));
+                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getFence(6),"LPL", "LPL",
+                    'L', wood.getOreWithSuffix("logWood"),
+                    'P', wood.items.getLumber()));
             }
         }
 

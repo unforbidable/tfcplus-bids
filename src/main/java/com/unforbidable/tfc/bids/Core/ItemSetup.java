@@ -35,7 +35,6 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemSetup extends BidsItems {
 
@@ -43,7 +42,6 @@ public class ItemSetup extends BidsItems {
         initItems();
         setupToolHarvest();
         registerItems();
-        registerOre();
         registerWoodPileItems();
         registerFirepitFuel();
         registerCookingIngredientOverrides();
@@ -1024,105 +1022,6 @@ public class ItemSetup extends BidsItems {
         bismuthBronzeAdze.setHarvestLevel("axe", 1);
         blackBronzeAdze.setHarvestLevel("axe", 1);
         wroughtIronAdze.setHarvestLevel("axe", 1);
-    }
-
-    private static void registerOre() {
-        Bids.LOG.info("Register item ores");
-
-        final int WILD = OreDictionary.WILDCARD_VALUE;
-
-        final Item[] drillHeads = new Item[]{sedStoneDrillHead, mMStoneDrillHead, igInStoneDrillHead, igExStoneDrillHead,
-            copperDrillHead, bronzeDrillHead, bismuthBronzeDrillHead, blackBronzeDrillHead, wroughtIronDrillHead};
-        for (int i = 0; i < drillHeads.length; i++) {
-            OreDictionary.registerOre("itemDrillHead", new ItemStack(drillHeads[i], 1, WILD));
-        }
-
-        final Item[] drills = new Item[]{sedStoneDrill, mMStoneDrill, igInStoneDrill, igExStoneDrill,
-            copperDrill, bronzeDrill, bismuthBronzeDrill, blackBronzeDrill, wroughtIronDrill};
-        for (int i = 0; i < drills.length; i++) {
-            OreDictionary.registerOre("itemDrill", new ItemStack(drills[i], 1, WILD));
-
-            if (i < 4) {
-                OreDictionary.registerOre("itemDrillStone", new ItemStack(drills[i], 1, WILD));
-            } else {
-                OreDictionary.registerOre("itemDrillMetal", new ItemStack(drills[i], 1, WILD));
-            }
-        }
-
-        final Item[] adzes = new Item[]{sedStoneAdze, mMStoneAdze, igInStoneAdze, igExStoneAdze,
-            copperAdze, bronzeAdze, bismuthBronzeAdze, blackBronzeAdze, wroughtIronAdze};
-        for (int i = 0; i < adzes.length; i++) {
-            OreDictionary.registerOre("itemAdze", new ItemStack(adzes[i], 1, WILD));
-
-            if (i < 4) {
-                OreDictionary.registerOre("itemAdzeStone", new ItemStack(adzes[i], 1, WILD));
-            } else {
-                OreDictionary.registerOre("itemAdzeMetal", new ItemStack(adzes[i], 1, WILD));
-            }
-        }
-
-        final Item[] handAxes = new Item[] { sedHandAxe, mMHandAxe, igInHandAxe, igExHandAxe };
-        for (int i = 0; i < handAxes.length; i++) {
-            OreDictionary.registerOre("itemHandAxe", new ItemStack(handAxes[i], 1, WILD));
-
-            // Registering "itemKnifeStone" allow straw harvestable with a hand axe
-            // but no usable in recipes where "itemKnife" is used
-            OreDictionary.registerOre("itemKnifeStone", new ItemStack(handAxes[i], 1, WILD));
-
-            // Registering "itemAxeStone" allow bushes (and trees) harvestable with a hand axe
-            // but no usable in recipes where "itemAxe" is used
-            OreDictionary.registerOre("itemAxeStone", new ItemStack(handAxes[i], 1, WILD));
-        }
-
-        for (int i = 0; i < 6; i++) {
-            OreDictionary.registerOre("itemPlugAndFeather", new ItemStack(BidsItems.plugAndFeather, 1, i));
-        }
-
-        final Item[] logs = new Item[]{logsSeasoned, peeledLog, peeledLogSeasoned};
-        for (Item log : logs) {
-            OreDictionary.registerOre("itemLogExtra", new ItemStack(log, 1, WILD));
-        }
-
-        // Proper steaming mesh
-        for (Item item : new Item[]{ BidsItems.steamingMeshCloth }) {
-            OreDictionary.registerOre("itemCookingPotAccessory", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
-            OreDictionary.registerOre("itemCookingPotAccessorySteamingMesh", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
-        }
-
-        // Items that are automatically consumed as a vessel from the cooking prep storage slots
-        OreDictionary.registerOre("itemCookingPrepVessel",  new ItemStack(TFCItems.potteryBowl, 1, 1));
-        OreDictionary.registerOre("itemCookingPrepVessel",  new ItemStack(TFCItems.potteryBowl, 1, 2));
-
-        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsBeetroot));
-        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsSugarBeet));
-        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsBroadBeans));
-        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsWinterBarley));
-        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsWinterOat));
-        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsWinterRye));
-        OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsWinterWheat));
-
-        OreDictionary.registerOre("seedWinterCereal", new ItemStack(BidsItems.seedsWinterBarley));
-        OreDictionary.registerOre("seedWinterCereal", new ItemStack(BidsItems.seedsWinterOat));
-        OreDictionary.registerOre("seedWinterCereal", new ItemStack(BidsItems.seedsWinterRye));
-        OreDictionary.registerOre("seedWinterCereal", new ItemStack(BidsItems.seedsWinterWheat));
-
-        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(TFCItems.clayBucketEmpty));
-        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(TFCItems.woodenBucketEmpty));
-        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.largeClayBowl, 1, 1));
-        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailEmpty));
-        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailMilk, 1, WILD));
-        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailGoatMilk, 1, WILD));
-
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.fur, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.furScrap, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.wolfFur, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.wolfFurScrap, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.bearFur, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.bearFurScrap, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.hide, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 0));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 1));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 2));
     }
 
     private static void registerWoodPileItems() {

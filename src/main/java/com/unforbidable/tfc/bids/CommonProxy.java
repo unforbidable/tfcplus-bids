@@ -26,6 +26,7 @@ public class CommonProxy {
         CropSetup.preInit();
         WoodSetup.preInit();
         StoneSetup.preInit();
+        OreSetup.preInit();
         WoodworkingSetup.preInit();
         NetworkSetup.preInit();
     }
