@@ -144,6 +144,8 @@ public abstract class ItemHandworkTool extends ItemGenericTool implements ISize 
                         if (is.stackSize == 0) {
                             world.playSoundEffect(player.posX, player.posY, player.posZ, "random.break",
                                 0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
+
+                            return onItemBreak(is, world, player);
                         }
                     }
                 } else {
@@ -171,6 +173,10 @@ public abstract class ItemHandworkTool extends ItemGenericTool implements ISize 
         }
 
         return is;
+    }
+
+    protected ItemStack onItemBreak(ItemStack itemStack, World world, EntityPlayer player) {
+        return itemStack;
     }
 
     protected abstract HandworkRecipe tryMatchIngredient(ItemStack is);
