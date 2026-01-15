@@ -1,12 +1,15 @@
 package com.unforbidable.tfc.bids.Items;
 
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.CardingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
 public class ItemCard extends ItemHandworkTool {
 
@@ -17,6 +20,14 @@ public class ItemCard extends ItemHandworkTool {
     @Override
     protected int getNumStages() {
         return 5;
+    }
+
+    @Override
+    protected ItemStack onItemBreak(ItemStack itemStack, World world, EntityPlayer player) {
+        ItemStack brokenTool = new ItemStack(BidsItems.woodenCombPaddle);
+        // 90% chance to return the comb paddle without thorns
+        brokenTool.stackSize = player.getRNG().nextFloat() < 0.9f ? 1 : 0;
+        return brokenTool;
     }
 
     @Override
