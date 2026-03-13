@@ -197,10 +197,12 @@ public class GuiWoodworking extends GuiContainerTFC {
         super.mouseMovedOrUp(mouseX, mouseY, which);
 
         if (which == 0) {
-            // Stop repeating when mouse button is released
-            repeatingActionPos = null;
+            if (repeatingActionPos != null) {
+                // Stop repeating when mouse button is released
+                repeatingActionPos = null;
 
-            pushPerformedActions();
+                pushPerformedActions();
+            }
         }
     }
 
@@ -220,6 +222,13 @@ public class GuiWoodworking extends GuiContainerTFC {
                         }
                     }
                 }
+            }
+        } else {
+            if (repeatingActionPos != null) {
+                // Stop repeating when mouse leaves the GUI
+                repeatingActionPos = null;
+
+                pushPerformedActions();
             }
         }
     }
