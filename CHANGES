@@ -739,3 +739,9 @@
 - Changed: Stick and pole can be used to dress Flax with reduced speed
 - Changed: New textile processing tools can be hanged on a wall hook
 - Fixed: Unshaped dough item information includes intended help text
+
+0.55.1 (2026-03-13)
+- Changed: Bone Heckle now returns 1 or 2 bone knife blades when broken
+- Changed: Thorn Card has a chance to return wooden comb paddle when broken
+- Fixed: Corrected localization string for Wooded Comb Paddle
+- Fixed: Repeating Woodworking action is stopped when mouse leaves the GUI and before the player has a chance to place the tool in their inventory, causing crash when the engine tries to damage the tool
