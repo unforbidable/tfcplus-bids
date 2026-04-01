@@ -104,6 +104,10 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
             if (recipe.getInputItemStack() != null && areItemStacksEqual(recipe.getInputItemStack(), ingredient)) {
                 ItemStack inputItem = ingredient.copy();
                 inputItem.stackSize = recipe.getInputItemStack().stackSize;
+                if (inputItem.getItem() instanceof ItemFoodTFC) {
+                    Food.setWeight(inputItem, Food.getWeight(recipe.getInputItemStack()));
+                }
+
                 CookingRecipe template = new CookingRecipe(
                     recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack(), recipe.getOutputFluidStack(), recipe.getSecondaryOutputFluidStack(),
                     inputItem, recipe.getOutputItemStack(),

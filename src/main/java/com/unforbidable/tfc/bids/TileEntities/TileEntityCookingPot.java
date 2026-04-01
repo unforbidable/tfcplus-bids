@@ -1238,9 +1238,15 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     private int getRunsForInputItemStack(CookingRecipe recipe) {
-        int recipeStackSize = recipe.getInputItemStack().stackSize;
-        int actualInputStackSize = getInputItemStack().stackSize;
-        return (int)Math.floor((float)actualInputStackSize / recipeStackSize);
+        if (getInputItemStack().getItem() instanceof ItemFoodTFC) {
+            float recipeInputStackWeight = Food.getWeight(recipe.getInputItemStack());
+            float actualInputStackWeight = Food.getWeight(getInputItemStack());
+            return (int) Math.floor(actualInputStackWeight / recipeInputStackWeight);
+        } else {
+            int recipeStackSize = recipe.getInputItemStack().stackSize;
+            int actualInputStackSize = getInputItemStack().stackSize;
+            return (int) Math.floor((float) actualInputStackSize / recipeStackSize);
+        }
     }
 
     private void handleInputItemTicking() {
