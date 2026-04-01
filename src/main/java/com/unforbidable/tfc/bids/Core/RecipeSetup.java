@@ -2131,8 +2131,8 @@ public class RecipeSetup {
             .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 200))
             .withSealTime(16).withMinTechLevel(0).beingSealed(false));
         BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
-            .consumes(new ItemStack(BidsItems.woolWashed), new FluidStack(TFCFluids.FRESHWATER, 200))
-            .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 200))
+            .consumes(new ItemStack(BidsItems.woolWashed), new FluidStack(TFCFluids.FRESHWATER, 100))
+            .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 100))
             .withSealTime(0).withMinTechLevel(0).beingSealed(false));
 
         BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asMultiItem()
