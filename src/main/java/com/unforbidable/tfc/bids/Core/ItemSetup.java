@@ -698,6 +698,14 @@ public class ItemSetup extends BidsItems {
             .setContainerItem((TFCItems.glassBottle))
             .setMaxDamage(1000 / 50)
             .setUnlocalizedName("Glass Bottle.Cream");
+        woodAshLyeBottle = new ItemGlassBottleFluid()
+            .setContainerItem((TFCItems.glassBottle))
+            .setMaxDamage(1000 / 50)
+            .setUnlocalizedName("Glass Bottle.WoodAshLye");
+        soapyWaterBottle = new ItemGlassBottleFluid()
+            .setContainerItem((TFCItems.glassBottle))
+            .setMaxDamage(1000 / 50)
+            .setUnlocalizedName("Glass Bottle.SoapyWater");
 
         waterskinCream = new ItemWaterskinChurn()
             .setContainerItem(TFCItems.waterskinEmpty)
@@ -765,6 +773,9 @@ public class ItemSetup extends BidsItems {
         creamLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.Cream");
+        woodAshLyeLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+            .setContainerItem(BidsItems.largeClayBowl)
+            .setUnlocalizedName("Large Bowl.WoodAshLye");
 
         woodenPailEmpty = new ItemPailEmpty()
             .setUnlocalizedName("Wooden Pail");
@@ -927,6 +938,8 @@ public class ItemSetup extends BidsItems {
         FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, TFCItems.glassBottle, 0, goatMilkBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.SKIMMEDMILK, TFCItems.glassBottle, 0, skimmedMilkBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.CREAM, TFCItems.glassBottle, 0, creamBottle, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.WOODASHLYE, TFCItems.glassBottle, 0, woodAshLyeBottle, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.SOAPYWATER, TFCItems.glassBottle, 0, soapyWaterBottle, 50, 1000);
 
         FluidHelper.registerPartialFluidContainer(BidsFluids.CREAM, TFCItems.waterskinEmpty, 0, waterskinCream, 50, 2000);
 
@@ -997,6 +1010,8 @@ public class ItemSetup extends BidsItems {
             new ItemStack(skimmedMilkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.CREAM, 500),
             new ItemStack(creamLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.WOODASHLYE, 500),
+            new ItemStack(woodAshLyeLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
 
         FluidHelper.registerPartialFluidContainer(TFCFluids.FRESHWATER, woodenPailEmpty, 0, woodenPailFreshWater, 50, 4000);
         FluidHelper.registerPartialFluidContainer(TFCFluids.MILK, woodenPailEmpty, 0, woodenPailMilk, 50, 4000);
@@ -1569,6 +1584,10 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(boneKnifeHead, boneKnifeHead.getUnlocalizedName());
 
         GameRegistry.registerItem(morePowder, morePowder.getUnlocalizedName());
+
+        GameRegistry.registerItem(woodAshLyeBottle, woodAshLyeBottle.getUnlocalizedName());
+        GameRegistry.registerItem(woodAshLyeLargeBowl, woodAshLyeLargeBowl.getUnlocalizedName());
+        GameRegistry.registerItem(soapyWaterBottle, soapyWaterBottle.getUnlocalizedName());
         GameRegistry.registerItem(soap, soap.getUnlocalizedName());
     }
 

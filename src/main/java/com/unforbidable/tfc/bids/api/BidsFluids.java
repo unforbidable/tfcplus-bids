@@ -17,5 +17,8 @@ public class BidsFluids {
     public static final Fluid SKIMMEDMILKVINEGAR = new FluidBaseTFC("SkimmedMilkVinegar").setBaseColor(0xfffbe8);
     public static final Fluid SKIMMEDMILKCURDLED = new FluidBaseTFC("SkimmedMilkCurdled").setBaseColor(0xfffbe8);
     public static final Fluid CREAM = new FluidBaseTFC("Cream").setBaseColor(0xfffdd0);
+    public static final Fluid WOODASHLYE = new FluidBaseTFC("WoodAshLye").setBaseColor(0x808080);
+    public static final Fluid TALLOWWOODASHLYE = new FluidBaseTFC("TallowWoodAshLye").setBaseColor(0xd9ab7f);
+    public static final Fluid SOAPYWATER = new FluidBaseTFC("SoapyWater").setBaseColor(0x305090);
 
 }
