@@ -636,6 +636,9 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 clientNeedToUpdate = true;
 
+                // Mixing liquids resets recipe parameters
+                onRecipeParametersChanged(true);
+
                 return drainingItemStack;
             }
         }
