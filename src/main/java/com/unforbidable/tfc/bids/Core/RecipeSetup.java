@@ -1123,6 +1123,30 @@ public class RecipeSetup {
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), new ItemStack(TFCItems.powder, 1, 13))
+            .produces(new FluidStack(BidsFluids.WOODASHLYE, 50))
+            .inFixedTime(20000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.TALLOW, 5), new FluidStack(BidsFluids.WOODASHLYE, 4))
+            .produces(new FluidStack(BidsFluids.TALLOWWOODASHLYE, 9))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.TALLOWWOODASHLYE, 1))
+            .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), Global.FOOD_MAX_WEIGHT / 10000))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .inFixedTime(2000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), 1f))
+            .produces(new FluidStack(BidsFluids.SOAPYWATER, 500))
+            .inTime(20)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
             .consumes(new ItemStack(TFCItems.resin))
             .produces(new FluidStack(TFCFluids.PITCH, 50))
             .withHeat()
