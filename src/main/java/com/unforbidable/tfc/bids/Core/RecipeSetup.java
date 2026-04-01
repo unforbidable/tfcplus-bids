@@ -17,7 +17,8 @@ import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
-import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelItemDemandingRecipe;
+import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelRecipeBuilder;
+import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelRecipeManager;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Stone.EnumStoneBlockType;
 import com.unforbidable.tfc.bids.Core.Stone.EnumStoneItemType;
@@ -2040,49 +2041,82 @@ public class RecipeSetup {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             // Extracting tannin from bark
             if (wood.hasBarkTannin) {
-                BarrelManager.getInstance().addRecipe(new BarrelItemDemandingRecipe(
-                    wood.items.getBark(), new FluidStack(TFCFluids.FRESHWATER, 625),
-                    null, new FluidStack(TFCFluids.TANNIN, 500))
-                    .setMinTechLevel(0));
+                BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asItemDemanding()
+                    .consumes(wood.items.getBark(), new FluidStack(TFCFluids.FRESHWATER, 625))
+                    .produces(new FluidStack(TFCFluids.TANNIN, 500))
+                    .withMinTechLevel(0)
+                );
             }
         }
 
-        BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.riceGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
-            null, new FluidStack(TFCFluids.RICEBEER, 5000)).setMinTechLevel(0).setRequiresCooked(true));
-        BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.wheatGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
-            null, new FluidStack(TFCFluids.WHEATBEER, 5000)).setMinTechLevel(0).setRequiresCooked(true));
-        BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.ryeGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
-            null, new FluidStack(TFCFluids.RYEBEER, 5000)).setMinTechLevel(0).setRequiresCooked(true));
-        BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.barleyGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
-            null, new FluidStack(TFCFluids.BEER, 5000)).setMinTechLevel(0).setRequiresCooked(true));
-        BarrelManager.getInstance().addRecipe(new BarrelAlcoholRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.cornGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000),
-            null, new FluidStack(TFCFluids.CORNBEER, 5000)).setMinTechLevel(0).setRequiresCooked(true));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asAlcohol()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.riceGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000))
+            .produces(new FluidStack(TFCFluids.RICEBEER, 5000))
+            .withMinTechLevel(0).requiringCooked(true));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asAlcohol()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.wheatGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000))
+            .produces(new FluidStack(TFCFluids.WHEATBEER, 5000))
+            .withMinTechLevel(0).requiringCooked(true));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asAlcohol()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.ryeGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000))
+            .produces(new FluidStack(TFCFluids.RYEBEER, 5000))
+            .withMinTechLevel(0).requiringCooked(true));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asAlcohol()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.barleyGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000))
+            .produces(new FluidStack(TFCFluids.BEER, 5000))
+            .withMinTechLevel(0).requiringCooked(true));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asAlcohol()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.cornGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000))
+            .produces(new FluidStack(TFCFluids.CORNBEER, 5000))
+            .withMinTechLevel(0).requiringCooked(true));
 
-        BarrelManager.getInstance().addRecipe(new BarrelLiquidToLiquidRecipe(new FluidStack(TFCFluids.SALTWATER, 4500), new FluidStack(TFCFluids.VINEGAR, 500), new FluidStack(TFCFluids.BRINE, 5000))
-                .setSealTime(0).setSealedRecipe(false).setMinTechLevel(0).setRemovesLiquid(false));
-        BarrelManager.getInstance().addRecipe(new BarrelLiquidToLiquidRecipe(new FluidStack(TFCFluids.MILK, 4500), new FluidStack(TFCFluids.VINEGAR, 500), new FluidStack(TFCFluids.MILKVINEGAR, 5000))
-            .setSealTime(0).setSealedRecipe(false).setMinTechLevel(0).setRemovesLiquid(false));
-        BarrelManager.getInstance().addRecipe(new BarrelLiquidToLiquidRecipe(new FluidStack(TFCFluids.FRESHWATER, 4500), new FluidStack(TFCFluids.HONEY, 500), new FluidStack(TFCFluids.HONEYWATER, 5000))
-                .setSealTime(0).setSealedRecipe(false).setMinTechLevel(0).setRemovesLiquid(false));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asLiquidToLiquid()
+            .consumes(new FluidStack(TFCFluids.SALTWATER, 4500), new FluidStack(TFCFluids.VINEGAR, 500))
+            .produces(new FluidStack(TFCFluids.BRINE, 5000))
+            .withSealTime(0).withMinTechLevel(0).beingSealed(false).removingLiquid(false));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asLiquidToLiquid()
+            .consumes(new FluidStack(TFCFluids.MILK, 4500), new FluidStack(TFCFluids.VINEGAR, 500))
+            .produces(new FluidStack(TFCFluids.MILKVINEGAR, 5000))
+            .withSealTime(0).withMinTechLevel(0).beingSealed(false).removingLiquid(false));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asLiquidToLiquid()
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 4500), new FluidStack(TFCFluids.HONEY, 500))
+            .produces(new FluidStack(TFCFluids.HONEYWATER, 5000))
+            .withSealTime(0).withMinTechLevel(0).beingSealed(false).removingLiquid(false));
 
-        BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(TFCItems.sisalFiber), new FluidStack(TFCFluids.FRESHWATER, 100),
-            new ItemStack(BidsItems.sisalFiberRinsed), new FluidStack(TFCFluids.FRESHWATER, 100)).setSealedRecipe(false).setSealTime(0).setMinTechLevel(0));
-        BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(BidsItems.juteStalk), new FluidStack(TFCFluids.FRESHWATER, 200),
-            new ItemStack(BidsItems.juteStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200)).setSealedRecipe(false).setMinTechLevel(0));
-        BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(BidsItems.flaxStalk), new FluidStack(TFCFluids.FRESHWATER, 200),
-            new ItemStack(BidsItems.flaxStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200)).setSealedRecipe(false).setMinTechLevel(0));
-        BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(TFCItems.wool), new FluidStack(TFCFluids.FRESHWATER, 200),
-            new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 200)).setSealedRecipe(false).setSealTime(16).setMinTechLevel(0));
-        BarrelManager.getInstance().addRecipe(new BarrelRecipe(new ItemStack(BidsItems.woolWashed), new FluidStack(TFCFluids.FRESHWATER, 200),
-            new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 200)).setSealedRecipe(false).setSealTime(0).setMinTechLevel(0));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
+            .consumes(new ItemStack(TFCItems.sisalFiber), new FluidStack(TFCFluids.FRESHWATER, 100))
+            .produces(new ItemStack(BidsItems.sisalFiberRinsed), new FluidStack(TFCFluids.FRESHWATER, 100))
+            .withSealTime(0).withMinTechLevel(0).beingSealed(false));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
+            .consumes(new ItemStack(BidsItems.juteStalk), new FluidStack(TFCFluids.FRESHWATER, 200))
+            .produces(new ItemStack(BidsItems.juteStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200))
+            .withMinTechLevel(0).beingSealed(false));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
+            .consumes(new ItemStack(BidsItems.flaxStalk), new FluidStack(TFCFluids.FRESHWATER, 200))
+            .produces(new ItemStack(BidsItems.flaxStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200))
+            .withMinTechLevel(0).beingSealed(false));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
+            .consumes(new ItemStack(TFCItems.wool), new FluidStack(TFCFluids.FRESHWATER, 200))
+            .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 200))
+            .withSealTime(16).withMinTechLevel(0).beingSealed(false));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
+            .consumes(new ItemStack(BidsItems.woolWashed), new FluidStack(TFCFluids.FRESHWATER, 200))
+            .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 200))
+            .withSealTime(0).withMinTechLevel(0).beingSealed(false));
 
-        BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.sisalTwine), new FluidStack(TFCFluids.WAX, 200),
-            new ItemStack(TFCBlocks.candleOff, 1), new FluidStack(TFCFluids.WAX, 200)).setKeepStackSize(false).setSealTime(0).setSealedRecipe(false).setMinTechLevel(0));
-        BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.juteTwine), new FluidStack(TFCFluids.WAX, 200),
-            new ItemStack(TFCBlocks.candleOff, 1), new FluidStack(TFCFluids.WAX, 200)).setKeepStackSize(false).setSealTime(0).setSealedRecipe(false).setMinTechLevel(0));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asMultiItem()
+            .consumes(new ItemStack(BidsItems.sisalTwine), new FluidStack(TFCFluids.WAX, 200))
+            .produces(new ItemStack(TFCBlocks.candleOff), new FluidStack(TFCFluids.WAX, 200))
+            .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asMultiItem()
+            .consumes(new ItemStack(BidsItems.juteTwine), new FluidStack(TFCFluids.WAX, 200))
+            .produces(new ItemStack(TFCBlocks.candleOff), new FluidStack(TFCFluids.WAX, 200))
+            .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0));
 
-        BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(new ItemStack(BidsItems.cottonBollRefined, 1, 0), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250),
-            new ItemStack(TFCItems.ammoniumChlorideBall, 1, 0), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250)).setSealedRecipe(false).setSealTime(0).setMinTechLevel(0));
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asMultiItem()
+            .consumes(new ItemStack(BidsItems.cottonBollRefined), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
+            .produces(new ItemStack(TFCItems.ammoniumChlorideBall), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
+            .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0));
     }
 
     private static void registerLoomRecipes() {
