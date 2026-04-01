@@ -5,9 +5,11 @@ import java.util.Random;
 import com.dunk.tfc.Blocks.Devices.BlockFirepit;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
+import com.dunk.tfc.Items.Tools.ItemCustomShovel;
 import com.dunk.tfc.Items.Tools.ItemFirestarter;
 import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCBlocks;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
@@ -126,6 +128,16 @@ public class BlockNewFirepit extends BlockFirepit {
 
                     equippedItem.damageItem(1, entityplayer);
                 }
+
+                return true;
+            }
+
+            // Extract ash using a shovel when the fire is out
+            if (item instanceof ItemCustomShovel && te.ashNumber > 0 && te.fireTemp < 100) {
+                TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.powder, te.ashNumber, 13), entityplayer);
+                te.ashNumber = 0;
+
+                equippedItem.damageItem(1, entityplayer);
 
                 return true;
             }
