@@ -1373,6 +1373,8 @@ item.Wooden Comb Paddle.name=Wooden Comb Paddle
 
 item.Bone Knife Blade.name=Bone Knife Blade
 
+item.Soap.name=Soap
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk

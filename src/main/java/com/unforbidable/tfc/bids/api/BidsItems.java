@@ -322,4 +322,6 @@ public class BidsItems {
     public static Item woodenCombPaddle;
     public static Item boneKnifeHead;
 
+    public static Item soap;
+
 }

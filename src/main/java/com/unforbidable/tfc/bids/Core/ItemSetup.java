@@ -911,6 +911,9 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Wooden Comb Paddle");
         boneKnifeHead = new ItemGenericToolHead()
             .setUnlocalizedName("Bone Knife Blade");
+
+        soap = new ItemFoodLike()
+            .setUnlocalizedName("Soap");
     }
 
     private static void registerFluidContainers() {
@@ -1106,7 +1109,8 @@ public class ItemSetup extends BidsItems {
             stuffedPepper, stuffedMushroom, pemmican, wrap,
             seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
             suet, tallow, bambooShoot,
-            soup, stew, porridge, omelet
+            soup, stew, porridge, omelet,
+            soap
         };
 
         for (Item item : foodItems) {
@@ -1565,6 +1569,7 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(boneKnifeHead, boneKnifeHead.getUnlocalizedName());
 
         GameRegistry.registerItem(morePowder, morePowder.getUnlocalizedName());
+        GameRegistry.registerItem(soap, soap.getUnlocalizedName());
     }
 
 }
