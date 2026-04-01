@@ -319,20 +319,7 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
             inputItemStack = template.getInputItemStack() != null ? template.getInputItemStack().copy() : null;
             outputItemStack = result.getOutputItemStack() != null ? result.getOutputItemStack().copy() : null;
 
-            int runs = 1;
-            if ((inputItemStack == null || inputItemStack.getItem() instanceof ItemFoodTFC) &&
-                (outputItemStack == null || outputItemStack.getItem() instanceof ItemFoodTFC)) {
-                if (inputFluids.getTotalAmount() > 0) {
-                    runs = (int) Math.floor(5000f / inputFluids.getTotalAmount());
-                } else if (outputFluids.getTotalAmount() > 0) {
-                    runs = (int)Math.floor(5000f / outputFluids.getTotalAmount());
-                } else if (inputItemStack != null && inputItemStack.getItem() instanceof ItemFoodTFC) {
-                    runs = (int)Math.floor(160f / Food.getWeight(inputItemStack));
-                } else if (outputItemStack != null && outputItemStack.getItem() instanceof ItemFoodTFC) {
-                    runs = (int)Math.floor(160f / Food.getWeight(outputItemStack));
-                }
-            }
-
+            int runs = getRuns();
             if (runs > 0) {
                 if (inputItemStack != null && inputItemStack.getItem() instanceof ItemFoodTFC) {
                     Food.setWeight(inputItemStack, Food.getWeight(inputItemStack) * runs);
@@ -367,6 +354,41 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
             } else {
                 duration = StatCollector.translateToLocal("gui.Instant");
             }
+        }
+
+        private int getRuns() {
+            double runs = 0;
+            if ((inputItemStack == null || inputItemStack.getItem() instanceof ItemFoodTFC) &&
+                (outputItemStack == null || outputItemStack.getItem() instanceof ItemFoodTFC)) {
+                if (inputFluids.getTotalAmount() > 0) {
+                    runs = 5000f / inputFluids.getTotalAmount();
+                } else if (outputFluids.getTotalAmount() > 0) {
+                    runs = 5000f / outputFluids.getTotalAmount();
+                } else if (inputItemStack != null && inputItemStack.getItem() instanceof ItemFoodTFC) {
+                    runs = 160f / Food.getWeight(inputItemStack);
+                } else if (outputItemStack != null && outputItemStack.getItem() instanceof ItemFoodTFC) {
+                    runs = 160f / Food.getWeight(outputItemStack);
+                }
+            }
+
+            if (runs > 0) {
+                int flooredRuns = (int) Math.floor(runs);
+                if (flooredRuns == runs) {
+                    return flooredRuns;
+                } else {
+                    // if runs don't fit 5000mB or 160oz perfectly
+                    // use factor of 10 that is lower and that is closest to the amount
+                    int n = 1000;
+                    while (n > 1) {
+                        if (runs > n) {
+                            return n;
+                        }
+                        n = n / 10;
+                    }
+                }
+            }
+
+            return 1;
         }
 
         @Override
