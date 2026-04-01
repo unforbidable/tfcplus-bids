@@ -1147,6 +1147,13 @@ public class RecipeSetup {
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.SOAPYWATER, 100), new ItemStack(TFCItems.wool))
+            .produces(new ItemStack(BidsItems.woolWashed, 1))
+            .withHeat()
+            .inTime(50)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
             .consumes(new ItemStack(TFCItems.resin))
             .produces(new FluidStack(TFCFluids.PITCH, 50))
             .withHeat()
