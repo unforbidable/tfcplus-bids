@@ -9,17 +9,20 @@ public class CookingRecipeProgress {
     private final String outputHashString;
     private float progress = 0f;
     private boolean progressPaused = false;
+    private final long startTicks;
     private long lastUpdateTicks;
     private final int totalRuns;
 
     public CookingRecipeProgress(String outputDisplayText, String outputHashString, int totalRuns) {
+        this.startTicks = TFC_Time.getTotalTicks();
         this.outputDisplayText = outputDisplayText;
         this.outputHashString = outputHashString;
         this.lastUpdateTicks = TFC_Time.getTotalTicks();
         this.totalRuns = totalRuns;
     }
 
-    private CookingRecipeProgress(String outputDisplayText, String outputHashString, float progress, boolean progressPaused, long lastUpdateTicks, int totalRuns) {
+    private CookingRecipeProgress(long startTicks, String outputDisplayText, String outputHashString, float progress, boolean progressPaused, long lastUpdateTicks, int totalRuns) {
+        this.startTicks = startTicks;
         this.outputDisplayText = outputDisplayText;
         this.outputHashString = outputHashString;
         this.progress = progress;
@@ -68,6 +71,10 @@ public class CookingRecipeProgress {
         return progressPaused;
     }
 
+    public long getStartTicks() {
+        return startTicks;
+    }
+
     public long getLastUpdateTicks() {
         return lastUpdateTicks;
     }
@@ -77,6 +84,7 @@ public class CookingRecipeProgress {
     }
 
     public void writeToNBT(NBTTagCompound tag) {
+        tag.setLong("startTicks", startTicks);
         tag.setString("outputShort", outputDisplayText);
         tag.setString("outputFull", outputHashString);
         tag.setFloat("progress", progress);
@@ -86,6 +94,7 @@ public class CookingRecipeProgress {
     }
 
     public static CookingRecipeProgress readFromNBT(NBTTagCompound tag) {
+        long startTicks = tag.getLong("startTicks");
         String outputShort = tag.getString("outputShort");
         String outputFull = tag.getString("outputFull");
         float progress = tag.getFloat("progress");
@@ -93,7 +102,7 @@ public class CookingRecipeProgress {
         long lastUpdateTicks = tag.getLong("lastUpdateTicks");
         int totalRuns = tag.getInteger("totalRuns");
 
-        return new CookingRecipeProgress(outputShort, outputFull, progress, progressPaused, lastUpdateTicks, totalRuns);
+        return new CookingRecipeProgress(startTicks, outputShort, outputFull, progress, progressPaused, lastUpdateTicks, totalRuns);
     }
 
 }

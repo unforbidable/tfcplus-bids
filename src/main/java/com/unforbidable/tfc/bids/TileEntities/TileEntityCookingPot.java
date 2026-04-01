@@ -1004,7 +1004,9 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 // sometimes the progress can be paused, depending on the kind of changes
                 // This prevents progress being lost, when heat changes or lid is manipulated,
                 // when substantial progress has been made
-                if (recipeCanPauseWhenParametersChange && recipeProgress.getProgress() > 0.1f) {
+                // Substantial progress means the recipe has run for a certain amount of time
+                // This allows melting tallow to be cancelled even when almost done
+                if (recipeCanPauseWhenParametersChange && TFC_Time.getTotalTicks() - recipeProgress.getStartTicks() > 500) {
                     if (!recipeProgress.isProgressPaused()) {
                         Bids.LOG.debug("Recipe progress paused: " + recipeProgress.getOutputHashString());
 
