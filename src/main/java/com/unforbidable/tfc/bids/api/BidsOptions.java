@@ -173,4 +173,11 @@ public class BidsOptions {
 
     }
 
+    public static class Miscellaneous {
+
+        public static int soapUsageRewardXP = 2;
+        public static int soapUsageRewardCoolDown = 6;
+
+    }
+
 }

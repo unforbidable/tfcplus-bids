@@ -6,6 +6,7 @@ import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Core.Player.PlayerStats;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
@@ -81,8 +82,8 @@ public class ItemSoap extends ItemFoodLike {
                 playerStats.lastSoapUsageTicks = TFC_Time.getTotalTicks();
 
                 long ticksSinceLastSoapUsageRewarded = TFC_Time.getTotalTicks() - playerStats.lastSoapUsageRewardedTicks;
-                if (ticksSinceLastSoapUsageRewarded > TFC_Time.HOUR_LENGTH * 6) {
-                    int n = 5;
+                if (ticksSinceLastSoapUsageRewarded > TFC_Time.HOUR_LENGTH * BidsOptions.Miscellaneous.soapUsageRewardCoolDown) {
+                    int n = BidsOptions.Miscellaneous.soapUsageRewardXP;
                     while (n > 0) {
                         int split = EntityXPOrb.getXPSplit(n);
                         player.worldObj.spawnEntityInWorld(new EntityXPOrb(player.worldObj, player.posX, player.posY, player.posZ, split));

@@ -325,6 +325,15 @@ public class ConfigHandler {
             BidsOptions.Husbandry.milkingTimerReductionHours, 0, 6,
             "Sets the number of hours by which the animal milking timer is reduced. For example, setting this value to 4 allows a cow to be milked every 20 hours which should allow milking daily on a loose schedule, 2 hours earlier or later.");
 
+        BidsOptions.Miscellaneous.soapUsageRewardXP = config.getInt(
+            "soapUsageRewardXP", "miscellaneous",
+            BidsOptions.Miscellaneous.soapUsageRewardXP, 0, 4,
+            "Sets the amount of XP awarded for using soap.");
+        BidsOptions.Miscellaneous.soapUsageRewardCoolDown = config.getInt(
+            "soapUsageRewardCoolDown", "miscellaneous",
+            BidsOptions.Miscellaneous.soapUsageRewardCoolDown, 0, 24,
+            "Sets the number of hours needed to pass for the player to receive an XP reward for using soap again after receiving an XP reward.");
+
         config.save();
     }
 
