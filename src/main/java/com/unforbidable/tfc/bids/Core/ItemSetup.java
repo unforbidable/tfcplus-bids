@@ -923,7 +923,7 @@ public class ItemSetup extends BidsItems {
         boneKnifeHead = new ItemGenericToolHead()
             .setUnlocalizedName("Bone Knife Blade");
 
-        soap = new ItemFoodLike()
+        soap = new ItemSoap()
             .setUnlocalizedName("Soap");
     }
 
