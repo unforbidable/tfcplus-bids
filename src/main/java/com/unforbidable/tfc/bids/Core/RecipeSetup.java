@@ -2156,6 +2156,12 @@ public class RecipeSetup {
             .consumes(new ItemStack(BidsItems.cottonBollRefined), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
             .produces(new ItemStack(TFCItems.ammoniumChlorideBall), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
             .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0));
+
+        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asItemDemanding()
+            .consumes(new ItemStack(TFCItems.powder, 1, 13), new FluidStack(TFCFluids.FRESHWATER, 200))
+            .produces(new FluidStack(BidsFluids.WEAKWOODASHLYE, 200))
+            .withMinTechLevel(0).withSealTime(20)
+        );
     }
 
     private static void registerLoomRecipes() {
