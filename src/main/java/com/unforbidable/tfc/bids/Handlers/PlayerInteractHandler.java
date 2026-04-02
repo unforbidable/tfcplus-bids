@@ -3,6 +3,8 @@ package com.unforbidable.tfc.bids.Handlers;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.Tools.ItemCustomBucketMilk;
+import com.dunk.tfc.Items.Tools.ItemCustomShovel;
+import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCBlocks;
@@ -12,6 +14,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
 import com.unforbidable.tfc.bids.Core.Drinks.Milk.MilkHelper;
 import com.unforbidable.tfc.bids.Items.ItemExtraFood;
+import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Events.FillContainerEvent;
@@ -24,6 +27,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -181,6 +185,19 @@ public class PlayerInteractHandler {
                             event.world.spawnEntityInWorld(ei);
                             event.world.playSoundEffect(event.x, event.y, event.z, "dig.wood",
                                 0.4F + (event.world.rand.nextFloat() / 2), 0.7F + event.world.rand.nextFloat());
+                        }
+                    }
+                } else if (BidsOptions.Firepit.allowAshRemovalAlsoFromFirepitTFC && heldItem != null && heldItem.getItem() instanceof ItemCustomShovel) {
+                    TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
+                    if (te instanceof TEFirepit && !(te instanceof TileEntityNewFirepit)) {
+                        TEFirepit firepit = (TEFirepit) te;
+                        if (firepit.ashNumber > 0 && firepit.fireTemp < 100) {
+                            TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.powder, firepit.ashNumber, 13), event.entityPlayer);
+                            firepit.ashNumber = 0;
+
+                            heldItem.damageItem(1, event.entityPlayer);
+
+                            event.setCanceled(true);
                         }
                     }
                 }

@@ -124,6 +124,9 @@ public class ConfigHandler {
         BidsOptions.Firepit.burnTimeMultiplier = config.getFloat(
             "burnTimeMultiplier", "firepit", BidsOptions.Firepit.burnTimeMultiplier, 0.25f, 2f,
             "Higher values increase the time fuel burns in a firepit");
+        BidsOptions.Firepit.allowAshRemovalAlsoFromFirepitTFC = config.getBoolean(
+            "allowAshRemovalAlsoFromFirepitTFC", "firepit", BidsOptions.Firepit.allowAshRemovalAlsoFromFirepitTFC,
+            "Set this to true if you want to be able to extract ash from TFC firepit much like from the new firepit when you choose not to replace it");
 
         BidsOptions.Kiln.enableBeehiveKiln = config.getBoolean(
             "enableBeehiveKiln", "kiln", BidsOptions.Kiln.enableBeehiveKiln,
