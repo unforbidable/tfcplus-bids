@@ -212,6 +212,7 @@ public class BidsItems {
     public static Item goatMilkBottle;
     public static Item skimmedMilkBottle;
     public static Item creamBottle;
+    public static Item weakWoodAshLyeBottle;
     public static Item woodAshLyeBottle;
     public static Item soapyWaterBottle;
 
@@ -236,6 +237,7 @@ public class BidsItems {
     public static Item goatMilkLargeBowl;
     public static Item skimmedMilkLargeBowl;
     public static Item creamLargeBowl;
+    public static Item weakWoodAshLyeLargeBowl;
     public static Item woodAshLyeLargeBowl;
 
     public static Item woodenPailEmpty;

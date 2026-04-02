@@ -1124,7 +1124,7 @@ public class RecipeSetup {
 
         CookingManager.addRecipe(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), new ItemStack(TFCItems.powder, 1, 13))
-            .produces(new FluidStack(BidsFluids.WOODASHLYE, 50))
+            .produces(new FluidStack(BidsFluids.WEAKWOODASHLYE, 50))
             .inFixedTime(20000)
             .build());
 
