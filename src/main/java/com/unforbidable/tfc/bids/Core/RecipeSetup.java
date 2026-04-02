@@ -1123,8 +1123,8 @@ public class RecipeSetup {
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
-            .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), new ItemStack(TFCItems.powder, 1, 13))
-            .produces(new FluidStack(BidsFluids.WEAKWOODASHLYE, 50))
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 200), new ItemStack(TFCItems.powder, 1, 13))
+            .produces(new FluidStack(BidsFluids.WEAKWOODASHLYE, 200))
             .inFixedTime(20000)
             .build());
 
