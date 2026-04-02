@@ -1137,6 +1137,11 @@ public class RecipeSetup {
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 1), new FluidStack(BidsFluids.WOODASHLYE, 1))
+            .produces(new FluidStack(BidsFluids.WEAKWOODASHLYE, 2))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.TALLOW, 5), new FluidStack(BidsFluids.WOODASHLYE, 4))
             .produces(new FluidStack(BidsFluids.TALLOWWOODASHLYE, 9))
             .build());
