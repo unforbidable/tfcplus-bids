@@ -1394,6 +1394,7 @@ fluid.Cream=Cream
 fluid.WeakWoodAshLye=Weak Wood Ash Lye
 fluid.WoodAshLye=Wood Ash Lye
 fluid.TallowWoodAshLye=Tallow + Wood Ash Lye Mix
+fluid.Soap=Soap
 fluid.SoapyWater=Soapy Water
 
 itemGroup.Bids.Default=Bids and Pieces

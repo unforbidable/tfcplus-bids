@@ -1148,9 +1148,16 @@ public class RecipeSetup {
 
         CookingManager.addRecipe(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.TALLOWWOODASHLYE, 1))
-            .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), Global.FOOD_MAX_WEIGHT / 10000))
+            .produces(new FluidStack(BidsFluids.SOAP, 1))
             .withHeat(EnumCookingHeatLevel.LOW)
             .inFixedTime(2000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.SOAP, 1))
+            .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), Global.FOOD_MAX_WEIGHT / 10000))
+            .withoutHeat()
+            .inTime(1000 / 5000f)
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
