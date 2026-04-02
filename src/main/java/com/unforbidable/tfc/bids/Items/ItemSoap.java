@@ -38,9 +38,15 @@ public class ItemSoap extends ItemFoodLike {
     }
 
     private boolean canPlayerUseSoap(EntityPlayer player) {
-        MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
-        return mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK
-            && canPlayerUseSoapAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, player);
+        PlayerStats playerStats = PlayerStats.of(player);
+        long ticksSinceLastSoapUsage = TFC_Time.getTotalTicks() - playerStats.lastSoapUsageTicks;
+        if (ticksSinceLastSoapUsage > 60) {
+            MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
+            return mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK
+                && canPlayerUseSoapAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, player);
+        }
+
+        return false;
     }
 
     private boolean canPlayerUseSoapAt(World world, int x, int y, int z, int sideHit, EntityPlayer player) {
