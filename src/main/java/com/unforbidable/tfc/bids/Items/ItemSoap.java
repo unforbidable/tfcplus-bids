@@ -71,19 +71,22 @@ public class ItemSoap extends ItemFoodLike {
                     Food.setWeight(stack, reducedWeight);
                 }
 
-                PlayerStats playerStats = PlayerStats.load(player);
-                long timeSinceLastWashed = TFC_Time.getTotalTicks() - playerStats.getLastWashedTicks();
-                if (timeSinceLastWashed > TFC_Time.HOUR_LENGTH * 6) {
-                    int i = 5;
-                    while (i > 0) {
-                        int j = EntityXPOrb.getXPSplit(i);
-                        player.worldObj.spawnEntityInWorld(new EntityXPOrb(player.worldObj, player.posX, player.posY, player.posZ, j));
-                        i -= j;
+                PlayerStats playerStats = PlayerStats.of(player);
+                playerStats.lastSoapUsageTicks = TFC_Time.getTotalTicks();
+
+                long ticksSinceLastSoapUsageRewarded = TFC_Time.getTotalTicks() - playerStats.lastSoapUsageRewardedTicks;
+                if (ticksSinceLastSoapUsageRewarded > TFC_Time.HOUR_LENGTH * 6) {
+                    int n = 5;
+                    while (n > 0) {
+                        int split = EntityXPOrb.getXPSplit(n);
+                        player.worldObj.spawnEntityInWorld(new EntityXPOrb(player.worldObj, player.posX, player.posY, player.posZ, split));
+                        n -= split;
                     }
 
-                    playerStats.setLastWashedTicks(TFC_Time.getTotalTicks());
-                    playerStats.save(player);
+                    playerStats.lastSoapUsageRewardedTicks = TFC_Time.getTotalTicks();
                 }
+
+                playerStats.save(true);
 
                 player.worldObj.playSoundAtEntity(player, "random.splash", 0.2F, 0.6f);
 
