@@ -1161,6 +1161,13 @@ public class RecipeSetup {
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), Global.FOOD_MAX_WEIGHT / 10000))
+            .produces(new FluidStack(BidsFluids.SOAP, 1))
+            .withHeat()
+            .inTime(500 / 5000f)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), 1f))
             .produces(new FluidStack(BidsFluids.SOAPYWATER, 500))
             .inTime(20)
