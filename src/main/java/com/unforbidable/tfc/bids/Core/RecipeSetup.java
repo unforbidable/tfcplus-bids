@@ -1194,15 +1194,15 @@ public class RecipeSetup {
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
-            .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), 1f))
-            .produces(new FluidStack(BidsFluids.SOAPYWATER, 500))
-            .inTime(20)
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 1), ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), 1f / 500))
+            .produces(new FluidStack(BidsFluids.SOAPYWATER, 1))
+            .inTime(20 / 1000f)
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
-            .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), 2f))
-            .produces(new FluidStack(BidsFluids.SOAPYWATER, 500))
-            .inTime(20)
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 1), ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), 1f / 250))
+            .produces(new FluidStack(BidsFluids.SOAPYWATER, 1))
+            .inTime(20 / 1000f)
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
