@@ -1379,6 +1379,7 @@ item.Wooden Comb Paddle.name=Wooden Comb Paddle
 item.Bone Knife Blade.name=Bone Knife Blade
 
 item.Soap.name=Soap
+item.Uncured Soap.name=Uncured Soap
 
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
@@ -1394,7 +1395,9 @@ fluid.Cream=Cream
 fluid.WeakWoodAshLye=Weak Wood Ash Lye
 fluid.WoodAshLye=Wood Ash Lye
 fluid.TallowWoodAshLye=Tallow + Wood Ash Lye Mix
+fluid.OliveOilWeakWoodAshLye=Olive Oil + Weak Wood Ash Lye Mix
 fluid.Soap=Soap
+fluid.UncuredSoap=Uncured Soap
 fluid.SoapyWater=Soapy Water
 
 itemGroup.Bids.Default=Bids and Pieces

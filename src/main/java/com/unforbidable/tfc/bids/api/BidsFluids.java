@@ -20,6 +20,7 @@ public class BidsFluids {
     public static final Fluid WEAKWOODASHLYE = new FluidBaseTFC("WeakWoodAshLye").setBaseColor(0xffc075);
     public static final Fluid WOODASHLYE = new FluidBaseTFC("WoodAshLye").setBaseColor(0xd88a10);
     public static final Fluid TALLOWWOODASHLYE = new FluidBaseTFC("TallowWoodAshLye").setBaseColor(0xcc9258);
+    public static final Fluid OLIVEOILWEAKWOODASHLYE = new FluidBaseTFC("OliveOilWeakWoodAshLye").setBaseColor(0xcda55f);
     public static final Fluid SOAP = new FluidBaseTFC("Soap").setBaseColor(0xecc29b);
     public static final Fluid SOAPYWATER = new FluidBaseTFC("SoapyWater").setBaseColor(0x305090);
 

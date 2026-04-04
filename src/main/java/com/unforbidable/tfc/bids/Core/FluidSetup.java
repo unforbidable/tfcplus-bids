@@ -82,7 +82,9 @@ public class FluidSetup extends BidsFluids {
         FluidRegistry.registerFluid(WEAKWOODASHLYE);
         FluidRegistry.registerFluid(WOODASHLYE);
         FluidRegistry.registerFluid(TALLOWWOODASHLYE);
+        FluidRegistry.registerFluid(OLIVEOILWEAKWOODASHLYE);
         FluidRegistry.registerFluid(SOAP);
+        FluidRegistry.registerFluid(UNCUREDSOAP);
         FluidRegistry.registerFluid(SOAPYWATER);
     }
 

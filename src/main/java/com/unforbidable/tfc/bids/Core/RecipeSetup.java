@@ -1154,6 +1154,18 @@ public class RecipeSetup {
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.OLIVEOIL, 4), new FluidStack(BidsFluids.WEAKWOODASHLYE, 1))
+            .produces(new FluidStack(BidsFluids.OLIVEOILWEAKWOODASHLYE, 5))
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.OLIVEOILWEAKWOODASHLYE, 1))
+            .produces(new FluidStack(BidsFluids.UNCUREDSOAP, 1))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .inFixedTime(3000)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.SOAP, 1))
             .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), Global.FOOD_MAX_WEIGHT / 10000))
             .withoutHeat()
@@ -1168,7 +1180,27 @@ public class RecipeSetup {
             .build());
 
         CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.UNCUREDSOAP, 1))
+            .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), Global.FOOD_MAX_WEIGHT / 10000))
+            .withoutHeat()
+            .inTime(500 / 5000f)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), Global.FOOD_MAX_WEIGHT / 10000))
+            .produces(new FluidStack(BidsFluids.UNCUREDSOAP, 1))
+            .withHeat()
+            .inTime(250 / 5000f)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), 1f))
+            .produces(new FluidStack(BidsFluids.SOAPYWATER, 500))
+            .inTime(20)
+            .build());
+
+        CookingManager.addRecipe(CookingRecipe.builder()
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), 2f))
             .produces(new FluidStack(BidsFluids.SOAPYWATER, 500))
             .inTime(20)
             .build());

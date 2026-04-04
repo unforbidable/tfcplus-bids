@@ -328,5 +328,6 @@ public class BidsItems {
     public static Item boneKnifeHead;
 
     public static Item soap;
+    public static Item uncuredSoap;
 
 }

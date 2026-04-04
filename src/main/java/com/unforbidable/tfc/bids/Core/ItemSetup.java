@@ -932,6 +932,8 @@ public class ItemSetup extends BidsItems {
 
         soap = new ItemSoap()
             .setUnlocalizedName("Soap");
+        uncuredSoap = new ItemFoodLike()
+            .setUnlocalizedName("Uncured Soap");
     }
 
     private static void registerFluidContainers() {
@@ -1135,7 +1137,7 @@ public class ItemSetup extends BidsItems {
             seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
             suet, tallow, bambooShoot,
             soup, stew, porridge, omelet,
-            soap
+            soap, uncuredSoap
         };
 
         for (Item item : foodItems) {
@@ -1601,6 +1603,7 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(woodAshLyeLargeBowl, woodAshLyeLargeBowl.getUnlocalizedName());
         GameRegistry.registerItem(soapyWaterBottle, soapyWaterBottle.getUnlocalizedName());
         GameRegistry.registerItem(soap, soap.getUnlocalizedName());
+        GameRegistry.registerItem(uncuredSoap, uncuredSoap.getUnlocalizedName());
     }
 
 }
