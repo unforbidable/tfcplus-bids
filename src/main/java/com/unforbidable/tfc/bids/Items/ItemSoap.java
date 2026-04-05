@@ -66,7 +66,7 @@ public class ItemSoap extends ItemFoodLike {
 
     private boolean canPlayerUseSoapAt(World world, int x, int y, int z, int sideHit, EntityPlayer player) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof TEBarrel) {
+        if (te instanceof TEBarrel && !((TEBarrel) te).getSealed()) {
             FluidStack fs = ((TEBarrel) te).getFluidStack();
             return fs != null && fs.getFluid() == TFCFluids.FRESHWATER;
         } else {
