@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Core.Player;
 
-import com.unforbidable.tfc.bids.Bids;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -45,8 +44,6 @@ public class PlayerStatsMessage implements IMessage {
         public IMessage onMessage(PlayerStatsMessage message, MessageContext ctx) {
             PlayerStats playerStats = PlayerStats.fromMessage(message);
             playerStats.save();
-
-            Bids.LOG.info("Player stats updated");
 
             return null;
         }
