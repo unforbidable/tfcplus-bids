@@ -191,7 +191,7 @@ public class PlayerInteractHandler {
                     TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
                     if (te instanceof TEFirepit && !(te instanceof TileEntityNewFirepit)) {
                         TEFirepit firepit = (TEFirepit) te;
-                        if (firepit.ashNumber > 0 && firepit.fireTemp < 100) {
+                        if (firepit.ashNumber > 0 && firepit.fireTemp <= 1F) {
                             TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.powder, firepit.ashNumber, 13), event.entityPlayer);
                             firepit.ashNumber = 0;
 

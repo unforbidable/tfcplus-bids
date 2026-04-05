@@ -136,7 +136,7 @@ public class BlockNewFirepit extends BlockFirepit {
             }
 
             // Extract ash using a shovel when the fire is out
-            if (item instanceof ItemCustomShovel && te.ashNumber > 0 && te.fireTemp < 100) {
+            if (item instanceof ItemCustomShovel && te.ashNumber > 0 && te.fireTemp <= 1F) {
                 TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.powder, te.ashNumber, 13), entityplayer);
                 te.ashNumber = 0;
 
