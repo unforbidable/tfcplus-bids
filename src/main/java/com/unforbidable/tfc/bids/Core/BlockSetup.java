@@ -661,6 +661,9 @@ public class BlockSetup extends BidsBlocks {
 
         soakingSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(soakingSurfaceRenderId, new RenderSoakingSurface());
+
+        newFirepitRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(newFirepitRenderId, new RenderNewFirepit());
     }
 
     private static void registerTileEntities() {

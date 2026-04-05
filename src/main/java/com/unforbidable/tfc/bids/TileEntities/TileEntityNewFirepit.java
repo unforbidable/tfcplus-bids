@@ -2,22 +2,32 @@ package com.unforbidable.tfc.bids.TileEntities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Items.ItemBlocks.ItemSoil;
+import com.dunk.tfc.Items.ItemCoal;
 import com.dunk.tfc.TileEntities.TEFirepit;
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Firepit.Fuels.FuelPeatTFC;
+import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
+import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
+import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.FirepitRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 
+import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 
-public class TileEntityNewFirepit extends TEFirepit {
+public class TileEntityNewFirepit extends TEFirepit implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
 
     public static final int FUEL_INPUT_SLOT = 0;
     public static final int FUEL_BURN_SLOT = 5;
@@ -25,6 +35,10 @@ public class TileEntityNewFirepit extends TEFirepit {
 
     List<Integer> pretendFuelSlots = new ArrayList<Integer>();
     ItemStack pretendFuelItemStack = new ItemStack(TFCItems.stick);
+
+    float lastTempSendToClient = 0;
+    boolean clientNeedToUpdate = false;
+    Timer updateClientTempTimer = new Timer(50);
 
     public TileEntityNewFirepit() {
         super();
@@ -72,6 +86,26 @@ public class TileEntityNewFirepit extends TEFirepit {
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
+            // When inventory content changes
+            if (clientNeedToUpdate) {
+                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+
+                clientNeedToUpdate = false;
+            }
+
+            if (updateClientTempTimer.tick()) {
+                // Check periodically for temp change
+                // Update client only when whole degrees change by 20 or more units
+                float roundedFireTemp = (float) (Math.ceil(Math.floor(fireTemp) / 20) * 20);
+                if (lastTempSendToClient != roundedFireTemp) {
+                    lastTempSendToClient = roundedFireTemp;
+
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+                    clientNeedToUpdate = true;
+                }
+            }
+
             // TFC firepit only collects wood items it recognises
             // so we do the collection of any supported fuel
             final boolean isThereMoreToCollect = collectFuel();
@@ -132,16 +166,21 @@ public class TileEntityNewFirepit extends TEFirepit {
                 final ItemStack is = entity.getEntityItem();
 
                 if (isValidFuelMaterial(is)) {
-                    final Item item = is.getItem();
-
                     while (is.stackSize > 0 && fireItemStacks[FUEL_INPUT_SLOT] == null) {
-                        setInventorySlotContents(0, new ItemStack(item, 1, is.getItemDamage()));
+                        ItemStack one = is.copy();
+                        one.stackSize = 1;
+                        setInventorySlotContents(0, one);
+
                         is.stackSize--;
 
                         Bids.LOG.debug("Fuel collected: " + is.getDisplayName());
 
                         // This is called now to push the fuel item that was just added down
                         handleFuelStack();
+
+                        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+                        clientNeedToUpdate = true;
                     }
 
                     if (is.stackSize == 0) {
@@ -195,6 +234,16 @@ public class TileEntityNewFirepit extends TEFirepit {
             float ashChance = burnTime / 2000f;
             return new Random().nextFloat() < ashChance ? 1 : 0;
         }
+    }
+
+    @Override
+    public void onTileEntityMessage(TileEntityUpdateMessage message) {
+        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
+    }
+
+    public static void sendUpdateMessage(World world, int x, int y, int z) {
+        NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
+        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
     }
 
 }

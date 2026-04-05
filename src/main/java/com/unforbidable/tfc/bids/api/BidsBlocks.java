@@ -32,6 +32,8 @@ public class BidsBlocks {
 
     public static int axleWallBearingRenderId;
 
+    public static int newFirepitRenderId;
+
     public static int screwRenderId;
     public static int axleHandleRenderId;
     public static int screwPressRackRenderId;
