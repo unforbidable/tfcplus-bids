@@ -79,7 +79,7 @@ public class ItemSoap extends ItemFoodLike {
     public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
         if (!player.worldObj.isRemote) {
             if (count % 5 == 1) {
-                player.worldObj.playSoundAtEntity(player, "step.grass", 0.5F, 0.8f);
+                player.worldObj.playSoundAtEntity(player, "step.grass", 0.1F, 0.5f);
             }
 
             if (count <= 1 && player.isUsingItem()) {
@@ -109,7 +109,7 @@ public class ItemSoap extends ItemFoodLike {
 
                 playerStats.save(true);
 
-                player.worldObj.playSoundAtEntity(player, "random.splash", 0.2F, 0.6f);
+                player.worldObj.playSoundAtEntity(player, "random.splash", 0.05F, 1f);
 
                 player.inventoryContainer.detectAndSendChanges();
                 player.stopUsingItem();
