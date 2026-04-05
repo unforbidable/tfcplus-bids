@@ -5,6 +5,7 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCFluids;
+import com.unforbidable.tfc.bids.Core.Player.PlayerStateManager;
 import com.unforbidable.tfc.bids.Core.Player.PlayerStats;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.block.Block;
@@ -16,6 +17,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.util.Random;
 
 public class ItemSoap extends ItemFoodLike {
 
@@ -43,8 +46,19 @@ public class ItemSoap extends ItemFoodLike {
         long ticksSinceLastSoapUsage = TFC_Time.getTotalTicks() - playerStats.lastSoapUsageTicks;
         if (ticksSinceLastSoapUsage > 60) {
             MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
-            return mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK
-                && canPlayerUseSoapAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, player);
+            if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK
+                && canPlayerUseSoapAt(player.worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, player)) {
+
+                if (player.worldObj.isRemote) {
+                    SoapUsageState state = new SoapUsageState();
+                    state.blockX = mop.blockX;
+                    state.blockY = mop.blockY;
+                    state.blockZ = mop.blockZ;
+                    PlayerStateManager.setPlayerState(player, state);
+                }
+
+                return true;
+            }
         }
 
         return false;
@@ -100,12 +114,41 @@ public class ItemSoap extends ItemFoodLike {
                 player.inventoryContainer.detectAndSendChanges();
                 player.stopUsingItem();
             }
+        } else {
+            SoapUsageState state = PlayerStateManager.getPlayerState(player, SoapUsageState.class, false);
+            Random rand = new Random();
+
+            if (count % 2 == 0 && count < 35) {
+                float r0 = rand.nextFloat() * 0.6F;
+                float r1 = rand.nextFloat() * 0.6F;
+                float r2 = rand.nextFloat() * 0.6F;
+                float r3 = rand.nextFloat() * 0.6F;
+                player.worldObj.spawnParticle("splash", (double) (state.blockX + 0.5f - r0 + 0.3F), (double) state.blockY + 1.2F, (double) (state.blockZ + 0.5f - r2 + 0.3F), 0.0, 0.0, 0.0);
+                player.worldObj.spawnParticle("splash", (double) (state.blockX + 0.5f + r1 - 0.3F), (double) state.blockY + 1.2F, (double) (state.blockZ + 0.5f + r3 - 0.3F), 0.0, 0.0, 0.0);
+            }
+
+            if (count % 2 == 0 && count > 25) {
+                float r0 = rand.nextFloat() * 0.6F;
+                float r1 = rand.nextFloat() * 0.6F;
+                float r2 = rand.nextFloat() * 0.6F;
+                float r3 = rand.nextFloat() * 0.6F;
+                player.worldObj.spawnParticle("bubble", (double) (state.blockX + 0.5f - r0 + 0.3F), (double) state.blockY + 0.8F, (double) (state.blockZ + 0.5f - r2 + 0.3F), 0.0, 0.0, 0.0);
+                player.worldObj.spawnParticle("bubble", (double) (state.blockX + 0.5f + r1 - 0.3F), (double) state.blockY + 0.8F, (double) (state.blockZ + 0.5f + r3 - 0.3F), 0.0, 0.0, 0.0);
+            }
         }
     }
 
     @Override
-    public ItemStack onEaten(ItemStack is, World world, EntityPlayer player) {
-        return is;
+    public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int count) {
+        if (world.isRemote) {
+            PlayerStateManager.clearPlayerState(player, SoapUsageState.class);
+        }
+    }
+
+    private static class SoapUsageState {
+        public int blockX;
+        public int blockY;
+        public int blockZ;
     }
 
 }
