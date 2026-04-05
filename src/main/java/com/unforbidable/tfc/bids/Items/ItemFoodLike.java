@@ -43,6 +43,10 @@ public class ItemFoodLike extends ItemExtraFood implements ISize {
     }
 
     @Override
+    public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int count) {
+    }
+
+    @Override
     public boolean canStack() {
         return false;
     }
