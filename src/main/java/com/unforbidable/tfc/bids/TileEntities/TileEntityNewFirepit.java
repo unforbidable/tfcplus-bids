@@ -176,7 +176,7 @@ public class TileEntityNewFirepit extends TEFirepit {
             fuelBurnTemp = fuel.getFuelMaxTemp(itemStack);
 
             if (ashNumber < 5) {
-                ashNumber++;
+                ashNumber += getAshForFuel(fuel, itemStack);
             }
 
             Bids.LOG.debug("Fuel consumed: " + itemStack.getDisplayName()
@@ -185,6 +185,16 @@ public class TileEntityNewFirepit extends TEFirepit {
             fireItemStacks[FUEL_BURN_SLOT] = null;
         }
 
+    }
+
+    protected int getAshForFuel(IFirepitFuelMaterial fuel, ItemStack is) {
+        if (is.getItem() instanceof ItemCoal || is.getItem() == Item.getItemFromBlock(TFCBlocks.peat)) {
+            return 0;
+        } else {
+            int burnTime = fuel.getFuelBurnTime(is);
+            float ashChance = burnTime / 2000f;
+            return new Random().nextFloat() < ashChance ? 1 : 0;
+        }
     }
 
 }
