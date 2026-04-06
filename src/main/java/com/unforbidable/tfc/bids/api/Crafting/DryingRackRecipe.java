@@ -2,14 +2,14 @@ package com.unforbidable.tfc.bids.api.Crafting;
 
 import net.minecraft.item.ItemStack;
 
-public class DryingRecipe {
+public class DryingRackRecipe {
 
     final ItemStack output;
     final ItemStack input;
     final int duration;
     final boolean requiresTyingEquipment;
 
-    public DryingRecipe(ItemStack output, ItemStack input, int duration, boolean requiresTyingEquipment) {
+    public DryingRackRecipe(ItemStack output, ItemStack input, int duration, boolean requiresTyingEquipment) {
         this.output = output;
         this.input = input;
         this.duration = duration;

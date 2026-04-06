@@ -5,9 +5,9 @@ import com.unforbidable.tfc.bids.Bids;
 
 import net.minecraft.item.ItemStack;
 
-public class FoodDryingRecipe extends DryingRecipe {
+public class DryingRackFoodRecipe extends DryingRackRecipe {
 
-    public FoodDryingRecipe(ItemStack item, int duration, boolean requiresTyingEquipment) {
+    public DryingRackFoodRecipe(ItemStack item, int duration, boolean requiresTyingEquipment) {
         super(item, item, duration, requiresTyingEquipment);
     }
 

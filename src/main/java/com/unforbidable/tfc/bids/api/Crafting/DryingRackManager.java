@@ -7,17 +7,17 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class DryingManager {
+public class DryingRackManager {
 
-    static final List<DryingRecipe> recipes = new ArrayList<DryingRecipe>();
+    static final List<DryingRackRecipe> recipes = new ArrayList<DryingRackRecipe>();
     static final List<TyingEquipment> tyingEquipment = new ArrayList<TyingEquipment>();
 
-    public static void addRecipe(DryingRecipe recipe) {
+    public static void addRecipe(DryingRackRecipe recipe) {
         recipes.add(recipe);
     }
 
-    public static DryingRecipe getMatchingRecipe(ItemStack itemStack) {
-        for (DryingRecipe recipe : recipes) {
+    public static DryingRackRecipe getMatchingRecipe(ItemStack itemStack) {
+        for (DryingRackRecipe recipe : recipes) {
             if (recipe.matches(itemStack)) {
                 return recipe;
             }
@@ -30,8 +30,8 @@ public class DryingManager {
         return getMatchingRecipe(itemStack) != null;
     }
 
-    public static List<DryingRecipe> getRecipes() {
-        return new ArrayList<DryingRecipe>(recipes);
+    public static List<DryingRackRecipe> getRecipes() {
+        return new ArrayList<DryingRackRecipe>(recipes);
     }
 
     public static void registerTyingEquipment(Item item, boolean isReusable,

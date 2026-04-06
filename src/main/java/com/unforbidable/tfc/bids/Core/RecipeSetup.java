@@ -688,15 +688,15 @@ public class RecipeSetup {
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewGarlic), new ItemStack(TFCItems.seedsGarlic));
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCarrot), new ItemStack(TFCItems.seedsCarrot));
 
-        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.barkFibreCoarse),
+        DryingRackManager.addRecipe(new DryingRackRecipe(new ItemStack(BidsItems.barkFibreCoarse),
                 new ItemStack(BidsItems.barkFibre), 12, false));
-        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.sisalFiberCoarse),
+        DryingRackManager.addRecipe(new DryingRackRecipe(new ItemStack(BidsItems.sisalFiberCoarse),
                 new ItemStack(BidsItems.sisalFiberRinsed), 12, false));
-        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.juteFiberCoarse),
+        DryingRackManager.addRecipe(new DryingRackRecipe(new ItemStack(BidsItems.juteFiberCoarse),
                 new ItemStack(TFCItems.juteFiber), 12, false));
-        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.flaxStalkDried),
+        DryingRackManager.addRecipe(new DryingRackRecipe(new ItemStack(BidsItems.flaxStalkDried),
                 new ItemStack(BidsItems.flaxStalkRetted), 18, false));
-        DryingManager.addRecipe(new DryingRecipe(new ItemStack(BidsItems.woolDried),
+        DryingRackManager.addRecipe(new DryingRackRecipe(new ItemStack(BidsItems.woolDried),
                 new ItemStack(BidsItems.woolRinsed), 8, false));
 
         GameRegistry.addRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2, 0), "P P", "X X", "P P",
@@ -709,20 +709,20 @@ public class RecipeSetup {
                 TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese,
                 BidsItems.goatCheese };
         for (Item food : foodToDry) {
-            DryingManager.addRecipe(new FoodDryingRecipe(ItemFoodTFC.createTag(new ItemStack(food)), 12, true));
+            DryingRackManager.addRecipe(new DryingRackFoodRecipe(ItemFoodTFC.createTag(new ItemStack(food)), 12, true));
         }
 
         // Extra food drying
-        DryingManager.addRecipe(new FoodDryingRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.seaWeed)), 12, true));
+        DryingRackManager.addRecipe(new DryingRackFoodRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.seaWeed)), 12, true));
 
         // And now tying equipment
-        DryingManager.registerTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1);
-        DryingManager.registerTyingEquipment(TFCItems.woolYarn, false, Blocks.wool, 0);
-        DryingManager.registerTyingEquipment(TFCItems.linenString, false, Blocks.wool, 0);
-        DryingManager.registerTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0);
-        DryingManager.registerTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0);
-        DryingManager.registerTyingEquipment(BidsItems.sisalTwine, false, Blocks.wool, 1);
-        DryingManager.registerTyingEquipment(BidsItems.juteTwine, false, Blocks.wool, 1);
+        DryingRackManager.registerTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1);
+        DryingRackManager.registerTyingEquipment(TFCItems.woolYarn, false, Blocks.wool, 0);
+        DryingRackManager.registerTyingEquipment(TFCItems.linenString, false, Blocks.wool, 0);
+        DryingRackManager.registerTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0);
+        DryingRackManager.registerTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0);
+        DryingRackManager.registerTyingEquipment(BidsItems.sisalTwine, false, Blocks.wool, 1);
+        DryingRackManager.registerTyingEquipment(BidsItems.juteTwine, false, Blocks.wool, 1);
 
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemAdze", "itemAxe")

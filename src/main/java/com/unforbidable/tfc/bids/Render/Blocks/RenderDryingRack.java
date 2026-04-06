@@ -3,8 +3,8 @@ package com.unforbidable.tfc.bids.Render.Blocks;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackBounds;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
-import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
-import com.unforbidable.tfc.bids.api.Crafting.DryingManager.TyingEquipment;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager.TyingEquipment;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -49,7 +49,7 @@ public class RenderDryingRack implements ISimpleBlockRenderingHandler {
 
                 // Use block for rendering the knot
                 // according to tying equipment specification
-                final TyingEquipment tyingEquipment = DryingManager.findTyingEquipmnt(item.tyingItem);
+                final TyingEquipment tyingEquipment = DryingRackManager.findTyingEquipmnt(item.tyingItem);
                 if (tyingEquipment != null && tyingEquipment.renderBlock != null) {
                     tyingEquipmentBlock = tyingEquipment.renderBlock;
                     tyingEquipmentBlockMetadata = tyingEquipment.renderBlockMetadata;

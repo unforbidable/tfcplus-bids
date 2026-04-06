@@ -10,9 +10,9 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.DryingRack.*;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
-import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
-import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.DryingManager.TyingEquipment;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRackRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager.TyingEquipment;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
@@ -107,7 +107,7 @@ public class TileEntityDryingRack extends TileEntity
 
     public DryingRackItemInfo getItemInfo(int section) {
         if (storage[section] != null) {
-            final DryingRecipe recipe = DryingManager.getMatchingRecipe(storage[section].dryingItem);
+            final DryingRackRecipe recipe = DryingRackManager.getMatchingRecipe(storage[section].dryingItem);
 
             if (recipe != null) {
                 final long total = recipe.getDuration() * TFC_Time.HOUR_LENGTH;
@@ -166,7 +166,7 @@ public class TileEntityDryingRack extends TileEntity
                 // according to the matching recipe
 
                 final DryingRackItem item = storage[i];
-                final DryingRecipe recipe = DryingManager.getMatchingRecipe(item.dryingItem);
+                final DryingRackRecipe recipe = DryingRackManager.getMatchingRecipe(item.dryingItem);
 
                 if (recipe != null) {
                     final long ticksElapsedTotal = TFC_Time.getTotalTicks() - item.dryingStartTicks;
@@ -288,7 +288,7 @@ public class TileEntityDryingRack extends TileEntity
     public boolean placeItem(int section, EntityPlayer player, ItemStack itemStack) {
         Bids.LOG.debug("Placing item on drying rack: " + itemStack.getDisplayName() + ", section: " + section);
 
-        DryingRecipe recipe = DryingManager.getMatchingRecipe(itemStack);
+        DryingRackRecipe recipe = DryingRackManager.getMatchingRecipe(itemStack);
 
         if (section >= 0 && section < MAX_STORAGE
                 && storage[section] == null) {
@@ -390,7 +390,7 @@ public class TileEntityDryingRack extends TileEntity
 
     private boolean canDropTyingEquipment(int i) {
         if (storage[i].tyingItem != null) {
-            final TyingEquipment te = DryingManager.findTyingEquipmnt(storage[i].tyingItem);
+            final TyingEquipment te = DryingRackManager.findTyingEquipmnt(storage[i].tyingItem);
             if (te != null && te.isReusable) {
                 // Reusable tying equipment will drop even when
                 // technically "used up"
@@ -407,7 +407,7 @@ public class TileEntityDryingRack extends TileEntity
         // Reusable tying equipment takes priority
         // Search is done in order of registration
 
-        for (DryingManager.TyingEquipment tyingEquipment : DryingManager.getTyingEquipment()) {
+        for (DryingRackManager.TyingEquipment tyingEquipment : DryingRackManager.getTyingEquipment()) {
             if (tyingEquipment.isReusable) {
                 ItemStack result = findAndConsumeOneTyingEquipment(player, tyingEquipment.item);
                 if (result != null) {
@@ -416,7 +416,7 @@ public class TileEntityDryingRack extends TileEntity
             }
         }
 
-        for (DryingManager.TyingEquipment tyingEquipment : DryingManager.getTyingEquipment()) {
+        for (DryingRackManager.TyingEquipment tyingEquipment : DryingRackManager.getTyingEquipment()) {
             if (!tyingEquipment.isReusable) {
                 ItemStack result = findAndConsumeOneTyingEquipment(player, tyingEquipment.item);
                 if (result != null) {

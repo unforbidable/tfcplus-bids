@@ -8,7 +8,7 @@ import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.Crafting.DryingManager;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -158,7 +158,7 @@ public class DryingRackHelper {
     }
 
     public static boolean isItemValidDryingRackItem(ItemStack itemStack) {
-        return DryingManager.hasMatchingRecipe(itemStack) || itemStack.getItem() instanceof ItemClothing;
+        return DryingRackManager.hasMatchingRecipe(itemStack) || itemStack.getItem() instanceof ItemClothing;
     }
 
     public static int getDryingRackSectionFromHit(TileEntityDryingRack dryingRack, float hitX, float hitY, float hitZ) {
