@@ -25,10 +25,13 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
 import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
+import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -44,6 +47,8 @@ public class ItemSetup extends BidsItems {
         registerItems();
         registerWoodPileItems();
         registerFirepitFuel();
+        registerWetness();
+        registerDryingRackTyingEquipment();
         registerCookingIngredientOverrides();
     }
 
@@ -1093,6 +1098,30 @@ public class ItemSetup extends BidsItems {
         if (BidsOptions.Firepit.allowFuelUnseasonedFirewood) {
             FirepitRegistry.registerFuel(firewood);
         }
+    }
+
+    private static void registerWetness() {
+        Bids.LOG.info("Register item wetness");
+
+        BidsRegistry.WETNESS.register(BidsItems.barkFibre, new WetnessInfo(500, 1f));
+        BidsRegistry.WETNESS.register(BidsItems.sisalFiberRinsed, new WetnessInfo(500, 1f));
+        BidsRegistry.WETNESS.register(TFCItems.juteFiber, new WetnessInfo(500, 1f));
+        BidsRegistry.WETNESS.register(BidsItems.flaxStalkRetted, new WetnessInfo(500, 0.5f));
+        BidsRegistry.WETNESS.register(BidsItems.woolRinsed, new WetnessInfo(1000, 1f));
+        BidsRegistry.WETNESS.register(TFCItems.seaWeed, new WetnessInfo(500, 1f));
+    }
+
+    private static void registerDryingRackTyingEquipment() {
+        Bids.LOG.info("Register drying rack tying equipment");
+
+        // And now tying equipment
+        DryingRackManager.registerTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1);
+        DryingRackManager.registerTyingEquipment(TFCItems.woolYarn, false, Blocks.wool, 0);
+        DryingRackManager.registerTyingEquipment(TFCItems.linenString, false, Blocks.wool, 0);
+        DryingRackManager.registerTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0);
+        DryingRackManager.registerTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0);
+        DryingRackManager.registerTyingEquipment(BidsItems.sisalTwine, false, Blocks.wool, 1);
+        DryingRackManager.registerTyingEquipment(BidsItems.juteTwine, false, Blocks.wool, 1);
     }
 
     private static void registerCookingIngredientOverrides() {

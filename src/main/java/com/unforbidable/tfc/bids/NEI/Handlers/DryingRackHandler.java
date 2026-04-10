@@ -49,8 +49,8 @@ public class DryingRackHandler extends TemplateRecipeHandler implements IHandler
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == DryingRackHandler.class) {
             for (DryingRackRecipe recipe : DryingRackManager.getRecipes()) {
-                final ItemStack input = recipe.getInput();
-                final ItemStack result = recipe.getCraftingResult(input);
+                final ItemStack input = recipe.getInputItem();
+                final ItemStack result = recipe.getResult(input);
                 arecipes.add(new CachedDryingRecipe(input, result, recipe.getDuration()));
             }
         } else {
@@ -61,8 +61,8 @@ public class DryingRackHandler extends TemplateRecipeHandler implements IHandler
     @Override
     public void loadCraftingRecipes(ItemStack output) {
         for (DryingRackRecipe recipe : DryingRackManager.getRecipes()) {
-            final ItemStack input = recipe.getInput();
-            final ItemStack result = recipe.getCraftingResult(input);
+            final ItemStack input = recipe.getInputItem();
+            final ItemStack result = recipe.getResult(input);
             output.stackSize = result.stackSize;
             if (ItemStack.areItemStacksEqual(result, output)) {
                 arecipes.add(new CachedDryingRecipe(input, output, recipe.getDuration()));
@@ -75,12 +75,12 @@ public class DryingRackHandler extends TemplateRecipeHandler implements IHandler
         for (DryingRackRecipe recipe : DryingRackManager.getRecipes()) {
             if (recipe.matches(ingredient)) {
                 final ItemStack input = ingredient.copy();
-                input.stackSize = recipe.getInput().stackSize;
+                input.stackSize = recipe.getInputItem().stackSize;
                 if (input.getItem() instanceof ItemFoodTFC) {
-                    input.setTagCompound(recipe.getInput().getTagCompound());
+                    input.setTagCompound(recipe.getInputItem().getTagCompound());
                 }
 
-                final ItemStack result = recipe.getCraftingResult(input);
+                final ItemStack result = recipe.getResult(input);
                 arecipes.add(new CachedDryingRecipe(input, result, recipe.getDuration()));
             }
         }

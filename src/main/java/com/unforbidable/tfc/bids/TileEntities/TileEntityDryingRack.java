@@ -1,19 +1,20 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
-import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
-import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.ItemClothing;
-import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.DryingRack.*;
-import com.unforbidable.tfc.bids.Core.Timer;
+import com.unforbidable.tfc.bids.Core.Drying.DryingEngine;
+import com.unforbidable.tfc.bids.Core.Drying.DryingHelper;
+import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
+import com.unforbidable.tfc.bids.Core.Drying.IDryingHost;
+import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
+import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
+import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager.TyingEquipment;
-
+import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -30,14 +31,11 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 public class TileEntityDryingRack extends TileEntity
-        implements IInventory, IMessageHanldingTileEntity<DryingRackMessage> {
+        implements IInventory, IMessageHanldingTileEntity<TileEntityUpdateMessage>, IDryingHost {
 
     public static final int MAX_STORAGE = 4;
-
-    public static final int ACTION_UPDATE = 1;
-
-    static final long DRYING_INTERVAL = TFC_Time.HOUR_LENGTH / 12;
-    private static final int DRYING_TIMER_INTERVAL = 20;
+    private static final long DRYING_INTERVAL = 50;
+    private static final int DRYING_TIMER_INTERVAL = 10;
 
     final DryingRackItem[] storage = new DryingRackItem[MAX_STORAGE];
 
@@ -97,30 +95,6 @@ public class TileEntityDryingRack extends TileEntity
         return storage[section];
     }
 
-    public DryingRackItemInfo getSelectedItemInfo() {
-        if (selectedSection != -1) {
-            return getItemInfo(selectedSection);
-        }
-
-        return null;
-    }
-
-    public DryingRackItemInfo getItemInfo(int section) {
-        if (storage[section] != null) {
-            final DryingRackRecipe recipe = DryingRackManager.getMatchingRecipe(storage[section].dryingItem);
-
-            if (recipe != null) {
-                final long total = recipe.getDuration() * TFC_Time.HOUR_LENGTH;
-                final long elapsed = (int) (TFC_Time.getTotalTicks() - storage[section].dryingStartTicks);
-                final int dryingTicksRemaining = Math.max((int) (total - elapsed), 0);
-
-                return new DryingRackItemInfo(storage[section], recipe, dryingTicksRemaining);
-            }
-        }
-
-        return null;
-    }
-
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
@@ -132,8 +106,6 @@ public class TileEntityDryingRack extends TileEntity
         if (!worldObj.isRemote) {
             // One time only right after creation
             if (!initialized) {
-                lastDryingTicks = TFC_Time.getTotalTicks();
-
                 initialized = true;
             }
 
@@ -141,81 +113,24 @@ public class TileEntityDryingRack extends TileEntity
                 TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, false);
             }
 
+            // Check if enough time had passed
+            // for drying interval
+            if (dryingTimer.tick() && TFC_Time.getTotalTicks() > lastDryingTicks + DRYING_INTERVAL) {
+                DryingEngine engine = new DryingEngine(this);
+                if (engine.update()) {
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+                    clientNeedToUpdate = true;
+                }
+
+                lastDryingTicks = TFC_Time.getTotalTicks();
+            }
+
             // When inventory content changes
             if (clientNeedToUpdate) {
                 sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
 
                 clientNeedToUpdate = false;
-            }
-
-            // Check if enough time had passed
-            // for drying interval
-            if (dryingTimer.tick() && TFC_Time.getTotalTicks() > lastDryingTicks + DRYING_INTERVAL) {
-                dryItems();
-
-                lastDryingTicks = TFC_Time.getTotalTicks();
-            }
-        }
-    }
-
-    private void dryItems() {
-        for (int i = 0; i < MAX_STORAGE; i++) {
-            if (storage[i] != null) {
-                // Check time passed since item was added
-                // if it is greater than drying time
-                // according to the matching recipe
-
-                final DryingRackItem item = storage[i];
-                final DryingRackRecipe recipe = DryingRackManager.getMatchingRecipe(item.dryingItem);
-
-                if (recipe != null) {
-                    final long ticksElapsedTotal = TFC_Time.getTotalTicks() - item.dryingStartTicks;
-                    final long ticksLastDelta = TFC_Time.getTotalTicks() - lastDryingTicks;
-
-                    // This is for recipes that track progress or update items over time
-                    final long durationTicks = recipe.getDuration() * TFC_Time.HOUR_LENGTH;
-                    final float progressTotal = (float) ticksElapsedTotal / durationTicks;
-                    final float progressTotalDelta = (float) ticksLastDelta / durationTicks;
-                    recipe.onProgress(item.dryingItem, progressTotal, progressTotalDelta);
-
-                    if (ticksElapsedTotal > recipe.getDuration() * TFC_Time.HOUR_LENGTH) {
-                        ItemStack driedItem = recipe.getCraftingResult(item.dryingItem).copy();
-
-                        Bids.LOG.debug("Item " + item.dryingItem.getDisplayName()
-                                + " dried and become " + driedItem.getDisplayName());
-
-                        if (item.dryingItem.getItem() instanceof ItemFoodTFC) {
-                            Bids.LOG.debug("Weight from: " + Food.getWeight(item.dryingItem)
-                                    + " to: " + Food.getWeight(driedItem));
-                        }
-
-                        storage[i] = new DryingRackItem(driedItem, item.tyingItem, item.dryingStartTicks, true);
-
-                        clientNeedToUpdate = true;
-
-                        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                    }
-
-                } else {
-                    // Item has no matching recipe
-                    // so either item is already dried
-                    // or the recipe no longer exists
-                    // or it's clothes
-                    dryClothes();
-                }
-            }
-        }
-    }
-
-    private void dryClothes() {
-        for (DryingRackItem itemStack : storage) {
-            if (itemStack != null && itemStack.dryingItem.getItem() instanceof ItemClothing) {
-                float temp = TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord);
-                if (TFC_Core.isExposedToRain(worldObj, xCoord, yCoord, zCoord) && temp > 0) {
-                    DryingRackHelper.handleClothesInRain(itemStack.dryingItem, DRYING_TIMER_INTERVAL);
-                } else if (temp > 0) {
-                    DryingRackHelper.handleNormalDry(worldObj, xCoord, yCoord, zCoord, itemStack.dryingItem, DRYING_TIMER_INTERVAL);
-                }
             }
         }
     }
@@ -250,7 +165,6 @@ public class TileEntityDryingRack extends TileEntity
     }
 
     public void writeDryingRackDataToNBT(NBTTagCompound tag) {
-        tag.setLong("lastDryingTicks", lastDryingTicks);
         tag.setBoolean("clientInitialized", initialized);
         tag.setInteger("orientation", orientation);
         tag.setBoolean("cordless", cordless);
@@ -268,7 +182,6 @@ public class TileEntityDryingRack extends TileEntity
     }
 
     public void readDryingRackDataFromNBT(NBTTagCompound tag) {
-        lastDryingTicks = tag.getLong("lastDryingTicks");
         initialized = tag.getBoolean("clientInitialized");
         orientation = tag.getInteger("orientation");
         cordless = tag.getBoolean("cordless");
@@ -281,59 +194,58 @@ public class TileEntityDryingRack extends TileEntity
         for (int i = 0; i < itemTagList.tagCount(); i++) {
             NBTTagCompound itemTag = itemTagList.getCompoundTagAt(i);
             final int slot = itemTag.getInteger("slot");
-            storage[slot] = DryingRackItem.loadItemFromNBT(itemTag);
+            storage[slot] = DryingRackItem.loadDryingRackItemFromNBT(itemTag);
         }
+    }
+
+    private DryingRackRecipe getRecipeForInputItem(ItemStack inputItem) {
+        return DryingRackManager.getMatchingRecipe(inputItem);
     }
 
     public boolean placeItem(int section, EntityPlayer player, ItemStack itemStack) {
         Bids.LOG.debug("Placing item on drying rack: " + itemStack.getDisplayName() + ", section: " + section);
 
-        DryingRackRecipe recipe = DryingRackManager.getMatchingRecipe(itemStack);
+        if (section >= 0 && section < MAX_STORAGE && storage[section] == null) {
+            ItemStack inputItem = itemStack.copy();
+            inputItem.stackSize = 1;
 
-        if (section >= 0 && section < MAX_STORAGE
-                && storage[section] == null) {
+            DryingRackItem dryingRackItem = new DryingRackItem();
+            dryingRackItem.inputItem = inputItem;
+            dryingRackItem.progress = 0;
+            dryingRackItem.lastProgressUpdatedTicks = TFC_Time.getTotalTicks();
+
+            DryingRackRecipe recipe = getRecipeForInputItem(itemStack);
             if (recipe != null) {
-                final boolean consumeTyingEquipment = recipe.getRequiresTyingEquipment();
-                ItemStack tyingEquipment = null;
-
-                if (consumeTyingEquipment) {
-                    tyingEquipment = findAndConsumeTyingEquipment(player);
-                }
+                // For items with recipe check for tying equipment and initial progress
+                boolean consumeTyingEquipment = recipe.getRequiresTyingEquipment();
+                ItemStack tyingEquipment = consumeTyingEquipment ? findAndConsumeTyingEquipment(player) : null;
 
                 if (consumeTyingEquipment && tyingEquipment == null) {
                     // Tying equipment needed and missing
                     return false;
                 }
 
-                // Copy item to preserve NBT
-                ItemStack dryingItem = itemStack.copy();
-                dryingItem.stackSize = 1;
+                dryingRackItem.tyingItem = tyingEquipment;
 
-                // If drying item already has some progress done
+                // If input item already has some progress done
                 // we take this progress and move the start ticks back accordingly
-                final float initialProgress = recipe.getInitialProgress(itemStack);
-                final int initialTicks = Math.round(initialProgress * recipe.getDuration() * TFC_Time.HOUR_LENGTH);
-                final long startTicks = TFC_Time.getTotalTicks() - initialTicks;
+                DryingHelper.initializeInputItemProgress(dryingRackItem, recipe);
 
-                storage[section] = new DryingRackItem(dryingItem, tyingEquipment, startTicks, false);
-
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-
-                clientNeedToUpdate = true;
-
-                return true;
-            } else if (itemStack.getItem() instanceof ItemClothing) {
-                ItemStack dryingItem = itemStack.copy();
-                dryingItem.stackSize = 1;
-
-                storage[section] = new DryingRackItem(dryingItem, null, 0, false);
-
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-
-                clientNeedToUpdate = true;
-
-                return true;
+                if (dryingRackItem.progress == 1) {
+                    // Should progress initialize to complete, set the result
+                    dryingRackItem.resultItem = DryingHelper.getResultItem(dryingRackItem, recipe);
+                }
+            } else {
+                // For items without a recipe only wetness will be handled
+                DryingHelper.initializeInputItemWetness(dryingRackItem);
             }
+
+            storage[section] = dryingRackItem;
+
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            clientNeedToUpdate = true;
+
+            return true;
         }
 
         return false;
@@ -342,15 +254,15 @@ public class TileEntityDryingRack extends TileEntity
     public void onDryingRackBroken() {
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
-                if (storage[i].dryingItem != null) {
-                    final EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
-                            storage[i].dryingItem);
+                ItemStack currentItem = storage[i].getCurrentItem();
+                if (currentItem != null) {
+                    EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, currentItem);
                     worldObj.spawnEntityInWorld(ei);
                 }
 
-                if (canDropTyingEquipment(i)) {
-                    final EntityItem ei2 = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
-                            storage[i].tyingItem);
+                ItemStack currentTyingItem = storage[i].getCurrentTyingItem();
+                if (currentTyingItem != null) {
+                    EntityItem ei2 = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, currentTyingItem);
                     worldObj.spawnEntityInWorld(ei2);
                 }
             }
@@ -362,18 +274,17 @@ public class TileEntityDryingRack extends TileEntity
     public boolean retrieveItem(int section, EntityPlayer player) {
         Bids.LOG.debug("Retrieving item from drying rack, section: " + section);
 
-        if (section >= 0 && section < MAX_STORAGE
-                && storage[section] != null) {
-            if (storage[section].dryingItem != null) {
-                final EntityItem ei = new EntityItem(worldObj, player.posX, player.posY, player.posZ,
-                        storage[section].dryingItem);
+        if (section >= 0 && section < MAX_STORAGE && storage[section] != null) {
+            ItemStack currentItem = storage[section].getCurrentItem();
+            if (currentItem != null) {
+                EntityItem ei = new EntityItem(worldObj, player.posX, player.posY, player.posZ, currentItem);
                 worldObj.spawnEntityInWorld(ei);
             }
 
-            if (canDropTyingEquipment(section)) {
-                final EntityItem ei2 = new EntityItem(worldObj, player.posX, player.posY, player.posZ,
-                        storage[section].tyingItem);
-                worldObj.spawnEntityInWorld(ei2);
+            ItemStack currentTyingItem = storage[section].getCurrentTyingItem();
+            if (currentTyingItem != null) {
+                EntityItem ei = new EntityItem(worldObj, player.posX, player.posY, player.posZ, currentTyingItem);
+                worldObj.spawnEntityInWorld(ei);
             }
 
             storage[section] = null;
@@ -383,21 +294,6 @@ public class TileEntityDryingRack extends TileEntity
             clientNeedToUpdate = true;
 
             return true;
-        }
-
-        return false;
-    }
-
-    private boolean canDropTyingEquipment(int i) {
-        if (storage[i].tyingItem != null) {
-            final TyingEquipment te = DryingRackManager.findTyingEquipmnt(storage[i].tyingItem);
-            if (te != null && te.isReusable) {
-                // Reusable tying equipment will drop even when
-                // technically "used up"
-                return true;
-            }
-
-            return !storage[i].tyingItemUsedUp;
         }
 
         return false;
@@ -450,19 +346,15 @@ public class TileEntityDryingRack extends TileEntity
     }
 
     @Override
-    public void onTileEntityMessage(DryingRackMessage message) {
-        switch (message.getAction()) {
-            case ACTION_UPDATE:
-                worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-                Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
-                        + message.getZCoord());
-                break;
-        }
+    public void onTileEntityMessage(TileEntityUpdateMessage message) {
+        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
+        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
+                + message.getZCoord());
     }
 
     public static void sendUpdateMessage(World world, int x, int y, int z) {
         TargetPoint tp = new TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new DryingRackMessage(x, y, z, TileEntityDryingRack.ACTION_UPDATE), tp);
+        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
         Bids.LOG.debug("Sent update message");
     }
 
@@ -474,7 +366,7 @@ public class TileEntityDryingRack extends TileEntity
     @Override
     public ItemStack getStackInSlot(int slot) {
         // This is called by TFC to retrieve items for decay calc etc
-        return storage[slot] != null ? storage[slot].dryingItem : null;
+        return storage[slot] != null ? storage[slot].getCurrentItem() : null;
     }
 
     @Override
@@ -505,8 +397,7 @@ public class TileEntityDryingRack extends TileEntity
             DryingRackItem prev = storage[slot];
 
             if (prev != null) {
-                storage[slot] = new DryingRackItem(itemStack, prev.tyingItem, prev.dryingStartTicks,
-                        prev.tyingItemUsedUp);
+                storage[slot].updateCurrentItem(itemStack);
             } else {
                 // This should not happen
                 Bids.LOG.warn("TFC returned an item after decay calculation into a slot that is empty.");
@@ -546,6 +437,26 @@ public class TileEntityDryingRack extends TileEntity
     @Override
     public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
         return false;
+    }
+
+    @Override
+    public DryingItem[] getDryingStorage() {
+        return storage;
+    }
+
+    @Override
+    public DryingRecipe getDryingRecipe(DryingItem item) {
+        return getRecipeForInputItem(item.inputItem);
+    }
+
+    @Override
+    public float getWetnessIncreaseRate() {
+        return 0.25f;
+    }
+
+    @Override
+    public float getWetnessReductionRate() {
+        return 0.5f;
     }
 
 }

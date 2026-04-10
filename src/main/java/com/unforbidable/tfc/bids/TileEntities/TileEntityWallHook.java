@@ -4,7 +4,7 @@ import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Items.*;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackHelper;
+import com.unforbidable.tfc.bids.Core.Drying.DryingHelper;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Timer;
@@ -112,9 +112,9 @@ public class TileEntityWallHook extends TileEntity implements IMessageHanldingTi
             if (itemStack != null && itemStack.getItem() instanceof ItemClothing) {
                 float temp = TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord);
                 if (TFC_Core.isExposedToRain(worldObj, xCoord, yCoord, zCoord) && temp > 0) {
-                    DryingRackHelper.handleClothesInRain(itemStack, DRYING_TIMER_INTERVAL);
+                    DryingHelper.handleClothesInRain(itemStack, DRYING_TIMER_INTERVAL);
                 } else if (temp > 0) {
-                    DryingRackHelper.handleNormalDry(worldObj, xCoord, yCoord, zCoord, itemStack, DRYING_TIMER_INTERVAL);
+                    DryingHelper.handleNormalDry(worldObj, xCoord, yCoord, zCoord, itemStack, DRYING_TIMER_INTERVAL);
                 }
             }
         }

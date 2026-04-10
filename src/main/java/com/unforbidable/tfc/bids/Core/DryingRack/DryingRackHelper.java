@@ -1,7 +1,5 @@
 package com.unforbidable.tfc.bids.Core.DryingRack;
 
-import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemClothing;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
@@ -9,10 +7,8 @@ import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
@@ -175,41 +171,6 @@ public class DryingRackHelper {
         }
 
         return -1;
-    }
-
-    public static void handleNormalDry(World world, int x, int y, int z, ItemStack itemStack, long ticks) {
-        NBTTagCompound nbt = itemStack.stackTagCompound;
-        if (nbt == null) {
-            nbt = new NBTTagCompound();
-            nbt.setLong("lastWorn", TFC_Time.getTotalDays());
-            itemStack.stackTagCompound = nbt;
-            return;
-        }
-        int wetness = nbt.getInteger("wetness");
-        if (wetness > 0) {
-            float humidity = TFC_Core.getHumidity(world, x, y, z);
-            wetness -= ticks * (world.rand.nextFloat() > humidity ? 1 : 0);
-            wetness = Math.max(0, wetness);
-        }
-        nbt.setInteger("wetness", wetness);
-        itemStack.stackTagCompound = nbt;
-    }
-
-    public static void handleClothesInRain(ItemStack itemStack, int ticks) {
-        NBTTagCompound nbt = itemStack.stackTagCompound;
-        if (nbt == null) {
-            nbt = new NBTTagCompound();
-            nbt.setLong("lastWorn", TFC_Time.getTotalDays());
-            itemStack.stackTagCompound = nbt;
-            return;
-        }
-        int wetness = nbt.getInteger("wetness");
-        if (wetness >= 0) {
-            wetness += 2 * ticks;
-            wetness = Math.min(2000, wetness);
-        }
-        nbt.setInteger("wetness", wetness);
-        itemStack.stackTagCompound = nbt;
     }
 
 }

@@ -1,18 +1,21 @@
 package com.unforbidable.tfc.bids.WAILA.Providers;
 
-import java.util.List;
-
-import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Items.ItemClothing;
+import com.mojang.realmsclient.gui.ChatFormatting;
+import com.unforbidable.tfc.bids.Core.Drying.DryingHelper;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
-import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItemInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.WAILA.WailaProvider;
-
+import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+
+import java.util.List;
 
 public class DryingRackProvider extends WailaProvider {
 
@@ -26,8 +29,9 @@ public class DryingRackProvider extends WailaProvider {
         if (accessor.getTileEntity() instanceof TileEntityDryingRack) {
             TileEntityDryingRack dryingRack = (TileEntityDryingRack) accessor.getTileEntity();
             DryingRackItem item = dryingRack.getSelectedItem();
-
-            return item != null ? item.dryingItem : null;
+            if (item != null) {
+                return item.getCurrentItem();
+            }
         }
 
         return super.getWailaStack(accessor, config);
@@ -38,21 +42,39 @@ public class DryingRackProvider extends WailaProvider {
             IWailaConfigHandler config) {
         if (accessor.getTileEntity() instanceof TileEntityDryingRack) {
             TileEntityDryingRack dryingRack = (TileEntityDryingRack) accessor.getTileEntity();
-            DryingRackItemInfo info = dryingRack.getSelectedItemInfo();
+            DryingRackItem dryingItem = dryingRack.getSelectedItem();
+            if (dryingItem != null) {
+                if (dryingItem.inputItem.getItem() instanceof ItemClothing) {
+                    // Only show dump/soaked for clothes, no progress
+                    if (TFC_Core.isClothingDamp(dryingItem.inputItem, accessor.getPlayer())) {
+                        currenttip.add(EnumChatFormatting.BLUE + TFC_Core.translate("gui.damp") + ": " + TFC_Core.getClothingWetness(dryingItem.inputItem));
+                    } else if (TFC_Core.isClothingSoaked(dryingItem.inputItem, accessor.getPlayer())) {
+                        currenttip.add(EnumChatFormatting.BLUE + TFC_Core.translate("gui.soaked") + ": " + TFC_Core.getClothingWetness(dryingItem.inputItem));
+                    }
+                } else {
+                    DryingRecipe recipe = dryingRack.getDryingRecipe(dryingItem);
+                    if (recipe != null) {
+                        if (dryingItem.wetness > 0) {
+                            WetnessInfo wetnessInfo = DryingHelper.getWetnessInfo(dryingItem.inputItem);
+                            currenttip.add(EnumChatFormatting.BLUE + TFC_Core.translate("gui.damp") + ": " + (int)Math.ceil(dryingItem.wetness * wetnessInfo.capacity));
+                        }
 
-            if (info != null) {
-                float hoursRemaining = (info.dryingTicksRemaining * 10 / (int) TFC_Time.HOUR_LENGTH) / 10f;
-                String hoursRemainingFractions = "" + hoursRemaining;
-                String hoursRemainingRounded = "" + Math.round(hoursRemaining);
+                        if (dryingItem.failure > 0 && dryingItem.failure < 1) {
+                            String output = DryingHelper.getItemStackInfoString(DryingHelper.getDestroyedResultItem(dryingItem, recipe));
+                            String progress = DryingHelper.getProgressInfoString(dryingItem.failure);
 
-                // Actually showing fractions only when less then 1 hour
-                currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.HoursRemaining") + ": "
-                        + (hoursRemaining < 0.95f ? hoursRemainingFractions : hoursRemainingRounded));
+                            currenttip.add(ChatFormatting.RED + StatCollector.translateToLocal("gui.Ruined") + ": "
+                                + ChatFormatting.WHITE + output + progress);
+                        } else if (dryingItem.progress < 1) {
+                            String output = DryingHelper.getItemStackInfoString(DryingHelper.getResultItem(dryingItem, recipe));
+                            String progress = dryingItem.paused
+                                ? " (" + StatCollector.translateToLocal("gui.Paused") + ")"
+                                : DryingHelper.getProgressInfoString(dryingItem.progress);
 
-                if (info.recipe != null) {
-                    ItemStack output = info.recipe.getCraftingResult(info.item.dryingItem);
-                    currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
-                            + output.getDisplayName());
+                            currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
+                                + ChatFormatting.WHITE + output + progress);
+                        }
+                    }
                 }
             }
         }

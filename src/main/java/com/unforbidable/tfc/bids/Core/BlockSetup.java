@@ -7,7 +7,6 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.*;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.*;
-import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackMessage;
 import com.unforbidable.tfc.bids.Core.Kilns.BeehiveKiln.BeehiveKilnChamber;
 import com.unforbidable.tfc.bids.Core.Kilns.ClimbingKiln.ClimbingKilnChamber;
 import com.unforbidable.tfc.bids.Core.Kilns.SquareKiln.SquareKilnChamber;
@@ -752,11 +751,6 @@ public class BlockSetup extends BidsBlocks {
         Bids.network.registerMessage(WoodPileMessage.ServerHandler.class, WoodPileMessage.class,
                 NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
         Bids.network.registerMessage(WoodPileMessage.ClientHandler.class, WoodPileMessage.class,
-                NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
-
-        Bids.network.registerMessage(DryingRackMessage.ServerHandler.class, DryingRackMessage.class,
-                NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
-        Bids.network.registerMessage(DryingRackMessage.ClientHandler.class, DryingRackMessage.class,
                 NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
 
         Bids.network.registerMessage(TileEntityUpdateMessage.ServerHandler.class, TileEntityUpdateMessage.class,

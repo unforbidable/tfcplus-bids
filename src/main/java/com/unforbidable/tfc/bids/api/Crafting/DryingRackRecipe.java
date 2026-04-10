@@ -1,47 +1,24 @@
 package com.unforbidable.tfc.bids.api.Crafting;
 
+import com.unforbidable.tfc.bids.api.Crafting.Builders.DryingRackRecipeBuilder;
 import net.minecraft.item.ItemStack;
 
-public class DryingRackRecipe {
+public class DryingRackRecipe extends DryingRecipe {
 
-    final ItemStack output;
-    final ItemStack input;
-    final int duration;
     final boolean requiresTyingEquipment;
 
-    public DryingRackRecipe(ItemStack output, ItemStack input, int duration, boolean requiresTyingEquipment) {
-        this.output = output;
-        this.input = input;
-        this.duration = duration;
+    public DryingRackRecipe(ItemStack inputItem, ItemStack outputItem, ItemStack destroyedOutputItem, int duration, boolean requiresDry, boolean requiresWet, boolean requiresCover, boolean requiresWarm, boolean requiresFreezing, boolean requiresNotWet, boolean requiresTyingEquipment) {
+        super(inputItem, outputItem, destroyedOutputItem, duration, requiresDry, requiresWet, requiresCover, requiresWarm, requiresFreezing, requiresNotWet);
+
         this.requiresTyingEquipment = requiresTyingEquipment;
     }
 
-    public boolean matches(ItemStack itemStack) {
-        return itemStack.getItem() == input.getItem()
-                && itemStack.getItemDamage() == input.getItemDamage();
-    }
-
-    public ItemStack getInput() {
-        return input;
-    }
-
-    public ItemStack getCraftingResult(ItemStack itemStack) {
-        return output;
-    }
-
-    public int getDuration() {
-        return duration;
+    public static DryingRackRecipeBuilder builder() {
+        return new DryingRackRecipeBuilder();
     }
 
     public boolean getRequiresTyingEquipment() {
         return requiresTyingEquipment;
-    }
-
-    public float getInitialProgress(ItemStack itemStack) {
-        return 0f;
-    }
-
-    public void onProgress(ItemStack itemStack, float progressTotal, float progressLastDelta) {
     }
 
 }

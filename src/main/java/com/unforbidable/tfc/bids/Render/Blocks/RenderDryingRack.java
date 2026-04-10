@@ -11,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
@@ -41,33 +42,39 @@ public class RenderDryingRack implements ISimpleBlockRenderingHandler {
         }
 
         for (int i = 0; i < rackBounds.knots.length; i++) {
-            DryingRackItem item = dryingRack.getItem(i);
+            DryingRackItem dryingItem = dryingRack.getItem(i);
 
-            if (item != null && item.tyingItem != null) {
-                Block tyingEquipmentBlock = Blocks.wool;
-                int tyingEquipmentBlockMetadata = 0;
+            if (dryingItem != null) {
+                ItemStack tyingItem = dryingItem.tyingItem;
 
-                // Use block for rendering the knot
-                // according to tying equipment specification
-                final TyingEquipment tyingEquipment = DryingRackManager.findTyingEquipmnt(item.tyingItem);
-                if (tyingEquipment != null && tyingEquipment.renderBlock != null) {
-                    tyingEquipmentBlock = tyingEquipment.renderBlock;
-                    tyingEquipmentBlockMetadata = tyingEquipment.renderBlockMetadata;
+                if (tyingItem != null) {
+                    boolean tyingItemUsedUp = dryingItem.tyingItemUsedUp;
+
+                    Block tyingEquipmentBlock = Blocks.wool;
+                    int tyingEquipmentBlockMetadata = 0;
+
+                    // Use block for rendering the knot
+                    // according to tying equipment specification
+                    final TyingEquipment tyingEquipment = DryingRackManager.findTyingEquipmnt(tyingItem);
+                    if (tyingEquipment != null && tyingEquipment.renderBlock != null) {
+                        tyingEquipmentBlock = tyingEquipment.renderBlock;
+                        tyingEquipmentBlockMetadata = tyingEquipment.renderBlockMetadata;
+                    }
+
+                    int prevMeta = Minecraft.getMinecraft().theWorld.getBlockMetadata(x, y, z);
+                    Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, tyingEquipmentBlockMetadata, 0);
+
+                    if (tyingItemUsedUp) {
+                        float color = 0.5f;
+                        renderPartWithColorMultiplier(renderer, x, y, z, tyingEquipmentBlock, rackBounds.knots[i], color);
+                        renderPartWithColorMultiplier(renderer, x, y, z, tyingEquipmentBlock, rackBounds.strings[i], color);
+                    } else {
+                        renderPart(renderer, x, y, z, tyingEquipmentBlock, rackBounds.knots[i]);
+                        renderPart(renderer, x, y, z, tyingEquipmentBlock, rackBounds.strings[i]);
+                    }
+
+                    Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, prevMeta, 0);
                 }
-
-                int prevMeta = Minecraft.getMinecraft().theWorld.getBlockMetadata(x, y, z);
-                Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, tyingEquipmentBlockMetadata, 0);
-
-                if (item.tyingItemUsedUp) {
-                    float color = 0.5f;
-                    renderPartWithColorMultiplier(renderer, x, y, z, tyingEquipmentBlock, rackBounds.knots[i], color);
-                    renderPartWithColorMultiplier(renderer, x, y, z, tyingEquipmentBlock, rackBounds.strings[i], color);
-                } else {
-                    renderPart(renderer, x, y, z, tyingEquipmentBlock, rackBounds.knots[i]);
-                    renderPart(renderer, x, y, z, tyingEquipmentBlock, rackBounds.strings[i]);
-                }
-
-                Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, prevMeta, 0);
             }
         }
 

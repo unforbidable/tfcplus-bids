@@ -1,57 +1,63 @@
 package com.unforbidable.tfc.bids.Core.DryingRack;
 
+import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class DryingRackItem {
+public class DryingRackItem extends DryingItem {
 
-    public final ItemStack dryingItem;
-    public final ItemStack tyingItem;
-    public final long dryingStartTicks;
-    public final boolean tyingItemUsedUp;
+    public ItemStack tyingItem;
+    public boolean tyingItemUsedUp;
 
-    public DryingRackItem(ItemStack dryingItem, ItemStack tyingItem, long dryingStartTicks, boolean tyingItemUsedUp) {
-        this.dryingItem = dryingItem;
-        this.tyingItem = tyingItem;
-        this.dryingStartTicks = dryingStartTicks;
-        this.tyingItemUsedUp = tyingItemUsedUp;
+    public ItemStack getCurrentTyingItem() {
+        if (tyingItem != null) {
+            if (!tyingItemUsedUp) {
+                // return if not used up
+                return tyingItem;
+            }
+
+            DryingRackManager.TyingEquipment te = DryingRackManager.findTyingEquipmnt(tyingItem);
+            if (te != null && te.isReusable) {
+                // unless if reusable return anyway
+                return tyingItem;
+            }
+        }
+
+        return null;
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound tag) {
-        if (dryingItem != null) {
-            NBTTagCompound tagDryingItem = new NBTTagCompound();
-            dryingItem.writeToNBT(tagDryingItem);
-            tag.setTag("dryingItem", tagDryingItem);
-        }
+        super.writeToNBT(tag);
 
         if (tyingItem != null) {
-            NBTTagCompound tagTyingItem = new NBTTagCompound();
-            tyingItem.writeToNBT(tagTyingItem);
-            tag.setTag("tyingItem", tagTyingItem);
+            NBTTagCompound tagItem = new NBTTagCompound();
+            tyingItem.writeToNBT(tagItem);
+            tag.setTag("tyingItem", tagItem);
         }
 
-        tag.setLong("dryingStartTicks", dryingStartTicks);
         tag.setBoolean("tyingItemUsedUp", tyingItemUsedUp);
     }
 
-    public static DryingRackItem loadItemFromNBT(NBTTagCompound tag) {
-        ItemStack dryingItem = null;
-        ItemStack tyingItem = null;
-
-        if (tag.hasKey("dryingItem")) {
-            NBTTagCompound tagDryingItem = tag.getCompoundTag("dryingItem");
-            dryingItem = ItemStack.loadItemStackFromNBT(tagDryingItem);
-        }
+    @Override
+    public void readFromNBT(NBTTagCompound tag) {
+        super.readFromNBT(tag);
 
         if (tag.hasKey("tyingItem")) {
-            NBTTagCompound tagTyingItem = tag.getCompoundTag("tyingItem");
-            tyingItem = ItemStack.loadItemStackFromNBT(tagTyingItem);
+            NBTTagCompound tagItem = tag.getCompoundTag("tyingItem");
+            tyingItem = ItemStack.loadItemStackFromNBT(tagItem);
+        } else {
+            tyingItem = null;
         }
 
-        long dryingStartTicks = tag.getLong("dryingStartTicks");
-        boolean tyingItemUsedUp = tag.getBoolean("tyingItemUsedUp");
+        tyingItemUsedUp = tag.getBoolean("tyingItemUsedUp");
+    }
 
-        return new DryingRackItem(dryingItem, tyingItem, dryingStartTicks, tyingItemUsedUp);
+    public static DryingRackItem loadDryingRackItemFromNBT(NBTTagCompound tag) {
+        DryingRackItem dryingRackItem = new DryingRackItem();
+        dryingRackItem.readFromNBT(tag);
+        return dryingRackItem;
     }
 
 }

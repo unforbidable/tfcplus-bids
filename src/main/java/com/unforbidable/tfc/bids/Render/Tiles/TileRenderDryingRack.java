@@ -1,15 +1,13 @@
 package com.unforbidable.tfc.bids.Render.Tiles;
 
-import org.lwjgl.opengl.GL11;
-
 import com.dunk.tfc.Render.TESR.TESRBase;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackBounds;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Vec3;
+import org.lwjgl.opengl.GL11;
 
 public class TileRenderDryingRack extends TESRBase {
 
@@ -56,9 +54,9 @@ public class TileRenderDryingRack extends TESRBase {
             final boolean isNorthSouthOrientation = orientation % 2 == 0;
 
             for (int i = 0; i < 4; i++) {
-                DryingRackItem item = dryingRack.getItem(i);
-                if (item != null && item.dryingItem != null) {
-                    final boolean tied = item.tyingItem != null;
+                DryingRackItem dryingItem = dryingRack.getItem(i);
+                if (dryingItem != null) {
+                    boolean tied = dryingItem.tyingItem != null;
 
                     GL11.glPushMatrix(); // start
                     GL11.glScalef(blockScale, blockScale, blockScale);
@@ -76,7 +74,7 @@ public class TileRenderDryingRack extends TESRBase {
                         GL11.glTranslated(offset.xCoord, offset.yCoord, offset.zCoord);
                     }
 
-                    customitem.setEntityItemStack(item.dryingItem);
+                    customitem.setEntityItemStack(dryingItem.getCurrentItem());
                     itemRenderer.doRender(customitem, 0, 0, 0, 0, 0);
 
                     GL11.glPopMatrix(); // end

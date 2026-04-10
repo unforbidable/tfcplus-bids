@@ -61,6 +61,7 @@ public class RecipeSetup {
         registerSaddleQuernRecipes();
         registerStonePressRecipes();
         registerScrewPressRecipes();
+        registerDryingRecipes();
         registerCookingRecipes();
         registerPrepRecipes();
         registerChurningRecipes();
@@ -688,41 +689,9 @@ public class RecipeSetup {
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewGarlic), new ItemStack(TFCItems.seedsGarlic));
         GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCarrot), new ItemStack(TFCItems.seedsCarrot));
 
-        DryingRackManager.addRecipe(new DryingRackRecipe(new ItemStack(BidsItems.barkFibreCoarse),
-                new ItemStack(BidsItems.barkFibre), 12, false));
-        DryingRackManager.addRecipe(new DryingRackRecipe(new ItemStack(BidsItems.sisalFiberCoarse),
-                new ItemStack(BidsItems.sisalFiberRinsed), 12, false));
-        DryingRackManager.addRecipe(new DryingRackRecipe(new ItemStack(BidsItems.juteFiberCoarse),
-                new ItemStack(TFCItems.juteFiber), 12, false));
-        DryingRackManager.addRecipe(new DryingRackRecipe(new ItemStack(BidsItems.flaxStalkDried),
-                new ItemStack(BidsItems.flaxStalkRetted), 18, false));
-        DryingRackManager.addRecipe(new DryingRackRecipe(new ItemStack(BidsItems.woolDried),
-                new ItemStack(BidsItems.woolRinsed), 8, false));
-
         GameRegistry.addRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2, 0), "P P", "X X", "P P",
             'P', new ItemStack(TFCItems.fireBrick, 1, 1),
             'X', new ItemStack(TFCItems.mortar, 1));
-
-        // Meat and cheese drying from TFC
-        final Item[] foodToDry = new Item[] { TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
-                TFCItems.porkchopRaw, TFCItems.fishRaw, TFCItems.seastarRaw, TFCItems.scallopRaw,
-                TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese,
-                BidsItems.goatCheese };
-        for (Item food : foodToDry) {
-            DryingRackManager.addRecipe(new DryingRackFoodRecipe(ItemFoodTFC.createTag(new ItemStack(food)), 12, true));
-        }
-
-        // Extra food drying
-        DryingRackManager.addRecipe(new DryingRackFoodRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.seaWeed)), 12, true));
-
-        // And now tying equipment
-        DryingRackManager.registerTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1);
-        DryingRackManager.registerTyingEquipment(TFCItems.woolYarn, false, Blocks.wool, 0);
-        DryingRackManager.registerTyingEquipment(TFCItems.linenString, false, Blocks.wool, 0);
-        DryingRackManager.registerTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0);
-        DryingRackManager.registerTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0);
-        DryingRackManager.registerTyingEquipment(BidsItems.sisalTwine, false, Blocks.wool, 1);
-        DryingRackManager.registerTyingEquipment(BidsItems.juteTwine, false, Blocks.wool, 1);
 
         RecipeManager.addAction(new ActionDamageTool(1)
                 .addTools("itemAdze", "itemAxe")
@@ -1089,6 +1058,62 @@ public class RecipeSetup {
         // Require fish to be steamed to medium level
         Food.setCooked(steamedFish, CookingHelper.getTempForItemStackCookedLevel(steamedFish, 3));
         ScrewPressManager.addRecipe(new ScrewPressRecipe(new FluidStack(BidsFluids.OILYFISHWATER, 10), steamedFish, 0.65f));
+    }
+
+    private static void registerDryingRecipes() {
+        Bids.LOG.info("Register drying recipes");
+
+        DryingRackManager.addRecipe((DryingRackRecipe) DryingRackRecipe.builder()
+            .consumes(new ItemStack(BidsItems.barkFibre))
+            .produces(new ItemStack(BidsItems.barkFibreCoarse))
+            .dry()
+            .hours(8)
+            .build());
+        DryingRackManager.addRecipe((DryingRackRecipe) DryingRackRecipe.builder()
+            .consumes(new ItemStack(BidsItems.sisalFiberRinsed))
+            .produces(new ItemStack(BidsItems.sisalFiberCoarse))
+            .dry()
+            .hours(8)
+            .build());
+        DryingRackManager.addRecipe((DryingRackRecipe) DryingRackRecipe.builder()
+            .consumes(new ItemStack(TFCItems.juteFiber))
+            .produces(new ItemStack(BidsItems.juteFiberCoarse))
+            .dry()
+            .hours(16)
+            .build());
+        DryingRackManager.addRecipe((DryingRackRecipe) DryingRackRecipe.builder()
+            .consumes(new ItemStack(BidsItems.flaxStalkRetted))
+            .produces(new ItemStack(BidsItems.flaxStalkDried))
+            .dry()
+            .hours(16)
+            .build());
+        DryingRackManager.addRecipe((DryingRackRecipe) DryingRackRecipe.builder()
+            .consumes(new ItemStack(BidsItems.woolRinsed))
+            .produces(new ItemStack(BidsItems.woolDried))
+            .dry()
+            .hours(4)
+            .build());
+
+        // Meat and cheese drying from TFC
+        final Item[] foodToDry = new Item[] { TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
+            TFCItems.porkchopRaw, TFCItems.fishRaw, TFCItems.seastarRaw, TFCItems.scallopRaw,
+            TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese,
+            BidsItems.goatCheese };
+        for (Item food : foodToDry) {
+            DryingRackManager.addRecipe((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
+                .tied()
+                .consumes(ItemFoodTFC.createTag(new ItemStack(food), 1))
+                .dry()
+                .hours(16)
+                .build());
+        }
+
+        // Extra food drying
+        DryingRackManager.addRecipe((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.seaWeed), 1))
+            .dry()
+            .hours(16)
+            .build());
     }
 
     private static void registerCookingRecipes() {
