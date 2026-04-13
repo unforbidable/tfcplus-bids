@@ -36,8 +36,9 @@ public class EnvironmentHelper {
     }
 
     public static float getTemperature(World world, int blockX, int blockY, int blockZ, long ticks) {
-        int day = (int) (ticks / TFC_Time.DAY_LENGTH);
-        int hour = (int) ((ticks % TFC_Time.DAY_LENGTH) / TFC_Time.HOUR_LENGTH);
+        int th = (int)(ticks / TFC_Time.HOUR_LENGTH);
+        int day = TFC_Time.getDayFromTotalHours(th);
+        int hour = TFC_Time.getHourOfDayFromTotalHours(th);
         return TFC_Climate.getHeightAdjustedTempSpecificDay(world, day, hour, blockX, blockY, blockZ);
     }
 
