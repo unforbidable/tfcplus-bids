@@ -1,13 +1,17 @@
 package com.unforbidable.tfc.bids.WAILA.Providers;
 
 import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemClothing;
+import com.dunk.tfc.api.TFCOptions;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.unforbidable.tfc.bids.Core.Drying.DryingHelper;
+import com.unforbidable.tfc.bids.Core.Drying.Environment.StaticEnvironment;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.WAILA.WailaProvider;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.Interfaces.IDryingEnvironment;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -75,6 +79,20 @@ public class DryingRackProvider extends WailaProvider {
                                 + ChatFormatting.WHITE + output + progress);
                         }
                     }
+                }
+
+                if (TFCOptions.enableDebugMode) {
+                    IDryingEnvironment env = new StaticEnvironment(accessor.getWorld(), accessor.getTileEntity().xCoord, accessor.getTileEntity().yCoord, accessor.getTileEntity().zCoord)
+                        .ofTicks(TFC_Time.getTotalTicks()).ofItem(dryingItem);
+
+                    currenttip.add(ChatFormatting.DARK_GRAY + "Exposed: " + env.isExposed());
+                    currenttip.add(ChatFormatting.DARK_GRAY + "Heated: " + env.isHeated());
+                    currenttip.add(ChatFormatting.DARK_GRAY + "Airflow: " + env.getAirflow());
+                    currenttip.add(ChatFormatting.DARK_GRAY + "Sunlight: " + env.getSunlight());
+                    currenttip.add(ChatFormatting.DARK_GRAY + "Temperature: " + env.getTemperature());
+                    currenttip.add(ChatFormatting.DARK_GRAY + "Precipitation: " + env.getPrecipitation());
+                    currenttip.add(ChatFormatting.DARK_GRAY + "Humidity: " + env.getHumidity());
+                    currenttip.add(ChatFormatting.DARK_GRAY + "Wetness: " + env.getWetness());
                 }
             }
         }
