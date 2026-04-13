@@ -46,15 +46,15 @@ public class EnvironmentHelper {
         // Estimate rain strength based on rainfall
         float rainfall = TFC_Climate.getRainfall(world, blockX, blockY, blockZ);
         float rainStrength = Math.min(rainfall * rainfall / 4000000, 1);
-        if (ticks == TFC_Time.getTotalTicks()) {
+        long elapsedTicks = TFC_Time.getTotalTicks() - ticks;
+        if (elapsedTicks < 100) {
             return world.isRaining() ? rainStrength : 0f;
         } else {
             // There is no way to know whether it rained or not at any moment in the past
             // but assume if it is raining now, it has been raining for a while
             // but why not consider the rainfall value
             // Hoping with upcoming rain changes we can track past rain with sufficient precision
-            long elapsedTicks = TFC_Time.getTotalTicks() - ticks;
-            return elapsedTicks < rainfall * 2 ? rainStrength : 0;
+            return world.isRaining() && elapsedTicks < rainfall * 2 ? rainStrength : 0;
         }
     }
 
