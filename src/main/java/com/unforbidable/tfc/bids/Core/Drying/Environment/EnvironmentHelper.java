@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Core.Drying.Environment;
 
+import com.dunk.tfc.Blocks.BlockRoof;
 import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
@@ -7,8 +8,10 @@ import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Interfaces.IHeatSource;
 import com.dunk.tfc.api.Interfaces.IHeatSourceTE;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class EnvironmentHelper {
 
@@ -88,8 +91,59 @@ public class EnvironmentHelper {
         return tempScale * Math.max(result, isRaining ? 1.0F : 0.0F);
     }
 
-    public static Boolean isExposed(World world, int blockX, int blockY, int blockZ) {
+    public static boolean isExposed(World world, int blockX, int blockY, int blockZ) {
         return TFC_Core.isExposed(world, blockX, blockY, blockZ);
+    }
+
+    public static float getSunlight(World world, int blockX, int blockY, int blockZ, long ticks) {
+        // Adapted from TFC_Time.getTotalHours() for specific ticks with float precision
+        float totalHours = ticks / (float)TFC_Time.HOUR_LENGTH;
+        float hour = (totalHours + 6) % 24;
+        float hoursOffNoon = hour > 11 ? Math.max(hour - 12, 0) : 12 - hour;
+
+        // Adapted from TFC_Time.getTotalDays() for specific ticks
+        int totalDays = (int)Math.floor(ticks / 24000.0F);
+        float hoursBetweenNoonAndSunset = 4 + TFC_Time.getPercentSummer(totalDays, blockZ) * 2;
+
+        return Math.max(1 - hoursOffNoon / hoursBetweenNoonAndSunset * hoursOffNoon / hoursBetweenNoonAndSunset, 0);
+    }
+
+    private static final int AIRFLOW_MAX_VALUE = 10;
+    private static final int AIRFLOW_EVALUATED_DISTANCE = 4;
+
+    public static float getAirflow(World world, int blockX, int blockY, int blockZ) {
+        if (!isBlockAllowingAirflow(world, blockX, blockY + 1, blockZ, ForgeDirection.DOWN)) {
+            return 0f;
+        }
+
+        // For each direction
+        // Look for up to 3 blocks of air
+        // add up the factorial of the distance of the furthest block of air
+        // up to max total
+        int result = 0;
+        for (ForgeDirection dir : new ForgeDirection[]{ForgeDirection.WEST, ForgeDirection.EAST, ForgeDirection.NORTH, ForgeDirection.SOUTH}) {
+            for (int dist = 1; dist <= AIRFLOW_EVALUATED_DISTANCE; dist++) {
+                if (!isBlockAllowingAirflow(world, blockX + dir.offsetX * dist, blockY, blockZ + dir.offsetZ * dist, dir.getOpposite())) {
+                    break;
+                }
+
+                result = Math.min(result + dist, AIRFLOW_MAX_VALUE);
+                if (result == AIRFLOW_MAX_VALUE) {
+                    return 1f;
+                }
+            }
+        }
+
+        return result / (float)AIRFLOW_MAX_VALUE;
+    }
+
+    private static boolean isBlockAllowingAirflow(World world, int x, int y, int z, ForgeDirection side) {
+        Block block = world.getBlock(x, y, z);
+        return block.getMaterial() == Material.air ||
+            !(block instanceof BlockRoof) &&
+            !block.renderAsNormalBlock() &&
+            !block.isOpaqueCube() &&
+            !block.isSideSolid(world, x, y, z, side);
     }
 
 }

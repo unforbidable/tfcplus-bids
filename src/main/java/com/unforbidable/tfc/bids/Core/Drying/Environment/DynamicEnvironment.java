@@ -16,6 +16,7 @@ public class DynamicEnvironment {
     private Float temperature;
     private Float precipitation;
     private Float humidity;
+    private Float sunlight;
 
     public DynamicEnvironment(World world, int blockX, int blockY, int blockZ, long ticks, StaticEnvironment staticEnvironment) {
         this.world = world;
@@ -46,17 +47,36 @@ public class DynamicEnvironment {
         return precipitation;
     }
 
+    public float getSunlight() {
+        if (sunlight == null) {
+            sunlight = isExposed() ? EnvironmentHelper.getSunlight(world, blockX, blockY, blockZ, ticks) : 0;
+        }
+
+        return sunlight;
+    }
+
     public float getHumidity() {
         if (humidity == null) {
-            // Humidity is 1 during rain and 0 when freezing
-            // based on the current temperature and precipitation
-            // otherwise calculated from rainfall
-            float generalHumidity = EnvironmentHelper.getHumidity(world, blockX, blockY, blockZ, getTemperature(), getPrecipitation());
+            if (isExposed() && getPrecipitation() > 0) {
+                // when it rains or snows without cover, humidity is always 100%
+                humidity = 1f;
+            } else {
+                float generalHumidity = EnvironmentHelper.getHumidity(world, blockX, blockY, blockZ, getTemperature(), getPrecipitation());
+                if (generalHumidity == 0) {
+                    // if humidity is already 0% due to freezing temperature
+                    // it cannot be reduced anymore by multipliers below
+                    humidity = 0f;
+                } else {
+                    // Rain or snow falling on block prevents drying
+                    // otherwise humidity can be reduced by nearby heat source
+                    float humidityHeatedMultiplier = isHeated() ? 0.5f : 1f;
 
-            // Rain or snow falling on block prevents drying
-            // otherwise humidity can be reduced by nearby heat source
-            float humidityHeatedMultiplier = isHeated() ? 0.25f : 1f;
-            humidity = isExposed() && getPrecipitation() > 0 ? 1 : generalHumidity * humidityHeatedMultiplier;
+                    // Similarly, sunshine helps with drying
+                    float humiditySunlightMultiplier = getSunlight() > 0 ? (1 - getSunlight() * 0.25f) : 1f;
+
+                    humidity = generalHumidity * humidityHeatedMultiplier * humiditySunlightMultiplier;
+                }
+            }
         }
 
         return humidity;
@@ -64,6 +84,10 @@ public class DynamicEnvironment {
 
     public boolean isExposed() {
         return staticEnvironment.isExposed();
+    }
+
+    public float getAirflow() {
+        return staticEnvironment.getAirflow();
     }
 
     public boolean isHeated() {

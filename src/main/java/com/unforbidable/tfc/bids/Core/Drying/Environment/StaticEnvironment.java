@@ -11,6 +11,7 @@ public class StaticEnvironment {
 
     private Boolean exposed;
     private Boolean heated;
+    private Float airflow;
 
     public StaticEnvironment(World world, int blockX, int blockY, int blockZ) {
         this.world = world;
@@ -29,6 +30,14 @@ public class StaticEnvironment {
         }
 
         return exposed;
+    }
+
+    public float getAirflow() {
+        if (airflow == null) {
+            airflow = EnvironmentHelper.getAirflow(world, blockX, blockY, blockZ);
+        }
+
+        return airflow;
     }
 
     public boolean isHeated() {

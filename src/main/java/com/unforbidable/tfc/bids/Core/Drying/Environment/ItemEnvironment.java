@@ -45,6 +45,16 @@ public class ItemEnvironment implements IDryingEnvironment {
     }
 
     @Override
+    public float getAirflow() {
+        return dynamicEnvironment.getAirflow();
+    }
+
+    @Override
+    public float getSunlight() {
+        return dynamicEnvironment.getSunlight();
+    }
+
+    @Override
     public boolean isExposed() {
         return dynamicEnvironment.isExposed();
     }

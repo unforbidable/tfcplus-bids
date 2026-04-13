@@ -8,5 +8,7 @@ public interface IDryingEnvironment {
     float getPrecipitation();
     float getHumidity();
     float getWetness();
+    float getAirflow();
+    float getSunlight();
 
 }

@@ -120,10 +120,10 @@ public class DryingEngine {
                 DryingHelper.applyInputItemWetness(dryingItem);
 
                 isDirty = true;
-            } else if (env.getHumidity() < 1 && dryingItem.wetness > 0) {
-                // when humidity allows, wet item can dry off
+            } else if (env.getHumidity() < 1 && env.getAirflow() > 0 && dryingItem.wetness > 0) {
+                // when humidity and airflow allows, wet item can dry off
                 float wetness = wetnessInfo.capacity * dryingItem.wetness;
-                float wetnessToRemove = (1 - env.getHumidity()) * ticksElapsed * host.getWetnessReductionRate();
+                float wetnessToRemove = (1 - env.getHumidity()) * env.getAirflow() * ticksElapsed * host.getWetnessReductionRate();
                 float wetnessRemoved = Math.max(wetness - wetnessToRemove, 0);
                 dryingItem.wetness = wetnessRemoved / wetnessInfo.capacity;
 

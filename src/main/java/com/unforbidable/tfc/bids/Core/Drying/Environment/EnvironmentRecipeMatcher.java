@@ -26,7 +26,7 @@ public class EnvironmentRecipeMatcher {
 
     private float matchDry() {
         if (recipe.isRequiresDry()) {
-            return env.getWetness() == 0 ? (1 - env.getHumidity()) : 0;
+            return env.getWetness() == 0 && env.getAirflow() > 0 ? (1 - env.getHumidity()) * env.getAirflow() : 0;
         } else {
             return 1;
         }
