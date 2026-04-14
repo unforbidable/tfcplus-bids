@@ -362,6 +362,9 @@ public class BlockSetup extends BidsBlocks {
 
         soakingSurface = new BlockSoakingSurface()
             .setBlockName("SoakingSurface");
+
+        dryingSurface = new BlockDryingSurface()
+            .setBlockName("DryingSurface");
     }
 
     private static void updateBlocks() {
@@ -557,6 +560,7 @@ public class BlockSetup extends BidsBlocks {
         BidsRegistry.SURFACE_PLACERS.register(new ProcessingSurfacePlacer());
         BidsRegistry.SURFACE_PLACERS.register(new DecorativeSurfacePlacer());
         BidsRegistry.SURFACE_PLACERS.register(new SoakingSurfacePlacer());
+        BidsRegistry.SURFACE_PLACERS.register(new DryingSurfacePlacer());
     }
 
     @SideOnly(Side.CLIENT)
@@ -676,6 +680,9 @@ public class BlockSetup extends BidsBlocks {
 
         newFirepitRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(newFirepitRenderId, new RenderNewFirepit());
+
+        dryingSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(dryingSurfaceRenderId, new RenderDryingSurface());
     }
 
     private static void registerTileEntities() {
@@ -734,6 +741,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerTileEntity(TileEntityDecorativeSurface.class, "BidsDecorativeSurface");
 
         GameRegistry.registerTileEntity(TileEntitySoakingSurface.class, "BidsSoakingSurface");
+
+        GameRegistry.registerTileEntity(TileEntityDryingSurface.class, "BidsDryingSurface");
     }
 
     @SideOnly(Side.CLIENT)
@@ -751,6 +760,7 @@ public class BlockSetup extends BidsBlocks {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScrewPressLever.class, new RenderTileScrewPressLever());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDecorativeSurface.class, new RenderTileDecorativeSurface());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySoakingSurface.class, new RenderTileSoakingSurface());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDryingSurface.class, new RenderTileDryingSurface());
     }
 
     private static void registerMessages() {
@@ -933,6 +943,8 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(decorativeSurface, "DecorativeSurface");
 
         GameRegistry.registerBlock(soakingSurface, "SoakingSurface");
+
+        GameRegistry.registerBlock(dryingSurface, "DryingSurface");
     }
 
 }

@@ -343,6 +343,8 @@ tile.StrawNest.name=Straw Nest
 
 tile.SoakingSurface.name=Soaking Surface
 
+tile.DryingSurface.name=Drying Surface
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit

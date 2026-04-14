@@ -49,6 +49,7 @@ public class BidsBlocks {
     public static int processingSurfaceRenderId;
     public static int decorativeSurfaceRenderId;
     public static int soakingSurfaceRenderId;
+    public static int dryingSurfaceRenderId;
 
     public static Block clayCrucible;
     public static Block fireClayCrucible;
@@ -201,5 +202,6 @@ public class BidsBlocks {
     public static Block decorativeSurface;
 
     public static Block soakingSurface;
+    public static Block dryingSurface;
 
 }

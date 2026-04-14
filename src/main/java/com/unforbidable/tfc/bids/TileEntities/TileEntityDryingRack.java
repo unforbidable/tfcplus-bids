@@ -451,12 +451,12 @@ public class TileEntityDryingRack extends TileEntity
 
     @Override
     public float getWetnessIncreaseRate() {
-        return 0.25f;
+        return 0.2f;
     }
 
     @Override
     public float getWetnessReductionRate() {
-        return 0.5f;
+        return 0.6f;
     }
 
 }

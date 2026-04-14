@@ -40,6 +40,7 @@ public class WailaSetup {
         WailaProvider.addProvider(new ProcessingSurfaceProvider(), TileEntityProcessingSurface.class);
         WailaProvider.addProvider(new DecorativeSurfaceProvider(), TileEntityDecorativeSurface.class);
         WailaProvider.addProvider(new SoakingSurfaceProvider(), TileEntitySoakingSurface.class);
+        WailaProvider.addProvider(new DryingSurfaceProvider(), TileEntityDryingSurface.class);
 
         WailaEntityProvider.addProvider(new AnimalMilkProvider(), IAnimal.class);
     }
