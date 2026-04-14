@@ -116,7 +116,7 @@ public class DryingHelper {
         if (inputItem.getItem() instanceof ItemClothing) {
             return new WetnessInfo(1000, 1);
         } else {
-            return BidsRegistry.WETNESS.get(inputItem);
+            return BidsRegistry.ITEM_WETNESS.get(inputItem);
         }
     }
 

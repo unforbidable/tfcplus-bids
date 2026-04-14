@@ -1,17 +1,18 @@
 package com.unforbidable.tfc.bids.api;
 
+import com.unforbidable.tfc.bids.api.Interfaces.ISurfaceItemPlacer;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class BidsRegistry {
 
-    public static final Registry<WetnessInfo> WETNESS = new Registry<>();
+    public static final ItemRegistry<WetnessInfo> ITEM_WETNESS = new ItemRegistry<>();
+    public static final ListRegistry<ISurfaceItemPlacer> SURFACE_PLACERS = new ListRegistry<>();
 
-    public static class Registry<T> {
+    public static class ItemRegistry<T> {
 
         public static final int WILD = 32767;
 
@@ -36,6 +37,20 @@ public class BidsRegistry {
 
         private static String getItemKeyWildcard(ItemStack itemStack) {
             return itemStack.getUnlocalizedName() + "@" + WILD;
+        }
+    }
+
+    public static class ListRegistry<V> implements Iterable<V> {
+
+        private final List<V> values = new ArrayList<>();
+
+        public void register(V value) {
+            values.add(value);
+        }
+
+        @Override
+        public Iterator<V> iterator() {
+            return values.iterator();
         }
     }
 

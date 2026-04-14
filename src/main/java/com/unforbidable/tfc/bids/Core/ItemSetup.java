@@ -1103,12 +1103,12 @@ public class ItemSetup extends BidsItems {
     private static void registerWetness() {
         Bids.LOG.info("Register item wetness");
 
-        BidsRegistry.WETNESS.register(BidsItems.barkFibre, new WetnessInfo(500, 1f));
-        BidsRegistry.WETNESS.register(BidsItems.sisalFiberRinsed, new WetnessInfo(500, 1f));
-        BidsRegistry.WETNESS.register(TFCItems.juteFiber, new WetnessInfo(500, 1f));
-        BidsRegistry.WETNESS.register(BidsItems.flaxStalkRetted, new WetnessInfo(500, 0.5f));
-        BidsRegistry.WETNESS.register(BidsItems.woolRinsed, new WetnessInfo(1000, 1f));
-        BidsRegistry.WETNESS.register(TFCItems.seaWeed, new WetnessInfo(500, 1f));
+        BidsRegistry.ITEM_WETNESS.register(BidsItems.barkFibre, new WetnessInfo(500, 1f));
+        BidsRegistry.ITEM_WETNESS.register(BidsItems.sisalFiberRinsed, new WetnessInfo(500, 1f));
+        BidsRegistry.ITEM_WETNESS.register(TFCItems.juteFiber, new WetnessInfo(500, 1f));
+        BidsRegistry.ITEM_WETNESS.register(BidsItems.flaxStalkRetted, new WetnessInfo(500, 0.5f));
+        BidsRegistry.ITEM_WETNESS.register(BidsItems.woolRinsed, new WetnessInfo(1000, 1f));
+        BidsRegistry.ITEM_WETNESS.register(TFCItems.seaWeed, new WetnessInfo(500, 1f));
     }
 
     private static void registerDryingRackTyingEquipment() {

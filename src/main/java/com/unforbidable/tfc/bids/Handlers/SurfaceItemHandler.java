@@ -4,25 +4,16 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Reference;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Util.Helper;
-import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Common.Metadata.DecorativeSurfaceMetadata;
-import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
-import com.unforbidable.tfc.bids.Core.SoakingSurface.SoakingSurfaceHelper;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityDecorativeSurface;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityProcessingSurface;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceManager;
-import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Events.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.Events.SurfaceItemEvent;
+import com.unforbidable.tfc.bids.api.Interfaces.ISurfaceItemPlacer;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -33,9 +24,7 @@ public class SurfaceItemHandler {
         if (event.entityPlayer.getHeldItem() != null) {
             if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
                 if (!event.world.isRemote) {
-                    if (tryPlaceProcessingSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer) ||
-                        tryPlaceDecorativeSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer) ||
-                        tryPlaceSoakingSurface(event.entityPlayer.getHeldItem(), event.world, event.x, event.y, event.z, event.face, event.entityPlayer)) {
+                    if (placeSurfaceItem(event.world, event.x, event.y, event.z, event.face, event.entityPlayer)) {
                         event.setCanceled(true);
                     }
                 }
@@ -46,9 +35,7 @@ public class SurfaceItemHandler {
                 if (event.world.isRemote) {
                     MovingObjectPosition mop = Helper.getMouseOverObject(event.entityPlayer, event.world);
                     if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                        if (canPlaceProcessingSurface(event.entityPlayer.getHeldItem(), event.world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, event.entityPlayer) ||
-                            canPlaceDecorativeSurface(event.entityPlayer.getHeldItem(), event.world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, event.entityPlayer) ||
-                            canPlaceSoakingSurface(event.entityPlayer.getHeldItem(), event.world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, event.entityPlayer)) {
+                        if (placeSurfaceItem(event.world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit, event.entityPlayer)) {
                             event.setCanceled(true);
                         }
                     }
@@ -57,117 +44,12 @@ public class SurfaceItemHandler {
         }
     }
 
-    private boolean canPlaceProcessingSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
-        if (!player.isSneaking() && isItemAllowed(itemStack) && face == 1) {
-            ProcessingSurfaceRecipe recipe = ProcessingSurfaceManager.findMatchingRecipe(itemStack, world, x, y, z);
-            return recipe != null;
-        }
-
-        return false;
-    }
-
-    private boolean canPlaceDecorativeSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
-        if (player.isSneaking() && isItemAllowed(itemStack) && face > 0) {
-            if (isDecorativeSurfaceItem(itemStack)) {
-                ForgeDirection dir = ForgeDirection.getOrientation(face);
-                int x2 = x + dir.offsetX;
-                int y2 = y + dir.offsetY;
-                int z2 = z + dir.offsetZ;
-
-                if (world.isAirBlock(x2, y2, z2)) {
-                    Block block = world.getBlock(x, y, z);
-                    return block.isSideSolid(world, x, y, z, dir);
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private boolean canPlaceSoakingSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
-        if (player.isSneaking() && isItemAllowed(itemStack) && face == 1) {
-            return SoakingSurfaceHelper.canPlaceSoakingItemAt(world, x, y, z, itemStack);
-        }
-
-        return false;
-    }
-
-    private boolean tryPlaceProcessingSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
-        if (!player.isSneaking() && isItemAllowed(itemStack) && face == 1) {
-            ProcessingSurfaceRecipe recipe = ProcessingSurfaceManager.findMatchingRecipe(itemStack, world, x, y, z);
-            if (recipe != null) {
-                Bids.LOG.debug("Found matching ProcessingSurfaceRecipe");
-
-                if (world.isAirBlock(x, y + 1, z) &&
-                    world.setBlock(x, y + 1, z, BidsBlocks.processingSurface, 0, 2)) {
-                    TileEntityProcessingSurface te = (TileEntityProcessingSurface) world.getTileEntity(x, y + 1, z);
-                    ItemStack heldItem = itemStack.copy();
-                    heldItem.stackSize = 1;
-                    te.setInputItem(heldItem);
-                    player.getHeldItem().stackSize--;
-
+    private boolean placeSurfaceItem(World world, int x, int y, int z, int face, EntityPlayer entityPlayer) {
+        if (isItemAllowed(entityPlayer.getHeldItem())) {
+            for (ISurfaceItemPlacer placer : BidsRegistry.SURFACE_PLACERS) {
+                if (placer.placeItemOnSurface(world, x, y, z, face, entityPlayer)) {
                     return true;
                 }
-            }
-        }
-
-        return false;
-    }
-
-    private boolean tryPlaceDecorativeSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
-        if (player.isSneaking() && isItemAllowed(itemStack) && face > 0) {
-            if (isDecorativeSurfaceItem(itemStack)) {
-                ForgeDirection dir = ForgeDirection.getOrientation(face);
-                int x2 = x + dir.offsetX;
-                int y2 = y + dir.offsetY;
-                int z2 = z + dir.offsetZ;
-
-                if (world.isAirBlock(x2, y2, z2)) {
-                    Block block = world.getBlock(x, y, z);
-                    if (block.isSideSolid(world, x, y, z, dir)) {
-                        // meta is player's orientation (angle) for vertical placement
-                        // and forge direction (face) for horizontal placement
-                        DecorativeSurfaceMetadata meta = face == 1
-                            ? DecorativeSurfaceMetadata.forHorizontalOrientation(ProcessingSurfaceHelper.getOrientation(player))
-                            : DecorativeSurfaceMetadata.forVerticalFace(dir);
-
-                        if (world.setBlock(x2, y2, z2, BidsBlocks.decorativeSurface, meta.getMetadata(), 2)) {
-                            TileEntityDecorativeSurface te = (TileEntityDecorativeSurface) world.getTileEntity(x2, y2, z2);
-                            ItemStack heldItem = itemStack.copy();
-                            heldItem.stackSize = 1;
-                            te.setItem(heldItem);
-                            player.getHeldItem().stackSize--;
-
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private boolean tryPlaceSoakingSurface(ItemStack itemStack, World world, int x, int y, int z, int face, EntityPlayer player) {
-        if (player.isSneaking() && isItemAllowed(itemStack) && face == 1) {
-            ItemStack heldItem = itemStack.copy();
-            heldItem.stackSize = 1;
-
-            if (SoakingSurfaceHelper.placeSoakingItemAt(world, x, y, z, heldItem)) {
-                player.getHeldItem().stackSize--;
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean isDecorativeSurfaceItem(ItemStack itemStack) {
-        int decorativeSurfaceItemOreId = OreDictionary.getOreID("itemDecorativeSurface");
-        for (int oreId : OreDictionary.getOreIDs(itemStack)) {
-            if (oreId == decorativeSurfaceItemOreId) {
-                return true;
             }
         }
 

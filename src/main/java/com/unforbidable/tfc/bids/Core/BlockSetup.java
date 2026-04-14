@@ -7,14 +7,18 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.*;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Carving.Carvings.*;
+import com.unforbidable.tfc.bids.Core.DecorativeSurface.DecorativeSurfacePlacer;
+import com.unforbidable.tfc.bids.Core.DryingSurface.DryingSurfacePlacer;
 import com.unforbidable.tfc.bids.Core.Kilns.BeehiveKiln.BeehiveKilnChamber;
 import com.unforbidable.tfc.bids.Core.Kilns.ClimbingKiln.ClimbingKilnChamber;
 import com.unforbidable.tfc.bids.Core.Kilns.SquareKiln.SquareKilnChamber;
 import com.unforbidable.tfc.bids.Core.Kilns.TunnelKiln.TunnelKilnChamber;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Network.NetworkHelper;
+import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfacePlacer;
 import com.unforbidable.tfc.bids.Core.Quarry.Quarriables.QuarriableStone;
 import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
+import com.unforbidable.tfc.bids.Core.SoakingSurface.SoakingSurfacePlacer;
 import com.unforbidable.tfc.bids.Core.WoodPile.FireSetting.CrackableBlocks.CrackableBlockOre;
 import com.unforbidable.tfc.bids.Core.WoodPile.FireSetting.CrackableBlocks.CrackableBlockStone;
 import com.unforbidable.tfc.bids.Core.WoodPile.WoodPileMessage;
@@ -46,6 +50,7 @@ public class BlockSetup extends BidsBlocks {
         registerQuarryBlocks();
         registerCrackableBlocks();
         registerKilnChambers();
+        registerSurfacePlacers();
         registerTileEntities();
         registerMessages();
     }
@@ -544,6 +549,14 @@ public class BlockSetup extends BidsBlocks {
         if (BidsOptions.Kiln.enableClimbingKiln) {
             KilnRegistry.registerKilnChamber(ClimbingKilnChamber.class);
         }
+    }
+
+    private static void registerSurfacePlacers() {
+        Bids.LOG.info("Register surface item placers");
+
+        BidsRegistry.SURFACE_PLACERS.register(new ProcessingSurfacePlacer());
+        BidsRegistry.SURFACE_PLACERS.register(new DecorativeSurfacePlacer());
+        BidsRegistry.SURFACE_PLACERS.register(new SoakingSurfacePlacer());
     }
 
     @SideOnly(Side.CLIENT)
