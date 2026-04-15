@@ -45,8 +45,8 @@ public class DryingSurfaceProvider extends WailaProvider {
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
             IWailaConfigHandler config) {
         if (accessor.getTileEntity() instanceof TileEntityDryingSurface) {
-            TileEntityDryingSurface dryingRack = (TileEntityDryingSurface) accessor.getTileEntity();
-            DryingItem dryingItem = dryingRack.getSelectedItem();
+            TileEntityDryingSurface dryingSurface = (TileEntityDryingSurface) accessor.getTileEntity();
+            DryingItem dryingItem = dryingSurface.getSelectedItem();
             if (dryingItem != null) {
                 if (dryingItem.inputItem.getItem() instanceof ItemClothing) {
                     // Only show dump/soaked for clothes, no progress
@@ -55,8 +55,8 @@ public class DryingSurfaceProvider extends WailaProvider {
                     } else if (TFC_Core.isClothingSoaked(dryingItem.inputItem, accessor.getPlayer())) {
                         currenttip.add(EnumChatFormatting.BLUE + TFC_Core.translate("gui.soaked") + ": " + TFC_Core.getClothingWetness(dryingItem.inputItem));
                     }
-                } else {
-                    DryingRecipe recipe = dryingRack.getDryingRecipe(dryingItem);
+                } else if (dryingItem.failure < 1) {
+                    DryingRecipe recipe = dryingSurface.getDryingRecipe(dryingItem);
                     if (recipe != null) {
                         if (dryingItem.wetness > 0) {
                             WetnessInfo wetnessInfo = DryingHelper.getWetnessInfo(dryingItem.inputItem);

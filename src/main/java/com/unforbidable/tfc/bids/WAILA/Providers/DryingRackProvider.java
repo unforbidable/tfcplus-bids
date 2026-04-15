@@ -55,7 +55,7 @@ public class DryingRackProvider extends WailaProvider {
                     } else if (TFC_Core.isClothingSoaked(dryingItem.inputItem, accessor.getPlayer())) {
                         currenttip.add(EnumChatFormatting.BLUE + TFC_Core.translate("gui.soaked") + ": " + TFC_Core.getClothingWetness(dryingItem.inputItem));
                     }
-                } else {
+                } else if (dryingItem.failure < 1) {
                     DryingRecipe recipe = dryingRack.getDryingRecipe(dryingItem);
                     if (recipe != null) {
                         if (dryingItem.wetness > 0) {
