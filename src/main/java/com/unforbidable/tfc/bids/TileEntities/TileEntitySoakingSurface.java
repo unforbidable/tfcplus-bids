@@ -237,28 +237,31 @@ public class TileEntitySoakingSurface extends TileEntity implements IMessageHanl
     }
 
     public boolean canPlaceItem(ItemStack item) {
-        for (int i = 0; i < MAX_STORAGE; i++) {
-            if (storage[i] == null) {
-                return true;
-            }
+        return findAvailableSlot() != -1;
+    }
+
+    public boolean placeItem(ItemStack item, int preferredSlot) {
+        int slot = preferredSlot != -1 && storage[preferredSlot] == null ? preferredSlot : findAvailableSlot();
+        if (slot != -1) {
+            storage[slot] = new SoakingSurfaceItem(item, TFC_Time.getTotalTicks());
+
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            clientNeedToUpdate = true;
+
+            return true;
         }
 
         return false;
     }
 
-    public boolean placeItem(ItemStack item) {
+    private int findAvailableSlot() {
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] == null) {
-                storage[i] = new SoakingSurfaceItem(item, TFC_Time.getTotalTicks());
-
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                clientNeedToUpdate = true;
-
-                return true;
+                return i;
             }
         }
 
-        return false;
+        return -1;
     }
 
     public boolean retrieveItem(int slot, EntityPlayer player) {

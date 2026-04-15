@@ -15,7 +15,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class DecorativeSurfacePlacer implements ISurfaceItemPlacer {
 
     @Override
-    public boolean placeItemOnSurface(World world, int x, int y, int z, int face, EntityPlayer player) {
+    public boolean placeItemOnSurface(World world, int x, int y, int z, int face, float hitX, float hitY, float hitZ, EntityPlayer player) {
         if (player.isSneaking() && face > 0) {
             if (isDecorativeSurfaceItem(player.getHeldItem())) {
                 ForgeDirection dir = ForgeDirection.getOrientation(face);

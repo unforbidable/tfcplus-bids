@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 public class ProcessingSurfacePlacer implements ISurfaceItemPlacer {
 
     @Override
-    public boolean placeItemOnSurface(World world, int x, int y, int z, int face, EntityPlayer player) {
+    public boolean placeItemOnSurface(World world, int x, int y, int z, int face, float hitX, float hitY, float hitZ, EntityPlayer player) {
         if (!player.isSneaking() && face == 1 && world.isAirBlock(x, y + 1, z)) {
             ProcessingSurfaceRecipe recipe = ProcessingSurfaceManager.findMatchingRecipe(player.getHeldItem(), world, x, y, z);
             if (recipe != null) {

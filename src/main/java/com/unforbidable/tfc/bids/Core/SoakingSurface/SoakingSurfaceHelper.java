@@ -43,13 +43,14 @@ public class SoakingSurfaceHelper {
         return block.isOpaqueCube() && block.renderAsNormalBlock() && isValidSoakingSurfaceBlock(block);
     }
 
-    public static boolean placeSoakingItemAt(World world, int x, int y, int z, ItemStack item) {
+    public static boolean placeSoakingItemAt(World world, int x, int y, int z, float hitX, float hitZ, ItemStack item) {
         if (isValidSoakingSurfaceItem(item, world, x, y, z)) {
             Block block = world.getBlock(x, y, z);
             if (block instanceof BlockSoakingSurface) {
                 TileEntitySoakingSurface te = (TileEntitySoakingSurface) world.getTileEntity(x, y, z);
                 if (te.canPlaceItem(item)) {
-                    return te.placeItem(item);
+                    int slot = getSoakingSurfaceSlotFromHit(hitX, 1, hitZ);
+                    return te.placeItem(item, slot);
                 }
             } else {
                 if (canSoakingSurfaceReplaceBlock(block)) {
@@ -57,7 +58,8 @@ public class SoakingSurfaceHelper {
                     world.setBlock(x, y, z, BidsBlocks.soakingSurface, 0, 2);
                     TileEntitySoakingSurface te = (TileEntitySoakingSurface) world.getTileEntity(x, y, z);
                     te.setOriginalBlock(block, metadata);
-                    return te.placeItem(item);
+                    int slot = getSoakingSurfaceSlotFromHit(hitX, 1, hitZ);
+                    return te.placeItem(item, slot);
                 }
             }
         }

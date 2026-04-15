@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.Core.DryingSurface;
 
-import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Items.ItemClothing;
 import com.unforbidable.tfc.bids.Blocks.BlockDryingSurface;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
@@ -37,18 +36,20 @@ public class DryingSurfaceHelper {
         return DryingSurfaceManager.getMatchingRecipe(item) != null || item.getItem() instanceof ItemClothing;
     }
 
-    public static boolean placeDryingItemAt(World world, int x, int y, int z, ItemStack item) {
+    public static boolean placeDryingItemAt(World world, int x, int y, int z, float hitX, float hitZ, ItemStack item) {
         if (isValidDryingSurfaceItem(item)) {
             Block block = world.getBlock(x, y, z);
             if (block instanceof BlockDryingSurface) {
                 TileEntityDryingSurface te = (TileEntityDryingSurface) world.getTileEntity(x, y, z);
                 if (te.canPlaceItem(item)) {
-                    return te.placeItem(item);
+                    int slot = getDryingSurfaceSlotFromHit(hitX, 0, hitZ);
+                    return te.placeItem(item, slot);
                 }
             } else {
                 world.setBlock(x, y + 1, z, BidsBlocks.dryingSurface, 0, 2);
                 TileEntityDryingSurface te = (TileEntityDryingSurface) world.getTileEntity(x, y + 1, z);
-                return te.placeItem(item);
+                int slot = getDryingSurfaceSlotFromHit(hitX, 0, hitZ);
+                return te.placeItem(item, slot);
             }
         }
 

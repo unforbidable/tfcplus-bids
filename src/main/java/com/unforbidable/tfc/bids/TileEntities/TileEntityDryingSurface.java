@@ -131,38 +131,42 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
     }
 
     public boolean canPlaceItem(ItemStack itemStack) {
-        for (int i = 0; i < MAX_STORAGE; i++) {
-            if (storage[i] == null) {
-                return true;
-            }
+        return findAvailableSlot() != -1;
+    }
+
+    public boolean placeItem(ItemStack itemStack, int preferredSlot) {
+        Bids.LOG.debug("Placing item on drying rack: " + itemStack.getDisplayName());
+
+        int slot = preferredSlot != -1 && storage[preferredSlot] == null ? preferredSlot : findAvailableSlot();
+        if (slot != -1) {
+            ItemStack inputItem = itemStack.copy();
+            inputItem.stackSize = 1;
+
+            DryingItem dryingItem = new DryingItem();
+            dryingItem.inputItem = inputItem;
+
+            DryingSurfaceRecipe recipe = getRecipeForInputItem(itemStack);
+            DryingHelper.initializeInputItem(dryingItem, recipe);
+
+            storage[slot] = dryingItem;
+
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            clientNeedToUpdate = true;
+
+            return true;
         }
 
         return false;
     }
 
-    public boolean placeItem(ItemStack itemStack) {
-        Bids.LOG.debug("Placing item on drying rack: " + itemStack.getDisplayName());
+    private int findAvailableSlot() {
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] == null) {
-                ItemStack inputItem = itemStack.copy();
-                inputItem.stackSize = 1;
-
-                DryingItem dryingItem = new DryingItem();
-                dryingItem.inputItem = inputItem;
-
-                DryingSurfaceRecipe recipe = getRecipeForInputItem(itemStack);
-                DryingHelper.initializeInputItem(dryingItem, recipe);
-
-                storage[i] = dryingItem;
-
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                clientNeedToUpdate = true;
-
-                return true;
+                return i;
             }
         }
 
-        return false;
+        return -1;
     }
 
     public void onDryingSurfaceBroken() {

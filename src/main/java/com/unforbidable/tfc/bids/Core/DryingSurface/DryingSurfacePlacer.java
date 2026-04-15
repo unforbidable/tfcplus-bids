@@ -8,14 +8,14 @@ import net.minecraft.world.World;
 public class DryingSurfacePlacer implements ISurfaceItemPlacer {
 
     @Override
-    public boolean placeItemOnSurface(World world, int x, int y, int z, int face, EntityPlayer player) {
+    public boolean placeItemOnSurface(World world, int x, int y, int z, int face, float hitX, float hitY, float hitZ, EntityPlayer player) {
         if (player.isSneaking() && face == 1) {
             if (DryingSurfaceHelper.canPlaceDryingItemAt(world, x, y, z, player.getHeldItem())) {
                 if (!world.isRemote) {
                     ItemStack heldItem = player.getHeldItem().copy();
                     heldItem.stackSize = 1;
 
-                    if (DryingSurfaceHelper.placeDryingItemAt(world, x, y, z, heldItem)) {
+                    if (DryingSurfaceHelper.placeDryingItemAt(world, x, y, z, hitX, hitZ, heldItem)) {
                         player.getHeldItem().stackSize--;
                     }
                 }
