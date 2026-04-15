@@ -149,23 +149,9 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
 
                 DryingItem dryingItem = new DryingItem();
                 dryingItem.inputItem = inputItem;
-                dryingItem.progress = 0;
-                dryingItem.lastProgressUpdatedTicks = TFC_Time.getTotalTicks();
 
                 DryingSurfaceRecipe recipe = getRecipeForInputItem(itemStack);
-                if (recipe != null) {
-                    // If input item already has some progress done
-                    // we take this progress and move the start ticks back accordingly
-                    DryingHelper.initializeInputItemProgress(dryingItem, recipe);
-
-                    if (dryingItem.progress == 1) {
-                        // Should progress initialize to complete, set the result
-                        dryingItem.resultItem = DryingHelper.getResultItem(dryingItem, recipe);
-                    }
-                } else {
-                    // For items without a recipe only wetness will be handled
-                    DryingHelper.initializeInputItemWetness(dryingItem);
-                }
+                DryingHelper.initializeInputItem(dryingItem, recipe);
 
                 storage[i] = dryingItem;
 

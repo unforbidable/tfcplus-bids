@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.DryingSurfaceRecipe;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -211,10 +212,10 @@ public class TileEntityDryingRack extends TileEntity
 
             DryingRackItem dryingRackItem = new DryingRackItem();
             dryingRackItem.inputItem = inputItem;
-            dryingRackItem.progress = 0;
-            dryingRackItem.lastProgressUpdatedTicks = TFC_Time.getTotalTicks();
 
             DryingRackRecipe recipe = getRecipeForInputItem(itemStack);
+            DryingHelper.initializeInputItem(dryingRackItem, recipe);
+
             if (recipe != null) {
                 // For items with recipe check for tying equipment and initial progress
                 boolean consumeTyingEquipment = recipe.getRequiresTyingEquipment();
@@ -226,18 +227,8 @@ public class TileEntityDryingRack extends TileEntity
                 }
 
                 dryingRackItem.tyingItem = tyingEquipment;
-
-                // If input item already has some progress done
-                // we take this progress and move the start ticks back accordingly
-                DryingHelper.initializeInputItemProgress(dryingRackItem, recipe);
-
-                if (dryingRackItem.progress == 1) {
-                    // Should progress initialize to complete, set the result
-                    dryingRackItem.resultItem = DryingHelper.getResultItem(dryingRackItem, recipe);
-                }
             } else {
-                // For items without a recipe only wetness will be handled
-                DryingHelper.initializeInputItemWetness(dryingRackItem);
+                dryingRackItem.tyingItem = null;
             }
 
             storage[section] = dryingRackItem;

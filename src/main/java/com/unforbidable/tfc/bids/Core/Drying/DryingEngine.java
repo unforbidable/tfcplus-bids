@@ -92,6 +92,14 @@ public class DryingEngine {
 
                 if (dryingItem.progress == 1) {
                     dryingItem.resultItem = DryingHelper.getResultItem(dryingItem, recipe);
+
+                    if (dryingItem.resultItem != null) {
+                        DryingRecipe nextRecipe = host.getDryingRecipe(dryingItem);
+                        if (nextRecipe != null) {
+                            dryingItem.inputItem = dryingItem.resultItem;
+                            DryingHelper.initializeInputItem(dryingItem, nextRecipe);
+                        }
+                    }
                 }
 
                 isDirty = true;

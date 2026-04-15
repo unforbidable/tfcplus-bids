@@ -8,6 +8,7 @@ import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackFoodRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.DryingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,7 +18,7 @@ public class DryingHelper {
 
     public static ItemStack getResultItem(DryingItem dryingItem, DryingRecipe recipe) {
         ItemStack result = recipe.getResult(dryingItem.inputItem);
-        if (result.getItem() instanceof ItemFoodTFC) {
+        if (result != null && result.getItem() instanceof ItemFoodTFC) {
             // Copy weight of food items
             Food.setWeight(result, Food.getWeight(dryingItem.inputItem));
         }
@@ -117,6 +118,32 @@ public class DryingHelper {
             return new WetnessInfo(1000, 1);
         } else {
             return BidsRegistry.ITEM_WETNESS.get(inputItem);
+        }
+    }
+
+    public static void initializeInputItem(DryingItem dryingItem, DryingRecipe recipe) {
+        dryingItem.resultItem = null;
+        dryingItem.progress = 0;
+        dryingItem.failure = 0;
+        dryingItem.lastProgressUpdatedTicks = TFC_Time.getTotalTicks();
+
+        WetnessInfo wetnessInfo = BidsRegistry.ITEM_WETNESS.get(dryingItem.inputItem);
+        if (wetnessInfo == null || wetnessInfo.capacity == 0) {
+            dryingItem.wetness = 0;
+        }
+
+        if (recipe != null) {
+            // If input item already has some progress done
+            // we take this progress and move the start ticks back accordingly
+            DryingHelper.initializeInputItemProgress(dryingItem, recipe);
+
+            if (dryingItem.progress == 1) {
+                // Should progress initialize to complete, set the result
+                dryingItem.resultItem = DryingHelper.getResultItem(dryingItem, recipe);
+            }
+        } else {
+            // For items without a recipe only wetness will be handled
+            DryingHelper.initializeInputItemWetness(dryingItem);
         }
     }
 
