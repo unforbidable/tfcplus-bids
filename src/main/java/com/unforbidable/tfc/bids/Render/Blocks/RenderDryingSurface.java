@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Render.Blocks;
 
+import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
 import com.unforbidable.tfc.bids.Core.DryingSurface.DryingSurfaceHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingSurface;
 import com.unforbidable.tfc.bids.api.BidsRegistry;
@@ -7,7 +8,6 @@ import com.unforbidable.tfc.bids.api.Interfaces.IDryingItemRenderInfo;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
@@ -32,19 +32,19 @@ public class RenderDryingSurface implements ISimpleBlockRenderingHandler {
         TileEntityDryingSurface te = (TileEntityDryingSurface) world.getTileEntity(x, y, z);
 
         for (int i = 0; i < TileEntityDryingSurface.MAX_STORAGE; i++) {
-            ItemStack itemStack = te.getSlotActualItem(i);
-            if (itemStack != null) {
-                IDryingItemRenderInfo renderInfo = BidsRegistry.ITEM_DRYING_RENDER_INFO.get(itemStack);
+            DryingItem dryingItem = te.getItem(i);
+            if (dryingItem != null) {
+                IDryingItemRenderInfo renderInfo = BidsRegistry.ITEM_DRYING_RENDER_INFO.get(dryingItem.getCurrentItem());
                 if (renderInfo != null) {
                     Vec3 pos = DryingSurfaceHelper.getDryingSurfaceItemVector(i);
-                    AxisAlignedBB bounds = renderInfo.getRenderBounds(itemStack);
+                    AxisAlignedBB bounds = renderInfo.getRenderBounds(dryingItem);
                     renderer.setRenderBounds(bounds.minX * 0.5 + pos.xCoord - 0.25, bounds.minY * 0.5, bounds.minZ * 0.5 + pos.zCoord - 0.25,
                         bounds.maxX * 0.5 + pos.xCoord - 0.25, bounds.maxY * 0.5, bounds.maxZ * 0.5 + pos.zCoord - 0.25);
 
-                    IIcon icon = renderInfo.getRenderIcon(itemStack);
+                    IIcon icon = renderInfo.getRenderIcon(dryingItem);
                     renderer.setOverrideBlockTexture(icon);
 
-                    int color = renderInfo.getRenderColor(itemStack);
+                    int color = renderInfo.getRenderColor(dryingItem);
                     float r = (color >> 16 & 255) / 255.0F;
                     float g = (color >> 8 & 255) / 255.0F;
                     float b = (color & 255) / 255.0F;

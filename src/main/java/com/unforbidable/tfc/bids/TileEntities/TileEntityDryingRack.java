@@ -110,14 +110,7 @@ public class TileEntityDryingRack extends TileEntity
             // Check if enough time had passed
             // for drying interval
             if (dryingTimer.tick() && TFC_Time.getTotalTicks() > lastDryingTicks + DRYING_INTERVAL) {
-                DryingEngineUpdate update = new DryingEngine(this).update();
-                if (update.data) {
-                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-
-                    if (update.item) {
-                        clientNeedToUpdate = true;
-                    }
-                }
+                new DryingEngine(this).update();
 
                 lastDryingTicks = TFC_Time.getTotalTicks();
             }
@@ -451,6 +444,11 @@ public class TileEntityDryingRack extends TileEntity
     @Override
     public float getWetnessReductionRate() {
         return 0.6f;
+    }
+
+    @Override
+    public void notifyClientChanges() {
+        clientNeedToUpdate = true;
     }
 
 }

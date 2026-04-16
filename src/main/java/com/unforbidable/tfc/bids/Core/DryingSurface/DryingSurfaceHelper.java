@@ -4,8 +4,10 @@ import com.dunk.tfc.Items.ItemClothing;
 import com.unforbidable.tfc.bids.Blocks.BlockDryingSurface;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
+import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingSurface;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.Crafting.DryingSurfaceManager;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -79,6 +81,19 @@ public class DryingSurfaceHelper {
         }
 
         return false;
+    }
+
+    public static boolean activateDryingSurface(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+        int slot = getDryingSurfaceSlotFromHit(hitX, hitY, hitZ);
+        if (slot != -1) {
+            TileEntityDryingSurface te = (TileEntityDryingSurface) world.getTileEntity(x, y, z);
+            DryingItem dryingItem = te.getItem(slot);
+            if (dryingItem != null) {
+                return BidsEventFactory.onDryingItemActivated(te, dryingItem, te.getDryingRecipe(dryingItem), player, slot);
+            }
+        }
+
+        return true;
     }
 
     public static Vec3 getDryingSurfaceItemVector(int slot) {

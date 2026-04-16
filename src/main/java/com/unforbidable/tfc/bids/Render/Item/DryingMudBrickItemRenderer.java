@@ -11,7 +11,7 @@ public class DryingMudBrickItemRenderer extends MudBrickItemRenderer {
 		ItemStack wetItem = item.copy();
 		wetItem.setItemDamage(item.getItemDamage() + 32);
 
-		super.renderItem(type, item, data);
+		super.renderItem(type, wetItem, data);
 	}
 
 }

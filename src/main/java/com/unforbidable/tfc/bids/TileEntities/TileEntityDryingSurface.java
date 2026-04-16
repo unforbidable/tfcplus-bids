@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.Core.Drying.*;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Timer;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.DryingSurfaceManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingSurfaceRecipe;
@@ -92,14 +93,7 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
             // Check if enough time had passed
             // for drying interval
             if (dryingTimer.tick() && TFC_Time.getTotalTicks() > lastDryingTicks + DRYING_INTERVAL) {
-                DryingEngineUpdate update = new DryingEngine(this).update();
-                if (update.data) {
-                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-
-                    if (update.item) {
-                        clientNeedToUpdate = true;
-                    }
-                }
+                new DryingEngine(this).update();
 
                 lastDryingTicks = TFC_Time.getTotalTicks();
             }
@@ -186,7 +180,10 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
         Bids.LOG.debug("Retrieving item from drying rack, section: " + section);
 
         if (section >= 0 && section < MAX_STORAGE && storage[section] != null) {
-            ItemStack currentItem = storage[section].getCurrentItem();
+            DryingItem dryingItem = storage[section];
+            BidsEventFactory.onDryingItemRetrieved(this, dryingItem, getDryingRecipe(dryingItem), player, section);
+
+            ItemStack currentItem = dryingItem.getCurrentItem();
             if (currentItem != null) {
                 EntityItem ei = new EntityItem(worldObj, player.posX, player.posY, player.posZ, currentItem);
                 worldObj.spawnEntityInWorld(ei);
@@ -375,6 +372,11 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
     @Override
     public float getWetnessReductionRate() {
         return isSoilSurface() ? 0.2f : 0.4f;
+    }
+
+    @Override
+    public void notifyClientChanges() {
+        clientNeedToUpdate = true;
     }
 
     private boolean isSoilSurface() {

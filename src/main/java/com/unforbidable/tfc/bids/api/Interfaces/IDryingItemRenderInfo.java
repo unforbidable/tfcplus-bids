@@ -1,13 +1,13 @@
 package com.unforbidable.tfc.bids.api.Interfaces;
 
-import net.minecraft.item.ItemStack;
+import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 
 public interface IDryingItemRenderInfo {
 
-    IIcon getRenderIcon(ItemStack itemStack);
-    int getRenderColor(ItemStack itemStack);
-    AxisAlignedBB getRenderBounds(ItemStack itemStack);
+    IIcon getRenderIcon(DryingItem dryingItem);
+    int getRenderColor(DryingItem dryingItem);
+    AxisAlignedBB getRenderBounds(DryingItem dryingItem);
 
 }

@@ -8,5 +8,6 @@ public interface IDryingHost {
     DryingRecipe getDryingRecipe(DryingItem item);
     float getWetnessIncreaseRate();
     float getWetnessReductionRate();
+    void notifyClientChanges();
 
 }

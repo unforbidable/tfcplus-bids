@@ -1,9 +1,7 @@
 package com.unforbidable.tfc.bids.Blocks;
 
 import com.dunk.tfc.Core.TFC_Textures;
-import com.unforbidable.tfc.bids.Core.Common.Metadata.DecorativeSurfaceMetadata;
 import com.unforbidable.tfc.bids.Core.DryingSurface.DryingSurfaceHelper;
-import com.unforbidable.tfc.bids.TileEntities.TileEntityDecorativeSurface;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingSurface;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.relauncher.Side;
@@ -16,7 +14,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -26,7 +23,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -48,6 +44,10 @@ public class BlockDryingSurface extends BlockContainer {
         if (!world.isRemote) {
             if (player.isSneaking() && player.getHeldItem() == null) {
                 return DryingSurfaceHelper.retrieveItemFromDryingSurface(world, x, y, z, player, side, hitX, hitY, hitZ);
+            }
+
+            if (!player.isSneaking()) {
+                return DryingSurfaceHelper.activateDryingSurface(world, x, y, z, player, side, hitX, hitY, hitZ);
             }
         }
 

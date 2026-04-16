@@ -5,6 +5,7 @@ import com.dunk.tfc.Items.ItemClothing;
 import com.unforbidable.tfc.bids.Core.Drying.Environment.ItemEnvironment;
 import com.unforbidable.tfc.bids.Core.Drying.Environment.StaticEnvironment;
 import com.unforbidable.tfc.bids.Core.Drying.Environment.DynamicEnvironment;
+import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.tileentity.TileEntity;
@@ -20,7 +21,7 @@ public class DryingEngine {
         this.host = host;
     }
 
-    public DryingEngineUpdate update() {
+    public void update() {
         dataChanged = false;
         itemChanged = false;
 
@@ -30,7 +31,13 @@ public class DryingEngine {
 
         updateForTicks(ticks, staticEnvironment);
 
-        return new DryingEngineUpdate(dataChanged, itemChanged);
+        if (dataChanged) {
+            te.getWorldObj().markBlockForUpdate(te.xCoord, te.yCoord, te.zCoord);
+        }
+
+        if (itemChanged) {
+            host.notifyClientChanges();
+        }
     }
 
     private void updateForTicks(long ticks, StaticEnvironment staticEnvironment) {
@@ -99,10 +106,15 @@ public class DryingEngine {
                     dryingItem.resultItem = DryingHelper.getResultItem(dryingItem, recipe);
 
                     if (dryingItem.resultItem != null) {
-                        DryingRecipe nextRecipe = host.getDryingRecipe(dryingItem);
+                        DryingItem nextDryingItem = new DryingItem();
+                        nextDryingItem.inputItem = dryingItem.resultItem;
+
+                        DryingRecipe nextRecipe = host.getDryingRecipe(nextDryingItem);
                         if (nextRecipe != null) {
-                            dryingItem.inputItem = dryingItem.resultItem;
-                            DryingHelper.initializeInputItem(dryingItem, nextRecipe);
+                            if (BidsEventFactory.onDryingItemNextRecipeSelected((TileEntity) host, dryingItem, recipe, nextRecipe)) {
+                                dryingItem.inputItem = dryingItem.resultItem;
+                                DryingHelper.initializeInputItem(dryingItem, nextRecipe);
+                            }
                         }
                     }
 

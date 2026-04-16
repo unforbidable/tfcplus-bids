@@ -1,12 +1,13 @@
 package com.unforbidable.tfc.bids.api;
 
+import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityProcessingSurface;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api.Events.*;
-import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingAction;
-import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingMaterial;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
@@ -82,6 +83,23 @@ public class BidsEventFactory {
     public static void onWoodworkingItemPickedUp(EntityPlayer player, ItemStack input, ItemStack result) {
         WoodworkingPlayerEvent event = new WoodworkingPlayerEvent(player, WoodworkingPlayerEvent.Action.ITEM_PICKED_UP, input, result);
         MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static boolean onDryingItemActivated(TileEntity dryingTileEntity, DryingItem dryingItem, DryingRecipe dryingRecipe, EntityPlayer player, int slot) {
+        DryingItemEvent.Activate event = new DryingItemEvent.Activate(dryingTileEntity, dryingItem, dryingRecipe, player, slot);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.handled;
+    }
+
+    public static void onDryingItemRetrieved(TileEntity dryingTileEntity, DryingItem dryingItem, DryingRecipe dryingRecipe, EntityPlayer player, int slot) {
+        DryingItemEvent.Retrieve event = new DryingItemEvent.Retrieve(dryingTileEntity, dryingItem, dryingRecipe, player, slot);
+        MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static boolean onDryingItemNextRecipeSelected(TileEntity dryingTileEntity, DryingItem dryingItem, DryingRecipe dryingRecipe, DryingRecipe nextDryingRecipe) {
+        DryingItemEvent.SelectNextRecipe event = new DryingItemEvent.SelectNextRecipe(dryingTileEntity, dryingItem, dryingRecipe, nextDryingRecipe);
+        MinecraftForge.EVENT_BUS.post(event);
+        return !event.isCanceled();
     }
 
 }
