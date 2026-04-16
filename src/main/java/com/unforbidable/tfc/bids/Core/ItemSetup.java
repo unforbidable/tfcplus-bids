@@ -12,6 +12,8 @@ import com.dunk.tfc.api.Interfaces.IEquipable;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.Core.Drinks.FluidHelper;
+import com.unforbidable.tfc.bids.Core.DryingSurface.Render.MudBrickRenderInfo;
+import com.unforbidable.tfc.bids.Core.DryingSurface.Render.SoapRenderInfo;
 import com.unforbidable.tfc.bids.Core.Firepit.Fuels.*;
 import com.unforbidable.tfc.bids.Core.Textile.EnumTextileHint;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
@@ -45,6 +47,7 @@ public class ItemSetup extends BidsItems {
         registerWoodPileItems();
         registerFirepitFuel();
         registerWetness();
+        registerDryingItemRenderInfo();
         registerDryingRackTyingEquipment();
         registerCookingIngredientOverrides();
     }
@@ -1106,9 +1109,21 @@ public class ItemSetup extends BidsItems {
         BidsRegistry.ITEM_WETNESS.register(BidsItems.barkFibre, new WetnessInfo(500, 1f));
         BidsRegistry.ITEM_WETNESS.register(BidsItems.sisalFiberRinsed, new WetnessInfo(500, 1f));
         BidsRegistry.ITEM_WETNESS.register(TFCItems.juteFiber, new WetnessInfo(500, 1f));
+        BidsRegistry.ITEM_WETNESS.register(BidsItems.flaxStalk, new WetnessInfo(1000, 1f));
         BidsRegistry.ITEM_WETNESS.register(BidsItems.flaxStalkRetted, new WetnessInfo(500, 0.5f));
         BidsRegistry.ITEM_WETNESS.register(BidsItems.woolRinsed, new WetnessInfo(1000, 1f));
         BidsRegistry.ITEM_WETNESS.register(TFCItems.seaWeed, new WetnessInfo(500, 1f));
+        BidsRegistry.ITEM_WETNESS.register(TFCItems.mudBrick, new WetnessInfo(500, 1f));
+        BidsRegistry.ITEM_WETNESS.register(BidsItems.dryingMudBrick, new WetnessInfo(500, 0.5f));
+    }
+
+    private static void registerDryingItemRenderInfo() {
+        Bids.LOG.info("Register item drying render info");
+
+        BidsRegistry.ITEM_DRYING_RENDER_INFO.register(TFCItems.mudBrick, new MudBrickRenderInfo(false));
+        BidsRegistry.ITEM_DRYING_RENDER_INFO.register(BidsItems.dryingMudBrick, new MudBrickRenderInfo(true));
+        BidsRegistry.ITEM_DRYING_RENDER_INFO.register(BidsItems.soap, new SoapRenderInfo(true));
+        BidsRegistry.ITEM_DRYING_RENDER_INFO.register(BidsItems.uncuredSoap, new SoapRenderInfo(false));
     }
 
     private static void registerDryingRackTyingEquipment() {

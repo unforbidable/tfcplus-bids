@@ -1107,6 +1107,49 @@ public class RecipeSetup {
             .dry()
             .hours(16)
             .build());
+
+        DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+            .consumes(new ItemStack(BidsItems.barkFibre))
+            .produces(new ItemStack(BidsItems.barkFibreCoarse))
+            .dry()
+            .hours(12)
+            .build());
+        DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+            .consumes(new ItemStack(BidsItems.flaxStalk))
+            .produces(new ItemStack(BidsItems.flaxStalkRetted))
+            .wet()
+            .hours(20)
+            .build());
+        DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+            .consumes(new ItemStack(BidsItems.flaxStalkRetted))
+            .produces(new ItemStack(BidsItems.flaxStalkDried))
+            .dry()
+            .hours(20)
+            .build());
+        DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+            .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), 1))
+            .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), 1))
+            .dry()
+            .cover()
+            .hours(40)
+            .build());
+
+        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
+            DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+                .consumes(stone.items.getItem(EnumStoneItemType.MUD_BRICK_WET))
+                .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING), stone.items.getItem(EnumStoneItemType.MUD))
+                .dry()
+                .notWet()
+                .hours(24)
+                .build());
+            DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+                .consumes(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING))
+                .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK), stone.items.getItem(EnumStoneItemType.MUD))
+                .dry()
+                .notWet()
+                .hours(12)
+                .build());
+        }
     }
 
     private static void registerCookingRecipes() {
