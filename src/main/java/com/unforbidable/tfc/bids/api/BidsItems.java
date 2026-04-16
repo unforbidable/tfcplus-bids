@@ -330,4 +330,6 @@ public class BidsItems {
     public static Item soap;
     public static Item uncuredSoap;
 
+    public static Item dryingMudBrick;
+
 }

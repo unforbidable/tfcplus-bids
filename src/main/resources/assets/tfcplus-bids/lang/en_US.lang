@@ -1383,6 +1383,8 @@ item.Bone Knife Blade.name=Bone Knife Blade
 item.Soap.name=Soap
 item.Uncured Soap.name=Uncured Soap
 
+item.Drying Mud Brick.name=Drying Mud Brick
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk

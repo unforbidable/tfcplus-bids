@@ -17,10 +17,7 @@ import com.unforbidable.tfc.bids.Core.Textile.EnumTextileHint;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderLogsTFC;
 import com.unforbidable.tfc.bids.Core.WoodPile.Rendering.RenderThickLogsTFC;
 import com.unforbidable.tfc.bids.Items.*;
-import com.unforbidable.tfc.bids.Render.Item.FoodItemRenderer;
-import com.unforbidable.tfc.bids.Render.Item.HandworkToolItemRenderer;
-import com.unforbidable.tfc.bids.Render.Item.SeasonableItemRenderer;
-import com.unforbidable.tfc.bids.Render.Item.SeasonedItemRenderer;
+import com.unforbidable.tfc.bids.Render.Item.*;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
 import com.unforbidable.tfc.bids.api.*;
@@ -939,6 +936,9 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Soap");
         uncuredSoap = new ItemFoodLike()
             .setUnlocalizedName("Uncured Soap");
+
+        dryingMudBrick = new ItemDryingMudBrick()
+            .setUnlocalizedName("Drying Mud Brick");
     }
 
     private static void registerFluidContainers() {
@@ -1182,6 +1182,8 @@ public class ItemSetup extends BidsItems {
         }
 
         MinecraftForgeClient.registerItemRenderer(hardenedWoodenSpear, new PoleItemRenderer());
+
+        MinecraftForgeClient.registerItemRenderer(dryingMudBrick, new DryingMudBrickItemRenderer());
     }
 
     private static void registerPartialMolds() {
@@ -1633,6 +1635,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(soapyWaterBottle, soapyWaterBottle.getUnlocalizedName());
         GameRegistry.registerItem(soap, soap.getUnlocalizedName());
         GameRegistry.registerItem(uncuredSoap, uncuredSoap.getUnlocalizedName());
+
+        GameRegistry.registerItem(dryingMudBrick, dryingMudBrick.getUnlocalizedName());
     }
 
 }
