@@ -54,10 +54,9 @@ public class EnvironmentHelper {
             return world.isRaining() ? rainStrength : 0f;
         } else {
             // There is no way to know whether it rained or not at any moment in the past
-            // but assume if it is raining now, it has been raining for a while
-            // but why not consider the rainfall value
-            // Hoping with upcoming rain changes we can track past rain with sufficient precision
-            return world.isRaining() && elapsedTicks < rainfall * 2 ? rainStrength : 0;
+            // Assume it rained in the past, but no longer than a day ago if it's raining
+            // Hoping with upcoming rain changes we can track past rain
+            return world.isRaining() && elapsedTicks < TFC_Time.DAY_LENGTH ? rainStrength : 0f;
         }
     }
 

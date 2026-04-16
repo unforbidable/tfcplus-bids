@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.Core.Drying;
 
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemClothing;
+import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Drying.Environment.ItemEnvironment;
 import com.unforbidable.tfc.bids.Core.Drying.Environment.StaticEnvironment;
 import com.unforbidable.tfc.bids.Core.Drying.Environment.DynamicEnvironment;
@@ -27,9 +28,30 @@ public class DryingEngine {
 
         TileEntity te = (TileEntity) host;
         StaticEnvironment staticEnvironment = new StaticEnvironment(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord);
-        long ticks = TFC_Time.getTotalTicks();
 
-        updateForTicks(ticks, staticEnvironment);
+        long totalTicks = TFC_Time.getTotalTicks();
+
+        long lastDryingTicks = getLastDryingTickFromIncompleteItems();
+        if (lastDryingTicks != -1) {
+            if (totalTicks - lastDryingTicks > TFC_Time.HOUR_LENGTH + 250) {
+                while (lastDryingTicks != -1 && totalTicks > lastDryingTicks) {
+                    long ticksRemaining = totalTicks - lastDryingTicks;
+                    long partialTicks = getPartialTickChunkSize(ticksRemaining);
+                    Bids.LOG.debug("ticks to catch up: " + ticksRemaining + " + " + partialTicks);
+
+                    updateForTicks(lastDryingTicks + partialTicks, staticEnvironment);
+
+                    // This also makes sure there are items that still need catching up
+                    lastDryingTicks = getLastDryingTickFromIncompleteItems();
+                }
+
+                if (lastDryingTicks != -1) {
+                    updateForTicks(totalTicks, staticEnvironment);
+                }
+            } else {
+                updateForTicks(totalTicks, staticEnvironment);
+            }
+        }
 
         if (dataChanged) {
             te.getWorldObj().markBlockForUpdate(te.xCoord, te.yCoord, te.zCoord);
@@ -38,6 +60,28 @@ public class DryingEngine {
         if (itemChanged) {
             host.notifyClientChanges();
         }
+    }
+
+    private long getPartialTickChunkSize(long remaining) {
+        if (remaining > TFC_Time.DAY_LENGTH * 2) {
+            return TFC_Time.DAY_LENGTH;
+        } else if (remaining > TFC_Time.DAY_LENGTH) {
+            return TFC_Time.HOUR_LENGTH * 12;
+        } else if (remaining > TFC_Time.HOUR_LENGTH * 8) {
+            return TFC_Time.HOUR_LENGTH * 4;
+        } else {
+            return TFC_Time.HOUR_LENGTH;
+        }
+    }
+
+    private long getLastDryingTickFromIncompleteItems() {
+        for (DryingItem item : host.getDryingStorage()) {
+            if (item != null && item.progress < 1 && item.failure < 1) {
+                return item.lastProgressUpdatedTicks;
+            }
+        }
+
+        return -1;
     }
 
     private void updateForTicks(long ticks, StaticEnvironment staticEnvironment) {
