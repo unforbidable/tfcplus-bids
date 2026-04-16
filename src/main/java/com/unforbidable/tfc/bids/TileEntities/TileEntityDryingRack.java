@@ -2,12 +2,8 @@ package com.unforbidable.tfc.bids.TileEntities;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
-import com.dunk.tfc.Items.ItemClothing;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Drying.DryingEngine;
-import com.unforbidable.tfc.bids.Core.Drying.DryingHelper;
-import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
-import com.unforbidable.tfc.bids.Core.Drying.IDryingHost;
+import com.unforbidable.tfc.bids.Core.Drying.*;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
@@ -15,7 +11,6 @@ import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.DryingSurfaceRecipe;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -35,8 +30,8 @@ public class TileEntityDryingRack extends TileEntity
         implements IInventory, IMessageHanldingTileEntity<TileEntityUpdateMessage>, IDryingHost {
 
     public static final int MAX_STORAGE = 4;
-    private static final long DRYING_INTERVAL = 50;
-    private static final int DRYING_TIMER_INTERVAL = 10;
+    private static final long DRYING_INTERVAL = 100;
+    private static final int DRYING_TIMER_INTERVAL = 20;
 
     final DryingRackItem[] storage = new DryingRackItem[MAX_STORAGE];
 
@@ -117,11 +112,13 @@ public class TileEntityDryingRack extends TileEntity
             // Check if enough time had passed
             // for drying interval
             if (dryingTimer.tick() && TFC_Time.getTotalTicks() > lastDryingTicks + DRYING_INTERVAL) {
-                DryingEngine engine = new DryingEngine(this);
-                if (engine.update()) {
+                DryingEngineUpdate update = new DryingEngine(this).update();
+                if (update.data) {
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
-                    clientNeedToUpdate = true;
+                    if (update.item) {
+                        clientNeedToUpdate = true;
+                    }
                 }
 
                 lastDryingTicks = TFC_Time.getTotalTicks();

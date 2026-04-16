@@ -8,7 +8,6 @@ import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackFoodRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.DryingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

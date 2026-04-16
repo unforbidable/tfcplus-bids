@@ -3,10 +3,7 @@ package com.unforbidable.tfc.bids.TileEntities;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Drying.DryingEngine;
-import com.unforbidable.tfc.bids.Core.Drying.DryingHelper;
-import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
-import com.unforbidable.tfc.bids.Core.Drying.IDryingHost;
+import com.unforbidable.tfc.bids.Core.Drying.*;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Timer;
@@ -32,8 +29,8 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
 
     public static final int MAX_STORAGE = 4;
 
-    private static final long DRYING_INTERVAL = 50;
-    private static final int DRYING_TIMER_INTERVAL = 10;
+    private static final long DRYING_INTERVAL = 100;
+    private static final int DRYING_TIMER_INTERVAL = 20;
 
     private final DryingItem[] storage = new DryingItem[MAX_STORAGE];
 
@@ -99,11 +96,13 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
             // Check if enough time had passed
             // for drying interval
             if (dryingTimer.tick() && TFC_Time.getTotalTicks() > lastDryingTicks + DRYING_INTERVAL) {
-                DryingEngine engine = new DryingEngine(this);
-                if (engine.update()) {
+                DryingEngineUpdate update = new DryingEngine(this).update();
+                if (update.data) {
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
-                    clientNeedToUpdate = true;
+                    if (update.item) {
+                        clientNeedToUpdate = true;
+                    }
                 }
 
                 lastDryingTicks = TFC_Time.getTotalTicks();

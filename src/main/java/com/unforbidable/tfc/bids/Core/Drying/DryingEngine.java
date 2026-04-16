@@ -12,14 +12,17 @@ import net.minecraft.tileentity.TileEntity;
 public class DryingEngine {
 
     private final IDryingHost host;
-    private boolean isDirty;
+
+    public boolean dataChanged;
+    public boolean itemChanged;
 
     public DryingEngine(IDryingHost host) {
         this.host = host;
     }
 
-    public boolean update() {
-        isDirty = false;
+    public DryingEngineUpdate update() {
+        dataChanged = false;
+        itemChanged = false;
 
         TileEntity te = (TileEntity) host;
         StaticEnvironment staticEnvironment = new StaticEnvironment(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord);
@@ -27,7 +30,7 @@ public class DryingEngine {
 
         updateForTicks(ticks, staticEnvironment);
 
-        return isDirty;
+        return new DryingEngineUpdate(dataChanged, itemChanged);
     }
 
     private void updateForTicks(long ticks, StaticEnvironment staticEnvironment) {
@@ -71,11 +74,13 @@ public class DryingEngine {
                 dryingItem.resultItem = DryingHelper.getDestroyedResultItem(dryingItem, recipe);
                 dryingItem.paused = false;
                 dryingItem.progress = 0;
+
+                itemChanged = true;
             } else {
                 dryingItem.paused = true;
             }
 
-            isDirty = true;
+            dataChanged = true;
         } else {
             // check for match, even partial
             float match = env.getRecipeMatch(recipe);
@@ -100,14 +105,16 @@ public class DryingEngine {
                             DryingHelper.initializeInputItem(dryingItem, nextRecipe);
                         }
                     }
+
+                    itemChanged = true;
                 }
 
-                isDirty = true;
+                dataChanged = true;
             } else {
                 // pause progress unless total failure
                 if (!dryingItem.paused && dryingItem.failure != 1) {
                     dryingItem.paused = true;
-                    isDirty = true;
+                    dataChanged = true;
                 }
             }
         }
@@ -127,7 +134,7 @@ public class DryingEngine {
 
                 DryingHelper.applyInputItemWetness(dryingItem);
 
-                isDirty = true;
+                dataChanged = true;
             } else if (env.getHumidity() < 1 && env.getAirflow() > 0 && dryingItem.wetness > 0) {
                 // when humidity and airflow allows, wet item can dry off
                 float wetness = wetnessInfo.capacity * dryingItem.wetness;
@@ -137,7 +144,7 @@ public class DryingEngine {
 
                 DryingHelper.applyInputItemWetness(dryingItem);
 
-                isDirty = true;
+                dataChanged = true;
             }
         }
     }
