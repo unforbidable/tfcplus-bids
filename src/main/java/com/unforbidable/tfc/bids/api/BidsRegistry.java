@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.api;
 
+import com.unforbidable.tfc.bids.api.Interfaces.IDryingItemRenderInfo;
 import com.unforbidable.tfc.bids.api.Interfaces.ISurfaceItemPlacer;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.item.Item;
@@ -10,6 +11,7 @@ import java.util.*;
 public class BidsRegistry {
 
     public static final ItemRegistry<WetnessInfo> ITEM_WETNESS = new ItemRegistry<>();
+    public static final ItemRegistry<IDryingItemRenderInfo> ITEM_DRYING_RENDER_INFO = new ItemRegistry<>();
     public static final ListRegistry<ISurfaceItemPlacer> SURFACE_PLACERS = new ListRegistry<>();
 
     public static class ItemRegistry<T> {
@@ -32,11 +34,11 @@ public class BidsRegistry {
         }
 
         private static String getItemKey(ItemStack itemStack) {
-            return itemStack.getUnlocalizedName() + "@" + itemStack.getItemDamage();
+            return itemStack.getItem().getUnlocalizedName() + "@" + itemStack.getItemDamage();
         }
 
         private static String getItemKeyWildcard(ItemStack itemStack) {
-            return itemStack.getUnlocalizedName() + "@" + WILD;
+            return itemStack.getItem().getUnlocalizedName() + "@" + WILD;
         }
     }
 

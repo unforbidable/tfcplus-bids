@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Render.Tiles;
 import com.dunk.tfc.Render.TESR.TESRBase;
 import com.unforbidable.tfc.bids.Core.DryingSurface.DryingSurfaceHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingSurface;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -17,7 +18,7 @@ public class RenderTileDryingSurface extends TESRBase {
 
         for (int i = 0; i < te.getSizeInventory(); i++) {
             ItemStack itemStack = te.getSlotActualItem(i);
-            if (itemStack != null) {
+            if (itemStack != null && BidsRegistry.ITEM_DRYING_RENDER_INFO.get(itemStack) == null) {
                 Vec3 pos = DryingSurfaceHelper.getDryingSurfaceItemVector(i);
                 renderItemStack(x, y, z, itemStack, pos);
             }
