@@ -42,8 +42,6 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
     Timer dryingTimer = new Timer(DRYING_TIMER_INTERVAL);
     Timer decayTimer = new Timer(100);
 
-    boolean initialized = false;
-
     public void setSelectedSlot(int selectedSlot) {
         if (this.selectedSlot != selectedSlot) {
             this.selectedSlot = selectedSlot;
@@ -71,10 +69,6 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
     }
 
 
-    public boolean isInitialized() {
-        return initialized;
-    }
-
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
@@ -84,9 +78,11 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
-            // One time only right after creation
-            if (!initialized) {
-                initialized = true;
+            // When inventory content changes
+            if (clientNeedToUpdate) {
+                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+
+                clientNeedToUpdate = false;
             }
 
             if (decayTimer.tick()) {
@@ -106,13 +102,6 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
                 }
 
                 lastDryingTicks = TFC_Time.getTotalTicks();
-            }
-
-            // When inventory content changes
-            if (clientNeedToUpdate) {
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
-
-                clientNeedToUpdate = false;
             }
         }
     }

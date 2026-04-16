@@ -36,7 +36,6 @@ public class TileEntityDryingRack extends TileEntity
     final DryingRackItem[] storage = new DryingRackItem[MAX_STORAGE];
 
     long lastDryingTicks = 0;
-    boolean initialized;
     int orientation = -1;
     boolean cordless = false;
 
@@ -100,9 +99,11 @@ public class TileEntityDryingRack extends TileEntity
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
-            // One time only right after creation
-            if (!initialized) {
-                initialized = true;
+            // When inventory content changes
+            if (clientNeedToUpdate) {
+                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+
+                clientNeedToUpdate = false;
             }
 
             if (decayTimer.tick()) {
@@ -122,13 +123,6 @@ public class TileEntityDryingRack extends TileEntity
                 }
 
                 lastDryingTicks = TFC_Time.getTotalTicks();
-            }
-
-            // When inventory content changes
-            if (clientNeedToUpdate) {
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
-
-                clientNeedToUpdate = false;
             }
         }
     }
@@ -163,7 +157,6 @@ public class TileEntityDryingRack extends TileEntity
     }
 
     public void writeDryingRackDataToNBT(NBTTagCompound tag) {
-        tag.setBoolean("clientInitialized", initialized);
         tag.setInteger("orientation", orientation);
         tag.setBoolean("cordless", cordless);
 
@@ -180,7 +173,6 @@ public class TileEntityDryingRack extends TileEntity
     }
 
     public void readDryingRackDataFromNBT(NBTTagCompound tag) {
-        initialized = tag.getBoolean("clientInitialized");
         orientation = tag.getInteger("orientation");
         cordless = tag.getBoolean("cordless");
 
