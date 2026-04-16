@@ -20,12 +20,6 @@ public class RenderDryingRack implements ISimpleBlockRenderingHandler {
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-        final DryingRackBounds rackBounds = DryingRackBounds.fromOrientation(1);
-
-        for (AxisAlignedBB bounds : rackBounds.poles) {
-            renderer.setRenderBounds(bounds.minX, bounds.minY, bounds.minZ, bounds.maxX, bounds.maxY, bounds.maxZ);
-            renderInvBlock(block, metadata, renderer);
-        }
     }
 
     @Override
@@ -97,7 +91,7 @@ public class RenderDryingRack implements ISimpleBlockRenderingHandler {
 
     @Override
     public boolean shouldRender3DInInventory(int modelId) {
-        return true;
+        return false;
     }
 
     @Override
