@@ -76,11 +76,11 @@ public class ItemSetup extends BidsItems {
         flatGlass = new ItemGenericFlat().setUnlocalizedName("Flat Glass");
 
         drinkingGlass = new ItemDrinkingGlass().setGlassReturnAmount(40).setMaxStackSize(4)
-                .setUnlocalizedName("Drinking Glass");
+            .setUnlocalizedName("Drinking Glass");
         glassJug = new ItemDrinkingGlass().setGlassReturnAmount(80).setMaxStackSize(4)
-                .setUnlocalizedName("Glass Jug");
+            .setUnlocalizedName("Glass Jug");
         shotGlass = new ItemDrinkingGlass().setGlassReturnAmount(20).setMaxStackSize(4)
-                .setUnlocalizedName("Shot Glass");
+            .setUnlocalizedName("Shot Glass");
 
         clayPipe = new ItemGenericPottery(true).setUnlocalizedName("Pottery Pipe");
 
@@ -89,40 +89,40 @@ public class ItemSetup extends BidsItems {
         glassLump = new ItemGlassLump().setUnlocalizedName("Glass Lump");
 
         igInStoneDrillHead = new ItemGenericToolHead(TFCItems.igInToolMaterial)
-                .setUnlocalizedName("IgIn Stone Drill Head");
+            .setUnlocalizedName("IgIn Stone Drill Head");
         sedStoneDrillHead = new ItemGenericToolHead(TFCItems.sedToolMaterial)
-                .setUnlocalizedName("Sed Stone Drill Head");
+            .setUnlocalizedName("Sed Stone Drill Head");
         igExStoneDrillHead = new ItemGenericToolHead(TFCItems.igExToolMaterial)
-                .setUnlocalizedName("IgEx Stone Drill Head");
+            .setUnlocalizedName("IgEx Stone Drill Head");
         mMStoneDrillHead = new ItemGenericToolHead(TFCItems.mMToolMaterial)
-                .setUnlocalizedName("MM Stone Drill Head");
+            .setUnlocalizedName("MM Stone Drill Head");
 
         igInStoneDrill = new ItemDrill(TFCItems.igInToolMaterial)
-                .setUnlocalizedName("IgIn Stone Drill");
+            .setUnlocalizedName("IgIn Stone Drill");
         sedStoneDrill = new ItemDrill(TFCItems.sedToolMaterial)
-                .setUnlocalizedName("Sed Stone Drill");
+            .setUnlocalizedName("Sed Stone Drill");
         igExStoneDrill = new ItemDrill(TFCItems.igExToolMaterial)
-                .setUnlocalizedName("IgEx Stone Drill");
+            .setUnlocalizedName("IgEx Stone Drill");
         mMStoneDrill = new ItemDrill(TFCItems.mMToolMaterial)
-                .setUnlocalizedName("MM Stone Drill");
+            .setUnlocalizedName("MM Stone Drill");
 
         igInStoneAdzeHead = new ItemGenericToolHead(TFCItems.igInToolMaterial)
-                .setUnlocalizedName("IgIn Stone Adze Head");
+            .setUnlocalizedName("IgIn Stone Adze Head");
         sedStoneAdzeHead = new ItemGenericToolHead(TFCItems.sedToolMaterial)
-                .setUnlocalizedName("Sed Stone Adze Head");
+            .setUnlocalizedName("Sed Stone Adze Head");
         igExStoneAdzeHead = new ItemGenericToolHead(TFCItems.igExToolMaterial)
-                .setUnlocalizedName("IgEx Stone Adze Head");
+            .setUnlocalizedName("IgEx Stone Adze Head");
         mMStoneAdzeHead = new ItemGenericToolHead(TFCItems.mMToolMaterial)
-                .setUnlocalizedName("MM Stone Adze Head");
+            .setUnlocalizedName("MM Stone Adze Head");
 
         igInStoneAdze = new ItemAdze(TFCItems.igInToolMaterial)
-                .setUnlocalizedName("IgIn Stone Adze");
+            .setUnlocalizedName("IgIn Stone Adze");
         sedStoneAdze = new ItemAdze(TFCItems.sedToolMaterial)
-                .setUnlocalizedName("Sed Stone Adze");
+            .setUnlocalizedName("Sed Stone Adze");
         igExStoneAdze = new ItemAdze(TFCItems.igExToolMaterial)
-                .setUnlocalizedName("IgEx Stone Adze");
+            .setUnlocalizedName("IgEx Stone Adze");
         mMStoneAdze = new ItemAdze(TFCItems.mMToolMaterial)
-                .setUnlocalizedName("MM Stone Adze");
+            .setUnlocalizedName("MM Stone Adze");
 
         igInHandAxe = new ItemHandAxe(TFCItems.igInToolMaterial)
             .setUnlocalizedName("IgIn Hand Axe");
@@ -138,16 +138,16 @@ public class ItemSetup extends BidsItems {
             .setAttackSpeed(12)
             .setUnlocalizedName("Hardened Wooden Spear");
 
-        Metal[] toolMetals = new Metal[] { Global.COPPER, Global.BRONZE, Global.BISMUTHBRONZE, Global.BLACKBRONZE };
+        Metal[] toolMetals = new Metal[]{Global.COPPER, Global.BRONZE, Global.BISMUTHBRONZE, Global.BLACKBRONZE};
         clayMoldAdze = new ItemGenericPotteryMold()
             .setCounter(4)
             .setMetals(toolMetals)
-            .setMetaNames(new String[] { "Clay", "Ceramic", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze" })
+            .setMetaNames(new String[]{"Clay", "Ceramic", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze"})
             .setUnlocalizedName("Mold Adze");
         clayMoldDrill = new ItemGenericPotteryMold()
             .setCounter(4)
             .setMetals(toolMetals)
-            .setMetaNames(new String[] { "Clay", "Ceramic", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze" })
+            .setMetaNames(new String[]{"Clay", "Ceramic", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze"})
             .setUnlocalizedName("Mold Drill");
 
         copperAdzeHead = new ItemGenericToolHead()
@@ -211,28 +211,28 @@ public class ItemSetup extends BidsItems {
 
         // Obsolete - replaced with roughStoneBrick
         sedRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_SED)
-                .setMetaOnly() // No actual items
-                .setTextureName("Rough Brick")
-                .setUnlocalizedName("Sed Rough Stone Loose Brick");
+            .setMetaOnly() // No actual items
+            .setTextureName("Rough Brick")
+            .setUnlocalizedName("Sed Rough Stone Loose Brick");
 
         roughStoneBrick = new ItemRoughBrick().setNames(Global.STONE_ALL)
-                .setTextureName("Rough Brick")
-                .setUnlocalizedName("Rough Stone Brick");
+            .setTextureName("Rough Brick")
+            .setUnlocalizedName("Rough Stone Brick");
 
         roughStoneTile = new ItemRoughBrick().setNames(Global.STONE_ALL)
-                .setTextureName("Rough Tile")
-                .setUnlocalizedName("Rough Stone Tile");
+            .setTextureName("Rough Tile")
+            .setUnlocalizedName("Rough Stone Tile");
 
         peeledLog = new ItemPeeledLog().setNames(Global.WOOD_ALL)
-                .setUnlocalizedName("Peeled Log");
+            .setUnlocalizedName("Peeled Log");
         peeledLogSeasoned = new ItemPeeledLogSeasoned().setNames(Global.WOOD_ALL)
-                .setUnlocalizedName("Peeled Log Seasoned");
+            .setUnlocalizedName("Peeled Log Seasoned");
         logsSeasoned = new ItemLogsSeasoned()
-                .setUnlocalizedName("Log Seasoned");
+            .setUnlocalizedName("Log Seasoned");
         firewood = new ItemFirewood().setNames(Global.WOOD_ALL)
-                .setUnlocalizedName("Firewood");
+            .setUnlocalizedName("Firewood");
         firewoodSeasoned = new ItemFirewoodSeasoned().setNames(Global.WOOD_ALL)
-                .setUnlocalizedName("Firewood Seasoned");
+            .setUnlocalizedName("Firewood Seasoned");
 
         board = new ItemBoard().setNames(Global.WOOD_ALL)
             .setUnlocalizedName("Board");
@@ -240,91 +240,91 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Shaft");
 
         smallStickBundle = new ItemSmallStickBundle()
-                .setUnlocalizedName("Small Stick Bundle");
+            .setUnlocalizedName("Small Stick Bundle");
         tiedStickBundle = new ItemTiedStickBundle()
-                .setUnlocalizedName("Tied Stick Bundle");
+            .setUnlocalizedName("Tied Stick Bundle");
         kindling = new ItemKindling().setFuelKindlingQuality(0.50f)
-                .setUnlocalizedName("Kindling");
+            .setUnlocalizedName("Kindling");
 
         bark = new ItemBark().setNames(Global.WOOD_ALL)
-                .setUnlocalizedName("Bark");
+            .setUnlocalizedName("Bark");
 
         barkFibre = new ItemTextile()
-                .addHint(EnumTextileHint.DRYING_FIBRE)
-                .setUnlocalizedName("Bark Fibre");
+            .addHint(EnumTextileHint.DRYING_FIBRE)
+            .setUnlocalizedName("Bark Fibre");
         barkFibreCoarse = new ItemTextile()
-                .addHint(EnumTextileHint.RUBBING)
-                .addHint(EnumTextileHint.SPINNING_TWINE)
-                .setUnlocalizedName("Bark Fibre Coarse");
+            .addHint(EnumTextileHint.RUBBING)
+            .addHint(EnumTextileHint.SPINNING_TWINE)
+            .setUnlocalizedName("Bark Fibre Coarse");
         barkFibreSmooth = new ItemTextile()
-                .addHint(EnumTextileHint.SPINNING_CORDAGE)
-                .setUnlocalizedName("Bark Fibre Smooth");
+            .addHint(EnumTextileHint.SPINNING_CORDAGE)
+            .setUnlocalizedName("Bark Fibre Smooth");
         barkCordage = new ItemTextile().setMaterialColor(0x8c7a4b)
-                .addHint(EnumTextileHint.TWISTING)
-                .setUnlocalizedName("Bark Cordage");
+            .addHint(EnumTextileHint.TWISTING)
+            .setUnlocalizedName("Bark Cordage");
 
         // OBSOLETE
         barkFibreStrip = new ItemTerra()
-                .setMetaNames(new String[] { "Fresh", "Cured" })
-                .setUnlocalizedName("Bark Fibre Strip");
+            .setMetaNames(new String[]{"Fresh", "Cured"})
+            .setUnlocalizedName("Bark Fibre Strip");
 
         barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1f)
-                .setUnlocalizedName("Bark Fibre Kindling");
+            .setUnlocalizedName("Bark Fibre Kindling");
 
         sisalFiberRinsed = new ItemTextile()
-                .addHint(EnumTextileHint.DRYING_FIBRE)
-                .setUnlocalizedName("Sisal Fibre Rinsed");
+            .addHint(EnumTextileHint.DRYING_FIBRE)
+            .setUnlocalizedName("Sisal Fibre Rinsed");
         sisalFiberCoarse = new ItemTextile()
-                .addHint(EnumTextileHint.CARDING)
-                .addHint(EnumTextileHint.SPINNING_TWINE)
-                .setUnlocalizedName("Sisal Fibre Coarse");
+            .addHint(EnumTextileHint.CARDING)
+            .addHint(EnumTextileHint.SPINNING_TWINE)
+            .setUnlocalizedName("Sisal Fibre Coarse");
         sisalFiberRefined = new ItemTextile().setMaterialColor(0xfdd9ab)
-                .addHint(EnumTextileHint.SPINNING_TWINE)
-                .setUnlocalizedName("Sisal Fibre Refined");
+            .addHint(EnumTextileHint.SPINNING_TWINE)
+            .setUnlocalizedName("Sisal Fibre Refined");
         sisalTwine = new ItemTextile().setMaterialColor(0x97784f)
-                .addHint(EnumTextileHint.TWISTING)
-                .addHint(EnumTextileHint.WEAVING_BURLAP)
-                .setUnlocalizedName("Sisal Twine");
+            .addHint(EnumTextileHint.TWISTING)
+            .addHint(EnumTextileHint.WEAVING_BURLAP)
+            .setUnlocalizedName("Sisal Twine");
 
         juteStalk = new ItemTextile()
-                .addHint(EnumTextileHint.RETTING_STALK)
-                .setUnlocalizedName("Jute Stalk");
+            .addHint(EnumTextileHint.RETTING_STALK)
+            .setUnlocalizedName("Jute Stalk");
         juteStalkRetted = new ItemTextile()
-                .addHint(EnumTextileHint.PEELING_STALK)
-                .setUnlocalizedName("Jute Stalk Retted");
+            .addHint(EnumTextileHint.PEELING_STALK)
+            .setUnlocalizedName("Jute Stalk Retted");
         juteFiberCoarse = new ItemTextile()
-                .addHint(EnumTextileHint.HECKLING)
-                .addHint(EnumTextileHint.SPINNING_TWINE)
-                .setUnlocalizedName("Jute Fibre Coarse");
+            .addHint(EnumTextileHint.HECKLING)
+            .addHint(EnumTextileHint.SPINNING_TWINE)
+            .setUnlocalizedName("Jute Fibre Coarse");
         juteFiberRefined = new ItemTextile().setMaterialColor(0xddccb7)
-                .addHint(EnumTextileHint.SPINNING_TWINE)
-                .setUnlocalizedName("Jute Fibre Refined");
+            .addHint(EnumTextileHint.SPINNING_TWINE)
+            .setUnlocalizedName("Jute Fibre Refined");
         juteTwine = new ItemTextile().setMaterialColor(0x765d42)
-                .addHint(EnumTextileHint.TWISTING)
-                .addHint(EnumTextileHint.WEAVING_BURLAP)
-                .setUnlocalizedName("Jute Twine");
+            .addHint(EnumTextileHint.TWISTING)
+            .addHint(EnumTextileHint.WEAVING_BURLAP)
+            .setUnlocalizedName("Jute Twine");
 
         flaxStalk = new ItemTextile()
-                .addHint(EnumTextileHint.RETTING_STALK)
-                .setUnlocalizedName("Flax Stalk");
+            .addHint(EnumTextileHint.RETTING_STALK)
+            .setUnlocalizedName("Flax Stalk");
         flaxStalkRetted = new ItemTextile()
-                .addHint(EnumTextileHint.DRYING_FIBRE)
-                .setUnlocalizedName("Flax Stalk Retted");
+            .addHint(EnumTextileHint.DRYING_FIBRE)
+            .setUnlocalizedName("Flax Stalk Retted");
         flaxStalkDried = new ItemTextile()
-                .addHint(EnumTextileHint.BREAKING_HAND)
-                .addHint(EnumTextileHint.BREAKING_SURFACE)
-                .setUnlocalizedName("Flax Stalk Dried");
+            .addHint(EnumTextileHint.BREAKING_HAND)
+            .addHint(EnumTextileHint.BREAKING_SURFACE)
+            .setUnlocalizedName("Flax Stalk Dried");
         flaxStalkBroken = new ItemTextile()
-                .addHint(EnumTextileHint.SCUTCHING_HAND)
-                .addHint(EnumTextileHint.SCUTCHING_SURFACE)
-                .setUnlocalizedName("Flax Stalk Broken");
+            .addHint(EnumTextileHint.SCUTCHING_HAND)
+            .addHint(EnumTextileHint.SCUTCHING_SURFACE)
+            .setUnlocalizedName("Flax Stalk Broken");
         flaxFiberCoarse = new ItemTextile()
-                .addHint(EnumTextileHint.HECKLING)
-                .addHint(EnumTextileHint.SPINNING_STRING)
-                .setUnlocalizedName("Flax Fibre Coarse");
+            .addHint(EnumTextileHint.HECKLING)
+            .addHint(EnumTextileHint.SPINNING_STRING)
+            .setUnlocalizedName("Flax Fibre Coarse");
         flaxFiberRefined = new ItemTextile().setMaterialColor(0xb0c389)
-                .addHint(EnumTextileHint.SPINNING_STRING)
-                .setUnlocalizedName("Flax Fibre Refined");
+            .addHint(EnumTextileHint.SPINNING_STRING)
+            .setUnlocalizedName("Flax Fibre Refined");
 
         cottonBoll = new ItemTextile()
             .addHint(EnumTextileHint.REFINING_BOLL)
@@ -358,35 +358,35 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Wool Fibre Refined");
 
         flatBirchBark = new ItemGenericFlat().setTextureFolder("armor/clothing")
-                .setUnlocalizedName("Flat Birch Bark");
+            .setUnlocalizedName("Flat Birch Bark");
         birchBarkSheet = new ItemGenericClothSheet().setSpecialCraftingType(flatBirchBark)
-                .setUnlocalizedName("Birch Bark Sheet");
+            .setUnlocalizedName("Birch Bark Sheet");
         birchBarkRepairPatch = new ItemExtraClothingPiece().setExtraPieceTypes(ExtraClothing.BIRCH_BARK)
-                .setUnlocalizedName("Repair Patch");
+            .setUnlocalizedName("Repair Patch");
         birchBarkBagPiece = new ItemExtraClothingPiece().setExtraPieceTypes(ExtraClothing.BIRCH_BARK)
-                .setUnlocalizedName("Bag Piece");
+            .setUnlocalizedName("Bag Piece");
         birchBarkStrap = new ItemExtraClothingPiece().setExtraPieceTypes(ExtraClothing.BIRCH_BARK)
-                .setUnlocalizedName("Strap");
+            .setUnlocalizedName("Strap");
         birchBarkCupPiece = new ItemExtraClothingPiece().setExtraPieceTypes(ExtraClothing.BIRCH_BARK)
-                .setUnlocalizedName("Cup Piece");
+            .setUnlocalizedName("Cup Piece");
         birchBarkBag = new ItemExtraBag().setMaxDamage(12)
-                .setUnlocalizedName("Birch Bark Bag");
+            .setUnlocalizedName("Birch Bark Bag");
         birchBarkCupUnfinished = new ItemMiscSewable()
-                .setUnlocalizedName("Birch Bark Cup Unfinished");
+            .setUnlocalizedName("Birch Bark Cup Unfinished");
         birchBarkCup = new ItemDrinkingCloth()
-                .setUnlocalizedName("Birch Bark Cup");
+            .setUnlocalizedName("Birch Bark Cup");
         birchBarkKindling = new ItemKindling().setFuelKindlingQuality(1f)
-                .setUnlocalizedName("Birch Bark Kindling");
+            .setUnlocalizedName("Birch Bark Kindling");
 
         birchBarkShoes = new ItemExtraBoots(IEquipable.ClothingType.BOOTS)
-                .setResourceLocation(Tags.MOD_ID, "textures/models/armor/clothing/birch_bark_shoes_color.png")
-                .setArmorCoverage("SOCKS", 4)
-                .setArmorType(Armor.linenCloth)
-                .setMaxDamage(TFCItems.strawUses)
-                .setUnlocalizedName("Birch Bark Shoes");
+            .setResourceLocation(Tags.MOD_ID, "textures/models/armor/clothing/birch_bark_shoes_color.png")
+            .setArmorCoverage("SOCKS", 4)
+            .setArmorType(Armor.linenCloth)
+            .setMaxDamage(TFCItems.strawUses)
+            .setUnlocalizedName("Birch Bark Shoes");
         ((IBoots) birchBarkShoes).setTrueBoots(false)
-                .setDefaultWalkable(0.07f)
-                .addWalkableSurface(Material.sand, 0.02f);
+            .setDefaultWalkable(0.07f)
+            .addWalkableSurface(Material.sand, 0.02f);
         ((ItemClothing) birchBarkShoes).setRepairCost(2);
 
         coatBodyFrontLeather = new ItemExtraClothingPiece()
@@ -410,54 +410,54 @@ public class ItemSetup extends BidsItems {
             .setArmorCoverage("SHORTS_LEGS", 3);
 
         wheatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
-                .setIngredientOverride(TFCItems.wheatWhole)
-                .setDecayRate(1.5f)
-                .setUnlocalizedName("Wheat Crushed");
+            .setIngredientOverride(TFCItems.wheatWhole)
+            .setDecayRate(1.5f)
+            .setUnlocalizedName("Wheat Crushed");
         barleyCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20, false, false)
-                .setIngredientOverride(TFCItems.barleyWhole)
-                .setDecayRate(1.5f)
-                .setUnlocalizedName("Barley Crushed");
+            .setIngredientOverride(TFCItems.barleyWhole)
+            .setDecayRate(1.5f)
+            .setUnlocalizedName("Barley Crushed");
         oatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
-                .setIngredientOverride(TFCItems.oatWhole)
-                .setDecayRate(1.5f)
-                .setUnlocalizedName("Oat Crushed");
+            .setIngredientOverride(TFCItems.oatWhole)
+            .setDecayRate(1.5f)
+            .setUnlocalizedName("Oat Crushed");
         ryeCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20, false, false)
-                .setIngredientOverride(TFCItems.ryeWhole)
-                .setDecayRate(1.5f)
-                .setUnlocalizedName("Rye Crushed");
+            .setIngredientOverride(TFCItems.ryeWhole)
+            .setDecayRate(1.5f)
+            .setUnlocalizedName("Rye Crushed");
         riceCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
-                .setIngredientOverride(TFCItems.riceWhole)
-                .setDecayRate(1.5f)
-                .setUnlocalizedName("Rice Crushed");
+            .setIngredientOverride(TFCItems.riceWhole)
+            .setDecayRate(1.5f)
+            .setUnlocalizedName("Rice Crushed");
         cornmealCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20, false, false)
-                .setIngredientOverride(TFCItems.maizeEar)
-                .setDecayRate(1.5f)
-                .setUnlocalizedName("Cornmeal Crushed");
+            .setIngredientOverride(TFCItems.maizeEar)
+            .setDecayRate(1.5f)
+            .setUnlocalizedName("Cornmeal Crushed");
 
         wheatPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-                .setDecayRate(2f)
-                .setUnlocalizedName("Wheat Porridge");
+            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+            .setDecayRate(2f)
+            .setUnlocalizedName("Wheat Porridge");
         barleyPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
-                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-                .setDecayRate(2f)
-                .setUnlocalizedName("Barley Porridge");
+            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+            .setDecayRate(2f)
+            .setUnlocalizedName("Barley Porridge");
         oatPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-                .setDecayRate(2f)
-                .setUnlocalizedName("Oat Porridge");
+            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+            .setDecayRate(2f)
+            .setUnlocalizedName("Oat Porridge");
         ryePorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
-                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-                .setDecayRate(2f)
-                .setUnlocalizedName("Rye Porridge");
+            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+            .setDecayRate(2f)
+            .setUnlocalizedName("Rye Porridge");
         ricePorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-                .setDecayRate(2f)
-                .setUnlocalizedName("Rice Porridge");
+            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+            .setDecayRate(2f)
+            .setUnlocalizedName("Rice Porridge");
         cornmealPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
-                .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-                .setDecayRate(2f)
-                .setUnlocalizedName("Cornmeal Porridge");
+            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+            .setDecayRate(2f)
+            .setUnlocalizedName("Cornmeal Porridge");
 
         wheatDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
             .setFlatDoughDamage(0)
@@ -662,14 +662,14 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Seeds New Carrot");
 
         plugAndFeather = new ItemPlugAndFeather()
-                .setUnlocalizedName("Plug And Feather");
+            .setUnlocalizedName("Plug And Feather");
 
         appleCrushed = new ItemExtraFood(EnumFoodGroup.Fruit, 40, 20, 0, 10, 0)
-                .setDecayRate(4f)
-                .setUnlocalizedName("Apple Crushed");
+            .setDecayRate(4f)
+            .setUnlocalizedName("Apple Crushed");
         oliveCrushed = new ItemExtraFood(EnumFoodGroup.Fruit, 10, 0, 3, 50, 0)
-                .setDecayRate(4f)
-                .setUnlocalizedName("Olive Crushed");
+            .setDecayRate(4f)
+            .setUnlocalizedName("Olive Crushed");
 
         oliveOilBottle = new ItemGlassBottleFluid()
             .setContainerItem((TFCItems.glassBottle))
@@ -745,47 +745,47 @@ public class ItemSetup extends BidsItems {
             .setContainerItem((TFCItems.glassBottle))
             .setUnlocalizedName("Glass Bottle.MilkVinegar");
 
-        vinegarBowl = new ItemBowlFluid(new String[] { "PotteryBowl", "Bowl" })
+        vinegarBowl = new ItemBowlFluid(new String[]{"PotteryBowl", "Bowl"})
             .setContainerItem(TFCItems.potteryBowl)
             .setUnlocalizedName("Bowl Vinegar");
-        oliveOilBowl = new ItemBowlFluid(new String[] { "PotteryBowl", "Bowl" })
+        oliveOilBowl = new ItemBowlFluid(new String[]{"PotteryBowl", "Bowl"})
             .setContainerItem(TFCItems.potteryBowl)
             .setUnlocalizedName("Bowl Olive Oil");
-        fishOilBowl = new ItemBowlFluid(new String[] { "PotteryBowl", "Bowl" })
+        fishOilBowl = new ItemBowlFluid(new String[]{"PotteryBowl", "Bowl"})
             .setContainerItem(TFCItems.potteryBowl)
             .setUnlocalizedName("Bowl Fish Oil");
 
         largeClayBowl = new ItemLargeBowl()
             .setUnlocalizedName("Large Bowl");
 
-        freshWaterLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+        freshWaterLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.FreshWater");
-        saltWaterLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+        saltWaterLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.SaltWater");
-        vinegarLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+        vinegarLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.Vinegar");
-        milkLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+        milkLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.Milk");
-        honeyLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+        honeyLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.Honey");
-        goatMilkLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+        goatMilkLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.GoatMilk");
-        skimmedMilkLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+        skimmedMilkLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.SkimmedMilk");
-        creamLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+        creamLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.Cream");
-        weakWoodAshLyeLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+        weakWoodAshLyeLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.WeakWoodAshLye");
-        woodAshLyeLargeBowl = new ItemLargeBowlFluid(new String[] { "Pottery" })
+        woodAshLyeLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.WoodAshLye");
 
@@ -849,30 +849,30 @@ public class ItemSetup extends BidsItems {
             .setMaxDamage(TFCItems.linenUses)
             .setUnlocalizedName("Steaming Mesh Cloth");
 
-        stuffedPepper = new ItemMoreSandwich(new float[] { 3, 6, 4, 2, 1 })
+        stuffedPepper = new ItemMoreSandwich(new float[]{3, 6, 4, 2, 1})
             .setMetaNames(new String[]{"Stuffed Pepper.Green", "Stuffed Pepper.Yellow", "Stuffed Pepper.Red"})
             .setUnlocalizedName("Stuffed Pepper");
-        stuffedMushroom = new ItemMoreSandwich(new float[] { 2, 3, 2, 2, 1 })
+        stuffedMushroom = new ItemMoreSandwich(new float[]{2, 3, 2, 2, 1})
             .setMetaNames(new String[]{"Stuffed Mushroom.Brown"})
             .setUnlocalizedName("Stuffed Mushroom");
-        pemmican = new ItemPemmican(new float[] { 0, 40, 20, 10, 10 })
+        pemmican = new ItemPemmican(new float[]{0, 40, 20, 10, 10})
             .setMetaNames(new String[]{"Pemmican"})
             .setUnlocalizedName("Pemmican");
-        wrap = new ItemWrap(new float[] { 3, 6, 4, 2, 1 })
-            .setMetaNames(new String[]{"Wrap.Wheat", "Wrap.Barley", "Wrap.Oat", "Wrap.Rye", "Wrap.Corn", "Wrap.Rice" })
+        wrap = new ItemWrap(new float[]{3, 6, 4, 2, 1})
+            .setMetaNames(new String[]{"Wrap.Wheat", "Wrap.Barley", "Wrap.Oat", "Wrap.Rye", "Wrap.Corn", "Wrap.Rice"})
             .setUnlocalizedName("Wrap");
 
         cookingMixture = new ItemCookingMixture()
             .setUnlocalizedName("CookingMixture");
 
         stew = new ItemCookedMeal()
-            .setMetaNames(new String[] {"Stew.Bean", "Stew.Meat", "Stew.Fish", "Stew.Vegetable"})
+            .setMetaNames(new String[]{"Stew.Bean", "Stew.Meat", "Stew.Fish", "Stew.Vegetable"})
             .setUnlocalizedName("Stew");
         soup = new ItemCookedMeal()
-            .setMetaNames(new String[] {"Soup.Bean", "Soup.Meat", "Soup.Fish", "Soup.Vegetable"})
+            .setMetaNames(new String[]{"Soup.Bean", "Soup.Meat", "Soup.Fish", "Soup.Vegetable"})
             .setUnlocalizedName("Soup");
         porridge = new ItemCookedMeal()
-            .setMetaNames(new String[] {"Porridge.Water", "Porridge.Milk"})
+            .setMetaNames(new String[]{"Porridge.Water", "Porridge.Milk"})
             .setUnlocalizedName("Porridge");
         omelet = new ItemCookedMeal()
             .setUnlocalizedName("Omelet");
