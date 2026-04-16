@@ -15,6 +15,9 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.List;
 
 public class DryingRackHelper {
 
@@ -39,7 +42,7 @@ public class DryingRackHelper {
             return span;
         }
 
-        Bids.LOG.debug("No sufficiently solid block on the opposite side to place draying rack here");
+        Bids.LOG.debug("No sufficiently solid block on the opposite side to place drying rack here");
 
         return 0;
     }
@@ -50,44 +53,63 @@ public class DryingRackHelper {
                 && world.isAirBlock(x + side.offsetX, y, z + side.offsetZ);
     }
 
-    public static void placeDryingRackAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z,
-            ForgeDirection side, int maxSpan) {
-        final int veryMaxSpan = Math.min(maxSpan, stack.stackSize);
-        final int span = DryingRackHelper.getRequiredDryingRackSpan(world, x, y, z, side, veryMaxSpan);
-        final int orientation = side.ordinal() / 2 - 1;
+    public static void placeDryingRackFromItemsAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, ForgeDirection side) {
+        int maxPoles = Math.min(stack.stackSize / 2, 3);
+        int span = DryingRackHelper.getRequiredDryingRackSpan(world, x, y, z, side, maxPoles);
+        if (span > 0) {
+            // For length of 1 no cordage is needed
+            ItemStack cordage = span > 1 ? findCordageOnPlayer(player, span * 2) : null;
 
-        int x2 = x;
-        int z2 = z;
+            if (cordage != null || span == 1) {
+                final int orientation = side.ordinal() / 2 - 1;
 
-        for (int i = 0; i < span; i++) {
-            x2 += side.offsetX;
-            z2 += side.offsetZ;
+                for (int i = 1; i <= span; i++) {
+                    int x2 = x + side.offsetX * i;
+                    int z2 = z + side.offsetZ * i;
 
-            if (world.isAirBlock(x2, y, z2)) {
-                world.setBlock(x2, y, z2, BidsBlocks.dryingRack, orientation % 4, 2);
-                TileEntityDryingRack te = (TileEntityDryingRack) world.getTileEntity(x2, y, z2);
-                te.setOrientation(orientation);
-                stack.stackSize--;
+                    world.setBlock(x2, y, z2, BidsBlocks.dryingRack, orientation % 4, 2);
+                    TileEntityDryingRack te = (TileEntityDryingRack) world.getTileEntity(x2, y, z2);
+                    te.setOrientation(orientation);
+                    stack.stackSize -= 2;
+
+                    if (cordage != null) {
+                        ItemStack cordageCopy = cordage.copy();
+                        cordageCopy.stackSize = 2;
+                        te.setCordage(cordageCopy);
+
+                        cordage.stackSize -= 2;
+                    }
+                }
+
+                if (cordage != null) {
+                    player.inventoryContainer.detectAndSendChanges();
+                }
             }
         }
     }
 
-    public static void placeCordlessDryingRackAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z,
-                                         ForgeDirection side) {
-        int span = DryingRackHelper.getRequiredDryingRackSpan(world, x, y, z, side, 1);
-        if (span == 1) {
-            final int orientation = side.ordinal() / 2 - 1;
-            int x2 = x + side.offsetX;
-            int z2 = z + side.offsetZ;
-
-            if (world.isAirBlock(x2, y, z2)) {
-                world.setBlock(x2, y, z2, BidsBlocks.dryingRack, orientation % 4 + 8, 2);
-                TileEntityDryingRack te = (TileEntityDryingRack) world.getTileEntity(x2, y, z2);
-                te.setOrientation(orientation);
-                te.setCordless(true);
-                stack.stackSize -= 2;
+    private static ItemStack findCordageOnPlayer(EntityPlayer player, int num) {
+        List<ItemStack> bindings = OreDictionary.getOres("materialBinding", false);
+        for (int i = 0; i < 9; i++) {
+            ItemStack is = player.inventory.getStackInSlot(i);
+            if (is != null && is.stackSize >= num && isOreList(is, bindings)) {
+                return is;
             }
         }
+
+        return null;
+    }
+
+    private static boolean isOreList(ItemStack itemStack, List<ItemStack> ores) {
+        for (ItemStack ore : ores) {
+            if (ore.getItem() == itemStack.getItem()
+                && (ore.getItemDamage() == itemStack.getItemDamage()
+                || ore.getItemDamage() == OreDictionary.WILDCARD_VALUE)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static MovingObjectPosition onDryingRackCollisionRayTrace(World world, int x, int y, int z, Vec3 startVec,

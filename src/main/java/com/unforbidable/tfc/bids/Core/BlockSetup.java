@@ -826,7 +826,7 @@ public class BlockSetup extends BidsBlocks {
 
         GameRegistry.registerBlock(tiedStickBundle, "TiedStickBundle");
 
-        GameRegistry.registerBlock(dryingRack, ItemDryingRack.class, "DryingRack");
+        GameRegistry.registerBlock(dryingRack, "DryingRack");
 
         GameRegistry.registerBlock(stackedFirewood, "StackedFirewood");
         GameRegistry.registerBlock(stackedFirewood2, "StackedFirewood2");

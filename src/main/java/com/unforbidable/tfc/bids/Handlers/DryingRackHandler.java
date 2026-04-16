@@ -16,7 +16,7 @@ public class DryingRackHandler {
                     if (event.entityPlayer.getHeldItem() != null && event.entityPlayer.getHeldItem().getItem() == TFCItems.pole && event.entityPlayer.getHeldItem().stackSize > 1) {
                         ForgeDirection dir = ForgeDirection.getOrientation(event.face);
                         if (DryingRackHelper.canPlaceDryingRackAt(event.world, event.x, event.y, event.z, dir)) {
-                            DryingRackHelper.placeCordlessDryingRackAt(event.entityPlayer.getHeldItem(), event.entityPlayer,
+                            DryingRackHelper.placeDryingRackFromItemsAt(event.entityPlayer.getHeldItem(), event.entityPlayer,
                                 event.world, event.x, event.y, event.z, dir);
 
                             event.setCanceled(true);

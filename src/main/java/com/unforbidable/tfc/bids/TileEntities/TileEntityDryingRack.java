@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.TileEntities;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Drying.*;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackItem;
@@ -37,7 +38,7 @@ public class TileEntityDryingRack extends TileEntity
 
     long lastDryingTicks = 0;
     int orientation = -1;
-    boolean cordless = false;
+    ItemStack cordage = null;
 
     boolean clientNeedToUpdate = false;
 
@@ -58,12 +59,8 @@ public class TileEntityDryingRack extends TileEntity
         return orientation;
     }
 
-    public boolean isCordless() {
-        return cordless;
-    }
-
-    public void setCordless(boolean cordless) {
-        this.cordless = cordless;
+    public void setCordage(ItemStack itemStack) {
+        this.cordage = itemStack;
     }
 
     public void setSelectedSection(int selectedSection) {
@@ -158,7 +155,12 @@ public class TileEntityDryingRack extends TileEntity
 
     public void writeDryingRackDataToNBT(NBTTagCompound tag) {
         tag.setInteger("orientation", orientation);
-        tag.setBoolean("cordless", cordless);
+
+        if (cordage != null) {
+            NBTTagCompound itemTag = new NBTTagCompound();
+            cordage.writeToNBT(itemTag);
+            tag.setTag("cordage", itemTag);
+        }
 
         NBTTagList itemTagList = new NBTTagList();
         for (int i = 0; i < MAX_STORAGE; i++) {
@@ -174,7 +176,6 @@ public class TileEntityDryingRack extends TileEntity
 
     public void readDryingRackDataFromNBT(NBTTagCompound tag) {
         orientation = tag.getInteger("orientation");
-        cordless = tag.getBoolean("cordless");
 
         for (int i = 0; i < MAX_STORAGE; i++) {
             storage[i] = null;
@@ -185,6 +186,12 @@ public class TileEntityDryingRack extends TileEntity
             NBTTagCompound itemTag = itemTagList.getCompoundTagAt(i);
             final int slot = itemTag.getInteger("slot");
             storage[slot] = DryingRackItem.loadDryingRackItemFromNBT(itemTag);
+        }
+
+        cordage = null;
+        if (tag.hasKey("cordage")) {
+            NBTTagCompound itemTag = tag.getCompoundTag("cordage");
+            cordage = ItemStack.loadItemStackFromNBT(itemTag);
         }
     }
 
@@ -248,7 +255,14 @@ public class TileEntityDryingRack extends TileEntity
             }
         }
 
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        if (cordage != null) {
+            EntityItem ei3 = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, cordage);
+            worldObj.spawnEntityInWorld(ei3);
+        }
+
+        ItemStack poles = new ItemStack(TFCItems.pole, 2);
+        EntityItem ei4 = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, poles);
+        worldObj.spawnEntityInWorld(ei4);
     }
 
     public boolean retrieveItem(int section, EntityPlayer player) {

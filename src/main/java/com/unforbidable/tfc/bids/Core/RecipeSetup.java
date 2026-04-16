@@ -37,7 +37,6 @@ import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -326,12 +325,6 @@ public class RecipeSetup {
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stick, 9, 0),
                 new ItemStack(BidsItems.tiedStickBundle)));
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.dryingRack),
-                "PP", "SS", 'P', new ItemStack(TFCItems.pole),
-                'S', "materialBindingStrong"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 2, 0),
-                new ItemStack(BidsBlocks.dryingRack)));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibre),
                 "itemBarkHasFibers", "itemKnife"));

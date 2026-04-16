@@ -1,13 +1,11 @@
 package com.unforbidable.tfc.bids.Blocks;
 
-import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackBounds;
 import com.unforbidable.tfc.bids.Core.DryingRack.DryingRackHelper;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -15,6 +13,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -24,8 +23,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Random;
 
 public class BlockDryingRack extends BlockContainer {
 
@@ -71,20 +69,14 @@ public class BlockDryingRack extends BlockContainer {
     }
 
     @Override
-    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+    public void onBlockPreDestroy(World world, int x, int y, int z, int meta) {
         TileEntityDryingRack te = (TileEntityDryingRack) world.getTileEntity(x, y, z);
         te.onDryingRackBroken();
-
-        super.breakBlock(world, x, y, z, block, meta);
     }
 
     @Override
-    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-        if (((metadata & 8) != 0)) {
-            return new ArrayList<ItemStack>(Collections.singleton(new ItemStack(TFCItems.pole, 2, 0)));
-        } else {
-            return super.getDrops(world, x, y, z, metadata, fortune);
-        }
+    public Item getItemDropped(int meta, Random rnd, int fortune) {
+        return null;
     }
 
     private boolean isBlockRackOrSolidSide(World world, int x, int y, int z, ForgeDirection d) {
