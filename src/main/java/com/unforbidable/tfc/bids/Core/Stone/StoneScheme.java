@@ -27,7 +27,10 @@ public class StoneScheme {
             case STONE_BRICK:
             case ROUGH_STONE_TILE:
             case ROUGH_STONE_BRICK:
+            case MUD:
             case MUD_BRICK:
+            case MUD_BRICK_DRYING:
+            case MUD_BRICK_WET:
             case FLAT_ROCK:
             case ADZE_HEAD:
             case DRILL_HEAD:
@@ -58,8 +61,17 @@ public class StoneScheme {
             case ROUGH_STONE_TILE:
                 return new ItemStack(BidsItems.roughStoneTile, stackSize, stone.index);
 
+            case MUD:
+                return new ItemStack(TFCItems.mud, stackSize, stone.index);
+
             case MUD_BRICK:
                 return new ItemStack(TFCItems.mudBrick, stackSize, stone.index);
+
+            case MUD_BRICK_DRYING:
+                return new ItemStack(BidsItems.dryingMudBrick, stackSize, stone.index);
+
+            case MUD_BRICK_WET:
+                return new ItemStack(TFCItems.mudBrick, stackSize, stone.index + 32);
 
             case FLAT_ROCK:
                 return new ItemStack(TFCItems.flatRock, stackSize, stone.index);
