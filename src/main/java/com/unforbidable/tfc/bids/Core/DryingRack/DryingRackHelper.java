@@ -89,7 +89,7 @@ public class DryingRackHelper {
     }
 
     private static ItemStack findCordageOnPlayer(EntityPlayer player, int num) {
-        List<ItemStack> bindings = OreDictionary.getOres("materialBinding", false);
+        List<ItemStack> bindings = OreDictionary.getOres("materialBindingStrong", false);
         for (int i = 0; i < 9; i++) {
             ItemStack is = player.inventory.getStackInSlot(i);
             if (is != null && is.stackSize >= num && isOreList(is, bindings)) {

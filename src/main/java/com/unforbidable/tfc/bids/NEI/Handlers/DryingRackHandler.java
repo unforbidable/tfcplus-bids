@@ -4,6 +4,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
@@ -15,6 +16,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.awt.*;
 
@@ -105,8 +107,11 @@ public class DryingRackHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public HandlerInfo getHandlerInfo() {
-        HandlerInfo info = new HandlerInfo(BidsBlocks.dryingRack);
-        info.addCatalyst(BidsBlocks.dryingRack);
+        HandlerInfo info = new HandlerInfo(TFCItems.pole);
+        info.addCatalyst(TFCItems.pole);
+        for (ItemStack is : OreDictionary.getOres("materialBindingStrong", false)) {
+            info.addCatalyst(is.getItem(), is.getItemDamage());
+        }
         return info;
     }
 
