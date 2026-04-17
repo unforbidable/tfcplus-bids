@@ -8,7 +8,7 @@ import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingSurface;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
-import com.unforbidable.tfc.bids.api.Crafting.DryingSurfaceManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -35,7 +35,7 @@ public class DryingSurfaceHelper {
     }
 
     private static boolean isValidDryingSurfaceItem(ItemStack item) {
-        return DryingSurfaceManager.getMatchingRecipe(item) != null || item.getItem() instanceof ItemClothing;
+        return BidsRegistry.DRYING_SURFACE_RECIPES.findMatchingRecipe(item) != null || item.getItem() instanceof ItemClothing;
     }
 
     public static boolean placeDryingItemAt(World world, int x, int y, int z, float hitX, float hitZ, ItemStack item) {

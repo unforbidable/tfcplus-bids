@@ -3,13 +3,16 @@ package com.unforbidable.tfc.bids.TileEntities;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Drying.*;
+import com.unforbidable.tfc.bids.Core.Drying.DryingEngine;
+import com.unforbidable.tfc.bids.Core.Drying.DryingHelper;
+import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
+import com.unforbidable.tfc.bids.Core.Drying.IDryingHost;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.DryingSurfaceManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingSurfaceRecipe;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -101,7 +104,7 @@ public class TileEntityDryingSurface extends TileEntity implements IInventory, I
     }
 
     private DryingSurfaceRecipe getRecipeForInputItem(ItemStack inputItem) {
-        return DryingSurfaceManager.getMatchingRecipe(inputItem);
+        return BidsRegistry.DRYING_SURFACE_RECIPES.findMatchingRecipe(inputItem);
     }
 
     public ItemStack getSlotActualItem(int slot) {

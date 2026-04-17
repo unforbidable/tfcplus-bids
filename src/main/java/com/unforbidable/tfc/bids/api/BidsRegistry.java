@@ -27,6 +27,7 @@ public class BidsRegistry {
     public static final FluidRegistry<ILampFuelMaterial> LAMP_FUEL = new FluidRegistry<>();
     public static final ItemRegistry<Item> COOKING_INGREDIENT_OVERRIDE = new ItemRegistry<>();
     public static final ListRegistry<CookingMixture> COOKING_MIXTURES = new ListRegistry<>();
+    public static final ListRegistry<DryingRackTyingEquipment> DRYING_RACK_TYING_EQUIPMENT = new ListRegistry<>();
 
     public static final RecipeRegistry<CarvingRecipe> CARVING_RECIPES = new RecipeRegistry<>();
     public static final SimpleRecipeRegistry<ChurningRecipe, FluidStack> CHURNING_RECIPES = new SimpleRecipeRegistry<>();
@@ -37,6 +38,8 @@ public class BidsRegistry {
     public static final SimpleRecipeRegistry<SpinningRecipe, ItemStack> SPINNING_RECIPES = new SimpleRecipeRegistry<>();
     public static final RecipeRegistry<ChoppingBlockRecipe> CHOPPING_BLOCK_RECIPES = new RecipeRegistry<>();
     public static final RecipeRegistry<CookingRecipe> COOKING_RECIPES = new RecipeRegistry<>();
+    public static final SimpleRecipeRegistry<DryingRackRecipe, ItemStack> DRYING_RACK_RECIPES = new SimpleRecipeRegistry<>();
+    public static final SimpleRecipeRegistry<DryingSurfaceRecipe, ItemStack> DRYING_SURFACE_RECIPES = new SimpleRecipeRegistry<>();
     public static final SimpleRecipeRegistry<PrepRecipe, ItemStack[]> PREP_RECIPES = new SimpleRecipeRegistry<>();
 
     public static class ListRegistry<V> implements Iterable<V> {

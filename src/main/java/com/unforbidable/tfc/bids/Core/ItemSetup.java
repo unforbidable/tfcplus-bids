@@ -23,7 +23,7 @@ import com.unforbidable.tfc.bids.Render.Item.*;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
 import com.unforbidable.tfc.bids.api.*;
-import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
@@ -1132,13 +1132,13 @@ public class ItemSetup extends BidsItems {
         Bids.LOG.info("Register drying rack tying equipment");
 
         // And now tying equipment
-        DryingRackManager.registerTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1);
-        DryingRackManager.registerTyingEquipment(TFCItems.woolYarn, false, Blocks.wool, 0);
-        DryingRackManager.registerTyingEquipment(TFCItems.linenString, false, Blocks.wool, 0);
-        DryingRackManager.registerTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0);
-        DryingRackManager.registerTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0);
-        DryingRackManager.registerTyingEquipment(BidsItems.sisalTwine, false, Blocks.wool, 1);
-        DryingRackManager.registerTyingEquipment(BidsItems.juteTwine, false, Blocks.wool, 1);
+        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1));
+        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.woolYarn, false, Blocks.wool, 0));
+        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.linenString, false, Blocks.wool, 0));
+        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0));
+        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0));
+        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(BidsItems.sisalTwine, false, Blocks.wool, 1));
+        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(BidsItems.juteTwine, false, Blocks.wool, 1));
     }
 
     private static void registerCookingIngredientOverrides() {

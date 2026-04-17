@@ -6,7 +6,8 @@ import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRackTyingEquipment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -176,7 +177,7 @@ public class DryingRackHelper {
     }
 
     public static boolean isItemValidDryingRackItem(ItemStack itemStack) {
-        return DryingRackManager.hasMatchingRecipe(itemStack) || itemStack.getItem() instanceof ItemClothing;
+        return BidsRegistry.DRYING_RACK_RECIPES.findMatchingRecipe(itemStack) != null || itemStack.getItem() instanceof ItemClothing;
     }
 
     public static int getDryingRackSectionFromHit(TileEntityDryingRack dryingRack, float hitX, float hitY, float hitZ) {
@@ -193,6 +194,16 @@ public class DryingRackHelper {
         }
 
         return -1;
+    }
+
+    public static DryingRackTyingEquipment findTyingEquipment(ItemStack item) {
+        for (DryingRackTyingEquipment te : BidsRegistry.DRYING_RACK_TYING_EQUIPMENT) {
+            if (te.item == item.getItem()) {
+                return te;
+            }
+        }
+
+        return null;
     }
 
 }

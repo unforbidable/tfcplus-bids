@@ -9,7 +9,7 @@ import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -50,7 +50,7 @@ public class DryingRackHandler extends TemplateRecipeHandler implements IHandler
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == DryingRackHandler.class) {
-            for (DryingRackRecipe recipe : DryingRackManager.getRecipes()) {
+            for (DryingRackRecipe recipe : BidsRegistry.DRYING_RACK_RECIPES) {
                 final ItemStack input = recipe.getInputItem();
                 final ItemStack result = recipe.getResult(input);
                 arecipes.add(new CachedDryingRecipe(input, result, recipe.getDuration()));
@@ -62,7 +62,7 @@ public class DryingRackHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (DryingRackRecipe recipe : DryingRackManager.getRecipes()) {
+        for (DryingRackRecipe recipe : BidsRegistry.DRYING_RACK_RECIPES) {
             final ItemStack input = recipe.getInputItem();
             final ItemStack result = recipe.getResult(input);
             output.stackSize = result.stackSize;
@@ -74,7 +74,7 @@ public class DryingRackHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (DryingRackRecipe recipe : DryingRackManager.getRecipes()) {
+        for (DryingRackRecipe recipe : BidsRegistry.DRYING_RACK_RECIPES) {
             if (recipe.matches(ingredient)) {
                 final ItemStack input = ingredient.copy();
                 input.stackSize = recipe.getInputItem().stackSize;

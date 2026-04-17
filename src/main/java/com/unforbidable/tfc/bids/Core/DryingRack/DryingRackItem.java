@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.Core.DryingRack;
 
 import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
-import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
+import com.unforbidable.tfc.bids.api.Crafting.DryingRackTyingEquipment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -17,7 +17,7 @@ public class DryingRackItem extends DryingItem {
                 return tyingItem;
             }
 
-            DryingRackManager.TyingEquipment te = DryingRackManager.findTyingEquipmnt(tyingItem);
+            DryingRackTyingEquipment te = DryingRackHelper.findTyingEquipment(tyingItem);
             if (te != null && te.isReusable) {
                 // unless if reusable return anyway
                 return tyingItem;

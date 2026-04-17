@@ -1056,31 +1056,31 @@ public class RecipeSetup {
     private static void registerDryingRecipes() {
         Bids.LOG.info("Register drying recipes");
 
-        DryingRackManager.addRecipe((DryingRackRecipe) DryingRackRecipe.builder()
+        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
             .consumes(new ItemStack(BidsItems.barkFibre))
             .produces(new ItemStack(BidsItems.barkFibreCoarse))
             .dry()
             .hours(8)
             .build());
-        DryingRackManager.addRecipe((DryingRackRecipe) DryingRackRecipe.builder()
+        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
             .consumes(new ItemStack(BidsItems.sisalFiberRinsed))
             .produces(new ItemStack(BidsItems.sisalFiberCoarse))
             .dry()
             .hours(8)
             .build());
-        DryingRackManager.addRecipe((DryingRackRecipe) DryingRackRecipe.builder()
+        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
             .consumes(new ItemStack(TFCItems.juteFiber))
             .produces(new ItemStack(BidsItems.juteFiberCoarse))
             .dry()
             .hours(16)
             .build());
-        DryingRackManager.addRecipe((DryingRackRecipe) DryingRackRecipe.builder()
+        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
             .consumes(new ItemStack(BidsItems.flaxStalkRetted))
             .produces(new ItemStack(BidsItems.flaxStalkDried))
             .dry()
             .hours(16)
             .build());
-        DryingRackManager.addRecipe((DryingRackRecipe) DryingRackRecipe.builder()
+        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
             .consumes(new ItemStack(BidsItems.woolRinsed))
             .produces(new ItemStack(BidsItems.woolDried))
             .dry()
@@ -1093,7 +1093,7 @@ public class RecipeSetup {
             TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese,
             BidsItems.goatCheese };
         for (Item food : foodToDry) {
-            DryingRackManager.addRecipe((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
+            BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
                 .tied()
                 .consumes(ItemFoodTFC.createTag(new ItemStack(food), 1))
                 .dry()
@@ -1102,31 +1102,31 @@ public class RecipeSetup {
         }
 
         // Extra food drying
-        DryingRackManager.addRecipe((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
+        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
             .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.seaWeed), 1))
             .dry()
             .hours(16)
             .build());
 
-        DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
             .consumes(new ItemStack(BidsItems.barkFibre))
             .produces(new ItemStack(BidsItems.barkFibreCoarse))
             .dry()
             .hours(12)
             .build());
-        DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
             .consumes(new ItemStack(BidsItems.flaxStalk))
             .produces(new ItemStack(BidsItems.flaxStalkRetted))
             .wet()
             .hours(20)
             .build());
-        DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
             .consumes(new ItemStack(BidsItems.flaxStalkRetted))
             .produces(new ItemStack(BidsItems.flaxStalkDried))
             .dry()
             .hours(20)
             .build());
-        DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
             .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), 1))
             .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), 1))
             .dry()
@@ -1135,14 +1135,14 @@ public class RecipeSetup {
             .build());
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
-            DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+            BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
                 .consumes(stone.items.getItem(EnumStoneItemType.MUD_BRICK_WET))
                 .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING), stone.items.getItem(EnumStoneItemType.MUD))
                 .dry()
                 .notWet()
                 .hours(24)
                 .build());
-            DryingSurfaceManager.addRecipe((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+            BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
                 .consumes(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING))
                 .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK), stone.items.getItem(EnumStoneItemType.MUD))
                 .dry()
