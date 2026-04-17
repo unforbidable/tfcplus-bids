@@ -19,6 +19,7 @@ public class BidsRegistry {
     public static final BlockRegistry<IQuarriable> QUARRY_BLOCKS = new BlockRegistry<>();
     public static final ListRegistry<ICarving> CARVING_BLOCKS = new ListRegistry<>();
     public static final ListRegistry<IDrinkable> DRINKS = new ListRegistry<>();
+    public static final ListRegistry<Class<? extends IKilnChamber>> KILN_CHAMBERS = new ListRegistry<>();
 
     public static class ItemRegistry<T> implements Iterable<ItemRegistry.Entry<T>> {
 

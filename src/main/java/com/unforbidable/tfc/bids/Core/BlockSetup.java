@@ -539,16 +539,16 @@ public class BlockSetup extends BidsBlocks {
         Bids.LOG.info("Register kiln chambers");
 
         if (BidsOptions.Kiln.enableTunnelKiln) {
-            KilnRegistry.registerKilnChamber(TunnelKilnChamber.class);
+            BidsRegistry.KILN_CHAMBERS.register(TunnelKilnChamber.class);
         }
         if (BidsOptions.Kiln.enableSquareKiln) {
-            KilnRegistry.registerKilnChamber(SquareKilnChamber.class);
+            BidsRegistry.KILN_CHAMBERS.register(SquareKilnChamber.class);
         }
         if (BidsOptions.Kiln.enableBeehiveKiln) {
-            KilnRegistry.registerKilnChamber(BeehiveKilnChamber.class);
+            BidsRegistry.KILN_CHAMBERS.register(BeehiveKilnChamber.class);
         }
         if (BidsOptions.Kiln.enableClimbingKiln) {
-            KilnRegistry.registerKilnChamber(ClimbingKilnChamber.class);
+            BidsRegistry.KILN_CHAMBERS.register(ClimbingKilnChamber.class);
         }
     }
 

@@ -5,10 +5,10 @@ import com.unforbidable.tfc.bids.Core.Chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnChamber;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnHeatSource;
 import com.unforbidable.tfc.bids.api.Interfaces.IKilnManager;
-import com.unforbidable.tfc.bids.api.KilnRegistry;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
@@ -209,7 +209,7 @@ public class KilnManager implements IKilnManager {
 
     private static List<IKilnChamber> createKilnInstances(IKilnHeatSource heatSource) {
         List<IKilnChamber> list = new ArrayList<IKilnChamber>();
-        for (Class<?> c : KilnRegistry.getKilnChambers()) {
+        for (Class<? extends IKilnChamber> c : BidsRegistry.KILN_CHAMBERS) {
             IKilnChamber kiln = createKilnInstance(c, heatSource);
             if (kiln != null) {
                 list.add(kiln);
@@ -219,7 +219,7 @@ public class KilnManager implements IKilnManager {
         return list;
     }
 
-    private static IKilnChamber createKilnInstance(Class<?> cls, IKilnHeatSource kilnHeatSource) {
+    private static IKilnChamber createKilnInstance(Class<? extends IKilnChamber> cls, IKilnHeatSource kilnHeatSource) {
         try {
             Constructor<?> constructor = cls.getConstructor(IKilnHeatSource.class);
             Object instance = constructor.newInstance(kilnHeatSource);
