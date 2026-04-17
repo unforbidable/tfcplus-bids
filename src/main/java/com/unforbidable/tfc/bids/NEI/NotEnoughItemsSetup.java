@@ -104,6 +104,10 @@ public class NotEnoughItemsSetup {
         hideBlock(BidsBlocks.quarry);
         hideBlock(BidsBlocks.woodPile);
         hideBlock(BidsBlocks.newFirepit);
+        hideBlock(BidsBlocks.dryingRack);
+        hideBlock(BidsBlocks.dryingSurface);
+        hideBlock(BidsBlocks.soakingSurface);
+        hideBlock(BidsBlocks.processingSurface);
         hideBlock(BidsBlocks.tiedStickBundle);
 
         hideBlock(BidsBlocks.logWallEastAlt);
