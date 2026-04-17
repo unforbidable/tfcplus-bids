@@ -8,10 +8,11 @@ import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Containers.Slots.ISlotTracker;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingPrep.CookingPrepHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPrep.PrepVirtualCuttingRecipe;
 import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsFood;
-import com.unforbidable.tfc.bids.api.Crafting.PrepManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.PrepRecipe;
 import com.unforbidable.tfc.bids.api.Interfaces.IMoreSandwich;
 import net.minecraft.entity.item.EntityItem;
@@ -364,7 +365,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
 
     private ItemStack getMatchingRecipeResult(boolean consumeIngredients) {
         ItemStack[] ingredients = getIngredientsForRecipe(false);
-        PrepRecipe recipe = PrepManager.getMatchingRecipe(ingredients);
+        PrepRecipe recipe = BidsRegistry.PREP_RECIPES.findMatchingRecipe(ingredients);
         if (recipe != null) {
             return recipe.getResult(ingredients, consumeIngredients);
         }
@@ -375,7 +376,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
         }
 
         ItemStack[] ingredientsWithStoredVessel = getIngredientsForRecipe(true);
-        PrepRecipe recipeWithStoredVessel = PrepManager.getMatchingRecipe(ingredientsWithStoredVessel);
+        PrepRecipe recipeWithStoredVessel = BidsRegistry.PREP_RECIPES.findMatchingRecipe(ingredientsWithStoredVessel);
         if (recipeWithStoredVessel != null) {
             return recipeWithStoredVessel.getResult(ingredientsWithStoredVessel, consumeIngredients);
         }
@@ -476,7 +477,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
         } else if (count > 1 || storage[0] != null) {
             ItemStack[] ingredientsWithStoredVessel = getIngredientsForRecipe(true);
             if (ingredientsWithStoredVessel[0] != null) {
-                List<PrepRecipe> recipes = PrepManager.getRecipesUsingVessel(ingredientsWithStoredVessel[0]);
+                List<PrepRecipe> recipes = CookingPrepHelper.getRecipesUsingVessel(ingredientsWithStoredVessel[0]);
                 if (recipes.size() > 0) {
                     recipeIngredientWeights = recipes.get(0).getIngredientWeights();
                     Bids.LOG.debug("Updated weights for recipe: " + Arrays.toString(recipeIngredientWeights));

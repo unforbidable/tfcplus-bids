@@ -1581,32 +1581,32 @@ public class RecipeSetup {
 
         Item[] breads = new Item[] { TFCItems.wheatBread, TFCItems.oatBread, TFCItems.barleyBread, TFCItems.ryeBread, TFCItems.cornBread, TFCItems.riceBread };
         for (int i = 0; i < breads.length; i++) {
-            PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.sandwich, 1, i)), new PrepIngredientSpec[]{
+            BidsRegistry.PREP_RECIPES.register(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.sandwich, 1, i)), new PrepIngredientSpec[]{
                 PrepIngredient.from(breads[i]).toSpec(2),
                 foodNoGrain.toSpec(3), foodNoGrain.toSpec(2), foodNoGrain.toSpec(2), foodNoGrain.toSpec(1)
             }, 7));
         }
 
-        PrepManager.addRecipe(new PrepSaladRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.salad)), new PrepIngredientSpec[] {
+        BidsRegistry.PREP_RECIPES.register(new PrepSaladRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.salad)), new PrepIngredientSpec[] {
             vesselBowl.toSpec(), foodNoGrainExceptRice.toSpec(10), foodNoGrainExceptRice.toSpec(4), foodNoGrainExceptRice.toSpec(4), foodNoGrainExceptRice.toSpec(2)
         }, 14));
 
         Item[] peppers = new Item[] { TFCItems.greenBellPepper, TFCItems.yellowBellPepper, TFCItems.redBellPepper };
         for (int i = 0; i < peppers.length; i++) {
-            PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedPepper, 1, i)), new PrepIngredientSpec[]{
+            BidsRegistry.PREP_RECIPES.register(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedPepper, 1, i)), new PrepIngredientSpec[]{
                 PrepIngredient.from(peppers[i]).toSpec(3),
                 foodNoGrainExceptRiceAndBread.toSpec(6), foodNoGrainExceptRiceAndBread.toSpec(4), foodNoGrainExceptRiceAndBread.toSpec(2), foodNoGrainExceptRiceAndBread.toSpec(1)
             }, 10));
         }
 
-        PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedMushroom)), new PrepIngredientSpec[]{
+        BidsRegistry.PREP_RECIPES.register(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedMushroom)), new PrepIngredientSpec[]{
             PrepIngredient.from(TFCItems.mushroomFoodB).toSpec(2),
             foodNoGrainExceptRiceAndBread.toSpec(3), foodNoGrainExceptRiceAndBread.toSpec(2), foodNoGrainExceptRiceAndBread.toSpec(2), foodNoGrainExceptRiceAndBread.toSpec(1)
         }, 7));
 
         Item[] flatbread = new Item[] { BidsItems.wheatFlatbread, BidsItems.oatFlatbread, BidsItems.barleyFlatbread, BidsItems.ryeFlatbread, BidsItems.cornmealFlatbread, BidsItems.riceFlatbread };
         for (int i = 0; i < breads.length; i++) {
-            PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.wrap, 1, i)), new PrepIngredientSpec[]{
+            BidsRegistry.PREP_RECIPES.register(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.wrap, 1, i)), new PrepIngredientSpec[]{
                 PrepIngredient.from(flatbread[i]).toSpec(2),
                 foodNoGrainExceptRice.toSpec(3), foodNoGrainExceptRice.toSpec(2), foodNoGrainExceptRice.toSpec(2), foodNoGrainExceptRice.toSpec(1)
             }, 7));
@@ -1629,7 +1629,7 @@ public class RecipeSetup {
             .allow("foodGrainCrushed")
             .build();
 
-        PrepManager.addRecipe(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.pemmican)), new PrepIngredientSpec[]{
+        BidsRegistry.PREP_RECIPES.register(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.pemmican)), new PrepIngredientSpec[]{
             PrepIngredient.from(BidsItems.moreHide, 0).toSpec(),
             leanMeat.toSpec(40, true), tallow.toSpec(20, true), berriesAndFlours.toSpec(10), berriesAndFlours.toSpec(10)
         }));
@@ -1689,32 +1689,32 @@ public class RecipeSetup {
             .allow("foodEgg")
             .build();
 
-        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.BEAN), new PrepIngredientSpec[]{
+        BidsRegistry.PREP_RECIPES.register(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.BEAN), new PrepIngredientSpec[]{
             vesselLargeBowl.toSpec(),
             beans.toSpec(20, true), foodNoFruitNoBread.toSpec(8, true), foodNoFruitNoBread.toSpec(8), foodNoFruitNoBread.toSpec(4)
         }));
 
-        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.MEAT), new PrepIngredientSpec[]{
+        BidsRegistry.PREP_RECIPES.register(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.MEAT), new PrepIngredientSpec[]{
             vesselLargeBowl.toSpec(),
             meatNoFish.toSpec(20, true), foodNoFruitNoBread.toSpec(8, true), foodNoFruitNoBread.toSpec(8), foodNoFruitNoBread.toSpec(4)
         }));
 
-        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.FISH), new PrepIngredientSpec[]{
+        BidsRegistry.PREP_RECIPES.register(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.FISH), new PrepIngredientSpec[]{
             vesselLargeBowl.toSpec(),
             meatFish.toSpec(20, true), foodNoFruitNoBread.toSpec(8, true), foodNoFruitNoBread.toSpec(8), foodNoFruitNoBread.toSpec(4)
         }));
 
-        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.VEGETABLE), new PrepIngredientSpec[]{
+        BidsRegistry.PREP_RECIPES.register(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.VEGETABLE), new PrepIngredientSpec[]{
             vesselLargeBowl.toSpec(),
             vegetable.toSpec(20, true), foodNoFruitNoBread.toSpec(8, true), foodNoFruitNoBread.toSpec(8), foodNoFruitNoBread.toSpec(4)
         }));
 
-        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.CEREAL), new PrepIngredientSpec[]{
+        BidsRegistry.PREP_RECIPES.register(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.CEREAL), new PrepIngredientSpec[]{
             vesselLargeBowl.toSpec(),
             grainPorridge.toSpec(20, true), foodNoDairyNoGrain.toSpec(8, true), foodNoDairyNoGrain.toSpec(8), foodNoDairyNoGrain.toSpec(4)
         }));
 
-        PrepManager.addRecipe(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.EGG), new PrepIngredientSpec[]{
+        BidsRegistry.PREP_RECIPES.register(new PrepRecipe(CookingMixtureHelper.createCookingMixtureItemStack(BidsCookingMixtures.EGG), new PrepIngredientSpec[]{
             vesselLargeBowl.toSpec(),
             foodEgg.toSpec(20, true), foodNoFruitNoGrain.toSpec(8, true), foodNoFruitNoGrain.toSpec(8), foodNoFruitNoGrain.toSpec(4)
         }));

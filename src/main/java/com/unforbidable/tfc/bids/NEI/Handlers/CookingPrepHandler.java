@@ -10,9 +10,9 @@ import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.PrepIngredient;
 import com.unforbidable.tfc.bids.api.Crafting.PrepIngredientSpec;
-import com.unforbidable.tfc.bids.api.Crafting.PrepManager;
 import com.unforbidable.tfc.bids.api.Crafting.PrepRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -55,7 +55,7 @@ public class CookingPrepHandler extends TemplateRecipeHandler implements IHandle
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == CookingPrepHandler.class) {
-            for (PrepRecipe recipe : PrepManager.getRecipes()) {
+            for (PrepRecipe recipe : BidsRegistry.PREP_RECIPES) {
                 arecipes.add(new CachedPrepRecipe(recipe));
             }
         } else {
@@ -65,7 +65,7 @@ public class CookingPrepHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (PrepRecipe recipe : PrepManager.getRecipes()) {
+        for (PrepRecipe recipe : BidsRegistry.PREP_RECIPES) {
             final ItemStack result = recipe.getOutput();
             if (OreDictionary.itemMatches(result, output, true)) {
                 arecipes.add(new CachedPrepRecipe(recipe));
@@ -75,7 +75,7 @@ public class CookingPrepHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (PrepRecipe recipe : PrepManager.getRecipes()) {
+        for (PrepRecipe recipe : BidsRegistry.PREP_RECIPES) {
             if (recipe.doesVesselOrIngredientMatch(ingredient)) {
                 arecipes.add(new CachedPrepRecipe(recipe));
             }

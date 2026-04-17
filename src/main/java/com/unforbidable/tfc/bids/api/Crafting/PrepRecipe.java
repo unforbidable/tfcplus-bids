@@ -4,6 +4,7 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.Interfaces.ISimpleRecipeMatcher;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PrepRecipe {
+public class PrepRecipe implements ISimpleRecipeMatcher<ItemStack[]> {
 
     public static final int INGREDIENT_COUNT = 5;
     private static final float REQUIRED_WEIGHT_TOLERANCE = 0.95f;
@@ -76,6 +77,7 @@ public class PrepRecipe {
         return result;
     }
 
+    @Override
     public boolean matches(ItemStack[] ingredients) {
         if (ingredients.length != 5) {
             throw new IllegalArgumentException("Expected array of ingredients of size 5");

@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.Containers.Slots;
 
-import com.unforbidable.tfc.bids.api.Crafting.PrepManager;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingPrep.CookingPrepHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
@@ -12,7 +12,7 @@ public class SlotPrepVessel extends TrackedSlot {
 
     @Override
     public boolean isItemValid(ItemStack is) {
-        return super.isItemValid(is) && PrepManager.isValidPrepVessel(is);
+        return super.isItemValid(is) && CookingPrepHelper.isValidPrepVessel(is);
     }
 
 }
