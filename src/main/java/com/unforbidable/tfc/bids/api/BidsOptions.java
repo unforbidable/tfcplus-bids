@@ -153,6 +153,8 @@ public class BidsOptions {
 
         public static boolean enableCottonBollAutoConversion = false;
 
+        public static boolean enableDryingSurfaceMudBrickDryingOverride = false;
+
     }
 
     public static class Crops {

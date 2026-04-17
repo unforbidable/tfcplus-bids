@@ -61,9 +61,17 @@ public class SurfaceItemHandler {
     }
 
     private boolean isItemAllowed(ItemStack heldItem) {
-        // Only allow soaked hides to be scrapped if enabled in the config
-        return BidsOptions.Crafting.enableProcessingSurfaceLeatherRackOverride ||
-            heldItem.getItem() != TFCItems.soakedHide;
+        if (heldItem.getItem() == TFCItems.soakedHide) {
+            // Only allow soaked hides to be scrapped if enabled in the config
+            return BidsOptions.Crafting.enableProcessingSurfaceLeatherRackOverride;
+        }
+
+        if (heldItem.getItem() == TFCItems.mudBrick) {
+            // Only allow mud brick to be dried using drying surface if enabled in the config
+            return BidsOptions.Crafting.enableDryingSurfaceMudBrickDryingOverride;
+        }
+
+        return true;
     }
 
     @SubscribeEvent

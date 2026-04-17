@@ -294,6 +294,10 @@ public class ConfigHandler {
             BidsOptions.Crafting.enableCottonBollAutoConversion,
             "Set this to true if you want to automatically convert harvested cotton boll when picked up.");
 
+        BidsOptions.Crafting.enableDryingSurfaceMudBrickDryingOverride = config.getBoolean(
+            "enableDryingSurfaceMudBrickDryingOverride", "crafting", BidsOptions.Crafting.enableDryingSurfaceMudBrickDryingOverride,
+            "Set this to true if you want to dry mud bricks using the Drying Surface, instead of the TFC mechanics.");
+
         BidsOptions.Crops.enableCerealSeedAutoConversion = config.getBoolean(
             "enableCerealSeedAutoConversion", "crops",
             BidsOptions.Crops.enableCerealSeedAutoConversion,
