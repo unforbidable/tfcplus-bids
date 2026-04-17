@@ -1838,42 +1838,42 @@ public class RecipeSetup {
     private static void registerHandworkRecipes() {
         Bids.LOG.info("Register handwork recipes");
 
-        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.barkFibreSmooth), new ItemStack(BidsItems.barkFibreCoarse), 80));
-        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(TFCItems.juteFiber), new ItemStack(BidsItems.juteStalkRetted), 80));
-        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.flaxStalkBroken), new ItemStack(BidsItems.flaxStalkDried), 240));
-        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.flaxFiberCoarse), new ItemStack(BidsItems.flaxStalkBroken), 240));
-        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.cottonFiberCoarse), new ItemStack(BidsItems.cottonBollRefined), 60));
-        HandworkManager.addRecipe(new HandworkRecipe(new ItemStack(BidsItems.woolFiberCoarse), new ItemStack(BidsItems.woolDried), 60));
+        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.barkFibreSmooth), new ItemStack(BidsItems.barkFibreCoarse), 80));
+        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(TFCItems.juteFiber), new ItemStack(BidsItems.juteStalkRetted), 80));
+        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.flaxStalkBroken), new ItemStack(BidsItems.flaxStalkDried), 240));
+        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.flaxFiberCoarse), new ItemStack(BidsItems.flaxStalkBroken), 240));
+        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.cottonFiberCoarse), new ItemStack(BidsItems.cottonBollRefined), 60));
+        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.woolFiberCoarse), new ItemStack(BidsItems.woolDried), 60));
 
         // Flax fiber spinning recipe is preserved as a way to convert TFC+ Flax fibers to string
         // since unlike other fibers it is not used as an intermediate material in the new extended textile processing
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
 
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberRefined), 120));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberRefined), 120));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberRefined), 120));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreSmooth), 80));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberRefined), 120));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberRefined), 120));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberRefined), 120));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberRefined), 120));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberRefined), 120));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreSmooth), 80));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberRefined), 120));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberRefined), 120));
 
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberCoarse), 120 * 4));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberCoarse), 120 * 4));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberCoarse), 120 * 4));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberCoarse), 120 * 4));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberCoarse), 120 * 4));
-        HandworkManager.addRecipe(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreCoarse), 80 * 4));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberCoarse), 120 * 4));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberCoarse), 120 * 4));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberCoarse), 120 * 4));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberCoarse), 120 * 4));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberCoarse), 120 * 4));
+        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreCoarse), 80 * 4));
 
-        HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 600));
-        HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.barkCordage, 12), 600));
-        HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.sisalTwine, 8), 600));
-        HandworkManager.addRecipe(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.juteTwine, 12), 600));
+        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 600));
+        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.barkCordage, 12), 600));
+        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.sisalTwine, 8), 600));
+        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.juteTwine, 12), 600));
 
-        HandworkManager.addRecipe(new CardingRecipe(new ItemStack(BidsItems.sisalFiberRefined), new ItemStack(BidsItems.sisalFiberCoarse), 80));
-        HandworkManager.addRecipe(new CardingRecipe(new ItemStack(BidsItems.cottonFiberRefined), new ItemStack(BidsItems.cottonFiberCoarse), 80));
-        HandworkManager.addRecipe(new CardingRecipe(new ItemStack(BidsItems.woolFiberRefined), new ItemStack(BidsItems.woolFiberCoarse), 80));
+        BidsRegistry.CARDING_RECIPES.register(new CardingRecipe(new ItemStack(BidsItems.sisalFiberRefined), new ItemStack(BidsItems.sisalFiberCoarse), 80));
+        BidsRegistry.CARDING_RECIPES.register(new CardingRecipe(new ItemStack(BidsItems.cottonFiberRefined), new ItemStack(BidsItems.cottonFiberCoarse), 80));
+        BidsRegistry.CARDING_RECIPES.register(new CardingRecipe(new ItemStack(BidsItems.woolFiberRefined), new ItemStack(BidsItems.woolFiberCoarse), 80));
 
-        HandworkManager.addRecipe(new HecklingRecipe(new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.juteFiberCoarse), 120));
-        HandworkManager.addRecipe(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(BidsItems.flaxFiberCoarse), 120));
+        BidsRegistry.HECKLING_RECIPES.register(new HecklingRecipe(new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.juteFiberCoarse), 120));
+        BidsRegistry.HECKLING_RECIPES.register(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(BidsItems.flaxFiberCoarse), 120));
     }
 
     private static void registerKnappingRecipes() {

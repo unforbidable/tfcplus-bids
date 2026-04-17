@@ -3,8 +3,8 @@ package com.unforbidable.tfc.bids.NEI.Handlers;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.CardingRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
@@ -25,7 +25,7 @@ public class CardingHandler extends HandworkHandler {
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == CardingHandler.class) {
-            for (CardingRecipe recipe : HandworkManager.getRecipes(CardingRecipe.class)) {
+            for (CardingRecipe recipe : BidsRegistry.CARDING_RECIPES) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
                 arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration() * BidsOptions.Crafting.cardingDurationMultiplier));
@@ -37,7 +37,7 @@ public class CardingHandler extends HandworkHandler {
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (CardingRecipe recipe : HandworkManager.getRecipes(CardingRecipe.class)) {
+        for (CardingRecipe recipe : BidsRegistry.CARDING_RECIPES) {
             final ItemStack output2 = output.copy();
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
@@ -52,7 +52,7 @@ public class CardingHandler extends HandworkHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (CardingRecipe recipe : HandworkManager.getRecipes(CardingRecipe.class)) {
+        for (CardingRecipe recipe : BidsRegistry.CARDING_RECIPES) {
             if (recipe.matchesIngredient(ingredient)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);

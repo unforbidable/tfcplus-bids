@@ -1,11 +1,11 @@
 package com.unforbidable.tfc.bids.api;
 
-import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.ChurningRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.*;
 import com.unforbidable.tfc.bids.api.Interfaces.*;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -28,6 +28,11 @@ public class BidsRegistry {
 
     public static final RecipeRegistry<CarvingRecipe> CARVING_RECIPES = new RecipeRegistry<>();
     public static final SimpleRecipeRegistry<ChurningRecipe, FluidStack> CHURNING_RECIPES = new SimpleRecipeRegistry<>();
+    public static final SimpleRecipeRegistry<CardingRecipe, ItemStack> CARDING_RECIPES = new SimpleRecipeRegistry<>();
+    public static final SimpleRecipeRegistry<HandworkRecipe, ItemStack> HANDWORK_RECIPES = new SimpleRecipeRegistry<>();
+    public static final SimpleRecipeRegistry<HecklingRecipe, ItemStack> HECKLING_RECIPES = new SimpleRecipeRegistry<>();
+    public static final SimpleRecipeRegistry<RopeMakingRecipe, ItemStack> ROPEMAKING_RECIPES = new SimpleRecipeRegistry<>();
+    public static final SimpleRecipeRegistry<SpinningRecipe, ItemStack> SPINNING_RECIPES = new SimpleRecipeRegistry<>();
 
     public static class ListRegistry<V> implements Iterable<V> {
 

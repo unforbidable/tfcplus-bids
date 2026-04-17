@@ -3,9 +3,8 @@ package com.unforbidable.tfc.bids.Items;
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.HecklingRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -37,7 +36,7 @@ public class ItemHeckle extends ItemHandworkTool {
 
     @Override
     protected HandworkRecipe tryMatchIngredient(ItemStack is) {
-        return HandworkManager.getMatchingRecipe(is, HecklingRecipe.class);
+        return BidsRegistry.HECKLING_RECIPES.findMatchingRecipe(is);
     }
 
     @Override

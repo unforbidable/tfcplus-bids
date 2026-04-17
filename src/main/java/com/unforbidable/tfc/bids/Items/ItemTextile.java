@@ -8,7 +8,7 @@ import com.unforbidable.tfc.bids.Core.Textile.EnumTextileHint;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
 import com.unforbidable.tfc.bids.api.Interfaces.IHandworkToolMaterial;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -63,7 +63,7 @@ public class ItemTextile extends ItemTerra implements IHandworkToolMaterial {
             }
 
             if (count <= 1 && player.isUsingItem()) {
-                HandworkRecipe recipe = HandworkManager.getMatchingRecipe(stack, HandworkRecipe.class);
+                HandworkRecipe recipe = BidsRegistry.HANDWORK_RECIPES.findMatchingRecipe(stack);
                 if (recipe != null) {
                     ItemStack outputItem = recipe.getResult(stack);
                     BidsEventFactory.onHandworkItemCrafted(player, stack, outputItem, null);
@@ -83,7 +83,7 @@ public class ItemTextile extends ItemTerra implements IHandworkToolMaterial {
     }
 
     public int getMaxItemUseDuration(ItemStack is) {
-        HandworkRecipe recipe = HandworkManager.getMatchingRecipe(is, HandworkRecipe.class);
+        HandworkRecipe recipe = BidsRegistry.HANDWORK_RECIPES.findMatchingRecipe(is);
         if (recipe != null) {
             return getActualMaxItemDuration(recipe.getDuration());
         }
@@ -98,7 +98,7 @@ public class ItemTextile extends ItemTerra implements IHandworkToolMaterial {
     @Override
     public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player) {
         if (!player.isUsingItem()) {
-            HandworkRecipe recipe = HandworkManager.getMatchingRecipe(is, HandworkRecipe.class);
+            HandworkRecipe recipe = BidsRegistry.HANDWORK_RECIPES.findMatchingRecipe(is);
             if (recipe != null && is.stackSize >= recipe.getInput().stackSize) {
                 player.setItemInUse(is, getActualMaxItemDuration(recipe.getDuration()));
             }

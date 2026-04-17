@@ -6,7 +6,7 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -46,7 +46,7 @@ public class HandworkHandler extends TemplateRecipeHandler implements IHandlerIn
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == HandworkHandler.class) {
-            for (HandworkRecipe recipe : HandworkManager.getRecipes(HandworkRecipe.class)) {
+            for (HandworkRecipe recipe : BidsRegistry.HANDWORK_RECIPES) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
                 arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration()));
@@ -58,7 +58,7 @@ public class HandworkHandler extends TemplateRecipeHandler implements IHandlerIn
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (HandworkRecipe recipe : HandworkManager.getRecipes(HandworkRecipe.class)) {
+        for (HandworkRecipe recipe : BidsRegistry.HANDWORK_RECIPES) {
             final ItemStack output2 = output.copy();
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
@@ -73,7 +73,7 @@ public class HandworkHandler extends TemplateRecipeHandler implements IHandlerIn
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (HandworkRecipe recipe : HandworkManager.getRecipes(HandworkRecipe.class)) {
+        for (HandworkRecipe recipe : BidsRegistry.HANDWORK_RECIPES) {
             if (recipe.matchesIngredient(ingredient)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);

@@ -2,10 +2,8 @@ package com.unforbidable.tfc.bids.Items;
 
 import com.unforbidable.tfc.bids.Core.Handwork.HandworkProgress;
 import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.Crafting.HandworkManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.HandworkRecipe;
-import com.unforbidable.tfc.bids.api.Crafting.SpinningRecipe;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
@@ -27,7 +25,7 @@ public class ItemSpindle extends ItemHandworkTool {
 
     @Override
     protected HandworkRecipe tryMatchIngredient(ItemStack is) {
-        return HandworkManager.getMatchingRecipe(is, SpinningRecipe.class);
+        return BidsRegistry.SPINNING_RECIPES.findMatchingRecipe(is);
     }
 
     @Override
