@@ -1,10 +1,7 @@
 package com.unforbidable.tfc.bids.TileEntities;
 
-import com.dunk.tfc.Blocks.BlockRoof;
 import com.dunk.tfc.Blocks.Devices.BlockFirepit;
 import com.dunk.tfc.Blocks.Devices.BlockHopper;
-import com.dunk.tfc.Blocks.Flora.BlockFruitLeaves;
-import com.dunk.tfc.Blocks.Vanilla.BlockCustomLeaves;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.TileEntities.TEFirepit;
@@ -14,6 +11,8 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockWoodPile;
+import com.unforbidable.tfc.bids.Core.Drying.Environment.DynamicEnvironment;
+import com.unforbidable.tfc.bids.Core.Drying.Environment.StaticEnvironment;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.Core.Timer;
@@ -32,8 +31,6 @@ import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
 import com.unforbidable.tfc.bids.api.Providers.KilnManagerProvider;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockGlass;
-import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -1082,36 +1079,30 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         final long ticksSinceLastSeasoning = TFC_Time.getTotalTicks() - lastSeasoningTicks;
         lastSeasoningTicks = TFC_Time.getTotalTicks();
 
-        boolean coverageChecked = false;
-        boolean isCovered = false;
+        DynamicEnvironment env = new StaticEnvironment(worldObj, xCoord, yCoord, zCoord)
+            .ofTicks(TFC_Time.getTotalTicks());
+
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
                 final SeasoningRecipe recipe = BidsRegistry.SEASONING_RECIPES.findMatchingRecipe(storage[i]);
 
                 if (recipe != null) {
-                    // Lazy coverage calculation
-                    // only when there is anything to season
-                    if (!coverageChecked) {
-                        isCovered = isCovered();
-                        coverageChecked = true;
-                    }
-
-                    seasonItemInSlot(recipe, i, ticksSinceLastSeasoning, isCovered);
+                    seasonItemInSlot(recipe, i, ticksSinceLastSeasoning, env);
                 }
             }
         }
     }
 
-    protected void seasonItemInSlot(SeasoningRecipe recipe, int slot, long ticksSinceLastSeasoning, boolean isCovered) {
+    protected void seasonItemInSlot(SeasoningRecipe recipe, int slot, long ticksSinceLastSeasoning, DynamicEnvironment env) {
         final float currectSeasoning = SeasoningHelper.getItemSeasoningTag(storage[slot]);
 
         final float totalSeasoningTicks = recipe.getDuration() * TFC_Time.HOUR_LENGTH
                 * BidsOptions.WoodPile.seasoningDurationMultiplier;
         final float remainingSeasoningTicks = totalSeasoningTicks * (1 - currectSeasoning);
         final float seasoningDelta = ticksSinceLastSeasoning / remainingSeasoningTicks;
-        final float coverageMultiplier = isCovered ? SEASONING_COVERED_MULTIPLIER : SEASONING_EXPOSED_MULTIPLIER;
+        final float environmentMultiplier = getSeasoningEnvironmentMultiplier(env);
 
-        final float newSeasoning = Math.min(1, currectSeasoning + seasoningDelta * coverageMultiplier);
+        final float newSeasoning = Math.min(1, currectSeasoning + seasoningDelta * environmentMultiplier);
         SeasoningHelper.setItemSeasoningTag(storage[slot], newSeasoning);
 
         Bids.LOG.debug("Item " + storage[slot].getDisplayName()
@@ -1125,50 +1116,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         }
     }
 
-    private boolean isCovered() {
-        int highestY = worldObj.getPrecipitationHeight(xCoord, zCoord) - 1;
-        if (highestY == yCoord) {
-            // Rain falls directly on the wood pile
-            return false;
-        }
-
-        int y = yCoord;
-        while (y++ < highestY) {
-            TileEntity te = worldObj.getTileEntity(xCoord, y, zCoord);
-            if (te instanceof TileEntityWoodPile) {
-                // Another wood pile is above
-                return ((TileEntityWoodPile) te).isCovered();
-            }
-
-            if (isBlockAboveCovering(y)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean isBlockAboveCovering(int y) {
-        Block block = worldObj.getBlock(xCoord, y, zCoord);
-        if (block instanceof BlockGlass || block instanceof BlockStainedGlass
-                || block instanceof BlockRoof) {
-            return true;
-        }
-
-        if (block instanceof BlockCustomLeaves || block instanceof BlockFruitLeaves) {
-            // Mostly for consistency, as leaves have solid sides,
-            // but branches (with leaves) do not
-            // So neither protects the wood pile
-            return false;
-        }
-
-        if (worldObj.isSideSolid(xCoord, y, zCoord, ForgeDirection.UP)
-                || worldObj.isSideSolid(xCoord, y, zCoord, ForgeDirection.DOWN)) {
-            // Any block with top or bottom side solid
-            return true;
-        }
-
-        return false;
+    private float getSeasoningEnvironmentMultiplier(DynamicEnvironment env) {
+        // ranging from 0.75 - 1.5 depending on humidity and airflow
+        return 0.75f + (1 - env.getHumidity()) * 0.5f + env.getAirflow() * 0.25f;
     }
 
     @Override
