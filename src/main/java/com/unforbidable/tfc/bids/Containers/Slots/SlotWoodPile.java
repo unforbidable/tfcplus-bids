@@ -1,9 +1,8 @@
 package com.unforbidable.tfc.bids.Containers.Slots;
 
 import com.unforbidable.tfc.bids.Core.WoodPile.EnumSlotGroup;
-import com.unforbidable.tfc.bids.api.WoodPileRegistry;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +22,7 @@ public class SlotWoodPile extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack itemStack) {
-        final IWoodPileRenderProvider render = WoodPileRegistry.findItem(itemStack.getItem());
+        final IWoodPileRenderProvider render = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(itemStack);
         if (render == null) {
             return false;
         }
@@ -65,7 +64,7 @@ public class SlotWoodPile extends Slot {
             }
 
             final ItemStack itemStackInHybridSlot = inventory.getStackInSlot(slotGroup.getHybridSlot());
-            IWoodPileRenderProvider renderInHybridSlot = WoodPileRegistry.findItem(itemStackInHybridSlot.getItem());
+            IWoodPileRenderProvider renderInHybridSlot = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(itemStackInHybridSlot);
             if (!renderInHybridSlot.isWoodPileLargeItem(itemStackInHybridSlot)) {
                 // System.out.println("Can insert normal item into slot " + slotNumber
                 // + " because hybrid slot " + slotGroup.getHybridSlot() + " is occupied with a
@@ -97,8 +96,7 @@ public class SlotWoodPile extends Slot {
             final ItemStack itemStackInHybridSlot = inventory
                     .getStackInSlot(slotGroup.getHybridSlot());
             if (itemStackInHybridSlot != null) {
-                IWoodPileRenderProvider renderInHybridSlot = WoodPileRegistry
-                        .findItem(itemStackInHybridSlot.getItem());
+                IWoodPileRenderProvider renderInHybridSlot = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(itemStackInHybridSlot);
                 if (renderInHybridSlot.isWoodPileLargeItem(itemStackInHybridSlot)) {
                     return false;
                 }

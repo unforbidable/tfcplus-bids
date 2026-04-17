@@ -26,6 +26,7 @@ import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -1066,14 +1067,14 @@ public class ItemSetup extends BidsItems {
     private static void registerWoodPileItems() {
         Bids.LOG.info("Register wood pile items");
 
-        WoodPileRegistry.registerSeasonableItem(peeledLog);
-        WoodPileRegistry.registerSeasonedItem(peeledLogSeasoned);
-        WoodPileRegistry.registerSeasonableItem(TFCItems.logs, RenderLogsTFC.class);
-        WoodPileRegistry.registerSeasonedItem(logsSeasoned, RenderLogsTFC.class);
-        WoodPileRegistry.registerItem(TFCItems.thickLogs, RenderThickLogsTFC.class);
-        WoodPileRegistry.registerItem(tiedStickBundle);
-        WoodPileRegistry.registerSeasonableItem(firewood);
-        WoodPileRegistry.registerSeasonedItem(firewoodSeasoned);
+        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(peeledLog, (IWoodPileRenderProvider) peeledLog);
+        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(peeledLogSeasoned, (IWoodPileRenderProvider) peeledLog);
+        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(TFCItems.logs, new RenderLogsTFC());
+        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(logsSeasoned, new RenderLogsTFC());
+        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(TFCItems.thickLogs, new RenderThickLogsTFC());
+        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(tiedStickBundle, (IWoodPileRenderProvider) tiedStickBundle);
+        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(firewood, (IWoodPileRenderProvider) firewood);
+        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(firewoodSeasoned, (IWoodPileRenderProvider) firewoodSeasoned);
     }
 
     private static void registerFirepitFuel() {
@@ -1160,11 +1161,11 @@ public class ItemSetup extends BidsItems {
     private static void registerItemRenderers() {
         Bids.LOG.info("Register item renderers");
 
-        for (Item item : WoodPileRegistry.getSeasonableItems()) {
+        for (Item item : new Item[] { peeledLog, TFCItems.logs, firewood }) {
             MinecraftForgeClient.registerItemRenderer(item, new SeasonableItemRenderer());
         }
 
-        for (Item item : WoodPileRegistry.getSeasonedItems()) {
+        for (Item item : new Item[] { peeledLogSeasoned, logsSeasoned, firewoodSeasoned } ) {
             MinecraftForgeClient.registerItemRenderer(item, new SeasonedItemRenderer());
         }
 

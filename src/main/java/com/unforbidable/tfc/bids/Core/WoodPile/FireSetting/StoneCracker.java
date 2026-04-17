@@ -4,8 +4,8 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockCrackedSed;
 import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.ICrackableBlock;
-import com.unforbidable.tfc.bids.api.WoodPileRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -79,7 +79,7 @@ public class StoneCracker {
     public static ICrackableBlock getCrackableBlock(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
 
-        for (ICrackableBlock crackable : WoodPileRegistry.getCrackableBlocks()) {
+        for (ICrackableBlock crackable : BidsRegistry.WOODPILE_CRACKABLE_BLOCKS) {
             if (crackable.getSource() == block && crackable.isCrackable(world, x, y, z)) {
                 return crackable;
             }
@@ -89,7 +89,7 @@ public class StoneCracker {
     }
 
     public static ICrackableBlock getCrackableBlock(Block block, int metadata) {
-        for (ICrackableBlock crackable : WoodPileRegistry.getCrackableBlocks()) {
+        for (ICrackableBlock crackable : BidsRegistry.WOODPILE_CRACKABLE_BLOCKS) {
             if (crackable.getSource() == block && crackable.isCrackable(block, metadata)) {
                 return crackable;
             }
@@ -128,7 +128,7 @@ public class StoneCracker {
         // Any potentially crackable or already cracked block
         // Although we are not checking individual crackable block logic though
         Block block = world.getBlock(x, y, z);
-        for (ICrackableBlock crackable : WoodPileRegistry.getCrackableBlocks()) {
+        for (ICrackableBlock crackable : BidsRegistry.WOODPILE_CRACKABLE_BLOCKS) {
             if (crackable.getSource() == block || crackable.getTarget() == block) {
                 return true;
             }

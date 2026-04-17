@@ -1,15 +1,14 @@
 package com.unforbidable.tfc.bids.Core.WoodPile;
 
+import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
+import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.WoodPileRegistry;
-import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 
 public class WoodPileBoundsIterator implements Iterable<WoodPileItemBounds> {
 
@@ -29,7 +28,7 @@ public class WoodPileBoundsIterator implements Iterable<WoodPileItemBounds> {
         int largeItemsAdded = 0;
         for (int i = 0; i < items.length; i++) {
             if (items[i] != null) {
-                IWoodPileRenderProvider render = WoodPileRegistry.findItem(items[i].getItem());
+                IWoodPileRenderProvider render = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(items[i]);
                 if (render.isWoodPileLargeItem(items[i])) {
                     // Add after last large item added
                     sortedItems.add(largeItemsAdded++, new IndexedItemStack(i, items[i]));
@@ -59,7 +58,7 @@ public class WoodPileBoundsIterator implements Iterable<WoodPileItemBounds> {
             @Override
             public WoodPileItemBounds next() {
                 final ItemStack item = sortedItems.get(index).itemStack;
-                final IWoodPileRenderProvider renderProvider = WoodPileRegistry.findItem(item.getItem());
+                final IWoodPileRenderProvider renderProvider = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(item);
 
                 final int width = renderProvider.isWoodPileLargeItem(item) ? 2 : 1;
                 final double stride = 1f / 4;

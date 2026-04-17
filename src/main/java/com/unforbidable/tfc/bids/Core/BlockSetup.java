@@ -527,14 +527,14 @@ public class BlockSetup extends BidsBlocks {
     private static void registerCrackableBlocks() {
         Bids.LOG.info("Register crackable blocks");
 
-        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneSed, BidsBlocks.crackedStoneSed, 1f));
-        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneMM, BidsBlocks.crackedStoneMM, 1.2f));
-        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneIgIn, BidsBlocks.crackedStoneIgIn, 1.5f));
-        WoodPileRegistry.registerCrackableBlock(new CrackableBlockStone(TFCBlocks.stoneIgEx, BidsBlocks.crackedStoneIgEx, 2f));
-        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore, BidsBlocks.crackedOre));
-        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore1b, BidsBlocks.crackedOre1b));
-        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore2, BidsBlocks.crackedOre2));
-        WoodPileRegistry.registerCrackableBlock(new CrackableBlockOre(TFCBlocks.ore3, BidsBlocks.crackedOre3));
+        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneSed, BidsBlocks.crackedStoneSed, 1f));
+        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneMM, BidsBlocks.crackedStoneMM, 1.2f));
+        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneIgIn, BidsBlocks.crackedStoneIgIn, 1.5f));
+        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneIgEx, BidsBlocks.crackedStoneIgEx, 2f));
+        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore, BidsBlocks.crackedOre));
+        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore1b, BidsBlocks.crackedOre1b));
+        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore2, BidsBlocks.crackedOre2));
+        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore3, BidsBlocks.crackedOre3));
     }
 
     private static void registerKilnChambers() {

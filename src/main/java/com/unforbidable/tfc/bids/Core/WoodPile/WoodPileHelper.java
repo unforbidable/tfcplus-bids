@@ -12,10 +12,7 @@ import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
 import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityWoodPile;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.WoodPileRegistry;
+import com.unforbidable.tfc.bids.api.*;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -147,7 +144,7 @@ public class WoodPileHelper {
     }
 
     public static boolean isItemValidWoodPileItem(ItemStack itemStack) {
-        return WoodPileRegistry.findItem(itemStack.getItem()) != null;
+        return BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.has(itemStack);
     }
 
     public static boolean isItemValidWoodPileItemForCharcoal(ItemStack itemStack) {
