@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.Render.Blocks;
 
+import com.dunk.tfc.Render.RenderBlocksWithRotation;
 import com.unforbidable.tfc.bids.Core.Drying.DryingItem;
 import com.unforbidable.tfc.bids.Core.DryingSurface.DryingSurfaceHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingSurface;
@@ -27,7 +28,12 @@ public class RenderDryingSurface implements ISimpleBlockRenderingHandler {
             return true;
         }
 
-        renderer.renderAllFaces = true;
+        RenderBlocksWithRotation rendererWithRotation = new RenderBlocksWithRotation(renderer);
+        rendererWithRotation.renderAllFaces = true;
+        rendererWithRotation.staticTexture = true;
+
+        RenderBlocksWithRotation.yRotation = 0;
+        RenderBlocksWithRotation.rotation = 0;
 
         TileEntityDryingSurface te = (TileEntityDryingSurface) world.getTileEntity(x, y, z);
 
@@ -38,24 +44,24 @@ public class RenderDryingSurface implements ISimpleBlockRenderingHandler {
                 if (renderInfo != null) {
                     Vec3 pos = DryingSurfaceHelper.getDryingSurfaceItemVector(i);
                     AxisAlignedBB bounds = renderInfo.getRenderBounds(dryingItem);
-                    renderer.setRenderBounds(bounds.minX * 0.5 + pos.xCoord - 0.25, bounds.minY * 0.5, bounds.minZ * 0.5 + pos.zCoord - 0.25,
+                    rendererWithRotation.setRenderBounds(bounds.minX * 0.5 + pos.xCoord - 0.25, bounds.minY * 0.5, bounds.minZ * 0.5 + pos.zCoord - 0.25,
                         bounds.maxX * 0.5 + pos.xCoord - 0.25, bounds.maxY * 0.5, bounds.maxZ * 0.5 + pos.zCoord - 0.25);
 
                     IIcon icon = renderInfo.getRenderIcon(dryingItem);
-                    renderer.setOverrideBlockTexture(icon);
+                    rendererWithRotation.setOverrideBlockTexture(icon);
 
                     int color = renderInfo.getRenderColor(dryingItem);
                     float r = (color >> 16 & 255) / 255.0F;
                     float g = (color >> 8 & 255) / 255.0F;
                     float b = (color & 255) / 255.0F;
-                    renderer.renderStandardBlockWithColorMultiplier(block, x, y, z, r, g, b);
+                    rendererWithRotation.renderStandardBlockWithColorMultiplier(block, x, y, z, r, g, b);
 
-                    renderer.clearOverrideBlockTexture();
+                    rendererWithRotation.clearOverrideBlockTexture();
                 }
             }
         }
 
-        renderer.renderAllFaces = false;
+        rendererWithRotation.renderAllFaces = false;
 
         return true;
     }
