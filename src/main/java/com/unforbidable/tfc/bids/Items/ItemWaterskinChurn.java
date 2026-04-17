@@ -8,8 +8,8 @@ import com.unforbidable.tfc.bids.Core.ItemHelper;
 import com.unforbidable.tfc.bids.Core.Player.PlayerStateManager;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.BidsSounds;
-import com.unforbidable.tfc.bids.api.Crafting.ChurningManager;
 import com.unforbidable.tfc.bids.api.Crafting.ChurningRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -51,7 +51,7 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
     public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player) {
         FluidStack fluidToChurn = getFluidToChurn(is);
         if (fluidToChurn != null) {
-            ChurningRecipe recipe = ChurningManager.findMatchingRecipe(fluidToChurn);
+            ChurningRecipe recipe = BidsRegistry.CHURNING_RECIPES.findMatchingRecipe(fluidToChurn);
             if (recipe != null) {
                 // Check progress saved in NBT
                 float currentProgress = getChurningProgress(is);
@@ -154,7 +154,7 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
             if (state != null) {
                 FluidStack fluidToChurn = getFluidToChurn(stack);
                 if (fluidToChurn != null) {
-                    ChurningRecipe recipe = ChurningManager.findMatchingRecipe(fluidToChurn);
+                    ChurningRecipe recipe = BidsRegistry.CHURNING_RECIPES.findMatchingRecipe(fluidToChurn);
                     if (recipe != null) {
                         long ticksElapsedSinceStart = TFC_Time.getTotalTicks() - state.ticksStarted;
                         float progress = ticksElapsedSinceStart / recipe.getTotalDuration(fluidToChurn) * BidsOptions.Churning.churningDurationMultiplier;
@@ -173,7 +173,7 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
 
         FluidStack fs = getFluidToChurn(is);
         if (fs != null) {
-            ChurningRecipe recipe = ChurningManager.findMatchingRecipe(fs);
+            ChurningRecipe recipe = BidsRegistry.CHURNING_RECIPES.findMatchingRecipe(fs);
             if (recipe != null) {
                 int progress = Math.round(getChurningProgress(is) * 100);
                 if (progress > 0) {

@@ -1723,7 +1723,7 @@ public class RecipeSetup {
     private static void registerChurningRecipes() {
         Bids.LOG.info("Register churning recipes");
 
-        ChurningManager.addRecipe(new ChurningRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.butter), Global.FOOD_MAX_WEIGHT / 4000),
+        BidsRegistry.CHURNING_RECIPES.register(new ChurningRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.butter), Global.FOOD_MAX_WEIGHT / 4000),
             new FluidStack(BidsFluids.CREAM, 1), 1));
     }
 

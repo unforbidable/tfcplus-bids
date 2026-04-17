@@ -3,11 +3,12 @@ package com.unforbidable.tfc.bids.api.Crafting;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
+import com.unforbidable.tfc.bids.api.Interfaces.ISimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public class ChurningRecipe {
+public class ChurningRecipe implements ISimpleRecipeMatcher<FluidStack> {
 
     private final ItemStack output;
     private final FluidStack input;
@@ -48,6 +49,7 @@ public class ChurningRecipe {
         return runs * duration;
     }
 
+    @Override
     public boolean matches(FluidStack fs) {
         return inputFluidMatches(fs.getFluid())
             && inputAmountMatches(fs.amount);

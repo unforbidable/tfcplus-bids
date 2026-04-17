@@ -1,11 +1,13 @@
 package com.unforbidable.tfc.bids.api;
 
 import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
+import com.unforbidable.tfc.bids.api.Crafting.ChurningRecipe;
 import com.unforbidable.tfc.bids.api.Interfaces.*;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -25,6 +27,7 @@ public class BidsRegistry {
     public static final FluidRegistry<ILampFuelMaterial> LAMP_FUEL = new FluidRegistry<>();
 
     public static final RecipeRegistry<CarvingRecipe> CARVING_RECIPES = new RecipeRegistry<>();
+    public static final SimpleRecipeRegistry<ChurningRecipe, FluidStack> CHURNING_RECIPES = new SimpleRecipeRegistry<>();
 
     public static class ListRegistry<V> implements Iterable<V> {
 
@@ -57,6 +60,14 @@ public class BidsRegistry {
         public Iterator<T> iterator() {
             return recipes.iterator();
         }
+    }
+
+    public static class SimpleRecipeRegistry<R extends ISimpleRecipeMatcher<I>, I> extends RecipeRegistry<R> {
+
+        public R findMatchingRecipe(I ingredient) {
+            return super.findMatchingRecipe(r -> r.matches(ingredient));
+        }
+
     }
 
     public static class ItemRegistry<T> extends MapRegistry<Item, T> {

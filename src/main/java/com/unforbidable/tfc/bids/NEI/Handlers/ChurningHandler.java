@@ -14,7 +14,7 @@ import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.Crafting.ChurningManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.ChurningRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -63,7 +63,7 @@ public class ChurningHandler extends TemplateRecipeHandler implements IHandlerIn
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == ChurningHandler.class) {
-            for (ChurningRecipe recipe : ChurningManager.getRecipes()) {
+            for (ChurningRecipe recipe : BidsRegistry.CHURNING_RECIPES) {
                 final FluidStack input = recipe.getInput().copy();
                 input.amount = 4000;
                 final ItemStack result = recipe.getResult(input);
@@ -76,7 +76,7 @@ public class ChurningHandler extends TemplateRecipeHandler implements IHandlerIn
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (ChurningRecipe recipe : ChurningManager.getRecipes()) {
+        for (ChurningRecipe recipe : BidsRegistry.CHURNING_RECIPES) {
             final FluidStack input = recipe.getInput().copy();
             input.amount = 4000;
             final ItemStack result = recipe.getResult(input);
@@ -88,7 +88,7 @@ public class ChurningHandler extends TemplateRecipeHandler implements IHandlerIn
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (ChurningRecipe recipe : ChurningManager.getRecipes()) {
+        for (ChurningRecipe recipe : BidsRegistry.CHURNING_RECIPES) {
             FluidStack input = FluidContainerRegistry.getFluidForFilledItem(ingredient);
             if (input != null && recipe.matches(input)) {
                 input.amount = 4000;
