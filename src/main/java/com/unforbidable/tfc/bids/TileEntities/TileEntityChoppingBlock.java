@@ -3,9 +3,8 @@ package com.unforbidable.tfc.bids.TileEntities;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.ChoppingBlock.ChoppingBlockCraftingInventory;
 import com.unforbidable.tfc.bids.Core.ChoppingBlock.ChoppingBlockHelper;
-import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockRecipe;
-
 import com.unforbidable.tfc.bids.api.Events.ChoppingBlockPlayerEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
@@ -77,7 +76,7 @@ public class TileEntityChoppingBlock extends TileEntity {
 
     public boolean placeItem(int slot, ItemStack itemStack, boolean tryOtherSlots) {
         final ItemStack material = getChoppingBlockItem();
-        if (ChoppingBlockManager.isChoppingBlockTool(material, itemStack)) {
+        if (ChoppingBlockHelper.isChoppingBlockTool(material, itemStack)) {
             // Tools are placed into slot 0
             if (storage[0] == null) {
                 storage[0] = itemStack.copy();
@@ -151,13 +150,13 @@ public class TileEntityChoppingBlock extends TileEntity {
                     + " slot: " + slot);
 
             final ItemStack material = getChoppingBlockItem();
-            final ChoppingBlockRecipe recipe = ChoppingBlockManager.findMatchingRecipe(material, itemStack,
-                    storage[slot]);
+            final ItemStack tool = itemStack;
+            final ItemStack ingredient = storage[slot];
+            ChoppingBlockRecipe recipe = BidsRegistry.CHOPPING_BLOCK_RECIPES.findMatchingRecipe(r -> r.matches(material, tool, ingredient));
             if (recipe != null) {
                 Bids.LOG.debug("Found matching recipe for tool: " + itemStack.getDisplayName()
                         + " ingredient: " + storage[slot].getDisplayName() + "[" + storage[slot].stackSize + "]");
 
-                final ItemStack ingredient = storage[slot].copy();
                 final ItemStack result = recipe.getCraftingResult(ingredient);
 
                 ChoppingBlockPlayerEvent event = new ChoppingBlockPlayerEvent(player, this, ChoppingBlockPlayerEvent.Action.ITEM_CRAFTED, result);
@@ -170,7 +169,7 @@ public class TileEntityChoppingBlock extends TileEntity {
 
                     storage[slot] = result;
 
-                    if (!ChoppingBlockManager.isChoppingBlockInput(material, result)) {
+                    if (!ChoppingBlockHelper.isChoppingBlockInput(material, result)) {
                         ejectItemAwayFromPlayer(slot, player);
                     }
 
@@ -200,11 +199,11 @@ public class TileEntityChoppingBlock extends TileEntity {
     }
 
     public boolean isChoppingBlockTool(ItemStack tool) {
-        return ChoppingBlockManager.isChoppingBlockTool(getChoppingBlockItem(), tool);
+        return ChoppingBlockHelper.isChoppingBlockTool(getChoppingBlockItem(), tool);
     }
 
     public boolean isChoppingBlockInput(ItemStack input) {
-        return ChoppingBlockManager.isChoppingBlockInput(getChoppingBlockItem(), input);
+        return ChoppingBlockHelper.isChoppingBlockInput(getChoppingBlockItem(), input);
     }
 
     private void onChoppingBlockRecipeCrafted(EntityPlayer player, ItemStack result, ItemStack tool,

@@ -33,6 +33,7 @@ public class BidsRegistry {
     public static final SimpleRecipeRegistry<HecklingRecipe, ItemStack> HECKLING_RECIPES = new SimpleRecipeRegistry<>();
     public static final SimpleRecipeRegistry<RopeMakingRecipe, ItemStack> ROPEMAKING_RECIPES = new SimpleRecipeRegistry<>();
     public static final SimpleRecipeRegistry<SpinningRecipe, ItemStack> SPINNING_RECIPES = new SimpleRecipeRegistry<>();
+    public static final RecipeRegistry<ChoppingBlockRecipe> CHOPPING_BLOCK_RECIPES = new RecipeRegistry<>();
 
     public static class ListRegistry<V> implements Iterable<V> {
 

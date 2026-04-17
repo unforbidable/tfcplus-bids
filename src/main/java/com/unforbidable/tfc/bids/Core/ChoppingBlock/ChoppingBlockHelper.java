@@ -4,7 +4,8 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityChoppingBlock;
-
+import com.unforbidable.tfc.bids.api.BidsRegistry;
+import com.unforbidable.tfc.bids.api.Crafting.ChoppingBlockRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -159,6 +160,26 @@ public class ChoppingBlockHelper {
 
     public static boolean isLargeItem(ItemStack itemStack) {
         return itemStack.getItem() instanceof ItemBlock;
+    }
+
+    public static boolean isChoppingBlockTool(ItemStack choppingBlock, ItemStack tool) {
+        for (ChoppingBlockRecipe recipe : BidsRegistry.CHOPPING_BLOCK_RECIPES) {
+            if (recipe.matchesChoppingBlock(choppingBlock) && recipe.matchesTool(tool)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean isChoppingBlockInput(ItemStack choppingBlock, ItemStack item) {
+        for (ChoppingBlockRecipe recipe : BidsRegistry.CHOPPING_BLOCK_RECIPES) {
+            if (recipe.matchesChoppingBlock(choppingBlock) && recipe.matchesInput(item)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
