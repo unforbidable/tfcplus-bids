@@ -4,7 +4,7 @@ import com.dunk.tfc.Items.ItemDrink;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Items.ItemGenericAlcohol;
 import com.unforbidable.tfc.bids.Items.ItemGenericDrink;
-import com.unforbidable.tfc.bids.api.DrinkRegistry;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IDrinkable;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
@@ -26,7 +26,7 @@ public class DrinkHelper {
 
     private static void registerFluidContainers(Item containerItem, boolean isPottery, int volume,
             boolean canDrinkInParts, int... overlayParts) {
-        for (IDrinkable drink : DrinkRegistry.getDrinks()) {
+        for (IDrinkable drink : BidsRegistry.DRINKS) {
             ItemDrink item = drink.getAlcoholContent() > 0
                     ? new ItemGenericAlcohol(volume, isPottery, overlayParts)
                             .setAlcoholContent(drink.getAlcoholContent())

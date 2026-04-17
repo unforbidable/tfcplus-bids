@@ -17,6 +17,7 @@ public class BidsRegistry {
     public static final ListRegistry<ICrackableBlock> WOODPILE_CRACKABLE_BLOCKS = new ListRegistry<>();
     public static final ListRegistry<ISurfaceItemPlacer> SURFACE_ITEM_PLACERS = new ListRegistry<>();
     public static final BlockRegistry<IQuarriable> QUARRY_BLOCKS = new BlockRegistry<>();
+    public static final ListRegistry<IDrinkable> DRINKS = new ListRegistry<>();
 
     public static class ItemRegistry<T> implements Iterable<ItemRegistry.Entry<T>> {
 
