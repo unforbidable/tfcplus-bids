@@ -18,7 +18,7 @@ public class RenderTileDryingSurface extends TESRBase {
 
         for (int i = 0; i < te.getSizeInventory(); i++) {
             ItemStack itemStack = te.getSlotActualItem(i);
-            if (itemStack != null && !BidsRegistry.DRYING_ITEM_RENDER_INFO.has(itemStack)) {
+            if (itemStack != null && !BidsRegistry.DRYING_ITEM_RENDER_INFO.has(itemStack.getItem())) {
                 Vec3 pos = DryingSurfaceHelper.getDryingSurfaceItemVector(i);
                 renderItemStack(x, y, z, itemStack, pos);
             }

@@ -28,7 +28,7 @@ public class WoodPileBoundsIterator implements Iterable<WoodPileItemBounds> {
         int largeItemsAdded = 0;
         for (int i = 0; i < items.length; i++) {
             if (items[i] != null) {
-                IWoodPileRenderProvider render = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(items[i]);
+                IWoodPileRenderProvider render = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(items[i].getItem());
                 if (render.isWoodPileLargeItem(items[i])) {
                     // Add after last large item added
                     sortedItems.add(largeItemsAdded++, new IndexedItemStack(i, items[i]));
@@ -58,7 +58,7 @@ public class WoodPileBoundsIterator implements Iterable<WoodPileItemBounds> {
             @Override
             public WoodPileItemBounds next() {
                 final ItemStack item = sortedItems.get(index).itemStack;
-                final IWoodPileRenderProvider renderProvider = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(item);
+                final IWoodPileRenderProvider renderProvider = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(item.getItem());
 
                 final int width = renderProvider.isWoodPileLargeItem(item) ? 2 : 1;
                 final double stride = 1f / 4;

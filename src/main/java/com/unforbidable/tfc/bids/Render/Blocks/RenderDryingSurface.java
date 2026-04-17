@@ -34,7 +34,7 @@ public class RenderDryingSurface implements ISimpleBlockRenderingHandler {
         for (int i = 0; i < TileEntityDryingSurface.MAX_STORAGE; i++) {
             DryingItem dryingItem = te.getItem(i);
             if (dryingItem != null) {
-                IDryingItemRenderInfo renderInfo = BidsRegistry.DRYING_ITEM_RENDER_INFO.get(dryingItem.getCurrentItem());
+                IDryingItemRenderInfo renderInfo = BidsRegistry.DRYING_ITEM_RENDER_INFO.get(dryingItem.getCurrentItem().getItem());
                 if (renderInfo != null) {
                     Vec3 pos = DryingSurfaceHelper.getDryingSurfaceItemVector(i);
                     AxisAlignedBB bounds = renderInfo.getRenderBounds(dryingItem);

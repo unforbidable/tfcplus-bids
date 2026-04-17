@@ -86,7 +86,7 @@ public class ContainerNewFirepit extends ContainerTFC {
                     slotStack.stackSize--;
                 } else {
                     // Fuel to the fuel input slot
-                    IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(slotStack);
+                    IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(slotStack.getItem());
                     if (!slotfuel[0].getHasStack() && fuel != null && fuel.isFuelValid(slotStack)) {
                         ItemStack stack = slotStack.copy();
                         stack.stackSize = 1;

@@ -55,7 +55,7 @@ public class QuarryHandler extends TemplateRecipeHandler implements IHandlerInfo
     }
 
     private void loadRecipes(ItemStack result) {
-        for (BidsRegistry.BlockRegistry.Entry<IQuarriable> entry : BidsRegistry.QUARRY_BLOCKS) {
+        for (BidsRegistry.Entry<Block, IQuarriable> entry : BidsRegistry.QUARRY_BLOCKS) {
             Block rawBlock = entry.value.getRawBlock();
 
             List<ItemStack> list = new ArrayList<ItemStack>();

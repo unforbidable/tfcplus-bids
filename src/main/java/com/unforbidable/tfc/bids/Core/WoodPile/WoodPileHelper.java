@@ -144,7 +144,7 @@ public class WoodPileHelper {
     }
 
     public static boolean isItemValidWoodPileItem(ItemStack itemStack) {
-        return BidsRegistry.WOODPILE_RENDER_PROVIDERS.has(itemStack);
+        return BidsRegistry.WOODPILE_RENDER_PROVIDERS.has(itemStack.getItem());
     }
 
     public static boolean isItemValidWoodPileItemForCharcoal(ItemStack itemStack) {

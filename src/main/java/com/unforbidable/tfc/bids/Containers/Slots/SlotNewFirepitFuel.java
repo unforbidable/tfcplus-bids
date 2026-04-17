@@ -14,7 +14,7 @@ public class SlotNewFirepitFuel extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack itemStack) {
-        final IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(itemStack);
+        final IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(itemStack.getItem());
         return fuel != null && fuel.isFuelValid(itemStack);
     }
 

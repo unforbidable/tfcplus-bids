@@ -116,7 +116,7 @@ public class DryingHelper {
         if (inputItem.getItem() instanceof ItemClothing) {
             return new WetnessInfo(1000, 1);
         } else {
-            return BidsRegistry.DRYING_ITEM_WETNESS.get(inputItem);
+            return BidsRegistry.DRYING_ITEM_WETNESS.get(inputItem.getItem());
         }
     }
 
@@ -126,7 +126,7 @@ public class DryingHelper {
         dryingItem.failure = 0;
         dryingItem.lastProgressUpdatedTicks = TFC_Time.getTotalTicks();
 
-        WetnessInfo wetnessInfo = BidsRegistry.DRYING_ITEM_WETNESS.get(dryingItem.inputItem);
+        WetnessInfo wetnessInfo = BidsRegistry.DRYING_ITEM_WETNESS.get(dryingItem.inputItem.getItem());
         if (wetnessInfo == null || wetnessInfo.capacity == 0) {
             dryingItem.wetness = 0;
         }

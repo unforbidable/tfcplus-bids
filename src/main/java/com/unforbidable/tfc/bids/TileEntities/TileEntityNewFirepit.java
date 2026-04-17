@@ -63,7 +63,7 @@ public class TileEntityNewFirepit extends TEFirepit implements IMessageHanldingT
     }
 
     public void initWithKindling(ItemStack kindling, boolean setOnFire) {
-        IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(kindling);
+        IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(kindling.getItem());
         if (setOnFire && fuel != null) {
             fuelTimeLeft = fuel.getFuelBurnTime(kindling) * BidsOptions.Firepit.burnTimeMultiplier;
             fuelBurnTemp = fuel.getFuelMaxTemp(kindling);
@@ -197,7 +197,7 @@ public class TileEntityNewFirepit extends TEFirepit implements IMessageHanldingT
     }
 
     protected boolean isValidFuelMaterial(ItemStack is) {
-        IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(is);
+        IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(is.getItem());
         return fuel != null && fuel.isFuelValid(is);
     }
 
@@ -205,7 +205,7 @@ public class TileEntityNewFirepit extends TEFirepit implements IMessageHanldingT
         if (fuelTimeLeft <= 0 && fireTemp >= 1 && fireItemStacks[FUEL_BURN_SLOT] != null
                 && !TFC_Core.isExposedToRain(worldObj, xCoord, yCoord, zCoord)) {
             final ItemStack itemStack = fireItemStacks[FUEL_BURN_SLOT];
-            final IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(itemStack);
+            final IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(itemStack.getItem());
 
             fuelTasteProfile = fuel.getFuelTasteProfile(itemStack);
             fuelTimeLeft = fuel.getFuelBurnTime(itemStack) * BidsOptions.Firepit.burnTimeMultiplier;

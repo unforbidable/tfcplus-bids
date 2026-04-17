@@ -100,7 +100,7 @@ public class BlockNewFirepit extends BlockFirepit {
                 // No longer 100% chance of success
                 // and kindling is required
                 final ItemStack kindling = te.fireItemStacks[5];
-                final IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(kindling);
+                final IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(kindling.getItem());
 
                 if (fuel != null && fuel.getFuelKindlingQuality(kindling) > 0) {
                     float chance = fuel.getFuelKindlingQuality(kindling);
