@@ -3,12 +3,11 @@ package com.unforbidable.tfc.bids.TileEntities;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
-import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.Core.Quarry.QuarrySideWedgeData;
 import com.unforbidable.tfc.bids.Core.Timer;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IPlugAndFeather;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
-import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -48,7 +47,7 @@ public class TileEntityQuarry extends TileEntity implements IMessageHanldingTile
         int z2 = zCoord - d.offsetZ;
         Block block = worldObj.getBlock(x2, y2, z2);
         int meta = worldObj.getBlockMetadata(x2, y2, z2);
-        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        IQuarriable quarriable = BidsRegistry.QUARRY_BLOCKS.get(block);
         if (quarriable != null) {
             return quarriable.getDrillDurationMultiplier(block, meta);
         } else {
@@ -267,7 +266,7 @@ public class TileEntityQuarry extends TileEntity implements IMessageHanldingTile
         int y2 = yCoord + opposite.offsetY;
         int z2 = zCoord + opposite.offsetZ;
         Block block = worldObj.getBlock(x2, y2, z2);
-        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        IQuarriable quarriable = BidsRegistry.QUARRY_BLOCKS.get(block);
 
         Bids.LOG.debug("Initializing wedges for quarry side: " + orientation
                 + " quarried at: " + x2 + ", " + y2 + ", " + z2);
@@ -303,7 +302,7 @@ public class TileEntityQuarry extends TileEntity implements IMessageHanldingTile
         int y2 = yCoord + opposite.offsetY;
         int z2 = zCoord + opposite.offsetZ;
         Block block = worldObj.getBlock(x2, y2, z2);
-        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        IQuarriable quarriable = BidsRegistry.QUARRY_BLOCKS.get(block);
 
         Bids.LOG.debug("Updating wedges for quarry side: " + orientation
                 + " quarried at: " + x2 + ", " + y2 + ", " + z2);

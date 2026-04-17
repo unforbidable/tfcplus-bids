@@ -3,8 +3,8 @@ package com.unforbidable.tfc.bids.Core.Quarry;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
-import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -41,7 +41,7 @@ public class QuarryHelper {
     }
 
     public static boolean canQuarryBlockAt(World world, int x, int y, int z, Block block, int side) {
-        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        IQuarriable quarriable = BidsRegistry.QUARRY_BLOCKS.get(block);
         if (quarriable != null && quarriable.canQuarryBlockAt(world, x, y, z, side)) {
             return getSideRequiringWedgesCount(world, x, y, z, quarriable, side) > 0;
         }
@@ -58,7 +58,7 @@ public class QuarryHelper {
             int y2 = y + o.offsetY;
             int z2 = z + o.offsetZ;
             Block block = world.getBlock(x2, y2, z2);
-            IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+            IQuarriable quarriable = BidsRegistry.QUARRY_BLOCKS.get(block);
             if (quarriable != null) {
                 return quarriable.isQuarryReady(world, x2, y2, z2);
             }

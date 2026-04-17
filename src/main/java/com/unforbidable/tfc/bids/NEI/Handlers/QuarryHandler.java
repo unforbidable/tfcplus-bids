@@ -5,10 +5,9 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
-import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -56,8 +55,8 @@ public class QuarryHandler extends TemplateRecipeHandler implements IHandlerInfo
     }
 
     private void loadRecipes(ItemStack result) {
-        for (IQuarriable quarriable : QuarryRegistry.getQuarriableBlocks()) {
-            Block rawBlock = quarriable.getRawBlock();
+        for (BidsRegistry.BlockRegistry.Entry<IQuarriable> entry : BidsRegistry.QUARRY_BLOCKS) {
+            Block rawBlock = entry.value.getRawBlock();
 
             List<ItemStack> list = new ArrayList<ItemStack>();
             rawBlock.getSubBlocks(Item.getItemFromBlock(rawBlock), null, list);
@@ -65,9 +64,9 @@ public class QuarryHandler extends TemplateRecipeHandler implements IHandlerInfo
                 Block ingredBlock = Block.getBlockFromItem(ingredItemStack.getItem());
                 int ingredMetadata = ingredItemStack.getItem().getMetadata(ingredItemStack.getItemDamage());
 
-                if (quarriable.canQuarryBlock(ingredBlock, ingredMetadata)) {
-                    Block outputBlock = quarriable.getQuarriedBlock();
-                    int outputMetadata = quarriable.getQuarriedBlockMetadata(outputBlock, ingredMetadata);
+                if (entry.value.canQuarryBlock(ingredBlock, ingredMetadata)) {
+                    Block outputBlock = entry.value.getQuarriedBlock();
+                    int outputMetadata = entry.value.getQuarriedBlockMetadata(outputBlock, ingredMetadata);
                     ItemStack outputItemStack = new ItemStack(outputBlock, 1, outputMetadata);
 
                     if (result == null || ItemStack.areItemStacksEqual(result, outputItemStack)) {

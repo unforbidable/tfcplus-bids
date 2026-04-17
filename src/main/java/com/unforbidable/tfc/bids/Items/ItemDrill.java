@@ -14,12 +14,9 @@ import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Interfaces.IPlugAndFeather;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
-import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -206,7 +203,7 @@ public class ItemDrill extends ItemGenericTool {
     public boolean canPlayerDrillBlock(Block block, int metadata, EntityPlayer player) {
         Bids.LOG.debug("canPlayerDrillBlock " + block.getUnlocalizedName() + " " + metadata);
 
-        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        IQuarriable quarriable = BidsRegistry.QUARRY_BLOCKS.get(block);
         if (quarriable == null) {
             Bids.LOG.warn("Trying to continue drilling a quarry but the quarried block " + block.getUnlocalizedName() + ":" + metadata + " is not quarriable.");
             return false;
@@ -246,7 +243,7 @@ public class ItemDrill extends ItemGenericTool {
         // Save duration for this player
         Block block = world.getBlock(x, y, z);
         int metadata = world.getBlockMetadata(x, y, z);
-        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        IQuarriable quarriable = BidsRegistry.QUARRY_BLOCKS.get(block);
         float mult = quarriable.getDrillDurationMultiplier(block, metadata);
         int duration = (int) Math.ceil(getBaseDrillDuration() * mult);
         QuarryDrillDataAgent.setPlayerData(player, duration, x, y, z, side);
@@ -284,7 +281,7 @@ public class ItemDrill extends ItemGenericTool {
                 quarry.onQuarryDrilled(consumedPlugAndFeather);
                 Bids.LOG.debug("Existing quarry drilled at: " + x + ", " + y + ", " + z + " side " + d);
             }
-        } else if (QuarryRegistry.isBlockQuarriable(block)) {
+        } else if (BidsRegistry.QUARRY_BLOCKS.has(block)) {
             int metadata = world.getBlockMetadata(x, y, z);
             damageDrill(world, x, y, z, stack, player, block, metadata);
             ItemStack consumedPlugAndFeather = consumePlugAndFeather(player, block, metadata);
@@ -320,7 +317,7 @@ public class ItemDrill extends ItemGenericTool {
     }
 
     protected ItemStack consumePlugAndFeather(EntityPlayer player, Block block, int metadata) {
-        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        IQuarriable quarriable = BidsRegistry.QUARRY_BLOCKS.get(block);
 
         // Consume one stick from the hotbar
         for (int i = 0; i < 9; i++) {
@@ -342,7 +339,7 @@ public class ItemDrill extends ItemGenericTool {
     }
 
     protected ItemStack onDrillDamaged(ItemStack stack, EntityPlayer player, Block block, int metadata) {
-        IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+        IQuarriable quarriable = BidsRegistry.QUARRY_BLOCKS.get(block);
         if (quarriable == null) {
             Bids.LOG.warn("Expected quarriable block, but got a " + block.getUnlocalizedName());
             return stack;

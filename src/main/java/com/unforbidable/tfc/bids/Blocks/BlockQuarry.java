@@ -5,9 +5,9 @@ import com.unforbidable.tfc.bids.Core.Quarry.QuarryHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityQuarry;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Events.QuarryPlayerEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.IQuarriable;
-import com.unforbidable.tfc.bids.api.QuarryRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -155,7 +155,7 @@ public class BlockQuarry extends BlockContainer {
             Block block = world.getBlock(x2, y2, z2);
             int meta = world.getBlockMetadata(x2, y2, z2);
             Bids.LOG.debug("Block " + block.getUnlocalizedName() + ":" + meta + " was quarried");
-            IQuarriable quarriable = QuarryRegistry.getBlockQuarriable(block);
+            IQuarriable quarriable = BidsRegistry.QUARRY_BLOCKS.get(block);
             if (quarriable != null) {
                 world.setBlockToAir(x2, y2, z2);
                 // Drop the original quarried block for now
@@ -186,7 +186,7 @@ public class BlockQuarry extends BlockContainer {
         ForgeDirection d = ForgeDirection.getOrientation(meta & 7);
         ForgeDirection o = d.getOpposite();
         Block block = world.getBlock(x + o.offsetX, y + o.offsetY, z + o.offsetZ);
-        return QuarryRegistry.isBlockQuarriable(block);
+        return BidsRegistry.QUARRY_BLOCKS.has(block);
     }
 
     @Override

@@ -16,6 +16,7 @@ public class BidsRegistry {
     public static final ItemRegistry<IWoodPileRenderProvider> WOODPILE_RENDER_PROVIDERS = new ItemRegistry<>();
     public static final ListRegistry<ICrackableBlock> WOODPILE_CRACKABLE_BLOCKS = new ListRegistry<>();
     public static final ListRegistry<ISurfaceItemPlacer> SURFACE_ITEM_PLACERS = new ListRegistry<>();
+    public static final BlockRegistry<IQuarriable> QUARRY_BLOCKS = new BlockRegistry<>();
 
     public static class ItemRegistry<T> implements Iterable<ItemRegistry.Entry<T>> {
 
@@ -87,6 +88,48 @@ public class BidsRegistry {
             public Entry(Item item, int damage, T value) {
                 this.item = item;
                 this.damage = damage;
+                this.value = value;
+            }
+        }
+
+    }
+
+    public static class BlockRegistry<T> implements Iterable<BlockRegistry.Entry<T>> {
+
+        private final Map<String, Entry<T>> values = new HashMap<>();
+
+        public void register(Block block, T value) {
+            values.put(getKeyForBlock(block), new Entry<>(block, value));
+        }
+
+        public T get(Block block) {
+            Entry<T> entry = values.get(getKeyForBlock(block));
+            if (entry != null) {
+                return entry.value;
+            }
+
+            return null;
+        }
+
+        public boolean has(Block block) {
+            return values.get(getKeyForBlock(block)) != null;
+        }
+
+        private static String getKeyForBlock(Block block) {
+            return block.getUnlocalizedName();
+        }
+
+        @Override
+        public Iterator<Entry<T>> iterator() {
+            return values.values().iterator();
+        }
+
+        public static class Entry<T> {
+            public final Block block;
+            public final T value;
+
+            public Entry(Block block, T value) {
+                this.block = block;
                 this.value = value;
             }
         }
