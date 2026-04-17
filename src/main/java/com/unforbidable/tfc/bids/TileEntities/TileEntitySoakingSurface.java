@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.SoakingSurface.SoakingSurfaceHelper;
 import com.unforbidable.tfc.bids.Core.SoakingSurface.SoakingSurfaceItem;
 import com.unforbidable.tfc.bids.Core.SoakingSurface.SoakingSurfaceSlotProgress;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.SoakingSurfaceRecipe;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -155,7 +156,7 @@ public class TileEntitySoakingSurface extends TileEntity implements IMessageHanl
             SoakingSurfaceRecipe recipe = SoakingSurfaceHelper.findMatchingRecipe(storage[slot].soakingItem, worldObj, xCoord, yCoord + 1, zCoord);
             if (recipe != null) {
                 long elapsed = TFC_Time.getTotalTicks() - storage[slot].soakingStartTicks;
-                float ticksNeeded = recipe.getHours() * TFC_Time.HOUR_LENGTH;
+                float ticksNeeded = recipe.getHours() * TFC_Time.HOUR_LENGTH * BidsOptions.Crafting.soakingDurationMultiplier;
                 float progress = elapsed > ticksNeeded ? 1 : elapsed / ticksNeeded;
                 float hoursRemaining = (ticksNeeded - elapsed) / TFC_Time.HOUR_LENGTH;
                 return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, recipe.getResult(storage[slot].soakingItem).copy(), progress, hoursRemaining);

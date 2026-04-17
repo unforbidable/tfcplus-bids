@@ -8,6 +8,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.SoakingSurfaceRecipe;
 import net.minecraft.client.Minecraft;
@@ -154,7 +155,7 @@ public class SoakingSurfaceHandler extends TemplateRecipeHandler implements IHan
             this.ingred = ingred.copy();
             this.result = result.copy();
             this.blocks = blocks;
-            this.duration = duration;
+            this.duration = (long) (duration * BidsOptions.Crafting.soakingDurationMultiplier);
         }
 
         @Override

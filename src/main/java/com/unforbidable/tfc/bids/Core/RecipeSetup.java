@@ -1060,7 +1060,7 @@ public class RecipeSetup {
             .consumes(new ItemStack(BidsItems.barkFibre))
             .produces(new ItemStack(BidsItems.barkFibreCoarse))
             .dry()
-            .hours(8)
+            .hours(12)
             .build());
         BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
             .consumes(new ItemStack(BidsItems.sisalFiberRinsed))
@@ -1072,7 +1072,7 @@ public class RecipeSetup {
             .consumes(new ItemStack(TFCItems.juteFiber))
             .produces(new ItemStack(BidsItems.juteFiberCoarse))
             .dry()
-            .hours(16)
+            .hours(12)
             .build());
         BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
             .consumes(new ItemStack(BidsItems.flaxStalkRetted))
@@ -1084,7 +1084,7 @@ public class RecipeSetup {
             .consumes(new ItemStack(BidsItems.woolRinsed))
             .produces(new ItemStack(BidsItems.woolDried))
             .dry()
-            .hours(4)
+            .hours(2)
             .build());
 
         // Meat and cheese drying from TFC
@@ -1118,6 +1118,7 @@ public class RecipeSetup {
             .consumes(new ItemStack(BidsItems.flaxStalk))
             .produces(new ItemStack(BidsItems.flaxStalkRetted))
             .wet()
+            .warm()
             .hours(20)
             .build());
         BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
@@ -1140,14 +1141,14 @@ public class RecipeSetup {
                 .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING), stone.items.getItem(EnumStoneItemType.MUD))
                 .dry()
                 .notWet()
-                .hours(24)
+                .hours(20)
                 .build());
             BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
                 .consumes(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING))
                 .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK), stone.items.getItem(EnumStoneItemType.MUD))
                 .dry()
                 .notWet()
-                .hours(12)
+                .hours(10)
                 .build());
         }
     }

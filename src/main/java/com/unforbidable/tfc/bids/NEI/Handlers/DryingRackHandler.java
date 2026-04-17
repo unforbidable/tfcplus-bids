@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
@@ -182,7 +183,7 @@ public class DryingRackHandler extends TemplateRecipeHandler implements IHandler
         public CachedDryingRecipe(ItemStack ingred, ItemStack result, int duration, String title, String info) {
             this.ingred = ingred.copy();
             this.result = result.copy();
-            this.duration = duration;
+            this.duration = (int) (duration * BidsOptions.Crafting.dryingDurationMultiplier);
             this.title = title;
             this.info = info;
 

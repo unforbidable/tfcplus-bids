@@ -80,7 +80,7 @@ public class ConfigHandler {
             "Set this to true if you want to be able to carve any bit with an Adze; if set to false, chimney blocks cannot be carved");
 
         BidsOptions.Churning.churningDurationMultiplier = config.getFloat(
-            "churningDurationMultiplier", "quarry",
+            "churningDurationMultiplier", "churning",
             BidsOptions.Churning.churningDurationMultiplier, 0.5f, 4f,
             "Higher values increase the time it takes to churn butter");
 
@@ -294,6 +294,14 @@ public class ConfigHandler {
             BidsOptions.Crafting.enableCottonBollAutoConversion,
             "Set this to true if you want to automatically convert harvested cotton boll when picked up.");
 
+        BidsOptions.Crafting.dryingDurationMultiplier = config.getFloat(
+            "dryingDurationMultiplier", "crafting",
+            BidsOptions.Crafting.dryingDurationMultiplier, 0.5f, 10f,
+            "Higher values increase the time it takes to dry stuff, but also ret plants and similar, on Drying Rack or Drying Surface");
+        BidsOptions.Crafting.soakingDurationMultiplier = config.getFloat(
+            "soakingDurationMultiplier", "crafting",
+            BidsOptions.Crafting.soakingDurationMultiplier, 0.5f, 10f,
+            "Higher values increase the time it takes to soak stuff on a Soaking Surface");
         BidsOptions.Crafting.enableDryingSurfaceMudBrickDryingOverride = config.getBoolean(
             "enableDryingSurfaceMudBrickDryingOverride", "crafting", BidsOptions.Crafting.enableDryingSurfaceMudBrickDryingOverride,
             "Set this to true if you want to dry mud bricks using the Drying Surface, instead of the TFC mechanics.");

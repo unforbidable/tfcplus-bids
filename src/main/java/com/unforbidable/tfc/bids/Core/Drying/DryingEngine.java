@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.Core.Drying.Environment.ItemEnvironment;
 import com.unforbidable.tfc.bids.Core.Drying.Environment.StaticEnvironment;
 import com.unforbidable.tfc.bids.Core.Drying.Environment.DynamicEnvironment;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
+import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.tileentity.TileEntity;
@@ -137,7 +138,7 @@ public class DryingEngine {
             float match = env.getRecipeMatch(recipe);
             if (match > 0) {
                 // progress gain depends on how close the environment match is
-                long ticksRequiredTotal = recipe.getDuration() * TFC_Time.HOUR_LENGTH;
+                long ticksRequiredTotal = (long) (recipe.getDuration() * TFC_Time.HOUR_LENGTH * BidsOptions.Crafting.dryingDurationMultiplier);
                 float progressForIdealMatch = ticksElapsed / (float) ticksRequiredTotal;
                 float progressToAdd = progressForIdealMatch * match;
                 dryingItem.progress = Math.min(dryingItem.progress + progressToAdd, 1);

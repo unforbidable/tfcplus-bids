@@ -153,6 +153,8 @@ public class BidsOptions {
 
         public static boolean enableCottonBollAutoConversion = false;
 
+        public static float dryingDurationMultiplier = 2f;
+        public static float soakingDurationMultiplier = 2f;
         public static boolean enableDryingSurfaceMudBrickDryingOverride = false;
 
     }
