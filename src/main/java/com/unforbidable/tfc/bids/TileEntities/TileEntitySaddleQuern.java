@@ -6,17 +6,15 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.TileEntities.TEBasket;
-import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockWorkStone;
-import com.unforbidable.tfc.bids.Core.Timer;
-import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernManager;
-import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
-
 import com.unforbidable.tfc.bids.Core.SaddleQuern.EnumWorkStoneType;
-import com.unforbidable.tfc.bids.api.Crafting.StonePressManager;
+import com.unforbidable.tfc.bids.Core.Timer;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
+import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.StonePressRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -207,9 +205,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
     public boolean isValidInput(ItemStack inputStack) {
         if (getWorkStoneType() == EnumWorkStoneType.SADDLE_QUERN_CRUSHING) {
-            return SaddleQuernManager.hasMatchingRecipe(inputStack);
+            return BidsRegistry.SADDLE_QUERN_RECIPES.findMatchingRecipe(inputStack) != null;
         } else if (getWorkStoneType() == EnumWorkStoneType.SADDLE_QUERN_PRESSING) {
-            return StonePressManager.hasMatchingRecipe(inputStack);
+            return BidsRegistry.STONE_PRESS_RECIPES.findMatchingRecipe(inputStack) != null;
         } else {
             return false;
         }
@@ -370,7 +368,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     private boolean processPressingInput() {
         if (storage[SLOT_INPUT_STACK] != null) {
             ItemStack input = storage[SLOT_INPUT_STACK];
-            StonePressRecipe recipe = StonePressManager.getMatchingRecipe(storage[SLOT_INPUT_STACK]);
+            StonePressRecipe recipe = BidsRegistry.STONE_PRESS_RECIPES.findMatchingRecipe(storage[SLOT_INPUT_STACK]);
             if (recipe != null) {
                 if (isValidLiquidOutputContainer(recipe.getCraftingResult())) {
                     if (storage[SLOT_INPUT_STACK].getItem() instanceof IFood) {
@@ -483,7 +481,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
         if (storage[SLOT_INPUT_STACK] != null && storage[SLOT_OUTPUT_STACK] == null) {
             ItemStack input = storage[SLOT_INPUT_STACK];
-            SaddleQuernRecipe recipe = SaddleQuernManager.getMatchingRecipe(input);
+            SaddleQuernRecipe recipe = BidsRegistry.SADDLE_QUERN_RECIPES.findMatchingRecipe(input);
             if (recipe != null) {
                 ItemStack output = recipe.getCraftingResult();
 

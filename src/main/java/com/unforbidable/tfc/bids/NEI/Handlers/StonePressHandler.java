@@ -13,7 +13,7 @@ import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.Crafting.StonePressManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.StonePressRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -62,7 +62,7 @@ public class StonePressHandler extends TemplateRecipeHandler implements IHandler
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == StonePressHandler.class) {
-            for (StonePressRecipe recipe : StonePressManager.getRecipes()) {
+            for (StonePressRecipe recipe : BidsRegistry.STONE_PRESS_RECIPES) {
                 final ItemStack input = recipe.getInput().copy();
                 final FluidStack result = recipe.getCraftingResult().copy();
                 if ((input.getItem() instanceof ItemFood)) {
@@ -77,7 +77,7 @@ public class StonePressHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (StonePressRecipe recipe : StonePressManager.getRecipes()) {
+        for (StonePressRecipe recipe : BidsRegistry.STONE_PRESS_RECIPES) {
             final ItemStack input = recipe.getInput().copy();
             final FluidStack result = recipe.getCraftingResult().copy();
             if (result.isFluidEqual(output)) {
@@ -88,7 +88,7 @@ public class StonePressHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (StonePressRecipe recipe : StonePressManager.getRecipes()) {
+        for (StonePressRecipe recipe : BidsRegistry.STONE_PRESS_RECIPES) {
             if (recipe.matches(ingredient)) {
                 final ItemStack input = ingredient.copy();
                 input.stackSize = recipe.getInput().stackSize;

@@ -4,9 +4,10 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 
+import com.unforbidable.tfc.bids.api.Interfaces.ISimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;
 
-public class SaddleQuernRecipe {
+public class SaddleQuernRecipe implements ISimpleRecipeMatcher<ItemStack> {
 
     final ItemStack output;
     final ItemStack input;
@@ -16,6 +17,7 @@ public class SaddleQuernRecipe {
         this.input = input;
     }
 
+    @Override
     public boolean matches(ItemStack itemStack) {
         return itemStack.getItem() == input.getItem()
                 && itemStack.getItemDamage() == input.getItemDamage()

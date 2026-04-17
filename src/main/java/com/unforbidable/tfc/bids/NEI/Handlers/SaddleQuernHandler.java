@@ -10,7 +10,7 @@ import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.SaddleQuernRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -48,7 +48,7 @@ public class SaddleQuernHandler extends TemplateRecipeHandler implements IHandle
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == SaddleQuernHandler.class) {
-            for (SaddleQuernRecipe recipe : SaddleQuernManager.getRecipes()) {
+            for (SaddleQuernRecipe recipe : BidsRegistry.SADDLE_QUERN_RECIPES) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getCraftingResult();
                 arecipes.add(new CachedSaddleQuernRecipe(input, result));
@@ -60,7 +60,7 @@ public class SaddleQuernHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (SaddleQuernRecipe recipe : SaddleQuernManager.getRecipes()) {
+        for (SaddleQuernRecipe recipe : BidsRegistry.SADDLE_QUERN_RECIPES) {
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getCraftingResult();
             if (ItemStack.areItemStacksEqual(result, output)
@@ -73,7 +73,7 @@ public class SaddleQuernHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (SaddleQuernRecipe recipe : SaddleQuernManager.getRecipes()) {
+        for (SaddleQuernRecipe recipe : BidsRegistry.SADDLE_QUERN_RECIPES) {
             if (recipe.matches(ingredient)) {
                 final ItemStack input = ingredient.copy();
                 input.stackSize = recipe.getInput().stackSize;

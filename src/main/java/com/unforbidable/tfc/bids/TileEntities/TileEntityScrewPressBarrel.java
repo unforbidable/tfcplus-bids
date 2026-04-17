@@ -11,7 +11,7 @@ import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.ScrewPress.ScrewPressDiscPosition;
 import com.unforbidable.tfc.bids.Core.ScrewPress.ScrewPressHelper;
 import com.unforbidable.tfc.bids.Core.Timer;
-import com.unforbidable.tfc.bids.api.Crafting.ScrewPressManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.ScrewPressRecipe;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.entity.item.EntityItem;
@@ -364,7 +364,7 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
     }
 
     private float pressInputSlot(float progress, int recipeMultiplier, int slot) {
-        ScrewPressRecipe recipe = ScrewPressManager.getMatchingRecipe(storage[slot]);
+        ScrewPressRecipe recipe = BidsRegistry.SCREW_PRESS_RECIPES.findMatchingRecipe(storage[slot]);
         if (recipe != null){
             if (canAddFluid(recipe.getFluidCraftingResult().getFluid())) {
                 if (storage[slot].getItem() instanceof IFood) {

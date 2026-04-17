@@ -44,6 +44,9 @@ public class BidsRegistry {
     public static final RecipeRegistry<ProcessingSurfaceRecipe> PROCESSING_SURFACE_RECIPES = new RecipeRegistry<>();
     public static final RecipeRegistry<SoakingSurfaceRecipe> SOAKING_SURFACE_RECIPES = new RecipeRegistry<>();
     public static final SimpleRecipeRegistry<SeasoningRecipe, ItemStack> SEASONING_RECIPES = new SimpleRecipeRegistry<>();
+    public static final SimpleRecipeRegistry<SaddleQuernRecipe, ItemStack> SADDLE_QUERN_RECIPES = new SimpleRecipeRegistry<>();
+    public static final SimpleRecipeRegistry<StonePressRecipe, ItemStack> STONE_PRESS_RECIPES = new SimpleRecipeRegistry<>();
+    public static final SimpleRecipeRegistry<ScrewPressRecipe, ItemStack> SCREW_PRESS_RECIPES = new SimpleRecipeRegistry<>();
 
     public static class ListRegistry<V> implements Iterable<V> {
 

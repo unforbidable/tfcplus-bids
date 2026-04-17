@@ -12,7 +12,7 @@ import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.Crafting.ScrewPressManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.ScrewPressRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -62,7 +62,7 @@ public class ScrewPressHandler extends TemplateRecipeHandler implements IHandler
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == ScrewPressHandler.class) {
-            for (ScrewPressRecipe recipe : ScrewPressManager.getRecipes()) {
+            for (ScrewPressRecipe recipe : BidsRegistry.SCREW_PRESS_RECIPES) {
                 final ItemStack input = recipe.getInput().copy();
                 final FluidStack result = recipe.getFluidCraftingResult().copy();
                 if ((input.getItem() instanceof ItemFood)) {
@@ -77,7 +77,7 @@ public class ScrewPressHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (ScrewPressRecipe recipe : ScrewPressManager.getRecipes()) {
+        for (ScrewPressRecipe recipe : BidsRegistry.SCREW_PRESS_RECIPES) {
             final ItemStack input = recipe.getInput().copy();
             final FluidStack result = recipe.getFluidCraftingResult().copy();
             if (result.isFluidEqual(output)) {
@@ -88,7 +88,7 @@ public class ScrewPressHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (ScrewPressRecipe recipe : ScrewPressManager.getRecipes()) {
+        for (ScrewPressRecipe recipe : BidsRegistry.SCREW_PRESS_RECIPES) {
             if (recipe.matches(ingredient)) {
                 final ItemStack input = ingredient.copy();
                 input.stackSize = recipe.getInput().stackSize;

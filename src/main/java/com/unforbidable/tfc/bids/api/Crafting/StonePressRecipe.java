@@ -5,10 +5,11 @@ import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
 import com.unforbidable.tfc.bids.api.BidsFood;
+import com.unforbidable.tfc.bids.api.Interfaces.ISimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class StonePressRecipe {
+public class StonePressRecipe implements ISimpleRecipeMatcher<ItemStack> {
 
     final FluidStack output;
     final ItemStack input;
@@ -18,6 +19,7 @@ public class StonePressRecipe {
         this.input = input;
     }
 
+    @Override
     public boolean matches(ItemStack itemStack) {
         return itemStack.getItem() == input.getItem()
                 && itemStack.getItemDamage() == input.getItemDamage()
