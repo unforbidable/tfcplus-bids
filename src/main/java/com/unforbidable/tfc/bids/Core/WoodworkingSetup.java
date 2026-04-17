@@ -12,8 +12,8 @@ import com.unforbidable.tfc.bids.Core.Woodworking.Network.WoodworkingMessage;
 import com.unforbidable.tfc.bids.Core.Woodworking.Plans.Plan;
 import com.unforbidable.tfc.bids.Core.Woodworking.WoodworkingSpecs;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.BidsWoodworking;
-import com.unforbidable.tfc.bids.api.Crafting.WoodworkingManager;
 import com.unforbidable.tfc.bids.api.Crafting.WoodworkingOreRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.WoodworkingRecipe;
 import com.unforbidable.tfc.bids.api.Enums.EnumWoodworkingMaterialType;
@@ -38,24 +38,24 @@ public class WoodworkingSetup {
 
     private static void registerRecipes() {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_LUMBER, wood.getOreWithSuffix("logWood"), wood.items.getLumber(4)));
-            WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_SUPPORT, wood.getOreWithSuffix("logWood"), wood.blocks.getWoodSupport(4)));
+            BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingOreRecipe(BidsWoodworking.PLAN_LUMBER, wood.getOreWithSuffix("logWood"), wood.items.getLumber(4)));
+            BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingOreRecipe(BidsWoodworking.PLAN_SUPPORT, wood.getOreWithSuffix("logWood"), wood.blocks.getWoodSupport(4)));
 
             if (wood.items.hasBoard()) {
-                WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD, wood.getOreWithSuffix("logWood"), wood.items.getBoard()));
-                WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD_2, wood.getOreWithSuffix("logWood"), wood.items.getBoard(2)));
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_SHAFT, wood.items.getBoard(), wood.items.getShaft()));
-                WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_SHAFT_2, wood.items.getBoard(), wood.items.getShaft(2)));
+                BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD, wood.getOreWithSuffix("logWood"), wood.items.getBoard()));
+                BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingOreRecipe(BidsWoodworking.PLAN_BOARD_2, wood.getOreWithSuffix("logWood"), wood.items.getBoard(2)));
+                BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingRecipe(BidsWoodworking.PLAN_SHAFT, wood.items.getBoard(), wood.items.getShaft()));
+                BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingRecipe(BidsWoodworking.PLAN_SHAFT_2, wood.items.getBoard(), wood.items.getShaft(2)));
             }
         }
 
-        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_PADDLE, "woodBoard", new ItemStack(TFCItems.paddle)));
-        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_MALLET, "logWoodAny", new ItemStack(BidsItems.woodenMallet)));
-        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_SCUTCHING_KNIFE, "woodBoard", new ItemStack(BidsItems.scutchingKnife)));
-        WoodworkingManager.addRecipe(new WoodworkingOreRecipe(BidsWoodworking.PLAN_COMB_PADDLE, "woodBoard", new ItemStack(BidsItems.woodenCombPaddle)));
+        BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingOreRecipe(BidsWoodworking.PLAN_PADDLE, "woodBoard", new ItemStack(TFCItems.paddle)));
+        BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingOreRecipe(BidsWoodworking.PLAN_MALLET, "logWoodAny", new ItemStack(BidsItems.woodenMallet)));
+        BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingOreRecipe(BidsWoodworking.PLAN_SCUTCHING_KNIFE, "woodBoard", new ItemStack(BidsItems.scutchingKnife)));
+        BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingOreRecipe(BidsWoodworking.PLAN_COMB_PADDLE, "woodBoard", new ItemStack(BidsItems.woodenCombPaddle)));
 
-        WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_NEEDLE, new ItemStack(TFCItems.bone), new ItemStack(TFCItems.boneNeedle)));
-        WoodworkingManager.addRecipe(new WoodworkingRecipe(BidsWoodworking.PLAN_KNIFE_HEAD, new ItemStack(TFCItems.bone), new ItemStack(BidsItems.boneKnifeHead)));
+        BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingRecipe(BidsWoodworking.PLAN_NEEDLE, new ItemStack(TFCItems.bone), new ItemStack(TFCItems.boneNeedle)));
+        BidsRegistry.WOODWORKING_RECIPES.register(new WoodworkingRecipe(BidsWoodworking.PLAN_KNIFE_HEAD, new ItemStack(TFCItems.bone), new ItemStack(BidsItems.boneKnifeHead)));
     }
 
     private static void registerMaterialItems() {

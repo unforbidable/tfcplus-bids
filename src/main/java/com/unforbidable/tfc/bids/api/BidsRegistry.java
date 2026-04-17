@@ -47,6 +47,7 @@ public class BidsRegistry {
     public static final SimpleRecipeRegistry<SaddleQuernRecipe, ItemStack> SADDLE_QUERN_RECIPES = new SimpleRecipeRegistry<>();
     public static final SimpleRecipeRegistry<StonePressRecipe, ItemStack> STONE_PRESS_RECIPES = new SimpleRecipeRegistry<>();
     public static final SimpleRecipeRegistry<ScrewPressRecipe, ItemStack> SCREW_PRESS_RECIPES = new SimpleRecipeRegistry<>();
+    public static final SimpleRecipeRegistry<WoodworkingRecipe, ItemStack> WOODWORKING_RECIPES = new SimpleRecipeRegistry<>();
 
     public static class ListRegistry<V> implements Iterable<V> {
 

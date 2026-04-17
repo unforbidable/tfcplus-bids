@@ -1,11 +1,12 @@
 package com.unforbidable.tfc.bids.api.Crafting;
 
+import com.unforbidable.tfc.bids.api.Interfaces.ISimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WoodworkingRecipe {
+public class WoodworkingRecipe implements ISimpleRecipeMatcher<ItemStack> {
 
     protected final String planName;
     protected final ItemStack input;
@@ -29,6 +30,7 @@ public class WoodworkingRecipe {
         return output;
     }
 
+    @Override
     public boolean matches(ItemStack ingredient) {
         return ingredient.getItem() == input.getItem()
             && ingredient.getItemDamage() == input.getItemDamage();

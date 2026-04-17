@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.Core.Woodworking;
 
 import com.unforbidable.tfc.bids.Core.Woodworking.Plans.PlanInstance;
-import com.unforbidable.tfc.bids.api.Crafting.WoodworkingManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.WoodworkingRecipe;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingPlan;
@@ -24,7 +24,7 @@ public class WoodworkingHelper {
     public static List<PlanInstance> getWoodworkingPlans(ItemStack itemStack) {
         List<PlanInstance> plans = new ArrayList<PlanInstance>();
 
-        for (WoodworkingRecipe recipe : WoodworkingManager.findMatchingRecipes(itemStack)) {
+        for (WoodworkingRecipe recipe : WoodworkingHelper.findMatchingRecipes(itemStack)) {
             IWoodworkingPlan plan = WoodworkingRegistry.getPlanByName(recipe.getPlanName());
             if (plan != null) {
                 plans.add(new PlanInstance(recipe.getPlanName(), plan, recipe.getResult(itemStack)));
@@ -32,6 +32,18 @@ public class WoodworkingHelper {
         }
 
         return plans;
+    }
+
+    public static List<WoodworkingRecipe> findMatchingRecipes(ItemStack itemStack) {
+        List<WoodworkingRecipe> matching = new ArrayList<WoodworkingRecipe>();
+
+        for (WoodworkingRecipe recipe : BidsRegistry.WOODWORKING_RECIPES) {
+            if (recipe.matches(itemStack)) {
+                matching.add(recipe);
+            }
+        }
+
+        return matching;
     }
 
 }

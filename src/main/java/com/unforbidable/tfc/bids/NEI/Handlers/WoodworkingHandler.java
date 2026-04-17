@@ -11,7 +11,7 @@ import com.unforbidable.tfc.bids.Gui.GuiWoodworking;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.Crafting.WoodworkingManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.WoodworkingRecipe;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodworkingPlan;
@@ -55,7 +55,7 @@ public class WoodworkingHandler extends TemplateRecipeHandler implements IHandle
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == WoodworkingHandler.class) {
-            for (WoodworkingRecipe recipe : WoodworkingManager.getRecipes()) {
+            for (WoodworkingRecipe recipe : BidsRegistry.WOODWORKING_RECIPES) {
                 final List<ItemStack> input = recipe.getIngredients();
                 if (input.size() > 0) {
                     final ItemStack result = recipe.getResult(input.get(0));
@@ -72,7 +72,7 @@ public class WoodworkingHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (WoodworkingRecipe recipe : WoodworkingManager.getRecipes()) {
+        for (WoodworkingRecipe recipe : BidsRegistry.WOODWORKING_RECIPES) {
             final List<ItemStack> input = recipe.getIngredients();
             if (input.size() > 0) {
                 final ItemStack result = recipe.getResult(input.get(0));
@@ -89,7 +89,7 @@ public class WoodworkingHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (WoodworkingRecipe recipe : WoodworkingManager.getRecipes()) {
+        for (WoodworkingRecipe recipe : BidsRegistry.WOODWORKING_RECIPES) {
             if (recipe.matches(ingredient)) {
                 final List<ItemStack> input = recipe.getIngredients();
                 if (input.size() > 0) {
