@@ -8,7 +8,7 @@ import com.dunk.tfc.api.FoodRegistry;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.CookingMixture;
 import com.unforbidable.tfc.bids.api.Interfaces.ICookingIngredientOverride;
 import net.minecraft.item.Item;
@@ -80,20 +80,24 @@ public class CookingMixtureHelper {
 
     public static CookingMixture getCookingMixture(FluidStack fs) {
         String mixtureName = getCookingMixtureName(fs);
-        if (mixtureName != null) {
-            return CookingManager.getCookingMixture(mixtureName);
-        } else {
-            return null;
+        for (CookingMixture cookingMixture : BidsRegistry.COOKING_MIXTURES) {
+            if (cookingMixture.getName().equals(mixtureName)) {
+                return cookingMixture;
+            }
         }
+
+        return null;
     }
 
     public static CookingMixture getCookingMixture(ItemStack is) {
         String mixtureName = getCookingMixtureName(is);
-        if (mixtureName != null) {
-            return CookingManager.getCookingMixture(mixtureName);
-        } else {
-            return null;
+        for (CookingMixture cookingMixture : BidsRegistry.COOKING_MIXTURES) {
+            if (cookingMixture.getName().equals(mixtureName)) {
+                return cookingMixture;
+            }
         }
+
+        return null;
     }
 
     public static void initCookingMixtureTags(FluidStack cookingFluid, ItemStack cookingMix) {
@@ -186,7 +190,7 @@ public class CookingMixtureHelper {
     }
 
     private static Item getIngredientOverride(Item ingredient) {
-        Item registeredOverride = CookingManager.getCookingIngredientOverride(ingredient);
+        Item registeredOverride = BidsRegistry.COOKING_INGREDIENT_OVERRIDE.get(ingredient);
         if (registeredOverride != null) {
             return registeredOverride;
         }

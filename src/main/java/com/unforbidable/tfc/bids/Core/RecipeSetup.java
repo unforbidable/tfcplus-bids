@@ -1155,13 +1155,13 @@ public class RecipeSetup {
     private static void registerCookingRecipes() {
         Bids.LOG.info("Register cooking recipes");
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), new ItemStack(TFCItems.powder, 1, 9))
             .produces(new FluidStack(TFCFluids.SALTWATER, 500))
             .inTime(20)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.SALTWATER, 500))
             .produces(new ItemStack(TFCItems.powder, 1, 9))
             .withHeat()
@@ -1169,27 +1169,27 @@ public class RecipeSetup {
             .inTime(750)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new ItemStack(Items.snowball))
             .produces(new FluidStack(TFCFluids.FRESHWATER, 200))
             .withHeat()
             .inTime(200)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new ItemStack(Items.snowball))
             .produces(new FluidStack(TFCFluids.FRESHWATER, 200))
             .withoutHeat()
             .inTime(1000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.FRESHWATER, 200), new ItemStack(TFCItems.powder, 1, 13))
             .produces(new FluidStack(BidsFluids.WEAKWOODASHLYE, 200))
             .inFixedTime(20000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.WEAKWOODASHLYE, 2))
             .produces(new FluidStack(BidsFluids.WOODASHLYE, 1))
             .withHeat()
@@ -1197,76 +1197,76 @@ public class RecipeSetup {
             .inTime(1000 / 500f)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.FRESHWATER, 1), new FluidStack(BidsFluids.WOODASHLYE, 1))
             .produces(new FluidStack(BidsFluids.WEAKWOODASHLYE, 2))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.TALLOW, 5), new FluidStack(BidsFluids.WOODASHLYE, 4))
             .produces(new FluidStack(BidsFluids.TALLOWWOODASHLYE, 9))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.TALLOWWOODASHLYE, 1))
             .produces(new FluidStack(BidsFluids.SOAP, 1))
             .withHeat(EnumCookingHeatLevel.LOW)
             .inFixedTime(2000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.OLIVEOIL, 4), new FluidStack(BidsFluids.WEAKWOODASHLYE, 1))
             .produces(new FluidStack(BidsFluids.OLIVEOILWEAKWOODASHLYE, 5))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.OLIVEOILWEAKWOODASHLYE, 1))
             .produces(new FluidStack(BidsFluids.UNCUREDSOAP, 1))
             .withHeat(EnumCookingHeatLevel.LOW)
             .inFixedTime(3000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.SOAP, 1))
             .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), Global.FOOD_MAX_WEIGHT / 10000))
             .withoutHeat()
             .inTime(1000 / 5000f)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.UNCUREDSOAP, 1))
             .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), Global.FOOD_MAX_WEIGHT / 10000))
             .withoutHeat()
             .inTime(500 / 5000f)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.FRESHWATER, 1), ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), 1f / 500))
             .produces(new FluidStack(BidsFluids.SOAPYWATER, 1))
             .inTime(20 / 1000f)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.FRESHWATER, 1), ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), 1f / 250))
             .produces(new FluidStack(BidsFluids.SOAPYWATER, 1))
             .inTime(20 / 1000f)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.SOAPYWATER, 100), new ItemStack(TFCItems.wool))
             .produces(new ItemStack(BidsItems.woolWashed, 1))
             .withHeat()
             .inTime(50)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new ItemStack(TFCItems.resin))
             .produces(new FluidStack(TFCFluids.PITCH, 50))
             .withHeat()
             .inTime(50)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new ItemStack(TFCItems.emptyHoneycomb))
             .produces(new FluidStack(TFCFluids.WAX, 300))
             .withHeat()
@@ -1274,45 +1274,45 @@ public class RecipeSetup {
             .build());
 
         for (Item stringItem : new Item[] { TFCItems.silkString, TFCItems.woolYarn, TFCItems.linenString, TFCItems.cottonYarn, BidsItems.juteTwine, BidsItems.sisalTwine } ) {
-            CookingManager.addRecipe(CookingRecipe.builder()
+            BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
                 .consumes(new FluidStack(TFCFluids.WAX, 200), new ItemStack(stringItem))
                 .produces(new ItemStack(TFCBlocks.candleOff, 1))
                 .withHeat()
                 .build());
 
-            CookingManager.addRecipe(CookingRecipe.builder()
+            BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
                 .consumes(new FluidStack(BidsFluids.TALLOW, 200), new ItemStack(stringItem))
                 .produces(new ItemStack(TFCBlocks.candleOff, 1))
                 .build());
         }
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.PITCH, 50), new ItemStack(TFCItems.stick))
             .produces(new ItemStack(TFCBlocks.torchOff, 1))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.PITCH, 250), new ItemStack(TFCItems.leatherBag))
             .produces(new ItemStack(TFCItems.pitchBag, 1))
             .inTime(100)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.FRESHWATER, 9), new FluidStack(TFCFluids.HONEY, 1))
             .produces(new FluidStack(TFCFluids.HONEYWATER, 10))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.SALTWATER, 9), new FluidStack(TFCFluids.VINEGAR, 1))
             .produces(new FluidStack(TFCFluids.BRINE, 10))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.MILK, 9), new FluidStack(TFCFluids.VINEGAR, 1))
             .produces(new FluidStack(TFCFluids.MILKVINEGAR, 10))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.MILKVINEGAR, 1))
             .produces(new FluidStack(TFCFluids.MILKCURDLED, 1))
             .withoutHeat()
@@ -1320,7 +1320,7 @@ public class RecipeSetup {
             .inFixedTime(8000)
             .build());
 
-        CookingManager.addRecipe(CookingCheeseRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingCheeseRecipe.builder()
             .allowingInfusion()
             .consumes(new FluidStack(TFCFluids.MILKCURDLED, 1))
             .produces(ItemFoodTFC.createTag(new ItemStack(TFCItems.cheese), Global.FOOD_MAX_WEIGHT / 10000))
@@ -1329,12 +1329,12 @@ public class RecipeSetup {
             .inFixedTime(8000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.GOATMILK, 9), new FluidStack(TFCFluids.VINEGAR, 1))
             .produces(new FluidStack(BidsFluids.GOATMILKVINEGAR, 10))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.GOATMILKVINEGAR, 1))
             .produces(new FluidStack(BidsFluids.GOATMILKCURDLED, 1))
             .withoutHeat()
@@ -1342,7 +1342,7 @@ public class RecipeSetup {
             .inFixedTime(8000)
             .build());
 
-        CookingManager.addRecipe(CookingCheeseRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingCheeseRecipe.builder()
             .allowingInfusion()
             .consumes(new FluidStack(BidsFluids.GOATMILKCURDLED, 1))
             .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.goatCheese), Global.FOOD_MAX_WEIGHT / 10000))
@@ -1351,12 +1351,12 @@ public class RecipeSetup {
             .inFixedTime(8000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.SKIMMEDMILK, 9), new FluidStack(TFCFluids.VINEGAR, 1))
             .produces(new FluidStack(BidsFluids.SKIMMEDMILKVINEGAR, 10))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.SKIMMEDMILKVINEGAR, 1))
             .produces(new FluidStack(BidsFluids.SKIMMEDMILKCURDLED, 1))
             .withoutHeat()
@@ -1364,7 +1364,7 @@ public class RecipeSetup {
             .inFixedTime(8000)
             .build());
 
-        CookingManager.addRecipe(CookingCheeseRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingCheeseRecipe.builder()
             .allowingInfusion()
             .consumes(new FluidStack(BidsFluids.SKIMMEDMILKCURDLED, 1))
             .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.hardCheese), Global.FOOD_MAX_WEIGHT / 10000))
@@ -1373,28 +1373,28 @@ public class RecipeSetup {
             .inFixedTime(8000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.OILYFISHWATER, 1000))
             .produces(new FluidStack(TFCFluids.FRESHWATER, 950), new FluidStack(BidsFluids.FISHOIL, 50))
             .withoutHeat()
             .inFixedTime(48000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(TFCFluids.MILK, 500))
             .produces(new FluidStack(BidsFluids.SKIMMEDMILK, 450), new FluidStack(BidsFluids.CREAM, 50))
             .withoutHeat()
             .inFixedTime(24000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.GOATMILK, 500))
             .produces(new FluidStack(BidsFluids.SKIMMEDMILK, 450), new FluidStack(BidsFluids.CREAM, 50))
             .withoutHeat()
             .inFixedTime(24000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.suet), Global.FOOD_MAX_WEIGHT / 8000))
             .produces(new FluidStack(BidsFluids.TALLOW, 1))
             .withHeat(EnumCookingHeatLevel.LOW)
@@ -1402,61 +1402,61 @@ public class RecipeSetup {
             .inTime(4000 / 5000f)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.TALLOW, 1))
             .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.tallow), Global.FOOD_MAX_WEIGHT / 10000))
             .withoutHeat()
             .inFixedTime(1000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.tallow), Global.FOOD_MAX_WEIGHT / 10000))
             .produces(new FluidStack(BidsFluids.TALLOW, 1))
             .withHeat()
             .inTime(250 / 5000f)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN, 500), new FluidStack(TFCFluids.FRESHWATER, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN_WATER, 1000))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT, 500), new FluidStack(TFCFluids.FRESHWATER, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT_WATER, 1000))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH, 500), new FluidStack(TFCFluids.FRESHWATER, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH_WATER, 1000))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE, 500), new FluidStack(TFCFluids.FRESHWATER, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE_WATER, 1000))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL, 500), new FluidStack(TFCFluids.FRESHWATER, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_WATER, 1000))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL, 500), new FluidStack(TFCFluids.MILK, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_MILK, 1000))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL, 500), new FluidStack(BidsFluids.GOATMILK, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_MILK, 1000))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL, 500), new FluidStack(BidsFluids.SKIMMEDMILK, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_MILK, 1000))
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN_STEW, 500))
             .withHeat(EnumCookingHeatLevel.LOW)
@@ -1464,7 +1464,7 @@ public class RecipeSetup {
             .inFixedTime(1000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT_STEW, 500))
             .withHeat(EnumCookingHeatLevel.LOW)
@@ -1472,7 +1472,7 @@ public class RecipeSetup {
             .inFixedTime(1500)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH_STEW, 500))
             .withHeat(EnumCookingHeatLevel.LOW)
@@ -1480,7 +1480,7 @@ public class RecipeSetup {
             .inFixedTime(1500)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE_STEW, 500))
             .withHeat(EnumCookingHeatLevel.LOW)
@@ -1488,7 +1488,7 @@ public class RecipeSetup {
             .inFixedTime(1000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN_WATER, 1000))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.BEAN_SOUP, 1000))
             .withHeat(EnumCookingHeatLevel.LOW, EnumCookingHeatLevel.MEDIUM)
@@ -1496,7 +1496,7 @@ public class RecipeSetup {
             .inFixedTime(1500)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT_WATER, 1000))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.MEAT_SOUP, 1000))
             .withHeat(EnumCookingHeatLevel.LOW, EnumCookingHeatLevel.MEDIUM)
@@ -1504,7 +1504,7 @@ public class RecipeSetup {
             .inFixedTime(2000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH_WATER, 1000))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.FISH_SOUP, 1000))
             .withHeat(EnumCookingHeatLevel.LOW, EnumCookingHeatLevel.MEDIUM)
@@ -1512,7 +1512,7 @@ public class RecipeSetup {
             .inFixedTime(2000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE_WATER, 1000))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.VEGETABLE_SOUP, 1000))
             .withHeat(EnumCookingHeatLevel.LOW, EnumCookingHeatLevel.MEDIUM)
@@ -1520,7 +1520,7 @@ public class RecipeSetup {
             .inFixedTime(1500)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_WATER, 1000))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.PORRIDGE_WATER, 1000))
             .withHeat(EnumCookingHeatLevel.LOW)
@@ -1528,7 +1528,7 @@ public class RecipeSetup {
             .inFixedTime(1000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_MILK, 1000))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.PORRIDGE_MILK, 1000))
             .withHeat(EnumCookingHeatLevel.LOW)
@@ -1536,7 +1536,7 @@ public class RecipeSetup {
             .inFixedTime(1000)
             .build());
 
-        CookingManager.addRecipe(CookingRecipe.builder()
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.EGG, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.OMELET, 500))
             .withHeat(EnumCookingHeatLevel.LOW)

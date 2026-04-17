@@ -15,7 +15,7 @@ import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
@@ -69,7 +69,7 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == CookingPotHandler.class) {
-            for (CookingRecipe recipe : CookingManager.getRecipes()) {
+            for (CookingRecipe recipe : BidsRegistry.COOKING_RECIPES) {
                 CookingRecipe template = new CookingRecipe(
                     recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack(), recipe.getOutputFluidStack(), recipe.getSecondaryOutputFluidStack(),
                     recipe.getInputItemStack(), recipe.getOutputItemStack(),
@@ -84,7 +84,7 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (CookingRecipe recipe : CookingManager.getRecipes()) {
+        for (CookingRecipe recipe : BidsRegistry.COOKING_RECIPES) {
             if (recipe.getOutputItemStack() != null && areItemStacksEqual(recipe.getOutputItemStack(), output)) {
                 // Item matches
                 arecipes.add(new CachedCookingRecipe(recipe));
@@ -100,7 +100,7 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (CookingRecipe recipe : CookingManager.getRecipes()) {
+        for (CookingRecipe recipe : BidsRegistry.COOKING_RECIPES) {
             if (recipe.getInputItemStack() != null && areItemStacksEqual(recipe.getInputItemStack(), ingredient)) {
                 ItemStack inputItem = ingredient.copy();
                 inputItem.stackSize = recipe.getInputItemStack().stackSize;

@@ -4,9 +4,11 @@ import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Lamp.Fuels.FuelFishOil;
 import com.unforbidable.tfc.bids.Core.Lamp.Fuels.FuelOliveOil;
-import com.unforbidable.tfc.bids.api.*;
+import com.unforbidable.tfc.bids.api.BidsCookingMixtures;
+import com.unforbidable.tfc.bids.api.BidsFluids;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.CookingMixture;
-import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -21,44 +23,44 @@ public class FluidSetup extends BidsFluids {
     private static void registerCookingFluids() {
         Bids.LOG.info("Register cooking fluids");
 
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.BEAN, 0x99420f));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.BEAN_WATER, 0x996140));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.BEAN_STEW, 0x693111,
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.BEAN, 0x99420f));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.BEAN_WATER, 0x996140));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.BEAN_STEW, 0x693111,
             new ItemStack(BidsItems.stew, 1, 0)));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.BEAN_SOUP, 0x633f2a,
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.BEAN_SOUP, 0x633f2a,
             new ItemStack(BidsItems.soup, 1, 0)));
 
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.MEAT, 0xc2230e));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.MEAT_WATER, 0xc44b3b));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.MEAT_STEW, 0x6b150a,
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.MEAT, 0xc2230e));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.MEAT_WATER, 0xc44b3b));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.MEAT_STEW, 0x6b150a,
             new ItemStack(BidsItems.stew, 1, 1)));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.MEAT_SOUP, 0x702b22,
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.MEAT_SOUP, 0x702b22,
             new ItemStack(BidsItems.soup, 1, 1)));
 
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.FISH, 0xcc5047));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.FISH_WATER, 0xc96f69));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.FISH_STEW, 0x732721,
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.FISH, 0xcc5047));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.FISH_WATER, 0xc96f69));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.FISH_STEW, 0x732721,
             new ItemStack(BidsItems.stew, 1, 2)));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.FISH_SOUP, 0x78413d,
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.FISH_SOUP, 0x78413d,
             new ItemStack(BidsItems.soup, 1, 2)));
 
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.VEGETABLE, 0x516b15));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.VEGETABLE_WATER, 0x5d6e38));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.VEGETABLE_STEW, 0x32330c,
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.VEGETABLE, 0x516b15));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.VEGETABLE_WATER, 0x5d6e38));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.VEGETABLE_STEW, 0x32330c,
             new ItemStack(BidsItems.stew, 1, 3)));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.VEGETABLE_SOUP, 0x3f4021,
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.VEGETABLE_SOUP, 0x3f4021,
             new ItemStack(BidsItems.soup, 1, 3)));
 
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.CEREAL, 0xaba557));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.CEREAL_WATER, 0xb3af7d));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.CEREAL_MILK, 0xe0ddb1));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.PORRIDGE_WATER, 0xa19e81,
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.CEREAL, 0xaba557));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.CEREAL_WATER, 0xb3af7d));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.CEREAL_MILK, 0xe0ddb1));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.PORRIDGE_WATER, 0xa19e81,
             new ItemStack(BidsItems.porridge, 1, 0)));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.PORRIDGE_MILK, 0xd1d0ba,
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.PORRIDGE_MILK, 0xd1d0ba,
             new ItemStack(BidsItems.porridge, 1, 1)));
 
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.EGG, 0xe0d44a));
-        CookingManager.registerCookingMixture(new CookingMixture(BidsCookingMixtures.OMELET, 0xdbc386,
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.EGG, 0xe0d44a));
+        BidsRegistry.COOKING_MIXTURES.register(new CookingMixture(BidsCookingMixtures.OMELET, 0xdbc386,
             new ItemStack(BidsItems.omelet, 1, 0)));
     }
 

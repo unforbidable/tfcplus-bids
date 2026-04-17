@@ -11,8 +11,8 @@ import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.Interfaces.ICookableFood;
 import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
+import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.CookingPotBounds;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.EnumCookingPotPlacement;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingRecipeHelper;
@@ -23,7 +23,6 @@ import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsFoodHeatIndex;
 import com.unforbidable.tfc.bids.api.Crafting.CookingMixture;
-import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingAccessory;
@@ -130,7 +129,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             cachedRecipe = null;
 
             CookingRecipe template = createRecipeTemplate();
-            for (CookingRecipe recipe : CookingManager.getRecipesMatchingTemplate(template)) {
+            for (CookingRecipe recipe : CookingHelper.getRecipesMatchingTemplate(template)) {
                 // Ensure the recipe can run - checking the amounts
                 if (calculateTotalRecipeRuns(recipe) > 0) {
                     cachedRecipe = recipe;
@@ -350,7 +349,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             // Look for all recipes matching specific input item
             // as we don't know the final parameters for the recipes
             // and manually ensure certain parameters such as steaming mesh and existing liquid
-            for (CookingRecipe recipe : CookingManager.getRecipesMatchingInput(itemStack)) {
+            for (CookingRecipe recipe : CookingHelper.getRecipesMatchingInput(itemStack)) {
                 // Ensure accessory matches
                 if (recipe.getAccessory() == EnumCookingAccessory.NONE && hasAccessory() ||
                     recipe.getAccessory() == EnumCookingAccessory.STEAMING_MESH && !hasSteamingMesh()) {
@@ -596,7 +595,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         if (hasFluid() && FluidContainerRegistry.isFilledContainer(itemStack)) {
             FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
             CookingRecipe template = createRecipeTemplateWithSecondaryInputFluidStack(fluidStack);
-            for (CookingRecipe recipe : CookingManager.getRecipesMatchingTemplate(template)) {
+            for (CookingRecipe recipe : CookingHelper.getRecipesMatchingTemplate(template)) {
                 Bids.LOG.debug("Found mixing recipe: " + CookingRecipeHelper.getRecipeHashString(recipe));
 
                 int primaryAmountRequired = recipe.getInputFluidStack().amount;

@@ -25,6 +25,8 @@ public class BidsRegistry {
     public static final ListRegistry<IDrinkable> DRINKS = new ListRegistry<>();
     public static final ListRegistry<Class<? extends IKilnChamber>> KILN_CHAMBERS = new ListRegistry<>();
     public static final FluidRegistry<ILampFuelMaterial> LAMP_FUEL = new FluidRegistry<>();
+    public static final ItemRegistry<Item> COOKING_INGREDIENT_OVERRIDE = new ItemRegistry<>();
+    public static final ListRegistry<CookingMixture> COOKING_MIXTURES = new ListRegistry<>();
 
     public static final RecipeRegistry<CarvingRecipe> CARVING_RECIPES = new RecipeRegistry<>();
     public static final SimpleRecipeRegistry<ChurningRecipe, FluidStack> CHURNING_RECIPES = new SimpleRecipeRegistry<>();
@@ -34,6 +36,7 @@ public class BidsRegistry {
     public static final SimpleRecipeRegistry<RopeMakingRecipe, ItemStack> ROPEMAKING_RECIPES = new SimpleRecipeRegistry<>();
     public static final SimpleRecipeRegistry<SpinningRecipe, ItemStack> SPINNING_RECIPES = new SimpleRecipeRegistry<>();
     public static final RecipeRegistry<ChoppingBlockRecipe> CHOPPING_BLOCK_RECIPES = new RecipeRegistry<>();
+    public static final RecipeRegistry<CookingRecipe> COOKING_RECIPES = new RecipeRegistry<>();
 
     public static class ListRegistry<V> implements Iterable<V> {
 

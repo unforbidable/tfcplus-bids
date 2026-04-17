@@ -9,6 +9,8 @@ import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingPot.CookingPotBounds;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCookingPot;
 import com.unforbidable.tfc.bids.api.BidsFood;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
+import com.unforbidable.tfc.bids.api.Crafting.CookingRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -16,6 +18,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CookingHelper {
@@ -187,6 +190,30 @@ public class CookingHelper {
         } else {
             return inputFluid.getFluid() == TFCFluids.FRESHWATER || inputFluid.getFluid() == TFCFluids.SALTWATER;
         }
+    }
+
+    public static List<CookingRecipe> getRecipesMatchingTemplate(CookingRecipe template) {
+        List<CookingRecipe> matches = new ArrayList<CookingRecipe>();
+
+        for (CookingRecipe recipe : BidsRegistry.COOKING_RECIPES) {
+            if (recipe.matchesTemplate(template)) {
+                matches.add(recipe);
+            }
+        }
+
+        return matches;
+    }
+
+    public static List<CookingRecipe> getRecipesMatchingInput(ItemStack inputItemStack) {
+        List<CookingRecipe> matches = new ArrayList<CookingRecipe>();
+
+        for (CookingRecipe recipe : BidsRegistry.COOKING_RECIPES) {
+            if (recipe.matchesInput(inputItemStack)) {
+                matches.add(recipe);
+            }
+        }
+
+        return matches;
     }
 
 }

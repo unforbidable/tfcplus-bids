@@ -23,7 +23,6 @@ import com.unforbidable.tfc.bids.Render.Item.*;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
 import com.unforbidable.tfc.bids.api.*;
-import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.IWoodPileRenderProvider;
@@ -1145,16 +1144,16 @@ public class ItemSetup extends BidsItems {
     private static void registerCookingIngredientOverrides() {
         Bids.LOG.info("Register cooking ingredient overrides");
 
-        CookingManager.registerCookingIngredientOverride(TFCItems.barleyGrain, TFCItems.barleyWhole);
-        CookingManager.registerCookingIngredientOverride(TFCItems.oatGrain, TFCItems.oatWhole);
-        CookingManager.registerCookingIngredientOverride(TFCItems.ryeGrain, TFCItems.ryeWhole);
-        CookingManager.registerCookingIngredientOverride(TFCItems.wheatGrain, TFCItems.wheatWhole);
-        CookingManager.registerCookingIngredientOverride(TFCItems.riceGrain, TFCItems.riceWhole);
-        CookingManager.registerCookingIngredientOverride(TFCItems.barleyGround, TFCItems.barleyWhole);
-        CookingManager.registerCookingIngredientOverride(TFCItems.oatGround, TFCItems.oatWhole);
-        CookingManager.registerCookingIngredientOverride(TFCItems.ryeGround, TFCItems.ryeWhole);
-        CookingManager.registerCookingIngredientOverride(TFCItems.wheatGround, TFCItems.wheatWhole);
-        CookingManager.registerCookingIngredientOverride(TFCItems.riceGround, TFCItems.riceWhole);
+        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.barleyGrain, TFCItems.barleyWhole);
+        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.oatGrain, TFCItems.oatWhole);
+        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.ryeGrain, TFCItems.ryeWhole);
+        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.wheatGrain, TFCItems.wheatWhole);
+        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.riceGrain, TFCItems.riceWhole);
+        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.barleyGround, TFCItems.barleyWhole);
+        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.oatGround, TFCItems.oatWhole);
+        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.ryeGround, TFCItems.ryeWhole);
+        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.wheatGround, TFCItems.wheatWhole);
+        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.riceGround, TFCItems.riceWhole);
     }
 
     @SideOnly(Side.CLIENT)
