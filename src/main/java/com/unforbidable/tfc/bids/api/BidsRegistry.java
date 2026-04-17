@@ -5,6 +5,7 @@ import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 
 import java.util.*;
 
@@ -20,6 +21,7 @@ public class BidsRegistry {
     public static final ListRegistry<ICarving> CARVING_BLOCKS = new ListRegistry<>();
     public static final ListRegistry<IDrinkable> DRINKS = new ListRegistry<>();
     public static final ListRegistry<Class<? extends IKilnChamber>> KILN_CHAMBERS = new ListRegistry<>();
+    public static final FluidRegistry<ILampFuelMaterial> LAMP_FUEL = new FluidRegistry<>();
 
     public static class ItemRegistry<T> implements Iterable<ItemRegistry.Entry<T>> {
 
@@ -133,6 +135,48 @@ public class BidsRegistry {
 
             public Entry(Block block, T value) {
                 this.block = block;
+                this.value = value;
+            }
+        }
+
+    }
+
+    public static class FluidRegistry<T> implements Iterable<FluidRegistry.Entry<T>> {
+
+        private final Map<String, Entry<T>> values = new HashMap<>();
+
+        public void register(Fluid fluid, T value) {
+            values.put(getKeyForFluid(fluid), new Entry<>(fluid, value));
+        }
+
+        public T get(Fluid fluid) {
+            Entry<T> entry = values.get(getKeyForFluid(fluid));
+            if (entry != null) {
+                return entry.value;
+            }
+
+            return null;
+        }
+
+        public boolean has(Fluid fluid) {
+            return values.get(getKeyForFluid(fluid)) != null;
+        }
+
+        private static String getKeyForFluid(Fluid fluid) {
+            return fluid.getUnlocalizedName();
+        }
+
+        @Override
+        public Iterator<Entry<T>> iterator() {
+            return values.values().iterator();
+        }
+
+        public static class Entry<T> {
+            public final Fluid fluid;
+            public final T value;
+
+            public Entry(Fluid fluid, T value) {
+                this.fluid = fluid;
                 this.value = value;
             }
         }

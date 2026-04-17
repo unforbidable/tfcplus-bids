@@ -4,12 +4,9 @@ import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Lamp.Fuels.FuelFishOil;
 import com.unforbidable.tfc.bids.Core.Lamp.Fuels.FuelOliveOil;
-import com.unforbidable.tfc.bids.api.BidsCookingMixtures;
-import com.unforbidable.tfc.bids.api.BidsFluids;
-import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.CookingMixture;
 import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
-import com.unforbidable.tfc.bids.api.LampRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -91,8 +88,8 @@ public class FluidSetup extends BidsFluids {
     private static void registerLampFuels() {
         Bids.LOG.info("Register lamp fuels");
 
-        LampRegistry.registerFuel(TFCFluids.OLIVEOIL, FuelOliveOil.class);
-        LampRegistry.registerFuel(BidsFluids.FISHOIL, FuelFishOil.class);
+        BidsRegistry.LAMP_FUEL.register(TFCFluids.OLIVEOIL, new FuelOliveOil());
+        BidsRegistry.LAMP_FUEL.register(BidsFluids.FISHOIL, new FuelFishOil());
     }
 
 }
