@@ -409,18 +409,18 @@ public class RecipeSetup {
                         wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog()));
                 }
 
-                SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedPeeledLog(),
+                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedPeeledLog(),
                     wood.items.getPeeledLog(),
                     SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.PEELED_LOG)));
             }
 
             if (wood.items.hasSeasonedLog()) {
-                SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedLog(),
+                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedLog(),
                     wood.items.getLog(),
                     SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.LOG)));
 
                 if (wood.items.hasChoppedLog()) {
-                    SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedChoppedLog(),
+                    BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedChoppedLog(),
                         wood.items.getChoppedLog(),
                         SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.CHOPPED_LOG)));
                 }
@@ -467,7 +467,7 @@ public class RecipeSetup {
                         wood.items.getSeasonedPeeledLog()));
                 }
 
-                SeasoningManager.addRecipe(new SeasoningRecipe(wood.items.getSeasonedFirewood(),
+                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedFirewood(),
                     wood.items.getFirewood(),
                     SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.FIREWOOD)));
             }
@@ -1818,20 +1818,20 @@ public class RecipeSetup {
     private static void registerSoakingSurfaceRecipes() {
         Bids.LOG.info("Register soaking surface recipes");
 
-        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkRetted, 1, 0),
+        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkRetted, 1, 0),
             new ItemStack(BidsItems.flaxStalk, 1, 0), "blockFreshWater", 20));
 
-        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.juteStalkRetted, 1, 0),
+        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.juteStalkRetted, 1, 0),
             new ItemStack(BidsItems.juteStalk, 1, 0), "blockFreshWater", 20));
 
-        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.sisalFiberRinsed, 1, 0),
+        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.sisalFiberRinsed, 1, 0),
             new ItemStack(TFCItems.sisalFiber, 1, 0), "blockFreshWater", 0));
 
         // Washing wool can be skipped however the wool needs to be rinsed for a extended period of time
-        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed, 1, 0),
+        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed, 1, 0),
             new ItemStack(TFCItems.wool, 1, 0), "blockFreshWater", 20));
 
-        SoakingSurfaceManager.addRecipe(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed, 1, 0),
+        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed, 1, 0),
             new ItemStack(BidsItems.woolWashed, 1, 0), "blockFreshWater", 0));
     }
 

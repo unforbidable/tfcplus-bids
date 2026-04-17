@@ -4,9 +4,9 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
+import com.unforbidable.tfc.bids.Core.SoakingSurface.SoakingSurfaceHelper;
 import com.unforbidable.tfc.bids.Core.SoakingSurface.SoakingSurfaceItem;
 import com.unforbidable.tfc.bids.Core.SoakingSurface.SoakingSurfaceSlotProgress;
-import com.unforbidable.tfc.bids.api.Crafting.SoakingSurfaceManager;
 import com.unforbidable.tfc.bids.api.Crafting.SoakingSurfaceRecipe;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -116,7 +116,7 @@ public class TileEntitySoakingSurface extends TileEntity implements IMessageHanl
     public boolean hasValidFluidBlock() {
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
-                SoakingSurfaceRecipe recipe = SoakingSurfaceManager.findMatchingRecipe(storage[i].soakingItem, worldObj, xCoord, yCoord + 1, zCoord);
+                SoakingSurfaceRecipe recipe = SoakingSurfaceHelper.findMatchingRecipe(storage[i].soakingItem, worldObj, xCoord, yCoord + 1, zCoord);
                 if (recipe == null) {
                     return false;
                 }
@@ -152,7 +152,7 @@ public class TileEntitySoakingSurface extends TileEntity implements IMessageHanl
 
     private SoakingSurfaceSlotProgress getSlotProgress(int slot) {
         if (storage[slot] != null) {
-            SoakingSurfaceRecipe recipe = SoakingSurfaceManager.findMatchingRecipe(storage[slot].soakingItem, worldObj, xCoord, yCoord + 1, zCoord);
+            SoakingSurfaceRecipe recipe = SoakingSurfaceHelper.findMatchingRecipe(storage[slot].soakingItem, worldObj, xCoord, yCoord + 1, zCoord);
             if (recipe != null) {
                 long elapsed = TFC_Time.getTotalTicks() - storage[slot].soakingStartTicks;
                 float ticksNeeded = recipe.getHours() * TFC_Time.HOUR_LENGTH;

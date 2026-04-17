@@ -6,7 +6,8 @@ import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.TileEntities.TileEntitySoakingSurface;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.Crafting.SoakingSurfaceManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
+import com.unforbidable.tfc.bids.api.Crafting.SoakingSurfaceRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -32,7 +33,7 @@ public class SoakingSurfaceHelper {
     }
 
     private static boolean isValidSoakingSurfaceItem(ItemStack item, World world, int x, int y, int z) {
-        return SoakingSurfaceManager.findMatchingRecipe(item, world, x, y + 1, z) != null;
+        return findMatchingRecipe(item, world, x, y + 1, z) != null;
     }
 
     private static boolean isValidSoakingSurfaceBlock(Block block) {
@@ -143,6 +144,20 @@ public class SoakingSurfaceHelper {
         final float maxZ = minZ + 0.5f;
 
         return AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
+    }
+
+    public static SoakingSurfaceRecipe findMatchingRecipe(ItemStack input, World world, int x, int y, int z) {
+        Block surfaceBlock = world.getBlock(x, y, z);
+        int surfaceBlockMetadata = world.getBlockMetadata(x, y, z);
+        ItemStack surface = new ItemStack(surfaceBlock, 1, surfaceBlockMetadata);
+
+        for (SoakingSurfaceRecipe recipe : BidsRegistry.SOAKING_SURFACE_RECIPES) {
+            if (recipe.matchesInput(input) && recipe.matchesSurface(surface)) {
+                return recipe;
+            }
+        }
+
+        return null;
     }
 
 }

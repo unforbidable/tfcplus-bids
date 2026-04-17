@@ -5,11 +5,10 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.Crafting.SoakingSurfaceManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.SoakingSurfaceRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -53,7 +52,7 @@ public class SoakingSurfaceHandler extends TemplateRecipeHandler implements IHan
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == SoakingSurfaceHandler.class) {
-            for (SoakingSurfaceRecipe recipe : SoakingSurfaceManager.getRecipes()) {
+            for (SoakingSurfaceRecipe recipe : BidsRegistry.SOAKING_SURFACE_RECIPES) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
                 List<ItemStack> blocks = OreDictionary.getOres(recipe.getFluidBlockOreName(), false);
@@ -66,7 +65,7 @@ public class SoakingSurfaceHandler extends TemplateRecipeHandler implements IHan
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (SoakingSurfaceRecipe recipe : SoakingSurfaceManager.getRecipes()) {
+        for (SoakingSurfaceRecipe recipe : BidsRegistry.SOAKING_SURFACE_RECIPES) {
             final ItemStack output2 = output.copy();
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
@@ -80,7 +79,7 @@ public class SoakingSurfaceHandler extends TemplateRecipeHandler implements IHan
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (SoakingSurfaceRecipe recipe : SoakingSurfaceManager.getRecipes()) {
+        for (SoakingSurfaceRecipe recipe : BidsRegistry.SOAKING_SURFACE_RECIPES) {
             if (recipe.matchesInput(ingredient)) {
                 final ItemStack input = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
                 final ItemStack result = recipe.getResult(input);

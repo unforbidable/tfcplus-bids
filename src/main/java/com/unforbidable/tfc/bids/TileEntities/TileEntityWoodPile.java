@@ -20,8 +20,10 @@ import com.unforbidable.tfc.bids.Core.Timer;
 import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
 import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.Core.WoodPile.*;
-import com.unforbidable.tfc.bids.api.*;
-import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsGui;
+import com.unforbidable.tfc.bids.api.BidsOptions;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.Events.FireSettingEvent;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
@@ -1065,7 +1067,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     public void seasonItemsFully() {
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
-                final SeasoningRecipe recipe = SeasoningManager.getMatchingRecipe(storage[i]);
+                final SeasoningRecipe recipe = BidsRegistry.SEASONING_RECIPES.findMatchingRecipe(storage[i]);
                 if (recipe != null) {
                     Bids.LOG.debug("Item fully seasoned in slot: " + i);
                     ItemStack output = recipe.getCraftingResult(storage[i]);
@@ -1084,7 +1086,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         boolean isCovered = false;
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
-                final SeasoningRecipe recipe = SeasoningManager.getMatchingRecipe(storage[i]);
+                final SeasoningRecipe recipe = BidsRegistry.SEASONING_RECIPES.findMatchingRecipe(storage[i]);
 
                 if (recipe != null) {
                     // Lazy coverage calculation

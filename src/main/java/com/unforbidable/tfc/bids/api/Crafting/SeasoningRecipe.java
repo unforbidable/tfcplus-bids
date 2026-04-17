@@ -1,8 +1,9 @@
 package com.unforbidable.tfc.bids.api.Crafting;
 
+import com.unforbidable.tfc.bids.api.Interfaces.ISimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;
 
-public class SeasoningRecipe {
+public class SeasoningRecipe implements ISimpleRecipeMatcher<ItemStack> {
 
     final ItemStack output;
     final ItemStack input;
@@ -14,6 +15,7 @@ public class SeasoningRecipe {
         this.duration = duration;
     }
 
+    @Override
     public boolean matches(ItemStack itemStack) {
         return itemStack.getItem() == input.getItem()
                 && itemStack.getItemDamage() == input.getItemDamage();

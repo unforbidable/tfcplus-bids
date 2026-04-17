@@ -8,7 +8,7 @@ import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsOptions;
-import com.unforbidable.tfc.bids.api.Crafting.SeasoningManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.SeasoningRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -48,7 +48,7 @@ public class SeasoningHandler extends TemplateRecipeHandler implements IHandlerI
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == SeasoningHandler.class) {
-            for (SeasoningRecipe recipe : SeasoningManager.getRecipes()) {
+            for (SeasoningRecipe recipe : BidsRegistry.SEASONING_RECIPES) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getCraftingResult(input);
                 arecipes.add(new CachedSeasoningRecipe(input, result, recipe.getDuration()));
@@ -60,7 +60,7 @@ public class SeasoningHandler extends TemplateRecipeHandler implements IHandlerI
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (SeasoningRecipe recipe : SeasoningManager.getRecipes()) {
+        for (SeasoningRecipe recipe : BidsRegistry.SEASONING_RECIPES) {
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getCraftingResult(input);
             if (ItemStack.areItemStacksEqual(result, output)) {
@@ -71,7 +71,7 @@ public class SeasoningHandler extends TemplateRecipeHandler implements IHandlerI
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (SeasoningRecipe recipe : SeasoningManager.getRecipes()) {
+        for (SeasoningRecipe recipe : BidsRegistry.SEASONING_RECIPES) {
             if (recipe.matches(ingredient)) {
                 final ItemStack input = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
                 final ItemStack result = recipe.getCraftingResult(ingredient);
