@@ -7,7 +7,7 @@ import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipePattern;
 import net.minecraft.item.ItemStack;
@@ -106,7 +106,7 @@ public class CarvingHandler extends TemplateRecipeHandler implements IHandlerInf
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == CarvingHandler.class) {
-            for (CarvingRecipe recipe : CarvingManager.getRecipes()) {
+            for (CarvingRecipe recipe : BidsRegistry.CARVING_RECIPES) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getCraftingResult();
                 arecipes.add(new CachedCarvingRecipe(input, result, recipe.getPattern()));
@@ -118,7 +118,7 @@ public class CarvingHandler extends TemplateRecipeHandler implements IHandlerInf
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (CarvingRecipe recipe : CarvingManager.getRecipes()) {
+        for (CarvingRecipe recipe : BidsRegistry.CARVING_RECIPES) {
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getCraftingResult();
             final ItemStack outputOne = output.copy();
@@ -131,8 +131,8 @@ public class CarvingHandler extends TemplateRecipeHandler implements IHandlerInf
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (CarvingRecipe recipe : CarvingManager.getRecipes()) {
-            if (recipe.matchCarving(ingredient)) {
+        for (CarvingRecipe recipe : BidsRegistry.CARVING_RECIPES) {
+            if (recipe.matches(ingredient)) {
                 final ItemStack input = ingredient.copy();
                 input.stackSize = 1;
                 final ItemStack result = recipe.getCraftingResult();

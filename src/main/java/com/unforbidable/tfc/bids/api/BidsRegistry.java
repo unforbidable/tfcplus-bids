@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.api;
 
+import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.Interfaces.*;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.block.Block;
@@ -7,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class BidsRegistry {
 
@@ -22,6 +24,8 @@ public class BidsRegistry {
     public static final ListRegistry<Class<? extends IKilnChamber>> KILN_CHAMBERS = new ListRegistry<>();
     public static final FluidRegistry<ILampFuelMaterial> LAMP_FUEL = new FluidRegistry<>();
 
+    public static final RecipeRegistry<CarvingRecipe> CARVING_RECIPES = new RecipeRegistry<>();
+
     public static class ListRegistry<V> implements Iterable<V> {
 
         private final List<V> values = new ArrayList<>();
@@ -35,6 +39,24 @@ public class BidsRegistry {
             return values.iterator();
         }
 
+    }
+
+    public static class RecipeRegistry<T> implements Iterable<T> {
+
+        private final List<T> recipes = new ArrayList<>();
+
+        public void register(T recipe) {
+            recipes.add(recipe);
+        }
+
+        public T findMatchingRecipe(Predicate<T> predicate) {
+            return recipes.stream().filter(predicate).findFirst().orElse(null);
+        }
+
+        @Override
+        public Iterator<T> iterator() {
+            return recipes.iterator();
+        }
     }
 
     public static class ItemRegistry<T> extends MapRegistry<Item, T> {

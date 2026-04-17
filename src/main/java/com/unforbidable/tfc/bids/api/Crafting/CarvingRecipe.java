@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.api.Crafting;
 
 import com.unforbidable.tfc.bids.Core.Carving.CarvingBitMap;
-
 import net.minecraft.item.ItemStack;
 
 public class CarvingRecipe {
@@ -24,11 +23,11 @@ public class CarvingRecipe {
         return pattern;
     }
 
-    public boolean matchCarving(ItemStack ingredient, CarvingBitMap carvedBits) {
-        return matchCarving(ingredient) && pattern.matchCarving(carvedBits);
+    public boolean matches(ItemStack ingredient, CarvingBitMap carvedBits) {
+        return matches(ingredient) && pattern.matchCarving(carvedBits);
     }
 
-    public boolean matchCarving(ItemStack ingredient) {
+    public boolean matches(ItemStack ingredient) {
         return ingredient.getItem() == input.getItem()
                 && ingredient.getItemDamage() == input.getItemDamage();
     }

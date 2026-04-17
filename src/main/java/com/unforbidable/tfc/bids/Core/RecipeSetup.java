@@ -813,7 +813,7 @@ public class RecipeSetup {
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             if (wood.blocks.hasChoppingBlock()) {
-                CarvingManager.addRecipe(new CarvingRecipe(wood.blocks.getChoppingBlock(),
+                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(wood.blocks.getChoppingBlock(),
                     wood.blocks.getWoodVert(), choppingBlockPattern));
             }
         }
@@ -861,22 +861,22 @@ public class RecipeSetup {
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
             if (stone.soft) {
-                CarvingManager.addRecipe(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.SADDLE_QUERN),
+                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.SADDLE_QUERN),
                     stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), saddleQuernPattern));
 
                 for (int j = 0; j < handstonePatterns.length; j++) {
-                    CarvingManager.addRecipe(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.HAND_STONE),
+                    BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.HAND_STONE),
                         stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), handstonePatterns[j]));
                 }
 
-                CarvingManager.addRecipe(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.PRESSING_STONE),
+                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.PRESSING_STONE),
                     stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), pressingStonePattern));
 
-                CarvingManager.addRecipe(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.WEIGHT_STONE),
+                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.WEIGHT_STONE),
                     stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), weightStonePattern));
             }
 
-            CarvingManager.addRecipe(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY),
+            BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY),
                 stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICKS), chimneyPattern));
         }
     }

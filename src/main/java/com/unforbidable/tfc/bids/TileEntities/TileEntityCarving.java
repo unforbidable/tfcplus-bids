@@ -6,7 +6,7 @@ import com.unforbidable.tfc.bids.Core.Carving.CarvingBitMap;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingHelper;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
-import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.Enums.EnumAdzeMode;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
@@ -74,8 +74,9 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
 
     public ItemStack getCraftingResult() {
         if (!cachedCraftingResultIsValid) {
-            final CarvingRecipe recipe = CarvingManager.findMatchingRecipe(carvedBlockId, carvedBlockMetadata,
-                    carvedBits);
+            final Block block = Block.getBlockById(carvedBlockId);
+            final ItemStack itemStack = new ItemStack(block, 1, carvedBlockMetadata);
+            final CarvingRecipe recipe = BidsRegistry.CARVING_RECIPES.findMatchingRecipe(r -> r.matches(itemStack, carvedBits));
             cachedCraftingResult = recipe != null ? recipe.getCraftingResult() : null;
             cachedCraftingResultIsValid = true;
         }
