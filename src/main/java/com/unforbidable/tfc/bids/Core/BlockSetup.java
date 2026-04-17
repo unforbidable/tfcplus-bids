@@ -496,21 +496,21 @@ public class BlockSetup extends BidsBlocks {
     private static void registerCarvings() {
         Bids.LOG.info("Register block carvings");
 
-        CarvingRegistry.registerCarving(new CarvingRoughStone());
-        CarvingRegistry.registerCarving(new CarvingRoughStoneBrick());
-        CarvingRegistry.registerCarving(new CarvingRoughStoneTile());
-        CarvingRegistry.registerCarving(new CarvingRawStone());
-        CarvingRegistry.registerCarving(new CarvingLogWall());
-        CarvingRegistry.registerCarving(new CarvingLogWallVert());
-        CarvingRegistry.registerCarving(new CarvingStackedLogs());
-        CarvingRegistry.registerCarving(new CarvingWoodVert());
-        CarvingRegistry.registerCarving(new CarvingMudBrick());
-        CarvingRegistry.registerCarving(new CarvingPlanks());
-        CarvingRegistry.registerCarving(new CarvingStoneBrick());
-        CarvingRegistry.registerCarving(new CarvingStoneLargeBrick());
-        CarvingRegistry.registerCarving(new CarvingSmoothStone());
-        CarvingRegistry.registerCarving(new CarvingBrick());
-        CarvingRegistry.registerCarving(new CarvingFireBrick());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingRoughStone());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingRoughStoneBrick());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingRoughStoneTile());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingRawStone());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingLogWall());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingLogWallVert());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingStackedLogs());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingWoodVert());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingMudBrick());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingPlanks());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingStoneBrick());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingStoneLargeBrick());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingSmoothStone());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingBrick());
+        BidsRegistry.CARVING_BLOCKS.register(new CarvingFireBrick());
     }
 
     private static void registerQuarryBlocks() {

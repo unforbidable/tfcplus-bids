@@ -3,14 +3,13 @@ package com.unforbidable.tfc.bids.TileEntities;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingBit;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingBitMap;
+import com.unforbidable.tfc.bids.Core.Carving.CarvingHelper;
 import com.unforbidable.tfc.bids.Core.Carving.CarvingMessage;
 import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
-import com.unforbidable.tfc.bids.api.CarvingRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.CarvingManager;
 import com.unforbidable.tfc.bids.api.Crafting.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.Enums.EnumAdzeMode;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
-
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -204,7 +203,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     }
 
     private void dropHarvestAtRatioCarved(float ratio) {
-        ICarving carving = CarvingRegistry.getBlockCarving(this);
+        ICarving carving = CarvingHelper.getBlockCarving(this);
         ItemStack[] rewardStack = carving.getCarvingHarvest(Block.getBlockById(getCarvedBlockId()),
                 getCarvedBlockMetadata(), worldObj.rand);
         if (rewardStack != null) {
@@ -220,7 +219,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     }
 
     private void dropExtraHarvest() {
-        ICarving carving = CarvingRegistry.getBlockCarving(this);
+        ICarving carving = CarvingHelper.getBlockCarving(this);
         ItemStack is = carving.getCarvingExtraHarvest(Block.getBlockById(getCarvedBlockId()),
                 getCarvedBlockMetadata(), worldObj.rand, 1f / getTotalBitCount());
         if (is != null) {

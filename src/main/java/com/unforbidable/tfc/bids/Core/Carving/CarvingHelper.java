@@ -6,7 +6,7 @@ import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionHelper;
 import com.unforbidable.tfc.bids.Core.Common.Collision.CollisionInfo;
 import com.unforbidable.tfc.bids.Core.Player.PlayerStateManager;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityCarving;
-import com.unforbidable.tfc.bids.api.CarvingRegistry;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Enums.EnumAdzeMode;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarving;
 import com.unforbidable.tfc.bids.api.Interfaces.ICarvingTool;
@@ -34,7 +34,7 @@ public class CarvingHelper {
             if (te != null && te instanceof TileEntityCarving) {
                 TileEntityCarving tec = (TileEntityCarving) te;
 
-                ICarving carving = CarvingRegistry.getBlockCarving(tec);
+                ICarving carving = getBlockCarving(tec);
                 if (!carving.isSufficientEquipmentTier(Block.getBlockById(tec.getCarvedBlockId()), tec.getCarvedBlockMetadata(), ((ICarvingTool)tool.getItem()).getCarvingToolEquipmentTier(tool))) {
                     Bids.LOG.debug("Insufficient tool to continue to carve block at " + x + ", " + y + ", " + z);
                     return false;
@@ -90,7 +90,7 @@ public class CarvingHelper {
                 Bids.LOG.debug("Block " + block.getUnlocalizedName() + ":" + metadata
                         + " at " + x + ", " + y + ", " + z + " hit with a carving tool");
 
-                ICarving carving = CarvingRegistry.getBlockCarvingAt(world, x, y, z);
+                ICarving carving = getBlockCarvingAt(world, x, y, z);
                 if (carving != null && carving.isSufficientEquipmentTier(block, metadata, ((ICarvingTool)tool.getItem()).getCarvingToolEquipmentTier(tool))
                         && carving.canCarveBlockAt(block, metadata, world, x, y, z, side)) {
                     Bids.LOG.debug("Block " + block.getUnlocalizedName() + ":" + metadata
@@ -444,6 +444,39 @@ public class CarvingHelper {
 
         state.isCarvingActive = active;
         state.carvingActivityChangedTime = System.currentTimeMillis();
+    }
+
+
+    public static boolean canCarveBlockAt(World world, int x, int y, int z) {
+        return getBlockCarvingAt(world, x, y, z) != null;
+    }
+
+    public static boolean canCarveBlock(Block block, int metadata) {
+        return getBlockCarving(block, metadata) != null;
+    }
+
+    public static ICarving getBlockCarving(TileEntityCarving te) {
+        Block block = Block.getBlockById(te.getCarvedBlockId());
+        int metadata = te.getCarvedBlockMetadata();
+
+        return getBlockCarving(block, metadata);
+    }
+
+    public static ICarving getBlockCarvingAt(World world, int x, int y, int z) {
+        Block block = world.getBlock(x, y, z);
+        int metadata = world.getBlockMetadata(x, y, z);
+
+        return getBlockCarving(block, metadata);
+    }
+
+    public static ICarving getBlockCarving(Block block, int metadata) {
+        for (ICarving c : BidsRegistry.CARVING_BLOCKS) {
+            if (c.canCarveBlock(block, metadata)) {
+                return c;
+            }
+        }
+
+        return null;
     }
 
 }
