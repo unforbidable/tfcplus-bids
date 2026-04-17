@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.api;
 
 import com.unforbidable.tfc.bids.api.Interfaces.IDryingItemRenderInfo;
+import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.Interfaces.ISurfaceItemPlacer;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.block.Block;
@@ -13,6 +14,7 @@ public class BidsRegistry {
 
     public static final ItemRegistry<WetnessInfo> ITEM_WETNESS = new ItemRegistry<>();
     public static final ItemRegistry<IDryingItemRenderInfo> ITEM_DRYING_RENDER_INFO = new ItemRegistry<>();
+    public static final ItemRegistry<IFirepitFuelMaterial> ITEM_FIREPIT_FUEL = new ItemRegistry<>();
     public static final ListRegistry<ISurfaceItemPlacer> SURFACE_PLACERS = new ListRegistry<>();
 
     public static class ItemRegistry<T> implements Iterable<ItemRegistry.Entry<T>> {
@@ -23,6 +25,10 @@ public class BidsRegistry {
 
         public void register(Item item, T value) {
             register(new ItemStack(item, 1, WILD), value);
+        }
+
+        public void register(Block block, T value) {
+            register(Item.getItemFromBlock(block), value);
         }
 
         public void register(ItemStack itemStack, T value) {

@@ -25,6 +25,7 @@ import com.unforbidable.tfc.bids.api.BidsConstants.ExtraClothing;
 import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.CookingManager;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRackManager;
+import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -1078,28 +1079,29 @@ public class ItemSetup extends BidsItems {
     private static void registerFirepitFuel() {
         Bids.LOG.info("Register firepit fuel");
 
-        FirepitRegistry.registerFuel(kindling);
-        FirepitRegistry.registerFuel(smallStickBundle);
-        FirepitRegistry.registerFuel(tiedStickBundle);
-        FirepitRegistry.registerFuel(TFCItems.stick, FuelStickTFC.class);
-        FirepitRegistry.registerFuel(TFCItems.fireStarter, FuelStickTFC.class);
-        FirepitRegistry.registerFuel(TFCItems.stickBundle, FuelStickBundleTFC.class);
-        FirepitRegistry.registerFuel(Item.getItemFromBlock(TFCBlocks.peat), FuelPeatTFC.class);
-        FirepitRegistry.registerFuel(bark);
-        FirepitRegistry.registerFuel(barkFibreKindling);
-        FirepitRegistry.registerFuel(birchBarkKindling);
-        FirepitRegistry.registerFuel(firewoodSeasoned);
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(kindling, (IFirepitFuelMaterial) kindling);
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(smallStickBundle, (IFirepitFuelMaterial) smallStickBundle);
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(tiedStickBundle, (IFirepitFuelMaterial) tiedStickBundle);
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.stick, new FuelStickTFC());
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.fireStarter, new FuelStickTFC());
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.stickBundle, new FuelStickBundleTFC());
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.stickBundle, new FuelStickBundleTFC());
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCBlocks.peat, new FuelPeatTFC());
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(bark, (IFirepitFuelMaterial) bark);
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(barkFibreKindling, (IFirepitFuelMaterial) barkFibreKindling);
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(birchBarkKindling, (IFirepitFuelMaterial) birchBarkKindling);
+        BidsRegistry.ITEM_FIREPIT_FUEL.register(firewoodSeasoned, (IFirepitFuelMaterial) firewoodSeasoned);
 
         if (BidsOptions.Firepit.allowFuelLogsTFC) {
-            FirepitRegistry.registerFuel(TFCItems.logs, FuelLogsTFC.class);
+            BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.logs, new FuelLogsTFC());
         }
 
         if (BidsOptions.Firepit.allowFuelCharcoal) {
-            FirepitRegistry.registerFuel(TFCItems.coal, FuelCoalTFC.class);
+            BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.coal, new FuelCoalTFC());
         }
 
         if (BidsOptions.Firepit.allowFuelUnseasonedFirewood) {
-            FirepitRegistry.registerFuel(firewood);
+            BidsRegistry.ITEM_FIREPIT_FUEL.register(firewood, (IFirepitFuelMaterial) firewood);
         }
     }
 

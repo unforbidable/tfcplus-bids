@@ -905,7 +905,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     private WoodPileBurningItem findNextBurningItem() {
         for (int i = MAX_STORAGE - 1; i >= 0; i--) {
             if (storage[i] != null) {
-                IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(storage[i].getItem());
+                IFirepitFuelMaterial fuel = BidsRegistry.ITEM_FIREPIT_FUEL.get(storage[i]);
                 if (fuel != null && fuel.isFuelValid(storage[i])) {
                     return new WoodPileBurningItem(i, storage[i], fuel);
                 }

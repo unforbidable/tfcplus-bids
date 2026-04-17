@@ -1,7 +1,5 @@
 package com.unforbidable.tfc.bids.Blocks;
 
-import java.util.Random;
-
 import com.dunk.tfc.Blocks.Devices.BlockFirepit;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
@@ -15,9 +13,8 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsGui;
-import com.unforbidable.tfc.bids.api.FirepitRegistry;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -28,6 +25,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockNewFirepit extends BlockFirepit {
 
@@ -101,7 +100,7 @@ public class BlockNewFirepit extends BlockFirepit {
                 // No longer 100% chance of success
                 // and kindling is required
                 final ItemStack kindling = te.fireItemStacks[5];
-                final IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(kindling.getItem());
+                final IFirepitFuelMaterial fuel = BidsRegistry.ITEM_FIREPIT_FUEL.get(kindling);
 
                 if (fuel != null && fuel.getFuelKindlingQuality(kindling) > 0) {
                     float chance = fuel.getFuelKindlingQuality(kindling);

@@ -6,7 +6,7 @@ import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.FirepitRegistry;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Interfaces.IFirepitFuelMaterial;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -49,13 +49,11 @@ public class FirepitFuelHandler extends TemplateRecipeHandler implements IHandle
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == FirepitFuelHandler.class) {
-            for (Item item : FirepitRegistry.getFuels()) {
-                IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(item);
-
+            for (BidsRegistry.ItemRegistry.Entry<IFirepitFuelMaterial> entry : BidsRegistry.ITEM_FIREPIT_FUEL) {
                 // Ensure any sub items are valid fuel
-                List<ItemStack> temp = getValidFuelSubItems(fuel, item);
+                List<ItemStack> temp = getValidFuelSubItems(entry.value, entry.item);
                 if (temp.size() > 0) {
-                    arecipes.add(new CachedFirepitFuelRecipe(fuel, item));
+                    arecipes.add(new CachedFirepitFuelRecipe(entry.value, entry.item));
                 }
             }
         } else {
@@ -79,11 +77,10 @@ public class FirepitFuelHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (Item item : FirepitRegistry.getFuels()) {
-            if (ingredient.getItem() == item) {
-                IFirepitFuelMaterial fuel = FirepitRegistry.findFuel(item);
-                if (fuel.isFuelValid(ingredient)) {
-                    arecipes.add(new CachedFirepitFuelRecipe(fuel, item));
+        for (BidsRegistry.ItemRegistry.Entry<IFirepitFuelMaterial> entry : BidsRegistry.ITEM_FIREPIT_FUEL) {
+            if (ingredient.getItem() == entry.item) {
+                if (entry.value.isFuelValid(ingredient)) {
+                    arecipes.add(new CachedFirepitFuelRecipe(entry.value, entry.item));
                 }
             }
         }
