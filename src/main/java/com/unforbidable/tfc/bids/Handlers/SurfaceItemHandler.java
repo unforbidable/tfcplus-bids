@@ -50,7 +50,7 @@ public class SurfaceItemHandler {
 
     private boolean placeSurfaceItem(World world, int x, int y, int z, int face, float hitX, float hitY, float hitZ, EntityPlayer entityPlayer) {
         if (isItemAllowed(entityPlayer.getHeldItem())) {
-            for (ISurfaceItemPlacer placer : BidsRegistry.SURFACE_PLACERS) {
+            for (ISurfaceItemPlacer placer : BidsRegistry.SURFACE_ITEM_PLACERS) {
                 if (placer.placeItemOnSurface(world, x, y, z, face, hitX, hitY, hitZ, entityPlayer)) {
                     return true;
                 }

@@ -22,7 +22,7 @@ public class SlotWoodPile extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack itemStack) {
-        final IWoodPileRenderProvider render = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(itemStack);
+        final IWoodPileRenderProvider render = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(itemStack);
         if (render == null) {
             return false;
         }
@@ -64,7 +64,7 @@ public class SlotWoodPile extends Slot {
             }
 
             final ItemStack itemStackInHybridSlot = inventory.getStackInSlot(slotGroup.getHybridSlot());
-            IWoodPileRenderProvider renderInHybridSlot = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(itemStackInHybridSlot);
+            IWoodPileRenderProvider renderInHybridSlot = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(itemStackInHybridSlot);
             if (!renderInHybridSlot.isWoodPileLargeItem(itemStackInHybridSlot)) {
                 // System.out.println("Can insert normal item into slot " + slotNumber
                 // + " because hybrid slot " + slotGroup.getHybridSlot() + " is occupied with a
@@ -96,7 +96,7 @@ public class SlotWoodPile extends Slot {
             final ItemStack itemStackInHybridSlot = inventory
                     .getStackInSlot(slotGroup.getHybridSlot());
             if (itemStackInHybridSlot != null) {
-                IWoodPileRenderProvider renderInHybridSlot = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(itemStackInHybridSlot);
+                IWoodPileRenderProvider renderInHybridSlot = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(itemStackInHybridSlot);
                 if (renderInHybridSlot.isWoodPileLargeItem(itemStackInHybridSlot)) {
                     return false;
                 }

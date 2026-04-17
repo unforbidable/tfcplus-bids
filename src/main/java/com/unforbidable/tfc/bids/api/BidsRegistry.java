@@ -10,12 +10,12 @@ import java.util.*;
 
 public class BidsRegistry {
 
-    public static final ItemRegistry<WetnessInfo> ITEM_WETNESS = new ItemRegistry<>();
-    public static final ItemRegistry<IDryingItemRenderInfo> ITEM_DRYING_RENDER_INFO = new ItemRegistry<>();
-    public static final ItemRegistry<IFirepitFuelMaterial> ITEM_FIREPIT_FUEL = new ItemRegistry<>();
-    public static final ItemRegistry<IWoodPileRenderProvider> ITEM_WOODPILE_RENDER_PROVIDERS = new ItemRegistry<>();
+    public static final ItemRegistry<WetnessInfo> DRYING_ITEM_WETNESS = new ItemRegistry<>();
+    public static final ItemRegistry<IDryingItemRenderInfo> DRYING_ITEM_RENDER_INFO = new ItemRegistry<>();
+    public static final ItemRegistry<IFirepitFuelMaterial> FIREPIT_FUEL = new ItemRegistry<>();
+    public static final ItemRegistry<IWoodPileRenderProvider> WOODPILE_RENDER_PROVIDERS = new ItemRegistry<>();
     public static final ListRegistry<ICrackableBlock> WOODPILE_CRACKABLE_BLOCKS = new ListRegistry<>();
-    public static final ListRegistry<ISurfaceItemPlacer> SURFACE_PLACERS = new ListRegistry<>();
+    public static final ListRegistry<ISurfaceItemPlacer> SURFACE_ITEM_PLACERS = new ListRegistry<>();
 
     public static class ItemRegistry<T> implements Iterable<ItemRegistry.Entry<T>> {
 

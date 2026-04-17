@@ -49,7 +49,7 @@ public class FirepitFuelHandler extends TemplateRecipeHandler implements IHandle
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == FirepitFuelHandler.class) {
-            for (BidsRegistry.ItemRegistry.Entry<IFirepitFuelMaterial> entry : BidsRegistry.ITEM_FIREPIT_FUEL) {
+            for (BidsRegistry.ItemRegistry.Entry<IFirepitFuelMaterial> entry : BidsRegistry.FIREPIT_FUEL) {
                 // Ensure any sub items are valid fuel
                 List<ItemStack> temp = getValidFuelSubItems(entry.value, entry.item);
                 if (temp.size() > 0) {
@@ -77,7 +77,7 @@ public class FirepitFuelHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (BidsRegistry.ItemRegistry.Entry<IFirepitFuelMaterial> entry : BidsRegistry.ITEM_FIREPIT_FUEL) {
+        for (BidsRegistry.ItemRegistry.Entry<IFirepitFuelMaterial> entry : BidsRegistry.FIREPIT_FUEL) {
             if (ingredient.getItem() == entry.item) {
                 if (entry.value.isFuelValid(ingredient)) {
                     arecipes.add(new CachedFirepitFuelRecipe(entry.value, entry.item));

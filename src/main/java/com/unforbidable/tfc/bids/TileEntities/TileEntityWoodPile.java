@@ -283,7 +283,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         int count = 0;
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
-                IWoodPileRenderProvider render = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(storage[i]);
+                IWoodPileRenderProvider render = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(storage[i]);
                 if (render.isWoodPileLargeItem(storage[i])) {
                     count += 4;
                 } else {
@@ -346,7 +346,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             return false;
         }
 
-        final IWoodPileRenderProvider render = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(itemStack);
+        final IWoodPileRenderProvider render = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(itemStack);
 
         for (EnumSlotGroup slotGroup : EnumSlotGroup.ALL_VALUES) {
             if (render.isWoodPileLargeItem(itemStack)) {
@@ -372,7 +372,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 // as long as there is no large item in the hybrid slot
                 if (storage[slotGroup.getHybridSlot()] != null) {
                     ItemStack itemInHybridSlot = storage[slotGroup.getHybridSlot()];
-                    IWoodPileRenderProvider renderInHybridSlot = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(itemInHybridSlot);
+                    IWoodPileRenderProvider renderInHybridSlot = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(itemInHybridSlot);
                     if (renderInHybridSlot.isWoodPileLargeItem(itemInHybridSlot)) {
                         // No items can be added to this slot groups
                         // because there is a large item in the hybrid slot
@@ -452,7 +452,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     public ItemStack retrieveFirstAvailableItemToPullDown(boolean acceptingLargeItems) {
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
-                IWoodPileRenderProvider render = BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.get(storage[i]);
+                IWoodPileRenderProvider render = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(storage[i]);
                 if (render.isWoodPileLargeItem(storage[i])) {
                     if (acceptingLargeItems) {
                         return retrieveFirstItemAtIndexToPullDown(i);
@@ -905,7 +905,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     private WoodPileBurningItem findNextBurningItem() {
         for (int i = MAX_STORAGE - 1; i >= 0; i--) {
             if (storage[i] != null) {
-                IFirepitFuelMaterial fuel = BidsRegistry.ITEM_FIREPIT_FUEL.get(storage[i]);
+                IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(storage[i]);
                 if (fuel != null && fuel.isFuelValid(storage[i])) {
                     return new WoodPileBurningItem(i, storage[i], fuel);
                 }

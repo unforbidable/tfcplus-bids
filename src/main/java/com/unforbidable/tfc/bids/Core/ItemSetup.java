@@ -1067,66 +1067,66 @@ public class ItemSetup extends BidsItems {
     private static void registerWoodPileItems() {
         Bids.LOG.info("Register wood pile items");
 
-        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(peeledLog, (IWoodPileRenderProvider) peeledLog);
-        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(peeledLogSeasoned, (IWoodPileRenderProvider) peeledLog);
-        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(TFCItems.logs, new RenderLogsTFC());
-        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(logsSeasoned, new RenderLogsTFC());
-        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(TFCItems.thickLogs, new RenderThickLogsTFC());
-        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(tiedStickBundle, (IWoodPileRenderProvider) tiedStickBundle);
-        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(firewood, (IWoodPileRenderProvider) firewood);
-        BidsRegistry.ITEM_WOODPILE_RENDER_PROVIDERS.register(firewoodSeasoned, (IWoodPileRenderProvider) firewoodSeasoned);
+        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(peeledLog, (IWoodPileRenderProvider) peeledLog);
+        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(peeledLogSeasoned, (IWoodPileRenderProvider) peeledLog);
+        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(TFCItems.logs, new RenderLogsTFC());
+        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(logsSeasoned, new RenderLogsTFC());
+        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(TFCItems.thickLogs, new RenderThickLogsTFC());
+        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(tiedStickBundle, (IWoodPileRenderProvider) tiedStickBundle);
+        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(firewood, (IWoodPileRenderProvider) firewood);
+        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(firewoodSeasoned, (IWoodPileRenderProvider) firewoodSeasoned);
     }
 
     private static void registerFirepitFuel() {
         Bids.LOG.info("Register firepit fuel");
 
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(kindling, (IFirepitFuelMaterial) kindling);
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(smallStickBundle, (IFirepitFuelMaterial) smallStickBundle);
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(tiedStickBundle, (IFirepitFuelMaterial) tiedStickBundle);
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.stick, new FuelStickTFC());
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.fireStarter, new FuelStickTFC());
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.stickBundle, new FuelStickBundleTFC());
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.stickBundle, new FuelStickBundleTFC());
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCBlocks.peat, new FuelPeatTFC());
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(bark, (IFirepitFuelMaterial) bark);
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(barkFibreKindling, (IFirepitFuelMaterial) barkFibreKindling);
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(birchBarkKindling, (IFirepitFuelMaterial) birchBarkKindling);
-        BidsRegistry.ITEM_FIREPIT_FUEL.register(firewoodSeasoned, (IFirepitFuelMaterial) firewoodSeasoned);
+        BidsRegistry.FIREPIT_FUEL.register(kindling, (IFirepitFuelMaterial) kindling);
+        BidsRegistry.FIREPIT_FUEL.register(smallStickBundle, (IFirepitFuelMaterial) smallStickBundle);
+        BidsRegistry.FIREPIT_FUEL.register(tiedStickBundle, (IFirepitFuelMaterial) tiedStickBundle);
+        BidsRegistry.FIREPIT_FUEL.register(TFCItems.stick, new FuelStickTFC());
+        BidsRegistry.FIREPIT_FUEL.register(TFCItems.fireStarter, new FuelStickTFC());
+        BidsRegistry.FIREPIT_FUEL.register(TFCItems.stickBundle, new FuelStickBundleTFC());
+        BidsRegistry.FIREPIT_FUEL.register(TFCItems.stickBundle, new FuelStickBundleTFC());
+        BidsRegistry.FIREPIT_FUEL.register(TFCBlocks.peat, new FuelPeatTFC());
+        BidsRegistry.FIREPIT_FUEL.register(bark, (IFirepitFuelMaterial) bark);
+        BidsRegistry.FIREPIT_FUEL.register(barkFibreKindling, (IFirepitFuelMaterial) barkFibreKindling);
+        BidsRegistry.FIREPIT_FUEL.register(birchBarkKindling, (IFirepitFuelMaterial) birchBarkKindling);
+        BidsRegistry.FIREPIT_FUEL.register(firewoodSeasoned, (IFirepitFuelMaterial) firewoodSeasoned);
 
         if (BidsOptions.Firepit.allowFuelLogsTFC) {
-            BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.logs, new FuelLogsTFC());
+            BidsRegistry.FIREPIT_FUEL.register(TFCItems.logs, new FuelLogsTFC());
         }
 
         if (BidsOptions.Firepit.allowFuelCharcoal) {
-            BidsRegistry.ITEM_FIREPIT_FUEL.register(TFCItems.coal, new FuelCoalTFC());
+            BidsRegistry.FIREPIT_FUEL.register(TFCItems.coal, new FuelCoalTFC());
         }
 
         if (BidsOptions.Firepit.allowFuelUnseasonedFirewood) {
-            BidsRegistry.ITEM_FIREPIT_FUEL.register(firewood, (IFirepitFuelMaterial) firewood);
+            BidsRegistry.FIREPIT_FUEL.register(firewood, (IFirepitFuelMaterial) firewood);
         }
     }
 
     private static void registerWetness() {
         Bids.LOG.info("Register item wetness");
 
-        BidsRegistry.ITEM_WETNESS.register(BidsItems.barkFibre, new WetnessInfo(500, 1f));
-        BidsRegistry.ITEM_WETNESS.register(BidsItems.sisalFiberRinsed, new WetnessInfo(500, 1f));
-        BidsRegistry.ITEM_WETNESS.register(TFCItems.juteFiber, new WetnessInfo(500, 1f));
-        BidsRegistry.ITEM_WETNESS.register(BidsItems.flaxStalk, new WetnessInfo(1000, 1f));
-        BidsRegistry.ITEM_WETNESS.register(BidsItems.flaxStalkRetted, new WetnessInfo(500, 0.5f));
-        BidsRegistry.ITEM_WETNESS.register(BidsItems.woolRinsed, new WetnessInfo(1000, 1f));
-        BidsRegistry.ITEM_WETNESS.register(TFCItems.seaWeed, new WetnessInfo(500, 1f));
-        BidsRegistry.ITEM_WETNESS.register(TFCItems.mudBrick, new WetnessInfo(500, 1f));
-        BidsRegistry.ITEM_WETNESS.register(BidsItems.dryingMudBrick, new WetnessInfo(500, 0.5f));
+        BidsRegistry.DRYING_ITEM_WETNESS.register(BidsItems.barkFibre, new WetnessInfo(500, 1f));
+        BidsRegistry.DRYING_ITEM_WETNESS.register(BidsItems.sisalFiberRinsed, new WetnessInfo(500, 1f));
+        BidsRegistry.DRYING_ITEM_WETNESS.register(TFCItems.juteFiber, new WetnessInfo(500, 1f));
+        BidsRegistry.DRYING_ITEM_WETNESS.register(BidsItems.flaxStalk, new WetnessInfo(1000, 1f));
+        BidsRegistry.DRYING_ITEM_WETNESS.register(BidsItems.flaxStalkRetted, new WetnessInfo(500, 0.5f));
+        BidsRegistry.DRYING_ITEM_WETNESS.register(BidsItems.woolRinsed, new WetnessInfo(1000, 1f));
+        BidsRegistry.DRYING_ITEM_WETNESS.register(TFCItems.seaWeed, new WetnessInfo(500, 1f));
+        BidsRegistry.DRYING_ITEM_WETNESS.register(TFCItems.mudBrick, new WetnessInfo(500, 1f));
+        BidsRegistry.DRYING_ITEM_WETNESS.register(BidsItems.dryingMudBrick, new WetnessInfo(500, 0.5f));
     }
 
     private static void registerDryingItemRenderInfo() {
         Bids.LOG.info("Register item drying render info");
 
-        BidsRegistry.ITEM_DRYING_RENDER_INFO.register(TFCItems.mudBrick, new MudBrickRenderInfo(false));
-        BidsRegistry.ITEM_DRYING_RENDER_INFO.register(BidsItems.dryingMudBrick, new MudBrickRenderInfo(true));
-        BidsRegistry.ITEM_DRYING_RENDER_INFO.register(BidsItems.soap, new SoapRenderInfo(true));
-        BidsRegistry.ITEM_DRYING_RENDER_INFO.register(BidsItems.uncuredSoap, new SoapRenderInfo(false));
+        BidsRegistry.DRYING_ITEM_RENDER_INFO.register(TFCItems.mudBrick, new MudBrickRenderInfo(false));
+        BidsRegistry.DRYING_ITEM_RENDER_INFO.register(BidsItems.dryingMudBrick, new MudBrickRenderInfo(true));
+        BidsRegistry.DRYING_ITEM_RENDER_INFO.register(BidsItems.soap, new SoapRenderInfo(true));
+        BidsRegistry.DRYING_ITEM_RENDER_INFO.register(BidsItems.uncuredSoap, new SoapRenderInfo(false));
     }
 
     private static void registerDryingRackTyingEquipment() {

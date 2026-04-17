@@ -37,8 +37,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockSetup extends BidsBlocks {
 
@@ -557,10 +555,10 @@ public class BlockSetup extends BidsBlocks {
     private static void registerSurfacePlacers() {
         Bids.LOG.info("Register surface item placers");
 
-        BidsRegistry.SURFACE_PLACERS.register(new ProcessingSurfacePlacer());
-        BidsRegistry.SURFACE_PLACERS.register(new DecorativeSurfacePlacer());
-        BidsRegistry.SURFACE_PLACERS.register(new SoakingSurfacePlacer());
-        BidsRegistry.SURFACE_PLACERS.register(new DryingSurfacePlacer());
+        BidsRegistry.SURFACE_ITEM_PLACERS.register(new ProcessingSurfacePlacer());
+        BidsRegistry.SURFACE_ITEM_PLACERS.register(new DecorativeSurfacePlacer());
+        BidsRegistry.SURFACE_ITEM_PLACERS.register(new SoakingSurfacePlacer());
+        BidsRegistry.SURFACE_ITEM_PLACERS.register(new DryingSurfacePlacer());
     }
 
     @SideOnly(Side.CLIENT)
