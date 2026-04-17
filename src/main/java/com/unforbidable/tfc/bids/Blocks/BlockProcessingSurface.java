@@ -4,7 +4,6 @@ import com.dunk.tfc.Core.TFC_Textures;
 import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
 import com.unforbidable.tfc.bids.TileEntities.TileEntityProcessingSurface;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceManager;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceRecipe;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -50,7 +49,7 @@ public class BlockProcessingSurface extends BlockContainer {
     @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
         TileEntityProcessingSurface te = (TileEntityProcessingSurface)world.getTileEntity(x, y, z);
-        ProcessingSurfaceRecipe recipe = ProcessingSurfaceManager.findMatchingRecipe(te.getInputItem(), world, x, y - 1, z);
+        ProcessingSurfaceRecipe recipe = ProcessingSurfaceHelper.findMatchingRecipe(te.getInputItem(), world, x, y - 1, z);
         return recipe != null;
     }
 

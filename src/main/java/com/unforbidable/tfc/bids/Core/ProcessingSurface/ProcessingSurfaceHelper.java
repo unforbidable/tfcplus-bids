@@ -5,14 +5,16 @@ import com.dunk.tfc.Items.Tools.ItemWeapon;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
-import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceManager;
+import com.unforbidable.tfc.bids.api.BidsRegistry;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceRecipe;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.lang.reflect.Field;
@@ -66,7 +68,7 @@ public class ProcessingSurfaceHelper {
     }
 
     public static void registerProcessingSurfaceRecipeIcons(IIconRegister registerer) {
-        for (ProcessingSurfaceRecipe recipe : ProcessingSurfaceManager.getRecipes()) {
+        for (ProcessingSurfaceRecipe recipe : BidsRegistry.PROCESSING_SURFACE_RECIPES) {
             ItemStack input = recipe.getInput();
             ItemStack result = recipe.getResult(input);
 
@@ -103,6 +105,20 @@ public class ProcessingSurfaceHelper {
 
     private static String getItemKey(ItemStack itemStack) {
         return itemStack.getUnlocalizedName() + "@" + itemStack.getItemDamage();
+    }
+
+    public static ProcessingSurfaceRecipe findMatchingRecipe(ItemStack input, World world, int x, int y, int z) {
+        Block surfaceBlock = world.getBlock(x, y, z);
+        int surfaceBlockMetadata = world.getBlockMetadata(x, y, z);
+        ItemStack surface = new ItemStack(surfaceBlock, 1, surfaceBlockMetadata);
+
+        for (ProcessingSurfaceRecipe recipe : BidsRegistry.PROCESSING_SURFACE_RECIPES) {
+            if (recipe.matchesInput(input) && recipe.matchesSurface(surface)) {
+                return recipe;
+            }
+        }
+
+        return null;
     }
 
 }

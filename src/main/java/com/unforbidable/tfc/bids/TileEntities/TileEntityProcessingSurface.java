@@ -5,7 +5,6 @@ import com.unforbidable.tfc.bids.Core.Network.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.Core.Network.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.Core.ProcessingSurface.ProcessingSurfaceHelper;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
-import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceManager;
 import com.unforbidable.tfc.bids.api.Crafting.ProcessingSurfaceRecipe;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.entity.item.EntityItem;
@@ -51,7 +50,7 @@ public class TileEntityProcessingSurface extends TileEntity implements IMessageH
 
     private ProcessingSurfaceRecipe getCurrentRecipe() {
         if (cachedRecipe == null) {
-            cachedRecipe = ProcessingSurfaceManager.findMatchingRecipe(inputItem, worldObj, xCoord, yCoord - 1, zCoord);
+            cachedRecipe = ProcessingSurfaceHelper.findMatchingRecipe(inputItem, worldObj, xCoord, yCoord - 1, zCoord);
         }
 
         return cachedRecipe;

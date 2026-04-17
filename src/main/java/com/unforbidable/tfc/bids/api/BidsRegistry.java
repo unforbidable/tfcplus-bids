@@ -41,6 +41,7 @@ public class BidsRegistry {
     public static final SimpleRecipeRegistry<DryingRackRecipe, ItemStack> DRYING_RACK_RECIPES = new SimpleRecipeRegistry<>();
     public static final SimpleRecipeRegistry<DryingSurfaceRecipe, ItemStack> DRYING_SURFACE_RECIPES = new SimpleRecipeRegistry<>();
     public static final SimpleRecipeRegistry<PrepRecipe, ItemStack[]> PREP_RECIPES = new SimpleRecipeRegistry<>();
+    public static final RecipeRegistry<ProcessingSurfaceRecipe> PROCESSING_SURFACE_RECIPES = new RecipeRegistry<>();
 
     public static class ListRegistry<V> implements Iterable<V> {
 
