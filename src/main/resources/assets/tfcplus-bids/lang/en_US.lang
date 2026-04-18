@@ -1406,6 +1406,7 @@ fluid.WoodAshLye=Wood Ash Lye
 fluid.TallowWoodAshLye=Tallow + Wood Ash Lye Mix
 fluid.OliveOilWeakWoodAshLye=Olive Oil + Weak Wood Ash Lye Mix
 fluid.FishOilWeakWoodAshLye=Fish Oil + Weak Wood Ash Lye Mix
+fluid.FlaxSeedOilWeakWoodAshLye=Linseed Oil + Weak Wood Ash Lye Mix
 fluid.Soap=Soap
 fluid.UncuredSoap=Uncured Soap
 fluid.SoapyWater=Soapy Water
