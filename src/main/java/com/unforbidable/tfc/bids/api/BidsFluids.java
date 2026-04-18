@@ -24,5 +24,6 @@ public class BidsFluids {
     public static final Fluid SOAP = new FluidBaseTFC("Soap").setBaseColor(0xecc29b);
     public static final Fluid UNCUREDSOAP = new FluidBaseTFC("UncuredSoap").setBaseColor(0xdeb186);
     public static final Fluid SOAPYWATER = new FluidBaseTFC("SoapyWater").setBaseColor(0x305090);
+    public static final Fluid FLAXSEEDOIL = new FluidBaseTFC("FlaxSeedOil").setBaseColor(0x977d59);
 
 }

@@ -215,6 +215,7 @@ public class BidsItems {
     public static Item weakWoodAshLyeBottle;
     public static Item woodAshLyeBottle;
     public static Item soapyWaterBottle;
+    public static Item flaxSeedOilBottle;
 
     public static Item waterskinCream;
 
@@ -227,6 +228,7 @@ public class BidsItems {
     public static Item vinegarBowl;
     public static Item oliveOilBowl;
     public static Item fishOilBowl;
+    public static Item flaxSeedOilBowl;
 
     public static Item largeClayBowl;
     public static Item freshWaterLargeBowl;

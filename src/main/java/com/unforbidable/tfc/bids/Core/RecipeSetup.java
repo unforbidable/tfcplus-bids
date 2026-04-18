@@ -988,6 +988,9 @@ public class RecipeSetup {
         // Require fish to be steamed to medium level
         Food.setCooked(steamedFish, CookingHelper.getTempForItemStackCookedLevel(steamedFish, 3));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(BidsFluids.OILYFISHWATER, 10), steamedFish));
+
+        BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(BidsFluids.FLAXSEEDOIL, 10),
+            ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f * inputMult)));
     }
 
     private static void registerScrewPressRecipes() {
@@ -1054,6 +1057,9 @@ public class RecipeSetup {
         // Require fish to be steamed to medium level
         Food.setCooked(steamedFish, CookingHelper.getTempForItemStackCookedLevel(steamedFish, 3));
         BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(BidsFluids.OILYFISHWATER, 10), steamedFish, 0.65f));
+
+        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(BidsFluids.FLAXSEEDOIL, 10),
+            ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f * inputMult), 0.25f));
     }
 
     private static void registerDryingRecipes() {
