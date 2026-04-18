@@ -12,6 +12,7 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.NEI.NeiHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -88,10 +89,10 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
             if (recipe.getOutputItemStack() != null && areItemStacksEqual(recipe.getOutputItemStack(), output)) {
                 // Item matches
                 arecipes.add(new CachedCookingRecipe(recipe));
-            } else if (recipe.getOutputFluidStack() != null && recipe.getOutputFluidStack().isFluidEqual(output)) {
+            } else if (recipe.getOutputFluidStack() != null && NeiHelper.isFluidEqual(recipe.getOutputFluidStack(), output)) {
                 // Fluid matches
                 arecipes.add(new CachedCookingRecipe(recipe));
-            } else if (recipe.getSecondaryOutputFluidStack() != null && recipe.getSecondaryOutputFluidStack().isFluidEqual(output)) {
+            } else if (recipe.getSecondaryOutputFluidStack() != null && NeiHelper.isFluidEqual(recipe.getSecondaryOutputFluidStack(), output)) {
                 // Secondary fluid matches
                 arecipes.add(new CachedCookingRecipe(recipe));
             }
@@ -114,9 +115,9 @@ public class CookingPotHandler extends TemplateRecipeHandler implements IHandler
                     recipe.getAccessory(), recipe.getLidUsage(), recipe.getMinHeatLevel(), recipe.getMaxHeatLevel(), recipe.getTime(), recipe.isFixedTime()
                 );
                 arecipes.add(new CachedCookingRecipe(template));
-            } else if (recipe.getInputFluidStack() != null && recipe.getInputFluidStack().isFluidEqual(ingredient)) {
+            } else if (recipe.getInputFluidStack() != null && NeiHelper.isFluidEqual(recipe.getInputFluidStack(), ingredient)) {
                 arecipes.add(new CachedCookingRecipe(recipe));
-            } else if (recipe.getSecondaryInputFluidStack() != null && recipe.getSecondaryInputFluidStack().isFluidEqual(ingredient)) {
+            } else if (recipe.getSecondaryInputFluidStack() != null && NeiHelper.isFluidEqual(recipe.getSecondaryInputFluidStack(), ingredient)) {
                 arecipes.add(new CachedCookingRecipe(recipe));
             }
         }

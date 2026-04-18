@@ -10,6 +10,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.NEI.NeiHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsRegistry;
@@ -80,7 +81,7 @@ public class ScrewPressHandler extends TemplateRecipeHandler implements IHandler
         for (ScrewPressRecipe recipe : BidsRegistry.SCREW_PRESS_RECIPES) {
             final ItemStack input = recipe.getInput().copy();
             final FluidStack result = recipe.getFluidCraftingResult().copy();
-            if (result.isFluidEqual(output)) {
+            if (NeiHelper.isFluidEqual(result, output)) {
                 arecipes.add(new CachedScrewPressRecipe(input, result, recipe.getResistance()));
             }
         }

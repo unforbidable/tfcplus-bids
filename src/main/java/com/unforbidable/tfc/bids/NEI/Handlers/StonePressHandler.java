@@ -11,6 +11,7 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.NEI.NeiHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsRegistry;
@@ -80,7 +81,7 @@ public class StonePressHandler extends TemplateRecipeHandler implements IHandler
         for (StonePressRecipe recipe : BidsRegistry.STONE_PRESS_RECIPES) {
             final ItemStack input = recipe.getInput().copy();
             final FluidStack result = recipe.getCraftingResult().copy();
-            if (result.isFluidEqual(output)) {
+            if (NeiHelper.isFluidEqual(result, output)) {
                 arecipes.add(new CachedStonePressRecipe(input, result));
             }
         }
