@@ -280,6 +280,8 @@ public class BidsItems {
     public static Item wildBeans;
     public static Item broadBeans;
 
+    public static Item flaxSeeds;
+
     public static Item seedsSeaBeet;
     public static Item seedsBeetroot;
     public static Item seedsSugarBeet;

@@ -624,6 +624,10 @@ public class ItemSetup extends BidsItems {
             .setDecayRate(0.25f)
             .setUnlocalizedName("Broad Beans");
 
+        flaxSeeds = new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 0)
+            .setDecayRate(0.01f)
+            .setUnlocalizedName("Flax Seeds");
+
         seedsSeaBeet = new ItemNewCustomSeeds(BidsCrops.SEEBEAT)
             .setUnlocalizedName("Seeds Sea Beet");
         seedsBeetroot = new ItemNewCustomSeeds(BidsCrops.BEETROOT)
@@ -1178,7 +1182,7 @@ public class ItemSetup extends BidsItems {
             wheatFlatbread, barleyFlatbread, oatFlatbread, riceFlatbread, ryeFlatbread, cornmealFlatbread,
             appleCrushed, oliveCrushed,
             goatCheese, hardCheese,
-            butter,
+            butter, flaxSeeds,
             stuffedPepper, stuffedMushroom, pemmican, wrap,
             seaBeet, beetroot, sugarBeet, wildBeans, broadBeans,
             suet, tallow, bambooShoot,
@@ -1654,6 +1658,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(uncuredSoap, uncuredSoap.getUnlocalizedName());
 
         GameRegistry.registerItem(dryingMudBrick, dryingMudBrick.getUnlocalizedName());
+
+        GameRegistry.registerItem(flaxSeeds, flaxSeeds.getUnlocalizedName());
     }
 
 }

@@ -340,6 +340,9 @@ public class RecipeSetup {
         RecipeManager.addAction(new ActionDamageTool(1)
             .addTools("itemKnife")
             .matchCraftingItem(BidsItems.flaxStalk));
+        RecipeManager.addAction(new ActionExtraDrop()
+            .addExtraDrop(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 6))
+            .matchCraftingItem(BidsItems.flaxStalk));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.cottonBollRefined),
             BidsItems.cottonBoll, "itemKnife"));
