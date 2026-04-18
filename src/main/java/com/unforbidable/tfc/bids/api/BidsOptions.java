@@ -109,6 +109,8 @@ public class BidsOptions {
         public static float clayLampOliveOilConsumption = 0.25f;
         public static float clayLampFishOilLightLevel = 0.65f;
         public static float clayLampFishOilConsumption = 0.20f;
+        public static float clayLampFlaxSeedOilLightLevel = 1f;
+        public static float clayLampFlaxSeedOilConsumption = 0.3f;
 
     }
 

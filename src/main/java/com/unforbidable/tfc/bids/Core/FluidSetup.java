@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.Core;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Lamp.Fuels.FuelFishOil;
+import com.unforbidable.tfc.bids.Core.Lamp.Fuels.FuelFlaxSeedOil;
 import com.unforbidable.tfc.bids.Core.Lamp.Fuels.FuelOliveOil;
 import com.unforbidable.tfc.bids.api.BidsCookingMixtures;
 import com.unforbidable.tfc.bids.api.BidsFluids;
@@ -95,6 +96,7 @@ public class FluidSetup extends BidsFluids {
 
         BidsRegistry.LAMP_FUEL.register(TFCFluids.OLIVEOIL, new FuelOliveOil());
         BidsRegistry.LAMP_FUEL.register(BidsFluids.FISHOIL, new FuelFishOil());
+        BidsRegistry.LAMP_FUEL.register(BidsFluids.FLAXSEEDOIL, new FuelFlaxSeedOil());
     }
 
 }
