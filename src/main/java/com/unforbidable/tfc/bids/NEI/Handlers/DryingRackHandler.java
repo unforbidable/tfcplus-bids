@@ -5,6 +5,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.NEI.HandlerInfo;
 import com.unforbidable.tfc.bids.NEI.IHandlerInfoProvider;
@@ -78,7 +79,7 @@ public class DryingRackHandler extends TemplateRecipeHandler implements IHandler
             final ItemStack input = recipe.getInputItem();
             final ItemStack result = recipe.getResult(input);
             output.stackSize = result.stackSize;
-            if (ItemStack.areItemStacksEqual(result, output)) {
+            if (ItemStack.areItemStacksEqual(result, output) || result.getItem() instanceof IFood && result.getItem() == output.getItem()) {
                 arecipes.add(new CachedDryingRecipe(input, output, recipe.getDuration(), BidsBlocks.dryingRack.getLocalizedName(), getRecipeInfo(recipe)));
             }
         }
@@ -87,7 +88,7 @@ public class DryingRackHandler extends TemplateRecipeHandler implements IHandler
             final ItemStack input = recipe.getInputItem();
             final ItemStack result = recipe.getResult(input);
             output.stackSize = result.stackSize;
-            if (ItemStack.areItemStacksEqual(result, output)) {
+            if (ItemStack.areItemStacksEqual(result, output) || result.getItem() instanceof IFood && result.getItem() == output.getItem()) {
                 arecipes.add(new CachedDryingRecipe(input, output, recipe.getDuration(), BidsBlocks.dryingSurface.getLocalizedName(), getRecipeInfo(recipe)));
             }
         }
