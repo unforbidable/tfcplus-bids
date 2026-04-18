@@ -1237,6 +1237,18 @@ public class RecipeSetup {
             .build());
 
         BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.FISHOIL, 4), new FluidStack(BidsFluids.WEAKWOODASHLYE, 1))
+            .produces(new FluidStack(BidsFluids.FISHOILWEAKWOODASHLYE, 5))
+            .build());
+
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.FISHOILWEAKWOODASHLYE, 1))
+            .produces(new FluidStack(BidsFluids.UNCUREDSOAP, 1))
+            .withHeat(EnumCookingHeatLevel.LOW)
+            .inFixedTime(3000)
+            .build());
+
+        BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.SOAP, 1))
             .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), Global.FOOD_MAX_WEIGHT / 10000))
             .withoutHeat()
