@@ -12,6 +12,7 @@ public class DryingItem {
     public float failure;
     public boolean paused;
     public long lastProgressUpdatedTicks;
+    public long finishedTicks;
 
     public boolean isComplete() {
         return progress == 1 || failure == 1;
@@ -51,6 +52,7 @@ public class DryingItem {
         tag.setFloat("failure", failure);
         tag.setBoolean("paused", paused);
         tag.setLong("lastProgressUpdatedTicks", lastProgressUpdatedTicks);
+        tag.setLong("finishedTicks", finishedTicks);
     }
 
     public void readFromNBT(NBTTagCompound tag) {
@@ -73,6 +75,7 @@ public class DryingItem {
         failure = tag.getFloat("failure");
         paused = tag.getBoolean("paused");
         lastProgressUpdatedTicks = tag.getLong("lastProgressUpdatedTicks");
+        finishedTicks = tag.getLong("finishedTicks");
     }
 
     public static DryingItem loadDryingItemFromNBT(NBTTagCompound tag) {

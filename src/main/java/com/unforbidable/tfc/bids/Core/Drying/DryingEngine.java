@@ -98,6 +98,8 @@ public class DryingEngine {
     private void updateForItem(long ticks, DryingItem dryingItem, DynamicEnvironment dynamicEnvironment) {
         long ticksElapsed = ticks - dryingItem.lastProgressUpdatedTicks;
 
+        dryingItem.lastProgressUpdatedTicks = ticks;
+
         // Update item wetness
         updateItemWetness(dryingItem, dynamicEnvironment, ticksElapsed);
 
@@ -112,8 +114,6 @@ public class DryingEngine {
                 updateItemProgress(dryingItem, recipe, itemEnvironment, ticksElapsed);
             }
         }
-
-        dryingItem.lastProgressUpdatedTicks = ticks;
     }
 
     private void updateItemProgress(DryingItem dryingItem, DryingRecipe recipe, ItemEnvironment env, long ticksElapsed) {
@@ -121,6 +121,7 @@ public class DryingEngine {
         float failure = env.getRecipeFailure(recipe);
         if (dryingItem.failure != failure) {
             dryingItem.failure = failure;
+            dryingItem.finishedTicks = 0;
 
             if (dryingItem.failure == 1) {
                 dryingItem.resultItem = DryingHelper.getDestroyedResultItem(dryingItem, recipe);
@@ -128,7 +129,7 @@ public class DryingEngine {
                 dryingItem.progress = 0;
 
                 itemChanged = true;
-            } else {
+            } else if (!dryingItem.paused) {
                 dryingItem.paused = true;
             }
 
@@ -141,13 +142,22 @@ public class DryingEngine {
                 long ticksRequiredTotal = (long) (recipe.getDuration() * TFC_Time.HOUR_LENGTH * BidsOptions.Crafting.dryingDurationMultiplier);
                 float progressForIdealMatch = ticksElapsed / (float) ticksRequiredTotal;
                 float progressToAdd = progressForIdealMatch * match;
+
+                float prevProgress = dryingItem.progress;
                 dryingItem.progress = Math.min(dryingItem.progress + progressToAdd, 1);
+
+                long prevFinishedTicks = dryingItem.finishedTicks;
+                long ticksRemaining = (long) ((1 - dryingItem.progress) * ticksRequiredTotal / match);
+                dryingItem.finishedTicks = dryingItem.lastProgressUpdatedTicks + ticksRemaining;
+
                 dryingItem.paused = false;
                 dryingItem.failure = 0;
 
                 DryingHelper.applyInputItemProgress(dryingItem, recipe);
 
                 if (dryingItem.progress == 1) {
+                    dryingItem.finishedTicks = 0;
+
                     dryingItem.resultItem = DryingHelper.getResultItem(dryingItem, recipe);
 
                     if (dryingItem.resultItem != null) {
@@ -164,9 +174,12 @@ public class DryingEngine {
                     }
 
                     itemChanged = true;
+                    dataChanged = true;
+                } else {
+                    dataChanged = prevFinishedTicks == 0 ||
+                        prevFinishedTicks / 1000 != dryingItem.finishedTicks / 1000 ||
+                        Math.floor(dryingItem.progress * 100) != Math.floor(prevProgress * 100);
                 }
-
-                dataChanged = true;
             } else {
                 // pause progress unless total failure
                 if (!dryingItem.paused && dryingItem.failure != 1) {

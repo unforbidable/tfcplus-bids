@@ -77,6 +77,13 @@ public class DryingSurfaceProvider extends WailaProvider {
 
                             currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
                                 + ChatFormatting.WHITE + output + progress);
+
+                            if (dryingItem.finishedTicks > 0 && !dryingItem.isComplete() && !dryingItem.paused) {
+                                long ticksRemaining = dryingItem.finishedTicks - TFC_Time.getTotalTicks();
+                                float hoursRemaining = (float) ticksRemaining / TFC_Time.HOUR_LENGTH;
+                                currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.HoursRemaining") + ": "
+                                    + ChatFormatting.WHITE + (Math.ceil(hoursRemaining * 10) / 10f));
+                            }
                         }
                     }
                 }
