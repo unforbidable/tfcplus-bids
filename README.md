@@ -26,7 +26,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Wattle Trapdoor](../../wiki/Wattle-Trapdoor) - trapdoor made from wattle
 * [Saddle Quern](../../wiki/Saddle-Quern) - carved from rough stone, used for crushing and grinding grain
 * [Stone Press](../../wiki/Stone-Press) - lever based pressing device, used for extracting juices and oils from berries and fruits
-* [Clay Lamp](../../wiki/Clay-Lamp) - stationary light source that consumes olive oil
+* [Clay Lamp](../../wiki/Clay-Lamp) - stationary light source that consumes olive oil, fish oil or linseed oil
 * [Wall Hook](../../wiki/Wall-Hook) - for hanging some tools, clothes and some other items on a wall
 * [Aquifer](../../wiki/Aquifer) - generates below the surface and spawns water blocks above when exposed
 * [Cooking Pot](../../wiki/Cooking-Pot) - for boiling and steaming foodstuffs and much more, notably making cooked meals form prepared mixtures
@@ -45,6 +45,8 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Composite Tools](../../wiki/Composite-Tools) - stone tools made with a binding material for enhanced durability and mining speed
 * [Textile](../../wiki/Textile) - new textile materials and extended processing
 * [Item Carving](../../wiki/Woodworking) - woodworking recipes to produce wooden tools and various material (also from bone)
+* [Soap](../../wiki/Soap) - for performing basic hygiene while earning XP periodically and more
+* [Edible Seeds](../../wiki/Edible-Seeds) - consumable seeds and derived oils such as Linseed
 
 See the [wiki](../../wiki) for complete list and detailed description of features current and upcoming.
 

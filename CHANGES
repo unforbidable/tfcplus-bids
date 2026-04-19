@@ -745,3 +745,28 @@
 - Changed: Thorn Card has a chance to return wooden comb paddle when broken
 - Fixed: Corrected localization string for Wooded Comb Paddle
 - Fixed: Repeating Woodworking action is stopped when mouse leaves the GUI and before the player has a chance to place the tool in their inventory, causing crash when the engine tries to damage the tool
+
+0.56.0 (2026-04-19)
+- Added: Linseed
+- Added: Linseed Oil
+- Added: Wood Ash Lye
+- Added: Weak Wood Ash Lye
+- Added: Soap
+- Added: Uncured Soap
+- Added: Soapy Water
+- Added: Drying Mud Brick as intermediate stage of drying Wet Mud Bricks
+- Added: Drying Surface for drying and retting featuring new drying mechanics driven by humidity, airflow, sunlight and more for added realism
+- Added: Soap can be used by player near Fresh Water to simulate basic hygiene and to earn XP periodically
+- Added: Wool can be washed in Soapy Water for faster processing
+- Added: Ash can be extracted from a unlit fire pit by using a Shovel without destroying it (applies to TFC fire pit as well)
+- Added: Mud bricks can be dried on Drying Surface using new mechanics and in two stages - first on the belly, then on the side (optional)
+- Added: Soaking and drying duration can be configured
+- Changed: Fuels that burn quickly, such as sticks, now generate less ash than fuels that burn longer
+- Changed: Firepit features actual fire rendered on top with dynamic size proportional to the current fire temperature
+- Changed: Firepit now produces dynamic light proportional to the current fire temperature
+- Changed: Drying Rack speed depends on new Drying mechanics much like Drying Surface
+- Changed: Drying Rack block can no longer be crafted, and is now always constructed by placing poles in the world, with Drying Rack longer than one block requiring equal number of binding as poles
+- Changed: Wood Pile seasoning speed is somewhat affected by humidity and airflow
+- Changed: Items are placed on the Soaking Surface quadrant where the player is pointing at, if possible
+- Changed: Much of "manager" type classes has been scrapped in favor of a single registry class (API)
+- Fixed: Recipes involving fluids without registered container are now also shown in NEI

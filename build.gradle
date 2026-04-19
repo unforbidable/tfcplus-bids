@@ -16,8 +16,10 @@ buildscript {
 }
 
 apply plugin: 'forge'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
-version = "0.55.1"
+version = "0.56.0"
 group= "com.unforbidable.tfc.bids" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "TFCPlus-Bids"
 
