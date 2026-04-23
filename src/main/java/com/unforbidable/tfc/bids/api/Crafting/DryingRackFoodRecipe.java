@@ -6,8 +6,22 @@ import net.minecraft.item.ItemStack;
 
 public class DryingRackFoodRecipe extends DryingRackRecipe {
 
-    public DryingRackFoodRecipe(ItemStack inputItem, ItemStack outputItem, int duration, boolean requiresTyingEquipment) {
+    private final boolean allowSmoke;
+    private final int smokeDuration;
+
+    public DryingRackFoodRecipe(ItemStack inputItem, ItemStack outputItem, int duration, boolean requiresTyingEquipment, boolean allowSmoke, int smokeDuration) {
         super(inputItem, outputItem, null, duration, true, false, false, false, false, false, requiresTyingEquipment);
+
+        this.allowSmoke = allowSmoke;
+        this.smokeDuration = smokeDuration;
+    }
+
+    public boolean isAllowSmoke() {
+        return allowSmoke;
+    }
+
+    public int getSmokeDuration() {
+        return smokeDuration;
     }
 
     public boolean matches(ItemStack itemStack) {

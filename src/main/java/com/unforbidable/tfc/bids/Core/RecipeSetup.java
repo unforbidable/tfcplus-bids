@@ -1103,6 +1103,7 @@ public class RecipeSetup {
             BidsItems.goatCheese };
         for (Item food : foodToDry) {
             BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
+                .smoke(12)
                 .tied()
                 .consumes(ItemFoodTFC.createTag(new ItemStack(food), 1))
                 .dry()
