@@ -4,11 +4,14 @@ import com.dunk.tfc.Blocks.BlockRoof;
 import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Interfaces.IHeatSource;
 import com.dunk.tfc.api.Interfaces.IHeatSourceTE;
+import com.unforbidable.tfc.bids.Core.Common.BlockCoord;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -143,6 +146,35 @@ public class EnvironmentHelper {
             !block.renderAsNormalBlock() &&
             !block.isOpaqueCube() &&
             !block.isSideSolid(world, x, y, z, side);
+    }
+
+    public static SmokeInfo getSmokeInfo(World world, int blockX, int blockY, int blockZ) {
+        TileEntity te = findSmokeSourceTileEntity(world, blockX, blockY, blockZ);
+        if (te instanceof TEFirepit && ((TEFirepit) te).fireTemp > 90) {
+            return new SmokeInfo(true, ((TEFirepit) te).fuelTasteProfile);
+        }
+
+        return new SmokeInfo(false, 0);
+    }
+
+    private static TileEntity findSmokeSourceTileEntity(World world, int x, int y, int z) {
+        TileEntity teBelow = world.getTileEntity(x, y - 1, z);
+        if (isSmokeSourceTileEntity(teBelow)) {
+            return teBelow;
+        }
+
+        for (ForgeDirection d : new ForgeDirection[] { ForgeDirection.SOUTH, ForgeDirection.NORTH, ForgeDirection.EAST, ForgeDirection.WEST }) {
+            TileEntity teBelowSide = world.getTileEntity(x * d.offsetX, y - 1, z * d.offsetZ);
+            if (isSmokeSourceTileEntity(teBelowSide)) {
+                return teBelowSide;
+            }
+        }
+
+        return null;
+    }
+
+    private static boolean isSmokeSourceTileEntity(TileEntity te) {
+        return te instanceof TEFirepit;
     }
 
 }

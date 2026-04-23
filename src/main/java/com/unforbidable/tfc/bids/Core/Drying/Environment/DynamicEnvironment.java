@@ -95,4 +95,13 @@ public class DynamicEnvironment {
         return staticEnvironment.isHeated();
     }
 
+    public boolean isSmoked() {
+        // This is where we can try to detect past smoke sources that existed at given ticks
+        return staticEnvironment.isSmoked();
+    }
+
+    public int getFuelTasteProfile() {
+        return staticEnvironment.getFuelTasteProfile();
+    }
+
 }

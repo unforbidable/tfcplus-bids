@@ -12,6 +12,7 @@ public class StaticEnvironment {
     private Boolean exposed;
     private Boolean heated;
     private Float airflow;
+    private SmokeInfo smokeInfo;
 
     public StaticEnvironment(World world, int blockX, int blockY, int blockZ) {
         this.world = world;
@@ -46,6 +47,22 @@ public class StaticEnvironment {
         }
 
         return heated;
+    }
+
+    private SmokeInfo getSmokeInfo() {
+        if (smokeInfo == null) {
+            smokeInfo = EnvironmentHelper.getSmokeInfo(world, blockX, blockY, blockZ);
+        }
+
+        return smokeInfo;
+    }
+
+    public boolean isSmoked() {
+        return getSmokeInfo().isSmoke;
+    }
+
+    public int getFuelTasteProfile() {
+        return getSmokeInfo().fuelTasteProfile;
     }
 
 }

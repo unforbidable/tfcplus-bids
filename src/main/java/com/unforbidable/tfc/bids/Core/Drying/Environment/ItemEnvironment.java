@@ -79,4 +79,14 @@ public class ItemEnvironment implements IDryingEnvironment {
         return dynamicEnvironment.getHumidity();
     }
 
+    @Override
+    public boolean isSmoked() {
+        return dynamicEnvironment.isSmoked();
+    }
+
+    @Override
+    public int getFuelTasteProfile() {
+        return dynamicEnvironment.getFuelTasteProfile();
+    }
+
 }

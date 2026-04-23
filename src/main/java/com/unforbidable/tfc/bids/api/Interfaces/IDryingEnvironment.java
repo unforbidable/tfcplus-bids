@@ -10,5 +10,7 @@ public interface IDryingEnvironment {
     float getWetness();
     float getAirflow();
     float getSunlight();
+    boolean isSmoked();
+    int getFuelTasteProfile();
 
 }
