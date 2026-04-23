@@ -60,6 +60,9 @@ public class DynamicEnvironment {
             if (isExposed() && getPrecipitation() > 0) {
                 // when it rains or snows without cover, humidity is always 100%
                 humidity = 1f;
+            } else if (isSmoked()) {
+                // No humidity directly over a fire
+                humidity = 0f;
             } else {
                 float generalHumidity = EnvironmentHelper.getHumidity(world, blockX, blockY, blockZ, getTemperature(), getPrecipitation());
                 if (generalHumidity == 0) {
@@ -87,7 +90,12 @@ public class DynamicEnvironment {
     }
 
     public float getAirflow() {
-        return staticEnvironment.getAirflow();
+        if (isSmoked()) {
+            // Always maximum airflow over a fire
+            return 1f;
+        } else {
+            return staticEnvironment.getAirflow();
+        }
     }
 
     public boolean isHeated() {
