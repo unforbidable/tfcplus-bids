@@ -8,23 +8,23 @@ import net.minecraft.item.ItemStack;
 
 public class StoneBlockGroup {
 
-    public static final StoneBlockGroup RAW_STONE = new StoneBlockGroup(TFCBlocks.stoneSed, TFCBlocks.stoneMM, TFCBlocks.stoneIgIn, TFCBlocks.stoneIgEx);
-    public static final StoneBlockGroup SMOOTH_STONE = new StoneBlockGroup(TFCBlocks.stoneSedSmooth, TFCBlocks.stoneMMSmooth, TFCBlocks.stoneIgInSmooth, TFCBlocks.stoneIgExSmooth);
-    public static final StoneBlockGroup ROUGH_STONE = new StoneBlockGroup(BidsBlocks.roughStoneSed, BidsBlocks.roughStoneMM, BidsBlocks.roughStoneIgIn, BidsBlocks.roughStoneIgEx);
-    public static final StoneBlockGroup ROUGH_STONE_BRICK = new StoneBlockGroup(BidsBlocks.roughStoneBrickSed, BidsBlocks.roughStoneBrickMM, BidsBlocks.roughStoneBrickIgIn, BidsBlocks.roughStoneBrickIgEx);
-    public static final StoneBlockGroup ROUGH_STONE_TILE = new StoneBlockGroup(BidsBlocks.roughStoneTileSed, BidsBlocks.roughStoneTileMM, BidsBlocks.roughStoneTileIgIn, BidsBlocks.roughStoneTileIgEx);
+    public static final StoneBlockGroup RAW_STONE = new StoneBlockGroup(TFCBlocks.stoneSed, TFCBlocks.stoneMM, TFCBlocks.stoneIgEx, TFCBlocks.stoneIgIn);
+    public static final StoneBlockGroup SMOOTH_STONE = new StoneBlockGroup(TFCBlocks.stoneSedSmooth, TFCBlocks.stoneMMSmooth, TFCBlocks.stoneIgExSmooth, TFCBlocks.stoneIgInSmooth);
+    public static final StoneBlockGroup ROUGH_STONE = new StoneBlockGroup(BidsBlocks.roughStoneSed, BidsBlocks.roughStoneMM, BidsBlocks.roughStoneIgEx, BidsBlocks.roughStoneIgIn);
+    public static final StoneBlockGroup ROUGH_STONE_BRICK = new StoneBlockGroup(BidsBlocks.roughStoneBrickSed, BidsBlocks.roughStoneBrickMM, BidsBlocks.roughStoneBrickIgEx, BidsBlocks.roughStoneBrickIgIn);
+    public static final StoneBlockGroup ROUGH_STONE_TILE = new StoneBlockGroup(BidsBlocks.roughStoneTileSed, BidsBlocks.roughStoneTileMM, BidsBlocks.roughStoneTileIgEx, BidsBlocks.roughStoneTileIgIn);
     public static final StoneBlockGroup SADDLE_QUERN = new StoneBlockGroup(BidsBlocks.saddleQuernBaseSed, null, null, null);
     public static final StoneBlockGroup HAND_STONE = new StoneBlockGroup(BidsBlocks.saddleQuernHandstoneSed, null, null, null);
     public static final StoneBlockGroup PRESSING_STONE = new StoneBlockGroup(BidsBlocks.saddleQuernPressingStoneSed, null, null, null);
     public static final StoneBlockGroup WEIGHT_STONE = new StoneBlockGroup(BidsBlocks.stonePressWeightSed, null, null, null);
-    public static final StoneBlockGroup STONE_BRICKS = new StoneBlockGroup(TFCBlocks.stoneSedBrick, TFCBlocks.stoneMMBrick, TFCBlocks.stoneIgInBrick, TFCBlocks.stoneIgExBrick);
+    public static final StoneBlockGroup STONE_BRICKS = new StoneBlockGroup(TFCBlocks.stoneSedBrick, TFCBlocks.stoneMMBrick, TFCBlocks.stoneIgExBrick, TFCBlocks.stoneIgInBrick);
     public static final StoneBlockGroup STONE_BRICK_CHIMNEY = new StoneBlockGroup(16, TFCBlocks.chimneyBricks, TFCBlocks.chimneyBricks2);
-    public static final StoneBlockGroup STONE_LARGE_BRICKS = new StoneBlockGroup(TFCBlocks.stoneSedLargeBrick, TFCBlocks.stoneMMLargeBrick, TFCBlocks.stoneIgInLargeBrick, TFCBlocks.stoneIgExLargeBrick);
+    public static final StoneBlockGroup STONE_LARGE_BRICKS = new StoneBlockGroup(TFCBlocks.stoneSedLargeBrick, TFCBlocks.stoneMMLargeBrick, TFCBlocks.stoneIgExLargeBrick, TFCBlocks.stoneIgInLargeBrick);
     public static final StoneBlockGroup STONE_LARGE_BRICK_CHIMNEY = new StoneBlockGroup(16, TFCBlocks.chimneyLargeBricks, TFCBlocks.chimneyLargeBricks2);
     public static final StoneBlockGroup MUD_BRICK = new StoneBlockGroup(16, TFCBlocks.mudBricks, TFCBlocks.mudBricks2);
     public static final StoneBlockGroup MUD_BRICK_CHIMNEY = new StoneBlockGroup(16, BidsBlocks.mudBrickChimney, BidsBlocks.mudBrickChimney2);
-    public static final StoneBlockGroup ROUGH_BRICK_FENCE = new StoneBlockGroup(BidsBlocks.roughStoneBrickFenceSed, BidsBlocks.roughStoneBrickFenceMM, BidsBlocks.roughStoneBrickFenceIgIn, BidsBlocks.roughStoneBrickFenceIgEx);
-    public static final StoneBlockGroup ROUGH_TILE_FENCE = new StoneBlockGroup(BidsBlocks.roughStoneTileFenceSed, BidsBlocks.roughStoneTileFenceMM, BidsBlocks.roughStoneTileFenceIgIn, BidsBlocks.roughStoneTileFenceIgEx);
+    public static final StoneBlockGroup ROUGH_BRICK_FENCE = new StoneBlockGroup(BidsBlocks.roughStoneBrickFenceSed, BidsBlocks.roughStoneBrickFenceMM, BidsBlocks.roughStoneBrickFenceIgEx, BidsBlocks.roughStoneBrickFenceIgIn);
+    public static final StoneBlockGroup ROUGH_TILE_FENCE = new StoneBlockGroup(BidsBlocks.roughStoneTileFenceSed, BidsBlocks.roughStoneTileFenceMM, BidsBlocks.roughStoneTileFenceIgEx, BidsBlocks.roughStoneTileFenceIgIn);
 
     private final Block sed;
     private final Block mm;
