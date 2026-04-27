@@ -306,6 +306,10 @@ public class ConfigHandler {
             "dryingDurationMultiplier", "crafting",
             BidsOptions.Crafting.dryingDurationMultiplier, 0.5f, 10f,
             "Higher values increase the time it takes to dry stuff, but also ret plants and similar, on Drying Rack or Drying Surface");
+        BidsOptions.Crafting.smokingDurationMultiplier = config.getFloat(
+            "smokingDurationMultiplier", "crafting",
+            BidsOptions.Crafting.smokingDurationMultiplier, 0.5f, 10f,
+            "Higher values increase the time it takes to smoke stuff, typically food, on Drying Rack");
         BidsOptions.Crafting.soakingDurationMultiplier = config.getFloat(
             "soakingDurationMultiplier", "crafting",
             BidsOptions.Crafting.soakingDurationMultiplier, 0.5f, 10f,

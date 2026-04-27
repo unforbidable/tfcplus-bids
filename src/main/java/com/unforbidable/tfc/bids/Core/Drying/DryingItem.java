@@ -10,16 +10,13 @@ public class DryingItem {
     public float wetness;
     public float progress;
     public float failure;
-    public boolean paused;
+    public float smoke;
     public long lastProgressUpdatedTicks;
     public long finishedTicks;
-
-    public boolean isComplete() {
-        return progress == 1 || failure == 1;
-    }
+    public long smokedTicks;
 
     public ItemStack getCurrentItem() {
-        if (isComplete()) {
+        if (resultItem != null) {
             return resultItem;
         } else {
             return inputItem;
@@ -27,7 +24,7 @@ public class DryingItem {
     }
 
     public void updateCurrentItem(ItemStack itemStack) {
-        if (isComplete()) {
+        if (resultItem != null) {
             resultItem = itemStack;
         } else {
             inputItem = itemStack;
@@ -50,9 +47,10 @@ public class DryingItem {
         tag.setFloat("wetness", wetness);
         tag.setFloat("progress", progress);
         tag.setFloat("failure", failure);
-        tag.setBoolean("paused", paused);
+        tag.setFloat("smoke", smoke);
         tag.setLong("lastProgressUpdatedTicks", lastProgressUpdatedTicks);
         tag.setLong("finishedTicks", finishedTicks);
+        tag.setLong("smokedTicks", smokedTicks);
     }
 
     public void readFromNBT(NBTTagCompound tag) {
@@ -73,9 +71,10 @@ public class DryingItem {
         wetness = tag.getFloat("wetness");
         progress = tag.getFloat("progress");
         failure = tag.getFloat("failure");
-        paused = tag.getBoolean("paused");
+        smoke = tag.getFloat("smoke");
         lastProgressUpdatedTicks = tag.getLong("lastProgressUpdatedTicks");
         finishedTicks = tag.getLong("finishedTicks");
+        smokedTicks = tag.getLong("smokedTicks");
     }
 
     public static DryingItem loadDryingItemFromNBT(NBTTagCompound tag) {

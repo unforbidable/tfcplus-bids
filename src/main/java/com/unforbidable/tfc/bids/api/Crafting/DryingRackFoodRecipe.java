@@ -2,9 +2,10 @@ package com.unforbidable.tfc.bids.api.Crafting;
 
 import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.api.Crafting.Builders.DryingRackFoodRecipeBuilder;
+import com.unforbidable.tfc.bids.api.Interfaces.IDryingFoodRecipe;
 import net.minecraft.item.ItemStack;
 
-public class DryingRackFoodRecipe extends DryingRackRecipe {
+public class DryingRackFoodRecipe extends DryingRackRecipe implements IDryingFoodRecipe {
 
     private final boolean allowSmoke;
     private final int smokeDuration;
@@ -16,10 +17,12 @@ public class DryingRackFoodRecipe extends DryingRackRecipe {
         this.smokeDuration = smokeDuration;
     }
 
+    @Override
     public boolean isAllowSmoke() {
         return allowSmoke;
     }
 
+    @Override
     public int getSmokeDuration() {
         return smokeDuration;
     }

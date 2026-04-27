@@ -3,6 +3,8 @@ package com.unforbidable.tfc.bids.WAILA.Providers;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemClothing;
+import com.dunk.tfc.api.Enums.EnumFuelMaterial;
+import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCOptions;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.unforbidable.tfc.bids.Core.Drying.DryingHelper;
@@ -12,6 +14,7 @@ import com.unforbidable.tfc.bids.TileEntities.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.WAILA.WailaProvider;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api.Interfaces.IDryingEnvironment;
+import com.unforbidable.tfc.bids.api.Interfaces.IDryingFoodRecipe;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -69,20 +72,57 @@ public class DryingRackProvider extends WailaProvider {
 
                             currenttip.add(ChatFormatting.RED + StatCollector.translateToLocal("gui.Ruined") + ": "
                                 + ChatFormatting.WHITE + output + progress);
-                        } else if (dryingItem.progress < 1) {
-                            String output = DryingHelper.getItemStackInfoString(DryingHelper.getResultItem(dryingItem, recipe));
-                            String progress = dryingItem.paused
-                                ? " (" + StatCollector.translateToLocal("gui.Paused") + ")"
-                                : DryingHelper.getProgressInfoString(dryingItem.progress);
+                        } else {
+                            if (recipe instanceof IDryingFoodRecipe) {
+                                // Show drying output and progress only when in progress
+                                if (dryingItem.finishedTicks > 0) {
+                                    // Output is fully dried, on top of existing tags
+                                    ItemStack result = dryingItem.inputItem.copy();
+                                    Food.setDried(result, Food.DRYHOURS);
 
-                            currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
-                                + ChatFormatting.WHITE + output + progress);
+                                    String output = DryingHelper.getItemStackInfoString(result);
+                                    String progress = DryingHelper.getProgressInfoString(dryingItem.progress);
+                                    currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
+                                        + ChatFormatting.WHITE + output + progress);
 
-                            if (dryingItem.finishedTicks > 0 && !dryingItem.isComplete() && !dryingItem.paused) {
-                                long ticksRemaining = dryingItem.finishedTicks - TFC_Time.getTotalTicks();
-                                float hoursRemaining = (float) ticksRemaining / TFC_Time.HOUR_LENGTH;
-                                currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.HoursRemaining") + ": "
-                                    + ChatFormatting.WHITE + (Math.ceil(hoursRemaining * 10) / 10f));
+                                    long ticksRemaining = dryingItem.finishedTicks - TFC_Time.getTotalTicks();
+                                    String hoursRemaining = DryingHelper.getHoursRemainingInfoString(ticksRemaining);
+                                    currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.HoursRemaining") + ": "
+                                        + ChatFormatting.WHITE + hoursRemaining);
+                                }
+
+                                // Show smoking output and progress only when in progress
+                                if (dryingItem.smokedTicks > 0) {
+                                    // Output is fully smoked, on top of existing tags, with an arbitrary fuel taste profile
+                                    ItemStack result = dryingItem.inputItem.copy();
+                                    Food.setSmokeCounter(result, Food.SMOKEHOURS);
+                                    Food.setFuelProfile(result, EnumFuelMaterial.OAK.tasteProfile);
+
+                                    String output = DryingHelper.getItemStackInfoString(result);
+                                    String progress = DryingHelper.getProgressInfoString(dryingItem.smoke);
+                                    currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
+                                        + ChatFormatting.WHITE + output + progress);
+
+                                    // smoking is in progress
+                                    long ticksRemaining = dryingItem.smokedTicks - TFC_Time.getTotalTicks();
+                                    String hoursRemaining = DryingHelper.getHoursRemainingInfoString(ticksRemaining);
+                                    currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.HoursRemaining") + ": "
+                                        + ChatFormatting.WHITE + hoursRemaining);
+                                }
+                            } else {
+                                if (dryingItem.progress < 1) {
+                                    String output = DryingHelper.getItemStackInfoString(DryingHelper.getResultItem(dryingItem, recipe));
+                                    String progress = DryingHelper.getProgressInfoString(dryingItem.progress);
+                                    currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
+                                        + ChatFormatting.WHITE + output + progress);
+
+                                    if (dryingItem.finishedTicks > 0) {
+                                        long ticksRemaining = dryingItem.finishedTicks - TFC_Time.getTotalTicks();
+                                        String hoursRemaining = DryingHelper.getHoursRemainingInfoString(ticksRemaining);
+                                        currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.HoursRemaining") + ": "
+                                            + ChatFormatting.WHITE + hoursRemaining);
+                                    }
+                                }
                             }
                         }
                     }
@@ -100,6 +140,7 @@ public class DryingRackProvider extends WailaProvider {
                     currenttip.add(ChatFormatting.DARK_GRAY + "Precipitation: " + env.getPrecipitation());
                     currenttip.add(ChatFormatting.DARK_GRAY + "Humidity: " + env.getHumidity());
                     currenttip.add(ChatFormatting.DARK_GRAY + "Wetness: " + env.getWetness());
+                    currenttip.add(ChatFormatting.DARK_GRAY + "Smoke: " + env.isSmoked());
                 }
             }
         }

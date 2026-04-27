@@ -2,12 +2,13 @@ package com.unforbidable.tfc.bids.Core.Drying;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
-import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.ItemClothing;
+import com.dunk.tfc.api.Enums.EnumFuelMaterial;
 import com.dunk.tfc.api.Food;
+import com.unforbidable.tfc.bids.Core.Drying.Environment.SmokeInfo;
 import com.unforbidable.tfc.bids.api.BidsRegistry;
-import com.unforbidable.tfc.bids.api.Crafting.DryingRackFoodRecipe;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.Interfaces.IDryingFoodRecipe;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,12 +17,12 @@ import net.minecraft.world.World;
 public class DryingHelper {
 
     public static ItemStack getResultItem(DryingItem dryingItem, DryingRecipe recipe) {
-        ItemStack result = recipe.getResult(dryingItem.inputItem);
-        if (result != null && result.getItem() instanceof ItemFoodTFC) {
-            // Copy weight of food items
-            Food.setWeight(result, Food.getWeight(dryingItem.inputItem));
+        if (recipe instanceof IDryingFoodRecipe) {
+            // Food already has the dried/smoked info on the input item
+            return dryingItem.inputItem.copy();
+        } else {
+            return recipe.getResult(dryingItem.inputItem);
         }
-        return result;
     }
 
     public static ItemStack getDestroyedResultItem(DryingItem dryingItem, DryingRecipe recipe) {
@@ -29,11 +30,16 @@ public class DryingHelper {
     }
 
     public static void initializeInputItemProgress(DryingItem dryingItem, DryingRecipe recipe) {
-        if (recipe instanceof DryingRackFoodRecipe && dryingItem.inputItem.getItem() instanceof ItemFoodTFC) {
+        if (recipe instanceof IDryingFoodRecipe) {
             // Some food stuffs are already partially dried
             // and this lets the drying engine know
             int dried = Food.getDried(dryingItem.inputItem);
             dryingItem.progress = (float) dried / Food.DRYHOURS;
+
+            if (((IDryingFoodRecipe) recipe).isAllowSmoke()) {
+                int smoke = Food.getSmokeCounter(dryingItem.inputItem);
+                dryingItem.smoke = (float) smoke / Food.SMOKEHOURS;
+            }
         }
     }
 
@@ -46,7 +52,7 @@ public class DryingHelper {
     }
 
     public static void applyInputItemProgress(DryingItem dryingItem, DryingRecipe recipe) {
-        if (recipe instanceof DryingRackFoodRecipe && dryingItem.inputItem.getItem() instanceof ItemFoodTFC) {
+        if (recipe instanceof IDryingFoodRecipe) {
             // When food is drying the NBT is updated to track progress
             // The progress saved is scaled to 4 hours
             // because above 4 hours the food is considered dried
@@ -54,6 +60,19 @@ public class DryingHelper {
             // the progress is saved every 12/4 = 3 hours
             int dried = (int) Math.floor(dryingItem.progress * Food.DRYHOURS);
             Food.setDried(dryingItem.inputItem, dried);
+        }
+    }
+
+    public static void applyInputItemSmoke(DryingItem dryingItem, DryingRecipe recipe, int fuelTasteProfile) {
+        if (recipe instanceof IDryingFoodRecipe && ((IDryingFoodRecipe) recipe).isAllowSmoke()) {
+            int smoke = (int) Math.floor(dryingItem.smoke * Food.SMOKEHOURS);
+            Food.setSmokeCounter(dryingItem.inputItem, smoke);
+
+            if (dryingItem.smoke == 1) {
+                // Setting this makes TFC think the item is smoked
+                // so do it only when smoking is done
+                Food.setFuelProfile(dryingItem.inputItem, EnumFuelMaterial.getFuelProfile(fuelTasteProfile));
+            }
         }
     }
 
@@ -143,6 +162,15 @@ public class DryingHelper {
         } else {
             // For items without a recipe only wetness will be handled
             DryingHelper.initializeInputItemWetness(dryingItem);
+        }
+    }
+
+    public static String getHoursRemainingInfoString(long ticks) {
+        float hours = (float)ticks / TFC_Time.HOUR_LENGTH;
+        if (hours > 1.5f) {
+            return String.format("%d", (int)Math.ceil(hours));
+        } else {
+            return String.format("%.1f", (float)Math.ceil(hours * 10) / 10f);
         }
     }
 

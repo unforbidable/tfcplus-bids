@@ -158,6 +158,7 @@ public class BidsOptions {
         public static float dryingDurationMultiplier = 2f;
         public static float soakingDurationMultiplier = 2f;
         public static boolean enableDryingSurfaceMudBrickDryingOverride = false;
+        public static float smokingDurationMultiplier = 1f;
 
     }
 

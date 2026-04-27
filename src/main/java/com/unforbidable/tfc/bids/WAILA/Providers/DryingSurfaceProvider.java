@@ -71,18 +71,15 @@ public class DryingSurfaceProvider extends WailaProvider {
                                 + ChatFormatting.WHITE + output + progress);
                         } else if (dryingItem.progress < 1) {
                             String output = DryingHelper.getItemStackInfoString(DryingHelper.getResultItem(dryingItem, recipe));
-                            String progress = dryingItem.paused
-                                ? " (" + StatCollector.translateToLocal("gui.Paused") + ")"
-                                : DryingHelper.getProgressInfoString(dryingItem.progress);
-
+                            String progress = DryingHelper.getProgressInfoString(dryingItem.progress);
                             currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
                                 + ChatFormatting.WHITE + output + progress);
 
-                            if (dryingItem.finishedTicks > 0 && !dryingItem.isComplete() && !dryingItem.paused) {
+                            if (dryingItem.finishedTicks > 0) {
                                 long ticksRemaining = dryingItem.finishedTicks - TFC_Time.getTotalTicks();
-                                float hoursRemaining = (float) ticksRemaining / TFC_Time.HOUR_LENGTH;
+                                String hoursRemaining = DryingHelper.getHoursRemainingInfoString(ticksRemaining);
                                 currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.HoursRemaining") + ": "
-                                    + ChatFormatting.WHITE + (Math.ceil(hoursRemaining * 10) / 10f));
+                                    + ChatFormatting.WHITE + hoursRemaining);
                             }
                         }
                     }

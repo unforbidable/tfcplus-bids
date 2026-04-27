@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.Core.Drying.Environment.DynamicEnvironment;
 import com.unforbidable.tfc.bids.api.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import com.unforbidable.tfc.bids.api.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.Interfaces.IDryingFoodRecipe;
 import com.unforbidable.tfc.bids.api.Registry.WetnessInfo;
 import net.minecraft.tileentity.TileEntity;
 
@@ -89,7 +90,7 @@ public class DryingEngine {
         DynamicEnvironment dynamicEnvironment = staticEnvironment.ofTicks(ticks);
 
         for (DryingItem item : host.getDryingStorage()) {
-            if (item != null && item.progress < 1 && item.failure < 1) {
+            if (item != null) {
                 updateForItem(ticks, item, dynamicEnvironment);
             }
         }
@@ -109,35 +110,43 @@ public class DryingEngine {
 
             if (recipe != null) {
                 ItemEnvironment itemEnvironment = dynamicEnvironment.ofItem(dryingItem);
-
-                // Update item progress
                 updateItemProgress(dryingItem, recipe, itemEnvironment, ticksElapsed);
             }
         }
     }
 
     private void updateItemProgress(DryingItem dryingItem, DryingRecipe recipe, ItemEnvironment env, long ticksElapsed) {
+        boolean isComplete = dryingItem.progress == 1 || dryingItem.failure == 1;
+
         // check for failure
-        float failure = env.getRecipeFailure(recipe);
+        // unless complete
+        float failure = isComplete ? 0 : env.getRecipeFailure(recipe);
         if (dryingItem.failure != failure) {
             dryingItem.failure = failure;
             dryingItem.finishedTicks = 0;
+            dryingItem.smokedTicks = 0;
 
             if (dryingItem.failure == 1) {
                 dryingItem.resultItem = DryingHelper.getDestroyedResultItem(dryingItem, recipe);
-                dryingItem.paused = false;
                 dryingItem.progress = 0;
+                dryingItem.smoke = 0;
 
                 itemChanged = true;
-            } else if (!dryingItem.paused) {
-                dryingItem.paused = true;
             }
 
             dataChanged = true;
         } else {
             // check for match, even partial
-            float match = env.getRecipeMatch(recipe);
+            // unless complete
+            float match = isComplete ? 0 : env.getRecipeMatch(recipe);
             if (match > 0) {
+                // reset any failure
+                if (dryingItem.failure > 0) {
+                    dryingItem.failure = 0;
+
+                    dataChanged = true;
+                }
+
                 // progress gain depends on how close the environment match is
                 long ticksRequiredTotal = (long) (recipe.getDuration() * TFC_Time.HOUR_LENGTH * BidsOptions.Crafting.dryingDurationMultiplier);
                 float progressForIdealMatch = ticksElapsed / (float) ticksRequiredTotal;
@@ -149,9 +158,6 @@ public class DryingEngine {
                 long prevFinishedTicks = dryingItem.finishedTicks;
                 long ticksRemaining = (long) ((1 - dryingItem.progress) * ticksRequiredTotal / match);
                 dryingItem.finishedTicks = dryingItem.lastProgressUpdatedTicks + ticksRemaining;
-
-                dryingItem.paused = false;
-                dryingItem.failure = 0;
 
                 DryingHelper.applyInputItemProgress(dryingItem, recipe);
 
@@ -181,10 +187,47 @@ public class DryingEngine {
                         Math.floor(dryingItem.progress * 100) != Math.floor(prevProgress * 100);
                 }
             } else {
-                // pause progress unless total failure
-                if (!dryingItem.paused && dryingItem.failure != 1) {
-                    dryingItem.paused = true;
+                if (dryingItem.finishedTicks != 0) {
+                    dryingItem.finishedTicks = 0;
+
                     dataChanged = true;
+                }
+            }
+
+            // check if smoking is possible and not complete
+            if (recipe instanceof IDryingFoodRecipe && ((IDryingFoodRecipe) recipe).isAllowSmoke() && dryingItem.smoke < 1) {
+                if (env.isSmoked()) {
+                    // smoke gain is constant and does not depend on recipe match
+                    long ticksRequiredTotal = (long) (((IDryingFoodRecipe) recipe).getSmokeDuration() * TFC_Time.HOUR_LENGTH * BidsOptions.Crafting.smokingDurationMultiplier);
+                    float smokeToAdd = ticksElapsed / (float) ticksRequiredTotal;
+
+                    float prevSmoke = dryingItem.smoke;
+                    dryingItem.smoke = Math.min(dryingItem.smoke + smokeToAdd, 1);
+
+                    long prevSmokedTicks = dryingItem.smokedTicks;
+                    long ticksRemaining = (long) ((1 - dryingItem.smoke) * ticksRequiredTotal);
+                    dryingItem.smokedTicks = dryingItem.lastProgressUpdatedTicks + ticksRemaining;
+
+                    DryingHelper.applyInputItemSmoke(dryingItem, recipe, env.getFuelTasteProfile());
+
+                    if (dryingItem.smoke == 1) {
+                        dryingItem.smokedTicks = 0;
+
+                        dryingItem.resultItem = DryingHelper.getResultItem(dryingItem, recipe);
+
+                        itemChanged = true;
+                        dataChanged = true;
+                    } else {
+                        dataChanged = prevSmokedTicks == 0 ||
+                            prevSmokedTicks / 1000 != dryingItem.smokedTicks / 1000 ||
+                            Math.floor(dryingItem.smoke * 100) != Math.floor(prevSmoke * 100);
+                    }
+                } else {
+                    if (dryingItem.smokedTicks != 0) {
+                        dryingItem.smokedTicks = 0;
+
+                        dataChanged = true;
+                    }
                 }
             }
         }
