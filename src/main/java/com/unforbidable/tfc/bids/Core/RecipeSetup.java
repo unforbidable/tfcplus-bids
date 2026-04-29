@@ -13,10 +13,9 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Blocks.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingHelper;
 import com.unforbidable.tfc.bids.Core.Cooking.CookingMixtureHelper;
+import com.unforbidable.tfc.bids.Core.Crafting.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
-import com.unforbidable.tfc.bids.Core.Recipes.Actions.*;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeHelper;
-import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelRecipeBuilder;
 import com.unforbidable.tfc.bids.Core.Recipes.TFC.BarrelRecipeManager;
 import com.unforbidable.tfc.bids.Core.Seasoning.SeasoningHelper;
@@ -25,7 +24,6 @@ import com.unforbidable.tfc.bids.Core.Stone.EnumStoneItemType;
 import com.unforbidable.tfc.bids.Core.Stone.StoneIndex;
 import com.unforbidable.tfc.bids.Core.Stone.StoneScheme;
 import com.unforbidable.tfc.bids.Core.Wood.EnumWoodItemType;
-import com.unforbidable.tfc.bids.Core.Wood.WoodHelper;
 import com.unforbidable.tfc.bids.Core.Wood.WoodIndex;
 import com.unforbidable.tfc.bids.Core.Wood.WoodScheme;
 import com.unforbidable.tfc.bids.Handlers.CraftingHandler;
@@ -35,21 +33,19 @@ import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api.Crafting.*;
 import com.unforbidable.tfc.bids.api.Enums.EnumCookingHeatLevel;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import java.util.Collections;
-
 import static com.dunk.tfc.Core.Recipes.getStackNoTemp;
+import static com.unforbidable.tfc.bids.Core.Crafting.Actions.CopySeasoning.copySeasoning;
+import static com.unforbidable.tfc.bids.Core.Crafting.Actions.DamageTool.damageTool;
+import static com.unforbidable.tfc.bids.Core.Crafting.Actions.ExtraDrop.extraDrop;
+import static com.unforbidable.tfc.bids.Core.Crafting.Actions.KeepItem.keepItem;
 
 public class RecipeSetup {
 
@@ -96,7 +92,7 @@ public class RecipeSetup {
     }
 
     private static void addFoodDoughRecipe(Item foodInput, Item foodOutput) {
-        GameRegistry.addRecipe(new ShapelessOreRecipe(ItemFoodTFC.createTag(new ItemStack(foodOutput, 1)),
+        RecipeManager.addRecipe(new ShapelessOreRecipe(ItemFoodTFC.createTag(new ItemStack(foodOutput, 1)),
             ItemFoodTFC.createTag(new ItemStack(foodInput, 1)), "itemLargeBowlWater"));
     }
 
@@ -114,9 +110,9 @@ public class RecipeSetup {
         Bids.LOG.info("Register custom recipes");
 
         // TODO: register with net.minecraftforge.oredict.RecipeSorter
-        GameRegistry.addRecipe(new RecipeCrucibleConversion(true));
-        GameRegistry.addRecipe(new RecipeCrucibleConversion(false));
-        GameRegistry.addRecipe(new RecipeEmptyCookingPot());
+        RecipeManager.addRecipe(new RecipeCrucibleConversion(true));
+        RecipeManager.addRecipe(new RecipeCrucibleConversion(false));
+        RecipeManager.addRecipe(new RecipeEmptyCookingPot());
     }
 
     private static void registerRecipes() {
@@ -129,285 +125,287 @@ public class RecipeSetup {
             ItemStack rich = new ItemStack(TFCItems.oreChunk, 1, Global.oreGrade1Offset + i);
 
             if (CrucibleHelper.isOreIron(small)) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 2, i),
-                        small, "itemHammerIronBits"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 3, i),
-                        poor, "itemHammerIronBits"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 5, i),
-                        normal, "itemHammerIronBits"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 7, i),
-                        rich, "itemHammerIronBits"));
+                RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.oreBit, 2, i),
+                        small, "itemHammerIronBits")
+                    .action(damageTool("itemHammerIronBits", 10));
+                RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.oreBit, 3, i),
+                        poor, "itemHammerIronBits")
+                    .action(damageTool("itemHammerIronBits", 20));
+                RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.oreBit, 5, i),
+                        normal, "itemHammerIronBits")
+                    .action(damageTool("itemHammerIronBits", 30));
+                RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.oreBit, 7, i),
+                        rich, "itemHammerIronBits")
+                    .action(damageTool("itemHammerIronBits", 40));
             } else {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 2, i),
-                        small, "itemHammer"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 3, i),
-                        poor, "itemHammer"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 5, i),
-                        normal, "itemHammer"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.oreBit, 7, i),
-                        rich, "itemHammer"));
+                RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.oreBit, 2, i),
+                        small, "itemHammer")
+                    .action(damageTool("itemHammer", 1));
+                RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.oreBit, 3, i),
+                        poor, "itemHammer")
+                    .action(damageTool("itemHammer", 2));
+                RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.oreBit, 5, i),
+                        normal, "itemHammer")
+                    .action(damageTool("itemHammer", 3));
+                RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.oreBit, 7, i),
+                        rich, "itemHammer")
+                    .action(damageTool("itemHammer", 4));
             }
         }
 
-        RecipeManager.addAction(new ActionToolDamageOreBit()
-                .addTools("itemHammer")
-                .matchCraftingItem(BidsItems.oreBit));
-
         // This recipe is meant to upgrade an obsolete version 0.5.0 metal blowpipe
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.metalBlowpipe, 1, 1),
-                new ItemStack(BidsItems.metalBlowpipe, 1, 0)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.metalBlowpipe, 1, 1),
+            new ItemStack(BidsItems.metalBlowpipe, 1, 0));
 
-        ItemStack clayTile = new ItemStack(TFCItems.clayTile, 1, 0);
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.clayPipe, 1, 0), clayTile, clayTile);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.clayPipe),
+            TFCItems.clayTile, TFCItems.clayTile);
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
-            GameRegistry.addRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY, 2),
+            RecipeManager.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY, 2),
                 "PB", "BB", 'P', new ItemStack(BidsItems.clayPipe, 1, 1),
                 'B', stone.items.getItem(EnumStoneItemType.MUD_BRICK));
-            GameRegistry.addRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY, 2),
+            RecipeManager.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY, 2),
                 "PB", "BB", 'P', new ItemStack(TFCItems.logs, 1, 48), // Bamboo
                 'B', stone.items.getItem(EnumStoneItemType.MUD_BRICK));
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 4),
-                "SA", "  ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze"));
-            GameRegistry.addRecipe(new ShapedOreRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 4),
-                "AS", "  ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze"));
+            RecipeManager.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 4),
+                    "SA", "  ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
+                .action(damageTool("itemAdze"));
+            RecipeManager.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 4),
+                    "AS", "  ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
+                .action(damageTool("itemAdze"));
 
-            GameRegistry.addRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_TILES),
+            RecipeManager.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_TILES),
                 "BB", "  ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE));
-            GameRegistry.addRecipe(new ShapelessRecipes(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 2),
-                Collections.singletonList(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_TILES))));
+            RecipeManager.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 2),
+                stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_TILES));
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 4),
-                "S ", "A ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze"));
-            GameRegistry.addRecipe(new ShapedOreRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 4),
-                "A ", "S ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze"));
+            RecipeManager.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 4),
+                    "S ", "A ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
+                .action(damageTool("itemAdze"));
+            RecipeManager.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 4),
+                    "A ", "S ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
+                .action(damageTool("itemAdze"));
 
-            GameRegistry.addRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_BRICKS),
+            RecipeManager.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_BRICKS),
                 "BB", "  ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK));
-            GameRegistry.addRecipe(new ShapelessRecipes(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 2),
-                Collections.singletonList(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_BRICKS))));
+            RecipeManager.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 2),
+                stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_BRICKS));
 
-            GameRegistry.addRecipe(new ShapelessOreRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.SMOOTH_STONE, 2),
-                stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), "itemChisel"));
+            RecipeManager.addShapelessRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.SMOOTH_STONE, 2),
+                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), "itemChisel")
+                .action(damageTool("itemChisel"));
 
-            GameRegistry.addRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_BRICK_FENCE, 2),
+            RecipeManager.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_BRICK_FENCE, 2),
                 "B ", "B ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK));
-            GameRegistry.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK),
+            RecipeManager.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK),
                 stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_BRICK_FENCE, 2));
 
-            GameRegistry.addRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_TILE_FENCE, 2),
+            RecipeManager.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_TILE_FENCE, 2),
                 "B ", "B ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE));
-            GameRegistry.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE),
+            RecipeManager.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE),
                 stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_TILE_FENCE, 2));
 
-            GameRegistry.addRecipe(new ShapelessOreRecipe(stone.items.getItem(EnumStoneItemType.STONE_BRICK),
-                stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK), "itemChisel"));
+            RecipeManager.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.STONE_BRICK),
+                    stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK), "itemChisel")
+                .action(damageTool("itemChisel"));
         }
 
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemAdze")
-            .matchCraftingItem(BidsItems.roughStoneBrick));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemAdze")
-            .matchCraftingItem(BidsItems.roughStoneTile));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.whorl),
+            "itemRock", "itemDrillHead");
 
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemChisel")
-            .matchCraftingBlock(TFCBlocks.stoneSedSmooth));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemChisel")
-            .matchCraftingBlock(TFCBlocks.stoneMMSmooth));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemChisel")
-            .matchCraftingBlock(TFCBlocks.stoneIgInSmooth));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemChisel")
-            .matchCraftingBlock(TFCBlocks.stoneIgExSmooth));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.spindle),
+            "itemWhorl", "stickWood");
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.whorl, 1, 0),
-            "itemRock", "itemDrillHead"));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.primitiveRopeMaker),
+                "stickWood", "stickWood", "materialBindingStrong", "itemKnife")
+            .action(damageTool("itemKnife"));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.spindle, 1, 0),
-            "itemWhorl", "stickWood"));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.thornCard),
+            BidsItems.thornBunch, BidsItems.thornBunch, TFCItems.resin, BidsItems.woodenCombPaddle);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.primitiveRopeMaker, 1, 0),
-            "stickWood", "stickWood", "materialBindingStrong", "itemKnife"));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemKnife")
-            .matchCraftingItem(BidsItems.primitiveRopeMaker));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.boneHeckle),
+            BidsItems.boneKnifeHead, BidsItems.boneKnifeHead, TFCItems.resin, "materialBindingDecent");
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.thornCard, 1, 0),
-            BidsItems.thornBunch, BidsItems.thornBunch, TFCItems.resin, BidsItems.woodenCombPaddle));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.igInStoneDrill),
+            BidsItems.igInStoneDrillHead, "stickWood", TFCItems.bow);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.sedStoneDrill),
+            BidsItems.sedStoneDrillHead, "stickWood", TFCItems.bow);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.igExStoneDrill),
+            BidsItems.igExStoneDrillHead, "stickWood", TFCItems.bow);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.mMStoneDrill),
+            BidsItems.mMStoneDrillHead, "stickWood", TFCItems.bow);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.boneHeckle, 1, 0),
-            BidsItems.boneKnifeHead, BidsItems.boneKnifeHead, TFCItems.resin, "materialBindingDecent"));
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.igInStoneAdze),
+            "1", "2", '1', BidsItems.igInStoneAdzeHead, '2', "stickWood");
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.sedStoneAdze),
+            "1", "2", '1', BidsItems.sedStoneAdzeHead, '2', "stickWood");
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.igExStoneAdze),
+            "1", "2", '1', BidsItems.igExStoneAdzeHead, '2', "stickWood");
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.mMStoneAdze),
+            "1", "2", '1', BidsItems.mMStoneAdzeHead, '2', "stickWood");
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igInStoneDrill, 1, 0),
-                BidsItems.igInStoneDrillHead, "stickWood", TFCItems.bow));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.sedStoneDrill, 1, 0),
-                BidsItems.sedStoneDrillHead, "stickWood", TFCItems.bow));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.igExStoneDrill, 1, 0),
-                BidsItems.igExStoneDrillHead, "stickWood", TFCItems.bow));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.mMStoneDrill, 1, 0),
-                BidsItems.mMStoneDrillHead, "stickWood", TFCItems.bow));
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.igInStoneAdze),
+            "1", "2", '1', BidsItems.igInStoneAdzeHead, '2', TFCItems.bone);
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.sedStoneAdze),
+            "1", "2", '1', BidsItems.sedStoneAdzeHead, '2', TFCItems.bone);
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.igExStoneAdze),
+            "1", "2", '1', BidsItems.igExStoneAdzeHead, '2', TFCItems.bone);
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.mMStoneAdze),
+            "1", "2", '1', BidsItems.mMStoneAdzeHead, '2', TFCItems.bone);
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.igInStoneAdze, 1, 0),
-                "1", "2", '1', BidsItems.igInStoneAdzeHead, '2', "stickWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.sedStoneAdze, 1, 0),
-                "1", "2", '1', BidsItems.sedStoneAdzeHead, '2', "stickWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.igExStoneAdze, 1, 0),
-                "1", "2", '1', BidsItems.igExStoneAdzeHead, '2', "stickWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.mMStoneAdze, 1, 0),
-                "1", "2", '1', BidsItems.mMStoneAdzeHead, '2', "stickWood"));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.copperAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 2)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.bronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 3)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.bismuthBronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 4)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.blackBronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 5)));
 
-        GameRegistry.addRecipe(new ItemStack(BidsItems.igInStoneAdze, 1, 0),
-                "1", "2", '1', BidsItems.igInStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
-        GameRegistry.addRecipe(new ItemStack(BidsItems.sedStoneAdze, 1, 0),
-                "1", "2", '1', BidsItems.sedStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
-        GameRegistry.addRecipe(new ItemStack(BidsItems.igExStoneAdze, 1, 0),
-                "1", "2", '1', BidsItems.igExStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
-        GameRegistry.addRecipe(new ItemStack(BidsItems.mMStoneAdze, 1, 0),
-                "1", "2", '1', BidsItems.mMStoneAdzeHead, '2', new ItemStack(TFCItems.bone));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.copperDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 2)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.bronzeDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 3)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.bismuthBronzeDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 4)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.blackBronzeDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 5)));
 
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.copperAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 2)));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.bronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 3)));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.bismuthBronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 4)));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.blackBronzeAdzeHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldAdze, 1, 5)));
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.copperAdze, 1),
+            "#", "I", '#', BidsItems.copperAdzeHead, 'I', "stickWood");
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.bronzeAdze, 1),
+            "#", "I", '#', BidsItems.bronzeAdzeHead, 'I', "stickWood");
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.bismuthBronzeAdze, 1),
+            "#", "I", '#', BidsItems.bismuthBronzeAdzeHead, 'I', "stickWood");
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.blackBronzeAdze, 1),
+            "#", "I", '#', BidsItems.blackBronzeAdzeHead, 'I', "stickWood");
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.wroughtIronAdze, 1),
+            "#", "I", '#', BidsItems.wroughtIronAdzeHead, 'I', "stickWood");
 
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.copperDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 2)));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.bronzeDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 3)));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.bismuthBronzeDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 4)));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.blackBronzeDrillHead), getStackNoTemp(new ItemStack(BidsItems.clayMoldDrill, 1, 5)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.copperDrill, 1),
+            BidsItems.copperDrillHead, "stickWood", TFCItems.bow);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.bronzeDrill, 1),
+            BidsItems.bronzeDrillHead, "stickWood", TFCItems.bow);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.bismuthBronzeDrill, 1),
+            BidsItems.bismuthBronzeDrillHead, "stickWood", TFCItems.bow);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.blackBronzeDrill, 1),
+            BidsItems.blackBronzeDrillHead, "stickWood", TFCItems.bow);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.wroughtIronDrill, 1),
+            BidsItems.wroughtIronDrillHead, "stickWood", TFCItems.bow);
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.copperAdze, 1), "#", "I", '#', new ItemStack(BidsItems.copperAdzeHead, 1, 0), 'I', "stickWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.bronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.bronzeAdzeHead, 1, 0), 'I', "stickWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.bismuthBronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.bismuthBronzeAdzeHead, 1, 0), 'I', "stickWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.blackBronzeAdze, 1), "#", "I", '#', new ItemStack(BidsItems.blackBronzeAdzeHead, 1, 0), 'I', "stickWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.wroughtIronAdze, 1), "#", "I", '#', new ItemStack(BidsItems.wroughtIronAdzeHead, 1, 0), 'I', "stickWood"));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.smallStickBundle),
+            "stickWood", "stickWood", "stickWood");
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.stick, 3),
+            BidsItems.smallStickBundle);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.copperDrill, 1, 0),
-            BidsItems.copperDrillHead, "stickWood", TFCItems.bow));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.bronzeDrill, 1, 0),
-            BidsItems.bronzeDrillHead, "stickWood", TFCItems.bow));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.bismuthBronzeDrill, 1, 0),
-            BidsItems.bismuthBronzeDrillHead, "stickWood", TFCItems.bow));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.blackBronzeDrill, 1, 0),
-            BidsItems.blackBronzeDrillHead, "stickWood", TFCItems.bow));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.wroughtIronDrill, 1, 0),
-            BidsItems.wroughtIronDrillHead, "stickWood", TFCItems.bow));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.kindling),
+            "stickWood", "stickWood", "stickWood", TFCItems.straw);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.kindling),
+            BidsItems.smallStickBundle, TFCItems.straw);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.smallStickBundle),
-                "stickWood", "stickWood", "stickWood"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stick, 3, 0),
-                new ItemStack(BidsItems.smallStickBundle)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.barkFibreKindling),
+            "stickWood", "stickWood", "stickWood", BidsItems.barkFibreCoarse);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.barkFibreKindling),
+            BidsItems.smallStickBundle, BidsItems.barkFibreCoarse);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.kindling),
-                "stickWood", "stickWood", "stickWood", new ItemStack(TFCItems.straw)));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.kindling),
-                new ItemStack(BidsItems.smallStickBundle), new ItemStack(TFCItems.straw)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.birchBarkKindling),
+            "stickWood", "stickWood", "stickWood", BidsItems.birchBarkStrap);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.birchBarkKindling),
+            BidsItems.smallStickBundle, BidsItems.birchBarkStrap);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreKindling),
-                "stickWood", "stickWood", "stickWood", new ItemStack(BidsItems.barkFibreCoarse, 1, 1)));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibreKindling),
-                new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.barkFibreCoarse, 1, 1)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.tiedStickBundle),
+            BidsItems.smallStickBundle, new ItemStack(BidsItems.smallStickBundle),
+            BidsItems.smallStickBundle, TFCItems.grassCordage);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.tiedStickBundle),
+            TFCItems.stickBundle, TFCItems.grassCordage);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkKindling),
-                "stickWood", "stickWood", "stickWood", new ItemStack(BidsItems.birchBarkStrap)));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkKindling),
-                new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.birchBarkStrap)));
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.stick, 9),
+            BidsItems.tiedStickBundle);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
-                new ItemStack(BidsItems.smallStickBundle), new ItemStack(BidsItems.smallStickBundle),
-                new ItemStack(BidsItems.smallStickBundle), TFCItems.grassCordage));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.tiedStickBundle),
-                new ItemStack(TFCItems.stickBundle), TFCItems.grassCordage));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.barkFibre),
+                "itemBarkHasFibers", "itemKnife")
+            .action(damageTool("itemKnife"));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.stick, 9, 0),
-                new ItemStack(BidsItems.tiedStickBundle)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.juteStalk),
+                TFCItems.jute, "itemKnife")
+            .action(damageTool("itemKnife"));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.barkFibre),
-                "itemBarkHasFibers", "itemKnife"));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.flaxStalk),
+                TFCItems.flax, "itemKnife")
+            .action(damageTool("itemKnife"))
+            .action(extraDrop(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 6)));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.juteStalk),
-            TFCItems.jute, "itemKnife"));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemKnife")
-            .matchCraftingItem(BidsItems.juteStalk));
-
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.flaxStalk),
-            TFCItems.flax, "itemKnife"));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemKnife")
-            .matchCraftingItem(BidsItems.flaxStalk));
-        RecipeManager.addAction(new ActionExtraDrop()
-            .addExtraDrop(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 6))
-            .matchCraftingItem(BidsItems.flaxStalk));
-
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.cottonBollRefined),
-            BidsItems.cottonBoll, "itemKnife"));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemKnife")
-            .matchCraftingItem(BidsItems.cottonBollRefined));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.cottonBollRefined),
+                BidsItems.cottonBoll, "itemKnife")
+            .action(damageTool("itemKnife"));
 
         // Refining TFC cotton in case it has not been converted
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.cottonBollRefined),
-            TFCItems.cotton, "itemKnife"));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.cottonBollRefined),
+                TFCItems.cotton, "itemKnife")
+            .action(damageTool("itemKnife"));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkCup, 1, 0),
-                BidsItems.birchBarkCupUnfinished, Items.slime_ball));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.birchBarkCup, 1),
+            BidsItems.birchBarkCupUnfinished, Items.slime_ball);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.birchBarkSheet, 1, 0),
-                new ItemStack(BidsItems.bark, 1, 2), "itemKnife"));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.birchBarkSheet, 1),
+                new ItemStack(BidsItems.bark, 1, 2), "itemKnife")
+            .action(damageTool("itemKnife"));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.wattleGate),
-                "PW", "  ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.wattleGate),
-                "WP", "  ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle));
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.wattleGate),
+            "PW", "  ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.wattleGate),
+            "WP", "  ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
-                "P ", "W ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
-                "W ", "P ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle));
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
+            "P ", "W ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
+            "W ", "P ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
 
         // Select TFC recipes where new cordage and twines can be used
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.primitiveLoom, 1, 0),
-                "LS", "SL", 'L', "stickWood", 'S', "materialBindingStrong"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.primitiveLoom, 1, 0),
-                "LS", "SL", 'S', "stickWood", 'L', "materialBindingStrong"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.unstrungBow, 1),
-                new ItemStack(TFCItems.pole), "itemKnife", "materialBindingStrong"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.bow, 1),
-                new ItemStack(TFCItems.unstrungBow), "materialBindingStrong"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.splint, 1),
-                TFCItems.stick, "materialBindingStrong"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.compositeBow),
-                TFCItems.unstrungCompositeBow, "materialBindingStrong"));
+        RecipeManager.addShapedRecipe(new ItemStack(TFCBlocks.primitiveLoom),
+            "LS", "SL", 'L', "stickWood", 'S', "materialBindingStrong");
+        RecipeManager.addShapedRecipe(new ItemStack(TFCBlocks.primitiveLoom),
+            "LS", "SL", 'S', "stickWood", 'L', "materialBindingStrong");
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.unstrungBow),
+            TFCItems.pole, "itemKnife", "materialBindingStrong")
+            .action(damageTool("itemKnife"));
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.bow),
+            TFCItems.unstrungBow, "materialBindingStrong");
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.splint),
+            TFCItems.stick, "materialBindingStrong");
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.compositeBow),
+            TFCItems.unstrungCompositeBow, "materialBindingStrong");
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             if (wood.items.hasPeeledLog()) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getPeeledLog(),
-                    wood.items.getLog(), "itemAdze"));
+                RecipeManager.addShapelessRecipe(wood.items.getPeeledLog(),
+                        wood.items.getLog(), "itemAdze")
+                    .action(damageTool("itemAdze"))
+                    .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingChance))
+                    .action(copySeasoning(TFCItems.logs));
+
                 BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
                     wood.items.getPeeledLog(), wood.items.getLog()));
 
                 if (wood.items.hasChoppedLog()) {
-                    GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getPeeledLog(),
-                        wood.items.getChoppedLog(), "itemAdze"));
+                    RecipeManager.addShapelessRecipe(wood.items.getPeeledLog(),
+                            wood.items.getChoppedLog(), "itemAdze")
+                        .action(damageTool("itemAdze"))
+                        .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingChance));
+
                     BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
                         wood.items.getPeeledLog(), wood.items.getChoppedLog()));
                 }
             }
 
             if (wood.items.hasSeasonedPeeledLog()) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedPeeledLog(),
-                    wood.items.getSeasonedLog(), "itemAdze"));
+                RecipeManager.addShapelessRecipe(wood.items.getSeasonedPeeledLog(),
+                        wood.items.getSeasonedLog(), "itemAdze")
+                    .action(damageTool("itemAdze"))
+                    .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingSeasonedChance));
+
                 BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
                     wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedLog()));
 
                 if (wood.items.hasSeasonedChoppedLog()) {
-                    GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedPeeledLog(),
-                        wood.items.getSeasonedChoppedLog(), "itemAdze"));
+                    RecipeManager.addShapelessRecipe(wood.items.getSeasonedPeeledLog(),
+                            wood.items.getSeasonedChoppedLog(), "itemAdze")
+                        .action(damageTool("itemAdze"))
+                        .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingSeasonedChance));
+
                     BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
                         wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog()));
                 }
@@ -430,7 +428,12 @@ public class RecipeSetup {
             }
 
             if (wood.items.hasFirewood()) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getFirewood(),wood.getOreWithSuffix("logWoodFresh"), "itemAxe"));
+                RecipeManager.addShapelessRecipe(wood.items.getFirewood(),
+                        wood.getOreWithSuffix("logWoodFresh"), "itemAxe")
+                    .action(damageTool("itemAxe"))
+                    .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropSplittingChance))
+                    .action(copySeasoning(TFCItems.logs))
+                    .action(copySeasoning(BidsItems.peeledLog));
 
                 BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
                     wood.items.getFirewood(),
@@ -450,7 +453,10 @@ public class RecipeSetup {
             }
 
             if (wood.items.hasSeasonedFirewood()) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getSeasonedFirewood(), wood.getOreWithSuffix("logWoodSeasoned"), "itemAxe"));
+                RecipeManager.addShapelessRecipe(wood.items.getSeasonedFirewood(),
+                        wood.getOreWithSuffix("logWoodSeasoned"), "itemAxe")
+                    .action(damageTool("itemAze"))
+                    .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropSplittingSeasonedChance));
 
                 if (wood.items.hasSeasonedLog()) {
                     BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
@@ -477,330 +483,173 @@ public class RecipeSetup {
 
             if (wood.blocks.hasLogWall()) {
                 if (wood.items.hasSeasonedPeeledLog()) {
-                    GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWall(),
-                        "A ", "11", '1', wood.getOreWithSuffix("logWoodSeasoned"),
-                        'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getSeasonedPeeledLog(2),
-                        Collections.singletonList(wood.blocks.getLogWall())));
+                    RecipeManager.addShapedRecipe(wood.blocks.getLogWall(),
+                            "A ", "11", '1', wood.getOreWithSuffix("logWoodSeasoned"), 'A', "itemAdze")
+                        .action(damageTool("itemAdze"));
+                    RecipeManager.addShapelessRecipe(wood.items.getSeasonedPeeledLog(2),
+                        wood.blocks.getLogWall());
 
-                    GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWallVert(),
-                        "A1", " 1", '1', wood.getOreWithSuffix("logWoodSeasoned"),
-                        'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getSeasonedPeeledLog(2),
-                        Collections.singletonList(wood.blocks.getLogWallVert())));
+                    RecipeManager.addShapedRecipe(wood.blocks.getLogWallVert(),
+                            "A1", " 1", '1', wood.getOreWithSuffix("logWoodSeasoned"), 'A', "itemAdze")
+                        .action(damageTool("itemAdze"));
+                    RecipeManager.addShapelessRecipe(wood.items.getSeasonedPeeledLog(2),
+                        wood.blocks.getLogWallVert());
                 } else {
-                    GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWall(),
-                        "A ", "11", '1', wood.getOreWithSuffix("logWood"),
-                        'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getLog(2),
-                        Collections.singletonList(wood.blocks.getLogWall())));
+                    RecipeManager.addShapedRecipe(wood.blocks.getLogWall(),
+                            "A ", "11", '1', wood.getOreWithSuffix("logWood"), 'A', "itemAdze")
+                        .action(damageTool("itemAdze"));
+                    RecipeManager.addShapelessRecipe(wood.items.getLog(2),
+                        wood.blocks.getLogWall());
 
-                    GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getLogWallVert(),
-                        "A1", " 1", '1', wood.getOreWithSuffix("logWood"),
-                        'A', "itemAdze"));
-                    GameRegistry.addRecipe(new ShapelessRecipes(wood.items.getLog(2),
-                        Collections.singletonList(wood.blocks.getLogWallVert())));
+                    RecipeManager.addShapedRecipe(wood.blocks.getLogWallVert(),
+                            "A1", " 1", '1', wood.getOreWithSuffix("logWood"), 'A', "itemAdze")
+                        .action(damageTool("itemAdze"));
+                    RecipeManager.addShapelessRecipe(wood.items.getLog(2),
+                        wood.blocks.getLogWallVert());
                 }
             }
 
             if (wood.blocks.hasPalisade()) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getPalisade(2),
-                    "A1", " 1", '1', wood.getOreWithSuffix("logWood"),
-                    'A', "itemAxe"));
+                RecipeManager.addShapedRecipe(wood.blocks.getPalisade(2),
+                        "A1", " 1", '1', wood.getOreWithSuffix("logWood"), 'A', "itemAxe")
+                    .action(damageTool("itemAxe"));
             }
 
             // Copies of TFC recipes for items made logs
             if (wood.items.hasLumber()) {
-                GameRegistry.addRecipe(new ShapelessOreRecipe(wood.items.getLumber(8), wood.getOreWithSuffix("logWoodSeasoned"), "itemSaw"));
+                RecipeManager.addShapelessRecipe(wood.items.getLumber(8),
+                        wood.getOreWithSuffix("logWoodSeasoned"), "itemSaw")
+                    .action(damageTool("itemSaw"));
             }
 
             // Copies of TFC recipes for block made from logs
             if (wood.items.hasPeeledLog() || wood.items.hasSeasonedLog()) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getWoodSupport(8),"A2", " 2",
-                    '2', wood.getOreWithSuffix("logWood"),
-                    'A', "itemSaw"));
+                RecipeManager.addShapedRecipe(wood.blocks.getWoodSupport(8),
+                        "A2", " 2", '2', wood.getOreWithSuffix("logWood"), 'A', "itemSaw")
+                    .action(damageTool("itemSaw"));
 
-                GameRegistry.addRecipe(new ShapedOreRecipe(wood.blocks.getFence(6),"LPL", "LPL",
-                    'L', wood.getOreWithSuffix("logWood"),
-                    'P', wood.items.getLumber()));
+                RecipeManager.addShapedRecipe(wood.blocks.getFence(6),
+                    "LPL", "LPL", 'L', wood.getOreWithSuffix("logWood"), 'P', wood.items.getLumber());
             }
         }
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.woodenSpear, 1),
-            TFCItems.pole, "itemHandAxe"));
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.woodenSpear, 1),
+                TFCItems.pole, "itemHandAxe")
+            .action(damageTool("itemHandAxe"));
 
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemHandAxe")
-            .matchCraftingItem(TFCItems.woodenSpear));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.plugAndFeather, 4),
+                "logWoodPlugAndFeather", "itemAdze")
+            .action(damageTool("itemAdze"));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.plugAndFeather, 4),
-            "logWoodPlugAndFeather", "itemAdze"));
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.hide),
+                new ItemStack(BidsItems.moreHide, 1, 0), new ItemStack(BidsItems.moreHide, 1, 0), "itemNeedleAndThread")
+            .action(damageTool("itemNeedleAndThread", 10));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.hide, 1, 0),
-            new ItemStack(BidsItems.moreHide, 1, 0), new ItemStack(BidsItems.moreHide, 1, 0),
-            "itemNeedleAndThread"));
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.hide, 1, 1),
+                new ItemStack(TFCItems.hide, 1, 0), new ItemStack(TFCItems.hide, 1, 0), "itemNeedleAndThread")
+            .action(damageTool("itemNeedleAndThread", 20));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.hide, 1, 1),
-            new ItemStack(TFCItems.hide, 1, 0), new ItemStack(TFCItems.hide, 1, 0),
-            "itemNeedleAndThread"));
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.hide, 1, 2),
+                new ItemStack(TFCItems.hide, 1, 1), new ItemStack(TFCItems.hide, 1, 1), "itemNeedleAndThread")
+            .action(damageTool("itemNeedleAndThread", 40));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.hide, 1, 2),
-            new ItemStack(TFCItems.hide, 1, 1), new ItemStack(TFCItems.hide, 1, 1),
-            "itemNeedleAndThread"));
-
-        RecipeManager.addAction(new ActionDamageTool(10)
-            .addTools("itemNeedleAndThread")
-            .matchCraftingItem(TFCItems.hide, 0));
-
-        RecipeManager.addAction(new ActionDamageTool(20)
-            .addTools("itemNeedleAndThread")
-            .matchCraftingItem(TFCItems.hide, 1));
-
-        RecipeManager.addAction(new ActionDamageTool(40)
-            .addTools("itemNeedleAndThread")
-            .matchCraftingItem(TFCItems.hide, 2));
-
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.moreHide, 2),
-            new ItemStack(TFCItems.hide, 1, 0), "itemKnife"));
-
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemKnife")
-            .matchCraftingItem(BidsItems.moreHide, 0));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.moreHide, 2),
+                new ItemStack(TFCItems.hide, 1, 0), "itemKnife")
+            .action(damageTool("itemKnife"));
 
         // Copies of TFC recipes for generic wood items made logs
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.pole, 1),
-            "logWoodAny", "itemKnife"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.clayTile, 1, 0),
-            " X", "XL", 'L', "logWoodAny", 'X', "lumpClay"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.clayTile, 1, 0),
-            "X ", "LX", 'L', "logWoodAny", 'X', "lumpClay"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TFCItems.paddle, 1),
-            new ItemStack(TFCItems.pole, 1), "logWoodAny", "itemKnife"));
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.pole),
+                "logWoodAny", "itemKnife")
+            .action(damageTool("itemKnife"));
+        RecipeManager.addShapedRecipe(new ItemStack(TFCItems.clayTile),
+                " X", "XL", 'L', "logWoodAny", 'X', "lumpClay")
+            .action(keepItem("logWoodAny"));
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.paddle),
+                TFCItems.pole, "logWoodAny", "itemKnife")
+            .action(damageTool("itemKnife"));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.quern, 1), "  W", "PPP", 'P', "stoneQuern", 'W', "stickWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCItems.millstone, 1), "PPP", "P P", "PPP", 'P', "stoneQuern"));
+        RecipeManager.addShapedRecipe(new ItemStack(TFCItems.quern),
+            "  W", "PPP", 'P', "stoneQuern", 'W', "stickWood");
+        RecipeManager.addShapedRecipe(new ItemStack(TFCItems.millstone),
+            "PPP", "P P", "PPP", 'P', "stoneQuern");
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.woodAxleWallBearing), "LSL", "L L", "LSL",
-            'L', "woodLumber", 'S', "supportWood"));
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.woodAxleWallBearing),
+            "LSL", "L L", "LSL", 'L', "woodLumber", 'S', "supportWood");
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsBlocks.woodScrew),
-            new ItemStack(TFCBlocks.woodAxle, 1), "itemChisel"));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemChisel")
-            .matchCraftingBlock(BidsBlocks.woodScrew));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsBlocks.woodScrew),
+                TFCBlocks.woodAxle, "itemChisel")
+            .action(damageTool("itemChisel"));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.screwPressRackBottom), "SLS", "S S", "SLS",
-            'L', "woodLumber", 'S', "supportWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.screwPressRackBridge), "SSS", "L L", "SSS",
-            'L', "woodLumber", 'S', "supportWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.screwPressBarrel), "LTL", "LLL", "LPL",
-            'T', "plateToolMetal", 'L', "woodLumber", 'P', "plankWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.screwPressDisc), "L L", "LPL", "   ",
-            'L', "woodLumber", 'P', "plankWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.screwPressLever), "LTL", " L ", " L ",
-            'T', "itemSaw", 'L', "logWoodPeeledSeasoned"));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemSaw")
-            .matchCraftingBlock(BidsBlocks.screwPressLever));
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.screwPressRackBottom),
+            "SLS", "S S", "SLS", 'L', "woodLumber", 'S', "supportWood");
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.screwPressRackBridge),
+            "SSS", "L L", "SSS", 'L', "woodLumber", 'S', "supportWood");
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.screwPressBarrel),
+            "LTL", "LLL", "LPL", 'T', "plateToolMetal", 'L', "woodLumber", 'P', "plankWood");
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.screwPressDisc),
+            "L L", "LPL", "   ", 'L', "woodLumber", 'P', "plankWood");
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.screwPressLever),
+                "LTL", " L ", " L ", 'T', "itemSaw", 'L', "logWoodPeeledSeasoned")
+            .action(damageTool("itemSaw"));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsItems.woodenPailEmpty, 1),
-            "w  ", "wxw", " w ", 'w', "woodLumber", 'x', "plateToolMetal"));
+        RecipeManager.addShapedRecipe(new ItemStack(BidsItems.woodenPailEmpty),
+            "w  ", "wxw", " w ", 'w', "woodLumber", 'x', "plateToolMetal");
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BidsBlocks.clayLamp),
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.clayLamp),
             "S ", "B ", 'S', "materialString",
-            'B', new ItemStack(TFCItems.potteryBowl, 1, 1)));
+            'B', new ItemStack(TFCItems.potteryBowl, 1, 1));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsBlocks.wallHook, 1, 0),
-            "stickWood", TFCItems.resin));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsBlocks.wallHook),
+            "stickWood", TFCItems.resin);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BidsItems.honeyLargeBowl, 1, 0),
-            "itemHoneycomb", "itemHoneycomb", "itemKnife", new ItemStack(BidsItems.largeClayBowl, 1, 1)));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.honeyLargeBowl),
+                "itemHoneycomb", "itemHoneycomb", "itemKnife", new ItemStack(BidsItems.largeClayBowl, 1, 1))
+            .action(damageTool("itemKnife"))
+            .action(extraDrop(new ItemStack(TFCItems.emptyHoneycomb, 2)));
 
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemKnife")
-            .matchCraftingItem(BidsItems.honeyLargeBowl));
-        RecipeManager.addAction(new ActionExtraDrop()
-            .addExtraDrop(new ItemStack(TFCItems.emptyHoneycomb, 2, 0))
-            .matchIngredient("itemHoneycomb")
-            .matchIngredient("itemHoneycomb")
-            .matchIngredient("itemKnife")
-            .matchIngredient(BidsItems.largeClayBowl)
-            .matchCraftingItem(BidsItems.honeyLargeBowl));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.ceramicBucketRope),
+            TFCItems.rope, TFCItems.clayBucketEmpty);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.woodenBucketRope),
+            TFCItems.rope, TFCItems.woodenBucketEmpty);
 
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.ceramicBucketRope),
-            new ItemStack(TFCItems.rope, 1, 0), new ItemStack(TFCItems.clayBucketEmpty, 1, 0));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.woodenBucketRope),
-            new ItemStack(TFCItems.rope, 1, 0), new ItemStack(TFCItems.woodenBucketEmpty, 1, 0));
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.clayBucketEmpty),
+                BidsItems.ceramicBucketRope)
+            .action(extraDrop(new ItemStack(TFCItems.rope)));
 
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.clayBucketEmpty), new ItemStack(BidsItems.ceramicBucketRope, 1, 0));
-        RecipeManager.addAction(new ActionExtraDrop()
-            .addExtraDrop(new ItemStack(TFCItems.rope, 1, 0))
-            .matchCraftingItem(TFCItems.clayBucketEmpty)
-            .matchIngredient(BidsItems.ceramicBucketRope));
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.woodenBucketEmpty),
+                BidsItems.woodenBucketRope)
+            .action(extraDrop(new ItemStack(TFCItems.rope)));
 
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.woodenBucketEmpty), new ItemStack(BidsItems.woodenBucketRope, 1, 0));
-        RecipeManager.addAction(new ActionExtraDrop()
-            .addExtraDrop(new ItemStack(TFCItems.rope, 1, 0))
-            .matchCraftingItem(TFCItems.woodenBucketEmpty)
-            .matchIngredient(BidsItems.woodenBucketRope));
-
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.saltWaterBottle),
-            new ItemStack(TFCItems.powder, 1, 9), new ItemStack(TFCItems.powder, 1, 9),
-            new ItemStack(TFCItems.waterBottle), new ItemStack(TFCItems.glassBottle));
-
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.woodenBucketSaltWater),
-            new ItemStack(TFCItems.powder, 1, 9), new ItemStack(TFCItems.powder, 1, 9),
-            new ItemStack(TFCItems.woodenBucketWater), new ItemStack(TFCItems.woodenBucketEmpty));
-
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.clayBucketSaltWater),
-            new ItemStack(TFCItems.powder, 1, 9), new ItemStack(TFCItems.powder, 1, 9),
-            new ItemStack(TFCItems.clayBucketWater), new ItemStack(TFCItems.clayBucketEmpty));
-
-        GameRegistry.addShapelessRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)),
+        RecipeManager.addShapelessRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)),
             ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)), new ItemStack(TFCItems.powder, 1, 9));
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.bambooShoot), 2.5f),
-            new ItemStack(TFCBlocks.sapling2, 1, 8), "itemKnife"));
-        RecipeManager.addAction(new ActionDamageTool(1)
-            .addTools("itemKnife")
-            .matchCraftingItem(BidsItems.bambooShoot));
+        RecipeManager.addShapelessRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.bambooShoot), 2.5f),
+                new ItemStack(TFCBlocks.sapling2, 1, 8), "itemKnife")
+            .action(damageTool("itemKnife"));
 
         // Manual seed conversion
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsBarley), new ItemStack(BidsItems.seedsNewBarley));
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsOat), new ItemStack(BidsItems.seedsNewOat));
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsRye), new ItemStack(BidsItems.seedsNewRye));
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsWheat), new ItemStack(BidsItems.seedsNewWheat));
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsOnion), new ItemStack(BidsItems.seedsNewOnion));
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsCabbage), new ItemStack(BidsItems.seedsNewCabbage));
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsGarlic), new ItemStack(BidsItems.seedsNewGarlic));
-        GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.seedsCarrot), new ItemStack(BidsItems.seedsNewCarrot));
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.seedsBarley), BidsItems.seedsNewBarley);
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.seedsOat), BidsItems.seedsNewOat);
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.seedsRye), BidsItems.seedsNewRye);
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.seedsWheat), BidsItems.seedsNewWheat);
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.seedsOnion), BidsItems.seedsNewOnion);
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.seedsCabbage), BidsItems.seedsNewCabbage);
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.seedsGarlic), BidsItems.seedsNewGarlic);
+        RecipeManager.addShapelessRecipe(new ItemStack(TFCItems.seedsCarrot), BidsItems.seedsNewCarrot);
 
         // Reverse manual seed conversion
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewBarley), new ItemStack(TFCItems.seedsBarley));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewOat), new ItemStack(TFCItems.seedsOat));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewRye), new ItemStack(TFCItems.seedsRye));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewWheat), new ItemStack(TFCItems.seedsWheat));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewOnion), new ItemStack(TFCItems.seedsOnion));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCabbage), new ItemStack(TFCItems.seedsCabbage));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewGarlic), new ItemStack(TFCItems.seedsGarlic));
-        GameRegistry.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCarrot), new ItemStack(TFCItems.seedsCarrot));
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.seedsNewBarley), TFCItems.seedsBarley);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.seedsNewOat), TFCItems.seedsOat);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.seedsNewRye), TFCItems.seedsRye);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.seedsNewWheat), TFCItems.seedsWheat);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.seedsNewOnion), TFCItems.seedsOnion);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCabbage), TFCItems.seedsCabbage);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.seedsNewGarlic), TFCItems.seedsGarlic);
+        RecipeManager.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCarrot), TFCItems.seedsCarrot);
 
-        GameRegistry.addRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2, 0), "P P", "X X", "P P",
-            'P', new ItemStack(TFCItems.fireBrick, 1, 1),
+        RecipeManager.addShapedRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2),
+            "P P", "X X", "P P", 'P', new ItemStack(TFCItems.fireBrick, 1, 1),
             'X', new ItemStack(TFCItems.mortar, 1));
-
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAdze", "itemAxe")
-                .matchCraftingItem(BidsItems.peeledLog));
-
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAdze", "itemAxe")
-                .matchCraftingItem(BidsItems.peeledLogSeasoned));
-
-        RecipeManager.addAction(new ActionExtraDrop()
-                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
-                        BidsOptions.Bark.dropPeelingChance)
-                .matchIngredient("itemAdze")
-                .matchCraftingItem(BidsItems.peeledLog));
-
-        RecipeManager.addAction(new ActionExtraDrop()
-                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
-                        BidsOptions.Bark.dropPeelingSeasonedChance)
-                .matchIngredient("itemAdze")
-                .matchCraftingItem(BidsItems.peeledLogSeasoned));
-
-        RecipeManager.addAction(new ActionExtraDrop()
-                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
-                        BidsOptions.Bark.dropSplittingChance)
-                .matchIngredient(TFCItems.logs)
-                .matchIngredient("itemAxe")
-                .matchCraftingItem(BidsItems.firewood));
-
-        RecipeManager.addAction(new ActionExtraDrop()
-                .addExtraDrop(new ItemStack(BidsItems.bark, 1, OreDictionary.WILDCARD_VALUE),
-                        BidsOptions.Bark.dropSplittingSeasonedChance)
-                .matchIngredient(BidsItems.logsSeasoned)
-                .matchIngredient("itemAxe")
-                .matchCraftingItem(BidsItems.firewoodSeasoned));
-
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAxe")
-                .matchCraftingItem(BidsItems.firewood));
-
-        RecipeManager.addAction(new ActionCopySeasoning()
-                .addHandledItem(TFCItems.logs)
-                .matchCraftingItem(BidsItems.peeledLog));
-
-        RecipeManager.addAction(new ActionCopySeasoning()
-                .addHandledItem(TFCItems.logs)
-                .addHandledItem(BidsItems.peeledLog)
-                .matchCraftingItem(BidsItems.firewood));
-
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAxe")
-                .matchCraftingItem(BidsItems.firewoodSeasoned));
-
-        for (int i = 0; i < 3; i++) {
-            Block logWall = WoodHelper.getDefaultLogWallBlock(i * 16);
-            RecipeManager.addAction(new ActionDamageTool(1)
-                    .addTools("itemAdze")
-                    .matchIngredient(BidsItems.peeledLogSeasoned)
-                    .matchIngredient(BidsItems.peeledLogSeasoned)
-                    .matchCraftingBlock(logWall));
-            RecipeManager.addAction(new ActionDamageTool(2)
-                    .addTools("itemAdze")
-                    .matchIngredient(BidsItems.logsSeasoned)
-                    .matchIngredient(BidsItems.logsSeasoned)
-                    .matchCraftingBlock(logWall));
-            RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAdze")
-                .matchIngredient(TFCItems.logs)
-                .matchIngredient(TFCItems.logs)
-                .matchCraftingBlock(logWall));
-
-            Block logWallVert = WoodHelper.getDefaultLogWallVertBlock(i * 16);
-            RecipeManager.addAction(new ActionDamageTool(1)
-                    .addTools("itemAdze")
-                    .matchIngredient(BidsItems.peeledLogSeasoned)
-                    .matchIngredient(BidsItems.peeledLogSeasoned)
-                    .matchCraftingBlock(logWallVert));
-            RecipeManager.addAction(new ActionDamageTool(2)
-                    .addTools("itemAdze")
-                    .matchIngredient(BidsItems.logsSeasoned)
-                    .matchIngredient(BidsItems.logsSeasoned)
-                    .matchCraftingBlock(logWallVert));
-            RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAdze")
-                .matchIngredient(TFCItems.logs)
-                .matchIngredient(TFCItems.logs)
-                .matchCraftingBlock(logWallVert));
-        }
-
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAxe")
-                .matchCraftingBlock(BidsBlocks.palisade));
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAxe")
-                .matchCraftingBlock(BidsBlocks.palisade2));
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAxe")
-                .matchCraftingBlock(BidsBlocks.palisade3));
-
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemKnife")
-                .matchCraftingItem(BidsItems.barkFibre));
-
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemKnife")
-                .matchCraftingItem(BidsItems.birchBarkSheet, 0));
-
-        RecipeManager.addAction(new ActionDamageTool(1)
-                .addTools("itemAdze")
-                .matchCraftingItem(BidsItems.plugAndFeather));
-
-        RecipeManager.addAction(new ActionKeepItem()
-            .addItems("itemLogExtra")
-            .matchCraftingItem(TFCItems.clayTile));
 
         RecipeHelper.handleCompositeToolRecipes();
         RecipeHelper.handleSpindleSpinningRecipes();
@@ -842,20 +691,20 @@ public class RecipeSetup {
                 .carveLayer("####", "##  ", "##  ", "##  ")
         };
 
-        CarvingRecipePattern pressingStonePattern =  new CarvingRecipePattern()
+        CarvingRecipePattern pressingStonePattern = new CarvingRecipePattern()
             .carveEntireLayer()
             .carveEntireLayer()
             .carveLayer("####", "#   ", "#   ", "#   ")
             .carveLayer("####", "#   ", "#   ", "#   ");
 
 
-        CarvingRecipePattern weightStonePattern =  new CarvingRecipePattern()
+        CarvingRecipePattern weightStonePattern = new CarvingRecipePattern()
             .carveEntireLayer()
             .carveLayer("####", "#   ", "#   ", "#   ")
             .carveLayer("####", "#   ", "#   ", "#   ")
             .carveLayer("####", "#   ", "#   ", "#   ");
 
-        CarvingRecipePattern chimneyPattern =  new CarvingRecipePattern()
+        CarvingRecipePattern chimneyPattern = new CarvingRecipePattern()
             .carveLayer("    ", " ## ", " ## ", "    ")
             .carveLayer("    ", " ## ", " ## ", "    ")
             .carveLayer("    ", " ## ", " ## ", "    ")
@@ -886,24 +735,24 @@ public class RecipeSetup {
 
     private static void registerSaddleQuernRecipes() {
         BidsRegistry.SADDLE_QUERN_RECIPES.register(new SaddleQuernRecipe(new ItemStack(BidsItems.wheatCrushed),
-                new ItemStack(TFCItems.wheatGrain)));
+            new ItemStack(TFCItems.wheatGrain)));
         BidsRegistry.SADDLE_QUERN_RECIPES.register(new SaddleQuernRecipe(new ItemStack(BidsItems.barleyCrushed),
-                new ItemStack(TFCItems.barleyGrain)));
+            new ItemStack(TFCItems.barleyGrain)));
         BidsRegistry.SADDLE_QUERN_RECIPES.register(new SaddleQuernRecipe(new ItemStack(BidsItems.oatCrushed),
-                new ItemStack(TFCItems.oatGrain)));
+            new ItemStack(TFCItems.oatGrain)));
         BidsRegistry.SADDLE_QUERN_RECIPES.register(new SaddleQuernRecipe(new ItemStack(BidsItems.riceCrushed),
-                new ItemStack(TFCItems.riceGrain)));
+            new ItemStack(TFCItems.riceGrain)));
         BidsRegistry.SADDLE_QUERN_RECIPES.register(new SaddleQuernRecipe(new ItemStack(BidsItems.ryeCrushed),
-                new ItemStack(TFCItems.ryeGrain)));
+            new ItemStack(TFCItems.ryeGrain)));
         BidsRegistry.SADDLE_QUERN_RECIPES.register(new SaddleQuernRecipe(new ItemStack(BidsItems.cornmealCrushed),
-                new ItemStack(TFCItems.maizeEar)));
+            new ItemStack(TFCItems.maizeEar)));
 
         BidsRegistry.SADDLE_QUERN_RECIPES.register(new SaddleQuernRecipe(new ItemStack(BidsItems.appleCrushed),
-                new ItemStack(TFCItems.greenApple)));
+            new ItemStack(TFCItems.greenApple)));
         BidsRegistry.SADDLE_QUERN_RECIPES.register(new SaddleQuernRecipe(new ItemStack(BidsItems.appleCrushed),
-                new ItemStack(TFCItems.redApple)));
+            new ItemStack(TFCItems.redApple)));
         BidsRegistry.SADDLE_QUERN_RECIPES.register(new SaddleQuernRecipe(new ItemStack(BidsItems.oliveCrushed),
-                new ItemStack(TFCItems.olive)));
+            new ItemStack(TFCItems.olive)));
 
         BidsRegistry.SADDLE_QUERN_RECIPES.register(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 2, 9), // Salt
             new ItemStack(TFCItems.looseRock, 1, 5)));
@@ -937,52 +786,52 @@ public class RecipeSetup {
         float outputMult = BidsOptions.StonePress.efficiency; // output multiplier (for food input)
 
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f * inputMult)));
 
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.GRAPEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.CANEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.LEMONJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.ORANGEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.orange), 0.5f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.orange), 0.5f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.PEACHJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.peach), 0.55f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.peach), 0.55f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.PLUMJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.plum), 0.65f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.plum), 0.65f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.FIGJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.fig), 0.5f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.fig), 0.5f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.CHERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.cherry), 0.7f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.cherry), 0.7f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.DATEJUICE, 6),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.date), 0.8f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.date), 0.8f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.PAPAYAJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.papaya), 0.6f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.papaya), 0.6f * inputMult)));
 
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.strawberry), 0.65f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.strawberry), 0.65f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.blackberry), 0.61f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.blackberry), 0.61f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.blueberry), 0.6f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.blueberry), 0.6f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.bunchberry), 0.68f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.bunchberry), 0.68f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.cranberry), 0.7f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.cranberry), 0.7f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.elderberry), 0.58f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.elderberry), 0.58f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.gooseberry), 0.6f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.gooseberry), 0.6f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f * inputMult)));
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f * inputMult)));
+            ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f * inputMult)));
 
         BidsRegistry.STONE_PRESS_RECIPES.register(new StonePressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputMult)),
-                new ItemStack(TFCItems.agave, 1)));
+            new ItemStack(TFCItems.agave, 1)));
 
         ItemStack steamedFish = BidsFood.setSteamed(ItemFoodTFC.createTag(new ItemStack(TFCItems.fishRaw), 0.5f * inputMult), true);
         // Require fish to be steamed to medium level
@@ -1097,10 +946,10 @@ public class RecipeSetup {
             .build());
 
         // Meat and cheese drying from TFC
-        final Item[] foodToDry = new Item[] { TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
+        final Item[] foodToDry = new Item[]{TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
             TFCItems.porkchopRaw, TFCItems.fishRaw, TFCItems.seastarRaw, TFCItems.scallopRaw,
             TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese,
-            BidsItems.goatCheese };
+            BidsItems.goatCheese};
         for (Item food : foodToDry) {
             BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
                 .smoke(12)
@@ -1308,7 +1157,7 @@ public class RecipeSetup {
             .inTime(750)
             .build());
 
-        for (Item stringItem : new Item[] { TFCItems.silkString, TFCItems.woolYarn, TFCItems.linenString, TFCItems.cottonYarn, BidsItems.juteTwine, BidsItems.sisalTwine } ) {
+        for (Item stringItem : new Item[]{TFCItems.silkString, TFCItems.woolYarn, TFCItems.linenString, TFCItems.cottonYarn, BidsItems.juteTwine, BidsItems.sisalTwine}) {
             BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
                 .consumes(new FluidStack(TFCFluids.WAX, 200), new ItemStack(stringItem))
                 .produces(new ItemStack(TFCBlocks.candleOff, 1))
@@ -1614,7 +1463,7 @@ public class RecipeSetup {
             .allow(TFCItems.potteryBowl, 2)
             .build();
 
-        Item[] breads = new Item[] { TFCItems.wheatBread, TFCItems.oatBread, TFCItems.barleyBread, TFCItems.ryeBread, TFCItems.cornBread, TFCItems.riceBread };
+        Item[] breads = new Item[]{TFCItems.wheatBread, TFCItems.oatBread, TFCItems.barleyBread, TFCItems.ryeBread, TFCItems.cornBread, TFCItems.riceBread};
         for (int i = 0; i < breads.length; i++) {
             BidsRegistry.PREP_RECIPES.register(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.sandwich, 1, i)), new PrepIngredientSpec[]{
                 PrepIngredient.from(breads[i]).toSpec(2),
@@ -1622,11 +1471,11 @@ public class RecipeSetup {
             }, 7));
         }
 
-        BidsRegistry.PREP_RECIPES.register(new PrepSaladRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.salad)), new PrepIngredientSpec[] {
+        BidsRegistry.PREP_RECIPES.register(new PrepSaladRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.salad)), new PrepIngredientSpec[]{
             vesselBowl.toSpec(), foodNoGrainExceptRice.toSpec(10), foodNoGrainExceptRice.toSpec(4), foodNoGrainExceptRice.toSpec(4), foodNoGrainExceptRice.toSpec(2)
         }, 14));
 
-        Item[] peppers = new Item[] { TFCItems.greenBellPepper, TFCItems.yellowBellPepper, TFCItems.redBellPepper };
+        Item[] peppers = new Item[]{TFCItems.greenBellPepper, TFCItems.yellowBellPepper, TFCItems.redBellPepper};
         for (int i = 0; i < peppers.length; i++) {
             BidsRegistry.PREP_RECIPES.register(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.stuffedPepper, 1, i)), new PrepIngredientSpec[]{
                 PrepIngredient.from(peppers[i]).toSpec(3),
@@ -1639,7 +1488,7 @@ public class RecipeSetup {
             foodNoGrainExceptRiceAndBread.toSpec(3), foodNoGrainExceptRiceAndBread.toSpec(2), foodNoGrainExceptRiceAndBread.toSpec(2), foodNoGrainExceptRiceAndBread.toSpec(1)
         }, 7));
 
-        Item[] flatbread = new Item[] { BidsItems.wheatFlatbread, BidsItems.oatFlatbread, BidsItems.barleyFlatbread, BidsItems.ryeFlatbread, BidsItems.cornmealFlatbread, BidsItems.riceFlatbread };
+        Item[] flatbread = new Item[]{BidsItems.wheatFlatbread, BidsItems.oatFlatbread, BidsItems.barleyFlatbread, BidsItems.ryeFlatbread, BidsItems.cornmealFlatbread, BidsItems.riceFlatbread};
         for (int i = 0; i < breads.length; i++) {
             BidsRegistry.PREP_RECIPES.register(new PrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.wrap, 1, i)), new PrepIngredientSpec[]{
                 PrepIngredient.from(flatbread[i]).toSpec(2),
@@ -1916,205 +1765,205 @@ public class RecipeSetup {
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
             CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.DRILL_HEAD),
-                    new Object[] { "     ", " ### ", "#####", " ### ", "  #  ",
-                            '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK) });
+                new Object[]{"     ", " ### ", "#####", " ### ", "  #  ",
+                    '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)});
             CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.ADZE_HEAD),
-                    new Object[] { "#####", "#  ##", "#    ", "     ", "     ",
-                            '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK) });
+                new Object[]{"#####", "#  ##", "#    ", "     ", "     ",
+                    '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)});
             CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.HAND_AXE),
-                    new Object[] { "  #  ", " ### ", " ### ", "#####", " ### ",
-                        '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK) });
+                new Object[]{"  #  ", " ### ", " ### ", "#####", " ### ",
+                    '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)});
         }
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMoldAdze, 1),
-            new Object[] { "     ", "#####", "#  ##", "#    ", "     ",
-                '#', new ItemStack(TFCItems.flatClay, 1, 1) });
+            new Object[]{"     ", "#####", "#  ##", "#    ", "     ",
+                '#', new ItemStack(TFCItems.flatClay, 1, 1)});
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMoldDrill, 1),
-            new Object[] { "  #  ", "  #  ", "  #  ", " ### ", "  #  ",
-                '#', new ItemStack(TFCItems.flatClay, 1, 1) });
+            new Object[]{"  #  ", "  #  ", "  #  ", " ### ", "  #  ",
+                '#', new ItemStack(TFCItems.flatClay, 1, 1)});
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.clayCrucible, 1, 1),
-                new Object[] { "#####", " ### ", " ### ", " ### ", "     ", '#',
-                        new ItemStack(TFCItems.flatClay, 1, 1) });
+            new Object[]{"#####", " ### ", " ### ", " ### ", "     ", '#',
+                new ItemStack(TFCItems.flatClay, 1, 1)});
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.fireClayCrucible, 1),
-                new Object[] { "#####", " ### ", " ### ", " ### ", "     ", '#',
-                        new ItemStack(TFCItems.flatClay, 1, 3) });
+            new Object[]{"#####", " ### ", " ### ", " ### ", "     ", '#',
+                new ItemStack(TFCItems.flatClay, 1, 3)});
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMug, 2),
-                new Object[] { "#####", "#####", "    #", "   # ", "    #", '#',
-                        new ItemStack(TFCItems.flatClay, 1, 1) });
+            new Object[]{"#####", "#####", "    #", "   # ", "    #", '#',
+                new ItemStack(TFCItems.flatClay, 1, 1)});
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.largeClayBowl, 1),
-            new Object[] { "#####", " ### ", " ### ", "#   #", "#####", '#',
-                new ItemStack(TFCItems.flatClay, 1, 1) });
+            new Object[]{"#####", " ### ", " ### ", "#   #", "#####", '#',
+                new ItemStack(TFCItems.flatClay, 1, 1)});
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.cookingPot, 1, 0),
-            new Object[] { " ### ", " ### ", " ### ", " ### ", "#   #", '#',
-                new ItemStack(TFCItems.flatClay, 1, 1) });
+            new Object[]{" ### ", " ### ", " ### ", " ### ", "#   #", '#',
+                new ItemStack(TFCItems.flatClay, 1, 1)});
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.cookingPotLid, 1, 0),
-            new Object[] { "## ##", "     ", "#####", "#####", "#####", '#',
-                new ItemStack(TFCItems.flatClay, 1, 1) });
+            new Object[]{"## ##", "     ", "#####", "#####", "#####", '#',
+                new ItemStack(TFCItems.flatClay, 1, 1)});
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(TFCItems.glassBottle, 1),
-                new Object[] { " # # ", " # # ", "#   #", "#   #", " ### ", '#',
-                        new ItemStack(BidsItems.flatGlass, 1) });
+            new Object[]{" # # ", " # # ", "#   #", "#   #", " ### ", '#',
+                new ItemStack(BidsItems.flatGlass, 1)});
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.drinkingGlass, 2),
-                new Object[] { "     ", "     ", "#   #", "#   #", "#####", '#',
-                        new ItemStack(BidsItems.flatGlass, 1) });
+            new Object[]{"     ", "     ", "#   #", "#   #", "#####", '#',
+                new ItemStack(BidsItems.flatGlass, 1)});
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.shotGlass, 4),
-                new Object[] { "     ", "     ", " # # ", " # # ", " ### ", '#',
-                        new ItemStack(BidsItems.flatGlass, 1) });
+            new Object[]{"     ", "     ", " # # ", " # # ", " ### ", '#',
+                new ItemStack(BidsItems.flatGlass, 1)});
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.glassJug, 1),
-                new Object[] { " #   ", "# ## ", "# # #", "# ## ", "###  ", '#',
-                        new ItemStack(BidsItems.flatGlass, 1) });
+            new Object[]{" #   ", "# ## ", "# # #", "# ## ", "###  ", '#',
+                new ItemStack(BidsItems.flatGlass, 1)});
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkStrap, 3),
-                new Object[] { "# # #", "# # #", "# # #", "# # #", "# # #", '#', BidsItems.flatBirchBark });
+            new Object[]{"# # #", "# # #", "# # #", "# # #", "# # #", '#', BidsItems.flatBirchBark});
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkBagPiece, 2, 0),
-                new Object[] { " ### ", " ### ", "     ", " ### ", " ### ", '#', BidsItems.flatBirchBark });
+            new Object[]{" ### ", " ### ", "     ", " ### ", " ### ", '#', BidsItems.flatBirchBark});
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkBagPiece, 2, 0),
-                new Object[] { "     ", "## ##", "## ##", "## ##", "     ", '#', BidsItems.flatBirchBark });
+            new Object[]{"     ", "## ##", "## ##", "## ##", "     ", '#', BidsItems.flatBirchBark});
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkRepairPatch, 4, 0),
-                new Object[] { "## ##", "## ##", "     ", "## ##", "## ##", '#', BidsItems.flatBirchBark });
+            new Object[]{"## ##", "## ##", "     ", "## ##", "## ##", '#', BidsItems.flatBirchBark});
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkCupPiece, 1),
-                new Object[] { "     ", "     ", "#### ", "### #", "#### ", '#',
-                        new ItemStack(BidsItems.flatBirchBark, 1) });
+            new Object[]{"     ", "     ", "#### ", "### #", "#### ", '#',
+                new ItemStack(BidsItems.flatBirchBark, 1)});
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkShoes, 1),
-                new Object[] { "  ###", "   ##", "     ", "##   ", "###  ", '#',
-                        new ItemStack(BidsItems.flatBirchBark, 1) });
+            new Object[]{"  ###", "   ##", "     ", "##   ", "###  ", '#',
+                new ItemStack(BidsItems.flatBirchBark, 1)});
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.coatBodyFrontLeather, 1, 0),
-            new Object[] { "#   #", "## ##", "## ##", "## ##", "## ##", '#', TFCItems.flatLeather });
+            new Object[]{"#   #", "## ##", "## ##", "## ##", "## ##", '#', TFCItems.flatLeather});
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.coatBodyBackLeather, 1, 0),
-            new Object[] { "## ##", "#####", "#####", "#####", "#####", '#', TFCItems.flatLeather });
+            new Object[]{"## ##", "#####", "#####", "#####", "#####", '#', TFCItems.flatLeather});
 
-        for (Item flatItem : new Item[] { TFCItems.flatLinen, TFCItems.flatWool, TFCItems.flatSilk, TFCItems.flatCotton, TFCItems.flatBurlap }) {
+        for (Item flatItem : new Item[]{TFCItems.flatLinen, TFCItems.flatWool, TFCItems.flatSilk, TFCItems.flatCotton, TFCItems.flatBurlap}) {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.steamingMeshCloth, 1),
-                new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#', flatItem });
+                new Object[]{"#####", "# # #", "#####", "# # #", "#####", '#', flatItem});
         }
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.strawNest, 1),
-            new Object[] { "     ", "#   #", "#   #", " ### ", "     ", '#',
-                new ItemStack(TFCItems.flatStraw, 1) });
+            new Object[]{"     ", "#   #", "#   #", " ### ", "     ", '#',
+                new ItemStack(TFCItems.flatStraw, 1)});
 
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatDoughHardtack, 1), 160),
-            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 0) });
+            new Object[]{"#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 0)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyDoughHardtack, 1), 160),
-            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 1) });
+            new Object[]{"#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 1)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.oatDoughHardtack, 1), 160),
-            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 2) });
+            new Object[]{"#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 2)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.riceDoughHardtack, 1), 160),
-            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 3) });
+            new Object[]{"#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 3)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeDoughHardtack, 1), 160),
-            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 4) });
+            new Object[]{"#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 4)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealDoughHardtack, 1), 160),
-            new Object[] { "#####", "# # #", "#####", "# # #", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 5) });
+            new Object[]{"#####", "# # #", "#####", "# # #", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 5)});
 
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.wheatDough, 1), 160),
-            new Object[] { "     ", " ### ", "#####", "#####", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 0) });
+            new Object[]{"     ", " ### ", "#####", "#####", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 0)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.barleyDough, 1), 160),
-            new Object[] { "     ", " ### ", "#####", "#####", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 1) });
+            new Object[]{"     ", " ### ", "#####", "#####", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 1)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.oatDough, 1), 160),
-            new Object[] { "     ", " ### ", "#####", "#####", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 2) });
+            new Object[]{"     ", " ### ", "#####", "#####", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 2)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.riceDough, 1), 160),
-            new Object[] { "     ", " ### ", "#####", "#####", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 3) });
+            new Object[]{"     ", " ### ", "#####", "#####", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 3)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.ryeDough, 1), 160),
-            new Object[] { "     ", " ### ", "#####", "#####", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 4) });
+            new Object[]{"     ", " ### ", "#####", "#####", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 4)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.cornmealDough, 1), 160),
-            new Object[] { "     ", " ### ", "#####", "#####", "#####", '#',
-                new ItemStack(BidsItems.flatDough, 1, 5) });
+            new Object[]{"     ", " ### ", "#####", "#####", "#####", '#',
+                new ItemStack(BidsItems.flatDough, 1, 5)});
 
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatDoughFlatbread, 1), 160),
-            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
-                new ItemStack(BidsItems.flatDough, 1, 0) });
+            new Object[]{" ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 0)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyDoughFlatbread, 1), 160),
-            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
-                new ItemStack(BidsItems.flatDough, 1, 1) });
+            new Object[]{" ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 1)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.oatDoughFlatbread, 1), 160),
-            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
-                new ItemStack(BidsItems.flatDough, 1, 2) });
+            new Object[]{" ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 2)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.riceDoughFlatbread, 1), 160),
-            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
-                new ItemStack(BidsItems.flatDough, 1, 3) });
+            new Object[]{" ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 3)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeDoughFlatbread, 1), 160),
-            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
-                new ItemStack(BidsItems.flatDough, 1, 4) });
+            new Object[]{" ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 4)});
         CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealDoughFlatbread, 1), 160),
-            new Object[] { " ### ", "#####", "#####", "#####", " ### ", '#',
-                new ItemStack(BidsItems.flatDough, 1, 5) });
+            new Object[]{" ### ", "#####", "#####", "#####", " ### ", '#',
+                new ItemStack(BidsItems.flatDough, 1, 5)});
 
     }
 
     private static void registerSewingRecipes() {
         Bids.LOG.info("Register TFC sewing recipes");
 
-        int[][][] bagSewing = new int[][][] { {
-                { 25, 21 },
-                { 11, 74 },
-                { 19, 87 },
-                { 79, 87 },
-                { 87, 74 },
-                { 73, 21 }
-        } };
+        int[][][] bagSewing = new int[][][]{{
+            {25, 21},
+            {11, 74},
+            {19, 87},
+            {79, 87},
+            {87, 74},
+            {73, 21}
+        }};
 
         ClothingManager.getInstance().addRecipe(new SewingRecipe(
-                new SewingPattern(new ItemStack(BidsItems.birchBarkBag, 1), bagSewing, true),
-                new ItemStack[] {
-                        new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
-                        new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
-                        new ItemStack(BidsItems.birchBarkStrap, 1, 0)
-                }));
+            new SewingPattern(new ItemStack(BidsItems.birchBarkBag, 1), bagSewing, true),
+            new ItemStack[]{
+                new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
+                new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
+                new ItemStack(BidsItems.birchBarkStrap, 1, 0)
+            }));
 
-        int[][][] cupSewing = new int[][][] { {
-                { 11, 74 },
-                { 19, 87 },
-                { 64, 87 },
-                { 72, 74 },
-                { 72, 37 },
-                { 60, 40 },
-                { 21, 40 },
-                { 11, 37 }
-        } };
+        int[][][] cupSewing = new int[][][]{{
+            {11, 74},
+            {19, 87},
+            {64, 87},
+            {72, 74},
+            {72, 37},
+            {60, 40},
+            {21, 40},
+            {11, 37}
+        }};
 
         ClothingManager.getInstance().addRecipe(new SewingRecipe(
-                new SewingPattern(new ItemStack(BidsItems.birchBarkCupUnfinished, 1), cupSewing, true),
-                new ItemStack[] {
-                        new ItemStack(BidsItems.birchBarkCupPiece, 1, 0),
-                        new ItemStack(BidsItems.birchBarkStrap, 1, 0)
-                }));
+            new SewingPattern(new ItemStack(BidsItems.birchBarkCupUnfinished, 1), cupSewing, true),
+            new ItemStack[]{
+                new ItemStack(BidsItems.birchBarkCupPiece, 1, 0),
+                new ItemStack(BidsItems.birchBarkStrap, 1, 0)
+            }));
 
-        int[][][] coatSewing = new int[][][] {
+        int[][][] coatSewing = new int[][][]{
             // the left side of the coat and underarm
-            { { 24, 86 }, { 27, 33 }, { 24, 33 }, { 18, 71 } },
+            {{24, 86}, {27, 33}, {24, 33}, {18, 71}},
             // the outer left arm and shoulder
-            { { 8, 71 }, { 11, 33 }, { 16, 19 }, { 22, 13 },  { 37, 12 } },
+            {{8, 71}, {11, 33}, {16, 19}, {22, 13}, {37, 12}},
             // the arm attached to the sleeve
-            {  { 25, 33 }, { 21, 15 } },
+            {{25, 33}, {21, 15}},
             // the right side of the coat and underarm
-             { { 97 - 24, 86 }, { 97 - 27, 33 }, { 97 - 24, 33 },  { 97 - 18, 71 } },
+            {{97 - 24, 86}, {97 - 27, 33}, {97 - 24, 33}, {97 - 18, 71}},
             // the outer right arm and shoulder
-            { { 97 - 8, 71 }, { 97 - 11, 33 },{ 97 - 16, 19 }, { 97 - 22, 13 },  { 97 - 37, 12 } },
+            {{97 - 8, 71}, {97 - 11, 33}, {97 - 16, 19}, {97 - 22, 13}, {97 - 37, 12}},
             // the right arm attached to the sleeve
-            { { 97 - 25, 33 }, { 97 - 21, 15 } }
+            {{97 - 25, 33}, {97 - 21, 15}}
         };
 
         ClothingManager.getInstance().addRecipe(new SewingRecipe(
             new SewingPattern(new ItemStack(BidsItems.leatherCoat, 1), coatSewing, true),
-            new ItemStack[] {
+            new ItemStack[]{
                 new ItemStack(BidsItems.coatBodyFrontLeather, 1, 0),
                 new ItemStack(BidsItems.coatBodyBackLeather, 1, 0),
                 new ItemStack(TFCItems.shirtSleeves, 1, 2),
@@ -2126,22 +1975,22 @@ public class RecipeSetup {
         Bids.LOG.info("Register TFC sewing repair recipes");
 
         ClothingManager.getInstance().addRecipe(new SewingRecipe(
-                new SewingPattern(new ItemStack(BidsItems.birchBarkBag, 1), true),
-                new ItemStack[] {
-                        new ItemStack(BidsItems.birchBarkBag, 1, OreDictionary.WILDCARD_VALUE),
-                        new ItemStack(BidsItems.birchBarkRepairPatch, 1, 0)
-                }).setRepairRecipe());
+            new SewingPattern(new ItemStack(BidsItems.birchBarkBag, 1), true),
+            new ItemStack[]{
+                new ItemStack(BidsItems.birchBarkBag, 1, OreDictionary.WILDCARD_VALUE),
+                new ItemStack(BidsItems.birchBarkRepairPatch, 1, 0)
+            }).setRepairRecipe());
 
         ClothingManager.getInstance().addRecipe(new SewingRecipe(
-                new SewingPattern(new ItemStack(BidsItems.birchBarkShoes, 1), true),
-                new ItemStack[] {
-                        new ItemStack(BidsItems.birchBarkShoes, 1, OreDictionary.WILDCARD_VALUE),
-                        new ItemStack(BidsItems.birchBarkStrap, 1, 0)
-                }).setRepairRecipe());
+            new SewingPattern(new ItemStack(BidsItems.birchBarkShoes, 1), true),
+            new ItemStack[]{
+                new ItemStack(BidsItems.birchBarkShoes, 1, OreDictionary.WILDCARD_VALUE),
+                new ItemStack(BidsItems.birchBarkStrap, 1, 0)
+            }).setRepairRecipe());
 
         ClothingManager.getInstance().addRecipe(new SewingRecipe(
             new SewingPattern(new ItemStack(BidsItems.leatherCoat, 1), true),
-            new ItemStack[] {
+            new ItemStack[]{
                 new ItemStack(BidsItems.leatherCoat, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(TFCItems.repairPatch, 1, 2)
             }).setRepairRecipe());
@@ -2150,7 +1999,7 @@ public class RecipeSetup {
             // Adding missing TFC+ recipe for repairing leather boots
             ClothingManager.getInstance().addRecipe(new SewingRecipe(
                 new SewingPattern(new ItemStack(TFCItems.leatherBoots, 1), true),
-                new ItemStack[] {
+                new ItemStack[]{
                     new ItemStack(TFCItems.leatherBoots, 1, OreDictionary.WILDCARD_VALUE),
                     new ItemStack(TFCItems.repairPatch, 1, 2)
                 }).setRepairRecipe());
@@ -2158,7 +2007,7 @@ public class RecipeSetup {
             // Adding missing TFC+ recipe for repairing leather cap
             ClothingManager.getInstance().addRecipe(new SewingRecipe(
                 new SewingPattern(new ItemStack(TFCItems.leatherCoif, 1), true),
-                new ItemStack[] {
+                new ItemStack[]{
                     new ItemStack(TFCItems.leatherCoif, 1, OreDictionary.WILDCARD_VALUE),
                     new ItemStack(TFCItems.repairPatch, 1, 2)
                 }).setRepairRecipe());
@@ -2166,7 +2015,7 @@ public class RecipeSetup {
             // Adding missing TFC+ recipe for repairing leather shorts
             ClothingManager.getInstance().addRecipe(new SewingRecipe(
                 new SewingPattern(new ItemStack(TFCItems.leatherShorts, 1), true),
-                new ItemStack[] {
+                new ItemStack[]{
                     new ItemStack(TFCItems.leatherShorts, 1, OreDictionary.WILDCARD_VALUE),
                     new ItemStack(TFCItems.repairPatch, 1, 2)
                 }).setRepairRecipe());
@@ -2177,16 +2026,16 @@ public class RecipeSetup {
         Bids.LOG.info("Register TFC kiln recipes");
 
         KilnCraftingManager.getInstance().addRecipe(
-                new KilnRecipe(new ItemStack(BidsItems.clayPipe, 1, 0), 0,
-                        new ItemStack(BidsItems.clayPipe, 1, 1)));
+            new KilnRecipe(new ItemStack(BidsItems.clayPipe, 1, 0), 0,
+                new ItemStack(BidsItems.clayPipe, 1, 1)));
 
         KilnCraftingManager.getInstance().addRecipe(
-                new KilnRecipe(new ItemStack(BidsItems.clayMug, 1, 0), 0,
-                        new ItemStack(BidsItems.clayMug, 1, 1)));
+            new KilnRecipe(new ItemStack(BidsItems.clayMug, 1, 0), 0,
+                new ItemStack(BidsItems.clayMug, 1, 1)));
 
         KilnCraftingManager.getInstance().addRecipe(
-                new KilnRecipe(new ItemStack(BidsBlocks.clayCrucible, 1, 1), 0,
-                        new ItemStack(BidsBlocks.clayCrucible, 1, 0)));
+            new KilnRecipe(new ItemStack(BidsBlocks.clayCrucible, 1, 1), 0,
+                new ItemStack(BidsBlocks.clayCrucible, 1, 0)));
 
         KilnCraftingManager.getInstance().addRecipe(
             new KilnRecipe(new ItemStack(BidsItems.largeClayBowl, 1, 0), 0,
@@ -2337,7 +2186,7 @@ public class RecipeSetup {
                 "adze", AnvilReq.WROUGHTIRON, new ItemStack(BidsItems.wroughtIronAdzeHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
 
             Bids.LOG.info("Registering drill anvil plan and recipes");
-            AnvilManager.getInstance().addPlan("drill", new PlanRecipe(new RuleEnum[]{RuleEnum.HITLAST, RuleEnum.PUNCHNOTLAST, RuleEnum.DRAWNOTLAST }));
+            AnvilManager.getInstance().addPlan("drill", new PlanRecipe(new RuleEnum[]{RuleEnum.HITLAST, RuleEnum.PUNCHNOTLAST, RuleEnum.DRAWNOTLAST}));
             AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.copperIngot), null,
                 "drill", AnvilReq.COPPER, new ItemStack(BidsItems.copperDrillHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
             AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.bronzeIngot), null,
@@ -2350,7 +2199,7 @@ public class RecipeSetup {
                 "drill", AnvilReq.WROUGHTIRON, new ItemStack(BidsItems.wroughtIronDrillHead, 1)).addRecipeSkill(Global.SKILL_TOOLSMITH));
 
             Bids.LOG.info("Registering plug and feather anvil plan and recipes");
-            AnvilManager.getInstance().addPlan("plugandfeather", new PlanRecipe(new RuleEnum[]{RuleEnum.HITLAST, RuleEnum.BENDSECONDFROMLAST, RuleEnum.SHRINKTHIRDFROMLAST }));
+            AnvilManager.getInstance().addPlan("plugandfeather", new PlanRecipe(new RuleEnum[]{RuleEnum.HITLAST, RuleEnum.BENDSECONDFROMLAST, RuleEnum.SHRINKTHIRDFROMLAST}));
             AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.copperIngot), null,
                 "plugandfeather", AnvilReq.COPPER, new ItemStack(BidsItems.plugAndFeather, 8, 1)).addRecipeSkill(Global.SKILL_GENERAL_SMITHING));
             AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.bronzeIngot), null,

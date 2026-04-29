@@ -1,21 +1,24 @@
-package com.unforbidable.tfc.bids.Core.Recipes.Actions;
+package com.unforbidable.tfc.bids.Core.Crafting.Actions;
 
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Recipes.RecipeAction;
+import com.unforbidable.tfc.bids.Core.Crafting.CraftingContext;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeHelper;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ActionToolBinding extends RecipeAction {
+import java.util.function.Consumer;
 
-    public ActionToolBinding() {
+public class ToolBinding {
+
+    public static Consumer<CraftingContext> toolBinding() {
+        return context -> new ToolBinding()
+            .onItemCrafted(context);
     }
 
-    @Override
-    public void onItemCrafted(ItemCraftedEvent event) {
-        super.onItemCrafted(event);
+    public void onItemCrafted(CraftingContext context) {
+        ItemCraftedEvent event = context.event;
 
         int bindingOreId = OreDictionary.getOreID("materialBinding");
 

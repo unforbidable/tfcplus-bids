@@ -2,10 +2,11 @@ package com.unforbidable.tfc.bids.Handlers;
 
 import com.dunk.tfc.Core.TFC_Achievements;
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Crafting.RecipeManager;
 import com.unforbidable.tfc.bids.Core.Crucible.CrucibleHelper;
 import com.unforbidable.tfc.bids.Core.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.Core.Recipes.RecipeHelper;
-import com.unforbidable.tfc.bids.Core.Recipes.RecipeManager;
 import com.unforbidable.tfc.bids.api.BidsAchievements;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

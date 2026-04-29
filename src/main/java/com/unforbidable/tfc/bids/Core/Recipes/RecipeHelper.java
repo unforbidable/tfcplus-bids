@@ -5,10 +5,9 @@ import com.dunk.tfc.api.Crafting.LoomManager;
 import com.dunk.tfc.api.Crafting.LoomRecipe;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Crafting.RecipeManager;
 import com.unforbidable.tfc.bids.Core.OreDictionaryHelper;
-import com.unforbidable.tfc.bids.Core.Recipes.Actions.ActionToolBinding;
 import com.unforbidable.tfc.bids.api.BidsOptions;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -19,6 +18,8 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.*;
+
+import static com.unforbidable.tfc.bids.Core.Crafting.Actions.ToolBinding.toolBinding;
 
 public class RecipeHelper {
 
@@ -45,11 +46,9 @@ public class RecipeHelper {
         }
 
         for (IRecipe recipe : compositeRecipes) {
-            GameRegistry.addRecipe(recipe);
+            RecipeManager.addRecipe(recipe)
+                .action(toolBinding());
             Bids.LOG.info("Composite stone tool recipe added: " + recipe.getRecipeOutput());
-
-            RecipeManager.addAction(new ActionToolBinding()
-                .matchCraftingItem(recipe.getRecipeOutput().getItem()));
         }
     }
 

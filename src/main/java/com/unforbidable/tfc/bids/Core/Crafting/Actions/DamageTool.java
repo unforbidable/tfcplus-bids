@@ -1,38 +1,35 @@
-package com.unforbidable.tfc.bids.Core.Recipes.Actions;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.unforbidable.tfc.bids.Core.Crafting.Actions;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.Core.Recipes.RecipeAction;
-
+import com.unforbidable.tfc.bids.Core.Crafting.CraftingContext;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ActionDamageTool extends RecipeAction {
+import java.util.List;
+import java.util.function.Consumer;
 
-    protected final List<ItemStack> tools = new ArrayList<ItemStack>();
+public class DamageTool {
+
+    protected final List<ItemStack> tools;
     protected final int damage;
 
-    public ActionDamageTool(int damage) {
+    protected DamageTool(String oreName, int damage) {
+        this.tools = OreDictionary.getOres(oreName, false);
         this.damage = damage;
     }
 
-    public ActionDamageTool addTools(String... toolOreNames) {
-        for (String toolOreName : toolOreNames) {
-            List<ItemStack> list = OreDictionary.getOres(toolOreName, false);
-            if (list != null)
-                tools.addAll(list);
-        }
-        return this;
+    public static Consumer<CraftingContext> damageTool(String oreName) {
+        return damageTool(oreName, 1);
     }
 
-    @Override
-    public void onItemCrafted(ItemCraftedEvent event) {
-        super.onItemCrafted(event);
+    public static Consumer<CraftingContext> damageTool(String oreName, int damage) {
+        return context -> new DamageTool(oreName, damage)
+            .onItemCrafted(context);
+    }
 
-        findAndDamageTools(event);
+    protected void onItemCrafted(CraftingContext context) {
+        findAndDamageTools(context.event);
     }
 
     private void findAndDamageTools(ItemCraftedEvent event) {
@@ -49,10 +46,8 @@ public class ActionDamageTool extends RecipeAction {
     }
 
     private void damageToolInSlot(ItemCraftedEvent event, int i) {
-        ItemStack isUsedTool = event.craftMatrix.getStackInSlot(i);
-        if (isUsedTool != null
-                && damageTool(event, isUsedTool)
-                && (isUsedTool.getItemDamage() != 0 || event.player.capabilities.isCreativeMode)) {
+        ItemStack tool = event.craftMatrix.getStackInSlot(i);
+        if (damageToolItem(event, tool) && (tool.getItemDamage() != 0 || event.player.capabilities.isCreativeMode)) {
             int stackSize = event.craftMatrix.getStackInSlot(i).stackSize;
             stackSize = Math.min(stackSize + 1, 2);
             event.craftMatrix.getStackInSlot(i).stackSize = stackSize;
@@ -61,8 +56,8 @@ public class ActionDamageTool extends RecipeAction {
         }
     }
 
-    protected boolean damageTool(ItemCraftedEvent event, ItemStack isUsedTool) {
-        isUsedTool.damageItem(damage, event.player);
+    protected boolean damageToolItem(ItemCraftedEvent event, ItemStack tool) {
+        tool.damageItem(damage, event.player);
 
         return true;
     }
