@@ -4,12 +4,12 @@ import net.minecraft.item.crafting.IRecipe;
 
 import java.util.function.Consumer;
 
-public class CraftingRecipe {
+public class ActionableRecipe {
 
     public final IRecipe recipe;
     public final Consumer<CraftingContext> action;
 
-    public CraftingRecipe(IRecipe recipe, Consumer<CraftingContext> action) {
+    public ActionableRecipe(IRecipe recipe, Consumer<CraftingContext> action) {
         this.recipe = recipe;
         this.action = action;
     }

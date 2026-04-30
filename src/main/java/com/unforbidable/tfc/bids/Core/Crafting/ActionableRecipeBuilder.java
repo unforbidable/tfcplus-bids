@@ -4,17 +4,17 @@ import net.minecraft.item.crafting.IRecipe;
 
 import java.util.function.Consumer;
 
-public class CraftingRecipeBuilder {
+public class ActionableRecipeBuilder {
 
     private final IRecipe recipe;
 
     private Consumer<CraftingContext> action;
 
-    public CraftingRecipeBuilder(IRecipe recipe) {
+    public ActionableRecipeBuilder(IRecipe recipe) {
         this.recipe = recipe;
     }
 
-    public CraftingRecipeBuilder action(Consumer<CraftingContext> action) {
+    public ActionableRecipeBuilder action(Consumer<CraftingContext> action) {
         if (this.action == null) {
             this.action = action;
         } else {
@@ -24,8 +24,8 @@ public class CraftingRecipeBuilder {
         return this;
     }
 
-    public CraftingRecipe build() {
-        return new CraftingRecipe(recipe, action);
+    public ActionableRecipe build() {
+        return new ActionableRecipe(recipe, action);
     }
 
 }

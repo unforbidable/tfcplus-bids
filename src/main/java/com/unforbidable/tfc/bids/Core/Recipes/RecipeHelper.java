@@ -5,128 +5,27 @@ import com.dunk.tfc.api.Crafting.LoomManager;
 import com.dunk.tfc.api.Crafting.LoomRecipe;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Core.Crafting.MatchingRecipe;
 import com.unforbidable.tfc.bids.Core.Crafting.RecipeManager;
-import com.unforbidable.tfc.bids.Core.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.unforbidable.tfc.bids.Core.Crafting.Actions.ToolBinding.toolBinding;
 
 public class RecipeHelper {
 
-    @SuppressWarnings({"unchecked" })
     public static void handleCompositeToolRecipes() {
-        List<IRecipe> compositeRecipes = new ArrayList<IRecipe>();
-
-        List<Integer> stoneToolOreIds = getStoneToolOreIds();
-        List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
-        for (int i = 0; i < recipes.size(); i++) {
-            IRecipe recipe = recipes.get(i);
-            ItemStack output = recipe.getRecipeOutput();
-            if (OreDictionaryHelper.itemHasAnyOreId(output, stoneToolOreIds)) {
-                IRecipe compositeRecipe = createCompositeToolRecipe(recipe);
-                if (compositeRecipe != null) {
-                    compositeRecipes.add(compositeRecipe);
-
-                    if (BidsOptions.Crafting.removeOriginalStoneToolRecipes) {
-                        recipes.remove(i--);
-                        Bids.LOG.info("Original stone tool recipe removed: " + recipe.getRecipeOutput());
-                    }
-                }
-            }
-        }
-
-        for (IRecipe recipe : compositeRecipes) {
-            RecipeManager.addRecipe(recipe)
-                .action(toolBinding());
-            Bids.LOG.info("Composite stone tool recipe added: " + recipe.getRecipeOutput());
-        }
+        RecipeManager.getCurrentRecipes().stream()
+            .filter(r -> r.output.isAny(getStoneToolOreNames()))
+            .forEach(r -> r.clone(BidsOptions.Crafting.removeOriginalStoneToolRecipes)
+                .addInput("materialBinding")
+                .action(toolBinding()));
+        RecipeManager.flush();
     }
-
-    private static IRecipe createCompositeToolRecipe(IRecipe recipe) {
-        List<Object> input = getRecipeInput(recipe);
-        if (input != null) {
-            // Copy ingredients from the original recipe
-            List<Object> ingredients = new ArrayList<Object>();
-            for (Object obj : input) {
-                if (obj != null) {
-                    Object ingredient = getOriginalRecipeIngredient(obj);
-                    if (ingredient != null) {
-                        ingredients.add(ingredient);
-                    }
-                }
-            }
-
-            if (ingredients.size() == input.size()) {
-                // and add binding
-                ingredients.add("materialBinding");
-                return new ShapelessOreRecipe(recipe.getRecipeOutput(), ingredients.toArray());
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
-    @SuppressWarnings({"unchecked" })
-    private static Object getOriginalRecipeIngredient(Object obj) {
-        if (obj instanceof ArrayList<?>) {
-            // When ORE name is used in a recipe
-            // the corresponding list of ingredients is stored,
-            // but we need ore name for the new recipe,
-            // so we need to find which ORE all these items belong too
-            Map<Integer, Integer> oreIdMap = new HashMap<Integer, Integer>();
-            for (ItemStack is : (ArrayList<ItemStack>)obj) {
-                for (int oreId : OreDictionary.getOreIDs(is)) {
-                    if (oreIdMap.get(oreId) != null) {
-                        oreIdMap.put(oreId, oreIdMap.get(oreId) + 1);
-                    } else {
-                        oreIdMap.put(oreId, 1);
-                    }
-                }
-            }
-
-            int size = ((ArrayList<?>) obj).size();
-            for (Map.Entry<Integer, Integer> val : oreIdMap.entrySet()) {
-                if (size == val.getValue()) {
-                    // Return the first ORE
-                    // that contains all the items on the ingredient list
-                    return OreDictionary.getOreName(val.getKey());
-                }
-            }
-
-            return null;
-        } else {
-            return obj;
-        }
-    }
-
-    private static List<Object> getRecipeInput(IRecipe recipe) {
-        if (recipe instanceof ShapelessOreRecipe) {
-            return ((ShapelessOreRecipe) recipe).getInput();
-        } if (recipe instanceof ShapelessRecipes) {
-            return Arrays.asList(((ShapelessRecipes) recipe).recipeItems.toArray());
-        } else if (recipe instanceof ShapedOreRecipe) {
-            return Arrays.asList(((ShapedOreRecipe) recipe).getInput());
-        } else if (recipe instanceof ShapedRecipes) {
-            return Arrays.asList((Object[])((ShapedRecipes) recipe).recipeItems);
-        } else {
-            Bids.LOG.warn("Composite tool recipe ignored for {} (instanceof {})", recipe.getRecipeOutput(), recipe.getClass());
-
-            return null;
-        }
-    }
-
 
     public static List<Integer> getStoneToolOreIds() {
         List<Integer> oreIds = new ArrayList<Integer>();
@@ -174,37 +73,23 @@ public class RecipeHelper {
         return 0;
     }
 
-    @SuppressWarnings({"unchecked" })
     public static void handleSpindleSpinningRecipes() {
         if (BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes) {
-            List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
-            for (int i = 0; i < recipes.size(); i++) {
-                IRecipe recipe = recipes.get(i);
-                List<Object> input = getRecipeInput(recipe);
-                if (input != null) {
-                    for (Object o : input) {
-                        if (o instanceof ItemStack && ((ItemStack) o).getItem() == TFCItems.spindle) {
-                            recipes.remove(i--);
-                            Bids.LOG.info("Original spindle spinning recipe removed: " + recipe.getRecipeOutput());
-                        }
-                    }
-                }
-            }
+            RecipeManager.getCurrentRecipes().stream()
+                .filter(r -> r.input.contains(TFCItems.spindle))
+                .forEach(MatchingRecipe::remove);
+
+            RecipeManager.flush();
         }
     }
 
-    @SuppressWarnings({"unchecked" })
     public static void handleRopeMakingRecipes() {
         if (BidsOptions.Crafting.removeOriginalRopeMakingRecipes) {
-            List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
-            for (int i = 0; i < recipes.size(); i++) {
-                IRecipe recipe = recipes.get(i);
-                ItemStack o = recipe.getRecipeOutput();
-                if (o != null && o.getItem() == TFCItems.rope) {
-                    recipes.remove(i--);
-                    Bids.LOG.info("Original rope making recipe removed: " + recipe.getRecipeOutput());
-                }
-            }
+            RecipeManager.getCurrentRecipes().stream()
+                .filter(r -> r.output.is(TFCItems.rope))
+                .forEach(MatchingRecipe::remove);
+
+            RecipeManager.flush();
         }
     }
 

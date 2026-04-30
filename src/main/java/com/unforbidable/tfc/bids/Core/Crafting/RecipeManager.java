@@ -1,195 +1,130 @@
 package com.unforbidable.tfc.bids.Core.Crafting;
 
+import com.unforbidable.tfc.bids.Bids;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RecipeManager {
 
-    private static final List<CraftingRecipeBuilder> RECIPE_BUILDERS = new ArrayList<>();
-    private static List<CraftingRecipe> RECIPES;
+    private static final List<ActionableRecipeBuilder> builders = new ArrayList<>();
+    private static final List<ActionableRecipe> actionableRecipes = new ArrayList<>();
+    private static final List<MatchingRecipe> removingRecipes = new ArrayList<>();
+    private static final List<CloningRecipe> cloningRecipes = new ArrayList<>();
 
     public static void handleItemCraftedEvent(PlayerEvent.ItemCraftedEvent event) {
         CraftingContext context = new CraftingContext(event);
 
-        for (CraftingRecipe recipe : getRecipes()) {
-            if (recipe.action != null && recipeMatchesEvent(recipe, event)) {
-                recipe.action.accept(context);
+        for (ActionableRecipe actionableRecipe : getActionableRecipes()) {
+            if (recipeMatchesEvent(actionableRecipe, event)) {
+                actionableRecipe.action.accept(context);
 
                 break;
             }
         }
     }
 
-    public static List<CraftingRecipe> getRecipes() {
-        if (RECIPES == null) {
-            RECIPES = RECIPE_BUILDERS.stream().map(CraftingRecipeBuilder::build).collect(Collectors.toList());
+    private static boolean recipeMatchesEvent(ActionableRecipe actionableRecipe, PlayerEvent.ItemCraftedEvent event) {
+        return actionableRecipe.recipe.matches((InventoryCrafting) event.craftMatrix, event.player.worldObj);
+    }
+
+    private static List<ActionableRecipe> getActionableRecipes() {
+        if (!builders.isEmpty()) {
+            // Collect any pending crafting recipe action builders
+            actionableRecipes.addAll(builders.stream()
+                .map(ActionableRecipeBuilder::build)
+                .filter(r -> r.action != null)
+                .collect(Collectors.toList()));
+
+            builders.clear();
         }
 
-        return RECIPES;
+        return actionableRecipes;
     }
 
-    private static boolean recipeMatchesEvent(CraftingRecipe recipe, PlayerEvent.ItemCraftedEvent event) {
-        return recipe.recipe.matches((InventoryCrafting) event.craftMatrix, event.player.worldObj);
+    public static List<MatchingRecipe> getCurrentRecipes() {
+        return getRegisteredRecipesUnchecked().stream()
+            .filter(r -> removingRecipes.stream().noneMatch(r2 -> r2.recipe.instance == r))
+            .filter(RecipeAccessor::isSupportedRecipe)
+            .map(RecipeAccessor::of)
+            .map(MatchingRecipe::of)
+            .collect(Collectors.toList());
     }
 
-    public static CraftingRecipeBuilder addRecipe(IRecipe recipe) {
+    @SuppressWarnings({"unchecked" })
+    private static List<IRecipe> getRegisteredRecipesUnchecked() {
+        return CraftingManager.getInstance().getRecipeList();
+    }
+
+    public static void markForRemoval(MatchingRecipe recipe) {
+        removingRecipes.add(recipe);
+    }
+
+    public static void submitCloningRecipe(CloningRecipe cloningRecipe) {
+        cloningRecipes.add(cloningRecipe);
+    }
+
+    public static void flush() {
+        // Add any cloned recipes pending registration
+        cloningRecipes.forEach(RecipeManager::registerClonedRecipe);
+        cloningRecipes.clear();
+
+        // Remove any recipes marked for removal still pending
+        removingRecipes.forEach(RecipeManager::removeExistingRecipe);
+        removingRecipes.clear();
+    }
+
+    private static void removeExistingRecipe(MatchingRecipe matchingRecipe) {
+        CraftingManager.getInstance().getRecipeList()
+            .remove(matchingRecipe.recipe.instance);
+
+        // Remove also the crafting recipe with action
+        actionableRecipes.stream()
+            .filter(r -> r.recipe == matchingRecipe.recipe.instance)
+            .findFirst()
+            .ifPresent(actionableRecipes::remove);
+
+        Bids.LOG.info("Existing recipe was removed: {}", matchingRecipe.recipe);
+    }
+
+    private static void registerClonedRecipe(CloningRecipe cloningRecipe) {
+        try {
+            ActionableRecipe actionableRecipe = cloningRecipe.build();
+
+            if (actionableRecipe.action != null) {
+                actionableRecipes.add(actionableRecipe);
+            }
+
+            GameRegistry.addRecipe(actionableRecipe.recipe);
+
+            Bids.LOG.info("Cloned recipe was added: {} from existing: {}", RecipeAccessor.of(actionableRecipe.recipe), cloningRecipe.recipe);
+        } catch (Exception ex) {
+            Bids.LOG.warn("Failed to clone recipe from {} due to error: {}", cloningRecipe.recipe, ex.getMessage(), ex);
+        }
+    }
+
+    public static ActionableRecipeBuilder addRecipe(IRecipe recipe) {
         GameRegistry.addRecipe(recipe);
 
-        CraftingRecipeBuilder builder = new CraftingRecipeBuilder(recipe);
-        RECIPE_BUILDERS.add(builder);
+        ActionableRecipeBuilder builder = new ActionableRecipeBuilder(recipe);
+        builders.add(builder);
 
         return builder;
     }
 
-    public static CraftingRecipeBuilder addShapelessRecipe(ItemStack output, Object ...input) {
-        if (isShapelessOreRecipeInput(input)) {
-            return addRecipe(new ShapelessOreRecipe(output, input));
-        } else {
-            return addRecipe(createShapelessRecipe(output, input));
-        }
+    public static ActionableRecipeBuilder addShapelessRecipe(ItemStack output, Object ...input) {
+        return addRecipe(RecipeFactory.createShapeless(output, input));
     }
 
-    public static CraftingRecipeBuilder addShapedRecipe(ItemStack output, Object ...input) {
-        if (isShapedOreRecipeInput(input)) {
-            return addRecipe(new ShapedOreRecipe(output, input));
-        } else {
-            return addRecipe(createShapedRecipe(output, input));
-        }
-    }
-
-    private static boolean isShapelessOreRecipeInput(Object[] input) {
-        for (Object o : input) {
-            if (o instanceof String) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static ShapelessRecipes createShapelessRecipe(ItemStack output, Object[] input) {
-        List<Object> list = new ArrayList<>();
-        for (Object o : input) {
-            if (o instanceof Item) {
-                list.add(new ItemStack((Item) o));
-            } else if (o instanceof ItemStack) {
-                list.add(((ItemStack) o).copy());
-            } else if (o instanceof Block) {
-                list.add(new ItemStack((Block) o));
-            } else {
-                throw new RuntimeException("Invalid shapeless recipe");
-            }
-        }
-
-        return new ShapelessRecipes(output, list);
-    }
-
-
-    private static boolean isShapedOreRecipeInput(Object[] input) {
-        int i = 0;
-
-        if (input[i] instanceof String[]) {
-            i++;
-        } else {
-            while (input[i] instanceof String) {
-                i++;
-            }
-        }
-
-        while (i + 1 < input.length) {
-            Object o = input[i + 1];
-            if (o instanceof String) {
-                return true;
-            }
-
-            i += 2;
-        }
-
-        return false;
-    }
-
-    private static ShapedRecipes createShapedRecipe(ItemStack output, Object[] input) {
-        String s = "";
-        int i = 0;
-        int j = 0;
-        int k = 0;
-
-        if (input[i] instanceof String[])
-        {
-            String[] astring = (String[])((String[])input[i++]);
-
-            for (int l = 0; l < astring.length; ++l)
-            {
-                String s1 = astring[l];
-                ++k;
-                j = s1.length();
-                s = s + s1;
-            }
-        }
-        else
-        {
-            while (input[i] instanceof String)
-            {
-                String s2 = (String)input[i++];
-                ++k;
-                j = s2.length();
-                s = s + s2;
-            }
-        }
-
-        HashMap hashmap;
-
-        for (hashmap = new HashMap(); i < input.length; i += 2)
-        {
-            Character character = (Character)input[i];
-            ItemStack itemstack1 = null;
-
-            if (input[i + 1] instanceof Item)
-            {
-                itemstack1 = new ItemStack((Item)input[i + 1]);
-            }
-            else if (input[i + 1] instanceof Block)
-            {
-                itemstack1 = new ItemStack((Block)input[i + 1], 1, 32767);
-            }
-            else if (input[i + 1] instanceof ItemStack)
-            {
-                itemstack1 = (ItemStack)input[i + 1];
-            }
-
-            hashmap.put(character, itemstack1);
-        }
-
-        ItemStack[] aitemstack = new ItemStack[j * k];
-
-        for (int i1 = 0; i1 < j * k; ++i1)
-        {
-            char c0 = s.charAt(i1);
-
-            if (hashmap.containsKey(Character.valueOf(c0)))
-            {
-                aitemstack[i1] = ((ItemStack)hashmap.get(Character.valueOf(c0))).copy();
-            }
-            else
-            {
-                aitemstack[i1] = null;
-            }
-        }
-
-        return new ShapedRecipes(j, k, aitemstack, output);
+    public static ActionableRecipeBuilder addShapedRecipe(ItemStack output, Object ...input) {
+        return addRecipe(RecipeFactory.createShaped(output, input));
     }
 
 }
