@@ -19,7 +19,7 @@ apply plugin: 'forge'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-version = "0.56.0"
+version = "0.57.0"
 group= "com.unforbidable.tfc.bids" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "TFCPlus-Bids"
 

@@ -20,7 +20,7 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Log Walls](../../wiki/Log-Wall) - new building block with 6 variations for log cabin construction, and 2 variations of vertical log walls
 * [Wood Pile](../../wiki/Wood-Pile) - for wood storage and seasoning peeled logs, stick bundles, and making charcoal, extracting pitch, building pyres and fire-setting
 * [New Firepit](../../wiki/Firepit) - new firepit that can consume custom fuels, requires kindling to light
-* [Drying Rack](../../wiki/Drying-Rack) - for curing bark fiber strips and drying meat, cheese, and seaweed
+* [Drying Rack](../../wiki/Drying-Rack) - for curing bark fibers and drying meat, cheese, and seaweed, and smoking
 * [Firewood](../../wiki/Firewood) - fuel for new firepit, needs to be seasoned
 * [Chopping Block](../../wiki/Chopping-Block) - for peeling and splitting logs
 * [Wattle Trapdoor](../../wiki/Wattle-Trapdoor) - trapdoor made from wattle
@@ -56,7 +56,7 @@ See the [wiki](../../wiki) for complete list and detailed description of feature
 
 ### Translations
 
-* Chinese by Eternal130 (v0.52.x)
+* Chinese by Eternal130 (v0.57.x)
 * Japanese by dymanic.day (v0.28.x)
 
 ### Other credits

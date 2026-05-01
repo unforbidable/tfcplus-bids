@@ -770,3 +770,8 @@
 - Changed: Items are placed on the Soaking Surface quadrant where the player is pointing at, if possible
 - Changed: Much of "manager" type classes has been scrapped in favor of a single registry class (API)
 - Fixed: Recipes involving fluids without registered container are now also shown in NEI
+
+0.57.0 (2026-05-01)
+- Added: Drying Rack can finally be used to smoke food stuff
+- Updated: Chinese translation by Eternal130
+- Fixed: Various recipes involving igneous rough stone related blocks were corrected

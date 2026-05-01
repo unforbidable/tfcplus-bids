@@ -341,6 +341,10 @@ tile.ScrewPressLeverTop.name=螺旋压杆
 
 tile.StrawNest.name=草窝
 
+tile.SoakingSurface.name=浸泡台
+
+tile.DryingSurface.name=晾干台
+
 item.Ore Bit.Bismuthinite.name=辉铋矿碎片
 item.Ore Bit.Cassiterite.name=锡精矿碎片
 item.Ore Bit.Galena.name=方铅矿碎片
@@ -708,6 +712,10 @@ item.Glass Bottle.OilyFishWater.name=瓶装鱼糜
 item.Glass Bottle.GoatMilk.name=瓶装羊奶
 item.Glass Bottle.SkimmedMilk.name=瓶装脱脂奶
 item.Glass Bottle.Cream.name=瓶装奶油
+item.Glass Bottle.WeakWoodAshLye.name=瓶装弱草木灰碱液
+item.Glass Bottle.WoodAshLye.name=瓶装草木灰碱液
+item.Glass Bottle.SoapyWater.name=瓶装肥皂水
+item.Glass Bottle.FlaxSeedOil.name=瓶装亚麻籽油
 
 item.Waterskin.Cream.name=皮革水袋(奶油)
 
@@ -723,6 +731,8 @@ item.Bowl Olive Oil.PotteryBowl.name=陶瓷碗(橄榄油)
 item.Bowl Olive Oil.Bowl.name=碗(橄榄油)
 item.Bowl Fish Oil.PotteryBowl.name=陶瓷碗(鱼油)
 item.Bowl Fish Oil.Bowl.name=碗(鱼油)
+item.Bowl Flax Seed Oil.PotteryBowl.name=陶瓷碗(亚麻籽油)
+item.Bowl Flax Seed Oil.Bowl.name=碗(亚麻籽油)
 
 item.Ceramic Bucket.Brine.name=陶瓷桶(卤水)
 item.Ceramic Bucket.HoneyWater.name=陶瓷桶(蜂蜜水)
@@ -747,8 +757,10 @@ item.Large Bowl.Honey.Pottery.name=大陶瓷碗(蜂蜜)
 item.Large Bowl.GoatMilk.Pottery.name=大陶瓷碗(羊奶)
 item.Large Bowl.SkimmedMilk.Pottery.name=大陶瓷碗(脱脂奶)
 item.Large Bowl.Cream.Pottery.name=大陶瓷碗(奶油)
+item.Large Bowl.WeakWoodAshLye.Pottery.name=大陶瓷碗(弱草木灰碱液)
+item.Large Bowl.WoodAshLye.Pottery.name=大陶瓷碗(草木灰碱液)
 
-item.Wooden Pail.name=木提桶(Empty)
+item.Wooden Pail.name=木提桶(空)
 item.Wooden Pail.FreshWater.name=木提桶(淡水)
 item.Wooden Pail.Milk.name=木提桶(牛奶)
 item.Wooden Pail.GoatMilk.name=木提桶(羊奶)
@@ -781,6 +793,13 @@ item.IgIn Stone Adze.name=石锛
 item.Sed Stone Adze.name=石锛
 item.IgEx Stone Adze.name=石锛
 item.MM Stone Adze.name=石锛
+
+item.IgIn Hand Axe.name=石手斧
+item.Sed Hand Axe.name=石手斧
+item.IgEx Hand Axe.name=石手斧
+item.MM Hand Axe.name=石手斧
+
+item.Hardened Wooden Spear.name=硬化木矛
 
 item.Mold Adze.Clay.name=黏土锛头模具
 item.Mold Adze.Ceramic.name=锛头模具
@@ -1108,16 +1127,117 @@ item.Bark.Baobab.name=猴面包树皮
 item.Bark.Bamboo.name=竹皮
 item.Bark.Limba.name=榄仁树皮
 
+item.Board.Acacia.name=金合欢木板
+item.Board.Ash.name=白蜡木板
+item.Board.Aspen.name=白杨木板
+item.Board.Birch.name=桦树木板
+item.Board.Chestnut.name=栗树木板
+item.Board.Douglas Fir.name=花旗松木板
+item.Board.Hickory.name=山核桃木板
+item.Board.Kapok.name=木棉木板
+item.Board.Maple.name=枫树木板
+item.Board.Oak.name=橡树木板
+item.Board.Pine.name=松树木板
+item.Board.Sequoia.name=红杉木板
+item.Board.Spruce.name=云杉木板
+item.Board.Sycamore.name=悬铃木板
+item.Board.White Cedar.name=北美香柏木板
+item.Board.White Elm.name=榆树木板
+item.Board.Willow.name=柳树木板
+item.Board.Palm.name=棕榈木板
+item.Board.Ebony.name=黑檀木板
+item.Board.Fever.name=金鸡纳木板
+item.Board.Mahogany.name=桃花心木木板
+item.Board.Teak.name=柚木木板
+item.Board.Gingko.name=银杏木板
+item.Board.Fruitwood.name=果木木板
+item.Board.Mangrove.name=红树木板
+item.Board.Ghaf.name=牧豆木板
+item.Board.Mahoe.name=黄槿木板
+item.Board.Laurel.name=月桂木板
+item.Board.Joshua.name=约书亚木板
+item.Board.Yew.name=红豆杉木板
+item.Board.Baobab.name=猴面包木板
+item.Board.Bamboo.name=竹板
+item.Board.Limba.name=榄仁木板
+
+item.Shaft.Acacia.name=金合欢木杆
+item.Shaft.Ash.name=白蜡木杆
+item.Shaft.Aspen.name=白杨木杆
+item.Shaft.Birch.name=桦树木杆
+item.Shaft.Chestnut.name=栗树木杆
+item.Shaft.Douglas Fir.name=花旗松木杆
+item.Shaft.Hickory.name=山核桃木杆
+item.Shaft.Kapok.name=木棉木杆
+item.Shaft.Maple.name=枫树木杆
+item.Shaft.Oak.name=橡树木杆
+item.Shaft.Pine.name=松树木杆
+item.Shaft.Sequoia.name=红杉木杆
+item.Shaft.Spruce.name=云杉木杆
+item.Shaft.Sycamore.name=悬铃木杆
+item.Shaft.White Cedar.name=北美香柏木杆
+item.Shaft.White Elm.name=榆树木杆
+item.Shaft.Willow.name=柳树木杆
+item.Shaft.Palm.name=棕榈木杆
+item.Shaft.Ebony.name=黑檀木杆
+item.Shaft.Fever.name=金鸡纳木杆
+item.Shaft.Mahogany.name=桃花心木木杆
+item.Shaft.Teak.name=柚木木杆
+item.Shaft.Gingko.name=银杏木杆
+item.Shaft.Fruitwood.name=果木木杆
+item.Shaft.Mangrove.name=红树木杆
+item.Shaft.Ghaf.name=牧豆木杆
+item.Shaft.Mahoe.name=黄槿木杆
+item.Shaft.Laurel.name=月桂木杆
+item.Shaft.Joshua.name=约书亚木杆
+item.Shaft.Yew.name=红豆杉木杆
+item.Shaft.Baobab.name=猴面包木杆
+item.Shaft.Bamboo.name=竹杆
+item.Shaft.Limba.name=榄仁木杆
+
 item.Small Stick Bundle.name=小捆木棍
 item.Tied Stick Bundle.name=捆扎木棍
 item.Kindling.name=茅草火种
 
 item.Bark Fibre.name=树皮纤维
+item.Bark Fibre Coarse.name=粗树皮纤维
+item.Bark Fibre Smooth.name=细树皮纤维
+
 item.Bark Fibre Strip.Fresh.name=树皮纤维条
 item.Bark Fibre Strip.Cured.name=风干树皮纤维条
 item.Flat Bark Fibre.name=树皮纤维
+
 item.Bark Cordage.name=树皮绳
 item.Bark Fibre Kindling.name=树皮纤维火种
+
+item.Sisal Fibre Rinsed.name=漂洗剑麻纤维
+item.Sisal Fibre Coarse.name=粗剑麻纤维
+item.Sisal Fibre Refined.name=精炼剑麻纤维
+item.Sisal Twine.name=剑麻绳
+
+item.Jute Stalk.name=黄麻茎
+item.Jute Stalk Retted.name=沤制黄麻茎
+item.Jute Fibre Coarse.name=粗黄麻纤维
+item.Jute Fibre Refined.name=精炼黄麻纤维
+item.Jute Twine.name=黄麻绳
+
+item.Flax Stalk.name=亚麻茎
+item.Flax Stalk Retted.name=沤制亚麻茎
+item.Flax Stalk Dried.name=干燥的亚麻茎
+item.Flax Stalk Broken.name=折断的亚麻茎
+item.Flax Fibre Coarse.name=粗亚麻纤维
+item.Flax Fibre Refined.name=精炼亚麻纤维
+
+item.Cotton Boll.name=棉铃
+item.Cotton Boll Refined.name=精炼棉铃
+item.Cotton Fibre Coarse.name=粗棉纤维
+item.Cotton Fibre Refined.name=精炼棉纤维
+
+item.Wool Washed.name=洗净的羊毛
+item.Wool Rinsed.name=漂洗过的羊毛
+item.Wool Dried.name=干燥的羊毛
+item.Wool Fibre Coarse.name=粗羊毛纤维
+item.Wool Fibre Refined.name=精炼羊毛纤维
 
 item.Flat Birch Bark.name=桦树皮片
 item.Birch Bark Sheet.name=桦树皮片
@@ -1135,6 +1255,8 @@ item.Coat Back.Leather.name=皮革大衣背面
 item.Leather Coat.name=皮革大衣
 
 item.More Hide.Tiny.name=微块兽皮
+
+item.More Powder.Sawdust.name=锯末
 
 item.Wheat Crushed.name=粗小麦粉
 item.Barley Crushed.name=粗大麦粉
@@ -1195,6 +1317,8 @@ item.Butter.name=黄油
 
 item.Bamboo Shoot.name=竹笋
 
+item.Flax Seeds.name=亚麻籽
+
 item.Plug And Feather.Wood.name=楔子(木)
 item.Plug And Feather.Copper.name=楔子(铜)
 item.Plug And Feather.Bronze.name=楔子(青铜)
@@ -1243,6 +1367,29 @@ item.Soup.name=汤
 item.Porridge.name=粥
 item.Omelet.name=煎蛋卷
 
+item.Whorl.Stone.name=石纺锤轮
+
+item.Spindle.name=纺锤
+
+item.Thorn Bunch.name=刺果
+item.Thorn Card.name=刺果梳理板
+
+item.Bone Heckle.name=骨梳麻器
+
+item.Primitive Rope Maker.name=原始制绳器
+
+item.Wooden Mallet.name=木锤
+item.Scutching Knife.name=打麻刀
+
+item.Wooden Comb Paddle.name=木梳栉
+
+item.Bone Knife Blade.name=骨刀刃
+
+item.Soap.name=肥皂
+item.Uncured Soap.name=未固化肥皂
+
+item.Drying Mud Brick.name=风干泥砖
+
 fluid.FishOil=鱼油
 fluid.OilyFishWater=鱼糜
 fluid.GoatMilk=羊奶
@@ -1254,6 +1401,16 @@ fluid.SkimmedMilk=脱脂奶
 fluid.SkimmedMilkVinegar=脱脂奶醋
 fluid.SkimmedMilkCurdled=脱脂凝乳
 fluid.Cream=奶油
+fluid.WeakWoodAshLye=弱草木灰碱液
+fluid.WoodAshLye=草木灰碱液
+fluid.TallowWoodAshLye=油脂碱液混合物
+fluid.OliveOilWeakWoodAshLye=橄榄油弱碱液混合物
+fluid.FishOilWeakWoodAshLye=鱼油弱碱液混合物
+fluid.FlaxSeedOilWeakWoodAshLye=亚麻籽油弱碱液混合物
+fluid.Soap=肥皂
+fluid.UncuredSoap=未固化肥皂
+fluid.SoapyWater=肥皂水
+fluid.FlaxSeedOil=亚麻籽油
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - 食品
@@ -1262,6 +1419,9 @@ itemGroup.Bids.Materials=Bids and Pieces - 材料
 itemGroup.Bids.Tools=Bids and Pieces - 工具
 
 infusion.steamed.name=(蒸)
+
+word.steamed=蒸
+word.boiled=煮
 
 cookingMixture.bean=豆类混合食材
 cookingMixture.beanWater=豆类(水)混合食材
@@ -1301,8 +1461,54 @@ gui.Help.Pottery=潜行时§b右击§7以放置物品.
 gui.Help.CookingPot=§b右击§7方块以放置.
 gui.Help.CookingPotLid=§b右击§7方块以放置.
 gui.Help.UnshapedDough=§b右击§7来塑形面团.
-gui.Help.Waterskin.Churn=Hold §bRight Click §7to churn into §e
+gui.Help.Waterskin.Churn=按住§b右键§7搅打成§e
 gui.Help.Waterskin.Churn2=§7.
+gui.Help.Heckling.Start=§b右键§7开始梳麻相邻(右侧)槽位中的纤维.
+gui.Help.Heckling.Process=§b右键§7梳麻§e
+gui.Help.Heckling.Process2=§7.
+gui.Help.Heckling.Finish=潜行并§b右键§7取回§e
+gui.Help.Heckling.Finish2=§7.
+gui.Help.Carding.Start=§b右键§7开始梳理相邻(右侧)槽位中的纤维.
+gui.Help.Carding.Process=§b右键§7梳理§e
+gui.Help.Carding.Process2=§7.
+gui.Help.Carding.Finish=潜行并§b右键§7取回§e
+gui.Help.Carding.Finish2=§7.
+gui.Help.Spinning.Start=§b右键§7开始纺相邻(右侧)槽位中的纤维.
+gui.Help.Spinning.Process=§b右键§7纺§e
+gui.Help.Spinning.Process2=§7.
+gui.Help.Spinning.Finish=潜行并§b右键§7取回§e
+gui.Help.Spinning.Finish2=§7.
+gui.Help.Twisting.Start=§b右键§7开始扭转相邻(右侧)槽位中的材料.
+gui.Help.Twisting.Process=§b右键§7扭转绳子.
+gui.Help.Twisting.Finish=潜行并§b右键§7取回绳子.
+gui.Help.Textile.Extracting=用§e小刀§7提取纤维.
+gui.Help.Textile.RefiningStalk=用§e小刀§7精炼茎秆.
+gui.Help.Textile.RefiningBoll=用§e小刀§7精炼棉铃.
+gui.Help.Textile.PeelingStalk=按住§b右键§7用手从茎秆上剥取纤维.
+gui.Help.Textile.WashingWool=在加热的§e肥皂水§7中洗涤羊毛.
+gui.Help.Textile.RinsingFibre=在§e淡水§7中漂洗纤维.
+gui.Help.Textile.RinsingWool=在§e淡水§7中漂洗羊毛.
+gui.Help.Textile.RettingStalk=在§e淡水§7中沤制茎秆.
+gui.Help.Textile.DryingFibre=使用§e晾干架§7干燥纤维.
+gui.Help.Textile.DryingStalk=使用§e晾干架§7干燥茎秆.
+gui.Help.Textile.DryingWool=使用§e晾干架§7干燥羊毛.
+gui.Help.Textile.BreakingHand=§b右键§7用手折断茎秆.
+gui.Help.Textile.BreakingSurface=在加工面上使用§e木锤§7折断茎秆.
+gui.Help.Textile.ScutchingHand=§b右键§7用手从纤维中去除茎秆.
+gui.Help.Textile.ScutchingSurface=在加工面上使用§e打麻刀§7从纤维中去除碎茎.
+gui.Help.Textile.Rubbing=§b右键§7搓揉纤维以增加柔韧性.
+gui.Help.Textile.WillowingCotton=§b右键§7弹松棉铃中的纤维.
+gui.Help.Textile.WillowingWool=§b右键§7弹松羊毛束中的纤维.
+gui.Help.Textile.Carding=使用§e梳理板§7精炼纤维.
+gui.Help.Textile.Heckling=使用§e梳麻器§7精炼纤维.
+gui.Help.Textile.SpinningCordage=使用§e纺锤§7将纤维纺成绳.
+gui.Help.Textile.SpinningTwine=使用§e纺锤§7将纤维纺成麻线.
+gui.Help.Textile.SpinningString=使用§e纺锤§7将纤维纺成细绳.
+gui.Help.Textile.SpinningYarn=使用§e纺锤§7将纤维纺成纱线.
+gui.Help.Textile.WeavingBurlap=使用§e织布机§7织成粗麻布.
+gui.Help.Textile.WeavingCloth=使用§e织布机§7织成布料.
+gui.Help.Textile.Twisting=使用§e制绳器§7扭成绳子.
+gui.Help.Woodworking=§b右键§7加工材料.
 gui.Units=单位
 gui.Empty=空
 gui.Solidified=凝固
@@ -1316,10 +1522,23 @@ gui.plans.adze=锛
 gui.plans.drill=钻头
 gui.plans.plugandfeather=楔子
 gui.plans.anvil=砧
+gui.plans.lumber=木材
+gui.plans.support=支撑
+gui.plans.board=木板
+gui.plans.board2=木板
+gui.plans.shaft=木杆
+gui.plans.shaft2=木杆
+gui.plans.paddle=桨板
+gui.plans.mallet=木锤
+gui.plans.scutchingKnife=打麻刀
+gui.plans.combPaddle=梳栉
+gui.plans.needle=针
+gui.plans.knifeHead=刀刃
 gui.Hours=小时
 gui.HoursRemaining=剩余小时
+gui.Seconds=秒
 gui.Days=天
-gui.Instant=Instant
+gui.Instant=瞬间
 gui.Ruined=毁坏的
 gui.Wedges=楔子
 gui.QuarryReady=可以开采
@@ -1329,21 +1548,25 @@ gui.Seasoning=风干中
 gui.Cooking=烹饪
 gui.Fuel=燃料
 gui.Drying=风干中
+gui.Drying.requirements.wet=潮湿
+gui.Drying.requirements.warm=温暖
+gui.Drying.requirements.cover=遮挡
+gui.Drying.requirements.freezing=冰冻
 gui.KindlingQuality=火种品质
 gui.ChoppingBlock=柴墩
 gui.SaddleQuern=手推磨
 gui.StonePress=原始压机
-gui.Stage1=Stage 1
-gui.Stage2=Stage 2
-gui.Stage3=Stage 3
-gui.Stage4=Stage 4
-gui.Stage5=Stage 5
-gui.Stage6=Stage 6
+gui.Stage1=阶段 1
+gui.Stage2=阶段 2
+gui.Stage3=阶段 3
+gui.Stage4=阶段 4
+gui.Stage5=阶段 5
+gui.Stage6=阶段 6
 gui.SteamingMesh=蒸网
-gui.CookingHeatLevel.None=No Heat
-gui.CookingHeatLevel.Low=Low Heat
-gui.CookingHeatLevel.Medium=Medium Heat
-gui.CookingHeatLevel.High=High Heat
+gui.CookingHeatLevel.None=无热量
+gui.CookingHeatLevel.Low=低热量
+gui.CookingHeatLevel.Medium=中热量
+gui.CookingHeatLevel.High=高热量
 gui.SeedCultivation=可以培养成
 gui.SeedAutumnSowing=可以在§e秋天§r播种
 gui.SeedWaterDistance=水源距离: §e
@@ -1355,10 +1578,21 @@ gui.ScrewPress=螺旋压力机
 gui.Input=输入
 gui.Resistance=阻力
 gui.cooking.cookingMixDecayed=混合食材已经腐烂,无法使用
-gui.Churning=Churning
+gui.Churning=搅打
+gui.ProcessingSurface=加工台
+gui.BindingBonus=绑定加成
+gui.SoakingSurface=浸泡
+gui.Spinning=纺线
+gui.RopeMaking=制绳
+gui.Handwork=手工
+gui.Carding=梳理
+gui.Heckling=梳麻
+gui.Woodworking=木工
 
 key.BidsToolMode=循环工具模式
 
+achievement.bidsCompositeTool=中石器时代!
+achievement.bidsCompositeTool.desc=制作一把组合石器工具或武器
 achievement.bidsStoneAdze=新石器时代!
 achievement.bidsStoneAdze.desc=制作一个石锛，因为你还没有完全结束石器时代
 achievement.bidsBark=树皮!
@@ -1409,6 +1643,8 @@ achievement.bidsCultivatedSeed=农夫
 achievement.bidsCultivatedSeed.desc=收获培育过的作物种子
 achievement.bidsWinterCerealSeed=冬季农夫
 achievement.bidsWinterCerealSeed.desc=收获培育过的冬季作物种子
+achievement.bidsDoubleFortune=双倍好运
+achievement.bidsDoubleFortune.desc=一次性制作两块木板或木杆
 
 stat.bidsBlocksQuarried=采石数
 stat.bidsSaddleQuernUsed=手推磨使用次数
@@ -1416,3 +1652,5 @@ stat.bidsMealsCooked=烹饪次数
 stat.bidsFirewoodChopped=劈柴数
 stat.bidsMilkMilked=挤奶量
 stat.bidsButterChurned=黄油产量
+stat.bidsMaterialScraped=材料刮削数
+stat.bidsMaterialSpun=材料纺线数
