@@ -21,7 +21,7 @@ public class MatchingRecipe {
     }
 
     public void remove() {
-        RecipeManager.markForRemoval(this);
+        RecipeManager.session.markForRemoval(this);
     }
 
     public CloningRecipe replace() {
@@ -30,11 +30,11 @@ public class MatchingRecipe {
 
     public CloningRecipe clone(boolean removeOriginalRecipe) {
         if (removeOriginalRecipe) {
-            RecipeManager.markForRemoval(this);
+            RecipeManager.session.markForRemoval(this);
         }
 
         CloningRecipe cloningRecipe = new CloningRecipe(recipe);
-        RecipeManager.submitCloningRecipe(cloningRecipe);
+        RecipeManager.session.submitCloningRecipe(cloningRecipe);
 
         return cloningRecipe;
     }

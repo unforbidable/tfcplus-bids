@@ -7,6 +7,7 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Core.Crafting.MatchingRecipe;
 import com.unforbidable.tfc.bids.Core.Crafting.RecipeManager;
+import com.unforbidable.tfc.bids.Core.Crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.api.BidsOptions;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -19,12 +20,13 @@ import static com.unforbidable.tfc.bids.Core.Crafting.Actions.ToolBinding.toolBi
 public class RecipeHelper {
 
     public static void handleCompositeToolRecipes() {
-        RecipeManager.getCurrentRecipes().stream()
-            .filter(r -> r.output.isAny(getStoneToolOreNames()))
-            .forEach(r -> r.clone(BidsOptions.Crafting.removeOriginalStoneToolRecipes)
-                .addInput("materialBinding")
-                .action(toolBinding()));
-        RecipeManager.flush();
+        try (RecipeManagerSession recipes = RecipeManager.getSession()) {
+            recipes.currentRecipeStream()
+                .filter(r -> r.output.isAny(getStoneToolOreNames()))
+                .forEach(r -> r.clone(BidsOptions.Crafting.removeOriginalStoneToolRecipes)
+                    .addInput("materialBinding")
+                    .action(toolBinding()));
+        }
     }
 
     public static List<Integer> getStoneToolOreIds() {
@@ -75,21 +77,21 @@ public class RecipeHelper {
 
     public static void handleSpindleSpinningRecipes() {
         if (BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes) {
-            RecipeManager.getCurrentRecipes().stream()
-                .filter(r -> r.input.contains(TFCItems.spindle))
-                .forEach(MatchingRecipe::remove);
-
-            RecipeManager.flush();
+            try (RecipeManagerSession recipes = RecipeManager.getSession()) {
+                recipes.currentRecipeStream()
+                    .filter(r -> r.input.contains(TFCItems.spindle))
+                    .forEach(MatchingRecipe::remove);
+            }
         }
     }
 
     public static void handleRopeMakingRecipes() {
         if (BidsOptions.Crafting.removeOriginalRopeMakingRecipes) {
-            RecipeManager.getCurrentRecipes().stream()
-                .filter(r -> r.output.is(TFCItems.rope))
-                .forEach(MatchingRecipe::remove);
-
-            RecipeManager.flush();
+            try (RecipeManagerSession recipes = RecipeManager.getSession()) {
+                recipes.currentRecipeStream()
+                    .filter(r -> r.output.is(TFCItems.rope))
+                    .forEach(MatchingRecipe::remove);
+            }
         }
     }
 
