@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.core;
 
+import com.unforbidable.tfc.bids.compat.waila.WailaInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -9,6 +10,7 @@ import java.util.Arrays;
 public class Initializer {
 
     private static final Initializable[] initializers = {
+        new WailaInit(),
     };
 
     public static void preInit(FMLPreInitializationEvent event) {
