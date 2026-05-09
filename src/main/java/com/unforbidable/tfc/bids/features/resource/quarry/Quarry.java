@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.resource.quarry;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.names.AnvilRules;
@@ -19,6 +20,7 @@ import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.features.resource.quarry.block.BlockQuarry;
 import com.unforbidable.tfc.bids.features.resource.quarry.item.ItemPlugAndFeather;
+import com.unforbidable.tfc.bids.features.resource.quarry.nei.QuarryNeiHandler;
 import com.unforbidable.tfc.bids.features.resource.quarry.render.RenderQuarry;
 import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
 import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarriableStone;
@@ -66,6 +68,10 @@ public class Quarry extends Feature {
 
         client.waila()
             .data(new QuarryWailaProvider(), TileEntityQuarry.class);
+
+        client.nei()
+            .handler(new QuarryNeiHandler())
+            .hide(BidsBlocks.quarry);
     }
 
     @Override

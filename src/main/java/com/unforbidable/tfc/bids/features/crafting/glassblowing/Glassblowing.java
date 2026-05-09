@@ -51,6 +51,9 @@ public class Glassblowing extends Feature {
     @Override
     public void client(FeatureClientSpecBuilder client) {
         client.gui(GLASSBLOWING, GuiKnappingGlass::new);
+
+        client.nei()
+            .hide(BidsItems.flatGlass);
     }
 
     @Override

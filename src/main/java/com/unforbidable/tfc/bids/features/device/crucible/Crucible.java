@@ -5,6 +5,7 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KilnRecipe;
@@ -86,6 +87,9 @@ public class Crucible extends Feature {
         client.waila()
             .data(new CrucibleWailaProvider(), TileEntityCrucible.class)
             .data(new FurnaceWailaProvider(), TEChimney.class, TileEntityChimney.class);
+
+        client.nei()
+            .hide(BidsBlocks.clayCrucible, 2);
     }
 
     @Override
