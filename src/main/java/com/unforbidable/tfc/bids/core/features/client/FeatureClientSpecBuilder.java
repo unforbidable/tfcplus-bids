@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.core.features.client;
 import com.unforbidable.tfc.bids.core.features.client.block.BlockClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.client.gui.GuiScreenSpec;
 import com.unforbidable.tfc.bids.core.features.client.item.ItemClientSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.client.nei.NeiRegistryHelper;
 import com.unforbidable.tfc.bids.core.features.client.tileentity.TileEntityClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.client.waila.WailaRegistryHelper;
 import com.unforbidable.tfc.bids.core.gui.provider.*;
@@ -25,6 +26,7 @@ public class FeatureClientSpecBuilder {
     private final List<GuiScreenSpec<?, ?>> screens = new ArrayList<>();
 
     private final WailaRegistryHelper waila = new WailaRegistryHelper();
+    private final NeiRegistryHelper nei = new NeiRegistryHelper();
 
     public BlockClientSpecBuilder block(String name) {
         BlockClientSpecBuilder builder = new BlockClientSpecBuilder(name);
@@ -61,6 +63,10 @@ public class FeatureClientSpecBuilder {
 
     public WailaRegistryHelper waila() {
         return waila;
+    }
+
+    public NeiRegistryHelper nei() {
+        return nei;
     }
 
     public FeatureClientSpec build() {
