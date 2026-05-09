@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.core;
 
 import com.unforbidable.tfc.bids.core.config.ConfigInit;
 import com.unforbidable.tfc.bids.core.crafting.CraftingInit;
+import com.unforbidable.tfc.bids.core.drink.DrinkInit;
 import com.unforbidable.tfc.bids.compat.tfc.TfcInit;
 import com.unforbidable.tfc.bids.compat.waila.WailaInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -16,6 +17,7 @@ public class Initializer {
         // Core initializers are listed here
         new ConfigInit(),
         new CraftingInit(),
+        new DrinkInit(),
         // These must run after FeatureInit
         // this is where TFC, WAILA and NEI stuff get actually registered
         new TfcInit(),
