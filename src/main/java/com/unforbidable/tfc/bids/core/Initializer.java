@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.core.gui.GuiInit;
 import com.unforbidable.tfc.bids.core.keybinding.KeyBindingInit;
 import com.unforbidable.tfc.bids.core.network.NetworkInit;
 import com.unforbidable.tfc.bids.core.player.PlayerInit;
+import com.unforbidable.tfc.bids.core.schemes.SchemeInit;
 import com.unforbidable.tfc.bids.compat.tfc.TfcInit;
 import com.unforbidable.tfc.bids.compat.waila.WailaInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -26,6 +27,7 @@ public class Initializer {
         new KeyBindingInit(),
         new CraftingInit(),
         new DrinkInit(),
+        new SchemeInit(),
         // These must run after FeatureInit
         // this is where TFC, WAILA and NEI stuff get actually registered
         new TfcInit(),
