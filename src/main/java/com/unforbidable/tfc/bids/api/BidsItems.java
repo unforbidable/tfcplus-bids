@@ -53,16 +53,27 @@ public class BidsItems {
     public static final Item blackBronzeDrill = item(ItemNames.DRILL_BLACK_BRONZE);
     public static final Item wroughtIronDrill = item(ItemNames.DRILL_WROUGHT_IRON);
 
+    // Adze
+    public static final Item igInStoneAdzeHead = item(ItemNames.ADZE_HEAD_STONE_IG_IN);
+    public static final Item sedStoneAdzeHead = item(ItemNames.ADZE_HEAD_STONE_SED);
+    public static final Item igExStoneAdzeHead = item(ItemNames.ADZE_HEAD_STONE_IG_EX);
+    public static final Item mMStoneAdzeHead = item(ItemNames.ADZE_HEAD_STONE_MM);
+    public static final Item igInStoneAdze = item(ItemNames.ADZE_STONE_IG_IN);
+    public static final Item sedStoneAdze = item(ItemNames.ADZE_STONE_SED);
+    public static final Item igExStoneAdze = item(ItemNames.ADZE_STONE_IG_EX);
+    public static final Item mMStoneAdze = item(ItemNames.ADZE_STONE_MM);
+    public static final Item clayMoldAdze = item(ItemNames.ADZE_MOLD);
+    public static final Item copperAdzeHead = item(ItemNames.ADZE_HEAD_COPPER);
+    public static final Item bronzeAdzeHead = item(ItemNames.ADZE_HEAD_BRONZE);
+    public static final Item bismuthBronzeAdzeHead = item(ItemNames.ADZE_HEAD_BISMUTH_BRONZE);
+    public static final Item blackBronzeAdzeHead = item(ItemNames.ADZE_HEAD_BLACK_BRONZE);
+    public static final Item wroughtIronAdzeHead = item(ItemNames.ADZE_HEAD_WROUGHT_IRON);
+    public static final Item copperAdze = item(ItemNames.ADZE_COPPER);
+    public static final Item bronzeAdze = item(ItemNames.ADZE_BRONZE);
+    public static final Item bismuthBronzeAdze = item(ItemNames.ADZE_BISMUTH_BRONZE);
+    public static final Item blackBronzeAdze = item(ItemNames.ADZE_BLACK_BRONZE);
+    public static final Item wroughtIronAdze = item(ItemNames.ADZE_WROUGHT_IRON);
 
-    public static Item igInStoneAdzeHead;
-    public static Item sedStoneAdzeHead;
-    public static Item igExStoneAdzeHead;
-    public static Item mMStoneAdzeHead;
-
-    public static Item igInStoneAdze;
-    public static Item sedStoneAdze;
-    public static Item igExStoneAdze;
-    public static Item mMStoneAdze;
 
     public static Item igInHandAxe;
     public static Item sedHandAxe;
@@ -70,20 +81,6 @@ public class BidsItems {
     public static Item mMHandAxe;
 
     public static Item hardenedWoodenSpear;
-
-    public static Item clayMoldAdze;
-    public static Item copperAdzeHead;
-    public static Item bronzeAdzeHead;
-    public static Item bismuthBronzeAdzeHead;
-    public static Item blackBronzeAdzeHead;
-    public static Item wroughtIronAdzeHead;
-
-    public static Item copperAdze;
-    public static Item bronzeAdze;
-    public static Item bismuthBronzeAdze;
-    public static Item blackBronzeAdze;
-    public static Item wroughtIronAdze;
-
     public static Item sedRoughStoneLooseBrick;
     public static Item roughStoneBrick;
     public static Item roughStoneTile;
