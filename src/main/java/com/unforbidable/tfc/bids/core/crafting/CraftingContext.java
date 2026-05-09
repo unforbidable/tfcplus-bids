@@ -1,0 +1,13 @@
+package com.unforbidable.tfc.bids.core.crafting;
+
+import cpw.mods.fml.common.gameevent.PlayerEvent;
+
+public class CraftingContext {
+
+    public final PlayerEvent.ItemCraftedEvent event;
+
+    public CraftingContext(PlayerEvent.ItemCraftedEvent event) {
+        this.event = event;
+    }
+
+}

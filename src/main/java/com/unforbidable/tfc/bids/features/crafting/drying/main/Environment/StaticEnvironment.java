@@ -1,0 +1,68 @@
+package com.unforbidable.tfc.bids.features.crafting.drying.main.Environment;
+
+import net.minecraft.world.World;
+
+public class StaticEnvironment {
+
+    protected final World world;
+    protected final int blockX;
+    protected final int blockY;
+    protected final int blockZ;
+
+    private Boolean exposed;
+    private Boolean heated;
+    private Float airflow;
+    private SmokeInfo smokeInfo;
+
+    public StaticEnvironment(World world, int blockX, int blockY, int blockZ) {
+        this.world = world;
+        this.blockX = blockX;
+        this.blockY = blockY;
+        this.blockZ = blockZ;
+    }
+
+    public DynamicEnvironment ofTicks(long ticks) {
+        return new DynamicEnvironment(world, blockX, blockY, blockZ, ticks, this);
+    }
+
+    public boolean isExposed() {
+        if (exposed == null) {
+            exposed = EnvironmentHelper.isExposed(world, blockX, blockY, blockZ);
+        }
+
+        return exposed;
+    }
+
+    public float getAirflow() {
+        if (airflow == null) {
+            airflow = EnvironmentHelper.getAirflow(world, blockX, blockY, blockZ);
+        }
+
+        return airflow;
+    }
+
+    public boolean isHeated() {
+        if (heated == null) {
+            heated = EnvironmentHelper.isHeatSourceNearby(world, blockX, blockY, blockZ);
+        }
+
+        return heated;
+    }
+
+    private SmokeInfo getSmokeInfo() {
+        if (smokeInfo == null) {
+            smokeInfo = EnvironmentHelper.getSmokeInfo(world, blockX, blockY, blockZ);
+        }
+
+        return smokeInfo;
+    }
+
+    public boolean isSmoked() {
+        return getSmokeInfo().isSmoke;
+    }
+
+    public int getFuelTasteProfile() {
+        return getSmokeInfo().fuelTasteProfile;
+    }
+
+}

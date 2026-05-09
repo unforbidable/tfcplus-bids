@@ -1,0 +1,160 @@
+package com.unforbidable.tfc.bids.features;
+
+import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Crafting.AnvilManager;
+import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.util.ItemHelper;
+import com.unforbidable.tfc.bids.compat.tfc._obsolete.RecipeHelper;
+import com.unforbidable.tfc.bids.features.material.textile.main.EnumTextileHint;
+import com.unforbidable.tfc.bids.api.util.food.BidsFood;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class TooltipHandler {
+
+    // TODO move to specific handler for specific feature
+
+    @SubscribeEvent
+    public void onItemTooltip(ItemTooltipEvent event) {
+        if (AnvilManager.getDurabilityBuff(event.itemStack) > 0 && isStoneTool(event.itemStack)) {
+            replaceSmithingBonusToolip(event.toolTip);
+        }
+
+        handleTextileTooltipHints(event.toolTip, event.itemStack);
+
+        if (event.itemStack.getItem() instanceof ItemFoodTFC) {
+            handleFood(event.toolTip, event.itemStack);
+        }
+    }
+
+    private void handleFood(List<String> toolTip, ItemStack itemStack) {
+        if (BidsFood.isBoiled(itemStack)) {
+            toolTip.add(2, StatCollector.translateToLocal(EnumChatFormatting.AQUA + StatCollector.translateToLocal("word.boiled")));
+        } else if (BidsFood.isSteamed(itemStack)) {
+            toolTip.add(2, StatCollector.translateToLocal(EnumChatFormatting.AQUA + StatCollector.translateToLocal("word.steamed")));
+        }
+    }
+
+    private void handleTextileTooltipHints(List<String> toolTip, ItemStack itemStack) {
+        Set<EnumTextileHint> hints = new HashSet<EnumTextileHint>();
+
+        if (isTextileForWashingWool(itemStack)) {
+            hints.add(EnumTextileHint.WASHING_WOOL);
+            hints.add(EnumTextileHint.RINSING_WOOL);
+        }
+        if (isTextileForExtracting(itemStack)) {
+            hints.add(EnumTextileHint.EXTRACTING);
+        }
+        if (isTextileForRefiningStalk(itemStack)) {
+            hints.add(EnumTextileHint.REFINING_STALK);
+        }
+        if (isTextileForRefiningBoll(itemStack)) {
+            hints.add(EnumTextileHint.REFINING_BOLL);
+        }
+        if (isTextileForRinsingFiber(itemStack)) {
+            hints.add(EnumTextileHint.RINSING_FIBRE);
+        }
+        if (isTextileForDryingFiber(itemStack)) {
+            hints.add(EnumTextileHint.DRYING_FIBRE);
+        }
+        if (isTextileForTwisting(itemStack)) {
+            hints.add(EnumTextileHint.TWISTING);
+        }
+        if (isTextileForWeavingCloth(itemStack)) {
+            hints.add(EnumTextileHint.WEAVING_CLOTH);
+        }
+
+        if (hints.size() > 0) {
+            if (ItemHelper.showShiftInformation()) {
+                toolTip.add(StatCollector.translateToLocal("gui.Help"));
+
+                for (EnumTextileHint hint : hints) {
+                    toolTip.add(StatCollector.translateToLocal("gui.Help.Textile." + hint.helpString));
+                }
+            } else {
+                toolTip.add(StatCollector.translateToLocal("gui.ShowHelp"));
+            }
+        }
+    }
+
+    private boolean isTextileForWashingWool(ItemStack itemStack) {
+        return itemStack.getItem() == TFCItems.wool;
+    }
+
+    private boolean isTextileForRefiningBoll(ItemStack itemStack) {
+        return itemStack.getItem() == TFCItems.cotton;
+    }
+
+    private boolean isTextileForRefiningStalk(ItemStack itemStack) {
+        return itemStack.getItem() == TFCItems.jute || itemStack.getItem() == TFCItems.flax;
+    }
+
+    private boolean isTextileForDryingFiber(ItemStack itemStack) {
+        return itemStack.getItem() == TFCItems.juteFiber;
+    }
+
+    private boolean isTextileForRinsingFiber(ItemStack itemStack) {
+        return itemStack.getItem() == TFCItems.sisalFiber;
+    }
+
+    private boolean isTextileForTwisting(ItemStack itemStack) {
+        return itemStack.getItem() == TFCItems.linenString;
+    }
+
+    private boolean isTextileForWeavingCloth(ItemStack itemStack) {
+        return itemStack.getItem() == TFCItems.linenString;
+    }
+
+    private boolean isTextileForExtracting(ItemStack itemStack) {
+        if (itemStack.getItem() == TFCItems.agave) {
+            return true;
+        }
+
+        if (itemStack.getItem() == BidsItems.bark) {
+            int itemBarkHasFibersOreId = OreDictionary.getOreID("itemBarkHasFibers");
+            for (int id : OreDictionary.getOreIDs(itemStack)) {
+                if (id == itemBarkHasFibersOreId) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isStoneTool(ItemStack tool) {
+        for (String ore : RecipeHelper.getStoneToolOreNames()) {
+            int stoneToolOreId = OreDictionary.getOreID(ore);
+            for (int id : OreDictionary.getOreIDs(tool)) {
+                if (id == stoneToolOreId) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private void replaceSmithingBonusToolip(List<String> toolTip) {
+        String smithingBonus = TFC_Core.translate("gui.SmithingBonus");
+        String bindingBonus = TFC_Core.translate("gui.BindingBonus");
+
+        for (int i = 0; i < toolTip.size(); i++) {
+            if (toolTip.get(i).startsWith(smithingBonus)) {
+                toolTip.set(i, toolTip.get(i).replace(smithingBonus, bindingBonus));
+                break;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,37 @@
+package com.unforbidable.tfc.bids.features.material.textile.main;
+
+public enum EnumTextileHint {
+    EXTRACTING("Extracting"),
+    REFINING_STALK("RefiningStalk"),
+    REFINING_BOLL("RefiningBoll"),
+    WASHING_WOOL("WashingWool"),
+    RINSING_FIBRE("RinsingFibre"),
+    RINSING_WOOL("RinsingWool"),
+    RETTING_STALK("RettingStalk"),
+    PEELING_STALK("PeelingStalk"),
+    DRYING_FIBRE("DryingFibre"),
+    DRYING_STALK("DryingStalk"),
+    DRYING_WOOL("DryingWool"),
+    RUBBING("Rubbing"),
+    WILLOWING_COTTON("WillowingCotton"),
+    WILLOWING_WOOL("WillowingWool"),
+    BREAKING_HAND("BreakingHand"),
+    BREAKING_SURFACE("BreakingSurface"),
+    SCUTCHING_HAND("ScutchingHand"),
+    SCUTCHING_SURFACE("ScutchingSurface"),
+    HECKLING("Heckling"),
+    CARDING("Carding"),
+    SPINNING_CORDAGE("SpinningCordage"),
+    SPINNING_TWINE("SpinningTwine"),
+    SPINNING_STRING("SpinningString"),
+    SPINNING_YARN("SpinningYarn"),
+    TWISTING("Twisting"),
+    WEAVING_BURLAP("WeavingBurlap"),
+    WEAVING_CLOTH("WeavingCloth");
+
+    EnumTextileHint(String helpString) {
+        this.helpString = helpString;
+    }
+
+    public final String helpString;
+}
