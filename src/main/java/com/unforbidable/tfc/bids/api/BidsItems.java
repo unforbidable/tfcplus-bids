@@ -32,29 +32,27 @@ public class BidsItems {
     public static final Item glassJug = item(ItemNames.GLASS_JUG);
     public static final Item shotGlass = item(ItemNames.SHOT_GLASS);
 
+    // Drill
+    public static final Item igInStoneDrillHead = item(ItemNames.DRILL_HEAD_STONE_IG_IN);
+    public static final Item sedStoneDrillHead = item(ItemNames.DRILL_HEAD_STONE_SED);
+    public static final Item igExStoneDrillHead = item(ItemNames.DRILL_HEAD_STONE_IG_EX);
+    public static final Item mMStoneDrillHead = item(ItemNames.DRILL_HEAD_STONE_MM);
+    public static final Item igInStoneDrill = item(ItemNames.DRILL_STONE_IG_IN);
+    public static final Item sedStoneDrill = item(ItemNames.DRILL_STONE_SED);
+    public static final Item igExStoneDrill = item(ItemNames.DRILL_STONE_IG_EX);
+    public static final Item mMStoneDrill = item(ItemNames.DRILL_STONE_MM);
+    public static final Item clayMoldDrill = item(ItemNames.DRILL_MOLD);
+    public static final Item copperDrillHead = item(ItemNames.DRILL_HEAD_COPPER);
+    public static final Item bronzeDrillHead = item(ItemNames.DRILL_HEAD_BRONZE);
+    public static final Item bismuthBronzeDrillHead = item(ItemNames.DRILL_HEAD_BISMUTH_BRONZE);
+    public static final Item blackBronzeDrillHead = item(ItemNames.DRILL_HEAD_BLACK_BRONZE);
+    public static final Item wroughtIronDrillHead = item(ItemNames.DRILL_HEAD_WROUGHT_IRON);
+    public static final Item copperDrill = item(ItemNames.DRILL_COPPER);
+    public static final Item bronzeDrill = item(ItemNames.DRILL_BRONZE);
+    public static final Item bismuthBronzeDrill = item(ItemNames.DRILL_BISMUTH_BRONZE);
+    public static final Item blackBronzeDrill = item(ItemNames.DRILL_BLACK_BRONZE);
+    public static final Item wroughtIronDrill = item(ItemNames.DRILL_WROUGHT_IRON);
 
-    public static Item igInStoneDrillHead;
-    public static Item sedStoneDrillHead;
-    public static Item igExStoneDrillHead;
-    public static Item mMStoneDrillHead;
-
-    public static Item igInStoneDrill;
-    public static Item sedStoneDrill;
-    public static Item igExStoneDrill;
-    public static Item mMStoneDrill;
-
-    public static Item clayMoldDrill;
-    public static Item copperDrillHead;
-    public static Item bronzeDrillHead;
-    public static Item bismuthBronzeDrillHead;
-    public static Item blackBronzeDrillHead;
-    public static Item wroughtIronDrillHead;
-
-    public static Item copperDrill;
-    public static Item bronzeDrill;
-    public static Item bismuthBronzeDrill;
-    public static Item blackBronzeDrill;
-    public static Item wroughtIronDrill;
 
     public static Item igInStoneAdzeHead;
     public static Item sedStoneAdzeHead;
