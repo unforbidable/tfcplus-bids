@@ -5,6 +5,7 @@ import com.unforbidable.tfc.bids.core.crafting.CraftingInit;
 import com.unforbidable.tfc.bids.core.drink.DrinkInit;
 import com.unforbidable.tfc.bids.core.gui.GuiInit;
 import com.unforbidable.tfc.bids.core.keybinding.KeyBindingInit;
+import com.unforbidable.tfc.bids.core.network.NetworkInit;
 import com.unforbidable.tfc.bids.compat.tfc.TfcInit;
 import com.unforbidable.tfc.bids.compat.waila.WailaInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -18,6 +19,7 @@ public class Initializer {
     private static final Initializable[] initializers = {
         // Core initializers are listed here
         new ConfigInit(),
+        new NetworkInit(),
         new GuiInit(),
         new KeyBindingInit(),
         new CraftingInit(),
