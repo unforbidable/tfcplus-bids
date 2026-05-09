@@ -22,14 +22,15 @@ public class BidsItems {
     // Mudbrick
     public static final Item dryingMudBrick = item(ItemNames.DRYING_MUD_BRICK);
 
+    // Glassblowing
+    public static final Item metalBlowpipe = item(ItemNames.METAL_BLOWPIPE);
+    public static final Item brassBlowpipe = item(ItemNames.BRASS_BLOWPIPE);
+    public static final Item flatGlass = item(ItemNames.FLAT_GLASS);
 
-    public static Item metalBlowpipe;
-    public static Item brassBlowpipe;
-    public static Item flatGlass;
+
     public static Item drinkingGlass;
     public static Item glassJug;
     public static Item shotGlass;
-    public static Item glassLump;
 
     public static Item igInStoneDrillHead;
     public static Item sedStoneDrillHead;
