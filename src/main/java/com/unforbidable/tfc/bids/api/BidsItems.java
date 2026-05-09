@@ -27,10 +27,11 @@ public class BidsItems {
     public static final Item brassBlowpipe = item(ItemNames.BRASS_BLOWPIPE);
     public static final Item flatGlass = item(ItemNames.FLAT_GLASS);
 
+    // Glass
+    public static final Item drinkingGlass = item(ItemNames.DRINKING_GLASS);
+    public static final Item glassJug = item(ItemNames.GLASS_JUG);
+    public static final Item shotGlass = item(ItemNames.SHOT_GLASS);
 
-    public static Item drinkingGlass;
-    public static Item glassJug;
-    public static Item shotGlass;
 
     public static Item igInStoneDrillHead;
     public static Item sedStoneDrillHead;
