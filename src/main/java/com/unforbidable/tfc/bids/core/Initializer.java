@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.core;
 
 import com.unforbidable.tfc.bids.common.CommonInit;
+import com.unforbidable.tfc.bids.compat.nei.NeiInit;
 import com.unforbidable.tfc.bids.core.config.ConfigInit;
 import com.unforbidable.tfc.bids.core.crafting.CraftingInit;
 import com.unforbidable.tfc.bids.core.drink.DrinkInit;
@@ -38,6 +39,7 @@ public class Initializer {
         // this is where TFC, WAILA and NEI stuff get actually registered
         new TfcInit(),
         new WailaInit(),
+        new NeiInit(),
     };
 
     public static void preInit(FMLPreInitializationEvent event) {
