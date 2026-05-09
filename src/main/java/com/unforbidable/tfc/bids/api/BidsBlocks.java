@@ -1,5 +1,9 @@
 package com.unforbidable.tfc.bids.api;
 
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 
 public class BidsBlocks {
@@ -203,5 +207,14 @@ public class BidsBlocks {
 
     public static Block soakingSurface;
     public static Block dryingSurface;
+
+    private static Block block(String name) {
+        Block block = GameRegistry.findBlock(Tags.MOD_ID, name);
+        if (block == null) {
+            Bids.LOG.error("Block not found in game registry: {}", name);
+        }
+
+        return block;
+    }
 
 }

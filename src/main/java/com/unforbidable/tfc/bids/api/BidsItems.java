@@ -1,5 +1,9 @@
 package com.unforbidable.tfc.bids.api;
 
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 
 public class BidsItems {
@@ -335,5 +339,14 @@ public class BidsItems {
     public static Item uncuredSoap;
 
     public static Item dryingMudBrick;
+
+    private static Item item(String name) {
+        Item item = GameRegistry.findItem(Tags.MOD_ID, name);
+        if (item == null) {
+            Bids.LOG.error("Item not found in game registry: {}", name);
+        }
+
+        return item;
+    }
 
 }
