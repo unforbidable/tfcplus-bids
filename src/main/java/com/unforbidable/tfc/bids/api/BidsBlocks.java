@@ -8,6 +8,13 @@ import net.minecraft.block.Block;
 
 public class BidsBlocks {
 
+    // BidsBlocks is not to be referred to during initialization before blocks are registered
+    // use core.features.registry.FeatureRegistryLookup instead during initialization
+
+    // Crucible
+    public static final Block clayCrucible = block(BlockNames.CLAY_CRUCIBLE);
+    public static final Block fireClayCrucible = block(BlockNames.FIRE_CLAY_CRUCIBLE);
+
     public static int clayCrucibleRenderId;
     public static int fireClayCrucibleRenderId;
     public static int quarryRenderId;
@@ -54,9 +61,6 @@ public class BidsBlocks {
     public static int decorativeSurfaceRenderId;
     public static int soakingSurfaceRenderId;
     public static int dryingSurfaceRenderId;
-
-    public static Block clayCrucible;
-    public static Block fireClayCrucible;
 
     public static Block mudBrickChimney;
     public static Block mudBrickChimney2;

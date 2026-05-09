@@ -11,10 +11,11 @@ public class BidsItems {
     // Ore
     public static final Item oreBit = item(ItemNames.ORE_BIT);
 
+    // Crucible
+    public static final Item glassLump = item(ItemNames.GLASS_LUMP);
+
     public static Item.ToolMaterial hardenedWoodToolMaterial;
 
-    public static Item clayCrucible;
-    public static Item fireClayCrucible;
     public static Item metalBlowpipe;
     public static Item brassBlowpipe;
     public static Item flatGlass;
