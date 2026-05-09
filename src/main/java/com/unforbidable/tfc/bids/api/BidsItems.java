@@ -19,6 +19,9 @@ public class BidsItems {
     public static final Item clayMug = item(ItemNames.CLAY_MUG);
 
     public static Item.ToolMaterial hardenedWoodToolMaterial;
+    // Mudbrick
+    public static final Item dryingMudBrick = item(ItemNames.DRYING_MUD_BRICK);
+
 
     public static Item metalBlowpipe;
     public static Item brassBlowpipe;
@@ -342,8 +345,6 @@ public class BidsItems {
 
     public static Item soap;
     public static Item uncuredSoap;
-
-    public static Item dryingMudBrick;
 
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, name);

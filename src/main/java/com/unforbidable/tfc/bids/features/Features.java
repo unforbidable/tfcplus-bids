@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features;
 
 import com.unforbidable.tfc.bids.core.features.Feature;
+import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
 import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
@@ -11,6 +12,7 @@ public class Features {
         new Ore(),
         new Crucible(),
         new Pottery(),
+        new Mudbrick(),
     };
 
 }
