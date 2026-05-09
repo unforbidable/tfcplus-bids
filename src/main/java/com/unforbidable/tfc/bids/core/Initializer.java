@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.core;
 
+import com.unforbidable.tfc.bids.common.CommonInit;
 import com.unforbidable.tfc.bids.core.config.ConfigInit;
 import com.unforbidable.tfc.bids.core.crafting.CraftingInit;
 import com.unforbidable.tfc.bids.core.drink.DrinkInit;
@@ -29,6 +30,7 @@ public class Initializer {
         new CraftingInit(),
         new DrinkInit(),
         new SchemeInit(),
+        new CommonInit(),
 
         new FeatureInit(),
 

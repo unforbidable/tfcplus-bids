@@ -18,7 +18,6 @@ public class BidsItems {
     public static final Item clayPipe = item(ItemNames.CLAY_PIPE);
     public static final Item clayMug = item(ItemNames.CLAY_MUG);
 
-    public static Item.ToolMaterial hardenedWoodToolMaterial;
     // Mudbrick
     public static final Item dryingMudBrick = item(ItemNames.DRYING_MUD_BRICK);
 

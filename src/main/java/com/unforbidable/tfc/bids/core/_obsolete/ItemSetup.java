@@ -114,7 +114,7 @@ public class ItemSetup extends BidsItems {
     private static void initItems() {
         Bids.LOG.info("Initialize items");
 
-        hardenedWoodToolMaterial = EnumHelper.addToolMaterial("HardenedWood", 0, 60, 4.0f, 100, 1);
+//        hardenedWoodToolMaterial = EnumHelper.addToolMaterial("HardenedWood", 0, 60, 4.0f, 100, 1);
 
 //        oreBit = new ItemOreBit().setUnlocalizedName("Ore Bit");
 
@@ -181,7 +181,7 @@ public class ItemSetup extends BidsItems {
         mMHandAxe = new ItemHandAxe(TFCItems.mMToolMaterial)
             .setUnlocalizedName("MM Hand Axe");
 
-        hardenedWoodenSpear = new ItemHardenedWoodenSpear(hardenedWoodToolMaterial)
+        hardenedWoodenSpear = new ItemHardenedWoodenSpear(BidsToolMaterial.HARDENED_WOOD)
             .setPierceDamageShape("2X2")
             .setAttackSpeed(12)
             .setUnlocalizedName("Hardened Wooden Spear");
