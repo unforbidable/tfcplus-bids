@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.core;
 
+import com.unforbidable.tfc.bids.compat.tfc.TfcInit;
 import com.unforbidable.tfc.bids.compat.waila.WailaInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -10,6 +11,9 @@ import java.util.Arrays;
 public class Initializer {
 
     private static final Initializable[] initializers = {
+        // These must run after FeatureInit
+        // this is where TFC, WAILA and NEI stuff get actually registered
+        new TfcInit(),
         new WailaInit(),
     };
 
