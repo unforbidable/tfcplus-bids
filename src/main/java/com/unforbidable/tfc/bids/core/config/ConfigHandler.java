@@ -24,6 +24,10 @@ public class ConfigHandler {
     private void loadConfig() {
         config.load();
 
+        // Core configuration would appear here
+
+        // Features are configured
+        FeatureConfigLoader.load(config);
 
         CrucibleConfig.enableClayHandBreakable = config.getBoolean(
                 "enableClayHandBreakable", "crucible",
