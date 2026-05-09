@@ -225,7 +225,7 @@ public class ItemDrill extends ItemCommonTool {
                 ItemStack is = player.inventory.getStackInSlot(i);
                 if (is != null && is.getItem() instanceof PlugAndFeather) {
                     int plugAndFeatherQuarryEquipmentTier = ((PlugAndFeather) is.getItem()).getPlugAndFeatherQuarryEquipmentTier(is);
-                    if (quarriable.isSufficientPlugAndFeaterTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
+                    if (quarriable.isSufficientPlugAndFeatherTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
                         return true;
                     }
                 }
@@ -327,7 +327,7 @@ public class ItemDrill extends ItemCommonTool {
             ItemStack is = player.inventory.getStackInSlot(i);
             if (is != null && is.getItem() instanceof PlugAndFeather) {
                 int plugAndFeatherQuarryEquipmentTier = ((PlugAndFeather) is.getItem()).getPlugAndFeatherQuarryEquipmentTier(is);
-                if (quarriable.isSufficientPlugAndFeaterTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
+                if (quarriable.isSufficientPlugAndFeatherTier(block, metadata, plugAndFeatherQuarryEquipmentTier)) {
                     ItemStack consumed = player.inventory.getStackInSlot(i).copy();
                     consumed.stackSize = 1;
                     player.inventory.decrStackSize(i, 1);

@@ -11,7 +11,7 @@ public interface Quarriable {
 
     boolean isSufficientDrillTier(Block block, int metadata, int equipmentTier);
 
-    boolean isSufficientPlugAndFeaterTier(Block block, int metadata, int equipmentTier);
+    boolean isSufficientPlugAndFeatherTier(Block block, int metadata, int equipmentTier);
 
     boolean canQuarryBlock(Block block, int metadata);
 

@@ -64,7 +64,7 @@ public class QuarriableStone implements Quarriable {
     }
 
     @Override
-    public boolean isSufficientPlugAndFeaterTier(Block block, int metadata, int equipmentTier) {
+    public boolean isSufficientPlugAndFeatherTier(Block block, int metadata, int equipmentTier) {
         return true;
     }
 
