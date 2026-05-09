@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
 import com.unforbidable.tfc.bids.features.material.glass.Glass;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
 import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
+import com.unforbidable.tfc.bids.features.resource.quarry.Quarry;
 import com.unforbidable.tfc.bids.features.utility.adze.Adze;
 import com.unforbidable.tfc.bids.features.utility.drill.Drill;
 
@@ -21,6 +22,7 @@ public class Features {
         new Glass(),
         new Drill(),
         new Adze(),
+        new Quarry(),
     };
 
 }

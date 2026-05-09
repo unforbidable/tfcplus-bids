@@ -74,6 +74,9 @@ public class BidsItems {
     public static final Item blackBronzeAdze = item(ItemNames.ADZE_BLACK_BRONZE);
     public static final Item wroughtIronAdze = item(ItemNames.ADZE_WROUGHT_IRON);
 
+    // Quarry
+    public static Item plugAndFeather = item(ItemNames.PLUG_AND_FEATHER);
+
 
     public static Item igInHandAxe;
     public static Item sedHandAxe;
@@ -203,8 +206,6 @@ public class BidsItems {
     public static Item cornmealFlatbread;
 
     public static Item flatDough;
-
-    public static Item plugAndFeather;
 
     public static Item appleCrushed;
     public static Item oliveCrushed;
