@@ -8,11 +8,13 @@ import net.minecraft.item.Item;
 
 public class BidsItems {
 
+    // Ore
+    public static final Item oreBit = item(ItemNames.ORE_BIT);
+
     public static Item.ToolMaterial hardenedWoodToolMaterial;
 
     public static Item clayCrucible;
     public static Item fireClayCrucible;
-    public static Item oreBit;
     public static Item metalBlowpipe;
     public static Item brassBlowpipe;
     public static Item flatGlass;
