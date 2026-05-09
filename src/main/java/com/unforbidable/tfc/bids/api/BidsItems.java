@@ -14,6 +14,10 @@ public class BidsItems {
     // Crucible
     public static final Item glassLump = item(ItemNames.GLASS_LUMP);
 
+    // Pottery
+    public static final Item clayPipe = item(ItemNames.CLAY_PIPE);
+    public static final Item clayMug = item(ItemNames.CLAY_MUG);
+
     public static Item.ToolMaterial hardenedWoodToolMaterial;
 
     public static Item metalBlowpipe;
@@ -22,8 +26,6 @@ public class BidsItems {
     public static Item drinkingGlass;
     public static Item glassJug;
     public static Item shotGlass;
-    public static Item clayPipe;
-    public static Item clayMug;
     public static Item glassLump;
 
     public static Item igInStoneDrillHead;
