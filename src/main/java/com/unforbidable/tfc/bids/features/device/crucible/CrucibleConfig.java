@@ -15,7 +15,7 @@ public class CrucibleConfig {
     public static float coolingMultiplier = 1;
     public static float furnaceOverheatingRuinChance = 1f;
 
-    public CrucibleConfig(FeatureConfig config) {
+    public static void load(FeatureConfig config) {
         enableClayHandBreakable = config.getBoolean("enableClayHandBreakable",
             enableClayHandBreakable,
             "Set this to true if you wish to be able to break a Clay Crucible by hand easily");

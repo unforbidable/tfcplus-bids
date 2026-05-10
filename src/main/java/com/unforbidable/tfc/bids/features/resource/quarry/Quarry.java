@@ -45,7 +45,7 @@ public class Quarry extends Feature {
 
     @Override
     public void config(FeatureConfig config) {
-        config.using(QuarryConfig::new);
+        config.using(QuarryConfig::load);
     }
 
     @Override

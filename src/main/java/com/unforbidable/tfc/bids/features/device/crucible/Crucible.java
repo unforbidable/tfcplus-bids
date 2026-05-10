@@ -53,7 +53,7 @@ public class Crucible extends Feature {
 
     @Override
     public void config(FeatureConfig config) {
-        config.using(CrucibleConfig::new);
+        config.using(CrucibleConfig::load);
     }
 
     @Override

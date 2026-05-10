@@ -8,7 +8,7 @@ public class QuarryConfig {
     public static int baseDrillDuration = 25;
     public static boolean enableDrillAutoRepair = true;
 
-    public QuarryConfig(FeatureConfig config) {
+    public static void load(FeatureConfig config) {
         baseDrillDuration = config.getInt("baseDrillDuration",
             baseDrillDuration, 10, 1000,
             "Higher values increase the time it takes to drill a hole");
