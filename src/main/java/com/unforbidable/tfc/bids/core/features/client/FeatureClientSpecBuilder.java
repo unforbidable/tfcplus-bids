@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.core.features.client;
 import com.unforbidable.tfc.bids.core.features.client.block.BlockClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.client.gui.GuiScreenSpec;
 import com.unforbidable.tfc.bids.core.features.client.item.ItemClientSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.client.keybinding.KeyBindingClientHelper;
 import com.unforbidable.tfc.bids.core.features.client.nei.NeiRegistryHelper;
 import com.unforbidable.tfc.bids.core.features.client.tileentity.TileEntityClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.client.waila.WailaRegistryHelper;
@@ -24,7 +25,7 @@ public class FeatureClientSpecBuilder {
     private final List<ItemClientSpecBuilder> items = new ArrayList<>();
     private final List<TileEntityClientSpecBuilder> tileEntities = new ArrayList<>();
     private final List<GuiScreenSpec<?, ?>> screens = new ArrayList<>();
-
+    private final KeyBindingClientHelper keys = new KeyBindingClientHelper();
     private final WailaRegistryHelper waila = new WailaRegistryHelper();
     private final NeiRegistryHelper nei = new NeiRegistryHelper();
 
@@ -59,6 +60,10 @@ public class FeatureClientSpecBuilder {
 
     public <T extends ItemStack, G extends GuiScreen> void gui(String name, SpecialGuiFunction<InventoryPlayer, T, World, Integer, Integer, Integer, G> fn) {
         screens.add(new GuiScreenSpec<>(name, GuiProvider.of(fn)));
+    }
+
+    public KeyBindingClientHelper keys() {
+        return keys;
     }
 
     public WailaRegistryHelper waila() {
