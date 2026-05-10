@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.core.features.client.nei;
 
+import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiHandlerEntry;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiHiderEntry;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiRegistry;
-import com.unforbidable.tfc.bids.features.resource.quarry.nei.QuarryNeiHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,7 +11,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class NeiRegistryHelper {
 
-    public NeiRegistryHelper handler(QuarryNeiHandler handler) {
+    public NeiRegistryHelper handler(TemplateRecipeHandler handler) {
         NeiRegistry.handlers.add(new NeiHandlerEntry(handler));
 
         return this;
