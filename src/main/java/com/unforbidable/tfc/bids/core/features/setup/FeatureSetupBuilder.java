@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.core.features.setup;
 
+import com.unforbidable.tfc.bids.core.features.setup.network.NetworkSetupHelper;
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.recipe.CraftingRecipeSetupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryGroupBuilder;
@@ -14,6 +15,7 @@ public class FeatureSetupBuilder {
     private final List<RegistryGroupBuilder<?>> values = new ArrayList<>();
     private final List<OreGroupBuilder> ores = new ArrayList<>();
     private final CraftingRecipeSetupBuilder craftingRecipes = new CraftingRecipeSetupBuilder();
+    private final NetworkSetupHelper network = new NetworkSetupHelper();
     private final List<Runnable> applies = new ArrayList<>();
 
     public CraftingRecipeSetupBuilder recipes() {
@@ -32,6 +34,10 @@ public class FeatureSetupBuilder {
         ores.add(builder);
 
         return builder;
+    }
+
+    public NetworkSetupHelper network() {
+        return network;
     }
 
     public void apply(Runnable apply) {
