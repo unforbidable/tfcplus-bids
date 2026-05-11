@@ -8,8 +8,8 @@ import java.util.List;
 
 public class RegistryGroupBuilder<T> {
 
-    public final ListRegistry<T> registry;
-    public final List<T> values = new ArrayList<>();
+    private final ListRegistry<T> registry;
+    private final List<T> values = new ArrayList<>();
 
     public RegistryGroupBuilder(ListRegistry<T> registry) {
         this.registry = registry;

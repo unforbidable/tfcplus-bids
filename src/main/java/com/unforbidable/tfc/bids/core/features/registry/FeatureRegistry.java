@@ -5,11 +5,19 @@ import com.unforbidable.tfc.bids.core.drink.DrinkRegistry;
 import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import com.unforbidable.tfc.bids.core.drink.registry.DrinkVessel;
 import com.unforbidable.tfc.bids.core.features.client.block.BlockClientSpec;
+import com.unforbidable.tfc.bids.core.features.client.gui.GuiScreenSpec;
 import com.unforbidable.tfc.bids.core.features.client.item.ItemClientSpec;
 import com.unforbidable.tfc.bids.core.features.client.tileentity.TileEntityClientSpec;
 import com.unforbidable.tfc.bids.core.features.init.block.BlockSpec;
+import com.unforbidable.tfc.bids.core.features.init.gui.GuiContainerSpec;
 import com.unforbidable.tfc.bids.core.features.init.item.ItemSpec;
 import com.unforbidable.tfc.bids.core.features.init.tileentity.TileEntitySpec;
+import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroup;
+import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryGroup;
+import com.unforbidable.tfc.bids.core.gui.ContainerProvider;
+import com.unforbidable.tfc.bids.core.gui.GuiRegistry;
+import com.unforbidable.tfc.bids.core.gui.client.ClientGuiRegistry;
+import com.unforbidable.tfc.bids.core.gui.client.GuiScreenProvider;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -19,6 +27,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -150,6 +159,38 @@ public class FeatureRegistry {
         ItemRegistryEntry item = items.get(spec.name);
         DrinkRegistry.vessels.add(new DrinkVessel(item.instance, spec.drink.volume,
             spec.drink.pottery, spec.overlay != null ? spec.overlay.partialOverlays : new int[] {0, 100}));
+    }
+
+    public void registerOre(OreGroup ore) {
+        Bids.LOG.info("Register {} ores for '{}'", ore.items.size(), ore.name);
+
+        ore.items.forEach(i -> OreDictionary.registerOre(ore.name, i));
+    }
+
+    public <T> void registerValue(RegistryGroup<T> group) {
+        Bids.LOG.info("Register {} values", group.values.size());
+
+        group.values.forEach(group.registry::add);
+    }
+
+    public void registerGuiContainer(GuiContainerSpec<?, ?> container) {
+        Bids.LOG.info("Register GUI container '{}'", container.name);
+
+        int id = GuiRegistry.getNextAvailableId();
+        GuiRegistry.guis.add(container.name, id);
+        GuiRegistry.container.add(container.name, new ContainerProvider<>(id, container.provider));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void registerGuiScreen(GuiScreenSpec<?, ?> screen) {
+        Bids.LOG.info("Register GUI screen '{}'", screen.name);
+
+        Integer id = GuiRegistry.guis.get(screen.name);
+        if (id != null) {
+            ClientGuiRegistry.screens.add(screen.name, new GuiScreenProvider<>(id, screen.provider));
+        } else {
+            Bids.LOG.error("GUI container for '{}' must be registered first", screen.name);
+        }
     }
 
 }

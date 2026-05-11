@@ -2,8 +2,9 @@ package com.unforbidable.tfc.bids.core.features;
 
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.core.Initializable;
+import com.unforbidable.tfc.bids.core.crafting.RecipeManager;
+import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistry;
-import com.unforbidable.tfc.bids.core.features.setup.FeatureSetup;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -65,31 +66,58 @@ public class FeatureInit extends Initializable {
 
     @Override
     public void init(FMLInitializationEvent event) {
+        Bids.LOG.info("Register fluid containers");
         loader.getFeatures().stream()
             .flatMap(f -> f.init(context).items.stream())
             .filter(i -> i.container != null && i.fluid != null)
             .forEach(registry::registerFluidContainer);
+
+        Bids.LOG.info("Register drinks");
         loader.getFeatures().stream()
             .flatMap(f -> f.init(context).items.stream())
             .filter(i -> i.drink != null)
             .forEach(registry::registerDrinks);
 
+        Bids.LOG.info("Register GUI containers");
         loader.getFeatures().stream()
             .flatMap(f -> f.init(context).containers.stream())
-            .forEach(FeatureGuiSetup::registerGuiContainer);
+            .forEach(registry::registerGuiContainer);
+
+        Bids.LOG.info("Register ores");
+        loader.getFeatures().stream()
+            .flatMap(f -> f.setup(context).ores.stream())
+            .forEach(registry::registerOre);
+
+        Bids.LOG.info("Register crafting recipes and modifications");
+        RecipeManagerSession session = RecipeManager.getSession();
+        loader.getFeatures().stream()
+            .flatMap(f -> f.setup(context).crafting.recipes.stream())
+            .peek(r -> Bids.LOG.info("Register crafting recipe for {}", r.recipe.getRecipeOutput()))
+            .forEach(session::add);
 
         loader.getFeatures().stream()
-            .peek(f -> Bids.LOG.info("Setup feature '{}'", f.metadata.name))
-            .map(f -> f.setup(context))
-            .forEach(FeatureSetup::setup);
+            .flatMap(f -> f.setup(context).crafting.matchers.stream())
+            .peek(m -> Bids.LOG.info("Handle crafting recipes changes"))
+            .forEach(session::match);
+        session.flush();
+
+        Bids.LOG.info("Register values");
+        loader.getFeatures().stream()
+            .flatMap(f -> f.setup(context).values.stream())
+            .forEach(registry::registerValue);
+
+        loader.getFeatures().stream()
+            .flatMap(f -> f.setup(context).apply.stream())
+            .forEach(Runnable::run);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void initClientOnly(FMLInitializationEvent event) {
+        Bids.LOG.info("Register client GUI screens");
         loader.getFeatures().stream()
             .flatMap(f -> f.client(context).screens.stream())
-            .forEach(FeatureGuiSetup::registerGuiScreen);
+            .forEach(registry::registerGuiScreen);
     }
 
     @Override
