@@ -1,13 +1,17 @@
 package com.unforbidable.tfc.bids.core.features.client;
 
 import com.unforbidable.tfc.bids.core.features.client.block.BlockClientSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.client.eventhandler.EventHandlerClientSpecCollector;
 import com.unforbidable.tfc.bids.core.features.client.gui.GuiScreenSpec;
 import com.unforbidable.tfc.bids.core.features.client.item.ItemClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.client.keybinding.KeyBindingClientHelper;
 import com.unforbidable.tfc.bids.core.features.client.nei.NeiRegistryHelper;
 import com.unforbidable.tfc.bids.core.features.client.tileentity.TileEntityClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.client.waila.WailaRegistryHelper;
-import com.unforbidable.tfc.bids.core.gui.provider.*;
+import com.unforbidable.tfc.bids.core.gui.provider.GuiProvider;
+import com.unforbidable.tfc.bids.core.gui.provider.SimpleGuiFunction;
+import com.unforbidable.tfc.bids.core.gui.provider.SpecialGuiFunction;
+import com.unforbidable.tfc.bids.core.gui.provider.TileEntityGuiFunction;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,7 +20,6 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class FeatureClientSpecBuilder {
@@ -26,6 +29,7 @@ public class FeatureClientSpecBuilder {
     private final List<TileEntityClientSpecBuilder> tileEntities = new ArrayList<>();
     private final List<GuiScreenSpec<?, ?>> screens = new ArrayList<>();
     private final KeyBindingClientHelper keys = new KeyBindingClientHelper();
+    private final EventHandlerClientSpecCollector handlers = new EventHandlerClientSpecCollector();
     private final WailaRegistryHelper waila = new WailaRegistryHelper();
     private final NeiRegistryHelper nei = new NeiRegistryHelper();
 
@@ -66,6 +70,10 @@ public class FeatureClientSpecBuilder {
         return keys;
     }
 
+    public EventHandlerClientSpecCollector event() {
+        return handlers;
+    }
+
     public WailaRegistryHelper waila() {
         return waila;
     }
@@ -85,7 +93,8 @@ public class FeatureClientSpecBuilder {
             tileEntities.stream()
                 .map(TileEntityClientSpecBuilder::build)
                 .collect(Collectors.toList()),
-            screens);
+            screens,
+            handlers.build());
     }
 
 }

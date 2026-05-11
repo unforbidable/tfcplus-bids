@@ -5,6 +5,7 @@ import com.unforbidable.tfc.bids.core.drink.DrinkRegistry;
 import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import com.unforbidable.tfc.bids.core.drink.registry.DrinkVessel;
 import com.unforbidable.tfc.bids.core.features.client.block.BlockClientSpec;
+import com.unforbidable.tfc.bids.core.features.client.eventhandler.EventHandlerClientSpec;
 import com.unforbidable.tfc.bids.core.features.client.gui.GuiScreenSpec;
 import com.unforbidable.tfc.bids.core.features.client.item.ItemClientSpec;
 import com.unforbidable.tfc.bids.core.features.client.tileentity.TileEntityClientSpec;
@@ -12,6 +13,7 @@ import com.unforbidable.tfc.bids.core.features.init.block.BlockSpec;
 import com.unforbidable.tfc.bids.core.features.init.gui.GuiContainerSpec;
 import com.unforbidable.tfc.bids.core.features.init.item.ItemSpec;
 import com.unforbidable.tfc.bids.core.features.init.tileentity.TileEntitySpec;
+import com.unforbidable.tfc.bids.core.features.setup.eventhandler.EventHandlerSpec;
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroup;
 import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryGroup;
 import com.unforbidable.tfc.bids.core.gui.ContainerProvider;
@@ -27,6 +29,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.HashMap;
@@ -191,6 +194,15 @@ public class FeatureRegistry {
         } else {
             Bids.LOG.error("GUI container for '{}' must be registered first", screen.name);
         }
+    }
+
+    public void registerEventHandler(EventHandlerSpec spec) {
+        MinecraftForge.EVENT_BUS.register(spec.instance);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void registerClientEventHandler(EventHandlerClientSpec spec) {
+        MinecraftForge.EVENT_BUS.register(spec.instance);
     }
 
 }

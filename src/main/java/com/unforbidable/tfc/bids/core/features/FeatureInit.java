@@ -106,6 +106,11 @@ public class FeatureInit extends Initializable {
             .flatMap(f -> f.setup(context).values.stream())
             .forEach(registry::registerValue);
 
+        Bids.LOG.info("Register event handlers");
+        loader.getFeatures().stream()
+            .flatMap(f -> f.setup(context).handlers.stream())
+            .forEach(registry::registerEventHandler);
+
         loader.getFeatures().stream()
             .flatMap(f -> f.setup(context).apply.stream())
             .forEach(Runnable::run);
@@ -118,6 +123,11 @@ public class FeatureInit extends Initializable {
         loader.getFeatures().stream()
             .flatMap(f -> f.client(context).screens.stream())
             .forEach(registry::registerGuiScreen);
+
+        Bids.LOG.info("Register client event handlers");
+        loader.getFeatures().stream()
+            .flatMap(f -> f.client(context).handlers.stream())
+            .forEach(registry::registerClientEventHandler);
     }
 
     @Override

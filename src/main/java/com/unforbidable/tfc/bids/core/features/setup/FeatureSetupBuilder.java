@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.core.features.setup;
 
+import com.unforbidable.tfc.bids.core.features.setup.eventhandler.EventHandlerSpecCollector;
 import com.unforbidable.tfc.bids.core.features.setup.network.NetworkSetupHelper;
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.recipe.CraftingRecipeSetupBuilder;
@@ -17,6 +18,7 @@ public class FeatureSetupBuilder {
     private final CraftingRecipeSetupBuilder craftingRecipes = new CraftingRecipeSetupBuilder();
     private final NetworkSetupHelper network = new NetworkSetupHelper();
     private final List<Runnable> applies = new ArrayList<>();
+    private final EventHandlerSpecCollector handlers = new EventHandlerSpecCollector();
 
     public CraftingRecipeSetupBuilder recipes() {
         return craftingRecipes;
@@ -44,6 +46,10 @@ public class FeatureSetupBuilder {
         applies.add(apply);
     }
 
+    public EventHandlerSpecCollector event() {
+        return handlers;
+    }
+
     public FeatureSetupParams build() {
 
         return new FeatureSetupParams(
@@ -54,7 +60,8 @@ public class FeatureSetupBuilder {
                 .map(OreGroupBuilder::build)
                 .collect(Collectors.toList()),
             craftingRecipes.build(),
-            applies
+            applies,
+            handlers.build()
         );
     }
 
