@@ -1,5 +1,7 @@
 package com.unforbidable.tfc.bids.features.building.carving.block;
 
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -115,7 +117,7 @@ public class BlockCarving extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.carvingRenderId;
+        return BlockRenderIdProvider.get(BlockNames.CARVING_ROCK);
     }
 
     @Override

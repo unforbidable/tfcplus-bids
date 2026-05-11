@@ -1,9 +1,9 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvings;
+package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
 
 import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWallVert;
 import net.minecraft.block.Block;
 
-public class CarvingLogWallVert extends CarvingLogWall {
+public class CarvableLogWallVert extends CarvableLogWall {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {

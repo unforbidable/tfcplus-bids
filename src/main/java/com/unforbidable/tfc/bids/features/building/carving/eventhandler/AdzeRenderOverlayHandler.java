@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import org.lwjgl.opengl.GL11;
 
-public class RenderOverlayHandler {
+public class AdzeRenderOverlayHandler {
 
     public static ResourceLocation icons = new ResourceLocation(Tags.MOD_ID, "textures/gui/icons.png");
 

@@ -1,16 +1,16 @@
 package com.unforbidable.tfc.bids.features.building.carving.tileentity;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
+import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBit;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBitMap;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
-import com.unforbidable.tfc.bids.features.building.carving.main.CarvingMessage;
-import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CarvingRecipe;
+import com.unforbidable.tfc.bids.features.building.carving.network.CarvingPacket;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
 import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumAdzeMode;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICarving;
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import com.unforbidable.tfc.bids.api.features.carving.Carvable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -18,11 +18,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 import java.util.List;
 
-public class TileEntityCarving extends TileEntity implements IMessageHanldingTileEntity<CarvingMessage> {
+public class TileEntityCarving extends TileEntity implements PacketHandler<CarvingPacket> {
 
     public final static int CARVING_DIMENSION = 4;
 
@@ -76,7 +75,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
         if (!cachedCraftingResultIsValid) {
             final Block block = Block.getBlockById(carvedBlockId);
             final ItemStack itemStack = new ItemStack(block, 1, carvedBlockMetadata);
-            final CarvingRecipe recipe = BidsRegistry.CARVING_RECIPES.findMatchingRecipe(r -> r.matches(itemStack, carvedBits));
+            final CarvingRecipe recipe = CarvingRegistry.recipes.findMatchingRecipe(r -> r.matches(itemStack, carvedBits));
             cachedCraftingResult = recipe != null ? recipe.getCraftingResult() : null;
             cachedCraftingResultIsValid = true;
         }
@@ -204,8 +203,8 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     }
 
     private void dropHarvestAtRatioCarved(float ratio) {
-        ICarving carving = CarvingHelper.getBlockCarving(this);
-        ItemStack[] rewardStack = carving.getCarvingHarvest(Block.getBlockById(getCarvedBlockId()),
+        Carvable carvable = CarvingHelper.getCarvableBlock(this);
+        ItemStack[] rewardStack = carvable.getCarvingHarvest(Block.getBlockById(getCarvedBlockId()),
                 getCarvedBlockMetadata(), worldObj.rand);
         if (rewardStack != null) {
             int maxCount = rewardStack.length;
@@ -220,8 +219,8 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     }
 
     private void dropExtraHarvest() {
-        ICarving carving = CarvingHelper.getBlockCarving(this);
-        ItemStack is = carving.getCarvingExtraHarvest(Block.getBlockById(getCarvedBlockId()),
+        Carvable carvable = CarvingHelper.getCarvableBlock(this);
+        ItemStack is = carvable.getCarvingExtraHarvest(Block.getBlockById(getCarvedBlockId()),
                 getCarvedBlockMetadata(), worldObj.rand, 1f / getTotalBitCount());
         if (is != null) {
             EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.25, zCoord + 0.5, is);
@@ -241,7 +240,7 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound tag = pkt.func_148857_g();
-        readFromNBT(tag);
+        readCarvingDataFromNBT(tag);
     }
 
     @Override
@@ -279,54 +278,51 @@ public class TileEntityCarving extends TileEntity implements IMessageHanldingTil
     }
 
     @Override
-    public void onTileEntityMessage(CarvingMessage message) {
+    public void handleNetworkPacket(CarvingPacket packet) {
         if (worldObj.isRemote) {
-            switch (message.getAction()) {
-                case ACTION_UPDATE:
-                    carvedBits.setBytes(message.getCarveData());
-                    cachedCraftingResultIsValid = false;
-                    worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-                    Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
-                            + message.getZCoord());
-                    break;
+            if (packet.getAction() == ACTION_UPDATE) {
+                carvedBits.setBytes(packet.getCarveData());
+                cachedCraftingResultIsValid = false;
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                Bids.LOG.info("Client updated at [{},{},{}]", xCoord, yCoord, zCoord);
             }
         } else {
-            switch (message.getAction()) {
-                case ACTION_SELECT_BIT:
-                    selectedBit = message.getBit();
-                    selectedSide = message.getSide();
-                    carvingMode = message.getCarvingMode();
-                    Bids.LOG.debug("Selected bit " + (selectedBit.isEmpty() ? "None"
-                            : (selectedBit.bitX + ", " + selectedBit.bitY + ", " + selectedBit.bitZ)));
+            if (packet.getAction() == ACTION_SELECT_BIT) {
+                selectedBit = packet.getBit();
+                selectedSide = packet.getSide();
+                carvingMode = packet.getCarvingMode();
+                Bids.LOG.info("Selected bit " + (selectedBit.isEmpty() ? "None"
+                    : (selectedBit.bitX + ", " + selectedBit.bitY + ", " + selectedBit.bitZ)));
 
-                    if (!clientInitialized) {
-                        // First time a carving is selected
-                        // refresh the client render
-                        sendUpdateMessage(worldObj, xCoord, yCoord, zCoord, 0);
-                        clientInitialized = true;
-                    }
-                    break;
+                if (!clientInitialized) {
+                    // First time a carving is selected
+                    // refresh the client render
+                    sendUpdateMessage(0);
+                    clientInitialized = true;
+                }
             }
         }
 
     }
 
-    public static void sendSelectBitMessage(World world, int x, int y, int z, CarvingBit bit, int side, EnumAdzeMode mode) {
-        Bids.network.sendToServer(new CarvingMessage(x, y, z, TileEntityCarving.ACTION_SELECT_BIT)
-                .setBit(bit)
-                .setSide(side)
-                .setCarvingMode(mode));
-        Bids.LOG.debug("Send select bit message " + bit.bitX + ", " + bit.bitY +
+    public void sendSelectBitMessage(CarvingBit bit, int side, EnumAdzeMode mode) {
+        CarvingPacket packet = new CarvingPacket(TileEntityCarving.ACTION_SELECT_BIT);
+        packet.setBit(bit);
+        packet.setSide(side);
+        packet.setCarvingMode(mode);
+        Network.sendToTileEntity(packet, this);
+
+        Bids.LOG.info("Send select bit packet " + bit.bitX + ", " + bit.bitY +
                 ", " + bit.bitZ + " side " + side + " mode " + mode);
     }
 
-    public static void sendUpdateMessage(World world, int x, int y, int z, int flags) {
-        TileEntityCarving te = (TileEntityCarving) world.getTileEntity(x, y, z);
-        TargetPoint tp = new TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new CarvingMessage(x, y, z, TileEntityCarving.ACTION_UPDATE)
-                .setFlag(flags)
-                .setCarvedData(te.carvedBits.getBytes()), tp);
-        Bids.LOG.debug("Sent update message: " + flags);
+    public void sendUpdateMessage(int flags) {
+        CarvingPacket packet = new CarvingPacket(TileEntityCarving.ACTION_UPDATE);
+        packet.setFlag(flags);
+        packet.setCarvedData(carvedBits.getBytes());
+        Network.sendToTileEntity(packet, this);
+
+        Bids.LOG.info("Sent update packet: " + flags);
     }
 
 }

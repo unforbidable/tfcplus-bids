@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.crafting.carving.nei;
+package com.unforbidable.tfc.bids.features.building.carving.nei;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
@@ -7,9 +7,9 @@ import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CarvingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CarvingRecipePattern;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
+import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -106,7 +106,7 @@ public class CarvingNeiHandler extends TemplateRecipeHandler implements IHandler
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == CarvingNeiHandler.class) {
-            for (CarvingRecipe recipe : BidsRegistry.CARVING_RECIPES) {
+            for (CarvingRecipe recipe : CarvingRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getCraftingResult();
                 arecipes.add(new CachedCarvingRecipe(input, result, recipe.getPattern()));
@@ -118,7 +118,7 @@ public class CarvingNeiHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (CarvingRecipe recipe : BidsRegistry.CARVING_RECIPES) {
+        for (CarvingRecipe recipe : CarvingRegistry.recipes) {
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getCraftingResult();
             final ItemStack outputOne = output.copy();
@@ -131,7 +131,7 @@ public class CarvingNeiHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (CarvingRecipe recipe : BidsRegistry.CARVING_RECIPES) {
+        for (CarvingRecipe recipe : CarvingRegistry.recipes) {
             if (recipe.matches(ingredient)) {
                 final ItemStack input = ingredient.copy();
                 input.stackSize = 1;

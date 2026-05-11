@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.building.carving.eventhandler;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
 import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumAdzeMode;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICarvingTool;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingTool;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,8 +27,7 @@ public class AdzeHighlightHandler {
         TileEntity te = world.getTileEntity(target.blockX, target.blockY, target.blockZ);
         if (te instanceof TileEntityCarving) {
             TileEntityCarving teCarving = (TileEntityCarving) te;
-            ICarvingTool tool = item != null && item.getItem() instanceof ICarvingTool ? (ICarvingTool) item.getItem()
-                : null;
+            CarvingTool tool = item != null && item.getItem() instanceof CarvingTool ? (CarvingTool) item.getItem() : null;
 
             if (!teCarving.isCarvingLocked() && !teCarving.getSelectedBit().isEmpty() && tool != null) {
                 double var8 = player.lastTickPosX + (player.posX - player.lastTickPosX) * evt.partialTicks;

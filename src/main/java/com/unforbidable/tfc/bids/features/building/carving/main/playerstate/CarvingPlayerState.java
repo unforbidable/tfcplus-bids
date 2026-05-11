@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.building.carving.main;
+package com.unforbidable.tfc.bids.features.building.carving.main.playerstate;
 
 import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumAdzeMode;
 

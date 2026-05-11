@@ -1,16 +1,16 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvings;
+package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICarving;
+import com.unforbidable.tfc.bids.api.features.carving.Carvable;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class CarvingRoughStoneTile implements ICarving {
+public class CarvableRoughStoneTile implements Carvable {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {

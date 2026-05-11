@@ -14,6 +14,8 @@ import com.unforbidable.tfc.bids.api._obsolete.BidsCookingMixtures;
 import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
@@ -674,77 +676,77 @@ public class RecipeSetup {
     private static void registerCarvingRecipes() {
         Bids.LOG.info("Register carving recipes");
 
-        CarvingRecipePattern choppingBlockPattern = new CarvingRecipePattern()
-            .carveEntireLayer();
-
-        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            if (wood.blocks.hasChoppingBlock()) {
-                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(wood.blocks.getChoppingBlock(),
-                    wood.blocks.getWoodVert(), choppingBlockPattern));
-            }
-        }
-
-        CarvingRecipePattern saddleQuernPattern = new CarvingRecipePattern()
-            .carveLayer("    ", " ## ", " ## ", " ## ");
-
-        CarvingRecipePattern[] handstonePatterns = {
-            new CarvingRecipePattern()
-                .carveEntireLayer()
-                .carveEntireLayer()
-                .carveLayer("####", "#  #", "#  #", "#  #")
-                .carveLayer("####", "#  #", "#  #", "#  #"),
-            new CarvingRecipePattern()
-                .carveEntireLayer()
-                .carveEntireLayer()
-                .carveLayer("####", "  ##", "  ##", "  ##")
-                .carveLayer("####", "  ##", "  ##", "  ##"),
-            new CarvingRecipePattern()
-                .carveEntireLayer()
-                .carveEntireLayer()
-                .carveLayer("####", "##  ", "##  ", "##  ")
-                .carveLayer("####", "##  ", "##  ", "##  ")
-        };
-
-        CarvingRecipePattern pressingStonePattern = new CarvingRecipePattern()
-            .carveEntireLayer()
-            .carveEntireLayer()
-            .carveLayer("####", "#   ", "#   ", "#   ")
-            .carveLayer("####", "#   ", "#   ", "#   ");
-
-
-        CarvingRecipePattern weightStonePattern = new CarvingRecipePattern()
-            .carveEntireLayer()
-            .carveLayer("####", "#   ", "#   ", "#   ")
-            .carveLayer("####", "#   ", "#   ", "#   ")
-            .carveLayer("####", "#   ", "#   ", "#   ");
-
-        CarvingRecipePattern chimneyPattern = new CarvingRecipePattern()
-            .carveLayer("    ", " ## ", " ## ", "    ")
-            .carveLayer("    ", " ## ", " ## ", "    ")
-            .carveLayer("    ", " ## ", " ## ", "    ")
-            .carveLayer("    ", " ## ", " ## ", "    ");
-
-
-        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
-            if (stone.soft) {
-                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.SADDLE_QUERN),
-                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), saddleQuernPattern));
-
-                for (int j = 0; j < handstonePatterns.length; j++) {
-                    BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.HAND_STONE),
-                        stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), handstonePatterns[j]));
-                }
-
-                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.PRESSING_STONE),
-                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), pressingStonePattern));
-
-                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.WEIGHT_STONE),
-                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), weightStonePattern));
-            }
+//        CarvingRecipePattern choppingBlockPattern = new CarvingRecipePattern()
+//            .carveEntireLayer();
+//
+//        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
+//            if (wood.blocks.hasChoppingBlock()) {
+//                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(wood.blocks.getChoppingBlock(),
+//                    wood.blocks.getWoodVert(), choppingBlockPattern));
+//            }
+//        }
+//
+//        CarvingRecipePattern saddleQuernPattern = new CarvingRecipePattern()
+//            .carveLayer("    ", " ## ", " ## ", " ## ");
+//
+//        CarvingRecipePattern[] handstonePatterns = {
+//            new CarvingRecipePattern()
+//                .carveEntireLayer()
+//                .carveEntireLayer()
+//                .carveLayer("####", "#  #", "#  #", "#  #")
+//                .carveLayer("####", "#  #", "#  #", "#  #"),
+//            new CarvingRecipePattern()
+//                .carveEntireLayer()
+//                .carveEntireLayer()
+//                .carveLayer("####", "  ##", "  ##", "  ##")
+//                .carveLayer("####", "  ##", "  ##", "  ##"),
+//            new CarvingRecipePattern()
+//                .carveEntireLayer()
+//                .carveEntireLayer()
+//                .carveLayer("####", "##  ", "##  ", "##  ")
+//                .carveLayer("####", "##  ", "##  ", "##  ")
+//        };
+//
+//        CarvingRecipePattern pressingStonePattern = new CarvingRecipePattern()
+//            .carveEntireLayer()
+//            .carveEntireLayer()
+//            .carveLayer("####", "#   ", "#   ", "#   ")
+//            .carveLayer("####", "#   ", "#   ", "#   ");
+//
+//
+//        CarvingRecipePattern weightStonePattern = new CarvingRecipePattern()
+//            .carveEntireLayer()
+//            .carveLayer("####", "#   ", "#   ", "#   ")
+//            .carveLayer("####", "#   ", "#   ", "#   ")
+//            .carveLayer("####", "#   ", "#   ", "#   ");
+//
+//        CarvingRecipePattern chimneyPattern = new CarvingRecipePattern()
+//            .carveLayer("    ", " ## ", " ## ", "    ")
+//            .carveLayer("    ", " ## ", " ## ", "    ")
+//            .carveLayer("    ", " ## ", " ## ", "    ")
+//            .carveLayer("    ", " ## ", " ## ", "    ");
+//
+//
+//        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
+//            if (stone.soft) {
+//                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.SADDLE_QUERN),
+//                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), saddleQuernPattern));
+//
+//                for (int j = 0; j < handstonePatterns.length; j++) {
+//                    BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.HAND_STONE),
+//                        stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), handstonePatterns[j]));
+//                }
+//
+//                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.PRESSING_STONE),
+//                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), pressingStonePattern));
+//
+//                BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.WEIGHT_STONE),
+//                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), weightStonePattern));
+//            }
 
 //            BidsRegistry.CARVING_RECIPES.register(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY),
 //                stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICKS), chimneyPattern));
-        }
+//        }
     }
 
     private static void registerSaddleQuernRecipes() {

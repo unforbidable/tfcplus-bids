@@ -18,7 +18,7 @@ public class BidsRegistry {
     public static final ListRegistry<ICrackableBlock> WOODPILE_CRACKABLE_BLOCKS = new ListRegistry<>("woodpile-crackable-blocks");
     public static final ListRegistry<ISurfaceItemPlacer> SURFACE_ITEM_PLACERS = new ListRegistry<>("surface-item-placers");
 //    public static final BlockRegistry<IQuarriable> QUARRY_BLOCKS = new BlockRegistry<>();
-    public static final ListRegistry<ICarving> CARVING_BLOCKS = new ListRegistry<>("carving-blocks");
+//    public static final ListRegistry<Carvable> CARVING_BLOCKS = new ListRegistry<>("carving-blocks");
     public static final ListRegistry<IDrinkable> DRINKS = new ListRegistry<>("drinks");
     public static final ListRegistry<Class<? extends IKilnChamber>> KILN_CHAMBERS = new ListRegistry<>("kiln-chambers");
     public static final FluidRegistry<ILampFuelMaterial> LAMP_FUEL = new FluidRegistry<>();
@@ -26,7 +26,7 @@ public class BidsRegistry {
     public static final ListRegistry<CookingMixture> COOKING_MIXTURES = new ListRegistry<>("cooking-mixtures");
     public static final ListRegistry<DryingRackTyingEquipment> DRYING_RACK_TYING_EQUIPMENT = new ListRegistry<>("drying-rack-tying-equipment");
 
-    public static final RecipeRegistry<CarvingRecipe> CARVING_RECIPES = new RecipeRegistry<>("carving");
+//    public static final RecipeRegistry<CarvingRecipe> CARVING_RECIPES = new RecipeRegistry<>("carving");
     public static final SimpleRecipeRegistry<ChurningRecipe, FluidStack> CHURNING_RECIPES = new SimpleRecipeRegistry<>("churning");
     public static final SimpleRecipeRegistry<CardingRecipe, ItemStack> CARDING_RECIPES = new SimpleRecipeRegistry<>("carding");
     public static final SimpleRecipeRegistry<HandworkRecipe, ItemStack> HANDWORK_RECIPES = new SimpleRecipeRegistry<>("handwork");

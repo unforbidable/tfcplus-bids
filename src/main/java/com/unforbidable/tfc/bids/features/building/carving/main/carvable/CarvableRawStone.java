@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvings;
+package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCBlocks;
@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class CarvingRawStone extends CarvingRoughStone {
+public class CarvableRawStone extends CarvableRoughStone {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {

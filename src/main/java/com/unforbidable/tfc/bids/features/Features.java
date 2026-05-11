@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features;
 
 import com.unforbidable.tfc.bids.core.features.Feature;
+import com.unforbidable.tfc.bids.features.building.carving.Carving;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
@@ -23,6 +24,7 @@ public class Features {
         new Drill(),
         new Adze(),
         new Quarry(),
+        new Carving(),
     };
 
 }

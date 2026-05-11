@@ -1,11 +1,11 @@
 package com.unforbidable.tfc.bids.features.building.carving.main.modes;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.features.building.carving.CarvingConfig;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBit;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBitMap;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICarvingMode;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingMode;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -14,7 +14,7 @@ import java.util.List;
 
 import static com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving.CARVING_DIMENSION;
 
-public class CarvingModeSingle implements ICarvingMode {
+public class CarvingModeSingle implements CarvingMode {
 
     @Override
     public String getName() {
@@ -23,7 +23,7 @@ public class CarvingModeSingle implements ICarvingMode {
 
     @Override
     public boolean canCarveBit(final CarvingBit bit, final int side, final CarvingBitMap carvedBits) {
-        if (BidsOptions.Carving.enableCarvingAnyBit) {
+        if (CarvingConfig.enableCarvingAnyBit) {
             return true;
         }
 

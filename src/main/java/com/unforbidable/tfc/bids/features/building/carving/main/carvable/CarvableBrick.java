@@ -1,24 +1,24 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvings;
+package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICarving;
+import com.unforbidable.tfc.bids.api.features.carving.Carvable;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class CarvingStoneLargeBrick implements ICarving {
+public class CarvableBrick implements Carvable {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block == TFCBlocks.stoneSedLargeBrick || block == TFCBlocks.stoneIgInLargeBrick || block == TFCBlocks.stoneIgExLargeBrick || block == TFCBlocks.stoneMMLargeBrick;
+        return block == TFCBlocks.bricks;
     }
 
     @Override
     public boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier) {
-        return block == TFCBlocks.stoneSedLargeBrick || equipmentTier > 0;
+        return equipmentTier > 0;
     }
 
     @Override
@@ -33,9 +33,7 @@ public class CarvingStoneLargeBrick implements ICarving {
 
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
-        return new ItemStack[] {
-            new ItemStack(block, 1, metadata)
-        };
+        return new ItemStack[] { new ItemStack(TFCBlocks.bricks, 1, 0) };
     }
 
     @Override

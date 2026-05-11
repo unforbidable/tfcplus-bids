@@ -3,6 +3,8 @@ package com.unforbidable.tfc.bids.features.building.mudbrick;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -13,6 +15,8 @@ import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneBlockType;
 import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
+import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
+import com.unforbidable.tfc.bids.features.building.mudbrick.main.carvable.CarvableMudBrick;
 import com.unforbidable.tfc.bids.features.building.mudbrick.block.BlockMudbrickChimney;
 import com.unforbidable.tfc.bids.features.building.mudbrick.block.itemblock.ItemMudbrickChimney;
 import com.unforbidable.tfc.bids.features.building.mudbrick.item.ItemDryingMudBrick;
@@ -56,11 +60,11 @@ public class Mudbrick extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-//        CarvingRecipePattern chimneyPattern = new CarvingRecipePattern()
-//            .carveLayer("    ", " ## ", " ## ", "    ")
-//            .carveLayer("    ", " ## ", " ## ", "    ")
-//            .carveLayer("    ", " ## ", " ## ", "    ")
-//            .carveLayer("    ", " ## ", " ## ", "    ");
+        CarvingRecipePattern chimneyPattern = new CarvingRecipePattern()
+            .carveLayer("    ", " ## ", " ## ", "    ")
+            .carveLayer("    ", " ## ", " ## ", "    ")
+            .carveLayer("    ", " ## ", " ## ", "    ")
+            .carveLayer("    ", " ## ", " ## ", "    ");
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
             setup.recipes().addShaped(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY, 2),
@@ -70,11 +74,13 @@ public class Mudbrick extends Feature {
                 "PB", "BB", 'P', new ItemStack(TFCItems.logs, 1, 48), // Bamboo
                 'B', stone.items.getItem(EnumStoneItemType.MUD_BRICK));
 
-            // TODO add recipe when carving implemented
-//            setup.registry(BidsRegistry.CARVING_RECIPES)
-//                .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY),
-//                    stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICKS), chimneyPattern));
+            setup.registry(CarvingRegistry.recipes)
+                .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY),
+                    stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICKS), chimneyPattern));
         }
+
+        setup.registry(CarvingRegistry.carvable)
+            .add(new CarvableMudBrick());
 
         // TODO add mud brick surface drying recipes
     }

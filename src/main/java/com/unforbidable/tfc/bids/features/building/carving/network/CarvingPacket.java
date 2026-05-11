@@ -1,11 +1,11 @@
-package com.unforbidable.tfc.bids.features.building.carving.main;
-
-import com.unforbidable.tfc.bids.core.network._obsolete.TileEntityMessageBase;
+package com.unforbidable.tfc.bids.features.building.carving.network;
 
 import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumAdzeMode;
+import com.unforbidable.tfc.bids.core.network.packet.Packet;
+import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBit;
 import io.netty.buffer.ByteBuf;
 
-public class CarvingMessage extends TileEntityMessageBase {
+public class CarvingPacket extends Packet {
 
     private int action;
     private int flag;
@@ -14,15 +14,18 @@ public class CarvingMessage extends TileEntityMessageBase {
     private int side;
     private byte[] carvedData = null;
 
-    public CarvingMessage() {
-        super(-1, -1, -1, -1);
+    public CarvingPacket() {
     }
 
-    public CarvingMessage(int x, int y, int z, int action) {
-        super(x, y, z, action);
+    public CarvingPacket(int action) {
+        this.action = action;
     }
 
-    public CarvingMessage setFlag(int flag) {
+    public int getAction() {
+        return action;
+    }
+
+    public CarvingPacket setFlag(int flag) {
         this.flag = flag;
         return this;
     }
@@ -31,7 +34,7 @@ public class CarvingMessage extends TileEntityMessageBase {
         return flag;
     }
 
-    public CarvingMessage setCarvedData(byte[] carvedData) {
+    public CarvingPacket setCarvedData(byte[] carvedData) {
         this.carvedData = carvedData;
         return this;
     }
@@ -40,7 +43,7 @@ public class CarvingMessage extends TileEntityMessageBase {
         return carvedData;
     }
 
-    public CarvingMessage setBit(CarvingBit bit) {
+    public CarvingPacket setBit(CarvingBit bit) {
         this.bit = bit;
         return this;
     }
@@ -49,7 +52,7 @@ public class CarvingMessage extends TileEntityMessageBase {
         return bit;
     }
 
-    public CarvingMessage setCarvingMode(EnumAdzeMode carvingMode) {
+    public CarvingPacket setCarvingMode(EnumAdzeMode carvingMode) {
         this.carvingMode = carvingMode;
         return this;
     }
@@ -62,7 +65,7 @@ public class CarvingMessage extends TileEntityMessageBase {
         return side;
     }
 
-    public CarvingMessage setSide(int side) {
+    public CarvingPacket setSide(int side) {
         this.side = side;
         return this;
     }
@@ -114,12 +117,6 @@ public class CarvingMessage extends TileEntityMessageBase {
         } else {
             buf.writeByte(0);
         }
-    }
-
-    public static class ClientHandler extends ClientHandlerBase<CarvingMessage> {
-    }
-
-    public static class ServerHandler extends ServerHandlerBase<CarvingMessage> {
     }
 
 }

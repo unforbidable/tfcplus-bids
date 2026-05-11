@@ -1,24 +1,24 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvings;
+package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICarving;
+import com.unforbidable.tfc.bids.api.features.carving.Carvable;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class CarvingSmoothStone implements ICarving {
+public class CarvableStoneLargeBrick implements Carvable {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block == TFCBlocks.stoneSedSmooth || block == TFCBlocks.stoneIgInSmooth || block == TFCBlocks.stoneIgExSmooth || block == TFCBlocks.stoneMMSmooth;
+        return block == TFCBlocks.stoneSedLargeBrick || block == TFCBlocks.stoneIgInLargeBrick || block == TFCBlocks.stoneIgExLargeBrick || block == TFCBlocks.stoneMMLargeBrick;
     }
 
     @Override
     public boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier) {
-        return block == TFCBlocks.stoneSedSmooth || equipmentTier > 0;
+        return block == TFCBlocks.stoneSedLargeBrick || equipmentTier > 0;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.core.config;
 
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfigLoader;
+import com.unforbidable.tfc.bids.features.building.carving.CarvingConfig;
 import com.unforbidable.tfc.bids.features.device.crucible.CrucibleConfig;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.features.resource.quarry.QuarryConfig;
@@ -29,62 +30,7 @@ public class ConfigHandler {
         // Features are configured
         FeatureConfigLoader.load(config);
 
-        CrucibleConfig.enableClayHandBreakable = config.getBoolean(
-                "enableClayHandBreakable", "crucible",
-                CrucibleConfig.enableClayHandBreakable,
-                "Set this to true if you wish to be able to break a Clay Crucible by hand easily");
-        CrucibleConfig.enableFireClayHandBreakable = config.getBoolean(
-                "enableFireClayHandBreakable", "crucible",
-                CrucibleConfig.enableFireClayHandBreakable,
-                "Set this to true if you wish to be able to break a Fireclay Crucible by hand easily");
-        CrucibleConfig.enableClassicHandBreakable = config.getBoolean(
-                "enableClassicHandBreakable", "crucible",
-                CrucibleConfig.enableClassicHandBreakable,
-                "Set this to true if you wish to be able to break a classic TFC crucible by hand easily");
-        CrucibleConfig.enableOutputDisplay = config.getBoolean(
-                "enableOutputDisplay", "crucible",
-                CrucibleConfig.enableOutputDisplay,
-                "Set this to true if you wish to see the crucible output in the GUI");
-        CrucibleConfig.enableExactTemperatureDisplay = config.getBoolean(
-                "enableExactTemperatureDisplay", "crucible",
-                CrucibleConfig.enableExactTemperatureDisplay,
-                "Set this to true if you wish to see the exact temperature in the GUI (hover text)");
-        CrucibleConfig.solidHeatingMultiplier = config.getFloat(
-                "solidHeatingMultiplier", "crucible",
-                CrucibleConfig.solidHeatingMultiplier, 1f, 10f,
-                "Higher values increase the heat transfer to solid input materials from the heat source");
-        CrucibleConfig.solidHeatingFromLiquidBonusMultiplier = config.getFloat(
-                "solidHeatingFromLiquidBonusMultiplier", "crucible",
-                CrucibleConfig.solidHeatingFromLiquidBonusMultiplier, 1f, 10f,
-                "Higher values increase the heat transfer to solid input materials from molten metal that is already in the crucible");
-        CrucibleConfig.liquidHeatingMultiplier = config.getFloat(
-                "liquidHeatingMultiplier", "crucible",
-                CrucibleConfig.liquidHeatingMultiplier, 1f, 10f,
-                "Higher values increase the heat transfer to molten metal that is already in the crucible from the heat source");
-        CrucibleConfig.coolingMultiplier = config.getFloat(
-                "coolingMultiplier", "crucible",
-                CrucibleConfig.coolingMultiplier, 1f, 10f,
-                "Higher values increase the heat transfer rate when cooling down (heat loss)");
-        CrucibleConfig.furnaceOverheatingRuinChance = config.getFloat(
-                "furnaceOverheatingRuinChance", "crucible",
-                CrucibleConfig.furnaceOverheatingRuinChance, 0f, 1f,
-                "The chance of clay crucible to get ruined after making glass (0 = never, 1 = always)");
-
-        QuarryConfig.baseDrillDuration = config.getInt(
-                "baseDrillDuration", "quarry",
-                QuarryConfig.baseDrillDuration, 10, 1000,
-                "Higher values increase the time it takes to drill a hole");
-        QuarryConfig.bowStringBreakChance = config.getFloat(
-                "bowStringBreakChance", "quarry",
-                QuarryConfig.bowStringBreakChance, 0f, 1f,
-                "The chance of bow string breaking when a drill breaks (0 = never, 1 = always)");
-        QuarryConfig.enableDrillAutoRepair = config.getBoolean(
-                "enableDrillAutoRepair", "quarry", QuarryConfig.enableDrillAutoRepair,
-                "Set this to true if you want to see stone drills automatically repaired using material from the hotbar");
-
-        BidsOptions.Carving.enableCarvingAnyBit = config.getBoolean(
-            "enableCarvingAnyBit", "carving", BidsOptions.Carving.enableCarvingAnyBit,
-            "Set this to true if you want to be able to carve any bit with an Adze; if set to false, chimney blocks cannot be carved");
+        // TODO move to specific feature
 
         BidsOptions.Churning.churningDurationMultiplier = config.getFloat(
             "churningDurationMultiplier", "churning",

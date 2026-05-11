@@ -2,12 +2,6 @@ package com.unforbidable.tfc.bids.api._obsolete;
 
 public class BidsOptions {
 
-    public static class Carving {
-
-        public static boolean enableCarvingAnyBit = true;
-
-    }
-
     public static class WoodPile {
 
         public static boolean enablePlacementUsingLogsTFC = false;

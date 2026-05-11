@@ -22,6 +22,9 @@ public class BidsBlocks {
     // Quarry
     public static final Block quarry = block(BlockNames.QUARRY);
 
+    // Carving
+    public static Block carvingRock = block(BlockNames.CARVING_ROCK);
+    public static Block carvingWood = block(BlockNames.CARVING_WOOD);
 
 
     public static int clayCrucibleRenderId;
@@ -70,9 +73,6 @@ public class BidsBlocks {
     public static int decorativeSurfaceRenderId;
     public static int soakingSurfaceRenderId;
     public static int dryingSurfaceRenderId;
-
-    public static Block carvingRock;
-    public static Block carvingWood;
 
     public static Block woodPile;
     public static Block light;

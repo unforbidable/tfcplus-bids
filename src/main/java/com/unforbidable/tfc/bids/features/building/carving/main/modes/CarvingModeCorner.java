@@ -3,13 +3,13 @@ package com.unforbidable.tfc.bids.features.building.carving.main.modes;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBit;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBitMap;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICarvingMode;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingMode;
 import net.minecraft.util.AxisAlignedBB;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarvingModeCorner implements ICarvingMode {
+public class CarvingModeCorner implements CarvingMode {
 
     @Override
     public String getName() {

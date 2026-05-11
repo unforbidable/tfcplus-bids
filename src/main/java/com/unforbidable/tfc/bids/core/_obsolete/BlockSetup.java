@@ -12,7 +12,6 @@ import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallVertType;
 import com.unforbidable.tfc.bids.common.block.BlockLight;
 import com.unforbidable.tfc.bids.common.block.itemblock.ItemGenericSoil;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
-import com.unforbidable.tfc.bids.features.building.carving.main.CarvingMessage;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.main.DecorativeSurfacePlacer;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.main.DryingSurfacePlacer;
 import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.beehive.BeehiveKilnChamber;
@@ -23,8 +22,7 @@ import com.unforbidable.tfc.bids.features.device.processingsurface.main.Processi
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.block.BlockAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.render.RenderAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.tileentity.TileEntityAxleWallBearing;
-import com.unforbidable.tfc.bids.features.building.carving.main.carvings.*;
-import com.unforbidable.tfc.bids.features.building.carving.block.BlockCarving;
+import com.unforbidable.tfc.bids.features.building.carving.main.carvable.*;
 import com.unforbidable.tfc.bids.features.building.carving.render.RenderCarving;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.block.BlockDecorativeSurface;
@@ -209,8 +207,8 @@ public class BlockSetup extends BidsBlocks {
 
 //        quarry = new BlockQuarry().setBlockName("Quarry");
 
-        carvingRock = new BlockCarving(Material.rock).setBlockName("CarvingRock");
-        carvingWood = new BlockCarving(Material.wood).setBlockName("CarvingWood");
+//        carvingRock = new BlockCarving(Material.rock).setBlockName("CarvingRock");
+//        carvingWood = new BlockCarving(Material.wood).setBlockName("CarvingWood");
 
         woodPile = new BlockWoodPile().setBlockName("WoodPile")
                 .setBlockTextureName("Wood Pile");
@@ -624,21 +622,21 @@ public class BlockSetup extends BidsBlocks {
     private static void registerCarvings() {
         Bids.LOG.info("Register block carvings");
 
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingRoughStone());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingRoughStoneBrick());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingRoughStoneTile());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingRawStone());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingLogWall());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingLogWallVert());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingStackedLogs());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingWoodVert());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingMudBrick());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingPlanks());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingStoneBrick());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingStoneLargeBrick());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingSmoothStone());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingBrick());
-        BidsRegistry.CARVING_BLOCKS.register(new CarvingFireBrick());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableRoughStone());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableRoughStoneBrick());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableRoughStoneTile());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableRawStone());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableLogWall());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableLogWallVert());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableStackedLogs());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableWoodVert());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableMudBrick());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvablePlanks());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableStoneBrick());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableStoneLargeBrick());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableSmoothStone());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableBrick());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableFireBrick());
     }
 
     private static void registerQuarryBlocks() {
@@ -892,11 +890,11 @@ public class BlockSetup extends BidsBlocks {
     private static void registerMessages() {
         Bids.LOG.info("Register tile entity messages");
 
-        Bids.network.registerMessage(CarvingMessage.ServerHandler.class, CarvingMessage.class,
-                NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
-        Bids.network.registerMessage(CarvingMessage.ClientHandler.class, CarvingMessage.class,
-                NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
-
+//        Bids.network.registerMessage(CarvingPacket.ServerHandler.class, CarvingPacket.class,
+//                NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
+//        Bids.network.registerMessage(CarvingPacket.ClientHandler.class, CarvingPacket.class,
+//                NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
+//
         Bids.network.registerMessage(WoodPileMessage.ServerHandler.class, WoodPileMessage.class,
                 NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
         Bids.network.registerMessage(WoodPileMessage.ClientHandler.class, WoodPileMessage.class,

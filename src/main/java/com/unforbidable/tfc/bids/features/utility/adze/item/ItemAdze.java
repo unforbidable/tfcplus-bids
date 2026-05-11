@@ -17,7 +17,7 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICarvingTool;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingTool;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -28,7 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class ItemAdze extends ItemTerraTool implements ISize, ICarvingTool {
+public class ItemAdze extends ItemTerraTool implements ISize, CarvingTool {
 
     public static final Set<Block> effectiveAgainstBlocks = new HashSet<>();
 
