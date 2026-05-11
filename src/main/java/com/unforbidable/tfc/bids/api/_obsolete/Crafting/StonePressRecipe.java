@@ -5,11 +5,11 @@ import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ISimpleRecipeMatcher;
+import com.unforbidable.tfc.bids.api.util.SimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class StonePressRecipe implements ISimpleRecipeMatcher<ItemStack> {
+public class StonePressRecipe implements SimpleRecipeMatcher<ItemStack> {
 
     final FluidStack output;
     final ItemStack input;

@@ -3,12 +3,12 @@ package com.unforbidable.tfc.bids.api._obsolete.Crafting;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ISimpleRecipeMatcher;
+import com.unforbidable.tfc.bids.api.util.SimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public class ChurningRecipe implements ISimpleRecipeMatcher<FluidStack> {
+public class ChurningRecipe implements SimpleRecipeMatcher<FluidStack> {
 
     private final ItemStack output;
     private final FluidStack input;

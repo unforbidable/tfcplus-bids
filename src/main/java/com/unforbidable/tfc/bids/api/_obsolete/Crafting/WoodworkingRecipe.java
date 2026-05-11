@@ -1,12 +1,12 @@
 package com.unforbidable.tfc.bids.api._obsolete.Crafting;
 
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ISimpleRecipeMatcher;
+import com.unforbidable.tfc.bids.api.util.SimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WoodworkingRecipe implements ISimpleRecipeMatcher<ItemStack> {
+public class WoodworkingRecipe implements SimpleRecipeMatcher<ItemStack> {
 
     protected final String planName;
     protected final ItemStack input;

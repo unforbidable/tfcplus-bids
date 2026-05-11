@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.api._obsolete.Crafting;
 
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ISimpleRecipeMatcher;
+import com.unforbidable.tfc.bids.api.util.SimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class DryingRecipe implements ISimpleRecipeMatcher<ItemStack> {
+public class DryingRecipe implements SimpleRecipeMatcher<ItemStack> {
 
     private final ItemStack inputItem;
     private final ItemStack outputItem;

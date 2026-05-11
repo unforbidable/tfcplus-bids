@@ -4,10 +4,10 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ISimpleRecipeMatcher;
+import com.unforbidable.tfc.bids.api.util.SimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;
 
-public class SaddleQuernRecipe implements ISimpleRecipeMatcher<ItemStack> {
+public class SaddleQuernRecipe implements SimpleRecipeMatcher<ItemStack> {
 
     final ItemStack output;
     final ItemStack input;

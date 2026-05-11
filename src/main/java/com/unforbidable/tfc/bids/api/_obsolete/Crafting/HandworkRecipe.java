@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.api._obsolete.Crafting;
 
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ISimpleRecipeMatcher;
+import com.unforbidable.tfc.bids.api.util.SimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;
 
-public class HandworkRecipe implements ISimpleRecipeMatcher<ItemStack> {
+public class HandworkRecipe implements SimpleRecipeMatcher<ItemStack> {
 
     private final ItemStack output;
     private final ItemStack input;
