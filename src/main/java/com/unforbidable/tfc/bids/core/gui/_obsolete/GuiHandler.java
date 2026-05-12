@@ -17,8 +17,8 @@ import com.unforbidable.tfc.bids.features.device.screwpress.container.ContainerS
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressBarrel;
 import com.unforbidable.tfc.bids.features.device.strawnest.container.ContainerStrawNest;
 import com.unforbidable.tfc.bids.features.device.strawnest.tileentity.TileEntityStrawNest;
-import com.unforbidable.tfc.bids.features.device.woodpile.container.ContainerWoodPile;
-import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodPile;
+import com.unforbidable.tfc.bids.features.device.woodpile.container.ContainerWoodpile;
+import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import com.unforbidable.tfc.bids.features.food.coarseflour.container.ContainerSpecialCraftingDough;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,7 +46,7 @@ public class GuiHandler implements IGuiHandler {
                 return new ContainerSpecialCraftingGlass(player.inventory, world, x, y, z);
 
             case BidsGui.woodPileGui:
-                return new ContainerWoodPile(player.inventory, (TileEntityWoodPile) te, world, x, y, z);
+                return new ContainerWoodpile(player.inventory, (TileEntityWoodpile) te, world, x, y, z);
 
             case BidsGui.newFirepitGui:
                 return new ContainerNewFirepit(player.inventory, (TileEntityNewFirepit) te, world, x, y, z);

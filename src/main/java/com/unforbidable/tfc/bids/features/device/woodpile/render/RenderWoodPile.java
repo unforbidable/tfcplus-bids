@@ -1,11 +1,11 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.render;
 
 import com.dunk.tfc.Render.RenderBlocksWithRotation;
-import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodPile;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodPileItemBounds;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodPileRenderHelper;
+import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileItemBounds;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.DefaultWoodpileRenderConfigurator;
 import com.unforbidable.tfc.bids.util.render.RenderHelper;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodPileRenderProvider;
+import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 
-public class RenderWoodPile implements ISimpleBlockRenderingHandler {
+public class RenderWoodpile implements ISimpleBlockRenderingHandler {
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
@@ -28,20 +28,20 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
             return true;
         }
 
-        TileEntityWoodPile te = (TileEntityWoodPile) world.getTileEntity(x, y, z);
+        TileEntityWoodpile te = (TileEntityWoodpile) world.getTileEntity(x, y, z);
 
         RenderBlocksWithRotation rendererAlt = new RenderBlocksWithRotation(renderer);
         rendererAlt.renderAllFaces = true;
         rendererAlt.staticTexture = true;
 
-        for (WoodPileItemBounds itemBounds : te.getItemBounds()) {
+        for (WoodpileItemBounds itemBounds : te.getItemBounds()) {
             final ItemStack item = itemBounds.getItemStack();
-            final IWoodPileRenderProvider provider = itemBounds.getRenderProvider();
+            final WoodpileRenderable provider = itemBounds.getRenderProvider();
             final boolean isRowRotated = itemBounds.isRowRotated();
             final AxisAlignedBB bounds = itemBounds.getBounds();
 
-            final WoodPileRenderHelper helper = new WoodPileRenderHelper(isRowRotated);
-            provider.onWoodPileRender(item, isRowRotated, helper);
+            final DefaultWoodpileRenderConfigurator helper = new DefaultWoodpileRenderConfigurator(isRowRotated);
+            provider.configureWoodpileRenderer(item, isRowRotated, helper);
             helper.apply(rendererAlt);
 
             rendererAlt.setRenderBounds(bounds.minX, bounds.minY, bounds.minZ,
@@ -65,7 +65,7 @@ public class RenderWoodPile implements ISimpleBlockRenderingHandler {
         return true;
     }
 
-    private float getFireHeight(TileEntityWoodPile te) {
+    private float getFireHeight(TileEntityWoodpile te) {
         if (te.isFull()) {
             return 1;
         } else {

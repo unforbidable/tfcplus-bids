@@ -76,6 +76,9 @@ public class BidsItems {
     // Quarry
     public static Item plugAndFeather = item(ItemNames.PLUG_AND_FEATHER);
 
+    // Woodpile
+    public static Item logsSeasoned;
+
 
     public static Item igInHandAxe;
     public static Item sedHandAxe;
@@ -89,7 +92,6 @@ public class BidsItems {
 
     public static Item peeledLog;
     public static Item peeledLogSeasoned;
-    public static Item logsSeasoned;
     public static Item firewood;
     public static Item firewoodSeasoned;
 

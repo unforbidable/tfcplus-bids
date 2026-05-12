@@ -7,7 +7,7 @@ import com.dunk.tfc.Blocks.Terrain.BlockSmooth;
 import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWall;
 import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWallVert;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStoneBrick;
-import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLogSeasoned;
+import com.unforbidable.tfc.bids.features.material.bark.item.ItemPeeledLogSeasoned;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.tileentity.TileEntitySaddleQuern;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.tileentity.TileEntityStonePressLever;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.tileentity.TileEntityStonePressWeight;

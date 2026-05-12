@@ -2,19 +2,6 @@ package com.unforbidable.tfc.bids.api._obsolete;
 
 public class BidsOptions {
 
-    public static class WoodPile {
-
-        public static boolean enablePlacementUsingLogsTFC = false;
-        public static float seasoningDurationMultiplier = 5f;
-        public static boolean rotateItems = true;
-        public static boolean enableFireSetting = true;
-        public static float burnTimeMultiplier = 1f;
-        public static float pitchYieldMultiplier = 1f;
-        public static boolean allowPitchFromNonResinousWood = true;
-        public static boolean allowCharcoalFromUnseasonedFirewood = false;
-
-    }
-
     public static class Firepit {
 
         public static boolean allowFuelLogsTFC = false;

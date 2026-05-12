@@ -5,17 +5,19 @@ import com.dunk.tfc.Blocks.Devices.BlockHopper;
 import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockWoodPile;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
+import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
+import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileConfig;
+import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileRegistry;
+import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockWoodpile;
+import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import com.unforbidable.tfc.bids.util.BlockCoord;
 import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
 import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
-import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodPile;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -27,33 +29,34 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static net.minecraftforge.common.util.ForgeDirection.*;
+import static net.minecraftforge.common.util.ForgeDirection.DOWN;
+import static net.minecraftforge.common.util.ForgeDirection.EAST;
 import static net.minecraftforge.common.util.ForgeDirection.NORTH;
+import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
+import static net.minecraftforge.common.util.ForgeDirection.UP;
+import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
-public class WoodPileHelper {
+public class WoodpileHelper {
 
-    public static boolean createWoodPileAt(ItemStack itemStack, EntityPlayer player, World world,
-            int x, int y, int z, int side) {
+    public static boolean createWoodpileAt(ItemStack itemStack, EntityPlayer player, World world,
+                                           int x, int y, int z, int side) {
         if (!world.isRemote && player.isSneaking()) {
             // Try to start a wood pile
             ForgeDirection d = ForgeDirection.getOrientation(side);
             int x2 = x + d.offsetX;
             int y2 = y + d.offsetY;
             int z2 = z + d.offsetZ;
-            if (canCreateWoodPileAt(world, x2, y2, z2)) {
+            if (canCreateWoodpileAt(world, x2, y2, z2)) {
                 // The neighbor block in the direction of the side that was hit
                 // must allow placing woodpile on top
-                final int orientation = getWoodPileOrientation(player);
+                final int orientation = getWoodpileOrientation(player);
                 world.setBlock(x2, y2, z2, BidsBlocks.woodPile, orientation, 3);
                 TileEntity te = world.getTileEntity(x2, y2, z2);
-                if (te instanceof TileEntityWoodPile) {
-                    TileEntityWoodPile woodPile = (TileEntityWoodPile) te;
-                    woodPile.setOrientation(orientation);
+                if (te instanceof TileEntityWoodpile) {
+                    TileEntityWoodpile woodpile = (TileEntityWoodpile) te;
+                    woodpile.setOrientation(orientation);
 
-                    if (isItemValidWoodPileItem(itemStack)) {
+                    if (isItemValidWoodpileItem(itemStack)) {
                         ItemStack one = itemStack.copy();
                         one.stackSize = 1;
 
@@ -61,16 +64,16 @@ public class WoodPileHelper {
                             one.stackSize = 16;
                         }
 
-                        if (woodPile.addItem(one)) {
+                        if (woodpile.addItem(one)) {
                             itemStack.stackSize = itemStack.stackSize - 1;
                         }
                     } else {
                         // If item cannot be added open the GUI instead
-                        woodPile.openDelayedGUI(player);
+                        woodpile.openDelayedGUI(player);
                     }
 
                     // Catch fire from fire blocks nearby after placing
-                    woodPile.tryToCatchFire();
+                    woodpile.tryToCatchFire();
 
                     return true;
                 } else {
@@ -85,12 +88,12 @@ public class WoodPileHelper {
         return false;
     }
 
-    private static boolean canCreateWoodPileAt(World world, int x, int y, int z) {
+    private static boolean canCreateWoodpileAt(World world, int x, int y, int z) {
         if (world.isAirBlock(x, y, z) || world.getBlock(x, y, z) == Blocks.fire) {
             TileEntity te = world.getTileEntity(x, y - 1, z);
-            if (te instanceof TileEntityWoodPile) {
+            if (te instanceof TileEntityWoodpile) {
                 // Either a wood pile that is full
-                return ((TileEntityWoodPile) te).isFull();
+                return ((TileEntityWoodpile) te).isFull();
             } else {
                 // Or the block below has solid top side
                 return world.isSideSolid(x, y - 1, z, ForgeDirection.UP);
@@ -100,12 +103,12 @@ public class WoodPileHelper {
         }
     }
 
-    public static boolean insertIntoWoodPileAt(ItemStack itemStack, EntityPlayer player, World world,
-            int x, int y, int z) {
-        if (!world.isRemote && isItemValidWoodPileItem(itemStack)) {
+    public static boolean insertIntoWoodpileAt(ItemStack itemStack, EntityPlayer player, World world,
+                                               int x, int y, int z) {
+        if (!world.isRemote && isItemValidWoodpileItem(itemStack)) {
             TileEntity te = world.getTileEntity(x, y, z);
-            if (te instanceof TileEntityWoodPile) {
-                TileEntityWoodPile woodPile = (TileEntityWoodPile) te;
+            if (te instanceof TileEntityWoodpile) {
+                TileEntityWoodpile woodPile = (TileEntityWoodpile) te;
                 if (woodPile.addItem(itemStack)) {
                     return true;
                 }
@@ -115,19 +118,19 @@ public class WoodPileHelper {
         return false;
     }
 
-    public static boolean retrieveSelectedItemFromWoodPileAt(EntityPlayer player, World world, int x, int y, int z) {
+    public static boolean retrieveSelectedItemFromWoodpileAt(EntityPlayer player, World world, int x, int y, int z) {
         if (player.isSneaking() && player.getCurrentEquippedItem() == null) {
             // This is done on client side
             // as only the client has the selected item index
             if (world.isRemote) {
                 TileEntity te = world.getTileEntity(x, y, z);
-                if (te instanceof TileEntityWoodPile) {
-                    TileEntityWoodPile woodPile = (TileEntityWoodPile) te;
+                if (te instanceof TileEntityWoodpile) {
+                    TileEntityWoodpile woodpile = (TileEntityWoodpile) te;
 
-                    int index = woodPile.getSelectedItemIndex();
+                    int index = woodpile.getSelectedItemIndex();
                     if (index != -1) {
                         // The item is retrieved server side
-                        TileEntityWoodPile.sendRetrieveItem(world, x, y, z, index, player);
+                        woodpile.sendRetrieveItem(index, player);
                     }
 
                 }
@@ -141,16 +144,16 @@ public class WoodPileHelper {
         return false;
     }
 
-    private static int getWoodPileOrientation(EntityPlayer player) {
+    private static int getWoodpileOrientation(EntityPlayer player) {
         int dir = (int) Math.floor(player.rotationYaw * 4F / 360F + 0.5D);
         return dir & 3;
     }
 
-    public static boolean isItemValidWoodPileItem(ItemStack itemStack) {
-        return BidsRegistry.WOODPILE_RENDER_PROVIDERS.has(itemStack.getItem());
+    public static boolean isItemValidWoodpileItem(ItemStack itemStack) {
+        return WoodpileRegistry.renderable.get(itemStack.getItem()) != null;
     }
 
-    public static boolean isItemValidWoodPileItemForCharcoal(ItemStack itemStack) {
+    public static boolean isItemValidWoodpileItemForCharcoal(ItemStack itemStack) {
         // Wood type must be flammable
         WoodIndex wood = WoodScheme.DEFAULT.findWood(itemStack);
         if (wood.inflammable) {
@@ -163,19 +166,18 @@ public class WoodPileHelper {
         }
 
         // Allow fresh firewood per config
-        return itemStack.getItem() == BidsItems.firewood && BidsOptions.WoodPile.allowCharcoalFromUnseasonedFirewood;
+        return itemStack.getItem() == BidsItems.firewood && WoodpileConfig.allowCharcoalFromUnseasonedFirewood;
     }
 
-    public static MovingObjectPosition onWoodPileCollisionRayTrace(World world, int x, int y, int z, Vec3 startVec,
-            Vec3 endVec) {
-        TileEntityWoodPile te = (TileEntityWoodPile) world.getTileEntity(x, y, z);
+    public static MovingObjectPosition onWoodpileCollisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec) {
+        TileEntityWoodpile te = (TileEntityWoodpile) world.getTileEntity(x, y, z);
         startVec = startVec.addVector(-x, -y, -z);
         endVec = endVec.addVector(-x, -y, -z);
 
         CollisionInfo nearestCol = null;
-        WoodPileItemBounds nearestItem = null;
+        WoodpileItemBounds nearestItem = null;
 
-        for (WoodPileItemBounds item : te.getItemBounds()) {
+        for (WoodpileItemBounds item : te.getItemBounds()) {
             CollisionInfo col = CollisionHelper.rayTraceAABB(item.getBounds(), startVec, endVec);
 
             // When the item collides
@@ -200,12 +202,12 @@ public class WoodPileHelper {
         // except the top surface of wood piles is never considered solid
         // for the fire to be placed on
         // The fire block will still be placed if any neighbor can burn
-        return doesBlockHaveSolidTopSurfaceAndIsNotWoodPile(world, x, y - 1, z) || canFireBlockNeighborBurn(world, x, y, z);
+        return doesBlockHaveSolidTopSurfaceAndIsNotWoodpile(world, x, y - 1, z) || canFireBlockNeighborBurn(world, x, y, z);
     }
 
-    private static boolean doesBlockHaveSolidTopSurfaceAndIsNotWoodPile(World world, int x, int y, int z) {
+    private static boolean doesBlockHaveSolidTopSurfaceAndIsNotWoodpile(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
-        return !(block instanceof BlockWoodPile) && block.isSideSolid(world, x, y, z, ForgeDirection.UP);
+        return !(block instanceof BlockWoodpile) && block.isSideSolid(world, x, y, z, ForgeDirection.UP);
     }
 
     private static boolean canFireBlockNeighborBurn(World world, int x, int y, int z) {

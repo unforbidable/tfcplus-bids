@@ -1,21 +1,24 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.main.firesetting;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockCrackedSed;
-import com.unforbidable.tfc.bids.util.BlockCoord;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICrackableBlock;
+import com.unforbidable.tfc.bids.api.features.woodpile.Crackable;
+import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileRegistry;
+import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockCrackedStoneSed;
+import com.unforbidable.tfc.bids.util.BlockCoord;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.*;
 
 public class StoneCracker {
 
@@ -76,10 +79,10 @@ public class StoneCracker {
         }
     }
 
-    public static ICrackableBlock getCrackableBlock(World world, int x, int y, int z) {
+    public static Crackable getCrackableBlock(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
 
-        for (ICrackableBlock crackable : BidsRegistry.WOODPILE_CRACKABLE_BLOCKS) {
+        for (Crackable crackable : WoodpileRegistry.crackable) {
             if (crackable.getSource() == block && crackable.isCrackable(world, x, y, z)) {
                 return crackable;
             }
@@ -88,8 +91,8 @@ public class StoneCracker {
         return null;
     }
 
-    public static ICrackableBlock getCrackableBlock(Block block, int metadata) {
-        for (ICrackableBlock crackable : BidsRegistry.WOODPILE_CRACKABLE_BLOCKS) {
+    public static Crackable getCrackableBlock(Block block, int metadata) {
+        for (Crackable crackable : WoodpileRegistry.crackable) {
             if (crackable.getSource() == block && crackable.isCrackable(block, metadata)) {
                 return crackable;
             }
@@ -107,7 +110,7 @@ public class StoneCracker {
     }
 
     public static float getBlockHeatResistance(World world, int x, int y, int z) {
-        ICrackableBlock crackable = getCrackableBlock(world, x, y, z);
+        Crackable crackable = getCrackableBlock(world, x, y, z);
         if (crackable != null) {
             return crackable.getHeatResistance(world, x, y, z);
         }
@@ -116,7 +119,7 @@ public class StoneCracker {
     }
 
     public static float getBlockHeatResistance(Block block, int metadata) {
-        ICrackableBlock crackable = getCrackableBlock(block, metadata);
+        Crackable crackable = getCrackableBlock(block, metadata);
         if (crackable != null) {
             return crackable.getHeatResistance(block, metadata);
         }
@@ -128,7 +131,7 @@ public class StoneCracker {
         // Any potentially crackable or already cracked block
         // Although we are not checking individual crackable block logic though
         Block block = world.getBlock(x, y, z);
-        for (ICrackableBlock crackable : BidsRegistry.WOODPILE_CRACKABLE_BLOCKS) {
+        for (Crackable crackable : WoodpileRegistry.crackable) {
             if (crackable.getSource() == block || crackable.getTarget() == block) {
                 return true;
             }
@@ -138,7 +141,7 @@ public class StoneCracker {
     }
 
     public static void replaceStoneWithCracked(World world, int x, int y, int z) {
-        ICrackableBlock crackable = getCrackableBlock(world, x, y, z);
+        Crackable crackable = getCrackableBlock(world, x, y, z);
         if (crackable != null) {
             crackable.crackBlock(world, x, y, z);
         } else {
@@ -150,7 +153,7 @@ public class StoneCracker {
     public static IIcon getCrackedStoneIcon(IBlockAccess world, int x, int y, int z) {
         Random rand = new Random(Minecraft.getMinecraft().theWorld.getSeed() + (x * x * 4987142L) + (x * 5947611L) + (z * z * 4392871L + (z * 389711L) ^ y));
         int stage = rand.nextInt(3) + 1;
-        return ((BlockCrackedSed) BidsBlocks.crackedStoneSed).getDestroyStageIcon(stage);
+        return ((BlockCrackedStoneSed) BidsBlocks.crackedStoneSed).getDestroyStageIcon(stage);
     }
 
 }

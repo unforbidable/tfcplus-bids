@@ -17,8 +17,8 @@ import com.unforbidable.tfc.bids.features.device.screwpress.gui.GuiScrewPress;
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressBarrel;
 import com.unforbidable.tfc.bids.features.device.strawnest.gui.GuiStrawNest;
 import com.unforbidable.tfc.bids.features.device.strawnest.tileentity.TileEntityStrawNest;
-import com.unforbidable.tfc.bids.features.device.woodpile.gui.GuiWoodPile;
-import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodPile;
+import com.unforbidable.tfc.bids.features.device.woodpile.gui.GuiWoodpile;
+import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import com.unforbidable.tfc.bids.features.food.coarseflour.gui.GuiKnappingDough;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -41,7 +41,7 @@ public class ClientGuiHandler extends GuiHandler {
                 return new GuiKnappingGlass(player.inventory, world, x, y, z);
 
             case BidsGui.woodPileGui:
-                return new GuiWoodPile(player.inventory, (TileEntityWoodPile) te, world, x, y, z);
+                return new GuiWoodpile(player.inventory, (TileEntityWoodpile) te, world, x, y, z);
 
             case BidsGui.newFirepitGui:
                 return new GuiNewFirepit(player.inventory, (TileEntityNewFirepit) te, world, x, y, z);

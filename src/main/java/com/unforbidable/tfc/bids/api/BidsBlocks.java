@@ -26,6 +26,19 @@ public class BidsBlocks {
     public static Block carvingRock = block(BlockNames.CARVING_ROCK);
     public static Block carvingWood = block(BlockNames.CARVING_WOOD);
 
+    // Woodpile
+    public static Block woodPile = block(BlockNames.WOODPILE);
+    public static Block crackedStoneSed = block(BlockNames.CRACKED_STONE_SED);
+    public static Block crackedStoneMM = block(BlockNames.CRACKED_STONE_MM);
+    public static Block crackedStoneIgIn = block(BlockNames.CRACKED_STONE_IG_IN);
+    public static Block crackedStoneIgEx = block(BlockNames.CRACKED_STONE_IG_EX);
+    public static Block crackedOre = block(BlockNames.CRACKED_ORE);
+    public static Block crackedOre1b = block(BlockNames.CRACKED_ORE_1B);
+    public static Block crackedOre2 = block(BlockNames.CRACKED_ORE_2);
+    public static Block crackedOre3 = block(BlockNames.CRACKED_ORE_3);
+    public static Block light = block(BlockNames.LIGHT);
+
+
 
     public static int clayCrucibleRenderId;
     public static int fireClayCrucibleRenderId;
@@ -73,18 +86,6 @@ public class BidsBlocks {
     public static int decorativeSurfaceRenderId;
     public static int soakingSurfaceRenderId;
     public static int dryingSurfaceRenderId;
-
-    public static Block woodPile;
-    public static Block light;
-
-    public static Block crackedStoneSed;
-    public static Block crackedStoneMM;
-    public static Block crackedStoneIgIn;
-    public static Block crackedStoneIgEx;
-    public static Block crackedOre;
-    public static Block crackedOre1b;
-    public static Block crackedOre2;
-    public static Block crackedOre3;
 
     public static Block newFirepit;
     public static Block firepitTFC;

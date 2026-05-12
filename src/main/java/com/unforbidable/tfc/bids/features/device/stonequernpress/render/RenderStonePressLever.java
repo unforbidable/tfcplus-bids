@@ -3,9 +3,9 @@ package com.unforbidable.tfc.bids.features.device.stonequernpress.render;
 import com.dunk.tfc.Render.RenderBlocksWithRotation;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.tileentity.TileEntityStonePressLever;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.main.LeverBounds;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodPileRenderHelper;
-import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLog;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodPileRenderProvider;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.DefaultWoodpileRenderConfigurator;
+import com.unforbidable.tfc.bids.features.material.bark.item.ItemPeeledLog;
+import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -35,21 +35,21 @@ public class RenderStonePressLever implements ISimpleBlockRenderingHandler {
 
         if (lever.getLogItem() != null && lever.getLeverPart() != TileEntityStonePressLever.PART_UNDEFINED) {
             final boolean rotated = orientation % 2 == 1;
-            final IWoodPileRenderProvider provider = new ItemPeeledLog();
+            final WoodpileRenderable provider = new ItemPeeledLog();
 
             RenderBlocksWithRotation rendererAlt = new RenderBlocksWithRotation(renderer);
             rendererAlt.renderAllFaces = true;
             rendererAlt.staticTexture = true;
 
-            final WoodPileRenderHelper helper = new WoodPileRenderHelper(rotated);
-            provider.onWoodPileRender(lever.getLogItem(), rotated, helper);
+            final DefaultWoodpileRenderConfigurator helper = new DefaultWoodpileRenderConfigurator(rotated);
+            provider.configureWoodpileRenderer(lever.getLogItem(), rotated, helper);
             helper.apply(rendererAlt);
 
             renderBlock(x, y, z, rendererAlt, block, bounds.getLog());
 
             if (lever.getLeverPart() == TileEntityStonePressLever.PART_BASE) {
-                final WoodPileRenderHelper helperPivot = new WoodPileRenderHelper(!rotated);
-                provider.onWoodPileRender(lever.getLogItem(), !rotated, helperPivot);
+                final DefaultWoodpileRenderConfigurator helperPivot = new DefaultWoodpileRenderConfigurator(!rotated);
+                provider.configureWoodpileRenderer(lever.getLogItem(), !rotated, helperPivot);
                 helperPivot.apply(rendererAlt);
 
                 renderBlock(x, y, z, rendererAlt, block, bounds.getPivot());

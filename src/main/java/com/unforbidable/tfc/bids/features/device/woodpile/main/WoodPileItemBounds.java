@@ -1,19 +1,18 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.main;
 
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodPileRenderProvider;
-
+import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 
-public class WoodPileItemBounds {
+public class WoodpileItemBounds {
     private final int index;
     private final ItemStack itemStack;
     private final AxisAlignedBB bounds;
-    private final IWoodPileRenderProvider renderProvider;
+    private final WoodpileRenderable renderProvider;
     private final boolean isRowRotated;
 
-    public WoodPileItemBounds(int index, ItemStack itemStack, IWoodPileRenderProvider renderProvider,
-            AxisAlignedBB bounds, boolean isRowRotated) {
+    public WoodpileItemBounds(int index, ItemStack itemStack, WoodpileRenderable renderProvider,
+                              AxisAlignedBB bounds, boolean isRowRotated) {
         super();
 
         this.index = index;
@@ -35,7 +34,7 @@ public class WoodPileItemBounds {
         return bounds;
     }
 
-    public IWoodPileRenderProvider getRenderProvider() {
+    public WoodpileRenderable getRenderProvider() {
         return renderProvider;
     }
 

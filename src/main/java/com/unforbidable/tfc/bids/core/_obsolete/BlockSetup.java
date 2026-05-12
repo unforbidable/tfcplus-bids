@@ -9,7 +9,7 @@ import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallType;
 import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallVertType;
-import com.unforbidable.tfc.bids.common.block.BlockLight;
+import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockLight;
 import com.unforbidable.tfc.bids.common.block.itemblock.ItemGenericSoil;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.main.DecorativeSurfacePlacer;
@@ -22,7 +22,6 @@ import com.unforbidable.tfc.bids.features.device.processingsurface.main.Processi
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.block.BlockAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.render.RenderAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.tileentity.TileEntityAxleWallBearing;
-import com.unforbidable.tfc.bids.features.building.carving.main.carvable.*;
 import com.unforbidable.tfc.bids.features.building.carving.render.RenderCarving;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.block.BlockDecorativeSurface;
@@ -125,8 +124,8 @@ import com.unforbidable.tfc.bids.features.device.woodpile.block.*;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.blockitem.ItemCrackedStone;
 import com.unforbidable.tfc.bids.features.device.woodpile.render.RenderCrackedOre;
 import com.unforbidable.tfc.bids.features.device.woodpile.render.RenderCrackedStone;
-import com.unforbidable.tfc.bids.features.device.woodpile.render.RenderWoodPile;
-import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodPile;
+import com.unforbidable.tfc.bids.features.device.woodpile.render.RenderWoodpile;
+import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import com.unforbidable.tfc.bids.features.material.firewood.block.BlockStackedFirewood;
 import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.blockitem.ItemUnfinishedAnvil;
@@ -139,9 +138,6 @@ import com.unforbidable.tfc.bids.features.resource.crops.tileentity.TileEntityNe
 import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.main.EnumWorkStoneType;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfacePlacer;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.firesetting.crackableblocks.CrackableBlockOre;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.firesetting.crackableblocks.CrackableBlockStone;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodPileMessage;
 import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.core.network._obsolete.NetworkHelper;
 import com.unforbidable.tfc.bids.features.building.firebrick.block.BlockFirebrickChimney;
@@ -210,7 +206,7 @@ public class BlockSetup extends BidsBlocks {
 //        carvingRock = new BlockCarving(Material.rock).setBlockName("CarvingRock");
 //        carvingWood = new BlockCarving(Material.wood).setBlockName("CarvingWood");
 
-        woodPile = new BlockWoodPile().setBlockName("WoodPile")
+        woodPile = new BlockWoodpile().setBlockName("WoodPile")
                 .setBlockTextureName("Wood Pile");
 
         newFirepit = new BlockNewFirepit().setBlockName("NewFirepit");
@@ -439,36 +435,36 @@ public class BlockSetup extends BidsBlocks {
         strawNest = new BlockStrawNest()
             .setBlockName("StrawNest");
 
-        crackedStoneSed = new BlockCrackedSed(Material.rock)
-            .setHardness(3.5F)
-            .setBlockName("CrackedSedRock");
-        crackedStoneMM = new BlockCrackedMM(Material.rock)
-            .setHardness(4F)
-            .setBlockName("CrackedMMRock");
-        crackedStoneIgIn = new BlockCrackedIgIn(Material.rock)
-            .setHardness(4F)
-            .setBlockName("CrackedIgInRock");
-        crackedStoneIgEx = new BlockCrackedIgEx(Material.rock)
-            .setHardness(4F)
-            .setBlockName("CrackedIgExRock");
-
-        crackedOre = new BlockCrackedOre(Material.rock)
-            .setHardness(5F)
-            .setResistance(5F)
-            .setBlockName("Ore");
-        crackedOre1b = new BlockCrackedOre(Material.rock)
-            .setDamageOffset(16)
-            .setHardness(5F)
-            .setResistance(5F)
-            .setBlockName("Ore");
-        crackedOre2 = new BlockCrackedOre2(Material.rock)
-            .setHardness(5F)
-            .setResistance(5F)
-            .setBlockName("Ore");
-        crackedOre3 = new BlockCrackedOre3(Material.rock)
-            .setHardness(5F)
-            .setResistance(5F)
-            .setBlockName("Ore");
+//        crackedStoneSed = new BlockCrackedSed(Material.rock)
+//            .setHardness(3.5F)
+//            .setBlockName("CrackedSedRock");
+//        crackedStoneMM = new BlockCrackedMM(Material.rock)
+//            .setHardness(4F)
+//            .setBlockName("CrackedMMRock");
+//        crackedStoneIgIn = new BlockCrackedIgIn(Material.rock)
+//            .setHardness(4F)
+//            .setBlockName("CrackedIgInRock");
+//        crackedStoneIgEx = new BlockCrackedIgEx(Material.rock)
+//            .setHardness(4F)
+//            .setBlockName("CrackedIgExRock");
+//
+//        crackedOre = new BlockCrackedOre(Material.rock)
+//            .setHardness(5F)
+//            .setResistance(5F)
+//            .setBlockName("Ore");
+//        crackedOre1b = new BlockCrackedOre(Material.rock)
+//            .setDamageOffset(16)
+//            .setHardness(5F)
+//            .setResistance(5F)
+//            .setBlockName("Ore");
+//        crackedOre2 = new BlockCrackedOre2(Material.rock)
+//            .setHardness(5F)
+//            .setResistance(5F)
+//            .setBlockName("Ore");
+//        crackedOre3 = new BlockCrackedOre3(Material.rock)
+//            .setHardness(5F)
+//            .setResistance(5F)
+//            .setBlockName("Ore");
 
         fireBrickChimney = new BlockFirebrickChimney()
             .setBlockName("FireBrickChimney");
@@ -651,14 +647,14 @@ public class BlockSetup extends BidsBlocks {
     private static void registerCrackableBlocks() {
         Bids.LOG.info("Register crackable blocks");
 
-        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneSed, BidsBlocks.crackedStoneSed, 1f));
-        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneMM, BidsBlocks.crackedStoneMM, 1.2f));
-        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneIgIn, BidsBlocks.crackedStoneIgIn, 1.5f));
-        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneIgEx, BidsBlocks.crackedStoneIgEx, 2f));
-        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore, BidsBlocks.crackedOre));
-        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore1b, BidsBlocks.crackedOre1b));
-        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore2, BidsBlocks.crackedOre2));
-        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore3, BidsBlocks.crackedOre3));
+//        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneSed, BidsBlocks.crackedStoneSed, 1f));
+//        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneMM, BidsBlocks.crackedStoneMM, 1.2f));
+//        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneIgIn, BidsBlocks.crackedStoneIgIn, 1.5f));
+//        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockStone(TFCBlocks.stoneIgEx, BidsBlocks.crackedStoneIgEx, 2f));
+//        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore, BidsBlocks.crackedOre));
+//        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore1b, BidsBlocks.crackedOre1b));
+//        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore2, BidsBlocks.crackedOre2));
+//        BidsRegistry.WOODPILE_CRACKABLE_BLOCKS.register(new CrackableBlockOre(TFCBlocks.ore3, BidsBlocks.crackedOre3));
     }
 
     private static void registerKilnChambers() {
@@ -700,11 +696,11 @@ public class BlockSetup extends BidsBlocks {
 //        quarryRenderId = RenderingRegistry.getNextAvailableRenderId();
 //        RenderingRegistry.registerBlockHandler(quarryRenderId, new RenderQuarry());
 
-        carvingRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(carvingRenderId, new RenderCarving());
-
-        woodPileRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(woodPileRenderId, new RenderWoodPile());
+//        carvingRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(carvingRenderId, new RenderCarving());
+//
+//        woodPileRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(woodPileRenderId, new RenderWoodpile());
 
         dryingRackRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(dryingRackRenderId, new RenderDryingRack());
@@ -784,11 +780,11 @@ public class BlockSetup extends BidsBlocks {
         strawNestRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(strawNestRenderId, new RenderStrawNest());
 
-        crackedStoneRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(crackedStoneRenderId, new RenderCrackedStone());
-
-        crackedOreRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(crackedOreRenderId, new RenderCrackedOre());
+//        crackedStoneRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(crackedStoneRenderId, new RenderCrackedStone());
+//
+//        crackedOreRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(crackedOreRenderId, new RenderCrackedOre());
 
         roughStoneFenceRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(roughStoneFenceRenderId, new RenderRoughStoneFence());
@@ -821,7 +817,7 @@ public class BlockSetup extends BidsBlocks {
 
         GameRegistry.registerTileEntity(TileEntityCarving.class, "BidsCarving");
 
-        GameRegistry.registerTileEntity(TileEntityWoodPile.class, "BidsWoodPile");
+        GameRegistry.registerTileEntity(TileEntityWoodpile.class, "BidsWoodPile");
 
         GameRegistry.registerTileEntity(TileEntityNewFirepit.class, "BidsNewFirepit");
 
@@ -895,10 +891,10 @@ public class BlockSetup extends BidsBlocks {
 //        Bids.network.registerMessage(CarvingPacket.ClientHandler.class, CarvingPacket.class,
 //                NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
 //
-        Bids.network.registerMessage(WoodPileMessage.ServerHandler.class, WoodPileMessage.class,
-                NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
-        Bids.network.registerMessage(WoodPileMessage.ClientHandler.class, WoodPileMessage.class,
-                NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
+//        Bids.network.registerMessage(WoodpilePacket.ServerHandler.class, WoodpilePacket.class,
+//                NetworkHelper.getNextAvailableMessageId(), Side.SERVER);
+//        Bids.network.registerMessage(WoodpilePacket.ClientHandler.class, WoodpilePacket.class,
+//                NetworkHelper.getNextAvailableMessageId(), Side.CLIENT);
 
         Bids.network.registerMessage(TileEntityUpdateMessage.ServerHandler.class, TileEntityUpdateMessage.class,
             NetworkHelper.getNextAvailableMessageId(), Side.SERVER);

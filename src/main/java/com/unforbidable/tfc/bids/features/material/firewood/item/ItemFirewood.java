@@ -8,12 +8,12 @@ import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodPileHelper;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodPileRenderProvider;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodPileRenderer;
+import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
+import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderConfigurator;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class ItemFirewood extends Item implements ISize, IWoodPileRenderProvider, IFirepitFuelMaterial {
+public class ItemFirewood extends Item implements ISize, WoodpileRenderable, IFirepitFuelMaterial {
 
     private IIcon[] icons;
     protected String[] names;
@@ -120,7 +120,7 @@ public class ItemFirewood extends Item implements ISize, IWoodPileRenderProvider
     @Override
     public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side,
             float hitX, float hitY, float hitZ) {
-        if (WoodPileHelper.createWoodPileAt(itemStack, player, world, x, y, z, side)) {
+        if (WoodpileHelper.createWoodpileAt(itemStack, player, world, x, y, z, side)) {
             return true;
         }
 
@@ -128,12 +128,12 @@ public class ItemFirewood extends Item implements ISize, IWoodPileRenderProvider
     }
 
     @Override
-    public boolean isWoodPileLargeItem(ItemStack itemStack) {
+    public boolean renderAsLargeWoodpileItem(ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public void onWoodPileRender(ItemStack itemStack, boolean rotated, IWoodPileRenderer renderer) {
+    public void configureWoodpileRenderer(ItemStack itemStack, boolean rotated, WoodpileRenderConfigurator renderer) {
         for (int i = 0; i < 6; i++) {
             // The "top" texture is used for the short side
             if (!rotated && (i / 2) == 1 || rotated && (i / 2) == 2) {

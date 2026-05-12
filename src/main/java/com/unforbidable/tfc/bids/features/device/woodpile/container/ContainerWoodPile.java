@@ -2,28 +2,27 @@ package com.unforbidable.tfc.bids.features.device.woodpile.container;
 
 import com.dunk.tfc.Containers.ContainerTFC;
 import com.dunk.tfc.Core.Player.PlayerInventory;
-import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodPile;
-import com.unforbidable.tfc.bids.features.device.woodpile.container.slot.SlotWoodPile;
-
+import com.unforbidable.tfc.bids.features.device.woodpile.container.slot.SlotWoodpile;
+import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ContainerWoodPile extends ContainerTFC {
+public class ContainerWoodpile extends ContainerTFC {
 
-    final TileEntityWoodPile woodPileTileEntity;
+    final TileEntityWoodpile woodpileTileEntity;
     final World world;
 
-    public ContainerWoodPile(InventoryPlayer inventory, TileEntityWoodPile te, World world, int x, int y, int z) {
+    public ContainerWoodpile(InventoryPlayer inventory, TileEntityWoodpile te, World world, int x, int y, int z) {
         this.world = world;
-        woodPileTileEntity = te;
+        woodpileTileEntity = te;
         buildLayout();
         PlayerInventory.buildInventoryLayout(this, inventory, 8, 90, false, true);
 
         if (!world.isRemote) {
-            woodPileTileEntity.openInventory();
+            woodpileTileEntity.openInventory();
         }
     }
 
@@ -38,7 +37,7 @@ public class ContainerWoodPile extends ContainerTFC {
         int i = 0;
         for (int iy = 0; iy < slotRows; iy++) {
             for (int ix = 0; ix < slotColumns; ix++) {
-                addSlotToContainer(new SlotWoodPile(woodPileTileEntity, i++,
+                addSlotToContainer(new SlotWoodpile(woodpileTileEntity, i++,
                         slotOffsetX + ix * slotStrideX, slotOffsetY + iy * slotStrideY));
             }
         }
@@ -49,7 +48,7 @@ public class ContainerWoodPile extends ContainerTFC {
         super.onContainerClosed(player);
 
         if (!world.isRemote) {
-            woodPileTileEntity.closeInventory();
+            woodpileTileEntity.closeInventory();
         }
     }
 
@@ -62,7 +61,7 @@ public class ContainerWoodPile extends ContainerTFC {
             ItemStack slotStack = slot.getStack();
             origStack = slotStack.copy();
 
-            int invSize = TileEntityWoodPile.MAX_STORAGE;
+            int invSize = TileEntityWoodpile.MAX_STORAGE;
 
             // From pile to inventory
             if (slotNum < invSize) {

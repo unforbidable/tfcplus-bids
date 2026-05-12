@@ -1,14 +1,15 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.block;
 
 import com.dunk.tfc.api.Interfaces.IHeatSource;
-import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodPile;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodPileHelper;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsGui;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
+import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
+import com.unforbidable.tfc.bids.util.GuiUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -24,13 +25,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.Random;
-
-public class BlockWoodPile extends BlockContainer implements IHeatSource {
+public class BlockWoodpile extends BlockContainer implements IHeatSource {
 
     IIcon icon;
 
-    public BlockWoodPile() {
+    public BlockWoodpile() {
         super(Material.wood);
 
         setHardness(10f);
@@ -43,7 +42,7 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
 
     @Override
     public TileEntity createNewTileEntity(World world, int metadata) {
-        return new TileEntityWoodPile();
+        return new TileEntityWoodpile();
     }
 
     @SideOnly(Side.CLIENT)
@@ -60,14 +59,14 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7,
             float par8, float par9) {
-        if (world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
-            TileEntityWoodPile woodPile = (TileEntityWoodPile) world.getTileEntity(x, y, z);
-            if (handleInteraction(world, x, y, z, player, woodPile)) {
+        if (world.getTileEntity(x, y, z) instanceof TileEntityWoodpile) {
+            TileEntityWoodpile woodpile = (TileEntityWoodpile) world.getTileEntity(x, y, z);
+            if (handleInteraction(world, x, y, z, player, woodpile)) {
                 return true;
             }
 
             if (!world.isRemote) {
-                player.openGui(Bids.instance, BidsGui.woodPileGui, world, x, y, z);
+                GuiUtil.openGui(BlockNames.WOODPILE, player, woodpile);
             }
 
             return true;
@@ -77,14 +76,14 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
     }
 
     protected boolean handleInteraction(World world, int x, int y, int z, EntityPlayer player,
-            TileEntityWoodPile woodPile) {
+            TileEntityWoodpile woodpile) {
         ItemStack heldItemStack = player.getCurrentEquippedItem();
         if (heldItemStack != null
-                && WoodPileHelper.insertIntoWoodPileAt(heldItemStack, player, world, x, y, z)) {
+                && WoodpileHelper.insertIntoWoodpileAt(heldItemStack, player, world, x, y, z)) {
             return true;
         }
 
-        if (WoodPileHelper.retrieveSelectedItemFromWoodPileAt(player, world, x, y, z)) {
+        if (WoodpileHelper.retrieveSelectedItemFromWoodpileAt(player, world, x, y, z)) {
             return true;
         }
 
@@ -93,7 +92,7 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.woodPileRenderId;
+        return BlockRenderIdProvider.get(BlockNames.WOODPILE);
     }
 
     @Override
@@ -108,8 +107,8 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
 
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-        TileEntityWoodPile te = (TileEntityWoodPile) world.getTileEntity(x, y, z);
-        te.onWoodPileBroken();
+        TileEntityWoodpile te = (TileEntityWoodpile) world.getTileEntity(x, y, z);
+        te.onWoodpileBroken();
 
         super.breakBlock(world, x, y, z, block, meta);
     }
@@ -122,7 +121,7 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
     @SideOnly(Side.CLIENT)
     @Override
     public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec) {
-        MovingObjectPosition mop = WoodPileHelper.onWoodPileCollisionRayTrace(world, x, y, z, startVec, endVec);
+        MovingObjectPosition mop = WoodpileHelper.onWoodpileCollisionRayTrace(world, x, y, z, startVec, endVec);
         if (mop != null) {
             return mop;
         }
@@ -132,10 +131,10 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
-            TileEntityWoodPile woodPile = (TileEntityWoodPile) world.getTileEntity(x, y, z);
-            woodPile.tryToCatchFire();
-            woodPile.tryToSpreadFire();
+        if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileEntityWoodpile) {
+            TileEntityWoodpile woodpile = (TileEntityWoodpile) world.getTileEntity(x, y, z);
+            woodpile.tryToCatchFire();
+            woodpile.tryToSpreadFire();
         }
     }
 
@@ -143,9 +142,9 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof TileEntityWoodPile) {
-            TileEntityWoodPile woodPile = (TileEntityWoodPile) te;
-            if (woodPile.isOnFire()) {
+        if (te instanceof TileEntityWoodpile) {
+            TileEntityWoodpile woodpile = (TileEntityWoodpile) te;
+            if (woodpile.isOnFire()) {
                 double centerX = x + 0.5F;
                 double centerY = y + 2F;
                 double centerZ = z + 0.5F;
@@ -164,7 +163,7 @@ public class BlockWoodPile extends BlockContainer implements IHeatSource {
 
     @Override
     public Class getTileEntityType() {
-        return TileEntityWoodPile.class;
+        return TileEntityWoodpile.class;
     }
 
 }

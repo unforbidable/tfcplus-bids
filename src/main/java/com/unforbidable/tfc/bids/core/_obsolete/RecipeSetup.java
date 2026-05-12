@@ -14,8 +14,7 @@ import com.unforbidable.tfc.bids.api._obsolete.BidsCookingMixtures;
 import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
-import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
+import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
@@ -27,7 +26,7 @@ import com.unforbidable.tfc.bids.api._obsolete.Crafting.*;
 import com.unforbidable.tfc.bids.compat.tfc._obsolete.RecipeHelper;
 import com.unforbidable.tfc.bids.compat.tfc._obsolete.TFC.BarrelRecipeBuilder;
 import com.unforbidable.tfc.bids.compat.tfc._obsolete.TFC.BarrelRecipeManager;
-import com.unforbidable.tfc.bids.features.crafting.seasoning.main.SeasoningHelper;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneBlockType;
 import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
@@ -424,21 +423,21 @@ public class RecipeSetup {
                         wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog()));
                 }
 
-                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedPeeledLog(),
-                    wood.items.getPeeledLog(),
-                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.PEELED_LOG)));
+//                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedPeeledLog(),
+//                    wood.items.getPeeledLog(),
+//                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.PEELED_LOG)));
             }
 
             if (wood.items.hasSeasonedLog()) {
-                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedLog(),
-                    wood.items.getLog(),
-                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.LOG)));
-
-                if (wood.items.hasChoppedLog()) {
-                    BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedChoppedLog(),
-                        wood.items.getChoppedLog(),
-                        SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.CHOPPED_LOG)));
-                }
+//                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedLog(),
+//                    wood.items.getLog(),
+//                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.LOG)));
+//
+//                if (wood.items.hasChoppedLog()) {
+//                    BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedChoppedLog(),
+//                        wood.items.getChoppedLog(),
+//                        SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.CHOPPED_LOG)));
+//                }
             }
 
             if (wood.items.hasFirewood()) {
@@ -490,9 +489,9 @@ public class RecipeSetup {
                         wood.items.getSeasonedPeeledLog()));
                 }
 
-                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedFirewood(),
-                    wood.items.getFirewood(),
-                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.FIREWOOD)));
+//                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedFirewood(),
+//                    wood.items.getFirewood(),
+//                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.FIREWOOD)));
             }
 
             if (wood.blocks.hasLogWall()) {

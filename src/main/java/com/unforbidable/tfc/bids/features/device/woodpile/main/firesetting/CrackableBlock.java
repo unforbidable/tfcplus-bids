@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.main.firesetting;
 
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICrackableBlock;
+import com.unforbidable.tfc.bids.api.features.woodpile.Crackable;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
-public abstract class CrackableBlock implements ICrackableBlock {
+public abstract class CrackableBlock implements Crackable {
 
     protected final Block source;
     protected final Block target;

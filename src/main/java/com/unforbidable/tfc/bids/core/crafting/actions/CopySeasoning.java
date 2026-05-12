@@ -2,7 +2,7 @@ package com.unforbidable.tfc.bids.core.crafting.actions;
 
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.core.crafting.CraftingContext;
-import com.unforbidable.tfc.bids.features.crafting.seasoning.main.SeasoningHelper;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

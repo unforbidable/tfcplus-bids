@@ -1,14 +1,13 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.eventhandler;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.util.BlockCoord;
+import com.unforbidable.tfc.bids.api.features.woodpile.FireSettingEvent;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.firesetting.StoneCracker;
-import com.unforbidable.tfc.bids.api._obsolete.Events.FireSettingEvent;
+import com.unforbidable.tfc.bids.util.BlockCoord;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.common.MinecraftForge;
-
 import java.util.List;
 import java.util.Random;
+import net.minecraftforge.common.MinecraftForge;
 
 public class FireSettingHandler {
 

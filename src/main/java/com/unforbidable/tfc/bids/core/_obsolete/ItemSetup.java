@@ -29,15 +29,12 @@ import com.unforbidable.tfc.bids.api._obsolete.BidsConstants.ExtraClothing;
 import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodPileRenderProvider;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
 import com.unforbidable.tfc.bids.common.item.*;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.MudBrickRenderInfo;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.SoapRenderInfo;
 import com.unforbidable.tfc.bids.features.device.firepit.main.fuels.*;
 import com.unforbidable.tfc.bids.features.material.textile.main.EnumTextileHint;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.rendering.RenderLogsTFC;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.rendering.RenderThickLogsTFC;
 import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import com.unforbidable.tfc.bids.features.building.mudbrick.render.DryingMudBrickItemRenderer;
 import com.unforbidable.tfc.bids.features.building.roughstone.item.ItemRoughBrick;
@@ -60,9 +57,9 @@ import com.unforbidable.tfc.bids.features.material.bark.item.ItemBark;
 import com.unforbidable.tfc.bids.features.material.firewood.item.ItemFirewood;
 import com.unforbidable.tfc.bids.features.material.firewood.item.ItemFirewoodSeasoned;
 import com.unforbidable.tfc.bids.features.material.hides.item.ItemMoreRawhide;
-import com.unforbidable.tfc.bids.features.material.logs.item.ItemLogsSeasoned;
-import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLog;
-import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLogSeasoned;
+import com.unforbidable.tfc.bids.features.device.woodpile.item.ItemLogsSeasoned;
+import com.unforbidable.tfc.bids.features.material.bark.item.ItemPeeledLog;
+import com.unforbidable.tfc.bids.features.material.bark.item.ItemPeeledLogSeasoned;
 import com.unforbidable.tfc.bids.features.material.powder.item.ItemMorePowder;
 import com.unforbidable.tfc.bids.features.material.soap.item.ItemSoap;
 import com.unforbidable.tfc.bids.features.material.textile.item.*;
@@ -82,7 +79,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -1129,14 +1125,16 @@ public class ItemSetup extends BidsItems {
     private static void registerWoodPileItems() {
         Bids.LOG.info("Register wood pile items");
 
-        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(peeledLog, (IWoodPileRenderProvider) peeledLog);
-        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(peeledLogSeasoned, (IWoodPileRenderProvider) peeledLog);
-        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(TFCItems.logs, new RenderLogsTFC());
-        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(logsSeasoned, new RenderLogsTFC());
-        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(TFCItems.thickLogs, new RenderThickLogsTFC());
-        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(tiedStickBundle, (IWoodPileRenderProvider) tiedStickBundle);
-        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(firewood, (IWoodPileRenderProvider) firewood);
-        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(firewoodSeasoned, (IWoodPileRenderProvider) firewoodSeasoned);
+        // TODO register in respective features
+
+//        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(peeledLog, (WoodpileRenderable) peeledLog);
+//        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(peeledLogSeasoned, (WoodpileRenderable) peeledLog);
+//        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(TFCItems.logs, new RenderLogsTFC());
+//        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(logsSeasoned, new RenderLogsTFC());
+//        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(TFCItems.thickLogs, new RenderThickLogsTFC());
+//        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(tiedStickBundle, (WoodpileRenderable) tiedStickBundle);
+//        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(firewood, (WoodpileRenderable) firewood);
+//        BidsRegistry.WOODPILE_RENDER_PROVIDERS.register(firewoodSeasoned, (WoodpileRenderable) firewoodSeasoned);
     }
 
     private static void registerFirepitFuel() {

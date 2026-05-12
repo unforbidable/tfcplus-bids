@@ -1,44 +1,13 @@
 package com.unforbidable.tfc.bids.compat.nei;
 
 import codechicken.nei.api.API;
-import codechicken.nei.recipe.ICraftingHandler;
-import codechicken.nei.recipe.IRecipeHandler;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiHandlerEntry;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiHiderEntry;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiRegistry;
-import com.unforbidable.tfc.bids.features.crafting.carding.nei.CardingNeiHandler;
-import com.unforbidable.tfc.bids.features.building.carving.nei.CarvingNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.chopping.nei.ChoppingNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.churning.nei.ChurningNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.cooking.nei.CookingNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.cooking.nei.CookingPrepNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.drying.nei.DryingNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.handwork.nei.HandworkNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.heckling.nei.HecklingNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.processing.nei.ProcessingNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.pressing.nei.ScrewPressNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.pressing.nei.StonePressNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.quern.nei.SaddleQuernNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.ropemaking.nei.RopeMakingNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.seasoning.nei.SeasoningNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.soaking.nei.SoakingNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.spinning.nei.SpinningNeiHandler;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.nei.WoodworkingNeiHandler;
-import com.unforbidable.tfc.bids.features.device.firepit.nei.FirepitFuelNeiHandler;
-import com.unforbidable.tfc.bids.features.resource.quarry.nei.QuarryNeiHandler;
 import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class NeiSetup {
 

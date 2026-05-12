@@ -11,25 +11,39 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsGui;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.SeasoningRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Events.FireSettingEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.KilnEngine;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodPileRenderProvider;
 import com.unforbidable.tfc.bids.api._obsolete.Providers.KilnEngineProvider;
-import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
+import com.unforbidable.tfc.bids.api.features.woodpile.FireSettingEvent;
+import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.network.packet.Packet;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.DynamicEnvironment;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.StaticEnvironment;
-import com.unforbidable.tfc.bids.features.crafting.seasoning.main.SeasoningHelper;
-import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockWoodPile;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.*;
+import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileConfig;
+import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileRegistry;
+import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockWoodpile;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.EnumBurningRate;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.EnumSlotGroup;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileBoundsIterator;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileBurningItem;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileItemBounds;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.kiln.WoodpileKilnHeatSource;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.network.WoodpilePacket;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
+import com.unforbidable.tfc.bids.util.GuiUtil;
 import com.unforbidable.tfc.bids.util.Timer;
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -45,16 +59,10 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-public class TileEntityWoodPile extends TileEntity implements IInventory, IMessageHanldingTileEntity<WoodPileMessage>, IHeatSourceTE {
+public class TileEntityWoodpile extends TileEntity implements IInventory, PacketHandler<WoodpilePacket>, IHeatSourceTE {
 
     public static final int MAX_STORAGE = 16;
 
@@ -173,7 +181,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     Timer catchFireDelayedTimer = new Timer(0);
 
     boolean isItemBoundsCacheActual = false;
-    List<WoodPileItemBounds> itemBoundsCache = new ArrayList<WoodPileItemBounds>();
+    List<WoodpileItemBounds> itemBoundsCache = new ArrayList<WoodpileItemBounds>();
 
     EntityPlayer openDelayedGUIplayer = null;
 
@@ -189,9 +197,9 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     Timer torchDetectionClientTimer = new Timer(10);
     long torchDetectedTicks = 0;
 
-    private final KilnEngine kiLnEngine = KilnEngineProvider.getKilnManager(new WoodPileKilnHeatSource(this));
+    private final KilnEngine kiLnEngine = KilnEngineProvider.getKilnManager(new WoodpileKilnHeatSource(this));
 
-    public TileEntityWoodPile() {
+    public TileEntityWoodpile() {
     }
 
     public void setOrientation(int orientation) {
@@ -238,10 +246,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         return list;
     }
 
-    public List<WoodPileItemBounds> getItemBounds() {
+    public List<WoodpileItemBounds> getItemBounds() {
         if (!isItemBoundsCacheActual) {
             itemBoundsCache.clear();
-            for (WoodPileItemBounds itemBounds : new WoodPileBoundsIterator(storage, orientation)) {
+            for (WoodpileItemBounds itemBounds : new WoodpileBoundsIterator(storage, orientation)) {
                 itemBoundsCache.add(itemBounds);
             }
 
@@ -255,7 +263,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     public float getActualBlockHeight() {
         double maxY = 0;
-        for (WoodPileItemBounds itemBounds : getItemBounds()) {
+        for (WoodpileItemBounds itemBounds : getItemBounds()) {
             if (maxY < itemBounds.getBounds().maxY) {
                 maxY = itemBounds.getBounds().maxY;
             }
@@ -282,8 +290,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         int count = 0;
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
-                IWoodPileRenderProvider render = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(storage[i].getItem());
-                if (render.isWoodPileLargeItem(storage[i])) {
+                WoodpileRenderable render = WoodpileRegistry.renderable.get(storage[i].getItem());
+                if (render.renderAsLargeWoodpileItem(storage[i])) {
                     count += 4;
                 } else {
                     count++;
@@ -345,10 +353,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             return false;
         }
 
-        final IWoodPileRenderProvider render = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(itemStack.getItem());
+        final WoodpileRenderable render = WoodpileRegistry.renderable.get(itemStack.getItem());
 
         for (EnumSlotGroup slotGroup : EnumSlotGroup.ALL_VALUES) {
-            if (render.isWoodPileLargeItem(itemStack)) {
+            if (render.renderAsLargeWoodpileItem(itemStack)) {
                 // Large items must find an empty hybrid slot and empty shared slots
                 if (storage[slotGroup.getHybridSlot()] == null) {
                     int emptySlotCount = 0;
@@ -371,8 +379,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 // as long as there is no large item in the hybrid slot
                 if (storage[slotGroup.getHybridSlot()] != null) {
                     ItemStack itemInHybridSlot = storage[slotGroup.getHybridSlot()];
-                    IWoodPileRenderProvider renderInHybridSlot = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(itemInHybridSlot.getItem());
-                    if (renderInHybridSlot.isWoodPileLargeItem(itemInHybridSlot)) {
+                    WoodpileRenderable renderInHybridSlot = WoodpileRegistry.renderable.get(itemInHybridSlot.getItem());
+                    if (renderInHybridSlot.renderAsLargeWoodpileItem(itemInHybridSlot)) {
                         // No items can be added to this slot groups
                         // because there is a large item in the hybrid slot
                         continue;
@@ -451,8 +459,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     public ItemStack retrieveFirstAvailableItemToPullDown(boolean acceptingLargeItems) {
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
-                IWoodPileRenderProvider render = BidsRegistry.WOODPILE_RENDER_PROVIDERS.get(storage[i].getItem());
-                if (render.isWoodPileLargeItem(storage[i])) {
+                WoodpileRenderable render = WoodpileRegistry.renderable.get(storage[i].getItem());
+                if (render.renderAsLargeWoodpileItem(storage[i])) {
                     if (acceptingLargeItems) {
                         return retrieveFirstItemAtIndexToPullDown(i);
                     }
@@ -487,14 +495,14 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     private void tryToPullItemsFromAbove() {
         TileEntity teAbove = worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
-        if (teAbove instanceof TileEntityWoodPile) {
+        if (teAbove instanceof TileEntityWoodpile) {
             Bids.LOG.debug("Wood pile above found");
 
             int occupied = getActualOccupiedSlotCount();
             while (occupied < 16) {
                 Bids.LOG.debug("Trying to pull an item from wood pile above");
 
-                TileEntityWoodPile woodPileAbove = (TileEntityWoodPile) teAbove;
+                TileEntityWoodpile woodPileAbove = (TileEntityWoodpile) teAbove;
 
                 // Check if large item fits
                 boolean largeItemFits = occupied <= 12;
@@ -531,14 +539,14 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 lastBurningTicks = TFC_Time.getTotalTicks();
                 lastCharcoalTicks = TFC_Time.getTotalTicks();
 
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+                sendUpdateMessage();
 
                 initialized = true;
             }
 
             // When inventory content changes
             if (clientNeedToUpdate) {
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+                sendUpdateMessage();
 
                 clientNeedToUpdate = false;
             }
@@ -614,7 +622,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             // Burning logs is paused when the UI is open
             // to avoid sync glitches
             if (onFire && burningTimer.tick() && woodPileOpeningCounter == 0) {
-                WoodPileBurningItem burningItem = findNextBurningItem();
+                WoodpileBurningItem burningItem = findNextBurningItem();
                 EnumBurningRate burningRate = getBurningRate();
                 if (burningItem != null && burningRate != EnumBurningRate.NONE) {
                     // Cache heat source temp
@@ -672,7 +680,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
             }
 
             if (openDelayedGUIplayer != null) {
-                openDelayedGUIplayer.openGui(Bids.instance, BidsGui.woodPileGui, worldObj, xCoord, yCoord, zCoord);
+                GuiUtil.openGui(BlockNames.WOODPILE, openDelayedGUIplayer);
+
                 openDelayedGUIplayer = null;
             }
         } else {
@@ -699,21 +708,21 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
                 Math.min(pitchCounter, PITCH_MOVE_AMOUNT) :
                 PITCH_MOVE_BULK_AMOUNT * (pitchCounter / PITCH_MOVE_BULK_AMOUNT);
             Bids.LOG.debug("Pitch moving to hopper: {}/{}", amountToMove, pitchCounter);
-            int amountMoved = WoodPileHelper.offerPitchToHopper(worldObj, xCoord, yCoord - 1, zCoord, amountToMove);
+            int amountMoved = WoodpileHelper.offerPitchToHopper(worldObj, xCoord, yCoord - 1, zCoord, amountToMove);
             pitchCounter -= amountMoved;
             // Failure if no pitch was moved
             return amountMoved != 0;
-        } else if (teBelow instanceof TileEntityWoodPile) {
+        } else if (teBelow instanceof TileEntityWoodpile) {
             // Wood pile below
-            movePitchToNeighbor((TileEntityWoodPile) teBelow);
+            movePitchToNeighbor((TileEntityWoodpile) teBelow);
             return true;
         } else {
             // Wood pile to any side, which also has wood pile or hopper below
             for (ForgeDirection d : HORIZONTAL_FORGE_DIRECTIONS) {
                 TileEntity teSide = worldObj.getTileEntity(xCoord + d.offsetX, yCoord, zCoord + d.offsetZ);
                 TileEntity teSideBelow = worldObj.getTileEntity(xCoord + d.offsetX, yCoord - 1, zCoord + d.offsetZ);
-                if (teSide instanceof TileEntityWoodPile && (teSideBelow instanceof TileEntityWoodPile || teSideBelow instanceof TEHopper)) {
-                    movePitchToNeighbor((TileEntityWoodPile) teSide);
+                if (teSide instanceof TileEntityWoodpile && (teSideBelow instanceof TileEntityWoodpile || teSideBelow instanceof TEHopper)) {
+                    movePitchToNeighbor((TileEntityWoodpile) teSide);
                     return true;
                 }
             }
@@ -722,7 +731,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         return false;
     }
 
-    private void movePitchToNeighbor(TileEntityWoodPile woodPile) {
+    private void movePitchToNeighbor(TileEntityWoodpile woodPile) {
         // Pitch is moved in its entirety between wood piles
         woodPile.takePitch(pitchCounter);
         pitchCounter = 0;
@@ -734,7 +743,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     private boolean canMakeCharcoal() {
         for (ItemStack is : storage) {
-            if (is != null && !WoodPileHelper.isItemValidWoodPileItemForCharcoal(is)) {
+            if (is != null && !WoodpileHelper.isItemValidWoodpileItemForCharcoal(is)) {
                 return false;
             }
         }
@@ -777,7 +786,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     private void processItemForCharcoal(ItemStack is) {
         float rate = getPitchRateForWoodType(is);
-        int pitchAmount = Math.round(rate * PITCH_PER_ITEM * BidsOptions.WoodPile.pitchYieldMultiplier);
+        int pitchAmount = Math.round(rate * PITCH_PER_ITEM * WoodpileConfig.pitchYieldMultiplier);
         pitchCounter += pitchAmount;
     }
 
@@ -822,7 +831,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     private void handleDroppedItem(EntityItem entityItem) {
         ItemStack itemStack = entityItem.getEntityItem();
-        if (WoodPileHelper.isItemValidWoodPileItem(itemStack)) {
+        if (WoodpileHelper.isItemValidWoodpileItem(itemStack)) {
             addItem(itemStack);
             if (itemStack.stackSize == 0) {
                 entityItem.setDead();
@@ -864,7 +873,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private boolean isSetOnFireSourceSideExposed(int x, int y, int z, ForgeDirection d) {
-        if (worldObj.getTileEntity(x, y, z) instanceof TileEntityWoodPile) {
+        if (worldObj.getTileEntity(x, y, z) instanceof TileEntityWoodpile) {
             // Wood piles don't cause fire source exposure
             return false;
         } else {
@@ -879,7 +888,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             Block b = worldObj.getBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
-            if (b instanceof BlockWoodPile) {
+            if (b instanceof BlockWoodpile) {
                 woodPileSides++;
             } else if (!isValidCharcoalPitBlock(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ, d)) {
                 exposedSides++;
@@ -901,12 +910,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         }
     }
 
-    private WoodPileBurningItem findNextBurningItem() {
+    private WoodpileBurningItem findNextBurningItem() {
         for (int i = MAX_STORAGE - 1; i >= 0; i--) {
             if (storage[i] != null) {
                 IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(storage[i].getItem());
                 if (fuel != null && fuel.isFuelValid(storage[i])) {
-                    return new WoodPileBurningItem(i, storage[i], fuel);
+                    return new WoodpileBurningItem(i, storage[i], fuel);
                 }
             }
         }
@@ -914,8 +923,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         return null;
     }
 
-    private void handleBurningItem(WoodPileBurningItem burningItem, EnumBurningRate burningRate) {
-        float fuelBurnTime = burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) * BidsOptions.WoodPile.burnTimeMultiplier;
+    private void handleBurningItem(WoodpileBurningItem burningItem, EnumBurningRate burningRate) {
+        float fuelBurnTime = burningItem.getFuel().getFuelBurnTime(burningItem.getItemStack()) * WoodpileConfig.burnTimeMultiplier;
         int fuelBurnTemp = burningItem.getFuel().getFuelMaxTemp(burningItem.getItemStack());
 
         float ticksNeededToBurnItem = fuelBurnTime * KILN_FACTOR;
@@ -958,7 +967,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     private void onItemBurned() {
-        if (BidsOptions.WoodPile.enableFireSetting) {
+        if (WoodpileConfig.enableFireSetting) {
             handleFireSetting();
         }
     }
@@ -972,7 +981,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     @Override
     public S35PacketUpdateTileEntity getDescriptionPacket() {
         NBTTagCompound tag = new NBTTagCompound();
-        writeWoodPileDataToNBT(tag);
+        writeWoodpileDataToNBT(tag);
         S35PacketUpdateTileEntity pack = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, tag);
         return pack;
     }
@@ -980,12 +989,12 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound tag = pkt.func_148857_g();
-        readWoodPileDataFromNBT(tag);
+        readWoodpileDataFromNBT(tag);
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tag) {
-        writeWoodPileDataToNBT(tag);
+        writeWoodpileDataToNBT(tag);
 
         super.writeToNBT(tag);
     }
@@ -994,10 +1003,10 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
 
-        readWoodPileDataFromNBT(tag);
+        readWoodpileDataFromNBT(tag);
     }
 
-    public void writeWoodPileDataToNBT(NBTTagCompound tag) {
+    public void writeWoodpileDataToNBT(NBTTagCompound tag) {
         tag.setLong("lastSeasoningTicks", lastSeasoningTicks);
         tag.setBoolean("clientInitialized", initialized);
         tag.setInteger("orientation", orientation);
@@ -1023,7 +1032,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         kiLnEngine.writeKilnManagerToNBT(tag);
     }
 
-    public void readWoodPileDataFromNBT(NBTTagCompound tag) {
+    public void readWoodpileDataFromNBT(NBTTagCompound tag) {
         lastSeasoningTicks = tag.getLong("lastSeasoningTicks");
         initialized = tag.getBoolean("clientInitialized");
         orientation = tag.getInteger("orientation");
@@ -1050,7 +1059,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         kiLnEngine.readKilnManagerFromNBT(tag);
     }
 
-    public void onWoodPileBroken() {
+    public void onWoodpileBroken() {
         for (int i = 0; i < getSizeInventory(); i++) {
             if (storage[i] != null) {
                 final EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, storage[i]);
@@ -1064,7 +1073,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     public void seasonItemsFully() {
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
-                final SeasoningRecipe recipe = BidsRegistry.SEASONING_RECIPES.findMatchingRecipe(storage[i]);
+                final SeasoningRecipe recipe = WoodpileRegistry.seasoning.findMatchingRecipe(storage[i]);
                 if (recipe != null) {
                     Bids.LOG.debug("Item fully seasoned in slot: " + i);
                     ItemStack output = recipe.getCraftingResult(storage[i]);
@@ -1084,7 +1093,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
         for (int i = 0; i < MAX_STORAGE; i++) {
             if (storage[i] != null) {
-                final SeasoningRecipe recipe = BidsRegistry.SEASONING_RECIPES.findMatchingRecipe(storage[i]);
+                final SeasoningRecipe recipe = WoodpileRegistry.seasoning.findMatchingRecipe(storage[i]);
 
                 if (recipe != null) {
                     seasonItemInSlot(recipe, i, ticksSinceLastSeasoning, env);
@@ -1097,7 +1106,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         final float currectSeasoning = SeasoningHelper.getItemSeasoningTag(storage[slot]);
 
         final float totalSeasoningTicks = recipe.getDuration() * TFC_Time.HOUR_LENGTH
-                * BidsOptions.WoodPile.seasoningDurationMultiplier;
+                * WoodpileConfig.seasoningDurationMultiplier;
         final float remainingSeasoningTicks = totalSeasoningTicks * (1 - currectSeasoning);
         final float seasoningDelta = ticksSinceLastSeasoning / remainingSeasoningTicks;
         final float environmentMultiplier = getSeasoningEnvironmentMultiplier(env);
@@ -1250,7 +1259,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
         for (ItemStack itemStack : storage) {
             if (itemStack != null) {
-                if (WoodPileHelper.isItemValidWoodPileItemForCharcoal(itemStack)) {
+                if (WoodpileHelper.isItemValidWoodpileItemForCharcoal(itemStack)) {
                     totalCharcoalCount += getCharcoalCountForWoodType(itemStack);
                 }
             }
@@ -1270,8 +1279,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity te = worldObj.getTileEntity(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
-            if (te instanceof TileEntityWoodPile) {
-                TileEntityWoodPile neighbor = (TileEntityWoodPile) te;
+            if (te instanceof TileEntityWoodpile) {
+                TileEntityWoodpile neighbor = (TileEntityWoodpile) te;
                 if (neighbor.isOnFire() && neighbor.isMakingCharcoal()) {
                     neighbor.doCreateCharcoal();
                 }
@@ -1292,7 +1301,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         WoodIndex wood = WoodScheme.DEFAULT.findWood(itemStack);
         if (wood.resinous) {
             return PITCH_RATE_RESINOUS;
-        } else if (BidsOptions.WoodPile.allowPitchFromNonResinousWood) {
+        } else if (WoodpileConfig.allowPitchFromNonResinousWood) {
             return PITCH_RATE_NON_RESINOUS;
         } else {
             return 0;
@@ -1308,8 +1317,8 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     private void doSpreadFire() {
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity te = worldObj.getTileEntity(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
-            if (te instanceof TileEntityWoodPile) {
-                TileEntityWoodPile neighbor = (TileEntityWoodPile) te;
+            if (te instanceof TileEntityWoodpile) {
+                TileEntityWoodpile neighbor = (TileEntityWoodpile) te;
                 neighbor.setOnFire(true);
             }
         }
@@ -1333,7 +1342,7 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
 
     private void replaceNeighborBlockWithFire(int x, int y, int z, Block alternativeBlock) {
         Block block = worldObj.getBlock(x, y, z);
-        if (WoodPileHelper.canPlaceFireBlockAt(worldObj, x, y, z)) {
+        if (WoodpileHelper.canPlaceFireBlockAt(worldObj, x, y, z)) {
             if (block != Blocks.fire) {
                 Bids.LOG.debug("{} => {}", block.getUnlocalizedName(), Blocks.fire.getUnlocalizedName());
                 worldObj.setBlock(x, y, z, Blocks.fire);
@@ -1438,12 +1447,11 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
     }
 
     @Override
-    public void onTileEntityMessage(WoodPileMessage message) {
+    public void handleNetworkPacket(WoodpilePacket message) {
         switch (message.getAction()) {
             case ACTION_UPDATE:
-                worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-                Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
-                        + message.getZCoord());
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                Bids.LOG.debug("Client updated at [{},{},{}]", xCoord, yCoord, zCoord);
                 break;
 
             case ACTION_RETRIEVE_ITEM:
@@ -1453,16 +1461,17 @@ public class TileEntityWoodPile extends TileEntity implements IInventory, IMessa
         }
     }
 
-    public static void sendUpdateMessage(World world, int x, int y, int z) {
-        TargetPoint tp = new TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new WoodPileMessage(x, y, z, TileEntityWoodPile.ACTION_UPDATE), tp);
+    public void sendUpdateMessage() {
+        Packet packet = new WoodpilePacket(TileEntityWoodpile.ACTION_UPDATE);
+        Network.sendToTileEntity(packet, this);
         Bids.LOG.debug("Sent update message");
     }
 
-    public static void sendRetrieveItem(World world, int x, int y, int z, int index, EntityPlayer player) {
-        Bids.network.sendToServer(new WoodPileMessage(x, y, z, TileEntityWoodPile.ACTION_RETRIEVE_ITEM)
-                .setSelectedItemIndex(index)
-                .setPlayer(player));
+    public void sendRetrieveItem(int index, EntityPlayer player) {
+        WoodpilePacket packet = new WoodpilePacket(TileEntityWoodpile.ACTION_RETRIEVE_ITEM)
+            .setSelectedItemIndex(index)
+            .setPlayer(player);
+        Network.sendToTileEntity(packet, this);
         Bids.LOG.debug("Send retrieve item message " + index);
     }
 

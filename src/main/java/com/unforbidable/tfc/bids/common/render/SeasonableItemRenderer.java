@@ -2,7 +2,7 @@ package com.unforbidable.tfc.bids.common.render;
 
 import org.lwjgl.opengl.GL11;
 
-import com.unforbidable.tfc.bids.features.crafting.seasoning.main.SeasoningHelper;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;

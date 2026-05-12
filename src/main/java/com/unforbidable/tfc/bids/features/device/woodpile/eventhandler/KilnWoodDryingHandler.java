@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.eventhandler;
 
-import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodPile;
+import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import com.unforbidable.tfc.bids.api._obsolete.Events.KilnEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.tileentity.TileEntity;
@@ -13,7 +13,7 @@ public class KilnWoodDryingHandler {
         // no need to check here
         if (!event.success) {
             TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
-            if (te instanceof TileEntityWoodPile) {
+            if (te instanceof TileEntityWoodpile) {
                 event.success = true;
             }
         }
@@ -26,8 +26,8 @@ public class KilnWoodDryingHandler {
         // after that keep firing, so any molten metal remains heated
         if (event.progress >= 1) {
             TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
-            if (te instanceof TileEntityWoodPile) {
-                TileEntityWoodPile woodPile = (TileEntityWoodPile) te;
+            if (te instanceof TileEntityWoodpile) {
+                TileEntityWoodpile woodPile = (TileEntityWoodpile) te;
                 woodPile.seasonItemsFully();
             }
         }

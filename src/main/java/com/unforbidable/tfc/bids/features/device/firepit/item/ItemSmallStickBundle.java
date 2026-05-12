@@ -10,7 +10,7 @@ import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.util.ItemHelper;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodPileHelper;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -31,7 +31,7 @@ public class ItemSmallStickBundle extends Item implements ISize, IFirepitFuelMat
     @Override
     public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side,
             float hitX, float hitY, float hitZ) {
-        if (WoodPileHelper.createWoodPileAt(itemStack, player, world, x, y, z, side)) {
+        if (WoodpileHelper.createWoodpileAt(itemStack, player, world, x, y, z, side)) {
             return true;
         }
 

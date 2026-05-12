@@ -2,10 +2,8 @@ package com.unforbidable.tfc.bids.core.config;
 
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfigLoader;
-import com.unforbidable.tfc.bids.features.building.carving.CarvingConfig;
-import com.unforbidable.tfc.bids.features.device.crucible.CrucibleConfig;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.features.resource.quarry.QuarryConfig;
+import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileConfig;
 import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import net.minecraftforge.common.config.Configuration;
 
@@ -36,31 +34,6 @@ public class ConfigHandler {
             "churningDurationMultiplier", "churning",
             BidsOptions.Churning.churningDurationMultiplier, 0.5f, 4f,
             "Higher values increase the time it takes to churn butter");
-
-        BidsOptions.WoodPile.enablePlacementUsingLogsTFC = config.getBoolean(
-            "enablePlacementUsingLogsTFC", "woodpile", BidsOptions.WoodPile.enablePlacementUsingLogsTFC,
-            "Set this to true if you want TFC logs to place a Wood Pile instead of TFC Log Pile");
-        BidsOptions.WoodPile.rotateItems = config.getBoolean(
-                "rotateItems", "woodpile", BidsOptions.WoodPile.rotateItems,
-                "Set this to true if you want odd rows in the wood pile appear rotated");
-        BidsOptions.WoodPile.seasoningDurationMultiplier = config.getFloat(
-                "seasoningDurationMultiplier", "woodpile", BidsOptions.WoodPile.seasoningDurationMultiplier, 1f, 100f,
-                "Higher values increase the time it takes for wood to season in a wood pile");
-        BidsOptions.WoodPile.enableFireSetting = config.getBoolean(
-            "enableFireSetting", "woodpile", BidsOptions.WoodPile.enableFireSetting,
-            "Set this to true if you want burning wood piles to crack nearby raw stone and ore bocks, aka fire-setting");
-        BidsOptions.WoodPile.burnTimeMultiplier = config.getFloat(
-            "burnTimeMultiplier", "woodpile", BidsOptions.WoodPile.burnTimeMultiplier, 0.25f, 2f,
-            "Higher values increase the time fuel burns in a wood pile (also affects kiln fuel consumption)");
-        BidsOptions.WoodPile.allowPitchFromNonResinousWood = config.getBoolean(
-            "allowPitchFromNonResinousWood", "woodpile", BidsOptions.WoodPile.allowPitchFromNonResinousWood,
-            "Set this to true if you want be able to extract pitch in a charcoal pit from non-resinous wood");
-        BidsOptions.WoodPile.pitchYieldMultiplier = config.getFloat(
-            "pitchYieldMultiplier", "woodpile", BidsOptions.WoodPile.pitchYieldMultiplier, 0.25f, 2f,
-            "Higher values increase the amount of pitch extracted during the production of charcoal");
-        BidsOptions.WoodPile.allowCharcoalFromUnseasonedFirewood = config.getBoolean(
-            "allowCharcoalFromUnseasonedFirewood", "woodpile", BidsOptions.WoodPile.allowCharcoalFromUnseasonedFirewood,
-            "Set this to true if you want to be able to make charcoal and extract pitch from unseasoned firewood");
 
         BidsOptions.Firepit.allowFuelLogsTFC = config.getBoolean(
                 "allowFuelLogsTFC", "firepit", BidsOptions.Firepit.allowFuelLogsTFC,

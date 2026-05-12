@@ -1,20 +1,24 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.block;
 
 import com.dunk.tfc.Blocks.Terrain.BlockOre2;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 public class BlockCrackedOre2 extends BlockOre2 {
 
-    public BlockCrackedOre2(Material material) {
-        super(material);
+    public BlockCrackedOre2() {
+        super(Material.rock);
+
+        setHardness(5F);
+        setResistance(5F);
     }
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.crackedOreRenderId;
+        return BlockRenderIdProvider.get(BlockNames.CRACKED_ORE);
     }
 
     @Override
