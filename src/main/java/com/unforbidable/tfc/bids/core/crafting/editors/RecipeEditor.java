@@ -100,7 +100,7 @@ public abstract class RecipeEditor {
                 if (ore != null) {
                     copy[i] = ore;
                 } else {
-                    throw new RuntimeException(MessageFormat.format("Unable to find suitable ore name for item stack list: {}",
+                    throw new RuntimeException(MessageFormat.format("Unable to find suitable ore name for item stack list: {0}",
                         ((List<ItemStack>) copy[i]).stream()
                             .map(ItemStack::toString)
                             .collect(Collectors.joining(","))));

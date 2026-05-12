@@ -89,7 +89,7 @@ public class Network {
         try {
             return type.newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
-            throw new RuntimeException(MessageFormat.format("Failed to create an instance of packet type {}: {}",
+            throw new RuntimeException(MessageFormat.format("Failed to create an instance of packet type {0}: {1}",
                 type.getCanonicalName(), ex.getMessage()), ex);
         }
     }

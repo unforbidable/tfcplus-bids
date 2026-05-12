@@ -18,7 +18,7 @@ public class NetworkMessage implements IMessage {
     public NetworkMessage(Packet packet) {
         int discriminator = Network.getPacketTypeDiscriminator(packet.getClass());
         if (discriminator == -1) {
-            throw new RuntimeException(MessageFormat.format("Cannot send packet of type {} that has not been registered",
+            throw new RuntimeException(MessageFormat.format("Cannot send packet of type {0} that has not been registered",
                 packet.getClass().getCanonicalName()));
         }
 

@@ -38,7 +38,7 @@ public class RecipeAccessor {
         if (isSupportedRecipe(recipe)) {
             return new RecipeAccessor(recipe);
         } else {
-            throw new RuntimeException(MessageFormat.format("Unsupported recipe type {}", recipe.getClass()));
+            throw new RuntimeException(MessageFormat.format("Unsupported recipe type {0}", recipe.getClass()));
         }
     }
 
