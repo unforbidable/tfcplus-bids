@@ -4,8 +4,10 @@ import com.unforbidable.tfc.bids.core.features.setup.eventhandler.EventHandlerSp
 import com.unforbidable.tfc.bids.core.features.setup.network.NetworkSetupHelper;
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.recipe.CraftingRecipeSetupBuilder;
+import com.unforbidable.tfc.bids.core.features.setup.registry.MapRegistryGroupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryGroupBuilder;
 import com.unforbidable.tfc.bids.util.registry.ListRegistry;
+import com.unforbidable.tfc.bids.util.registry.MapRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,8 @@ import java.util.stream.Collectors;
 
 public class FeatureSetupBuilder {
 
-    private final List<RegistryGroupBuilder<?>> values = new ArrayList<>();
+    private final List<RegistryGroupBuilder<?>> lists = new ArrayList<>();
+    private final List<MapRegistryGroupBuilder<?, ?>> maps = new ArrayList<>();
     private final List<OreGroupBuilder> ores = new ArrayList<>();
     private final CraftingRecipeSetupBuilder craftingRecipes = new CraftingRecipeSetupBuilder();
     private final NetworkSetupHelper network = new NetworkSetupHelper();
@@ -26,7 +29,14 @@ public class FeatureSetupBuilder {
 
     public <T> RegistryGroupBuilder<T> registry(ListRegistry<T> registry) {
         RegistryGroupBuilder<T> builder = new RegistryGroupBuilder<>(registry);
-        values.add(builder);
+        lists.add(builder);
+
+        return builder;
+    }
+
+    public <K, V> MapRegistryGroupBuilder<K, V> registry(MapRegistry<K, V> registry) {
+        MapRegistryGroupBuilder<K, V> builder = new MapRegistryGroupBuilder<>(registry);
+        maps.add(builder);
 
         return builder;
     }
@@ -51,10 +61,12 @@ public class FeatureSetupBuilder {
     }
 
     public FeatureSetupParams build() {
-
         return new FeatureSetupParams(
-            values.stream()
+            lists.stream()
                 .map(RegistryGroupBuilder::build)
+                .collect(Collectors.toList()),
+            maps.stream()
+                .map(MapRegistryGroupBuilder::build)
                 .collect(Collectors.toList()),
             ores.stream()
                 .map(OreGroupBuilder::build)

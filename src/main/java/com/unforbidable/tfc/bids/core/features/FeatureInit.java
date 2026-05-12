@@ -101,10 +101,15 @@ public class FeatureInit extends Initializable {
             .forEach(session::match);
         session.flush();
 
-        Bids.LOG.info("Register values");
+        Bids.LOG.info("Register list values");
         loader.getFeatures().stream()
-            .flatMap(f -> f.setup(context).values.stream())
-            .forEach(registry::registerValue);
+            .flatMap(f -> f.setup(context).lists.stream())
+            .forEach(registry::registerList);
+
+        Bids.LOG.info("Register map values");
+        loader.getFeatures().stream()
+            .flatMap(f -> f.setup(context).maps.stream())
+            .forEach(registry::registerMap);
 
         Bids.LOG.info("Register event handlers");
         loader.getFeatures().stream()

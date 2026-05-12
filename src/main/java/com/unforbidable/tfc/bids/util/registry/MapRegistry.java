@@ -6,10 +6,11 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class MapRegistry<K, V> implements Registry<MapRegistry.Entry<K, V>>, KeyRegistry<K, V> {
+public class MapRegistry<K, V> implements Registry<Entry<K, V>>, KeyRegistry<K, V> {
 
     private final Map<K, Entry<K, V>> items = new HashMap<>();
 
+    @Override
     public void add(K key, V value) {
         add(new Entry<>(key, value));
     }
@@ -38,18 +39,6 @@ public class MapRegistry<K, V> implements Registry<MapRegistry.Entry<K, V>>, Key
     @Override
     public Iterator<Entry<K, V>> iterator() {
         return items.values().iterator();
-    }
-
-    public static class Entry<K, V> {
-
-        public final K key;
-        public final V value;
-
-        public Entry(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-
     }
 
 }

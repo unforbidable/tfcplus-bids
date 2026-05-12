@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.core.features.init.item.ItemSpec;
 import com.unforbidable.tfc.bids.core.features.init.tileentity.TileEntitySpec;
 import com.unforbidable.tfc.bids.core.features.setup.eventhandler.EventHandlerSpec;
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroup;
+import com.unforbidable.tfc.bids.core.features.setup.registry.MapRegistryGroup;
 import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryGroup;
 import com.unforbidable.tfc.bids.core.gui.ContainerProvider;
 import com.unforbidable.tfc.bids.core.gui.GuiRegistry;
@@ -170,8 +171,14 @@ public class FeatureRegistry {
         ore.items.forEach(i -> OreDictionary.registerOre(ore.name, i));
     }
 
-    public <T> void registerValue(RegistryGroup<T> group) {
-        Bids.LOG.info("Register {} values", group.values.size());
+    public <T> void registerList(RegistryGroup<T> group) {
+        Bids.LOG.info("Register {} list values", group.values.size());
+
+        group.values.forEach(group.registry::add);
+    }
+
+    public <K, V> void registerMap(MapRegistryGroup<K, V> group) {
+        Bids.LOG.info("Register {} map values", group.values.size());
 
         group.values.forEach(group.registry::add);
     }
