@@ -12,7 +12,6 @@ import com.dunk.tfc.api.Interfaces.IEquipable;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsCrops;
 import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.api.util.food.BidsFoodHeatIndex;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBowlFluid;
@@ -28,12 +27,10 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api._obsolete.BidsConstants.ExtraClothing;
 import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRackTyingEquipment;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
 import com.unforbidable.tfc.bids.common.item.*;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.MudBrickRenderInfo;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.SoapRenderInfo;
-import com.unforbidable.tfc.bids.features.device.firepit.main.fuels.*;
 import com.unforbidable.tfc.bids.features.material.textile.main.EnumTextileHint;
 import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import com.unforbidable.tfc.bids.features.building.mudbrick.render.DryingMudBrickItemRenderer;
@@ -1140,30 +1137,30 @@ public class ItemSetup extends BidsItems {
     private static void registerFirepitFuel() {
         Bids.LOG.info("Register firepit fuel");
 
-        BidsRegistry.FIREPIT_FUEL.register(kindling, (IFirepitFuelMaterial) kindling);
-        BidsRegistry.FIREPIT_FUEL.register(smallStickBundle, (IFirepitFuelMaterial) smallStickBundle);
-        BidsRegistry.FIREPIT_FUEL.register(tiedStickBundle, (IFirepitFuelMaterial) tiedStickBundle);
-        BidsRegistry.FIREPIT_FUEL.register(TFCItems.stick, new FuelStickTFC());
-        BidsRegistry.FIREPIT_FUEL.register(TFCItems.fireStarter, new FuelStickTFC());
-        BidsRegistry.FIREPIT_FUEL.register(TFCItems.stickBundle, new FuelStickBundleTFC());
-        BidsRegistry.FIREPIT_FUEL.register(TFCItems.stickBundle, new FuelStickBundleTFC());
-        BidsRegistry.FIREPIT_FUEL.register(TFCBlocks.peat, new FuelPeatTFC());
-        BidsRegistry.FIREPIT_FUEL.register(bark, (IFirepitFuelMaterial) bark);
-        BidsRegistry.FIREPIT_FUEL.register(barkFibreKindling, (IFirepitFuelMaterial) barkFibreKindling);
-        BidsRegistry.FIREPIT_FUEL.register(birchBarkKindling, (IFirepitFuelMaterial) birchBarkKindling);
-        BidsRegistry.FIREPIT_FUEL.register(firewoodSeasoned, (IFirepitFuelMaterial) firewoodSeasoned);
-
-        if (BidsOptions.Firepit.allowFuelLogsTFC) {
-            BidsRegistry.FIREPIT_FUEL.register(TFCItems.logs, new FuelLogsTFC());
-        }
-
-        if (BidsOptions.Firepit.allowFuelCharcoal) {
-            BidsRegistry.FIREPIT_FUEL.register(TFCItems.coal, new FuelCoalTFC());
-        }
-
-        if (BidsOptions.Firepit.allowFuelUnseasonedFirewood) {
-            BidsRegistry.FIREPIT_FUEL.register(firewood, (IFirepitFuelMaterial) firewood);
-        }
+//        BidsRegistry.FIREPIT_FUEL.register(kindling, (IFirepitFuelMaterial) kindling);
+//        BidsRegistry.FIREPIT_FUEL.register(smallStickBundle, (IFirepitFuelMaterial) smallStickBundle);
+//        BidsRegistry.FIREPIT_FUEL.register(tiedStickBundle, (IFirepitFuelMaterial) tiedStickBundle);
+//        BidsRegistry.FIREPIT_FUEL.register(TFCItems.stick, new FuelStickTFC());
+//        BidsRegistry.FIREPIT_FUEL.register(TFCItems.fireStarter, new FuelStickTFC());
+//        BidsRegistry.FIREPIT_FUEL.register(TFCItems.stickBundle, new FuelStickBundleTFC());
+//        BidsRegistry.FIREPIT_FUEL.register(TFCItems.stickBundle, new FuelStickBundleTFC());
+//        BidsRegistry.FIREPIT_FUEL.register(TFCBlocks.peat, new FuelPeatTFC());
+//        BidsRegistry.FIREPIT_FUEL.register(bark, (IFirepitFuelMaterial) bark);
+//        BidsRegistry.FIREPIT_FUEL.register(barkFibreKindling, (IFirepitFuelMaterial) barkFibreKindling);
+//        BidsRegistry.FIREPIT_FUEL.register(birchBarkKindling, (IFirepitFuelMaterial) birchBarkKindling);
+//        BidsRegistry.FIREPIT_FUEL.register(firewoodSeasoned, (IFirepitFuelMaterial) firewoodSeasoned);
+//
+//        if (FirepitConfig.allowFuelLogsTFC) {
+//            BidsRegistry.FIREPIT_FUEL.register(TFCItems.logs, new FuelLogsTFC());
+//        }
+//
+//        if (FirepitConfig.allowFuelCharcoal) {
+//            BidsRegistry.FIREPIT_FUEL.register(TFCItems.coal, new FuelCoalTFC());
+//        }
+//
+//        if (FirepitConfig.allowFuelUnseasonedFirewood) {
+//            BidsRegistry.FIREPIT_FUEL.register(firewood, (IFirepitFuelMaterial) firewood);
+//        }
     }
 
     private static void registerWetness() {

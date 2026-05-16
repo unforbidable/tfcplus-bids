@@ -2,17 +2,6 @@ package com.unforbidable.tfc.bids.api._obsolete;
 
 public class BidsOptions {
 
-    public static class Firepit {
-
-        public static boolean allowFuelLogsTFC = false;
-        public static boolean allowFuelCharcoal = true;
-        public static boolean allowFuelUnseasonedFirewood = false;
-        public static boolean replaceFirepitTFC = false;
-        public static float burnTimeMultiplier = 1f;
-        public static boolean allowAshRemovalAlsoFromFirepitTFC = true;
-
-    }
-
     public static class Kiln {
 
         public static boolean enableTunnelKiln = true;

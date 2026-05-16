@@ -1,14 +1,12 @@
 package com.unforbidable.tfc.bids.features.device.firepit.main;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-
+import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;

@@ -12,7 +12,7 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderConfigurator;
 
@@ -23,7 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class ItemTiedStickBundle extends Item implements ISize, IFirepitFuelMaterial, WoodpileRenderable {
+public class ItemTiedStickBundle extends Item implements ISize, FirepitFuelMaterial, WoodpileRenderable {
 
     public ItemTiedStickBundle() {
         super();

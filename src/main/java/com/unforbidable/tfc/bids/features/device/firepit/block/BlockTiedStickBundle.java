@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.firepit.block;
 
 import com.unforbidable.tfc.bids.Tags;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

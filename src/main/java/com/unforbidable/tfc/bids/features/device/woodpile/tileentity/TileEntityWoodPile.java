@@ -11,8 +11,7 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.KilnEngine;
 import com.unforbidable.tfc.bids.api._obsolete.Providers.KilnEngineProvider;
 import com.unforbidable.tfc.bids.api.features.woodpile.FireSettingEvent;
@@ -26,6 +25,7 @@ import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.DynamicEnvironment;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.StaticEnvironment;
+import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
 import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileConfig;
 import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileRegistry;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockWoodpile;
@@ -913,7 +913,7 @@ public class TileEntityWoodpile extends TileEntity implements IInventory, Packet
     private WoodpileBurningItem findNextBurningItem() {
         for (int i = MAX_STORAGE - 1; i >= 0; i--) {
             if (storage[i] != null) {
-                IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(storage[i].getItem());
+                FirepitFuelMaterial fuel = FirepitRegistry.fuel.get(storage[i].getItem());
                 if (fuel != null && fuel.isFuelValid(storage[i])) {
                     return new WoodpileBurningItem(i, storage[i], fuel);
                 }

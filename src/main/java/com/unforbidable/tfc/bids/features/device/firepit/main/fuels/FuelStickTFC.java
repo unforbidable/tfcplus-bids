@@ -1,12 +1,11 @@
 package com.unforbidable.tfc.bids.features.device.firepit.main.fuels;
 
-import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Enums.EnumFuelMaterial;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
-
+import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import net.minecraft.item.ItemStack;
 
-public class FuelStickTFC implements IFirepitFuelMaterial {
+public class FuelStickTFC implements FirepitFuelMaterial {
 
     @Override
     public boolean isFuelValid(ItemStack itemStack) {

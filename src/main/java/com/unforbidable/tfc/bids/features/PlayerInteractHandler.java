@@ -1,24 +1,24 @@
 package com.unforbidable.tfc.bids.features;
 
-import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.Tools.ItemCustomBucketMilk;
-import com.dunk.tfc.Items.Tools.ItemCustomShovel;
-import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Tools.IKnife;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.core.drink.FluidHelper;
-import com.unforbidable.tfc.bids.features.food.milk.main.MilkHelper;
-import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
-import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.Events.FillContainerEvent;
+import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
+import com.unforbidable.tfc.bids.core.drink.FluidHelper;
+import com.unforbidable.tfc.bids.features.food.milk.main.MilkHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -27,14 +27,12 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.entity.player.EntityInteractEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
+import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
 
 public class PlayerInteractHandler {
 
@@ -187,19 +185,6 @@ public class PlayerInteractHandler {
                             event.world.spawnEntityInWorld(ei);
                             event.world.playSoundEffect(event.x, event.y, event.z, "dig.wood",
                                 0.4F + (event.world.rand.nextFloat() / 2), 0.7F + event.world.rand.nextFloat());
-                        }
-                    }
-                } else if (BidsOptions.Firepit.allowAshRemovalAlsoFromFirepitTFC && heldItem != null && heldItem.getItem() instanceof ItemCustomShovel) {
-                    TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
-                    if (te instanceof TEFirepit && !(te instanceof TileEntityNewFirepit)) {
-                        TEFirepit firepit = (TEFirepit) te;
-                        if (firepit.ashNumber > 0 && firepit.fireTemp <= 1F) {
-                            TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.powder, firepit.ashNumber, 13), event.entityPlayer);
-                            firepit.ashNumber = 0;
-
-                            heldItem.damageItem(1, event.entityPlayer);
-
-                            event.setCanceled(true);
                         }
                     }
                 }

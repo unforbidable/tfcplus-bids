@@ -38,6 +38,13 @@ public class BidsBlocks {
     public static Block crackedOre3 = block(BlockNames.CRACKED_ORE_3);
     public static Block light = block(BlockNames.LIGHT);
 
+    // Log Wall
+
+
+    // Firepit
+    public static Block newFirepit = block(BlockNames.FIREPIT);
+    public static Block tiedStickBundle = block(BlockNames.TIED_STICK_BUNDLE);
+
 
 
     public static int clayCrucibleRenderId;
@@ -87,9 +94,6 @@ public class BidsBlocks {
     public static int soakingSurfaceRenderId;
     public static int dryingSurfaceRenderId;
 
-    public static Block newFirepit;
-    public static Block firepitTFC;
-
     public static Block roughStoneSed;
     public static Block roughStoneBrickSed;
     public static Block roughStoneTileSed;
@@ -130,8 +134,6 @@ public class BidsBlocks {
     public static Block logWallVertAlt2;
     public static Block logWallVert3;
     public static Block logWallVertAlt3;
-
-    public static Block tiedStickBundle;
 
     public static Block stackedFirewood;
     public static Block stackedFirewood2;

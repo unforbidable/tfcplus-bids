@@ -1,8 +1,8 @@
-package com.unforbidable.tfc.bids.api._obsolete.Interfaces;
+package com.unforbidable.tfc.bids.api.features.firepit;
 
 import net.minecraft.item.ItemStack;
 
-public interface IFirepitFuelMaterial {
+public interface FirepitFuelMaterial {
 
     boolean isFuelValid(ItemStack itemStack);
 

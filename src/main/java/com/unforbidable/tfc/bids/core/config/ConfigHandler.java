@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.core.config;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfigLoader;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileConfig;
+import com.unforbidable.tfc.bids.features.device.firepit.FirepitConfig;
 import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import net.minecraftforge.common.config.Configuration;
 
@@ -34,25 +34,6 @@ public class ConfigHandler {
             "churningDurationMultiplier", "churning",
             BidsOptions.Churning.churningDurationMultiplier, 0.5f, 4f,
             "Higher values increase the time it takes to churn butter");
-
-        BidsOptions.Firepit.allowFuelLogsTFC = config.getBoolean(
-                "allowFuelLogsTFC", "firepit", BidsOptions.Firepit.allowFuelLogsTFC,
-                "Set this to true if you want to be able to use unseasoned TFC logs as fuel in a firepit");
-        BidsOptions.Firepit.allowFuelCharcoal = config.getBoolean(
-                "allowFuelCharcoal", "firepit", BidsOptions.Firepit.allowFuelCharcoal,
-                "Set this to true if you want to be able to use charcoal as fuel in a firepit");
-        BidsOptions.Firepit.allowFuelUnseasonedFirewood = config.getBoolean(
-            "allowFuelUnseasonedFirewood", "firepit", BidsOptions.Firepit.allowFuelUnseasonedFirewood,
-            "Set this to true if you want to be able to use unseasoned Firewood as fuel in a firepit");
-        BidsOptions.Firepit.replaceFirepitTFC = config.getBoolean(
-                "replaceFirepitTFC", "firepit", BidsOptions.Firepit.replaceFirepitTFC,
-                "Set this to true if you want to replace TFC firepit");
-        BidsOptions.Firepit.burnTimeMultiplier = config.getFloat(
-            "burnTimeMultiplier", "firepit", BidsOptions.Firepit.burnTimeMultiplier, 0.25f, 2f,
-            "Higher values increase the time fuel burns in a firepit");
-        BidsOptions.Firepit.allowAshRemovalAlsoFromFirepitTFC = config.getBoolean(
-            "allowAshRemovalAlsoFromFirepitTFC", "firepit", BidsOptions.Firepit.allowAshRemovalAlsoFromFirepitTFC,
-            "Set this to true if you want to be able to extract ash from TFC firepit much like from the new firepit when you choose not to replace it");
 
         BidsOptions.Kiln.enableBeehiveKiln = config.getBoolean(
             "enableBeehiveKiln", "kiln", BidsOptions.Kiln.enableBeehiveKiln,

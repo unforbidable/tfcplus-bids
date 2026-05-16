@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.firepit.container.slot;
 
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
+import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -14,7 +14,7 @@ public class SlotNewFirepitFuel extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack itemStack) {
-        final IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(itemStack.getItem());
+        final FirepitFuelMaterial fuel = FirepitRegistry.fuel.get(itemStack.getItem());
         return fuel != null && fuel.isFuelValid(itemStack);
     }
 

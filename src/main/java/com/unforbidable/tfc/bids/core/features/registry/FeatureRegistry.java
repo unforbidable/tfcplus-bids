@@ -27,13 +27,18 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class FeatureRegistry {
@@ -210,6 +215,22 @@ public class FeatureRegistry {
     @SideOnly(Side.CLIENT)
     public void registerClientEventHandler(EventHandlerClientSpec spec) {
         MinecraftForge.EVENT_BUS.register(spec.instance);
+    }
+
+    public void check() {
+        for (Object o : Item.itemRegistry) {
+            Item item = (Item) o;
+            if (item != null && item.getCreativeTab() != null) {
+                List<ItemStack> list = new ArrayList<>();
+                item.getSubItems(item, item.getCreativeTab(), list);
+
+                for (ItemStack is : list) {
+                    if (is.getItem() == null) {
+                        Bids.LOG.error("NULL item returned as sub item for " + item.getUnlocalizedName());
+                    }
+                }
+            }
+        }
     }
 
 }

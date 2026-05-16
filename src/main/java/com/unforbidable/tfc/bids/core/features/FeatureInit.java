@@ -147,6 +147,7 @@ public class FeatureInit extends Initializable {
     @SideOnly(Side.CLIENT)
     @Override
     public void postInitClientOnly(FMLPostInitializationEvent event) {
+        registry.check();
     }
 
 }

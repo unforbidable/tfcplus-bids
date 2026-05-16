@@ -5,6 +5,7 @@ import com.unforbidable.tfc.bids.features.building.carving.Carving;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
+import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
 import com.unforbidable.tfc.bids.features.device.woodpile.Woodpile;
 import com.unforbidable.tfc.bids.features.material.glass.Glass;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
@@ -27,6 +28,7 @@ public class Features {
         new Quarry(),
         new Carving(),
         new Woodpile(),
+        new Firepit(),
     };
 
 }

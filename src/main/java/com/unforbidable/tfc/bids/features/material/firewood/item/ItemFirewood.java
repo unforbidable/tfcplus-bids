@@ -11,7 +11,7 @@ import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderConfigurator;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class ItemFirewood extends Item implements ISize, WoodpileRenderable, IFirepitFuelMaterial {
+public class ItemFirewood extends Item implements ISize, WoodpileRenderable, FirepitFuelMaterial {
 
     private IIcon[] icons;
     protected String[] names;

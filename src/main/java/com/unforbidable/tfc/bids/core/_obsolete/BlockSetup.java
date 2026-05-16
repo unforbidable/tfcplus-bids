@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallType;
 import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallVertType;
+import com.unforbidable.tfc.bids.features.device.firepit.FirepitConfig;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockLight;
 import com.unforbidable.tfc.bids.common.block.itemblock.ItemGenericSoil;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
@@ -22,7 +23,6 @@ import com.unforbidable.tfc.bids.features.device.processingsurface.main.Processi
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.block.BlockAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.render.RenderAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.tileentity.TileEntityAxleWallBearing;
-import com.unforbidable.tfc.bids.features.building.carving.render.RenderCarving;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.block.BlockDecorativeSurface;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.render.RenderDecorativeSurface;
@@ -122,9 +122,6 @@ import com.unforbidable.tfc.bids.features.device.wallhook.render.RenderWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.tileentity.TileEntityWallHook;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.*;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.blockitem.ItemCrackedStone;
-import com.unforbidable.tfc.bids.features.device.woodpile.render.RenderCrackedOre;
-import com.unforbidable.tfc.bids.features.device.woodpile.render.RenderCrackedStone;
-import com.unforbidable.tfc.bids.features.device.woodpile.render.RenderWoodpile;
 import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import com.unforbidable.tfc.bids.features.material.firewood.block.BlockStackedFirewood;
 import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.BlockUnfinishedAnvil;
@@ -497,10 +494,10 @@ public class BlockSetup extends BidsBlocks {
         }
 
 */
-        if (BidsOptions.Firepit.replaceFirepitTFC) {
-            BidsBlocks.firepitTFC = TFCBlocks.firepit;
-            TFCBlocks.firepit = BidsBlocks.newFirepit;
-        }
+//        if (FirepitConfig.replaceFirepitTFC) {
+//            BidsBlocks.firepitTFC = TFCBlocks.firepit;
+//            TFCBlocks.firepit = BidsBlocks.newFirepit;
+//        }
     }
 
     private static void setupHarvest() {

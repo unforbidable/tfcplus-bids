@@ -2,23 +2,22 @@ package com.unforbidable.tfc.bids.features.device.firepit.nei;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
-import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
-import com.unforbidable.tfc.bids.api._obsolete.Registry.Entry;
+import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
+import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
+import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
+import com.unforbidable.tfc.bids.util.registry.Entry;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FirepitFuelNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
@@ -50,7 +49,7 @@ public class FirepitFuelNeiHandler extends TemplateRecipeHandler implements IHan
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == FirepitFuelNeiHandler.class) {
-            for (Entry<Item, IFirepitFuelMaterial> entry : BidsRegistry.FIREPIT_FUEL) {
+            for (Entry<Item, FirepitFuelMaterial> entry : FirepitRegistry.fuel) {
                 // Ensure any sub items are valid fuel
                 List<ItemStack> temp = getValidFuelSubItems(entry.value, entry.key);
                 if (temp.size() > 0) {
@@ -62,7 +61,7 @@ public class FirepitFuelNeiHandler extends TemplateRecipeHandler implements IHan
         }
     }
 
-    private static List<ItemStack> getValidFuelSubItems(IFirepitFuelMaterial fuel, Item item) {
+    private static List<ItemStack> getValidFuelSubItems(FirepitFuelMaterial fuel, Item item) {
         final List<ItemStack> temp = new ArrayList<ItemStack>();
         item.getSubItems(item, null, temp);
 
@@ -78,7 +77,7 @@ public class FirepitFuelNeiHandler extends TemplateRecipeHandler implements IHan
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (Entry<Item, IFirepitFuelMaterial> entry : BidsRegistry.FIREPIT_FUEL) {
+        for (Entry<Item, FirepitFuelMaterial> entry : FirepitRegistry.fuel) {
             if (ingredient.getItem() == entry.key) {
                 if (entry.value.isFuelValid(ingredient)) {
                     arecipes.add(new CachedFirepitFuelRecipe(entry.value, entry.key));
@@ -109,11 +108,11 @@ public class FirepitFuelNeiHandler extends TemplateRecipeHandler implements IHan
 
     public class CachedFirepitFuelRecipe extends CachedRecipe {
 
-        final IFirepitFuelMaterial fuel;
+        final FirepitFuelMaterial fuel;
         final Item ingred;
         final List<ItemStack> ingreds = new ArrayList<ItemStack>();
 
-        public CachedFirepitFuelRecipe(IFirepitFuelMaterial fuel, Item ingred) {
+        public CachedFirepitFuelRecipe(FirepitFuelMaterial fuel, Item ingred) {
             this.fuel = fuel;
             this.ingred = ingred;
 

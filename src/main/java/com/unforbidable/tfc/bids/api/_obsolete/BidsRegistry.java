@@ -14,7 +14,7 @@ public class BidsRegistry {
 
     public static final ItemRegistry<WetnessInfo> DRYING_ITEM_WETNESS = new ItemRegistry<>();
     public static final ItemRegistry<IDryingItemRenderInfo> DRYING_ITEM_RENDER_INFO = new ItemRegistry<>();
-    public static final ItemRegistry<IFirepitFuelMaterial> FIREPIT_FUEL = new ItemRegistry<>();
+//    public static final ItemRegistry<IFirepitFuelMaterial> FIREPIT_FUEL = new ItemRegistry<>();
 //    public static final ItemRegistry<IWoodPileRenderProvider> WOODPILE_RENDER_PROVIDERS = new ItemRegistry<>();
 //    public static final ListRegistry<Crackable> WOODPILE_CRACKABLE_BLOCKS = new ListRegistry<>("woodpile-crackable-blocks");
     public static final ListRegistry<ISurfaceItemPlacer> SURFACE_ITEM_PLACERS = new ListRegistry<>("surface-item-placers");

@@ -8,10 +8,10 @@ import com.dunk.tfc.Containers.Slots.SlotForShowOnly;
 import com.dunk.tfc.Core.Player.PlayerInventory;
 import com.dunk.tfc.Items.ItemOre;
 import com.dunk.tfc.api.HeatRegistry;
+import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
+import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
 import com.unforbidable.tfc.bids.features.device.firepit.container.slot.SlotNewFirepitFuel;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
@@ -86,7 +86,7 @@ public class ContainerNewFirepit extends ContainerTFC {
                     slotStack.stackSize--;
                 } else {
                     // Fuel to the fuel input slot
-                    IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(slotStack.getItem());
+                    FirepitFuelMaterial fuel = FirepitRegistry.fuel.get(slotStack.getItem());
                     if (!slotfuel[0].getHasStack() && fuel != null && fuel.isFuelValid(slotStack)) {
                         ItemStack stack = slotStack.copy();
                         stack.stackSize = 1;

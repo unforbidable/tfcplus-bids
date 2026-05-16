@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.features.device.firepit.render;
 
 import com.dunk.tfc.api.TFCBlocks;
+import com.unforbidable.tfc.bids.features.device.firepit.FirepitConfig;
 import com.unforbidable.tfc.bids.util.render.RenderHelper;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -40,7 +40,7 @@ public class RenderNewFirepit implements ISimpleBlockRenderingHandler {
             float offsetY = (float) block.getBlockBoundsMaxY();
             float scaleY = te.fireTemp / 2000;
             float color = 0.5f + Math.min(te.fireTemp / 1000, 0.5f);
-            if (world.getBlock(x, y + 1, z) == TFCBlocks.vessel && BidsOptions.Firepit.replaceFirepitTFC) {
+            if (world.getBlock(x, y + 1, z) == TFCBlocks.vessel && FirepitConfig.replaceFirepitTFC) {
                 // When vessel is above
                 // but only when TFC fire pit was replaced - when the vessel is rendered just above the fire pit
                 // the central fire block is very low

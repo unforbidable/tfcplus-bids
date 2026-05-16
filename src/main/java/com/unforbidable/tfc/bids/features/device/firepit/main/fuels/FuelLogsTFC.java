@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.features.device.firepit.main.fuels;
 
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import net.minecraft.item.ItemStack;
 
-public class FuelLogsTFC implements IFirepitFuelMaterial {
+public class FuelLogsTFC implements FirepitFuelMaterial {
 
     @Override
     public boolean isFuelValid(ItemStack itemStack) {

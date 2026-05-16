@@ -6,25 +6,23 @@ import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
-import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
-import com.unforbidable.tfc.bids.util.Timer;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
-import cpw.mods.fml.common.network.NetworkRegistry;
+import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
+import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
+import com.unforbidable.tfc.bids.features.device.firepit.FirepitConfig;
+import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
+import com.unforbidable.tfc.bids.util.Timer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-public class TileEntityNewFirepit extends TEFirepit implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
+public class TileEntityNewFirepit extends TEFirepit implements PacketHandler<SimpleUpdatePacket> {
 
     public static final int FUEL_INPUT_SLOT = 0;
     public static final int FUEL_BURN_SLOT = 5;
@@ -63,9 +61,9 @@ public class TileEntityNewFirepit extends TEFirepit implements IMessageHanldingT
     }
 
     public void initWithKindling(ItemStack kindling, boolean setOnFire) {
-        IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(kindling.getItem());
+        FirepitFuelMaterial fuel = FirepitRegistry.fuel.get(kindling.getItem());
         if (setOnFire && fuel != null) {
-            fuelTimeLeft = fuel.getFuelBurnTime(kindling) * BidsOptions.Firepit.burnTimeMultiplier;
+            fuelTimeLeft = fuel.getFuelBurnTime(kindling) * FirepitConfig.burnTimeMultiplier;
             fuelBurnTemp = fuel.getFuelMaxTemp(kindling);
             fuelTasteProfile = fuel.getFuelTasteProfile(kindling);
             fireTemp = fuelBurnTemp / 2f;
@@ -85,7 +83,7 @@ public class TileEntityNewFirepit extends TEFirepit implements IMessageHanldingT
         if (!worldObj.isRemote) {
             // When inventory content changes
             if (clientNeedToUpdate) {
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+                sendUpdatePacket();
 
                 clientNeedToUpdate = false;
             }
@@ -197,7 +195,7 @@ public class TileEntityNewFirepit extends TEFirepit implements IMessageHanldingT
     }
 
     protected boolean isValidFuelMaterial(ItemStack is) {
-        IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(is.getItem());
+        FirepitFuelMaterial fuel = FirepitRegistry.fuel.get(is.getItem());
         return fuel != null && fuel.isFuelValid(is);
     }
 
@@ -205,10 +203,10 @@ public class TileEntityNewFirepit extends TEFirepit implements IMessageHanldingT
         if (fuelTimeLeft <= 0 && fireTemp >= 1 && fireItemStacks[FUEL_BURN_SLOT] != null
                 && !TFC_Core.isExposedToRain(worldObj, xCoord, yCoord, zCoord)) {
             final ItemStack itemStack = fireItemStacks[FUEL_BURN_SLOT];
-            final IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(itemStack.getItem());
+            final FirepitFuelMaterial fuel = FirepitRegistry.fuel.get(itemStack.getItem());
 
             fuelTasteProfile = fuel.getFuelTasteProfile(itemStack);
-            fuelTimeLeft = fuel.getFuelBurnTime(itemStack) * BidsOptions.Firepit.burnTimeMultiplier;
+            fuelTimeLeft = fuel.getFuelBurnTime(itemStack) * FirepitConfig.burnTimeMultiplier;
             fuelBurnTemp = fuel.getFuelMaxTemp(itemStack);
 
             if (ashNumber < 5) {
@@ -223,7 +221,7 @@ public class TileEntityNewFirepit extends TEFirepit implements IMessageHanldingT
 
     }
 
-    protected int getAshForFuel(IFirepitFuelMaterial fuel, ItemStack is) {
+    protected int getAshForFuel(FirepitFuelMaterial fuel, ItemStack is) {
         if (is.getItem() instanceof ItemCoal || is.getItem() == Item.getItemFromBlock(TFCBlocks.peat)) {
             return 0;
         } else {
@@ -233,14 +231,13 @@ public class TileEntityNewFirepit extends TEFirepit implements IMessageHanldingT
         }
     }
 
-    @Override
-    public void onTileEntityMessage(TileEntityUpdateMessage message) {
-        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
+    public void sendUpdatePacket() {
+        Network.sendToTileEntity(new SimpleUpdatePacket(), this);
     }
 
-    public static void sendUpdateMessage(World world, int x, int y, int z) {
-        NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
+    @Override
+    public void handleNetworkPacket(SimpleUpdatePacket packet) {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
 }

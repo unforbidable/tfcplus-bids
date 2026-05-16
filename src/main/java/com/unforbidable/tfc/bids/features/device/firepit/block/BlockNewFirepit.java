@@ -10,11 +10,13 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
+import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsGui;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IFirepitFuelMaterial;
+import java.util.Random;
+import com.unforbidable.tfc.bids.util.GuiUtil;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -25,8 +27,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class BlockNewFirepit extends BlockFirepit {
 
@@ -52,14 +52,14 @@ public class BlockNewFirepit extends BlockFirepit {
         // needs to be reflected here
         if (!world.isRemote) {
             if (!handleInteraction(world, x, y, z, entityplayer, side)) {
-                entityplayer.openGui(Bids.instance, BidsGui.newFirepitGui, world, x, y, z);
+                GuiUtil.openGui(BlockNames.FIREPIT, entityplayer, world.getTileEntity(x, y, z));
             }
         }
 
         return true;
     }
 
-    private boolean handleInteraction(World world, int x, int y, int z, EntityPlayer entityplayer, int side) {
+    private boolean     handleInteraction(World world, int x, int y, int z, EntityPlayer entityplayer, int side) {
         ItemStack equippedItem = entityplayer.getCurrentEquippedItem();
         TEFirepit te = (TEFirepit) world.getTileEntity(x, y, z);
         if (equippedItem != null) {
@@ -100,7 +100,7 @@ public class BlockNewFirepit extends BlockFirepit {
                 // No longer 100% chance of success
                 // and kindling is required
                 final ItemStack kindling = te.fireItemStacks[5];
-                final IFirepitFuelMaterial fuel = BidsRegistry.FIREPIT_FUEL.get(kindling.getItem());
+                final FirepitFuelMaterial fuel = FirepitRegistry.fuel.get(kindling.getItem());
 
                 if (fuel != null && fuel.getFuelKindlingQuality(kindling) > 0) {
                     float chance = fuel.getFuelKindlingQuality(kindling);
@@ -160,7 +160,7 @@ public class BlockNewFirepit extends BlockFirepit {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.newFirepitRenderId;
+        return BlockRenderIdProvider.get(BlockNames.FIREPIT);
     }
 
     @Override

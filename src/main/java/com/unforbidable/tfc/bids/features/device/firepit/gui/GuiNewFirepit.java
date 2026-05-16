@@ -1,10 +1,9 @@
 package com.unforbidable.tfc.bids.features.device.firepit.gui;
 
 import com.dunk.tfc.GUI.GuiContainerTFC;
-import com.unforbidable.tfc.bids.features.device.firepit.container.ContainerNewFirepit;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.features.device.firepit.container.ContainerNewFirepit;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
-
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;

@@ -37,7 +37,7 @@ public interface BlockNames {
     @BlockId(8)
     String FIREPIT = "NewFirepit";
     @BlockId(29)
-    String STICK_BUNDLE_TIED = "TiedStickBundle";
+    String TIED_STICK_BUNDLE = "TiedStickBundle";
 
     // Rough Stone
     @BlockId(9)

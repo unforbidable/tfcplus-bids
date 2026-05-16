@@ -77,7 +77,13 @@ public class BidsItems {
     public static Item plugAndFeather = item(ItemNames.PLUG_AND_FEATHER);
 
     // Woodpile
-    public static Item logsSeasoned;
+    public static Item logsSeasoned = item(ItemNames.LOG_SEASONED);
+
+    // Firepit
+    public static Item smallStickBundle = item(ItemNames.STICK_BUNDLE_SMALL);
+    public static Item tiedStickBundle = item(ItemNames.STICK_BUNDLE_TIED);
+    public static Item kindling = item(ItemNames.KINDLING);
+
 
 
     public static Item igInHandAxe;
@@ -97,10 +103,6 @@ public class BidsItems {
 
     public static Item board;
     public static Item shaft;
-
-    public static Item smallStickBundle;
-    public static Item tiedStickBundle;
-    public static Item kindling;
 
     public static Item bark;
     public static Item barkFibre;
