@@ -16,6 +16,7 @@ public class BlockSpecBuilder<T extends Block> {
 
     private BlockFireInfoSpec fireInfo;
     private BlockHarvestSpec harvestability;
+    private MetaSpec meta;
 
     public BlockSpecBuilder(String name, Supplier<T> block, Class<? extends ItemBlock> itemType) {
         this.name = name;
@@ -45,8 +46,14 @@ public class BlockSpecBuilder<T extends Block> {
         return this;
     }
 
+    public BlockSpecBuilder<T> meta(String ...stoneSed) {
+        this.meta = new MetaSpec(stoneSed);
+
+        return this;
+    }
+
     public BlockSpec<T> build() {
-        return new BlockSpec<>(name, block, itemType, apply, fireInfo, harvestability);
+        return new BlockSpec<>(name, block, itemType, apply, fireInfo, harvestability, meta);
     }
 
 }

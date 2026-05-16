@@ -45,7 +45,7 @@ public interface BlockNames {
     @BlockId(10)
     String ROUGH_STONE_BRICK_SED = "RoughStoneBrickSed";
     @BlockId(54)
-    String ROUGH_STONE_TILES_SED = "RoughStoneTileSed";
+    String ROUGH_STONE_TILE_SED = "RoughStoneTileSed";
     @BlockId(55)
     String ROUGH_STONE_MM = "RoughStoneMM";
     @BlockId(56)

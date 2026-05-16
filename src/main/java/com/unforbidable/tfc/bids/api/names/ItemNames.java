@@ -64,6 +64,9 @@ public interface ItemNames {
     String ADZE_BLACK_BRONZE = "Black Bronze Adze";
     String ADZE_WROUGHT_IRON = "Wrought Iron Adze";
 
+    // Woodpile
+    String LOG_SEASONED = "Log Seasoned";
+
     // Hand Axe
     String HAND_AXE_SED = "Sed Hand Axe";
     String HAND_AXE_MM = "MM Hand Axe";
@@ -77,10 +80,9 @@ public interface ItemNames {
     String ROUGH_STONE_BRICK = "Rough Stone Brick";
     String ROUGH_STONE_TILE = "Rough Stone Tile";
 
-    // Logs
+    // Bark
     String LOG_PEELED = "Peeled Log";
     String LOG_PEELED_SEASONED = "Peeled Log Seasoned";
-    String LOG_SEASONED = "Log Seasoned";
     String BARK = "Bark";
 
     // Birch Bark

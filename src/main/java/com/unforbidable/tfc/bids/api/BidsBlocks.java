@@ -38,12 +38,33 @@ public class BidsBlocks {
     public static Block crackedOre3 = block(BlockNames.CRACKED_ORE_3);
     public static Block light = block(BlockNames.LIGHT);
 
-    // Log Wall
-
-
     // Firepit
     public static Block newFirepit = block(BlockNames.FIREPIT);
     public static Block tiedStickBundle = block(BlockNames.TIED_STICK_BUNDLE);
+
+    // Rough stone
+    public static Block roughStoneSed = block(BlockNames.ROUGH_STONE_SED);
+    public static Block roughStoneBrickSed = block(BlockNames.ROUGH_STONE_BRICK_SED);
+    public static Block roughStoneTileSed = block(BlockNames.ROUGH_STONE_TILE_SED);
+    public static Block roughStoneBrickFenceSed = block(BlockNames.ROUGH_STONE_BRICK_FENCE_SED);
+    public static Block roughStoneTileFenceSed = block(BlockNames.ROUGH_STONE_TILE_FENCE_SED);
+    public static Block roughStoneMM = block(BlockNames.ROUGH_STONE_MM);
+    public static Block roughStoneBrickMM = block(BlockNames.ROUGH_STONE_BRICK_MM);
+    public static Block roughStoneTileMM = block(BlockNames.ROUGH_STONE_TILE_MM);
+    public static Block roughStoneBrickFenceMM = block(BlockNames.ROUGH_STONE_BRICK_FENCE_MM);
+    public static Block roughStoneTileFenceMM = block(BlockNames.ROUGH_STONE_TILE_FENCE_MM);
+    public static Block roughStoneIgIn = block(BlockNames.ROUGH_STONE_IG_IN);
+    public static Block roughStoneBrickIgIn = block(BlockNames.ROUGH_STONE_BRICK_IG_IN);
+    public static Block roughStoneTileIgIn = block(BlockNames.ROUGH_STONE_TILE_IG_IN);
+    public static Block roughStoneBrickFenceIgIn = block(BlockNames.ROUGH_STONE_BRICK_IG_IN);
+    public static Block roughStoneTileFenceIgIn = block(BlockNames.ROUGH_STONE_TILE_FENCE_IG_IN);
+    public static Block roughStoneIgEx = block(BlockNames.ROUGH_STONE_BRICK_IG_EX);
+    public static Block roughStoneBrickIgEx = block(BlockNames.ROUGH_STONE_BRICK_FENCE_IG_EX);
+    public static Block roughStoneTileIgEx = block(BlockNames.ROUGH_STONE_TILE_IG_EX);
+    public static Block roughStoneBrickFenceIgEx = block(BlockNames.ROUGH_STONE_BRICK_FENCE_IG_EX);
+    public static Block roughStoneTileFenceIgEx = block(BlockNames.ROUGH_STONE_TILE_FENCE_IG_EX);
+
+    // Log Wall
 
 
 
@@ -94,18 +115,6 @@ public class BidsBlocks {
     public static int soakingSurfaceRenderId;
     public static int dryingSurfaceRenderId;
 
-    public static Block roughStoneSed;
-    public static Block roughStoneBrickSed;
-    public static Block roughStoneTileSed;
-    public static Block roughStoneMM;
-    public static Block roughStoneBrickMM;
-    public static Block roughStoneTileMM;
-    public static Block roughStoneIgIn;
-    public static Block roughStoneBrickIgIn;
-    public static Block roughStoneTileIgIn;
-    public static Block roughStoneIgEx;
-    public static Block roughStoneBrickIgEx;
-    public static Block roughStoneTileIgEx;
 
     public static Block logWallEast;
     public static Block logWallNorth;
@@ -195,16 +204,6 @@ public class BidsBlocks {
     public static Block palisade;
     public static Block palisade2;
     public static Block palisade3;
-
-    public static Block roughStoneBrickFenceSed;
-    public static Block roughStoneBrickFenceMM;
-    public static Block roughStoneBrickFenceIgIn;
-    public static Block roughStoneBrickFenceIgEx;
-
-    public static Block roughStoneTileFenceSed;
-    public static Block roughStoneTileFenceMM;
-    public static Block roughStoneTileFenceIgIn;
-    public static Block roughStoneTileFenceIgEx;
 
     public static Block wattleGate;
 

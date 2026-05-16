@@ -85,8 +85,10 @@ public class Adze extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
+        // TODO see if using new too class "adze" is possible
         ItemAdze.effectiveAgainstBlocks.addAll(Sets.newHashSet(BidsBlocks.carvingRock, BidsBlocks.carvingWood,
-            BidsBlocks.roughStoneSed, BidsBlocks.roughStoneBrickSed, BidsBlocks.mudBrickChimney, BidsBlocks.mudBrickChimney2,
+            BidsBlocks.roughStoneSed, BidsBlocks.roughStoneBrickSed, BidsBlocks.roughStoneTileSed,
+            BidsBlocks.mudBrickChimney, BidsBlocks.mudBrickChimney2,
             TFCBlocks.mudBricks, TFCBlocks.mudBricks2));
 
         setup.ores("itemAdzeHead")

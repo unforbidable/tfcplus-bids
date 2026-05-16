@@ -84,6 +84,9 @@ public class BidsItems {
     public static Item tiedStickBundle = item(ItemNames.STICK_BUNDLE_TIED);
     public static Item kindling = item(ItemNames.KINDLING);
 
+    // Rough Stone
+    public static Item roughStoneBrick = item(ItemNames.ROUGH_STONE_BRICK);
+    public static Item roughStoneTile = item(ItemNames.ROUGH_STONE_TILE);
 
 
     public static Item igInHandAxe;
@@ -92,9 +95,6 @@ public class BidsItems {
     public static Item mMHandAxe;
 
     public static Item hardenedWoodenSpear;
-    public static Item sedRoughStoneLooseBrick;
-    public static Item roughStoneBrick;
-    public static Item roughStoneTile;
 
     public static Item peeledLog;
     public static Item peeledLogSeasoned;

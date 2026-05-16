@@ -33,6 +33,7 @@ public class BlockRoughStone extends Block {
         super(Material.rock);
         setCreativeTab(BidsCreativeTabs.bidsBuildingBlocks);
         setHardness(10f);
+        setBlockTextureName("Rough");
     }
 
     public BlockRoughStone setMetaOnly(Integer ...metaOnly) {

@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.features.building.roughstone.block.blockitem;
 
+import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStone;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStoneFence;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -13,8 +14,8 @@ public class ItemRoughStoneFence extends ItemRoughStone {
     @Override
     public String getUnlocalizedName(ItemStack is) {
         Block block = Block.getBlockFromItem(this);
-        if (block instanceof BlockRoughStoneFence) {
-            String[] names = ((BlockRoughStoneFence) block).materialBlock.getNames();
+        if (block instanceof BlockRoughStoneFence && ((BlockRoughStoneFence) block).materialBlock instanceof BlockRoughStone) {
+            String[] names = ((BlockRoughStone)((BlockRoughStoneFence) block).materialBlock).getNames();
             if (names != null && is.getItemDamage() < names.length) {
                 return getUnlocalizedName().concat("." + names[is.getItemDamage()]);
             }

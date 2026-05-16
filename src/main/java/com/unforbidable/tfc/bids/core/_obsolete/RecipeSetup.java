@@ -181,47 +181,47 @@ public class RecipeSetup {
 //                "PB", "BB", 'P', new ItemStack(TFCItems.logs, 1, 48), // Bamboo
 //                'B', stone.items.getItem(EnumStoneItemType.MUD_BRICK));
 //
-            recipes.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 4),
-                    "SA", "  ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
-                .action(damageTool("itemAdze"));
-            recipes.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 4),
-                    "AS", "  ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
-                .action(damageTool("itemAdze"));
-
-            recipes.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_TILES),
-                "BB", "  ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE));
-            recipes.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 2),
-                stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_TILES));
-
-            recipes.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 4),
-                    "S ", "A ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
-                .action(damageTool("itemAdze"));
-            recipes.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 4),
-                    "A ", "S ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
-                .action(damageTool("itemAdze"));
-
-            recipes.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_BRICKS),
-                "BB", "  ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK));
-            recipes.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 2),
-                stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_BRICKS));
-
-            recipes.addShapelessRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.SMOOTH_STONE, 2),
-                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), "itemChisel")
-                .action(damageTool("itemChisel"));
-
-            recipes.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_BRICK_FENCE, 2),
-                "B ", "B ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK));
-            recipes.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK),
-                stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_BRICK_FENCE, 2));
-
-            recipes.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_TILE_FENCE, 2),
-                "B ", "B ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE));
-            recipes.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE),
-                stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_TILE_FENCE, 2));
-
-            recipes.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.STONE_BRICK),
-                    stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK), "itemChisel")
-                .action(damageTool("itemChisel"));
+//            recipes.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 4),
+//                    "SA", "  ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
+//                .action(damageTool("itemAdze"));
+//            recipes.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 4),
+//                    "AS", "  ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
+//                .action(damageTool("itemAdze"));
+//
+//            recipes.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_TILES),
+//                "BB", "  ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE));
+//            recipes.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 2),
+//                stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_TILES));
+//
+//            recipes.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 4),
+//                    "S ", "A ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
+//                .action(damageTool("itemAdze"));
+//            recipes.addShapedRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 4),
+//                    "A ", "S ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
+//                .action(damageTool("itemAdze"));
+//
+//            recipes.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_BRICKS),
+//                "BB", "  ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK));
+//            recipes.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK, 2),
+//                stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_BRICKS));
+//
+//            recipes.addShapelessRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.SMOOTH_STONE, 2),
+//                    stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), "itemChisel")
+//                .action(damageTool("itemChisel"));
+//
+//            recipes.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_BRICK_FENCE, 2),
+//                "B ", "B ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK));
+//            recipes.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK),
+//                stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_BRICK_FENCE, 2));
+//
+//            recipes.addShapedRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_TILE_FENCE, 2),
+//                "B ", "B ", 'B', stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE));
+//            recipes.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE),
+//                stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_TILE_FENCE, 2));
+//
+//            recipes.addShapelessRecipe(stone.items.getItem(EnumStoneItemType.STONE_BRICK),
+//                    stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK), "itemChisel")
+//                .action(damageTool("itemChisel"));
         }
 
         recipes.addShapelessRecipe(new ItemStack(BidsItems.whorl),

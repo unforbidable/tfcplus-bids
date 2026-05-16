@@ -251,18 +251,18 @@ public class ItemSetup extends BidsItems {
 //            .setUnlocalizedName("Wrought Iron Drill");
 
         // Obsolete - replaced with roughStoneBrick
-        sedRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_SED)
-            .setMetaOnly() // No actual items
-            .setTextureName("Rough Brick")
-            .setUnlocalizedName("Sed Rough Stone Loose Brick");
+//        sedRoughStoneLooseBrick = new ItemRoughBrick().setNames(Global.STONE_SED)
+//            .setMetaOnly() // No actual items
+//            .setTextureName("Rough Brick")
+//            .setUnlocalizedName("Sed Rough Stone Loose Brick");
 
-        roughStoneBrick = new ItemRoughBrick().setNames(Global.STONE_ALL)
-            .setTextureName("Rough Brick")
-            .setUnlocalizedName("Rough Stone Brick");
-
-        roughStoneTile = new ItemRoughBrick().setNames(Global.STONE_ALL)
-            .setTextureName("Rough Tile")
-            .setUnlocalizedName("Rough Stone Tile");
+//        roughStoneBrick = new ItemRoughBrick().setNames(Global.STONE_ALL)
+//            .setTextureName("Rough Brick")
+//            .setUnlocalizedName("Rough Stone Brick");
+//
+//        roughStoneTile = new ItemRoughBrick().setNames(Global.STONE_ALL)
+//            .setTextureName("Rough Tile")
+//            .setUnlocalizedName("Rough Stone Tile");
 
         peeledLog = new ItemPeeledLog().setNames(Global.WOOD_ALL)
             .setUnlocalizedName("Peeled Log");
@@ -1409,7 +1409,7 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(igExStoneAdze, igExStoneAdze.getUnlocalizedName());
         GameRegistry.registerItem(mMStoneAdze, mMStoneAdze.getUnlocalizedName());
 
-        GameRegistry.registerItem(sedRoughStoneLooseBrick, sedRoughStoneLooseBrick.getUnlocalizedName());
+//        GameRegistry.registerItem(sedRoughStoneLooseBrick, sedRoughStoneLooseBrick.getUnlocalizedName());
 
         GameRegistry.registerItem(peeledLog, peeledLog.getUnlocalizedName());
         GameRegistry.registerItem(peeledLogSeasoned, peeledLogSeasoned.getUnlocalizedName());

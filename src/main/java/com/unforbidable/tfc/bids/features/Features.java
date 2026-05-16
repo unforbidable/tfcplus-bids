@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.features.building.carving.Carving;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
+import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
 import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
@@ -29,6 +30,7 @@ public class Features {
         new Carving(),
         new Woodpile(),
         new Firepit(),
+        new RoughStone(),
     };
 
 }

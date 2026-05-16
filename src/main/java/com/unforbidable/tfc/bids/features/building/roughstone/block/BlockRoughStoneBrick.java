@@ -5,7 +5,7 @@ import net.minecraft.world.World;
 public class BlockRoughStoneBrick extends BlockRoughStone {
 
     public BlockRoughStoneBrick() {
-        super();
+        setBlockTextureName("Rough Brick");
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.core._obsolete;
 
 import com.dunk.tfc.Items.ItemBlocks.ItemSoil;
-import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -9,40 +8,38 @@ import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallType;
 import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallVertType;
-import com.unforbidable.tfc.bids.features.device.firepit.FirepitConfig;
-import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockLight;
 import com.unforbidable.tfc.bids.common.block.itemblock.ItemGenericSoil;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
-import com.unforbidable.tfc.bids.features.building.decorativesurface.main.DecorativeSurfacePlacer;
-import com.unforbidable.tfc.bids.features.device.dryingsurface.main.DryingSurfacePlacer;
-import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.beehive.BeehiveKilnChamber;
-import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.climbing.ClimbingKilnChamber;
-import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.square.SquareKilnChamber;
-import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.tunnel.TunnelKilnChamber;
-import com.unforbidable.tfc.bids.features.device.processingsurface.main.ProcessingSurfacePlacer;
+import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
+import com.unforbidable.tfc.bids.core.network._obsolete.NetworkHelper;
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.block.BlockAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.render.RenderAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.axlewallbearing.tileentity.TileEntityAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.block.BlockDecorativeSurface;
+import com.unforbidable.tfc.bids.features.building.decorativesurface.main.DecorativeSurfacePlacer;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.render.RenderDecorativeSurface;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.render.RenderTileDecorativeSurface;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.tileentity.TileEntityDecorativeSurface;
+import com.unforbidable.tfc.bids.features.building.firebrick.block.BlockFirebrickChimney;
 import com.unforbidable.tfc.bids.features.building.firebrick.block.blockitem.ItemFireBrickChimney;
 import com.unforbidable.tfc.bids.features.building.firebrick.tileentity.TileEntityFireBrickChimney;
 import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWall;
 import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWallVert;
-import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.*;
+import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWall;
+import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWall16;
+import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWall32;
+import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWallVert;
+import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWallVert16;
+import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWallVert32;
+import com.unforbidable.tfc.bids.features.building.mudbrick.block.itemblock.ItemMudbrickChimney;
 import com.unforbidable.tfc.bids.features.building.palisade.block.BlockPalisade;
 import com.unforbidable.tfc.bids.features.building.palisade.block.blockitem.ItemPalisade;
 import com.unforbidable.tfc.bids.features.building.palisade.block.blockitem.ItemPalisade16;
 import com.unforbidable.tfc.bids.features.building.palisade.block.blockitem.ItemPalisade32;
 import com.unforbidable.tfc.bids.features.building.palisade.render.RenderPalisade;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStone;
-import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStoneBrick;
-import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStoneFence;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.blockitem.ItemRoughStone;
-import com.unforbidable.tfc.bids.features.building.roughstone.block.blockitem.ItemRoughStoneBrick;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.blockitem.ItemRoughStoneFence;
 import com.unforbidable.tfc.bids.features.building.roughstone.render.RenderRoughStoneFence;
 import com.unforbidable.tfc.bids.features.building.wattle.block.BlockWattleGate;
@@ -51,51 +48,75 @@ import com.unforbidable.tfc.bids.features.building.wattle.block.BlockWattleTrapD
 import com.unforbidable.tfc.bids.features.building.wattle.block.blockitem.ItemWattleGate;
 import com.unforbidable.tfc.bids.features.building.wattle.block.blockitem.ItemWattleTrapDoor;
 import com.unforbidable.tfc.bids.features.building.wattle.render.RenderWattleGate;
+import com.unforbidable.tfc.bids.features.device.choppingblock.block.BlockChoppingBlock;
+import com.unforbidable.tfc.bids.features.device.choppingblock.block.itemblock.ItemChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.choppingblock.render.RenderChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.choppingblock.render.RenderTileChoppingBlock;
+import com.unforbidable.tfc.bids.features.device.choppingblock.tileentity.TileEntityChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.cookingpot.block.BlockCookingPot;
 import com.unforbidable.tfc.bids.features.device.cookingpot.block.BlockCookingPotLid;
-import com.unforbidable.tfc.bids.features.device.cookingpot.render.RenderCookingPot;
-import com.unforbidable.tfc.bids.features.device.cookingpot.render.RenderCookingPotLid;
-import com.unforbidable.tfc.bids.features.device.cookingpot.render.RenderTileCookingPot;
-import com.unforbidable.tfc.bids.features.device.cookingprep.block.BlockCookingPrep;
 import com.unforbidable.tfc.bids.features.device.cookingpot.block.BlockSteamingMesh;
 import com.unforbidable.tfc.bids.features.device.cookingpot.block.blockitem.ItemCookingPot;
 import com.unforbidable.tfc.bids.features.device.cookingpot.block.blockitem.ItemCookingPotLid;
+import com.unforbidable.tfc.bids.features.device.cookingpot.render.RenderCookingPot;
+import com.unforbidable.tfc.bids.features.device.cookingpot.render.RenderCookingPotLid;
+import com.unforbidable.tfc.bids.features.device.cookingpot.render.RenderTileCookingPot;
 import com.unforbidable.tfc.bids.features.device.cookingpot.tileentity.TileEntityCookingPot;
+import com.unforbidable.tfc.bids.features.device.cookingprep.block.BlockCookingPrep;
 import com.unforbidable.tfc.bids.features.device.cookingprep.render.RenderTileCookingPrep;
 import com.unforbidable.tfc.bids.features.device.cookingprep.tileentity.TileEntityCookingPrep;
-import com.unforbidable.tfc.bids.features.device.choppingblock.block.BlockChoppingBlock;
-import com.unforbidable.tfc.bids.features.device.choppingblock.block.itemblock.ItemChoppingBlock;
-import com.unforbidable.tfc.bids.features.device.choppingblock.tileentity.TileEntityChoppingBlock;
+import com.unforbidable.tfc.bids.features.device.crucible.block.itemblock.ItemClayCrucible;
+import com.unforbidable.tfc.bids.features.device.crucible.block.itemblock.ItemFireClayCrucible;
+import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityClayCrucible;
+import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityFireClayCrucible;
 import com.unforbidable.tfc.bids.features.device.dryingrack.block.BlockDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingrack.render.RenderDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingrack.render.RenderTileDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.block.BlockDryingSurface;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.main.DryingSurfacePlacer;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.render.RenderDryingSurface;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.render.RenderTileDryingSurface;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
-import com.unforbidable.tfc.bids.features.device.firepit.block.BlockNewFirepit;
 import com.unforbidable.tfc.bids.features.device.firepit.block.BlockTiedStickBundle;
 import com.unforbidable.tfc.bids.features.device.firepit.render.RenderNewFirepit;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
+import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.beehive.BeehiveKilnChamber;
+import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.climbing.ClimbingKilnChamber;
+import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.square.SquareKilnChamber;
+import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.tunnel.TunnelKilnChamber;
 import com.unforbidable.tfc.bids.features.device.lamp.block.BlockClayLamp;
 import com.unforbidable.tfc.bids.features.device.lamp.block.itemblock.ItemClayLamp;
 import com.unforbidable.tfc.bids.features.device.lamp.render.RenderClayLamp;
 import com.unforbidable.tfc.bids.features.device.lamp.tileentity.TileEntityClayLamp;
 import com.unforbidable.tfc.bids.features.device.processingsurface.block.BlockProcessingSurface;
+import com.unforbidable.tfc.bids.features.device.processingsurface.main.ProcessingSurfacePlacer;
 import com.unforbidable.tfc.bids.features.device.processingsurface.render.RenderProcessingSurface;
 import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
+import com.unforbidable.tfc.bids.features.device.screw.block.BlockScrew;
 import com.unforbidable.tfc.bids.features.device.screw.render.RenderScrew;
 import com.unforbidable.tfc.bids.features.device.screw.render.RenderTileScrew;
 import com.unforbidable.tfc.bids.features.device.screw.tileentity.TileEntityScrew;
+import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressBarrel;
+import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressDisc;
+import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressLever;
+import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressLeverTop;
+import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressRackBottom;
+import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressRackBridge;
+import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressRackMiddle;
+import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressRackTop;
 import com.unforbidable.tfc.bids.features.device.screwpress.block.blockitem.ItemScrewPress;
-import com.unforbidable.tfc.bids.features.device.screwpress.render.*;
+import com.unforbidable.tfc.bids.features.device.screwpress.render.RenderScrewPressBarrel;
+import com.unforbidable.tfc.bids.features.device.screwpress.render.RenderScrewPressDisc;
+import com.unforbidable.tfc.bids.features.device.screwpress.render.RenderScrewPressLever;
+import com.unforbidable.tfc.bids.features.device.screwpress.render.RenderScrewPressRack;
+import com.unforbidable.tfc.bids.features.device.screwpress.render.RenderTileScrewPressDisc;
+import com.unforbidable.tfc.bids.features.device.screwpress.render.RenderTileScrewPressLever;
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressBarrel;
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressDisc;
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressLever;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.block.BlockSoakingSurface;
+import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfacePlacer;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.render.RenderSoakingSurface;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.render.RenderTileSoakingSurface;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
@@ -103,12 +124,15 @@ import com.unforbidable.tfc.bids.features.device.stonequernpress.block.BlockSadd
 import com.unforbidable.tfc.bids.features.device.stonequernpress.block.BlockStonePressLever;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.block.BlockStonePressWeight;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.block.BlockWorkStone;
-import com.unforbidable.tfc.bids.features.device.screw.block.BlockScrew;
-import com.unforbidable.tfc.bids.features.device.screwpress.block.*;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.block.item.ItemSaddleQuern;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.block.item.ItemStonePressWeight;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.block.item.ItemWorkStone;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.render.*;
+import com.unforbidable.tfc.bids.features.device.stonequernpress.main.EnumWorkStoneType;
+import com.unforbidable.tfc.bids.features.device.stonequernpress.render.RenderSaddleQuern;
+import com.unforbidable.tfc.bids.features.device.stonequernpress.render.RenderStonePressLever;
+import com.unforbidable.tfc.bids.features.device.stonequernpress.render.RenderStonePressWeight;
+import com.unforbidable.tfc.bids.features.device.stonequernpress.render.RenderTileSaddleQuern;
+import com.unforbidable.tfc.bids.features.device.stonequernpress.render.RenderWorkStone;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.tileentity.TileEntitySaddleQuern;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.tileentity.TileEntityStonePressLever;
 import com.unforbidable.tfc.bids.features.device.stonequernpress.tileentity.TileEntityStonePressWeight;
@@ -120,7 +144,7 @@ import com.unforbidable.tfc.bids.features.device.wallhook.block.blockitem.ItemWa
 import com.unforbidable.tfc.bids.features.device.wallhook.render.RenderTileWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.render.RenderWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.tileentity.TileEntityWallHook;
-import com.unforbidable.tfc.bids.features.device.woodpile.block.*;
+import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockLight;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.blockitem.ItemCrackedStone;
 import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import com.unforbidable.tfc.bids.features.material.firewood.block.BlockStackedFirewood;
@@ -132,18 +156,8 @@ import com.unforbidable.tfc.bids.features.resource.crops.block.BlockNewFarmland;
 import com.unforbidable.tfc.bids.features.resource.crops.render.RenderNewCrop;
 import com.unforbidable.tfc.bids.features.resource.crops.tileentity.TileEntityNewCrop;
 import com.unforbidable.tfc.bids.features.resource.crops.tileentity.TileEntityNewFarmland;
-import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.main.EnumWorkStoneType;
-import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfacePlacer;
-import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
-import com.unforbidable.tfc.bids.core.network._obsolete.NetworkHelper;
-import com.unforbidable.tfc.bids.features.building.firebrick.block.BlockFirebrickChimney;
-import com.unforbidable.tfc.bids.features.building.mudbrick.block.itemblock.ItemMudbrickChimney;
-import com.unforbidable.tfc.bids.features.device.crucible.block.itemblock.ItemClayCrucible;
-import com.unforbidable.tfc.bids.features.device.crucible.block.itemblock.ItemFireClayCrucible;
-import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityClayCrucible;
-import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityFireClayCrucible;
 import com.unforbidable.tfc.bids.features.resource.quarry.block.itemblock.ItemQuarry;
+import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
 import com.unforbidable.tfc.bids.features.resource.well.block.BlockAquifer;
 import com.unforbidable.tfc.bids.features.resource.well.tileentity.TileEntityAquifer;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -203,79 +217,79 @@ public class BlockSetup extends BidsBlocks {
 //        carvingRock = new BlockCarving(Material.rock).setBlockName("CarvingRock");
 //        carvingWood = new BlockCarving(Material.wood).setBlockName("CarvingWood");
 
-        woodPile = new BlockWoodpile().setBlockName("WoodPile")
-                .setBlockTextureName("Wood Pile");
-
-        newFirepit = new BlockNewFirepit().setBlockName("NewFirepit");
-
-        roughStoneSed = new BlockRoughStone()
-                .setMetaHavingTopTexture(0, 4) // Shale and Sandstone
-                .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
-                .setBlockTextureName("Rough");
-        roughStoneMM = new BlockRoughStone()
-                .setMetaHavingTopTexture(1, 2, 3) // Slate, Shist and Phyllite
-                .setNames(Global.STONE_MM).setBlockName("RoughStoneMM")
-                .setBlockTextureName("Rough");
-        roughStoneIgIn = new BlockRoughStone()
-                .setNames(Global.STONE_IGIN).setBlockName("RoughStoneIgIn")
-                .setBlockTextureName("Rough");
-        roughStoneIgEx = new BlockRoughStone()
-                .setNames(Global.STONE_IGEX).setBlockName("RoughStoneIgEx")
-                .setBlockTextureName("Rough");
-
-        roughStoneBrickSed = new BlockRoughStoneBrick()
-                .setMetaHavingTopTexture(0, 4) // Shale and Sandstone
-                .setNames(Global.STONE_SED).setBlockName("RoughStoneBrickSed")
-                .setBlockTextureName("Rough Brick");
-        roughStoneBrickMM = new BlockRoughStoneBrick()
-                .setMetaHavingTopTexture(1, 2, 3) // Slate, Shist and Phyllite
-                .setNames(Global.STONE_MM).setBlockName("RoughStoneBrickMM")
-                .setBlockTextureName("Rough Brick");
-        roughStoneBrickIgIn = new BlockRoughStoneBrick()
-                .setNames(Global.STONE_IGIN).setBlockName("RoughStoneBrickIgIn")
-                .setBlockTextureName("Rough Brick");
-        roughStoneBrickIgEx = new BlockRoughStoneBrick()
-                .setNames(Global.STONE_IGEX).setBlockName("RoughStoneBrickIgEx")
-                .setBlockTextureName("Rough Brick");
-
-        roughStoneTileSed = new BlockRoughStoneBrick()
-                .setAllHaveTopTexture(true)
-                .setNames(Global.STONE_SED).setBlockName("RoughStoneTileSed")
-                .setBlockTextureName("Rough Tile");
-        roughStoneTileMM = new BlockRoughStoneBrick()
-                .setAllHaveTopTexture(true)
-                .setNames(Global.STONE_MM).setBlockName("RoughStoneTileMM")
-                .setBlockTextureName("Rough Tile");
-        roughStoneTileIgIn = new BlockRoughStoneBrick()
-                .setAllHaveTopTexture(true)
-                .setNames(Global.STONE_IGIN).setBlockName("RoughStoneTileIgIn")
-                .setBlockTextureName("Rough Tile");
-        roughStoneTileIgEx = new BlockRoughStoneBrick()
-                .setAllHaveTopTexture(true)
-                .setNames(Global.STONE_IGEX).setBlockName("RoughStoneTileIgEx")
-                .setBlockTextureName("Rough Tile");
-
-        roughStoneBrickFenceSed = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickSed)
-            .setMaterialBlockTopBottom(roughStoneTileSed)
-            .setBlockName("RoughStoneBrickFenceSed");
-        roughStoneBrickFenceMM = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickMM)
-            .setMaterialBlockTopBottom(roughStoneTileMM)
-            .setBlockName("RoughStoneBrickFenceMM");
-        roughStoneBrickFenceIgIn = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickIgIn)
-            .setMaterialBlockTopBottom(roughStoneTileIgIn)
-            .setBlockName("RoughStoneBrickFenceIgIn");
-        roughStoneBrickFenceIgEx = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickIgEx)
-            .setMaterialBlockTopBottom(roughStoneTileIgEx)
-            .setBlockName("RoughStoneBrickFenceIgEx");
-
-        roughStoneTileFenceSed = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileSed)
-            .setBlockName("RoughStoneTileFenceSed");
-        roughStoneTileFenceMM = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileMM)
-            .setBlockName("RoughStoneTileFenceMM");
-        roughStoneTileFenceIgIn = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileIgIn)
-            .setBlockName("RoughStoneTileFenceIgIn");
-        roughStoneTileFenceIgEx = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileIgEx)
-            .setBlockName("RoughStoneTileFenceIgEx");
+//        woodPile = new BlockWoodpile().setBlockName("WoodPile")
+//                .setBlockTextureName("Wood Pile");
+//
+//        newFirepit = new BlockNewFirepit().setBlockName("NewFirepit");
+//
+//        roughStoneSed = new BlockRoughStone()
+//                .setMetaHavingTopTexture(0, 4) // Shale and Sandstone
+//                .setNames(Global.STONE_SED).setBlockName("RoughStoneSed")
+//                .setBlockTextureName("Rough");
+//        roughStoneMM = new BlockRoughStone()
+//                .setMetaHavingTopTexture(1, 2, 3) // Slate, Shist and Phyllite
+//                .setNames(Global.STONE_MM).setBlockName("RoughStoneMM")
+//                .setBlockTextureName("Rough");
+//        roughStoneIgIn = new BlockRoughStone()
+//                .setNames(Global.STONE_IGIN).setBlockName("RoughStoneIgIn")
+//                .setBlockTextureName("Rough");
+//        roughStoneIgEx = new BlockRoughStone()
+//                .setNames(Global.STONE_IGEX).setBlockName("RoughStoneIgEx")
+//                .setBlockTextureName("Rough");
+//
+//        roughStoneBrickSed = new BlockRoughStoneBrick()
+//                .setMetaHavingTopTexture(0, 4) // Shale and Sandstone
+//                .setNames(Global.STONE_SED).setBlockName("RoughStoneBrickSed")
+//                .setBlockTextureName("Rough Brick");
+//        roughStoneBrickMM = new BlockRoughStoneBrick()
+//                .setMetaHavingTopTexture(1, 2, 3) // Slate, Shist and Phyllite
+//                .setNames(Global.STONE_MM).setBlockName("RoughStoneBrickMM")
+//                .setBlockTextureName("Rough Brick");
+//        roughStoneBrickIgIn = new BlockRoughStoneBrick()
+//                .setNames(Global.STONE_IGIN).setBlockName("RoughStoneBrickIgIn")
+//                .setBlockTextureName("Rough Brick");
+//        roughStoneBrickIgEx = new BlockRoughStoneBrick()
+//                .setNames(Global.STONE_IGEX).setBlockName("RoughStoneBrickIgEx")
+//                .setBlockTextureName("Rough Brick");
+//
+//        roughStoneTileSed = new BlockRoughStoneBrick()
+//                .setAllHaveTopTexture(true)
+//                .setNames(Global.STONE_SED).setBlockName("RoughStoneTileSed")
+//                .setBlockTextureName("Rough Tile");
+//        roughStoneTileMM = new BlockRoughStoneBrick()
+//                .setAllHaveTopTexture(true)
+//                .setNames(Global.STONE_MM).setBlockName("RoughStoneTileMM")
+//                .setBlockTextureName("Rough Tile");
+//        roughStoneTileIgIn = new BlockRoughStoneBrick()
+//                .setAllHaveTopTexture(true)
+//                .setNames(Global.STONE_IGIN).setBlockName("RoughStoneTileIgIn")
+//                .setBlockTextureName("Rough Tile");
+//        roughStoneTileIgEx = new BlockRoughStoneBrick()
+//                .setAllHaveTopTexture(true)
+//                .setNames(Global.STONE_IGEX).setBlockName("RoughStoneTileIgEx")
+//                .setBlockTextureName("Rough Tile");
+//
+//        roughStoneBrickFenceSed = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickSed)
+//            .setMaterialBlockTopBottom(roughStoneTileSed)
+//            .setBlockName("RoughStoneBrickFenceSed");
+//        roughStoneBrickFenceMM = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickMM)
+//            .setMaterialBlockTopBottom(roughStoneTileMM)
+//            .setBlockName("RoughStoneBrickFenceMM");
+//        roughStoneBrickFenceIgIn = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickIgIn)
+//            .setMaterialBlockTopBottom(roughStoneTileIgIn)
+//            .setBlockName("RoughStoneBrickFenceIgIn");
+//        roughStoneBrickFenceIgEx = new BlockRoughStoneFence((BlockRoughStone) roughStoneBrickIgEx)
+//            .setMaterialBlockTopBottom(roughStoneTileIgEx)
+//            .setBlockName("RoughStoneBrickFenceIgEx");
+//
+//        roughStoneTileFenceSed = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileSed)
+//            .setBlockName("RoughStoneTileFenceSed");
+//        roughStoneTileFenceMM = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileMM)
+//            .setBlockName("RoughStoneTileFenceMM");
+//        roughStoneTileFenceIgIn = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileIgIn)
+//            .setBlockName("RoughStoneTileFenceIgIn");
+//        roughStoneTileFenceIgEx = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileIgEx)
+//            .setBlockName("RoughStoneTileFenceIgEx");
 
         logWallEast = new BlockLogWall(EnumLogWallType.EAST, 0).setBlockName("LogWallEast");
         logWallNorth = new BlockLogWall(EnumLogWallType.NORTH, 0).setBlockName("LogWallNorth");
@@ -783,8 +797,8 @@ public class BlockSetup extends BidsBlocks {
 //        crackedOreRenderId = RenderingRegistry.getNextAvailableRenderId();
 //        RenderingRegistry.registerBlockHandler(crackedOreRenderId, new RenderCrackedOre());
 
-        roughStoneFenceRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(roughStoneFenceRenderId, new RenderRoughStoneFence());
+//        roughStoneFenceRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(roughStoneFenceRenderId, new RenderRoughStoneFence());
 
         processingSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(processingSurfaceRenderId, new RenderProcessingSurface());
@@ -918,7 +932,7 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(newFirepit, "NewFirepit");
 
         GameRegistry.registerBlock(roughStoneSed, ItemRoughStone.class, "RoughStoneSed");
-        GameRegistry.registerBlock(roughStoneBrickSed, ItemRoughStoneBrick.class, "RoughStoneBrickSed");
+        GameRegistry.registerBlock(roughStoneBrickSed, ItemRoughStone.class, "RoughStoneBrickSed");
 
         GameRegistry.registerBlock(logWallEast, ItemLogWall.class, "LogWallEast");
         GameRegistry.registerBlock(logWallNorth, ItemLogWall.class, "LogWallNorth");
@@ -977,11 +991,11 @@ public class BlockSetup extends BidsBlocks {
         GameRegistry.registerBlock(aquifer, ItemGenericSoil.class, "Aquifer");
         GameRegistry.registerBlock(aquifer2, ItemGenericSoil.class, "Aquifer2");
 
-        GameRegistry.registerBlock(roughStoneTileSed, ItemRoughStoneBrick.class, "RoughStoneTileSed");
+        GameRegistry.registerBlock(roughStoneTileSed, ItemRoughStone.class, "RoughStoneTileSed");
 
         GameRegistry.registerBlock(roughStoneMM, ItemRoughStone.class, "RoughStoneMM");
-        GameRegistry.registerBlock(roughStoneBrickMM, ItemRoughStoneBrick.class, "RoughStoneBrickMM");
-        GameRegistry.registerBlock(roughStoneTileMM, ItemRoughStoneBrick.class, "RoughStoneTileMM");
+        GameRegistry.registerBlock(roughStoneBrickMM, ItemRoughStone.class, "RoughStoneBrickMM");
+        GameRegistry.registerBlock(roughStoneTileMM, ItemRoughStone.class, "RoughStoneTileMM");
 
         GameRegistry.registerBlock(unfinishedAnvilStage1, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage1");
         GameRegistry.registerBlock(unfinishedAnvilStage2, ItemUnfinishedAnvil.class, "UnfinishedAnvilStage2");

@@ -4,6 +4,7 @@ import com.dunk.tfc.Items.ItemTerra;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.common.item.ItemCommonPotteryMold;
 import com.unforbidable.tfc.bids.compat.tfc.TfcUtil;
+import com.unforbidable.tfc.bids.features.building.roughstone.item.ItemRoughBrick;
 import net.minecraft.item.Item;
 
 import java.util.List;
@@ -58,6 +59,11 @@ public class ItemSpec<T extends Item> {
 
         if (meta != null && instance instanceof ItemTerra) {
             ((ItemTerra) instance).setMetaNames(meta.names);
+        }
+
+        // TODO use interface for setting meta names
+        if (meta != null && instance instanceof ItemRoughBrick) {
+            ((ItemRoughBrick) instance).setNames(meta.names);
         }
 
         for (ItemHarvestSpec spec : harvests) {
