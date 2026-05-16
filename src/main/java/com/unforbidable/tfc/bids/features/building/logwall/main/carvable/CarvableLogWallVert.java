@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
+package com.unforbidable.tfc.bids.features.building.logwall.main.carvable;
 
 import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWallVert;
 import net.minecraft.block.Block;

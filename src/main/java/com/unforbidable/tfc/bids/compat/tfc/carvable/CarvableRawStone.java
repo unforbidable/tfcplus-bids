@@ -1,16 +1,20 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
+package com.unforbidable.tfc.bids.compat.tfc.carvable;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.features.carving.Carvable;
+import com.unforbidable.tfc.bids.features.building.roughstone.main.carvable.CarvableRoughStone;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import java.util.Random;
 
-public class CarvableRawStone extends CarvableRoughStone {
+public class CarvableRawStone implements Carvable {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
@@ -24,11 +28,35 @@ public class CarvableRawStone extends CarvableRoughStone {
 
     @Override
     public boolean canCarveBlockAt(Block block, int metadata, World world, int x, int y, int z, int side) {
-        return super.canCarveBlockAt(block, metadata, world, x, y, z, side)
-                && isCarvedBlockExposed(world, x, y, z, side);
+        return isCarvedBlockExposed(world, x, y, z, side);
     }
 
     @Override
+    public Block getCarvingBlock(Block block, int metadata) {
+        return BidsBlocks.carvingRock;
+    }
+
+    @Override
+    public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
+        final int n = random.nextInt(2) + 1;
+        ItemStack[] list = new ItemStack[n];
+        for (int i = 0; i < n; i++)
+            list[i] = getLooseRock(block, metadata);
+        return list;
+    }
+
+    @Override
+    public ItemStack getCarvingExtraHarvest(Block block, int metadata, Random random, float bitRatio) {
+        return random.nextDouble() < 2 * bitRatio
+            ? getLooseRock(block, metadata)
+            : null;
+    }
+
+    @Override
+    public String getCarvingSoundEffect() {
+        return "dig.stone";
+    }
+
     protected ItemStack getLooseRock(Block block, int metadata) {
         if (block == TFCBlocks.stoneSed) {
             return new ItemStack(TFCItems.looseRock, 1, metadata + Global.STONE_SED_START);

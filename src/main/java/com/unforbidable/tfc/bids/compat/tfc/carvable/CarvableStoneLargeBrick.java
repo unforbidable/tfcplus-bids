@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
+package com.unforbidable.tfc.bids.compat.tfc.carvable;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.BidsBlocks;

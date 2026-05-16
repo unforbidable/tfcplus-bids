@@ -27,6 +27,7 @@ public class ItemRoughBrick extends Item implements ISize {
     public ItemRoughBrick() {
         super();
         setMaxStackSize(32);
+        setTextureName("Rough Brick");
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
     }
 

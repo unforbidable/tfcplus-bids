@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
+package com.unforbidable.tfc.bids.features.building.roughstone.main.carvable;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -10,19 +10,19 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class CarvableRoughStoneTile implements Carvable {
+public class CarvableRoughStoneBrick implements Carvable {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block == BidsBlocks.roughStoneTileSed ||
-            block == BidsBlocks.roughStoneTileMM ||
-            block == BidsBlocks.roughStoneTileIgIn ||
-            block == BidsBlocks.roughStoneTileIgEx;
+        return block == BidsBlocks.roughStoneBrickSed ||
+            block == BidsBlocks.roughStoneBrickMM ||
+            block == BidsBlocks.roughStoneBrickIgIn ||
+            block == BidsBlocks.roughStoneBrickIgEx;
     }
 
     @Override
     public boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier) {
-        return block == BidsBlocks.roughStoneTileSed || equipmentTier > 0;
+        return block == BidsBlocks.roughStoneBrickSed || equipmentTier > 0;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class CarvableRoughStoneTile implements Carvable {
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
         ItemStack[] list = new ItemStack[2];
         for (int i = 0; i < 2; i++)
-            list[i] = getLooseRoughTile(block, metadata);
+            list[i] = getLooseRoughBrick(block, metadata);
         return list;
     }
 
@@ -53,15 +53,15 @@ public class CarvableRoughStoneTile implements Carvable {
         return "dig.stone";
     }
 
-    protected ItemStack getLooseRoughTile(Block block, int metadata) {
-        if (block == BidsBlocks.roughStoneTileSed) {
-            return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_SED_START);
-        } else if (block == BidsBlocks.roughStoneTileIgIn) {
-            return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_IGIN_START);
-        } else if (block == BidsBlocks.roughStoneTileIgEx) {
-            return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_IGEX_START);
+    protected ItemStack getLooseRoughBrick(Block block, int metadata) {
+        if (block == BidsBlocks.roughStoneBrickSed) {
+            return new ItemStack(BidsItems.roughStoneBrick, 1, metadata + Global.STONE_SED_START);
+        } else if (block == BidsBlocks.roughStoneBrickIgIn) {
+            return new ItemStack(BidsItems.roughStoneBrick, 1, metadata + Global.STONE_IGIN_START);
+        } else if (block == BidsBlocks.roughStoneBrickIgEx) {
+            return new ItemStack(BidsItems.roughStoneBrick, 1, metadata + Global.STONE_IGEX_START);
         } else {
-            return new ItemStack(BidsItems.roughStoneTile, 1, metadata + Global.STONE_MM_START);
+            return new ItemStack(BidsItems.roughStoneBrick, 1, metadata + Global.STONE_MM_START);
         }
     }
 

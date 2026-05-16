@@ -4,10 +4,20 @@ import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableBrick;
+import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableFireBrick;
+import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvablePlanks;
+import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableRawStone;
+import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableSmoothStone;
+import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableStackedLogs;
+import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableStoneBrick;
+import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableStoneLargeBrick;
+import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableWoodVert;
 import com.unforbidable.tfc.bids.core.drink.DrinkRegistry;
 import com.unforbidable.tfc.bids.core.drink.registry.DrinkFluid;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
 import net.minecraft.item.ItemStack;
 
 public class TfcSetup {
@@ -146,6 +156,20 @@ public class TfcSetup {
 
         TfcRegistry.Recipes.knapping.add(KnappingRecipe.add(new ItemStack(TFCItems.glassBottle),
             new Object[]{" # # ", " # # ", "#   #", "#   #", " ### ", '#', new ItemStack(BidsItems.flatGlass)}));
+    }
+
+    public static void setupCarving() {
+        Bids.LOG.info("Setup carving for TFC blocks");
+
+        CarvingRegistry.carvable.add(new CarvableRawStone());
+        CarvingRegistry.carvable.add(new CarvableStackedLogs());
+        CarvingRegistry.carvable.add(new CarvableWoodVert());
+        CarvingRegistry.carvable.add(new CarvablePlanks());
+        CarvingRegistry.carvable.add(new CarvableStoneBrick());
+        CarvingRegistry.carvable.add(new CarvableStoneLargeBrick());
+        CarvingRegistry.carvable.add(new CarvableSmoothStone());
+        CarvingRegistry.carvable.add(new CarvableBrick());
+        CarvingRegistry.carvable.add(new CarvableFireBrick());
     }
 
 }

@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
+package com.unforbidable.tfc.bids.compat.tfc.carvable;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -9,11 +9,11 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class CarvableFireBrick implements Carvable {
+public class CarvableBrick implements Carvable {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block == TFCBlocks.fireBrick;
+        return block == TFCBlocks.bricks;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class CarvableFireBrick implements Carvable {
 
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
-        return new ItemStack[] { new ItemStack(TFCBlocks.fireBrick, 1, 0) };
+        return new ItemStack[] { new ItemStack(TFCBlocks.bricks, 1, 0) };
     }
 
     @Override

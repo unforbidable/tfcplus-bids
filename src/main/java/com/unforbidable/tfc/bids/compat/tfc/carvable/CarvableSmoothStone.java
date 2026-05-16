@@ -1,27 +1,24 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
+package com.unforbidable.tfc.bids.compat.tfc.carvable;
 
-import java.util.Random;
-
-import com.dunk.tfc.Blocks.Flora.BlockStackedLogHoriz;
-import com.dunk.tfc.Blocks.Flora.BlockStackedLogVert;
-import com.dunk.tfc.api.TFCItems;
+import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.carving.Carvable;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class CarvableStackedLogs implements Carvable {
+import java.util.Random;
+
+public class CarvableSmoothStone implements Carvable {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block instanceof BlockStackedLogVert || block instanceof BlockStackedLogHoriz;
+        return block == TFCBlocks.stoneSedSmooth || block == TFCBlocks.stoneIgInSmooth || block == TFCBlocks.stoneIgExSmooth || block == TFCBlocks.stoneMMSmooth;
     }
 
     @Override
     public boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier) {
-        return true;
+        return block == TFCBlocks.stoneSedSmooth || equipmentTier > 0;
     }
 
     @Override
@@ -31,17 +28,13 @@ public class CarvableStackedLogs implements Carvable {
 
     @Override
     public Block getCarvingBlock(Block block, int metadata) {
-        return BidsBlocks.carvingWood;
+        return BidsBlocks.carvingRock;
     }
 
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
-        int damage = block.damageDropped(metadata) * 2;
         return new ItemStack[] {
-                new ItemStack(TFCItems.logs, 1, damage),
-                new ItemStack(TFCItems.logs, 1, damage),
-                new ItemStack(TFCItems.logs, 1, damage),
-                new ItemStack(TFCItems.logs, 1, damage)
+            new ItemStack(block, 1, metadata)
         };
     }
 
@@ -52,7 +45,7 @@ public class CarvableStackedLogs implements Carvable {
 
     @Override
     public String getCarvingSoundEffect() {
-        return "dig.wood";
+        return "dig.stone";
     }
 
 }

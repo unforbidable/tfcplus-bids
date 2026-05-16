@@ -68,6 +68,10 @@ public class Carving extends Feature {
     public void setup(FeatureSetupBuilder setup) {
         setup.network()
             .register(CarvingPacket.class);
+
+        // TODO register carving in respective feature
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableLogWall());
+//        BidsRegistry.CARVING_BLOCKS.register(new CarvableLogWallVert());
     }
 
 }

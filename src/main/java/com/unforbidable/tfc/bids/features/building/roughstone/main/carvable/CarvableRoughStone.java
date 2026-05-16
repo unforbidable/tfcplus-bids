@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
+package com.unforbidable.tfc.bids.features.building.roughstone.main.carvable;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCItems;

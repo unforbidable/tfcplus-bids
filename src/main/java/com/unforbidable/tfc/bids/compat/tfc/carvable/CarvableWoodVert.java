@@ -1,6 +1,7 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
+package com.unforbidable.tfc.bids.compat.tfc.carvable;
 
 import com.dunk.tfc.api.TFCBlocks;
+import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.carving.Carvable;
 import net.minecraft.block.Block;
@@ -9,33 +10,32 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class CarvableSmoothStone implements Carvable {
+public class CarvableWoodVert implements Carvable {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block == TFCBlocks.stoneSedSmooth || block == TFCBlocks.stoneIgInSmooth || block == TFCBlocks.stoneIgExSmooth || block == TFCBlocks.stoneMMSmooth;
+        return block == TFCBlocks.woodVert || block == TFCBlocks.woodVert2 || block == TFCBlocks.woodVert3;
     }
 
     @Override
     public boolean isSufficientEquipmentTier(Block block, int metadata, int equipmentTier) {
-        return block == TFCBlocks.stoneSedSmooth || equipmentTier > 0;
-    }
-
-    @Override
-    public boolean canCarveBlockAt(Block block, int metadata, World world, int x, int y, int z, int side) {
         return true;
     }
 
     @Override
+    public boolean canCarveBlockAt(Block block, int metadata, World world, int x, int y, int z, int side) {
+        return world.isAirBlock(x, y + 1, z) ||
+            world.getTileEntity(x, y + 1, z) instanceof TileEntityCarving;
+    }
+
+    @Override
     public Block getCarvingBlock(Block block, int metadata) {
-        return BidsBlocks.carvingRock;
+        return BidsBlocks.carvingWood;
     }
 
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
-        return new ItemStack[] {
-            new ItemStack(block, 1, metadata)
-        };
+        return null;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class CarvableSmoothStone implements Carvable {
 
     @Override
     public String getCarvingSoundEffect() {
-        return "dig.stone";
+        return "dig.wood";
     }
 
 }

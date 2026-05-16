@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
+package com.unforbidable.tfc.bids.features.building.logwall.main.carvable;
 
 import java.util.Random;
 

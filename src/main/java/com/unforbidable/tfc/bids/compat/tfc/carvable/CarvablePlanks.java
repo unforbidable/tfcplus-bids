@@ -1,6 +1,7 @@
-package com.unforbidable.tfc.bids.features.building.carving.main.carvable;
+package com.unforbidable.tfc.bids.compat.tfc.carvable;
 
 import com.dunk.tfc.api.TFCBlocks;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.carving.Carvable;
 import net.minecraft.block.Block;
@@ -9,11 +10,11 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class CarvableStoneBrick implements Carvable {
+public class CarvablePlanks implements Carvable {
 
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
-        return block == TFCBlocks.stoneSedBrick || block == TFCBlocks.stoneIgInBrick || block == TFCBlocks.stoneIgExBrick || block == TFCBlocks.stoneMMBrick;
+        return block == TFCBlocks.planks || block == TFCBlocks.planks2 || block == TFCBlocks.planks3;
     }
 
     @Override
@@ -33,9 +34,23 @@ public class CarvableStoneBrick implements Carvable {
 
     @Override
     public ItemStack[] getCarvingHarvest(Block block, int metadata, Random random) {
+        int damage = getSinglePlankDamage(block, metadata);
         return new ItemStack[] {
-            new ItemStack(block, 1, metadata)
+            new ItemStack(TFCItems.singlePlank, 1, damage),
+            new ItemStack(TFCItems.singlePlank, 1, damage),
+            new ItemStack(TFCItems.singlePlank, 1, damage),
+            new ItemStack(TFCItems.singlePlank, 1, damage)
         };
+    }
+
+    protected int getSinglePlankDamage(Block block, int metadata) {
+        if (block == TFCBlocks.planks) {
+            return metadata;
+        } else if (block == TFCBlocks.planks2) {
+            return metadata + 16;
+        } else {
+            return metadata + 32;
+        }
     }
 
     @Override
@@ -45,7 +60,7 @@ public class CarvableStoneBrick implements Carvable {
 
     @Override
     public String getCarvingSoundEffect() {
-        return "dig.stone";
+        return "dig.wood";
     }
 
 }
