@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.util.fence;
 
-import com.unforbidable.tfc.bids.features.building.palisade.block.BlockPalisade;
+import com.unforbidable.tfc.bids.common.block.BlockCommonFence;
 import net.minecraft.block.Block;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
@@ -38,7 +38,7 @@ public class FenceConnections {
         int count = 0;
         int last = -1;
 
-        if (world.getBlock(x, y, z) instanceof BlockPalisade) {
+        if (world.getBlock(x, y, z) instanceof BlockCommonFence) {
             Block[] blocks = new Block[8];
             blocks[NORTH] = world.getBlock(x, y, z - 1);
             blocks[SOUTH] = world.getBlock(x, y, z + 1);
@@ -49,7 +49,7 @@ public class FenceConnections {
             blocks[CORNER_SW] = world.getBlock(x - 1, y, z + 1);
             blocks[CORNER_SE] = world.getBlock(x + 1, y, z + 1);
 
-            BlockPalisade block = (BlockPalisade) world.getBlock(x, y, z);
+            BlockCommonFence block = (BlockCommonFence) world.getBlock(x, y, z);
 
             // Look for all fence connections
             for (int i = 0; i < 4; i++) {

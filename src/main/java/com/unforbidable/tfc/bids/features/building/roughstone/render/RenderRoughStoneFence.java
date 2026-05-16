@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.features.building.roughstone.render;
 
 import com.dunk.tfc.Render.RenderBlocksWithRotation;
 import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.features.building.palisade.block.BlockPalisade;
 import com.unforbidable.tfc.bids.util.fence.FenceConnections;
 import com.unforbidable.tfc.bids.util.render.RenderBlocksWithMeta;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -35,7 +34,6 @@ public class RenderRoughStoneFence implements ISimpleBlockRenderingHandler {
         float maxX = (1 + width) * 0.5f;
         float maxZ = (1 + width) * 0.5f;
 
-        BlockPalisade fence = (BlockPalisade) block;
         FenceConnections fc = new FenceConnections(world, x, y, z);
 
         RenderBlocksWithMeta rendererMeta = new RenderBlocksWithMeta(renderer);

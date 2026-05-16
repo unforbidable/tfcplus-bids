@@ -7,14 +7,13 @@ import com.unforbidable.tfc.bids.util.fence.FenceConnections;
 import com.unforbidable.tfc.bids.util.fence.FenceHelper;
 import com.unforbidable.tfc.bids.util.render.RenderBlocksWithMeta;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
-
-import java.util.Random;
 
 public class RenderPalisade implements ISimpleBlockRenderingHandler {
 
@@ -39,7 +38,6 @@ public class RenderPalisade implements ISimpleBlockRenderingHandler {
         float maxX = (1 + width) * 0.5f;
         float maxZ = (1 + width) * 0.5f;
 
-        BlockPalisade fence = (BlockPalisade) block;
         FenceConnections fc = new FenceConnections(world, x, y, z);
 
         RenderBlocksWithMeta rendererMeta = new RenderBlocksWithMeta(renderer);
