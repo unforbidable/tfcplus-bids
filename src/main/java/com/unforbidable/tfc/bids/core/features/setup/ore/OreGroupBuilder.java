@@ -1,11 +1,11 @@
 package com.unforbidable.tfc.bids.core.features.setup.ore;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class OreGroupBuilder {
 
@@ -23,24 +23,24 @@ public class OreGroupBuilder {
     }
 
     public OreGroupBuilder add(Item item) {
-        return add(new ItemStack(item));
+        return add(new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
     }
 
     public OreGroupBuilder add(Item ...items) {
         for (Item item : items) {
-            add(new ItemStack(item));
+            add(new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
         }
 
         return this;
     }
 
     public OreGroupBuilder add(Block block) {
-        return add(new ItemStack(block));
+        return add(new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE));
     }
 
     public OreGroupBuilder add(Block ...blocks) {
         for (Block block : blocks) {
-            add(new ItemStack(block));
+            add(new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE));
         }
 
         return this;
