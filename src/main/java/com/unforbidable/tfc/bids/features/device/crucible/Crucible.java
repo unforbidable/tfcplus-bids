@@ -5,7 +5,6 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KilnRecipe;
@@ -114,7 +113,7 @@ public class Crucible extends Feature {
         if (CrucibleConfig.enableClassicHandBreakable) {
             // Lower the hardness of the classic TFC crucible
             // The original value is 4.0f
-            setup.apply(() -> {
+            setup.run(() -> {
                 Bids.LOG.info("Classic TFC crucible hardness reduced");
                 TFCBlocks.crucible.setHardness(0.5f);
             });

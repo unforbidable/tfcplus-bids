@@ -113,7 +113,7 @@ public class Firepit extends Feature {
         }
 
         if (FirepitConfig.replaceFirepitTFC) {
-            setup.apply(() -> {
+            setup.run(() -> {
                 TFCBlocks.firepit = BidsBlocks.newFirepit;
             });
         }
