@@ -117,7 +117,7 @@ public class FeatureInit extends Initializable {
             .forEach(registry::registerEventHandler);
 
         loader.getFeatures().stream()
-            .flatMap(f -> f.setup(context).apply.stream())
+            .flatMap(f -> f.setup(context).runs.stream())
             .forEach(Runnable::run);
     }
 
@@ -133,6 +133,10 @@ public class FeatureInit extends Initializable {
         loader.getFeatures().stream()
             .flatMap(f -> f.client(context).handlers.stream())
             .forEach(registry::registerClientEventHandler);
+
+        loader.getFeatures().stream()
+            .flatMap(f -> f.client(context).runs.stream())
+            .forEach(Runnable::run);
     }
 
     @Override

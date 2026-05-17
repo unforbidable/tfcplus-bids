@@ -20,7 +20,7 @@ public class FeatureSetupBuilder {
     private final List<OreGroupBuilder> ores = new ArrayList<>();
     private final CraftingRecipeSetupBuilder craftingRecipes = new CraftingRecipeSetupBuilder();
     private final NetworkSetupHelper network = new NetworkSetupHelper();
-    private final List<Runnable> applies = new ArrayList<>();
+    private final List<Runnable> runs = new ArrayList<>();
     private final EventHandlerSpecCollector handlers = new EventHandlerSpecCollector();
 
     public CraftingRecipeSetupBuilder recipes() {
@@ -52,8 +52,8 @@ public class FeatureSetupBuilder {
         return network;
     }
 
-    public void apply(Runnable apply) {
-        applies.add(apply);
+    public void run(Runnable apply) {
+        runs.add(apply);
     }
 
     public EventHandlerSpecCollector event() {
@@ -72,7 +72,7 @@ public class FeatureSetupBuilder {
                 .map(OreGroupBuilder::build)
                 .collect(Collectors.toList()),
             craftingRecipes.build(),
-            applies,
+            runs,
             handlers.build()
         );
     }

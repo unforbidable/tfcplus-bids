@@ -14,15 +14,17 @@ public class FeatureClientSpec {
     public final List<ItemClientSpec> items;
     public final List<TileEntityClientSpec> tileEntities;
     public final List<GuiScreenSpec<?, ?>> screens;
+    public final List<Runnable> runs;
     public final List<EventHandlerClientSpec> handlers;
 
     public FeatureClientSpec(List<BlockClientSpec> blocks, List<ItemClientSpec> items,
                              List<TileEntityClientSpec> tileEntities, List<GuiScreenSpec<?, ?>> screens,
-                             List<EventHandlerClientSpec> handlers) {
+                             List<Runnable> runs, List<EventHandlerClientSpec> handlers) {
         this.blocks = blocks;
         this.items = items;
         this.tileEntities = tileEntities;
         this.screens = screens;
+        this.runs = runs;
         this.handlers = handlers;
     }
 

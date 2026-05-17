@@ -32,6 +32,7 @@ public class FeatureClientSpecBuilder {
     private final EventHandlerClientSpecCollector handlers = new EventHandlerClientSpecCollector();
     private final WailaRegistryHelper waila = new WailaRegistryHelper();
     private final NeiRegistryHelper nei = new NeiRegistryHelper();
+    private final List<Runnable> runs = new ArrayList<>();
 
     public BlockClientSpecBuilder block(String name) {
         BlockClientSpecBuilder builder = new BlockClientSpecBuilder(name);
@@ -82,6 +83,10 @@ public class FeatureClientSpecBuilder {
         return nei;
     }
 
+    public void run(Runnable apply) {
+        runs.add(apply);
+    }
+
     public FeatureClientSpec build() {
         return new FeatureClientSpec(
             blocks.stream()
@@ -94,7 +99,7 @@ public class FeatureClientSpecBuilder {
                 .map(TileEntityClientSpecBuilder::build)
                 .collect(Collectors.toList()),
             screens,
-            handlers.build());
+            runs, handlers.build());
     }
 
 }
