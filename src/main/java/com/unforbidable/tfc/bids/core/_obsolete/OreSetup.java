@@ -157,10 +157,10 @@ public class OreSetup {
                 OreDictionary.registerOre("blockChoppingBlock", wood.blocks.getChoppingBlock());
             }
 
-            if (wood.blocks.hasLogWall()) {
-                OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWall());
-                OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWallVert());
-            }
+//            if (wood.blocks.hasLogWall()) {
+//                OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWall());
+//                OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWallVert());
+//            }
 
             if (wood.blocks.hasThickLog()) {
                 OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getThickLog());

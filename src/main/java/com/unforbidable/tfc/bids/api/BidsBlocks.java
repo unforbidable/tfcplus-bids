@@ -65,6 +65,33 @@ public class BidsBlocks {
     public static Block roughStoneTileFenceIgEx = block(BlockNames.ROUGH_STONE_TILE_FENCE_IG_EX);
 
     // Log Wall
+    public static Block logWallEast = block(BlockNames.LOG_WALL_EAST);
+    public static Block logWallNorth = block(BlockNames.LOG_WALL_NORTH);
+    public static Block logWallCorner = block(BlockNames.LOG_WALL_CORNER);
+    public static Block logWallEastAlt = block(BlockNames.LOG_WALL_EAST_ALT);
+    public static Block logWallNorthAlt = block(BlockNames.LOG_WALL_NORTH_ALT);
+    public static Block logWallCornerAlt = block(BlockNames.LOG_WALL_CORNER_ALT);
+
+    public static Block logWallEast2 = block(BlockNames.LOG_WALL_EAST_2);
+    public static Block logWallNorth2 = block(BlockNames.LOG_WALL_NORTH_2);
+    public static Block logWallCorner2 = block(BlockNames.LOG_WALL_CORNER_2);
+    public static Block logWallEastAlt2 = block(BlockNames.LOG_WALL_EAST_ALT_2);
+    public static Block logWallNorthAlt2 = block(BlockNames.LOG_WALL_NORTH_ALT_2);
+    public static Block logWallCornerAlt2 = block(BlockNames.LOG_WALL_CORNER_ALT_2);
+
+    public static Block logWallEast3 = block(BlockNames.LOG_WALL_EAST_3);
+    public static Block logWallNorth3 = block(BlockNames.LOG_WALL_NORTH_3);
+    public static Block logWallCorner3 = block(BlockNames.LOG_WALL_CORNER_3);
+    public static Block logWallEastAlt3 = block(BlockNames.LOG_WALL_EAST_ALT_3);
+    public static Block logWallNorthAlt3 = block(BlockNames.LOG_WALL_NORTH_ALT_3);
+    public static Block logWallCornerAlt3 = block(BlockNames.LOG_WALL_CORNER_ALT_3);
+
+    public static Block logWallVert = block(BlockNames.LOG_WALL_VERT);
+    public static Block logWallVertAlt = block(BlockNames.LOG_WALL_VERT_ALT);
+    public static Block logWallVert2 = block(BlockNames.LOG_WALL_VERT_2);
+    public static Block logWallVertAlt2 = block(BlockNames.LOG_WALL_VERT_ALT_2);
+    public static Block logWallVert3 = block(BlockNames.LOG_WALL_VERT_3);
+    public static Block logWallVertAlt3 = block(BlockNames.LOG_WALL_VERT_ALT_3);
 
 
 
@@ -116,33 +143,6 @@ public class BidsBlocks {
     public static int dryingSurfaceRenderId;
 
 
-    public static Block logWallEast;
-    public static Block logWallNorth;
-    public static Block logWallCorner;
-    public static Block logWallEastAlt;
-    public static Block logWallNorthAlt;
-    public static Block logWallCornerAlt;
-
-    public static Block logWallEast2;
-    public static Block logWallNorth2;
-    public static Block logWallCorner2;
-    public static Block logWallEastAlt2;
-    public static Block logWallNorthAlt2;
-    public static Block logWallCornerAlt2;
-
-    public static Block logWallEast3;
-    public static Block logWallNorth3;
-    public static Block logWallCorner3;
-    public static Block logWallEastAlt3;
-    public static Block logWallNorthAlt3;
-    public static Block logWallCornerAlt3;
-
-    public static Block logWallVert;
-    public static Block logWallVertAlt;
-    public static Block logWallVert2;
-    public static Block logWallVertAlt2;
-    public static Block logWallVert3;
-    public static Block logWallVertAlt3;
 
     public static Block stackedFirewood;
     public static Block stackedFirewood2;

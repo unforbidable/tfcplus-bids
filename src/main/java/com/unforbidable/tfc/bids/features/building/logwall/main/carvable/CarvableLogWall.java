@@ -1,13 +1,11 @@
 package com.unforbidable.tfc.bids.features.building.logwall.main.carvable;
 
-import java.util.Random;
-
-import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWall;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.carving.Carvable;
-
+import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
+import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
+import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWall;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

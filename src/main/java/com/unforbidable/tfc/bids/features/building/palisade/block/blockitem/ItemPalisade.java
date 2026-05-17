@@ -5,7 +5,7 @@ import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.util.ItemHelper;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodHelper;
+import com.unforbidable.tfc.bids.util.wood.WoodHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;

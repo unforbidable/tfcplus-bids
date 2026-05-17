@@ -680,7 +680,7 @@ public class TileEntityWoodpile extends TileEntity implements IInventory, Packet
             }
 
             if (openDelayedGUIplayer != null) {
-                GuiUtil.openGui(BlockNames.WOODPILE, openDelayedGUIplayer);
+                GuiUtil.openGui(BlockNames.WOODPILE, openDelayedGUIplayer, this);
 
                 openDelayedGUIplayer = null;
             }
@@ -1451,12 +1451,12 @@ public class TileEntityWoodpile extends TileEntity implements IInventory, Packet
         switch (message.getAction()) {
             case ACTION_UPDATE:
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                Bids.LOG.debug("Client updated at [{},{},{}]", xCoord, yCoord, zCoord);
+                Bids.LOG.info("Client updated at [{},{},{}]", xCoord, yCoord, zCoord);
                 break;
 
             case ACTION_RETRIEVE_ITEM:
                 retrieveItemAtIndex(message.getSelectedItemIndex(), message.getPlayer());
-                Bids.LOG.debug("Item retrieved");
+                Bids.LOG.info("Item retrieved");
                 break;
         }
     }
@@ -1464,7 +1464,7 @@ public class TileEntityWoodpile extends TileEntity implements IInventory, Packet
     public void sendUpdateMessage() {
         Packet packet = new WoodpilePacket(TileEntityWoodpile.ACTION_UPDATE);
         Network.sendToTileEntity(packet, this);
-        Bids.LOG.debug("Sent update message");
+        Bids.LOG.info("Sent update message");
     }
 
     public void sendRetrieveItem(int index, EntityPlayer player) {
@@ -1472,7 +1472,7 @@ public class TileEntityWoodpile extends TileEntity implements IInventory, Packet
             .setSelectedItemIndex(index)
             .setPlayer(player);
         Network.sendToTileEntity(packet, this);
-        Bids.LOG.debug("Send retrieve item message " + index);
+        Bids.LOG.info("Send retrieve item message " + index);
     }
 
 }

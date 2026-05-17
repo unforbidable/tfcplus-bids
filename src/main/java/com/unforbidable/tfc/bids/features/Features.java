@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features;
 
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.features.building.carving.Carving;
+import com.unforbidable.tfc.bids.features.building.logwall.LogWall;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
@@ -33,6 +34,7 @@ public class Features {
         new Firepit(),
         new RoughStone(),
         new Logs(),
+        new LogWall(),
     };
 
 }

@@ -1,13 +1,15 @@
 package com.unforbidable.tfc.bids.features.building.logwall.block;
 
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodHelper;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
-import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallType;
+import com.unforbidable.tfc.bids.features.building.logwall.main.LogWallType;
+import com.unforbidable.tfc.bids.util.wood.LogWallHelper;
+import com.unforbidable.tfc.bids.util.wood.WoodHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,17 +19,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class BlockLogWall extends Block {
 
     IIcon[][] icons = new IIcon[3][];
 
     final String[] names;
     final int offset;
-    final EnumLogWallType type;
+    final LogWallType type;
 
-    public BlockLogWall(EnumLogWallType type, int offset) {
+    public BlockLogWall(LogWallType type, int offset) {
         super(Material.wood);
         this.offset = offset;
         this.type = type;
@@ -137,7 +137,7 @@ public class BlockLogWall extends Block {
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-        if (WoodHelper.getDefaultLogWallType() == type) {
+        if (LogWallHelper.getDefaultLogWallType() == type) {
             for (int i = 0; i < names.length; i++) {
                 WoodIndex wood = WoodScheme.DEFAULT.findWood(offset + i);
                 if (wood.blocks.hasLogWall()) {
@@ -154,8 +154,7 @@ public class BlockLogWall extends Block {
 
     @Override
     protected void dropBlockAsItem(World world, int x, int y, int z, ItemStack is) {
-
-        Block block = WoodHelper.getDefaultLogWallBlock(offset);
+        Block block = LogWallHelper.getDefaultLogWallBlock(offset);
         is = new ItemStack(block, 1, is.getItemDamage());
 
         super.dropBlockAsItem(world, x, y, z, is);

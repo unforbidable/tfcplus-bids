@@ -1,14 +1,13 @@
 package com.unforbidable.tfc.bids.features.building.logwall.block.blockitem;
 
-import java.util.List;
-
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.unforbidable.tfc.bids.util.wood.LogWallHelper;
+import com.unforbidable.tfc.bids.util.wood.WoodHelper;
 import com.unforbidable.tfc.bids.util.ItemHelper;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodHelper;
-
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -54,7 +53,7 @@ public class ItemLogWall extends ItemBlock implements ISize {
     public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
             float hitX, float hitY, float hitZ, int metadata) {
 
-        world.setBlock(x, y, z, WoodHelper.getLogWallBlock(getOffset(), side, player.isSneaking()), metadata, 2);
+        world.setBlock(x, y, z, LogWallHelper.getLogWallBlock(getOffset(), side, player.isSneaking()), metadata, 2);
         return true;
     }
 

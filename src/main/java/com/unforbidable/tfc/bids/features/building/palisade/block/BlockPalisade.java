@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.building.palisade.block;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.common.block.BlockCommonFence;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodHelper;
+import com.unforbidable.tfc.bids.util.wood.WoodHelper;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import cpw.mods.fml.relauncher.Side;

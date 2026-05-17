@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.features.material.firewood.block;
 
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodHelper;
+import com.unforbidable.tfc.bids.util.wood.WoodHelper;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.Tags;

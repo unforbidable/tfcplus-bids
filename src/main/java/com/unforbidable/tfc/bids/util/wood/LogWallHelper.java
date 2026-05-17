@@ -1,14 +1,11 @@
-package com.unforbidable.tfc.bids.core.schemes.wood;
+package com.unforbidable.tfc.bids.util.wood;
 
-import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallType;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallVertType;
-
+import com.unforbidable.tfc.bids.features.building.logwall.main.LogWallType;
+import com.unforbidable.tfc.bids.features.building.logwall.main.LogWallVertType;
 import net.minecraft.block.Block;
 
-public class WoodHelper {
-
+public class LogWallHelper {
     public static Block getLogWallBlock(int offset, int side, boolean alt) {
         if (offset == 0) {
             switch (side) {
@@ -58,20 +55,11 @@ public class WoodHelper {
         }
     }
 
-    public static String[] getWoodOffsetNames(int offset) {
-        final int length = Math.min(16, Global.WOOD_ALL.length - offset);
-        final String[] names = new String[length];
-        for (int i = 0; i < length; i++) {
-            names[i] = Global.WOOD_ALL[i + offset];
-        }
-        return names;
-    }
-
-    public static EnumLogWallType getDefaultLogWallType() {
+    public static LogWallType getDefaultLogWallType() {
         // The log wall type block to show in creative
         // Which one it is doesn't really matter
         // They all place the same block depending on circumstances
-        return EnumLogWallType.EAST;
+        return LogWallType.EAST;
     }
 
     public static Block getDefaultLogWallBlock(int offset) {
@@ -87,8 +75,8 @@ public class WoodHelper {
         }
     }
 
-    public static EnumLogWallVertType getDefaultLogWallVertType() {
-        return EnumLogWallVertType.DEFAULT;
+    public static LogWallVertType getDefaultLogWallVertType() {
+        return LogWallVertType.DEFAULT;
     }
 
     public static Block getDefaultLogWallVertBlock(int offset) {
@@ -110,5 +98,4 @@ public class WoodHelper {
             return alt ? BidsBlocks.logWallVertAlt3 : BidsBlocks.logWallVert3;
         }
     }
-
 }

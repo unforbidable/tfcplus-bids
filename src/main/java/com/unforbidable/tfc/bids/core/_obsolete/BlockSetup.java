@@ -6,8 +6,8 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallType;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumLogWallVertType;
+import com.unforbidable.tfc.bids.features.building.logwall.main.LogWallType;
+import com.unforbidable.tfc.bids.features.building.logwall.main.LogWallVertType;
 import com.unforbidable.tfc.bids.common.block.itemblock.ItemGenericSoil;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
 import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
@@ -41,7 +41,6 @@ import com.unforbidable.tfc.bids.features.building.palisade.render.RenderPalisad
 import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStone;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.blockitem.ItemRoughStone;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.blockitem.ItemRoughStoneFence;
-import com.unforbidable.tfc.bids.features.building.roughstone.render.RenderRoughStoneFence;
 import com.unforbidable.tfc.bids.features.building.wattle.block.BlockWattleGate;
 import com.unforbidable.tfc.bids.features.building.wattle.block.BlockWattleTrapDoor;
 import com.unforbidable.tfc.bids.features.building.wattle.block.BlockWattleTrapDoorCover;
@@ -291,35 +290,35 @@ public class BlockSetup extends BidsBlocks {
 //        roughStoneTileFenceIgEx = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileIgEx)
 //            .setBlockName("RoughStoneTileFenceIgEx");
 
-        logWallEast = new BlockLogWall(EnumLogWallType.EAST, 0).setBlockName("LogWallEast");
-        logWallNorth = new BlockLogWall(EnumLogWallType.NORTH, 0).setBlockName("LogWallNorth");
-        logWallCorner = new BlockLogWall(EnumLogWallType.CORNER, 0).setBlockName("LogWallCorner");
-        logWallEastAlt = new BlockLogWall(EnumLogWallType.EAST_ALT, 0).setBlockName("LogWallEastAlt");
-        logWallNorthAlt = new BlockLogWall(EnumLogWallType.NORTH_ALT, 0).setBlockName("LogWallNorthAlt");
-        logWallCornerAlt = new BlockLogWall(EnumLogWallType.CORNER_ALT, 0).setBlockName("LogWallCornerAlt");
+        logWallEast = new BlockLogWall(LogWallType.EAST, 0).setBlockName("LogWallEast");
+        logWallNorth = new BlockLogWall(LogWallType.NORTH, 0).setBlockName("LogWallNorth");
+        logWallCorner = new BlockLogWall(LogWallType.CORNER, 0).setBlockName("LogWallCorner");
+        logWallEastAlt = new BlockLogWall(LogWallType.EAST_ALT, 0).setBlockName("LogWallEastAlt");
+        logWallNorthAlt = new BlockLogWall(LogWallType.NORTH_ALT, 0).setBlockName("LogWallNorthAlt");
+        logWallCornerAlt = new BlockLogWall(LogWallType.CORNER_ALT, 0).setBlockName("LogWallCornerAlt");
 
-        logWallEast2 = new BlockLogWall(EnumLogWallType.EAST, 16).setBlockName("LogWallEast2");
-        logWallNorth2 = new BlockLogWall(EnumLogWallType.NORTH, 16).setBlockName("LogWallNorth2");
-        logWallCorner2 = new BlockLogWall(EnumLogWallType.CORNER, 16).setBlockName("LogWallCorner2");
-        logWallEastAlt2 = new BlockLogWall(EnumLogWallType.EAST_ALT, 16).setBlockName("LogWallEastAlt2");
-        logWallNorthAlt2 = new BlockLogWall(EnumLogWallType.NORTH_ALT, 16).setBlockName("LogWallNorthAlt2");
-        logWallCornerAlt2 = new BlockLogWall(EnumLogWallType.CORNER_ALT, 16).setBlockName("LogWallCornerAlt2");
+        logWallEast2 = new BlockLogWall(LogWallType.EAST, 16).setBlockName("LogWallEast2");
+        logWallNorth2 = new BlockLogWall(LogWallType.NORTH, 16).setBlockName("LogWallNorth2");
+        logWallCorner2 = new BlockLogWall(LogWallType.CORNER, 16).setBlockName("LogWallCorner2");
+        logWallEastAlt2 = new BlockLogWall(LogWallType.EAST_ALT, 16).setBlockName("LogWallEastAlt2");
+        logWallNorthAlt2 = new BlockLogWall(LogWallType.NORTH_ALT, 16).setBlockName("LogWallNorthAlt2");
+        logWallCornerAlt2 = new BlockLogWall(LogWallType.CORNER_ALT, 16).setBlockName("LogWallCornerAlt2");
 
-        logWallEast3 = new BlockLogWall(EnumLogWallType.EAST, 32).setBlockName("LogWallEast3");
-        logWallNorth3 = new BlockLogWall(EnumLogWallType.NORTH, 32).setBlockName("LogWallNorth3");
-        logWallCorner3 = new BlockLogWall(EnumLogWallType.CORNER, 32).setBlockName("LogWallCorner3");
-        logWallEastAlt3 = new BlockLogWall(EnumLogWallType.EAST_ALT, 32).setBlockName("LogWallEastAlt3");
-        logWallNorthAlt3 = new BlockLogWall(EnumLogWallType.NORTH_ALT, 32).setBlockName("LogWallNorthAlt3");
-        logWallCornerAlt3 = new BlockLogWall(EnumLogWallType.CORNER_ALT, 32).setBlockName("LogWallCornerAlt3");
+        logWallEast3 = new BlockLogWall(LogWallType.EAST, 32).setBlockName("LogWallEast3");
+        logWallNorth3 = new BlockLogWall(LogWallType.NORTH, 32).setBlockName("LogWallNorth3");
+        logWallCorner3 = new BlockLogWall(LogWallType.CORNER, 32).setBlockName("LogWallCorner3");
+        logWallEastAlt3 = new BlockLogWall(LogWallType.EAST_ALT, 32).setBlockName("LogWallEastAlt3");
+        logWallNorthAlt3 = new BlockLogWall(LogWallType.NORTH_ALT, 32).setBlockName("LogWallNorthAlt3");
+        logWallCornerAlt3 = new BlockLogWall(LogWallType.CORNER_ALT, 32).setBlockName("LogWallCornerAlt3");
 
-        logWallVert = new BlockLogWallVert(EnumLogWallVertType.DEFAULT, 0).setBlockName("LogWallVert");
-        logWallVertAlt = new BlockLogWallVert(EnumLogWallVertType.ALT, 0).setBlockName("LogWallVertAlt");
+        logWallVert = new BlockLogWallVert(LogWallVertType.DEFAULT, 0).setBlockName("LogWallVert");
+        logWallVertAlt = new BlockLogWallVert(LogWallVertType.ALT, 0).setBlockName("LogWallVertAlt");
 
-        logWallVert2 = new BlockLogWallVert(EnumLogWallVertType.DEFAULT, 16).setBlockName("LogWallVert2");
-        logWallVertAlt2 = new BlockLogWallVert(EnumLogWallVertType.ALT, 16).setBlockName("LogWallVertAlt2");
+        logWallVert2 = new BlockLogWallVert(LogWallVertType.DEFAULT, 16).setBlockName("LogWallVert2");
+        logWallVertAlt2 = new BlockLogWallVert(LogWallVertType.ALT, 16).setBlockName("LogWallVertAlt2");
 
-        logWallVert3 = new BlockLogWallVert(EnumLogWallVertType.DEFAULT, 32).setBlockName("LogWallVert3");
-        logWallVertAlt3 = new BlockLogWallVert(EnumLogWallVertType.ALT, 32).setBlockName("LogWallVertAlt3");
+        logWallVert3 = new BlockLogWallVert(LogWallVertType.DEFAULT, 32).setBlockName("LogWallVert3");
+        logWallVertAlt3 = new BlockLogWallVert(LogWallVertType.ALT, 32).setBlockName("LogWallVertAlt3");
 
         tiedStickBundle = new BlockTiedStickBundle().setBlockName("TiedStickBundle");
 

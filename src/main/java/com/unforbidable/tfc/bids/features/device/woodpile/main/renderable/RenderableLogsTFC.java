@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.device.woodpile.main.renderable;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderConfigurator;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodHelper;
+import com.unforbidable.tfc.bids.util.wood.LogWallHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -50,8 +50,8 @@ public class RenderableLogsTFC implements WoodpileRenderable {
         final int offset = peeledDamage - peeledDamage % 16;
         final int meta = peeledDamage % 16;
 
-        Block block = rotated ? WoodHelper.getLogWallBlock(offset, 4, false)
-                : WoodHelper.getLogWallBlock(offset, 2, true);
+        Block block = rotated ? LogWallHelper.getLogWallBlock(offset, 4, false)
+                : LogWallHelper.getLogWallBlock(offset, 2, true);
 
         return block.getIcon(side, meta);
     }

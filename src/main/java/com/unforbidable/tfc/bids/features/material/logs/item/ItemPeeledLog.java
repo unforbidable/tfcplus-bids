@@ -11,7 +11,8 @@ import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderConfigurato
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
-import com.unforbidable.tfc.bids.features.building.logwall.main.WoodHelper;
+import com.unforbidable.tfc.bids.util.wood.LogWallHelper;
+import com.unforbidable.tfc.bids.util.wood.WoodHelper;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import java.util.List;
@@ -144,8 +145,8 @@ public class ItemPeeledLog extends Item implements ISize, WoodpileRenderable {
         final int offset = itemStack.getItemDamage() - itemStack.getItemDamage() % 16;
         final int meta = itemStack.getItemDamage() % 16;
 
-        Block block = rotated ? WoodHelper.getLogWallBlock(offset, 4, false)
-                : WoodHelper.getLogWallBlock(offset, 2, true);
+        Block block = rotated ? LogWallHelper.getLogWallBlock(offset, 4, false)
+                : LogWallHelper.getLogWallBlock(offset, 2, true);
 
         return block.getIcon(side, meta);
     }
