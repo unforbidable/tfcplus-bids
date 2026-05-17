@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.eventhandler;
 
-import com.dunk.tfc.api.TFCItems;
+import com.dunk.tfc.Items.ItemLogs;
 import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileConfig;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -26,7 +26,7 @@ public class WoodpilePlacementHandler {
     }
 
     private boolean canItemCreateWoodpile(ItemStack heldItem) {
-        return heldItem.getItem() == TFCItems.logs && WoodpileConfig.enablePlacementUsingLogsTFC;
+        return heldItem.getItem() instanceof ItemLogs && WoodpileConfig.enablePlacementUsingLogsTFC;
     }
 
 }
