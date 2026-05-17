@@ -76,9 +76,6 @@ public class BidsItems {
     // Quarry
     public static Item plugAndFeather = item(ItemNames.PLUG_AND_FEATHER);
 
-    // Woodpile
-    public static Item logsSeasoned = item(ItemNames.LOG_SEASONED);
-
     // Firepit
     public static Item smallStickBundle = item(ItemNames.STICK_BUNDLE_SMALL);
     public static Item tiedStickBundle = item(ItemNames.STICK_BUNDLE_TIED);
@@ -88,6 +85,19 @@ public class BidsItems {
     public static Item roughStoneBrick = item(ItemNames.ROUGH_STONE_BRICK);
     public static Item roughStoneTile = item(ItemNames.ROUGH_STONE_TILE);
 
+    // Logs
+    public static Item logsSeasoned = item(ItemNames.LOG_SEASONED);
+    public static Item peeledLog = item(ItemNames.PEELED_LOG);
+    public static Item peeledLogSeasoned = item(ItemNames.PEELED_LOG_SEASONED);
+
+    // Bark
+    public static Item bark;
+
+    // Firewood
+    public static Item firewood;
+    public static Item firewoodSeasoned;
+
+
 
     public static Item igInHandAxe;
     public static Item sedHandAxe;
@@ -96,15 +106,9 @@ public class BidsItems {
 
     public static Item hardenedWoodenSpear;
 
-    public static Item peeledLog;
-    public static Item peeledLogSeasoned;
-    public static Item firewood;
-    public static Item firewoodSeasoned;
-
     public static Item board;
     public static Item shaft;
 
-    public static Item bark;
     public static Item barkFibre;
     public static Item barkFibreCoarse;
     public static Item barkFibreSmooth;

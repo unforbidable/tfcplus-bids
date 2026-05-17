@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.device.woodpile.item;
+package com.unforbidable.tfc.bids.features.material.logs.item;
 
 import com.dunk.tfc.Items.ItemLogs;
 import com.dunk.tfc.api.Enums.EnumSize;

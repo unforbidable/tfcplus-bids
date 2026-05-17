@@ -81,14 +81,6 @@ public class Quarry extends Feature {
                 .add(new ItemStack(BidsItems.plugAndFeather, 1, i));
         }
 
-        // TODO allow TFC logs only if configured (FEATURE)
-        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            if (wood.hardwood) {
-                OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getLog());
-                OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getChoppedLog());
-            }
-        }
-
         setup.recipes().addShapeless(new ItemStack(BidsItems.plugAndFeather, 4),
                 "logWoodPlugAndFeather", "itemAdze")
             .action(damageTool("itemAdze"));

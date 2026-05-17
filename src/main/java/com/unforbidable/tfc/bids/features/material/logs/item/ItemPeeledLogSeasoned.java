@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.material.bark.item;
+package com.unforbidable.tfc.bids.features.material.logs.item;
 
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import net.minecraft.item.ItemStack;

@@ -1,19 +1,20 @@
-package com.unforbidable.tfc.bids.features.material.bark.item;
+package com.unforbidable.tfc.bids.features.material.logs.item;
 
+import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.util.ItemHelper;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodHelper;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderConfigurator;
+import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
+import com.unforbidable.tfc.bids.features.building.logwall.main.WoodHelper;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
-import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
-import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderConfigurator;
+import com.unforbidable.tfc.bids.util.ItemHelper;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,8 +23,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class ItemPeeledLog extends Item implements ISize, WoodpileRenderable {
 
@@ -36,6 +35,7 @@ public class ItemPeeledLog extends Item implements ISize, WoodpileRenderable {
         setHasSubtypes(true);
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
         setMaxStackSize(16);
+        setNames(Global.WOOD_ALL);
     }
 
     public ItemPeeledLog setNames(String[] names) {

@@ -383,50 +383,50 @@ public class RecipeSetup {
             TFCItems.unstrungCompositeBow, "materialBindingStrong");
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            if (wood.items.hasPeeledLog()) {
-                recipes.addShapelessRecipe(wood.items.getPeeledLog(),
-                        wood.items.getLog(), "itemAdze")
-                    .action(damageTool("itemAdze"))
-                    .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingChance))
-                    .action(copySeasoning(TFCItems.logs));
+//            if (wood.items.hasPeeledLog()) {
+//                recipes.addShapelessRecipe(wood.items.getPeeledLog(),
+//                        wood.items.getLog(), "itemAdze")
+//                    .action(damageTool("itemAdze"))
+//                    .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingChance))
+//                    .action(copySeasoning(TFCItems.logs));
+//
+//                BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+//                    wood.items.getPeeledLog(), wood.items.getLog()));
+//
+//                if (wood.items.hasChoppedLog()) {
+//                    recipes.addShapelessRecipe(wood.items.getPeeledLog(),
+//                            wood.items.getChoppedLog(), "itemAdze")
+//                        .action(damageTool("itemAdze"))
+//                        .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingChance));
+//
+//                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+//                        wood.items.getPeeledLog(), wood.items.getChoppedLog()));
+//                }
+//            }
 
-                BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                    wood.items.getPeeledLog(), wood.items.getLog()));
-
-                if (wood.items.hasChoppedLog()) {
-                    recipes.addShapelessRecipe(wood.items.getPeeledLog(),
-                            wood.items.getChoppedLog(), "itemAdze")
-                        .action(damageTool("itemAdze"))
-                        .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingChance));
-
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                        wood.items.getPeeledLog(), wood.items.getChoppedLog()));
-                }
-            }
-
-            if (wood.items.hasSeasonedPeeledLog()) {
-                recipes.addShapelessRecipe(wood.items.getSeasonedPeeledLog(),
-                        wood.items.getSeasonedLog(), "itemAdze")
-                    .action(damageTool("itemAdze"))
-                    .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingSeasonedChance));
-
-                BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                    wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedLog()));
-
-                if (wood.items.hasSeasonedChoppedLog()) {
-                    recipes.addShapelessRecipe(wood.items.getSeasonedPeeledLog(),
-                            wood.items.getSeasonedChoppedLog(), "itemAdze")
-                        .action(damageTool("itemAdze"))
-                        .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingSeasonedChance));
-
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                        wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog()));
-                }
-
-//                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedPeeledLog(),
-//                    wood.items.getPeeledLog(),
-//                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.PEELED_LOG)));
-            }
+//            if (wood.items.hasSeasonedPeeledLog()) {
+//                recipes.addShapelessRecipe(wood.items.getSeasonedPeeledLog(),
+//                        wood.items.getSeasonedLog(), "itemAdze")
+//                    .action(damageTool("itemAdze"))
+//                    .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingSeasonedChance));
+//
+//                BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+//                    wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedLog()));
+//
+//                if (wood.items.hasSeasonedChoppedLog()) {
+//                    recipes.addShapelessRecipe(wood.items.getSeasonedPeeledLog(),
+//                            wood.items.getSeasonedChoppedLog(), "itemAdze")
+//                        .action(damageTool("itemAdze"))
+//                        .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingSeasonedChance));
+//
+//                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+//                        wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog()));
+//                }
+//
+////                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedPeeledLog(),
+////                    wood.items.getPeeledLog(),
+////                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.PEELED_LOG)));
+//            }
 
             if (wood.items.hasSeasonedLog()) {
 //                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedLog(),
@@ -528,22 +528,22 @@ public class RecipeSetup {
                     .action(damageTool("itemAxe"));
             }
 
-            // Copies of TFC recipes for items made logs
-            if (wood.items.hasLumber()) {
-                recipes.addShapelessRecipe(wood.items.getLumber(8),
-                        wood.getOreWithSuffix("logWoodSeasoned"), "itemSaw")
-                    .action(damageTool("itemSaw"));
-            }
-
-            // Copies of TFC recipes for block made from logs
-            if (wood.items.hasPeeledLog() || wood.items.hasSeasonedLog()) {
-                recipes.addShapedRecipe(wood.blocks.getWoodSupport(8),
-                        "A2", " 2", '2', wood.getOreWithSuffix("logWood"), 'A', "itemSaw")
-                    .action(damageTool("itemSaw"));
-
-                recipes.addShapedRecipe(wood.blocks.getFence(6),
-                    "LPL", "LPL", 'L', wood.getOreWithSuffix("logWood"), 'P', wood.items.getLumber());
-            }
+//            // Copies of TFC recipes for items made logs
+//            if (wood.items.hasLumber()) {
+//                recipes.addShapelessRecipe(wood.items.getLumber(8),
+//                        wood.getOreWithSuffix("logWoodSeasoned"), "itemSaw")
+//                    .action(damageTool("itemSaw"));
+//            }
+//
+//            // Copies of TFC recipes for block made from logs
+//            if (wood.items.hasPeeledLog() || wood.items.hasSeasonedLog()) {
+//                recipes.addShapedRecipe(wood.blocks.getWoodSupport(8),
+//                        "A2", " 2", '2', wood.getOreWithSuffix("logWood"), 'A', "itemSaw")
+//                    .action(damageTool("itemSaw"));
+//
+//                recipes.addShapedRecipe(wood.blocks.getFence(6),
+//                    "LPL", "LPL", 'L', wood.getOreWithSuffix("logWood"), 'P', wood.items.getLumber());
+//            }
         }
 
         recipes.addShapelessRecipe(new ItemStack(TFCItems.woodenSpear, 1),
@@ -570,17 +570,17 @@ public class RecipeSetup {
                 new ItemStack(TFCItems.hide, 1, 0), "itemKnife")
             .action(damageTool("itemKnife"));
 
-        // Copies of TFC recipes for generic wood items made logs
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.pole),
-                "logWoodAny", "itemKnife")
-            .action(damageTool("itemKnife"));
-        recipes.addShapedRecipe(new ItemStack(TFCItems.clayTile),
-                " X", "XL", 'L', "logWoodAny", 'X', "lumpClay")
-            .action(keepItem("logWoodAny"));
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.paddle),
-                TFCItems.pole, "logWoodAny", "itemKnife")
-            .action(damageTool("itemKnife"));
-
+//        // Copies of TFC recipes for generic wood items made logs
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.pole),
+//                "logWoodAny", "itemKnife")
+//            .action(damageTool("itemKnife"));
+//        recipes.addShapedRecipe(new ItemStack(TFCItems.clayTile),
+//                " X", "XL", 'L', "logWoodAny", 'X', "lumpClay")
+//            .action(keepItem("logWoodAny"));
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.paddle),
+//                TFCItems.pole, "logWoodAny", "itemKnife")
+//            .action(damageTool("itemKnife"));
+//
         recipes.addShapedRecipe(new ItemStack(TFCItems.quern),
             "  W", "PPP", 'P', "stoneQuern", 'W', "stickWood");
         recipes.addShapedRecipe(new ItemStack(TFCItems.millstone),

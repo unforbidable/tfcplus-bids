@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.features.device.woodpile;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -11,9 +10,6 @@ import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
-import com.unforbidable.tfc.bids.core.schemes.wood.EnumWoodItemType;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockCrackedOre;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockCrackedOre2;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockCrackedOre3;
@@ -29,13 +25,11 @@ import com.unforbidable.tfc.bids.features.device.woodpile.eventhandler.FireSetti
 import com.unforbidable.tfc.bids.features.device.woodpile.eventhandler.KilnWoodDryingHandler;
 import com.unforbidable.tfc.bids.features.device.woodpile.eventhandler.WoodpilePlacementHandler;
 import com.unforbidable.tfc.bids.features.device.woodpile.gui.GuiWoodpile;
-import com.unforbidable.tfc.bids.features.device.woodpile.item.ItemLogsSeasoned;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.firesetting.crackable.CrackableBlockOre;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.firesetting.crackable.CrackableBlockStone;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.network.WoodpilePacket;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.renderable.RenderableLogsTFC;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.renderable.RenderableThickLogsTFC;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
 import com.unforbidable.tfc.bids.features.device.woodpile.nei.SeasoningNeiHandler;
 import com.unforbidable.tfc.bids.features.device.woodpile.render.RenderCrackedOre;
 import com.unforbidable.tfc.bids.features.device.woodpile.render.RenderCrackedStone;
@@ -56,7 +50,6 @@ import static com.unforbidable.tfc.bids.api.names.BlockNames.CRACKED_STONE_MM;
 import static com.unforbidable.tfc.bids.api.names.BlockNames.CRACKED_STONE_SED;
 import static com.unforbidable.tfc.bids.api.names.BlockNames.LIGHT;
 import static com.unforbidable.tfc.bids.api.names.BlockNames.WOODPILE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LOG_SEASONED;
 
 @FeatureName("woodpile")
 public class Woodpile extends Feature {
@@ -91,8 +84,6 @@ public class Woodpile extends Feature {
             .apply(b -> b.setBlockName("Ore"));
 
         init.block(LIGHT, BlockLight::new);
-
-        init.item(LOG_SEASONED, ItemLogsSeasoned::new);
 
         init.tileEntity(TileEntityWoodpile.class, "BidsWoodPile");
 
@@ -139,20 +130,6 @@ public class Woodpile extends Feature {
             .add(new CrackableBlockOre(TFCBlocks.ore1b, BidsBlocks.crackedOre1b))
             .add(new CrackableBlockOre(TFCBlocks.ore2, BidsBlocks.crackedOre2))
             .add(new CrackableBlockOre(TFCBlocks.ore3, BidsBlocks.crackedOre3));
-
-        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            if (wood.items.hasSeasonedLog()) {
-                setup.registry(WoodpileRegistry.seasoning)
-                    .add(new SeasoningRecipe(wood.items.getSeasonedLog(),
-                        wood.items.getLog(), SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.LOG)));
-
-                if (wood.items.hasChoppedLog()) {
-                    setup.registry(WoodpileRegistry.seasoning)
-                        .add(new SeasoningRecipe(wood.items.getSeasonedChoppedLog(),
-                            wood.items.getChoppedLog(), SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.CHOPPED_LOG)));
-                }
-            }
-        }
 
         setup.event()
             .handler(new WoodpilePlacementHandler())

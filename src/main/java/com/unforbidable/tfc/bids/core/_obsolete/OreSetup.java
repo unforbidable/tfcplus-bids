@@ -195,50 +195,50 @@ public class OreSetup {
         OreDictionary.registerOre("itemNeedleAndThread", new ItemStack(TFCItems.boneNeedleStrung, 1, WILD));
         OreDictionary.registerOre("itemNeedleAndThread", new ItemStack(TFCItems.ironNeedleStrung, 1, WILD));
 
-        OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLog, 1, WILD));
-        OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
-        OreDictionary.registerOre("logWood", new ItemStack(BidsItems.logsSeasoned, 1, WILD));
-        OreDictionary.registerOre("logWoodPeeledSeasoned", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
+//        OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLog, 1, WILD));
+//        OreDictionary.registerOre("logWood", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
+//        OreDictionary.registerOre("logWood", new ItemStack(BidsItems.logsSeasoned, 1, WILD));
+//        OreDictionary.registerOre("logWoodPeeledSeasoned", new ItemStack(BidsItems.peeledLogSeasoned, 1, WILD));
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            if (wood.items.hasLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodFresh"), wood.items.getLog());
-            }
-
-            if (wood.items.hasChoppedLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getChoppedLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getChoppedLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodFresh"), wood.items.getChoppedLog());
-            }
-
-            if (wood.items.hasSeasonedLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getSeasonedLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodSeasoned"), wood.items.getSeasonedLog());
-            }
-
-            if (wood.items.hasSeasonedChoppedLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedChoppedLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getSeasonedChoppedLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodSeasoned"), wood.items.getSeasonedChoppedLog());
-            }
+//            if (wood.items.hasLog()) {
+//                OreDictionary.registerOre("logWoodAny", wood.items.getLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodFresh"), wood.items.getLog());
+//            }
+//
+//            if (wood.items.hasChoppedLog()) {
+//                OreDictionary.registerOre("logWoodAny", wood.items.getChoppedLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getChoppedLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodFresh"), wood.items.getChoppedLog());
+//            }
+//
+//            if (wood.items.hasSeasonedLog()) {
+//                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getSeasonedLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodSeasoned"), wood.items.getSeasonedLog());
+//            }
+//
+//            if (wood.items.hasSeasonedChoppedLog()) {
+//                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedChoppedLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getSeasonedChoppedLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodSeasoned"), wood.items.getSeasonedChoppedLog());
+//            }
 
             if (wood.items.hasPeeledLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getPeeledLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getPeeledLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodFresh"), wood.items.getPeeledLog());
+//                OreDictionary.registerOre("logWoodAny", wood.items.getPeeledLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getPeeledLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodFresh"), wood.items.getPeeledLog());
             }
 
             if (wood.items.hasSeasonedPeeledLog()) {
-                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedPeeledLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getSeasonedPeeledLog());
-                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodSeasoned"), wood.items.getSeasonedPeeledLog());
-
-                if (wood.hardwood) {
-                    OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getSeasonedPeeledLog());
-                }
+//                OreDictionary.registerOre("logWoodAny", wood.items.getSeasonedPeeledLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWood"), wood.items.getSeasonedPeeledLog());
+//                OreDictionary.registerOre(wood.getOreWithSuffix("logWoodSeasoned"), wood.items.getSeasonedPeeledLog());
+//
+//                if (wood.hardwood) {
+//                    OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getSeasonedPeeledLog());
+//                }
             }
 
             if (wood.hasBarkFibers) {
