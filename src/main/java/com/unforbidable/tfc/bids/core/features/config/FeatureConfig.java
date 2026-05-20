@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 public class FeatureConfig {
 
     private final Configuration config;
-    private final String category;
+    private String category;
 
     public FeatureConfig(Configuration config, String category) {
         this.config = config;
@@ -27,6 +27,12 @@ public class FeatureConfig {
     }
 
     public void using(Consumer<FeatureConfig> configurator) {
+        configurator.accept(this);
+    }
+
+    public void using(Consumer<FeatureConfig> configurator, String category) {
+        this.category = category;
+
         configurator.accept(this);
     }
 
