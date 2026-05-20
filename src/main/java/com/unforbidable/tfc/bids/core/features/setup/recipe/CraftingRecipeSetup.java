@@ -9,9 +9,9 @@ import java.util.function.Consumer;
 public class CraftingRecipeSetup {
 
     public final List<ActionableRecipe> recipes;
-    public final List<Consumer<MatchingRecipe>> matchers;
+    public final List<MatchSpec> matchers;
 
-    public CraftingRecipeSetup(List<ActionableRecipe> recipes, List<Consumer<MatchingRecipe>> matchers) {
+    public CraftingRecipeSetup(List<ActionableRecipe> recipes, List<MatchSpec> matchers) {
         this.recipes = recipes;
         this.matchers = matchers;
     }

@@ -8,7 +8,7 @@ import net.minecraft.item.crafting.IRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,9 +26,10 @@ public class RecipeManagerSession implements AutoCloseable {
         }
     }
 
-    public void match(Consumer<MatchingRecipe> matching) {
-        currentRecipeStream()
-            .forEach(matching);
+    public List<MatchingRecipe> match(Predicate<MatchingRecipe> matching) {
+        return currentRecipeStream()
+            .filter(matching)
+            .collect(Collectors.toList());
     }
 
     public ActionableRecipeBuilder addRecipe(IRecipe recipe) {

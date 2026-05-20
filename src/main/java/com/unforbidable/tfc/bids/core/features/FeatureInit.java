@@ -98,7 +98,7 @@ public class FeatureInit extends Initializable {
         loader.getFeatures().stream()
             .flatMap(f -> f.setup(context).crafting.matchers.stream())
             .peek(m -> Bids.LOG.info("Handle crafting recipes changes"))
-            .forEach(session::match);
+            .forEach(r -> session.match(r.matching).forEach(r.cloning));
         session.flush();
 
         Bids.LOG.info("Register list values");
