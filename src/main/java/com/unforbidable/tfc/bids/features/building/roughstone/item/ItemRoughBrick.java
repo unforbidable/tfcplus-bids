@@ -7,6 +7,7 @@ import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.util.accessor.ItemMetaNamesAccessor;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +18,7 @@ import net.minecraft.util.IIcon;
 import java.util.Arrays;
 import java.util.List;
 
-public class ItemRoughBrick extends Item implements ISize {
+public class ItemRoughBrick extends Item implements ISize, ItemMetaNamesAccessor {
 
     protected IIcon icons[];
     protected String[] names;
@@ -36,7 +37,8 @@ public class ItemRoughBrick extends Item implements ISize {
         return this;
     }
 
-    public ItemRoughBrick setNames(String[] names) {
+    @Override
+    public Item setMetaNames(String[] names) {
         this.names = names;
         return this;
     }
@@ -47,7 +49,8 @@ public class ItemRoughBrick extends Item implements ISize {
         return super.setTextureName(textureName);
     }
 
-    public String[] getNames() {
+    @Override
+    public String[] getMetaNames() {
         return names;
     }
 

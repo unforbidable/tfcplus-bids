@@ -16,7 +16,7 @@ import net.minecraft.util.IIcon;
 
 public class ItemRoughTile extends ItemRoughBrick {
 
-    protected IIcon icons[];
+    protected IIcon[] icons;
     protected String[] names;
     protected List<Integer> metaWhitelist = null;
     protected String textureName;
@@ -30,19 +30,10 @@ public class ItemRoughTile extends ItemRoughBrick {
         return this;
     }
 
-    public ItemRoughTile setNames(String[] names) {
-        this.names = names;
-        return this;
-    }
-
     @Override
     public Item setTextureName(String textureName) {
         this.textureName = textureName;
         return super.setTextureName(textureName);
-    }
-
-    public String[] getNames() {
-        return names;
     }
 
     @Override
