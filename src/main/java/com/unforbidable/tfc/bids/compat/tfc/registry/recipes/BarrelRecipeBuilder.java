@@ -1,16 +1,10 @@
-package com.unforbidable.tfc.bids.compat.tfc._obsolete.TFC;
+package com.unforbidable.tfc.bids.compat.tfc.registry.recipes;
 
-import com.dunk.tfc.api.Crafting.BarrelAlcoholRecipe;
-import com.dunk.tfc.api.Crafting.BarrelLiquidToLiquidRecipe;
-import com.dunk.tfc.api.Crafting.BarrelMultiItemRecipe;
-import com.dunk.tfc.api.Crafting.BarrelRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BarrelRecipeBuilder {
+
     private final BarrelRecipeType type;
     private ItemStack inputItem;
     private ItemStack outputItem;
@@ -47,6 +41,10 @@ public class BarrelRecipeBuilder {
 
     private BarrelRecipeBuilder(BarrelRecipeType type) {
         this.type = type;
+    }
+
+    public static BarrelRecipeBuilder ofType(BarrelRecipeType type) {
+        return new BarrelRecipeBuilder(type);
     }
 
     public BarrelRecipeBuilder consumes(ItemStack input, FluidStack inputFluid) {
@@ -131,56 +129,10 @@ public class BarrelRecipeBuilder {
     }
 
     public BarrelRecipe build() {
-        return getRecipeInstance()
-            .setMinTechLevel(minTechLevel)
-            .setSealedRecipe(sealed)
-            .setSealTime(sealTime)
-            .setRequiresCooked(requiresCooked)
-            .setRemovesLiquid(removesLiquid)
-            .setAllowAnyStack(allowAnyStack);
+        return new BarrelRecipe(type, inputItem, outputItem,
+            inputFluid, outputFluid, secondaryInputFluid,
+            minTechLevel, sealTime,
+            sealed, requiresCooked, removesLiquid, keepStackSize, allowAnyStack);
     }
 
-    private BarrelRecipe getRecipeInstance() {
-        switch (type) {
-            case ALCOHOL:
-                return new BarrelAlcoholRecipe(inputItem, inputFluid, outputItem, outputFluid);
-            case LIQUID_TO_LIQUID:
-                return new BarrelLiquidToLiquidRecipe(inputFluid, secondaryInputFluid, outputFluid);
-            case MULTI_ITEM:
-                return new BarrelMultiItemRecipe(inputItem, inputFluid, outputItem, outputFluid)
-                    .setKeepStackSize(keepStackSize);
-            case ITEM_DEMANDING:
-                return new BarrelItemDemandingRecipe(inputItem, inputFluid, outputItem, outputFluid);
-            case SIMPLE:
-            default:
-                return new BarrelRecipe(inputItem, inputFluid, outputItem, outputFluid);
-        }
-    }
-
-    @Override
-    public String toString() {
-        List<String> inputs = new ArrayList<String>();
-        if (inputItem != null)
-            inputs.add(inputItem.getDisplayName());
-        if (inputFluid != null)
-            inputs.add(inputFluid.getFluid().getLocalizedName(inputFluid));
-        if (secondaryInputFluid != null)
-            inputs.add(secondaryInputFluid.getFluid().getLocalizedName(secondaryInputFluid));
-
-        List<String> outputs = new ArrayList<String>();
-        if (outputItem != null)
-            outputs.add(outputItem.getDisplayName());
-        if (outputFluid != null)
-            outputs.add(outputFluid.getFluid().getLocalizedName(outputFluid));
-
-        return String.join(" + ", inputs) + " => " + String.join(" + ", outputs);
-    }
-
-    private enum BarrelRecipeType {
-        SIMPLE,
-        ALCOHOL,
-        LIQUID_TO_LIQUID,
-        MULTI_ITEM,
-        ITEM_DEMANDING,
-    }
 }

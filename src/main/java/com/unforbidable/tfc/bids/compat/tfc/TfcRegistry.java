@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.compat.tfc;
 import com.unforbidable.tfc.bids.compat.tfc.registry.RegistryActor;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.AnvilPlan;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.AnvilRecipe;
+import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KilnRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.values.HeatValue;
@@ -20,6 +21,7 @@ public class TfcRegistry {
         public static final ListRegistry<RegistryActor<KilnRecipe>> kiln = new ListRegistry<>();
         public static final ListRegistry<RegistryActor<AnvilPlan>> anvilPlans = new ListRegistry<>();
         public static final ListRegistry<RegistryActor<AnvilRecipe>> anvil = new ListRegistry<>();
+        public static final ListRegistry<RegistryActor<BarrelRecipe>> barrel = new ListRegistry<>();
 
     }
 

@@ -12,6 +12,7 @@ public class TfcRegistryHelper {
         Bids.LOG.info("Register TFC recipes");
         register(TfcRegistry.Recipes.knapping);
         register(TfcRegistry.Recipes.kiln);
+        register(TfcRegistry.Recipes.barrel);
 
         Bids.LOG.info("Register TFC values");
         register(TfcRegistry.Values.heat);
