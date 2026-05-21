@@ -5,6 +5,8 @@ import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.features.crafting.drying.nei.DryingNeiHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @FeatureName("drying")
 public class Drying extends Feature {
@@ -14,6 +16,7 @@ public class Drying extends Feature {
         config.using(DryingConfig::load, "crafting");
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
         client.nei()
