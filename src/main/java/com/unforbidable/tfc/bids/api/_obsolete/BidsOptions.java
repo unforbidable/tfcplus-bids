@@ -14,15 +14,6 @@ public class BidsOptions {
 
     }
 
-    public static class Bark {
-
-        public static float dropPeelingChance = 0.25f;
-        public static float dropPeelingSeasonedChance = 0.75f;
-        public static float dropSplittingChance = 0f;
-        public static float dropSplittingSeasonedChance = 0.10f;
-
-    }
-
     public static class SaddleQuern {
 
         public static boolean allowGrindHematite = false;

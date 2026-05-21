@@ -18,6 +18,7 @@ import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileRegistry;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.renderable.RenderableLogsTFC;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
+import com.unforbidable.tfc.bids.features.material.bark.BarkConfig;
 import com.unforbidable.tfc.bids.features.material.logs.item.ItemLogsSeasoned;
 import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLog;
 import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLogSeasoned;
@@ -29,6 +30,7 @@ import static com.unforbidable.tfc.bids.api.names.ItemNames.PEELED_LOG;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.PEELED_LOG_SEASONED;
 import static com.unforbidable.tfc.bids.core.crafting.actions.CopySeasoning.copySeasoning;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
+import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
 import static com.unforbidable.tfc.bids.core.crafting.actions.KeepItem.keepItem;
 
 @FeatureName("logs")
@@ -106,7 +108,7 @@ public class Logs extends Feature {
                 setup.recipes().addShapeless(wood.items.getPeeledLog(),
                         wood.items.getLog(), "itemAdze")
                     .action(damageTool("itemAdze"))
-                    //.action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingChance))
+                    .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingChance))
                     .action(copySeasoning(TFCItems.logs));
 
 //                BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
@@ -115,8 +117,8 @@ public class Logs extends Feature {
                 if (wood.items.hasChoppedLog()) {
                     setup.recipes().addShapeless(wood.items.getPeeledLog(),
                             wood.items.getChoppedLog(), "itemAdze")
-                        .action(damageTool("itemAdze"));
-                    //.action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingChance));
+                        .action(damageTool("itemAdze"))
+                        .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingChance));
 
 //                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
 //                        wood.items.getPeeledLog(), wood.items.getChoppedLog()));
@@ -142,8 +144,8 @@ public class Logs extends Feature {
 
                 setup.recipes().addShapeless(wood.items.getSeasonedPeeledLog(),
                         wood.items.getSeasonedLog(), "itemAdze")
-                    .action(damageTool("itemAdze"));
-                //.action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingSeasonedChance));
+                    .action(damageTool("itemAdze"))
+                    .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
 
 //                BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
 //                    wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedLog()));
@@ -155,13 +157,16 @@ public class Logs extends Feature {
                 if (wood.items.hasSeasonedChoppedLog()) {
                     setup.recipes().addShapeless(wood.items.getSeasonedPeeledLog(),
                             wood.items.getSeasonedChoppedLog(), "itemAdze")
-                        .action(damageTool("itemAdze"));
-                    //.action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropPeelingSeasonedChance));
+                        .action(damageTool("itemAdze"))
+                        .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
 
 //                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
 //                        wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog()));
                 }
             }
+
+            // TODO: sawing planks drops sawdust (FEATURE)
+            // TODO: actually replace TFC recipes using ore (CLEANUP)
 
             // Copies of TFC recipes for items made logs
             if (wood.items.hasLumber()) {

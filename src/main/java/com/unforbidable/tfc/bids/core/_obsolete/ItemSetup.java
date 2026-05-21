@@ -26,7 +26,6 @@ import com.unforbidable.tfc.bids.common.render.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api._obsolete.BidsConstants.ExtraClothing;
 import com.unforbidable.tfc.bids.api.*;
-import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
 import com.unforbidable.tfc.bids.common.item.*;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.MudBrickRenderInfo;
@@ -71,7 +70,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -263,16 +261,16 @@ public class ItemSetup extends BidsItems {
 //            .setTextureName("Rough Tile")
 //            .setUnlocalizedName("Rough Stone Tile");
 
-        peeledLog = new ItemPeeledLog().setNames(Global.WOOD_ALL)
-            .setUnlocalizedName("Peeled Log");
-        peeledLogSeasoned = new ItemPeeledLogSeasoned().setNames(Global.WOOD_ALL)
-            .setUnlocalizedName("Peeled Log Seasoned");
-        logsSeasoned = new ItemLogsSeasoned()
-            .setUnlocalizedName("Log Seasoned");
-        firewood = new ItemFirewood().setNames(Global.WOOD_ALL)
-            .setUnlocalizedName("Firewood");
-        firewoodSeasoned = new ItemFirewoodSeasoned().setNames(Global.WOOD_ALL)
-            .setUnlocalizedName("Firewood Seasoned");
+//        peeledLog = new ItemPeeledLog().setNames(Global.WOOD_ALL)
+//            .setUnlocalizedName("Peeled Log");
+//        peeledLogSeasoned = new ItemPeeledLogSeasoned().setNames(Global.WOOD_ALL)
+//            .setUnlocalizedName("Peeled Log Seasoned");
+//        logsSeasoned = new ItemLogsSeasoned()
+//            .setUnlocalizedName("Log Seasoned");
+//        firewood = new ItemFirewood().setNames(Global.WOOD_ALL)
+//            .setUnlocalizedName("Firewood");
+//        firewoodSeasoned = new ItemFirewoodSeasoned().setNames(Global.WOOD_ALL)
+//            .setUnlocalizedName("Firewood Seasoned");
 
         board = new ItemBoard().setNames(Global.WOOD_ALL)
             .setUnlocalizedName("Board");
@@ -286,7 +284,7 @@ public class ItemSetup extends BidsItems {
         kindling = new ItemKindling().setFuelKindlingQuality(0.50f)
             .setUnlocalizedName("Kindling");
 
-        bark = new ItemBark().setNames(Global.WOOD_ALL)
+        bark = new ItemBark().setMetaNames(Global.WOOD_ALL)
             .setUnlocalizedName("Bark");
 
         barkFibre = new ItemTextile()

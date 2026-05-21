@@ -96,6 +96,11 @@ public class BidsBlocks {
     // Drying rack
     public static Block dryingRack = block(BlockNames.DRYING_RACK);
 
+    // Firewood
+    public static Block stackedFirewood = block(BlockNames.STACKED_FIREWOOD);
+    public static Block stackedFirewood2 = block(BlockNames.STACKED_FIREWOOD_2);;
+    public static Block stackedFirewood3 = block(BlockNames.STACKED_FIREWOOD_3);;
+
 
     public static int clayCrucibleRenderId;
     public static int fireClayCrucibleRenderId;
@@ -145,10 +150,6 @@ public class BidsBlocks {
     public static int dryingSurfaceRenderId;
 
 
-
-    public static Block stackedFirewood;
-    public static Block stackedFirewood2;
-    public static Block stackedFirewood3;
 
     public static Block choppingBlock;
     public static Block choppingBlock2;

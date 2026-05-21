@@ -107,11 +107,6 @@ public class Firepit extends Feature {
                 .add(TFCItems.coal, new FuelCoalTFC());
         }
 
-        if (FirepitConfig.allowFuelUnseasonedFirewood) {
-            setup.registry(FirepitRegistry.fuel)
-                .add(BidsItems.firewood, (FirepitFuelMaterial) BidsItems.firewood);
-        }
-
         if (FirepitConfig.replaceFirepitTFC) {
             setup.run(() -> {
                 TFCBlocks.firepit = BidsBlocks.newFirepit;

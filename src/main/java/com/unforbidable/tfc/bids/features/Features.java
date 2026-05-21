@@ -11,6 +11,8 @@ import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRack;
 import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
 import com.unforbidable.tfc.bids.features.device.woodpile.Woodpile;
+import com.unforbidable.tfc.bids.features.material.bark.Bark;
+import com.unforbidable.tfc.bids.features.material.firewood.Firewood;
 import com.unforbidable.tfc.bids.features.material.glass.Glass;
 import com.unforbidable.tfc.bids.features.material.logs.Logs;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
@@ -40,6 +42,8 @@ public class Features {
         new LogWall(),
         new Drying(),
         new DryingRack(),
+        new Bark(),
+        new Firewood(),
         new CompositeTools(),
     };
 

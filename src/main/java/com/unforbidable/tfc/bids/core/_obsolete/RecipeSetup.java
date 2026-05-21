@@ -14,9 +14,8 @@ import com.unforbidable.tfc.bids.api._obsolete.BidsCookingMixtures;
 import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api.features.drying.DryingRackFoodRecipe;
-import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
+import com.unforbidable.tfc.bids.features.material.bark.BarkConfig;
 import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
@@ -25,7 +24,7 @@ import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.api.*;
 import com.unforbidable.tfc.bids.api._obsolete.Crafting.*;
 import com.unforbidable.tfc.bids.compat.tfc._obsolete.RecipeHelper;
-import com.unforbidable.tfc.bids.compat.tfc._obsolete.TFC.BarrelRecipeBuilder;
+import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipeBuilder;
 import com.unforbidable.tfc.bids.compat.tfc._obsolete.TFC.BarrelRecipeManager;
 import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
@@ -437,59 +436,59 @@ public class RecipeSetup {
 //                }
             }
 
-            if (wood.items.hasFirewood()) {
-                recipes.addShapelessRecipe(wood.items.getFirewood(),
-                        wood.getOreWithSuffix("logWoodFresh"), "itemAxe")
-                    .action(damageTool("itemAxe"))
-                    .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropSplittingChance))
-                    .action(copySeasoning(TFCItems.logs))
-                    .action(copySeasoning(BidsItems.peeledLog));
-
-                BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                    wood.items.getFirewood(),
-                    wood.items.getLog()));
-
-                if (wood.items.hasChoppedLog()) {
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        wood.items.getFirewood(),
-                        wood.items.getChoppedLog()));
-                }
-
-                if (wood.items.hasPeeledLog()) {
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        wood.items.getFirewood(),
-                        wood.items.getPeeledLog()));
-                }
-            }
-
-            if (wood.items.hasSeasonedFirewood()) {
-                recipes.addShapelessRecipe(wood.items.getSeasonedFirewood(),
-                        wood.getOreWithSuffix("logWoodSeasoned"), "itemAxe")
-                    .action(damageTool("itemAze"))
-                    .action(extraDrop(wood.items.getBark(), BidsOptions.Bark.dropSplittingSeasonedChance));
-
-                if (wood.items.hasSeasonedLog()) {
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        wood.items.getSeasonedFirewood(),
-                        wood.items.getSeasonedLog()));
-                }
-
-                if (wood.items.hasSeasonedChoppedLog()) {
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        wood.items.getSeasonedFirewood(),
-                        wood.items.getSeasonedChoppedLog()));
-                }
-
-                if (wood.items.hasSeasonedPeeledLog()) {
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        wood.items.getSeasonedFirewood(),
-                        wood.items.getSeasonedPeeledLog()));
-                }
-
-//                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedFirewood(),
+//            if (wood.items.hasFirewood()) {
+//                recipes.addShapelessRecipe(wood.items.getFirewood(),
+//                        wood.getOreWithSuffix("logWoodFresh"), "itemAxe")
+//                    .action(damageTool("itemAxe"))
+//                    .action(extraDrop(wood.items.getBark(), BarkConfig.dropSplittingChance))
+//                    .action(copySeasoning(TFCItems.logs))
+//                    .action(copySeasoning(BidsItems.peeledLog));
+//
+//                BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
 //                    wood.items.getFirewood(),
-//                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.FIREWOOD)));
-            }
+//                    wood.items.getLog()));
+//
+//                if (wood.items.hasChoppedLog()) {
+//                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+//                        wood.items.getFirewood(),
+//                        wood.items.getChoppedLog()));
+//                }
+//
+//                if (wood.items.hasPeeledLog()) {
+//                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+//                        wood.items.getFirewood(),
+//                        wood.items.getPeeledLog()));
+//                }
+//            }
+//
+//            if (wood.items.hasSeasonedFirewood()) {
+//                recipes.addShapelessRecipe(wood.items.getSeasonedFirewood(),
+//                        wood.getOreWithSuffix("logWoodSeasoned"), "itemAxe")
+//                    .action(damageTool("itemAze"))
+//                    .action(extraDrop(wood.items.getBark(), BarkConfig.dropSplittingSeasonedChance));
+//
+//                if (wood.items.hasSeasonedLog()) {
+//                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+//                        wood.items.getSeasonedFirewood(),
+//                        wood.items.getSeasonedLog()));
+//                }
+//
+//                if (wood.items.hasSeasonedChoppedLog()) {
+//                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+//                        wood.items.getSeasonedFirewood(),
+//                        wood.items.getSeasonedChoppedLog()));
+//                }
+//
+//                if (wood.items.hasSeasonedPeeledLog()) {
+//                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+//                        wood.items.getSeasonedFirewood(),
+//                        wood.items.getSeasonedPeeledLog()));
+//                }
+//
+////                BidsRegistry.SEASONING_RECIPES.register(new SeasoningRecipe(wood.items.getSeasonedFirewood(),
+////                    wood.items.getFirewood(),
+////                    SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.FIREWOOD)));
+//            }
 
             if (wood.blocks.hasLogWall()) {
                 if (wood.items.hasSeasonedPeeledLog()) {
@@ -2065,17 +2064,17 @@ public class RecipeSetup {
     private static void registerBarrelRecipes() {
         Bids.LOG.info("Register TFC barrel recipes");
 
-        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            // Extracting tannin from bark
-            if (wood.hasBarkTannin) {
-                BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asItemDemanding()
-                    .consumes(wood.items.getBark(), new FluidStack(TFCFluids.FRESHWATER, 625))
-                    .produces(new FluidStack(TFCFluids.TANNIN, 500))
-                    .withMinTechLevel(0)
-                );
-            }
-        }
-
+//        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
+//            // Extracting tannin from bark
+//            if (wood.hasBarkTannin) {
+//                BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asItemDemanding()
+//                    .consumes(wood.items.getBark(), new FluidStack(TFCFluids.FRESHWATER, 625))
+//                    .produces(new FluidStack(TFCFluids.TANNIN, 500))
+//                    .withMinTechLevel(0)
+//                );
+//            }
+//        }
+//
         BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asAlcohol()
             .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.riceGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000))
             .produces(new FluidStack(TFCFluids.RICEBEER, 5000))

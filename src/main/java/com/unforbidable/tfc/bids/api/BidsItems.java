@@ -91,12 +91,11 @@ public class BidsItems {
     public static Item peeledLogSeasoned = item(ItemNames.PEELED_LOG_SEASONED);
 
     // Bark
-    public static Item bark;
+    public static Item bark = item(ItemNames.BARK);
 
     // Firewood
-    public static Item firewood;
-    public static Item firewoodSeasoned;
-
+    public static Item firewood = item(ItemNames.FIREWOOD);
+    public static Item firewoodSeasoned = item(ItemNames.FIREWOOD_SEASONED);
 
 
     public static Item igInHandAxe;
