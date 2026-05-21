@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.features.material.ore.Ore;
 import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
 import com.unforbidable.tfc.bids.features.resource.quarry.Quarry;
 import com.unforbidable.tfc.bids.features.utility.adze.Adze;
+import com.unforbidable.tfc.bids.features.utility.compositetools.CompositeTools;
 import com.unforbidable.tfc.bids.features.utility.drill.Drill;
 
 public class Features {
@@ -35,6 +36,7 @@ public class Features {
         new RoughStone(),
         new Logs(),
         new LogWall(),
+        new CompositeTools(),
     };
 
 }

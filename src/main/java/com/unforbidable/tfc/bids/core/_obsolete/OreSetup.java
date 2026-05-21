@@ -132,25 +132,25 @@ public class OreSetup {
 //        OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.blueSteelHammer, 1, WILD));
 //        OreDictionary.registerOre("itemHammerIronBits", new ItemStack(TFCItems.redSteelHammer, 1, WILD));
 
-        for (Item item : new Item[] { TFCItems.cottonYarn, TFCItems.woolYarn, TFCItems.silkString }) {
-            OreDictionary.registerOre("materialBinding", item);
-        }
-
-        if (BidsOptions.Crafting.enableGrassCordageAsToolBinding) {
-            OreDictionary.registerOre("materialBinding", TFCItems.grassCordage);
-        }
-
-        for (Item item : new Item[] { TFCItems.sinew }) {
-            OreDictionary.registerOre("materialBinding", item);
-            OreDictionary.registerOre("materialBindingDecent", item);
-        }
-
-        for (Item item : new Item[] { TFCItems.linenString, BidsItems.barkCordage, BidsItems.sisalTwine, BidsItems.juteTwine }) {
-            OreDictionary.registerOre("materialBinding", item);
-            OreDictionary.registerOre("materialBindingDecent", item);
-            OreDictionary.registerOre("materialBindingStrong", item);
-            OreDictionary.registerOre("materialBowstring", item);
-        }
+//        for (Item item : new Item[] { TFCItems.cottonYarn, TFCItems.woolYarn, TFCItems.silkString }) {
+//            OreDictionary.registerOre("materialBinding", item);
+//        }
+//
+//        if (BidsOptions.Crafting.enableGrassCordageAsToolBinding) {
+//            OreDictionary.registerOre("materialBinding", TFCItems.grassCordage);
+//        }
+//
+//        for (Item item : new Item[] { TFCItems.sinew }) {
+//            OreDictionary.registerOre("materialBinding", item);
+//            OreDictionary.registerOre("materialBindingDecent", item);
+//        }
+//
+//        for (Item item : new Item[] { TFCItems.linenString, BidsItems.barkCordage, BidsItems.sisalTwine, BidsItems.juteTwine }) {
+//            OreDictionary.registerOre("materialBinding", item);
+//            OreDictionary.registerOre("materialBindingDecent", item);
+//            OreDictionary.registerOre("materialBindingStrong", item);
+//            OreDictionary.registerOre("materialBowstring", item);
+//        }
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             if (wood.blocks.hasChoppingBlock()) {

@@ -19,15 +19,15 @@ import static com.unforbidable.tfc.bids.core.crafting.actions.ToolBinding.toolBi
 
 public class RecipeHelper {
 
-    public static void handleCompositeToolRecipes() {
-        try (RecipeManagerSession recipes = RecipeManager.getSession()) {
-            recipes.currentRecipeStream()
-                .filter(r -> r.output.isAny(getStoneToolOreNames()))
-                .forEach(r -> r.clone(BidsOptions.Crafting.removeOriginalStoneToolRecipes)
-                    .addInput("materialBinding")
-                    .action(toolBinding()));
-        }
-    }
+//    public static void handleCompositeToolRecipes() {
+//        try (RecipeManagerSession recipes = RecipeManager.getSession()) {
+//            recipes.currentRecipeStream()
+//                .filter(r -> r.output.isAny(getStoneToolOreNames()))
+//                .forEach(r -> r.clone(BidsOptions.Crafting.removeOriginalStoneToolRecipes)
+//                    .addInput("materialBinding")
+//                    .action(toolBinding()));
+//        }
+//    }
 
     public static List<Integer> getStoneToolOreIds() {
         List<Integer> oreIds = new ArrayList<Integer>();

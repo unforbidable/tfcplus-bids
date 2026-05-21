@@ -26,9 +26,9 @@ public class TooltipHandler {
 
     @SubscribeEvent
     public void onItemTooltip(ItemTooltipEvent event) {
-        if (AnvilManager.getDurabilityBuff(event.itemStack) > 0 && isStoneTool(event.itemStack)) {
-            replaceSmithingBonusToolip(event.toolTip);
-        }
+//        if (AnvilManager.getDurabilityBuff(event.itemStack) > 0 && isStoneTool(event.itemStack)) {
+//            replaceSmithingBonusToolip(event.toolTip);
+//        }
 
         handleTextileTooltipHints(event.toolTip, event.itemStack);
 
@@ -132,29 +132,29 @@ public class TooltipHandler {
         return false;
     }
 
-    private boolean isStoneTool(ItemStack tool) {
-        for (String ore : RecipeHelper.getStoneToolOreNames()) {
-            int stoneToolOreId = OreDictionary.getOreID(ore);
-            for (int id : OreDictionary.getOreIDs(tool)) {
-                if (id == stoneToolOreId) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private void replaceSmithingBonusToolip(List<String> toolTip) {
-        String smithingBonus = TFC_Core.translate("gui.SmithingBonus");
-        String bindingBonus = TFC_Core.translate("gui.BindingBonus");
-
-        for (int i = 0; i < toolTip.size(); i++) {
-            if (toolTip.get(i).startsWith(smithingBonus)) {
-                toolTip.set(i, toolTip.get(i).replace(smithingBonus, bindingBonus));
-                break;
-            }
-        }
-    }
+//    private boolean isStoneTool(ItemStack tool) {
+//        for (String ore : RecipeHelper.getStoneToolOreNames()) {
+//            int stoneToolOreId = OreDictionary.getOreID(ore);
+//            for (int id : OreDictionary.getOreIDs(tool)) {
+//                if (id == stoneToolOreId) {
+//                    return true;
+//                }
+//            }
+//        }
+//
+//        return false;
+//    }
+//
+//    private void replaceSmithingBonusToolip(List<String> toolTip) {
+//        String smithingBonus = TFC_Core.translate("gui.SmithingBonus");
+//        String bindingBonus = TFC_Core.translate("gui.BindingBonus");
+//
+//        for (int i = 0; i < toolTip.size(); i++) {
+//            if (toolTip.get(i).startsWith(smithingBonus)) {
+//                toolTip.set(i, toolTip.get(i).replace(smithingBonus, bindingBonus));
+//                break;
+//            }
+//        }
+//    }
 
 }
