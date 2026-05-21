@@ -26,7 +26,7 @@ import com.unforbidable.tfc.bids.common.render.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api._obsolete.BidsConstants.ExtraClothing;
 import com.unforbidable.tfc.bids.api.*;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRackTyingEquipment;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
 import com.unforbidable.tfc.bids.common.item.*;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.MudBrickRenderInfo;
@@ -1189,13 +1189,13 @@ public class ItemSetup extends BidsItems {
         Bids.LOG.info("Register drying rack tying equipment");
 
         // And now tying equipment
-        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1));
-        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.woolYarn, false, Blocks.wool, 0));
-        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.linenString, false, Blocks.wool, 0));
-        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0));
-        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0));
-        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(BidsItems.sisalTwine, false, Blocks.wool, 1));
-        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(BidsItems.juteTwine, false, Blocks.wool, 1));
+//        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1));
+//        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.woolYarn, false, Blocks.wool, 0));
+//        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.linenString, false, Blocks.wool, 0));
+//        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0));
+//        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0));
+//        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(BidsItems.sisalTwine, false, Blocks.wool, 1));
+//        BidsRegistry.DRYING_RACK_TYING_EQUIPMENT.register(new DryingRackTyingEquipment(BidsItems.juteTwine, false, Blocks.wool, 1));
     }
 
     private static void registerCookingIngredientOverrides() {

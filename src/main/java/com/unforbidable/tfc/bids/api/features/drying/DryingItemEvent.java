@@ -1,7 +1,6 @@
-package com.unforbidable.tfc.bids.api._obsolete.Events;
+package com.unforbidable.tfc.bids.api.features.drying;
 
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRecipe;
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.entity.player.EntityPlayer;

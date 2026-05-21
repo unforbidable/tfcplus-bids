@@ -5,8 +5,10 @@ import com.unforbidable.tfc.bids.features.building.carving.Carving;
 import com.unforbidable.tfc.bids.features.building.logwall.LogWall;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
+import com.unforbidable.tfc.bids.features.crafting.drying.Drying;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
+import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRack;
 import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
 import com.unforbidable.tfc.bids.features.device.woodpile.Woodpile;
 import com.unforbidable.tfc.bids.features.material.glass.Glass;
@@ -36,6 +38,8 @@ public class Features {
         new RoughStone(),
         new Logs(),
         new LogWall(),
+        new Drying(),
+        new DryingRack(),
         new CompositeTools(),
     };
 

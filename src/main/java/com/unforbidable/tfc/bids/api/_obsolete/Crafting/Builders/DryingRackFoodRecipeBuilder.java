@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.api._obsolete.Crafting.Builders;
 
 import com.dunk.tfc.api.Food;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRackFoodRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackFoodRecipe;
 import net.minecraft.item.ItemStack;
 
 public class DryingRackFoodRecipeBuilder extends DryingRackRecipeBuilder {

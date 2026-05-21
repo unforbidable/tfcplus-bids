@@ -12,7 +12,7 @@ import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdat
 import com.unforbidable.tfc.bids.util.Timer;
 import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingSurfaceRecipe;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;

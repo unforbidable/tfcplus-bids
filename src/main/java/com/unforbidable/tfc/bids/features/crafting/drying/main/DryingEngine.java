@@ -3,14 +3,14 @@ package com.unforbidable.tfc.bids.features.crafting.drying.main;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemClothing;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.ItemEnvironment;
-import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.StaticEnvironment;
-import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.DynamicEnvironment;
 import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingFoodRecipe;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
+import com.unforbidable.tfc.bids.features.crafting.drying.DryingConfig;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.DynamicEnvironment;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.ItemEnvironment;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.StaticEnvironment;
 import net.minecraft.tileentity.TileEntity;
 
 public class DryingEngine {
@@ -148,7 +148,7 @@ public class DryingEngine {
                 }
 
                 // progress gain depends on how close the environment match is
-                long ticksRequiredTotal = (long) (recipe.getDuration() * TFC_Time.HOUR_LENGTH * BidsOptions.Crafting.dryingDurationMultiplier);
+                long ticksRequiredTotal = (long) (recipe.getDuration() * TFC_Time.HOUR_LENGTH * DryingConfig.dryingDurationMultiplier);
                 float progressForIdealMatch = ticksElapsed / (float) ticksRequiredTotal;
                 float progressToAdd = progressForIdealMatch * match;
 
@@ -198,7 +198,7 @@ public class DryingEngine {
             if (recipe instanceof IDryingFoodRecipe && ((IDryingFoodRecipe) recipe).isAllowSmoke() && dryingItem.smoke < 1) {
                 if (env.isSmoked()) {
                     // smoke gain is constant and does not depend on recipe match
-                    long ticksRequiredTotal = (long) (((IDryingFoodRecipe) recipe).getSmokeDuration() * TFC_Time.HOUR_LENGTH * BidsOptions.Crafting.smokingDurationMultiplier);
+                    long ticksRequiredTotal = (long) (((IDryingFoodRecipe) recipe).getSmokeDuration() * TFC_Time.HOUR_LENGTH * DryingConfig.smokingDurationMultiplier);
                     float smokeToAdd = ticksElapsed / (float) ticksRequiredTotal;
 
                     float prevSmoke = dryingItem.smoke;

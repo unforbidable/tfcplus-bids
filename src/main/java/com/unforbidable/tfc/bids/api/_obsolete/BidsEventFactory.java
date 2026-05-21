@@ -1,9 +1,17 @@
 package com.unforbidable.tfc.bids.api._obsolete;
 
+import com.unforbidable.tfc.bids.api._obsolete.Events.AnimalMilkEvent;
+import com.unforbidable.tfc.bids.api._obsolete.Events.FillContainerEvent;
+import com.unforbidable.tfc.bids.api._obsolete.Events.HandworkPlayerEvent;
+import com.unforbidable.tfc.bids.api._obsolete.Events.KilnEvent;
+import com.unforbidable.tfc.bids.api._obsolete.Events.ProcessingSurfaceEvent;
+import com.unforbidable.tfc.bids.api._obsolete.Events.SurfaceItemEvent;
+import com.unforbidable.tfc.bids.api._obsolete.Events.WaterskinChurnEvent;
+import com.unforbidable.tfc.bids.api._obsolete.Events.WoodworkingPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.drying.DryingItemEvent;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Events.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

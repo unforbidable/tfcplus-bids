@@ -2,12 +2,14 @@ package com.unforbidable.tfc.bids.features.device.dryingrack.main;
 
 import com.dunk.tfc.Items.ItemClothing;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
-import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
-import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRackTyingEquipment;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
+import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
+import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
+import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
+import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
+import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -17,8 +19,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.List;
 
 public class DryingRackHelper {
 
@@ -177,7 +177,7 @@ public class DryingRackHelper {
     }
 
     public static boolean isItemValidDryingRackItem(ItemStack itemStack) {
-        return BidsRegistry.DRYING_RACK_RECIPES.findMatchingRecipe(itemStack) != null || itemStack.getItem() instanceof ItemClothing;
+        return DryingRackRegistry.recipes.findMatchingRecipe(itemStack) != null || itemStack.getItem() instanceof ItemClothing;
     }
 
     public static int getDryingRackSectionFromHit(TileEntityDryingRack dryingRack, float hitX, float hitY, float hitZ) {
@@ -197,7 +197,7 @@ public class DryingRackHelper {
     }
 
     public static DryingRackTyingEquipment findTyingEquipment(ItemStack item) {
-        for (DryingRackTyingEquipment te : BidsRegistry.DRYING_RACK_TYING_EQUIPMENT) {
+        for (DryingRackTyingEquipment te : DryingRackRegistry.tyingEquipment) {
             if (te.item == item.getItem()) {
                 return te;
             }

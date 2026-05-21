@@ -1,13 +1,16 @@
 package com.unforbidable.tfc.bids.features.device.dryingrack.block;
 
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
-import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackBounds;
-import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
+import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackBounds;
+import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackHelper;
+import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -22,8 +25,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.Random;
 
 public class BlockDryingRack extends BlockContainer {
 
@@ -108,7 +109,7 @@ public class BlockDryingRack extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.dryingRackRenderId;
+        return BlockRenderIdProvider.get(BlockNames.DRYING_RACK);
     }
 
     @Override

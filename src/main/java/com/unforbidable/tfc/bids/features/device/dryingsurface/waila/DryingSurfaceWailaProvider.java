@@ -5,7 +5,7 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemClothing;
 import com.dunk.tfc.api.TFCOptions;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingEnvironment;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
 import com.unforbidable.tfc.bids.compat.waila.providers.WailaDataProvider;

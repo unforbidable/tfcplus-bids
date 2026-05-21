@@ -8,14 +8,15 @@ import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEngine;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHelper;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.IDryingHost;
+import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackItem;
 import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.util.Timer;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRackRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRackTyingEquipment;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -194,7 +195,7 @@ public class TileEntityDryingRack extends TileEntity
     }
 
     private DryingRackRecipe getRecipeForInputItem(ItemStack inputItem) {
-        return BidsRegistry.DRYING_RACK_RECIPES.findMatchingRecipe(inputItem);
+        return DryingRackRegistry.recipes.findMatchingRecipe(inputItem);
     }
 
     public boolean placeItem(int section, EntityPlayer player, ItemStack itemStack) {
@@ -295,7 +296,7 @@ public class TileEntityDryingRack extends TileEntity
         // Reusable tying equipment takes priority
         // Search is done in order of registration
 
-        for (DryingRackTyingEquipment tyingEquipment : BidsRegistry.DRYING_RACK_TYING_EQUIPMENT) {
+        for (DryingRackTyingEquipment tyingEquipment : DryingRackRegistry.tyingEquipment) {
             if (tyingEquipment.isReusable) {
                 ItemStack result = findAndConsumeOneTyingEquipment(player, tyingEquipment.item);
                 if (result != null) {
@@ -304,7 +305,7 @@ public class TileEntityDryingRack extends TileEntity
             }
         }
 
-        for (DryingRackTyingEquipment tyingEquipment : BidsRegistry.DRYING_RACK_TYING_EQUIPMENT) {
+        for (DryingRackTyingEquipment tyingEquipment : DryingRackRegistry.tyingEquipment) {
             if (!tyingEquipment.isReusable) {
                 ItemStack result = findAndConsumeOneTyingEquipment(player, tyingEquipment.item);
                 if (result != null) {

@@ -7,7 +7,7 @@ import com.dunk.tfc.api.Enums.EnumFuelMaterial;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCOptions;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingEnvironment;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingFoodRecipe;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;

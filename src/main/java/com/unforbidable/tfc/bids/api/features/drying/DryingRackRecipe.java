@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Crafting;
+package com.unforbidable.tfc.bids.api.features.drying;
 
 import com.unforbidable.tfc.bids.api._obsolete.Crafting.Builders.DryingRackRecipeBuilder;
 import net.minecraft.item.ItemStack;

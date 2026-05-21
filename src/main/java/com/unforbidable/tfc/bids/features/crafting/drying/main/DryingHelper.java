@@ -6,7 +6,7 @@ import com.dunk.tfc.Items.ItemClothing;
 import com.dunk.tfc.api.Enums.EnumFuelMaterial;
 import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingFoodRecipe;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
 import net.minecraft.item.ItemStack;

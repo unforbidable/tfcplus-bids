@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.features.crafting.drying.main;
 
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 
 public interface IDryingHost {
 

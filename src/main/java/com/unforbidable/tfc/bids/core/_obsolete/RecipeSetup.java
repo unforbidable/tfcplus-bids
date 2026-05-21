@@ -14,7 +14,8 @@ import com.unforbidable.tfc.bids.api._obsolete.BidsCookingMixtures;
 import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackFoodRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
@@ -26,12 +27,9 @@ import com.unforbidable.tfc.bids.api._obsolete.Crafting.*;
 import com.unforbidable.tfc.bids.compat.tfc._obsolete.RecipeHelper;
 import com.unforbidable.tfc.bids.compat.tfc._obsolete.TFC.BarrelRecipeBuilder;
 import com.unforbidable.tfc.bids.compat.tfc._obsolete.TFC.BarrelRecipeManager;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
-import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneBlockType;
 import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
-import com.unforbidable.tfc.bids.core.schemes.wood.EnumWoodItemType;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.features.player.achievements.eventhandler.CraftingHandler;
@@ -50,7 +48,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import static com.unforbidable.tfc.bids.core.crafting.actions.CopySeasoning.copySeasoning;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
-import static com.unforbidable.tfc.bids.core.crafting.actions.KeepItem.keepItem;
 
 public class RecipeSetup {
 
@@ -928,59 +925,59 @@ public class RecipeSetup {
 
     private static void registerDryingRecipes() {
         Bids.LOG.info("Register drying recipes");
-
-        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
-            .consumes(new ItemStack(BidsItems.barkFibre))
-            .produces(new ItemStack(BidsItems.barkFibreCoarse))
-            .dry()
-            .hours(12)
-            .build());
-        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
-            .consumes(new ItemStack(BidsItems.sisalFiberRinsed))
-            .produces(new ItemStack(BidsItems.sisalFiberCoarse))
-            .dry()
-            .hours(8)
-            .build());
-        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
-            .consumes(new ItemStack(TFCItems.juteFiber))
-            .produces(new ItemStack(BidsItems.juteFiberCoarse))
-            .dry()
-            .hours(12)
-            .build());
-        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
-            .consumes(new ItemStack(BidsItems.flaxStalkRetted))
-            .produces(new ItemStack(BidsItems.flaxStalkDried))
-            .dry()
-            .hours(16)
-            .build());
-        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
-            .consumes(new ItemStack(BidsItems.woolRinsed))
-            .produces(new ItemStack(BidsItems.woolDried))
-            .dry()
-            .hours(2)
-            .build());
-
-        // Meat and cheese drying from TFC
-        final Item[] foodToDry = new Item[]{TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
-            TFCItems.porkchopRaw, TFCItems.fishRaw, TFCItems.seastarRaw, TFCItems.scallopRaw,
-            TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese,
-            BidsItems.goatCheese};
-        for (Item food : foodToDry) {
-            BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
-                .smoke(12)
-                .tied()
-                .consumes(ItemFoodTFC.createTag(new ItemStack(food), 1))
-                .dry()
-                .hours(16)
-                .build());
-        }
-
-        // Extra food drying
-        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
-            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.seaWeed), 1))
-            .dry()
-            .hours(16)
-            .build());
+//
+//        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
+//            .consumes(new ItemStack(BidsItems.barkFibre))
+//            .produces(new ItemStack(BidsItems.barkFibreCoarse))
+//            .dry()
+//            .hours(12)
+//            .build());
+//        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
+//            .consumes(new ItemStack(BidsItems.sisalFiberRinsed))
+//            .produces(new ItemStack(BidsItems.sisalFiberCoarse))
+//            .dry()
+//            .hours(8)
+//            .build());
+//        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
+//            .consumes(new ItemStack(TFCItems.juteFiber))
+//            .produces(new ItemStack(BidsItems.juteFiberCoarse))
+//            .dry()
+//            .hours(12)
+//            .build());
+//        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
+//            .consumes(new ItemStack(BidsItems.flaxStalkRetted))
+//            .produces(new ItemStack(BidsItems.flaxStalkDried))
+//            .dry()
+//            .hours(16)
+//            .build());
+//        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackRecipe) DryingRackRecipe.builder()
+//            .consumes(new ItemStack(BidsItems.woolRinsed))
+//            .produces(new ItemStack(BidsItems.woolDried))
+//            .dry()
+//            .hours(2)
+//            .build());
+//
+//        // Meat and cheese drying from TFC
+//        final Item[] foodToDry = new Item[]{TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
+//            TFCItems.porkchopRaw, TFCItems.fishRaw, TFCItems.seastarRaw, TFCItems.scallopRaw,
+//            TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese,
+//            BidsItems.goatCheese};
+//        for (Item food : foodToDry) {
+//            BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
+//                .smoke(12)
+//                .tied()
+//                .consumes(ItemFoodTFC.createTag(new ItemStack(food), 1))
+//                .dry()
+//                .hours(16)
+//                .build());
+//        }
+//
+//        // Extra food drying
+//        BidsRegistry.DRYING_RACK_RECIPES.register((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
+//            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.seaWeed), 1))
+//            .dry()
+//            .hours(16)
+//            .build());
 
         BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
             .consumes(new ItemStack(BidsItems.barkFibre))

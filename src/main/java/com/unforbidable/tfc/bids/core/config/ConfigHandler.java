@@ -1,13 +1,11 @@
 package com.unforbidable.tfc.bids.core.config;
 
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.core.features.config.FeatureConfigLoader;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.features.device.firepit.FirepitConfig;
+import com.unforbidable.tfc.bids.core.features.config.FeatureConfigLoader;
 import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
-import net.minecraftforge.common.config.Configuration;
-
 import java.io.File;
+import net.minecraftforge.common.config.Configuration;
 
 public class ConfigHandler {
 
@@ -152,16 +150,6 @@ public class ConfigHandler {
             BidsOptions.Crafting.enableProcessingSurfaceLeatherRackOverride,
             "Set this to true if you want to scrap leathers using the Processing Surface, instead of the TFC Leather Rack.");
 
-        BidsOptions.Crafting.removeOriginalStoneToolRecipes = config.getBoolean(
-            "removeOriginalStoneToolRecipes", "crafting",
-            BidsOptions.Crafting.removeOriginalStoneToolRecipes,
-            "Set this to true if you want to remove recipes for crafting stone tools and weapons without binding.");
-
-        BidsOptions.Crafting.enableGrassCordageAsToolBinding = config.getBoolean(
-            "enableGrassCordageAsToolBinding", "crafting",
-            BidsOptions.Crafting.enableGrassCordageAsToolBinding,
-            "Set this to true if you want to be able to use grass cordage as composite tool binding.");
-
         BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes = config.getBoolean(
             "removeOriginalSpindleSpinningRecipes", "crafting",
             BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes,
@@ -209,14 +197,6 @@ public class ConfigHandler {
             BidsOptions.Crafting.enableCottonBollAutoConversion,
             "Set this to true if you want to automatically convert harvested cotton boll when picked up.");
 
-        BidsOptions.Crafting.dryingDurationMultiplier = config.getFloat(
-            "dryingDurationMultiplier", "crafting",
-            BidsOptions.Crafting.dryingDurationMultiplier, 0.5f, 10f,
-            "Higher values increase the time it takes to dry stuff, but also ret plants and similar, on Drying Rack or Drying Surface");
-        BidsOptions.Crafting.smokingDurationMultiplier = config.getFloat(
-            "smokingDurationMultiplier", "crafting",
-            BidsOptions.Crafting.smokingDurationMultiplier, 0.5f, 10f,
-            "Higher values increase the time it takes to smoke stuff, typically food, on Drying Rack");
         BidsOptions.Crafting.soakingDurationMultiplier = config.getFloat(
             "soakingDurationMultiplier", "crafting",
             BidsOptions.Crafting.soakingDurationMultiplier, 0.5f, 10f,

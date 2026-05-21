@@ -93,6 +93,8 @@ public class BidsBlocks {
     public static Block logWallVert3 = block(BlockNames.LOG_WALL_VERT_3);
     public static Block logWallVertAlt3 = block(BlockNames.LOG_WALL_VERT_ALT_3);
 
+    // Drying rack
+    public static Block dryingRack = block(BlockNames.DRYING_RACK);
 
 
     public static int clayCrucibleRenderId;
@@ -147,8 +149,6 @@ public class BidsBlocks {
     public static Block stackedFirewood;
     public static Block stackedFirewood2;
     public static Block stackedFirewood3;
-
-    public static Block dryingRack;
 
     public static Block choppingBlock;
     public static Block choppingBlock2;

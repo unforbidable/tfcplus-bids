@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Crafting;
+package com.unforbidable.tfc.bids.api.features.drying;
 
 import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.api._obsolete.Crafting.Builders.DryingRackFoodRecipeBuilder;

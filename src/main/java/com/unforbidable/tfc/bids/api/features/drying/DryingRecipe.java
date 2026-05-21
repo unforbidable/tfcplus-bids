@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Crafting;
+package com.unforbidable.tfc.bids.api.features.drying;
 
 import com.unforbidable.tfc.bids.api.util.SimpleRecipeMatcher;
 import net.minecraft.item.ItemStack;

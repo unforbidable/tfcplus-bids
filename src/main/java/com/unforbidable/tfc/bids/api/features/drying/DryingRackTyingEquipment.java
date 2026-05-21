@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Crafting;
+package com.unforbidable.tfc.bids.api.features.drying;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

@@ -25,7 +25,7 @@ public class BidsRegistry {
     public static final FluidRegistry<ILampFuelMaterial> LAMP_FUEL = new FluidRegistry<>();
     public static final ItemRegistry<Item> COOKING_INGREDIENT_OVERRIDE = new ItemRegistry<>();
     public static final ListRegistry<CookingMixture> COOKING_MIXTURES = new ListRegistry<>("cooking-mixtures");
-    public static final ListRegistry<DryingRackTyingEquipment> DRYING_RACK_TYING_EQUIPMENT = new ListRegistry<>("drying-rack-tying-equipment");
+//    public static final ListRegistry<DryingRackTyingEquipment> DRYING_RACK_TYING_EQUIPMENT = new ListRegistry<>("drying-rack-tying-equipment");
 
 //    public static final RecipeRegistry<CarvingRecipe> CARVING_RECIPES = new RecipeRegistry<>("carving");
     public static final SimpleRecipeRegistry<ChurningRecipe, FluidStack> CHURNING_RECIPES = new SimpleRecipeRegistry<>("churning");
@@ -36,7 +36,7 @@ public class BidsRegistry {
     public static final SimpleRecipeRegistry<SpinningRecipe, ItemStack> SPINNING_RECIPES = new SimpleRecipeRegistry<>("spinning");
     public static final RecipeRegistry<ChoppingBlockRecipe> CHOPPING_BLOCK_RECIPES = new RecipeRegistry<>("chopping");
     public static final RecipeRegistry<CookingRecipe> COOKING_RECIPES = new RecipeRegistry<>("cooking");
-    public static final SimpleRecipeRegistry<DryingRackRecipe, ItemStack> DRYING_RACK_RECIPES = new SimpleRecipeRegistry<>("drying-rack");
+//    public static final SimpleRecipeRegistry<DryingRackRecipe, ItemStack> DRYING_RACK_RECIPES = new SimpleRecipeRegistry<>("drying-rack");
     public static final SimpleRecipeRegistry<DryingSurfaceRecipe, ItemStack> DRYING_SURFACE_RECIPES = new SimpleRecipeRegistry<>("drying-surface");
     public static final SimpleRecipeRegistry<PrepRecipe, ItemStack[]> PREP_RECIPES = new SimpleRecipeRegistry<>("prep");
     public static final RecipeRegistry<ProcessingSurfaceRecipe> PROCESSING_SURFACE_RECIPES = new RecipeRegistry<>("processing-surface");

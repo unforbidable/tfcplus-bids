@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.api._obsolete.Crafting.Builders;
 
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRackRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 
 public class DryingRackRecipeBuilder extends DryingRecipeBuilder {
 

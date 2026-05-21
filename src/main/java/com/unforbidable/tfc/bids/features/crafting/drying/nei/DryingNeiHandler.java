@@ -7,25 +7,25 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
-import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRackRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingRecipe;
 import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
+import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
+import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.features.crafting.drying.DryingConfig;
+import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
@@ -57,7 +57,7 @@ public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerI
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == DryingNeiHandler.class) {
-            for (DryingRackRecipe recipe : BidsRegistry.DRYING_RACK_RECIPES) {
+            for (DryingRackRecipe recipe : DryingRackRegistry.recipes) {
                 final ItemStack input = recipe.getInputItem();
                 final ItemStack result = recipe.getResult(input);
                 arecipes.add(new CachedDryingRecipe(input, result, recipe.getDuration(), BidsBlocks.dryingRack.getLocalizedName(), getRecipeInfo(recipe)));
@@ -75,7 +75,7 @@ public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerI
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (DryingRackRecipe recipe : BidsRegistry.DRYING_RACK_RECIPES) {
+        for (DryingRackRecipe recipe : DryingRackRegistry.recipes) {
             final ItemStack input = recipe.getInputItem();
             final ItemStack result = recipe.getResult(input);
             output.stackSize = result.stackSize;
@@ -96,7 +96,7 @@ public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerI
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (DryingRackRecipe recipe : BidsRegistry.DRYING_RACK_RECIPES) {
+        for (DryingRackRecipe recipe : DryingRackRegistry.recipes) {
             if (recipe.matches(ingredient)) {
                 final ItemStack input = ingredient.copy();
                 input.stackSize = recipe.getInputItem().stackSize;
@@ -184,7 +184,7 @@ public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerI
         public CachedDryingRecipe(ItemStack ingred, ItemStack result, int duration, String title, String info) {
             this.ingred = ingred.copy();
             this.result = result.copy();
-            this.duration = (int) (duration * BidsOptions.Crafting.dryingDurationMultiplier);
+            this.duration = (int) (duration * DryingConfig.dryingDurationMultiplier);
             this.title = title;
             this.info = info;
 
