@@ -290,50 +290,50 @@ public class BlockSetup extends BidsBlocks {
 //        roughStoneTileFenceIgEx = new BlockRoughStoneFence((BlockRoughStone) roughStoneTileIgEx)
 //            .setBlockName("RoughStoneTileFenceIgEx");
 
-        logWallEast = new BlockLogWall(LogWallType.EAST, 0).setBlockName("LogWallEast");
-        logWallNorth = new BlockLogWall(LogWallType.NORTH, 0).setBlockName("LogWallNorth");
-        logWallCorner = new BlockLogWall(LogWallType.CORNER, 0).setBlockName("LogWallCorner");
-        logWallEastAlt = new BlockLogWall(LogWallType.EAST_ALT, 0).setBlockName("LogWallEastAlt");
-        logWallNorthAlt = new BlockLogWall(LogWallType.NORTH_ALT, 0).setBlockName("LogWallNorthAlt");
-        logWallCornerAlt = new BlockLogWall(LogWallType.CORNER_ALT, 0).setBlockName("LogWallCornerAlt");
+//        logWallEast = new BlockLogWall(LogWallType.EAST, 0).setBlockName("LogWallEast");
+//        logWallNorth = new BlockLogWall(LogWallType.NORTH, 0).setBlockName("LogWallNorth");
+//        logWallCorner = new BlockLogWall(LogWallType.CORNER, 0).setBlockName("LogWallCorner");
+//        logWallEastAlt = new BlockLogWall(LogWallType.EAST_ALT, 0).setBlockName("LogWallEastAlt");
+//        logWallNorthAlt = new BlockLogWall(LogWallType.NORTH_ALT, 0).setBlockName("LogWallNorthAlt");
+//        logWallCornerAlt = new BlockLogWall(LogWallType.CORNER_ALT, 0).setBlockName("LogWallCornerAlt");
+//
+//        logWallEast2 = new BlockLogWall(LogWallType.EAST, 16).setBlockName("LogWallEast2");
+//        logWallNorth2 = new BlockLogWall(LogWallType.NORTH, 16).setBlockName("LogWallNorth2");
+//        logWallCorner2 = new BlockLogWall(LogWallType.CORNER, 16).setBlockName("LogWallCorner2");
+//        logWallEastAlt2 = new BlockLogWall(LogWallType.EAST_ALT, 16).setBlockName("LogWallEastAlt2");
+//        logWallNorthAlt2 = new BlockLogWall(LogWallType.NORTH_ALT, 16).setBlockName("LogWallNorthAlt2");
+//        logWallCornerAlt2 = new BlockLogWall(LogWallType.CORNER_ALT, 16).setBlockName("LogWallCornerAlt2");
+//
+//        logWallEast3 = new BlockLogWall(LogWallType.EAST, 32).setBlockName("LogWallEast3");
+//        logWallNorth3 = new BlockLogWall(LogWallType.NORTH, 32).setBlockName("LogWallNorth3");
+//        logWallCorner3 = new BlockLogWall(LogWallType.CORNER, 32).setBlockName("LogWallCorner3");
+//        logWallEastAlt3 = new BlockLogWall(LogWallType.EAST_ALT, 32).setBlockName("LogWallEastAlt3");
+//        logWallNorthAlt3 = new BlockLogWall(LogWallType.NORTH_ALT, 32).setBlockName("LogWallNorthAlt3");
+//        logWallCornerAlt3 = new BlockLogWall(LogWallType.CORNER_ALT, 32).setBlockName("LogWallCornerAlt3");
+//
+//        logWallVert = new BlockLogWallVert(LogWallVertType.DEFAULT, 0).setBlockName("LogWallVert");
+//        logWallVertAlt = new BlockLogWallVert(LogWallVertType.ALT, 0).setBlockName("LogWallVertAlt");
+//
+//        logWallVert2 = new BlockLogWallVert(LogWallVertType.DEFAULT, 16).setBlockName("LogWallVert2");
+//        logWallVertAlt2 = new BlockLogWallVert(LogWallVertType.ALT, 16).setBlockName("LogWallVertAlt2");
+//
+//        logWallVert3 = new BlockLogWallVert(LogWallVertType.DEFAULT, 32).setBlockName("LogWallVert3");
+//        logWallVertAlt3 = new BlockLogWallVert(LogWallVertType.ALT, 32).setBlockName("LogWallVertAlt3");
+//
+//        tiedStickBundle = new BlockTiedStickBundle().setBlockName("TiedStickBundle");
+//
+//        stackedFirewood = new BlockStackedFirewood(0).setBlockName("StackedFirewood");
+//        stackedFirewood2 = new BlockStackedFirewood(16).setBlockName("StackedFirewood2");
+//        stackedFirewood3 = new BlockStackedFirewood(32).setBlockName("StackedFirewood3");
+//
+//        dryingRack = new BlockDryingRack().setBlockName("DryingRack");
 
-        logWallEast2 = new BlockLogWall(LogWallType.EAST, 16).setBlockName("LogWallEast2");
-        logWallNorth2 = new BlockLogWall(LogWallType.NORTH, 16).setBlockName("LogWallNorth2");
-        logWallCorner2 = new BlockLogWall(LogWallType.CORNER, 16).setBlockName("LogWallCorner2");
-        logWallEastAlt2 = new BlockLogWall(LogWallType.EAST_ALT, 16).setBlockName("LogWallEastAlt2");
-        logWallNorthAlt2 = new BlockLogWall(LogWallType.NORTH_ALT, 16).setBlockName("LogWallNorthAlt2");
-        logWallCornerAlt2 = new BlockLogWall(LogWallType.CORNER_ALT, 16).setBlockName("LogWallCornerAlt2");
-
-        logWallEast3 = new BlockLogWall(LogWallType.EAST, 32).setBlockName("LogWallEast3");
-        logWallNorth3 = new BlockLogWall(LogWallType.NORTH, 32).setBlockName("LogWallNorth3");
-        logWallCorner3 = new BlockLogWall(LogWallType.CORNER, 32).setBlockName("LogWallCorner3");
-        logWallEastAlt3 = new BlockLogWall(LogWallType.EAST_ALT, 32).setBlockName("LogWallEastAlt3");
-        logWallNorthAlt3 = new BlockLogWall(LogWallType.NORTH_ALT, 32).setBlockName("LogWallNorthAlt3");
-        logWallCornerAlt3 = new BlockLogWall(LogWallType.CORNER_ALT, 32).setBlockName("LogWallCornerAlt3");
-
-        logWallVert = new BlockLogWallVert(LogWallVertType.DEFAULT, 0).setBlockName("LogWallVert");
-        logWallVertAlt = new BlockLogWallVert(LogWallVertType.ALT, 0).setBlockName("LogWallVertAlt");
-
-        logWallVert2 = new BlockLogWallVert(LogWallVertType.DEFAULT, 16).setBlockName("LogWallVert2");
-        logWallVertAlt2 = new BlockLogWallVert(LogWallVertType.ALT, 16).setBlockName("LogWallVertAlt2");
-
-        logWallVert3 = new BlockLogWallVert(LogWallVertType.DEFAULT, 32).setBlockName("LogWallVert3");
-        logWallVertAlt3 = new BlockLogWallVert(LogWallVertType.ALT, 32).setBlockName("LogWallVertAlt3");
-
-        tiedStickBundle = new BlockTiedStickBundle().setBlockName("TiedStickBundle");
-
-        stackedFirewood = new BlockStackedFirewood(0).setBlockName("StackedFirewood");
-        stackedFirewood2 = new BlockStackedFirewood(16).setBlockName("StackedFirewood2");
-        stackedFirewood3 = new BlockStackedFirewood(32).setBlockName("StackedFirewood3");
-
-        dryingRack = new BlockDryingRack().setBlockName("DryingRack");
-
-        choppingBlock = new BlockChoppingBlock(TFCBlocks.woodVert)
-                .setBlockName("ChoppingBlock");
-        choppingBlock2 = new BlockChoppingBlock(TFCBlocks.woodVert2)
-                .setBlockName("ChoppingBlock2");
-        choppingBlock3 = new BlockChoppingBlock(TFCBlocks.woodVert3)
-                .setBlockName("ChoppingBlock3");
+//        choppingBlock = new BlockChoppingBlock(TFCBlocks.woodVert)
+//                .setBlockName("ChoppingBlock");
+//        choppingBlock2 = new BlockChoppingBlock(TFCBlocks.woodVert2)
+//                .setBlockName("ChoppingBlock2");
+//        choppingBlock3 = new BlockChoppingBlock(TFCBlocks.woodVert3)
+//                .setBlockName("ChoppingBlock3");
 
         wattleTrapdoor = new BlockWattleTrapDoor().setIgnoreRedstone(true)
                 .setBlockName("WattleTrapDoor")
@@ -479,8 +479,8 @@ public class BlockSetup extends BidsBlocks {
         fireBrickChimney = new BlockFirebrickChimney()
             .setBlockName("FireBrickChimney");
 
-        light = new BlockLight()
-            .setBlockName("Light");
+//        light = new BlockLight()
+//            .setBlockName("Light");
 
         processingSurface = new BlockProcessingSurface()
             .setBlockName("ProcessingSurface");

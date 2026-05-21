@@ -23,83 +23,84 @@ public class BidsBlocks {
     public static final Block quarry = block(BlockNames.QUARRY);
 
     // Carving
-    public static Block carvingRock = block(BlockNames.CARVING_ROCK);
-    public static Block carvingWood = block(BlockNames.CARVING_WOOD);
+    public static final Block carvingRock = block(BlockNames.CARVING_ROCK);
+    public static final Block carvingWood = block(BlockNames.CARVING_WOOD);
 
     // Woodpile
-    public static Block woodPile = block(BlockNames.WOODPILE);
-    public static Block crackedStoneSed = block(BlockNames.CRACKED_STONE_SED);
-    public static Block crackedStoneMM = block(BlockNames.CRACKED_STONE_MM);
-    public static Block crackedStoneIgIn = block(BlockNames.CRACKED_STONE_IG_IN);
-    public static Block crackedStoneIgEx = block(BlockNames.CRACKED_STONE_IG_EX);
-    public static Block crackedOre = block(BlockNames.CRACKED_ORE);
-    public static Block crackedOre1b = block(BlockNames.CRACKED_ORE_1B);
-    public static Block crackedOre2 = block(BlockNames.CRACKED_ORE_2);
-    public static Block crackedOre3 = block(BlockNames.CRACKED_ORE_3);
-    public static Block light = block(BlockNames.LIGHT);
+    public static final Block woodPile = block(BlockNames.WOODPILE);
+    public static final Block crackedStoneSed = block(BlockNames.CRACKED_STONE_SED);
+    public static final Block crackedStoneMM = block(BlockNames.CRACKED_STONE_MM);
+    public static final Block crackedStoneIgIn = block(BlockNames.CRACKED_STONE_IG_IN);
+    public static final Block crackedStoneIgEx = block(BlockNames.CRACKED_STONE_IG_EX);
+    public static final Block crackedOre = block(BlockNames.CRACKED_ORE);
+    public static final Block crackedOre1b = block(BlockNames.CRACKED_ORE_1B);
+    public static final Block crackedOre2 = block(BlockNames.CRACKED_ORE_2);
+    public static final Block crackedOre3 = block(BlockNames.CRACKED_ORE_3);
+    public static final Block light = block(BlockNames.LIGHT);
 
     // Firepit
-    public static Block newFirepit = block(BlockNames.FIREPIT);
-    public static Block tiedStickBundle = block(BlockNames.TIED_STICK_BUNDLE);
+    public static final Block newFirepit = block(BlockNames.FIREPIT);
+    public static final Block tiedStickBundle = block(BlockNames.TIED_STICK_BUNDLE);
 
     // Rough stone
-    public static Block roughStoneSed = block(BlockNames.ROUGH_STONE_SED);
-    public static Block roughStoneBrickSed = block(BlockNames.ROUGH_STONE_BRICK_SED);
-    public static Block roughStoneTileSed = block(BlockNames.ROUGH_STONE_TILE_SED);
-    public static Block roughStoneBrickFenceSed = block(BlockNames.ROUGH_STONE_BRICK_FENCE_SED);
-    public static Block roughStoneTileFenceSed = block(BlockNames.ROUGH_STONE_TILE_FENCE_SED);
-    public static Block roughStoneMM = block(BlockNames.ROUGH_STONE_MM);
-    public static Block roughStoneBrickMM = block(BlockNames.ROUGH_STONE_BRICK_MM);
-    public static Block roughStoneTileMM = block(BlockNames.ROUGH_STONE_TILE_MM);
-    public static Block roughStoneBrickFenceMM = block(BlockNames.ROUGH_STONE_BRICK_FENCE_MM);
-    public static Block roughStoneTileFenceMM = block(BlockNames.ROUGH_STONE_TILE_FENCE_MM);
-    public static Block roughStoneIgIn = block(BlockNames.ROUGH_STONE_IG_IN);
-    public static Block roughStoneBrickIgIn = block(BlockNames.ROUGH_STONE_BRICK_IG_IN);
-    public static Block roughStoneTileIgIn = block(BlockNames.ROUGH_STONE_TILE_IG_IN);
-    public static Block roughStoneBrickFenceIgIn = block(BlockNames.ROUGH_STONE_BRICK_IG_IN);
-    public static Block roughStoneTileFenceIgIn = block(BlockNames.ROUGH_STONE_TILE_FENCE_IG_IN);
-    public static Block roughStoneIgEx = block(BlockNames.ROUGH_STONE_BRICK_IG_EX);
-    public static Block roughStoneBrickIgEx = block(BlockNames.ROUGH_STONE_BRICK_FENCE_IG_EX);
-    public static Block roughStoneTileIgEx = block(BlockNames.ROUGH_STONE_TILE_IG_EX);
-    public static Block roughStoneBrickFenceIgEx = block(BlockNames.ROUGH_STONE_BRICK_FENCE_IG_EX);
-    public static Block roughStoneTileFenceIgEx = block(BlockNames.ROUGH_STONE_TILE_FENCE_IG_EX);
+    public static final Block roughStoneSed = block(BlockNames.ROUGH_STONE_SED);
+    public static final Block roughStoneBrickSed = block(BlockNames.ROUGH_STONE_BRICK_SED);
+    public static final Block roughStoneTileSed = block(BlockNames.ROUGH_STONE_TILE_SED);
+    public static final Block roughStoneBrickFenceSed = block(BlockNames.ROUGH_STONE_BRICK_FENCE_SED);
+    public static final Block roughStoneTileFenceSed = block(BlockNames.ROUGH_STONE_TILE_FENCE_SED);
+    public static final Block roughStoneMM = block(BlockNames.ROUGH_STONE_MM);
+    public static final Block roughStoneBrickMM = block(BlockNames.ROUGH_STONE_BRICK_MM);
+    public static final Block roughStoneTileMM = block(BlockNames.ROUGH_STONE_TILE_MM);
+    public static final Block roughStoneBrickFenceMM = block(BlockNames.ROUGH_STONE_BRICK_FENCE_MM);
+    public static final Block roughStoneTileFenceMM = block(BlockNames.ROUGH_STONE_TILE_FENCE_MM);
+    public static final Block roughStoneIgIn = block(BlockNames.ROUGH_STONE_IG_IN);
+    public static final Block roughStoneBrickIgIn = block(BlockNames.ROUGH_STONE_BRICK_IG_IN);
+    public static final Block roughStoneTileIgIn = block(BlockNames.ROUGH_STONE_TILE_IG_IN);
+    public static final Block roughStoneBrickFenceIgIn = block(BlockNames.ROUGH_STONE_BRICK_IG_IN);
+    public static final Block roughStoneTileFenceIgIn = block(BlockNames.ROUGH_STONE_TILE_FENCE_IG_IN);
+    public static final Block roughStoneIgEx = block(BlockNames.ROUGH_STONE_BRICK_IG_EX);
+    public static final Block roughStoneBrickIgEx = block(BlockNames.ROUGH_STONE_BRICK_FENCE_IG_EX);
+    public static final Block roughStoneTileIgEx = block(BlockNames.ROUGH_STONE_TILE_IG_EX);
+    public static final Block roughStoneBrickFenceIgEx = block(BlockNames.ROUGH_STONE_BRICK_FENCE_IG_EX);
+    public static final Block roughStoneTileFenceIgEx = block(BlockNames.ROUGH_STONE_TILE_FENCE_IG_EX);
 
     // Log Wall
-    public static Block logWallEast = block(BlockNames.LOG_WALL_EAST);
-    public static Block logWallNorth = block(BlockNames.LOG_WALL_NORTH);
-    public static Block logWallCorner = block(BlockNames.LOG_WALL_CORNER);
-    public static Block logWallEastAlt = block(BlockNames.LOG_WALL_EAST_ALT);
-    public static Block logWallNorthAlt = block(BlockNames.LOG_WALL_NORTH_ALT);
-    public static Block logWallCornerAlt = block(BlockNames.LOG_WALL_CORNER_ALT);
+    public static final Block logWallEast = block(BlockNames.LOG_WALL_EAST);
+    public static final Block logWallNorth = block(BlockNames.LOG_WALL_NORTH);
+    public static final Block logWallCorner = block(BlockNames.LOG_WALL_CORNER);
+    public static final Block logWallEastAlt = block(BlockNames.LOG_WALL_EAST_ALT);
+    public static final Block logWallNorthAlt = block(BlockNames.LOG_WALL_NORTH_ALT);
+    public static final Block logWallCornerAlt = block(BlockNames.LOG_WALL_CORNER_ALT);
 
-    public static Block logWallEast2 = block(BlockNames.LOG_WALL_EAST_2);
-    public static Block logWallNorth2 = block(BlockNames.LOG_WALL_NORTH_2);
-    public static Block logWallCorner2 = block(BlockNames.LOG_WALL_CORNER_2);
-    public static Block logWallEastAlt2 = block(BlockNames.LOG_WALL_EAST_ALT_2);
-    public static Block logWallNorthAlt2 = block(BlockNames.LOG_WALL_NORTH_ALT_2);
-    public static Block logWallCornerAlt2 = block(BlockNames.LOG_WALL_CORNER_ALT_2);
+    public static final Block logWallEast2 = block(BlockNames.LOG_WALL_EAST_2);
+    public static final Block logWallNorth2 = block(BlockNames.LOG_WALL_NORTH_2);
+    public static final Block logWallCorner2 = block(BlockNames.LOG_WALL_CORNER_2);
+    public static final Block logWallEastAlt2 = block(BlockNames.LOG_WALL_EAST_ALT_2);
+    public static final Block logWallNorthAlt2 = block(BlockNames.LOG_WALL_NORTH_ALT_2);
+    public static final Block logWallCornerAlt2 = block(BlockNames.LOG_WALL_CORNER_ALT_2);
 
-    public static Block logWallEast3 = block(BlockNames.LOG_WALL_EAST_3);
-    public static Block logWallNorth3 = block(BlockNames.LOG_WALL_NORTH_3);
-    public static Block logWallCorner3 = block(BlockNames.LOG_WALL_CORNER_3);
-    public static Block logWallEastAlt3 = block(BlockNames.LOG_WALL_EAST_ALT_3);
-    public static Block logWallNorthAlt3 = block(BlockNames.LOG_WALL_NORTH_ALT_3);
-    public static Block logWallCornerAlt3 = block(BlockNames.LOG_WALL_CORNER_ALT_3);
+    public static final Block logWallEast3 = block(BlockNames.LOG_WALL_EAST_3);
+    public static final Block logWallNorth3 = block(BlockNames.LOG_WALL_NORTH_3);
+    public static final Block logWallCorner3 = block(BlockNames.LOG_WALL_CORNER_3);
+    public static final Block logWallEastAlt3 = block(BlockNames.LOG_WALL_EAST_ALT_3);
+    public static final Block logWallNorthAlt3 = block(BlockNames.LOG_WALL_NORTH_ALT_3);
+    public static final Block logWallCornerAlt3 = block(BlockNames.LOG_WALL_CORNER_ALT_3);
 
-    public static Block logWallVert = block(BlockNames.LOG_WALL_VERT);
-    public static Block logWallVertAlt = block(BlockNames.LOG_WALL_VERT_ALT);
-    public static Block logWallVert2 = block(BlockNames.LOG_WALL_VERT_2);
-    public static Block logWallVertAlt2 = block(BlockNames.LOG_WALL_VERT_ALT_2);
-    public static Block logWallVert3 = block(BlockNames.LOG_WALL_VERT_3);
-    public static Block logWallVertAlt3 = block(BlockNames.LOG_WALL_VERT_ALT_3);
+    public static final Block logWallVert = block(BlockNames.LOG_WALL_VERT);
+    public static final Block logWallVertAlt = block(BlockNames.LOG_WALL_VERT_ALT);
+    public static final Block logWallVert2 = block(BlockNames.LOG_WALL_VERT_2);
+    public static final Block logWallVertAlt2 = block(BlockNames.LOG_WALL_VERT_ALT_2);
+    public static final Block logWallVert3 = block(BlockNames.LOG_WALL_VERT_3);
+    public static final Block logWallVertAlt3 = block(BlockNames.LOG_WALL_VERT_ALT_3);
 
     // Drying rack
-    public static Block dryingRack = block(BlockNames.DRYING_RACK);
+    public static final Block dryingRack = block(BlockNames.DRYING_RACK);
 
     // Firewood
-    public static Block stackedFirewood = block(BlockNames.STACKED_FIREWOOD);
-    public static Block stackedFirewood2 = block(BlockNames.STACKED_FIREWOOD_2);;
-    public static Block stackedFirewood3 = block(BlockNames.STACKED_FIREWOOD_3);;
+    public static final Block stackedFirewood = block(BlockNames.STACKED_FIREWOOD);
+    public static final Block stackedFirewood2 = block(BlockNames.STACKED_FIREWOOD_2);;
+    public static final Block stackedFirewood3 = block(BlockNames.STACKED_FIREWOOD_3);;
+
 
 
     public static int clayCrucibleRenderId;
