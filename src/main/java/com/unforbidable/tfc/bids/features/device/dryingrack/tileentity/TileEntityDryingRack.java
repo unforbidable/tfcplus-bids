@@ -4,20 +4,20 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.network.packet.Packet;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEngine;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHelper;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.IDryingHost;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackItem;
-import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
-import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.util.Timer;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.item.EntityItem;
@@ -31,10 +31,8 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
 
-public class TileEntityDryingRack extends TileEntity
-        implements IInventory, IMessageHanldingTileEntity<TileEntityUpdateMessage>, IDryingHost {
+public class TileEntityDryingRack extends TileEntity implements IInventory, PacketHandler<SimpleUpdatePacket>, IDryingHost {
 
     public static final int MAX_STORAGE = 4;
     private static final long DRYING_INTERVAL = 100;
@@ -104,7 +102,7 @@ public class TileEntityDryingRack extends TileEntity
         if (!worldObj.isRemote) {
             // When inventory content changes
             if (clientNeedToUpdate) {
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+                sendUpdatePacket();
 
                 clientNeedToUpdate = false;
             }
@@ -338,16 +336,15 @@ public class TileEntityDryingRack extends TileEntity
     }
 
     @Override
-    public void onTileEntityMessage(TileEntityUpdateMessage message) {
-        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
-                + message.getZCoord());
+    public void handleNetworkPacket(SimpleUpdatePacket packet) {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        Bids.LOG.info("Client updated at: [{},{},{}]", xCoord, yCoord, zCoord);
     }
 
-    public static void sendUpdateMessage(World world, int x, int y, int z) {
-        TargetPoint tp = new TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
-        Bids.LOG.debug("Sent update message");
+    public void sendUpdatePacket() {
+        Packet packet = new SimpleUpdatePacket();
+        Network.sendToTileEntity(packet, this);
+        Bids.LOG.info("Sent update message");
     }
 
     @Override
