@@ -1,15 +1,13 @@
 package com.unforbidable.tfc.bids.features.device.choppingblock.render;
 
-import com.unforbidable.tfc.bids.features.device.choppingblock.tileentity.TileEntityChoppingBlock;
-import org.lwjgl.opengl.GL11;
-
 import com.dunk.tfc.Render.TESR.TESRBase;
 import com.unforbidable.tfc.bids.features.device.choppingblock.main.ChoppingBlockHelper;
-
+import com.unforbidable.tfc.bids.features.device.choppingblock.tileentity.TileEntityChoppingBlock;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Vec3;
+import org.lwjgl.opengl.GL11;
 
 public class RenderTileChoppingBlock extends TESRBase {
 

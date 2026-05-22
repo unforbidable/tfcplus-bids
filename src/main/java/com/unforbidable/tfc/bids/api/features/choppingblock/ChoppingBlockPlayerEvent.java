@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Events;
+package com.unforbidable.tfc.bids.api.features.choppingblock;
 
 import com.unforbidable.tfc.bids.features.device.choppingblock.tileentity.TileEntityChoppingBlock;
 import net.minecraft.entity.player.EntityPlayer;

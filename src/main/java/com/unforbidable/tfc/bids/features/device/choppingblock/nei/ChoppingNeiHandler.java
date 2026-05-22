@@ -1,22 +1,21 @@
-package com.unforbidable.tfc.bids.features.crafting.chopping.nei;
+package com.unforbidable.tfc.bids.features.device.choppingblock.nei;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
-import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ChoppingBlockRecipe;
+import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockRecipe;
+import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
+import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlockRegistry;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ChoppingNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
@@ -48,7 +47,7 @@ public class ChoppingNeiHandler extends TemplateRecipeHandler implements IHandle
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == ChoppingNeiHandler.class) {
-            for (ChoppingBlockRecipe recipe : BidsRegistry.CHOPPING_BLOCK_RECIPES) {
+            for (ChoppingBlockRecipe recipe : ChoppingBlockRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getCraftingResult(input);
                 List<ItemStack> tools = OreDictionary.getOres(recipe.getToolOreName(), false);
@@ -62,7 +61,7 @@ public class ChoppingNeiHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (ChoppingBlockRecipe recipe : BidsRegistry.CHOPPING_BLOCK_RECIPES) {
+        for (ChoppingBlockRecipe recipe : ChoppingBlockRegistry.recipes) {
             final ItemStack output2 = output.copy();
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
@@ -77,7 +76,7 @@ public class ChoppingNeiHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (ChoppingBlockRecipe recipe : BidsRegistry.CHOPPING_BLOCK_RECIPES) {
+        for (ChoppingBlockRecipe recipe : ChoppingBlockRegistry.recipes) {
             if (recipe.matchesInput(ingredient)) {
                 final ItemStack input = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
                 final ItemStack result = recipe.getCraftingResult(input);
@@ -134,6 +133,8 @@ public class ChoppingNeiHandler extends TemplateRecipeHandler implements IHandle
         public PositionedStack getIngredient() {
             return new PositionedStack(ingred, 39, 24);
         }
+
+        // TODO show extra drop (FEATURE)
 
         @Override
         public List<PositionedStack> getOtherStacks() {

@@ -101,6 +101,11 @@ public class BidsBlocks {
     public static final Block stackedFirewood2 = block(BlockNames.STACKED_FIREWOOD_2);;
     public static final Block stackedFirewood3 = block(BlockNames.STACKED_FIREWOOD_3);;
 
+    // Chopping block
+    public static final Block choppingBlock = block(BlockNames.CHOPPING_BLOCK);
+    public static final Block choppingBlock2 = block(BlockNames.CHOPPING_BLOCK_2);
+    public static final Block choppingBlock3 = block(BlockNames.CHOPPING_BLOCK_3);
+
 
 
     public static int clayCrucibleRenderId;
@@ -151,10 +156,6 @@ public class BidsBlocks {
     public static int dryingSurfaceRenderId;
 
 
-
-    public static Block choppingBlock;
-    public static Block choppingBlock2;
-    public static Block choppingBlock3;
 
     public static Block wattleTrapdoor;
     public static Block wattleTrapdoorCover;

@@ -1,15 +1,13 @@
 package com.unforbidable.tfc.bids.features.device.choppingblock.render;
 
-import org.lwjgl.opengl.GL11;
-
 import com.unforbidable.tfc.bids.features.device.choppingblock.block.BlockChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.choppingblock.main.ChoppingBlockHelper;
-
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
+import org.lwjgl.opengl.GL11;
 
 public class RenderChoppingBlock implements ISimpleBlockRenderingHandler {
 

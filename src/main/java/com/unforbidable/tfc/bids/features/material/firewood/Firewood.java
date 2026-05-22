@@ -3,8 +3,7 @@ package com.unforbidable.tfc.bids.features.material.firewood;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ChoppingBlockRecipe;
+import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockRecipe;
 import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
@@ -19,6 +18,7 @@ import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.core.schemes.wood.EnumWoodItemType;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
+import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlockRegistry;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitConfig;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
 import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileRegistry;
@@ -71,20 +71,23 @@ public class Firewood extends Feature {
                     .action(copySeasoning(TFCItems.logs))
                     .action(copySeasoning(BidsItems.peeledLog));
 
-                BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                    wood.items.getFirewood(),
-                    wood.items.getLog()));
+                setup.registry(ChoppingBlockRegistry.recipes)
+                    .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                        wood.items.getFirewood(), wood.items.getLog(),
+                        wood.items.getBark(), BarkConfig.dropSplittingChance));
 
                 if (wood.items.hasChoppedLog()) {
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        wood.items.getFirewood(),
-                        wood.items.getChoppedLog()));
+                    setup.registry(ChoppingBlockRegistry.recipes)
+                        .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                            wood.items.getFirewood(), wood.items.getChoppedLog(),
+                            wood.items.getBark(), BarkConfig.dropSplittingChance));
                 }
 
                 if (wood.items.hasPeeledLog()) {
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        wood.items.getFirewood(),
-                        wood.items.getPeeledLog()));
+                    setup.registry(ChoppingBlockRegistry.recipes)
+                        .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                            wood.items.getFirewood(), wood.items.getPeeledLog(),
+                            wood.items.getBark(), BarkConfig.dropSplittingChance));
                 }
             }
 
@@ -95,26 +98,29 @@ public class Firewood extends Feature {
                     .action(extraDrop(wood.items.getBark(), BarkConfig.dropSplittingSeasonedChance));
 
                 if (wood.items.hasSeasonedLog()) {
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        wood.items.getSeasonedFirewood(),
-                        wood.items.getSeasonedLog()));
+                    setup.registry(ChoppingBlockRegistry.recipes)
+                        .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                            wood.items.getSeasonedFirewood(), wood.items.getSeasonedLog(),
+                            wood.items.getBark(), BarkConfig.dropSplittingSeasonedChance));
                 }
 
                 if (wood.items.hasSeasonedChoppedLog()) {
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        wood.items.getSeasonedFirewood(),
-                        wood.items.getSeasonedChoppedLog()));
+                    setup.registry(ChoppingBlockRegistry.recipes)
+                        .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                            wood.items.getSeasonedFirewood(), wood.items.getSeasonedChoppedLog(),
+                            wood.items.getBark(), BarkConfig.dropSplittingSeasonedChance));
                 }
 
                 if (wood.items.hasSeasonedPeeledLog()) {
-                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
-                        wood.items.getSeasonedFirewood(),
-                        wood.items.getSeasonedPeeledLog()));
+                    setup.registry(ChoppingBlockRegistry.recipes)
+                        .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAxe",
+                            wood.items.getSeasonedFirewood(), wood.items.getSeasonedPeeledLog(),
+                            wood.items.getBark(), BarkConfig.dropSplittingSeasonedChance));
                 }
 
                 setup.registry(WoodpileRegistry.seasoning)
-                        .add(new SeasoningRecipe(wood.items.getSeasonedFirewood(),
-                    wood.items.getFirewood(), SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.FIREWOOD)));
+                    .add(new SeasoningRecipe(wood.items.getSeasonedFirewood(),
+                        wood.items.getFirewood(), SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.FIREWOOD)));
             }
         }
 

@@ -1,20 +1,24 @@
-package com.unforbidable.tfc.bids.api._obsolete.Crafting;
+package com.unforbidable.tfc.bids.api.features.choppingblock;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ChoppingBlockRecipe {
 
-    final String choppingBlockOreName;
-    final ItemStack output;
-    final String toolOreName;
-    final ItemStack input;
+    private final String choppingBlockOreName;
+    private final ItemStack output;
+    private final String toolOreName;
+    private final ItemStack input;
+    private final ItemStack extraDrop;
+    private final float extraDropChance;
 
-    public ChoppingBlockRecipe(String choppingBlockOreName, String toolOreName, ItemStack output, ItemStack input) {
+    public ChoppingBlockRecipe(String choppingBlockOreName, String toolOreName, ItemStack output, ItemStack input, ItemStack extraDrop, float extraDropChance) {
         this.choppingBlockOreName = choppingBlockOreName;
         this.toolOreName = toolOreName;
         this.output = output;
         this.input = input;
+        this.extraDrop = extraDrop;
+        this.extraDropChance = extraDropChance;
     }
 
     public String getChoppingBlockOreName() {
@@ -66,6 +70,14 @@ public class ChoppingBlockRecipe {
         }
 
         return false;
+    }
+
+    public ItemStack getExtraDrop() {
+        return extraDrop;
+    }
+
+    public float getExtraDropChance() {
+        return extraDropChance;
     }
 
 }

@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
 import com.unforbidable.tfc.bids.features.crafting.drying.Drying;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
+import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRack;
 import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
@@ -44,6 +45,7 @@ public class Features {
         new DryingRack(),
         new Bark(),
         new Firewood(),
+        new ChoppingBlock(),
         new CompositeTools(),
     };
 

@@ -153,9 +153,9 @@ public class OreSetup {
 //        }
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            if (wood.blocks.hasChoppingBlock()) {
-                OreDictionary.registerOre("blockChoppingBlock", wood.blocks.getChoppingBlock());
-            }
+//            if (wood.blocks.hasChoppingBlock()) {
+//                OreDictionary.registerOre("blockChoppingBlock", wood.blocks.getChoppingBlock());
+//            }
 
 //            if (wood.blocks.hasLogWall()) {
 //                OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWall());
@@ -241,9 +241,9 @@ public class OreSetup {
 //                }
             }
 
-            if (wood.hasBarkFibers) {
-                OreDictionary.registerOre("itemBarkHasFibers", wood.items.getBark());
-            }
+//            if (wood.hasBarkFibers) {
+//                OreDictionary.registerOre("itemBarkHasFibers", wood.items.getBark());
+//            }
 
             if (wood.items.hasBoard()) {
                 OreDictionary.registerOre("woodBoard", wood.items.getBoard());

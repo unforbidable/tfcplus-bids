@@ -2,13 +2,16 @@ package com.unforbidable.tfc.bids.features.device.choppingblock.block;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.features.device.choppingblock.tileentity.TileEntityChoppingBlock;
-import com.unforbidable.tfc.bids.features.device.choppingblock.main.ChoppingBlockHelper;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.features.device.choppingblock.main.ChoppingBlockHelper;
+import com.unforbidable.tfc.bids.features.device.choppingblock.tileentity.TileEntityChoppingBlock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -23,8 +26,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.List;
 
 public class BlockChoppingBlock extends BlockContainer {
 
@@ -112,7 +113,7 @@ public class BlockChoppingBlock extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.choppingBlockRenderId;
+        return BlockRenderIdProvider.get(BlockNames.CHOPPING_BLOCK);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.material.logs;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockRecipe;
 import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
 import com.unforbidable.tfc.bids.common.render.SeasonableItemRenderer;
@@ -15,6 +16,7 @@ import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.core.schemes.wood.EnumWoodItemType;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
+import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlockRegistry;
 import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileRegistry;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.renderable.RenderableLogsTFC;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
@@ -111,8 +113,10 @@ public class Logs extends Feature {
                     .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingChance))
                     .action(copySeasoning(TFCItems.logs));
 
-//                BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-//                    wood.items.getPeeledLog(), wood.items.getLog()));
+                setup.registry(ChoppingBlockRegistry.recipes)
+                    .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+                        wood.items.getPeeledLog(), wood.items.getLog(),
+                        wood.items.getBark(), BarkConfig.dropPeelingChance));
 
                 if (wood.items.hasChoppedLog()) {
                     setup.recipes().addShapeless(wood.items.getPeeledLog(),
@@ -120,8 +124,10 @@ public class Logs extends Feature {
                         .action(damageTool("itemAdze"))
                         .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingChance));
 
-//                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-//                        wood.items.getPeeledLog(), wood.items.getChoppedLog()));
+                    setup.registry(ChoppingBlockRegistry.recipes)
+                        .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+                            wood.items.getPeeledLog(), wood.items.getChoppedLog(),
+                            wood.items.getBark(), BarkConfig.dropPeelingChance));
                 }
             }
 
@@ -147,8 +153,10 @@ public class Logs extends Feature {
                     .action(damageTool("itemAdze"))
                     .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
 
-//                BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-//                    wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedLog()));
+                setup.registry(ChoppingBlockRegistry.recipes)
+                    .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+                        wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedLog(),
+                        wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
 
                 setup.registry(WoodpileRegistry.seasoning)
                     .add(new SeasoningRecipe(wood.items.getSeasonedPeeledLog(),
@@ -160,8 +168,10 @@ public class Logs extends Feature {
                         .action(damageTool("itemAdze"))
                         .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
 
-//                    BidsRegistry.CHOPPING_BLOCK_RECIPES.register(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-//                        wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog()));
+                    setup.registry(ChoppingBlockRegistry.recipes)
+                        .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
+                            wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog(),
+                            wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
                 }
             }
 

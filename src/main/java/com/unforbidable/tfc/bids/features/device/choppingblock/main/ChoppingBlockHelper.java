@@ -1,11 +1,11 @@
 package com.unforbidable.tfc.bids.features.device.choppingblock.main;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockRecipe;
+import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlockRegistry;
+import com.unforbidable.tfc.bids.features.device.choppingblock.tileentity.TileEntityChoppingBlock;
 import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
 import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
-import com.unforbidable.tfc.bids.features.device.choppingblock.tileentity.TileEntityChoppingBlock;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ChoppingBlockRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -163,7 +163,7 @@ public class ChoppingBlockHelper {
     }
 
     public static boolean isChoppingBlockTool(ItemStack choppingBlock, ItemStack tool) {
-        for (ChoppingBlockRecipe recipe : BidsRegistry.CHOPPING_BLOCK_RECIPES) {
+        for (ChoppingBlockRecipe recipe : ChoppingBlockRegistry.recipes) {
             if (recipe.matchesChoppingBlock(choppingBlock) && recipe.matchesTool(tool)) {
                 return true;
             }
@@ -173,7 +173,7 @@ public class ChoppingBlockHelper {
     }
 
     public static boolean isChoppingBlockInput(ItemStack choppingBlock, ItemStack item) {
-        for (ChoppingBlockRecipe recipe : BidsRegistry.CHOPPING_BLOCK_RECIPES) {
+        for (ChoppingBlockRecipe recipe : ChoppingBlockRegistry.recipes) {
             if (recipe.matchesChoppingBlock(choppingBlock) && recipe.matchesInput(item)) {
                 return true;
             }

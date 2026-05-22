@@ -1,13 +1,13 @@
 package com.unforbidable.tfc.bids.features.device.choppingblock.tileentity;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.features.device.choppingblock.main.ChoppingBlockCraftingInventory;
+import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockRecipe;
+import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
+import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlockRegistry;
 import com.unforbidable.tfc.bids.features.device.choppingblock.main.ChoppingBlockHelper;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ChoppingBlockRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Events.ChoppingBlockPlayerEvent;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileRegistry;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -21,6 +21,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class TileEntityChoppingBlock extends TileEntity {
 
@@ -152,7 +153,7 @@ public class TileEntityChoppingBlock extends TileEntity {
             final ItemStack material = getChoppingBlockItem();
             final ItemStack tool = itemStack;
             final ItemStack ingredient = storage[slot];
-            ChoppingBlockRecipe recipe = BidsRegistry.CHOPPING_BLOCK_RECIPES.findMatchingRecipe(r -> r.matches(material, tool, ingredient));
+            ChoppingBlockRecipe recipe = ChoppingBlockRegistry.recipes.findMatchingRecipe(r -> r.matches(material, tool, ingredient));
             if (recipe != null) {
                 Bids.LOG.debug("Found matching recipe for tool: " + itemStack.getDisplayName()
                         + " ingredient: " + storage[slot].getDisplayName() + "[" + storage[slot].stackSize + "]");
@@ -163,7 +164,7 @@ public class TileEntityChoppingBlock extends TileEntity {
                 MinecraftForge.EVENT_BUS.post(event);
 
                 if (!event.isCanceled()) {
-                    onChoppingBlockRecipeCrafted(player, result, itemStack, ingredient);
+                    onChoppingBlockRecipeCrafted(player, result, itemStack, ingredient, recipe.getExtraDrop(), recipe.getExtraDropChance());
 
                     Bids.LOG.debug("Item crafted: " + result.getDisplayName() + "[" + result.stackSize + "]");
 
@@ -206,32 +207,35 @@ public class TileEntityChoppingBlock extends TileEntity {
         return ChoppingBlockHelper.isChoppingBlockInput(getChoppingBlockItem(), input);
     }
 
-    private void onChoppingBlockRecipeCrafted(EntityPlayer player, ItemStack result, ItemStack tool,
-            ItemStack ingredient) {
-        final ChoppingBlockCraftingInventory craftMatrix = new ChoppingBlockCraftingInventory();
-        craftMatrix.setInventorySlotContents(0, tool);
-        craftMatrix.setInventorySlotContents(1, ingredient);
+    private void onChoppingBlockRecipeCrafted(EntityPlayer player, ItemStack result, ItemStack tool, ItemStack ingredient, ItemStack extraDrop, float extraDropChance) {
+        // copy seasoning progress for any seasonable items
+        // being crafted into another seasonable items
+        if (ingredient.hasTagCompound()) {
+            SeasoningRecipe seasoningRecipeResult = WoodpileRegistry.seasoning.findMatchingRecipe(result);
+            SeasoningRecipe seasoningRecipeIngredient = WoodpileRegistry.seasoning.findMatchingRecipe(ingredient);
+            if (seasoningRecipeIngredient != null && seasoningRecipeResult != null) {
+                float seasoningValue = SeasoningHelper.getItemSeasoningTag(ingredient);
+                if (seasoningValue > 0) {
+                    Bids.LOG.debug("Copying seasoning progress: " + seasoningValue);
 
-        final ItemCraftedEvent event = new ItemCraftedEvent(player, result, craftMatrix);
+                    SeasoningHelper.setItemSeasoningTag(result, seasoningValue);
+                }
+            }
+        }
 
-        // Invoke the forge event
-        FMLCommonHandler.instance().bus().post(event);
+        // extra drop
+        if (player.worldObj.rand.nextDouble() < extraDropChance) {
+            if (extraDrop.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
+                final int dmg = result.getItemDamage();
+                final ItemStack is = new ItemStack(extraDrop.getItem(), extraDrop.stackSize, dmg);
+                throwItemAwayFromPlayer(is, player);
+            } else {
+                throwItemAwayFromPlayer(extraDrop.copy(), player);
+            }
+        }
 
-        // Consume items as crafting would
-        // but we only care about the tool
-        // Tool could be destroyed or damaged
-        // depending on recipe actions that were triggered
-        // The item stack should reflect this
-        craftMatrix.decrStackSize(0, 1);
-
-        // Our tool stack will have been modified at this point
-        // unless the recipe action/handler works on a copy
-        // TFC damages a copy of the tool
-        // so that needs to be solved if TFC handlers are to work
-
-        // Trying to avoid some desync glitches
-        // Sometimes damaged tool would appear with stack size 2 or 3
-        player.inventoryContainer.detectAndSendChanges();
+        // damage tool
+        tool.damageItem(1, player);
 
         // When other materials are introduced
         // consider player different sounds
@@ -253,31 +257,7 @@ public class TileEntityChoppingBlock extends TileEntity {
 
     public boolean ejectItemAwayFromPlayer(int slot, EntityPlayer player) {
         if (storage[slot] != null) {
-            // Attempting to spawn the item behind the workbench
-            // related to the player's location
-            final double r1 = worldObj.rand.nextDouble();
-            final double r2 = worldObj.rand.nextDouble();
-            final double r3 = worldObj.rand.nextDouble();
-
-            final double yaw = player.rotationYaw + r1 * 90 - 45;
-
-            final double posX = xCoord + 0.5;
-            final double posY = yCoord + 1.5;
-            final double posZ = zCoord + 0.5;
-
-            final double dx = -Math.sin(yaw * Math.PI / 180.0D) * 0.4D;
-            final double dz = Math.cos(yaw * Math.PI / 180.0D) * 0.4D;
-
-            final double velocityX = dx * 0.3 + dx * r2 * 0.2;
-            final double velocityY = 0.1;
-            final double velocityZ = dz * 0.3 + dz * r3 * 0.2;
-
-            final EntityItem ei = new EntityItem(worldObj, posX, posY, posZ, storage[slot]);
-            ei.motionX = velocityX;
-            ei.motionY = velocityY;
-            ei.motionZ = velocityZ;
-            ei.delayBeforeCanPickup = 10;
-            worldObj.spawnEntityInWorld(ei);
+            throwItemAwayFromPlayer(storage[slot], player);
 
             storage[slot] = null;
 
@@ -287,6 +267,34 @@ public class TileEntityChoppingBlock extends TileEntity {
         }
 
         return false;
+    }
+
+    private void throwItemAwayFromPlayer(ItemStack itemStack, EntityPlayer player) {
+        // Attempting to spawn the item behind the workbench
+        // related to the player's location
+        final double r1 = worldObj.rand.nextDouble();
+        final double r2 = worldObj.rand.nextDouble();
+        final double r3 = worldObj.rand.nextDouble();
+
+        final double yaw = player.rotationYaw + r1 * 90 - 45;
+
+        final double posX = xCoord + 0.5;
+        final double posY = yCoord + 1.5;
+        final double posZ = zCoord + 0.5;
+
+        final double dx = -Math.sin(yaw * Math.PI / 180.0D) * 0.4D;
+        final double dz = Math.cos(yaw * Math.PI / 180.0D) * 0.4D;
+
+        final double velocityX = dx * 0.3 + dx * r2 * 0.2;
+        final double velocityY = 0.1;
+        final double velocityZ = dz * 0.3 + dz * r3 * 0.2;
+
+        final EntityItem ei = new EntityItem(worldObj, posX, posY, posZ, itemStack);
+        ei.motionX = velocityX;
+        ei.motionY = velocityY;
+        ei.motionZ = velocityZ;
+        ei.delayBeforeCanPickup = 10;
+        worldObj.spawnEntityInWorld(ei);
     }
 
     public void onBlockBroken() {
