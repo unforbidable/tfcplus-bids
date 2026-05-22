@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.api._obsolete.Crafting.Builders;
 
 import com.unforbidable.tfc.bids.api._obsolete.Crafting.DryingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipeBuilder;
 
 public class DryingSurfaceRecipeBuilder extends DryingRecipeBuilder {
 
