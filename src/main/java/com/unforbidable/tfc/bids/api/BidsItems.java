@@ -74,28 +74,28 @@ public class BidsItems {
     public static final Item wroughtIronAdze = item(ItemNames.ADZE_WROUGHT_IRON);
 
     // Quarry
-    public static Item plugAndFeather = item(ItemNames.PLUG_AND_FEATHER);
+    public static final Item plugAndFeather = item(ItemNames.PLUG_AND_FEATHER);
 
     // Firepit
-    public static Item smallStickBundle = item(ItemNames.STICK_BUNDLE_SMALL);
-    public static Item tiedStickBundle = item(ItemNames.STICK_BUNDLE_TIED);
-    public static Item kindling = item(ItemNames.KINDLING);
+    public static final Item smallStickBundle = item(ItemNames.STICK_BUNDLE_SMALL);
+    public static final Item tiedStickBundle = item(ItemNames.STICK_BUNDLE_TIED);
+    public static final Item kindling = item(ItemNames.KINDLING);
 
     // Rough Stone
-    public static Item roughStoneBrick = item(ItemNames.ROUGH_STONE_BRICK);
-    public static Item roughStoneTile = item(ItemNames.ROUGH_STONE_TILE);
+    public static final Item roughStoneBrick = item(ItemNames.ROUGH_STONE_BRICK);
+    public static final Item roughStoneTile = item(ItemNames.ROUGH_STONE_TILE);
 
     // Logs
-    public static Item logsSeasoned = item(ItemNames.LOG_SEASONED);
-    public static Item peeledLog = item(ItemNames.PEELED_LOG);
-    public static Item peeledLogSeasoned = item(ItemNames.PEELED_LOG_SEASONED);
+    public static final Item logsSeasoned = item(ItemNames.LOG_SEASONED);
+    public static final Item peeledLog = item(ItemNames.PEELED_LOG);
+    public static final Item peeledLogSeasoned = item(ItemNames.PEELED_LOG_SEASONED);
 
     // Bark
-    public static Item bark = item(ItemNames.BARK);
+    public static final Item bark = item(ItemNames.BARK);
 
     // Firewood
-    public static Item firewood = item(ItemNames.FIREWOOD);
-    public static Item firewoodSeasoned = item(ItemNames.FIREWOOD_SEASONED);
+    public static final Item firewood = item(ItemNames.FIREWOOD);
+    public static final Item firewoodSeasoned = item(ItemNames.FIREWOOD_SEASONED);
 
 
     public static Item igInHandAxe;

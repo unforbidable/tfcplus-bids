@@ -277,15 +277,15 @@ public class ItemSetup extends BidsItems {
         shaft = new ItemShaft().setNames(Global.WOOD_ALL)
             .setUnlocalizedName("Shaft");
 
-        smallStickBundle = new ItemSmallStickBundle()
-            .setUnlocalizedName("Small Stick Bundle");
-        tiedStickBundle = new ItemTiedStickBundle()
-            .setUnlocalizedName("Tied Stick Bundle");
-        kindling = new ItemKindling().setFuelKindlingQuality(0.50f)
-            .setUnlocalizedName("Kindling");
-
-        bark = new ItemBark().setMetaNames(Global.WOOD_ALL)
-            .setUnlocalizedName("Bark");
+//        smallStickBundle = new ItemSmallStickBundle()
+//            .setUnlocalizedName("Small Stick Bundle");
+//        tiedStickBundle = new ItemTiedStickBundle()
+//            .setUnlocalizedName("Tied Stick Bundle");
+//        kindling = new ItemKindling().setFuelKindlingQuality(0.50f)
+//            .setUnlocalizedName("Kindling");
+//
+//        bark = new ItemBark().setMetaNames(Global.WOOD_ALL)
+//            .setUnlocalizedName("Bark");
 
         barkFibre = new ItemTextile()
             .addHint(EnumTextileHint.DRYING_FIBRE)
@@ -703,8 +703,8 @@ public class ItemSetup extends BidsItems {
         seedsNewCarrot = new ItemNewCustomSeeds(BidsCrops.CARROT)
             .setUnlocalizedName("Seeds New Carrot");
 
-        plugAndFeather = new ItemPlugAndFeather()
-            .setUnlocalizedName("Plug And Feather");
+//        plugAndFeather = new ItemPlugAndFeather()
+//            .setUnlocalizedName("Plug And Feather");
 
         appleCrushed = new ItemExtraFood(EnumFoodGroup.Fruit, 40, 20, 0, 10, 0)
             .setDecayRate(4f)
