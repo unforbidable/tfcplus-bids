@@ -1,14 +1,13 @@
 package com.unforbidable.tfc.bids.common.item;
 
-import com.dunk.tfc.TerraFirmaCraft;
-import com.dunk.tfc.Core.TFC_Textures;
 import com.dunk.tfc.Core.Player.PlayerInfo;
 import com.dunk.tfc.Core.Player.PlayerManagerTFC;
+import com.dunk.tfc.Core.TFC_Textures;
 import com.dunk.tfc.Items.ItemLeather;
 import com.dunk.tfc.Items.Tools.ItemKnife;
+import com.dunk.tfc.TerraFirmaCraft;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

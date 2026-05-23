@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.common.item;
 
 import com.dunk.tfc.Items.ItemFlatGeneric;
 import com.unforbidable.tfc.bids.Tags;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 
 public class ItemCommonFlat extends ItemFlatGeneric {

@@ -1,13 +1,11 @@
 package com.unforbidable.tfc.bids.common.item;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.dunk.tfc.Items.ItemClothingPiece;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

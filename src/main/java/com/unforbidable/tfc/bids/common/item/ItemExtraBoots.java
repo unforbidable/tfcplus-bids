@@ -5,7 +5,6 @@ import com.dunk.tfc.Items.ItemBoots;
 import com.dunk.tfc.Items.ItemClothing;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;

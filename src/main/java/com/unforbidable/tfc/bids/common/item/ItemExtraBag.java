@@ -4,7 +4,6 @@ import com.dunk.tfc.Core.TFC_Textures;
 import com.dunk.tfc.Items.ItemLeatherBag;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;

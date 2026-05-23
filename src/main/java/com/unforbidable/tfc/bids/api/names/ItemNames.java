@@ -93,14 +93,16 @@ public interface ItemNames {
     String BIRCH_BARK_CUP = "Birch Bark Cup";
     String BIRCH_BARK_KINDLING = "Birch Bark Kindling";
     String BIRCH_BARK_SHOES = "Birch Bark Shoes";
-    String BIRCH_BARK_REPAIR_PATCH = "Repair Patch";
-    String BIRCH_BARK_BAG_PIECE = "Bag Piece";
-    String BIRCH_BARK_STRAP = "Strap";
-    String BIRCH_BARK_CUP_PIECE = "Cup Piece";
 
-    // Leather Apparel
-    String LEATHER_COAT_BODY_FRONT = "Coat Front";
-    String LEATHER_COAT_BODY_BACK = "Coat Back";
+    // Clothing
+    String EXTRA_REPAIR_PATCH = "Repair Patch";
+    String EXTRA_BAG_PIECE = "Bag Piece";
+    String EXTRA_STRAP = "Strap";
+    String CUP_PIECE = "Cup Piece";
+    String EXTRA_COAT_BODY_FRONT = "Coat Front";
+    String EXTRA_COAT_BODY_BACK = "Coat Back";
+
+    // Leatherwear
     String LEATHER_COAT = "Leather Coat";
 
     // Firewood

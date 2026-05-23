@@ -310,11 +310,11 @@ public class RecipeSetup {
         recipes.addShapelessRecipe(new ItemStack(BidsItems.barkFibreKindling),
             BidsItems.smallStickBundle, BidsItems.barkFibreCoarse);
 
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.birchBarkKindling),
-            "stickWood", "stickWood", "stickWood", BidsItems.birchBarkStrap);
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.birchBarkKindling),
-            BidsItems.smallStickBundle, BidsItems.birchBarkStrap);
-
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.birchBarkKindling),
+//            "stickWood", "stickWood", "stickWood", BidsItems.birchBarkStrap);
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.birchBarkKindling),
+//            BidsItems.smallStickBundle, BidsItems.birchBarkStrap);
+//
         recipes.addShapelessRecipe(new ItemStack(BidsItems.tiedStickBundle),
             BidsItems.smallStickBundle, new ItemStack(BidsItems.smallStickBundle),
             BidsItems.smallStickBundle, TFCItems.grassCordage);
@@ -346,12 +346,12 @@ public class RecipeSetup {
                 TFCItems.cotton, "itemKnife")
             .action(damageTool("itemKnife"));
 
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.birchBarkCup, 1),
-            BidsItems.birchBarkCupUnfinished, Items.slime_ball);
-
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.birchBarkSheet, 1),
-                new ItemStack(BidsItems.bark, 1, 2), "itemKnife")
-            .action(damageTool("itemKnife"));
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.birchBarkCup, 1),
+//            BidsItems.birchBarkCupUnfinished, Items.slime_ball);
+//
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.birchBarkSheet, 1),
+//                new ItemStack(BidsItems.bark, 1, 2), "itemKnife")
+//            .action(damageTool("itemKnife"));
 
         recipes.addShapedRecipe(new ItemStack(BidsBlocks.wattleGate),
             "PW", "  ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
@@ -1821,30 +1821,30 @@ public class RecipeSetup {
 //            new Object[]{" #   ", "# ## ", "# # #", "# ## ", "###  ", '#',
 //                new ItemStack(BidsItems.flatGlass, 1)});
 
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkStrap, 3),
-            new Object[]{"# # #", "# # #", "# # #", "# # #", "# # #", '#', BidsItems.flatBirchBark});
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkStrap, 3),
+//            new Object[]{"# # #", "# # #", "# # #", "# # #", "# # #", '#', BidsItems.flatBirchBark});
+//
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkBagPiece, 2, 0),
+//            new Object[]{" ### ", " ### ", "     ", " ### ", " ### ", '#', BidsItems.flatBirchBark});
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkBagPiece, 2, 0),
+//            new Object[]{"     ", "## ##", "## ##", "## ##", "     ", '#', BidsItems.flatBirchBark});
+//
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkRepairPatch, 4, 0),
+//            new Object[]{"## ##", "## ##", "     ", "## ##", "## ##", '#', BidsItems.flatBirchBark});
+//
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkCupPiece, 1),
+//            new Object[]{"     ", "     ", "#### ", "### #", "#### ", '#',
+//                new ItemStack(BidsItems.flatBirchBark, 1)});
 
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkBagPiece, 2, 0),
-            new Object[]{" ### ", " ### ", "     ", " ### ", " ### ", '#', BidsItems.flatBirchBark});
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkBagPiece, 2, 0),
-            new Object[]{"     ", "## ##", "## ##", "## ##", "     ", '#', BidsItems.flatBirchBark});
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkShoes, 1),
+//            new Object[]{"  ###", "   ##", "     ", "##   ", "###  ", '#',
+//                new ItemStack(BidsItems.flatBirchBark, 1)});
 
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkRepairPatch, 4, 0),
-            new Object[]{"## ##", "## ##", "     ", "## ##", "## ##", '#', BidsItems.flatBirchBark});
-
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkCupPiece, 1),
-            new Object[]{"     ", "     ", "#### ", "### #", "#### ", '#',
-                new ItemStack(BidsItems.flatBirchBark, 1)});
-
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.birchBarkShoes, 1),
-            new Object[]{"  ###", "   ##", "     ", "##   ", "###  ", '#',
-                new ItemStack(BidsItems.flatBirchBark, 1)});
-
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.coatBodyFrontLeather, 1, 0),
-            new Object[]{"#   #", "## ##", "## ##", "## ##", "## ##", '#', TFCItems.flatLeather});
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.coatBodyBackLeather, 1, 0),
-            new Object[]{"## ##", "#####", "#####", "#####", "#####", '#', TFCItems.flatLeather});
-
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.coatBodyFrontLeather, 1, 0),
+//            new Object[]{"#   #", "## ##", "## ##", "## ##", "## ##", '#', TFCItems.flatLeather});
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.coatBodyBackLeather, 1, 0),
+//            new Object[]{"## ##", "#####", "#####", "#####", "#####", '#', TFCItems.flatLeather});
+//
         for (Item flatItem : new Item[]{TFCItems.flatLinen, TFCItems.flatWool, TFCItems.flatSilk, TFCItems.flatCotton, TFCItems.flatBurlap}) {
             CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.steamingMeshCloth, 1),
                 new Object[]{"#####", "# # #", "#####", "# # #", "#####", '#', flatItem});
@@ -1916,89 +1916,89 @@ public class RecipeSetup {
     private static void registerSewingRecipes() {
         Bids.LOG.info("Register TFC sewing recipes");
 
-        int[][][] bagSewing = new int[][][]{{
-            {25, 21},
-            {11, 74},
-            {19, 87},
-            {79, 87},
-            {87, 74},
-            {73, 21}
-        }};
+//        int[][][] bagSewing = new int[][][]{{
+//            {25, 21},
+//            {11, 74},
+//            {19, 87},
+//            {79, 87},
+//            {87, 74},
+//            {73, 21}
+//        }};
+//
+//        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+//            new SewingPattern(new ItemStack(BidsItems.birchBarkBag, 1), bagSewing, true),
+//            new ItemStack[]{
+//                new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
+//                new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
+//                new ItemStack(BidsItems.birchBarkStrap, 1, 0)
+//            }));
+//
+//        int[][][] cupSewing = new int[][][]{{
+//            {11, 74},
+//            {19, 87},
+//            {64, 87},
+//            {72, 74},
+//            {72, 37},
+//            {60, 40},
+//            {21, 40},
+//            {11, 37}
+//        }};
+//
+//        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+//            new SewingPattern(new ItemStack(BidsItems.birchBarkCupUnfinished, 1), cupSewing, true),
+//            new ItemStack[]{
+//                new ItemStack(BidsItems.birchBarkCupPiece, 1, 0),
+//                new ItemStack(BidsItems.birchBarkStrap, 1, 0)
+//            }));
 
-        ClothingManager.getInstance().addRecipe(new SewingRecipe(
-            new SewingPattern(new ItemStack(BidsItems.birchBarkBag, 1), bagSewing, true),
-            new ItemStack[]{
-                new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
-                new ItemStack(BidsItems.birchBarkBagPiece, 1, 0),
-                new ItemStack(BidsItems.birchBarkStrap, 1, 0)
-            }));
-
-        int[][][] cupSewing = new int[][][]{{
-            {11, 74},
-            {19, 87},
-            {64, 87},
-            {72, 74},
-            {72, 37},
-            {60, 40},
-            {21, 40},
-            {11, 37}
-        }};
-
-        ClothingManager.getInstance().addRecipe(new SewingRecipe(
-            new SewingPattern(new ItemStack(BidsItems.birchBarkCupUnfinished, 1), cupSewing, true),
-            new ItemStack[]{
-                new ItemStack(BidsItems.birchBarkCupPiece, 1, 0),
-                new ItemStack(BidsItems.birchBarkStrap, 1, 0)
-            }));
-
-        int[][][] coatSewing = new int[][][]{
-            // the left side of the coat and underarm
-            {{24, 86}, {27, 33}, {24, 33}, {18, 71}},
-            // the outer left arm and shoulder
-            {{8, 71}, {11, 33}, {16, 19}, {22, 13}, {37, 12}},
-            // the arm attached to the sleeve
-            {{25, 33}, {21, 15}},
-            // the right side of the coat and underarm
-            {{97 - 24, 86}, {97 - 27, 33}, {97 - 24, 33}, {97 - 18, 71}},
-            // the outer right arm and shoulder
-            {{97 - 8, 71}, {97 - 11, 33}, {97 - 16, 19}, {97 - 22, 13}, {97 - 37, 12}},
-            // the right arm attached to the sleeve
-            {{97 - 25, 33}, {97 - 21, 15}}
-        };
-
-        ClothingManager.getInstance().addRecipe(new SewingRecipe(
-            new SewingPattern(new ItemStack(BidsItems.leatherCoat, 1), coatSewing, true),
-            new ItemStack[]{
-                new ItemStack(BidsItems.coatBodyFrontLeather, 1, 0),
-                new ItemStack(BidsItems.coatBodyBackLeather, 1, 0),
-                new ItemStack(TFCItems.shirtSleeves, 1, 2),
-                new ItemStack(TFCItems.shirtSleeves, 1, 2),
-            }));
+//        int[][][] coatSewing = new int[][][]{
+//            // the left side of the coat and underarm
+//            {{24, 86}, {27, 33}, {24, 33}, {18, 71}},
+//            // the outer left arm and shoulder
+//            {{8, 71}, {11, 33}, {16, 19}, {22, 13}, {37, 12}},
+//            // the arm attached to the sleeve
+//            {{25, 33}, {21, 15}},
+//            // the right side of the coat and underarm
+//            {{97 - 24, 86}, {97 - 27, 33}, {97 - 24, 33}, {97 - 18, 71}},
+//            // the outer right arm and shoulder
+//            {{97 - 8, 71}, {97 - 11, 33}, {97 - 16, 19}, {97 - 22, 13}, {97 - 37, 12}},
+//            // the right arm attached to the sleeve
+//            {{97 - 25, 33}, {97 - 21, 15}}
+//        };
+//
+//        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+//            new SewingPattern(new ItemStack(BidsItems.leatherCoat, 1), coatSewing, true),
+//            new ItemStack[]{
+//                new ItemStack(BidsItems.coatBodyFrontLeather, 1, 0),
+//                new ItemStack(BidsItems.coatBodyBackLeather, 1, 0),
+//                new ItemStack(TFCItems.shirtSleeves, 1, 2),
+//                new ItemStack(TFCItems.shirtSleeves, 1, 2),
+//            }));
     }
 
     private static void registerSewingRepairRecipes() {
         Bids.LOG.info("Register TFC sewing repair recipes");
 
-        ClothingManager.getInstance().addRecipe(new SewingRecipe(
-            new SewingPattern(new ItemStack(BidsItems.birchBarkBag, 1), true),
-            new ItemStack[]{
-                new ItemStack(BidsItems.birchBarkBag, 1, OreDictionary.WILDCARD_VALUE),
-                new ItemStack(BidsItems.birchBarkRepairPatch, 1, 0)
-            }).setRepairRecipe());
+//        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+//            new SewingPattern(new ItemStack(BidsItems.birchBarkBag, 1), true),
+//            new ItemStack[]{
+//                new ItemStack(BidsItems.birchBarkBag, 1, OreDictionary.WILDCARD_VALUE),
+//                new ItemStack(BidsItems.birchBarkRepairPatch, 1, 0)
+//            }).setRepairRecipe());
+//
+//        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+//            new SewingPattern(new ItemStack(BidsItems.birchBarkShoes, 1), true),
+//            new ItemStack[]{
+//                new ItemStack(BidsItems.birchBarkShoes, 1, OreDictionary.WILDCARD_VALUE),
+//                new ItemStack(BidsItems.birchBarkStrap, 1, 0)
+//            }).setRepairRecipe());
 
-        ClothingManager.getInstance().addRecipe(new SewingRecipe(
-            new SewingPattern(new ItemStack(BidsItems.birchBarkShoes, 1), true),
-            new ItemStack[]{
-                new ItemStack(BidsItems.birchBarkShoes, 1, OreDictionary.WILDCARD_VALUE),
-                new ItemStack(BidsItems.birchBarkStrap, 1, 0)
-            }).setRepairRecipe());
-
-        ClothingManager.getInstance().addRecipe(new SewingRecipe(
-            new SewingPattern(new ItemStack(BidsItems.leatherCoat, 1), true),
-            new ItemStack[]{
-                new ItemStack(BidsItems.leatherCoat, 1, OreDictionary.WILDCARD_VALUE),
-                new ItemStack(TFCItems.repairPatch, 1, 2)
-            }).setRepairRecipe());
+//        ClothingManager.getInstance().addRecipe(new SewingRecipe(
+//            new SewingPattern(new ItemStack(BidsItems.leatherCoat, 1), true),
+//            new ItemStack[]{
+//                new ItemStack(BidsItems.leatherCoat, 1, OreDictionary.WILDCARD_VALUE),
+//                new ItemStack(TFCItems.repairPatch, 1, 2)
+//            }).setRepairRecipe());
 
         if (BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes) {
             // Adding missing TFC+ recipe for repairing leather boots

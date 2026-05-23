@@ -97,6 +97,27 @@ public class BidsItems {
     public static final Item firewood = item(ItemNames.FIREWOOD);
     public static final Item firewoodSeasoned = item(ItemNames.FIREWOOD_SEASONED);
 
+    // Clothing
+    public static final Item extraStrap = item(ItemNames.EXTRA_STRAP);
+    public static final Item extraRepairPatch = item(ItemNames.EXTRA_REPAIR_PATCH);
+    public static final Item extraBagPiece = item(ItemNames.EXTRA_BAG_PIECE);
+    public static final Item extraCoatBodyFront = item(ItemNames.EXTRA_COAT_BODY_FRONT);
+    public static final Item extraCoatBodyBack = item(ItemNames.EXTRA_COAT_BODY_BACK);
+    public static final Item cupPiece = item(ItemNames.CUP_PIECE);
+
+    // Birch bark
+    public static final Item flatBirchBark = item(ItemNames.FLAT_BIRCH_BARK);
+    public static final Item birchBarkSheet = item(ItemNames.BIRCH_BARK_SHEET);
+    public static final Item birchBarkBag = item(ItemNames.BIRCH_BARK_BAG);
+    public static final Item birchBarkCupUnfinished = item(ItemNames.BIRCH_BARK_CUP_UNFINISHED);
+    public static final Item birchBarkCup = item(ItemNames.BIRCH_BARK_CUP);
+    public static final Item birchBarkShoes = item(ItemNames.BIRCH_BARK_SHOES);
+    public static final Item birchBarkKindling = item(ItemNames.BIRCH_BARK_KINDLING);
+
+    // Leatherwear
+    public static final Item leatherCoat = item(ItemNames.LEATHER_COAT);
+
+
 
     public static Item igInHandAxe;
     public static Item sedHandAxe;
@@ -144,23 +165,6 @@ public class BidsItems {
     public static Item woolDried;
     public static Item woolFiberCoarse;
     public static Item woolFiberRefined;
-
-    public static Item flatBirchBark;
-    public static Item birchBarkSheet;
-    public static Item birchBarkStrap;
-    public static Item birchBarkRepairPatch;
-    public static Item birchBarkBagPiece;
-    public static Item birchBarkCupPiece;
-    public static Item birchBarkBag;
-    public static Item birchBarkCupUnfinished;
-    public static Item birchBarkCup;
-    public static Item birchBarkShoes;
-    public static Item birchBarkKindling;
-
-    public static Item coatBodyFrontLeather;
-    public static Item coatBodyBackLeather;
-
-    public static Item leatherCoat;
 
     public static Item wheatCrushed;
     public static Item barleyCrushed;
