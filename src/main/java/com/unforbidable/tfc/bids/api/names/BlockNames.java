@@ -161,9 +161,9 @@ public interface BlockNames {
 
     // Saddle Quern / Stone Press
     @BlockId(39)
-    String SADDLE_QUERN_BASE = "saddleQuernBaseSed";
+    String SADDLE_QUERN_BASE = "SaddleQuernBaseSed";
     @BlockId(40)
-    String SADDLE_QUERN_HANDSTONE = "saddleQuernHandstoneSed";
+    String SADDLE_QUERN_HANDSTONE = "SaddleQuernHandstoneSed";
     @BlockId(47)
     String SADDLE_QUERN_PRESSING_STONE = "SaddleQuernPressingStoneSed";
     @BlockId(48)
