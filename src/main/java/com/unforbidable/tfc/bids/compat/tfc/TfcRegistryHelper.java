@@ -25,6 +25,7 @@ public class TfcRegistryHelper {
 
             register(TfcRegistry.Recipes.anvilPlans);
             register(TfcRegistry.Recipes.anvil);
+            register(TfcRegistry.Recipes.sewing);
 
             worldBoundRecipesRegistered = true;
         }
