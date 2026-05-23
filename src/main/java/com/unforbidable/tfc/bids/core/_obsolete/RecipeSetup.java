@@ -353,16 +353,16 @@ public class RecipeSetup {
 //                new ItemStack(BidsItems.bark, 1, 2), "itemKnife")
 //            .action(damageTool("itemKnife"));
 
-        recipes.addShapedRecipe(new ItemStack(BidsBlocks.wattleGate),
-            "PW", "  ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
-        recipes.addShapedRecipe(new ItemStack(BidsBlocks.wattleGate),
-            "WP", "  ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
-
-        recipes.addShapedRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
-            "P ", "W ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
-        recipes.addShapedRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
-            "W ", "P ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
-
+//        recipes.addShapedRecipe(new ItemStack(BidsBlocks.wattleGate),
+//            "PW", "  ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
+//        recipes.addShapedRecipe(new ItemStack(BidsBlocks.wattleGate),
+//            "WP", "  ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
+//
+//        recipes.addShapedRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
+//            "P ", "W ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
+//        recipes.addShapedRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
+//            "W ", "P ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
+//
         // Select TFC recipes where new cordage and twines can be used
         recipes.addShapedRecipe(new ItemStack(TFCBlocks.primitiveLoom),
             "LS", "SL", 'L', "stickWood", 'S', "materialBindingStrong");

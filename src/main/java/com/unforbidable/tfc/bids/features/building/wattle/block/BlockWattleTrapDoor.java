@@ -5,7 +5,6 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,19 +15,11 @@ import net.minecraft.world.World;
 
 public class BlockWattleTrapDoor extends BlockTrapDoor {
 
-    protected boolean ignoreRedstone = false;
-
     public BlockWattleTrapDoor() {
         super(Material.wood);
 
         setHardness(1);
         setCreativeTab(BidsCreativeTabs.bidsDefault);
-    }
-
-    public BlockWattleTrapDoor setIgnoreRedstone(boolean ignoreRedstone) {
-        this.ignoreRedstone = ignoreRedstone;
-
-        return this;
     }
 
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player,
@@ -71,9 +62,6 @@ public class BlockWattleTrapDoor extends BlockTrapDoor {
 
     @Override
     public void func_150120_a(World world, int x, int y, int z, boolean isPowerOn) {
-        if (!ignoreRedstone) {
-            super.func_150120_a(world, x, y, z, isPowerOn);
-        }
     }
 
     public static boolean canPlaceCover(IBlockAccess world, int x, int y, int z) {

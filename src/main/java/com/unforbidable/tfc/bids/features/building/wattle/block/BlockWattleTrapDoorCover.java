@@ -1,13 +1,11 @@
 package com.unforbidable.tfc.bids.features.building.wattle.block;
 
-import java.util.Random;
-
 import com.dunk.tfc.Core.TFC_Sounds;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

@@ -106,6 +106,11 @@ public class BidsBlocks {
     public static final Block choppingBlock2 = block(BlockNames.CHOPPING_BLOCK_2);
     public static final Block choppingBlock3 = block(BlockNames.CHOPPING_BLOCK_3);
 
+    // Wattle
+    public static final Block wattleTrapdoor = block(BlockNames.WATTLE_TRAPDOOR);
+    public static final Block wattleTrapdoorCover = block(BlockNames.WATTLE_TRAPDOOR_COVER);
+    public static final Block wattleGate = block(BlockNames.WATTLE_GATE);
+
 
 
     public static int clayCrucibleRenderId;
@@ -157,9 +162,6 @@ public class BidsBlocks {
 
 
 
-    public static Block wattleTrapdoor;
-    public static Block wattleTrapdoorCover;
-
     public static Block saddleQuernBaseSed;
     public static Block saddleQuernHandstoneSed;
     public static Block saddleQuernPressingStoneSed;
@@ -208,7 +210,6 @@ public class BidsBlocks {
     public static Block palisade2;
     public static Block palisade3;
 
-    public static Block wattleGate;
 
     public static Block strawNest;
 

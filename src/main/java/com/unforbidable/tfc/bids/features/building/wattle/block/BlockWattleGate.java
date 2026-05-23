@@ -3,10 +3,12 @@ package com.unforbidable.tfc.bids.features.building.wattle.block;
 import com.dunk.tfc.Blocks.Vanilla.BlockCustomWall;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.api.util.fence.ConnectableFenceGate;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -20,12 +22,10 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class BlockWattleGate extends BlockCustomWall implements ConnectableFenceGate {
 
     public BlockWattleGate() {
-        super(BidsBlocks.tiedStickBundle, 0);
+        super(TFCBlocks.wattle, 0);
 
         setCreativeTab(BidsCreativeTabs.bidsBuildingBlocks);
         setHardness(2f);
@@ -48,7 +48,7 @@ public class BlockWattleGate extends BlockCustomWall implements ConnectableFence
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.wattleGateRenderId;
+        return BlockRenderIdProvider.get(BlockNames.WATTLE_GATE);
     }
 
     @Override

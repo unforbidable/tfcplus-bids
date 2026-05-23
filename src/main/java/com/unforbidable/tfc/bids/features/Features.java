@@ -5,6 +5,7 @@ import com.unforbidable.tfc.bids.features.building.carving.Carving;
 import com.unforbidable.tfc.bids.features.building.logwall.LogWall;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
+import com.unforbidable.tfc.bids.features.building.wattle.Wattle;
 import com.unforbidable.tfc.bids.features.crafting.drying.Drying;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
 import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlock;
@@ -52,6 +53,7 @@ public class Features {
         new Clothing(),
         new BirchBark(),
         new Leatherwear(),
+        new Wattle(),
         new CompositeTools(),
     };
 

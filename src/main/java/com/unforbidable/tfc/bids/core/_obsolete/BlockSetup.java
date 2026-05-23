@@ -335,11 +335,11 @@ public class BlockSetup extends BidsBlocks {
 //        choppingBlock3 = new BlockChoppingBlock(TFCBlocks.woodVert3)
 //                .setBlockName("ChoppingBlock3");
 
-        wattleTrapdoor = new BlockWattleTrapDoor().setIgnoreRedstone(true)
-                .setBlockName("WattleTrapDoor")
-                .setBlockTextureName("Wattle Trap Door");
-        wattleTrapdoorCover = new BlockWattleTrapDoorCover()
-                .setBlockName("WattleTrapDoorCover");
+//        wattleTrapdoor = new BlockWattleTrapDoor().setIgnoreRedstone(true)
+//                .setBlockName("WattleTrapDoor")
+//                .setBlockTextureName("Wattle Trap Door");
+//        wattleTrapdoorCover = new BlockWattleTrapDoorCover()
+//                .setBlockName("WattleTrapDoorCover");
 
         saddleQuernBaseSed = new BlockSaddleQuern((BlockRoughStone) roughStoneSed)
                 .setBlockName("SaddleQuernSed");
@@ -438,10 +438,10 @@ public class BlockSetup extends BidsBlocks {
         palisade3 = new BlockPalisade(logWallVert3, 32)
             .setBlockName("Palisade3");
 
-        wattleGate = new BlockWattleGate()
-            .setBlockTextureName("Wattle Gate")
-            .setBlockName("WattleGate");
-
+//        wattleGate = new BlockWattleGate()
+//            .setBlockTextureName("Wattle Gate")
+//            .setBlockName("WattleGate");
+//
         strawNest = new BlockStrawNest()
             .setBlockName("StrawNest");
 
