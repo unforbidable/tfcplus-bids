@@ -254,12 +254,11 @@ public interface ItemNames {
     String BOTTLE_FLAX_SEED_OIL = "Glass Bottle.FlaxSeedOil";
     String BOWL_FLAX_SEED_OIL = "Bowl Flax Seed Oil";
 
-    // Stone Press
+    // Crushed Fruit
     String APPLE_CRUSHED = "Apple Crushed";
     String OLIVE_CRUSHED = "Olive Crushed";
 
     // Convenient Containers
-    String LARGE_BOWL = "Large Bowl";
     String BOTTLE_OLIVE_OIL = "Glass Bottle.OliveOil";
     String BOTTLE_VINEGAR = "Glass Bottle.Vinegar";
     String BOTTLE_BRINE = "Glass Bottle.Brine";
@@ -271,6 +270,7 @@ public interface ItemNames {
     String JUG_VINEGAR = "Pottery Jug.Vinegar";
 
     // Large Bowl
+    String LARGE_BOWL = "Large Bowl";
     String LARGE_BOWL_FRESH_WATER = "Large Bowl.FreshWater";
     String LARGE_BOWL_SALT_WATER = "Large Bowl.SaltWater";
     String LARGE_BOWL_VINEGAR = "Large Bowl.Vinegar";
@@ -315,7 +315,7 @@ public interface ItemNames {
     String PORRIDGE = "Porridge";
     String OMELET = "Omelet";
 
-    // Drying
+    // Mudbrick
     String DRYING_MUD_BRICK = "Drying Mud Brick";
 
 }
