@@ -44,21 +44,21 @@ public class Clothing extends Feature {
     public void setup(FeatureSetupBuilder setup) {
         setup.registry(TfcRegistry.Recipes.knapping)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.extraStrap, 3),
-                new Object[]{"# # #", "# # #", "# # #", "# # #", "# # #", '#', BidsItems.flatBirchBark}))
+                "# # #", "# # #", "# # #", "# # #", "# # #", '#', BidsItems.flatBirchBark))
             .add(KnappingRecipe.add(new ItemStack(BidsItems.extraBagPiece, 2, 0),
-                new Object[]{" ### ", " ### ", "     ", " ### ", " ### ", '#', BidsItems.flatBirchBark}))
+                " ### ", " ### ", "     ", " ### ", " ### ", '#', BidsItems.flatBirchBark))
             .add(KnappingRecipe.add(new ItemStack(BidsItems.extraBagPiece, 2, 0),
-                new Object[]{"     ", "## ##", "## ##", "## ##", "     ", '#', BidsItems.flatBirchBark}))
+                "     ", "## ##", "## ##", "## ##", "     ", '#', BidsItems.flatBirchBark))
             .add(KnappingRecipe.add(new ItemStack(BidsItems.extraRepairPatch, 4, 0),
-                new Object[]{"## ##", "## ##", "     ", "## ##", "## ##", '#', BidsItems.flatBirchBark}))
+                "## ##", "## ##", "     ", "## ##", "## ##", '#', BidsItems.flatBirchBark))
             .add(KnappingRecipe.add(new ItemStack(BidsItems.cupPiece, 1, 0),
-                new Object[]{"     ", "     ", "#### ", "### #", "#### ", '#', BidsItems.flatBirchBark}));
+                "     ", "     ", "#### ", "### #", "#### ", '#', BidsItems.flatBirchBark));
 
         setup.registry(TfcRegistry.Recipes.knapping)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.extraCoatBodyFront, 1, 0),
-                new Object[]{"#   #", "## ##", "## ##", "## ##", "## ##", '#', TFCItems.flatLeather}))
+                "#   #", "## ##", "## ##", "## ##", "## ##", '#', TFCItems.flatLeather))
             .add(KnappingRecipe.add(new ItemStack(BidsItems.extraCoatBodyBack, 1, 0),
-                new Object[]{"## ##", "#####", "#####", "#####", "#####", '#', TFCItems.flatLeather}));
+                "## ##", "#####", "#####", "#####", "#####", '#', TFCItems.flatLeather));
     }
 
 }

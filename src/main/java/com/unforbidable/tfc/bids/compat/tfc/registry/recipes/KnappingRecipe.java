@@ -14,7 +14,7 @@ public class KnappingRecipe {
         this.input = input;
     }
 
-    public static RegistryActor<KnappingRecipe> add(ItemStack output, Object[] input) {
+    public static RegistryActor<KnappingRecipe> add(ItemStack output, Object ...input) {
         return new RegistryAddingActor<>(KnappingRecipeStage.instance, new KnappingRecipe(output, input));
     }
 

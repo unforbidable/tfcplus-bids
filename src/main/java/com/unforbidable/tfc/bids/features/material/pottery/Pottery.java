@@ -40,8 +40,8 @@ public class Pottery extends Feature {
 
         setup.registry(TfcRegistry.Recipes.knapping)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.clayMug, 2),
-            new Object[]{"#####", "#####", "    #", "   # ", "    #", '#',
-                new ItemStack(TFCItems.flatClay, 1, 1)}));
+                "#####", "#####", "    #", "   # ", "    #",
+                '#', new ItemStack(TFCItems.flatClay, 1, 1)));
 
         setup.registry(TfcRegistry.Recipes.kiln)
             .add(KilnRecipe.add(new ItemStack(BidsItems.clayPipe, 1, 0), 0,

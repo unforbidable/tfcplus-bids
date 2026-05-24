@@ -155,7 +155,7 @@ public class TfcSetup {
         Bids.LOG.info("Setup glassblowing for TFC");
 
         TfcRegistry.Recipes.knapping.add(KnappingRecipe.add(new ItemStack(TFCItems.glassBottle),
-            new Object[]{" # # ", " # # ", "#   #", "#   #", " ### ", '#', new ItemStack(BidsItems.flatGlass)}));
+            " # # ", " # # ", "#   #", "#   #", " ### ", '#', new ItemStack(BidsItems.flatGlass)));
     }
 
     public static void setupCarving() {

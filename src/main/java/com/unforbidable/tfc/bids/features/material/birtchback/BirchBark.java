@@ -86,7 +86,7 @@ public class BirchBark extends Feature {
 
         setup.registry(TfcRegistry.Recipes.knapping)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.birchBarkShoes),
-                new Object[]{"  ###", "   ##", "     ", "##   ", "###  ", '#', BidsItems.flatBirchBark}));
+                "  ###", "   ##", "     ", "##   ", "###  ", '#', BidsItems.flatBirchBark));
 
         int[][][] bagSewing = new int[][][]{{
             {25, 21},

@@ -100,11 +100,11 @@ public class Crucible extends Feature {
 
         setup.registry(TfcRegistry.Recipes.knapping)
             .add(KnappingRecipe.add(new ItemStack(BidsBlocks.clayCrucible, 1, 1),
-                new Object[]{"#####", " ### ", " ### ", " ### ", "     ",
-                    '#', new ItemStack(TFCItems.flatClay, 1, 1)}))
+                "#####", " ### ", " ### ", " ### ", "     ",
+                '#', new ItemStack(TFCItems.flatClay, 1, 1)))
             .add(KnappingRecipe.add(new ItemStack(BidsBlocks.fireClayCrucible, 1),
-                new Object[]{"#####", " ### ", " ### ", " ### ", "     ",
-                    '#', new ItemStack(TFCItems.flatClay, 1, 3)}));
+                "#####", " ### ", " ### ", " ### ", "     ",
+                '#', new ItemStack(TFCItems.flatClay, 1, 3)));
 
         setup.registry(TfcRegistry.Recipes.kiln)
             .add(KilnRecipe.add(new ItemStack(BidsBlocks.clayCrucible, 1, 1), 0,

@@ -39,11 +39,11 @@ public class Glass extends Feature {
     public void setup(FeatureSetupBuilder setup) {
         setup.registry(TfcRegistry.Recipes.knapping)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.drinkingGlass, 2),
-                new Object[]{"     ", "     ", "#   #", "#   #", "#####", '#', new ItemStack(BidsItems.flatGlass, 1)}))
+                "     ", "     ", "#   #", "#   #", "#####", '#', BidsItems.flatGlass))
             .add(KnappingRecipe.add(new ItemStack(BidsItems.shotGlass, 4),
-                new Object[]{"     ", "     ", " # # ", " # # ", " ### ", '#', new ItemStack(BidsItems.flatGlass, 1)}))
+                "     ", "     ", " # # ", " # # ", " ### ", '#', BidsItems.flatGlass))
             .add(KnappingRecipe.add(new ItemStack(BidsItems.glassJug, 1),
-                new Object[]{" #   ", "# ## ", "# # #", "# ## ", "###  ", '#', new ItemStack(BidsItems.flatGlass, 1)}));
+                " #   ", "# ## ", "# # #", "# ## ", "###  ", '#', BidsItems.flatGlass));
     }
 
 }
