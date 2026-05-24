@@ -43,7 +43,7 @@ public class ItemSpec<T extends Item> {
         instance.setUnlocalizedName(name);
 
         if (container != null) {
-            instance.setContainerItem(container.item);
+            instance.setContainerItem(container.item.get());
 
             if (fluid != null && fluid.partial) {
                 instance.setMaxDamage(fluid.volume / 50);

@@ -160,19 +160,19 @@ public class FeatureRegistry {
         ItemRegistryEntry item = items.get(spec.name);
 
         if (spec.fluid.partial) {
-            FluidHelper.registerPartialFluidContainer(spec.fluid.fluid, spec.container.item,
+            FluidHelper.registerPartialFluidContainer(spec.fluid.fluid, spec.container.item.get(),
                 spec.container.emptyItemDamage, item.instance, 50, spec.fluid.volume);
         } else {
             if (spec.meta != null) {
                 for (int i = 0; i < spec.meta.names.length; i++) {
                     FluidContainerRegistry.registerFluidContainer(new FluidStack(spec.fluid.fluid, spec.fluid.volume),
                         new ItemStack(item.instance, 1, i),
-                        new ItemStack(spec.container.item, 1, i + spec.container.emptyItemDamage));
+                        new ItemStack(spec.container.item.get(), 1, i + spec.container.emptyItemDamage));
                 }
             } else {
                 FluidContainerRegistry.registerFluidContainer(new FluidStack(spec.fluid.fluid, spec.fluid.volume),
                     new ItemStack(item.instance, 1, 0),
-                    new ItemStack(spec.container.item, 1, spec.container.emptyItemDamage));
+                    new ItemStack(spec.container.item.get(), 1, spec.container.emptyItemDamage));
             }
         }
     }

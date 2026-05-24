@@ -27,7 +27,6 @@ public class ItemSpecBuilder<T extends Item> {
         this.item = item;
     }
 
-
     public ItemSpecBuilder<T> apply(Consumer<T> apply) {
         if (this.apply == null) {
             this.apply = apply;
@@ -41,10 +40,10 @@ public class ItemSpecBuilder<T extends Item> {
     /**
      * Specifies the item that is the empty container.
      * @param item Empty container item
-     * @return
+     * @return This <code>ItemSpecBuilder</code> instance.
      */
     public ItemSpecBuilder<T> container(Item item) {
-        return container(item, 0);
+        return container(() -> item, 0);
     }
 
     /**
@@ -54,9 +53,24 @@ public class ItemSpecBuilder<T extends Item> {
      * <p>Containers with sub items currently do not support partial fluids.</p>
      * @param item Empty container item
      * @param emptyItemDamage Empty container item damage
-     * @return
+     * @return This <code>ItemSpecBuilder</code> instance.
      */
     public ItemSpecBuilder<T> container(Item item, int emptyItemDamage) {
+        container = new ContainerSpec(() -> item, emptyItemDamage);
+
+        return this;
+    }
+
+    /**
+     * <p>Specifies the item that is the empty container, and the damage.</p>
+     * <p>Unlike <code>container(Item item, int emptyItemDamage)</code>, this method accepts</p>
+     * <code>Supplier&lt;Item&gt;</code>, which is invoked only once the <code>Item</code> instance is actually created.
+     * This is necessary in case the container item is initialized in the same feature where it is referenced in.
+     * @param item Empty container item
+     * @param emptyItemDamage Empty container item damage
+     * @return This <code>ItemSpecBuilder</code> instance.
+     */
+    public ItemSpecBuilder<T> container(Supplier<Item> item, int emptyItemDamage) {
         container = new ContainerSpec(item, emptyItemDamage);
 
         return this;
