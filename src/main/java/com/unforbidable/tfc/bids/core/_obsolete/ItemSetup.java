@@ -698,26 +698,26 @@ public class ItemSetup extends BidsItems {
             .setDecayRate(4f)
             .setUnlocalizedName("Olive Crushed");
 
-        oliveOilBottle = new ItemGlassBottleFluid()
-            .setContainerItem((TFCItems.glassBottle))
-            .setMaxDamage(1000 / 50)
-            .setUnlocalizedName("Glass Bottle.OliveOil");
-        vinegarBottle = new ItemGlassBottleFluid()
-            .setContainerItem((TFCItems.glassBottle))
-            .setMaxDamage(1000 / 50)
-            .setUnlocalizedName("Glass Bottle.Vinegar");
-        brineBottle = new ItemGlassBottleFluid()
-            .setContainerItem((TFCItems.glassBottle))
-            .setMaxDamage(1000 / 50)
-            .setUnlocalizedName("Glass Bottle.Brine");
-        honeyBottle = new ItemGlassBottleFluid()
-            .setContainerItem((TFCItems.glassBottle))
-            .setMaxDamage(1000 / 50)
-            .setUnlocalizedName("Glass Bottle.Honey");
-        saltWaterBottle = new ItemGlassBottleFluid()
-            .setContainerItem((TFCItems.glassBottle))
-            .setMaxDamage(1000 / 50)
-            .setUnlocalizedName("Glass Bottle.SaltWater");
+//        oliveOilBottle = new ItemGlassBottleFluid()
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setMaxDamage(1000 / 50)
+//            .setUnlocalizedName("Glass Bottle.OliveOil");
+//        vinegarBottle = new ItemGlassBottleFluid()
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setMaxDamage(1000 / 50)
+//            .setUnlocalizedName("Glass Bottle.Vinegar");
+//        brineBottle = new ItemGlassBottleFluid()
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setMaxDamage(1000 / 50)
+//            .setUnlocalizedName("Glass Bottle.Brine");
+//        honeyBottle = new ItemGlassBottleFluid()
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setMaxDamage(1000 / 50)
+//            .setUnlocalizedName("Glass Bottle.Honey");
+//        saltWaterBottle = new ItemGlassBottleFluid()
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setMaxDamage(1000 / 50)
+//            .setUnlocalizedName("Glass Bottle.SaltWater");
         fishOilBottle = new ItemGlassBottleFluid()
             .setContainerItem((TFCItems.glassBottle))
             .setMaxDamage(1000 / 50)
@@ -776,16 +776,20 @@ public class ItemSetup extends BidsItems {
             .setContainerItem((TFCItems.glassBottle))
             .setUnlocalizedName("Glass Bottle.MilkVinegar");
 
-        vinegarBowl = new ItemBowlFluid(new String[]{"PotteryBowl", "Bowl"})
-            .setContainerItem(TFCItems.potteryBowl)
-            .setUnlocalizedName("Bowl Vinegar");
-        oliveOilBowl = new ItemBowlFluid(new String[]{"PotteryBowl", "Bowl"})
-            .setContainerItem(TFCItems.potteryBowl)
-            .setUnlocalizedName("Bowl Olive Oil");
-        fishOilBowl = new ItemBowlFluid(new String[]{"PotteryBowl", "Bowl"})
+//        vinegarBowl = new ItemBowlFluid()
+//            .setMetaNames(new String[]{"PotteryBowl", "Bowl"})
+//            .setContainerItem(TFCItems.potteryBowl)
+//            .setUnlocalizedName("Bowl Vinegar");
+//        oliveOilBowl = new ItemBowlFluid()
+//            .setMetaNames(new String[]{"PotteryBowl", "Bowl"})
+//            .setContainerItem(TFCItems.potteryBowl)
+//            .setUnlocalizedName("Bowl Olive Oil");
+        fishOilBowl = new ItemBowlFluid()
+            .setMetaNames(new String[]{"PotteryBowl", "Bowl"})
             .setContainerItem(TFCItems.potteryBowl)
             .setUnlocalizedName("Bowl Fish Oil");
-        flaxSeedOilBowl = new ItemBowlFluid(new String[]{"PotteryBowl", "Bowl"})
+        flaxSeedOilBowl = new ItemBowlFluid()
+            .setMetaNames(new String[]{"PotteryBowl", "Bowl"})
             .setContainerItem(TFCItems.potteryBowl)
             .setUnlocalizedName("Bowl Flax Seed Oil");
 
@@ -916,13 +920,16 @@ public class ItemSetup extends BidsItems {
         morePowder = new ItemMorePowder()
             .setUnlocalizedName("More Powder");
 
-        potteryJugVinegar = new ItemPotteryFluid(1000)
-            .setContainerItem(TFCItems.potteryJug)
-            .setUnlocalizedName("Pottery Jug.Vinegar");
-        potteryJugOliveOil = new ItemPotteryFluid(1000)
-            .setContainerItem(TFCItems.potteryJug)
-            .setUnlocalizedName("Pottery Jug.OliveOil");
-        potteryJugFishOil = new ItemPotteryFluid(1000)
+//        potteryJugVinegar = new ItemPotteryFluid()
+//            .setMaxDamage(1000 / 50)
+//            .setContainerItem(TFCItems.potteryJug)
+//            .setUnlocalizedName("Pottery Jug.Vinegar");
+//        potteryJugOliveOil = new ItemPotteryFluid()
+//            .setMaxDamage(1000 / 50)
+//            .setContainerItem(TFCItems.potteryJug)
+//            .setUnlocalizedName("Pottery Jug.OliveOil");
+        potteryJugFishOil = new ItemPotteryFluid()
+            .setMaxDamage(1000 / 50)
             .setContainerItem(TFCItems.potteryJug)
             .setUnlocalizedName("Pottery Jug.FishOil");
 
@@ -979,11 +986,11 @@ public class ItemSetup extends BidsItems {
     }
 
     private static void registerFluidContainers() {
-        FluidHelper.registerPartialFluidContainer(TFCFluids.OLIVEOIL, TFCItems.glassBottle, 0, oliveOilBottle, 50, 1000);
-        FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, TFCItems.glassBottle, 0, vinegarBottle, 50, 1000);
-        FluidHelper.registerPartialFluidContainer(TFCFluids.BRINE, TFCItems.glassBottle, 0, brineBottle, 50, 1000);
-        FluidHelper.registerPartialFluidContainer(TFCFluids.HONEY, TFCItems.glassBottle, 0, honeyBottle, 50, 1000);
-        FluidHelper.registerPartialFluidContainer(TFCFluids.SALTWATER, TFCItems.glassBottle, 0, saltWaterBottle, 50, 1000);
+//        FluidHelper.registerPartialFluidContainer(TFCFluids.OLIVEOIL, TFCItems.glassBottle, 0, oliveOilBottle, 50, 1000);
+//        FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, TFCItems.glassBottle, 0, vinegarBottle, 50, 1000);
+//        FluidHelper.registerPartialFluidContainer(TFCFluids.BRINE, TFCItems.glassBottle, 0, brineBottle, 50, 1000);
+//        FluidHelper.registerPartialFluidContainer(TFCFluids.HONEY, TFCItems.glassBottle, 0, honeyBottle, 50, 1000);
+//        FluidHelper.registerPartialFluidContainer(TFCFluids.SALTWATER, TFCItems.glassBottle, 0, saltWaterBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.FISHOIL, TFCItems.glassBottle, 0, fishOilBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.OILYFISHWATER, TFCItems.glassBottle, 0, oilyFishWaterBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, TFCItems.glassBottle, 0, goatMilkBottle, 50, 1000);
@@ -996,8 +1003,8 @@ public class ItemSetup extends BidsItems {
 
         FluidHelper.registerPartialFluidContainer(BidsFluids.CREAM, TFCItems.waterskinEmpty, 0, waterskinCream, 50, 2000);
 
-        FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, TFCItems.potteryJug, 1, potteryJugVinegar, 50, 1000);
-        FluidHelper.registerPartialFluidContainer(TFCFluids.OLIVEOIL, TFCItems.potteryJug, 1, potteryJugOliveOil, 50, 1000);
+//        FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, TFCItems.potteryJug, 1, potteryJugVinegar, 50, 1000);
+//        FluidHelper.registerPartialFluidContainer(TFCFluids.OLIVEOIL, TFCItems.potteryJug, 1, potteryJugOliveOil, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.FISHOIL, TFCItems.potteryJug, 1, potteryJugFishOil, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, TFCItems.potteryJug, 1, potteryJugGoatMilk, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.SKIMMEDMILK, TFCItems.potteryJug, 1, potteryJugSkimmedMilk, 50, 1000);
@@ -1007,14 +1014,14 @@ public class ItemSetup extends BidsItems {
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
             new ItemStack(milkVinegarBottle), new ItemStack(TFCItems.glassBottle));
 
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.VINEGAR, 250),
-            new ItemStack(vinegarBowl, 1, 0), new ItemStack(TFCItems.potteryBowl, 1, 1));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.VINEGAR, 250),
-            new ItemStack(vinegarBowl, 1, 1), new ItemStack(TFCItems.potteryBowl, 1, 2));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.OLIVEOIL, 250),
-            new ItemStack(oliveOilBowl, 1, 0), new ItemStack(TFCItems.potteryBowl, 1, 1));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.OLIVEOIL, 250),
-            new ItemStack(oliveOilBowl, 1, 1), new ItemStack(TFCItems.potteryBowl, 1, 2));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.VINEGAR, 250),
+//            new ItemStack(vinegarBowl, 1, 0), new ItemStack(TFCItems.potteryBowl, 1, 1));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.VINEGAR, 250),
+//            new ItemStack(vinegarBowl, 1, 1), new ItemStack(TFCItems.potteryBowl, 1, 2));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.OLIVEOIL, 250),
+//            new ItemStack(oliveOilBowl, 1, 0), new ItemStack(TFCItems.potteryBowl, 1, 1));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.OLIVEOIL, 250),
+//            new ItemStack(oliveOilBowl, 1, 1), new ItemStack(TFCItems.potteryBowl, 1, 2));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.FISHOIL, 250),
             new ItemStack(fishOilBowl, 1, 0), new ItemStack(TFCItems.potteryBowl, 1, 1));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.FISHOIL, 250),

@@ -117,6 +117,17 @@ public class BidsItems {
     // Leatherwear
     public static final Item leatherCoat = item(ItemNames.LEATHER_COAT);
 
+    // Fluid containers
+    public static final Item oliveOilBottle = item(ItemNames.BOTTLE_OLIVE_OIL);
+    public static final Item saltWaterBottle = item(ItemNames.BOTTLE_SALT_WATER);
+    public static final Item vinegarBottle = item(ItemNames.BOTTLE_VINEGAR);
+    public static final Item brineBottle = item(ItemNames.BOTTLE_BRINE);
+    public static final Item honeyBottle = item(ItemNames.BOTTLE_HONEY);
+    public static final Item potteryJugVinegar = item(ItemNames.JUG_VINEGAR);
+    public static final Item potteryJugOliveOil = item(ItemNames.JUG_OLIVE_OIL);
+    public static final Item vinegarBowl = item(ItemNames.BOWL_VINEGAR);
+    public static final Item oliveOilBowl = item(ItemNames.BOWL_OLIVE_OIL);
+
 
 
     public static Item igInHandAxe;
@@ -220,11 +231,6 @@ public class BidsItems {
     public static Item appleCrushed;
     public static Item oliveCrushed;
 
-    public static Item oliveOilBottle;
-    public static Item saltWaterBottle;
-    public static Item vinegarBottle;
-    public static Item brineBottle;
-    public static Item honeyBottle;
     public static Item honeyWaterBottle;
     public static Item milkVinegarBottle;
     public static Item fishOilBottle;
@@ -239,14 +245,10 @@ public class BidsItems {
 
     public static Item waterskinCream;
 
-    public static Item potteryJugVinegar;
-    public static Item potteryJugOliveOil;
     public static Item potteryJugFishOil;
     public static Item potteryJugGoatMilk;
     public static Item potteryJugSkimmedMilk;
 
-    public static Item vinegarBowl;
-    public static Item oliveOilBowl;
     public static Item fishOilBowl;
     public static Item flaxSeedOilBowl;
 

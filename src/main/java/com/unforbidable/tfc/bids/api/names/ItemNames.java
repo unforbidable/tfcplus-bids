@@ -264,10 +264,10 @@ public interface ItemNames {
     String BOTTLE_BRINE = "Glass Bottle.Brine";
     String BOTTLE_HONEY = "Glass Bottle.Honey";
     String BOTTLE_SALT_WATER = "Glass Bottle.SaltWater";
-    String BOWL_OLIVE_OIL = "Bowl Olive Oil";
-    String BOWL_VINEGAR = "Bowl Vinegar";
     String JUG_OLIVE_OIL = "Pottery Jug.OliveOil";
     String JUG_VINEGAR = "Pottery Jug.Vinegar";
+    String BOWL_OLIVE_OIL = "Bowl Olive Oil";
+    String BOWL_VINEGAR = "Bowl Vinegar";
 
     // Large Bowl
     String LARGE_BOWL = "Large Bowl";
