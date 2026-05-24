@@ -1778,17 +1778,17 @@ public class RecipeSetup {
 //            CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.DRILL_HEAD),
 //                new Object[]{"     ", " ### ", "#####", " ### ", "  #  ",
 //                    '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)});
-            CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.ADZE_HEAD),
-                new Object[]{"#####", "#  ##", "#    ", "     ", "     ",
-                    '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)});
-            CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.HAND_AXE),
-                new Object[]{"  #  ", " ### ", " ### ", "#####", " ### ",
-                    '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)});
+//            CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.ADZE_HEAD),
+//                new Object[]{"#####", "#  ##", "#    ", "     ", "     ",
+//                    '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)});
+//            CraftingManagerTFC.getInstance().addRecipe(stone.items.getItem(EnumStoneItemType.HAND_AXE),
+//                new Object[]{"  #  ", " ### ", " ### ", "#####", " ### ",
+//                    '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)});
         }
 
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMoldAdze, 1),
-            new Object[]{"     ", "#####", "#  ##", "#    ", "     ",
-                '#', new ItemStack(TFCItems.flatClay, 1, 1)});
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMoldAdze, 1),
+//            new Object[]{"     ", "#####", "#  ##", "#    ", "     ",
+//                '#', new ItemStack(TFCItems.flatClay, 1, 1)});
 //        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMoldDrill, 1),
 //            new Object[]{"  #  ", "  #  ", "  #  ", " ### ", "  #  ",
 //                '#', new ItemStack(TFCItems.flatClay, 1, 1)});

@@ -26,6 +26,7 @@ import com.unforbidable.tfc.bids.features.utility.adze.Adze;
 import com.unforbidable.tfc.bids.features.utility.compositetools.CompositeTools;
 import com.unforbidable.tfc.bids.features.utility.drill.Drill;
 import com.unforbidable.tfc.bids.features.utility.fluidcontainers.FluidContainers;
+import com.unforbidable.tfc.bids.features.utility.handaxe.HandAxe;
 import com.unforbidable.tfc.bids.features.utility.largebowl.LargeBowl;
 import com.unforbidable.tfc.bids.features.utility.leatherwear.Leatherwear;
 
@@ -58,6 +59,7 @@ public class Features {
         new Wattle(),
         new FluidContainers(),
         new LargeBowl(),
+        new HandAxe(),
         new CompositeTools(),
     };
 

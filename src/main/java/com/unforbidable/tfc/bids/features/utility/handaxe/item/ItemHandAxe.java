@@ -12,13 +12,12 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
-
-import java.util.Set;
 
 public class ItemHandAxe extends ItemTerraTool implements ISize, IKnife {
 

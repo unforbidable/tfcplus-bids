@@ -58,19 +58,19 @@ public class OreSetup {
 
         final Item[] handAxes = new Item[] { BidsItems.sedHandAxe, BidsItems.mMHandAxe, BidsItems.igInHandAxe, BidsItems.igExHandAxe };
         for (Item handAxe : handAxes) {
-            OreDictionary.registerOre("itemHandAxe", new ItemStack(handAxe, 1, WILD));
-
-            // Registering "itemKnifeStone" allow straw harvestable with a hand axe
-            // but no usable in recipes where "itemKnife" is used
-            OreDictionary.registerOre("itemKnifeStone", new ItemStack(handAxe, 1, WILD));
-
-            // Registering "itemAxeStone" allow bushes (and trees) harvestable with a hand axe
-            // but no usable in recipes where "itemAxe" is used
-            OreDictionary.registerOre("itemAxeStone", new ItemStack(handAxe, 1, WILD));
-
-            // Use for scrapping with speed penalty
-            OreDictionary.registerOre("itemScrapingTool", new ItemStack(handAxe, 1, WILD));
-            OreDictionary.registerOre("itemPrimitiveTool", new ItemStack(handAxe, 1, WILD));
+//            OreDictionary.registerOre("itemHandAxe", new ItemStack(handAxe, 1, WILD));
+//
+//            // Registering "itemKnifeStone" allow straw harvestable with a hand axe
+//            // but no usable in recipes where "itemKnife" is used
+//            OreDictionary.registerOre("itemKnifeStone", new ItemStack(handAxe, 1, WILD));
+//
+//            // Registering "itemAxeStone" allow bushes (and trees) harvestable with a hand axe
+//            // but no usable in recipes where "itemAxe" is used
+//            OreDictionary.registerOre("itemAxeStone", new ItemStack(handAxe, 1, WILD));
+//
+//            // Use for scrapping with speed penalty
+//            OreDictionary.registerOre("itemScrapingTool", new ItemStack(handAxe, 1, WILD));
+//            OreDictionary.registerOre("itemPrimitiveTool", new ItemStack(handAxe, 1, WILD));
         }
 
 //        for (int i = 0; i < 6; i++) {

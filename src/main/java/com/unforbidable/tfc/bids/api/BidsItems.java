@@ -136,11 +136,13 @@ public class BidsItems {
     public static final Item milkLargeBowl = item(ItemNames.LARGE_BOWL_MILK);
     public static final Item honeyLargeBowl = item(ItemNames.LARGE_BOWL_HONEY);
 
+    // Hand Axe
+    public static final Item igInHandAxe = item(ItemNames.HAND_AXE_IG_IN);
+    public static final Item sedHandAxe = item(ItemNames.HAND_AXE_SED);
+    public static final Item igExHandAxe = item(ItemNames.HAND_AXE_IG_EX);
+    public static final Item mMHandAxe = item(ItemNames.HAND_AXE_MM);
 
-    public static Item igInHandAxe;
-    public static Item sedHandAxe;
-    public static Item igExHandAxe;
-    public static Item mMHandAxe;
+
 
     public static Item hardenedWoodenSpear;
 

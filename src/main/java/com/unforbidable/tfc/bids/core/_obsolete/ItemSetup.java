@@ -147,14 +147,14 @@ public class ItemSetup extends BidsItems {
 //        mMStoneAdze = new ItemAdze(TFCItems.mMToolMaterial)
 //            .setUnlocalizedName("MM Stone Adze");
 
-        igInHandAxe = new ItemHandAxe(TFCItems.igInToolMaterial)
-            .setUnlocalizedName("IgIn Hand Axe");
-        sedHandAxe = new ItemHandAxe(TFCItems.sedToolMaterial)
-            .setUnlocalizedName("Sed Hand Axe");
-        igExHandAxe = new ItemHandAxe(TFCItems.igExToolMaterial)
-            .setUnlocalizedName("IgEx Hand Axe");
-        mMHandAxe = new ItemHandAxe(TFCItems.mMToolMaterial)
-            .setUnlocalizedName("MM Hand Axe");
+//        igInHandAxe = new ItemHandAxe(TFCItems.igInToolMaterial)
+//            .setUnlocalizedName("IgIn Hand Axe");
+//        sedHandAxe = new ItemHandAxe(TFCItems.sedToolMaterial)
+//            .setUnlocalizedName("Sed Hand Axe");
+//        igExHandAxe = new ItemHandAxe(TFCItems.igExToolMaterial)
+//            .setUnlocalizedName("IgEx Hand Axe");
+//        mMHandAxe = new ItemHandAxe(TFCItems.mMToolMaterial)
+//            .setUnlocalizedName("MM Hand Axe");
 
         hardenedWoodenSpear = new ItemHardenedWoodenSpear(BidsToolMaterial.HARDENED_WOOD)
             .setPierceDamageShape("2X2")
