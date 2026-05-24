@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -25,14 +26,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-import java.util.List;
-
 public class ItemLargeBowlFluid extends ItemTerra implements ISmashable {
 
     IIcon overlayIcon;
 
-    public ItemLargeBowlFluid(String[] metaNames) {
-        setMetaNames(metaNames);
+    public ItemLargeBowlFluid() {
         setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxStackSize(1);
     }

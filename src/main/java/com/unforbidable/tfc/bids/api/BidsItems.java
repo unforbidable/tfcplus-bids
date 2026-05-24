@@ -128,6 +128,13 @@ public class BidsItems {
     public static final Item vinegarBowl = item(ItemNames.BOWL_VINEGAR);
     public static final Item oliveOilBowl = item(ItemNames.BOWL_OLIVE_OIL);
 
+    // Large bowl
+    public static final Item largeClayBowl = item(ItemNames.LARGE_BOWL);
+    public static final Item freshWaterLargeBowl = item(ItemNames.LARGE_BOWL_FRESH_WATER);
+    public static final Item saltWaterLargeBowl = item(ItemNames.LARGE_BOWL_SALT_WATER);
+    public static final Item vinegarLargeBowl = item(ItemNames.LARGE_BOWL_VINEGAR);
+    public static final Item milkLargeBowl = item(ItemNames.LARGE_BOWL_MILK);
+    public static final Item honeyLargeBowl = item(ItemNames.LARGE_BOWL_HONEY);
 
 
     public static Item igInHandAxe;
@@ -252,12 +259,6 @@ public class BidsItems {
     public static Item fishOilBowl;
     public static Item flaxSeedOilBowl;
 
-    public static Item largeClayBowl;
-    public static Item freshWaterLargeBowl;
-    public static Item saltWaterLargeBowl;
-    public static Item vinegarLargeBowl;
-    public static Item milkLargeBowl;
-    public static Item honeyLargeBowl;
     public static Item goatMilkLargeBowl;
     public static Item skimmedMilkLargeBowl;
     public static Item creamLargeBowl;

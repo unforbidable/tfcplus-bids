@@ -611,10 +611,10 @@ public class RecipeSetup {
         recipes.addShapelessRecipe(new ItemStack(BidsBlocks.wallHook),
             "stickWood", TFCItems.resin);
 
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.honeyLargeBowl),
-                "itemHoneycomb", "itemHoneycomb", "itemKnife", new ItemStack(BidsItems.largeClayBowl, 1, 1))
-            .action(damageTool("itemKnife"))
-            .action(extraDrop(new ItemStack(TFCItems.emptyHoneycomb, 2)));
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.honeyLargeBowl),
+//                "itemHoneycomb", "itemHoneycomb", "itemKnife", new ItemStack(BidsItems.largeClayBowl, 1, 1))
+//            .action(damageTool("itemKnife"))
+//            .action(extraDrop(new ItemStack(TFCItems.emptyHoneycomb, 2)));
 
         recipes.addShapelessRecipe(new ItemStack(BidsItems.ceramicBucketRope),
             TFCItems.rope, TFCItems.clayBucketEmpty);
@@ -1793,13 +1793,13 @@ public class RecipeSetup {
 //            new Object[]{"  #  ", "  #  ", "  #  ", " ### ", "  #  ",
 //                '#', new ItemStack(TFCItems.flatClay, 1, 1)});
 
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMug, 2),
-            new Object[]{"#####", "#####", "    #", "   # ", "    #", '#',
-                new ItemStack(TFCItems.flatClay, 1, 1)});
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.clayMug, 2),
+//            new Object[]{"#####", "#####", "    #", "   # ", "    #", '#',
+//                new ItemStack(TFCItems.flatClay, 1, 1)});
 
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.largeClayBowl, 1),
-            new Object[]{"#####", " ### ", " ### ", "#   #", "#####", '#',
-                new ItemStack(TFCItems.flatClay, 1, 1)});
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsItems.largeClayBowl, 1),
+//            new Object[]{"#####", " ### ", " ### ", "#   #", "#####", '#',
+//                new ItemStack(TFCItems.flatClay, 1, 1)});
 
         CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.cookingPot, 1, 0),
             new Object[]{" ### ", " ### ", " ### ", " ### ", "#   #", '#',
@@ -2042,9 +2042,9 @@ public class RecipeSetup {
 //            new KilnRecipe(new ItemStack(BidsBlocks.clayCrucible, 1, 1), 0,
 //                new ItemStack(BidsBlocks.clayCrucible, 1, 0)));
 
-        KilnCraftingManager.getInstance().addRecipe(
-            new KilnRecipe(new ItemStack(BidsItems.largeClayBowl, 1, 0), 0,
-                new ItemStack(BidsItems.largeClayBowl, 1, 1)));
+//        KilnCraftingManager.getInstance().addRecipe(
+//            new KilnRecipe(new ItemStack(BidsItems.largeClayBowl, 1, 0), 0,
+//                new ItemStack(BidsItems.largeClayBowl, 1, 1)));
 
         KilnCraftingManager.getInstance().addRecipe(
             new KilnRecipe(new ItemStack(BidsBlocks.cookingPot, 1, 0), 0,

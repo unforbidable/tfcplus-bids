@@ -793,37 +793,47 @@ public class ItemSetup extends BidsItems {
             .setContainerItem(TFCItems.potteryBowl)
             .setUnlocalizedName("Bowl Flax Seed Oil");
 
-        largeClayBowl = new ItemLargeBowl()
-            .setUnlocalizedName("Large Bowl");
-
-        freshWaterLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
-            .setContainerItem(BidsItems.largeClayBowl)
-            .setUnlocalizedName("Large Bowl.FreshWater");
-        saltWaterLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
-            .setContainerItem(BidsItems.largeClayBowl)
-            .setUnlocalizedName("Large Bowl.SaltWater");
-        vinegarLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
-            .setContainerItem(BidsItems.largeClayBowl)
-            .setUnlocalizedName("Large Bowl.Vinegar");
-        milkLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
-            .setContainerItem(BidsItems.largeClayBowl)
-            .setUnlocalizedName("Large Bowl.Milk");
-        honeyLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
-            .setContainerItem(BidsItems.largeClayBowl)
-            .setUnlocalizedName("Large Bowl.Honey");
-        goatMilkLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
+//        largeClayBowl = new ItemLargeBowl()
+//            .setUnlocalizedName("Large Bowl");
+//
+//        freshWaterLargeBowl = new ItemLargeBowlFluid()
+//            .setMetaNames(new String[]{"Pottery"})
+//            .setContainerItem(BidsItems.largeClayBowl)
+//            .setUnlocalizedName("Large Bowl.FreshWater");
+//        saltWaterLargeBowl = new ItemLargeBowlFluid()
+//            .setMetaNames(new String[]{"Pottery"})
+//            .setContainerItem(BidsItems.largeClayBowl)
+//            .setUnlocalizedName("Large Bowl.SaltWater");
+//        vinegarLargeBowl = new ItemLargeBowlFluid()
+//            .setMetaNames(new String[]{"Pottery"})
+//            .setContainerItem(BidsItems.largeClayBowl)
+//            .setUnlocalizedName("Large Bowl.Vinegar");
+//        milkLargeBowl = new ItemLargeBowlFluid()
+//            .setMetaNames(new String[]{"Pottery"})
+//            .setContainerItem(BidsItems.largeClayBowl)
+//            .setUnlocalizedName("Large Bowl.Milk");
+//        honeyLargeBowl = new ItemLargeBowlFluid()
+//            .setMetaNames(new String[]{"Pottery"})
+//            .setContainerItem(BidsItems.largeClayBowl)
+//            .setUnlocalizedName("Large Bowl.Honey");
+        goatMilkLargeBowl = new ItemLargeBowlFluid()
+            .setMetaNames(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.GoatMilk");
-        skimmedMilkLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
+        skimmedMilkLargeBowl = new ItemLargeBowlFluid()
+            .setMetaNames(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.SkimmedMilk");
-        creamLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
+        creamLargeBowl = new ItemLargeBowlFluid()
+            .setMetaNames(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.Cream");
-        weakWoodAshLyeLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
+        weakWoodAshLyeLargeBowl = new ItemLargeBowlFluid()
+            .setMetaNames(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.WeakWoodAshLye");
-        woodAshLyeLargeBowl = new ItemLargeBowlFluid(new String[]{"Pottery"})
+        woodAshLyeLargeBowl = new ItemLargeBowlFluid()
+            .setMetaNames(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.WoodAshLye");
 
@@ -1058,16 +1068,16 @@ public class ItemSetup extends BidsItems {
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.FRESHWATER, 1000),
             new ItemStack(woodenBucketRopeWater), new ItemStack(woodenBucketRope));
 
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.FRESHWATER, 500),
-            new ItemStack(freshWaterLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.SALTWATER, 500),
-            new ItemStack(saltWaterLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.VINEGAR, 500),
-            new ItemStack(vinegarLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILK, 500),
-            new ItemStack(milkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEY, 500),
-            new ItemStack(honeyLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.FRESHWATER, 500),
+//            new ItemStack(freshWaterLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.SALTWATER, 500),
+//            new ItemStack(saltWaterLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.VINEGAR, 500),
+//            new ItemStack(vinegarLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILK, 500),
+//            new ItemStack(milkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEY, 500),
+//            new ItemStack(honeyLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.GOATMILK, 500),
             new ItemStack(goatMilkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.SKIMMEDMILK, 500),

@@ -107,7 +107,7 @@ public class OreSetup {
 
         OreDictionary.registerOre("itemMilkingContainer", new ItemStack(TFCItems.clayBucketEmpty));
         OreDictionary.registerOre("itemMilkingContainer", new ItemStack(TFCItems.woodenBucketEmpty));
-        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.largeClayBowl, 1, 1));
+//        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.largeClayBowl, 1, 1));
         OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailEmpty));
         OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailMilk, 1, WILD));
         OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailGoatMilk, 1, WILD));
@@ -186,11 +186,11 @@ public class OreSetup {
         OreDictionary.registerOre("blockFreshWater", TFCBlocks.freshWater);
         OreDictionary.registerOre("blockFreshWater", TFCBlocks.freshWaterStationary);
 
-        OreDictionary.registerOre("itemHoneycomb", TFCItems.honeycomb);
-        OreDictionary.registerOre("itemHoneycomb", TFCItems.fertileHoneycomb);
+//        OreDictionary.registerOre("itemHoneycomb", TFCItems.honeycomb);
+//        OreDictionary.registerOre("itemHoneycomb", TFCItems.fertileHoneycomb);
 
-        // Used for mixing flour and water into unshaped dough or flatbread dough
-        OreDictionary.registerOre("itemLargeBowlWater", BidsItems.freshWaterLargeBowl);
+//        // Used for mixing flour and water into unshaped dough or flatbread dough
+//        OreDictionary.registerOre("itemLargeBowlWater", BidsItems.freshWaterLargeBowl);
 
         OreDictionary.registerOre("itemNeedleAndThread", new ItemStack(TFCItems.boneNeedleStrung, 1, WILD));
         OreDictionary.registerOre("itemNeedleAndThread", new ItemStack(TFCItems.ironNeedleStrung, 1, WILD));
