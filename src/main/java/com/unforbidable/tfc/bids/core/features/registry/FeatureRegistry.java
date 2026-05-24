@@ -26,20 +26,19 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 public class FeatureRegistry {
 
@@ -96,7 +95,7 @@ public class FeatureRegistry {
     public ItemRegistryEntry initItem(ItemSpec<?> spec) {
         Bids.LOG.info("Init item '{}'", spec.name);
 
-        Item item = spec.getInstance(lookup);
+        Item item = spec.getInstance();
 
         ItemRegistryEntry registryEntry = new ItemRegistryEntry(spec, item);
 
@@ -155,11 +154,27 @@ public class FeatureRegistry {
     }
 
     public void registerFluidContainer(ItemSpec<?> spec) {
-        Bids.LOG.info("Register item as fluid container '{}'", spec.name);
+        Bids.LOG.info("Register item as fluid container '{}' ({})", spec.name,
+            spec.fluid.partial ? "partial" : spec.meta != null ? "multi" : "single");
 
         ItemRegistryEntry item = items.get(spec.name);
-        FluidHelper.registerPartialFluidContainer(spec.fluid.fluid, spec.container.item.get(lookup),
-            spec.container.emptyItemDamage, item.instance, 50, spec.fluid.volume);
+
+        if (spec.fluid.partial) {
+            FluidHelper.registerPartialFluidContainer(spec.fluid.fluid, spec.container.item,
+                spec.container.emptyItemDamage, item.instance, 50, spec.fluid.volume);
+        } else {
+            if (spec.meta != null) {
+                for (int i = 0; i < spec.meta.names.length; i++) {
+                    FluidContainerRegistry.registerFluidContainer(new FluidStack(spec.fluid.fluid, spec.fluid.volume),
+                        new ItemStack(item.instance, 1, i),
+                        new ItemStack(spec.container.item, 1, i + spec.container.emptyItemDamage));
+                }
+            } else {
+                FluidContainerRegistry.registerFluidContainer(new FluidStack(spec.fluid.fluid, spec.fluid.volume),
+                    new ItemStack(item.instance, 1, 0),
+                    new ItemStack(spec.container.item, 1, spec.container.emptyItemDamage));
+            }
+        }
     }
 
     public void registerDrinks(ItemSpec<?> spec) {

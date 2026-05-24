@@ -27,10 +27,9 @@ public class ItemPotteryFluid extends ItemTerra implements ISmashable {
 
     IIcon overlayIcon;
 
-    public ItemPotteryFluid(int volume) {
+    public ItemPotteryFluid() {
         setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxStackSize(1);
-        setMaxDamage(volume / 50);
     }
 
     @Override

@@ -1,15 +1,13 @@
 package com.unforbidable.tfc.bids.core.features.init.item;
 
 import com.dunk.tfc.Items.ItemTerra;
-import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.common.item.ItemCommonPotteryMold;
 import com.unforbidable.tfc.bids.compat.tfc.TfcUtil;
 import com.unforbidable.tfc.bids.util.accessor.ItemMetaNamesAccessor;
-import net.minecraft.item.Item;
-
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import net.minecraft.item.Item;
 
 public class ItemSpec<T extends Item> {
 
@@ -40,14 +38,14 @@ public class ItemSpec<T extends Item> {
         this.harvests = harvests;
     }
 
-    public T getInstance(FeatureRegistryLookup lookup) {
+    public T getInstance() {
         T instance = item.get();
         instance.setUnlocalizedName(name);
 
         if (container != null) {
-            instance.setContainerItem(container.item.get(lookup));
+            instance.setContainerItem(container.item);
 
-            if (fluid != null) {
+            if (fluid != null && fluid.partial) {
                 instance.setMaxDamage(fluid.volume / 50);
             }
         }

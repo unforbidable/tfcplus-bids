@@ -38,22 +38,26 @@ public class ItemSpecBuilder<T extends Item> {
         return this;
     }
 
-    public ItemSpecBuilder<T> container(String itemName) {
-        return container(itemName, 0);
-    }
-
-    public ItemSpecBuilder<T> container(String itemName, int emptyItemDamage) {
-        container = new ContainerSpec(ItemResolver.of(itemName), emptyItemDamage);
-
-        return this;
-    }
-
+    /**
+     * Specifies the item that is the empty container.
+     * @param item Empty container item
+     * @return
+     */
     public ItemSpecBuilder<T> container(Item item) {
         return container(item, 0);
     }
 
+    /**
+     * <p>Specifies the item that is the empty container, and the damage.</p>
+     * <p>Pottery empty containers typically specify damage value of 1, 0 being the unfired item.
+     * For containers with sub items, the damage value is added to the index of the sub item.</p>
+     * <p>Containers with sub items currently do not support partial fluids.</p>
+     * @param item Empty container item
+     * @param emptyItemDamage Empty container item damage
+     * @return
+     */
     public ItemSpecBuilder<T> container(Item item, int emptyItemDamage) {
-        container = new ContainerSpec(ItemResolver.of(item), emptyItemDamage);
+        container = new ContainerSpec(item, emptyItemDamage);
 
         return this;
     }
@@ -62,6 +66,10 @@ public class ItemSpecBuilder<T extends Item> {
         this.fluid = new FluidSpec(volume, fluid, partial);
 
         return this;
+    }
+
+    public ItemSpecBuilder<T> fluid(int volume, Fluid fluid) {
+        return fluid(volume, fluid, false);
     }
 
     public ItemSpecBuilder<T> drink(int volume, boolean pottery) {

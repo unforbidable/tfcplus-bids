@@ -26,8 +26,7 @@ public class ItemBowlFluid extends ItemTerra implements ISmashable {
 
     IIcon overlayIcon;
 
-    public ItemBowlFluid(String[] metaNames) {
-        setMetaNames(metaNames);
+    public ItemBowlFluid() {
         setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxStackSize(1);
     }
