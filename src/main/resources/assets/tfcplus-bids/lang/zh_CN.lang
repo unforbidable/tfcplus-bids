@@ -44,11 +44,11 @@ tile.WattleTrapDoor.name=编条活板门
 tile.WattleTrapDoorCover.name=茅草陷阱
 tile.WattleGate.name=编条门
 
-tile.SaddleQuernSed.name=手推磨
+tile.SaddleQuernBaseSed.name=手推磨
 tile.SaddleQuernHandstoneSed.name=手推磨石
 tile.SaddleQuernPressingStoneSed.name=压石
 tile.StonePressLever.name=原始压机杆
-tile.StonePressWeight.name=原始压机砝码
+tile.StonePressWeightSed.name=原始压机砝码
 
 tile.RoughStoneSed.Chalk.name=粗糙白垩岩
 tile.RoughStoneSed.Chert.name=粗糙角岩

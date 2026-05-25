@@ -4,8 +4,12 @@ import com.dunk.tfc.Blocks.Terrain.BlockCollapsible;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
+import com.unforbidable.tfc.bids.util.accessor.BlockMetaNamesAccessor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,11 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
-public class BlockRoughStone extends Block {
+public class BlockRoughStone extends Block implements BlockMetaNamesAccessor {
 
     protected IIcon[] topIcons;
     protected IIcon[] icons;
@@ -51,12 +51,14 @@ public class BlockRoughStone extends Block {
         return this;
     }
 
-    public BlockRoughStone setNames(String[] names) {
+    @Override
+    public Block setMetaNames(String[] names) {
         this.names = names;
         return this;
     }
 
-    public String[] getNames() {
+    @Override
+    public String[] getMetaNames() {
         return names;
     }
 

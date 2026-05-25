@@ -5,7 +5,8 @@ import com.unforbidable.tfc.bids.api._obsolete.Interfaces.*;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.*;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IKilnChamber;
-import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
+import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -42,8 +43,8 @@ public class BidsRegistry {
     public static final RecipeRegistry<ProcessingSurfaceRecipe> PROCESSING_SURFACE_RECIPES = new RecipeRegistry<>("processing-surface");
     public static final RecipeRegistry<SoakingSurfaceRecipe> SOAKING_SURFACE_RECIPES = new RecipeRegistry<>("soaking-surface");
 //    public static final SimpleRecipeRegistry<SeasoningRecipe, ItemStack> SEASONING_RECIPES = new SimpleRecipeRegistry<>("seasoning");
-    public static final SimpleRecipeRegistry<SaddleQuernRecipe, ItemStack> SADDLE_QUERN_RECIPES = new SimpleRecipeRegistry<>("saddle-quern");
-    public static final SimpleRecipeRegistry<StonePressRecipe, ItemStack> STONE_PRESS_RECIPES = new SimpleRecipeRegistry<>("stone-press");
+//    public static final SimpleRecipeRegistry<SaddleQuernRecipe, ItemStack> SADDLE_QUERN_RECIPES = new SimpleRecipeRegistry<>("saddle-quern");
+//    public static final SimpleRecipeRegistry<StonePressRecipe, ItemStack> STONE_PRESS_RECIPES = new SimpleRecipeRegistry<>("stone-press");
     public static final SimpleRecipeRegistry<ScrewPressRecipe, ItemStack> SCREW_PRESS_RECIPES = new SimpleRecipeRegistry<>("screw-press");
     public static final SimpleRecipeRegistry<WoodworkingRecipe, ItemStack> WOODWORKING_RECIPES = new SimpleRecipeRegistry<>("woodworking");
 

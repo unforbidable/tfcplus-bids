@@ -111,6 +111,13 @@ public class BidsBlocks {
     public static final Block wattleTrapdoorCover = block(BlockNames.WATTLE_TRAPDOOR_COVER);
     public static final Block wattleGate = block(BlockNames.WATTLE_GATE);
 
+    // Saddle quern
+    public static final Block saddleQuernBaseSed = block(BlockNames.SADDLE_QUERN_BASE);
+    public static final Block saddleQuernHandstoneSed = block(BlockNames.SADDLE_QUERN_HANDSTONE);
+    public static final Block saddleQuernPressingStoneSed = block(BlockNames.SADDLE_QUERN_PRESSING_STONE);
+    public static final Block stonePressLever = block(BlockNames.STONE_PRESS_LEVER);
+    public static final Block stonePressWeightSed = block(BlockNames.STONE_PRESS_WEIGHT);
+
 
 
     public static int clayCrucibleRenderId;
@@ -161,12 +168,6 @@ public class BidsBlocks {
     public static int dryingSurfaceRenderId;
 
 
-
-    public static Block saddleQuernBaseSed;
-    public static Block saddleQuernHandstoneSed;
-    public static Block saddleQuernPressingStoneSed;
-    public static Block stonePressLever;
-    public static Block stonePressWeightSed;
 
     public static Block clayLamp;
 

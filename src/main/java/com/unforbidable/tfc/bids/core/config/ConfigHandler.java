@@ -3,6 +3,8 @@ package com.unforbidable.tfc.bids.core.config;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfigLoader;
+import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuernConfig;
+import com.unforbidable.tfc.bids.features.device.saddlequern.StonePressConfig;
 import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import java.io.File;
 import net.minecraftforge.common.config.Configuration;
@@ -57,28 +59,6 @@ public class ConfigHandler {
             "maxClimbingKilnHeight", "kiln",
             BidsOptions.Kiln.maxClimbingKilnHeight, 1, 3,
             "Maximum allowed height of the Climbing kiln chamber; one unit of height corresponds to one section adding 6 more pottery slots on top of the initial 6");
-
-        BidsOptions.SaddleQuern.allowGrindHematite = config.getBoolean(
-            "allowGrindHematite", "saddleQuern", BidsOptions.SaddleQuern.allowGrindHematite,
-            "Set this to true to be able to grind Small Hematite ore using Saddle Quern"
-        );
-        BidsOptions.SaddleQuern.allowGrindLimonite = config.getBoolean(
-            "allowGrindLimonite", "saddleQuern", BidsOptions.SaddleQuern.allowGrindLimonite,
-            "Set this to true to be able to grind Small Limonite ore using Saddle Quern"
-        );
-        BidsOptions.SaddleQuern.allowGrindMalachite = config.getBoolean(
-            "allowGrindMalachite", "saddleQuern", BidsOptions.SaddleQuern.allowGrindMalachite,
-            "Set this to true to be able to grind Small Malachite ore using Saddle Quern"
-        );
-        BidsOptions.SaddleQuern.allowGrindLapisLazuli = config.getBoolean(
-            "allowGrindLapisLazuli", "saddleQuern", BidsOptions.SaddleQuern.allowGrindLapisLazuli,
-            "Set this to true to be able to grind Lapis Lazuli using Saddle Quern"
-        );
-
-        BidsOptions.StonePress.efficiency = config.getFloat(
-                "efficiency", "stonePress",
-                BidsOptions.StonePress.efficiency, 0.5f, 1.5f,
-                "Higher values increase the efficiency of a stone press, 1.0f being equal to the classic TFC hopper press.");
 
         BidsOptions.ScrewPress.efficiency = config.getFloat(
                 "efficiency", "screwPress",

@@ -15,7 +15,7 @@ public class ItemRoughStoneFence extends ItemRoughStone {
     public String getUnlocalizedName(ItemStack is) {
         Block block = Block.getBlockFromItem(this);
         if (block instanceof BlockRoughStoneFence && ((BlockRoughStoneFence) block).materialBlock instanceof BlockRoughStone) {
-            String[] names = ((BlockRoughStone)((BlockRoughStoneFence) block).materialBlock).getNames();
+            String[] names = ((BlockRoughStone)((BlockRoughStoneFence) block).materialBlock).getMetaNames();
             if (names != null && is.getItemDamage() < names.length) {
                 return getUnlocalizedName().concat("." + names[is.getItemDamage()]);
             }

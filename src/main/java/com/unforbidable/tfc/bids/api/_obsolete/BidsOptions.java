@@ -14,21 +14,6 @@ public class BidsOptions {
 
     }
 
-    public static class SaddleQuern {
-
-        public static boolean allowGrindHematite = false;
-        public static boolean allowGrindLimonite = false;
-        public static boolean allowGrindMalachite = true;
-        public static boolean allowGrindLapisLazuli = false;
-
-    }
-
-    public static class StonePress {
-
-        public static float efficiency = 0.8f;
-
-    }
-
     public static class ScrewPress {
 
         public static float efficiency = 1.1f;

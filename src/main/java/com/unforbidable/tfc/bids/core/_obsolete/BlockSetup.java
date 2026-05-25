@@ -6,8 +6,6 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.features.building.logwall.main.LogWallType;
-import com.unforbidable.tfc.bids.features.building.logwall.main.LogWallVertType;
 import com.unforbidable.tfc.bids.common.block.itemblock.ItemGenericSoil;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
 import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
@@ -24,8 +22,6 @@ import com.unforbidable.tfc.bids.features.building.decorativesurface.tileentity.
 import com.unforbidable.tfc.bids.features.building.firebrick.block.BlockFirebrickChimney;
 import com.unforbidable.tfc.bids.features.building.firebrick.block.blockitem.ItemFireBrickChimney;
 import com.unforbidable.tfc.bids.features.building.firebrick.tileentity.TileEntityFireBrickChimney;
-import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWall;
-import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWallVert;
 import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWall;
 import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWall16;
 import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWall32;
@@ -38,16 +34,11 @@ import com.unforbidable.tfc.bids.features.building.palisade.block.blockitem.Item
 import com.unforbidable.tfc.bids.features.building.palisade.block.blockitem.ItemPalisade16;
 import com.unforbidable.tfc.bids.features.building.palisade.block.blockitem.ItemPalisade32;
 import com.unforbidable.tfc.bids.features.building.palisade.render.RenderPalisade;
-import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStone;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.blockitem.ItemRoughStone;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.blockitem.ItemRoughStoneFence;
-import com.unforbidable.tfc.bids.features.building.wattle.block.BlockWattleGate;
-import com.unforbidable.tfc.bids.features.building.wattle.block.BlockWattleTrapDoor;
-import com.unforbidable.tfc.bids.features.building.wattle.block.BlockWattleTrapDoorCover;
 import com.unforbidable.tfc.bids.features.building.wattle.block.blockitem.ItemWattleGate;
 import com.unforbidable.tfc.bids.features.building.wattle.block.blockitem.ItemWattleTrapDoor;
 import com.unforbidable.tfc.bids.features.building.wattle.render.RenderWattleGate;
-import com.unforbidable.tfc.bids.features.device.choppingblock.block.BlockChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.choppingblock.block.itemblock.ItemChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.choppingblock.render.RenderChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.choppingblock.render.RenderTileChoppingBlock;
@@ -68,7 +59,6 @@ import com.unforbidable.tfc.bids.features.device.crucible.block.itemblock.ItemCl
 import com.unforbidable.tfc.bids.features.device.crucible.block.itemblock.ItemFireClayCrucible;
 import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityClayCrucible;
 import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityFireClayCrucible;
-import com.unforbidable.tfc.bids.features.device.dryingrack.block.BlockDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingrack.render.RenderDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingrack.render.RenderTileDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
@@ -77,7 +67,6 @@ import com.unforbidable.tfc.bids.features.device.dryingsurface.main.DryingSurfac
 import com.unforbidable.tfc.bids.features.device.dryingsurface.render.RenderDryingSurface;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.render.RenderTileDryingSurface;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
-import com.unforbidable.tfc.bids.features.device.firepit.block.BlockTiedStickBundle;
 import com.unforbidable.tfc.bids.features.device.firepit.render.RenderNewFirepit;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.beehive.BeehiveKilnChamber;
@@ -119,22 +108,22 @@ import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurf
 import com.unforbidable.tfc.bids.features.device.soakingsurface.render.RenderSoakingSurface;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.render.RenderTileSoakingSurface;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.block.BlockSaddleQuern;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.block.BlockStonePressLever;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.block.BlockStonePressWeight;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.block.BlockWorkStone;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.block.item.ItemSaddleQuern;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.block.item.ItemStonePressWeight;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.block.item.ItemWorkStone;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.main.EnumWorkStoneType;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.render.RenderSaddleQuern;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.render.RenderStonePressLever;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.render.RenderStonePressWeight;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.render.RenderTileSaddleQuern;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.render.RenderWorkStone;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.tileentity.TileEntitySaddleQuern;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.tileentity.TileEntityStonePressLever;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.tileentity.TileEntityStonePressWeight;
+import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockSaddleQuern;
+import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockStonePressLever;
+import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockStonePressWeight;
+import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockWorkStone;
+import com.unforbidable.tfc.bids.features.device.saddlequern.block.item.ItemSaddleQuern;
+import com.unforbidable.tfc.bids.features.device.saddlequern.block.item.ItemStonePressWeight;
+import com.unforbidable.tfc.bids.features.device.saddlequern.block.item.ItemWorkStone;
+import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
+import com.unforbidable.tfc.bids.features.device.saddlequern.render.RenderSaddleQuern;
+import com.unforbidable.tfc.bids.features.device.saddlequern.render.RenderStonePressLever;
+import com.unforbidable.tfc.bids.features.device.saddlequern.render.RenderStonePressWeight;
+import com.unforbidable.tfc.bids.features.device.saddlequern.render.RenderTileSaddleQuern;
+import com.unforbidable.tfc.bids.features.device.saddlequern.render.RenderWorkStone;
+import com.unforbidable.tfc.bids.features.device.saddlequern.tileentity.TileEntitySaddleQuern;
+import com.unforbidable.tfc.bids.features.device.saddlequern.tileentity.TileEntityStonePressLever;
+import com.unforbidable.tfc.bids.features.device.saddlequern.tileentity.TileEntityStonePressWeight;
 import com.unforbidable.tfc.bids.features.device.strawnest.block.BlockStrawNest;
 import com.unforbidable.tfc.bids.features.device.strawnest.render.RenderStrawNest;
 import com.unforbidable.tfc.bids.features.device.strawnest.tileentity.TileEntityStrawNest;
@@ -143,10 +132,8 @@ import com.unforbidable.tfc.bids.features.device.wallhook.block.blockitem.ItemWa
 import com.unforbidable.tfc.bids.features.device.wallhook.render.RenderTileWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.render.RenderWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.tileentity.TileEntityWallHook;
-import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockLight;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.blockitem.ItemCrackedStone;
 import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
-import com.unforbidable.tfc.bids.features.material.firewood.block.BlockStackedFirewood;
 import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.blockitem.ItemUnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.material.unfinishedanvil.render.RenderUnfinishedAnvil;
@@ -341,16 +328,18 @@ public class BlockSetup extends BidsBlocks {
 //        wattleTrapdoorCover = new BlockWattleTrapDoorCover()
 //                .setBlockName("WattleTrapDoorCover");
 
-        saddleQuernBaseSed = new BlockSaddleQuern((BlockRoughStone) roughStoneSed)
-                .setBlockName("SaddleQuernSed");
-        saddleQuernHandstoneSed = new BlockWorkStone((BlockRoughStone) roughStoneSed, EnumWorkStoneType.SADDLE_QUERN_CRUSHING)
-                .setBlockName("SaddleQuernHandstoneSed");
-        saddleQuernPressingStoneSed = new BlockWorkStone((BlockRoughStone) roughStoneSed, EnumWorkStoneType.SADDLE_QUERN_PRESSING)
-                .setBlockName("SaddleQuernPressingStoneSed");
-        stonePressLever = new BlockStonePressLever()
-                .setBlockName("StonePressLever");
-        stonePressWeightSed = new BlockStonePressWeight((BlockRoughStone) roughStoneSed)
-                .setBlockName("StonePressWeight");
+//        saddleQuernBaseSed = new BlockSaddleQuern(roughStoneSed)
+//                .setBlockName("SaddleQuernSed");
+//        saddleQuernHandstoneSed = new BlockWorkStone(roughStoneSed)
+//                .setWorkStoneType(WorkStoneType.SADDLE_QUERN_CRUSHING)
+//                .setBlockName("SaddleQuernHandstoneSed");
+//        saddleQuernPressingStoneSed = new BlockWorkStone(roughStoneSed)
+//                .setWorkStoneType(WorkStoneType.SADDLE_QUERN_PRESSING)
+//                .setBlockName("SaddleQuernPressingStoneSed");
+//        stonePressLever = new BlockStonePressLever()
+//                .setBlockName("StonePressLever");
+//        stonePressWeightSed = new BlockStonePressWeight(roughStoneSed)
+//                .setBlockName("StonePressWeight");
 
         clayLamp = new BlockClayLamp()
                 .setBlockName("ClayLamp");

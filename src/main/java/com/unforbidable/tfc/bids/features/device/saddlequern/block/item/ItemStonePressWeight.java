@@ -1,46 +1,32 @@
-package com.unforbidable.tfc.bids.features.building.roughstone.block.blockitem;
-
-import java.util.List;
+package com.unforbidable.tfc.bids.features.device.saddlequern.block.item;
 
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
-import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStone;
 import com.unforbidable.tfc.bids.util.ItemHelper;
-
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemRoughStone extends ItemBlock implements ISize {
+public class ItemStonePressWeight extends ItemBlock implements ISize {
 
-    public ItemRoughStone(Block block) {
+    public ItemStonePressWeight(Block block) {
         super(block);
+
+        setMaxStackSize(1);
     }
 
     @Override
     public int getItemStackLimit(ItemStack is) {
-        return 32;
+        return 1;
     }
 
     @Override
     public boolean getHasSubtypes() {
         return true;
-    }
-
-    @Override
-    public String getUnlocalizedName(ItemStack is) {
-        Block block = Block.getBlockFromItem(this);
-        if (block != null && block instanceof BlockRoughStone) {
-            String[] names = ((BlockRoughStone) block).getMetaNames();
-            if (names != null && is.getItemDamage() < names.length) {
-                return getUnlocalizedName().concat("." + names[is.getItemDamage()]);
-            }
-        }
-
-        return super.getUnlocalizedName(is);
     }
 
     @Override
@@ -50,7 +36,7 @@ public class ItemRoughStone extends ItemBlock implements ISize {
 
     @Override
     public boolean canStack() {
-        return true;
+        return false;
     }
 
     @Override
@@ -60,7 +46,7 @@ public class ItemRoughStone extends ItemBlock implements ISize {
 
     @Override
     public EnumSize getSize(ItemStack arg0) {
-        return EnumSize.MEDIUM;
+        return EnumSize.HUGE;
     }
 
     @Override

@@ -12,6 +12,8 @@ import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.building.wattle.block.BlockWattleGate;
 import com.unforbidable.tfc.bids.features.building.wattle.block.BlockWattleTrapDoor;
 import com.unforbidable.tfc.bids.features.building.wattle.block.BlockWattleTrapDoorCover;
+import com.unforbidable.tfc.bids.features.building.wattle.block.blockitem.ItemWattleGate;
+import com.unforbidable.tfc.bids.features.building.wattle.block.blockitem.ItemWattleTrapDoor;
 import com.unforbidable.tfc.bids.features.building.wattle.render.RenderWattleGate;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -26,12 +28,12 @@ public class Wattle extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(WATTLE_TRAPDOOR, BlockWattleTrapDoor::new)
+        init.block(WATTLE_TRAPDOOR, BlockWattleTrapDoor::new, ItemWattleTrapDoor.class)
             .harvest("axe", 0)
             .fireInfo(10, 30)
             .apply(i -> i.setBlockTextureName("Wattle Trap Door"));
 
-        init.block(WATTLE_TRAPDOOR_COVER, BlockWattleTrapDoorCover::new)
+        init.block(WATTLE_TRAPDOOR_COVER, BlockWattleTrapDoorCover::new, ItemWattleGate.class)
             .fireInfo(60, 20);
 
         init.block(WATTLE_GATE, BlockWattleGate::new)

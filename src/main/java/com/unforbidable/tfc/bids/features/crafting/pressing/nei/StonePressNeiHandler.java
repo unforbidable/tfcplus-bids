@@ -9,13 +9,17 @@ import codechicken.nei.recipe.GuiUsageRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Constant.Global;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.compat.nei.NeiHelper;
-import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.StonePressRecipe;
+import com.unforbidable.tfc.bids.features.device.saddlequern.StonePressRegistry;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
@@ -28,10 +32,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class StonePressNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
@@ -63,7 +63,7 @@ public class StonePressNeiHandler extends TemplateRecipeHandler implements IHand
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == StonePressNeiHandler.class) {
-            for (StonePressRecipe recipe : BidsRegistry.STONE_PRESS_RECIPES) {
+            for (StonePressRecipe recipe : StonePressRegistry.recipes) {
                 final ItemStack input = recipe.getInput().copy();
                 final FluidStack result = recipe.getCraftingResult().copy();
                 if ((input.getItem() instanceof ItemFood)) {
@@ -78,7 +78,7 @@ public class StonePressNeiHandler extends TemplateRecipeHandler implements IHand
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (StonePressRecipe recipe : BidsRegistry.STONE_PRESS_RECIPES) {
+        for (StonePressRecipe recipe : StonePressRegistry.recipes) {
             final ItemStack input = recipe.getInput().copy();
             final FluidStack result = recipe.getCraftingResult().copy();
             if (NeiHelper.isFluidEqual(result, output)) {
@@ -89,7 +89,7 @@ public class StonePressNeiHandler extends TemplateRecipeHandler implements IHand
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (StonePressRecipe recipe : BidsRegistry.STONE_PRESS_RECIPES) {
+        for (StonePressRecipe recipe : StonePressRegistry.recipes) {
             if (recipe.matches(ingredient)) {
                 final ItemStack input = ingredient.copy();
                 input.stackSize = recipe.getInput().stackSize;

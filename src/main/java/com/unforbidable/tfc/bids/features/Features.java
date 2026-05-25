@@ -8,10 +8,13 @@ import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
 import com.unforbidable.tfc.bids.features.building.wattle.Wattle;
 import com.unforbidable.tfc.bids.features.crafting.drying.Drying;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
+import com.unforbidable.tfc.bids.features.crafting.pressing.Pressing;
+import com.unforbidable.tfc.bids.features.crafting.quern.Quern;
 import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRack;
 import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
+import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuern;
 import com.unforbidable.tfc.bids.features.device.woodpile.Woodpile;
 import com.unforbidable.tfc.bids.features.material.bark.Bark;
 import com.unforbidable.tfc.bids.features.material.birtchback.BirchBark;
@@ -57,6 +60,9 @@ public class Features {
         new BirchBark(),
         new Leatherwear(),
         new Wattle(),
+        new Quern(),
+        new Pressing(),
+        new SaddleQuern(),
         new FluidContainers(),
         new LargeBowl(),
         new HandAxe(),

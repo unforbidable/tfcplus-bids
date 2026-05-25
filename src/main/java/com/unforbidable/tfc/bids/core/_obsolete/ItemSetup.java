@@ -691,12 +691,12 @@ public class ItemSetup extends BidsItems {
 //        plugAndFeather = new ItemPlugAndFeather()
 //            .setUnlocalizedName("Plug And Feather");
 
-        appleCrushed = new ItemExtraFood(EnumFoodGroup.Fruit, 40, 20, 0, 10, 0)
-            .setDecayRate(4f)
-            .setUnlocalizedName("Apple Crushed");
-        oliveCrushed = new ItemExtraFood(EnumFoodGroup.Fruit, 10, 0, 3, 50, 0)
-            .setDecayRate(4f)
-            .setUnlocalizedName("Olive Crushed");
+//        appleCrushed = new ItemExtraFood(EnumFoodGroup.Fruit, 40, 20, 0, 10, 0)
+//            .setDecayRate(4f)
+//            .setUnlocalizedName("Apple Crushed");
+//        oliveCrushed = new ItemExtraFood(EnumFoodGroup.Fruit, 10, 0, 3, 50, 0)
+//            .setDecayRate(4f)
+//            .setUnlocalizedName("Olive Crushed");
 
 //        oliveOilBottle = new ItemGlassBottleFluid()
 //            .setContainerItem((TFCItems.glassBottle))

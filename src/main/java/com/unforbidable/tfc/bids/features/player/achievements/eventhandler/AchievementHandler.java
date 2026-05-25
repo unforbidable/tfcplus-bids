@@ -10,11 +10,12 @@ import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernPlayerEvent;
 import com.unforbidable.tfc.bids.features.resource.well.block.BlockAquifer;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
-import com.unforbidable.tfc.bids.features.device.stonequernpress.main.EnumWorkStoneType;
+import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.features.resource.crops.item.ItemNewCustomSeeds;
 import com.unforbidable.tfc.bids.features.material.textile.item.ItemSpindle;
@@ -112,15 +113,15 @@ public class AchievementHandler {
 
     @SubscribeEvent
     public void onSaddleQuernPlayer(SaddleQuernPlayerEvent event) {
-        if (event.action == SaddleQuernPlayerEvent.Action.PLACE_WORK_STONE && event.workStoneType == EnumWorkStoneType.SADDLE_QUERN_CRUSHING) {
+        if (event.action == SaddleQuernPlayerEvent.Action.PLACE_WORK_STONE && event.workStoneType == WorkStoneType.SADDLE_QUERN_CRUSHING) {
             event.entityPlayer.triggerAchievement(BidsAchievements.HAND_STONE);
         }
 
-        if (event.action == SaddleQuernPlayerEvent.Action.USE_WORK_STONE && event.workStoneType == EnumWorkStoneType.SADDLE_QUERN_CRUSHING) {
+        if (event.action == SaddleQuernPlayerEvent.Action.USE_WORK_STONE && event.workStoneType == WorkStoneType.SADDLE_QUERN_CRUSHING) {
             event.entityPlayer.triggerAchievement(BidsStats.SADDLE_QUERN_USED);
         }
 
-        if (event.action == SaddleQuernPlayerEvent.Action.USE_WORK_STONE && event.workStoneType == EnumWorkStoneType.SADDLE_QUERN_PRESSING) {
+        if (event.action == SaddleQuernPlayerEvent.Action.USE_WORK_STONE && event.workStoneType == WorkStoneType.SADDLE_QUERN_PRESSING) {
             event.entityPlayer.triggerAchievement(BidsAchievements.PRESSING_STONE_USE);
         }
 

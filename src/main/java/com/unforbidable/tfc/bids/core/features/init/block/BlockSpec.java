@@ -37,7 +37,7 @@ public class BlockSpec<T extends Block> {
 
         // TODO use interface for block with meta names
         if (meta != null && instance instanceof BlockRoughStone) {
-            ((BlockRoughStone)instance).setNames(meta.names);
+            ((BlockRoughStone)instance).setMetaNames(meta.names);
         }
 
         if (apply != null) {

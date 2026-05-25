@@ -6,17 +6,16 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
-import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
-import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.SaddleQuernRecipe;
+import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
+import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
+import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuernRegistry;
+import java.awt.Rectangle;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
-import java.awt.*;
 
 public class SaddleQuernNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
@@ -48,7 +47,7 @@ public class SaddleQuernNeiHandler extends TemplateRecipeHandler implements IHan
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == SaddleQuernNeiHandler.class) {
-            for (SaddleQuernRecipe recipe : BidsRegistry.SADDLE_QUERN_RECIPES) {
+            for (SaddleQuernRecipe recipe : SaddleQuernRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getCraftingResult();
                 arecipes.add(new CachedSaddleQuernRecipe(input, result));
@@ -60,7 +59,7 @@ public class SaddleQuernNeiHandler extends TemplateRecipeHandler implements IHan
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (SaddleQuernRecipe recipe : BidsRegistry.SADDLE_QUERN_RECIPES) {
+        for (SaddleQuernRecipe recipe : SaddleQuernRegistry.recipes) {
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getCraftingResult();
             if (ItemStack.areItemStacksEqual(result, output)
@@ -73,7 +72,7 @@ public class SaddleQuernNeiHandler extends TemplateRecipeHandler implements IHan
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (SaddleQuernRecipe recipe : BidsRegistry.SADDLE_QUERN_RECIPES) {
+        for (SaddleQuernRecipe recipe : SaddleQuernRegistry.recipes) {
             if (recipe.matches(ingredient)) {
                 final ItemStack input = ingredient.copy();
                 input.stackSize = recipe.getInput().stackSize;
