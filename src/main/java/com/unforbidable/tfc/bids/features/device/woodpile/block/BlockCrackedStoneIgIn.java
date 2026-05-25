@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.features.device.woodpile.block;
 
 import com.dunk.tfc.Blocks.Terrain.BlockIgIn;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +20,7 @@ public class BlockCrackedStoneIgIn extends BlockIgIn {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.CRACKED_STONE_SED);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

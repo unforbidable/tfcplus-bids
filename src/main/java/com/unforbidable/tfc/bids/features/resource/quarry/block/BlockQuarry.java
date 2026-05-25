@@ -4,10 +4,9 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api._obsolete.Events.QuarryPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.quarry.Quarriable;
-import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
-import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
 import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarryHelper;
+import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -95,7 +94,7 @@ public class BlockQuarry extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.QUARRY);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

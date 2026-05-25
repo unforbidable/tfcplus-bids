@@ -54,10 +54,11 @@ public class Firewood extends Feature {
 
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.item(FIREWOOD)
-            .render(new SeasonableItemRenderer());
-        client.item(FIREWOOD_SEASONED)
-            .render(new SeasonedItemRenderer());
+        client.render(new SeasonableItemRenderer())
+            .item(BidsItems.firewood);
+
+        client.render(new SeasonedItemRenderer())
+            .item(BidsItems.firewoodSeasoned);
     }
 
     @Override

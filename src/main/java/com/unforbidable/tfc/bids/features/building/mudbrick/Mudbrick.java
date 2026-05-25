@@ -54,8 +54,8 @@ public class Mudbrick extends Feature {
     @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.item(DRYING_MUD_BRICK)
-            .render(new DryingMudBrickItemRenderer());
+        client.render(new DryingMudBrickItemRenderer())
+            .item(BidsItems.dryingMudBrick);
     }
 
     @Override

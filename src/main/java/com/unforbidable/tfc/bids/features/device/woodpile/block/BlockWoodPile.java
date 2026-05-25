@@ -24,7 +24,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
 public class BlockWoodpile extends BlockContainer implements IHeatSource {
 
     IIcon icon;
@@ -92,7 +91,7 @@ public class BlockWoodpile extends BlockContainer implements IHeatSource {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.WOODPILE);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.choppingblock;
 
 import com.dunk.tfc.api.TFCBlocks;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -44,11 +45,11 @@ public class ChoppingBlock extends Feature {
     @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.block(CHOPPING_BLOCK)
-            .render(RenderChoppingBlock::new);
+        client.render(new RenderChoppingBlock())
+            .block(BlockChoppingBlock.class);
 
-        client.tileEntity(TileEntityChoppingBlock.class)
-            .render(RenderTileChoppingBlock::new);
+        client.render(new RenderTileChoppingBlock())
+            .tileEntity(TileEntityChoppingBlock.class);
 
         client.waila()
             .data(new ChoppingBlockWailaProvider(), TileEntityChoppingBlock.class);

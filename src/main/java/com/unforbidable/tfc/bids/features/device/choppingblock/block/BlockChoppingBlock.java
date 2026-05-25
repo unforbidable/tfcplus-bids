@@ -2,8 +2,6 @@ package com.unforbidable.tfc.bids.features.device.choppingblock.block;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
@@ -113,7 +111,7 @@ public class BlockChoppingBlock extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.CHOPPING_BLOCK);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

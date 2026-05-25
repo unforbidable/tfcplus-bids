@@ -1,12 +1,12 @@
 package com.unforbidable.tfc.bids.features.building.carving.block;
 
-import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
-import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -24,9 +24,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.List;
-import java.util.Random;
 
 public class BlockCarving extends BlockContainer {
 
@@ -117,7 +114,7 @@ public class BlockCarving extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.CARVING_ROCK);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

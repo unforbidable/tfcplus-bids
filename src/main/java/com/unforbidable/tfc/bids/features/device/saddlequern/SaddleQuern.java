@@ -83,20 +83,20 @@ public class SaddleQuern extends Feature {
     @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.block(SADDLE_QUERN_BASE)
-            .render(RenderSaddleQuern::new);
+        client.render(new RenderSaddleQuern())
+            .block(BlockSaddleQuern.class);
 
-        client.block(STONE_PRESS_LEVER)
-            .render(RenderStonePressLever::new);
+        client.render(new RenderStonePressLever())
+            .block(BlockStonePressLever.class);
 
-        client.block(STONE_PRESS_WEIGHT)
-            .render(RenderStonePressWeight::new);
+        client.render(new RenderStonePressWeight())
+            .block(BlockStonePressWeight.class);
 
-        client.block(SADDLE_QUERN_HANDSTONE)
-            .render(RenderWorkStone::new);
+        client.render(new RenderWorkStone())
+            .block(BlockWorkStone.class);
 
-        client.tileEntity(TileEntitySaddleQuern.class)
-            .render(RenderTileSaddleQuern::new);
+        client.render(new RenderTileSaddleQuern())
+            .tileEntity(TileEntitySaddleQuern.class);
 
         client.waila()
             .data(new SaddleQuernWailaProvider(), TileEntitySaddleQuern.class);

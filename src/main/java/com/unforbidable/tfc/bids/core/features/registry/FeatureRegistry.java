@@ -4,11 +4,11 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.core.drink.DrinkRegistry;
 import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import com.unforbidable.tfc.bids.core.drink.registry.DrinkVessel;
-import com.unforbidable.tfc.bids.core.features.client.block.BlockClientSpec;
 import com.unforbidable.tfc.bids.core.features.client.eventhandler.EventHandlerClientSpec;
 import com.unforbidable.tfc.bids.core.features.client.gui.GuiScreenSpec;
-import com.unforbidable.tfc.bids.core.features.client.item.ItemClientSpec;
-import com.unforbidable.tfc.bids.core.features.client.tileentity.TileEntityClientSpec;
+import com.unforbidable.tfc.bids.core.features.client.render.RenderBlockSpec;
+import com.unforbidable.tfc.bids.core.features.client.render.RenderItemSpec;
+import com.unforbidable.tfc.bids.core.features.client.render.RenderTileEntitySpec;
 import com.unforbidable.tfc.bids.core.features.init.block.BlockSpec;
 import com.unforbidable.tfc.bids.core.features.init.gui.GuiContainerSpec;
 import com.unforbidable.tfc.bids.core.features.init.item.ItemSpec;
@@ -34,6 +34,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -118,31 +119,40 @@ public class FeatureRegistry {
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerBlockRender(BlockClientSpec spec) {
-        Bids.LOG.info("Register simple block renderer {} for block '{}'",
-            spec.blockRender.getClass(), spec.name);
+    public void registerBlockRenderer(RenderBlockSpec spec) {
+        Bids.LOG.info("Register simple block renderer {} for {} block(s)",
+            spec.renderer.getClass(), spec.blocks.size());
 
         int id = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(id, spec.blockRender);
+        RenderingRegistry.registerBlockHandler(id, spec.renderer);
 
-        BlockRenderIdProvider.blockRenderIds.put(spec.name, id);
+        for (Class<? extends Block> type : spec.blocks) {
+            if (BlockRenderIdProvider.blockRenderIds.containsKey(type)) {
+                Bids.LOG.warn("Block type {} is already register in render ID provider", type.getCanonicalName());
+            } else {
+                BlockRenderIdProvider.blockRenderIds.put(type, id);
+            }
+        }
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerTileEntitySpecialRender(TileEntityClientSpec spec) {
-        Bids.LOG.info("Register tile special renderer {} for type '{}'",
-            spec.tileEntitySpecialRender.getClass(), spec.type);
+    public void registerTileEntitySpecialRender(RenderTileEntitySpec spec) {
+        Bids.LOG.info("Register tile special renderer {} for {} tile entity(-ies).",
+            spec.renderer.getClass(), spec.tileEntities);
 
-        ClientRegistry.bindTileEntitySpecialRenderer(spec.type, spec.tileEntitySpecialRender);
+        for (Class<? extends TileEntity> type : spec.tileEntities) {
+            ClientRegistry.bindTileEntitySpecialRenderer(type, spec.renderer);
+        }
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerItemRenderer(ItemClientSpec spec) {
-        Bids.LOG.info("Register item renderer {} for item '{}'",
-            spec.itemRender.getClass(), spec.name);
+    public void registerItemRenderer(RenderItemSpec spec) {
+        Bids.LOG.info("Register item renderer {} for {} item(s)",
+            spec.renderer.getClass(), spec.items.size());
 
-        ItemRegistryEntry item = items.get(spec.name);
-        MinecraftForgeClient.registerItemRenderer(item.instance, spec.itemRender);
+        for (Item item : spec.items) {
+            MinecraftForgeClient.registerItemRenderer(item, spec.renderer);
+        }
     }
 
     public void registerFireInfo(BlockSpec<?> spec) {

@@ -3,13 +3,14 @@ package com.unforbidable.tfc.bids.features.device.crucible.block;
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityClayCrucible;
 import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityCrucible;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -23,10 +24,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.List;
-
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CLAY_CRUCIBLE;
 
 public class BlockClayCrucible extends BlockCrucible {
 
@@ -45,7 +42,7 @@ public class BlockClayCrucible extends BlockCrucible {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(CLAY_CRUCIBLE);
+        return BlockRenderIdProvider.get(this);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

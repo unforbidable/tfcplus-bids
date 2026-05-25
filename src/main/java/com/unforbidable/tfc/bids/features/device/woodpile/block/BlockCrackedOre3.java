@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.block;
 
 import com.dunk.tfc.Blocks.Terrain.BlockOre3;
-import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import net.minecraft.block.material.Material;
 
@@ -16,7 +15,7 @@ public class BlockCrackedOre3 extends BlockOre3 {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.CRACKED_ORE);
+        return BlockRenderIdProvider.get(this);
     }
 
 }

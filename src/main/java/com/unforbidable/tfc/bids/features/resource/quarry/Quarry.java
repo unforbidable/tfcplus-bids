@@ -16,8 +16,6 @@ import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.features.resource.quarry.block.BlockQuarry;
 import com.unforbidable.tfc.bids.features.resource.quarry.item.ItemPlugAndFeather;
 import com.unforbidable.tfc.bids.features.resource.quarry.nei.QuarryNeiHandler;
@@ -28,7 +26,6 @@ import com.unforbidable.tfc.bids.features.resource.quarry.waila.QuarryWailaProvi
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 import static com.unforbidable.tfc.bids.api.names.BlockNames.QUARRY;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.PLUG_AND_FEATHER;
@@ -63,8 +60,8 @@ public class Quarry extends Feature {
     @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.block(QUARRY)
-            .render(RenderQuarry::new);
+        client.render(new RenderQuarry())
+            .block(BlockQuarry.class);
 
         client.waila()
             .data(new QuarryWailaProvider(), TileEntityQuarry.class);

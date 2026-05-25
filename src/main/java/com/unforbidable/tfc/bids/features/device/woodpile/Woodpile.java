@@ -93,14 +93,19 @@ public class Woodpile extends Feature {
     @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.block(WOODPILE)
-            .render(RenderWoodpile::new);
+        client.render(new RenderWoodpile())
+            .block(BlockWoodpile.class);
 
-        client.block(CRACKED_STONE_SED)
-            .render(RenderCrackedStone::new);
+        client.render(new RenderCrackedStone())
+            .block(BlockCrackedStoneSed.class)
+            .block(BlockCrackedStoneMM.class)
+            .block(BlockCrackedStoneIgEx.class)
+            .block(BlockCrackedStoneIgIn.class);
 
-        client.block(CRACKED_ORE)
-            .render(RenderCrackedOre::new);
+        client.render(new RenderCrackedOre())
+            .block(BlockCrackedOre.class)
+            .block(BlockCrackedOre2.class)
+            .block(BlockCrackedOre3.class);
 
         client.gui(WOODPILE, GuiWoodpile::new);
 

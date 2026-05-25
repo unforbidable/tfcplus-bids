@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.building.roughstone;
 
 import com.dunk.tfc.api.Constant.Global;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -147,8 +148,8 @@ public class RoughStone extends Feature {
 
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.block(ROUGH_STONE_BRICK_FENCE_SED)
-            .render(RenderRoughStoneFence::new);
+        client.render(new RenderRoughStoneFence())
+            .block(BlockRoughStoneFence.class);
     }
 
     @Override

@@ -2,8 +2,7 @@ package com.unforbidable.tfc.bids.features.device.dryingrack;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackFoodRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -39,11 +38,11 @@ public class DryingRack extends Feature {
     @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.block(DRYING_RACK)
-            .render(RenderDryingRack::new);
+        client.render(new RenderDryingRack())
+            .block(BlockDryingRack.class);
 
-        client.tileEntity(TileEntityDryingRack.class)
-            .render(RenderTileDryingRack::new);
+        client.render(new RenderTileDryingRack())
+            .tileEntity(TileEntityDryingRack.class);
 
         client.waila()
             .data(new DryingRackWailaProvider(), TileEntityDryingRack.class);

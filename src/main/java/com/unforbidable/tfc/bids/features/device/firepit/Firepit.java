@@ -65,8 +65,8 @@ public class Firepit extends Feature {
     @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.block(FIREPIT)
-            .render(RenderNewFirepit::new);
+        client.render(new RenderNewFirepit())
+            .block(BlockNewFirepit.class);
 
         client.gui(FIREPIT, GuiNewFirepit::new);
 

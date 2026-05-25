@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.features.building.wattle.block;
 import com.dunk.tfc.Blocks.Vanilla.BlockCustomWall;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.api.util.fence.ConnectableFenceGate;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import cpw.mods.fml.relauncher.Side;
@@ -48,7 +47,7 @@ public class BlockWattleGate extends BlockCustomWall implements ConnectableFence
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.WATTLE_GATE);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

@@ -3,10 +3,9 @@ package com.unforbidable.tfc.bids.features.device.saddlequern.block;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernPlayerEvent;
-import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
-import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
 import com.unforbidable.tfc.bids.features.device.saddlequern.main.StonePressHelper;
+import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
 import com.unforbidable.tfc.bids.features.device.saddlequern.tileentity.TileEntitySaddleQuern;
 import com.unforbidable.tfc.bids.util.accessor.BlockMetaNamesAccessor;
 import cpw.mods.fml.relauncher.Side;
@@ -202,7 +201,7 @@ public class BlockSaddleQuern extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.SADDLE_QUERN_BASE);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

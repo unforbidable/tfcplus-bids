@@ -75,12 +75,12 @@ public class Crucible extends Feature {
     @Override
     @SideOnly(Side.CLIENT)
     public void client(FeatureClientSpecBuilder client) {
-        client.block(CLAY_CRUCIBLE)
-            .render(RenderClayCrucible::new);
-        client.gui(CLAY_CRUCIBLE, GuiClayCrucible::new);
+        client.render(new RenderClayCrucible())
+            .block(BlockClayCrucible.class);
+        client.render(new RenderFireClayCrucible())
+            .block(BlockFireClayCrucible.class);
 
-        client.block(FIRE_CLAY_CRUCIBLE)
-            .render(RenderFireClayCrucible::new);
+        client.gui(CLAY_CRUCIBLE, GuiClayCrucible::new);
         client.gui(FIRE_CLAY_CRUCIBLE, GuiFireClayCrucible::new);
 
         client.waila()

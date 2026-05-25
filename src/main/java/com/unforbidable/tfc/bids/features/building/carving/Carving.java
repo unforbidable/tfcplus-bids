@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.features.building.carving;
 
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -47,8 +48,8 @@ public class Carving extends Feature {
     @Override
     public void client(FeatureClientSpecBuilder client) {
         // only register once and use for any carving block
-        client.block(CARVING_ROCK)
-            .render(RenderCarving::new);
+        client.render(new RenderCarving())
+            .block(BlockCarving.class);
 
         client.keys()
             .action(KeyBindings.toolMode, CarvingKeyBinding::changeToolMode);

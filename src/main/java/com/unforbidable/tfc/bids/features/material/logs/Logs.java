@@ -25,7 +25,6 @@ import com.unforbidable.tfc.bids.features.material.logs.item.ItemLogsSeasoned;
 import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLog;
 import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLogSeasoned;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LOG_SEASONED;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.PEELED_LOG;
@@ -47,14 +46,13 @@ public class Logs extends Feature {
 
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.item(PEELED_LOG)
-            .render(new SeasonableItemRenderer());
-        client.item(LOG_SEASONED)
-            .render(new SeasonedItemRenderer());
-        client.item(PEELED_LOG_SEASONED)
-            .render(new SeasonedItemRenderer());
+        client.render(new SeasonableItemRenderer())
+            .item(TFCItems.logs)
+            .item(BidsItems.peeledLog);
 
-        client.run(() -> MinecraftForgeClient.registerItemRenderer(TFCItems.logs, new SeasonableItemRenderer()));
+        client.render(new SeasonedItemRenderer())
+            .item(BidsItems.logsSeasoned)
+            .item(BidsItems.peeledLogSeasoned);
     }
 
     @Override

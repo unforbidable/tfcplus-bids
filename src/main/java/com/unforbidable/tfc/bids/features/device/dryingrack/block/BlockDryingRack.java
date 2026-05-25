@@ -2,8 +2,6 @@ package com.unforbidable.tfc.bids.features.device.dryingrack.block;
 
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackBounds;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackHelper;
@@ -109,7 +107,7 @@ public class BlockDryingRack extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.DRYING_RACK);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

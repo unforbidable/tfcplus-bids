@@ -49,8 +49,7 @@ public class FeatureInit extends Initializable {
         Bids.LOG.info("Register simple block renderers");
         loader.getFeatures().stream()
             .flatMap(f -> f.client(context).blocks.stream())
-            .filter(b -> b.blockRender != null)
-            .forEach(registry::registerBlockRender);
+            .forEach(registry::registerBlockRenderer);
 
         Bids.LOG.info("Register tile entity special renderers");
         loader.getFeatures().stream()
@@ -60,7 +59,6 @@ public class FeatureInit extends Initializable {
         Bids.LOG.info("Register item renderers");
         loader.getFeatures().stream()
             .flatMap(f -> f.client(context).items.stream())
-            .filter(i -> i.itemRender != null)
             .forEach(registry::registerItemRenderer);
     }
 

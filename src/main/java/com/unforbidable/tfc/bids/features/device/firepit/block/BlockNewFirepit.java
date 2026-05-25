@@ -15,8 +15,8 @@ import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
-import java.util.Random;
 import com.unforbidable.tfc.bids.util.GuiUtil;
+import java.util.Random;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -160,7 +160,7 @@ public class BlockNewFirepit extends BlockFirepit {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.FIREPIT);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

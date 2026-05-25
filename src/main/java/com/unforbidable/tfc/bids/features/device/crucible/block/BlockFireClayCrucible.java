@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.device.crucible.block;
 
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityFireClayCrucible;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -11,8 +11,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-
-import static com.unforbidable.tfc.bids.api.names.BlockNames.FIRE_CLAY_CRUCIBLE;
 
 public class BlockFireClayCrucible extends BlockCrucible {
 
@@ -31,7 +29,7 @@ public class BlockFireClayCrucible extends BlockCrucible {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(FIRE_CLAY_CRUCIBLE);
+        return BlockRenderIdProvider.get(this);
     }
 
     @SideOnly(Side.CLIENT)

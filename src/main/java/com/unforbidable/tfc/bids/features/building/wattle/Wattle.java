@@ -45,8 +45,8 @@ public class Wattle extends Feature {
     @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.block(WATTLE_GATE)
-            .render(RenderWattleGate::new);
+        client.render(new RenderWattleGate())
+            .block(BlockWattleGate.class);
 
         client.nei()
             .hide(BidsBlocks.wattleTrapdoorCover);

@@ -1,9 +1,8 @@
 package com.unforbidable.tfc.bids.features.building.roughstone.block;
 
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.api.names.BlockNames;
-import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.common.block.BlockCommonFence;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class BlockRoughStoneFence extends BlockCommonFence {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.ROUGH_STONE_BRICK_FENCE_SED);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

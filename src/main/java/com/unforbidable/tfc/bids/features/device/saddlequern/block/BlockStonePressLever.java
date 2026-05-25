@@ -1,14 +1,14 @@
 package com.unforbidable.tfc.bids.features.device.saddlequern.block;
 
-import com.unforbidable.tfc.bids.api.names.BlockNames;
-import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
-import com.unforbidable.tfc.bids.features.device.saddlequern.tileentity.TileEntityStonePressLever;
-import com.unforbidable.tfc.bids.features.device.saddlequern.main.LeverBounds;
-import com.unforbidable.tfc.bids.features.device.saddlequern.main.StonePressHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernPlayerEvent;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
+import com.unforbidable.tfc.bids.features.device.saddlequern.main.LeverBounds;
+import com.unforbidable.tfc.bids.features.device.saddlequern.main.StonePressHelper;
+import com.unforbidable.tfc.bids.features.device.saddlequern.tileentity.TileEntityStonePressLever;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -24,8 +24,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.Random;
 
 public class BlockStonePressLever extends BlockContainer {
 
@@ -133,7 +131,7 @@ public class BlockStonePressLever extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.STONE_PRESS_LEVER);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

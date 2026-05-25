@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.saddlequern.block;
 
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
 import com.unforbidable.tfc.bids.util.accessor.BlockMetaNamesAccessor;
@@ -88,7 +87,7 @@ public class BlockWorkStone extends Block {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.SADDLE_QUERN_HANDSTONE);
+        return BlockRenderIdProvider.get(this);
     }
 
 }

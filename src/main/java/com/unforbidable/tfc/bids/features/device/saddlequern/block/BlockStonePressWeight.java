@@ -1,8 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.saddlequern.block;
 
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.saddlequern.main.StonePressHelper;
 import com.unforbidable.tfc.bids.features.device.saddlequern.main.WeightBounds;
@@ -116,7 +114,7 @@ public class BlockStonePressWeight extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BlockRenderIdProvider.get(BlockNames.STONE_PRESS_WEIGHT);
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override
