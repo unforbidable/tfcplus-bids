@@ -619,11 +619,11 @@ public class ItemSetup extends BidsItems {
             .setNutritionAsIfCooked(true)
             .setUnlocalizedName("Butter");
 
-        bambooShoot = new ItemExtraFood(EnumFoodGroup.Vegetable, 20, 0, 0, 0, 10, true, true, true, true)
-            .setWaterPercentage(0.3f)
-            .setDecayRate(1.8f)
-            .setHasCookedIcon()
-            .setUnlocalizedName("Bamboo Shoot");
+//        bambooShoot = new ItemExtraFood(EnumFoodGroup.Vegetable, 20, 0, 0, 0, 10, true, true, true, true)
+//            .setWaterPercentage(0.3f)
+//            .setDecayRate(1.8f)
+//            .setHasCookedIcon()
+//            .setUnlocalizedName("Bamboo Shoot");
 
         seaBeet = new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 40, 10, 0)
             .setWaterPercentage(0.2f)
@@ -1325,7 +1325,7 @@ public class ItemSetup extends BidsItems {
         reg.addIndex(new HeatIndex(new ItemStack(broadBeans, 1), 1, 177, null));
 
         // The melt temp needs to be less than the cooked temp, otherwise the cooked icon does not render properly
-        reg.addIndex(new HeatIndex(new ItemStack(bambooShoot, 1), 1, 82, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(bambooShoot, 1), 1, 82, null));
 
         reg.addIndex(new HeatIndex(new ItemStack(wheatDoughHardtack, 1), 1, 88, new ItemStack(wheatHardtack, 1)).setKeepNBT(true));
         reg.addIndex(new HeatIndex(new ItemStack(barleyDoughHardtack, 1), 1, 88, new ItemStack(barleyHardtack, 1)).setKeepNBT(true));

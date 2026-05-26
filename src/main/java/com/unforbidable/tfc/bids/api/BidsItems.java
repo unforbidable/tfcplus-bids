@@ -146,6 +146,8 @@ public class BidsItems {
     public static final Item appleCrushed = item(ItemNames.APPLE_CRUSHED);
     public static final Item oliveCrushed = item(ItemNames.OLIVE_CRUSHED);
 
+    // Bamboo
+    public static Item bambooShoot = item(ItemNames.BAMBOO_SHOOT);
 
 
 
@@ -334,8 +336,6 @@ public class BidsItems {
 
     public static Item suet;
     public static Item tallow;
-
-    public static Item bambooShoot;
 
     public static Item cookingMixture;
 

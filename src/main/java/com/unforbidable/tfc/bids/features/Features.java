@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRack;
 import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
 import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuern;
 import com.unforbidable.tfc.bids.features.device.woodpile.Woodpile;
+import com.unforbidable.tfc.bids.features.food.bamboo.Bamboo;
 import com.unforbidable.tfc.bids.features.food.crushedfruit.CrushedFruit;
 import com.unforbidable.tfc.bids.features.material.bark.Bark;
 import com.unforbidable.tfc.bids.features.material.birtchback.BirchBark;
@@ -65,6 +66,7 @@ public class Features {
         new Pressing(),
         new SaddleQuern(),
         new CrushedFruit(),
+        new Bamboo(),
         new FluidContainers(),
         new LargeBowl(),
         new HandAxe(),
