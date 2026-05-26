@@ -16,7 +16,8 @@ public class HeatValueStage extends RegistryStage<HeatValue> {
 
         try {
             HeatRaw raw = new HeatRaw(value.specificHeat, value.meltTemp);
-            HeatIndex heatIndex = new HeatIndex(value.input, raw, value.output);
+            HeatIndex heatIndex = new HeatIndex(value.input, raw, value.output)
+                .setKeepNBT(value.keepNbt);
             HeatRegistry.getInstance().addIndex(heatIndex);
         } catch (Exception ex) {
             Bids.LOG.warn("Failed to register TFC heat index for {}: {}", value.input, ex.getMessage(), ex);
