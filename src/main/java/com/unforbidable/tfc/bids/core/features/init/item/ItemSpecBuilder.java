@@ -21,6 +21,8 @@ public class ItemSpecBuilder<T extends Item> {
     private MoldSpec mold;
     private MetaSpec meta;
     private final List<ItemHarvestSpec> harvest = new ArrayList<>();
+    private FoodSpec food;
+    private SmokeSpec smoke;
 
     public ItemSpecBuilder(String name, Supplier<T> item) {
         this.name = name;
@@ -116,8 +118,44 @@ public class ItemSpecBuilder<T extends Item> {
         return this;
     }
 
+    public ItemSpecBuilder<T> food(float decayRate) {
+        return food(decayRate, 0f);
+    }
+
+    public ItemSpecBuilder<T> food(float decayRate, float waterPercentage) {
+        return food(decayRate, waterPercentage, true, true);
+    }
+
+    public ItemSpecBuilder<T> food(float decayRate, float waterPercentage, boolean edible, boolean canBeUsedRaw) {
+        return food(decayRate, waterPercentage, edible, canBeUsedRaw, false, false);
+    }
+
+    public ItemSpecBuilder<T> food(float decayRate, boolean edible, boolean canBeUsedRaw) {
+        return food(decayRate, 0f, edible, canBeUsedRaw, false, false);
+    }
+
+    public ItemSpecBuilder<T> food(float decayRate, boolean edible, boolean canBeUsedRaw, boolean poisonOnRaw, boolean guaranteedPoisonOnRaw) {
+        return food(decayRate, 0f, edible, canBeUsedRaw, poisonOnRaw, guaranteedPoisonOnRaw);
+    }
+
+    public ItemSpecBuilder<T> food(float decayRate, float waterPercentage, boolean edible, boolean canBeUsedRaw, boolean poisonOnRaw, boolean guaranteedPoisonOnRaw) {
+        food = new FoodSpec(decayRate, waterPercentage, edible, canBeUsedRaw, poisonOnRaw, guaranteedPoisonOnRaw);
+
+        return this;
+    }
+
+    public ItemSpecBuilder<T> smoke() {
+        return smoke(0.5f);
+    }
+
+    public ItemSpecBuilder<T> smoke(float smokeAbsorbMultiplier) {
+        smoke = new SmokeSpec(smokeAbsorbMultiplier);
+
+        return this;
+    }
+
     public ItemSpec<T> build() {
-        return new ItemSpec<>(name, item, apply, container, fluid, drink, overlay, mold, meta, harvest);
+        return new ItemSpec<>(name, item, apply, container, fluid, drink, overlay, mold, meta, harvest, food, smoke);
     }
 
 }
