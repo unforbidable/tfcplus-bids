@@ -1,29 +1,27 @@
 package com.unforbidable.tfc.bids.features.device.crucible.tileentity;
 
-import java.util.List;
-import java.util.Random;
-
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemMeltedMetal;
-import com.dunk.tfc.api.Metal;
-import com.dunk.tfc.api.TFC_ItemHeat;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Interfaces.IHeatSourceTE;
 import com.dunk.tfc.api.Interfaces.ISmeltable;
+import com.dunk.tfc.api.Metal;
+import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api._obsolete.Events.CruciblePlayerEvent;
+import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ILiquidMetalContainer;
 import com.unforbidable.tfc.bids.common.container.slot.ISlotTracker;
-import com.unforbidable.tfc.bids.util.Timer;
-import com.unforbidable.tfc.bids.util.chimney.ChimneyHelper;
-import com.unforbidable.tfc.bids.util.metal.MetalHelper;
+import com.unforbidable.tfc.bids.features.device.crucible.CrucibleConfig;
 import com.unforbidable.tfc.bids.features.device.crucible.main.CrucibleHelper;
 import com.unforbidable.tfc.bids.features.device.crucible.main.CrucibleInputMonitor;
 import com.unforbidable.tfc.bids.features.device.crucible.main.CrucibleLiquidStorage;
-import com.unforbidable.tfc.bids.features.device.crucible.CrucibleConfig;
-import com.unforbidable.tfc.bids.api._obsolete.Events.CruciblePlayerEvent;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ILiquidMetalContainer;
-
+import com.unforbidable.tfc.bids.util.Timer;
+import com.unforbidable.tfc.bids.util.chimney.ChimneyHelper;
+import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -86,7 +84,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         storage = new ItemStack[getSizeInventory() + 2];
     }
 
-    public abstract int getGui();
+    public abstract String getGui();
 
     public abstract int getInputSlotCount();
 

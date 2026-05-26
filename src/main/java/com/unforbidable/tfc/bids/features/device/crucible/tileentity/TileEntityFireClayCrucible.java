@@ -1,12 +1,12 @@
 package com.unforbidable.tfc.bids.features.device.crucible.tileentity;
 
-import com.unforbidable.tfc.bids.api._obsolete.BidsGui;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 
 public class TileEntityFireClayCrucible extends TileEntityCrucible {
 
     @Override
-    public int getGui() {
-        return BidsGui.fireClayCrucibleGui;
+    public String getGui() {
+        return BlockNames.FIRE_CLAY_CRUCIBLE;
     }
 
     @Override

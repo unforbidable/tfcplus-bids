@@ -2,12 +2,11 @@ package com.unforbidable.tfc.bids.features.device.crucible.block;
 
 import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
 import com.dunk.tfc.api.Constant.Global;
-import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBlowpipe;
-import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityCrucible;
 import com.unforbidable.tfc.bids.api._obsolete.Events.CruciblePlayerEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ILiquidMetalContainer;
-
+import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBlowpipe;
+import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityCrucible;
+import com.unforbidable.tfc.bids.util.GuiUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -35,8 +34,9 @@ public abstract class BlockCrucible extends BlockContainer {
             float par8, float par9) {
         if (!world.isRemote && world.getTileEntity(i, j, k) instanceof TileEntityCrucible) {
             TileEntityCrucible crucible = (TileEntityCrucible) world.getTileEntity(i, j, k);
-            if (!handleInteraction(entityplayer, crucible))
-                entityplayer.openGui(Bids.instance, crucible.getGui(), world, i, j, k);
+            if (!handleInteraction(entityplayer, crucible)) {
+                GuiUtil.openGui(crucible.getGui(), entityplayer, crucible);
+            }
         }
         return true;
     }

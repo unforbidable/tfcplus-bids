@@ -2,15 +2,14 @@ package com.unforbidable.tfc.bids.features.device.crucible.tileentity;
 
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Interfaces.ISize;
-import com.unforbidable.tfc.bids.api._obsolete.BidsGui;
-
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import net.minecraft.item.ItemStack;
 
 public class TileEntityClayCrucible extends TileEntityCrucible {
 
     @Override
-    public int getGui() {
-        return BidsGui.clayCrucibleGui;
+    public String getGui() {
+        return BlockNames.CLAY_CRUCIBLE;
     }
 
     @Override
