@@ -142,6 +142,11 @@ public class BidsItems {
     public static final Item igExHandAxe = item(ItemNames.HAND_AXE_IG_EX);
     public static final Item mMHandAxe = item(ItemNames.HAND_AXE_MM);
 
+    // Crushed fruit
+    public static final Item appleCrushed = item(ItemNames.APPLE_CRUSHED);
+    public static final Item oliveCrushed = item(ItemNames.OLIVE_CRUSHED);
+
+
 
 
     public static Item hardenedWoodenSpear;
@@ -236,9 +241,6 @@ public class BidsItems {
     public static Item cornmealFlatbread;
 
     public static Item flatDough;
-
-    public static Item appleCrushed;
-    public static Item oliveCrushed;
 
     public static Item honeyWaterBottle;
     public static Item milkVinegarBottle;
