@@ -35,7 +35,7 @@ import com.unforbidable.tfc.bids.features.device.cookingpot.item.ItemSteamingMes
 import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemBoard;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemShaft;
 import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
-import com.unforbidable.tfc.bids.features.food.coarseflour.item.ItemUnshapedDough;
+import com.unforbidable.tfc.bids.features.crafting.dough.item.ItemUnshapedDough;
 import com.unforbidable.tfc.bids.features.food.milk.item.ItemPailEmpty;
 import com.unforbidable.tfc.bids.features.food.milk.item.ItemPailFluid;
 import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemMoreSandwich;
@@ -48,8 +48,6 @@ import com.unforbidable.tfc.bids.features.material.textile.item.*;
 import com.unforbidable.tfc.bids.features.resource.crops.item.ItemNewCustomSeeds;
 import com.unforbidable.tfc.bids.features.resource.well.item.ItemBucketRopeEmpty;
 import com.unforbidable.tfc.bids.features.resource.well.item.ItemBucketRopeFluid;
-import com.unforbidable.tfc.bids.features.utility.handaxe.item.ItemHandAxe;
-import com.unforbidable.tfc.bids.features.utility.largebowl.item.ItemLargeBowl;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemLargeBowlFluid;
 import com.unforbidable.tfc.bids.features.utility.spear.item.ItemHardenedWoodenSpear;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -432,165 +430,165 @@ public class ItemSetup extends BidsItems {
 //            .setArmorCoverage("FULL_SHIRT_TORSO", 1)
 //            .setArmorCoverage("SHORTS_LEGS", 3);
 
-        wheatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
-            .setIngredientOverride(TFCItems.wheatWhole)
-            .setDecayRate(1.5f)
-            .setUnlocalizedName("Wheat Crushed");
-        barleyCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20, false, false)
-            .setIngredientOverride(TFCItems.barleyWhole)
-            .setDecayRate(1.5f)
-            .setUnlocalizedName("Barley Crushed");
-        oatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
-            .setIngredientOverride(TFCItems.oatWhole)
-            .setDecayRate(1.5f)
-            .setUnlocalizedName("Oat Crushed");
-        ryeCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20, false, false)
-            .setIngredientOverride(TFCItems.ryeWhole)
-            .setDecayRate(1.5f)
-            .setUnlocalizedName("Rye Crushed");
-        riceCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
-            .setIngredientOverride(TFCItems.riceWhole)
-            .setDecayRate(1.5f)
-            .setUnlocalizedName("Rice Crushed");
-        cornmealCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20, false, false)
-            .setIngredientOverride(TFCItems.maizeEar)
-            .setDecayRate(1.5f)
-            .setUnlocalizedName("Cornmeal Crushed");
+//        wheatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+//            .setIngredientOverride(TFCItems.wheatWhole)
+//            .setDecayRate(1.5f)
+//            .setUnlocalizedName("Wheat Crushed");
+//        barleyCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20, false, false)
+//            .setIngredientOverride(TFCItems.barleyWhole)
+//            .setDecayRate(1.5f)
+//            .setUnlocalizedName("Barley Crushed");
+//        oatCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+//            .setIngredientOverride(TFCItems.oatWhole)
+//            .setDecayRate(1.5f)
+//            .setUnlocalizedName("Oat Crushed");
+//        ryeCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20, false, false)
+//            .setIngredientOverride(TFCItems.ryeWhole)
+//            .setDecayRate(1.5f)
+//            .setUnlocalizedName("Rye Crushed");
+//        riceCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20, false, false)
+//            .setIngredientOverride(TFCItems.riceWhole)
+//            .setDecayRate(1.5f)
+//            .setUnlocalizedName("Rice Crushed");
+//        cornmealCrushed = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20, false, false)
+//            .setIngredientOverride(TFCItems.maizeEar)
+//            .setDecayRate(1.5f)
+//            .setUnlocalizedName("Cornmeal Crushed");
+//
+//        wheatPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+//            .setDecayRate(2f)
+//            .setUnlocalizedName("Wheat Porridge");
+//        barleyPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
+//            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+//            .setDecayRate(2f)
+//            .setUnlocalizedName("Barley Porridge");
+//        oatPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+//            .setDecayRate(2f)
+//            .setUnlocalizedName("Oat Porridge");
+//        ryePorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
+//            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+//            .setDecayRate(2f)
+//            .setUnlocalizedName("Rye Porridge");
+//        ricePorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+//            .setDecayRate(2f)
+//            .setUnlocalizedName("Rice Porridge");
+//        cornmealPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
+//            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
+//            .setDecayRate(2f)
+//            .setUnlocalizedName("Cornmeal Porridge");
 
-        wheatPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-            .setDecayRate(2f)
-            .setUnlocalizedName("Wheat Porridge");
-        barleyPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
-            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-            .setDecayRate(2f)
-            .setUnlocalizedName("Barley Porridge");
-        oatPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-            .setDecayRate(2f)
-            .setUnlocalizedName("Oat Porridge");
-        ryePorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
-            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-            .setDecayRate(2f)
-            .setUnlocalizedName("Rye Porridge");
-        ricePorridge = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-            .setDecayRate(2f)
-            .setUnlocalizedName("Rice Porridge");
-        cornmealPorridge = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
-            .setWaterPercentage(0.25f).setNutritionAsIfCooked(true)
-            .setDecayRate(2f)
-            .setUnlocalizedName("Cornmeal Porridge");
+//        wheatDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setFlatDoughDamage(0)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Wheat Dough Unshaped");
+//        barleyDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
+//            .setFlatDoughDamage(1)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Barley Dough Unshaped");
+//        oatDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setFlatDoughDamage(2)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Oat Dough Unshaped");
+//        ryeDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
+//            .setFlatDoughDamage(3)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Rye Dough Unshaped");
+//        riceDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setFlatDoughDamage(4)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Rice Dough Unshaped");
+//        cornmealDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
+//            .setFlatDoughDamage(5)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Cornmeal Dough Unshaped");
 
-        wheatDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setFlatDoughDamage(0)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Wheat Dough Unshaped");
-        barleyDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
-            .setFlatDoughDamage(1)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Barley Dough Unshaped");
-        oatDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setFlatDoughDamage(2)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Oat Dough Unshaped");
-        ryeDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
-            .setFlatDoughDamage(3)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Rye Dough Unshaped");
-        riceDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setFlatDoughDamage(4)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Rice Dough Unshaped");
-        cornmealDoughUnshaped = new ItemUnshapedDough(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
-            .setFlatDoughDamage(5)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Cornmeal Dough Unshaped");
+//        wheatDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Wheat Dough Hardtack");
+//        barleyDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Barley Dough Hardtack");
+//        oatDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Oat Dough Hardtack");
+//        ryeDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Rye Dough Hardtack");
+//        riceDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Rice Dough Hardtack");
+//        cornmealDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Cornmeal Dough Hardtack");
+//
+//        wheatHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setDecayRate(0.02f)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Wheat Hardtack");
+//        barleyHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
+//            .setDecayRate(0.02f)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Barley Hardtack");
+//        oatHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setDecayRate(0.02f)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Oat Hardtack");
+//        ryeHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
+//            .setDecayRate(0.02f)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Rye Hardtack");
+//        riceHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setDecayRate(0.02f)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Rice Hardtack");
+//        cornmealHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
+//            .setDecayRate(0.02f)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Cornmeal Hardtack");
 
-        wheatDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Wheat Dough Hardtack");
-        barleyDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Barley Dough Hardtack");
-        oatDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Oat Dough Hardtack");
-        ryeDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Rye Dough Hardtack");
-        riceDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Rice Dough Hardtack");
-        cornmealDoughHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Cornmeal Dough Hardtack");
+//        wheatDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Wheat Dough Flatbread");
+//        barleyDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Barley Dough Flatbread");
+//        oatDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Oat Dough Flatbread");
+//        ryeDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Rye Dough Flatbread");
+//        riceDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Rice Dough Flatbread");
+//        cornmealDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
+//            .setWaterPercentage(0.7f)
+//            .setUnlocalizedName("Cornmeal Dough Flatbread");
 
-        wheatHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setDecayRate(0.02f)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Wheat Hardtack");
-        barleyHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
-            .setDecayRate(0.02f)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Barley Hardtack");
-        oatHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setDecayRate(0.02f)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Oat Hardtack");
-        ryeHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
-            .setDecayRate(0.02f)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Rye Hardtack");
-        riceHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setDecayRate(0.02f)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Rice Hardtack");
-        cornmealHardtack = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
-            .setDecayRate(0.02f)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Cornmeal Hardtack");
+//        wheatFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Wheat Flatbread");
+//        barleyFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Barley Flatbread");
+//        oatFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Oat Flatbread");
+//        ryeFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Rye Flatbread");
+//        riceFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Rice Flatbread");
+//        cornmealFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Cornmeal Flatbread");
 
-        wheatDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Wheat Dough Flatbread");
-        barleyDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Barley Dough Flatbread");
-        oatDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Oat Dough Flatbread");
-        ryeDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Rye Dough Flatbread");
-        riceDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Rice Dough Flatbread");
-        cornmealDoughFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
-            .setWaterPercentage(0.7f)
-            .setUnlocalizedName("Cornmeal Dough Flatbread");
-
-        wheatFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Wheat Flatbread");
-        barleyFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Barley Flatbread");
-        oatFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Oat Flatbread");
-        ryeFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Rye Flatbread");
-        riceFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Rice Flatbread");
-        cornmealFlatbread = new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Cornmeal Flatbread");
-
-        flatDough = new ItemCommonFlat().setTextureFolder("food")
-            .setUnlocalizedName("Flat Dough");
+//        flatDough = new ItemCommonFlat().setTextureFolder("food")
+//            .setUnlocalizedName("Flat Dough");
 
         goatCheese = new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20)
             .setWaterPercentage(0.6f)
@@ -1304,19 +1302,19 @@ public class ItemSetup extends BidsItems {
         registerHeatUnfinishedAnvilHelper(reg, 9, TFCItems.bismuthBronzeUnshaped);
         registerHeatUnfinishedAnvilHelper(reg, 10, TFCItems.blackBronzeUnshaped);
 
-        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(wheatCrushed, 1), 1, 88, null, new ItemStack(wheatPorridge, 1), null).setKeepNBT(true));
-        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(barleyCrushed, 1), 1, 88, null, new ItemStack(barleyPorridge, 1), null).setKeepNBT(true));
-        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(oatCrushed, 1), 1, 88, null, new ItemStack(oatPorridge, 1), null).setKeepNBT(true));
-        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(ryeCrushed, 1), 1, 88, null, new ItemStack(ryePorridge, 1), null).setKeepNBT(true));
-        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(riceCrushed, 1), 1, 88, null, new ItemStack(ricePorridge, 1), null).setKeepNBT(true));
-        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(cornmealCrushed, 1), 1, 88, null, new ItemStack(cornmealPorridge, 1), null).setKeepNBT(true));
-
-        reg.addIndex(new HeatIndex(new ItemStack(wheatPorridge, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(barleyPorridge, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(oatPorridge, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(ryePorridge, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(ricePorridge, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(cornmealPorridge, 1), 1, 177, null));
+//        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(wheatCrushed, 1), 1, 88, null, new ItemStack(wheatPorridge, 1), null).setKeepNBT(true));
+//        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(barleyCrushed, 1), 1, 88, null, new ItemStack(barleyPorridge, 1), null).setKeepNBT(true));
+//        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(oatCrushed, 1), 1, 88, null, new ItemStack(oatPorridge, 1), null).setKeepNBT(true));
+//        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(ryeCrushed, 1), 1, 88, null, new ItemStack(ryePorridge, 1), null).setKeepNBT(true));
+//        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(riceCrushed, 1), 1, 88, null, new ItemStack(ricePorridge, 1), null).setKeepNBT(true));
+//        reg.addIndex(new BidsFoodHeatIndex(new ItemStack(cornmealCrushed, 1), 1, 88, null, new ItemStack(cornmealPorridge, 1), null).setKeepNBT(true));
+//
+//        reg.addIndex(new HeatIndex(new ItemStack(wheatPorridge, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(barleyPorridge, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(oatPorridge, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(ryePorridge, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(ricePorridge, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(cornmealPorridge, 1), 1, 177, null));
 
         reg.addIndex(new HeatIndex(new ItemStack(seaBeet, 1), 1, 177, null));
         reg.addIndex(new HeatIndex(new ItemStack(beetroot, 1), 1, 177, null));
@@ -1327,33 +1325,33 @@ public class ItemSetup extends BidsItems {
         // The melt temp needs to be less than the cooked temp, otherwise the cooked icon does not render properly
 //        reg.addIndex(new HeatIndex(new ItemStack(bambooShoot, 1), 1, 82, null));
 
-        reg.addIndex(new HeatIndex(new ItemStack(wheatDoughHardtack, 1), 1, 88, new ItemStack(wheatHardtack, 1)).setKeepNBT(true));
-        reg.addIndex(new HeatIndex(new ItemStack(barleyDoughHardtack, 1), 1, 88, new ItemStack(barleyHardtack, 1)).setKeepNBT(true));
-        reg.addIndex(new HeatIndex(new ItemStack(oatDoughHardtack, 1), 1, 88, new ItemStack(oatHardtack, 1)).setKeepNBT(true));
-        reg.addIndex(new HeatIndex(new ItemStack(ryeDoughHardtack, 1), 1, 88, new ItemStack(ryeHardtack, 1)).setKeepNBT(true));
-        reg.addIndex(new HeatIndex(new ItemStack(riceDoughHardtack, 1), 1, 88, new ItemStack(riceHardtack, 1)).setKeepNBT(true));
-        reg.addIndex(new HeatIndex(new ItemStack(cornmealDoughHardtack, 1), 1, 88, new ItemStack(cornmealHardtack, 1)).setKeepNBT(true));
+//        reg.addIndex(new HeatIndex(new ItemStack(wheatDoughHardtack, 1), 1, 88, new ItemStack(wheatHardtack, 1)).setKeepNBT(true));
+//        reg.addIndex(new HeatIndex(new ItemStack(barleyDoughHardtack, 1), 1, 88, new ItemStack(barleyHardtack, 1)).setKeepNBT(true));
+//        reg.addIndex(new HeatIndex(new ItemStack(oatDoughHardtack, 1), 1, 88, new ItemStack(oatHardtack, 1)).setKeepNBT(true));
+//        reg.addIndex(new HeatIndex(new ItemStack(ryeDoughHardtack, 1), 1, 88, new ItemStack(ryeHardtack, 1)).setKeepNBT(true));
+//        reg.addIndex(new HeatIndex(new ItemStack(riceDoughHardtack, 1), 1, 88, new ItemStack(riceHardtack, 1)).setKeepNBT(true));
+//        reg.addIndex(new HeatIndex(new ItemStack(cornmealDoughHardtack, 1), 1, 88, new ItemStack(cornmealHardtack, 1)).setKeepNBT(true));
+//
+//        reg.addIndex(new HeatIndex(new ItemStack(wheatHardtack, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(barleyHardtack, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(oatHardtack, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(ryeHardtack, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(riceHardtack, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(cornmealHardtack, 1), 1, 177, null));
 
-        reg.addIndex(new HeatIndex(new ItemStack(wheatHardtack, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(barleyHardtack, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(oatHardtack, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(ryeHardtack, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(riceHardtack, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(cornmealHardtack, 1), 1, 177, null));
-
-        reg.addIndex(new HeatIndex(new ItemStack(wheatDoughFlatbread, 1), 1, 88, new ItemStack(wheatFlatbread, 1)).setKeepNBT(true));
-        reg.addIndex(new HeatIndex(new ItemStack(barleyDoughFlatbread, 1), 1, 88, new ItemStack(barleyFlatbread, 1)).setKeepNBT(true));
-        reg.addIndex(new HeatIndex(new ItemStack(oatDoughFlatbread, 1), 1, 88, new ItemStack(oatFlatbread, 1)).setKeepNBT(true));
-        reg.addIndex(new HeatIndex(new ItemStack(ryeDoughFlatbread, 1), 1, 88, new ItemStack(ryeFlatbread, 1)).setKeepNBT(true));
-        reg.addIndex(new HeatIndex(new ItemStack(riceDoughFlatbread, 1), 1, 88, new ItemStack(riceFlatbread, 1)).setKeepNBT(true));
-        reg.addIndex(new HeatIndex(new ItemStack(cornmealDoughFlatbread, 1), 1, 88, new ItemStack(cornmealFlatbread, 1)).setKeepNBT(true));
-
-        reg.addIndex(new HeatIndex(new ItemStack(wheatFlatbread, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(barleyFlatbread, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(oatFlatbread, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(ryeFlatbread, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(riceFlatbread, 1), 1, 177, null));
-        reg.addIndex(new HeatIndex(new ItemStack(cornmealFlatbread, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(wheatDoughFlatbread, 1), 1, 88, new ItemStack(wheatFlatbread, 1)).setKeepNBT(true));
+//        reg.addIndex(new HeatIndex(new ItemStack(barleyDoughFlatbread, 1), 1, 88, new ItemStack(barleyFlatbread, 1)).setKeepNBT(true));
+//        reg.addIndex(new HeatIndex(new ItemStack(oatDoughFlatbread, 1), 1, 88, new ItemStack(oatFlatbread, 1)).setKeepNBT(true));
+//        reg.addIndex(new HeatIndex(new ItemStack(ryeDoughFlatbread, 1), 1, 88, new ItemStack(ryeFlatbread, 1)).setKeepNBT(true));
+//        reg.addIndex(new HeatIndex(new ItemStack(riceDoughFlatbread, 1), 1, 88, new ItemStack(riceFlatbread, 1)).setKeepNBT(true));
+//        reg.addIndex(new HeatIndex(new ItemStack(cornmealDoughFlatbread, 1), 1, 88, new ItemStack(cornmealFlatbread, 1)).setKeepNBT(true));
+//
+//        reg.addIndex(new HeatIndex(new ItemStack(wheatFlatbread, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(barleyFlatbread, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(oatFlatbread, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(ryeFlatbread, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(riceFlatbread, 1), 1, 177, null));
+//        reg.addIndex(new HeatIndex(new ItemStack(cornmealFlatbread, 1), 1, 177, null));
 
         reg.addIndex(new HeatIndex(new ItemStack(TFCItems.woodenSpear, 1), 1, 100, new ItemStack(BidsItems.hardenedWoodenSpear, 1)));
     }
@@ -1445,12 +1443,12 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(ryeCrushed, ryeCrushed.getUnlocalizedName());
         GameRegistry.registerItem(riceCrushed, riceCrushed.getUnlocalizedName());
         GameRegistry.registerItem(cornmealCrushed, cornmealCrushed.getUnlocalizedName());
-        GameRegistry.registerItem(wheatPorridge, wheatPorridge.getUnlocalizedName());
-        GameRegistry.registerItem(barleyPorridge, barleyPorridge.getUnlocalizedName());
-        GameRegistry.registerItem(oatPorridge, oatPorridge.getUnlocalizedName());
-        GameRegistry.registerItem(ryePorridge, ryePorridge.getUnlocalizedName());
-        GameRegistry.registerItem(ricePorridge, ricePorridge.getUnlocalizedName());
-        GameRegistry.registerItem(cornmealPorridge, cornmealPorridge.getUnlocalizedName());
+//        GameRegistry.registerItem(wheatPorridge, wheatPorridge.getUnlocalizedName());
+//        GameRegistry.registerItem(barleyPorridge, barleyPorridge.getUnlocalizedName());
+//        GameRegistry.registerItem(oatPorridge, oatPorridge.getUnlocalizedName());
+//        GameRegistry.registerItem(ryePorridge, ryePorridge.getUnlocalizedName());
+//        GameRegistry.registerItem(ricePorridge, ricePorridge.getUnlocalizedName());
+//        GameRegistry.registerItem(cornmealPorridge, cornmealPorridge.getUnlocalizedName());
 
         GameRegistry.registerItem(plugAndFeather, plugAndFeather.getUnlocalizedName());
 

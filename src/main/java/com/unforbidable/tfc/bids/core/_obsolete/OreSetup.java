@@ -319,12 +319,12 @@ public class OreSetup {
         OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.wheatGround));
         OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.cornmealGround));
 
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.barleyCrushed));
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.oatCrushed));
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.ryeCrushed));
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.riceCrushed));
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.wheatCrushed));
-        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.cornmealCrushed));
+//        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.barleyCrushed));
+//        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.oatCrushed));
+//        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.ryeCrushed));
+//        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.riceCrushed));
+//        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.wheatCrushed));
+//        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.cornmealCrushed));
 
         OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.blackberry));
         OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.blueberry));
@@ -349,19 +349,19 @@ public class OreSetup {
         OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.ryeBread));
         OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.cornBread));
         OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.riceBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.wheatFlatbread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.barleyFlatbread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.oatFlatbread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.ryeFlatbread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.cornmealFlatbread));
-        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.riceFlatbread));
+//        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.wheatFlatbread));
+//        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.barleyFlatbread));
+//        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.oatFlatbread));
+//        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.ryeFlatbread));
+//        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.cornmealFlatbread));
+//        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.riceFlatbread));
 
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.wheatHardtack));
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.barleyHardtack));
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.oatHardtack));
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.ryeHardtack));
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.cornmealHardtack));
-        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.riceHardtack));
+//        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.wheatHardtack));
+//        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.barleyHardtack));
+//        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.oatHardtack));
+//        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.ryeHardtack));
+//        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.cornmealHardtack));
+//        OreDictionary.registerOre("foodHardtack", new ItemStack(BidsItems.riceHardtack));
     }
 
 }

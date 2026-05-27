@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.food.coarseflour.container;
+package com.unforbidable.tfc.bids.features.crafting.dough.container;
 
 import com.dunk.tfc.Containers.ContainerSpecialCrafting;
 import com.dunk.tfc.Core.Player.PlayerInfo;

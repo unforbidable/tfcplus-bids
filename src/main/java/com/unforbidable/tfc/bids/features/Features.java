@@ -6,6 +6,7 @@ import com.unforbidable.tfc.bids.features.building.logwall.LogWall;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
 import com.unforbidable.tfc.bids.features.building.wattle.Wattle;
+import com.unforbidable.tfc.bids.features.crafting.dough.Dough;
 import com.unforbidable.tfc.bids.features.crafting.drying.Drying;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
 import com.unforbidable.tfc.bids.features.crafting.pressing.Pressing;
@@ -17,7 +18,10 @@ import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
 import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuern;
 import com.unforbidable.tfc.bids.features.device.woodpile.Woodpile;
 import com.unforbidable.tfc.bids.features.food.bamboo.Bamboo;
+import com.unforbidable.tfc.bids.features.food.coarseflour.CoarseFlour;
 import com.unforbidable.tfc.bids.features.food.crushedfruit.CrushedFruit;
+import com.unforbidable.tfc.bids.features.food.flatbread.Flatbread;
+import com.unforbidable.tfc.bids.features.food.hardtack.Hardtack;
 import com.unforbidable.tfc.bids.features.material.bark.Bark;
 import com.unforbidable.tfc.bids.features.material.birtchback.BirchBark;
 import com.unforbidable.tfc.bids.features.material.clothing.Clothing;
@@ -66,6 +70,10 @@ public class Features {
         new Pressing(),
         new SaddleQuern(),
         new CrushedFruit(),
+        new CoarseFlour(),
+        new Flatbread(),
+        new Dough(),
+        new Hardtack(),
         new Bamboo(),
         new FluidContainers(),
         new LargeBowl(),

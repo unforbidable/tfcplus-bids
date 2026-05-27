@@ -19,7 +19,7 @@ import com.unforbidable.tfc.bids.features.device.strawnest.container.ContainerSt
 import com.unforbidable.tfc.bids.features.device.strawnest.tileentity.TileEntityStrawNest;
 import com.unforbidable.tfc.bids.features.device.woodpile.container.ContainerWoodpile;
 import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
-import com.unforbidable.tfc.bids.features.food.coarseflour.container.ContainerSpecialCraftingDough;
+import com.unforbidable.tfc.bids.features.crafting.dough.container.ContainerSpecialCraftingDough;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

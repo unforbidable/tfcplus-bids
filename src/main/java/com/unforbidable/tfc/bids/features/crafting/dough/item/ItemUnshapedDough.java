@@ -1,20 +1,21 @@
-package com.unforbidable.tfc.bids.features.food.coarseflour.item;
+package com.unforbidable.tfc.bids.features.crafting.dough.item;
 
 import com.dunk.tfc.Core.Player.PlayerInfo;
 import com.dunk.tfc.Core.Player.PlayerManagerTFC;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
-import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api._obsolete.BidsGui;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.GuiNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
+import com.unforbidable.tfc.bids.util.GuiUtil;
+import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class ItemUnshapedDough extends ItemExtraFood {
+
+    // TODO extend LooseRock and implement iFood for better behavior while still decaying
 
     private int flatDoughDamage = 0;
 
@@ -30,12 +31,12 @@ public class ItemUnshapedDough extends ItemExtraFood {
 
     @Override
     public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player) {
-        PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(player);
-        pi.specialCraftingType = new ItemStack(BidsItems.flatDough, 1, flatDoughDamage);
-        pi.specialCraftingTypeAlternate = null;
-
         if(is.stackSize > 0) {
-            player.openGui(Bids.instance, BidsGui.doughKnappingGui, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
+            PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(player);
+            pi.specialCraftingType = new ItemStack(BidsItems.flatDough, 1, flatDoughDamage);
+            pi.specialCraftingTypeAlternate = null;
+
+            GuiUtil.openGui(GuiNames.DOUGH, player);
         }
 
         return is;

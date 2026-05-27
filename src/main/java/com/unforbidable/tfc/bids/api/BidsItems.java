@@ -147,7 +147,54 @@ public class BidsItems {
     public static final Item oliveCrushed = item(ItemNames.OLIVE_CRUSHED);
 
     // Bamboo
-    public static Item bambooShoot = item(ItemNames.BAMBOO_SHOOT);
+    public static final Item bambooShoot = item(ItemNames.BAMBOO_SHOOT);
+
+    // Coarse flour
+    public static final Item wheatCrushed = item(ItemNames.WHEAT_CRUSHED);
+    public static final Item barleyCrushed = item(ItemNames.BARLEY_CRUSHED);
+    public static final Item oatCrushed = item(ItemNames.OAT_CRUSHED);
+    public static final Item ryeCrushed = item(ItemNames.RYE_CRUSHED);
+    public static final Item riceCrushed = item(ItemNames.RICE_CRUSHED);
+    public static final Item cornmealCrushed = item(ItemNames.CORN_CRUSHED);
+
+    // Flatbread
+    public static final  Item wheatDoughFlatbread = item(ItemNames.WHEAT_DOUGH_FLATBREAD);
+    public static final  Item barleyDoughFlatbread = item(ItemNames.BARLEY_DOUGH_FLATBREAD);
+    public static final  Item oatDoughFlatbread = item(ItemNames.OAT_DOUGH_FLATBREAD);
+    public static final  Item ryeDoughFlatbread = item(ItemNames.RYE_DOUGH_FLATBREAD);
+    public static final  Item riceDoughFlatbread = item(ItemNames.RICE_DOUGH_FLATBREAD);
+    public static final  Item cornmealDoughFlatbread = item(ItemNames.CORN_DOUGH_FLATBREAD);
+
+    public static final  Item wheatFlatbread = item(ItemNames.WHEAT_FLATBREAD);
+    public static final  Item barleyFlatbread = item(ItemNames.BARLEY_FLATBREAD);
+    public static final  Item oatFlatbread = item(ItemNames.OAT_FLATBREAD);
+    public static final  Item ryeFlatbread = item(ItemNames.RYE_FLATBREAD);
+    public static final  Item riceFlatbread = item(ItemNames.RICE_FLATBREAD);
+    public static final  Item cornmealFlatbread = item(ItemNames.CORN_FLATBREAD);
+
+    // Dough
+    public static final Item flatDough = item(ItemNames.FLAT_DOUGH);
+    public static final Item wheatDoughUnshaped = item(ItemNames.WHEAT_DOUGH_UNSHAPED);
+    public static final Item barleyDoughUnshaped = item(ItemNames.BARLEY_DOUGH_UNSHAPED);
+    public static final Item oatDoughUnshaped = item(ItemNames.OAT_DOUGH_UNSHAPED);
+    public static final Item ryeDoughUnshaped = item(ItemNames.RYE_DOUGH_UNSHAPED);
+    public static final Item riceDoughUnshaped = item(ItemNames.RICE_DOUGH_UNSHAPED);
+    public static final Item cornmealDoughUnshaped = item(ItemNames.CORN_DOUGH_UNSHAPED);
+
+    // Hardtack
+    public static final Item wheatDoughHardtack = item(ItemNames.WHEAT_DOUGH_HARDTACK);
+    public static final Item barleyDoughHardtack = item(ItemNames.BARLEY_DOUGH_HARDTACK);
+    public static final Item oatDoughHardtack = item(ItemNames.OAT_DOUGH_HARDTACK);
+    public static final Item ryeDoughHardtack = item(ItemNames.RYE_DOUGH_HARDTACK);
+    public static final Item riceDoughHardtack = item(ItemNames.RICE_DOUGH_HARDTACK);
+    public static final Item cornmealDoughHardtack = item(ItemNames.CORN_DOUGH_HARDTACK);
+
+    public static final Item wheatHardtack = item(ItemNames.WHEAT_HARDTACK);
+    public static final Item barleyHardtack = item(ItemNames.BARLEY_HARDTACK);
+    public static final Item oatHardtack = item(ItemNames.OAT_HARDTACK);
+    public static final Item ryeHardtack = item(ItemNames.RYE_HARDTACK);
+    public static final Item riceHardtack = item(ItemNames.RICE_HARDTACK);
+    public static final Item cornmealHardtack = item(ItemNames.CORN_HARDTACK);
 
 
 
@@ -193,56 +240,12 @@ public class BidsItems {
     public static Item woolFiberCoarse;
     public static Item woolFiberRefined;
 
-    public static Item wheatCrushed;
-    public static Item barleyCrushed;
-    public static Item oatCrushed;
-    public static Item ryeCrushed;
-    public static Item riceCrushed;
-    public static Item cornmealCrushed;
-
     public static Item wheatPorridge;
     public static Item barleyPorridge;
     public static Item oatPorridge;
     public static Item ryePorridge;
     public static Item ricePorridge;
     public static Item cornmealPorridge;
-
-    public static Item wheatDoughUnshaped;
-    public static Item barleyDoughUnshaped;
-    public static Item oatDoughUnshaped;
-    public static Item ryeDoughUnshaped;
-    public static Item riceDoughUnshaped;
-    public static Item cornmealDoughUnshaped;
-
-    public static Item wheatDoughFlatbread;
-    public static Item barleyDoughFlatbread;
-    public static Item oatDoughFlatbread;
-    public static Item ryeDoughFlatbread;
-    public static Item riceDoughFlatbread;
-    public static Item cornmealDoughFlatbread;
-
-    public static Item wheatDoughHardtack;
-    public static Item barleyDoughHardtack;
-    public static Item oatDoughHardtack;
-    public static Item ryeDoughHardtack;
-    public static Item riceDoughHardtack;
-    public static Item cornmealDoughHardtack;
-
-    public static Item wheatHardtack;
-    public static Item barleyHardtack;
-    public static Item oatHardtack;
-    public static Item ryeHardtack;
-    public static Item riceHardtack;
-    public static Item cornmealHardtack;
-
-    public static Item wheatFlatbread;
-    public static Item barleyFlatbread;
-    public static Item oatFlatbread;
-    public static Item ryeFlatbread;
-    public static Item riceFlatbread;
-    public static Item cornmealFlatbread;
-
-    public static Item flatDough;
 
     public static Item honeyWaterBottle;
     public static Item milkVinegarBottle;

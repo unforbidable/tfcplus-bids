@@ -31,6 +31,10 @@ public class ItemExtraFood extends ItemFoodTFC implements ICookingIngredientOver
         setCreativeTab(BidsCreativeTabs.bidsFoodstuffs);
     }
 
+    public ItemFoodTFC setNutritionAsIfCooked() {
+        return super.setNutritionAsIfCooked(true);
+    }
+
     public ItemExtraFood setIngredientOverride(Item ingredientOverride) {
         this.ingredientOverride = ingredientOverride;
 

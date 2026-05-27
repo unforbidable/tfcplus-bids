@@ -162,21 +162,6 @@ public class SaddleQuern extends Feature {
             }
         }
 
-        // TODO more recipes to respective features
-
-//        setup.registry(SaddleQuernRegistry.recipes)
-//            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.wheatCrushed), new ItemStack(TFCItems.wheatGrain)));
-//        setup.registry(SaddleQuernRegistry.recipes)
-//            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.barleyCrushed), new ItemStack(TFCItems.barleyGrain)));
-//        setup.registry(SaddleQuernRegistry.recipes)
-//            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.oatCrushed), new ItemStack(TFCItems.oatGrain)));
-//        setup.registry(SaddleQuernRegistry.recipes)
-//            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.riceCrushed), new ItemStack(TFCItems.riceGrain)));
-//        setup.registry(SaddleQuernRegistry.recipes)
-//            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.ryeCrushed), new ItemStack(TFCItems.ryeGrain)));
-//        setup.registry(SaddleQuernRegistry.recipes)
-//            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.cornmealCrushed), new ItemStack(TFCItems.maizeEar)));
-
         // TODO investigate how come only food stuff can be processed but other recipes exist
 
         setup.registry(SaddleQuernRegistry.recipes)

@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.food.coarseflour.gui;
+package com.unforbidable.tfc.bids.features.crafting.dough.gui;
 
 import com.dunk.tfc.GUI.GuiKnapping;
 import net.minecraft.entity.player.InventoryPlayer;

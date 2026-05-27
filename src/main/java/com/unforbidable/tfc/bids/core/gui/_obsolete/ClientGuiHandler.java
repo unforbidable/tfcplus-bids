@@ -19,7 +19,7 @@ import com.unforbidable.tfc.bids.features.device.strawnest.gui.GuiStrawNest;
 import com.unforbidable.tfc.bids.features.device.strawnest.tileentity.TileEntityStrawNest;
 import com.unforbidable.tfc.bids.features.device.woodpile.gui.GuiWoodpile;
 import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
-import com.unforbidable.tfc.bids.features.food.coarseflour.gui.GuiKnappingDough;
+import com.unforbidable.tfc.bids.features.crafting.dough.gui.GuiKnappingDough;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

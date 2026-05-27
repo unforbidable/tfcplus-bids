@@ -7,4 +7,6 @@ public interface GuiNames {
 
     String GLASSBLOWING = "Glassblowing";
 
+    String DOUGH = "Dough";
+
 }
