@@ -17,6 +17,7 @@ import com.unforbidable.tfc.bids.core.features.setup.eventhandler.EventHandlerSp
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroup;
 import com.unforbidable.tfc.bids.core.features.setup.registry.MapRegistryGroup;
 import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryGroup;
+import com.unforbidable.tfc.bids.core.features.setup.worldgen.WorldGenSpec;
 import com.unforbidable.tfc.bids.core.gui.ContainerProvider;
 import com.unforbidable.tfc.bids.core.gui.GuiRegistry;
 import com.unforbidable.tfc.bids.core.gui.client.ClientGuiRegistry;
@@ -234,7 +235,15 @@ public class FeatureRegistry {
     }
 
     public void registerEventHandler(EventHandlerSpec spec) {
+        Bids.LOG.info("Register event handler {}", spec.instance.getClass().getCanonicalName());
+
         MinecraftForge.EVENT_BUS.register(spec.instance);
+    }
+
+    public void registerWorldGen(WorldGenSpec spec) {
+        Bids.LOG.info("Register world generator {}", spec.generator.getClass().getCanonicalName());
+
+        GameRegistry.registerWorldGenerator(spec.generator, spec.priority);
     }
 
     @SideOnly(Side.CLIENT)

@@ -1,11 +1,13 @@
 package com.unforbidable.tfc.bids.core.features.setup;
 
+import akka.dispatch.PriorityGenerator;
 import com.unforbidable.tfc.bids.core.features.setup.eventhandler.EventHandlerSpecCollector;
 import com.unforbidable.tfc.bids.core.features.setup.network.NetworkSetupHelper;
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.recipe.CraftingRecipeSetupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.registry.MapRegistryGroupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryGroupBuilder;
+import com.unforbidable.tfc.bids.core.features.setup.worldgen.WorldGenSpecCollector;
 import com.unforbidable.tfc.bids.util.registry.ListRegistry;
 import com.unforbidable.tfc.bids.util.registry.MapRegistry;
 
@@ -22,6 +24,7 @@ public class FeatureSetupBuilder {
     private final NetworkSetupHelper network = new NetworkSetupHelper();
     private final List<Runnable> runs = new ArrayList<>();
     private final EventHandlerSpecCollector handlers = new EventHandlerSpecCollector();
+    private final WorldGenSpecCollector generators = new WorldGenSpecCollector();
 
     public CraftingRecipeSetupBuilder recipes() {
         return craftingRecipes;
@@ -60,6 +63,10 @@ public class FeatureSetupBuilder {
         return handlers;
     }
 
+    public WorldGenSpecCollector world() {
+        return generators;
+    }
+
     public FeatureSetupParams build() {
         return new FeatureSetupParams(
             lists.stream()
@@ -73,7 +80,8 @@ public class FeatureSetupBuilder {
                 .collect(Collectors.toList()),
             craftingRecipes.build(),
             runs,
-            handlers.build()
+            handlers.build(),
+            generators.build()
         );
     }
 
