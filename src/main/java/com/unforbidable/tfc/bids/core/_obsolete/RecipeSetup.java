@@ -606,9 +606,9 @@ public class RecipeSetup {
         recipes.addShapedRecipe(new ItemStack(BidsItems.woodenPailEmpty),
             "w  ", "wxw", " w ", 'w', "woodLumber", 'x', "plateToolMetal");
 
-        recipes.addShapedRecipe(new ItemStack(BidsBlocks.clayLamp),
-            "S ", "B ", 'S', "materialString",
-            'B', new ItemStack(TFCItems.potteryBowl, 1, 1));
+//        recipes.addShapedRecipe(new ItemStack(BidsBlocks.clayLamp),
+//            "S ", "B ", 'S', "materialString",
+//            'B', new ItemStack(TFCItems.potteryBowl, 1, 1));
 
         recipes.addShapelessRecipe(new ItemStack(BidsBlocks.wallHook),
             "stickWood", TFCItems.resin);

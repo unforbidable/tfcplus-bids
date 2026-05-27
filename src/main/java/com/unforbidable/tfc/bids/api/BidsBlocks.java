@@ -118,6 +118,10 @@ public class BidsBlocks {
     public static final Block stonePressLever = block(BlockNames.STONE_PRESS_LEVER);
     public static final Block stonePressWeightSed = block(BlockNames.STONE_PRESS_WEIGHT);
 
+    // Lamp
+    public static final Block clayLamp = block(BlockNames.CLAY_LAMP);
+
+
 
 
     public static int clayCrucibleRenderId;
@@ -169,7 +173,6 @@ public class BidsBlocks {
 
 
 
-    public static Block clayLamp;
 
     public static Block wallHook;
 

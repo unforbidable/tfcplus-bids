@@ -3,6 +3,9 @@ package com.unforbidable.tfc.bids.features.device.lamp.tileentity;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.features.device.lamp.main.LampHelper;
 import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
@@ -17,7 +20,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 
-public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
+public class TileEntityClayLamp extends TileEntity implements PacketHandler<SimpleUpdatePacket> {
 
     public static final int FUEL_NONE = 0;
     public static final int FUEL_LOW = 1;
@@ -229,7 +232,7 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
         if (!worldObj.isRemote) {
             // When inventory content changes
             if (clientNeedToUpdate) {
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+                sendUpdateMessage();
 
                 clientNeedToUpdate = false;
             }
@@ -293,16 +296,14 @@ public class TileEntityClayLamp extends TileEntity implements IMessageHanldingTi
     }
 
     @Override
-    public void onTileEntityMessage(TileEntityUpdateMessage message) {
-        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
-            + message.getZCoord());
+    public void handleNetworkPacket(SimpleUpdatePacket packet) {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        Bids.LOG.info("Client updated at: [{},{},{}]", xCoord, yCoord, zCoord);
     }
 
-    public static void sendUpdateMessage(World world, int x, int y, int z) {
-        NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
-        Bids.LOG.debug("Sent update message");
+    public void sendUpdateMessage() {
+        Network.sendToTileEntity(new SimpleUpdatePacket(), this);
+        Bids.LOG.info("Sent update message");
     }
 
 }

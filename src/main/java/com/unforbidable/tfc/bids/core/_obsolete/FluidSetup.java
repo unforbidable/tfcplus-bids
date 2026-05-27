@@ -4,7 +4,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.features.material.fishoil.fuel.FuelFishOil;
 import com.unforbidable.tfc.bids.features.material.linseed.fuel.FuelFlaxSeedOil;
-import com.unforbidable.tfc.bids.features.device.lamp.fuel.FuelOliveOil;
+import com.unforbidable.tfc.bids.features.device.lamp.main.fuel.FuelOliveOil;
 import com.unforbidable.tfc.bids.api._obsolete.BidsCookingMixtures;
 import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -94,9 +94,9 @@ public class FluidSetup extends BidsFluids {
     private static void registerLampFuels() {
         Bids.LOG.info("Register lamp fuels");
 
-        BidsRegistry.LAMP_FUEL.register(TFCFluids.OLIVEOIL, new FuelOliveOil());
-        BidsRegistry.LAMP_FUEL.register(BidsFluids.FISHOIL, new FuelFishOil());
-        BidsRegistry.LAMP_FUEL.register(BidsFluids.FLAXSEEDOIL, new FuelFlaxSeedOil());
+//        BidsRegistry.LAMP_FUEL.register(TFCFluids.OLIVEOIL, new FuelOliveOil());
+//        BidsRegistry.LAMP_FUEL.register(BidsFluids.FISHOIL, new FuelFishOil());
+//        BidsRegistry.LAMP_FUEL.register(BidsFluids.FLAXSEEDOIL, new FuelFlaxSeedOil());
     }
 
 }

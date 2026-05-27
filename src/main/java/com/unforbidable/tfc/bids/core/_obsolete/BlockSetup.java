@@ -341,8 +341,8 @@ public class BlockSetup extends BidsBlocks {
 //        stonePressWeightSed = new BlockStonePressWeight(roughStoneSed)
 //                .setBlockName("StonePressWeight");
 
-        clayLamp = new BlockClayLamp()
-                .setBlockName("ClayLamp");
+//        clayLamp = new BlockClayLamp()
+//                .setBlockName("ClayLamp");
 
         wallHook = new BlockWallHook()
                 .setBlockName("WallHook");

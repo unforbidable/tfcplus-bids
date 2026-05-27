@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.features.material.fishoil.fuel;
 
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ILampFuelMaterial;
+import com.unforbidable.tfc.bids.api.features.lamp.LampFuelMaterial;
+import com.unforbidable.tfc.bids.features.device.lamp.LampConfig;
 import net.minecraftforge.fluids.FluidStack;
 
-public class FuelFishOil implements ILampFuelMaterial {
+public class FuelFishOil implements LampFuelMaterial {
 
     @Override
     public boolean isFuelValid(FluidStack fluidStack) {
@@ -13,12 +13,12 @@ public class FuelFishOil implements ILampFuelMaterial {
 
     @Override
     public float getFuelConsumptionRate(FluidStack fluidStack) {
-        return BidsOptions.LightSources.clayLampFishOilConsumption;
+        return LampConfig.clayLampFishOilConsumption;
     }
 
     @Override
     public float getFuelLightLevel(FluidStack fluidStack) {
-        return BidsOptions.LightSources.clayLampFishOilLightLevel;
+        return LampConfig.clayLampFishOilLightLevel;
     }
 
 }

@@ -3,8 +3,7 @@ package com.unforbidable.tfc.bids.core.config;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfigLoader;
-import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuernConfig;
-import com.unforbidable.tfc.bids.features.device.saddlequern.StonePressConfig;
+import com.unforbidable.tfc.bids.features.device.lamp.LampConfig;
 import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import java.io.File;
 import net.minecraftforge.common.config.Configuration;
@@ -64,31 +63,6 @@ public class ConfigHandler {
                 "efficiency", "screwPress",
                 BidsOptions.ScrewPress.efficiency, 0.5f, 1.5f,
                 "Higher values increase the efficiency of a screw press, 1.0f being equal to the classic TFC hopper press.");
-
-        BidsOptions.LightSources.clayLampOliveOilLightLevel = config.getFloat(
-                "clayLampOliveOilLightLevel", "lightSources",
-                BidsOptions.LightSources.clayLampOliveOilLightLevel, 0.1f, 1f,
-                "Higher values increase the light level of clay lamps consuming olive oil, 1f being equal to the light level of TFC metal oil lamps.");
-        BidsOptions.LightSources.clayLampOliveOilConsumption = config.getFloat(
-                "clayLampOliveOilConsumption", "lightSources",
-                BidsOptions.LightSources.clayLampOliveOilConsumption, 0.1f, 10f,
-                "Higher values increase the olive oil consumption in clay lamps, 0.125f being equal to the olive oil consumption of TFC metal oil lamps.");
-        BidsOptions.LightSources.clayLampFishOilLightLevel = config.getFloat(
-                "clayLampFishOilLightLevel", "lightSources",
-                BidsOptions.LightSources.clayLampFishOilLightLevel, 0.1f, 1f,
-                "Higher values increase the light level of clay lamps consuming fish oil, 1f being equal to the light level of TFC metal oil lamps.");
-        BidsOptions.LightSources.clayLampFishOilConsumption = config.getFloat(
-                "clayLampFishOilConsumption", "lightSources",
-                BidsOptions.LightSources.clayLampFishOilConsumption, 0.1f, 10f,
-                "Higher values increase the fish oil consumption in clay lamps, 0.125f being equal to the olive oil consumption of TFC metal oil lamps.");
-        BidsOptions.LightSources.clayLampFlaxSeedOilLightLevel = config.getFloat(
-            "clayLampFlaxSeedOilLightLevel", "lightSources",
-            BidsOptions.LightSources.clayLampFlaxSeedOilLightLevel, 0.1f, 1f,
-            "Higher values increase the light level of clay lamps consuming flax seed oil, 1f being equal to the light level of TFC metal oil lamps.");
-        BidsOptions.LightSources.clayLampFlaxSeedOilConsumption = config.getFloat(
-            "clayLampFlaxSeedOilConsumption", "lightSources",
-            BidsOptions.LightSources.clayLampFlaxSeedOilConsumption, 0.1f, 10f,
-            "Higher values increase the flax seed oil consumption in clay lamps, 0.125f being equal to the olive oil consumption of TFC metal oil lamps.");
 
         BidsOptions.WorldGen.aquiferChanceMultiplier = config.getFloat(
                 "aquiferChanceMultiplier", "worldGen",

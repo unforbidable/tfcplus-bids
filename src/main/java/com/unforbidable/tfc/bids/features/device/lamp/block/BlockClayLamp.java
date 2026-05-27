@@ -5,13 +5,15 @@ import com.dunk.tfc.Blocks.BlockCandleOff;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.features.device.lamp.tileentity.TileEntityClayLamp;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.lamp.main.ClayLampBounds;
 import com.unforbidable.tfc.bids.features.device.lamp.main.LampHelper;
-import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.features.device.lamp.tileentity.TileEntityClayLamp;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -31,9 +33,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class BlockClayLamp extends BlockContainer {
 
@@ -86,31 +85,26 @@ public class BlockClayLamp extends BlockContainer {
     }
 
     @Override
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 
     @Override
-    public boolean renderAsNormalBlock()
-    {
+    public boolean renderAsNormalBlock() {
         return false;
     }
 
     @Override
-    public int getRenderType()
-    {
-        return BidsBlocks.clayLampRenderId;
+    public int getRenderType() {
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override
-    public boolean canPlaceBlockAt(World world, int x, int y, int z)
-    {
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         return canSupportTorch(world, x, y - 1, z);
     }
 
-    private boolean canSupportTorch(World world, int x, int y, int z)
-    {
+    private boolean canSupportTorch(World world, int x, int y, int z) {
         if (World.doesBlockHaveSolidTopSurface(world, x, y, z)) {
             return true;
         } else {
@@ -120,8 +114,7 @@ public class BlockClayLamp extends BlockContainer {
     }
 
     @Override
-    public void updateTick(World world, int x, int y, int z, Random rand)
-    {
+    public void updateTick(World world, int x, int y, int z, Random rand) {
         super.updateTick(world, x, y, z, rand);
 
         if (world.getTileEntity(x, y, z) instanceof TileEntityClayLamp) {
@@ -133,8 +126,7 @@ public class BlockClayLamp extends BlockContainer {
     }
 
     @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack is)
-    {
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack is) {
         if (world.getTileEntity(x, y, z) instanceof TileEntityClayLamp) {
             final int orientation = (int) Math.floor(player.rotationYaw * 4F / 360F + 0.5D) & 3;
             world.setBlockMetadataWithNotify(x, y, z, orientation, 0x2);
@@ -145,8 +137,7 @@ public class BlockClayLamp extends BlockContainer {
     }
 
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block b)
-    {
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block b) {
         if (!canSupportTorch(world, x, y - 1, z)) {
             TFC_Core.setBlockToAirWithDrops(world, x, y, z);
         }
@@ -189,8 +180,7 @@ public class BlockClayLamp extends BlockContainer {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(World world, int x, int y, int z, Random rand)
-    {
+    public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta > 7) {
             int orientation = meta & 3;
@@ -206,8 +196,7 @@ public class BlockClayLamp extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-    {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         if(!world.isRemote) {
             TileEntityClayLamp te = (TileEntityClayLamp) world.getTileEntity(x, y, z);
             if (te != null) {

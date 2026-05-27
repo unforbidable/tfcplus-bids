@@ -1,8 +1,8 @@
-package com.unforbidable.tfc.bids.api._obsolete.Interfaces;
+package com.unforbidable.tfc.bids.api.features.lamp;
 
 import net.minecraftforge.fluids.FluidStack;
 
-public interface ILampFuelMaterial {
+public interface LampFuelMaterial {
 
     boolean isFuelValid(FluidStack fluidStack);
 

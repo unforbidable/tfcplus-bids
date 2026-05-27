@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRack;
 import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
+import com.unforbidable.tfc.bids.features.device.lamp.Lamp;
 import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuern;
 import com.unforbidable.tfc.bids.features.device.woodpile.Woodpile;
 import com.unforbidable.tfc.bids.features.food.bamboo.Bamboo;
@@ -74,6 +75,7 @@ public class Features {
         new Flatbread(),
         new Dough(),
         new Hardtack(),
+        new Lamp(),
         new Bamboo(),
         new FluidContainers(),
         new LargeBowl(),
