@@ -2,10 +2,10 @@ package com.unforbidable.tfc.bids.features.crafting.drying.main.Environment;
 
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingEnvironment;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEnvironment;
 import net.minecraft.world.World;
 
-public class ItemEnvironment implements IDryingEnvironment {
+public class ItemEnvironment implements DryingEnvironment {
 
     protected final World world;
     protected final int blockX;

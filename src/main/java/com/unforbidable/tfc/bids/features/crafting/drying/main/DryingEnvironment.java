@@ -1,6 +1,6 @@
-package com.unforbidable.tfc.bids.api._obsolete.Interfaces;
+package com.unforbidable.tfc.bids.features.crafting.drying.main;
 
-public interface IDryingEnvironment {
+public interface DryingEnvironment {
 
     boolean isExposed();
     boolean isHeated();

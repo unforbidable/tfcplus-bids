@@ -15,12 +15,12 @@ import net.minecraft.tileentity.TileEntity;
 
 public class DryingEngine {
 
-    private final IDryingHost host;
+    private final DryingHost host;
 
     public boolean dataChanged;
     public boolean itemChanged;
 
-    public DryingEngine(IDryingHost host) {
+    public DryingEngine(DryingHost host) {
         this.host = host;
     }
 

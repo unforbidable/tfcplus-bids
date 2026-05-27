@@ -6,7 +6,7 @@ import com.dunk.tfc.Items.ItemClothing;
 import com.dunk.tfc.api.TFCOptions;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingEnvironment;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEnvironment;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
 import com.unforbidable.tfc.bids.compat.waila.providers.WailaDataProvider;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHelper;
@@ -86,7 +86,7 @@ public class DryingSurfaceWailaProvider extends WailaDataProvider {
                 }
 
                 if (TFCOptions.enableDebugMode) {
-                    IDryingEnvironment env = new StaticEnvironment(accessor.getWorld(), accessor.getTileEntity().xCoord, accessor.getTileEntity().yCoord, accessor.getTileEntity().zCoord)
+                    DryingEnvironment env = new StaticEnvironment(accessor.getWorld(), accessor.getTileEntity().xCoord, accessor.getTileEntity().yCoord, accessor.getTileEntity().zCoord)
                         .ofTicks(TFC_Time.getTotalTicks()).ofItem(dryingItem);
 
                     currenttip.add(ChatFormatting.DARK_GRAY + "Exposed: " + env.isExposed());

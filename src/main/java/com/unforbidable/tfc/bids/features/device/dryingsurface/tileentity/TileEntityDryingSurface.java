@@ -6,7 +6,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEngine;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHelper;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
-import com.unforbidable.tfc.bids.features.crafting.drying.main.IDryingHost;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHost;
 import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
 import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.util.Timer;
@@ -29,7 +29,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class TileEntityDryingSurface extends TileEntity implements IInventory, IMessageHanldingTileEntity<TileEntityUpdateMessage>, IDryingHost {
+public class TileEntityDryingSurface extends TileEntity implements IInventory, IMessageHanldingTileEntity<TileEntityUpdateMessage>, DryingHost {
 
     public static final int MAX_STORAGE = 4;
 

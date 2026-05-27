@@ -11,7 +11,7 @@ import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEngine;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHelper;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
-import com.unforbidable.tfc.bids.features.crafting.drying.main.IDryingHost;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHost;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackItem;
 import com.unforbidable.tfc.bids.util.Timer;
@@ -32,7 +32,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 
-public class TileEntityDryingRack extends TileEntity implements IInventory, PacketHandler<SimpleUpdatePacket>, IDryingHost {
+public class TileEntityDryingRack extends TileEntity implements IInventory, PacketHandler<SimpleUpdatePacket>, DryingHost {
 
     public static final int MAX_STORAGE = 4;
     private static final long DRYING_INTERVAL = 100;

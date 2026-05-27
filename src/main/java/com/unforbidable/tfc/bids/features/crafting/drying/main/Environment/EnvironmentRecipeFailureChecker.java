@@ -1,14 +1,14 @@
 package com.unforbidable.tfc.bids.features.crafting.drying.main.Environment;
 
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingEnvironment;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEnvironment;
 
 public class EnvironmentRecipeFailureChecker {
 
-    private final IDryingEnvironment env;
+    private final DryingEnvironment env;
     private final DryingRecipe recipe;
 
-    public EnvironmentRecipeFailureChecker(IDryingEnvironment env, DryingRecipe recipe) {
+    public EnvironmentRecipeFailureChecker(DryingEnvironment env, DryingRecipe recipe) {
         this.env = env;
         this.recipe = recipe;
     }

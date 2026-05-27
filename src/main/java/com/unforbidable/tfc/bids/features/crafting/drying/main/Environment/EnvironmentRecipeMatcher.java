@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.crafting.drying.main.Environment;
 
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingEnvironment;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEnvironment;
 
 public class EnvironmentRecipeMatcher {
 
@@ -12,10 +12,10 @@ public class EnvironmentRecipeMatcher {
     private static final int WARM_TEMP_MIN = 5;
     private static final int WARM_TEMP_CAP = 20 * 2 - WARM_TEMP_MIN * 2;
 
-    private final IDryingEnvironment env;
+    private final DryingEnvironment env;
     private final DryingRecipe recipe;
 
-    public EnvironmentRecipeMatcher(IDryingEnvironment env, DryingRecipe recipe) {
+    public EnvironmentRecipeMatcher(DryingEnvironment env, DryingRecipe recipe) {
         this.env = env;
         this.recipe = recipe;
     }
