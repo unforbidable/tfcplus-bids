@@ -14,7 +14,6 @@ import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.utility.largebowl.item.ItemLargeBowl;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_FRESH_WATER;
