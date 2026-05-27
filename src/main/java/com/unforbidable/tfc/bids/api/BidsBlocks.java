@@ -121,6 +121,9 @@ public class BidsBlocks {
     // Lamp
     public static final Block clayLamp = block(BlockNames.CLAY_LAMP);
 
+    // Wall hook
+    public static final Block wallHook = block(BlockNames.WALL_HOOK);
+
 
 
 
@@ -173,8 +176,6 @@ public class BidsBlocks {
 
 
 
-
-    public static Block wallHook;
 
     public static Block aquifer;
     public static Block aquifer2;

@@ -610,8 +610,8 @@ public class RecipeSetup {
 //            "S ", "B ", 'S', "materialString",
 //            'B', new ItemStack(TFCItems.potteryBowl, 1, 1));
 
-        recipes.addShapelessRecipe(new ItemStack(BidsBlocks.wallHook),
-            "stickWood", TFCItems.resin);
+//        recipes.addShapelessRecipe(new ItemStack(BidsBlocks.wallHook),
+//            "stickWood", TFCItems.resin);
 
 //        recipes.addShapelessRecipe(new ItemStack(BidsItems.honeyLargeBowl),
 //                "itemHoneycomb", "itemHoneycomb", "itemKnife", new ItemStack(BidsItems.largeClayBowl, 1, 1))

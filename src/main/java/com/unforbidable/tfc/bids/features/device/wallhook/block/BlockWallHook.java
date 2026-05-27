@@ -2,10 +2,10 @@ package com.unforbidable.tfc.bids.features.device.wallhook.block;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.features.device.wallhook.tileentity.TileEntityWallHook;
-import com.unforbidable.tfc.bids.features.device.wallhook.main.WallHookBounds;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
+import com.unforbidable.tfc.bids.features.device.wallhook.main.WallHookBounds;
+import com.unforbidable.tfc.bids.features.device.wallhook.tileentity.TileEntityWallHook;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -159,7 +159,7 @@ public class BlockWallHook extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.wallHookRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

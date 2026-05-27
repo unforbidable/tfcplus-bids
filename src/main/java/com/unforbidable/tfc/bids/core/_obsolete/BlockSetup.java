@@ -344,8 +344,8 @@ public class BlockSetup extends BidsBlocks {
 //        clayLamp = new BlockClayLamp()
 //                .setBlockName("ClayLamp");
 
-        wallHook = new BlockWallHook()
-                .setBlockName("WallHook");
+//        wallHook = new BlockWallHook()
+//                .setBlockName("WallHook");
 
         aquifer = new BlockAquifer(0)
                 .setGravelBlock(TFCBlocks.gravel)

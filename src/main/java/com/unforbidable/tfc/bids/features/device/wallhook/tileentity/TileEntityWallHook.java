@@ -2,25 +2,24 @@ package com.unforbidable.tfc.bids.features.device.wallhook.tileentity;
 
 import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.Items.*;
+import com.dunk.tfc.Items.ItemClothing;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHelper;
-import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
-import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
-import com.unforbidable.tfc.bids.util.Timer;
 import com.unforbidable.tfc.bids.features.device.wallhook.main.WallHookHelper;
-import cpw.mods.fml.common.network.NetworkRegistry;
+import com.unforbidable.tfc.bids.util.Timer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
-public class TileEntityWallHook extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
+public class TileEntityWallHook extends TileEntity implements PacketHandler<SimpleUpdatePacket> {
 
     private static final int MAX_STORAGE = 1;
 
@@ -94,7 +93,7 @@ public class TileEntityWallHook extends TileEntity implements IMessageHanldingTi
         if (!worldObj.isRemote) {
             // When inventory content changes
             if (clientNeedToUpdate) {
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+                sendUpdateMessage();
 
                 clientNeedToUpdate = false;
             }
@@ -180,16 +179,14 @@ public class TileEntityWallHook extends TileEntity implements IMessageHanldingTi
     }
 
     @Override
-    public void onTileEntityMessage(TileEntityUpdateMessage message) {
-        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
-            + message.getZCoord());
+    public void handleNetworkPacket(SimpleUpdatePacket packet) {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        Bids.LOG.info("Client updated at: [{},{},{}]", xCoord, yCoord, zCoord);
     }
 
-    public static void sendUpdateMessage(World world, int x, int y, int z) {
-        NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
-        Bids.LOG.debug("Sent update message");
+    public void sendUpdateMessage() {
+        Network.sendToTileEntity(new SimpleUpdatePacket(), this);
+        Bids.LOG.info("Sent update message");
     }
 
 }

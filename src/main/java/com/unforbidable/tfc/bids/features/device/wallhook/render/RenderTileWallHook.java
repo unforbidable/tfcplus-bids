@@ -4,7 +4,7 @@ import com.dunk.tfc.Render.TESR.TESRBase;
 import com.unforbidable.tfc.bids.features.device.wallhook.tileentity.TileEntityWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.main.WallHookBounds;
 import com.unforbidable.tfc.bids.features.device.wallhook.main.WallHookHelper;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumWallHookPos;
+import com.unforbidable.tfc.bids.api.features.wallhook.WallHookPos;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -38,7 +38,7 @@ public class RenderTileWallHook extends TESRBase {
         float scale = 1f;
         Vec3 offset = bounds.getItemPos();
 
-        EnumWallHookPos pos = WallHookHelper.getItemStackWallHookPosition(is);
+        WallHookPos pos = WallHookHelper.getItemStackWallHookPosition(is);
         offset = offset.addVector(0, -pos.getOffset(), 0);
 
         GL11.glPushMatrix(); // start
