@@ -5,13 +5,12 @@ import com.unforbidable.tfc.bids.common.block.itemblock.ItemGenericSoil;
 import com.unforbidable.tfc.bids.compat.waila.providers.WailaDataProvider;
 import com.unforbidable.tfc.bids.features.resource.well.block.BlockAquifer;
 import com.unforbidable.tfc.bids.features.resource.well.tileentity.TileEntityAquifer;
+import java.util.List;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-
-import java.util.List;
 
 public class GenericSoilWailaProvider extends WailaDataProvider {
 

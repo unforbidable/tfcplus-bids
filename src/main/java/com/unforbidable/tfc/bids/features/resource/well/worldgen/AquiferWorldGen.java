@@ -6,10 +6,10 @@ import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.features.resource.well.WellConfig;
 import com.unforbidable.tfc.bids.util.BlockCoord;
 import com.unforbidable.tfc.bids.util.WorldGenHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -27,11 +27,11 @@ public class AquiferWorldGen implements IWorldGenerator {
 
         float rain = TFC_Climate.getRainfall(world, xCoord, Global.SEALEVEL, zCoord);
         int rainBaseRng = getRngForRainfall(rain);
-        int rainRng = Math.max(1, Math.round(rainBaseRng / BidsOptions.WorldGen.aquiferChanceMultiplier));
+        int rainRng = Math.max(1, Math.round(rainBaseRng / WellConfig.aquiferChanceMultiplier));
 
         if (random.nextInt(rainRng) == 0) {
             int baseSize = 1 + Math.min(Math.round(rain / 200), 2) + Math.min(Math.round(rain / 800), 3) * 2 + random.nextInt(2 + Math.min(Math.round(rain / 400), 6));
-            int size = Math.min(32, Math.max(1, Math.round(baseSize * BidsOptions.WorldGen.aquiferSizeMultiplier)));
+            int size = Math.min(32, Math.max(1, Math.round(baseSize * WellConfig.aquiferSizeMultiplier)));
 
             findSuitableLocationsAndGenerate(random, chunkX, chunkZ, world, size, rain < 125);
         }
@@ -52,7 +52,7 @@ public class AquiferWorldGen implements IWorldGenerator {
     public boolean findSuitableLocationsAndGenerate(Random random, int chunkX, int chunkZ, World world, int size, boolean desertMode) {
         long start = new Date().getTime();
 
-        int maxY = desertMode ? Global.SEALEVEL : BidsOptions.WorldGen.aquiferMaxSurfaceHeight;
+        int maxY = desertMode ? Global.SEALEVEL : WellConfig.aquiferMaxSurfaceHeight;
 
         int invalidBiomeCount = 0;
 

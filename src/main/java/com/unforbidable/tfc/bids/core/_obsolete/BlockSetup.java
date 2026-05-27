@@ -347,12 +347,10 @@ public class BlockSetup extends BidsBlocks {
 //        wallHook = new BlockWallHook()
 //                .setBlockName("WallHook");
 
-        aquifer = new BlockAquifer(0)
-                .setGravelBlock(TFCBlocks.gravel)
-                .setBlockName("Aquifer");
-        aquifer2 = new BlockAquifer(16)
-                .setGravelBlock(TFCBlocks.gravel2)
-                .setBlockName("Aquifer2");
+//        aquifer = new BlockAquifer(0, TFCBlocks.gravel)
+//                .setBlockName("Aquifer");
+//        aquifer2 = new BlockAquifer(16, TFCBlocks.gravel2)
+//                .setBlockName("Aquifer2");
 
         unfinishedAnvilStage1 = new BlockUnfinishedAnvil(0)
             .setBlockName("UnfinishedAnvilStage1");

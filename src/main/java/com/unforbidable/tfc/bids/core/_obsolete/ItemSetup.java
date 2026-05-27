@@ -880,16 +880,16 @@ public class ItemSetup extends BidsItems {
             .setContainerItem((TFCItems.woodenBucketEmpty))
             .setUnlocalizedName("Wooden Bucket.GoatMilk");
 
-        ceramicBucketRope = new ItemBucketRopeEmpty(true)
-            .setUnlocalizedName("Ceramic Bucket Rope");
-        ceramicBucketRopeWater = new ItemBucketRopeFluid(true)
-            .setContainerItem(ceramicBucketRope)
-            .setUnlocalizedName("Ceramic Bucket Rope.FreshWater");
-        woodenBucketRope = new ItemBucketRopeEmpty(false)
-            .setUnlocalizedName("Wooden Bucket Rope");
-        woodenBucketRopeWater = new ItemBucketRopeFluid(false)
-            .setContainerItem(woodenBucketRope)
-            .setUnlocalizedName("Wooden Bucket Rope.FreshWater");
+//        ceramicBucketRope = new ItemBucketRopeEmpty(true)
+//            .setUnlocalizedName("Ceramic Bucket Rope");
+//        ceramicBucketRopeWater = new ItemBucketRopeFluid(true)
+//            .setContainerItem(ceramicBucketRope)
+//            .setUnlocalizedName("Ceramic Bucket Rope.FreshWater");
+//        woodenBucketRope = new ItemBucketRopeEmpty(false)
+//            .setUnlocalizedName("Wooden Bucket Rope");
+//        woodenBucketRopeWater = new ItemBucketRopeFluid(false)
+//            .setContainerItem(woodenBucketRope)
+//            .setUnlocalizedName("Wooden Bucket Rope.FreshWater");
 
         steamingMeshCloth = new ItemSteamingMeshCloth()
             .setMaxDamage(TFCItems.linenUses)

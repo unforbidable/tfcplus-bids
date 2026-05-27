@@ -26,16 +26,6 @@ public class BidsOptions {
 
     }
 
-    public static class WorldGen {
-
-        public static float aquiferChanceMultiplier = 1f;
-
-        public static float aquiferSizeMultiplier = 1f;
-
-        public static int aquiferMaxSurfaceHeight = 158;
-
-    }
-
     public static class Crafting {
 
         public static boolean craftingAddMissingLeatherRepairRecipes = true;

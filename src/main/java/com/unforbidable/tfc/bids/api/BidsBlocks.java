@@ -124,6 +124,11 @@ public class BidsBlocks {
     // Wall hook
     public static final Block wallHook = block(BlockNames.WALL_HOOK);
 
+    // Well
+    public static final Block aquifer = block(BlockNames.AQUIFER);
+    public static final Block aquifer2 = block(BlockNames.AQUIFER_2);
+
+
 
 
 
@@ -177,8 +182,6 @@ public class BidsBlocks {
 
 
 
-    public static Block aquifer;
-    public static Block aquifer2;
 
     public static Block unfinishedAnvilStage1;
     public static Block unfinishedAnvilStage2;

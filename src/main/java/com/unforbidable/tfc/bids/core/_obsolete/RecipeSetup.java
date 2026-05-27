@@ -618,18 +618,18 @@ public class RecipeSetup {
 //            .action(damageTool("itemKnife"))
 //            .action(extraDrop(new ItemStack(TFCItems.emptyHoneycomb, 2)));
 
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.ceramicBucketRope),
-            TFCItems.rope, TFCItems.clayBucketEmpty);
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.woodenBucketRope),
-            TFCItems.rope, TFCItems.woodenBucketEmpty);
-
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.clayBucketEmpty),
-                BidsItems.ceramicBucketRope)
-            .action(extraDrop(new ItemStack(TFCItems.rope)));
-
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.woodenBucketEmpty),
-                BidsItems.woodenBucketRope)
-            .action(extraDrop(new ItemStack(TFCItems.rope)));
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.ceramicBucketRope),
+//            TFCItems.rope, TFCItems.clayBucketEmpty);
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.woodenBucketRope),
+//            TFCItems.rope, TFCItems.woodenBucketEmpty);
+//
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.clayBucketEmpty),
+//                BidsItems.ceramicBucketRope)
+//            .action(extraDrop(new ItemStack(TFCItems.rope)));
+//
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.woodenBucketEmpty),
+//                BidsItems.woodenBucketRope)
+//            .action(extraDrop(new ItemStack(TFCItems.rope)));
 
         recipes.addShapelessRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)),
             ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)), new ItemStack(TFCItems.powder, 1, 9));

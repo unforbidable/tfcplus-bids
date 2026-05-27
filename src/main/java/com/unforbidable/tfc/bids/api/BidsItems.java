@@ -196,6 +196,13 @@ public class BidsItems {
     public static final Item riceHardtack = item(ItemNames.RICE_HARDTACK);
     public static final Item cornmealHardtack = item(ItemNames.CORN_HARDTACK);
 
+    // Well
+    public static final Item woodenBucketRope = item(ItemNames.WOODEN_BUCKET_AND_ROPE);
+    public static final Item woodenBucketRopeWater = item(ItemNames.WOODEN_BUCKET_AND_ROPE_FRESH_WATER);
+    public static final Item ceramicBucketRope = item(ItemNames.CERAMIC_BUCKET_AND_ROPE);
+    public static final Item ceramicBucketRopeWater = item(ItemNames.CERAMIC_BUCKET_AND_ROPE_FRESH_WATER);
+
+
 
 
     public static Item hardenedWoodenSpear;
@@ -290,11 +297,6 @@ public class BidsItems {
     public static Item ceramicBucketMilkVinegar;
     public static Item ceramicBucketOilyFishWater;
     public static Item ceramicBucketGoatMilk;
-
-    public static Item woodenBucketRope;
-    public static Item woodenBucketRopeWater;
-    public static Item ceramicBucketRope;
-    public static Item ceramicBucketRopeWater;
 
     public static Item steamingMeshCloth;
 

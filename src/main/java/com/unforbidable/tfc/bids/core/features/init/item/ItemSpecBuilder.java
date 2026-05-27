@@ -78,6 +78,12 @@ public class ItemSpecBuilder<T extends Item> {
         return this;
     }
 
+    public ItemSpecBuilder<T> container(Supplier<Item> item) {
+        container = new ContainerSpec(item, 0);
+
+        return this;
+    }
+
     public ItemSpecBuilder<T> fluid(int volume, Fluid fluid, boolean partial) {
         this.fluid = new FluidSpec(volume, fluid, partial);
 

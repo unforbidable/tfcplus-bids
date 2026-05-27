@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.core.config;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfigLoader;
-import com.unforbidable.tfc.bids.features.device.lamp.LampConfig;
+import com.unforbidable.tfc.bids.features.resource.well.WellConfig;
 import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import java.io.File;
 import net.minecraftforge.common.config.Configuration;
@@ -63,19 +63,6 @@ public class ConfigHandler {
                 "efficiency", "screwPress",
                 BidsOptions.ScrewPress.efficiency, 0.5f, 1.5f,
                 "Higher values increase the efficiency of a screw press, 1.0f being equal to the classic TFC hopper press.");
-
-        BidsOptions.WorldGen.aquiferChanceMultiplier = config.getFloat(
-                "aquiferChanceMultiplier", "worldGen",
-                BidsOptions.WorldGen.aquiferChanceMultiplier, 0.25f, 4f,
-                "Higher values increase the chance of an aquifer cluster generating in any given chunk. Value 1.0 roughly translates to 1 out of 8 chance.");
-        BidsOptions.WorldGen.aquiferSizeMultiplier = config.getFloat(
-                "aquiferSizeMultiplier", "worldGen",
-                BidsOptions.WorldGen.aquiferSizeMultiplier, 1f, 4f,
-                "Higher values increase the size of aquifer clusters. Aquifer clusters still generate smaller in drier areas than in wetter areas.");
-        BidsOptions.WorldGen.aquiferMaxSurfaceHeight = config.getInt(
-                "aquiferMaxSurfaceHeight", "worldGen",
-                BidsOptions.WorldGen.aquiferMaxSurfaceHeight, 145, 195,
-                "Sets the elevation limit for aquifer clusters to generate. The number corresponds to the elevation of the surface above rather than the aquifer itself.");
 
         BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes = config.getBoolean(
             "craftingAddMissingLeatherRepairRecipes", "crafting",

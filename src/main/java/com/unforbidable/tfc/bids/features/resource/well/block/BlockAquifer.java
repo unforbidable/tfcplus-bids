@@ -8,6 +8,9 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.features.resource.well.tileentity.TileEntityAquifer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -21,31 +24,22 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class BlockAquifer extends BlockContainer {
 
     private final int textureOffset;
     private final IIcon[] icons = new IIcon[Global.STONE_ALL.length];
 
-    Block gravelBlock;
+    private final Block gravelBlock;
 
-    public BlockAquifer(int textureOffset) {
+    public BlockAquifer(int textureOffset, Block gravelBlock) {
         super(Material.ground);
 
         this.textureOffset = textureOffset;
+        this.gravelBlock = gravelBlock;
 
         setCreativeTab(BidsCreativeTabs.bidsBuildingBlocks);
         setTickRandomly(true);
         setHardness(3f);
-    }
-
-    public BlockAquifer setGravelBlock(Block gravelBlock) {
-        this.gravelBlock = gravelBlock;
-
-        return this;
     }
 
     public Block getGravelBlock() {
