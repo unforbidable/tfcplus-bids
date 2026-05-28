@@ -41,6 +41,7 @@ import com.unforbidable.tfc.bids.features.utility.fluidcontainers.FluidContainer
 import com.unforbidable.tfc.bids.features.utility.handaxe.HandAxe;
 import com.unforbidable.tfc.bids.features.utility.largebowl.LargeBowl;
 import com.unforbidable.tfc.bids.features.utility.leatherwear.Leatherwear;
+import com.unforbidable.tfc.bids.features.utility.pail.Pail;
 
 public class Features {
 
@@ -80,6 +81,7 @@ public class Features {
         new Lamp(),
         new WallHook(),
         new Well(),
+        new Pail(),
         new Bamboo(),
         new FluidContainers(),
         new LargeBowl(),

@@ -202,6 +202,10 @@ public class BidsItems {
     public static final Item ceramicBucketRope = item(ItemNames.CERAMIC_BUCKET_AND_ROPE);
     public static final Item ceramicBucketRopeWater = item(ItemNames.CERAMIC_BUCKET_AND_ROPE_FRESH_WATER);
 
+    // Pail
+    public static final Item woodenPailEmpty = item(ItemNames.WOODEN_PAIL);
+    public static final Item woodenPailFreshWater = item(ItemNames.WOODEN_PAIL_FRESH_WATER);
+    public static final Item woodenPailMilk = item(ItemNames.WOODEN_PAIL_GOAT_MILK);
 
 
 
@@ -281,9 +285,6 @@ public class BidsItems {
     public static Item weakWoodAshLyeLargeBowl;
     public static Item woodAshLyeLargeBowl;
 
-    public static Item woodenPailEmpty;
-    public static Item woodenPailFreshWater;
-    public static Item woodenPailMilk;
     public static Item woodenPailGoatMilk;
 
     public static Item woodenBucketBrine;

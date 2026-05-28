@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.food.milk.item;
+package com.unforbidable.tfc.bids.common.item.filledcontainer;
 
 import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.api.Interfaces.ISize;
@@ -22,10 +22,9 @@ public class ItemPailFluid extends ItemTerra implements ISize {
 
     IIcon overlayIcon;
 
-    public ItemPailFluid(int volume) {
+    public ItemPailFluid() {
         setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxStackSize(1);
-        setMaxDamage(volume / 50);
     }
 
     @Override

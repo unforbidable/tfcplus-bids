@@ -603,8 +603,8 @@ public class RecipeSetup {
                 "LTL", " L ", " L ", 'T', "itemSaw", 'L', "logWoodPeeledSeasoned")
             .action(damageTool("itemSaw"));
 
-        recipes.addShapedRecipe(new ItemStack(BidsItems.woodenPailEmpty),
-            "w  ", "wxw", " w ", 'w', "woodLumber", 'x', "plateToolMetal");
+//        recipes.addShapedRecipe(new ItemStack(BidsItems.woodenPailEmpty),
+//            "w  ", "wxw", " w ", 'w', "woodLumber", 'x', "plateToolMetal");
 
 //        recipes.addShapedRecipe(new ItemStack(BidsBlocks.clayLamp),
 //            "S ", "B ", 'S', "materialString",

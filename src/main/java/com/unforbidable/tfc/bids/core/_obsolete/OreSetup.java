@@ -108,9 +108,9 @@ public class OreSetup {
         OreDictionary.registerOre("itemMilkingContainer", new ItemStack(TFCItems.clayBucketEmpty));
         OreDictionary.registerOre("itemMilkingContainer", new ItemStack(TFCItems.woodenBucketEmpty));
 //        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.largeClayBowl, 1, 1));
-        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailEmpty));
-        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailMilk, 1, WILD));
-        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailGoatMilk, 1, WILD));
+//        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailEmpty));
+//        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailMilk, 1, WILD));
+//        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailGoatMilk, 1, WILD));
 
         OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.fur, 1, WILD));
         OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.furScrap, 1, WILD));
@@ -261,16 +261,16 @@ public class OreSetup {
         OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportV2, 1, WILD));
         OreDictionary.registerOre("supportWood", new ItemStack(TFCBlocks.woodSupportV3, 1, WILD));
 
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.copperSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.bronzeSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.bismuthBronzeSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blackBronzeSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.wroughtIronSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.steelSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blackSteelSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.redSteelSheet));
-        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blueSteelSheet));
-
+//        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.copperSheet));
+//        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.bronzeSheet));
+//        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.bismuthBronzeSheet));
+//        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blackBronzeSheet));
+//        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.wroughtIronSheet));
+//        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.steelSheet));
+//        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blackSteelSheet));
+//        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.redSteelSheet));
+//        OreDictionary.registerOre("plateToolMetal", new ItemStack(TFCItems.blueSteelSheet));
+//
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
             if (stone.quern) {
                 OreDictionary.registerOre("stoneQuern", stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE));

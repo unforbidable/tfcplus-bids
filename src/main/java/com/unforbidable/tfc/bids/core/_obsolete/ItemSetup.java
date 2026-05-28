@@ -10,7 +10,6 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsCrops;
 import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api.util.food.BidsFoodHeatIndex;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBowlFluid;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBucketFluid;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemGlassBottleFluid;
@@ -35,9 +34,8 @@ import com.unforbidable.tfc.bids.features.device.cookingpot.item.ItemSteamingMes
 import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemBoard;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemShaft;
 import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
-import com.unforbidable.tfc.bids.features.crafting.dough.item.ItemUnshapedDough;
-import com.unforbidable.tfc.bids.features.food.milk.item.ItemPailEmpty;
-import com.unforbidable.tfc.bids.features.food.milk.item.ItemPailFluid;
+import com.unforbidable.tfc.bids.features.utility.pail.item.ItemPailEmpty;
+import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemPailFluid;
 import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemMoreSandwich;
 import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemPemmican;
 import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemWrap;
@@ -46,8 +44,6 @@ import com.unforbidable.tfc.bids.features.material.powder.item.ItemMorePowder;
 import com.unforbidable.tfc.bids.features.material.soap.item.ItemSoap;
 import com.unforbidable.tfc.bids.features.material.textile.item.*;
 import com.unforbidable.tfc.bids.features.resource.crops.item.ItemNewCustomSeeds;
-import com.unforbidable.tfc.bids.features.resource.well.item.ItemBucketRopeEmpty;
-import com.unforbidable.tfc.bids.features.resource.well.item.ItemBucketRopeFluid;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemLargeBowlFluid;
 import com.unforbidable.tfc.bids.features.utility.spear.item.ItemHardenedWoodenSpear;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -835,16 +831,19 @@ public class ItemSetup extends BidsItems {
             .setContainerItem(BidsItems.largeClayBowl)
             .setUnlocalizedName("Large Bowl.WoodAshLye");
 
-        woodenPailEmpty = new ItemPailEmpty()
-            .setUnlocalizedName("Wooden Pail");
-
-        woodenPailFreshWater = new ItemPailFluid(4000)
-            .setContainerItem(woodenPailEmpty)
-            .setUnlocalizedName("Wooden Pail.FreshWater");
-        woodenPailMilk = new ItemPailFluid(4000)
-            .setContainerItem(woodenPailEmpty)
-            .setUnlocalizedName("Wooden Pail.Milk");
-        woodenPailGoatMilk = new ItemPailFluid(4000)
+//        woodenPailEmpty = new ItemPailEmpty()
+//            .setUnlocalizedName("Wooden Pail");
+//
+//        woodenPailFreshWater = new ItemPailFluid()
+//            .setMaxDamage(4000 / 50)
+//            .setContainerItem(woodenPailEmpty)
+//            .setUnlocalizedName("Wooden Pail.FreshWater");
+//        woodenPailMilk = new ItemPailFluid()
+//            .setMaxDamage(4000 / 50)
+//            .setContainerItem(woodenPailEmpty)
+//            .setUnlocalizedName("Wooden Pail.Milk");
+        woodenPailGoatMilk = new ItemPailFluid()
+            .setMaxDamage(4000 / 50)
             .setContainerItem(woodenPailEmpty)
             .setUnlocalizedName("Wooden Pail.GoatMilk");
 
@@ -1087,8 +1086,8 @@ public class ItemSetup extends BidsItems {
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.WOODASHLYE, 500),
             new ItemStack(woodAshLyeLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
 
-        FluidHelper.registerPartialFluidContainer(TFCFluids.FRESHWATER, woodenPailEmpty, 0, woodenPailFreshWater, 50, 4000);
-        FluidHelper.registerPartialFluidContainer(TFCFluids.MILK, woodenPailEmpty, 0, woodenPailMilk, 50, 4000);
+//        FluidHelper.registerPartialFluidContainer(TFCFluids.FRESHWATER, woodenPailEmpty, 0, woodenPailFreshWater, 50, 4000);
+//        FluidHelper.registerPartialFluidContainer(TFCFluids.MILK, woodenPailEmpty, 0, woodenPailMilk, 50, 4000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, woodenPailEmpty, 0, woodenPailGoatMilk, 50, 4000);
     }
 

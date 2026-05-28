@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.food.milk.item;
+package com.unforbidable.tfc.bids.features.utility.pail.item;
 
 import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.api.Interfaces.ISize;
