@@ -8,7 +8,7 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsCrops;
-import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
+import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBowlFluid;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBucketFluid;
@@ -34,8 +34,6 @@ import com.unforbidable.tfc.bids.features.device.cookingpot.item.ItemSteamingMes
 import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemBoard;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemShaft;
 import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
-import com.unforbidable.tfc.bids.features.utility.pail.item.ItemPailEmpty;
-import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemPailFluid;
 import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemMoreSandwich;
 import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemPemmican;
 import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemWrap;
@@ -44,7 +42,7 @@ import com.unforbidable.tfc.bids.features.material.powder.item.ItemMorePowder;
 import com.unforbidable.tfc.bids.features.material.soap.item.ItemSoap;
 import com.unforbidable.tfc.bids.features.material.textile.item.*;
 import com.unforbidable.tfc.bids.features.resource.crops.item.ItemNewCustomSeeds;
-import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemLargeBowlFluid;
+import com.unforbidable.tfc.bids.features.utility.largebowl.item.ItemLargeBowlFluid;
 import com.unforbidable.tfc.bids.features.utility.spear.item.ItemHardenedWoodenSpear;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -746,14 +744,14 @@ public class ItemSetup extends BidsItems {
             .setMaxDamage(2000 / 50)
             .setUnlocalizedName("Waterskin.Cream");
 
-        goatMilkBottle = new ItemCommonDrink(1000, false, 0, 20, 40, 60, 80, 100)
-            .setCanDrinkInParts(true)
-            .setFoodGroup(EnumFoodGroup.Dairy)
-            .setCalories(0.642f)
-            .setWaterRestoreRatio(1f)
-            .setContainerItem((TFCItems.glassBottle))
-            .setMaxDamage(1000 / 50)
-            .setUnlocalizedName("Glass Bottle.GoatMilk");
+//        goatMilkBottle = new ItemCommonDrink(1000, false, 0, 20, 40, 60, 80, 100)
+//            .setCanDrinkInParts(true)
+//            .setFoodGroup(EnumFoodGroup.Dairy)
+//            .setCalories(0.642f)
+//            .setWaterRestoreRatio(1f)
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setMaxDamage(1000 / 50)
+//            .setUnlocalizedName("Glass Bottle.GoatMilk");
         skimmedMilkBottle = new ItemCommonDrink(1000, false, 0, 20, 40, 60, 80, 100)
             .setCanDrinkInParts(true)
             .setFoodGroup(EnumFoodGroup.Dairy)
@@ -810,10 +808,10 @@ public class ItemSetup extends BidsItems {
 //            .setMetaNames(new String[]{"Pottery"})
 //            .setContainerItem(BidsItems.largeClayBowl)
 //            .setUnlocalizedName("Large Bowl.Honey");
-        goatMilkLargeBowl = new ItemLargeBowlFluid()
-            .setMetaNames(new String[]{"Pottery"})
-            .setContainerItem(BidsItems.largeClayBowl)
-            .setUnlocalizedName("Large Bowl.GoatMilk");
+//        goatMilkLargeBowl = new ItemLargeBowlFluid()
+//            .setMetaNames(new String[]{"Pottery"})
+//            .setContainerItem(BidsItems.largeClayBowl)
+//            .setUnlocalizedName("Large Bowl.GoatMilk");
         skimmedMilkLargeBowl = new ItemLargeBowlFluid()
             .setMetaNames(new String[]{"Pottery"})
             .setContainerItem(BidsItems.largeClayBowl)
@@ -842,10 +840,10 @@ public class ItemSetup extends BidsItems {
 //            .setMaxDamage(4000 / 50)
 //            .setContainerItem(woodenPailEmpty)
 //            .setUnlocalizedName("Wooden Pail.Milk");
-        woodenPailGoatMilk = new ItemPailFluid()
-            .setMaxDamage(4000 / 50)
-            .setContainerItem(woodenPailEmpty)
-            .setUnlocalizedName("Wooden Pail.GoatMilk");
+//        woodenPailGoatMilk = new ItemPailFluid()
+//            .setMaxDamage(4000 / 50)
+//            .setContainerItem(woodenPailEmpty)
+//            .setUnlocalizedName("Wooden Pail.GoatMilk");
 
         ceramicBucketBrine = new ItemBucketFluid(true)
             .setContainerItem((TFCItems.clayBucketEmpty))
@@ -859,9 +857,9 @@ public class ItemSetup extends BidsItems {
         ceramicBucketOilyFishWater = new ItemBucketFluid(true)
             .setContainerItem((TFCItems.clayBucketEmpty))
             .setUnlocalizedName("Ceramic Bucket.OilyFishWater");
-        ceramicBucketGoatMilk = new ItemBucketFluid(true)
-            .setContainerItem((TFCItems.clayBucketEmpty))
-            .setUnlocalizedName("Ceramic Bucket.GoatMilk");
+//        ceramicBucketGoatMilk = new ItemBucketFluid(true)
+//            .setContainerItem((TFCItems.clayBucketEmpty))
+//            .setUnlocalizedName("Ceramic Bucket.GoatMilk");
 
         woodenBucketBrine = new ItemBucketFluid(false)
             .setContainerItem((TFCItems.woodenBucketEmpty))
@@ -875,9 +873,9 @@ public class ItemSetup extends BidsItems {
         woodenBucketOilyFishWater = new ItemBucketFluid(false)
             .setContainerItem((TFCItems.woodenBucketEmpty))
             .setUnlocalizedName("Wooden Bucket.OilyFishWater");
-        woodenBucketGoatMilk = new ItemBucketFluid(false)
-            .setContainerItem((TFCItems.woodenBucketEmpty))
-            .setUnlocalizedName("Wooden Bucket.GoatMilk");
+//        woodenBucketGoatMilk = new ItemBucketFluid(false)
+//            .setContainerItem((TFCItems.woodenBucketEmpty))
+//            .setUnlocalizedName("Wooden Bucket.GoatMilk");
 
 //        ceramicBucketRope = new ItemBucketRopeEmpty(true)
 //            .setUnlocalizedName("Ceramic Bucket Rope");
@@ -940,14 +938,14 @@ public class ItemSetup extends BidsItems {
             .setContainerItem(TFCItems.potteryJug)
             .setUnlocalizedName("Pottery Jug.FishOil");
 
-        potteryJugGoatMilk = new ItemCommonDrink(1000, true, 0, 20, 40, 60, 80, 100)
-            .setCanDrinkInParts(true)
-            .setFoodGroup(EnumFoodGroup.Dairy)
-            .setCalories(0.642f)
-            .setWaterRestoreRatio(1f)
-            .setContainerItem((TFCItems.potteryJug))
-            .setMaxDamage(1000 / 50)
-            .setUnlocalizedName("Pottery Jug.GoatMilk");
+//        potteryJugGoatMilk = new ItemCommonDrink(1000, true, 0, 20, 40, 60, 80, 100)
+//            .setCanDrinkInParts(true)
+//            .setFoodGroup(EnumFoodGroup.Dairy)
+//            .setCalories(0.642f)
+//            .setWaterRestoreRatio(1f)
+//            .setContainerItem((TFCItems.potteryJug))
+//            .setMaxDamage(1000 / 50)
+//            .setUnlocalizedName("Pottery Jug.GoatMilk");
         potteryJugSkimmedMilk = new ItemCommonDrink(1000, true, 0, 20, 40, 60, 80, 100)
             .setCanDrinkInParts(true)
             .setFoodGroup(EnumFoodGroup.Dairy)
@@ -1000,7 +998,7 @@ public class ItemSetup extends BidsItems {
 //        FluidHelper.registerPartialFluidContainer(TFCFluids.SALTWATER, TFCItems.glassBottle, 0, saltWaterBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.FISHOIL, TFCItems.glassBottle, 0, fishOilBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.OILYFISHWATER, TFCItems.glassBottle, 0, oilyFishWaterBottle, 50, 1000);
-        FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, TFCItems.glassBottle, 0, goatMilkBottle, 50, 1000);
+//        FluidHelper.registerPartialFluidContainer(BidsFluids.goatMilk, TFCItems.glassBottle, 0, goatMilkBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.SKIMMEDMILK, TFCItems.glassBottle, 0, skimmedMilkBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.CREAM, TFCItems.glassBottle, 0, creamBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.WEAKWOODASHLYE, TFCItems.glassBottle, 0, weakWoodAshLyeBottle, 50, 1000);
@@ -1013,7 +1011,7 @@ public class ItemSetup extends BidsItems {
 //        FluidHelper.registerPartialFluidContainer(TFCFluids.VINEGAR, TFCItems.potteryJug, 1, potteryJugVinegar, 50, 1000);
 //        FluidHelper.registerPartialFluidContainer(TFCFluids.OLIVEOIL, TFCItems.potteryJug, 1, potteryJugOliveOil, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.FISHOIL, TFCItems.potteryJug, 1, potteryJugFishOil, 50, 1000);
-        FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, TFCItems.potteryJug, 1, potteryJugGoatMilk, 50, 1000);
+//        FluidHelper.registerPartialFluidContainer(BidsFluids.goatMilk, TFCItems.potteryJug, 1, potteryJugGoatMilk, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.SKIMMEDMILK, TFCItems.potteryJug, 1, potteryJugSkimmedMilk, 50, 1000);
 
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
@@ -1046,8 +1044,8 @@ public class ItemSetup extends BidsItems {
             new ItemStack(ceramicBucketMilkVinegar), new ItemStack(TFCItems.clayBucketEmpty));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.OILYFISHWATER, 1000),
             new ItemStack(ceramicBucketOilyFishWater), new ItemStack(TFCItems.clayBucketEmpty));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.GOATMILK, 1000),
-            new ItemStack(ceramicBucketGoatMilk), new ItemStack(TFCItems.clayBucketEmpty));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.goatMilk, 1000),
+//            new ItemStack(ceramicBucketGoatMilk), new ItemStack(TFCItems.clayBucketEmpty));
 
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.BRINE, 1000),
             new ItemStack(woodenBucketBrine), new ItemStack(TFCItems.woodenBucketEmpty));
@@ -1057,8 +1055,8 @@ public class ItemSetup extends BidsItems {
             new ItemStack(woodenBucketMilkVinegar), new ItemStack(TFCItems.woodenBucketEmpty));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.OILYFISHWATER, 1000),
             new ItemStack(woodenBucketOilyFishWater), new ItemStack(TFCItems.woodenBucketEmpty));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.GOATMILK, 1000),
-            new ItemStack(woodenBucketGoatMilk), new ItemStack(TFCItems.woodenBucketEmpty));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.goatMilk, 1000),
+//            new ItemStack(woodenBucketGoatMilk), new ItemStack(TFCItems.woodenBucketEmpty));
 
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.FRESHWATER, 1000),
             new ItemStack(ceramicBucketRopeWater), new ItemStack(ceramicBucketRope));
@@ -1075,8 +1073,8 @@ public class ItemSetup extends BidsItems {
 //            new ItemStack(milkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
 //        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEY, 500),
 //            new ItemStack(honeyLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.GOATMILK, 500),
-            new ItemStack(goatMilkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.goatMilk, 500),
+//            new ItemStack(goatMilkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.SKIMMEDMILK, 500),
             new ItemStack(skimmedMilkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.CREAM, 500),
@@ -1088,7 +1086,7 @@ public class ItemSetup extends BidsItems {
 
 //        FluidHelper.registerPartialFluidContainer(TFCFluids.FRESHWATER, woodenPailEmpty, 0, woodenPailFreshWater, 50, 4000);
 //        FluidHelper.registerPartialFluidContainer(TFCFluids.MILK, woodenPailEmpty, 0, woodenPailMilk, 50, 4000);
-        FluidHelper.registerPartialFluidContainer(BidsFluids.GOATMILK, woodenPailEmpty, 0, woodenPailGoatMilk, 50, 4000);
+//        FluidHelper.registerPartialFluidContainer(BidsFluids.goatMilk, woodenPailEmpty, 0, woodenPailGoatMilk, 50, 4000);
     }
 
     private static void setupToolHarvest() {

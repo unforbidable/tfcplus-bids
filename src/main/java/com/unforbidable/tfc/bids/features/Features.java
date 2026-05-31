@@ -24,6 +24,7 @@ import com.unforbidable.tfc.bids.features.food.coarseflour.CoarseFlour;
 import com.unforbidable.tfc.bids.features.food.crushedfruit.CrushedFruit;
 import com.unforbidable.tfc.bids.features.food.flatbread.Flatbread;
 import com.unforbidable.tfc.bids.features.food.hardtack.Hardtack;
+import com.unforbidable.tfc.bids.features.food.milk.Milk;
 import com.unforbidable.tfc.bids.features.material.bark.Bark;
 import com.unforbidable.tfc.bids.features.material.birtchback.BirchBark;
 import com.unforbidable.tfc.bids.features.material.clothing.Clothing;
@@ -82,6 +83,7 @@ public class Features {
         new WallHook(),
         new Well(),
         new Pail(),
+        new Milk(),
         new Bamboo(),
         new FluidContainers(),
         new LargeBowl(),

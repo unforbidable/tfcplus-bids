@@ -66,17 +66,6 @@ public class BidsOptions {
 
     }
 
-    public static class Husbandry {
-
-        public static boolean enableGoatMilkFromGoats = true;
-        public static boolean enableIbexHavingMilk = true;
-        public static float ibexMilkingTimerMultiplier = 4f;
-
-        public static boolean enableDefaultMilkingInteractionOverride = false;
-        public static int milkingTimerReductionHours = 4;
-
-    }
-
     public static class Miscellaneous {
 
         public static int soapUsageRewardXP = 2;

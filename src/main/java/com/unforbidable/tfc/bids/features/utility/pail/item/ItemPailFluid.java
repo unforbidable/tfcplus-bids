@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.common.item.filledcontainer;
+package com.unforbidable.tfc.bids.features.utility.pail.item;
 
 import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.api.Interfaces.ISize;

@@ -1,12 +1,8 @@
 package com.unforbidable.tfc.bids.core._obsolete;
 
-import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.features.material.fishoil.fuel.FuelFishOil;
-import com.unforbidable.tfc.bids.features.material.linseed.fuel.FuelFlaxSeedOil;
-import com.unforbidable.tfc.bids.features.device.lamp.main.fuel.FuelOliveOil;
 import com.unforbidable.tfc.bids.api._obsolete.BidsCookingMixtures;
-import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
+import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.api._obsolete.Crafting.CookingMixture;
@@ -70,7 +66,7 @@ public class FluidSetup extends BidsFluids {
 
         FluidRegistry.registerFluid(OILYFISHWATER);
         FluidRegistry.registerFluid(FISHOIL);
-        FluidRegistry.registerFluid(GOATMILK);
+//        FluidRegistry.registerFluid(goatMilk);
         FluidRegistry.registerFluid(GOATMILKVINEGAR);
         FluidRegistry.registerFluid(GOATMILKCURDLED);
         FluidRegistry.registerFluid(TALLOW);

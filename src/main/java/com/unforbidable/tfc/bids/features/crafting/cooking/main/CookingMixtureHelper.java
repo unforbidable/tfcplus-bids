@@ -6,7 +6,7 @@ import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.FoodRegistry;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
+import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.api._obsolete.Crafting.CookingMixture;

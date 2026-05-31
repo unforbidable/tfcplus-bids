@@ -3,12 +3,12 @@ package com.unforbidable.tfc.bids.features.food.milk.main.milkhandlers;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Entities.Mobs.EntityGoat;
 import com.dunk.tfc.api.Entities.IAnimal;
+import com.unforbidable.tfc.bids.features.food.milk.MilkConfig;
 import com.unforbidable.tfc.bids.features.food.milk.main.GoatMilkHelper;
-import com.unforbidable.tfc.bids.features.food.milk.main.IMilkHandler;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
+import com.unforbidable.tfc.bids.features.food.milk.main.MilkHandler;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class GoatMilkHandler implements IMilkHandler<EntityGoat> {
+public class GoatMilkHandler implements MilkHandler<EntityGoat> {
 
     private static final int TICKS_PER_BUCKET = TFC_Time.DAY_LENGTH * 5;
 
@@ -22,8 +22,8 @@ public class GoatMilkHandler implements IMilkHandler<EntityGoat> {
 
     @Override
     public boolean doMilkAnimalByPlayer(EntityGoat animal, EntityPlayer player, int amount) {
-        float multiplier = animal.isDomesticated() ? 1f : BidsOptions.Husbandry.ibexMilkingTimerMultiplier;
-        long time = TFC_Time.getTotalTicks() + Math.round((amount / 1000f) * TICKS_PER_BUCKET * multiplier) - BidsOptions.Husbandry.milkingTimerReductionHours * TFC_Time.HOUR_LENGTH;
+        float multiplier = animal.isDomesticated() ? 1f : MilkConfig.ibexMilkingTimerMultiplier;
+        long time = TFC_Time.getTotalTicks() + Math.round((amount / 1000f) * TICKS_PER_BUCKET * multiplier) - MilkConfig.milkingTimerReductionHours * TFC_Time.HOUR_LENGTH;
         GoatMilkHelper.setHasMilkTime(animal, time);
 
         return true;

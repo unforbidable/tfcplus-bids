@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.utility.largebowl;
 
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.features.utility.largebowl.item.ItemLargeBowlFluid;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
@@ -17,6 +18,7 @@ import net.minecraft.item.ItemStack;
 
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_FRESH_WATER;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_GOAT_MILK;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_HONEY;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_MILK;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_SALT_WATER;
@@ -51,6 +53,8 @@ public class LargeBowl extends Feature {
             .container(BidsItems.milkLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
         setup.fluid(TFCFluids.HONEY)
             .container(BidsItems.honeyLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
+        setup.fluid(BidsFluids.goatMilk)
+            .container(BidsItems.goatMilkLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
 
         setup.ores("itemMilkingContainer")
             .add(new ItemStack(BidsItems.largeClayBowl, 1, 1));

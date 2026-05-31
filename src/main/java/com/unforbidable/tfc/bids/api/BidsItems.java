@@ -207,6 +207,15 @@ public class BidsItems {
     public static final Item woodenPailFreshWater = item(ItemNames.WOODEN_PAIL_FRESH_WATER);
     public static final Item woodenPailMilk = item(ItemNames.WOODEN_PAIL_MILK);
 
+    // Milk
+    public static final Item goatMilkBottle = item(ItemNames.BOTTLE_GOAT_MILK);
+    public static final Item potteryJugGoatMilk = item(ItemNames.JUG_GOAT_MILK);
+    public static final Item woodenBucketGoatMilk = item(ItemNames.WOODEN_BUCKET_GOAT_MILK);
+    public static final Item ceramicBucketGoatMilk = item(ItemNames.CERAMIC_BUCKET_GOAT_MILK);
+    public static final Item goatMilkLargeBowl = item(ItemNames.LARGE_BOWL_GOAT_MILK);
+    public static final Item woodenPailGoatMilk = item(ItemNames.WOODEN_PAIL_GOAT_MILK);
+
+
 
 
     public static Item hardenedWoodenSpear;
@@ -262,7 +271,6 @@ public class BidsItems {
     public static Item milkVinegarBottle;
     public static Item fishOilBottle;
     public static Item oilyFishWaterBottle;
-    public static Item goatMilkBottle;
     public static Item skimmedMilkBottle;
     public static Item creamBottle;
     public static Item weakWoodAshLyeBottle;
@@ -273,31 +281,25 @@ public class BidsItems {
     public static Item waterskinCream;
 
     public static Item potteryJugFishOil;
-    public static Item potteryJugGoatMilk;
     public static Item potteryJugSkimmedMilk;
 
     public static Item fishOilBowl;
     public static Item flaxSeedOilBowl;
 
-    public static Item goatMilkLargeBowl;
     public static Item skimmedMilkLargeBowl;
     public static Item creamLargeBowl;
     public static Item weakWoodAshLyeLargeBowl;
     public static Item woodAshLyeLargeBowl;
 
-    public static Item woodenPailGoatMilk;
-
     public static Item woodenBucketBrine;
     public static Item woodenBucketHoneyWater;
     public static Item woodenBucketMilkVinegar;
     public static Item woodenBucketOilyFishWater;
-    public static Item woodenBucketGoatMilk;
 
     public static Item ceramicBucketBrine;
     public static Item ceramicBucketHoneyWater;
     public static Item ceramicBucketMilkVinegar;
     public static Item ceramicBucketOilyFishWater;
-    public static Item ceramicBucketGoatMilk;
 
     public static Item steamingMeshCloth;
 

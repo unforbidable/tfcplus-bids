@@ -1,14 +1,30 @@
-package com.unforbidable.tfc.bids.api._obsolete;
+package com.unforbidable.tfc.bids.api;
 
 import com.dunk.tfc.Core.FluidBaseTFC;
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.names.FluidNames;
 import com.unforbidable.tfc.bids.features.crafting.cooking.fluid.FluidCookingMixture;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import java.util.Locale;
 
 public class BidsFluids {
 
+    public static final Fluid goatMilk = fluid(FluidNames.GOAT_MILK);
+
+    private static Fluid fluid(String name) {
+        Fluid fluid = FluidRegistry.getFluid(name.toLowerCase(Locale.ENGLISH));
+        if (fluid == null) {
+            Bids.LOG.error("Fluid not found in fluid registry: {}", name);
+        }
+        return fluid;
+    }
+
+
+
+
     public static final Fluid OILYFISHWATER = new FluidBaseTFC("OilyFishWater").setBaseColor(0x124220);
     public static final Fluid FISHOIL = new FluidBaseTFC("FishOil").setBaseColor(0xa1a36f);
-    public static final Fluid GOATMILK = new FluidBaseTFC("GoatMilk").setBaseColor(0xffffff);
     public static final Fluid GOATMILKVINEGAR = new FluidBaseTFC("GoatMilkVinegar").setBaseColor(0xfffbe8);
     public static final Fluid GOATMILKCURDLED = new FluidBaseTFC("GoatMilkCurdled").setBaseColor(0xfffbe8);
     public static final Fluid TALLOW = new FluidBaseTFC("Tallow").setBaseColor(0xf0db3a);

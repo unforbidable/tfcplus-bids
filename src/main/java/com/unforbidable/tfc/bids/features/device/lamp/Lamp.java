@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.device.lamp;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
+import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;

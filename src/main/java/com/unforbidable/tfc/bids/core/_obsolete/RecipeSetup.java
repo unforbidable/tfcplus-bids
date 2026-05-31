@@ -11,14 +11,10 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsCookingMixtures;
-import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
+import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
-import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
-import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuernConfig;
-import com.unforbidable.tfc.bids.features.device.saddlequern.StonePressConfig;
 import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
@@ -1227,7 +1223,7 @@ public class RecipeSetup {
             .build());
 
         BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
-            .consumes(new FluidStack(BidsFluids.GOATMILK, 9), new FluidStack(TFCFluids.VINEGAR, 1))
+            .consumes(new FluidStack(BidsFluids.goatMilk, 9), new FluidStack(TFCFluids.VINEGAR, 1))
             .produces(new FluidStack(BidsFluids.GOATMILKVINEGAR, 10))
             .build());
 
@@ -1285,7 +1281,7 @@ public class RecipeSetup {
             .build());
 
         BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
-            .consumes(new FluidStack(BidsFluids.GOATMILK, 500))
+            .consumes(new FluidStack(BidsFluids.goatMilk, 500))
             .produces(new FluidStack(BidsFluids.SKIMMEDMILK, 450), new FluidStack(BidsFluids.CREAM, 50))
             .withoutHeat()
             .inFixedTime(24000)
@@ -1344,7 +1340,7 @@ public class RecipeSetup {
             .build());
 
         BidsRegistry.COOKING_RECIPES.register(CookingRecipe.builder()
-            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL, 500), new FluidStack(BidsFluids.GOATMILK, 500))
+            .consumes(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL, 500), new FluidStack(BidsFluids.goatMilk, 500))
             .produces(CookingMixtureHelper.createCookingMixtureFluidStack(BidsCookingMixtures.CEREAL_MILK, 1000))
             .build());
 

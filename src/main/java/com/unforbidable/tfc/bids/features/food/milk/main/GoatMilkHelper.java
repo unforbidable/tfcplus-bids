@@ -5,11 +5,10 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Entities.Mobs.EntityAnimalTFC;
 import com.dunk.tfc.Entities.Mobs.EntityGoat;
 import com.dunk.tfc.api.Entities.IAnimal;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
+import java.lang.reflect.Field;
+import com.unforbidable.tfc.bids.features.food.milk.MilkConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentTranslation;
-
-import java.lang.reflect.Field;
 
 public class GoatMilkHelper {
 
@@ -35,7 +34,7 @@ public class GoatMilkHelper {
                 break;
             case MILK:
                 // 15 is used for milking cows
-                flag = BidsOptions.Husbandry.enableIbexHavingMilk && animal.getFamiliarity() > 15 || animal.isDomesticated();
+                flag = MilkConfig.enableIbexHavingMilk && animal.getFamiliarity() > 15 || animal.isDomesticated();
                 break;
         }
 
@@ -52,9 +51,7 @@ public class GoatMilkHelper {
             Field hasMilkTimeField = EntityAnimalTFC.class.getDeclaredField("hasMilkTime");
             hasMilkTimeField.setAccessible(true);
             return (Long)hasMilkTimeField.get(goat);
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
@@ -65,9 +62,7 @@ public class GoatMilkHelper {
             Field hasMilkTimeField = EntityAnimalTFC.class.getDeclaredField("hasMilkTime");
             hasMilkTimeField.setAccessible(true);
             hasMilkTimeField.set(goat, hasMilkTime);
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }

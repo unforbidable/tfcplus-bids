@@ -4,9 +4,9 @@ import com.dunk.tfc.Entities.Mobs.EntityChickenTFC;
 import com.dunk.tfc.Entities.Mobs.EntityGoat;
 import com.dunk.tfc.api.Entities.IAnimal;
 import com.unforbidable.tfc.bids.features.device.strawnest.entity.ai.EntityAIFindNestEx;
+import com.unforbidable.tfc.bids.features.food.milk.MilkConfig;
 import com.unforbidable.tfc.bids.util.datawatching.GoatDataWatcher;
 import com.unforbidable.tfc.bids.features.food.milk.main.GoatMilkHelper;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -21,7 +21,7 @@ public class EntitySpawnHandler {
         }
 
         if (event.entity instanceof EntityGoat) {
-            if (BidsOptions.Husbandry.enableIbexHavingMilk) {
+            if (MilkConfig.enableIbexHavingMilk) {
                 new GoatDataWatcher(event.entity).init();
             }
         }
@@ -29,7 +29,7 @@ public class EntitySpawnHandler {
 
     @SubscribeEvent
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
-        if (BidsOptions.Husbandry.enableIbexHavingMilk) {
+        if (MilkConfig.enableIbexHavingMilk) {
             if (event.entity instanceof EntityGoat) {
                 EntityGoat goat = (EntityGoat) event.entity;
                 if (!goat.isDomesticated() && goat.isAdult() && goat.getGender() == IAnimal.GenderEnum.FEMALE) {

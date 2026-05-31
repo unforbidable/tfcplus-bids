@@ -2,8 +2,9 @@ package com.unforbidable.tfc.bids.features.utility.pail;
 
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemPailFluid;
+import com.unforbidable.tfc.bids.features.utility.pail.item.ItemPailFluid;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
@@ -14,6 +15,7 @@ import net.minecraft.item.ItemStack;
 
 import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_PAIL;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_PAIL_FRESH_WATER;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_PAIL_GOAT_MILK;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_PAIL_MILK;
 
 @FeatureName("pail")
@@ -24,6 +26,7 @@ public class Pail extends Feature {
         init.item(WOODEN_PAIL, ItemPailEmpty::new);
         init.item(WOODEN_PAIL_MILK, ItemPailFluid::new);
         init.item(WOODEN_PAIL_FRESH_WATER, ItemPailFluid::new);
+        init.item(WOODEN_PAIL_GOAT_MILK, ItemPailFluid::new);
     }
 
     @Override
@@ -33,6 +36,9 @@ public class Pail extends Feature {
 
         setup.fluid(TFCFluids.FRESHWATER)
             .container(BidsItems.woodenPailFreshWater, 4000, true, BidsItems.woodenPailEmpty);
+
+        setup.fluid(BidsFluids.goatMilk)
+            .container(BidsItems.woodenPailGoatMilk, 4000, true, BidsItems.woodenPailEmpty);
 
         setup.ores("itemMilkingContainer")
             .add(BidsItems.woodenPailEmpty)

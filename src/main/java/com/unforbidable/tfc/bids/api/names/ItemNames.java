@@ -200,22 +200,24 @@ public interface ItemNames {
 
     // Milk
     String BOTTLE_GOAT_MILK = "Glass Bottle.GoatMilk";
-    String BOTTLE_SKIMMED_MILK = "Glass Bottle.SkimmedMilk";
-    String BOTTLE_CREAM = "Glass Bottle.Cream";
-    String LARGE_BOWL_GOAT_MILK = "Large Bowl.GoatMilk";
-    String LARGE_BOWL_SKIMMED_MILK = "Large Bowl.SkimmedMilk";
-    String LARGE_BOWL_CREAM = "Large Bowl.Cream";
-    String BUTTER = "Butter";
-    String WATERSKIN_CREAM = "Waterskin.Cream";
-    String GOAT_CHEESE = "Goat Cheese";
-    String HARD_CHEESE = "Hard Cheese";
+    String JUG_GOAT_MILK = "Pottery Jug.GoatMilk";
     String WOODEN_BUCKET_GOAT_MILK = "Wooden Bucket.GoatMilk";
     String CERAMIC_BUCKET_GOAT_MILK = "Ceramic Bucket.GoatMilk";
-    String WOODEN_PAIL_GOAT_MILK = "Wooden Pail.GoatMilk";
-    String JUG_GOAT_MILK = "Pottery Jug.GoatMilk";
-    String JUG_SKIMMED_MILK = "Pottery Jug.SkimmedMilk";
 
-    // Butchering
+    // Cheese
+    String GOAT_CHEESE = "Goat Cheese";
+    String HARD_CHEESE = "Hard Cheese";
+
+    // Butter
+    String BOTTLE_SKIMMED_MILK = "Glass Bottle.SkimmedMilk";
+    String JUG_SKIMMED_MILK = "Pottery Jug.SkimmedMilk";
+    String LARGE_BOWL_SKIMMED_MILK = "Large Bowl.SkimmedMilk";
+    String BOTTLE_CREAM = "Glass Bottle.Cream";
+    String LARGE_BOWL_CREAM = "Large Bowl.Cream";
+    String WATERSKIN_CREAM = "Waterskin.Cream";
+    String BUTTER = "Butter";
+
+    // Tallow
     String SUET = "Suet";
     String TALLOW = "Tallow";
 
@@ -276,11 +278,13 @@ public interface ItemNames {
     String LARGE_BOWL_VINEGAR = "Large Bowl.Vinegar";
     String LARGE_BOWL_MILK = "Large Bowl.Milk";
     String LARGE_BOWL_HONEY = "Large Bowl.Honey";
+    String LARGE_BOWL_GOAT_MILK = "Large Bowl.GoatMilk";
 
     // Pail
     String WOODEN_PAIL = "Wooden Pail";
     String WOODEN_PAIL_FRESH_WATER = "Wooden Pail.FreshWater";
     String WOODEN_PAIL_MILK = "Wooden Pail.Milk";
+    String WOODEN_PAIL_GOAT_MILK = "Wooden Pail.GoatMilk";
 
     // Aquifer
     String CERAMIC_BUCKET_AND_ROPE = "Ceramic Bucket Rope";

@@ -40,44 +40,6 @@ public class PlayerInteractHandler {
 
     private Map<UUID, Integer> lastOpenContainerWindowId = new HashMap<UUID, Integer>();
 
-    @SubscribeEvent
-    public void onEntityInteract(EntityInteractEvent event) {
-        if (!event.entityPlayer.worldObj.isRemote) {
-            if (isValidMilkingContainer(event.entityPlayer.getHeldItem())) {
-                if (canOverrideMilkingInteraction(event.entityPlayer, event.target)) {
-                    if (FluidHelper.fillContainerOnEntityInteractEvent(event.entityPlayer, event.target)) {
-                        event.setCanceled(true);
-                    }
-                }
-            }
-        }
-    }
-
-    private boolean canOverrideMilkingInteraction(EntityPlayer entityPlayer, Entity target) {
-        return BidsOptions.Husbandry.enableDefaultMilkingInteractionOverride ||
-            MilkHelper.alwaysOverrideMilkingInteraction(entityPlayer, target);
-    }
-
-    private boolean isValidMilkingContainer(ItemStack heldItem) {
-        for (ItemStack ore : OreDictionary.getOres("itemMilkingContainer")) {
-            if (OreDictionary.itemMatches(ore, heldItem, false)) {
-                Bids.LOG.debug("Valid milking container: " + heldItem);
-
-                return true;
-            }
-        }
-
-        Bids.LOG.debug("Invalid milking container: " + heldItem);
-
-        return false;
-    }
-
-    @SubscribeEvent
-    public void onFillContainer(FillContainerEvent event) {
-        if (event.output.getItem() instanceof IFood) {
-            ItemCustomBucketMilk.createTag(event.output, 20f);
-        }
-    }
 
     @SubscribeEvent
     public void onPlayerOpenContainer(PlayerOpenContainerEvent event) {

@@ -2,7 +2,7 @@ package com.unforbidable.tfc.bids.core._obsolete;
 
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api._obsolete.BidsFluids;
+import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 
@@ -34,9 +34,9 @@ public class DrinkSetup extends BidsItems {
 //        BidsRegistry.DRINKS.register(new Drink(TFCFluids.MILK, "Milk")
 //                .setCalories(0.584f).setFoodGroup(EnumFoodGroup.Dairy)
 //                .setWaterRestoreRatio(1));
-        BidsRegistry.DRINKS.register(new Drink(BidsFluids.GOATMILK, "GoatMilk")
-                .setCalories(0.642f).setFoodGroup(EnumFoodGroup.Dairy)
-                .setWaterRestoreRatio(1));
+//        BidsRegistry.DRINKS.register(new Drink(BidsFluids.goatMilk, "GoatMilk")
+//                .setCalories(0.642f).setFoodGroup(EnumFoodGroup.Dairy)
+//                .setWaterRestoreRatio(1));
         BidsRegistry.DRINKS.register(new Drink(BidsFluids.SKIMMEDMILK, "SkimmedMilk")
                 .setCalories(0.321f).setFoodGroup(EnumFoodGroup.Dairy)
                 .setWaterRestoreRatio(1));
