@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.utility.largebowl;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemLargeBowlFluid;
+import com.unforbidable.tfc.bids.features.utility.largebowl.item.ItemLargeBowlFluid;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KilnRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
@@ -31,16 +31,12 @@ public class LargeBowl extends Feature {
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.item(LARGE_BOWL, ItemLargeBowl::new);
 
-        init.item(LARGE_BOWL_FRESH_WATER, ItemLargeBowlFluid::new)
-            .meta("Pottery");
-        init.item(LARGE_BOWL_SALT_WATER, ItemLargeBowlFluid::new)
-            .meta("Pottery");
-        init.item(LARGE_BOWL_VINEGAR, ItemLargeBowlFluid::new)
-            .meta("Pottery");
-        init.item(LARGE_BOWL_MILK, ItemLargeBowlFluid::new)
-            .meta("Pottery");
-        init.item(LARGE_BOWL_HONEY, ItemLargeBowlFluid::new)
-            .meta("Pottery");
+        init.item(LARGE_BOWL_FRESH_WATER, ItemLargeBowlFluid::new);
+        init.item(LARGE_BOWL_SALT_WATER, ItemLargeBowlFluid::new);
+        init.item(LARGE_BOWL_VINEGAR, ItemLargeBowlFluid::new);
+        init.item(LARGE_BOWL_MILK, ItemLargeBowlFluid::new);
+        init.item(LARGE_BOWL_HONEY, ItemLargeBowlFluid::new);
+        init.item(LARGE_BOWL_GOAT_MILK, ItemLargeBowlFluid::new);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.common.item.filledcontainer;
+package com.unforbidable.tfc.bids.features.utility.largebowl.item;
 
 import com.dunk.tfc.Handlers.Network.ItemPotterySmashPacket;
 import com.dunk.tfc.Items.ItemTerra;
@@ -33,6 +33,8 @@ public class ItemLargeBowlFluid extends ItemTerra implements ISmashable {
     public ItemLargeBowlFluid() {
         setCreativeTab(BidsCreativeTabs.bidsTools);
         setMaxStackSize(1);
+
+        setMetaNames(new String[]{"Pottery"});
     }
 
     public ItemStack getContainerItem(ItemStack i) {
