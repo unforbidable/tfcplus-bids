@@ -205,7 +205,7 @@ public class BidsItems {
     // Pail
     public static final Item woodenPailEmpty = item(ItemNames.WOODEN_PAIL);
     public static final Item woodenPailFreshWater = item(ItemNames.WOODEN_PAIL_FRESH_WATER);
-    public static final Item woodenPailMilk = item(ItemNames.WOODEN_PAIL_GOAT_MILK);
+    public static final Item woodenPailMilk = item(ItemNames.WOODEN_PAIL_MILK);
 
 
 
