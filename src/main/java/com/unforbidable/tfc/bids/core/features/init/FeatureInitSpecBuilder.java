@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.core.features.init;
 
-import com.unforbidable.tfc.bids.core.features.client.gui.GuiScreenSpec;
 import com.unforbidable.tfc.bids.core.features.init.block.BlockSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.init.fluid.FluidSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.tileentity.TileEntitySpec;
 import com.unforbidable.tfc.bids.core.features.init.gui.GuiContainerSpec;
 import com.unforbidable.tfc.bids.core.features.init.item.ItemSpecBuilder;
@@ -10,7 +10,6 @@ import com.unforbidable.tfc.bids.core.gui.provider.SimpleGuiFunction;
 import com.unforbidable.tfc.bids.core.gui.provider.SpecialGuiFunction;
 import com.unforbidable.tfc.bids.core.gui.provider.TileEntityGuiFunction;
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
@@ -18,9 +17,11 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,7 @@ public class FeatureInitSpecBuilder {
 
     private final List<BlockSpecBuilder<?>> blocks = new ArrayList<>();
     private final List<ItemSpecBuilder<?>> items = new ArrayList<>();
+    private final List<FluidSpecBuilder<?>> fluids = new ArrayList<>();
     private final List<TileEntitySpec> tileEntities = new ArrayList<>();
     private final List<GuiContainerSpec<?, ?>> containers = new ArrayList<>();
 
@@ -45,6 +47,13 @@ public class FeatureInitSpecBuilder {
     public <T extends Item> ItemSpecBuilder<T> item(String name, Supplier<T> item) {
         ItemSpecBuilder<T> builder = new ItemSpecBuilder<>(name, item);
         items.add(builder);
+
+        return builder;
+    }
+
+    public <T extends Fluid> FluidSpecBuilder<T> fluid(String name, Function<String, T> fluid) {
+        FluidSpecBuilder<T> builder = new FluidSpecBuilder<>(name, fluid);
+        fluids.add(builder);
 
         return builder;
     }
@@ -72,6 +81,9 @@ public class FeatureInitSpecBuilder {
                 .collect(Collectors.toList()),
             items.stream()
                 .map(ItemSpecBuilder::build)
+                .collect(Collectors.toList()),
+            fluids.stream()
+                .map(FluidSpecBuilder::build)
                 .collect(Collectors.toList()),
             tileEntities,
             containers);

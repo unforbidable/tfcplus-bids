@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.core.features.client.render.RenderBlockSpec;
 import com.unforbidable.tfc.bids.core.features.client.render.RenderItemSpec;
 import com.unforbidable.tfc.bids.core.features.client.render.RenderTileEntitySpec;
 import com.unforbidable.tfc.bids.core.features.init.block.BlockSpec;
+import com.unforbidable.tfc.bids.core.features.init.fluid.FluidSpec;
 import com.unforbidable.tfc.bids.core.features.init.gui.GuiContainerSpec;
 import com.unforbidable.tfc.bids.core.features.init.item.ItemSpec;
 import com.unforbidable.tfc.bids.core.features.init.tileentity.TileEntitySpec;
@@ -38,7 +39,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -110,6 +113,13 @@ public class FeatureRegistry {
         Bids.LOG.info("Register item '{}'", entry.spec.name);
 
         GameRegistry.registerItem(entry.instance, entry.spec.name);
+    }
+
+    public void registerFluid(FluidSpec<?> spec) {
+        Bids.LOG.info("Register fluid '{}'", spec.name);
+
+        Fluid instance = spec.getInstance();
+        FluidRegistry.registerFluid(instance);
     }
 
     public void registerTileEntity(TileEntitySpec spec) {

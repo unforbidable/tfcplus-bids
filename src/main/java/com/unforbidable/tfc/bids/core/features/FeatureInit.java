@@ -10,7 +10,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
 import java.util.Comparator;
 
 public class FeatureInit extends Initializable {
@@ -21,6 +20,11 @@ public class FeatureInit extends Initializable {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        Bids.LOG.info("Register fluids");
+        loader.getFeatures().stream()
+            .flatMap(f -> f.init(context).fluids.stream())
+            .forEach(registry::registerFluid);
+
         Bids.LOG.info("Register items");
         // create and register item instances
         loader.getFeatures().stream()
