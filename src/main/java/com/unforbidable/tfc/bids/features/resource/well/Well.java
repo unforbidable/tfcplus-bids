@@ -18,6 +18,8 @@ import com.unforbidable.tfc.bids.features.resource.well.item.ItemBucketRopeFluid
 import com.unforbidable.tfc.bids.features.resource.well.tileentity.TileEntityAquifer;
 import com.unforbidable.tfc.bids.features.resource.well.waila.GenericSoilWailaProvider;
 import com.unforbidable.tfc.bids.features.resource.well.worldgen.AquiferWorldGen;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
 import static com.unforbidable.tfc.bids.api.names.BlockNames.AQUIFER;
@@ -50,6 +52,7 @@ public class Well extends Feature {
         init.tileEntity(TileEntityAquifer.class, "BidsAquifer");
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
         client.waila()
