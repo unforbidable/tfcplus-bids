@@ -32,29 +32,30 @@ public class LargeBowl extends Feature {
         init.item(LARGE_BOWL, ItemLargeBowl::new);
 
         init.item(LARGE_BOWL_FRESH_WATER, ItemLargeBowlFluid::new)
-            .meta("Pottery")
-            .container(() -> lookup.item(LARGE_BOWL), 1)
-            .fluid(500, TFCFluids.FRESHWATER);
+            .meta("Pottery");
         init.item(LARGE_BOWL_SALT_WATER, ItemLargeBowlFluid::new)
-            .meta("Pottery")
-            .container(() -> lookup.item(LARGE_BOWL), 1)
-            .fluid(500, TFCFluids.SALTWATER);
+            .meta("Pottery");
         init.item(LARGE_BOWL_VINEGAR, ItemLargeBowlFluid::new)
-            .meta("Pottery")
-            .container(() -> lookup.item(LARGE_BOWL), 1)
-            .fluid(500, TFCFluids.VINEGAR);
+            .meta("Pottery");
         init.item(LARGE_BOWL_MILK, ItemLargeBowlFluid::new)
-            .meta("Pottery")
-            .container(() -> lookup.item(LARGE_BOWL), 1)
-            .fluid(500, TFCFluids.MILK);
+            .meta("Pottery");
         init.item(LARGE_BOWL_HONEY, ItemLargeBowlFluid::new)
-            .meta("Pottery")
-            .container(() -> lookup.item(LARGE_BOWL), 1)
-            .fluid(500, TFCFluids.HONEY);
+            .meta("Pottery");
     }
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
+        setup.fluid(TFCFluids.FRESHWATER)
+            .container(BidsItems.freshWaterLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
+        setup.fluid(TFCFluids.SALTWATER)
+            .container(BidsItems.saltWaterLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
+        setup.fluid(TFCFluids.VINEGAR)
+            .container(BidsItems.vinegarLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
+        setup.fluid(TFCFluids.MILK)
+            .container(BidsItems.milkLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
+        setup.fluid(TFCFluids.HONEY)
+            .container(BidsItems.honeyLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
+
         setup.ores("itemMilkingContainer")
             .add(new ItemStack(BidsItems.largeClayBowl, 1, 1));
 

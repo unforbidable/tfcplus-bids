@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.core.features.init.gui.GuiContainerSpec;
 import com.unforbidable.tfc.bids.core.features.init.item.ItemSpec;
 import com.unforbidable.tfc.bids.core.features.init.tileentity.TileEntitySpec;
 import com.unforbidable.tfc.bids.core.features.setup.eventhandler.EventHandlerSpec;
+import com.unforbidable.tfc.bids.core.features.setup.fluidcontainer.FluidContainerSpec;
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroup;
 import com.unforbidable.tfc.bids.core.features.setup.registry.MapRegistryGroup;
 import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryGroup;
@@ -174,27 +175,28 @@ public class FeatureRegistry {
         Blocks.fire.setFireInfo(block.instance, spec.fireInfo.encouragement, spec.fireInfo.flammability);
     }
 
-    public void registerFluidContainer(ItemSpec<?> spec) {
-        Bids.LOG.info("Register item as fluid container '{}' ({})", spec.name,
-            spec.fluid.partial ? "partial" : spec.meta != null ? "multi" : "single");
+    public void initItemFluidContainer(FluidContainerSpec spec) {
+        Bids.LOG.info("Init fluid container {} for item {}",
+            spec.empty, spec.filled);
 
-        ItemRegistryEntry item = items.get(spec.name);
+        spec.filled.setContainerItem(spec.empty);
 
-        if (spec.fluid.partial) {
-            FluidHelper.registerPartialFluidContainer(spec.fluid.fluid, spec.container.item.get(),
-                spec.container.emptyItemDamage, item.instance, 50, spec.fluid.volume);
+        if (spec.partial) {
+            spec.filled.setMaxDamage(spec.volume / 50);
+        }
+    }
+
+    public void registerFluidContainer(FluidContainerSpec spec) {
+        Bids.LOG.info("Register fluid container for fluid '{}' volume {}{}", spec.fluid.getName(),
+            spec.volume, spec.partial ? " (partial)" : "");
+
+        if (spec.partial) {
+            FluidHelper.registerPartialFluidContainer(spec.fluid, spec.empty,
+                spec.emptyDamage, spec.filled, 50, spec.volume);
         } else {
-            if (spec.meta != null) {
-                for (int i = 0; i < spec.meta.names.length; i++) {
-                    FluidContainerRegistry.registerFluidContainer(new FluidStack(spec.fluid.fluid, spec.fluid.volume),
-                        new ItemStack(item.instance, 1, i),
-                        new ItemStack(spec.container.item.get(), 1, i + spec.container.emptyItemDamage));
-                }
-            } else {
-                FluidContainerRegistry.registerFluidContainer(new FluidStack(spec.fluid.fluid, spec.fluid.volume),
-                    new ItemStack(item.instance, 1, 0),
-                    new ItemStack(spec.container.item.get(), 1, spec.container.emptyItemDamage));
-            }
+            FluidContainerRegistry.registerFluidContainer(new FluidStack(spec.fluid, spec.volume),
+                new ItemStack(spec.filled, 1, spec.filledDamage),
+                new ItemStack(spec.empty, 1, spec.emptyDamage));
         }
     }
 

@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.core.features.setup;
 
-import akka.dispatch.PriorityGenerator;
 import com.unforbidable.tfc.bids.core.features.setup.eventhandler.EventHandlerSpecCollector;
+import com.unforbidable.tfc.bids.core.features.setup.fluidcontainer.FluidContainerGroupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.network.NetworkSetupHelper;
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.recipe.CraftingRecipeSetupBuilder;
@@ -10,16 +10,17 @@ import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryGroupBuild
 import com.unforbidable.tfc.bids.core.features.setup.worldgen.WorldGenSpecCollector;
 import com.unforbidable.tfc.bids.util.registry.ListRegistry;
 import com.unforbidable.tfc.bids.util.registry.MapRegistry;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import net.minecraftforge.fluids.Fluid;
 
 public class FeatureSetupBuilder {
 
     private final List<RegistryGroupBuilder<?>> lists = new ArrayList<>();
     private final List<MapRegistryGroupBuilder<?, ?>> maps = new ArrayList<>();
     private final List<OreGroupBuilder> ores = new ArrayList<>();
+    private final List<FluidContainerGroupBuilder> fluids = new ArrayList<>();
     private final CraftingRecipeSetupBuilder craftingRecipes = new CraftingRecipeSetupBuilder();
     private final NetworkSetupHelper network = new NetworkSetupHelper();
     private final List<Runnable> runs = new ArrayList<>();
@@ -51,6 +52,13 @@ public class FeatureSetupBuilder {
         return builder;
     }
 
+    public FluidContainerGroupBuilder fluid(Fluid fluid) {
+        FluidContainerGroupBuilder builder = new FluidContainerGroupBuilder(fluid);
+        fluids.add(builder);
+
+        return builder;
+    }
+
     public NetworkSetupHelper network() {
         return network;
     }
@@ -77,6 +85,9 @@ public class FeatureSetupBuilder {
                 .collect(Collectors.toList()),
             ores.stream()
                 .map(OreGroupBuilder::build)
+                .collect(Collectors.toList()),
+            fluids.stream()
+                .map(FluidContainerGroupBuilder::build)
                 .collect(Collectors.toList()),
             craftingRecipes.build(),
             runs,

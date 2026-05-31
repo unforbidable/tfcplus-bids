@@ -45,6 +45,14 @@ public class FeatureInit extends Initializable {
         loader.getFeatures().stream()
             .flatMap(f -> f.init(context).tileEntities.stream())
             .forEach(registry::registerTileEntity);
+
+        // technically part of setup, must run in preInit but only once all items, block and fluids are registered
+        // sets the empty container of item instances of filled container items
+        Bids.LOG.info("Init item fluid containers");
+        loader.getFeatures().stream()
+            .flatMap(f -> f.setup(context).fluids.stream())
+            .flatMap(f -> f.containers.stream())
+            .forEach(registry::initItemFluidContainer);
     }
 
     @SideOnly(Side.CLIENT)
@@ -70,8 +78,8 @@ public class FeatureInit extends Initializable {
     public void init(FMLInitializationEvent event) {
         Bids.LOG.info("Register fluid containers");
         loader.getFeatures().stream()
-            .flatMap(f -> f.init(context).items.stream())
-            .filter(i -> i.container != null && i.fluid != null)
+            .flatMap(f -> f.setup(context).fluids.stream())
+            .flatMap(f -> f.containers.stream())
             .forEach(registry::registerFluidContainer);
 
         Bids.LOG.info("Register drinks");

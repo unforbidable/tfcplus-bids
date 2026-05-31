@@ -39,14 +39,10 @@ public class Well extends Feature {
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.item(WOODEN_BUCKET_AND_ROPE, () -> new ItemBucketRopeEmpty(false));
-        init.item(WOODEN_BUCKET_AND_ROPE_FRESH_WATER, () -> new ItemBucketRopeFluid(false))
-            .container(() -> lookup.item(WOODEN_BUCKET_AND_ROPE))
-            .fluid(1000, TFCFluids.FRESHWATER);
+        init.item(WOODEN_BUCKET_AND_ROPE_FRESH_WATER, () -> new ItemBucketRopeFluid(false));
 
         init.item(CERAMIC_BUCKET_AND_ROPE, () -> new ItemBucketRopeEmpty(true));
-        init.item(CERAMIC_BUCKET_AND_ROPE_FRESH_WATER, () -> new ItemBucketRopeFluid(true))
-            .container(() -> lookup.item(CERAMIC_BUCKET_AND_ROPE))
-            .fluid(1000, TFCFluids.FRESHWATER);
+        init.item(CERAMIC_BUCKET_AND_ROPE_FRESH_WATER, () -> new ItemBucketRopeFluid(true));
 
         init.block(AQUIFER, () -> new BlockAquifer(0, TFCBlocks.gravel), ItemGenericSoil.class);
         init.block(AQUIFER_2, () -> new BlockAquifer(16, TFCBlocks.gravel2), ItemGenericSoil.class);
@@ -64,6 +60,10 @@ public class Well extends Feature {
     public void setup(FeatureSetupBuilder setup) {
         setup.world()
             .gen(new AquiferWorldGen(), 0);
+
+        setup.fluid(TFCFluids.FRESHWATER)
+            .container(BidsItems.ceramicBucketRopeWater, 1000, false, BidsItems.ceramicBucketRope)
+            .container(BidsItems.woodenBucketRopeWater, 1000, false, BidsItems.woodenBucketRope);
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.ceramicBucketRope),
             TFCItems.rope, TFCItems.clayBucketEmpty);

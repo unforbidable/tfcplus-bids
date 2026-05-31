@@ -1,12 +1,10 @@
 package com.unforbidable.tfc.bids.core.features.init.item;
 
-import net.minecraft.item.Item;
-import net.minecraftforge.fluids.Fluid;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import net.minecraft.item.Item;
 
 public class ItemSpecBuilder<T extends Item> {
 
@@ -14,8 +12,6 @@ public class ItemSpecBuilder<T extends Item> {
     private final Supplier<T> item;
 
     private Consumer<T> apply;
-    private ContainerSpec container;
-    private FluidSpec fluid;
     private DrinkSpec drink;
     private OverlaySpec overlay;
     private MoldSpec mold;
@@ -37,61 +33,6 @@ public class ItemSpecBuilder<T extends Item> {
         }
 
         return this;
-    }
-
-    /**
-     * Specifies the item that is the empty container.
-     * @param item Empty container item
-     * @return This <code>ItemSpecBuilder</code> instance.
-     */
-    public ItemSpecBuilder<T> container(Item item) {
-        return container(() -> item, 0);
-    }
-
-    /**
-     * <p>Specifies the item that is the empty container, and the damage.</p>
-     * <p>Pottery empty containers typically specify damage value of 1, 0 being the unfired item.
-     * For containers with sub items, the damage value is added to the index of the sub item.</p>
-     * <p>Containers with sub items currently do not support partial fluids.</p>
-     * @param item Empty container item
-     * @param emptyItemDamage Empty container item damage
-     * @return This <code>ItemSpecBuilder</code> instance.
-     */
-    public ItemSpecBuilder<T> container(Item item, int emptyItemDamage) {
-        container = new ContainerSpec(() -> item, emptyItemDamage);
-
-        return this;
-    }
-
-    /**
-     * <p>Specifies the item that is the empty container, and the damage.</p>
-     * <p>Unlike <code>container(Item item, int emptyItemDamage)</code>, this method accepts</p>
-     * <code>Supplier&lt;Item&gt;</code>, which is invoked only once the <code>Item</code> instance is actually created.
-     * This is necessary in case the container item is initialized in the same feature where it is referenced in.
-     * @param item Empty container item
-     * @param emptyItemDamage Empty container item damage
-     * @return This <code>ItemSpecBuilder</code> instance.
-     */
-    public ItemSpecBuilder<T> container(Supplier<Item> item, int emptyItemDamage) {
-        container = new ContainerSpec(item, emptyItemDamage);
-
-        return this;
-    }
-
-    public ItemSpecBuilder<T> container(Supplier<Item> item) {
-        container = new ContainerSpec(item, 0);
-
-        return this;
-    }
-
-    public ItemSpecBuilder<T> fluid(int volume, Fluid fluid, boolean partial) {
-        this.fluid = new FluidSpec(volume, fluid, partial);
-
-        return this;
-    }
-
-    public ItemSpecBuilder<T> fluid(int volume, Fluid fluid) {
-        return fluid(volume, fluid, false);
     }
 
     public ItemSpecBuilder<T> drink(int volume, boolean pottery) {
@@ -161,7 +102,7 @@ public class ItemSpecBuilder<T extends Item> {
     }
 
     public ItemSpec<T> build() {
-        return new ItemSpec<>(name, item, apply, container, fluid, drink, overlay, mold, meta, harvest, food, smoke);
+        return new ItemSpec<>(name, item, apply, drink, overlay, mold, meta, harvest, food, smoke);
     }
 
 }

@@ -11,7 +11,6 @@ import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.utility.pail.item.ItemPailEmpty;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_PAIL;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_PAIL_FRESH_WATER;
@@ -23,16 +22,18 @@ public class Pail extends Feature {
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.item(WOODEN_PAIL, ItemPailEmpty::new);
-        init.item(WOODEN_PAIL_MILK, ItemPailFluid::new)
-            .container(() -> lookup.item(WOODEN_PAIL))
-            .fluid(4000, TFCFluids.MILK);
-        init.item(WOODEN_PAIL_FRESH_WATER, ItemPailFluid::new)
-            .container(() -> lookup.item(WOODEN_PAIL))
-            .fluid(4000, TFCFluids.FRESHWATER);
+        init.item(WOODEN_PAIL_MILK, ItemPailFluid::new);
+        init.item(WOODEN_PAIL_FRESH_WATER, ItemPailFluid::new);
     }
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
+        setup.fluid(TFCFluids.MILK)
+            .container(BidsItems.woodenPailMilk, 4000, true, BidsItems.woodenPailEmpty);
+
+        setup.fluid(TFCFluids.FRESHWATER)
+            .container(BidsItems.woodenPailFreshWater, 4000, true, BidsItems.woodenPailEmpty);
+
         setup.ores("itemMilkingContainer")
             .add(BidsItems.woodenPailEmpty)
             .add(BidsItems.woodenPailMilk)

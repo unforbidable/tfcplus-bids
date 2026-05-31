@@ -15,8 +15,6 @@ public class ItemSpec<T extends Item> {
     public final String name;
     private final Supplier<T> item;
     private final Consumer<T> apply;
-    public final ContainerSpec container;
-    public final FluidSpec fluid;
     public final DrinkSpec drink;
     public final OverlaySpec overlay;
     public final MoldSpec mold;
@@ -26,15 +24,13 @@ public class ItemSpec<T extends Item> {
     public final SmokeSpec smoke;
 
     public ItemSpec(String name, Supplier<T> item, Consumer<T> apply,
-                    ContainerSpec container, FluidSpec fluid, DrinkSpec drink, OverlaySpec overlay,
+                    DrinkSpec drink, OverlaySpec overlay,
                     MoldSpec mold, MetaSpec meta,
                     List<ItemHarvestSpec> harvests,
                     FoodSpec food, SmokeSpec smoke) {
         this.name = name;
         this.item = item;
         this.apply = apply;
-        this.container = container;
-        this.fluid = fluid;
         this.drink = drink;
         this.overlay = overlay;
         this.mold = mold;
@@ -47,14 +43,6 @@ public class ItemSpec<T extends Item> {
     public T getInstance() {
         T instance = item.get();
         instance.setUnlocalizedName(name);
-
-        if (container != null) {
-            instance.setContainerItem(container.item.get());
-
-            if (fluid != null && fluid.partial) {
-                instance.setMaxDamage(fluid.volume / 50);
-            }
-        }
 
         if (mold != null && instance instanceof ItemCommonPotteryMold) {
             ((ItemCommonPotteryMold) instance).setCounter(mold.counter);
