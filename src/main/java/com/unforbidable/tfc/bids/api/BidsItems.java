@@ -215,10 +215,12 @@ public class BidsItems {
     public static final Item goatMilkLargeBowl = item(ItemNames.LARGE_BOWL_GOAT_MILK);
     public static final Item woodenPailGoatMilk = item(ItemNames.WOODEN_PAIL_GOAT_MILK);
 
+    // Spear
+    public static final Item hardenedWoodenSpear = item(ItemNames.HARDENED_WOODEN_SPEAR);
 
 
 
-    public static Item hardenedWoodenSpear;
+
 
     public static Item board;
     public static Item shaft;

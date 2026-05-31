@@ -43,6 +43,7 @@ import com.unforbidable.tfc.bids.features.utility.handaxe.HandAxe;
 import com.unforbidable.tfc.bids.features.utility.largebowl.LargeBowl;
 import com.unforbidable.tfc.bids.features.utility.leatherwear.Leatherwear;
 import com.unforbidable.tfc.bids.features.utility.pail.Pail;
+import com.unforbidable.tfc.bids.features.utility.spear.Spear;
 
 public class Features {
 
@@ -89,6 +90,7 @@ public class Features {
         new LargeBowl(),
         new HandAxe(),
         new CompositeTools(),
+        new Spear(),
     };
 
 }

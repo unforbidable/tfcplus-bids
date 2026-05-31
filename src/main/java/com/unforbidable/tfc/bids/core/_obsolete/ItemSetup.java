@@ -148,10 +148,8 @@ public class ItemSetup extends BidsItems {
 //        mMHandAxe = new ItemHandAxe(TFCItems.mMToolMaterial)
 //            .setUnlocalizedName("MM Hand Axe");
 
-        hardenedWoodenSpear = new ItemHardenedWoodenSpear(BidsToolMaterial.HARDENED_WOOD)
-            .setPierceDamageShape("2X2")
-            .setAttackSpeed(12)
-            .setUnlocalizedName("Hardened Wooden Spear");
+//        hardenedWoodenSpear = new ItemHardenedWoodenSpear()
+//            .setUnlocalizedName("Hardened Wooden Spear");
 
 //        Metal[] toolMetals = new Metal[]{Global.COPPER, Global.BRONZE, Global.BISMUTHBRONZE, Global.BLACKBRONZE};
 //        clayMoldAdze = new ItemCommonPotteryMold()
@@ -1250,7 +1248,7 @@ public class ItemSetup extends BidsItems {
             MinecraftForgeClient.registerItemRenderer(item, new HandworkToolItemRenderer());
         }
 
-        MinecraftForgeClient.registerItemRenderer(hardenedWoodenSpear, new PoleItemRenderer());
+//        MinecraftForgeClient.registerItemRenderer(hardenedWoodenSpear, new PoleItemRenderer());
 
         MinecraftForgeClient.registerItemRenderer(dryingMudBrick, new DryingMudBrickItemRenderer());
     }
