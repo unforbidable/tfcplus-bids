@@ -14,12 +14,21 @@ public class AnvilRecipeStage extends RegistryStage<AnvilRecipe> {
         Bids.LOG.info("Register TFC anvil recipe for {}", recipe.output);
 
         try {
-            com.dunk.tfc.api.Crafting.AnvilRecipe recipeTfc = new com.dunk.tfc.api.Crafting.AnvilRecipe(recipe.input, recipe.input2,
-                recipe.plan, AnvilReq.STONE, recipe.output);
-            recipeTfc.anvilreq = recipe.req;
-            recipeTfc.addRecipeSkill(recipe.skill);
+            com.dunk.tfc.api.Crafting.AnvilRecipe recipeTfc = recipe.welding ?
+                new com.dunk.tfc.api.Crafting.AnvilRecipe(recipe.input, recipe.input2, AnvilReq.STONE, recipe.output) :
+                new com.dunk.tfc.api.Crafting.AnvilRecipe(recipe.input, recipe.input2, recipe.plan, AnvilReq.STONE, recipe.output);
 
-            AnvilManager.getInstance().addRecipe(recipeTfc);
+            recipeTfc.anvilreq = recipe.req;
+
+            if (recipe.skill != null) {
+                recipeTfc.addRecipeSkill(recipe.skill);
+            }
+
+            if (recipe.welding) {
+                AnvilManager.getInstance().addWeldRecipe(recipeTfc);
+            } else {
+                AnvilManager.getInstance().addRecipe(recipeTfc);
+            }
 
         } catch (Exception ex) {
             Bids.LOG.error("Failed to register TFC anvil recipe for {}: {}", recipe.output, ex.getMessage(), ex);
