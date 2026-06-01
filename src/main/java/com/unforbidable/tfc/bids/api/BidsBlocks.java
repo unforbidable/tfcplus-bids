@@ -128,6 +128,14 @@ public class BidsBlocks {
     public static final Block aquifer = block(BlockNames.AQUIFER);
     public static final Block aquifer2 = block(BlockNames.AQUIFER_2);
 
+    // Anvil
+    public static final Block unfinishedAnvilStage1 = block(BlockNames.UNFINISHED_ANVIL_STAGE_1);
+    public static final Block unfinishedAnvilStage2 = block(BlockNames.UNFINISHED_ANVIL_STAGE_2);
+    public static final Block unfinishedAnvilStage3 = block(BlockNames.UNFINISHED_ANVIL_STAGE_3);
+    public static final Block unfinishedAnvilStage4 = block(BlockNames.UNFINISHED_ANVIL_STAGE_4);
+    public static final Block unfinishedAnvilStage5 = block(BlockNames.UNFINISHED_ANVIL_STAGE_5);
+    public static final Block unfinishedAnvilStage6 = block(BlockNames.UNFINISHED_ANVIL_STAGE_6);
+
 
 
 
@@ -182,13 +190,6 @@ public class BidsBlocks {
 
 
 
-
-    public static Block unfinishedAnvilStage1;
-    public static Block unfinishedAnvilStage2;
-    public static Block unfinishedAnvilStage3;
-    public static Block unfinishedAnvilStage4;
-    public static Block unfinishedAnvilStage5;
-    public static Block unfinishedAnvilStage6;
 
     public static Block cookingPot;
     public static Block cookingPotLid;

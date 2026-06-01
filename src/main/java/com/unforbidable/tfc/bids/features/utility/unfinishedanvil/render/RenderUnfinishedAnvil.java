@@ -1,5 +1,6 @@
-package com.unforbidable.tfc.bids.features.material.unfinishedanvil.render;
+package com.unforbidable.tfc.bids.features.utility.unfinishedanvil.render;
 
+import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.block.BlockUnfinishedAnvil;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -8,18 +9,14 @@ import net.minecraft.world.IBlockAccess;
 
 public class RenderUnfinishedAnvil implements ISimpleBlockRenderingHandler {
 
-    private final int stage;
-
-    public RenderUnfinishedAnvil(int stage) {
-        this.stage = stage;
-    }
-
     public static boolean renderAnvil(Block block, int i, int j, int k, RenderBlocks renderblocks) {
 		return true;
 	}
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
+        int stage = ((BlockUnfinishedAnvil)block).getStage();
+
         // top
         if (stage > 3) {
             renderer.setRenderBounds(0.3F, 0.4F, 0.1F, 0.7F, 0.5F, 0.9F);

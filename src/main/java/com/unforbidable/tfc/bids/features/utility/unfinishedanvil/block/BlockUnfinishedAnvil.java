@@ -1,10 +1,12 @@
-package com.unforbidable.tfc.bids.features.material.unfinishedanvil.block;
+package com.unforbidable.tfc.bids.features.utility.unfinishedanvil.block;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,8 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class BlockUnfinishedAnvil extends Block {
 
@@ -66,21 +66,7 @@ public class BlockUnfinishedAnvil extends Block {
 
     @Override
     public int getRenderType() {
-        switch (stage) {
-            case 0:
-                return BidsBlocks.unfinishedAnvilStage1RenderId;
-            case 1:
-                return BidsBlocks.unfinishedAnvilStage2RenderId;
-            case 2:
-                return BidsBlocks.unfinishedAnvilStage3RenderId;
-            case 3:
-                return BidsBlocks.unfinishedAnvilStage4RenderId;
-            case 4:
-                return BidsBlocks.unfinishedAnvilStage5RenderId;
-            case 5:
-            default:
-                return BidsBlocks.unfinishedAnvilStage6RenderId;
-        }
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

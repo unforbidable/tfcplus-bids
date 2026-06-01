@@ -73,7 +73,6 @@ import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.beehive.Beehive
 import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.climbing.ClimbingKilnChamber;
 import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.square.SquareKilnChamber;
 import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.tunnel.TunnelKilnChamber;
-import com.unforbidable.tfc.bids.features.device.lamp.block.BlockClayLamp;
 import com.unforbidable.tfc.bids.features.device.lamp.block.itemblock.ItemClayLamp;
 import com.unforbidable.tfc.bids.features.device.lamp.render.RenderClayLamp;
 import com.unforbidable.tfc.bids.features.device.lamp.tileentity.TileEntityClayLamp;
@@ -108,14 +107,9 @@ import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurf
 import com.unforbidable.tfc.bids.features.device.soakingsurface.render.RenderSoakingSurface;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.render.RenderTileSoakingSurface;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
-import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockSaddleQuern;
-import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockStonePressLever;
-import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockStonePressWeight;
-import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockWorkStone;
 import com.unforbidable.tfc.bids.features.device.saddlequern.block.item.ItemSaddleQuern;
 import com.unforbidable.tfc.bids.features.device.saddlequern.block.item.ItemStonePressWeight;
 import com.unforbidable.tfc.bids.features.device.saddlequern.block.item.ItemWorkStone;
-import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
 import com.unforbidable.tfc.bids.features.device.saddlequern.render.RenderSaddleQuern;
 import com.unforbidable.tfc.bids.features.device.saddlequern.render.RenderStonePressLever;
 import com.unforbidable.tfc.bids.features.device.saddlequern.render.RenderStonePressWeight;
@@ -127,16 +121,14 @@ import com.unforbidable.tfc.bids.features.device.saddlequern.tileentity.TileEnti
 import com.unforbidable.tfc.bids.features.device.strawnest.block.BlockStrawNest;
 import com.unforbidable.tfc.bids.features.device.strawnest.render.RenderStrawNest;
 import com.unforbidable.tfc.bids.features.device.strawnest.tileentity.TileEntityStrawNest;
-import com.unforbidable.tfc.bids.features.device.wallhook.block.BlockWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.block.blockitem.ItemWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.render.RenderTileWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.render.RenderWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.tileentity.TileEntityWallHook;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.blockitem.ItemCrackedStone;
 import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
-import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.BlockUnfinishedAnvil;
-import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.blockitem.ItemUnfinishedAnvil;
-import com.unforbidable.tfc.bids.features.material.unfinishedanvil.render.RenderUnfinishedAnvil;
+import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.block.blockitem.ItemUnfinishedAnvil;
+import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.render.RenderUnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.resource.crops.block.BlockNewCrop;
 import com.unforbidable.tfc.bids.features.resource.crops.block.BlockNewFarmland;
 import com.unforbidable.tfc.bids.features.resource.crops.render.RenderNewCrop;
@@ -144,7 +136,6 @@ import com.unforbidable.tfc.bids.features.resource.crops.tileentity.TileEntityNe
 import com.unforbidable.tfc.bids.features.resource.crops.tileentity.TileEntityNewFarmland;
 import com.unforbidable.tfc.bids.features.resource.quarry.block.itemblock.ItemQuarry;
 import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
-import com.unforbidable.tfc.bids.features.resource.well.block.BlockAquifer;
 import com.unforbidable.tfc.bids.features.resource.well.tileentity.TileEntityAquifer;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -352,18 +343,18 @@ public class BlockSetup extends BidsBlocks {
 //        aquifer2 = new BlockAquifer(16, TFCBlocks.gravel2)
 //                .setBlockName("Aquifer2");
 
-        unfinishedAnvilStage1 = new BlockUnfinishedAnvil(0)
-            .setBlockName("UnfinishedAnvilStage1");
-        unfinishedAnvilStage2 = new BlockUnfinishedAnvil(1)
-            .setBlockName("UnfinishedAnvilStage2");
-        unfinishedAnvilStage3 = new BlockUnfinishedAnvil(2)
-            .setBlockName("UnfinishedAnvilStage3");
-        unfinishedAnvilStage4 = new BlockUnfinishedAnvil(3)
-            .setBlockName("UnfinishedAnvilStage4");
-        unfinishedAnvilStage5 = new BlockUnfinishedAnvil(4)
-            .setBlockName("UnfinishedAnvilStage5");
-        unfinishedAnvilStage6 = new BlockUnfinishedAnvil(5)
-            .setBlockName("UnfinishedAnvilStage6");
+//        unfinishedAnvilStage1 = new BlockUnfinishedAnvil(0)
+//            .setBlockName("UnfinishedAnvilStage1");
+//        unfinishedAnvilStage2 = new BlockUnfinishedAnvil(1)
+//            .setBlockName("UnfinishedAnvilStage2");
+//        unfinishedAnvilStage3 = new BlockUnfinishedAnvil(2)
+//            .setBlockName("UnfinishedAnvilStage3");
+//        unfinishedAnvilStage4 = new BlockUnfinishedAnvil(3)
+//            .setBlockName("UnfinishedAnvilStage4");
+//        unfinishedAnvilStage5 = new BlockUnfinishedAnvil(4)
+//            .setBlockName("UnfinishedAnvilStage5");
+//        unfinishedAnvilStage6 = new BlockUnfinishedAnvil(5)
+//            .setBlockName("UnfinishedAnvilStage6");
 
         cookingPot = new BlockCookingPot()
             .setBlockTextureName("Cooking Pot")
@@ -724,22 +715,22 @@ public class BlockSetup extends BidsBlocks {
         RenderingRegistry.registerBlockHandler(wallHookRenderId, new RenderWallHook());
 
         unfinishedAnvilStage1RenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage1RenderId, new RenderUnfinishedAnvil(0));
+        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage1RenderId, new RenderUnfinishedAnvil());
 
-        unfinishedAnvilStage2RenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage2RenderId, new RenderUnfinishedAnvil(1));
-
-        unfinishedAnvilStage3RenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage3RenderId, new RenderUnfinishedAnvil(2));
-
-        unfinishedAnvilStage4RenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage4RenderId, new RenderUnfinishedAnvil(3));
-
-        unfinishedAnvilStage5RenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage5RenderId, new RenderUnfinishedAnvil(4));
-
-        unfinishedAnvilStage6RenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage6RenderId, new RenderUnfinishedAnvil(5));
+//        unfinishedAnvilStage2RenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage2RenderId, new RenderUnfinishedAnvil(1));
+//
+//        unfinishedAnvilStage3RenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage3RenderId, new RenderUnfinishedAnvil(2));
+//
+//        unfinishedAnvilStage4RenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage4RenderId, new RenderUnfinishedAnvil(3));
+//
+//        unfinishedAnvilStage5RenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage5RenderId, new RenderUnfinishedAnvil(4));
+//
+//        unfinishedAnvilStage6RenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage6RenderId, new RenderUnfinishedAnvil(5));
 
         cookingPotRenderId = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(cookingPotRenderId, new RenderCookingPot());

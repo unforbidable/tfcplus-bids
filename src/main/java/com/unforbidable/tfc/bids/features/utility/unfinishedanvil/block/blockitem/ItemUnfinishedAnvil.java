@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.blockitem;
+package com.unforbidable.tfc.bids.features.utility.unfinishedanvil.block.blockitem;
 
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
@@ -6,7 +6,7 @@ import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.dunk.tfc.api.Metal;
-import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.BlockUnfinishedAnvil;
+import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.api.util.metal.MoreSmeltable;
 import net.minecraft.block.Block;

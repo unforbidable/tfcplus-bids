@@ -4,7 +4,6 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.*;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
-import com.dunk.tfc.api.Enums.RuleEnum;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
@@ -15,7 +14,6 @@ import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
-import com.unforbidable.tfc.bids.features.material.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManager;
@@ -2214,37 +2212,37 @@ public class RecipeSetup {
 //            AnvilManager.getInstance().addRecipe(new AnvilRecipe(new ItemStack(TFCItems.wroughtIronIngot), null,
 //                "plugandfeather", AnvilReq.WROUGHTIRON, new ItemStack(BidsItems.plugAndFeather, 8, 5)).addRecipeSkill(Global.SKILL_GENERAL_SMITHING));
 
-            AnvilManager.getInstance().addPlan("anvil", new PlanRecipe(new RuleEnum[]{RuleEnum.HITLAST, RuleEnum.HITSECONDFROMLAST, RuleEnum.HITTHIRDFROMLAST}));
-
-            registerUnfinishedAnvilRecipeHelper(1, TFCItems.copperIngot2x, AnvilReq.STONE);
-            registerUnfinishedAnvilRecipeHelper(2, TFCItems.bronzeIngot2x, AnvilReq.COPPER);
-            registerUnfinishedAnvilRecipeHelper(3, TFCItems.wroughtIronIngot2x, AnvilReq.BRONZE);
-            registerUnfinishedAnvilRecipeHelper(4, TFCItems.steelIngot2x, AnvilReq.WROUGHTIRON);
-            registerUnfinishedAnvilRecipeHelper(5, TFCItems.blackSteelIngot2x, AnvilReq.STEEL);
-            registerUnfinishedAnvilRecipeHelper(6, TFCItems.blueSteelIngot2x, AnvilReq.BLACKSTEEL);
-            registerUnfinishedAnvilRecipeHelper(7, TFCItems.redSteelIngot2x, AnvilReq.BLACKSTEEL);
-            registerUnfinishedAnvilRecipeHelper(8, TFCItems.roseGoldIngot2x, AnvilReq.COPPER);
-            registerUnfinishedAnvilRecipeHelper(9, TFCItems.bismuthBronzeIngot2x, AnvilReq.COPPER);
-            registerUnfinishedAnvilRecipeHelper(10, TFCItems.blackBronzeIngot2x, AnvilReq.COPPER);
+//            AnvilManager.getInstance().addPlan("anvil", new PlanRecipe(new RuleEnum[]{RuleEnum.HITLAST, RuleEnum.HITSECONDFROMLAST, RuleEnum.HITTHIRDFROMLAST}));
+//
+//            registerUnfinishedAnvilRecipeHelper(1, TFCItems.copperIngot2x, AnvilReq.STONE);
+//            registerUnfinishedAnvilRecipeHelper(2, TFCItems.bronzeIngot2x, AnvilReq.COPPER);
+//            registerUnfinishedAnvilRecipeHelper(3, TFCItems.wroughtIronIngot2x, AnvilReq.BRONZE);
+//            registerUnfinishedAnvilRecipeHelper(4, TFCItems.steelIngot2x, AnvilReq.WROUGHTIRON);
+//            registerUnfinishedAnvilRecipeHelper(5, TFCItems.blackSteelIngot2x, AnvilReq.STEEL);
+//            registerUnfinishedAnvilRecipeHelper(6, TFCItems.blueSteelIngot2x, AnvilReq.BLACKSTEEL);
+//            registerUnfinishedAnvilRecipeHelper(7, TFCItems.redSteelIngot2x, AnvilReq.BLACKSTEEL);
+//            registerUnfinishedAnvilRecipeHelper(8, TFCItems.roseGoldIngot2x, AnvilReq.COPPER);
+//            registerUnfinishedAnvilRecipeHelper(9, TFCItems.bismuthBronzeIngot2x, AnvilReq.COPPER);
+//            registerUnfinishedAnvilRecipeHelper(10, TFCItems.blackBronzeIngot2x, AnvilReq.COPPER);
         }
     }
 
     private static void registerUnfinishedAnvilRecipeHelper(int mat, Item ingot2x, AnvilReq req) {
-        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), new ItemStack(ingot2x),
-            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 0)));
-        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 0),
-            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 1)));
-        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 1),
-            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 2)));
-        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 2),
-            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 3)));
-        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 3),
-            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 4)));
-        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 4),
-            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 5)));
-
-        AnvilManager.getInstance().addRecipe(new AnvilRecipe(BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 5), null,
-            "anvil", req, BlockUnfinishedAnvil.getFinishedAnvil(mat)).addRecipeSkill(Global.SKILL_GENERAL_SMITHING));
+//        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), new ItemStack(ingot2x),
+//            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 0)));
+//        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 0),
+//            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 1)));
+//        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 1),
+//            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 2)));
+//        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 2),
+//            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 3)));
+//        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 3),
+//            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 4)));
+//        AnvilManager.getInstance().addWeldRecipe(new AnvilRecipe(new ItemStack(ingot2x), BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 4),
+//            req, BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 5)));
+//
+//        AnvilManager.getInstance().addRecipe(new AnvilRecipe(BlockUnfinishedAnvil.getUnfinishedAnvil(mat, 5), null,
+//            "anvil", req, BlockUnfinishedAnvil.getFinishedAnvil(mat)).addRecipeSkill(Global.SKILL_GENERAL_SMITHING));
 
     }
 
