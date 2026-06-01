@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.compat.tfc.registry;
 
-public abstract class RegistryActor<S> {
+public abstract class RegistryActor<T> {
 
-    protected final RegistryStage<S> stage;
+    protected final RegistryStage<T> stage;
 
-    public RegistryActor(RegistryStage<S> stage) {
+    public RegistryActor(RegistryStage<T> stage) {
         this.stage = stage;
     }
 

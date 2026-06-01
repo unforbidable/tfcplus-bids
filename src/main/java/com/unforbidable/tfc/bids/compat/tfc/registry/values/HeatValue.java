@@ -28,4 +28,8 @@ public class HeatValue {
         return new RegistryAddingActor<>(HeatValueStage.instance, new HeatValue(input, specificHeat, meltTemp, output, keepNbt));
     }
 
+    public static HeatValueCloner clone(ItemStack itemStack) {
+        return new HeatValueCloner(HeatValueStage.instance, v -> ItemStack.areItemStacksEqual(v.input, itemStack));
+    }
+
 }

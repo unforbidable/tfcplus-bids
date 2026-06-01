@@ -1,8 +1,6 @@
 package com.unforbidable.tfc.bids.features.material.ore;
 
 import com.dunk.tfc.api.Constant.Global;
-import com.dunk.tfc.api.HeatIndex;
-import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -41,46 +39,44 @@ public class Ore extends Feature {
 
         // TODO create metal scheme instead
         for (int i = 0; i < Global.ORE_METAL.length; i++) {
-            ItemStack small = new ItemStack(TFCItems.smallOreChunk, 1, i);
-            ItemStack poor = new ItemStack(TFCItems.oreChunk, 1, Global.oreGrade2Offset + i);
-            ItemStack normal = new ItemStack(TFCItems.oreChunk, 1, i);
-            ItemStack rich = new ItemStack(TFCItems.oreChunk, 1, Global.oreGrade1Offset + i);
+            // Skip coal and lignite
+            if (i != 14 && i != 15) {
+                ItemStack small = new ItemStack(TFCItems.smallOreChunk, 1, i);
+                ItemStack poor = new ItemStack(TFCItems.oreChunk, 1, Global.oreGrade2Offset + i);
+                ItemStack normal = new ItemStack(TFCItems.oreChunk, 1, i);
+                ItemStack rich = new ItemStack(TFCItems.oreChunk, 1, Global.oreGrade1Offset + i);
 
-            if (MetalHelper.isOreIron(small)) {
-                setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 2, i),
-                        small, "itemHammerIronBits")
-                    .action(damageTool("itemHammerIronBits", 10));
-                setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 3, i),
-                        poor, "itemHammerIronBits")
-                    .action(damageTool("itemHammerIronBits", 20));
-                setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 5, i),
-                        normal, "itemHammerIronBits")
-                    .action(damageTool("itemHammerIronBits", 30));
-                setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 7, i),
-                        rich, "itemHammerIronBits")
-                    .action(damageTool("itemHammerIronBits", 40));
-            } else {
-                setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 2, i),
-                        small, "itemHammer")
-                    .action(damageTool("itemHammer", 1));
-                setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 3, i),
-                        poor, "itemHammer")
-                    .action(damageTool("itemHammer", 2));
-                setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 5, i),
-                        normal, "itemHammer")
-                    .action(damageTool("itemHammer", 3));
-                setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 7, i),
-                        rich, "itemHammer")
-                    .action(damageTool("itemHammer", 4));
-            }
+                if (MetalHelper.isOreIron(small)) {
+                    setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 2, i),
+                            small, "itemHammerIronBits")
+                        .action(damageTool("itemHammerIronBits", 10));
+                    setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 3, i),
+                            poor, "itemHammerIronBits")
+                        .action(damageTool("itemHammerIronBits", 20));
+                    setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 5, i),
+                            normal, "itemHammerIronBits")
+                        .action(damageTool("itemHammerIronBits", 30));
+                    setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 7, i),
+                            rich, "itemHammerIronBits")
+                        .action(damageTool("itemHammerIronBits", 40));
+                } else {
+                    setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 2, i),
+                            small, "itemHammer")
+                        .action(damageTool("itemHammer", 1));
+                    setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 3, i),
+                            poor, "itemHammer")
+                        .action(damageTool("itemHammer", 2));
+                    setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 5, i),
+                            normal, "itemHammer")
+                        .action(damageTool("itemHammer", 3));
+                    setup.recipes().addShapeless(new ItemStack(BidsItems.oreBit, 7, i),
+                            rich, "itemHammer")
+                        .action(damageTool("itemHammer", 4));
+                }
 
-            // TODO use clone value actor instead of add
-            ItemStack smallOre = new ItemStack(TFCItems.smallOreChunk, 1, i);
-            HeatIndex smallOreHeatIndex = HeatRegistry.getInstance().findMatchingIndex(smallOre);
-            if (smallOreHeatIndex != null) {
                 setup.registry(TfcRegistry.Values.heat)
-                    .add(HeatValue.add(new ItemStack(BidsItems.oreBit, 1, i), smallOreHeatIndex.specificHeat,
-                        smallOreHeatIndex.meltTemp, new ItemStack(smallOreHeatIndex.getOutputItem(), 1)));
+                    .add(HeatValue.clone(new ItemStack(TFCItems.smallOreChunk, 1, i))
+                        .as(new ItemStack(BidsItems.oreBit, 1, i)));
             }
         }
     }
