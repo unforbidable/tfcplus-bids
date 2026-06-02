@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Events;
+package com.unforbidable.tfc.bids.api.features.crucible;
 
 import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityCrucible;
 import net.minecraft.entity.player.EntityPlayer;

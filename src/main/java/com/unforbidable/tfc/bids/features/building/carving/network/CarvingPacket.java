@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.features.building.carving.network;
 
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumAdzeMode;
+import com.unforbidable.tfc.bids.api.features.carving.AdzeMode;
 import com.unforbidable.tfc.bids.core.network.packet.Packet;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBit;
 import io.netty.buffer.ByteBuf;
@@ -10,7 +10,7 @@ public class CarvingPacket extends Packet {
     private int action;
     private int flag;
     private CarvingBit bit = CarvingBit.Empty;
-    private EnumAdzeMode carvingMode = EnumAdzeMode.DEFAULT_MODE;
+    private AdzeMode carvingMode = AdzeMode.DEFAULT_MODE;
     private int side;
     private byte[] carvedData = null;
 
@@ -52,12 +52,12 @@ public class CarvingPacket extends Packet {
         return bit;
     }
 
-    public CarvingPacket setCarvingMode(EnumAdzeMode carvingMode) {
+    public CarvingPacket setCarvingMode(AdzeMode carvingMode) {
         this.carvingMode = carvingMode;
         return this;
     }
 
-    public EnumAdzeMode getCarvingMode() {
+    public AdzeMode getCarvingMode() {
         return carvingMode;
     }
 
@@ -76,7 +76,7 @@ public class CarvingPacket extends Packet {
 
         action = buf.readByte();
         flag = buf.readByte();
-        carvingMode = EnumAdzeMode.valueOf(buf.readByte());
+        carvingMode = AdzeMode.valueOf(buf.readByte());
         side = buf.readByte();
 
         boolean isEmpty = buf.readBoolean();

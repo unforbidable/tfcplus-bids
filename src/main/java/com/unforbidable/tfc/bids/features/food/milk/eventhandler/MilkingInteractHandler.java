@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.food.milk.eventhandler;
 import com.dunk.tfc.Items.Tools.ItemCustomBucketMilk;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api._obsolete.Events.FillContainerEvent;
+import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
 import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import com.unforbidable.tfc.bids.features.food.milk.MilkConfig;
 import com.unforbidable.tfc.bids.features.food.milk.main.MilkHelper;

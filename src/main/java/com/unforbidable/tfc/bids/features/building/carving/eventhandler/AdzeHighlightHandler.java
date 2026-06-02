@@ -2,7 +2,7 @@ package com.unforbidable.tfc.bids.features.building.carving.eventhandler;
 
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumAdzeMode;
+import com.unforbidable.tfc.bids.api.features.carving.AdzeMode;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingTool;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.renderer.Tessellator;
@@ -35,7 +35,7 @@ public class AdzeHighlightHandler {
                 double var12 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * evt.partialTicks;
 
                 int side = CarvingHelper.getPlayerCarvedSide(player);
-                EnumAdzeMode carvingMode = CarvingHelper.getPlayerCarvingMode(player);
+                AdzeMode carvingMode = CarvingHelper.getPlayerCarvingMode(player);
 
                 AxisAlignedBB bb = carvingMode.getCarvingMode().getSelectedBitBounds(teCarving.getSelectedBit(), side)
                     .getOffsetBoundingBox(target.blockX, target.blockY, target.blockZ)

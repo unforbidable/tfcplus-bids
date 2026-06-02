@@ -9,7 +9,7 @@ import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
 import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
 import com.unforbidable.tfc.bids.util.playerstate.PlayerStateManager;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumAdzeMode;
+import com.unforbidable.tfc.bids.api.features.carving.AdzeMode;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingTool;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -138,7 +138,7 @@ public class CarvingHelper {
                 (int) Math.min((hitZ * dim), max));
     }
 
-    public static void setBlockBoundsBasedOnSelection(IBlockAccess access, int x, int y, int z, int side, EnumAdzeMode mode) {
+    public static void setBlockBoundsBasedOnSelection(IBlockAccess access, int x, int y, int z, int side, AdzeMode mode) {
         Block block = access.getBlock(x, y, z);
         TileEntityCarving te = (TileEntityCarving) access.getTileEntity(x, y, z);
         CarvingBit selected = te.getSelectedBit();
@@ -240,7 +240,7 @@ public class CarvingHelper {
             int dimension = TileEntityCarving.CARVING_DIMENSION;
             double stride = 1f / dimension;
 
-            EnumAdzeMode carvingMode = getPlayerCarvingMode(Minecraft.getMinecraft().thePlayer);
+            AdzeMode carvingMode = getPlayerCarvingMode(Minecraft.getMinecraft().thePlayer);
             ItemStack item = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
             CarvingTool tool = item != null && item.getItem() instanceof CarvingTool ? (CarvingTool) item.getItem()
                     : null;
@@ -384,10 +384,10 @@ public class CarvingHelper {
     }
 
     @SideOnly(Side.CLIENT)
-    public static EnumAdzeMode getPlayerCarvingMode(EntityPlayer player) {
+    public static AdzeMode getPlayerCarvingMode(EntityPlayer player) {
         CarvingPlayerState state = PlayerStateManager.getPlayerState(player, CarvingPlayerState.class);
         if (state == null) {
-            return EnumAdzeMode.DEFAULT_MODE;
+            return AdzeMode.DEFAULT_MODE;
         } else {
             return state.adzeMode;
         }

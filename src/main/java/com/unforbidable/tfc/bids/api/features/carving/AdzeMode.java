@@ -1,26 +1,25 @@
-package com.unforbidable.tfc.bids.api._obsolete.Enums;
+package com.unforbidable.tfc.bids.api.features.carving;
 
 import com.unforbidable.tfc.bids.features.building.carving.main.modes.CarvingModeCorner;
 import com.unforbidable.tfc.bids.features.building.carving.main.modes.CarvingModeSide;
 import com.unforbidable.tfc.bids.features.building.carving.main.modes.CarvingModeSingle;
-import com.unforbidable.tfc.bids.api.features.carving.CarvingMode;
 
-public enum EnumAdzeMode {
+public enum AdzeMode {
 
     SINGLE(new CarvingModeSingle()),
     CORNER(new CarvingModeCorner()),
     SIDE(new CarvingModeSide());
 
-    public static final EnumAdzeMode DEFAULT_MODE = SINGLE;
-    public static final EnumAdzeMode[] ALL_MODES = new EnumAdzeMode[] { SINGLE, CORNER, SIDE };
+    public static final AdzeMode DEFAULT_MODE = SINGLE;
+    public static final AdzeMode[] ALL_MODES = new AdzeMode[] { SINGLE, CORNER, SIDE };
 
     private final CarvingMode carvingMode;
 
-    EnumAdzeMode(CarvingMode carvingMode) {
+    AdzeMode(CarvingMode carvingMode) {
         this.carvingMode = carvingMode;
     }
 
-    public static EnumAdzeMode valueOf(int ordinal) {
+    public static AdzeMode valueOf(int ordinal) {
         return ALL_MODES[ordinal];
     }
 
@@ -28,7 +27,7 @@ public enum EnumAdzeMode {
         return carvingMode;
     }
 
-    public EnumAdzeMode getNext() {
+    public AdzeMode getNext() {
         int next = ordinal() + 1;
         if (next == ALL_MODES.length) {
             return DEFAULT_MODE;

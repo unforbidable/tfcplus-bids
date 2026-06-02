@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Events;
+package com.unforbidable.tfc.bids.api.features.quarry;
 
 import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
 import net.minecraft.entity.player.EntityPlayer;

@@ -4,7 +4,7 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
 import com.unforbidable.tfc.bids.features.utility.adze.item.ItemAdze;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumAdzeMode;
+import com.unforbidable.tfc.bids.api.features.carving.AdzeMode;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -37,7 +37,7 @@ public class AdzeRenderOverlayHandler {
 
             if (currentItem instanceof ItemAdze && CarvingHelper.isPlayerCarvingActive(player))
             {
-                EnumAdzeMode mode = CarvingHelper.getPlayerCarvingMode(player);
+                AdzeMode mode = CarvingHelper.getPlayerCarvingMode(player);
                 drawTexturedModalRect(mid + 95, sr.getScaledHeight() - 21, (20 * mode.ordinal()), 0, 20, 20);
             }
         }

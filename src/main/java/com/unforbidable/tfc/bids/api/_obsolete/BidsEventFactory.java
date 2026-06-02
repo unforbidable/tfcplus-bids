@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.api._obsolete;
 
-import com.unforbidable.tfc.bids.api._obsolete.Events.AnimalMilkEvent;
-import com.unforbidable.tfc.bids.api._obsolete.Events.FillContainerEvent;
+import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
+import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Events.HandworkPlayerEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Events.KilnEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Events.ProcessingSurfaceEvent;

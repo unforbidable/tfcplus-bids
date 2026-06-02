@@ -9,7 +9,7 @@ import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBitMap;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
 import com.unforbidable.tfc.bids.features.building.carving.network.CarvingPacket;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumAdzeMode;
+import com.unforbidable.tfc.bids.api.features.carving.AdzeMode;
 import com.unforbidable.tfc.bids.api.features.carving.Carvable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -38,7 +38,7 @@ public class TileEntityCarving extends TileEntity implements PacketHandler<Carvi
     int selectedSide = 0;
     boolean clientInitialized = false;
     int carvedBitCount = 0;
-    EnumAdzeMode carvingMode = EnumAdzeMode.DEFAULT_MODE;
+    AdzeMode carvingMode = AdzeMode.DEFAULT_MODE;
 
     ItemStack cachedCraftingResult = null;
     boolean cachedCraftingResultIsValid = false;
@@ -102,11 +102,11 @@ public class TileEntityCarving extends TileEntity implements PacketHandler<Carvi
         return selectedBit;
     }
 
-    public void setCarvingMode(EnumAdzeMode mode) {
+    public void setCarvingMode(AdzeMode mode) {
         carvingMode = mode;
     }
 
-    public EnumAdzeMode getCarvingMode() {
+    public AdzeMode getCarvingMode() {
         return carvingMode;
     }
 
@@ -305,7 +305,7 @@ public class TileEntityCarving extends TileEntity implements PacketHandler<Carvi
 
     }
 
-    public void sendSelectBitMessage(CarvingBit bit, int side, EnumAdzeMode mode) {
+    public void sendSelectBitMessage(CarvingBit bit, int side, AdzeMode mode) {
         CarvingPacket packet = new CarvingPacket(TileEntityCarving.ACTION_SELECT_BIT);
         packet.setBit(bit);
         packet.setSide(side);

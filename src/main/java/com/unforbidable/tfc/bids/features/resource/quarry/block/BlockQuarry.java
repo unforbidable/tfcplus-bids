@@ -2,7 +2,7 @@ package com.unforbidable.tfc.bids.features.resource.quarry.block;
 
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.Events.QuarryPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.quarry.QuarryPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.quarry.Quarriable;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarryHelper;

@@ -2,8 +2,8 @@ package com.unforbidable.tfc.bids.features.device.crucible.block;
 
 import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
 import com.dunk.tfc.api.Constant.Global;
-import com.unforbidable.tfc.bids.api._obsolete.Events.CruciblePlayerEvent;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ILiquidMetalContainer;
+import com.unforbidable.tfc.bids.api.features.crucible.CruciblePlayerEvent;
+import com.unforbidable.tfc.bids.api.features.crucible.LiquidMetalContainer;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityCrucible;
 import com.unforbidable.tfc.bids.util.GuiUtil;
@@ -45,8 +45,8 @@ public abstract class BlockCrucible extends BlockContainer {
         ItemStack itemstack = player.inventory.getCurrentItem();
         if (itemstack != null
                 && isValidBlowpipe(itemstack)
-                && crucible instanceof ILiquidMetalContainer) {
-            ILiquidMetalContainer container = (ILiquidMetalContainer) crucible;
+                && crucible instanceof LiquidMetalContainer) {
+            LiquidMetalContainer container = (LiquidMetalContainer) crucible;
 
             // See if we can quickly load or unload molten glass
             // from or into a compatible tile entity

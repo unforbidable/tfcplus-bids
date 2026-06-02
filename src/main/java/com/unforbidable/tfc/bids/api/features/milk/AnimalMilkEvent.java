@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Events;
+package com.unforbidable.tfc.bids.api.features.milk;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.common.eventhandler.Event;

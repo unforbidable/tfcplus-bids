@@ -8,8 +8,8 @@ import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.dunk.tfc.api.Metal;
 import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api._obsolete.Events.CruciblePlayerEvent;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ILiquidMetalContainer;
+import com.unforbidable.tfc.bids.api.features.crucible.CruciblePlayerEvent;
+import com.unforbidable.tfc.bids.api.features.crucible.LiquidMetalContainer;
 import com.unforbidable.tfc.bids.common.container.slot.ISlotTracker;
 import com.unforbidable.tfc.bids.features.device.crucible.CrucibleConfig;
 import com.unforbidable.tfc.bids.features.device.crucible.main.CrucibleHelper;
@@ -33,7 +33,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 
-public abstract class TileEntityCrucible extends TileEntity implements IInventory, ISlotTracker, ILiquidMetalContainer {
+public abstract class TileEntityCrucible extends TileEntity implements IInventory, ISlotTracker, LiquidMetalContainer {
 
     boolean initialized = false;
 

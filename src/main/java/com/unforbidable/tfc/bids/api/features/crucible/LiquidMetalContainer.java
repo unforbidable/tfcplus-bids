@@ -1,8 +1,8 @@
-package com.unforbidable.tfc.bids.api._obsolete.Interfaces;
+package com.unforbidable.tfc.bids.api.features.crucible;
 
 import com.dunk.tfc.api.Metal;
 
-public interface ILiquidMetalContainer {
+public interface LiquidMetalContainer {
 
     boolean canEjectLiquidMetal(Metal metal, int volume);
 

@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.features.building.carving.main.playerstate;
 
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumAdzeMode;
+import com.unforbidable.tfc.bids.api.features.carving.AdzeMode;
 
 public class CarvingPlayerState {
 
-    public EnumAdzeMode adzeMode = EnumAdzeMode.DEFAULT_MODE;
+    public AdzeMode adzeMode = AdzeMode.DEFAULT_MODE;
     public int carvedSide = 0;
     public boolean isCarvingActive = false;
     public long carvingActivityChangedTime = 0;
