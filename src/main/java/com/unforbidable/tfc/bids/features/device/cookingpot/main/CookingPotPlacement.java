@@ -1,22 +1,47 @@
 package com.unforbidable.tfc.bids.features.device.cookingpot.main;
 
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumCookingHeatLevel;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.World;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.placements.Ground;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.placements.FirepitEdge;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public abstract class CookingPotPlacement {
+public enum CookingPotPlacement {
 
-    public EnumCookingHeatLevel getHeatLevel(World world, int xCoord, int yCoord, int zCoord) {
-        return EnumCookingHeatLevel.NONE;
+    GROUND(new Ground()),
+    FIREPIT_EDGE_WEST(new FirepitEdge(ForgeDirection.WEST)),
+    FIREPIT_EDGE_EAST(new FirepitEdge(ForgeDirection.EAST)),
+    FIREPIT_EDGE_NORTH(new FirepitEdge(ForgeDirection.NORTH)),
+    FIREPIT_EDGE_SOUTH(new FirepitEdge(ForgeDirection.SOUTH));
+
+    private final CookingPotPlacementSpec placement;
+
+    CookingPotPlacement(CookingPotPlacementSpec placement) {
+        this.placement = placement;
     }
 
-    public Vec3 getOffset() {
-        return Vec3.createVectorHelper(0, 0, 0);
+    public static CookingPotPlacement getFirepitEdgePlacementForDirection(ForgeDirection direction) {
+        switch (direction) {
+            case WEST:
+                return FIREPIT_EDGE_WEST;
+            case EAST:
+                return FIREPIT_EDGE_EAST;
+            case NORTH:
+                return FIREPIT_EDGE_NORTH;
+            case SOUTH:
+                return FIREPIT_EDGE_SOUTH;
+        }
+
+        return GROUND;
     }
 
-    public ForgeDirection getDirection() {
-        return ForgeDirection.UNKNOWN;
+    public CookingPotPlacementSpec getPlacement() {
+        return placement;
+    }
+
+    public boolean isFirepitEdgePlacement() {
+        return this == CookingPotPlacement.FIREPIT_EDGE_EAST ||
+            this == CookingPotPlacement.FIREPIT_EDGE_WEST ||
+            this == CookingPotPlacement.FIREPIT_EDGE_NORTH ||
+            this == CookingPotPlacement.FIREPIT_EDGE_SOUTH;
     }
 
 }

@@ -1,19 +1,19 @@
 package com.unforbidable.tfc.bids.features.device.cookingprep.main;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.PrepIngredient;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.PrepIngredientSpec;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.PrepRecipe;
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredient;
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredientSpec;
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
 import net.minecraft.item.ItemStack;
 
-public class PrepVirtualCuttingRecipe extends PrepRecipe {
+public class PrepVirtualCuttingRecipe extends CookingPrepRecipe {
 
     private static final float[] weightsAll = { 0, 80, 40, 20, 10 };
 
     private final float minWeight;
     private final float[] weights = new float[INGREDIENT_COUNT];
 
-    public PrepVirtualCuttingRecipe(ItemStack output, PrepIngredientSpec[] ingredients, int slot) {
+    public PrepVirtualCuttingRecipe(ItemStack output, CookingPrepIngredientSpec[] ingredients, int slot) {
         super(output, ingredients);
 
         if (slot < 1 || slot > 4) {
@@ -55,10 +55,10 @@ public class PrepVirtualCuttingRecipe extends PrepRecipe {
     public static PrepVirtualCuttingRecipe forIngredientInSlot(ItemStack ingredient, int slot) {
         ItemStack output = ItemFoodTFC.createTag(ingredient.copy(), weightsAll[slot]);
 
-        PrepIngredientSpec[] ingredients = new PrepIngredientSpec[INGREDIENT_COUNT];
+        CookingPrepIngredientSpec[] ingredients = new CookingPrepIngredientSpec[INGREDIENT_COUNT];
         for (int i = 0; i < INGREDIENT_COUNT; i++) {
             if (i == slot) {
-                ingredients[i] = PrepIngredient.from(ingredient.copy()).toSpec(weightsAll[i]);
+                ingredients[i] = CookingPrepIngredient.from(ingredient.copy()).toSpec(weightsAll[i]);
             }
         }
 

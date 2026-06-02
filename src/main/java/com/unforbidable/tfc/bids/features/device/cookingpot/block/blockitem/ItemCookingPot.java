@@ -6,9 +6,10 @@ import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.TFCBlocks;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotHelper;
 import com.unforbidable.tfc.bids.features.device.cookingpot.tileentity.TileEntityCookingPot;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.util.ItemHelper;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -17,8 +18,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.List;
 
 public class ItemCookingPot extends ItemBlock implements ISize {
 
@@ -119,7 +118,7 @@ public class ItemCookingPot extends ItemBlock implements ISize {
             TileEntityCookingPot dummyCookingPot = new TileEntityCookingPot();
             dummyCookingPot.readDataFromNBT(tag);
 
-            CookingHelper.getCookingPotInfo(dummyCookingPot, list, false);
+            CookingPotHelper.getCookingPotInfo(dummyCookingPot, list, false);
         }
 
         if (ItemHelper.showShiftInformation()) {

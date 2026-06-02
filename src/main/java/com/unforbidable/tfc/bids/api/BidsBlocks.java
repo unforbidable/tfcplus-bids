@@ -136,6 +136,13 @@ public class BidsBlocks {
     public static final Block unfinishedAnvilStage5 = block(BlockNames.UNFINISHED_ANVIL_STAGE_5);
     public static final Block unfinishedAnvilStage6 = block(BlockNames.UNFINISHED_ANVIL_STAGE_6);
 
+    // Cooking Pot
+    public static final Block cookingPot = block(BlockNames.COOKING_POT);
+    public static final Block cookingPotLid = block(BlockNames.COOKING_POT_LID);
+    public static final Block steamingMesh = block(BlockNames.STEAMING_MESH);
+
+    // Cooking Prep
+    public static final Block cookingPrep = block(BlockNames.COOKING_PREP);
 
 
 
@@ -190,13 +197,6 @@ public class BidsBlocks {
 
 
 
-
-    public static Block cookingPot;
-    public static Block cookingPotLid;
-
-    public static Block steamingMesh;
-
-    public static Block cookingPrep;
 
     public static Block newCrops;
     public static Block newTilledSoil;

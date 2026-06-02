@@ -6,15 +6,17 @@ import com.dunk.tfc.Items.ItemBlocks.ItemLargeVessel;
 import com.dunk.tfc.TileEntities.TEFirepit;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.features.device.cookingpot.tileentity.TileEntityCookingPot;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
-import com.unforbidable.tfc.bids.features.device.cookingpot.main.EnumCookingPotPlacement;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICookingMixtureFluid;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureFluid;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotHelper;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotPlacement;
+import com.unforbidable.tfc.bids.features.device.cookingpot.tileentity.TileEntityCookingPot;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -27,15 +29,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
-
-import java.util.List;
 
 public class BlockCookingPot extends BlockContainer {
 
@@ -61,7 +64,7 @@ public class BlockCookingPot extends BlockContainer {
     @SideOnly(Side.CLIENT)
     @Override
     public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec) {
-        return CookingHelper.onCookingPotCollisionRayTrace(world, x, y, z, startVec, endVec);
+        return CookingPotHelper.onCookingPotCollisionRayTrace(world, x, y, z, startVec, endVec);
     }
 
     @SideOnly(Side.CLIENT)
@@ -102,7 +105,7 @@ public class BlockCookingPot extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.cookingPotRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override
@@ -124,7 +127,7 @@ public class BlockCookingPot extends BlockContainer {
             }
 
             // Override the placement
-            te.setPlacement(EnumCookingPotPlacement.GROUND);
+            te.setPlacement(CookingPotPlacement.GROUND);
         }
     }
 
@@ -142,11 +145,11 @@ public class BlockCookingPot extends BlockContainer {
             TileEntity te = world.getTileEntity(x, y, z);
             if (te instanceof TileEntityCookingPot) {
                 TileEntityCookingPot cookingPot = (TileEntityCookingPot) te;
-                EnumCookingPotPlacement placement = cookingPot.getPlacement();
-                if (placement.isFirepidEdgePlacement()) {
+                CookingPotPlacement placement = cookingPot.getPlacement();
+                if (placement.isFirepitEdgePlacement()) {
                     ForgeDirection d = placement.getPlacement().getDirection();
                     if (!isValidFirepitDirection(world, x, y, z, d)) {
-                        cookingPot.setPlacement(EnumCookingPotPlacement.GROUND);
+                        cookingPot.setPlacement(CookingPotPlacement.GROUND);
                     }
                 }
             }
@@ -164,7 +167,7 @@ public class BlockCookingPot extends BlockContainer {
             TileEntityCookingPot cookingPot = (TileEntityCookingPot) te;
             cookingPot.onBreakBlock();
 
-            int dmg = CookingHelper.getCookingPotInventoryRenderMetadata(cookingPot, 1);
+            int dmg = CookingPotHelper.getCookingPotInventoryRenderMetadata(cookingPot, 1);
 
             // Drop as item with content preserved
             ItemStack is = new ItemStack(Item.getItemFromBlock(block), 1, dmg);
@@ -305,7 +308,7 @@ public class BlockCookingPot extends BlockContainer {
                                 }
                             }
                         } else {
-                            if (te.getTopFluidStack() != null && !(te.getTopFluidStack().getFluid() instanceof ICookingMixtureFluid)) {
+                            if (te.getTopFluidStack() != null && !(te.getTopFluidStack().getFluid() instanceof CookingMixtureFluid)) {
                                 if (is.getItem() instanceof ItemBarrels) {
                                     FluidStack fs = te.getTopFluidStack();
 
@@ -344,12 +347,12 @@ public class BlockCookingPot extends BlockContainer {
                     ForgeDirection directionFirepit = getFirepitDirection(world, x, y, z);
                     if (directionFirepit != null) {
                         Bids.LOG.debug("Firepit found: " + directionFirepit);
-                        if (te.getPlacement() == EnumCookingPotPlacement.GROUND) {
+                        if (te.getPlacement() == CookingPotPlacement.GROUND) {
                             Bids.LOG.debug("Moving cooking pot to firepit: " + directionFirepit);
-                            te.setPlacement(EnumCookingPotPlacement.getFirepitEdgePlacementForDirection(directionFirepit));
+                            te.setPlacement(CookingPotPlacement.getFirepitEdgePlacementForDirection(directionFirepit));
                         } else {
                             Bids.LOG.debug("Moving cooking pot off the firepit");
-                            te.setPlacement(EnumCookingPotPlacement.GROUND);
+                            te.setPlacement(CookingPotPlacement.GROUND);
                         }
                     }
                 }

@@ -10,6 +10,7 @@ import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingPotPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernPlayerEvent;
 import com.unforbidable.tfc.bids.features.resource.well.block.BlockAquifer;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;

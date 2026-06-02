@@ -10,18 +10,22 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
-import com.unforbidable.tfc.bids.compat.nei.NeiHelper;
-import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
-import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CookingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CookingRecipeCraftingResult;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumCookingAccessory;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumCookingHeatLevel;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumCookingLidUsage;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingAccessory;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingLidUsage;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
+import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
+import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.compat.nei.NeiHelper;
+import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -35,10 +39,6 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CookingNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
@@ -70,7 +70,7 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == CookingNeiHandler.class) {
-            for (CookingRecipe recipe : BidsRegistry.COOKING_RECIPES) {
+            for (CookingRecipe recipe : CookingRegistry.recipes) {
                 CookingRecipe template = new CookingRecipe(
                     recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack(), recipe.getOutputFluidStack(), recipe.getSecondaryOutputFluidStack(),
                     recipe.getInputItemStack(), recipe.getOutputItemStack(),
@@ -85,7 +85,7 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (CookingRecipe recipe : BidsRegistry.COOKING_RECIPES) {
+        for (CookingRecipe recipe : CookingRegistry.recipes) {
             if (recipe.getOutputItemStack() != null && areItemStacksEqual(recipe.getOutputItemStack(), output)) {
                 // Item matches
                 arecipes.add(new CachedCookingRecipe(recipe));
@@ -101,7 +101,9 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (CookingRecipe recipe : BidsRegistry.COOKING_RECIPES) {
+        // TODO match cooking mixes in bowls
+
+        for (CookingRecipe recipe : CookingRegistry.recipes) {
             if (recipe.getInputItemStack() != null && areItemStacksEqual(recipe.getInputItemStack(), ingredient)) {
                 ItemStack inputItem = ingredient.copy();
                 inputItem.stackSize = recipe.getInputItemStack().stackSize;
@@ -334,9 +336,9 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
                 outputFluids.multiplyAmounts(runs);
             }
 
-            lid = template.getLidUsage() != null && template.getLidUsage() == EnumCookingLidUsage.ON;
-            steamingMesh = template.getAccessory() != null && template.getAccessory() == EnumCookingAccessory.STEAMING_MESH;
-            heat = template.getMinHeatLevel() != null && template.getMinHeatLevel() != EnumCookingHeatLevel.NONE;
+            lid = template.getLidUsage() != null && template.getLidUsage() == CookingLidUsage.ON;
+            steamingMesh = template.getAccessory() != null && template.getAccessory() == CookingAccessory.STEAMING_MESH;
+            heat = template.getMinHeatLevel() != null && template.getMinHeatLevel() != CookingHeatLevel.NONE;
 
             if (template.getTime() > 0) {
                 float hours = template.getTime() / (float)TFC_Time.HOUR_LENGTH;

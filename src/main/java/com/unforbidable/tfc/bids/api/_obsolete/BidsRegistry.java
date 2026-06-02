@@ -5,8 +5,7 @@ import com.unforbidable.tfc.bids.api._obsolete.Interfaces.*;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.*;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IKilnChamber;
-import com.unforbidable.tfc.bids.api.features.lamp.LampFuelMaterial;
-import net.minecraft.item.Item;
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -23,8 +22,8 @@ public class BidsRegistry {
     public static final ListRegistry<IDrinkable> DRINKS = new ListRegistry<>("drinks");
     public static final ListRegistry<Class<? extends IKilnChamber>> KILN_CHAMBERS = new ListRegistry<>("kiln-chambers");
 //    public static final FluidRegistry<LampFuelMaterial> LAMP_FUEL = new FluidRegistry<>();
-    public static final ItemRegistry<Item> COOKING_INGREDIENT_OVERRIDE = new ItemRegistry<>();
-    public static final ListRegistry<CookingMixture> COOKING_MIXTURES = new ListRegistry<>("cooking-mixtures");
+//    public static final ItemRegistry<Item> COOKING_INGREDIENT_OVERRIDE = new ItemRegistry<>();
+//    public static final ListRegistry<CookingMixture> COOKING_MIXTURES = new ListRegistry<>("cooking-mixtures");
 //    public static final ListRegistry<DryingRackTyingEquipment> DRYING_RACK_TYING_EQUIPMENT = new ListRegistry<>("drying-rack-tying-equipment");
 
 //    public static final RecipeRegistry<CarvingRecipe> CARVING_RECIPES = new RecipeRegistry<>("carving");
@@ -35,10 +34,10 @@ public class BidsRegistry {
     public static final SimpleRecipeRegistry<RopeMakingRecipe, ItemStack> ROPEMAKING_RECIPES = new SimpleRecipeRegistry<>("ropemaking");
     public static final SimpleRecipeRegistry<SpinningRecipe, ItemStack> SPINNING_RECIPES = new SimpleRecipeRegistry<>("spinning");
     //public static final RecipeRegistry<ChoppingBlockRecipe> CHOPPING_BLOCK_RECIPES = new RecipeRegistry<>("chopping");
-    public static final RecipeRegistry<CookingRecipe> COOKING_RECIPES = new RecipeRegistry<>("cooking");
+//    public static final RecipeRegistry<CookingRecipe> COOKING_RECIPES = new RecipeRegistry<>("cooking");
 //    public static final SimpleRecipeRegistry<DryingRackRecipe, ItemStack> DRYING_RACK_RECIPES = new SimpleRecipeRegistry<>("drying-rack");
     public static final SimpleRecipeRegistry<DryingSurfaceRecipe, ItemStack> DRYING_SURFACE_RECIPES = new SimpleRecipeRegistry<>("drying-surface");
-    public static final SimpleRecipeRegistry<PrepRecipe, ItemStack[]> PREP_RECIPES = new SimpleRecipeRegistry<>("prep");
+//    public static final SimpleRecipeRegistry<CookingPrepRecipe, ItemStack[]> PREP_RECIPES = new SimpleRecipeRegistry<>("prep");
     public static final RecipeRegistry<ProcessingSurfaceRecipe> PROCESSING_SURFACE_RECIPES = new RecipeRegistry<>("processing-surface");
     public static final RecipeRegistry<SoakingSurfaceRecipe> SOAKING_SURFACE_RECIPES = new RecipeRegistry<>("soaking-surface");
 //    public static final SimpleRecipeRegistry<SeasoningRecipe, ItemStack> SEASONING_RECIPES = new SimpleRecipeRegistry<>("seasoning");

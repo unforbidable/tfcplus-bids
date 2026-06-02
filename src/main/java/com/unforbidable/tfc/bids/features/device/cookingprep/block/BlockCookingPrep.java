@@ -4,10 +4,13 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Textures;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.features.device.cookingprep.tileentity.TileEntityCookingPrep;
 import com.unforbidable.tfc.bids.api._obsolete.BidsGui;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.features.device.cookingprep.tileentity.TileEntityCookingPrep;
+import com.unforbidable.tfc.bids.util.GuiUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -22,8 +25,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.ArrayList;
 
 public class BlockCookingPrep extends BlockContainer {
 
@@ -48,7 +49,7 @@ public class BlockCookingPrep extends BlockContainer {
             }
 
             if (!world.isRemote) {
-                player.openGui(Bids.instance, BidsGui.cookingPrepGui, world, x, y, z);
+                GuiUtil.openGui(BlockNames.COOKING_PREP, player, tileEntityCookingPrep);
             }
 
             return true;

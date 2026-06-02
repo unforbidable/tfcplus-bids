@@ -1,16 +1,15 @@
 package com.unforbidable.tfc.bids.features.device.cookingprep.main;
 
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.PrepRecipe;
-import net.minecraft.item.ItemStack;
-
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
 import java.util.ArrayList;
 import java.util.List;
+import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrepRegistry;
+import net.minecraft.item.ItemStack;
 
 public class CookingPrepHelper {
 
     public static boolean isValidPrepVessel(ItemStack is) {
-        for (PrepRecipe recipe : BidsRegistry.PREP_RECIPES) {
+        for (CookingPrepRecipe recipe : CookingPrepRegistry.recipes) {
             if (recipe.doesVesselMatch(is)) {
                 return true;
             }
@@ -19,10 +18,10 @@ public class CookingPrepHelper {
         return false;
     }
 
-    public static List<PrepRecipe> getRecipesUsingVessel(ItemStack is) {
-        List<PrepRecipe> list = new ArrayList<PrepRecipe>();
+    public static List<CookingPrepRecipe> getRecipesUsingVessel(ItemStack is) {
+        List<CookingPrepRecipe> list = new ArrayList<CookingPrepRecipe>();
 
-        for (PrepRecipe recipe : BidsRegistry.PREP_RECIPES) {
+        for (CookingPrepRecipe recipe : CookingPrepRegistry.recipes) {
             if (recipe.doesVesselMatch(is)) {
                 list.add(recipe);
             }

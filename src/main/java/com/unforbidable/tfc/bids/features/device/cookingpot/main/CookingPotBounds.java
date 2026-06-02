@@ -29,7 +29,7 @@ public class CookingPotBounds {
     Vec3 itemPos;
     Vec3 itemPosWithMesh;
 
-    public CookingPotBounds(CookingPotPlacement placement) {
+    public CookingPotBounds(CookingPotPlacementSpec placement) {
         float bottomXZ = (1 - bottomWidth) / 2;
         bottomBounds = AxisAlignedBB.getBoundingBox(bottomXZ, 0, bottomXZ, 1 - bottomXZ, bottomHeight, 1 - bottomXZ);
 
@@ -131,7 +131,7 @@ public class CookingPotBounds {
         return maxContentHeight;
     }
 
-    public static CookingPotBounds getBoundsForPlacement(CookingPotPlacement placement) {
+    public static CookingPotBounds getBoundsForPlacement(CookingPotPlacementSpec placement) {
         return new CookingPotBounds(placement);
     }
 

@@ -2,11 +2,13 @@ package com.unforbidable.tfc.bids.features.device.cookingpot.block;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotBounds;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotBounds;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,8 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class BlockCookingPotLid extends Block {
 
@@ -74,7 +74,7 @@ public class BlockCookingPotLid extends Block {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.cookingPotLidRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

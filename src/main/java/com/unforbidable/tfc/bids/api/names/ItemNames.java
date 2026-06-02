@@ -308,12 +308,18 @@ public interface ItemNames {
     String LARGE_BOWL_WOOD_ASH_LYE = "Large Bowl.WoodAshLye";
 
     // Cooking
-    String COOKING_MESH_CLOTH = "Steaming Mesh Cloth";
+    String COOKING_MIXTURE = "CookingMixture";
+
+    // Cooking Pot
+    String STEAMING_MESH_CLOTH = "Steaming Mesh Cloth";
+
+    // Sandwich
     String STUFFED_PEPPER = "Stuffed Pepper";
     String STUFFED_MUSHROOM = "Stuffed Mushroom";
     String PEMMICAN = "Pemmican";
     String WRAP = "Wrap";
-    String COOKING_MIXTURE = "CookingMixture";
+
+    // Cooked Meal
     String STEW = "Stew";
     String SOUP = "Soup";
     String PORRIDGE = "Porridge";

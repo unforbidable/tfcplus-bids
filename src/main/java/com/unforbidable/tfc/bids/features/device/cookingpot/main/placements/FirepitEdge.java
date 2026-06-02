@@ -1,14 +1,14 @@
 package com.unforbidable.tfc.bids.features.device.cookingpot.main.placements;
 
 import com.dunk.tfc.TileEntities.TEFirepit;
-import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotPlacement;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumCookingHeatLevel;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotPlacementSpec;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class FirepitEdge extends CookingPotPlacement {
+public class FirepitEdge extends CookingPotPlacementSpec {
 
     private final ForgeDirection direction;
 
@@ -17,21 +17,21 @@ public class FirepitEdge extends CookingPotPlacement {
     }
 
     @Override
-    public EnumCookingHeatLevel getHeatLevel(World world, int xCoord, int yCoord, int zCoord) {
+    public CookingHeatLevel getHeatLevel(World world, int xCoord, int yCoord, int zCoord) {
         TileEntity te = world.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
         if (te instanceof TEFirepit) {
             TEFirepit teFirepit = (TEFirepit) te;
             if (teFirepit.fireTemp > 500) {
                 // Any logs except Baobab, Bamboo and Palm
-                return EnumCookingHeatLevel.MEDIUM;
+                return CookingHeatLevel.MEDIUM;
             } else if (teFirepit.fireTemp > 200) {
                 // Any fuel including sticks
-                return EnumCookingHeatLevel.LOW;
+                return CookingHeatLevel.LOW;
             }
         }
 
         // No lit firepit
-        return EnumCookingHeatLevel.NONE;
+        return CookingHeatLevel.NONE;
     }
 
     @Override

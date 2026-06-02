@@ -6,12 +6,15 @@ import com.unforbidable.tfc.bids.features.building.logwall.LogWall;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
 import com.unforbidable.tfc.bids.features.building.wattle.Wattle;
+import com.unforbidable.tfc.bids.features.crafting.cooking.Cooking;
 import com.unforbidable.tfc.bids.features.crafting.dough.Dough;
 import com.unforbidable.tfc.bids.features.crafting.drying.Drying;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
 import com.unforbidable.tfc.bids.features.crafting.pressing.Pressing;
 import com.unforbidable.tfc.bids.features.crafting.quern.Quern;
 import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlock;
+import com.unforbidable.tfc.bids.features.device.cookingpot.CookingPot;
+import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrep;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRack;
 import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
@@ -21,10 +24,12 @@ import com.unforbidable.tfc.bids.features.device.wallhook.WallHook;
 import com.unforbidable.tfc.bids.features.device.woodpile.Woodpile;
 import com.unforbidable.tfc.bids.features.food.bamboo.Bamboo;
 import com.unforbidable.tfc.bids.features.food.coarseflour.CoarseFlour;
+import com.unforbidable.tfc.bids.features.food.cookedmeal.CookedMeal;
 import com.unforbidable.tfc.bids.features.food.crushedfruit.CrushedFruit;
 import com.unforbidable.tfc.bids.features.food.flatbread.Flatbread;
 import com.unforbidable.tfc.bids.features.food.hardtack.Hardtack;
 import com.unforbidable.tfc.bids.features.food.milk.Milk;
+import com.unforbidable.tfc.bids.features.food.sandwich.Sandwich;
 import com.unforbidable.tfc.bids.features.material.bark.Bark;
 import com.unforbidable.tfc.bids.features.material.birtchback.BirchBark;
 import com.unforbidable.tfc.bids.features.material.clothing.Clothing;
@@ -36,7 +41,6 @@ import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
 import com.unforbidable.tfc.bids.features.resource.quarry.Quarry;
 import com.unforbidable.tfc.bids.features.resource.well.Well;
 import com.unforbidable.tfc.bids.features.utility.adze.Adze;
-import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.UnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.utility.compositetools.CompositeTools;
 import com.unforbidable.tfc.bids.features.utility.drill.Drill;
 import com.unforbidable.tfc.bids.features.utility.fluidcontainers.FluidContainers;
@@ -45,6 +49,7 @@ import com.unforbidable.tfc.bids.features.utility.largebowl.LargeBowl;
 import com.unforbidable.tfc.bids.features.utility.leatherwear.Leatherwear;
 import com.unforbidable.tfc.bids.features.utility.pail.Pail;
 import com.unforbidable.tfc.bids.features.utility.spear.Spear;
+import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.UnfinishedAnvil;
 
 public class Features {
 
@@ -93,6 +98,11 @@ public class Features {
         new CompositeTools(),
         new Spear(),
         new UnfinishedAnvil(),
+        new Cooking(),
+        new CookingPot(),
+        new CookingPrep(),
+        new Sandwich(),
+        new CookedMeal(),
     };
 
 }

@@ -356,19 +356,19 @@ public class BlockSetup extends BidsBlocks {
 //        unfinishedAnvilStage6 = new BlockUnfinishedAnvil(5)
 //            .setBlockName("UnfinishedAnvilStage6");
 
-        cookingPot = new BlockCookingPot()
-            .setBlockTextureName("Cooking Pot")
-            .setBlockName("CookingPot");
-        cookingPotLid = new BlockCookingPotLid()
-            .setBlockTextureName("Cooking Pot Lid")
-            .setBlockName("CookingPotLid");
+//        cookingPot = new BlockCookingPot()
+//            .setBlockTextureName("Cooking Pot")
+//            .setBlockName("CookingPot");
+//        cookingPotLid = new BlockCookingPotLid()
+//            .setBlockTextureName("Cooking Pot Lid")
+//            .setBlockName("CookingPotLid");
+//
+//        steamingMesh = new BlockSteamingMesh()
+//            .setBlockTextureName("Steaming Mesh")
+//            .setBlockName("SteamingMesh");
 
-        steamingMesh = new BlockSteamingMesh()
-            .setBlockTextureName("Steaming Mesh")
-            .setBlockName("SteamingMesh");
-
-        cookingPrep = new BlockCookingPrep()
-            .setBlockName("CookingPrep");
+//        cookingPrep = new BlockCookingPrep()
+//            .setBlockName("CookingPrep");
 
         newCrops = new BlockNewCrop()
             .setHardness(0.3F)

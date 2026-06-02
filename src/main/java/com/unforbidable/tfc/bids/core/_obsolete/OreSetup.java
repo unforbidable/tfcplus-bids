@@ -83,14 +83,14 @@ public class OreSetup {
         }
 
         // Proper steaming mesh
-        for (Item item : new Item[]{ BidsItems.steamingMeshCloth }) {
-            OreDictionary.registerOre("itemCookingPotAccessory", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
-            OreDictionary.registerOre("itemCookingPotAccessorySteamingMesh", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
-        }
+//        for (Item item : new Item[]{ BidsItems.steamingMeshCloth }) {
+//            OreDictionary.registerOre("itemCookingPotAccessory", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
+//            OreDictionary.registerOre("itemCookingPotAccessorySteamingMesh", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
+//        }
 
         // Items that are automatically consumed as a vessel from the cooking prep storage slots
-        OreDictionary.registerOre("itemCookingPrepVessel",  new ItemStack(TFCItems.potteryBowl, 1, 1));
-        OreDictionary.registerOre("itemCookingPrepVessel",  new ItemStack(TFCItems.potteryBowl, 1, 2));
+//        OreDictionary.registerOre("itemCookingPrepVessel",  new ItemStack(TFCItems.potteryBowl, 1, 1));
+//        OreDictionary.registerOre("itemCookingPrepVessel",  new ItemStack(TFCItems.potteryBowl, 1, 2));
 
         OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsBeetroot));
         OreDictionary.registerOre("seedCultivated", new ItemStack(BidsItems.seedsSugarBeet));
@@ -295,29 +295,29 @@ public class OreSetup {
 
         OreDictionary.registerOre("itemSpindle", new ItemStack(BidsItems.spindle));
 
-        OreDictionary.registerOre("foodBeans", new ItemStack(TFCItems.soybean));
-        OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.wildBeans));
-        OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.broadBeans));
-
-        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.beefRaw));
-        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.porkchopRaw));
-        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.muttonRaw));
-        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.venisonRaw));
-        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.horseMeatRaw));
-
-        OreDictionary.registerOre("foodMeatPoultry", new ItemStack(TFCItems.chickenRaw));
-
-        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.fishRaw));
-        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.scallopRaw));
-        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.seastarRaw));
-        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.calamariRaw));
-
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.barleyGround));
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.oatGround));
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.ryeGround));
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.riceGround));
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.wheatGround));
-        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.cornmealGround));
+//        OreDictionary.registerOre("foodBeans", new ItemStack(TFCItems.soybean));
+//        OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.wildBeans));
+//        OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.broadBeans));
+//
+//        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.beefRaw));
+//        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.porkchopRaw));
+//        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.muttonRaw));
+//        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.venisonRaw));
+//        OreDictionary.registerOre("foodMeatRed", new ItemStack(TFCItems.horseMeatRaw));
+//
+//        OreDictionary.registerOre("foodMeatPoultry", new ItemStack(TFCItems.chickenRaw));
+//
+//        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.fishRaw));
+//        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.scallopRaw));
+//        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.seastarRaw));
+//        OreDictionary.registerOre("foodMeatFish", new ItemStack(TFCItems.calamariRaw));
+//
+//        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.barleyGround));
+//        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.oatGround));
+//        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.ryeGround));
+//        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.riceGround));
+//        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.wheatGround));
+//        OreDictionary.registerOre("foodGrainGround", new ItemStack(TFCItems.cornmealGround));
 
 //        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.barleyCrushed));
 //        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.oatCrushed));
@@ -325,30 +325,30 @@ public class OreSetup {
 //        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.riceCrushed));
 //        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.wheatCrushed));
 //        OreDictionary.registerOre("foodGrainCrushed", new ItemStack(BidsItems.cornmealCrushed));
-
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.blackberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.blueberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.wintergreenBerry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.bunchberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.cranberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.raspberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.gooseberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.elderberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.cloudberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.snowberry));
-        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.strawberry));
-
-        OreDictionary.registerOre("foodEgg", new ItemStack(TFCItems.egg));
-
-        OreDictionary.registerOre("foodMushroom", new ItemStack(TFCItems.mushroomFoodB));
-        OreDictionary.registerOre("foodMushroom", new ItemStack(TFCItems.mushroomFoodR));
-
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.wheatBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.barleyBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.oatBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.ryeBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.cornBread));
-        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.riceBread));
+//
+//        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.blackberry));
+//        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.blueberry));
+//        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.wintergreenBerry));
+//        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.bunchberry));
+//        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.cranberry));
+//        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.raspberry));
+//        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.gooseberry));
+//        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.elderberry));
+//        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.cloudberry));
+//        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.snowberry));
+//        OreDictionary.registerOre("foodFruitBerry", new ItemStack(TFCItems.strawberry));
+//
+//        OreDictionary.registerOre("foodEgg", new ItemStack(TFCItems.egg));
+//
+//        OreDictionary.registerOre("foodMushroom", new ItemStack(TFCItems.mushroomFoodB));
+//        OreDictionary.registerOre("foodMushroom", new ItemStack(TFCItems.mushroomFoodR));
+//
+//        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.wheatBread));
+//        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.barleyBread));
+//        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.oatBread));
+//        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.ryeBread));
+//        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.cornBread));
+//        OreDictionary.registerOre("foodBread", new ItemStack(TFCItems.riceBread));
 //        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.wheatFlatbread));
 //        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.barleyFlatbread));
 //        OreDictionary.registerOre("foodBread", new ItemStack(BidsItems.oatFlatbread));

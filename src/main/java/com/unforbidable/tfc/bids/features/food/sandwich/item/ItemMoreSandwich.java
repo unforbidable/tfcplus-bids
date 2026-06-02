@@ -3,13 +3,13 @@ package com.unforbidable.tfc.bids.features.food.sandwich.item;
 import com.dunk.tfc.Core.Player.FoodStatsTFC;
 import com.dunk.tfc.Food.ItemSandwich;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IMoreSandwich;
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepOutput;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemMoreSandwich extends ItemSandwich implements IMoreSandwich {
+public class ItemMoreSandwich extends ItemSandwich implements CookingPrepOutput {
 
     protected final float[] ingredientWeights;
     protected final float foodMaxWeight;

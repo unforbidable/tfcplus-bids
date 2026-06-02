@@ -1,12 +1,11 @@
 package com.unforbidable.tfc.bids.features.crafting.cooking.main;
 
 import com.unforbidable.tfc.bids.Bids;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CookingMixtureInfo {
 

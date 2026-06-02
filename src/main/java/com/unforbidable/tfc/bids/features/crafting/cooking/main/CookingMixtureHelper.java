@@ -8,16 +8,15 @@ import com.dunk.tfc.api.FoodRegistry;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CookingMixture;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICookingIngredientOverride;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingIngredientOverride;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingMixture;
+import java.util.List;
+import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.List;
 
 public class CookingMixtureHelper {
 
@@ -46,7 +45,7 @@ public class CookingMixtureHelper {
     public static FluidStack createCookingMixtureFluidStack(String mixtureName, int amount) {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("mixtureName", mixtureName);
-        return new FluidStack(BidsFluids.COOKINGMIXTURE, amount, tag);
+        return new FluidStack(BidsFluids.cookingMixture, amount, tag);
     }
 
     public static ItemStack createCookingMixtureItemStack(String mixtureName) {
@@ -80,7 +79,7 @@ public class CookingMixtureHelper {
 
     public static CookingMixture getCookingMixture(FluidStack fs) {
         String mixtureName = getCookingMixtureName(fs);
-        for (CookingMixture cookingMixture : BidsRegistry.COOKING_MIXTURES) {
+        for (CookingMixture cookingMixture : CookingRegistry.mixtures) {
             if (cookingMixture.getName().equals(mixtureName)) {
                 return cookingMixture;
             }
@@ -91,7 +90,7 @@ public class CookingMixtureHelper {
 
     public static CookingMixture getCookingMixture(ItemStack is) {
         String mixtureName = getCookingMixtureName(is);
-        for (CookingMixture cookingMixture : BidsRegistry.COOKING_MIXTURES) {
+        for (CookingMixture cookingMixture : CookingRegistry.mixtures) {
             if (cookingMixture.getName().equals(mixtureName)) {
                 return cookingMixture;
             }
@@ -190,13 +189,13 @@ public class CookingMixtureHelper {
     }
 
     private static Item getIngredientOverride(Item ingredient) {
-        Item registeredOverride = BidsRegistry.COOKING_INGREDIENT_OVERRIDE.get(ingredient);
+        Item registeredOverride = CookingRegistry.ingredientOverrides.get(ingredient);
         if (registeredOverride != null) {
             return registeredOverride;
         }
 
-        if (ingredient instanceof ICookingIngredientOverride) {
-            return ((ICookingIngredientOverride) ingredient).getIngredientOverride();
+        if (ingredient instanceof CookingIngredientOverride) {
+            return ((CookingIngredientOverride) ingredient).getIngredientOverride();
         }
 
         return ingredient;

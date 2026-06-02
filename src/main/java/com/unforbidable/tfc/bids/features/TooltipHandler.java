@@ -31,19 +31,19 @@ public class TooltipHandler {
 //        }
 
         handleTextileTooltipHints(event.toolTip, event.itemStack);
-
-        if (event.itemStack.getItem() instanceof ItemFoodTFC) {
-            handleFood(event.toolTip, event.itemStack);
-        }
+//
+//        if (event.itemStack.getItem() instanceof ItemFoodTFC) {
+//            handleFood(event.toolTip, event.itemStack);
+//        }
     }
-
-    private void handleFood(List<String> toolTip, ItemStack itemStack) {
-        if (BidsFood.isBoiled(itemStack)) {
-            toolTip.add(2, StatCollector.translateToLocal(EnumChatFormatting.AQUA + StatCollector.translateToLocal("word.boiled")));
-        } else if (BidsFood.isSteamed(itemStack)) {
-            toolTip.add(2, StatCollector.translateToLocal(EnumChatFormatting.AQUA + StatCollector.translateToLocal("word.steamed")));
-        }
-    }
+//
+//    private void handleFood(List<String> toolTip, ItemStack itemStack) {
+//        if (BidsFood.isBoiled(itemStack)) {
+//            toolTip.add(2, StatCollector.translateToLocal(EnumChatFormatting.AQUA + StatCollector.translateToLocal("word.boiled")));
+//        } else if (BidsFood.isSteamed(itemStack)) {
+//            toolTip.add(2, StatCollector.translateToLocal(EnumChatFormatting.AQUA + StatCollector.translateToLocal("word.steamed")));
+//        }
+//    }
 
     private void handleTextileTooltipHints(List<String> toolTip, ItemStack itemStack) {
         Set<EnumTextileHint> hints = new HashSet<EnumTextileHint>();

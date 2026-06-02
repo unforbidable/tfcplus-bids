@@ -11,9 +11,9 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CookingMixture;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICookingMixtureItem;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IMoreSandwich;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingMixture;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureItem;
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepOutput;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -27,7 +27,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 
-public class ItemCookingMixture extends ItemMeal implements ISmashable, IMoreSandwich, ICookingMixtureItem {
+public class ItemCookingMixture extends ItemMeal implements ISmashable, CookingPrepOutput, CookingMixtureItem {
 
     protected final float[] ingredientWeights = new float[] { 0, 20, 8, 8, 4 };
     protected final float foodMaxWeight = 40;
@@ -58,7 +58,7 @@ public class ItemCookingMixture extends ItemMeal implements ISmashable, IMoreSan
     }
 
     @Override
-    public FluidStack getCookingMixFluid(ItemStack is) {
+    public FluidStack getCookingFluid(ItemStack is) {
         String mixtureName = CookingMixtureHelper.getCookingMixtureName(is);
         FluidStack fs = CookingMixtureHelper.createCookingMixtureFluidStack(mixtureName, getFluidAmount());
         CookingMixtureHelper.initCookingMixtureTags(fs, is);

@@ -218,6 +218,23 @@ public class BidsItems {
     // Spear
     public static final Item hardenedWoodenSpear = item(ItemNames.HARDENED_WOODEN_SPEAR);
 
+    // Cooking
+    public static final Item cookingMixture = item(ItemNames.COOKING_MIXTURE);
+
+    // Cooking Pot
+    public static final Item steamingMeshCloth = item(ItemNames.STEAMING_MESH_CLOTH);
+
+    // Cooked Meal
+    public static final Item stew = item(ItemNames.STEW);
+    public static final Item soup = item(ItemNames.SOUP);
+    public static final Item porridge = item(ItemNames.PORRIDGE);
+    public static final Item omelet = item(ItemNames.OMELET);
+
+    // Sandwich
+    public static final Item stuffedPepper = item(ItemNames.STUFFED_PEPPER);
+    public static final Item stuffedMushroom = item(ItemNames.STUFFED_MUSHROOM);
+    public static final Item wrap = item(ItemNames.WRAP);
+
 
 
 
@@ -303,18 +320,12 @@ public class BidsItems {
     public static Item ceramicBucketMilkVinegar;
     public static Item ceramicBucketOilyFishWater;
 
-    public static Item steamingMeshCloth;
-
     public static Item hardCheese;
     public static Item goatCheese;
 
     public static Item butter;
 
-    public static Item stuffedPepper;
-    public static Item stuffedMushroom;
     public static Item pemmican;
-    public static Item wrap;
-
     public static Item seaBeet;
     public static Item beetroot;
     public static Item sugarBeet;
@@ -346,13 +357,6 @@ public class BidsItems {
 
     public static Item suet;
     public static Item tallow;
-
-    public static Item cookingMixture;
-
-    public static Item stew;
-    public static Item soup;
-    public static Item porridge;
-    public static Item omelet;
 
     public static Item moreHide;
     public static Item morePowder;

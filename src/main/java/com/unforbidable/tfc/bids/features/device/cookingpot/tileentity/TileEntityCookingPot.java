@@ -11,28 +11,28 @@ import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.Interfaces.ICookableFood;
 import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingMixture;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingAccessory;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingLidUsage;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingPotPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.cooking.CookedMeal;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureFluid;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureItem;
+import com.unforbidable.tfc.bids.api.util.food.BidsFoodHeatIndex;
+import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
-import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotBounds;
-import com.unforbidable.tfc.bids.features.device.cookingpot.main.EnumCookingPotPlacement;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingRecipeHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingRecipeProgress;
-import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
-import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotBounds;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotPlacement;
 import com.unforbidable.tfc.bids.util.Timer;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.util.food.BidsFoodHeatIndex;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CookingMixture;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CookingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CookingRecipeCraftingResult;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumCookingAccessory;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumCookingHeatLevel;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumCookingLidUsage;
-import com.unforbidable.tfc.bids.api._obsolete.Events.CookingPotPlayerEvent;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICookedMeal;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICookingMixtureFluid;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICookingMixtureItem;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -46,14 +46,13 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class TileEntityCookingPot extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage>, IInventory {
+public class TileEntityCookingPot extends TileEntity implements PacketHandler<SimpleUpdatePacket>, IInventory {
 
     private static final int MAX_STORAGE = 3;
     private static final int MAX_FLUIDS = 3;
@@ -75,9 +74,9 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     private final ItemStack[] storage = new ItemStack[MAX_STORAGE];
     private final FluidStack[] fluids = new FluidStack[MAX_FLUIDS];
 
-    private EnumCookingPotPlacement placement = EnumCookingPotPlacement.GROUND;
+    private CookingPotPlacement placement = CookingPotPlacement.GROUND;
     private CookingPotBounds cachedBounds = null;
-    private EnumCookingHeatLevel heatLevel = EnumCookingHeatLevel.NONE;
+    private CookingHeatLevel heatLevel = CookingHeatLevel.NONE;
 
     private CookingRecipe cachedRecipe = null;
     private boolean isCachedRecipeValid = false;
@@ -100,11 +99,11 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         return recipeProgress;
     }
 
-    public EnumCookingPotPlacement getPlacement() {
+    public CookingPotPlacement getPlacement() {
         return placement;
     }
 
-    public void setPlacement(EnumCookingPotPlacement placement) {
+    public void setPlacement(CookingPotPlacement placement) {
         this.placement = placement;
 
         cachedBounds = null;
@@ -141,7 +140,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         return cachedRecipe;
     }
 
-    public EnumCookingHeatLevel getHeatLevel() {
+    public CookingHeatLevel getHeatLevel() {
         return heatLevel;
     }
 
@@ -179,11 +178,11 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         }
 
         // Cooking mixes can be added if there is no lid and accessory
-        if (!hasLid() && !hasAccessory() && !hasTopLayerFluid() && itemStack.getItem() instanceof ICookingMixtureItem) {
-            ICookingMixtureItem cookingMix = (ICookingMixtureItem) itemStack.getItem();
-            FluidStack fluidStack = cookingMix.getCookingMixFluid(itemStack);
+        if (!hasLid() && !hasAccessory() && !hasTopLayerFluid() && itemStack.getItem() instanceof CookingMixtureItem) {
+            CookingMixtureItem cookingMix = (CookingMixtureItem) itemStack.getItem();
+            FluidStack fluidStack = cookingMix.getCookingFluid(itemStack);
             ItemStack emptyContainer = cookingMix.getEmptyContainer(itemStack);
-            ICookingMixtureFluid cookingFluid = (ICookingMixtureFluid) fluidStack.getFluid();
+            CookingMixtureFluid cookingFluid = (CookingMixtureFluid) fluidStack.getFluid();
 
             if (canPlaceCookingMix(fluidStack)) {
                 float decay = Math.max(0, Food.getDecay(itemStack));
@@ -218,15 +217,15 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
         // Cooked meals can be created from finished cooking mixes
         // into valid meal containers
-        if (!hasLid() && !hasAccessory() && hasFluid() && getPrimaryFluidStack().getFluid() instanceof ICookingMixtureFluid) {
-            ICookingMixtureFluid cookingFluid = (ICookingMixtureFluid) getPrimaryFluidStack().getFluid();
+        if (!hasLid() && !hasAccessory() && hasFluid() && getPrimaryFluidStack().getFluid() instanceof CookingMixtureFluid) {
+            CookingMixtureFluid cookingFluid = (CookingMixtureFluid) getPrimaryFluidStack().getFluid();
             CookingMixture mixture = CookingMixtureHelper.getCookingMixture(getPrimaryFluidStack());
             if (mixture != null && mixture.isReady() && cookingFluid.isValidCookedMealContainer(getPrimaryFluidStack(), itemStack)) {
                 ItemStack cookedMeal = cookingFluid.retrieveCookedMeal(getPrimaryFluidStack(), itemStack, player, true);
 
                 if (cookedMeal != null) {
-                    if (cookedMeal.getItem() instanceof ICookedMeal) {
-                        ((ICookedMeal)cookedMeal.getItem()).onCookedMealCreated(cookedMeal, player);
+                    if (cookedMeal.getItem() instanceof CookedMeal) {
+                        ((CookedMeal)cookedMeal.getItem()).onCookedMealCreated(cookedMeal, player);
                     }
 
                     CookingPotPlayerEvent event = new CookingPotPlayerEvent(player, this, CookingPotPlayerEvent.Action.RETRIEVE_COOKED_MEAL, cookedMeal);
@@ -351,8 +350,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
             // and manually ensure certain parameters such as steaming mesh and existing liquid
             for (CookingRecipe recipe : CookingHelper.getRecipesMatchingInput(itemStack)) {
                 // Ensure accessory matches
-                if (recipe.getAccessory() == EnumCookingAccessory.NONE && hasAccessory() ||
-                    recipe.getAccessory() == EnumCookingAccessory.STEAMING_MESH && !hasSteamingMesh()) {
+                if (recipe.getAccessory() == CookingAccessory.NONE && hasAccessory() ||
+                    recipe.getAccessory() == CookingAccessory.STEAMING_MESH && !hasSteamingMesh()) {
                     continue;
                 }
 
@@ -431,8 +430,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         return new CookingRecipe(
             getPrimaryFluidStack(), null, null, null,
             getInputItemStack(), null,
-            hasSteamingMesh() ? EnumCookingAccessory.STEAMING_MESH : EnumCookingAccessory.NONE,
-            hasLid() ? EnumCookingLidUsage.ON : EnumCookingLidUsage.OFF,
+            hasSteamingMesh() ? CookingAccessory.STEAMING_MESH : CookingAccessory.NONE,
+            hasLid() ? CookingLidUsage.ON : CookingLidUsage.OFF,
             getHeatLevel(), getHeatLevel(), 0,
             false);
     }
@@ -441,8 +440,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         return new CookingRecipe(
             getPrimaryFluidStack(), secondaryInputFluidStack, null, null,
             null, null,
-            hasSteamingMesh() ? EnumCookingAccessory.STEAMING_MESH : EnumCookingAccessory.NONE,
-            hasLid() ? EnumCookingLidUsage.ON : EnumCookingLidUsage.OFF,
+            hasSteamingMesh() ? CookingAccessory.STEAMING_MESH : CookingAccessory.NONE,
+            hasLid() ? CookingLidUsage.ON : CookingLidUsage.OFF,
             getHeatLevel(), getHeatLevel(), 0,
             false);
     }
@@ -865,8 +864,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     public void onBreakBlock() {
         // Reset placement and heat level
-        placement = EnumCookingPotPlacement.GROUND;
-        heatLevel = EnumCookingHeatLevel.NONE;
+        placement = CookingPotPlacement.GROUND;
+        heatLevel = CookingHeatLevel.NONE;
 
         // Cancel recipe progress
         recipeProgress = null;
@@ -1150,8 +1149,8 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         }
     }
 
-    private float adjustProgressForHeat(CookingRecipe recipe, EnumCookingHeatLevel heatLevel, float progress) {
-        if (recipe.getMinHeatLevel() == null || recipe.getMinHeatLevel() == EnumCookingHeatLevel.NONE) {
+    private float adjustProgressForHeat(CookingRecipe recipe, CookingHeatLevel heatLevel, float progress) {
+        if (recipe.getMinHeatLevel() == null || recipe.getMinHeatLevel() == CookingHeatLevel.NONE) {
             return progress;
         }
 
@@ -1261,7 +1260,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
             // Cooking requires heat, input fluid (valid and sufficient amount), and lid when steaming
             // and cooking level cannot exceed the maximum
-            boolean canCook = getHeatLevel() != EnumCookingHeatLevel.NONE &&
+            boolean canCook = getHeatLevel() != CookingHeatLevel.NONE &&
                 hasFluid() && !hasTopLayerFluid() &&
                 CookingHelper.isValidCookingFluid(getPrimaryFluidStack(), hasSteamingMesh()) &&
                 getPrimaryFluidStack().amount >= requiredFluidAmount &&
@@ -1269,7 +1268,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
                 lastCookedLevel < getMaxCookedLevel(getInputItemStack());
 
             // Cooking down requires no heat
-            boolean canCoolDown = getHeatLevel() == EnumCookingHeatLevel.NONE;
+            boolean canCoolDown = getHeatLevel() == CookingHeatLevel.NONE;
 
             if (canCook) {
                 handleItemStackHeating(getInputItemStack());
@@ -1355,7 +1354,7 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     private int getMaxCookedLevel(ItemStack itemStack) {
         int cookedTempIndex = ((ItemFoodTFC) itemStack.getItem()).cookTempIndex;
-        if (getHeatLevel() == EnumCookingHeatLevel.LOW || hasSteamingMesh()) {
+        if (getHeatLevel() == CookingHeatLevel.LOW || hasSteamingMesh()) {
             // Cooking with low heat or steaming - Medium / Light
             return cookedTempIndex == 0 ? 3 : 2;
         } else {
@@ -1470,13 +1469,13 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
         if (!worldObj.isRemote) {
             // When inventory content changes
             if (clientNeedToUpdate) {
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+                sendUpdateMessage();
 
                 clientNeedToUpdate = false;
             }
 
             if (heatCheckTimer.tick()) {
-                EnumCookingHeatLevel currentHeatLevel = placement.getPlacement().getHeatLevel(worldObj, xCoord, yCoord, zCoord);
+                CookingHeatLevel currentHeatLevel = placement.getPlacement().getHeatLevel(worldObj, xCoord, yCoord, zCoord);
                 if (heatLevel != currentHeatLevel) {
                     heatLevel = currentHeatLevel;
                     onHeatLevelChanged();
@@ -1529,11 +1528,11 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     public void writeDataToNBT(NBTTagCompound tag) {
-        if (placement != EnumCookingPotPlacement.GROUND) {
+        if (placement != CookingPotPlacement.GROUND) {
             tag.setString("placement", placement.name());
         }
 
-        if (heatLevel != EnumCookingHeatLevel.NONE) {
+        if (heatLevel != CookingHeatLevel.NONE) {
             tag.setString("heatLevel", heatLevel.name());
         }
 
@@ -1576,16 +1575,16 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
 
     public void readDataFromNBT(NBTTagCompound tag) {
         try {
-            placement = EnumCookingPotPlacement.valueOf(tag.getString("placement"));
+            placement = CookingPotPlacement.valueOf(tag.getString("placement"));
         } catch (IllegalArgumentException e) {
-            placement = EnumCookingPotPlacement.GROUND;
+            placement = CookingPotPlacement.GROUND;
         }
         cachedBounds = null;
 
         try {
-            heatLevel = EnumCookingHeatLevel.valueOf(tag.getString("heatLevel"));
+            heatLevel = CookingHeatLevel.valueOf(tag.getString("heatLevel"));
         } catch (IllegalArgumentException e) {
-            heatLevel = EnumCookingHeatLevel.NONE;
+            heatLevel = CookingHeatLevel.NONE;
         }
 
         accessoryDamage = tag.getInteger("accessoryDamage");
@@ -1693,16 +1692,14 @@ public class TileEntityCookingPot extends TileEntity implements IMessageHanlding
     }
 
     @Override
-    public void onTileEntityMessage(TileEntityUpdateMessage message) {
-        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
-            + message.getZCoord());
+    public void handleNetworkPacket(SimpleUpdatePacket packet) {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        Bids.LOG.info("Client updated at: [{},{},{}]", xCoord, yCoord, zCoord);
     }
 
-    public static void sendUpdateMessage(World world, int x, int y, int z) {
-        NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
-        Bids.LOG.debug("Sent update message");
+    public void sendUpdateMessage() {
+        Network.sendToTileEntity(new SimpleUpdatePacket(), this);
+        Bids.LOG.info("Sent update message");
     }
 
 }

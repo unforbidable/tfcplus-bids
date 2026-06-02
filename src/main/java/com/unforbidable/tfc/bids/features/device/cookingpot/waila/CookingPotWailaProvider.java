@@ -2,15 +2,14 @@ package com.unforbidable.tfc.bids.features.device.cookingpot.waila;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.unforbidable.tfc.bids.compat.waila.providers.WailaDataProvider;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingRecipeProgress;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotHelper;
 import com.unforbidable.tfc.bids.features.device.cookingpot.tileentity.TileEntityCookingPot;
+import java.util.List;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-
-import java.util.List;
 
 public class CookingPotWailaProvider extends WailaDataProvider {
 
@@ -39,7 +38,7 @@ public class CookingPotWailaProvider extends WailaDataProvider {
             TileEntityCookingPot tileEntityCookingPot = (TileEntityCookingPot) accessor.getTileEntity();
 
             if (!tileEntityCookingPot.isInputItemSelected()) {
-                CookingHelper.getCookingPotInfo(tileEntityCookingPot, currenttip, true);
+                CookingPotHelper.getCookingPotInfo(tileEntityCookingPot, currenttip, true);
 
                 CookingRecipeProgress recipeProgress = tileEntityCookingPot.getRecipeProgress();
                 if (recipeProgress != null) {

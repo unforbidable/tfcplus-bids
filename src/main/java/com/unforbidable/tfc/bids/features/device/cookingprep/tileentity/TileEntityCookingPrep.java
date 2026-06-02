@@ -7,14 +7,16 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepOutput;
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
+import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.common.container.slot.ISlotTracker;
+import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrepRegistry;
 import com.unforbidable.tfc.bids.features.device.cookingprep.main.CookingPrepHelper;
 import com.unforbidable.tfc.bids.features.device.cookingprep.main.PrepVirtualCuttingRecipe;
 import com.unforbidable.tfc.bids.util.Timer;
-import com.unforbidable.tfc.bids.api.util.food.BidsFood;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.PrepRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IMoreSandwich;
+import java.util.Arrays;
+import java.util.List;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -26,9 +28,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class TileEntityCookingPrep extends TileEntity implements IInventory, ISlotTracker {
 
@@ -311,8 +310,8 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
                 Food.setMealSkill(itemStack, TFC_Core.getSkillStats(player).getSkillRank(Global.SKILL_COOKING).ordinal());
             }
 
-            if (itemStack.getItem() instanceof IMoreSandwich) {
-                ((IMoreSandwich)itemStack.getItem()).onCrafted(itemStack, player);
+            if (itemStack.getItem() instanceof CookingPrepOutput) {
+                ((CookingPrepOutput)itemStack.getItem()).onCrafted(itemStack, player);
             }
 
             updateRecipeResultPreview();
@@ -324,8 +323,8 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
     }
 
     private int getCookingSkillIncrease(ItemStack itemStack) {
-        if (itemStack.getItem() instanceof IMoreSandwich) {
-            return ((IMoreSandwich) itemStack.getItem()).getCookingSkillIncrease(itemStack);
+        if (itemStack.getItem() instanceof CookingPrepOutput) {
+            return ((CookingPrepOutput) itemStack.getItem()).getCookingSkillIncrease(itemStack);
         }
 
         return 1;
@@ -365,18 +364,18 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
 
     private ItemStack getMatchingRecipeResult(boolean consumeIngredients) {
         ItemStack[] ingredients = getIngredientsForRecipe(false);
-        PrepRecipe recipe = BidsRegistry.PREP_RECIPES.findMatchingRecipe(ingredients);
+        CookingPrepRecipe recipe = CookingPrepRegistry.recipes.findMatchingRecipe(ingredients);
         if (recipe != null) {
             return recipe.getResult(ingredients, consumeIngredients);
         }
 
-        PrepRecipe virtualCuttingRecipe = getMatchingVirtualCuttingRecipe(ingredients);
+        CookingPrepRecipe virtualCuttingRecipe = getMatchingVirtualCuttingRecipe(ingredients);
         if (virtualCuttingRecipe != null) {
             return virtualCuttingRecipe.getResult(ingredients, consumeIngredients);
         }
 
         ItemStack[] ingredientsWithStoredVessel = getIngredientsForRecipe(true);
-        PrepRecipe recipeWithStoredVessel = BidsRegistry.PREP_RECIPES.findMatchingRecipe(ingredientsWithStoredVessel);
+        CookingPrepRecipe recipeWithStoredVessel = CookingPrepRegistry.recipes.findMatchingRecipe(ingredientsWithStoredVessel);
         if (recipeWithStoredVessel != null) {
             return recipeWithStoredVessel.getResult(ingredientsWithStoredVessel, consumeIngredients);
         }
@@ -384,7 +383,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
         return null;
     }
 
-    private PrepRecipe getMatchingVirtualCuttingRecipe(ItemStack[] ingredients) {
+    private CookingPrepRecipe getMatchingVirtualCuttingRecipe(ItemStack[] ingredients) {
         // If there is only one item placed in any slot from 1 to 4
         // create virtual cutting recipe
         int slot = 0;
@@ -468,7 +467,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
         if (count == 1 && storage[0] == null) {
             // Exactly one ingredient and also empty vessel slot
             ItemStack[] ingredients = getIngredientsForRecipe(false);
-            PrepRecipe recipe = getMatchingVirtualCuttingRecipe(ingredients);
+            CookingPrepRecipe recipe = getMatchingVirtualCuttingRecipe(ingredients);
             if (recipe != null) {
                 recipeIngredientWeights = recipe.getIngredientWeights();
                 Bids.LOG.debug("Updated weights for cutting: " + Arrays.toString(recipeIngredientWeights));
@@ -477,7 +476,7 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
         } else if (count > 1 || storage[0] != null) {
             ItemStack[] ingredientsWithStoredVessel = getIngredientsForRecipe(true);
             if (ingredientsWithStoredVessel[0] != null) {
-                List<PrepRecipe> recipes = CookingPrepHelper.getRecipesUsingVessel(ingredientsWithStoredVessel[0]);
+                List<CookingPrepRecipe> recipes = CookingPrepHelper.getRecipesUsingVessel(ingredientsWithStoredVessel[0]);
                 if (recipes.size() > 0) {
                     recipeIngredientWeights = recipes.get(0).getIngredientWeights();
                     Bids.LOG.debug("Updated weights for recipe: " + Arrays.toString(recipeIngredientWeights));

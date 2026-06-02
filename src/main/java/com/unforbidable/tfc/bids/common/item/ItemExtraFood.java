@@ -5,11 +5,11 @@ import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.ICookingIngredientOverride;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingIngredientOverride;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 
-public class ItemExtraFood extends ItemFoodTFC implements ICookingIngredientOverride {
+public class ItemExtraFood extends ItemFoodTFC implements CookingIngredientOverride {
 
     protected Item ingredientOverride;
 

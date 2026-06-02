@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.device.cookingpot.render;
 import com.unforbidable.tfc.bids.features.device.cookingpot.tileentity.TileEntityCookingPot;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotBounds;
-import com.unforbidable.tfc.bids.features.device.cookingpot.main.EnumCookingPotPlacement;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotPlacement;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderCookingPot implements ISimpleBlockRenderingHandler {
 
-    private static final CookingPotBounds inventoryCookingPotBounds = CookingPotBounds.getBoundsForPlacement(EnumCookingPotPlacement.GROUND.getPlacement());
+    private static final CookingPotBounds inventoryCookingPotBounds = CookingPotBounds.getBoundsForPlacement(CookingPotPlacement.GROUND.getPlacement());
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {

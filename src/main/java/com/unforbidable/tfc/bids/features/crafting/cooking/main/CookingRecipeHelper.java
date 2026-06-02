@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.crafting.cooking.main;
 
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CookingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.CookingRecipeCraftingResult;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
 
 public class CookingRecipeHelper {
 

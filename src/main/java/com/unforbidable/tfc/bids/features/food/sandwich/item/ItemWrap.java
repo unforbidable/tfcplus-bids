@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.food.sandwich.item;
 
 import com.dunk.tfc.api.Food;
-import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemMoreSandwich;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

@@ -27,14 +27,12 @@ import com.unforbidable.tfc.bids.features.material.textile.main.EnumTextileHint;
 import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import com.unforbidable.tfc.bids.features.building.mudbrick.render.DryingMudBrickItemRenderer;
 import com.unforbidable.tfc.bids.features.crafting.churning.item.ItemWaterskinChurn;
-import com.unforbidable.tfc.bids.features.crafting.cooking.item.ItemCookedMeal;
-import com.unforbidable.tfc.bids.features.crafting.cooking.item.ItemCookingMixture;
-import com.unforbidable.tfc.bids.features.device.cookingpot.item.ItemSteamingMeshCloth;
+import com.unforbidable.tfc.bids.features.food.cookedmeal.item.ItemCookedMeal;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemBoard;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemShaft;
 import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
 import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemMoreSandwich;
-import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemPemmican;
+import com.unforbidable.tfc.bids.features.food.pemmican.item.ItemPemmican;
 import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemWrap;
 import com.unforbidable.tfc.bids.features.material.hides.item.ItemMoreRawhide;
 import com.unforbidable.tfc.bids.features.material.powder.item.ItemMorePowder;
@@ -884,37 +882,36 @@ public class ItemSetup extends BidsItems {
 //            .setContainerItem(woodenBucketRope)
 //            .setUnlocalizedName("Wooden Bucket Rope.FreshWater");
 
-        steamingMeshCloth = new ItemSteamingMeshCloth()
-            .setMaxDamage(TFCItems.linenUses)
-            .setUnlocalizedName("Steaming Mesh Cloth");
+//        steamingMeshCloth = new ItemSteamingMeshCloth()
+//            .setUnlocalizedName("Steaming Mesh Cloth");
 
-        stuffedPepper = new ItemMoreSandwich(new float[]{3, 6, 4, 2, 1})
-            .setMetaNames(new String[]{"Stuffed Pepper.Green", "Stuffed Pepper.Yellow", "Stuffed Pepper.Red"})
-            .setUnlocalizedName("Stuffed Pepper");
-        stuffedMushroom = new ItemMoreSandwich(new float[]{2, 3, 2, 2, 1})
-            .setMetaNames(new String[]{"Stuffed Mushroom.Brown"})
-            .setUnlocalizedName("Stuffed Mushroom");
-        pemmican = new ItemPemmican(new float[]{0, 40, 20, 10, 10})
-            .setMetaNames(new String[]{"Pemmican"})
-            .setUnlocalizedName("Pemmican");
-        wrap = new ItemWrap(new float[]{3, 6, 4, 2, 1})
-            .setMetaNames(new String[]{"Wrap.Wheat", "Wrap.Barley", "Wrap.Oat", "Wrap.Rye", "Wrap.Corn", "Wrap.Rice"})
-            .setUnlocalizedName("Wrap");
+//        stuffedPepper = new ItemMoreSandwich(new float[]{3, 6, 4, 2, 1})
+//            .setMetaNames(new String[]{"Stuffed Pepper.Green", "Stuffed Pepper.Yellow", "Stuffed Pepper.Red"})
+//            .setUnlocalizedName("Stuffed Pepper");
+//        stuffedMushroom = new ItemMoreSandwich(new float[]{2, 3, 2, 2, 1})
+//            .setMetaNames(new String[]{"Stuffed Mushroom.Brown"})
+//            .setUnlocalizedName("Stuffed Mushroom");
+//        pemmican = new ItemPemmican(new float[]{0, 40, 20, 10, 10})
+//            .setMetaNames(new String[]{"Pemmican"})
+//            .setUnlocalizedName("Pemmican");
+//        wrap = new ItemWrap(new float[]{3, 6, 4, 2, 1})
+//            .setMetaNames(new String[]{"Wrap.Wheat", "Wrap.Barley", "Wrap.Oat", "Wrap.Rye", "Wrap.Corn", "Wrap.Rice"})
+//            .setUnlocalizedName("Wrap");
 
-        cookingMixture = new ItemCookingMixture()
-            .setUnlocalizedName("CookingMixture");
+//        cookingMixture = new ItemCookingMixture()
+//            .setUnlocalizedName("CookingMixture");
 
-        stew = new ItemCookedMeal()
-            .setMetaNames(new String[]{"Stew.Bean", "Stew.Meat", "Stew.Fish", "Stew.Vegetable"})
-            .setUnlocalizedName("Stew");
-        soup = new ItemCookedMeal()
-            .setMetaNames(new String[]{"Soup.Bean", "Soup.Meat", "Soup.Fish", "Soup.Vegetable"})
-            .setUnlocalizedName("Soup");
-        porridge = new ItemCookedMeal()
-            .setMetaNames(new String[]{"Porridge.Water", "Porridge.Milk"})
-            .setUnlocalizedName("Porridge");
-        omelet = new ItemCookedMeal()
-            .setUnlocalizedName("Omelet");
+//        stew = new ItemCookedMeal()
+//            .setMetaNames(new String[]{"Stew.Bean", "Stew.Meat", "Stew.Fish", "Stew.Vegetable"})
+//            .setUnlocalizedName("Stew");
+//        soup = new ItemCookedMeal()
+//            .setMetaNames(new String[]{"Soup.Bean", "Soup.Meat", "Soup.Fish", "Soup.Vegetable"})
+//            .setUnlocalizedName("Soup");
+//        porridge = new ItemCookedMeal()
+//            .setMetaNames(new String[]{"Porridge.Water", "Porridge.Milk"})
+//            .setUnlocalizedName("Porridge");
+//        omelet = new ItemCookedMeal()
+//            .setUnlocalizedName("Omelet");
 
         moreHide = new ItemMoreRawhide()
             .setUnlocalizedName("More Hide");
@@ -1192,16 +1189,16 @@ public class ItemSetup extends BidsItems {
     private static void registerCookingIngredientOverrides() {
         Bids.LOG.info("Register cooking ingredient overrides");
 
-        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.barleyGrain, TFCItems.barleyWhole);
-        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.oatGrain, TFCItems.oatWhole);
-        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.ryeGrain, TFCItems.ryeWhole);
-        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.wheatGrain, TFCItems.wheatWhole);
-        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.riceGrain, TFCItems.riceWhole);
-        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.barleyGround, TFCItems.barleyWhole);
-        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.oatGround, TFCItems.oatWhole);
-        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.ryeGround, TFCItems.ryeWhole);
-        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.wheatGround, TFCItems.wheatWhole);
-        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.riceGround, TFCItems.riceWhole);
+//        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.barleyGrain, TFCItems.barleyWhole);
+//        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.oatGrain, TFCItems.oatWhole);
+//        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.ryeGrain, TFCItems.ryeWhole);
+//        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.wheatGrain, TFCItems.wheatWhole);
+//        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.riceGrain, TFCItems.riceWhole);
+//        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.barleyGround, TFCItems.barleyWhole);
+//        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.oatGround, TFCItems.oatWhole);
+//        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.ryeGround, TFCItems.ryeWhole);
+//        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.wheatGround, TFCItems.wheatWhole);
+//        BidsRegistry.COOKING_INGREDIENT_OVERRIDE.register(TFCItems.riceGround, TFCItems.riceWhole);
     }
 
     @SideOnly(Side.CLIENT)
