@@ -11,6 +11,8 @@ public interface FluidNames {
     String GOAT_MILK_CURDLED = "GoatMilkCurdled";
     String SKIMMED_MILK_VINEGAR = "SkimmedMilkVinegar";
     String SKIMMED_MILK_CURDLED = "SkimmedMilkCurdled";
+    String OILY_FISH_WATER = "OilyFishWater";
+    String FISH_OIL = "FishOil";
 
 //    String BEAN = "bean";
 //    String BEAN_WATER = "beanWater";

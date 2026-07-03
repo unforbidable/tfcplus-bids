@@ -62,9 +62,6 @@ public class Lamp extends Feature {
         // TODO register lamp fuels in respective features
 
         setup.registry(LampRegistry.fuel)
-            .add(BidsFluids.FISHOIL, new FuelFishOil());
-
-        setup.registry(LampRegistry.fuel)
             .add(BidsFluids.FLAXSEEDOIL, new FuelFlaxSeedOil());
     }
 

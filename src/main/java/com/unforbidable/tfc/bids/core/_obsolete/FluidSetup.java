@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.core._obsolete;
 
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsFluids;
-import com.unforbidable.tfc.bids.api.features.cooking.CookingMixture;
 import net.minecraftforge.fluids.FluidRegistry;
 
 public class FluidSetup extends BidsFluids {
@@ -60,8 +59,8 @@ public class FluidSetup extends BidsFluids {
     private static void registerFluids() {
         Bids.LOG.info("Register fluids");
 
-        FluidRegistry.registerFluid(OILYFISHWATER);
-        FluidRegistry.registerFluid(FISHOIL);
+        FluidRegistry.registerFluid(oilyFishWater);
+        FluidRegistry.registerFluid(fishOil);
 //        FluidRegistry.registerFluid(goatMilk);
         FluidRegistry.registerFluid(goatMilkVinegar);
         FluidRegistry.registerFluid(goatMilkCurdled);

@@ -39,6 +39,7 @@ import com.unforbidable.tfc.bids.features.material.bark.Bark;
 import com.unforbidable.tfc.bids.features.material.birtchback.BirchBark;
 import com.unforbidable.tfc.bids.features.material.clothing.Clothing;
 import com.unforbidable.tfc.bids.features.material.firewood.Firewood;
+import com.unforbidable.tfc.bids.features.material.fishoil.FishOil;
 import com.unforbidable.tfc.bids.features.material.glass.Glass;
 import com.unforbidable.tfc.bids.features.material.hide.Hide;
 import com.unforbidable.tfc.bids.features.material.logs.Logs;
@@ -115,6 +116,7 @@ public class Features {
         new Churning(),
         new Butter(),
         new Cheese(),
+        new FishOil(),
     };
 
 }

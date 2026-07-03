@@ -913,7 +913,7 @@ public class RecipeSetup {
         ItemStack steamedFish = BidsFood.setSteamed(ItemFoodTFC.createTag(new ItemStack(TFCItems.fishRaw), 0.5f * inputMult), true);
         // Require fish to be steamed to medium level
         Food.setCooked(steamedFish, CookingHelper.getTempForItemStackCookedLevel(steamedFish, 3));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(BidsFluids.OILYFISHWATER, 10), steamedFish, 0.65f));
+        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(BidsFluids.oilyFishWater, 10), steamedFish, 0.65f));
 
         BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(BidsFluids.FLAXSEEDOIL, 10),
             ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f * inputMult), 0.25f));

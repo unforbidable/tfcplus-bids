@@ -258,6 +258,17 @@ public class BidsItems {
     public static final Item goatCheese = item(ItemNames.GOAT_CHEESE);
     public static final Item hardCheese = item(ItemNames.HARD_CHEESE);
 
+    // Fish Oil
+    public static final Item oilyFishWaterBottle = item(ItemNames.BOTTLE_OILY_FISH_WATER);
+    public static final Item woodenBucketOilyFishWater = item(ItemNames.WOODEN_BUCKET_OILY_FISH_WATER);
+    public static final Item ceramicBucketOilyFishWater = item(ItemNames.CERAMIC_BUCKET_OILY_FISH_WATER);
+    public static final Item fishOilBottle = item(ItemNames.BOTTLE_FISH_OIL);
+    public static final Item potteryJugFishOil = item(ItemNames.JUG_FISH_OIL);
+    public static final Item fishOilBowl = item(ItemNames.BOWL_FISH_OIL);
+
+
+
+
     public static Item board;
     public static Item shaft;
 
@@ -307,17 +318,11 @@ public class BidsItems {
 
     public static Item honeyWaterBottle;
     public static Item milkVinegarBottle;
-    public static Item fishOilBottle;
-    public static Item oilyFishWaterBottle;
     public static Item weakWoodAshLyeBottle;
     public static Item woodAshLyeBottle;
     public static Item soapyWaterBottle;
     public static Item flaxSeedOilBottle;
 
-
-    public static Item potteryJugFishOil;
-
-    public static Item fishOilBowl;
     public static Item flaxSeedOilBowl;
 
     public static Item weakWoodAshLyeLargeBowl;
@@ -326,12 +331,10 @@ public class BidsItems {
     public static Item woodenBucketBrine;
     public static Item woodenBucketHoneyWater;
     public static Item woodenBucketMilkVinegar;
-    public static Item woodenBucketOilyFishWater;
 
     public static Item ceramicBucketBrine;
     public static Item ceramicBucketHoneyWater;
     public static Item ceramicBucketMilkVinegar;
-    public static Item ceramicBucketOilyFishWater;
 
     public static Item seaBeet;
     public static Item beetroot;

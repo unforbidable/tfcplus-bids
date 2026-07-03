@@ -296,8 +296,10 @@ public interface ItemNames {
     String WOODEN_BUCKET_AND_ROPE_FRESH_WATER = "Wooden Bucket Rope.FreshWater";
 
     // Fish Oil
-    String BOTTLE_FISH_OIL = "Glass Bottle.FishOil";
     String BOTTLE_OILY_FISH_WATER = "Glass Bottle.OilyFishWater";
+    String WOODEN_BUCKET_OILY_FISH_WATER = "Wooden Bucket.OilyFishWater";
+    String CERAMIC_BUCKET_OILY_FISH_WATER = "Ceramic Bucket.OilyFishWater";
+    String BOTTLE_FISH_OIL = "Glass Bottle.FishOil";
     String BOWL_FISH_OIL = "Bowl Fish Oil";
     String JUG_FISH_OIL = "Pottery Jug.FishOil";
 

@@ -247,12 +247,6 @@ public class SaddleQuern extends Feature {
             .add(new StonePressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputRatio)),
                 new ItemStack(TFCItems.agave, 1)));
 
-//        ItemStack steamedFish = BidsFood.setSteamed(ItemFoodTFC.createTag(new ItemStack(TFCItems.fishRaw), 0.5f * inputRatio), true);
-//        // Require fish to be steamed to medium level
-//        Food.setCooked(steamedFish, CookingHelper.getTempForItemStackCookedLevel(steamedFish, 3));
-//        setup.registry(StonePressRegistry.recipes)
-//            .add(new StonePressRecipe(new FluidStack(BidsFluids.OILYFISHWATER, 10), steamedFish));
-//
 //        setup.registry(StonePressRegistry.recipes)
 //            .add(new StonePressRecipe(new FluidStack(BidsFluids.FLAXSEEDOIL, 10),
 //                ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f * inputRatio)));
