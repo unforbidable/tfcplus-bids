@@ -590,11 +590,6 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Hard Cheese");
         ((ItemFoodTFC) hardCheese).setSmokeAbsorbMultiplier(0.5F);
 
-        butter = new ItemExtraFood(EnumFoodGroup.Dairy, 35, 0, 10, 0, 50)
-            .setDecayRate(1f)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Butter");
-
 //        suet = new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 30)
 //            .setDecayRate(2.5f)
 //            .setPoisonOnRaw(true)
