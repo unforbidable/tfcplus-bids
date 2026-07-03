@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.core.config;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfigLoader;
-import com.unforbidable.tfc.bids.features.food.milk.MilkConfig;
 import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import java.io.File;
 import net.minecraftforge.common.config.Configuration;
@@ -28,11 +27,6 @@ public class ConfigHandler {
         FeatureConfigLoader.load(config);
 
         // TODO move to specific feature
-
-        BidsOptions.Churning.churningDurationMultiplier = config.getFloat(
-            "churningDurationMultiplier", "churning",
-            BidsOptions.Churning.churningDurationMultiplier, 0.5f, 4f,
-            "Higher values increase the time it takes to churn butter");
 
         BidsOptions.Kiln.enableBeehiveKiln = config.getBoolean(
             "enableBeehiveKiln", "kiln", BidsOptions.Kiln.enableBeehiveKiln,

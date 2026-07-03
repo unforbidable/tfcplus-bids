@@ -10,12 +10,12 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.features.crafting.churning.ChurningConfig;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ChurningRecipe;
+import com.unforbidable.tfc.bids.api.features.churning.ChurningRecipe;
+import com.unforbidable.tfc.bids.features.crafting.churning.ChurningRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -63,11 +63,11 @@ public class ChurningNeiHandler extends TemplateRecipeHandler implements IHandle
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == ChurningNeiHandler.class) {
-            for (ChurningRecipe recipe : BidsRegistry.CHURNING_RECIPES) {
+            for (ChurningRecipe recipe : ChurningRegistry.recipes) {
                 final FluidStack input = recipe.getInput().copy();
                 input.amount = 4000;
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input) * BidsOptions.Churning.churningDurationMultiplier));
+                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input) * ChurningConfig.churningDurationMultiplier));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -76,24 +76,24 @@ public class ChurningNeiHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (ChurningRecipe recipe : BidsRegistry.CHURNING_RECIPES) {
+        for (ChurningRecipe recipe : ChurningRegistry.recipes) {
             final FluidStack input = recipe.getInput().copy();
             input.amount = 4000;
             final ItemStack result = recipe.getResult(input);
             if (ItemStack.areItemStacksEqual(result, output) || result.getItem() instanceof IFood && result.getItem() == output.getItem()) {
-                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input) * BidsOptions.Churning.churningDurationMultiplier));
+                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input) * ChurningConfig.churningDurationMultiplier));
             }
         }
     }
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (ChurningRecipe recipe : BidsRegistry.CHURNING_RECIPES) {
+        for (ChurningRecipe recipe : ChurningRegistry.recipes) {
             FluidStack input = FluidContainerRegistry.getFluidForFilledItem(ingredient);
             if (input != null && recipe.matches(input)) {
                 input.amount = 4000;
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input) * BidsOptions.Churning.churningDurationMultiplier));
+                arecipes.add(new CachedChurningRecipe(input, result, recipe.getTotalDuration(input) * ChurningConfig.churningDurationMultiplier));
             }
         }
     }

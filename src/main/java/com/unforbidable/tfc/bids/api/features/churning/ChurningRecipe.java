@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Crafting;
+package com.unforbidable.tfc.bids.api.features.churning;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;

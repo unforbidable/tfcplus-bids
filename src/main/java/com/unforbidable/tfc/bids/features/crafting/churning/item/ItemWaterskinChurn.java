@@ -3,15 +3,16 @@ package com.unforbidable.tfc.bids.features.crafting.churning.item;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
+import com.unforbidable.tfc.bids.api._obsolete.BidsSounds;
+import com.unforbidable.tfc.bids.api.features.churning.ChurningRecipe;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemWaterskinFluid;
+import com.unforbidable.tfc.bids.features.crafting.churning.ChurningConfig;
+import com.unforbidable.tfc.bids.features.crafting.churning.ChurningRegistry;
 import com.unforbidable.tfc.bids.features.crafting.churning.main.ChurningPlayerState;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.util.playerstate.PlayerStateManager;
-import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.BidsSounds;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ChurningRecipe;
+import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -21,8 +22,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.List;
 
 public class ItemWaterskinChurn extends ItemWaterskinFluid {
 
@@ -52,7 +51,7 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
     public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player) {
         FluidStack fluidToChurn = getFluidToChurn(is);
         if (fluidToChurn != null) {
-            ChurningRecipe recipe = BidsRegistry.CHURNING_RECIPES.findMatchingRecipe(fluidToChurn);
+            ChurningRecipe recipe = ChurningRegistry.recipes.findMatchingRecipe(fluidToChurn);
             if (recipe != null) {
                 // Check progress saved in NBT
                 float currentProgress = getChurningProgress(is);
@@ -155,10 +154,10 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
             if (state != null) {
                 FluidStack fluidToChurn = getFluidToChurn(stack);
                 if (fluidToChurn != null) {
-                    ChurningRecipe recipe = BidsRegistry.CHURNING_RECIPES.findMatchingRecipe(fluidToChurn);
+                    ChurningRecipe recipe = ChurningRegistry.recipes.findMatchingRecipe(fluidToChurn);
                     if (recipe != null) {
                         long ticksElapsedSinceStart = TFC_Time.getTotalTicks() - state.ticksStarted;
-                        float progress = ticksElapsedSinceStart / recipe.getTotalDuration(fluidToChurn) * BidsOptions.Churning.churningDurationMultiplier;
+                        float progress = ticksElapsedSinceStart / recipe.getTotalDuration(fluidToChurn) * ChurningConfig.churningDurationMultiplier;
                         setChurningProgress(stack, getChurningProgress(stack) + progress);
 
                         player.inventoryContainer.detectAndSendChanges();
@@ -174,7 +173,7 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
 
         FluidStack fs = getFluidToChurn(is);
         if (fs != null) {
-            ChurningRecipe recipe = BidsRegistry.CHURNING_RECIPES.findMatchingRecipe(fs);
+            ChurningRecipe recipe = ChurningRegistry.recipes.findMatchingRecipe(fs);
             if (recipe != null) {
                 int progress = Math.round(getChurningProgress(is) * 100);
                 if (progress > 0) {

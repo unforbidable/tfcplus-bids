@@ -5,7 +5,7 @@ import com.unforbidable.tfc.bids.api._obsolete.Interfaces.*;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.*;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IKilnChamber;
-import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
+import com.unforbidable.tfc.bids.api.features.churning.ChurningRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -27,7 +27,7 @@ public class BidsRegistry {
 //    public static final ListRegistry<DryingRackTyingEquipment> DRYING_RACK_TYING_EQUIPMENT = new ListRegistry<>("drying-rack-tying-equipment");
 
 //    public static final RecipeRegistry<CarvingRecipe> CARVING_RECIPES = new RecipeRegistry<>("carving");
-    public static final SimpleRecipeRegistry<ChurningRecipe, FluidStack> CHURNING_RECIPES = new SimpleRecipeRegistry<>("churning");
+//    public static final SimpleRecipeRegistry<ChurningRecipe, FluidStack> CHURNING_RECIPES = new SimpleRecipeRegistry<>("churning");
     public static final SimpleRecipeRegistry<CardingRecipe, ItemStack> CARDING_RECIPES = new SimpleRecipeRegistry<>("carding");
     public static final SimpleRecipeRegistry<HandworkRecipe, ItemStack> HANDWORK_RECIPES = new SimpleRecipeRegistry<>("handwork");
     public static final SimpleRecipeRegistry<HecklingRecipe, ItemStack> HECKLING_RECIPES = new SimpleRecipeRegistry<>("heckling");

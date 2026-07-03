@@ -20,12 +20,6 @@ public class BidsOptions {
 
     }
 
-    public static class Churning {
-
-        public static float churningDurationMultiplier = 2f;
-
-    }
-
     public static class Crafting {
 
         public static boolean craftingAddMissingLeatherRepairRecipes = true;

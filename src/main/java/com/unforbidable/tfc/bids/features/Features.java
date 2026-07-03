@@ -6,6 +6,7 @@ import com.unforbidable.tfc.bids.features.building.logwall.LogWall;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
 import com.unforbidable.tfc.bids.features.building.wattle.Wattle;
+import com.unforbidable.tfc.bids.features.crafting.churning.Churning;
 import com.unforbidable.tfc.bids.features.crafting.cooking.Cooking;
 import com.unforbidable.tfc.bids.features.crafting.dough.Dough;
 import com.unforbidable.tfc.bids.features.crafting.drying.Drying;
@@ -109,6 +110,7 @@ public class Features {
         new Hide(),
         new Tallow(),
         new Pemmican(),
+        new Churning(),
     };
 
 }
