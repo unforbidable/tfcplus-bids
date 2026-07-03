@@ -236,6 +236,8 @@ public class BidsItems {
     public static final Item wrap = item(ItemNames.WRAP);
 
 
+    // More hide
+    public static final Item moreHide = item(ItemNames.MORE_HIDE);
 
 
 
@@ -358,7 +360,6 @@ public class BidsItems {
     public static Item suet;
     public static Item tallow;
 
-    public static Item moreHide;
     public static Item morePowder;
 
     public static Item whorl;

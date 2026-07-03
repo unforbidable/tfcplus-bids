@@ -35,6 +35,7 @@ import com.unforbidable.tfc.bids.features.material.birtchback.BirchBark;
 import com.unforbidable.tfc.bids.features.material.clothing.Clothing;
 import com.unforbidable.tfc.bids.features.material.firewood.Firewood;
 import com.unforbidable.tfc.bids.features.material.glass.Glass;
+import com.unforbidable.tfc.bids.features.material.hide.Hide;
 import com.unforbidable.tfc.bids.features.material.logs.Logs;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
 import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
@@ -103,6 +104,7 @@ public class Features {
         new CookingPrep(),
         new Sandwich(),
         new CookedMeal(),
+        new Hide(),
     };
 
 }

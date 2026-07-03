@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.material.hides.item;
+package com.unforbidable.tfc.bids.features.material.hide.item;
 
 import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.api.Enums.EnumItemReach;

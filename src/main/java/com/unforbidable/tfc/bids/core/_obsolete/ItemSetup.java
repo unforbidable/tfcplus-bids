@@ -34,7 +34,6 @@ import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
 import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemMoreSandwich;
 import com.unforbidable.tfc.bids.features.food.pemmican.item.ItemPemmican;
 import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemWrap;
-import com.unforbidable.tfc.bids.features.material.hides.item.ItemMoreRawhide;
 import com.unforbidable.tfc.bids.features.material.powder.item.ItemMorePowder;
 import com.unforbidable.tfc.bids.features.material.soap.item.ItemSoap;
 import com.unforbidable.tfc.bids.features.material.textile.item.*;
@@ -913,8 +912,8 @@ public class ItemSetup extends BidsItems {
 //        omelet = new ItemCookedMeal()
 //            .setUnlocalizedName("Omelet");
 
-        moreHide = new ItemMoreRawhide()
-            .setUnlocalizedName("More Hide");
+//        moreHide = new ItemMoreRawhide()
+//            .setUnlocalizedName("More Hide");
         morePowder = new ItemMorePowder()
             .setUnlocalizedName("More Powder");
 

@@ -547,21 +547,21 @@ public class RecipeSetup {
 //                "logWoodPlugAndFeather", "itemAdze")
 //            .action(damageTool("itemAdze"));
 
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.hide),
-                new ItemStack(BidsItems.moreHide, 1, 0), new ItemStack(BidsItems.moreHide, 1, 0), "itemNeedleAndThread")
-            .action(damageTool("itemNeedleAndThread", 10));
-
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.hide, 1, 1),
-                new ItemStack(TFCItems.hide, 1, 0), new ItemStack(TFCItems.hide, 1, 0), "itemNeedleAndThread")
-            .action(damageTool("itemNeedleAndThread", 20));
-
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.hide, 1, 2),
-                new ItemStack(TFCItems.hide, 1, 1), new ItemStack(TFCItems.hide, 1, 1), "itemNeedleAndThread")
-            .action(damageTool("itemNeedleAndThread", 40));
-
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.moreHide, 2),
-                new ItemStack(TFCItems.hide, 1, 0), "itemKnife")
-            .action(damageTool("itemKnife"));
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.hide),
+//                new ItemStack(BidsItems.moreHide, 1, 0), new ItemStack(BidsItems.moreHide, 1, 0), "itemNeedleAndThread")
+//            .action(damageTool("itemNeedleAndThread", 10));
+//
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.hide, 1, 1),
+//                new ItemStack(TFCItems.hide, 1, 0), new ItemStack(TFCItems.hide, 1, 0), "itemNeedleAndThread")
+//            .action(damageTool("itemNeedleAndThread", 20));
+//
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.hide, 1, 2),
+//                new ItemStack(TFCItems.hide, 1, 1), new ItemStack(TFCItems.hide, 1, 1), "itemNeedleAndThread")
+//            .action(damageTool("itemNeedleAndThread", 40));
+//
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.moreHide, 2),
+//                new ItemStack(TFCItems.hide, 1, 0), "itemKnife")
+//            .action(damageTool("itemKnife"));
 
 //        // Copies of TFC recipes for generic wood items made logs
 //        recipes.addShapelessRecipe(new ItemStack(TFCItems.pole),
