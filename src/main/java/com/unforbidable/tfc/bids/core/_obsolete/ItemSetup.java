@@ -590,19 +590,19 @@ public class ItemSetup extends BidsItems {
             .setUnlocalizedName("Hard Cheese");
         ((ItemFoodTFC) hardCheese).setSmokeAbsorbMultiplier(0.5F);
 
-        suet = new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 30)
-            .setDecayRate(2.5f)
-            .setPoisonOnRaw(true)
-            .setUnlocalizedName("Suet");
-        tallow = new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 60)
-            .setDecayRate(0.05f)
-            .setNutritionAsIfCooked(true)
-            .setUnlocalizedName("Tallow");
-
         butter = new ItemExtraFood(EnumFoodGroup.Dairy, 35, 0, 10, 0, 50)
             .setDecayRate(1f)
             .setNutritionAsIfCooked(true)
             .setUnlocalizedName("Butter");
+
+//        suet = new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 30)
+//            .setDecayRate(2.5f)
+//            .setPoisonOnRaw(true)
+//            .setUnlocalizedName("Suet");
+//        tallow = new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 60)
+//            .setDecayRate(0.05f)
+//            .setNutritionAsIfCooked(true)
+//            .setUnlocalizedName("Tallow");
 
 //        bambooShoot = new ItemExtraFood(EnumFoodGroup.Vegetable, 20, 0, 0, 0, 10, true, true, true, true)
 //            .setWaterPercentage(0.3f)

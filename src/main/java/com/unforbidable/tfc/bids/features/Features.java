@@ -30,6 +30,7 @@ import com.unforbidable.tfc.bids.features.food.flatbread.Flatbread;
 import com.unforbidable.tfc.bids.features.food.hardtack.Hardtack;
 import com.unforbidable.tfc.bids.features.food.milk.Milk;
 import com.unforbidable.tfc.bids.features.food.sandwich.Sandwich;
+import com.unforbidable.tfc.bids.features.food.tallow.Tallow;
 import com.unforbidable.tfc.bids.features.material.bark.Bark;
 import com.unforbidable.tfc.bids.features.material.birtchback.BirchBark;
 import com.unforbidable.tfc.bids.features.material.clothing.Clothing;
@@ -105,6 +106,7 @@ public class Features {
         new Sandwich(),
         new CookedMeal(),
         new Hide(),
+        new Tallow(),
     };
 
 }

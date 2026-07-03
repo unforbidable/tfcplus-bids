@@ -145,11 +145,6 @@ public class Cooking extends Feature {
                     .produces(new ItemStack(TFCBlocks.candleOff, 1))
                     .withHeat()
                     .build());
-                // TODO move to tallow
-//                .add(CookingRecipe.builder()
-//                    .consumes(new FluidStack(BidsFluids.TALLOW, 200), new ItemStack(stringItem))
-//                    .produces(new ItemStack(TFCBlocks.candleOff, 1))
-//                    .build());
         }
 
         setup.event()

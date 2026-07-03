@@ -235,6 +235,9 @@ public class BidsItems {
     public static final Item stuffedMushroom = item(ItemNames.STUFFED_MUSHROOM);
     public static final Item wrap = item(ItemNames.WRAP);
 
+    // Tallow
+    public static final Item suet = item(ItemNames.SUET);
+    public static final Item tallow = item(ItemNames.TALLOW);
 
     // More hide
     public static final Item moreHide = item(ItemNames.MORE_HIDE);
@@ -356,9 +359,6 @@ public class BidsItems {
     public static Item seedsNewCabbage;
     public static Item seedsNewGarlic;
     public static Item seedsNewCarrot;
-
-    public static Item suet;
-    public static Item tallow;
 
     public static Item morePowder;
 
