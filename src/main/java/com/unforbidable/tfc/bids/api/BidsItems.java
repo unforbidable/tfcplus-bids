@@ -242,6 +242,8 @@ public class BidsItems {
     // More hide
     public static final Item moreHide = item(ItemNames.MORE_HIDE);
 
+    // Pemmican
+    public static final Item pemmican = item(ItemNames.PEMMICAN);
 
 
     public static Item board;
@@ -330,7 +332,6 @@ public class BidsItems {
 
     public static Item butter;
 
-    public static Item pemmican;
     public static Item seaBeet;
     public static Item beetroot;
     public static Item sugarBeet;
