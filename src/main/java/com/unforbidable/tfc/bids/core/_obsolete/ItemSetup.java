@@ -577,18 +577,18 @@ public class ItemSetup extends BidsItems {
 //        flatDough = new ItemCommonFlat().setTextureFolder("food")
 //            .setUnlocalizedName("Flat Dough");
 
-        goatCheese = new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20)
-            .setWaterPercentage(0.6f)
-            .setDecayRate(0.5f)
-            .setCanSmoke()
-            .setUnlocalizedName("Goat Cheese");
-        ((ItemFoodTFC) goatCheese).setSmokeAbsorbMultiplier(1F);
-        hardCheese = new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20)
-            .setWaterPercentage(0.3f)
-            .setDecayRate(0.25f)
-            .setCanSmoke()
-            .setUnlocalizedName("Hard Cheese");
-        ((ItemFoodTFC) hardCheese).setSmokeAbsorbMultiplier(0.5F);
+//        goatCheese = new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20)
+//            .setWaterPercentage(0.6f)
+//            .setDecayRate(0.5f)
+//            .setCanSmoke()
+//            .setUnlocalizedName("Goat Cheese");
+//        ((ItemFoodTFC) goatCheese).setSmokeAbsorbMultiplier(1F);
+//        hardCheese = new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20)
+//            .setWaterPercentage(0.3f)
+//            .setDecayRate(0.25f)
+//            .setCanSmoke()
+//            .setUnlocalizedName("Hard Cheese");
+//        ((ItemFoodTFC) hardCheese).setSmokeAbsorbMultiplier(0.5F);
 
 //        suet = new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 30)
 //            .setDecayRate(2.5f)

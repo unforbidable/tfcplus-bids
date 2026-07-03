@@ -7,6 +7,10 @@ public interface FluidNames {
     String TALLOW = "Tallow";
     String SKIMMED_MILK = "SkimmedMilk";
     String CREAM = "Cream";
+    String GOAT_MILK_VINEGAR = "GoatMilkVinegar";
+    String GOAT_MILK_CURDLED = "GoatMilkCurdled";
+    String SKIMMED_MILK_VINEGAR = "SkimmedMilkVinegar";
+    String SKIMMED_MILK_CURDLED = "SkimmedMilkCurdled";
 
 //    String BEAN = "bean";
 //    String BEAN_WATER = "beanWater";

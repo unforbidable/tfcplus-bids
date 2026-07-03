@@ -254,6 +254,10 @@ public class BidsItems {
     public static final Item waterskinCream = item(ItemNames.WATERSKIN_CREAM);
     public static final Item butter = item(ItemNames.BUTTER);
 
+    // Cheese
+    public static final Item goatCheese = item(ItemNames.GOAT_CHEESE);
+    public static final Item hardCheese = item(ItemNames.HARD_CHEESE);
+
     public static Item board;
     public static Item shaft;
 
@@ -328,9 +332,6 @@ public class BidsItems {
     public static Item ceramicBucketHoneyWater;
     public static Item ceramicBucketMilkVinegar;
     public static Item ceramicBucketOilyFishWater;
-
-    public static Item hardCheese;
-    public static Item goatCheese;
 
     public static Item seaBeet;
     public static Item beetroot;

@@ -25,6 +25,7 @@ import com.unforbidable.tfc.bids.features.device.wallhook.WallHook;
 import com.unforbidable.tfc.bids.features.device.woodpile.Woodpile;
 import com.unforbidable.tfc.bids.features.food.bamboo.Bamboo;
 import com.unforbidable.tfc.bids.features.food.butter.Butter;
+import com.unforbidable.tfc.bids.features.food.cheese.Cheese;
 import com.unforbidable.tfc.bids.features.food.coarseflour.CoarseFlour;
 import com.unforbidable.tfc.bids.features.food.cookedmeal.CookedMeal;
 import com.unforbidable.tfc.bids.features.food.crushedfruit.CrushedFruit;
@@ -113,6 +114,7 @@ public class Features {
         new Pemmican(),
         new Churning(),
         new Butter(),
+        new Cheese(),
     };
 
 }

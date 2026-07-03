@@ -14,6 +14,10 @@ public class BidsFluids {
     public static final Fluid tallow = fluid(FluidNames.TALLOW);
     public static final Fluid skimmedMilk = fluid(FluidNames.SKIMMED_MILK);
     public static final Fluid cream = fluid(FluidNames.CREAM);
+    public static final Fluid goatMilkVinegar = fluid(FluidNames.GOAT_MILK_VINEGAR);
+    public static final Fluid goatMilkCurdled = fluid(FluidNames.GOAT_MILK_CURDLED);
+    public static final Fluid skimmedMilkVinegar = fluid(FluidNames.SKIMMED_MILK_VINEGAR);
+    public static final Fluid skimmedMilkCurdled = fluid(FluidNames.SKIMMED_MILK_CURDLED);
 
     private static Fluid fluid(String name) {
         Fluid fluid = FluidRegistry.getFluid(name.toLowerCase(Locale.ENGLISH));
@@ -28,10 +32,6 @@ public class BidsFluids {
 
     public static final Fluid OILYFISHWATER = new FluidBaseTFC("OilyFishWater").setBaseColor(0x124220);
     public static final Fluid FISHOIL = new FluidBaseTFC("FishOil").setBaseColor(0xa1a36f);
-    public static final Fluid GOATMILKVINEGAR = new FluidBaseTFC("GoatMilkVinegar").setBaseColor(0xfffbe8);
-    public static final Fluid GOATMILKCURDLED = new FluidBaseTFC("GoatMilkCurdled").setBaseColor(0xfffbe8);
-    public static final Fluid SKIMMEDMILKVINEGAR = new FluidBaseTFC("SkimmedMilkVinegar").setBaseColor(0xfffbe8);
-    public static final Fluid SKIMMEDMILKCURDLED = new FluidBaseTFC("SkimmedMilkCurdled").setBaseColor(0xfffbe8);
     public static final Fluid WEAKWOODASHLYE = new FluidBaseTFC("WeakWoodAshLye").setBaseColor(0xffc075);
     public static final Fluid WOODASHLYE = new FluidBaseTFC("WoodAshLye").setBaseColor(0xd88a10);
     public static final Fluid TALLOWWOODASHLYE = new FluidBaseTFC("TallowWoodAshLye").setBaseColor(0xcc9258);
