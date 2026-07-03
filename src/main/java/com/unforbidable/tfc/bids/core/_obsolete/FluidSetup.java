@@ -67,10 +67,10 @@ public class FluidSetup extends BidsFluids {
         FluidRegistry.registerFluid(GOATMILKCURDLED);
         FluidRegistry.registerFluid(tallow);
 //        FluidRegistry.registerFluid(cookingMixture);
-        FluidRegistry.registerFluid(SKIMMEDMILK);
-        FluidRegistry.registerFluid(SKIMMEDMILKVINEGAR);
-        FluidRegistry.registerFluid(SKIMMEDMILKCURDLED);
-        FluidRegistry.registerFluid(CREAM);
+        FluidRegistry.registerFluid(skimmedMilk);
+        FluidRegistry.registerFluid(skimmedMilkVinegar);
+        FluidRegistry.registerFluid(skimmedMilkCurdled);
+        FluidRegistry.registerFluid(cream);
         FluidRegistry.registerFluid(WEAKWOODASHLYE);
         FluidRegistry.registerFluid(WOODASHLYE);
         FluidRegistry.registerFluid(TALLOWWOODASHLYE);

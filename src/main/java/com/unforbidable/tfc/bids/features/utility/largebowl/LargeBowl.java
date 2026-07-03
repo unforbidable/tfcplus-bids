@@ -17,11 +17,13 @@ import com.unforbidable.tfc.bids.features.utility.largebowl.item.ItemLargeBowl;
 import net.minecraft.item.ItemStack;
 
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_CREAM;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_FRESH_WATER;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_GOAT_MILK;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_HONEY;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_MILK;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_SALT_WATER;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_SKIMMED_MILK;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_VINEGAR;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
@@ -39,6 +41,8 @@ public class LargeBowl extends Feature {
         init.item(LARGE_BOWL_MILK, ItemLargeBowlFluid::new);
         init.item(LARGE_BOWL_HONEY, ItemLargeBowlFluid::new);
         init.item(LARGE_BOWL_GOAT_MILK, ItemLargeBowlFluid::new);
+        init.item(LARGE_BOWL_SKIMMED_MILK, ItemLargeBowlFluid::new);
+        init.item(LARGE_BOWL_CREAM, ItemLargeBowlFluid::new);
     }
 
     @Override
@@ -55,6 +59,10 @@ public class LargeBowl extends Feature {
             .container(BidsItems.honeyLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
         setup.fluid(BidsFluids.goatMilk)
             .container(BidsItems.goatMilkLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
+        setup.fluid(BidsFluids.skimmedMilk)
+            .container(BidsItems.skimmedMilkLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
+        setup.fluid(BidsFluids.cream)
+            .container(BidsItems.creamLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
 
         setup.ores("itemMilkingContainer")
             .add(new ItemStack(BidsItems.largeClayBowl, 1, 1));

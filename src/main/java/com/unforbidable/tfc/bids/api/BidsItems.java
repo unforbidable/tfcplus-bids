@@ -135,6 +135,8 @@ public class BidsItems {
     public static final Item vinegarLargeBowl = item(ItemNames.LARGE_BOWL_VINEGAR);
     public static final Item milkLargeBowl = item(ItemNames.LARGE_BOWL_MILK);
     public static final Item honeyLargeBowl = item(ItemNames.LARGE_BOWL_HONEY);
+    public static final Item skimmedMilkLargeBowl = item(ItemNames.LARGE_BOWL_SKIMMED_MILK);
+    public static final Item creamLargeBowl = item(ItemNames.LARGE_BOWL_CREAM);
 
     // Hand Axe
     public static final Item igInHandAxe = item(ItemNames.HAND_AXE_IG_IN);
@@ -245,6 +247,12 @@ public class BidsItems {
     // Pemmican
     public static final Item pemmican = item(ItemNames.PEMMICAN);
 
+    // Butter
+    public static final Item skimmedMilkBottle = item(ItemNames.BOTTLE_SKIMMED_MILK);
+    public static final Item potteryJugSkimmedMilk = item(ItemNames.JUG_SKIMMED_MILK);
+    public static final Item creamBottle = item(ItemNames.BOTTLE_CREAM);
+    public static final Item waterskinCream = item(ItemNames.WATERSKIN_CREAM);
+    public static final Item butter = item(ItemNames.BUTTER);
 
     public static Item board;
     public static Item shaft;
@@ -297,23 +305,17 @@ public class BidsItems {
     public static Item milkVinegarBottle;
     public static Item fishOilBottle;
     public static Item oilyFishWaterBottle;
-    public static Item skimmedMilkBottle;
-    public static Item creamBottle;
     public static Item weakWoodAshLyeBottle;
     public static Item woodAshLyeBottle;
     public static Item soapyWaterBottle;
     public static Item flaxSeedOilBottle;
 
-    public static Item waterskinCream;
 
     public static Item potteryJugFishOil;
-    public static Item potteryJugSkimmedMilk;
 
     public static Item fishOilBowl;
     public static Item flaxSeedOilBowl;
 
-    public static Item skimmedMilkLargeBowl;
-    public static Item creamLargeBowl;
     public static Item weakWoodAshLyeLargeBowl;
     public static Item woodAshLyeLargeBowl;
 
@@ -329,8 +331,6 @@ public class BidsItems {
 
     public static Item hardCheese;
     public static Item goatCheese;
-
-    public static Item butter;
 
     public static Item seaBeet;
     public static Item beetroot;

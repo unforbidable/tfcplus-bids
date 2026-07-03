@@ -626,8 +626,8 @@ public class RecipeSetup {
 //                BidsItems.woodenBucketRope)
 //            .action(extraDrop(new ItemStack(TFCItems.rope)));
 
-        recipes.addShapelessRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)), new ItemStack(TFCItems.powder, 1, 9));
+//        recipes.addShapelessRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)),
+//            ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)), new ItemStack(TFCItems.powder, 1, 9));
 
 //        recipes.addShapelessRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.bambooShoot), 2.5f),
 //                new ItemStack(TFCBlocks.sapling2, 1, 8), "itemKnife")
