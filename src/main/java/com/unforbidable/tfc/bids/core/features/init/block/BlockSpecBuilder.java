@@ -17,6 +17,8 @@ public class BlockSpecBuilder<T extends Block> {
     private BlockFireInfoSpec fireInfo;
     private BlockHarvestSpec harvestability;
     private MetaSpec meta;
+    private float hardness = -1;
+    private String texture;
 
     public BlockSpecBuilder(String name, Supplier<T> block, Class<? extends ItemBlock> itemType) {
         this.name = name;
@@ -52,8 +54,22 @@ public class BlockSpecBuilder<T extends Block> {
         return this;
     }
 
+    // TODO use harness() in init
+    public BlockSpecBuilder<T> hardness(float hardness) {
+        this.hardness = hardness;
+
+        return this;
+    }
+
+    // TODO use texture() in init
+    public BlockSpecBuilder<T> texture(String texture) {
+        this.texture = texture;
+
+        return this;
+    }
+
     public BlockSpec<T> build() {
-        return new BlockSpec<>(name, block, itemType, apply, fireInfo, harvestability, meta);
+        return new BlockSpec<>(name, block, itemType, apply, fireInfo, harvestability, meta, hardness, texture);
     }
 
 }

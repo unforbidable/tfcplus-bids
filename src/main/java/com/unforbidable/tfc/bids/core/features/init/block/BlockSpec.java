@@ -15,9 +15,11 @@ public class BlockSpec<T extends Block> {
     public final BlockFireInfoSpec fireInfo;
     public final BlockHarvestSpec harvest;
     public final MetaSpec meta;
+    public final float hardness;
+    public final String texture;
 
     public BlockSpec(String name, Supplier<T> block, Class<? extends ItemBlock> itemType, Consumer<T> apply,
-                     BlockFireInfoSpec fireInfo, BlockHarvestSpec harvest, MetaSpec meta) {
+                     BlockFireInfoSpec fireInfo, BlockHarvestSpec harvest, MetaSpec meta, float hardness, String texture) {
         this.name = name;
         this.itemType = itemType;
         this.block = block;
@@ -25,11 +27,21 @@ public class BlockSpec<T extends Block> {
         this.fireInfo = fireInfo;
         this.harvest = harvest;
         this.meta = meta;
+        this.hardness = hardness;
+        this.texture = texture;
     }
 
     public T getInstance() {
         T instance = block.get();
         instance.setBlockName(name);
+
+        if (hardness >= 0) {
+            instance.setHardness(hardness);
+        }
+
+        if (texture != null) {
+            instance.setBlockTextureName(texture);
+        }
 
         if (harvest != null) {
             instance.setHarvestLevel(harvest.toolClass, harvest.level);
