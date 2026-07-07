@@ -1,25 +1,17 @@
 package com.unforbidable.tfc.bids.core._obsolete;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
-import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Crafting.*;
-import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
-import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredient;
-import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredientSpec;
-import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManager;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.api.*;
@@ -632,26 +624,26 @@ public class RecipeSetup {
 //        recipes.addShapelessRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.bambooShoot), 2.5f),
 //                new ItemStack(TFCBlocks.sapling2, 1, 8), "itemKnife")
 //            .action(damageTool("itemKnife"));
-
-        // Manual seed conversion
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsBarley), BidsItems.seedsNewBarley);
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsOat), BidsItems.seedsNewOat);
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsRye), BidsItems.seedsNewRye);
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsWheat), BidsItems.seedsNewWheat);
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsOnion), BidsItems.seedsNewOnion);
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsCabbage), BidsItems.seedsNewCabbage);
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsGarlic), BidsItems.seedsNewGarlic);
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsCarrot), BidsItems.seedsNewCarrot);
-
-        // Reverse manual seed conversion
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewBarley), TFCItems.seedsBarley);
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewOat), TFCItems.seedsOat);
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewRye), TFCItems.seedsRye);
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewWheat), TFCItems.seedsWheat);
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewOnion), TFCItems.seedsOnion);
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCabbage), TFCItems.seedsCabbage);
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewGarlic), TFCItems.seedsGarlic);
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCarrot), TFCItems.seedsCarrot);
+//
+//        // Manual seed conversion
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsBarley), BidsItems.seedsNewBarley);
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsOat), BidsItems.seedsNewOat);
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsRye), BidsItems.seedsNewRye);
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsWheat), BidsItems.seedsNewWheat);
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsOnion), BidsItems.seedsNewOnion);
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsCabbage), BidsItems.seedsNewCabbage);
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsGarlic), BidsItems.seedsNewGarlic);
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.seedsCarrot), BidsItems.seedsNewCarrot);
+//
+//        // Reverse manual seed conversion
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewBarley), TFCItems.seedsBarley);
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewOat), TFCItems.seedsOat);
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewRye), TFCItems.seedsRye);
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewWheat), TFCItems.seedsWheat);
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewOnion), TFCItems.seedsOnion);
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCabbage), TFCItems.seedsCabbage);
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewGarlic), TFCItems.seedsGarlic);
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.seedsNewCarrot), TFCItems.seedsCarrot);
 
         recipes.addShapedRecipe(new ItemStack(BidsBlocks.fireBrickChimney, 2),
             "P P", "X X", "P P", 'P', new ItemStack(TFCItems.fireBrick, 1, 1),

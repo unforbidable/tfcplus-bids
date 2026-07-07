@@ -1,18 +1,15 @@
 package com.unforbidable.tfc.bids.core._obsolete;
 
-import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.api.*;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api._obsolete.BidsCrops;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBowlFluid;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBucketFluid;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemGlassBottleFluid;
-import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemPotteryFluid;
 import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.features.material.textile.render.HandworkToolItemRenderer;
@@ -26,18 +23,13 @@ import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.So
 import com.unforbidable.tfc.bids.features.material.textile.main.EnumTextileHint;
 import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import com.unforbidable.tfc.bids.features.building.mudbrick.render.DryingMudBrickItemRenderer;
-import com.unforbidable.tfc.bids.features.crafting.churning.item.ItemWaterskinChurn;
-import com.unforbidable.tfc.bids.features.food.cookedmeal.item.ItemCookedMeal;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemBoard;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemShaft;
 import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
-import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemMoreSandwich;
-import com.unforbidable.tfc.bids.features.food.pemmican.item.ItemPemmican;
-import com.unforbidable.tfc.bids.features.food.sandwich.item.ItemWrap;
 import com.unforbidable.tfc.bids.features.material.powder.item.ItemMorePowder;
 import com.unforbidable.tfc.bids.features.material.soap.item.ItemSoap;
 import com.unforbidable.tfc.bids.features.material.textile.item.*;
-import com.unforbidable.tfc.bids.features.resource.crops.item.ItemNewCustomSeeds;
+import com.unforbidable.tfc.bids.features.resource.crop.item.ItemNewCustomSeeds;
 import com.unforbidable.tfc.bids.features.utility.largebowl.item.ItemLargeBowlFluid;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -610,68 +602,68 @@ public class ItemSetup extends BidsItems {
 //            .setHasCookedIcon()
 //            .setUnlocalizedName("Bamboo Shoot");
 
-        seaBeet = new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 40, 10, 0)
-            .setWaterPercentage(0.2f)
-            .setDecayRate(1.4f)
-            .setUnlocalizedName("Sea Beet");
-        beetroot = new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 0, 10, 30)
-            .setWaterPercentage(0.1f)
-            .setDecayRate(0.8f)
-            .setUnlocalizedName("Beetroot");
-        sugarBeet = new ItemExtraFood(EnumFoodGroup.Vegetable, 60, 0, 0, 0, 0)
-            .setWaterPercentage(0.1f)
-            .setDecayRate(0.8f)
-            .setUnlocalizedName("Sugar Beet");
-        wildBeans = new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 20)
-            .setCookTempIndex(1)
-            .setDecayRate(0.5f)
-            .setUnlocalizedName("Wild Beans");
-        broadBeans = new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 40)
-            .setCookTempIndex(1)
-            .setDecayRate(0.25f)
-            .setUnlocalizedName("Broad Beans");
+//        seaBeet = new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 40, 10, 0)
+//            .setWaterPercentage(0.2f)
+//            .setDecayRate(1.4f)
+//            .setUnlocalizedName("Sea Beet");
+//        beetroot = new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 0, 10, 30)
+//            .setWaterPercentage(0.1f)
+//            .setDecayRate(0.8f)
+//            .setUnlocalizedName("Beetroot");
+//        sugarBeet = new ItemExtraFood(EnumFoodGroup.Vegetable, 60, 0, 0, 0, 0)
+//            .setWaterPercentage(0.1f)
+//            .setDecayRate(0.8f)
+//            .setUnlocalizedName("Sugar Beet");
+//        wildBeans = new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 20)
+//            .setCookTempIndex(1)
+//            .setDecayRate(0.5f)
+//            .setUnlocalizedName("Wild Beans");
+//        broadBeans = new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 40)
+//            .setCookTempIndex(1)
+//            .setDecayRate(0.25f)
+//            .setUnlocalizedName("Broad Beans");
 
         flaxSeeds = new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 0)
             .setDecayRate(0.01f)
             .setUnlocalizedName("Flax Seeds");
-
-        seedsSeaBeet = new ItemNewCustomSeeds(BidsCrops.SEEBEAT)
-            .setUnlocalizedName("Seeds Sea Beet");
-        seedsBeetroot = new ItemNewCustomSeeds(BidsCrops.BEETROOT)
-            .setUnlocalizedName("Seeds Beetroot");
-        seedsSugarBeet = new ItemNewCustomSeeds(BidsCrops.SUGARBEET)
-            .setUnlocalizedName("Seeds Sugar Beet");
-        seedsWildBeans = new ItemNewCustomSeeds(BidsCrops.WILDBEANS)
-            .setUnlocalizedName("Seeds Wild Bean");
-        seedsBroadBeans = new ItemNewCustomSeeds(BidsCrops.BROADBEANS)
-            .setUnlocalizedName("Seeds Broad Bean");
-
-        seedsNewBarley = new ItemNewCustomSeeds(BidsCrops.BARLEY)
-            .setUnlocalizedName("Seeds New Barley");
-        seedsNewOat = new ItemNewCustomSeeds(BidsCrops.OAT)
-            .setUnlocalizedName("Seeds New Oat");
-        seedsNewRye = new ItemNewCustomSeeds(BidsCrops.RYE)
-            .setUnlocalizedName("Seeds New Rye");
-        seedsNewWheat = new ItemNewCustomSeeds(BidsCrops.WHEAT)
-            .setUnlocalizedName("Seeds New Wheat");
-
-        seedsWinterBarley = new ItemNewCustomSeeds(BidsCrops.WINTERBARLEY)
-            .setUnlocalizedName("Seeds Winter Barley");
-        seedsWinterOat = new ItemNewCustomSeeds(BidsCrops.WINTEROAT)
-            .setUnlocalizedName("Seeds Winter Oat");
-        seedsWinterRye = new ItemNewCustomSeeds(BidsCrops.WINTERRYE)
-            .setUnlocalizedName("Seeds Winter Rye");
-        seedsWinterWheat = new ItemNewCustomSeeds(BidsCrops.WINTERWHEAT)
-            .setUnlocalizedName("Seeds Winter Wheat");
-
-        seedsNewOnion = new ItemNewCustomSeeds(BidsCrops.ONION)
-            .setUnlocalizedName("Seeds New Onion");
-        seedsNewCabbage = new ItemNewCustomSeeds(BidsCrops.CABBAGE)
-            .setUnlocalizedName("Seeds New Cabbage");
-        seedsNewGarlic = new ItemNewCustomSeeds(BidsCrops.GARLIC)
-            .setUnlocalizedName("Seeds New Garlic");
-        seedsNewCarrot = new ItemNewCustomSeeds(BidsCrops.CARROT)
-            .setUnlocalizedName("Seeds New Carrot");
+//
+//        seedsSeaBeet = new ItemNewCustomSeeds(BidsCrops.SEEBEAT)
+//            .setUnlocalizedName("Seeds Sea Beet");
+//        seedsBeetroot = new ItemNewCustomSeeds(BidsCrops.BEETROOT)
+//            .setUnlocalizedName("Seeds Beetroot");
+//        seedsSugarBeet = new ItemNewCustomSeeds(BidsCrops.SUGARBEET)
+//            .setUnlocalizedName("Seeds Sugar Beet");
+//        seedsWildBeans = new ItemNewCustomSeeds(BidsCrops.WILDBEANS)
+//            .setUnlocalizedName("Seeds Wild Bean");
+//        seedsBroadBeans = new ItemNewCustomSeeds(BidsCrops.BROADBEANS)
+//            .setUnlocalizedName("Seeds Broad Bean");
+//
+//        seedsNewBarley = new ItemNewCustomSeeds(BidsCrops.BARLEY)
+//            .setUnlocalizedName("Seeds New Barley");
+//        seedsNewOat = new ItemNewCustomSeeds(BidsCrops.OAT)
+//            .setUnlocalizedName("Seeds New Oat");
+//        seedsNewRye = new ItemNewCustomSeeds(BidsCrops.RYE)
+//            .setUnlocalizedName("Seeds New Rye");
+//        seedsNewWheat = new ItemNewCustomSeeds(BidsCrops.WHEAT)
+//            .setUnlocalizedName("Seeds New Wheat");
+//
+//        seedsWinterBarley = new ItemNewCustomSeeds(BidsCrops.WINTERBARLEY)
+//            .setUnlocalizedName("Seeds Winter Barley");
+//        seedsWinterOat = new ItemNewCustomSeeds(BidsCrops.WINTEROAT)
+//            .setUnlocalizedName("Seeds Winter Oat");
+//        seedsWinterRye = new ItemNewCustomSeeds(BidsCrops.WINTERRYE)
+//            .setUnlocalizedName("Seeds Winter Rye");
+//        seedsWinterWheat = new ItemNewCustomSeeds(BidsCrops.WINTERWHEAT)
+//            .setUnlocalizedName("Seeds Winter Wheat");
+//
+//        seedsNewOnion = new ItemNewCustomSeeds(BidsCrops.ONION)
+//            .setUnlocalizedName("Seeds New Onion");
+//        seedsNewCabbage = new ItemNewCustomSeeds(BidsCrops.CABBAGE)
+//            .setUnlocalizedName("Seeds New Cabbage");
+//        seedsNewGarlic = new ItemNewCustomSeeds(BidsCrops.GARLIC)
+//            .setUnlocalizedName("Seeds New Garlic");
+//        seedsNewCarrot = new ItemNewCustomSeeds(BidsCrops.CARROT)
+//            .setUnlocalizedName("Seeds New Carrot");
 
 //        plugAndFeather = new ItemPlugAndFeather()
 //            .setUnlocalizedName("Plug And Feather");

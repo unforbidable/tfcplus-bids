@@ -4,6 +4,7 @@ import com.unforbidable.tfc.bids.common.CommonInit;
 import com.unforbidable.tfc.bids.compat.nei.NeiInit;
 import com.unforbidable.tfc.bids.core.config.ConfigInit;
 import com.unforbidable.tfc.bids.core.crafting.CraftingInit;
+import com.unforbidable.tfc.bids.core.crop.CropInit;
 import com.unforbidable.tfc.bids.core.drink.DrinkInit;
 import com.unforbidable.tfc.bids.core.features.FeatureInit;
 import com.unforbidable.tfc.bids.core.gui.GuiInit;
@@ -30,6 +31,7 @@ public class Initializer {
         new KeyBindingInit(),
         new CraftingInit(),
         new DrinkInit(),
+        new CropInit(),
         new SchemeInit(),
         new CommonInit(),
 

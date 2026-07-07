@@ -1,38 +1,29 @@
 package com.unforbidable.tfc.bids.features;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
-import com.dunk.tfc.Items.Tools.ItemCustomBucketMilk;
 import com.dunk.tfc.api.Food;
-import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Tools.IKnife;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.Events.FillContainerEvent;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
-import com.unforbidable.tfc.bids.core.drink.FluidHelper;
-import com.unforbidable.tfc.bids.features.food.milk.main.MilkHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.event.entity.player.EntityInteractEvent;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class PlayerInteractHandler {
 
@@ -67,43 +58,6 @@ public class PlayerInteractHandler {
                         }
                     }
                 }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void onItemPickup(EntityItemPickupEvent event) {
-        EntityItem entityItem = event.item;
-        EntityPlayer player = event.entityPlayer;
-
-        if (BidsOptions.Crops.enableCerealSeedAutoConversion) {
-            if (entityItem.getEntityItem().getItem() == TFCItems.seedsBarley) {
-                convertPickedItem(entityItem, player, BidsItems.seedsNewBarley);
-            } else if (entityItem.getEntityItem().getItem() == TFCItems.seedsOat) {
-                convertPickedItem(entityItem, player, BidsItems.seedsNewOat);
-            } else if (entityItem.getEntityItem().getItem() == TFCItems.seedsRye) {
-                convertPickedItem(entityItem, player, BidsItems.seedsNewRye);
-            } else if (entityItem.getEntityItem().getItem() == TFCItems.seedsWheat) {
-                convertPickedItem(entityItem, player, BidsItems.seedsNewWheat);
-            }
-        }
-
-        if (BidsOptions.Crops.enableHardySeedAutoConversion) {
-            if (entityItem.getEntityItem().getItem() == TFCItems.seedsOnion) {
-                convertPickedItem(entityItem, player, BidsItems.seedsNewOnion);
-            } else if (entityItem.getEntityItem().getItem() == TFCItems.seedsCabbage) {
-                convertPickedItem(entityItem, player, BidsItems.seedsNewCabbage);
-            } else if (entityItem.getEntityItem().getItem() == TFCItems.seedsGarlic) {
-                convertPickedItem(entityItem, player, BidsItems.seedsNewGarlic);
-            } else if (entityItem.getEntityItem().getItem() == TFCItems.seedsCarrot) {
-                convertPickedItem(entityItem, player, BidsItems.seedsNewCarrot);
-            }
-        }
-
-        if (BidsOptions.Crafting.enableCottonBollAutoConversion) {
-            // When harvesting cotton, return unrefined cotton boll instead
-            if (entityItem.getEntityItem().getItem() == TFCItems.cotton) {
-                convertPickedItem(entityItem, player, BidsItems.cottonBoll);
             }
         }
     }

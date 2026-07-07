@@ -266,6 +266,38 @@ public class BidsItems {
     public static final Item potteryJugFishOil = item(ItemNames.JUG_FISH_OIL);
     public static final Item fishOilBowl = item(ItemNames.BOWL_FISH_OIL);
 
+    // Crop
+    public static final Item seaBeet = item(ItemNames.SEA_BEET);
+    public static final Item beetroot = item(ItemNames.BEETROOT);
+    public static final Item sugarBeet = item(ItemNames.SUGAR_BEET);
+    public static final Item wildBeans = item(ItemNames.WILD_BEANS);
+    public static final Item broadBeans = item(ItemNames.BROAD_BEANS);
+    public static final Item seedsSeaBeet = item(ItemNames.SEEDS_SEA_BEET);
+    public static final Item seedsBeetroot = item(ItemNames.SEEDS_BEETROOT);
+    public static final Item seedsSugarBeet = item(ItemNames.SEEDS_SUGAR_BEET);
+    public static final Item seedsWildBeans = item(ItemNames.SEEDS_WILD_BEAN);
+    public static final Item seedsBroadBeans = item(ItemNames.SEEDS_BROAD_BEAN);
+
+    // Winter cereals
+    public static final Item seedsNewBarley = item(ItemNames.SEEDS_NEW_BARLEY);
+    public static final Item seedsNewOat = item(ItemNames.SEEDS_NEW_OAT);
+    public static final Item seedsNewRye = item(ItemNames.SEEDS_NEW_RYE);
+    public static final Item seedsNewWheat = item(ItemNames.SEEDS_NEW_WHEAT);
+    public static final Item seedsWinterBarley = item(ItemNames.SEEDS_WINTER_BARLEY);
+    public static final Item seedsWinterOat = item(ItemNames.SEEDS_WINTER_OAT);
+    public static final Item seedsWinterRye = item(ItemNames.SEEDS_WINTER_RYE);
+    public static final Item seedsWinterWheat = item(ItemNames.SEEDS_WINTER_WHEAT);
+
+    // Hardy crop
+    public static final Item seedsNewOnion = item(ItemNames.SEEDS_NEW_ONION);
+    public static final Item seedsNewCabbage = item(ItemNames.SEEDS_NEW_CABBAGE);
+    public static final Item seedsNewGarlic = item(ItemNames.SEEDS_NEW_GARLIC);
+    public static final Item seedsNewCarrot = item(ItemNames.SEEDS_NEW_BARLEY);
+
+
+
+
+
 
 
 
@@ -336,34 +368,7 @@ public class BidsItems {
     public static Item ceramicBucketHoneyWater;
     public static Item ceramicBucketMilkVinegar;
 
-    public static Item seaBeet;
-    public static Item beetroot;
-    public static Item sugarBeet;
-    public static Item wildBeans;
-    public static Item broadBeans;
-
     public static Item flaxSeeds;
-
-    public static Item seedsSeaBeet;
-    public static Item seedsBeetroot;
-    public static Item seedsSugarBeet;
-    public static Item seedsWildBeans;
-    public static Item seedsBroadBeans;
-
-    public static Item seedsNewBarley;
-    public static Item seedsNewOat;
-    public static Item seedsNewRye;
-    public static Item seedsNewWheat;
-
-    public static Item seedsWinterBarley;
-    public static Item seedsWinterOat;
-    public static Item seedsWinterRye;
-    public static Item seedsWinterWheat;
-
-    public static Item seedsNewOnion;
-    public static Item seedsNewCabbage;
-    public static Item seedsNewGarlic;
-    public static Item seedsNewCarrot;
 
     public static Item morePowder;
 

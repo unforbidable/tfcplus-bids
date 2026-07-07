@@ -45,6 +45,7 @@ import com.unforbidable.tfc.bids.features.material.hide.Hide;
 import com.unforbidable.tfc.bids.features.material.logs.Logs;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
 import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
+import com.unforbidable.tfc.bids.features.resource.crop.Crop;
 import com.unforbidable.tfc.bids.features.resource.quarry.Quarry;
 import com.unforbidable.tfc.bids.features.resource.well.Well;
 import com.unforbidable.tfc.bids.features.utility.adze.Adze;
@@ -117,6 +118,7 @@ public class Features {
         new Butter(),
         new Cheese(),
         new FishOil(),
+        new Crop(),
     };
 
 }

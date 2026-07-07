@@ -21,7 +21,7 @@ import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBlowpipe;
-import com.unforbidable.tfc.bids.features.resource.crops.item.ItemNewCustomSeeds;
+import com.unforbidable.tfc.bids.features.resource.crop.item.ItemNewCustomSeeds;
 import com.unforbidable.tfc.bids.features.material.textile.item.ItemSpindle;
 import com.unforbidable.tfc.bids.api._obsolete.BidsAchievements;
 import com.unforbidable.tfc.bids.api.BidsBlocks;

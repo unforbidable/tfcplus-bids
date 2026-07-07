@@ -123,19 +123,6 @@ public class ConfigHandler {
             "enableDryingSurfaceMudBrickDryingOverride", "crafting", BidsOptions.Crafting.enableDryingSurfaceMudBrickDryingOverride,
             "Set this to true if you want to dry mud bricks using the Drying Surface, instead of the TFC mechanics.");
 
-        BidsOptions.Crops.enableCerealSeedAutoConversion = config.getBoolean(
-            "enableCerealSeedAutoConversion", "crops",
-            BidsOptions.Crops.enableCerealSeedAutoConversion,
-            "Set this to true if you want to automatically convert the seeds of eligible cereal crops to new seeds that allow winter cereal cultivation when picked up.");
-        BidsOptions.Crops.enableHardySeedAutoConversion = config.getBoolean(
-            "enableHardySeedAutoConversion", "crops",
-            BidsOptions.Crops.enableHardySeedAutoConversion,
-            "Set this to true if you want to automatically convert the seeds of hardy crops (ie. onion, cabbage, garlic and carrot) to new seeds that allow sowing in fall when picked up.");
-        BidsOptions.Crops.enableVariableCropGrowthSpeed = config.getBoolean(
-            "enableVariableCropGrowthSpeed", "crops",
-            BidsOptions.Crops.enableVariableCropGrowthSpeed,
-            "Set this to true if you want crops to take variable time to mature. Some crops will mature a few days sooner, some later.");
-
         BidsOptions.Miscellaneous.soapUsageRewardXP = config.getInt(
             "soapUsageRewardXP", "miscellaneous",
             BidsOptions.Miscellaneous.soapUsageRewardXP, 0, 4,

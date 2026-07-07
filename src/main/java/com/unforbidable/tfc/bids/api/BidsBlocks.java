@@ -144,7 +144,10 @@ public class BidsBlocks {
     // Cooking Prep
     public static final Block cookingPrep = block(BlockNames.COOKING_PREP);
 
-
+    // Crops
+    public static final Block newCrops = block(BlockNames.CROP);
+    public static final Block newTilledSoil = block(BlockNames.TILLED_SOIL);
+    public static final Block newTilledSoil2 = block(BlockNames.TILLED_SOIL2);
 
 
     public static int clayCrucibleRenderId;
@@ -197,10 +200,6 @@ public class BidsBlocks {
 
 
 
-
-    public static Block newCrops;
-    public static Block newTilledSoil;
-    public static Block newTilledSoil2;
 
     public static Block woodAxleWallBearing;
 

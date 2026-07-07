@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.core._obsolete;
 
 import com.dunk.tfc.Items.ItemBlocks.ItemSoil;
-import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
@@ -43,16 +42,12 @@ import com.unforbidable.tfc.bids.features.device.choppingblock.block.itemblock.I
 import com.unforbidable.tfc.bids.features.device.choppingblock.render.RenderChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.choppingblock.render.RenderTileChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.choppingblock.tileentity.TileEntityChoppingBlock;
-import com.unforbidable.tfc.bids.features.device.cookingpot.block.BlockCookingPot;
-import com.unforbidable.tfc.bids.features.device.cookingpot.block.BlockCookingPotLid;
-import com.unforbidable.tfc.bids.features.device.cookingpot.block.BlockSteamingMesh;
 import com.unforbidable.tfc.bids.features.device.cookingpot.block.blockitem.ItemCookingPot;
 import com.unforbidable.tfc.bids.features.device.cookingpot.block.blockitem.ItemCookingPotLid;
 import com.unforbidable.tfc.bids.features.device.cookingpot.render.RenderCookingPot;
 import com.unforbidable.tfc.bids.features.device.cookingpot.render.RenderCookingPotLid;
 import com.unforbidable.tfc.bids.features.device.cookingpot.render.RenderTileCookingPot;
 import com.unforbidable.tfc.bids.features.device.cookingpot.tileentity.TileEntityCookingPot;
-import com.unforbidable.tfc.bids.features.device.cookingprep.block.BlockCookingPrep;
 import com.unforbidable.tfc.bids.features.device.cookingprep.render.RenderTileCookingPrep;
 import com.unforbidable.tfc.bids.features.device.cookingprep.tileentity.TileEntityCookingPrep;
 import com.unforbidable.tfc.bids.features.device.crucible.block.itemblock.ItemClayCrucible;
@@ -129,11 +124,9 @@ import com.unforbidable.tfc.bids.features.device.woodpile.block.blockitem.ItemCr
 import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.block.blockitem.ItemUnfinishedAnvil;
 import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.render.RenderUnfinishedAnvil;
-import com.unforbidable.tfc.bids.features.resource.crops.block.BlockNewCrop;
-import com.unforbidable.tfc.bids.features.resource.crops.block.BlockNewFarmland;
-import com.unforbidable.tfc.bids.features.resource.crops.render.RenderNewCrop;
-import com.unforbidable.tfc.bids.features.resource.crops.tileentity.TileEntityNewCrop;
-import com.unforbidable.tfc.bids.features.resource.crops.tileentity.TileEntityNewFarmland;
+import com.unforbidable.tfc.bids.features.resource.crop.render.RenderNewCrop;
+import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewCrop;
+import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewFarmland;
 import com.unforbidable.tfc.bids.features.resource.quarry.block.itemblock.ItemQuarry;
 import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
 import com.unforbidable.tfc.bids.features.resource.well.tileentity.TileEntityAquifer;
@@ -142,7 +135,6 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 
@@ -370,18 +362,18 @@ public class BlockSetup extends BidsBlocks {
 //        cookingPrep = new BlockCookingPrep()
 //            .setBlockName("CookingPrep");
 
-        newCrops = new BlockNewCrop()
-            .setHardness(0.3F)
-            .setStepSound(Block.soundTypeGrass)
-            .setBlockName("NewCrop");
-        newTilledSoil = new BlockNewFarmland(TFCBlocks.dirt, 0)
-            .setHardness(2F)
-            .setStepSound(Block.soundTypeGravel)
-            .setBlockName("NewTilledSoil");
-        newTilledSoil2 = new BlockNewFarmland(TFCBlocks.dirt2, 16)
-            .setHardness(2F)
-            .setStepSound(Block.soundTypeGravel)
-            .setBlockName("NewTilledSoil");
+//        newCrops = new BlockNewCrop()
+//            .setHardness(0.3F)
+//            .setStepSound(Block.soundTypeGrass)
+//            .setBlockName("NewCrop");
+//        newTilledSoil = new BlockNewFarmland(TFCBlocks.dirt, 0)
+//            .setHardness(2F)
+//            .setStepSound(Block.soundTypeGravel)
+//            .setBlockName("NewTilledSoil");
+//        newTilledSoil2 = new BlockNewFarmland(TFCBlocks.dirt2, 16)
+//            .setHardness(2F)
+//            .setStepSound(Block.soundTypeGravel)
+//            .setBlockName("NewTilledSoil");
 
         woodAxleWallBearing = new BlockAxleWallBearing(Material.wood)
             .setHardness(0.5F)
