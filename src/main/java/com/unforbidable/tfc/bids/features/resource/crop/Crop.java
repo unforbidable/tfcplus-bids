@@ -58,7 +58,8 @@ public class Crop extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(CROP, BlockNewCrop::new);
+        init.block(CROP, BlockNewCrop::new)
+            .fireInfo(5, 5);
         init.block(TILLED_SOIL, () -> new BlockNewFarmland(TFCBlocks.dirt, 0));
         init.block(TILLED_SOIL2, () -> new BlockNewFarmland(TFCBlocks.dirt2, 16));
 
