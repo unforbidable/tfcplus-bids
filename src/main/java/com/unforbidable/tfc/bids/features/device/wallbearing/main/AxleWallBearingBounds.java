@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.building.axlewallbearing.main;
+package com.unforbidable.tfc.bids.features.device.wallbearing.main;
 
 import net.minecraft.util.AxisAlignedBB;
 

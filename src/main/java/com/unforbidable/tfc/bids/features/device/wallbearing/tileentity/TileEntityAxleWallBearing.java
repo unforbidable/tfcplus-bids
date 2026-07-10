@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.building.axlewallbearing.tileentity;
+package com.unforbidable.tfc.bids.features.device.wallbearing.tileentity;
 
 import com.dunk.tfc.TileEntities.TEAxleBearing;
 import net.minecraft.block.Block;

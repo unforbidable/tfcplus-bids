@@ -1,14 +1,14 @@
-package com.unforbidable.tfc.bids.features.building.axlewallbearing.block;
+package com.unforbidable.tfc.bids.features.device.wallbearing.block;
 
 import com.dunk.tfc.Blocks.BlockPlanks;
 import com.dunk.tfc.Blocks.Devices.BlockAxleBearing;
 import com.dunk.tfc.Blocks.Terrain.BlockSmooth;
 import com.dunk.tfc.Core.TFC_Core;
-import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStoneBrick;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.features.building.axlewallbearing.tileentity.TileEntityAxleWallBearing;
-import com.unforbidable.tfc.bids.features.building.axlewallbearing.main.AxleWallBearingBounds;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
+import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStoneBrick;
+import com.unforbidable.tfc.bids.features.device.wallbearing.main.AxleWallBearingBounds;
+import com.unforbidable.tfc.bids.features.device.wallbearing.tileentity.TileEntityAxleWallBearing;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -34,7 +34,7 @@ public class BlockAxleWallBearing extends BlockAxleBearing {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.axleWallBearingRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

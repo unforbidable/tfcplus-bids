@@ -217,7 +217,7 @@ public interface BlockNames {
     @BlockId(75)
     String TILLED_SOIL2 = "NewTilledSoil2";
 
-    // Mechanisms
+    // Wall bearing
     @BlockId(76)
     String WOOD_AXLE_WALL_BEARING = "WoodAxleWallBearing";
     @BlockId(77)

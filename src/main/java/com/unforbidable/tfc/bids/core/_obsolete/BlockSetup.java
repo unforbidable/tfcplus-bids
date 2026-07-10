@@ -9,9 +9,8 @@ import com.unforbidable.tfc.bids.common.block.itemblock.ItemGenericSoil;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
 import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.core.network._obsolete.NetworkHelper;
-import com.unforbidable.tfc.bids.features.building.axlewallbearing.block.BlockAxleWallBearing;
-import com.unforbidable.tfc.bids.features.building.axlewallbearing.render.RenderAxleWallBearing;
-import com.unforbidable.tfc.bids.features.building.axlewallbearing.tileentity.TileEntityAxleWallBearing;
+import com.unforbidable.tfc.bids.features.device.wallbearing.render.RenderAxleWallBearing;
+import com.unforbidable.tfc.bids.features.device.wallbearing.tileentity.TileEntityAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.block.BlockDecorativeSurface;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.main.DecorativeSurfacePlacer;
@@ -375,10 +374,6 @@ public class BlockSetup extends BidsBlocks {
 //            .setStepSound(Block.soundTypeGravel)
 //            .setBlockName("NewTilledSoil");
 
-        woodAxleWallBearing = new BlockAxleWallBearing(Material.wood)
-            .setHardness(0.5F)
-            .setBlockName("WoodAxleWallBearing");
-
         woodScrew = new BlockScrew(Material.wood)
             .setHardness(0.5F)
             .setBlockTextureName("Wood Screw")
@@ -407,6 +402,10 @@ public class BlockSetup extends BidsBlocks {
             .setBlockName("Palisade2");
         palisade3 = new BlockPalisade(logWallVert3, 32)
             .setBlockName("Palisade3");
+//        woodAxleWallBearing = new BlockAxleWallBearing(Material.wood)
+//            .setHardness(0.5F)
+//            .setBlockName("WoodAxleWallBearing");
+
 
 //        wattleGate = new BlockWattleGate()
 //            .setBlockTextureName("Wattle Gate")

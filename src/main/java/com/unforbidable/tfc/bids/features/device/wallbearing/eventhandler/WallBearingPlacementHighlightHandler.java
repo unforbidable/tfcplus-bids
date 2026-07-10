@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.building.axlewallbearing.eventhandler;
+package com.unforbidable.tfc.bids.features.device.wallbearing.eventhandler;
 
 import com.dunk.tfc.Blocks.BlockWoodSupport;
 import com.dunk.tfc.Blocks.Devices.BlockAxleBearing;
@@ -14,7 +14,7 @@ import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 
-public class PlacementHighlightHandler {
+public class WallBearingPlacementHighlightHandler {
 
     @SubscribeEvent
     public void drawBlockHighlightEvent(DrawBlockHighlightEvent evt)

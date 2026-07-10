@@ -149,6 +149,9 @@ public class BidsBlocks {
     public static final Block newTilledSoil = block(BlockNames.TILLED_SOIL);
     public static final Block newTilledSoil2 = block(BlockNames.TILLED_SOIL2);
 
+    // Wall bearing
+    public static final Block woodAxleWallBearing = block(BlockNames.WOOD_AXLE_WALL_BEARING);
+
 
     public static int clayCrucibleRenderId;
     public static int fireClayCrucibleRenderId;
@@ -200,8 +203,6 @@ public class BidsBlocks {
 
 
 
-
-    public static Block woodAxleWallBearing;
 
     public static Block woodScrew;
 

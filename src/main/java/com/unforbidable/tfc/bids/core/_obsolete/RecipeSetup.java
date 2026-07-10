@@ -571,9 +571,6 @@ public class RecipeSetup {
         recipes.addShapedRecipe(new ItemStack(TFCItems.millstone),
             "PPP", "P P", "PPP", 'P', "stoneQuern");
 
-        recipes.addShapedRecipe(new ItemStack(BidsBlocks.woodAxleWallBearing),
-            "LSL", "L L", "LSL", 'L', "woodLumber", 'S', "supportWood");
-
         recipes.addShapelessRecipe(new ItemStack(BidsBlocks.woodScrew),
                 TFCBlocks.woodAxle, "itemChisel")
             .action(damageTool("itemChisel"));
@@ -589,6 +586,9 @@ public class RecipeSetup {
         recipes.addShapedRecipe(new ItemStack(BidsBlocks.screwPressLever),
                 "LTL", " L ", " L ", 'T', "itemSaw", 'L', "logWoodPeeledSeasoned")
             .action(damageTool("itemSaw"));
+//        recipes.addShapedRecipe(new ItemStack(BidsBlocks.woodAxleWallBearing),
+//            "LSL", "L L", "LSL", 'L', "woodLumber", 'S', "supportWood");
+//
 
 //        recipes.addShapedRecipe(new ItemStack(BidsItems.woodenPailEmpty),
 //            "w  ", "wxw", " w ", 'w', "woodLumber", 'x', "plateToolMetal");
