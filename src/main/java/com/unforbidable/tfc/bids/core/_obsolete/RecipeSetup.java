@@ -509,11 +509,11 @@ public class RecipeSetup {
                 }
             }
 
-            if (wood.blocks.hasPalisade()) {
-                recipes.addShapedRecipe(wood.blocks.getPalisade(2),
-                        "A1", " 1", '1', wood.getOreWithSuffix("logWood"), 'A', "itemAxe")
-                    .action(damageTool("itemAxe"));
-            }
+//            if (wood.blocks.hasPalisade()) {
+//                recipes.addShapedRecipe(wood.blocks.getPalisade(2),
+//                        "A1", " 1", '1', wood.getOreWithSuffix("logWood"), 'A', "itemAxe")
+//                    .action(damageTool("itemAxe"));
+//            }
 
 //            // Copies of TFC recipes for items made logs
 //            if (wood.items.hasLumber()) {

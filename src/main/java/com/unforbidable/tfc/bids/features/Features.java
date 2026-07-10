@@ -4,6 +4,7 @@ import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.features.building.carving.Carving;
 import com.unforbidable.tfc.bids.features.building.logwall.LogWall;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
+import com.unforbidable.tfc.bids.features.building.palisade.Palisade;
 import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
 import com.unforbidable.tfc.bids.features.building.wattle.Wattle;
 import com.unforbidable.tfc.bids.features.crafting.churning.Churning;
@@ -125,6 +126,7 @@ public class Features {
         new WallBearing(),
         new Screw(),
         new ScrewPress(),
+        new Palisade(),
     };
 
 }

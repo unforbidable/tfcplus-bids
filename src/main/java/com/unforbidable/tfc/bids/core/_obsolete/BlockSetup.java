@@ -374,12 +374,6 @@ public class BlockSetup extends BidsBlocks {
 //            .setStepSound(Block.soundTypeGravel)
 //            .setBlockName("NewTilledSoil");
 
-        palisade = new BlockPalisade(logWallVert, 0)
-            .setBlockName("Palisade");
-        palisade2 = new BlockPalisade(logWallVert2, 16)
-            .setBlockName("Palisade2");
-        palisade3 = new BlockPalisade(logWallVert3, 32)
-            .setBlockName("Palisade3");
 //        woodAxleWallBearing = new BlockAxleWallBearing(Material.wood)
 //            .setHardness(0.5F)
 //            .setBlockName("WoodAxleWallBearing");
@@ -406,6 +400,12 @@ public class BlockSetup extends BidsBlocks {
 //        screwPressLeverTop = new BlockScrewPressLeverTop()
 //            .setBlockName("ScrewPressLeverTop");
 
+//        palisade = new BlockPalisade(logWallVert, 0)
+//            .setBlockName("Palisade");
+//        palisade2 = new BlockPalisade(logWallVert2, 16)
+//            .setBlockName("Palisade2");
+//        palisade3 = new BlockPalisade(logWallVert3, 32)
+//            .setBlockName("Palisade3");
 
 //        wattleGate = new BlockWattleGate()
 //            .setBlockTextureName("Wattle Gate")

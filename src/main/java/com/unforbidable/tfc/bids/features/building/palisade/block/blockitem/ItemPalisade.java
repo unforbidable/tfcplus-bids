@@ -6,12 +6,11 @@ import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.util.wood.WoodHelper;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-
-import java.util.List;
 
 public class ItemPalisade extends ItemBlock implements ISize {
 

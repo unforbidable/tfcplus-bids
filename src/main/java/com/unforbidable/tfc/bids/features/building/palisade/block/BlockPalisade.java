@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.building.palisade.block;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.common.block.BlockCommonFence;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.util.wood.WoodHelper;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
@@ -53,7 +54,7 @@ public class BlockPalisade extends BlockCommonFence {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.palisadeRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

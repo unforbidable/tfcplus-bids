@@ -165,6 +165,11 @@ public class BidsBlocks {
     public static final Block screwPressLever = block(BlockNames.SCREW_PRESS_LEVER);
     public static final Block screwPressLeverTop = block(BlockNames.SCREW_PRESS_LEVER_TOP);
 
+    // Palisade
+    public static final Block palisade = block(BlockNames.PALISADE);
+    public static final Block palisade2 = block(BlockNames.PALISADE_2);
+    public static final Block palisade3 = block(BlockNames.PALISADE_3);
+
 
     public static int clayCrucibleRenderId;
     public static int fireClayCrucibleRenderId;
@@ -216,10 +221,6 @@ public class BidsBlocks {
 
 
 
-
-    public static Block palisade;
-    public static Block palisade2;
-    public static Block palisade3;
 
 
     public static Block strawNest;
