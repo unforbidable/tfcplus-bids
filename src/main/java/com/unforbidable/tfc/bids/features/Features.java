@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features;
 
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.features.building.carving.Carving;
+import com.unforbidable.tfc.bids.features.building.firebrick.Firebrick;
 import com.unforbidable.tfc.bids.features.building.logwall.LogWall;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.building.palisade.Palisade;
@@ -129,6 +130,7 @@ public class Features {
         new ScrewPress(),
         new Palisade(),
         new StrawNest(),
+        new Firebrick(),
     };
 
 }

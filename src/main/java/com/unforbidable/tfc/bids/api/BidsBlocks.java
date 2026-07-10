@@ -173,6 +173,11 @@ public class BidsBlocks {
     // Straw Nest
     public static final Block strawNest = block(BlockNames.STRAW_NEST);
 
+    // Firebrick
+    public static final Block fireBrickChimney = block(BlockNames.FIREBRICK_CHIMNEY);
+
+
+
 
     public static int clayCrucibleRenderId;
     public static int fireClayCrucibleRenderId;
@@ -224,8 +229,6 @@ public class BidsBlocks {
 
 
 
-
-    public static Block fireBrickChimney;
 
     public static Block processingSurface;
 
