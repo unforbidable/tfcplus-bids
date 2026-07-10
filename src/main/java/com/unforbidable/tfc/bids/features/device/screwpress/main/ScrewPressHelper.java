@@ -1,10 +1,11 @@
 package com.unforbidable.tfc.bids.features.device.screwpress.main;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPressRegistry;
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressLever;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ScrewPressRecipe;
+import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -80,11 +81,11 @@ public class ScrewPressHelper {
     }
 
     public static boolean isValidScrewPressInputItem(ItemStack itemStack) {
-        return BidsRegistry.SCREW_PRESS_RECIPES.findMatchingRecipe(itemStack) != null;
+        return ScrewPressRegistry.recipes.findMatchingRecipe(itemStack) != null;
     }
 
     public static float getScrewPressInputItemHardness(ItemStack itemStack) {
-        ScrewPressRecipe recipe = BidsRegistry.SCREW_PRESS_RECIPES.findMatchingRecipe(itemStack);
+        ScrewPressRecipe recipe = ScrewPressRegistry.recipes.findMatchingRecipe(itemStack);
         if (recipe != null) {
             return recipe.getResistance();
         } else {

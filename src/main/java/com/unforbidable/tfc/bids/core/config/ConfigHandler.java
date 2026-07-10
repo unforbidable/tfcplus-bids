@@ -52,12 +52,6 @@ public class ConfigHandler {
             "maxClimbingKilnHeight", "kiln",
             BidsOptions.Kiln.maxClimbingKilnHeight, 1, 3,
             "Maximum allowed height of the Climbing kiln chamber; one unit of height corresponds to one section adding 6 more pottery slots on top of the initial 6");
-
-        BidsOptions.ScrewPress.efficiency = config.getFloat(
-                "efficiency", "screwPress",
-                BidsOptions.ScrewPress.efficiency, 0.5f, 1.5f,
-                "Higher values increase the efficiency of a screw press, 1.0f being equal to the classic TFC hopper press.");
-
         BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes = config.getBoolean(
             "craftingAddMissingLeatherRepairRecipes", "crafting",
             BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes,

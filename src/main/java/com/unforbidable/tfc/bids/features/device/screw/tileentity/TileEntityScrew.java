@@ -2,7 +2,7 @@ package com.unforbidable.tfc.bids.features.device.screw.tileentity;
 
 import com.dunk.tfc.TileEntities.TEAxle;
 import com.dunk.tfc.TileEntities.TERotator;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IScrewLoadProvider;
+import com.unforbidable.tfc.bids.api.features.screw.ScrewLoadProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -13,8 +13,8 @@ public class TileEntityScrew extends TEAxle {
         float load = 0;
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity te = worldObj.getTileEntity(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
-            if (te instanceof IScrewLoadProvider) {
-                load += ((IScrewLoadProvider) te).getLoadForScrewInDirection(d.getOpposite());
+            if (te instanceof ScrewLoadProvider) {
+                load += ((ScrewLoadProvider) te).getLoadForScrewInDirection(d.getOpposite());
             }
         }
 

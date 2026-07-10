@@ -7,12 +7,12 @@ import com.dunk.tfc.Items.ItemBlocks.ItemLargeVessel;
 import com.dunk.tfc.Items.Tools.ItemCustomBucketMilk;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressBarrel;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsGui;
+import com.unforbidable.tfc.bids.util.GuiUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -63,7 +63,7 @@ public class BlockScrewPressBarrel extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.screwPressBarrelRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override
@@ -191,7 +191,7 @@ public class BlockScrewPressBarrel extends BlockContainer {
             }
 
             if (teBarrel.getScrewPressDiscTileEntity() == null) {
-                player.openGui(Bids.instance, BidsGui.screwPressBarrelGui, world, x, y, z);
+                GuiUtil.openGui(BlockNames.SCREW_PRESS_BARREL, player, teBarrel);
             }
         }
 

@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.device.screwpress.block;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressBarrel;
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressDisc;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressBounds;
@@ -57,7 +58,7 @@ public class BlockScrewPressDisc extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.screwPressDiscRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

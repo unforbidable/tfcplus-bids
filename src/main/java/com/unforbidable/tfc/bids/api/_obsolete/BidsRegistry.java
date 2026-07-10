@@ -43,7 +43,7 @@ public class BidsRegistry {
 //    public static final SimpleRecipeRegistry<SeasoningRecipe, ItemStack> SEASONING_RECIPES = new SimpleRecipeRegistry<>("seasoning");
 //    public static final SimpleRecipeRegistry<SaddleQuernRecipe, ItemStack> SADDLE_QUERN_RECIPES = new SimpleRecipeRegistry<>("saddle-quern");
 //    public static final SimpleRecipeRegistry<StonePressRecipe, ItemStack> STONE_PRESS_RECIPES = new SimpleRecipeRegistry<>("stone-press");
-    public static final SimpleRecipeRegistry<ScrewPressRecipe, ItemStack> SCREW_PRESS_RECIPES = new SimpleRecipeRegistry<>("screw-press");
+//    public static final SimpleRecipeRegistry<ScrewPressRecipe, ItemStack> SCREW_PRESS_RECIPES = new SimpleRecipeRegistry<>("screw-press");
     public static final SimpleRecipeRegistry<WoodworkingRecipe, ItemStack> WOODWORKING_RECIPES = new SimpleRecipeRegistry<>("woodworking");
 
 }

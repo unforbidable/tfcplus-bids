@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
+import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManager;
@@ -24,6 +25,7 @@ import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
+import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPressConfig;
 import com.unforbidable.tfc.bids.features.player.achievements.eventhandler.CraftingHandler;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -571,24 +573,24 @@ public class RecipeSetup {
         recipes.addShapedRecipe(new ItemStack(TFCItems.millstone),
             "PPP", "P P", "PPP", 'P', "stoneQuern");
 
-        recipes.addShapelessRecipe(new ItemStack(BidsBlocks.woodScrew),
-                TFCBlocks.woodAxle, "itemChisel")
-            .action(damageTool("itemChisel"));
-
-        recipes.addShapedRecipe(new ItemStack(BidsBlocks.screwPressRackBottom),
-            "SLS", "S S", "SLS", 'L', "woodLumber", 'S', "supportWood");
-        recipes.addShapedRecipe(new ItemStack(BidsBlocks.screwPressRackBridge),
-            "SSS", "L L", "SSS", 'L', "woodLumber", 'S', "supportWood");
-        recipes.addShapedRecipe(new ItemStack(BidsBlocks.screwPressBarrel),
-            "LTL", "LLL", "LPL", 'T', "plateToolMetal", 'L', "woodLumber", 'P', "plankWood");
-        recipes.addShapedRecipe(new ItemStack(BidsBlocks.screwPressDisc),
-            "L L", "LPL", "   ", 'L', "woodLumber", 'P', "plankWood");
-        recipes.addShapedRecipe(new ItemStack(BidsBlocks.screwPressLever),
-                "LTL", " L ", " L ", 'T', "itemSaw", 'L', "logWoodPeeledSeasoned")
-            .action(damageTool("itemSaw"));
 //        recipes.addShapedRecipe(new ItemStack(BidsBlocks.woodAxleWallBearing),
 //            "LSL", "L L", "LSL", 'L', "woodLumber", 'S', "supportWood");
 //
+//        recipes.addShapelessRecipe(new ItemStack(BidsBlocks.woodScrew),
+//                TFCBlocks.woodAxle, "itemChisel")
+//            .action(damageTool("itemChisel"));
+//
+//        recipes.addShapedRecipe(new ItemStack(BidsBlocks.screwPressRackBottom),
+//            "SLS", "S S", "SLS", 'L', "woodLumber", 'S', "supportWood");
+//        recipes.addShapedRecipe(new ItemStack(BidsBlocks.screwPressRackBridge),
+//            "SSS", "L L", "SSS", 'L', "woodLumber", 'S', "supportWood");
+//        recipes.addShapedRecipe(new ItemStack(BidsBlocks.screwPressBarrel),
+//            "LTL", "LLL", "LPL", 'T', "plateToolMetal", 'L', "woodLumber", 'P', "plankWood");
+//        recipes.addShapedRecipe(new ItemStack(BidsBlocks.screwPressDisc),
+//            "L L", "LPL", "   ", 'L', "woodLumber", 'P', "plankWood");
+//        recipes.addShapedRecipe(new ItemStack(BidsBlocks.screwPressLever),
+//                "LTL", " L ", " L ", 'T', "itemSaw", 'L', "logWoodPeeledSeasoned")
+//            .action(damageTool("itemSaw"));
 
 //        recipes.addShapedRecipe(new ItemStack(BidsItems.woodenPailEmpty),
 //            "w  ", "wxw", " w ", 'w', "woodLumber", 'x', "plateToolMetal");
@@ -844,71 +846,71 @@ public class RecipeSetup {
 
     private static void registerScrewPressRecipes() {
         // Screw press efficiency affects the recipe input or output volume
-        float inputMult = 1 / BidsOptions.ScrewPress.efficiency; // input multiplier (for non-food input)
-        float outputMult = BidsOptions.ScrewPress.efficiency; // output multiplier (for food input)
-
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f * inputMult), 0.5f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f * inputMult), 0.5f));
-
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.olive), 0.64f * inputMult), 1f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.redApple), 0.7f * inputMult), 1f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.greenApple), 0.7f * inputMult), 1f));
-
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.GRAPEJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f * inputMult), 0.5f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.CANEJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f * inputMult), 0.8f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.LEMONJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f * inputMult), 0.65f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.ORANGEJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.orange), 0.5f * inputMult), 0.65f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.PEACHJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.peach), 0.55f * inputMult), 0.8f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.PLUMJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.plum), 0.65f * inputMult), 0.8f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.FIGJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.fig), 0.5f * inputMult), 0.8f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.CHERRYJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.cherry), 0.7f * inputMult), 0.8f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.DATEJUICE, 6),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.date), 0.8f * inputMult), 0.8f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.PAPAYAJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.papaya), 0.6f * inputMult), 0.8f));
-
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.strawberry), 0.65f * inputMult), 0.5f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.blackberry), 0.61f * inputMult), 0.5f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.blueberry), 0.6f * inputMult), 0.5f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.bunchberry), 0.68f * inputMult), 0.5f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.cranberry), 0.7f * inputMult), 0.5f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.elderberry), 0.58f * inputMult), 0.5f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.gooseberry), 0.6f * inputMult), 0.5f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f * inputMult), 0.5f));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f * inputMult), 0.5f));
-
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputMult)),
-            new ItemStack(TFCItems.agave, 1), 0.8f));
-
-        ItemStack steamedFish = BidsFood.setSteamed(ItemFoodTFC.createTag(new ItemStack(TFCItems.fishRaw), 0.5f * inputMult), true);
-        // Require fish to be steamed to medium level
-        Food.setCooked(steamedFish, CookingHelper.getTempForItemStackCookedLevel(steamedFish, 3));
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(BidsFluids.oilyFishWater, 10), steamedFish, 0.65f));
-
-        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(BidsFluids.FLAXSEEDOIL, 10),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f * inputMult), 0.25f));
+//        float inputMult = 1 / ScrewPressConfig.efficiency; // input multiplier (for non-food input)
+//        float outputMult = ScrewPressConfig.efficiency; // output multiplier (for food input)
+//
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
+//            ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f * inputMult), 0.5f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f * inputMult), 0.5f));
+//
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.olive), 0.64f * inputMult), 1f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.redApple), 0.7f * inputMult), 1f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.greenApple), 0.7f * inputMult), 1f));
+//
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.GRAPEJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f * inputMult), 0.5f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.CANEJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f * inputMult), 0.8f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.LEMONJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f * inputMult), 0.65f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.ORANGEJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.orange), 0.5f * inputMult), 0.65f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.PEACHJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.peach), 0.55f * inputMult), 0.8f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.PLUMJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.plum), 0.65f * inputMult), 0.8f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.FIGJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.fig), 0.5f * inputMult), 0.8f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.CHERRYJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.cherry), 0.7f * inputMult), 0.8f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.DATEJUICE, 6),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.date), 0.8f * inputMult), 0.8f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.PAPAYAJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.papaya), 0.6f * inputMult), 0.8f));
+//
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.strawberry), 0.65f * inputMult), 0.5f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.blackberry), 0.61f * inputMult), 0.5f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.blueberry), 0.6f * inputMult), 0.5f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.bunchberry), 0.68f * inputMult), 0.5f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.cranberry), 0.7f * inputMult), 0.5f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.elderberry), 0.58f * inputMult), 0.5f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.gooseberry), 0.6f * inputMult), 0.5f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f * inputMult), 0.5f));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
+//            ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f * inputMult), 0.5f));
+//
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputMult)),
+//            new ItemStack(TFCItems.agave, 1), 0.8f));
+//
+//        ItemStack steamedFish = BidsFood.setSteamed(ItemFoodTFC.createTag(new ItemStack(TFCItems.fishRaw), 0.5f * inputMult), true);
+//        // Require fish to be steamed to medium level
+//        Food.setCooked(steamedFish, CookingHelper.getTempForItemStackCookedLevel(steamedFish, 3));
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(BidsFluids.oilyFishWater, 10), steamedFish, 0.65f));
+//
+//        BidsRegistry.SCREW_PRESS_RECIPES.register(new ScrewPressRecipe(new FluidStack(BidsFluids.FLAXSEEDOIL, 10),
+//            ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f * inputMult), 0.25f));
     }
 
     private static void registerDryingRecipes() {

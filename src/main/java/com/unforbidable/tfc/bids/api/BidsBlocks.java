@@ -152,6 +152,19 @@ public class BidsBlocks {
     // Wall bearing
     public static final Block woodAxleWallBearing = block(BlockNames.WOOD_AXLE_WALL_BEARING);
 
+    // Screw
+    public static final Block woodScrew = block(BlockNames.WOOD_SCREW);
+
+    // Screw press
+    public static final Block screwPressRackBottom = block(BlockNames.SCREW_PRESS_RACK_BOTTOM);
+    public static final Block screwPressRackMiddle = block(BlockNames.SCREW_PRESS_RACK_MIDDLE);
+    public static final Block screwPressRackTop = block(BlockNames.SCREW_PRESS_RACK_TOP);
+    public static final Block screwPressRackBridge = block(BlockNames.SCREW_PRESS_RACK_BRIDGE);
+    public static final Block screwPressBarrel = block(BlockNames.SCREW_PRESS_BARREL);
+    public static final Block screwPressDisc = block(BlockNames.SCREW_PRESS_DISC);
+    public static final Block screwPressLever = block(BlockNames.SCREW_PRESS_LEVER);
+    public static final Block screwPressLeverTop = block(BlockNames.SCREW_PRESS_LEVER_TOP);
+
 
     public static int clayCrucibleRenderId;
     public static int fireClayCrucibleRenderId;
@@ -203,17 +216,6 @@ public class BidsBlocks {
 
 
 
-
-    public static Block woodScrew;
-
-    public static Block screwPressRackBottom;
-    public static Block screwPressRackMiddle;
-    public static Block screwPressRackTop;
-    public static Block screwPressRackBridge;
-    public static Block screwPressBarrel;
-    public static Block screwPressDisc;
-    public static Block screwPressLever;
-    public static Block screwPressLeverTop;
 
     public static Block palisade;
     public static Block palisade2;

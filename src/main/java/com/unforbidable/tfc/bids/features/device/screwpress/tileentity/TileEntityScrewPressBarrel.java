@@ -6,13 +6,15 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
-import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
+import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.network.NetworkUtil;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
+import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPressRegistry;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressDiscPosition;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressHelper;
 import com.unforbidable.tfc.bids.util.Timer;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ScrewPressRecipe;
+import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
 import com.unforbidable.tfc.bids.features.device.screw.tileentity.TileEntityScrew;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.entity.item.EntityItem;
@@ -30,7 +32,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 
-public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageHanldingTileEntity<TileEntityUpdateMessage>, IInventory {
+public class TileEntityScrewPressBarrel extends TileEntity implements PacketHandler<SimpleUpdatePacket>, IInventory {
 
     private static final int MAX_STORAGE = 10;
     private static final int SLOT_INPUT_START = 0;
@@ -365,7 +367,7 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
     }
 
     private float pressInputSlot(float progress, int recipeMultiplier, int slot) {
-        ScrewPressRecipe recipe = BidsRegistry.SCREW_PRESS_RECIPES.findMatchingRecipe(storage[slot]);
+        ScrewPressRecipe recipe = ScrewPressRegistry.recipes.findMatchingRecipe(storage[slot]);
         if (recipe != null){
             if (canAddFluid(recipe.getFluidCraftingResult().getFluid())) {
                 if (storage[slot].getItem() instanceof IFood) {
@@ -529,7 +531,7 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
     public void updateEntity() {
         if (!worldObj.isRemote) {
             if (clientNeedToUpdate) {
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+                sendUpdateMessage();
 
                 clientNeedToUpdate = false;
             }
@@ -730,17 +732,15 @@ public class TileEntityScrewPressBarrel extends TileEntity  implements IMessageH
         return false;
     }
 
-    @Override
-    public void onTileEntityMessage(TileEntityUpdateMessage message) {
-        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
-            + message.getZCoord());
+    public void sendUpdateMessage() {
+        Network.sendToTileEntity(new SimpleUpdatePacket(), this);
+        Bids.LOG.debug("Sent update message");
     }
 
-    public static void sendUpdateMessage(World world, int x, int y, int z) {
-        NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
-        Bids.LOG.debug("Sent update message");
+    @Override
+    public void handleNetworkPacket(SimpleUpdatePacket packet) {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        Bids.LOG.debug("Client updated at: [{},{},{}]", xCoord, yCoord, zCoord);
     }
 
 }

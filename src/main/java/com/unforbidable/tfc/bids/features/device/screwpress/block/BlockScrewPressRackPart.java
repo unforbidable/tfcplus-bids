@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.screwpress.block;
 
 import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -43,7 +43,7 @@ public abstract class BlockScrewPressRackPart extends Block {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.screwPressRackRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

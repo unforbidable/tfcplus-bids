@@ -3,8 +3,8 @@ package com.unforbidable.tfc.bids.features.device.screw.block;
 import com.dunk.tfc.Blocks.Devices.BlockAxle;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.screw.tileentity.TileEntityScrew;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
@@ -39,7 +39,7 @@ public class BlockScrew extends BlockAxle {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.screwRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

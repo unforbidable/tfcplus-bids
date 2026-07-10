@@ -220,6 +220,8 @@ public interface BlockNames {
     // Wall bearing
     @BlockId(76)
     String WOOD_AXLE_WALL_BEARING = "WoodAxleWallBearing";
+
+    // Screw
     @BlockId(77)
     String WOOD_SCREW = "WoodScrew";
 

@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.features.device.screw.render;
 import com.dunk.tfc.Blocks.Devices.BlockAxleBearing;
 import com.dunk.tfc.Render.TESR.TESRRotator;
 import com.dunk.tfc.TileEntities.TERotator;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;

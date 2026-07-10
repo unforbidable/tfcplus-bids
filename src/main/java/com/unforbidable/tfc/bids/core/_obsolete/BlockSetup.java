@@ -374,28 +374,6 @@ public class BlockSetup extends BidsBlocks {
 //            .setStepSound(Block.soundTypeGravel)
 //            .setBlockName("NewTilledSoil");
 
-        woodScrew = new BlockScrew(Material.wood)
-            .setHardness(0.5F)
-            .setBlockTextureName("Wood Screw")
-            .setBlockName("WoodScrew");
-
-        screwPressRackBottom = new BlockScrewPressRackBottom()
-            .setBlockName("ScrewPressRackBottom");
-        screwPressRackMiddle = new BlockScrewPressRackMiddle()
-            .setBlockName("ScrewPressRackMiddle");
-        screwPressRackTop = new BlockScrewPressRackTop()
-            .setBlockName("ScrewPressRackTop");
-        screwPressRackBridge = new BlockScrewPressRackBridge()
-            .setBlockName("ScrewPressRackBridge");
-        screwPressBarrel = new BlockScrewPressBarrel()
-            .setBlockName("ScrewPressBarrel");
-        screwPressDisc = new BlockScrewPressDisc()
-            .setBlockName("ScrewPressDisc");
-        screwPressLever = new BlockScrewPressLever()
-            .setBlockName("ScrewPressLever");
-        screwPressLeverTop = new BlockScrewPressLeverTop()
-            .setBlockName("ScrewPressLeverTop");
-
         palisade = new BlockPalisade(logWallVert, 0)
             .setBlockName("Palisade");
         palisade2 = new BlockPalisade(logWallVert2, 16)
@@ -405,6 +383,28 @@ public class BlockSetup extends BidsBlocks {
 //        woodAxleWallBearing = new BlockAxleWallBearing(Material.wood)
 //            .setHardness(0.5F)
 //            .setBlockName("WoodAxleWallBearing");
+
+//        woodScrew = new BlockScrew(Material.wood)
+//            .setHardness(0.5F)
+//            .setBlockTextureName("Wood Screw")
+//            .setBlockName("WoodScrew");
+
+//        screwPressRackBottom = new BlockScrewPressRackBottom()
+//            .setBlockName("ScrewPressRackBottom");
+//        screwPressRackMiddle = new BlockScrewPressRackMiddle()
+//            .setBlockName("ScrewPressRackMiddle");
+//        screwPressRackTop = new BlockScrewPressRackTop()
+//            .setBlockName("ScrewPressRackTop");
+//        screwPressRackBridge = new BlockScrewPressRackBridge()
+//            .setBlockName("ScrewPressRackBridge");
+//        screwPressBarrel = new BlockScrewPressBarrel()
+//            .setBlockName("ScrewPressBarrel");
+//        screwPressDisc = new BlockScrewPressDisc()
+//            .setBlockName("ScrewPressDisc");
+//        screwPressLever = new BlockScrewPressLever()
+//            .setBlockName("ScrewPressLever");
+//        screwPressLeverTop = new BlockScrewPressLeverTop()
+//            .setBlockName("ScrewPressLeverTop");
 
 
 //        wattleGate = new BlockWattleGate()

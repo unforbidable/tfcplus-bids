@@ -2,7 +2,7 @@ package com.unforbidable.tfc.bids.features.device.screwpress.tileentity;
 
 import com.dunk.tfc.Blocks.Devices.BlockAxleBearing;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressDiscPosition;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IScrewLoadProvider;
+import com.unforbidable.tfc.bids.api.features.screw.ScrewLoadProvider;
 import com.unforbidable.tfc.bids.features.device.screw.tileentity.TileEntityScrew;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileEntityScrewPressLever extends TileEntity implements IScrewLoadProvider {
+public class TileEntityScrewPressLever extends TileEntity implements ScrewLoadProvider {
 
     private ForgeDirection screwDirection = ForgeDirection.UNKNOWN;
 
