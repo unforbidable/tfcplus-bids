@@ -1,11 +1,12 @@
 package com.unforbidable.tfc.bids.features.device.strawnest.block;
 
 import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.strawnest.tileentity.TileEntityStrawNest;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsGui;
+import com.unforbidable.tfc.bids.util.GuiUtil;
+import java.util.List;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,8 +17,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class BlockStrawNest extends BlockContainer {
 
@@ -71,13 +70,13 @@ public class BlockStrawNest extends BlockContainer {
     @Override
     public int getRenderType()
     {
-        return BidsBlocks.strawNestRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            entityplayer.openGui(Bids.instance, BidsGui.strawNestGui, world, x, y, z);
+            GuiUtil.openGui(BlockNames.STRAW_NEST, entityplayer, world.getTileEntity(x, y, z));
             return true;
         }
 

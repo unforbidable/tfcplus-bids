@@ -24,6 +24,7 @@ import com.unforbidable.tfc.bids.features.device.lamp.Lamp;
 import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuern;
 import com.unforbidable.tfc.bids.features.device.screw.Screw;
 import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPress;
+import com.unforbidable.tfc.bids.features.device.strawnest.StrawNest;
 import com.unforbidable.tfc.bids.features.device.wallbearing.WallBearing;
 import com.unforbidable.tfc.bids.features.device.wallhook.WallHook;
 import com.unforbidable.tfc.bids.features.device.woodpile.Woodpile;
@@ -127,6 +128,7 @@ public class Features {
         new Screw(),
         new ScrewPress(),
         new Palisade(),
+        new StrawNest(),
     };
 
 }

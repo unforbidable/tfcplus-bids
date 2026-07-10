@@ -1,8 +1,8 @@
-package com.unforbidable.tfc.bids.api._obsolete.Interfaces;
+package com.unforbidable.tfc.bids.api.features.strawnest;
 
 import net.minecraft.entity.passive.EntityAnimal;
 
-public interface INest {
+public interface Nest {
 
     boolean hasBird();
     EntityAnimal getBird();

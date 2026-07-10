@@ -411,8 +411,8 @@ public class BlockSetup extends BidsBlocks {
 //            .setBlockTextureName("Wattle Gate")
 //            .setBlockName("WattleGate");
 //
-        strawNest = new BlockStrawNest()
-            .setBlockName("StrawNest");
+//        strawNest = new BlockStrawNest()
+//            .setBlockName("StrawNest");
 
 //        crackedStoneSed = new BlockCrackedSed(Material.rock)
 //            .setHardness(3.5F)

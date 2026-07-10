@@ -1,14 +1,11 @@
 package com.unforbidable.tfc.bids.features.food.milk.eventhandler;
 
-import com.dunk.tfc.Entities.Mobs.EntityChickenTFC;
 import com.dunk.tfc.Entities.Mobs.EntityGoat;
 import com.dunk.tfc.api.Entities.IAnimal;
-import com.unforbidable.tfc.bids.features.device.strawnest.entity.ai.EntityAIFindNestEx;
 import com.unforbidable.tfc.bids.features.food.milk.MilkConfig;
 import com.unforbidable.tfc.bids.util.datawatching.GoatDataWatcher;
 import com.unforbidable.tfc.bids.features.food.milk.main.GoatMilkHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 
@@ -16,10 +13,6 @@ public class EntitySpawnHandler {
 
     @SubscribeEvent
     public void onJoinWorld(EntityJoinWorldEvent event) {
-        if (event.entity instanceof EntityChickenTFC) {
-            ((EntityChickenTFC) event.entity).tasks.addTask(3, new EntityAIFindNestEx((EntityAnimal) event.entity, 1.2));
-        }
-
         if (event.entity instanceof EntityGoat) {
             if (MilkConfig.enableIbexHavingMilk) {
                 new GoatDataWatcher(event.entity).init();

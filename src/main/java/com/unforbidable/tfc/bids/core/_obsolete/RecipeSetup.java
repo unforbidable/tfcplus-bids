@@ -1819,9 +1819,9 @@ public class RecipeSetup {
 //                new Object[]{"#####", "# # #", "#####", "# # #", "#####", '#', flatItem});
 //        }
 
-        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.strawNest, 1),
-            new Object[]{"     ", "#   #", "#   #", " ### ", "     ", '#',
-                new ItemStack(TFCItems.flatStraw, 1)});
+//        CraftingManagerTFC.getInstance().addRecipe(new ItemStack(BidsBlocks.strawNest, 1),
+//            new Object[]{"     ", "#   #", "#   #", " ### ", "     ", '#',
+//                new ItemStack(TFCItems.flatStraw, 1)});
 
 //        CraftingManagerTFC.getInstance().addRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatDoughHardtack, 1), 160),
 //            new Object[]{"#####", "# # #", "#####", "# # #", "#####", '#',

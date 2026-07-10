@@ -5,16 +5,15 @@ import com.dunk.tfc.Entities.Mobs.EntityChickenTFC;
 import com.dunk.tfc.Entities.Mobs.EntityPheasantTFC;
 import com.dunk.tfc.api.Entities.IAnimal.GenderEnum;
 import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.INest;
+import com.unforbidable.tfc.bids.api.features.strawnest.Nest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class EntityAIFindNestEx extends EntityAIBase {
     private EntityCreature theCreature;
@@ -166,8 +165,8 @@ public class EntityAIFindNestEx extends EntityAIBase {
         }
 
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof INest) {
-            INest nest = (INest) te;
+        if (te instanceof Nest) {
+            Nest nest = (Nest) te;
 
             return !nest.hasBird() || nest.getBird() == theCreature;
         }
