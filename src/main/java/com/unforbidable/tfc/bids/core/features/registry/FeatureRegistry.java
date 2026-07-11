@@ -18,6 +18,7 @@ import com.unforbidable.tfc.bids.core.features.setup.eventhandler.EventHandlerSp
 import com.unforbidable.tfc.bids.core.features.setup.fluidcontainer.FluidContainerSpec;
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroup;
 import com.unforbidable.tfc.bids.core.features.setup.registry.MapRegistryGroup;
+import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryAdapter;
 import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryGroup;
 import com.unforbidable.tfc.bids.core.features.setup.worldgen.WorldGenSpec;
 import com.unforbidable.tfc.bids.core.gui.ContainerProvider;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -218,6 +220,14 @@ public class FeatureRegistry {
         Bids.LOG.info("Register {} list values", group.values.size());
 
         group.values.forEach(group.registry::add);
+    }
+
+    public <S, T> void registerListAdapter(RegistryAdapter<S, T> adapter) {
+        adapter.source.stream()
+            .map(adapter.mapper)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .forEach(adapter.target::add);
     }
 
     public <K, V> void registerMap(MapRegistryGroup<K, V> group) {

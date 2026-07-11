@@ -161,6 +161,11 @@ public class FeatureInit extends Initializable {
             .flatMap(f -> f.init(context).blocks.stream())
             .filter(b -> b.fireInfo != null)
             .forEach(registry::registerFireInfo);
+
+        loader.getFeatures().stream()
+            .flatMap(f -> f.setup(context).lists.stream())
+            .flatMap(l -> l.adapters.stream())
+            .forEach(registry::registerListAdapter);
     }
 
     @SideOnly(Side.CLIENT)
