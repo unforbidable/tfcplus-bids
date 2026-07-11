@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.common.block.itemblock.ItemGenericSoil;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
 import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.core.network._obsolete.NetworkHelper;
+import com.unforbidable.tfc.bids.features.device.kiln.KilnConfig;
 import com.unforbidable.tfc.bids.features.device.wallbearing.render.RenderAxleWallBearing;
 import com.unforbidable.tfc.bids.features.device.wallbearing.tileentity.TileEntityAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
@@ -639,18 +640,18 @@ public class BlockSetup extends BidsBlocks {
     private static void registerKilnChambers() {
         Bids.LOG.info("Register kiln chambers");
 
-        if (BidsOptions.Kiln.enableTunnelKiln) {
-            BidsRegistry.KILN_CHAMBERS.register(TunnelKilnChamber.class);
-        }
-        if (BidsOptions.Kiln.enableSquareKiln) {
-            BidsRegistry.KILN_CHAMBERS.register(SquareKilnChamber.class);
-        }
-        if (BidsOptions.Kiln.enableBeehiveKiln) {
-            BidsRegistry.KILN_CHAMBERS.register(BeehiveKilnChamber.class);
-        }
-        if (BidsOptions.Kiln.enableClimbingKiln) {
-            BidsRegistry.KILN_CHAMBERS.register(ClimbingKilnChamber.class);
-        }
+//        if (KilnConfig.enableTunnelKiln) {
+//            BidsRegistry.KILN_CHAMBERS.register(TunnelKilnChamber.class);
+//        }
+//        if (KilnConfig.enableSquareKiln) {
+//            BidsRegistry.KILN_CHAMBERS.register(SquareKilnChamber.class);
+//        }
+//        if (KilnConfig.enableBeehiveKiln) {
+//            BidsRegistry.KILN_CHAMBERS.register(BeehiveKilnChamber.class);
+//        }
+//        if (KilnConfig.enableClimbingKiln) {
+//            BidsRegistry.KILN_CHAMBERS.register(ClimbingKilnChamber.class);
+//        }
     }
 
     private static void registerSurfacePlacers() {

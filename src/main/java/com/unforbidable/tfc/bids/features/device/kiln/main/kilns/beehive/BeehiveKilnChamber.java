@@ -2,12 +2,12 @@ package com.unforbidable.tfc.bids.features.device.kiln.main.kilns.beehive;
 
 import com.unforbidable.tfc.bids.features.device.kiln.main.ValidatorKilnChamber;
 import com.unforbidable.tfc.bids.features.device.kiln.main.KilnValidationParams;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IKilnHeatSource;
+import com.unforbidable.tfc.bids.api.features.kiln.KilnHeatSource;
 import net.minecraft.world.World;
 
 public class BeehiveKilnChamber extends ValidatorKilnChamber<BeehiveKilnValidator, KilnValidationParams> {
 
-    public BeehiveKilnChamber(IKilnHeatSource heatSource) {
+    public BeehiveKilnChamber(KilnHeatSource heatSource) {
         super(heatSource);
     }
 

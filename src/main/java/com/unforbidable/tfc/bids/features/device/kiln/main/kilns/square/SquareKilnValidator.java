@@ -1,14 +1,13 @@
 package com.unforbidable.tfc.bids.features.device.kiln.main.kilns.square;
 
-import com.unforbidable.tfc.bids.util.BlockCoord;
+import com.unforbidable.tfc.bids.features.device.kiln.KilnConfig;
 import com.unforbidable.tfc.bids.features.device.kiln.main.KilnValidationException;
 import com.unforbidable.tfc.bids.features.device.kiln.main.KilnValidator;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-
+import com.unforbidable.tfc.bids.util.BlockCoord;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParams> {
 
@@ -206,7 +205,7 @@ public class SquareKilnValidator extends KilnValidator<SquareKilnValidationParam
     }
 
     protected int getMaxHeight() {
-        return BidsOptions.Kiln.maxSquareKilnHeight;
+        return KilnConfig.maxSquareKilnHeight;
     }
 
 }

@@ -1,8 +1,8 @@
-package com.unforbidable.tfc.bids.api._obsolete.Interfaces;
+package com.unforbidable.tfc.bids.api.features.kiln;
 
 import net.minecraft.world.World;
 
-public interface IKilnHeatSource {
+public interface KilnHeatSource {
 
     World getWorld();
     int getTileX();

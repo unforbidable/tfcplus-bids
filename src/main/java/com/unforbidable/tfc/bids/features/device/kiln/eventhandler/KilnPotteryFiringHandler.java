@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.kiln.eventhandler;
 
 import com.dunk.tfc.TileEntities.TEPottery;
-import com.unforbidable.tfc.bids.api._obsolete.Events.KilnEvent;
+import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.tileentity.TileEntity;
 

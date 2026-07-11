@@ -1,14 +1,13 @@
 package com.unforbidable.tfc.bids.features.device.kiln.main.kilns.climbing;
 
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
+import com.unforbidable.tfc.bids.features.device.kiln.KilnConfig;
 import com.unforbidable.tfc.bids.features.device.kiln.main.KilnValidationException;
 import com.unforbidable.tfc.bids.features.device.kiln.main.KilnValidator;
 import com.unforbidable.tfc.bids.util.BlockCoord;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class ClimbingKilnValidator extends KilnValidator<ClimbingKilnValidationParams> {
 
@@ -185,7 +184,7 @@ public class ClimbingKilnValidator extends KilnValidator<ClimbingKilnValidationP
     }
 
     protected int getMaxHeight() {
-        return BidsOptions.Kiln.maxClimbingKilnHeight;
+        return KilnConfig.maxClimbingKilnHeight;
     }
 
 }

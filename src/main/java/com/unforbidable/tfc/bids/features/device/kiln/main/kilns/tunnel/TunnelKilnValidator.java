@@ -1,14 +1,13 @@
 package com.unforbidable.tfc.bids.features.device.kiln.main.kilns.tunnel;
 
-import com.unforbidable.tfc.bids.util.BlockCoord;
-import com.unforbidable.tfc.bids.features.device.kiln.main.KilnValidator;
+import com.unforbidable.tfc.bids.features.device.kiln.KilnConfig;
 import com.unforbidable.tfc.bids.features.device.kiln.main.KilnValidationException;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-
+import com.unforbidable.tfc.bids.features.device.kiln.main.KilnValidator;
+import com.unforbidable.tfc.bids.util.BlockCoord;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParams> {
 
@@ -177,7 +176,7 @@ public class TunnelKilnValidator extends KilnValidator<TunnelKilnValidationParam
     }
 
     protected int getMaxHeight() {
-        return BidsOptions.Kiln.maxTunnelKilnHeight;
+        return KilnConfig.maxTunnelKilnHeight;
     }
 
 }

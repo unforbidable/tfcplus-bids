@@ -2,25 +2,24 @@ package com.unforbidable.tfc.bids.features.device.kiln.main;
 
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IKilnChamber;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IKilnHeatSource;
+import com.unforbidable.tfc.bids.api.features.kiln.KilnChamber;
+import com.unforbidable.tfc.bids.api.features.kiln.KilnHeatSource;
 import com.unforbidable.tfc.bids.util.BlockCoord;
 import com.unforbidable.tfc.bids.util.chimney.ChimneyHelper;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
+public abstract class ValidatorKilnChamber<TValidator extends KilnValidator<TParams>, TParams extends KilnValidationParams> implements KilnChamber {
 
-public abstract class ValidatorKilnChamber<TValidator extends KilnValidator<TParams>, TParams extends KilnValidationParams> implements IKilnChamber {
-
-    protected final IKilnHeatSource heatSource;
+    protected final KilnHeatSource heatSource;
 
     private TValidator validator;
     private boolean valid;
     private TParams params;
 
-    public ValidatorKilnChamber(IKilnHeatSource heatSource) {
+    public ValidatorKilnChamber(KilnHeatSource heatSource) {
         this.heatSource = heatSource;
     }
 

@@ -1,12 +1,12 @@
 package com.unforbidable.tfc.bids.features.device.kiln.main.kilns.climbing;
 
 import com.unforbidable.tfc.bids.features.device.kiln.main.ValidatorKilnChamber;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IKilnHeatSource;
+import com.unforbidable.tfc.bids.api.features.kiln.KilnHeatSource;
 import net.minecraft.world.World;
 
 public class ClimbingKilnChamber extends ValidatorKilnChamber<ClimbingKilnValidator, ClimbingKilnValidationParams> {
 
-    public ClimbingKilnChamber(IKilnHeatSource heatSource) {
+    public ClimbingKilnChamber(KilnHeatSource heatSource) {
         super(heatSource);
     }
 

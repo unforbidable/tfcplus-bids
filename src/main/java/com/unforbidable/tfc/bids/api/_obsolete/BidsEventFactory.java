@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.api._obsolete;
 import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
 import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Events.HandworkPlayerEvent;
-import com.unforbidable.tfc.bids.api._obsolete.Events.KilnEvent;
+import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Events.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Events.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Events.WaterskinChurnEvent;

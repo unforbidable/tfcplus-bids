@@ -1,14 +1,13 @@
 package com.unforbidable.tfc.bids.features.device.kiln.main.kilns.beehive;
 
-import com.unforbidable.tfc.bids.util.BlockCoord;
 import com.unforbidable.tfc.bids.features.device.kiln.main.KilnValidationException;
 import com.unforbidable.tfc.bids.features.device.kiln.main.KilnValidationParams;
 import com.unforbidable.tfc.bids.features.device.kiln.main.KilnValidator;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-
+import com.unforbidable.tfc.bids.util.BlockCoord;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BeehiveKilnValidator extends KilnValidator<KilnValidationParams> {
 

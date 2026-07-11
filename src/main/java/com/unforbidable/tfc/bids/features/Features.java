@@ -21,6 +21,7 @@ import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrep;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRack;
 import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
+import com.unforbidable.tfc.bids.features.device.kiln.Kiln;
 import com.unforbidable.tfc.bids.features.device.lamp.Lamp;
 import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuern;
 import com.unforbidable.tfc.bids.features.device.screw.Screw;
@@ -131,6 +132,7 @@ public class Features {
         new Palisade(),
         new StrawNest(),
         new Firebrick(),
+        new Kiln(),
     };
 
 }

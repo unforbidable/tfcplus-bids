@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Events;
+package com.unforbidable.tfc.bids.api.features.kiln;
 
 import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.world.World;

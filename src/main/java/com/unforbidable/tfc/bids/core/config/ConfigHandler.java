@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.core.config;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfigLoader;
+import com.unforbidable.tfc.bids.features.device.kiln.KilnConfig;
 import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import java.io.File;
 import net.minecraftforge.common.config.Configuration;
@@ -28,30 +29,6 @@ public class ConfigHandler {
 
         // TODO move to specific feature
 
-        BidsOptions.Kiln.enableBeehiveKiln = config.getBoolean(
-            "enableBeehiveKiln", "kiln", BidsOptions.Kiln.enableBeehiveKiln,
-            "Set this to true if you want to add Beehive kiln as an available kiln structure");
-        BidsOptions.Kiln.enableTunnelKiln = config.getBoolean(
-            "enableTunnelKiln", "kiln", BidsOptions.Kiln.enableTunnelKiln,
-            "Set this to true if you want to add Tunnel kiln as an available kiln structure");
-        BidsOptions.Kiln.enableSquareKiln = config.getBoolean(
-            "enableSquareKiln", "kiln", BidsOptions.Kiln.enableSquareKiln,
-            "Set this to true if you want to add Square kiln as an available kiln structure");
-        BidsOptions.Kiln.enableClimbingKiln = config.getBoolean(
-            "enableClimbingKiln", "kiln", BidsOptions.Kiln.enableClimbingKiln,
-            "Set this to true if you want to add Climbing kiln as an available kiln structure");
-        BidsOptions.Kiln.maxTunnelKilnHeight = config.getInt(
-            "maxTunnelKilnHeight", "kiln",
-            BidsOptions.Kiln.maxTunnelKilnHeight, 1, 2,
-            "Maximum allowed height of the Tunnel kiln chamber; setting this to 2 allows the Tunnel kiln to be walked in");
-        BidsOptions.Kiln.maxSquareKilnHeight = config.getInt(
-            "maxSquareKilnHeight", "kiln",
-            BidsOptions.Kiln.maxSquareKilnHeight, 1, 2,
-            "Maximum allowed height of the Square kiln chamber; setting this to 2 allows the Square kiln to be walked in");
-        BidsOptions.Kiln.maxClimbingKilnHeight = config.getInt(
-            "maxClimbingKilnHeight", "kiln",
-            BidsOptions.Kiln.maxClimbingKilnHeight, 1, 3,
-            "Maximum allowed height of the Climbing kiln chamber; one unit of height corresponds to one section adding 6 more pottery slots on top of the initial 6");
         BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes = config.getBoolean(
             "craftingAddMissingLeatherRepairRecipes", "crafting",
             BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes,

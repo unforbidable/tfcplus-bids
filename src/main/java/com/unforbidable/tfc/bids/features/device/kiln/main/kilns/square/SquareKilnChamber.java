@@ -1,12 +1,12 @@
 package com.unforbidable.tfc.bids.features.device.kiln.main.kilns.square;
 
 import com.unforbidable.tfc.bids.features.device.kiln.main.ValidatorKilnChamber;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IKilnHeatSource;
+import com.unforbidable.tfc.bids.api.features.kiln.KilnHeatSource;
 import net.minecraft.world.World;
 
 public class SquareKilnChamber extends ValidatorKilnChamber<SquareKilnValidator, SquareKilnValidationParams> {
 
-    public SquareKilnChamber(IKilnHeatSource heatSource) {
+    public SquareKilnChamber(KilnHeatSource heatSource) {
         super(heatSource);
     }
 

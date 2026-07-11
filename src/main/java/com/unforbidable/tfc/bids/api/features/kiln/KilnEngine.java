@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Interfaces;
+package com.unforbidable.tfc.bids.api.features.kiln;
 
 import net.minecraft.nbt.NBTTagCompound;
 

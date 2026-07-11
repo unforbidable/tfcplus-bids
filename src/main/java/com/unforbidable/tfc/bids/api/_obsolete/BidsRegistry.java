@@ -4,7 +4,6 @@ import com.unforbidable.tfc.bids.api._obsolete.Crafting.*;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.*;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.*;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IKilnChamber;
 import com.unforbidable.tfc.bids.api.features.churning.ChurningRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -20,7 +19,7 @@ public class BidsRegistry {
 //    public static final BlockRegistry<IQuarriable> QUARRY_BLOCKS = new BlockRegistry<>();
 //    public static final ListRegistry<Carvable> CARVING_BLOCKS = new ListRegistry<>("carving-blocks");
     public static final ListRegistry<IDrinkable> DRINKS = new ListRegistry<>("drinks");
-    public static final ListRegistry<Class<? extends IKilnChamber>> KILN_CHAMBERS = new ListRegistry<>("kiln-chambers");
+//    public static final ListRegistry<Class<? extends KilnChamber>> KILN_CHAMBERS = new ListRegistry<>("kiln-chambers");
 //    public static final FluidRegistry<LampFuelMaterial> LAMP_FUEL = new FluidRegistry<>();
 //    public static final ItemRegistry<Item> COOKING_INGREDIENT_OVERRIDE = new ItemRegistry<>();
 //    public static final ListRegistry<CookingMixture> COOKING_MIXTURES = new ListRegistry<>("cooking-mixtures");

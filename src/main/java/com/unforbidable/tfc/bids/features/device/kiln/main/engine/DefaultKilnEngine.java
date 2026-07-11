@@ -1,20 +1,19 @@
 package com.unforbidable.tfc.bids.features.device.kiln.main.engine;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.KilnEngine;
-import com.unforbidable.tfc.bids.util.chimney.ChimneyHelper;
+import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
+import com.unforbidable.tfc.bids.api.features.kiln.KilnChamber;
+import com.unforbidable.tfc.bids.api.features.kiln.KilnEngine;
+import com.unforbidable.tfc.bids.api.features.kiln.KilnHeatSource;
+import com.unforbidable.tfc.bids.features.device.kiln.KilnRegistry;
 import com.unforbidable.tfc.bids.util.BlockCoord;
 import com.unforbidable.tfc.bids.util.Timer;
-import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IKilnChamber;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IKilnHeatSource;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-
+import com.unforbidable.tfc.bids.util.chimney.ChimneyHelper;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 
 public class DefaultKilnEngine implements KilnEngine {
 
@@ -22,14 +21,14 @@ public class DefaultKilnEngine implements KilnEngine {
     private final Timer kilnValidationTimer = new Timer(20);
     private final Timer kilnChimneyEffectTimer = new Timer(100);
 
-    private final IKilnHeatSource kilnHeatSource;
-    private final List<IKilnChamber> kilns;
+    private final KilnHeatSource kilnHeatSource;
+    private final List<KilnChamber> kilns;
 
-    private IKilnChamber currentKiln;
+    private KilnChamber currentKiln;
 
     private boolean initialized = false;
 
-    public DefaultKilnEngine(IKilnHeatSource kilnHeatSource) {
+    public DefaultKilnEngine(KilnHeatSource kilnHeatSource) {
         this.kilnHeatSource = kilnHeatSource;
         this.kilns = createKilnInstances(kilnHeatSource);
     }
@@ -117,7 +116,7 @@ public class DefaultKilnEngine implements KilnEngine {
     }
 
     private void handleKilnValidation() {
-        IKilnChamber kiln = findValidKiln();
+        KilnChamber kiln = findValidKiln();
 
         if (currentKiln != null) {
             if (currentKiln != kiln) {
@@ -174,8 +173,8 @@ public class DefaultKilnEngine implements KilnEngine {
         }
     }
 
-    private IKilnChamber findKilnByName(String name) {
-        for (IKilnChamber kiln : kilns) {
+    private KilnChamber findKilnByName(String name) {
+        for (KilnChamber kiln : kilns) {
             if (kiln.getName().equals(name)) {
                 return kiln;
             }
@@ -184,7 +183,7 @@ public class DefaultKilnEngine implements KilnEngine {
         return null;
     }
 
-    private IKilnChamber findValidKiln() {
+    private KilnChamber findValidKiln() {
         if (currentKiln != null) {
             // Validate current kiln first
             if (currentKiln.validate()) {
@@ -195,7 +194,7 @@ public class DefaultKilnEngine implements KilnEngine {
 
         // Validate all but the current kiln
         // which would have been checked above
-        for (IKilnChamber kiln : kilns) {
+        for (KilnChamber kiln : kilns) {
             if (kiln != currentKiln) {
                 if (kiln.validate()) {
                     return kiln;
@@ -207,10 +206,10 @@ public class DefaultKilnEngine implements KilnEngine {
         return null;
     }
 
-    private static List<IKilnChamber> createKilnInstances(IKilnHeatSource heatSource) {
-        List<IKilnChamber> list = new ArrayList<IKilnChamber>();
-        for (Class<? extends IKilnChamber> c : BidsRegistry.KILN_CHAMBERS) {
-            IKilnChamber kiln = createKilnInstance(c, heatSource);
+    private static List<KilnChamber> createKilnInstances(KilnHeatSource heatSource) {
+        List<KilnChamber> list = new ArrayList<KilnChamber>();
+        for (Class<? extends KilnChamber> c : KilnRegistry.chambers) {
+            KilnChamber kiln = createKilnInstance(c, heatSource);
             if (kiln != null) {
                 list.add(kiln);
             }
@@ -219,12 +218,12 @@ public class DefaultKilnEngine implements KilnEngine {
         return list;
     }
 
-    private static IKilnChamber createKilnInstance(Class<? extends IKilnChamber> cls, IKilnHeatSource kilnHeatSource) {
+    private static KilnChamber createKilnInstance(Class<? extends KilnChamber> cls, KilnHeatSource kilnHeatSource) {
         try {
-            Constructor<?> constructor = cls.getConstructor(IKilnHeatSource.class);
+            Constructor<?> constructor = cls.getConstructor(KilnHeatSource.class);
             Object instance = constructor.newInstance(kilnHeatSource);
-            if (instance instanceof IKilnChamber) {
-                return (IKilnChamber) instance;
+            if (instance instanceof KilnChamber) {
+                return (KilnChamber) instance;
             } else {
                 Bids.LOG.warn("Kiln class {} does not implement interface IKilnChamber", cls.getName());
             }

@@ -2,18 +2,6 @@ package com.unforbidable.tfc.bids.api._obsolete;
 
 public class BidsOptions {
 
-    public static class Kiln {
-
-        public static boolean enableTunnelKiln = true;
-        public static boolean enableSquareKiln = true;
-        public static boolean enableBeehiveKiln = true;
-        public static boolean enableClimbingKiln = true;
-        public static int maxTunnelKilnHeight = 2;
-        public static int maxSquareKilnHeight = 2;
-        public static int maxClimbingKilnHeight = 3;
-
-    }
-
     public static class Crafting {
 
         public static boolean craftingAddMissingLeatherRepairRecipes = true;

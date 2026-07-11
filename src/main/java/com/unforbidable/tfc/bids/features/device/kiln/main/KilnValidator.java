@@ -1,11 +1,10 @@
 package com.unforbidable.tfc.bids.features.device.kiln.main;
 
 import com.unforbidable.tfc.bids.util.BlockCoord;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class KilnValidator<TParams extends KilnValidationParams> {
 
