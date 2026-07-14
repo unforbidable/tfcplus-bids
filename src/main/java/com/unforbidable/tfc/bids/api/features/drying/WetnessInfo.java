@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Registry.Values;
+package com.unforbidable.tfc.bids.api.features.drying;
 
 public class WetnessInfo {
 

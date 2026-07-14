@@ -34,11 +34,6 @@ public class ConfigHandler {
             BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes,
             "Set this to true if you want to add missing leather armor repair recipes.");
 
-        BidsOptions.Crafting.enableProcessingSurfaceLeatherRackOverride = config.getBoolean(
-            "enableProcessingSurfaceLeatherRackOverride", "crafting",
-            BidsOptions.Crafting.enableProcessingSurfaceLeatherRackOverride,
-            "Set this to true if you want to scrap leathers using the Processing Surface, instead of the TFC Leather Rack.");
-
         BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes = config.getBoolean(
             "removeOriginalSpindleSpinningRecipes", "crafting",
             BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes,
@@ -85,14 +80,6 @@ public class ConfigHandler {
             "enableCottonBollAutoConversion", "crafting",
             BidsOptions.Crafting.enableCottonBollAutoConversion,
             "Set this to true if you want to automatically convert harvested cotton boll when picked up.");
-
-        BidsOptions.Crafting.soakingDurationMultiplier = config.getFloat(
-            "soakingDurationMultiplier", "crafting",
-            BidsOptions.Crafting.soakingDurationMultiplier, 0.5f, 10f,
-            "Higher values increase the time it takes to soak stuff on a Soaking Surface");
-        BidsOptions.Crafting.enableDryingSurfaceMudBrickDryingOverride = config.getBoolean(
-            "enableDryingSurfaceMudBrickDryingOverride", "crafting", BidsOptions.Crafting.enableDryingSurfaceMudBrickDryingOverride,
-            "Set this to true if you want to dry mud bricks using the Drying Surface, instead of the TFC mechanics.");
 
         BidsOptions.Miscellaneous.soapUsageRewardXP = config.getInt(
             "soapUsageRewardXP", "miscellaneous",

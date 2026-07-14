@@ -2,11 +2,17 @@ package com.unforbidable.tfc.bids.features.device.processingsurface.main;
 
 import com.dunk.tfc.Core.TFC_Textures;
 import com.dunk.tfc.Items.Tools.ItemWeapon;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
+import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceConfig;
+import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,10 +22,6 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ProcessingSurfaceHelper {
 
@@ -68,7 +70,7 @@ public class ProcessingSurfaceHelper {
     }
 
     public static void registerProcessingSurfaceRecipeIcons(IIconRegister registerer) {
-        for (ProcessingSurfaceRecipe recipe : BidsRegistry.PROCESSING_SURFACE_RECIPES) {
+        for (ProcessingSurfaceRecipe recipe : ProcessingSurfaceRegistry.recipes) {
             ItemStack input = recipe.getInput();
             ItemStack result = recipe.getResult(input);
 
@@ -112,13 +114,26 @@ public class ProcessingSurfaceHelper {
         int surfaceBlockMetadata = world.getBlockMetadata(x, y, z);
         ItemStack surface = new ItemStack(surfaceBlock, 1, surfaceBlockMetadata);
 
-        for (ProcessingSurfaceRecipe recipe : BidsRegistry.PROCESSING_SURFACE_RECIPES) {
+        for (ProcessingSurfaceRecipe recipe : ProcessingSurfaceRegistry.recipes) {
             if (recipe.matchesInput(input) && recipe.matchesSurface(surface)) {
                 return recipe;
             }
         }
 
         return null;
+    }
+
+    public static boolean isValidProcessingSurfaceItem(ItemStack itemStack, World world, int x, int y, int z) {
+        return isItemAllowed(itemStack) && ProcessingSurfaceHelper.findMatchingRecipe(itemStack, world, x, y, z) != null;
+    }
+
+    private static boolean isItemAllowed(ItemStack heldItem) {
+        if (heldItem.getItem() == TFCItems.soakedHide) {
+            // Only allow soaked hides to be scrapped if enabled in the config
+            return ProcessingSurfaceConfig.enableProcessingSurfaceLeatherRackOverride;
+        }
+
+        return true;
     }
 
 }

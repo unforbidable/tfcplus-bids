@@ -112,16 +112,16 @@ public class OreSetup {
 //        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailMilk, 1, WILD));
 //        OreDictionary.registerOre("itemMilkingContainer", new ItemStack(BidsItems.woodenPailGoatMilk, 1, WILD));
 
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.fur, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.furScrap, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.wolfFur, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.wolfFurScrap, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.bearFur, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.bearFurScrap, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.hide, 1, WILD));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 0));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 1));
-        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 2));
+//        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.fur, 1, WILD));
+//        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.furScrap, 1, WILD));
+//        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.wolfFur, 1, WILD));
+//        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.wolfFurScrap, 1, WILD));
+//        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.bearFur, 1, WILD));
+//        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.bearFurScrap, 1, WILD));
+//        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.hide, 1, WILD));
+//        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 0));
+//        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 1));
+//        OreDictionary.registerOre("itemDecorativeSurface", new ItemStack(TFCItems.sheepSkin, 1, 2));
 
         // Hammers that are able to break iron ores into bits
         // You could realstically break iron ore with a stone hammer
@@ -162,17 +162,17 @@ public class OreSetup {
 //                OreDictionary.registerOre("blockLogWall", wood.blocks.getLogWallVert());
 //            }
 
-            if (wood.blocks.hasThickLog()) {
-                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getThickLog());
-                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getThickLogAlt());
-
-                OreDictionary.registerOre("blockFlaxWorkingSurface", wood.blocks.getThickVert());
-            }
-
-            if (wood.blocks.hasStackedLogs()) {
-                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getStackedLogs());
-                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getStackedLogsAlt());
-            }
+//            if (wood.blocks.hasThickLog()) {
+//                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getThickLog());
+//                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getThickLogAlt());
+//
+//                OreDictionary.registerOre("blockFlaxWorkingSurface", wood.blocks.getThickVert());
+//            }
+//
+//            if (wood.blocks.hasStackedLogs()) {
+//                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getStackedLogs());
+//                OreDictionary.registerOre("blockScrapingSurface", wood.blocks.getStackedLogsAlt());
+//            }
         }
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
@@ -180,11 +180,11 @@ public class OreSetup {
             OreDictionary.registerOre("stoneRoughBricks",  stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_BRICKS));
             OreDictionary.registerOre("stoneRoughTiles",  stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE_TILES));
 
-            OreDictionary.registerOre("blockScrapingSurface", stone.blocks.getBlockStack(EnumStoneBlockType.RAW));
+//            OreDictionary.registerOre("blockScrapingSurface", stone.blocks.getBlockStack(EnumStoneBlockType.RAW));
         }
 
-        OreDictionary.registerOre("blockFreshWater", TFCBlocks.freshWater);
-        OreDictionary.registerOre("blockFreshWater", TFCBlocks.freshWaterStationary);
+//        OreDictionary.registerOre("blockFreshWater", TFCBlocks.freshWater);
+//        OreDictionary.registerOre("blockFreshWater", TFCBlocks.freshWaterStationary);
 
 //        OreDictionary.registerOre("itemHoneycomb", TFCItems.honeycomb);
 //        OreDictionary.registerOre("itemHoneycomb", TFCItems.fertileHoneycomb);
@@ -277,9 +277,9 @@ public class OreSetup {
             }
         }
 
-        for (Item knife : Recipes.knives) {
-            OreDictionary.registerOre("itemScrapingTool", new ItemStack(knife, 1, WILD));
-        }
+//        for (Item knife : Recipes.knives) {
+//            OreDictionary.registerOre("itemScrapingTool", new ItemStack(knife, 1, WILD));
+//        }
 
         for (Item item : new Item[] { TFCItems.pole, TFCItems.stick } ) {
             OreDictionary.registerOre("itemFlaxBreakingTool", new ItemStack(item, 1, WILD));

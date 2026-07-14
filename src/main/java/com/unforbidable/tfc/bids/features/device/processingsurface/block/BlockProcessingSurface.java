@@ -1,12 +1,13 @@
 package com.unforbidable.tfc.bids.features.device.processingsurface.block;
 
 import com.dunk.tfc.Core.TFC_Textures;
-import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
+import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.processingsurface.main.ProcessingSurfaceHelper;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -19,8 +20,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class BlockProcessingSurface extends BlockContainer {
 
@@ -108,7 +107,7 @@ public class BlockProcessingSurface extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.processingSurfaceRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

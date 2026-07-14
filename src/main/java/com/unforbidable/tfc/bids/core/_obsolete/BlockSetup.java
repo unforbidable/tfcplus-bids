@@ -3,22 +3,17 @@ package com.unforbidable.tfc.bids.core._obsolete;
 import com.dunk.tfc.Items.ItemBlocks.ItemSoil;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.common.block.itemblock.ItemGenericSoil;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
 import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
 import com.unforbidable.tfc.bids.core.network._obsolete.NetworkHelper;
-import com.unforbidable.tfc.bids.features.device.kiln.KilnConfig;
 import com.unforbidable.tfc.bids.features.device.wallbearing.render.RenderAxleWallBearing;
 import com.unforbidable.tfc.bids.features.device.wallbearing.tileentity.TileEntityAxleWallBearing;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.block.BlockDecorativeSurface;
-import com.unforbidable.tfc.bids.features.building.decorativesurface.main.DecorativeSurfacePlacer;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.render.RenderDecorativeSurface;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.render.RenderTileDecorativeSurface;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.tileentity.TileEntityDecorativeSurface;
-import com.unforbidable.tfc.bids.features.building.firebrick.block.BlockFirebrickChimney;
 import com.unforbidable.tfc.bids.features.building.firebrick.block.blockitem.ItemFireBrickChimney;
 import com.unforbidable.tfc.bids.features.building.firebrick.tileentity.TileEntityFireBrickChimney;
 import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWall;
@@ -28,7 +23,6 @@ import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemL
 import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWallVert16;
 import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWallVert32;
 import com.unforbidable.tfc.bids.features.building.mudbrick.block.itemblock.ItemMudbrickChimney;
-import com.unforbidable.tfc.bids.features.building.palisade.block.BlockPalisade;
 import com.unforbidable.tfc.bids.features.building.palisade.block.blockitem.ItemPalisade;
 import com.unforbidable.tfc.bids.features.building.palisade.block.blockitem.ItemPalisade16;
 import com.unforbidable.tfc.bids.features.building.palisade.block.blockitem.ItemPalisade32;
@@ -58,35 +52,19 @@ import com.unforbidable.tfc.bids.features.device.dryingrack.render.RenderDryingR
 import com.unforbidable.tfc.bids.features.device.dryingrack.render.RenderTileDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.block.BlockDryingSurface;
-import com.unforbidable.tfc.bids.features.device.dryingsurface.main.DryingSurfacePlacer;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.render.RenderDryingSurface;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.render.RenderTileDryingSurface;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
 import com.unforbidable.tfc.bids.features.device.firepit.render.RenderNewFirepit;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
-import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.beehive.BeehiveKilnChamber;
-import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.climbing.ClimbingKilnChamber;
-import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.square.SquareKilnChamber;
-import com.unforbidable.tfc.bids.features.device.kiln.main.kilns.tunnel.TunnelKilnChamber;
 import com.unforbidable.tfc.bids.features.device.lamp.block.itemblock.ItemClayLamp;
 import com.unforbidable.tfc.bids.features.device.lamp.render.RenderClayLamp;
 import com.unforbidable.tfc.bids.features.device.lamp.tileentity.TileEntityClayLamp;
-import com.unforbidable.tfc.bids.features.device.processingsurface.block.BlockProcessingSurface;
-import com.unforbidable.tfc.bids.features.device.processingsurface.main.ProcessingSurfacePlacer;
 import com.unforbidable.tfc.bids.features.device.processingsurface.render.RenderProcessingSurface;
 import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
-import com.unforbidable.tfc.bids.features.device.screw.block.BlockScrew;
 import com.unforbidable.tfc.bids.features.device.screw.render.RenderScrew;
 import com.unforbidable.tfc.bids.features.device.screw.render.RenderTileScrew;
 import com.unforbidable.tfc.bids.features.device.screw.tileentity.TileEntityScrew;
-import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressBarrel;
-import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressDisc;
-import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressLever;
-import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressLeverTop;
-import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressRackBottom;
-import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressRackBridge;
-import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressRackMiddle;
-import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressRackTop;
 import com.unforbidable.tfc.bids.features.device.screwpress.block.blockitem.ItemScrewPress;
 import com.unforbidable.tfc.bids.features.device.screwpress.render.RenderScrewPressBarrel;
 import com.unforbidable.tfc.bids.features.device.screwpress.render.RenderScrewPressDisc;
@@ -98,7 +76,6 @@ import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntit
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressDisc;
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressLever;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.block.BlockSoakingSurface;
-import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfacePlacer;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.render.RenderSoakingSurface;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.render.RenderTileSoakingSurface;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
@@ -113,7 +90,6 @@ import com.unforbidable.tfc.bids.features.device.saddlequern.render.RenderWorkSt
 import com.unforbidable.tfc.bids.features.device.saddlequern.tileentity.TileEntitySaddleQuern;
 import com.unforbidable.tfc.bids.features.device.saddlequern.tileentity.TileEntityStonePressLever;
 import com.unforbidable.tfc.bids.features.device.saddlequern.tileentity.TileEntityStonePressWeight;
-import com.unforbidable.tfc.bids.features.device.strawnest.block.BlockStrawNest;
 import com.unforbidable.tfc.bids.features.device.strawnest.render.RenderStrawNest;
 import com.unforbidable.tfc.bids.features.device.strawnest.tileentity.TileEntityStrawNest;
 import com.unforbidable.tfc.bids.features.device.wallhook.block.blockitem.ItemWallHook;
@@ -135,7 +111,6 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 
 public class BlockSetup extends BidsBlocks {
@@ -446,23 +421,23 @@ public class BlockSetup extends BidsBlocks {
 //            .setResistance(5F)
 //            .setBlockName("Ore");
 
-        fireBrickChimney = new BlockFirebrickChimney()
-            .setBlockName("FireBrickChimney");
+//        fireBrickChimney = new BlockFirebrickChimney()
+//            .setBlockName("FireBrickChimney");
 
 //        light = new BlockLight()
 //            .setBlockName("Light");
 
-        processingSurface = new BlockProcessingSurface()
-            .setBlockName("ProcessingSurface");
+//        processingSurface = new BlockProcessingSurface()
+//            .setBlockName("ProcessingSurface");
 
-        decorativeSurface = new BlockDecorativeSurface()
-            .setBlockName("DecorativeSurface");
-
-        soakingSurface = new BlockSoakingSurface()
-            .setBlockName("SoakingSurface");
-
-        dryingSurface = new BlockDryingSurface()
-            .setBlockName("DryingSurface");
+//        decorativeSurface = new BlockDecorativeSurface()
+//            .setBlockName("DecorativeSurface");
+//
+//        soakingSurface = new BlockSoakingSurface()
+//            .setBlockName("SoakingSurface");
+//
+//        dryingSurface = new BlockDryingSurface()
+//            .setBlockName("DryingSurface");
     }
 
     private static void updateBlocks() {
@@ -657,10 +632,10 @@ public class BlockSetup extends BidsBlocks {
     private static void registerSurfacePlacers() {
         Bids.LOG.info("Register surface item placers");
 
-        BidsRegistry.SURFACE_ITEM_PLACERS.register(new ProcessingSurfacePlacer());
-        BidsRegistry.SURFACE_ITEM_PLACERS.register(new DecorativeSurfacePlacer());
-        BidsRegistry.SURFACE_ITEM_PLACERS.register(new SoakingSurfacePlacer());
-        BidsRegistry.SURFACE_ITEM_PLACERS.register(new DryingSurfacePlacer());
+//        BidsRegistry.SURFACE_ITEM_PLACERS.register(new ProcessingSurfacePlacer());
+//        BidsRegistry.SURFACE_ITEM_PLACERS.register(new DecorativeSurfaceEventHandler());
+//        BidsRegistry.SURFACE_ITEM_PLACERS.register(new SoakingSurfacePlacer());
+//        BidsRegistry.SURFACE_ITEM_PLACERS.register(new DryingSurfacePlacer());
     }
 
     @SideOnly(Side.CLIENT)
@@ -682,32 +657,32 @@ public class BlockSetup extends BidsBlocks {
 //        woodPileRenderId = RenderingRegistry.getNextAvailableRenderId();
 //        RenderingRegistry.registerBlockHandler(woodPileRenderId, new RenderWoodpile());
 
-        dryingRackRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(dryingRackRenderId, new RenderDryingRack());
-
-        choppingBlockRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(choppingBlockRenderId, new RenderChoppingBlock());
-
-        saddleQuernRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(saddleQuernRenderId, new RenderSaddleQuern());
-
-        workStoneRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(workStoneRenderId, new RenderWorkStone());
-
-        stonePressLeverRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(stonePressLeverRenderId, new RenderStonePressLever());
-
-        stonePressWeightRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(stonePressWeightRenderId, new RenderStonePressWeight());
-
-        clayLampRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(clayLampRenderId, new RenderClayLamp());
-
-        wallHookRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(wallHookRenderId, new RenderWallHook());
-
-        unfinishedAnvilStage1RenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage1RenderId, new RenderUnfinishedAnvil());
+//        dryingRackRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(dryingRackRenderId, new RenderDryingRack());
+//
+//        choppingBlockRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(choppingBlockRenderId, new RenderChoppingBlock());
+//
+//        saddleQuernRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(saddleQuernRenderId, new RenderSaddleQuern());
+//
+//        workStoneRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(workStoneRenderId, new RenderWorkStone());
+//
+//        stonePressLeverRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(stonePressLeverRenderId, new RenderStonePressLever());
+//
+//        stonePressWeightRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(stonePressWeightRenderId, new RenderStonePressWeight());
+//
+//        clayLampRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(clayLampRenderId, new RenderClayLamp());
+//
+//        wallHookRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(wallHookRenderId, new RenderWallHook());
+//
+//        unfinishedAnvilStage1RenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage1RenderId, new RenderUnfinishedAnvil());
 
 //        unfinishedAnvilStage2RenderId = RenderingRegistry.getNextAvailableRenderId();
 //        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage2RenderId, new RenderUnfinishedAnvil(1));
@@ -723,42 +698,42 @@ public class BlockSetup extends BidsBlocks {
 //
 //        unfinishedAnvilStage6RenderId = RenderingRegistry.getNextAvailableRenderId();
 //        RenderingRegistry.registerBlockHandler(unfinishedAnvilStage6RenderId, new RenderUnfinishedAnvil(5));
-
-        cookingPotRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(cookingPotRenderId, new RenderCookingPot());
-
-        cookingPotLidRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(cookingPotLidRenderId, new RenderCookingPotLid());
-
-        newCropsRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(newCropsRenderId, new RenderNewCrop());
-
-        axleWallBearingRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(axleWallBearingRenderId, new RenderAxleWallBearing());
-
-        screwRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(screwRenderId, new RenderScrew());
-
-        screwPressRackRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(screwPressRackRenderId, new RenderScrewPressRack());
-
-        screwPressBarrelRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(screwPressBarrelRenderId, new RenderScrewPressBarrel());
-
-        screwPressDiscRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(screwPressDiscRenderId, new RenderScrewPressDisc());
-
-        screwPressLeverRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(screwPressLeverRenderId, new RenderScrewPressLever());
-
-        palisadeRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(palisadeRenderId, new RenderPalisade());
-
-        wattleGateRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(wattleGateRenderId, new RenderWattleGate());
-
-        strawNestRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(strawNestRenderId, new RenderStrawNest());
+//
+//        cookingPotRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(cookingPotRenderId, new RenderCookingPot());
+//
+//        cookingPotLidRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(cookingPotLidRenderId, new RenderCookingPotLid());
+//
+//        newCropsRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(newCropsRenderId, new RenderNewCrop());
+//
+//        axleWallBearingRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(axleWallBearingRenderId, new RenderAxleWallBearing());
+//
+//        screwRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(screwRenderId, new RenderScrew());
+//
+//        screwPressRackRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(screwPressRackRenderId, new RenderScrewPressRack());
+//
+//        screwPressBarrelRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(screwPressBarrelRenderId, new RenderScrewPressBarrel());
+//
+//        screwPressDiscRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(screwPressDiscRenderId, new RenderScrewPressDisc());
+//
+//        screwPressLeverRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(screwPressLeverRenderId, new RenderScrewPressLever());
+//
+//        palisadeRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(palisadeRenderId, new RenderPalisade());
+//
+//        wattleGateRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(wattleGateRenderId, new RenderWattleGate());
+//
+//        strawNestRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(strawNestRenderId, new RenderStrawNest());
 
 //        crackedStoneRenderId = RenderingRegistry.getNextAvailableRenderId();
 //        RenderingRegistry.registerBlockHandler(crackedStoneRenderId, new RenderCrackedStone());
@@ -769,20 +744,20 @@ public class BlockSetup extends BidsBlocks {
 //        roughStoneFenceRenderId = RenderingRegistry.getNextAvailableRenderId();
 //        RenderingRegistry.registerBlockHandler(roughStoneFenceRenderId, new RenderRoughStoneFence());
 
-        processingSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(processingSurfaceRenderId, new RenderProcessingSurface());
-
-        decorativeSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(decorativeSurfaceRenderId, new RenderDecorativeSurface());
-
-        soakingSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(soakingSurfaceRenderId, new RenderSoakingSurface());
-
-        newFirepitRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(newFirepitRenderId, new RenderNewFirepit());
-
-        dryingSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(dryingSurfaceRenderId, new RenderDryingSurface());
+//        processingSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(processingSurfaceRenderId, new RenderProcessingSurface());
+//
+//        decorativeSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(decorativeSurfaceRenderId, new RenderDecorativeSurface());
+//
+//        soakingSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(soakingSurfaceRenderId, new RenderSoakingSurface());
+//
+//        newFirepitRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(newFirepitRenderId, new RenderNewFirepit());
+//
+//        dryingSurfaceRenderId = RenderingRegistry.getNextAvailableRenderId();
+//        RenderingRegistry.registerBlockHandler(dryingSurfaceRenderId, new RenderDryingSurface());
     }
 
     private static void registerTileEntities() {

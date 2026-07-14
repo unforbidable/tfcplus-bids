@@ -6,8 +6,8 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -47,7 +47,7 @@ public class ProcessingNeiHandler extends TemplateRecipeHandler implements IHand
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == ProcessingNeiHandler.class) {
-            for (ProcessingSurfaceRecipe recipe : BidsRegistry.PROCESSING_SURFACE_RECIPES) {
+            for (ProcessingSurfaceRecipe recipe : ProcessingSurfaceRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
                 List<ItemStack> tools = OreDictionary.getOres(recipe.getToolOreName(), false);
@@ -61,7 +61,7 @@ public class ProcessingNeiHandler extends TemplateRecipeHandler implements IHand
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (ProcessingSurfaceRecipe recipe : BidsRegistry.PROCESSING_SURFACE_RECIPES) {
+        for (ProcessingSurfaceRecipe recipe : ProcessingSurfaceRegistry.recipes) {
             final ItemStack output2 = output.copy();
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
@@ -76,7 +76,7 @@ public class ProcessingNeiHandler extends TemplateRecipeHandler implements IHand
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (ProcessingSurfaceRecipe recipe : BidsRegistry.PROCESSING_SURFACE_RECIPES) {
+        for (ProcessingSurfaceRecipe recipe : ProcessingSurfaceRegistry.recipes) {
             if (recipe.matchesInput(ingredient)) {
                 final ItemStack input = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
                 final ItemStack result = recipe.getResult(input);

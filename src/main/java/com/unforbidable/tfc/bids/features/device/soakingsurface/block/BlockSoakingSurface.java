@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.soakingsurface.block;
 
 import com.dunk.tfc.Core.TFC_Textures;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -111,7 +112,7 @@ public class BlockSoakingSurface extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.soakingSurfaceRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

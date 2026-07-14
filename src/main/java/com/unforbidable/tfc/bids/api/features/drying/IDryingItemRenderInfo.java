@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete.Interfaces;
+package com.unforbidable.tfc.bids.api.features.drying;
 
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import net.minecraft.util.AxisAlignedBB;

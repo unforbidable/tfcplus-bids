@@ -1,14 +1,16 @@
 package com.unforbidable.tfc.bids.features.device.dryingsurface.main;
 
 import com.dunk.tfc.Items.ItemClothing;
-import com.unforbidable.tfc.bids.features.device.dryingsurface.block.BlockDryingSurface;
-import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
-import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
-import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
-import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceConfig;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.block.BlockDryingSurface;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
+import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
+import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -35,7 +37,17 @@ public class DryingSurfaceHelper {
     }
 
     private static boolean isValidDryingSurfaceItem(ItemStack item) {
-        return BidsRegistry.DRYING_SURFACE_RECIPES.findMatchingRecipe(item) != null || item.getItem() instanceof ItemClothing;
+        return isItemAllowed(item) &&
+            (DryingSurfaceRegistry.recipes.findMatchingRecipe(item) != null || item.getItem() instanceof ItemClothing);
+    }
+
+    private static boolean isItemAllowed(ItemStack heldItem) {
+        if (heldItem.getItem() == TFCItems.mudBrick) {
+            // Only allow mud brick to be dried using drying surface if enabled in the config
+            return DryingSurfaceConfig.enableDryingSurfaceMudBrickDryingOverride;
+        }
+
+        return true;
     }
 
     public static boolean placeDryingItemAt(World world, int x, int y, int z, float hitX, float hitZ, ItemStack item) {

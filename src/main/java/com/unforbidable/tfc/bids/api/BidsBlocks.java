@@ -176,66 +176,17 @@ public class BidsBlocks {
     // Firebrick
     public static final Block fireBrickChimney = block(BlockNames.FIREBRICK_CHIMNEY);
 
+    // Processing surface
+    public static final Block processingSurface = block(BlockNames.PROCESSING_SURFACE);
 
+    // Decorative surface
+    public static final Block decorativeSurface = block(BlockNames.DECORATIVE_SURFACE);
 
+    // Soaking surface
+    public static final Block soakingSurface = block(BlockNames.SOAKING_SURFACE);
 
-    public static int clayCrucibleRenderId;
-    public static int fireClayCrucibleRenderId;
-    public static int quarryRenderId;
-    public static int carvingRenderId;
-    public static int woodPileRenderId;
-    public static int dryingRackRenderId;
-    public static int choppingBlockRenderId;
-    public static int saddleQuernRenderId;
-    public static int workStoneRenderId;
-    public static int stonePressLeverRenderId;
-    public static int stonePressWeightRenderId;
-    public static int clayLampRenderId;
-    public static int wallHookRenderId;
-
-    public static int unfinishedAnvilStage1RenderId;
-    public static int unfinishedAnvilStage2RenderId;
-    public static int unfinishedAnvilStage3RenderId;
-    public static int unfinishedAnvilStage4RenderId;
-    public static int unfinishedAnvilStage5RenderId;
-    public static int unfinishedAnvilStage6RenderId;
-
-    public static int cookingPotRenderId;
-    public static int cookingPotLidRenderId;
-
-    public static int newCropsRenderId;
-
-    public static int axleWallBearingRenderId;
-
-    public static int newFirepitRenderId;
-
-    public static int screwRenderId;
-    public static int axleHandleRenderId;
-    public static int screwPressRackRenderId;
-    public static int screwPressBarrelRenderId;
-    public static int screwPressDiscRenderId;
-    public static int screwPressLeverRenderId;
-    public static int palisadeRenderId;
-    public static int roughStoneFenceRenderId;
-    public static int wattleGateRenderId;
-    public static int strawNestRenderId;
-    public static int crackedStoneRenderId;
-    public static int crackedOreRenderId;
-    public static int processingSurfaceRenderId;
-    public static int decorativeSurfaceRenderId;
-    public static int soakingSurfaceRenderId;
-    public static int dryingSurfaceRenderId;
-
-
-
-
-
-    public static Block processingSurface;
-
-    public static Block decorativeSurface;
-
-    public static Block soakingSurface;
-    public static Block dryingSurface;
+    // Drying surface
+    public static final Block dryingSurface = block(BlockNames.DRYING_SURFACE);
 
     private static Block block(String name) {
         Block block = GameRegistry.findBlock(Tags.MOD_ID, name);

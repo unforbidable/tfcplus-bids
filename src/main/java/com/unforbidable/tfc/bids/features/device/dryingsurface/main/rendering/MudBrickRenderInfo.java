@@ -2,7 +2,7 @@ package com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingItemRenderInfo;
+import com.unforbidable.tfc.bids.api.features.drying.IDryingItemRenderInfo;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 

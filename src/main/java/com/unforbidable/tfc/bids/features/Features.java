@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features;
 
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.features.building.carving.Carving;
+import com.unforbidable.tfc.bids.features.building.decorativesurface.DecorativeSurface;
 import com.unforbidable.tfc.bids.features.building.firebrick.Firebrick;
 import com.unforbidable.tfc.bids.features.building.logwall.LogWall;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
@@ -14,18 +15,23 @@ import com.unforbidable.tfc.bids.features.crafting.dough.Dough;
 import com.unforbidable.tfc.bids.features.crafting.drying.Drying;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
 import com.unforbidable.tfc.bids.features.crafting.pressing.Pressing;
+import com.unforbidable.tfc.bids.features.crafting.processing.Processing;
 import com.unforbidable.tfc.bids.features.crafting.quern.Quern;
+import com.unforbidable.tfc.bids.features.crafting.soaking.Soaking;
 import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.cookingpot.CookingPot;
 import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrep;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRack;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurface;
 import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
 import com.unforbidable.tfc.bids.features.device.kiln.Kiln;
 import com.unforbidable.tfc.bids.features.device.lamp.Lamp;
+import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurface;
 import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuern;
 import com.unforbidable.tfc.bids.features.device.screw.Screw;
 import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPress;
+import com.unforbidable.tfc.bids.features.device.soakingsurface.SoakingSurface;
 import com.unforbidable.tfc.bids.features.device.strawnest.StrawNest;
 import com.unforbidable.tfc.bids.features.device.wallbearing.WallBearing;
 import com.unforbidable.tfc.bids.features.device.wallhook.WallHook;
@@ -133,6 +139,12 @@ public class Features {
         new StrawNest(),
         new Firebrick(),
         new Kiln(),
+        new Processing(),
+        new ProcessingSurface(),
+        new DecorativeSurface(),
+        new Soaking(),
+        new SoakingSurface(),
+        new DryingSurface(),
     };
 
 }

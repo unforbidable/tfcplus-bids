@@ -2,6 +2,8 @@ package com.unforbidable.tfc.bids.core;
 
 import com.unforbidable.tfc.bids.common.CommonInit;
 import com.unforbidable.tfc.bids.compat.nei.NeiInit;
+import com.unforbidable.tfc.bids.compat.tfc.TfcInit;
+import com.unforbidable.tfc.bids.compat.waila.WailaInit;
 import com.unforbidable.tfc.bids.core.config.ConfigInit;
 import com.unforbidable.tfc.bids.core.crafting.CraftingInit;
 import com.unforbidable.tfc.bids.core.crop.CropInit;
@@ -12,12 +14,10 @@ import com.unforbidable.tfc.bids.core.keybinding.KeyBindingInit;
 import com.unforbidable.tfc.bids.core.network.NetworkInit;
 import com.unforbidable.tfc.bids.core.player.PlayerInit;
 import com.unforbidable.tfc.bids.core.schemes.SchemeInit;
-import com.unforbidable.tfc.bids.compat.tfc.TfcInit;
-import com.unforbidable.tfc.bids.compat.waila.WailaInit;
+import com.unforbidable.tfc.bids.core.surfaceitem.SurfaceItemInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-
 import java.util.Arrays;
 
 public class Initializer {
@@ -33,6 +33,7 @@ public class Initializer {
         new DrinkInit(),
         new CropInit(),
         new SchemeInit(),
+        new SurfaceItemInit(),
         new CommonInit(),
 
         new FeatureInit(),

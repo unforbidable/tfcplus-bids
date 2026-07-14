@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.dryingsurface.block;
 
 import com.dunk.tfc.Core.TFC_Textures;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.main.DryingSurfaceHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
@@ -121,7 +122,7 @@ public class BlockDryingSurface extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.dryingSurfaceRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

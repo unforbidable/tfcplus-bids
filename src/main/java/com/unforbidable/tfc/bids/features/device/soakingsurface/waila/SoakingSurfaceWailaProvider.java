@@ -3,13 +3,12 @@ package com.unforbidable.tfc.bids.features.device.soakingsurface.waila;
 import com.unforbidable.tfc.bids.compat.waila.providers.WailaDataProvider;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceSlotProgress;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
+import java.util.List;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
-
-import java.util.List;
 
 public class SoakingSurfaceWailaProvider extends WailaDataProvider {
 

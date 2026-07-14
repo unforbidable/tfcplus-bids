@@ -1,11 +1,14 @@
 package com.unforbidable.tfc.bids.features.building.decorativesurface.block;
 
 import com.dunk.tfc.Core.TFC_Textures;
-import com.unforbidable.tfc.bids.features.building.decorativesurface.tileentity.TileEntityDecorativeSurface;
-import com.unforbidable.tfc.bids.features.building.decorativesurface.main.DecorativeSurfaceMetadata;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
+import com.unforbidable.tfc.bids.features.building.decorativesurface.main.DecorativeSurfaceMetadata;
+import com.unforbidable.tfc.bids.features.building.decorativesurface.tileentity.TileEntityDecorativeSurface;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -20,9 +23,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.List;
-import java.util.Random;
 
 public class BlockDecorativeSurface extends BlockContainer {
 
@@ -142,7 +142,7 @@ public class BlockDecorativeSurface extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BidsBlocks.decorativeSurfaceRenderId;
+        return BlockRenderIdProvider.get(this);
     }
 
     @Override

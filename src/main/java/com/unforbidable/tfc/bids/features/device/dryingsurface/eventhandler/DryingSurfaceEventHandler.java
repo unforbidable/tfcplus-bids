@@ -2,13 +2,35 @@ package com.unforbidable.tfc.bids.features.device.dryingsurface.eventhandler;
 
 import com.unforbidable.tfc.bids.api.features.drying.DryingItemEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
+import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.features.building.mudbrick.item.ItemDryingMudBrick;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHelper;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.main.DryingSurfaceHelper;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.item.ItemStack;
 
 public class DryingSurfaceEventHandler {
+
+    @SubscribeEvent
+    public void onSurfaceItemPlace(SurfaceItemEvent.Place event) {
+        if (!event.placed && event.player.isSneaking() && event.face == 1) {
+            if (DryingSurfaceHelper.canPlaceDryingItemAt(event.world, event.x, event.y, event.z, event.itemStack)) {
+                if (!event.world.isRemote) {
+                    ItemStack heldItem = event.itemStack.copy();
+                    heldItem.stackSize = 1;
+
+                    if (DryingSurfaceHelper.placeDryingItemAt(event.world, event.x, event.y, event.z, event.hitX, event.hitZ, heldItem)) {
+                        event.player.getHeldItem().stackSize--;
+                    }
+                }
+
+                event.placed = true;
+            }
+
+        }
+    }
 
     @SubscribeEvent
     public void onDryingItemNextRecipeSelected(DryingItemEvent.SelectNextRecipe event) {

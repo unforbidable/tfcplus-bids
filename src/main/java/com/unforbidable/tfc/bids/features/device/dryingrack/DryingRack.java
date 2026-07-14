@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.features.device.dryingrack;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackFoodRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.core.features.Feature;

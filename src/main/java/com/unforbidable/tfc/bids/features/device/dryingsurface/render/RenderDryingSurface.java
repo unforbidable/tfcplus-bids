@@ -1,11 +1,11 @@
 package com.unforbidable.tfc.bids.features.device.dryingsurface.render;
 
 import com.dunk.tfc.Render.RenderBlocksWithRotation;
-import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
+import com.unforbidable.tfc.bids.api.features.drying.IDryingItemRenderInfo;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.main.DryingSurfaceHelper;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingItemRenderInfo;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -40,7 +40,7 @@ public class RenderDryingSurface implements ISimpleBlockRenderingHandler {
         for (int i = 0; i < TileEntityDryingSurface.MAX_STORAGE; i++) {
             DryingItem dryingItem = te.getItem(i);
             if (dryingItem != null) {
-                IDryingItemRenderInfo renderInfo = BidsRegistry.DRYING_ITEM_RENDER_INFO.get(dryingItem.getCurrentItem().getItem());
+                IDryingItemRenderInfo renderInfo = DryingSurfaceRegistry.render.get(dryingItem.getCurrentItem().getItem());
                 if (renderInfo != null) {
                     Vec3 pos = DryingSurfaceHelper.getDryingSurfaceItemVector(i);
                     AxisAlignedBB bounds = renderInfo.getRenderBounds(dryingItem);

@@ -8,8 +8,6 @@ public class BidsOptions {
 
         public static boolean enableSmallAndMediumRawhideSewing = true;
 
-        public static boolean enableProcessingSurfaceLeatherRackOverride = false;
-
         public static float spinningDurationMultiplier = 1f;
 
         public static boolean removeOriginalSpindleSpinningRecipes = false;
@@ -28,9 +26,6 @@ public class BidsOptions {
         public static float handworkDurationMultiplier = 1f;
 
         public static boolean enableCottonBollAutoConversion = false;
-
-        public static float soakingDurationMultiplier = 2f;
-        public static boolean enableDryingSurfaceMudBrickDryingOverride = false;
 
     }
 

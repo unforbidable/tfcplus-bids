@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.features.device.dryingsurface.render;
 
 import com.dunk.tfc.Render.TESR.TESRBase;
-import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.main.DryingSurfaceHelper;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -18,7 +18,7 @@ public class RenderTileDryingSurface extends TESRBase {
 
         for (int i = 0; i < te.getSizeInventory(); i++) {
             ItemStack itemStack = te.getSlotActualItem(i);
-            if (itemStack != null && !BidsRegistry.DRYING_ITEM_RENDER_INFO.has(itemStack.getItem())) {
+            if (itemStack != null && DryingSurfaceRegistry.render.get(itemStack.getItem()) == null) {
                 Vec3 pos = DryingSurfaceHelper.getDryingSurfaceItemVector(i);
                 renderItemStack(x, y, z, itemStack, pos);
             }

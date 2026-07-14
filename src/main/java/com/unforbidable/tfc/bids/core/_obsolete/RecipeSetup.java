@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.core._obsolete;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Crafting.*;
-import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
@@ -10,9 +9,8 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
-import com.unforbidable.tfc.bids.api.util.food.BidsFood;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
+import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManager;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.api.*;
@@ -25,7 +23,6 @@ import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
-import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPressConfig;
 import com.unforbidable.tfc.bids.features.player.achievements.eventhandler.CraftingHandler;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -969,49 +966,49 @@ public class RecipeSetup {
 //            .hours(16)
 //            .build());
 
-        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
-            .consumes(new ItemStack(BidsItems.barkFibre))
-            .produces(new ItemStack(BidsItems.barkFibreCoarse))
-            .dry()
-            .hours(12)
-            .build());
-        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
-            .consumes(new ItemStack(BidsItems.flaxStalk))
-            .produces(new ItemStack(BidsItems.flaxStalkRetted))
-            .wet()
-            .warm()
-            .hours(20)
-            .build());
-        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
-            .consumes(new ItemStack(BidsItems.flaxStalkRetted))
-            .produces(new ItemStack(BidsItems.flaxStalkDried))
-            .dry()
-            .hours(20)
-            .build());
-        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
-            .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), 1))
-            .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), 1))
-            .dry()
-            .cover()
-            .hours(40)
-            .build());
-
-        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
-            BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
-                .consumes(stone.items.getItem(EnumStoneItemType.MUD_BRICK_WET))
-                .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING), stone.items.getItem(EnumStoneItemType.MUD))
-                .dry()
-                .notWet()
-                .hours(20)
-                .build());
-            BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
-                .consumes(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING))
-                .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK), stone.items.getItem(EnumStoneItemType.MUD))
-                .dry()
-                .notWet()
-                .hours(10)
-                .build());
-        }
+//        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+//            .consumes(new ItemStack(BidsItems.barkFibre))
+//            .produces(new ItemStack(BidsItems.barkFibreCoarse))
+//            .dry()
+//            .hours(12)
+//            .build());
+//        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+//            .consumes(new ItemStack(BidsItems.flaxStalk))
+//            .produces(new ItemStack(BidsItems.flaxStalkRetted))
+//            .wet()
+//            .warm()
+//            .hours(20)
+//            .build());
+//        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+//            .consumes(new ItemStack(BidsItems.flaxStalkRetted))
+//            .produces(new ItemStack(BidsItems.flaxStalkDried))
+//            .dry()
+//            .hours(20)
+//            .build());
+//        BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+//            .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), 1))
+//            .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), 1))
+//            .dry()
+//            .cover()
+//            .hours(40)
+//            .build());
+//
+//        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
+//            BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+//                .consumes(stone.items.getItem(EnumStoneItemType.MUD_BRICK_WET))
+//                .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING), stone.items.getItem(EnumStoneItemType.MUD))
+//                .dry()
+//                .notWet()
+//                .hours(20)
+//                .build());
+//            BidsRegistry.DRYING_SURFACE_RECIPES.register((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+//                .consumes(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING))
+//                .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK), stone.items.getItem(EnumStoneItemType.MUD))
+//                .dry()
+//                .notWet()
+//                .hours(10)
+//                .build());
+//        }
     }
 
     private static void registerCookingRecipes() {
@@ -1594,109 +1591,109 @@ public class RecipeSetup {
     private static void registerProcessingSurfaceRecipes() {
         Bids.LOG.info("Register processing surface recipes");
 
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 0),
-            new ItemStack(TFCItems.soakedHide, 1, 0),
-            "itemScrapingTool", "blockScrapingSurface", 1));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 1),
-            new ItemStack(TFCItems.soakedHide, 1, 1),
-            "itemScrapingTool", "blockScrapingSurface", 2));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 2),
-            new ItemStack(TFCItems.soakedHide, 1, 2),
-            "itemScrapingTool", "blockScrapingSurface", 4));
-
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-            new ItemStack(TFCItems.fur, 1, 0),
-            "itemScrapingTool", "blockScrapingSurface", 1));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-            new ItemStack(TFCItems.fur, 1, 1),
-            "itemScrapingTool", "blockScrapingSurface", 2));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-            new ItemStack(TFCItems.fur, 1, 2),
-            "itemScrapingTool", "blockScrapingSurface", 4));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-            new ItemStack(TFCItems.furScrap, 1, 0),
-            "itemScrapingTool", "blockScrapingSurface", 1));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-            new ItemStack(TFCItems.furScrap, 1, 1),
-            "itemScrapingTool", "blockScrapingSurface", 2));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-            new ItemStack(TFCItems.furScrap, 1, 2),
-            "itemScrapingTool", "blockScrapingSurface", 4));
-
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-            new ItemStack(TFCItems.wolfFur, 1, 0),
-            "itemScrapingTool", "blockScrapingSurface", 1));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-            new ItemStack(TFCItems.wolfFur, 1, 1),
-            "itemScrapingTool", "blockScrapingSurface", 2));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-            new ItemStack(TFCItems.wolfFur, 1, 2),
-            "itemScrapingTool", "blockScrapingSurface", 4));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-            new ItemStack(TFCItems.wolfFurScrap, 1, 0),
-            "itemScrapingTool", "blockScrapingSurface", 1));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-            new ItemStack(TFCItems.wolfFurScrap, 1, 1),
-            "itemScrapingTool", "blockScrapingSurface", 2));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-            new ItemStack(TFCItems.wolfFurScrap, 1, 2),
-            "itemScrapingTool", "blockScrapingSurface", 4));
-
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-            new ItemStack(TFCItems.bearFur, 1, 0),
-            "itemScrapingTool", "blockScrapingSurface", 1));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-            new ItemStack(TFCItems.bearFur, 1, 1),
-            "itemScrapingTool", "blockScrapingSurface", 2));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-            new ItemStack(TFCItems.bearFur, 1, 2),
-            "itemScrapingTool", "blockScrapingSurface", 4));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-            new ItemStack(TFCItems.bearFurScrap, 1, 0),
-            "itemScrapingTool", "blockScrapingSurface", 1));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-            new ItemStack(TFCItems.bearFurScrap, 1, 1),
-            "itemScrapingTool", "blockScrapingSurface", 2));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-            new ItemStack(TFCItems.bearFurScrap, 1, 2),
-            "itemScrapingTool", "blockScrapingSurface", 4));
-
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-            new ItemStack(TFCItems.sheepSkin, 1, 0),
-            "itemScrapingTool", "blockScrapingSurface", 1));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-            new ItemStack(TFCItems.sheepSkin, 1, 1),
-            "itemScrapingTool", "blockScrapingSurface", 2));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-            new ItemStack(TFCItems.sheepSkin, 1, 2),
-            "itemScrapingTool", "blockScrapingSurface", 4));
-
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkBroken),
-            new ItemStack(BidsItems.flaxStalkDried),
-            "itemFlaxBreakingTool", "blockFlaxWorkingSurface", 0.25f));
-        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxFiberCoarse),
-            new ItemStack(BidsItems.flaxStalkBroken),
-            "itemFlaxScutchingTool", "blockFlaxWorkingSurface", 0.25f));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 0),
+//            new ItemStack(TFCItems.soakedHide, 1, 0),
+//            "itemScrapingTool", "blockScrapingSurface", 1));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 1),
+//            new ItemStack(TFCItems.soakedHide, 1, 1),
+//            "itemScrapingTool", "blockScrapingSurface", 2));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 2),
+//            new ItemStack(TFCItems.soakedHide, 1, 2),
+//            "itemScrapingTool", "blockScrapingSurface", 4));
+//
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+//            new ItemStack(TFCItems.fur, 1, 0),
+//            "itemScrapingTool", "blockScrapingSurface", 1));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+//            new ItemStack(TFCItems.fur, 1, 1),
+//            "itemScrapingTool", "blockScrapingSurface", 2));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+//            new ItemStack(TFCItems.fur, 1, 2),
+//            "itemScrapingTool", "blockScrapingSurface", 4));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+//            new ItemStack(TFCItems.furScrap, 1, 0),
+//            "itemScrapingTool", "blockScrapingSurface", 1));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+//            new ItemStack(TFCItems.furScrap, 1, 1),
+//            "itemScrapingTool", "blockScrapingSurface", 2));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+//            new ItemStack(TFCItems.furScrap, 1, 2),
+//            "itemScrapingTool", "blockScrapingSurface", 4));
+//
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+//            new ItemStack(TFCItems.wolfFur, 1, 0),
+//            "itemScrapingTool", "blockScrapingSurface", 1));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+//            new ItemStack(TFCItems.wolfFur, 1, 1),
+//            "itemScrapingTool", "blockScrapingSurface", 2));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+//            new ItemStack(TFCItems.wolfFur, 1, 2),
+//            "itemScrapingTool", "blockScrapingSurface", 4));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+//            new ItemStack(TFCItems.wolfFurScrap, 1, 0),
+//            "itemScrapingTool", "blockScrapingSurface", 1));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+//            new ItemStack(TFCItems.wolfFurScrap, 1, 1),
+//            "itemScrapingTool", "blockScrapingSurface", 2));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+//            new ItemStack(TFCItems.wolfFurScrap, 1, 2),
+//            "itemScrapingTool", "blockScrapingSurface", 4));
+//
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+//            new ItemStack(TFCItems.bearFur, 1, 0),
+//            "itemScrapingTool", "blockScrapingSurface", 1));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+//            new ItemStack(TFCItems.bearFur, 1, 1),
+//            "itemScrapingTool", "blockScrapingSurface", 2));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+//            new ItemStack(TFCItems.bearFur, 1, 2),
+//            "itemScrapingTool", "blockScrapingSurface", 4));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+//            new ItemStack(TFCItems.bearFurScrap, 1, 0),
+//            "itemScrapingTool", "blockScrapingSurface", 1));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+//            new ItemStack(TFCItems.bearFurScrap, 1, 1),
+//            "itemScrapingTool", "blockScrapingSurface", 2));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+//            new ItemStack(TFCItems.bearFurScrap, 1, 2),
+//            "itemScrapingTool", "blockScrapingSurface", 4));
+//
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
+//            new ItemStack(TFCItems.sheepSkin, 1, 0),
+//            "itemScrapingTool", "blockScrapingSurface", 1));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
+//            new ItemStack(TFCItems.sheepSkin, 1, 1),
+//            "itemScrapingTool", "blockScrapingSurface", 2));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
+//            new ItemStack(TFCItems.sheepSkin, 1, 2),
+//            "itemScrapingTool", "blockScrapingSurface", 4));
+//
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkBroken),
+//            new ItemStack(BidsItems.flaxStalkDried),
+//            "itemFlaxBreakingTool", "blockFlaxWorkingSurface", 0.25f));
+//        BidsRegistry.PROCESSING_SURFACE_RECIPES.register(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxFiberCoarse),
+//            new ItemStack(BidsItems.flaxStalkBroken),
+//            "itemFlaxScutchingTool", "blockFlaxWorkingSurface", 0.25f));
     }
 
     private static void registerSoakingSurfaceRecipes() {
         Bids.LOG.info("Register soaking surface recipes");
 
-        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkRetted, 1, 0),
-            new ItemStack(BidsItems.flaxStalk, 1, 0), "blockFreshWater", 20));
-
-        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.juteStalkRetted, 1, 0),
-            new ItemStack(BidsItems.juteStalk, 1, 0), "blockFreshWater", 20));
-
-        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.sisalFiberRinsed, 1, 0),
-            new ItemStack(TFCItems.sisalFiber, 1, 0), "blockFreshWater", 0));
-
-        // Washing wool can be skipped however the wool needs to be rinsed for a extended period of time
-        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed, 1, 0),
-            new ItemStack(TFCItems.wool, 1, 0), "blockFreshWater", 20));
-
-        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed, 1, 0),
-            new ItemStack(BidsItems.woolWashed, 1, 0), "blockFreshWater", 0));
+//        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkRetted, 1, 0),
+//            new ItemStack(BidsItems.flaxStalk, 1, 0), "blockFreshWater", 20));
+//
+//        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.juteStalkRetted, 1, 0),
+//            new ItemStack(BidsItems.juteStalk, 1, 0), "blockFreshWater", 20));
+//
+//        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.sisalFiberRinsed, 1, 0),
+//            new ItemStack(TFCItems.sisalFiber, 1, 0), "blockFreshWater", 0));
+//
+//        // Washing wool can be skipped however the wool needs to be rinsed for a extended period of time
+//        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed, 1, 0),
+//            new ItemStack(TFCItems.wool, 1, 0), "blockFreshWater", 20));
+//
+//        BidsRegistry.SOAKING_SURFACE_RECIPES.register(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed, 1, 0),
+//            new ItemStack(BidsItems.woolWashed, 1, 0), "blockFreshWater", 0));
     }
 
     private static void registerHandworkRecipes() {

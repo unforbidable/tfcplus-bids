@@ -1,12 +1,12 @@
 package com.unforbidable.tfc.bids.features.device.processingsurface.tileentity;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
-import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
-import com.unforbidable.tfc.bids.features.device.processingsurface.main.ProcessingSurfaceHelper;
 import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.ProcessingSurfaceRecipe;
-import cpw.mods.fml.common.network.NetworkRegistry;
+import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
+import com.unforbidable.tfc.bids.features.device.processingsurface.main.ProcessingSurfaceHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,9 +14,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
-public class TileEntityProcessingSurface extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
+public class TileEntityProcessingSurface extends TileEntity implements PacketHandler<SimpleUpdatePacket> {
 
     // Copper material is used for the base efficiency
     private static final float BASE_TOOL_EFFICIENCY = 8.0f;
@@ -148,7 +147,7 @@ public class TileEntityProcessingSurface extends TileEntity implements IMessageH
     public void updateEntity() {
         if (!worldObj.isRemote) {
             if (clientNeedToUpdate) {
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+                sendUpdateMessage();
 
                 clientNeedToUpdate = false;
             }
@@ -210,17 +209,15 @@ public class TileEntityProcessingSurface extends TileEntity implements IMessageH
         resultItem = ItemStack.loadItemStackFromNBT(resultTag);
     }
 
-    @Override
-    public void onTileEntityMessage(TileEntityUpdateMessage message) {
-        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
-            + message.getZCoord());
+    public void sendUpdateMessage() {
+        Network.sendToTileEntity(new SimpleUpdatePacket(), this);
+        Bids.LOG.debug("Sent update message");
     }
 
-    public static void sendUpdateMessage(World world, int x, int y, int z) {
-        NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
-        Bids.LOG.debug("Sent update message");
+    @Override
+    public void handleNetworkPacket(SimpleUpdatePacket packet) {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        Bids.LOG.debug("Client updated at [{},{},{}]", xCoord, yCoord, zCoord);
     }
 
 }

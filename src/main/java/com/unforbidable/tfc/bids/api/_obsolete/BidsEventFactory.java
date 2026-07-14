@@ -4,8 +4,8 @@ import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
 import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Events.HandworkPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
-import com.unforbidable.tfc.bids.api._obsolete.Events.ProcessingSurfaceEvent;
-import com.unforbidable.tfc.bids.api._obsolete.Events.SurfaceItemEvent;
+import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
+import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Events.WaterskinChurnEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Events.WoodworkingPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingItemEvent;
@@ -108,6 +108,12 @@ public class BidsEventFactory {
         DryingItemEvent.SelectNextRecipe event = new DryingItemEvent.SelectNextRecipe(dryingTileEntity, dryingItem, dryingRecipe, nextDryingRecipe);
         MinecraftForge.EVENT_BUS.post(event);
         return !event.isCanceled();
+    }
+
+    public static boolean onSurfaceItemPlace(ItemStack itemStack, World world, int x, int y, int z, int face, float hitX, float hitY, float hitZ, EntityPlayer entityPlayer) {
+        SurfaceItemEvent.Place event = new SurfaceItemEvent.Place(itemStack, world, x, y, z, face, hitX, hitY, hitZ, entityPlayer);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.placed;
     }
 
 }

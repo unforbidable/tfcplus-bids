@@ -1,13 +1,13 @@
 package com.unforbidable.tfc.bids.features.device.soakingsurface.main;
 
 import com.dunk.tfc.Core.TFC_Core;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
+import com.unforbidable.tfc.bids.features.device.soakingsurface.SoakingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.block.BlockSoakingSurface;
+import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
 import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
 import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
-import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.SoakingSurfaceRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -151,7 +151,7 @@ public class SoakingSurfaceHelper {
         int surfaceBlockMetadata = world.getBlockMetadata(x, y, z);
         ItemStack surface = new ItemStack(surfaceBlock, 1, surfaceBlockMetadata);
 
-        for (SoakingSurfaceRecipe recipe : BidsRegistry.SOAKING_SURFACE_RECIPES) {
+        for (SoakingSurfaceRecipe recipe : SoakingSurfaceRegistry.recipes) {
             if (recipe.matchesInput(input) && recipe.matchesSurface(surface)) {
                 return recipe;
             }

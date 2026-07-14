@@ -3,19 +3,16 @@ package com.unforbidable.tfc.bids.api._obsolete;
 import com.unforbidable.tfc.bids.api._obsolete.Crafting.*;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.*;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.*;
-import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
-import com.unforbidable.tfc.bids.api.features.churning.ChurningRecipe;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
 public class BidsRegistry {
 
-    public static final ItemRegistry<WetnessInfo> DRYING_ITEM_WETNESS = new ItemRegistry<>();
-    public static final ItemRegistry<IDryingItemRenderInfo> DRYING_ITEM_RENDER_INFO = new ItemRegistry<>();
+//    public static final ItemRegistry<WetnessInfo> DRYING_ITEM_WETNESS = new ItemRegistry<>();
+//    public static final ItemRegistry<IDryingItemRenderInfo> DRYING_ITEM_RENDER_INFO = new ItemRegistry<>();
 //    public static final ItemRegistry<IFirepitFuelMaterial> FIREPIT_FUEL = new ItemRegistry<>();
 //    public static final ItemRegistry<IWoodPileRenderProvider> WOODPILE_RENDER_PROVIDERS = new ItemRegistry<>();
 //    public static final ListRegistry<Crackable> WOODPILE_CRACKABLE_BLOCKS = new ListRegistry<>("woodpile-crackable-blocks");
-    public static final ListRegistry<ISurfaceItemPlacer> SURFACE_ITEM_PLACERS = new ListRegistry<>("surface-item-placers");
+//    public static final ListRegistry<SurfaceItemPlacer> SURFACE_ITEM_PLACERS = new ListRegistry<>("surface-item-placers");
 //    public static final BlockRegistry<IQuarriable> QUARRY_BLOCKS = new BlockRegistry<>();
 //    public static final ListRegistry<Carvable> CARVING_BLOCKS = new ListRegistry<>("carving-blocks");
     public static final ListRegistry<IDrinkable> DRINKS = new ListRegistry<>("drinks");
@@ -35,10 +32,10 @@ public class BidsRegistry {
     //public static final RecipeRegistry<ChoppingBlockRecipe> CHOPPING_BLOCK_RECIPES = new RecipeRegistry<>("chopping");
 //    public static final RecipeRegistry<CookingRecipe> COOKING_RECIPES = new RecipeRegistry<>("cooking");
 //    public static final SimpleRecipeRegistry<DryingRackRecipe, ItemStack> DRYING_RACK_RECIPES = new SimpleRecipeRegistry<>("drying-rack");
-    public static final SimpleRecipeRegistry<DryingSurfaceRecipe, ItemStack> DRYING_SURFACE_RECIPES = new SimpleRecipeRegistry<>("drying-surface");
+//    public static final SimpleRecipeRegistry<DryingSurfaceRecipe, ItemStack> DRYING_SURFACE_RECIPES = new SimpleRecipeRegistry<>("drying-surface");
 //    public static final SimpleRecipeRegistry<CookingPrepRecipe, ItemStack[]> PREP_RECIPES = new SimpleRecipeRegistry<>("prep");
-    public static final RecipeRegistry<ProcessingSurfaceRecipe> PROCESSING_SURFACE_RECIPES = new RecipeRegistry<>("processing-surface");
-    public static final RecipeRegistry<SoakingSurfaceRecipe> SOAKING_SURFACE_RECIPES = new RecipeRegistry<>("soaking-surface");
+    //public static final RecipeRegistry<ProcessingSurfaceRecipe> PROCESSING_SURFACE_RECIPES = new RecipeRegistry<>("processing-surface");
+//    public static final RecipeRegistry<SoakingSurfaceRecipe> SOAKING_SURFACE_RECIPES = new RecipeRegistry<>("soaking-surface");
 //    public static final SimpleRecipeRegistry<SeasoningRecipe, ItemStack> SEASONING_RECIPES = new SimpleRecipeRegistry<>("seasoning");
 //    public static final SimpleRecipeRegistry<SaddleQuernRecipe, ItemStack> SADDLE_QUERN_RECIPES = new SimpleRecipeRegistry<>("saddle-quern");
 //    public static final SimpleRecipeRegistry<StonePressRecipe, ItemStack> STONE_PRESS_RECIPES = new SimpleRecipeRegistry<>("stone-press");

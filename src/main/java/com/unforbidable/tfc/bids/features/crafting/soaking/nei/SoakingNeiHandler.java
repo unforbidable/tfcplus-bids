@@ -5,12 +5,17 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
-import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.SoakingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
+import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
+import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingConfig;
+import com.unforbidable.tfc.bids.features.device.soakingsurface.SoakingSurfaceRegistry;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Blocks;
@@ -18,10 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
@@ -53,7 +54,7 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == SoakingNeiHandler.class) {
-            for (SoakingSurfaceRecipe recipe : BidsRegistry.SOAKING_SURFACE_RECIPES) {
+            for (SoakingSurfaceRecipe recipe : SoakingSurfaceRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
                 List<ItemStack> blocks = OreDictionary.getOres(recipe.getFluidBlockOreName(), false);
@@ -66,7 +67,7 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (SoakingSurfaceRecipe recipe : BidsRegistry.SOAKING_SURFACE_RECIPES) {
+        for (SoakingSurfaceRecipe recipe : SoakingSurfaceRegistry.recipes) {
             final ItemStack output2 = output.copy();
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
@@ -80,7 +81,7 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (SoakingSurfaceRecipe recipe : BidsRegistry.SOAKING_SURFACE_RECIPES) {
+        for (SoakingSurfaceRecipe recipe : SoakingSurfaceRegistry.recipes) {
             if (recipe.matchesInput(ingredient)) {
                 final ItemStack input = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
                 final ItemStack result = recipe.getResult(input);
@@ -155,7 +156,7 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
             this.ingred = ingred.copy();
             this.result = result.copy();
             this.blocks = blocks;
-            this.duration = (long) (duration * BidsOptions.Crafting.soakingDurationMultiplier);
+            this.duration = (long) (duration * SoakingConfig.soakingDurationMultiplier);
         }
 
         @Override

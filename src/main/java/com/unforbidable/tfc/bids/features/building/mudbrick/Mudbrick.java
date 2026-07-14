@@ -5,6 +5,8 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
+import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -16,12 +18,15 @@ import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
-import com.unforbidable.tfc.bids.features.building.mudbrick.main.carvable.CarvableMudBrick;
 import com.unforbidable.tfc.bids.features.building.mudbrick.block.BlockMudbrickChimney;
 import com.unforbidable.tfc.bids.features.building.mudbrick.block.itemblock.ItemMudbrickChimney;
 import com.unforbidable.tfc.bids.features.building.mudbrick.item.ItemDryingMudBrick;
+import com.unforbidable.tfc.bids.features.building.mudbrick.main.carvable.CarvableMudBrick;
 import com.unforbidable.tfc.bids.features.building.mudbrick.render.DryingMudBrickItemRenderer;
 import com.unforbidable.tfc.bids.features.building.mudbrick.tileentity.TileEntityMudBrickChimney;
+import com.unforbidable.tfc.bids.features.crafting.drying.DryingRegistry;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.MudBrickRenderInfo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
@@ -79,10 +84,33 @@ public class Mudbrick extends Feature {
                     stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICKS), chimneyPattern));
         }
 
+        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
+            setup.registry(DryingSurfaceRegistry.recipes).add((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+                    .consumes(stone.items.getItem(EnumStoneItemType.MUD_BRICK_WET))
+                    .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING), stone.items.getItem(EnumStoneItemType.MUD))
+                    .dry()
+                    .notWet()
+                    .hours(20)
+                    .build())
+                .add((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+                    .consumes(stone.items.getItem(EnumStoneItemType.MUD_BRICK_DRYING))
+                    .produces(stone.items.getItem(EnumStoneItemType.MUD_BRICK), stone.items.getItem(EnumStoneItemType.MUD))
+                    .dry()
+                    .notWet()
+                    .hours(10)
+                    .build());
+        }
+
+        setup.registry(DryingSurfaceRegistry.render)
+            .add(TFCItems.mudBrick, new MudBrickRenderInfo(false))
+            .add(BidsItems.dryingMudBrick, new MudBrickRenderInfo(true));
+
+        setup.registry(DryingRegistry.wetness)
+            .add(TFCItems.mudBrick, new WetnessInfo(500, 1f))
+            .add(BidsItems.dryingMudBrick, new WetnessInfo(500, 0.5f));
+
         setup.registry(CarvingRegistry.carvable)
             .add(new CarvableMudBrick());
-
-        // TODO add mud brick surface drying recipes
     }
 
 }

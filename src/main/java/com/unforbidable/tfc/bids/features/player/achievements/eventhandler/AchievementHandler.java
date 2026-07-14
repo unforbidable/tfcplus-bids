@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockPlayerE
 import com.unforbidable.tfc.bids.api.features.cooking.CookingPotPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.crucible.CruciblePlayerEvent;
 import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
+import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.features.quarry.QuarryPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernPlayerEvent;
 import com.unforbidable.tfc.bids.features.resource.well.block.BlockAquifer;

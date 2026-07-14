@@ -5,10 +5,10 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemClothing;
 import com.dunk.tfc.api.Enums.EnumFuelMaterial;
 import com.dunk.tfc.api.Food;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IDryingFoodRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Registry.Values.WetnessInfo;
+import com.unforbidable.tfc.bids.api.features.drying.IDryingFoodRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
+import com.unforbidable.tfc.bids.features.crafting.drying.DryingRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -134,7 +134,7 @@ public class DryingHelper {
         if (inputItem.getItem() instanceof ItemClothing) {
             return new WetnessInfo(1000, 1);
         } else {
-            return BidsRegistry.DRYING_ITEM_WETNESS.get(inputItem.getItem());
+            return DryingRegistry.wetness.get(inputItem.getItem());
         }
     }
 
@@ -144,7 +144,7 @@ public class DryingHelper {
         dryingItem.failure = 0;
         dryingItem.lastProgressUpdatedTicks = TFC_Time.getTotalTicks();
 
-        WetnessInfo wetnessInfo = BidsRegistry.DRYING_ITEM_WETNESS.get(dryingItem.inputItem.getItem());
+        WetnessInfo wetnessInfo = DryingRegistry.wetness.get(dryingItem.inputItem.getItem());
         if (wetnessInfo == null || wetnessInfo.capacity == 0) {
             dryingItem.wetness = 0;
         }

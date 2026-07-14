@@ -2,14 +2,14 @@ package com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity;
 
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHanldingTileEntity;
-import com.unforbidable.tfc.bids.core.network._obsolete.Messages.TileEntityUpdateMessage;
+import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
+import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
+import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingConfig;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceHelper;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceItem;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceSlotProgress;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.SoakingSurfaceRecipe;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -22,9 +22,8 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
 
-public class TileEntitySoakingSurface extends TileEntity implements IMessageHanldingTileEntity<TileEntityUpdateMessage> {
+public class TileEntitySoakingSurface extends TileEntity implements PacketHandler<SimpleUpdatePacket> {
 
     public static final int MAX_STORAGE = 4;
 
@@ -107,7 +106,7 @@ public class TileEntitySoakingSurface extends TileEntity implements IMessageHanl
 
             // When inventory content changes
             if (clientNeedToUpdate) {
-                sendUpdateMessage(worldObj, xCoord, yCoord, zCoord);
+                sendUpdateMessage();
 
                 clientNeedToUpdate = false;
             }
@@ -156,7 +155,7 @@ public class TileEntitySoakingSurface extends TileEntity implements IMessageHanl
             SoakingSurfaceRecipe recipe = SoakingSurfaceHelper.findMatchingRecipe(storage[slot].soakingItem, worldObj, xCoord, yCoord + 1, zCoord);
             if (recipe != null) {
                 long elapsed = TFC_Time.getTotalTicks() - storage[slot].soakingStartTicks;
-                float ticksNeeded = recipe.getHours() * TFC_Time.HOUR_LENGTH * BidsOptions.Crafting.soakingDurationMultiplier;
+                float ticksNeeded = recipe.getHours() * TFC_Time.HOUR_LENGTH * SoakingConfig.soakingDurationMultiplier;
                 float progress = elapsed > ticksNeeded ? 1 : elapsed / ticksNeeded;
                 float hoursRemaining = (ticksNeeded - elapsed) / TFC_Time.HOUR_LENGTH;
                 return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, recipe.getResult(storage[slot].soakingItem).copy(), progress, hoursRemaining);
@@ -302,17 +301,15 @@ public class TileEntitySoakingSurface extends TileEntity implements IMessageHanl
         return count;
     }
 
-    @Override
-    public void onTileEntityMessage(TileEntityUpdateMessage message) {
-        worldObj.markBlockForUpdate(message.getXCoord(), message.getYCoord(), message.getZCoord());
-        Bids.LOG.debug("Client updated at: " + message.getXCoord() + ", " + message.getYCoord() + ", "
-            + message.getZCoord());
+    public void sendUpdateMessage() {
+        Network.sendToTileEntity(new SimpleUpdatePacket(), this);
+        Bids.LOG.debug("Sent update message");
     }
 
-    public static void sendUpdateMessage(World world, int x, int y, int z) {
-        NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 255);
-        Bids.network.sendToAllAround(new TileEntityUpdateMessage(x, y, z, 0), tp);
-        Bids.LOG.debug("Sent update message");
+    @Override
+    public void handleNetworkPacket(SimpleUpdatePacket packet) {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        Bids.LOG.debug("Client updated at [{},{},{}]", xCoord, yCoord, zCoord);
     }
 
 }
