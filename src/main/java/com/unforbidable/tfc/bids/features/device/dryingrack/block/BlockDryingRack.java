@@ -8,11 +8,13 @@ import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackHelpe
 import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,6 +33,10 @@ public class BlockDryingRack extends BlockContainer {
 
         setHardness(2);
         setCreativeTab(BidsCreativeTabs.bidsDefault);
+    }
+
+    @Override
+    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
     }
 
     @Override
