@@ -4,14 +4,11 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.core.network.NetworkUtil;
 import com.unforbidable.tfc.bids.core.network.packet.Packet;
 import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
-import com.unforbidable.tfc.bids.core.network.tileentity.TileEntityMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 public class ContainerMessageHandler implements IMessageHandler<ContainerMessage, IMessage> {
 
@@ -22,9 +19,14 @@ public class ContainerMessageHandler implements IMessageHandler<ContainerMessage
         EntityPlayer player = NetworkUtil.getPlayerFromMessageContext(ctx);
         Container container = player.openContainer;
 
-        Bids.LOG.info("Open container id: {}", container.windowId);
+        if (container.windowId == message.id) {
+            Bids.LOG.info("Open container ID {}", container.windowId);
 
-        handlePacket(message.getPacket(), container);
+            handlePacket(message.getPacket(), container);
+        } else {
+            Bids.LOG.warn("Open container ID {} does not match message ID {}",
+                container.windowId, message.id);
+        }
 
         return null;
     }

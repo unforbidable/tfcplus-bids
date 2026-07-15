@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.core.network.container;
 
 import com.unforbidable.tfc.bids.core.network.NetworkMessage;
+import com.unforbidable.tfc.bids.core.network.packet.Packet;
 import io.netty.buffer.ByteBuf;
 
 public class ContainerMessage extends NetworkMessage {
@@ -10,7 +11,9 @@ public class ContainerMessage extends NetworkMessage {
     public ContainerMessage() {
     }
 
-    public ContainerMessage(int id) {
+    public ContainerMessage(Packet packet, int id) {
+        super(packet);
+
         this.id = id;
     }
 

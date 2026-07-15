@@ -1,17 +1,21 @@
 package com.unforbidable.tfc.bids.core.network;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.core.network.packet.*;
+import com.unforbidable.tfc.bids.core.network.container.ContainerMessage;
+import com.unforbidable.tfc.bids.core.network.packet.Packet;
+import com.unforbidable.tfc.bids.core.network.packet.PacketConsumable;
+import com.unforbidable.tfc.bids.core.network.packet.PacketConsumer;
+import com.unforbidable.tfc.bids.core.network.packet.PacketContext;
+import com.unforbidable.tfc.bids.core.network.packet.PacketDiscriminator;
 import com.unforbidable.tfc.bids.core.network.tileentity.TileEntityMessage;
 import com.unforbidable.tfc.bids.util.registry.ListRegistry;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import java.text.MessageFormat;
+import java.util.function.Consumer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
-
-import java.text.MessageFormat;
-import java.util.function.Consumer;
 
 public class Network {
 
@@ -49,16 +53,21 @@ public class Network {
         Bids.network.sendToServer(msg);
     }
 
-    public static <T extends Packet> void sendToContainer(T packet) {
-        IMessage msg = new NetworkMessage(packet);
-        Bids.network.sendToServer(msg);
-    }
-
     public static <T extends Packet> void sendToTileEntity(T packet, TileEntity tileEntity) {
         IMessage msg = new TileEntityMessage(packet, tileEntity);
 
         if (!tileEntity.getWorldObj().isRemote) {
             Bids.network.sendToAllAround(msg, getTileEntityTargetPoint(tileEntity));
+        } else {
+            Bids.network.sendToServer(msg);
+        }
+    }
+
+    public static <T extends Packet> void sendToContainer(T packet, EntityPlayer player) {
+        IMessage msg = new ContainerMessage(packet, player.openContainer.windowId);
+
+        if (!player.worldObj.isRemote) {
+            Bids.network.sendTo(msg, (EntityPlayerMP) player);
         } else {
             Bids.network.sendToServer(msg);
         }
@@ -97,6 +106,11 @@ public class Network {
     private static NetworkRegistry.TargetPoint getTileEntityTargetPoint(TileEntity tileEntity) {
         return new NetworkRegistry.TargetPoint(tileEntity.getWorldObj().provider.dimensionId,
             tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord, 255);
+    }
+
+    private static NetworkRegistry.TargetPoint getPlayerTargetPoint(EntityPlayer player) {
+        return new NetworkRegistry.TargetPoint(player.worldObj.provider.dimensionId,
+            player.posX, player.posY, player.posZ, 255);
     }
 
 }
