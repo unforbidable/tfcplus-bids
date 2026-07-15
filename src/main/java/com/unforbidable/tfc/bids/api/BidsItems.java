@@ -294,6 +294,8 @@ public class BidsItems {
     public static final Item seedsNewGarlic = item(ItemNames.SEEDS_NEW_GARLIC);
     public static final Item seedsNewCarrot = item(ItemNames.SEEDS_NEW_BARLEY);
 
+    // Powder
+    public static final Item morePowder = item(ItemNames.MORE_POWDER);
 
 
 
@@ -369,8 +371,6 @@ public class BidsItems {
     public static Item ceramicBucketMilkVinegar;
 
     public static Item flaxSeeds;
-
-    public static Item morePowder;
 
     public static Item whorl;
     public static Item spindle;

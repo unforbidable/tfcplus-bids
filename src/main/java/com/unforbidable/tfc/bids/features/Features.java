@@ -58,6 +58,7 @@ import com.unforbidable.tfc.bids.features.material.hide.Hide;
 import com.unforbidable.tfc.bids.features.material.logs.Logs;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
 import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
+import com.unforbidable.tfc.bids.features.material.powder.Powder;
 import com.unforbidable.tfc.bids.features.resource.crop.Crop;
 import com.unforbidable.tfc.bids.features.resource.quarry.Quarry;
 import com.unforbidable.tfc.bids.features.resource.well.Well;
@@ -145,6 +146,7 @@ public class Features {
         new Soaking(),
         new SoakingSurface(),
         new DryingSurface(),
+        new Powder(),
     };
 
 }

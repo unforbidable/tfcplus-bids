@@ -8,6 +8,7 @@ import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.util.accessor.ItemMetaNamesAccessor;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -19,7 +20,6 @@ public class ItemMorePowder extends ItemTerra implements ISize {
 
     public ItemMorePowder() {
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
-        setMetaNames(new String[] { "Sawdust" });
     }
 
     @Override

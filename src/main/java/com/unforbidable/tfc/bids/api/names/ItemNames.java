@@ -109,6 +109,9 @@ public interface ItemNames {
     String FIREWOOD = "Firewood";
     String FIREWOOD_SEASONED = "Firewood Seasoned";
 
+    // Powder
+    String MORE_POWDER = "More Powder";
+
     // Woodworking
     String BOARD = "Board";
     String SHAFT = "Shaft";

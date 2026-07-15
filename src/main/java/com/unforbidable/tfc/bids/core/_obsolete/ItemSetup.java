@@ -905,8 +905,8 @@ public class ItemSetup extends BidsItems {
 
 //        moreHide = new ItemMoreRawhide()
 //            .setUnlocalizedName("More Hide");
-        morePowder = new ItemMorePowder()
-            .setUnlocalizedName("More Powder");
+//        morePowder = new ItemMorePowder()
+//            .setUnlocalizedName("More Powder");
 
 //        potteryJugVinegar = new ItemPotteryFluid()
 //            .setMaxDamage(1000 / 50)
