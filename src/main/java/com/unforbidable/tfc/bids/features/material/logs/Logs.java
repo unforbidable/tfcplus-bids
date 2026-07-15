@@ -69,6 +69,24 @@ public class Logs extends Feature {
 //                OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getChoppedLog());
 //            }
 
+            if (wood.items.hasLog()) {
+                setup.ores("logWoodAny")
+                    .add(wood.items.getLog());
+                setup.ores(wood.getOreWithSuffix("logWood"))
+                    .add(wood.items.getLog());
+                setup.ores(wood.getOreWithSuffix("logWoodFresh"))
+                    .add(wood.items.getLog());
+            }
+
+            if (wood.items.hasChoppedLog()) {
+                setup.ores("logWoodAny")
+                    .add(wood.items.getChoppedLog());
+                setup.ores(wood.getOreWithSuffix("logWood"))
+                    .add(wood.items.getChoppedLog());
+                setup.ores(wood.getOreWithSuffix("logWoodFresh"))
+                    .add(wood.items.getChoppedLog());
+            }
+
             if (wood.items.hasSeasonedLog()) {
                 setup.ores("logWoodAny")
                     .add(wood.items.getSeasonedLog());
