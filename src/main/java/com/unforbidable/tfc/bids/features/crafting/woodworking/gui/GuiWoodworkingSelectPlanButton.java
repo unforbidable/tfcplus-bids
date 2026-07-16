@@ -7,8 +7,8 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
-public class GuiWoodworkingSelectPlanButton extends GuiButton
-{
+public class GuiWoodworkingSelectPlanButton extends GuiButton {
+
 	public ItemStack item;
 	private final GuiWoodworking screen;
 	protected static final RenderItem ITEM_RENDERER = new RenderItem();

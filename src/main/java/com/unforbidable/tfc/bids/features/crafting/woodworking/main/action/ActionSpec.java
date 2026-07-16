@@ -4,10 +4,10 @@ import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.build
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Orientation;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.PointF;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.ShapeSet;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingActionSpec;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingShape;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSpec;
+import java.awt.geom.Area;
 
-public class ActionSpec implements IWoodworkingActionSpec {
+public class ActionSpec implements WoodworkingActionSpec {
 
     private final PointF origin;
     private final ShapeSet cutout;
@@ -44,18 +44,18 @@ public class ActionSpec implements IWoodworkingActionSpec {
     }
 
     @Override
-    public IWoodworkingShape[] getCutoutShapes() {
-        return cutout.getShapes();
+    public Area getCutout() {
+        return cutout.getArea();
     }
 
     @Override
-    public IWoodworkingShape[] getClearanceShapes() {
-        return clearance.getShapes();
+    public Area getClearance() {
+        return clearance.getArea();
     }
 
     @Override
-    public IWoodworkingShape[] getMarginShapes() {
-        return margin.getShapes();
+    public Area getMargin() {
+        return margin.getArea();
     }
 
 }

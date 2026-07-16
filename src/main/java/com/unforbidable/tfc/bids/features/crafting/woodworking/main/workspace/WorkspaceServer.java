@@ -1,21 +1,20 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace;
 
-import com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan.PlanInstance;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingAction;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingMaterial;
-import com.unforbidable.tfc.bids.api._obsolete.WoodworkingRegistry;
-
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingAction;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.main.WoodworkingHelper;
+import java.awt.geom.Area;
 import java.util.List;
 
 public class WorkspaceServer {
 
-    private final IWoodworkingMaterial material;
+    private final WoodworkingMaterial material;
 
     private final Workspace workspace;
 
-    private final List<PlanInstance> plans;
+    private final List<WorkspacePlan> plans;
 
-    public WorkspaceServer(IWoodworkingMaterial material, List<PlanInstance> plans) {
+    public WorkspaceServer(WoodworkingMaterial material, List<WorkspacePlan> plans) {
         this.material = material;
         this.plans = plans;
 
@@ -23,7 +22,7 @@ public class WorkspaceServer {
     }
 
     public boolean performAction(String actionName, int x, int y) {
-        IWoodworkingAction action = WoodworkingRegistry.getActionByName(actionName);
+        WoodworkingAction action = WoodworkingHelper.getActionByName(actionName);
         if (action != null) {
             return workspace.action(action).at(x, y).perform();
         }
@@ -31,9 +30,9 @@ public class WorkspaceServer {
         return false;
     }
 
-    public PlanInstance findMatchingPlan() {
-        for (PlanInstance plan : plans) {
-            if (workspace.getCutout().equals(plan.getCutout())) {
+    public WorkspacePlan findMatchingPlan() {
+        for (WorkspacePlan plan : plans) {
+            if (plan.matches(workspace.getCutout())) {
                 return plan;
             }
         }
@@ -43,6 +42,10 @@ public class WorkspaceServer {
 
     public void reset() {
         workspace.reset();
+    }
+
+    public Area getCutout() {
+        return workspace.getCutout();
     }
 
 }

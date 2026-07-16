@@ -1,13 +1,13 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace;
 
-import com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan.PlanInstance;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumWoodworkingActionSide;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingAction;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingActionGroup;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingMaterial;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingTool;
-
-import java.awt.*;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingAction;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionGroup;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingTool;
+import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ public class WorkspaceClient {
 
     private Point2D.Float cursor = new Point2D.Float();
 
-    private IWoodworkingTool tool;
-    private final IWoodworkingMaterial material;
+    private WoodworkingTool tool;
+    private final WoodworkingMaterial material;
 
     private final Workspace workspace;
     private Area border;
@@ -32,7 +32,7 @@ public class WorkspaceClient {
     private Rectangle workspaceRect;
     private Rectangle borderRect;
 
-    private List<IWoodworkingAction> availableActions;
+    private List<WoodworkingAction> availableActions;
     private int selectedActionIndex = -1;
     private WorkspaceAction currentAction;
 
@@ -45,11 +45,11 @@ public class WorkspaceClient {
 
     private Point mouseLocation;
 
-    private final List<PlanInstance> plans;
+    private final List<WorkspacePlan> plans;
 
     private int selectedPlanIndex = -1;
 
-    public WorkspaceClient(IWoodworkingMaterial material, List<PlanInstance> plans) {
+    public WorkspaceClient(WoodworkingMaterial material, List<WorkspacePlan> plans) {
         this.material = material;
         this.plans = plans;
 
@@ -77,7 +77,7 @@ public class WorkspaceClient {
         return getCurrentAction() != null;
     }
 
-    public void setTool(IWoodworkingTool tool) {
+    public void setTool(WoodworkingTool tool) {
         if (this.tool != tool) {
             this.tool = tool;
 
@@ -259,10 +259,10 @@ public class WorkspaceClient {
         currentAction = null;
 
         if (tool != null) {
-            availableActions = new ArrayList<IWoodworkingAction>();
+            availableActions = new ArrayList<WoodworkingAction>();
 
-            for (IWoodworkingActionGroup group : tool.getActionGroups()) {
-                for (IWoodworkingAction action : group.getActions()) {
+            for (WoodworkingActionGroup group : tool.getActionGroups()) {
+                for (WoodworkingAction action : group.getActions()) {
                     if (group.getUsage().contains(material.getType())) {
                         availableActions.add(action);
                     }
@@ -349,8 +349,8 @@ public class WorkspaceClient {
     }
 
     private boolean findNextPreferredSideAction() {
-        EnumWoodworkingActionSide preferredSide = getCursorSide();
-        if (preferredSide != EnumWoodworkingActionSide.NONE) {
+        WoodworkingActionSide preferredSide = getCursorSide();
+        if (preferredSide != WoodworkingActionSide.NONE) {
             for (int i = 0; i < availableActions.size(); i++) {
                 int j = (i + selectedActionIndex + 1) % availableActions.size();
 
@@ -365,7 +365,7 @@ public class WorkspaceClient {
         return false;
     }
 
-    public EnumWoodworkingActionSide getCursorSide() {
+    public WoodworkingActionSide getCursorSide() {
         if (cursor != null && material != null) {
             float middleX = material.getWorkspaceWidth() / 4f;
             float middleY = material.getWorkspaceHeight() / 4f;
@@ -375,23 +375,23 @@ public class WorkspaceClient {
             float y = cursor.y - centerY;
             if (Math.abs(x) > middleX || Math.abs(y) > middleY) {
                 if (x > y) {
-                    return (-x > y) ? EnumWoodworkingActionSide.TOP : EnumWoodworkingActionSide.RIGHT;
+                    return (-x > y) ? WoodworkingActionSide.TOP : WoodworkingActionSide.RIGHT;
                 } else {
-                    return (-x > y) ? EnumWoodworkingActionSide.LEFT : EnumWoodworkingActionSide.BOTTOM;
+                    return (-x > y) ? WoodworkingActionSide.LEFT : WoodworkingActionSide.BOTTOM;
                 }
             } else {
-                return (x > 0) ? EnumWoodworkingActionSide.RIGHT : EnumWoodworkingActionSide.LEFT;
+                return (x > 0) ? WoodworkingActionSide.RIGHT : WoodworkingActionSide.LEFT;
             }
         }
 
-        return EnumWoodworkingActionSide.NONE;
+        return WoodworkingActionSide.NONE;
     }
 
-    public List<PlanInstance> getPlans() {
+    public List<WorkspacePlan> getPlans() {
         return plans;
     }
 
-    public PlanInstance getSelectedPlan() {
+    public WorkspacePlan getSelectedPlan() {
         if (selectedPlanIndex != -1) {
             return plans.get(selectedPlanIndex);
         } else {

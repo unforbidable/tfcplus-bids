@@ -18,6 +18,7 @@ import com.unforbidable.tfc.bids.features.crafting.pressing.Pressing;
 import com.unforbidable.tfc.bids.features.crafting.processing.Processing;
 import com.unforbidable.tfc.bids.features.crafting.quern.Quern;
 import com.unforbidable.tfc.bids.features.crafting.soaking.Soaking;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.Woodworking;
 import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.cookingpot.CookingPot;
 import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrep;
@@ -147,6 +148,7 @@ public class Features {
         new SoakingSurface(),
         new DryingSurface(),
         new Powder(),
+        new Woodworking(),
     };
 
 }

@@ -1,19 +1,19 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.action;
 
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumWoodworkingActionSide;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingAction;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingAction;
 
-public class Action implements IWoodworkingAction {
+public class Action implements WoodworkingAction {
 
     private final String name;
     private final ActionSpec spec;
-    private final EnumWoodworkingActionSide side;
+    private final WoodworkingActionSide side;
 
     public Action(String name, ActionSpec spec) {
-        this(name, spec, EnumWoodworkingActionSide.NONE);
+        this(name, spec, WoodworkingActionSide.NONE);
     }
 
-    public Action(String name, ActionSpec spec, EnumWoodworkingActionSide side) {
+    public Action(String name, ActionSpec spec, WoodworkingActionSide side) {
         this.name = name;
         this.spec = spec;
         this.side = side;
@@ -25,7 +25,7 @@ public class Action implements IWoodworkingAction {
     }
 
     @Override
-    public EnumWoodworkingActionSide getSide() {
+    public WoodworkingActionSide getSide() {
         return side;
     }
 

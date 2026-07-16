@@ -2,19 +2,23 @@ package com.unforbidable.tfc.bids.features.crafting.woodworking.gui;
 
 import com.dunk.tfc.GUI.GuiContainerTFC;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.WoodworkingRegistry;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.container.ContainerWoodworking;
-import com.unforbidable.tfc.bids.util.GuiHelper;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.network.NetworkAction;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.network.WoodworkingMessage;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan.PlanInstance;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.WoodworkingHelper;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace.WorkspacePlan;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace.WorkspaceAction;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace.WorkspaceClient;
-import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.BidsWoodworking;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumWoodworkingActionSide;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingMaterial;
-import com.unforbidable.tfc.bids.api._obsolete.WoodworkingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.network.NetworkAction;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.network.WoodworkingPacket;
+import com.unforbidable.tfc.bids.util.GuiHelper;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -23,11 +27,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class GuiWoodworking extends GuiContainerTFC {
 
@@ -60,8 +59,8 @@ public class GuiWoodworking extends GuiContainerTFC {
 
     private WorkspaceClient createClient(ItemStack heldItem) {
         if (heldItem != null) {
-            IWoodworkingMaterial material = WoodworkingHelper.getWoodworkingMaterial(heldItem);
-            List<PlanInstance> plans = WoodworkingHelper.getWoodworkingPlans(heldItem);
+            WoodworkingMaterial material = WoodworkingHelper.getWoodworkingMaterial(heldItem);
+            List<WorkspacePlan> plans = WoodworkingHelper.getWoodworkingPlans(heldItem);
             if (material != null && !plans.isEmpty()) {
                 return new WorkspaceClient(material, plans);
             }
@@ -70,7 +69,7 @@ public class GuiWoodworking extends GuiContainerTFC {
         Bids.LOG.warn("Woodworking client cannot be initialized.");
 
         // create a dummy client
-        return new WorkspaceClient(WoodworkingRegistry.getMaterialByName(BidsWoodworking.MATERIAL_LOG), new ArrayList<PlanInstance>() {});
+        return new WorkspaceClient(WoodworkingRegistry.materials.get(m -> m.getOreName().equals("logWood")), new ArrayList<WorkspacePlan>() {});
     }
 
     @SuppressWarnings({"unchecked"})
@@ -87,7 +86,7 @@ public class GuiWoodworking extends GuiContainerTFC {
         int i = 0;
         int x = 0;
         int y = 0;
-        for (PlanInstance plan : workspaceClient.getPlans()) {
+        for (WorkspacePlan plan : workspaceClient.getPlans()) {
             buttonList.add(i, new GuiWoodworkingSelectPlanButton(i, xOffset - x * 18, yOffset - y * 18, 16, 16, plan.getResult(), this,
                 getPlanTooltipText(plan)));
 
@@ -103,7 +102,7 @@ public class GuiWoodworking extends GuiContainerTFC {
         workspaceClient.initGui(guiLeft + 5, guiTop + 5, 112, 138);
     }
 
-    private String getPlanTooltipText(PlanInstance plan) {
+    private String getPlanTooltipText(WorkspacePlan plan) {
         String localizedPlanName = StatCollector.translateToLocal("gui.plans." + plan.getName());
         if (plan.getResult().stackSize > 1) {
             return plan.getResult().stackSize + "x " + localizedPlanName;
@@ -132,7 +131,7 @@ public class GuiWoodworking extends GuiContainerTFC {
 
         ItemStack tool = mc.thePlayer.inventory.getItemStack();
         if (tool != null) {
-            workspaceClient.setTool(WoodworkingRegistry.findToolForItem(tool.getItem()));
+            workspaceClient.setTool(WoodworkingHelper.getWoodworkingTool(tool));
         } else {
             workspaceClient.setTool(null);
         }
@@ -181,7 +180,7 @@ public class GuiWoodworking extends GuiContainerTFC {
                         pushPerformedActions();
 
                         // Sided action can repeat
-                        if (workspaceClient.getCurrentAction().getSide() != EnumWoodworkingActionSide.NONE) {
+                        if (workspaceClient.getCurrentAction().getSide() != WoodworkingActionSide.NONE) {
                             repeatingActionPos = new Point(mouseX, mouseY);
                         }
                     }
@@ -270,13 +269,13 @@ public class GuiWoodworking extends GuiContainerTFC {
 
     public void pushPerformedActions() {
         if (performedActions.size() > 0) {
-            WoodworkingMessage message = new WoodworkingMessage();
-            message.setEvent(WoodworkingMessage.EVENT_PERFORM_ACTION);
+            WoodworkingPacket packet = new WoodworkingPacket();
+            packet.setEvent(WoodworkingPacket.EVENT_PERFORM_ACTION);
 
             float accumulatedDamage = 0;
             for (WorkspaceAction workspaceAction : performedActions) {
-                message.addAction(new NetworkAction(workspaceAction.action.getName(), workspaceAction.x, workspaceAction.y));
-                accumulatedDamage += WoodworkingRegistry.getActionToolDamageByName(workspaceAction.action.getName());
+                packet.addAction(new NetworkAction(workspaceAction.action.getName(), workspaceAction.x, workspaceAction.y));
+                accumulatedDamage += WoodworkingHelper.getActionToolDamageByName(workspaceAction.action.getName());
             }
 
             int integralDamage = (int) Math.floor(accumulatedDamage);
@@ -284,14 +283,14 @@ public class GuiWoodworking extends GuiContainerTFC {
             int totalDamage = integralDamage + (rand.nextFloat() < partialDamage ? 1 : 0);
 
             if (totalDamage > 0) {
-                message.setDamage(totalDamage);
+                packet.setDamage(totalDamage);
                 mc.thePlayer.inventory.getItemStack().damageItem(totalDamage, mc.thePlayer);
                 if (mc.thePlayer.inventory.getItemStack().stackSize == 0) {
                     mc.thePlayer.inventory.setItemStack(null);
                 }
             }
 
-            Bids.network.sendToServer(message);
+            Network.sendToContainer(packet, mc.thePlayer);
 
             performedActions.clear();
         }

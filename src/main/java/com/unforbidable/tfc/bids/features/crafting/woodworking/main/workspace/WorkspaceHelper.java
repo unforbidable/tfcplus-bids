@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace;
 
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumWoodworkingActionSide;
-
-import java.awt.*;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
+import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.PathIterator;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class WorkspaceHelper {
         return areas;
     }
 
-    public static Polygon getPolygonClosestToSide(List<Polygon> polygons, EnumWoodworkingActionSide side) {
+    public static Polygon getPolygonClosestToSide(List<Polygon> polygons, WoodworkingActionSide side) {
         while (polygons.size() > 1) {
             Rectangle a = polygons.get(0).getBounds();
             Rectangle b = polygons.get(1).getBounds();
@@ -45,7 +45,7 @@ public class WorkspaceHelper {
         return polygons.get(0);
     }
 
-    private static boolean isCloserToSide(Rectangle a, Rectangle b, EnumWoodworkingActionSide side) {
+    private static boolean isCloserToSide(Rectangle a, Rectangle b, WoodworkingActionSide side) {
         switch (side) {
             case TOP:
                 return a.y < b.y;

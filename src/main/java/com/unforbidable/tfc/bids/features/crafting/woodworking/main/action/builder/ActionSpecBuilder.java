@@ -4,7 +4,6 @@ import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.Actio
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.PointF;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Shape;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.ShapeSet;
-
 import java.util.ArrayList;
 import java.util.List;
 

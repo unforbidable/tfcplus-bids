@@ -297,14 +297,15 @@ public class BidsItems {
     // Powder
     public static final Item morePowder = item(ItemNames.MORE_POWDER);
 
+    // Woodworking
+    public static final Item board = item(ItemNames.BOARD);
+    public static final Item shaft = item(ItemNames.SHAFT);
 
 
 
 
 
 
-    public static Item board;
-    public static Item shaft;
 
     public static Item barkFibre;
     public static Item barkFibreCoarse;

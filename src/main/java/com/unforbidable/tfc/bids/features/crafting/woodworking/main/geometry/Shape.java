@@ -3,11 +3,9 @@ package com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.builder.RectShapeBuilder;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.builder.ShapeBuilder;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.builder.TriShapeBuilder;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingShape;
-
 import java.awt.Polygon;
 
-public class Shape implements IWoodworkingShape {
+public class Shape {
 
     public final Point[] points;
 
@@ -77,7 +75,6 @@ public class Shape implements IWoodworkingShape {
         return !(a.x == b.x && a.y == b.y) && (a.x == b.x || a.y == b.y || Math.abs(a.x - b.x) == Math.abs(a.y - b.y));
     }
 
-    @Override
     public Polygon getPolygon() {
         int[] xPoints = new int[this.points.length];
         int[] yPoints = new int[this.points.length];

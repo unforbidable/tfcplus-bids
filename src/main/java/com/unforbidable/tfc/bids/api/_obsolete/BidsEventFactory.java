@@ -7,7 +7,7 @@ import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.api._obsolete.Events.WaterskinChurnEvent;
-import com.unforbidable.tfc.bids.api._obsolete.Events.WoodworkingPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingItemEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import java.awt.geom.Area;
 
 public class BidsEventFactory {
 
@@ -83,13 +84,13 @@ public class BidsEventFactory {
         MinecraftForge.EVENT_BUS.post(event);
     }
 
-    public static void onWoodworkingItemCrafted(EntityPlayer player, ItemStack input, ItemStack result) {
-        WoodworkingPlayerEvent event = new WoodworkingPlayerEvent(player, WoodworkingPlayerEvent.Action.ITEM_CRAFTED, input, result);
+    public static void onWoodworkingItemCrafted(EntityPlayer player, Area cutout, ItemStack input, ItemStack result) {
+        WoodworkingPlayerEvent event = new WoodworkingPlayerEvent(player, WoodworkingPlayerEvent.Action.ITEM_CRAFTED, cutout, input, result);
         MinecraftForge.EVENT_BUS.post(event);
     }
 
-    public static void onWoodworkingItemPickedUp(EntityPlayer player, ItemStack input, ItemStack result) {
-        WoodworkingPlayerEvent event = new WoodworkingPlayerEvent(player, WoodworkingPlayerEvent.Action.ITEM_PICKED_UP, input, result);
+    public static void onWoodworkingItemPickedUp(EntityPlayer player, Area cutout, ItemStack input, ItemStack result) {
+        WoodworkingPlayerEvent event = new WoodworkingPlayerEvent(player, WoodworkingPlayerEvent.Action.ITEM_PICKED_UP, cutout, input, result);
         MinecraftForge.EVENT_BUS.post(event);
     }
 

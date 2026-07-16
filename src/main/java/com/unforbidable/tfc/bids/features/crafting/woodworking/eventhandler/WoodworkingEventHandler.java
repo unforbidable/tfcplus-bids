@@ -1,16 +1,16 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.eventhandler;
 
-import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.util.ItemHelper;
+import com.unforbidable.tfc.bids.api.names.GuiNames;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.WoodworkingHelper;
-import com.unforbidable.tfc.bids.api._obsolete.BidsGui;
+import com.unforbidable.tfc.bids.util.GuiUtil;
+import com.unforbidable.tfc.bids.util.ItemHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-public class WoodworkingHandler {
+public class WoodworkingEventHandler {
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent event) {
@@ -22,8 +22,7 @@ public class WoodworkingHandler {
                 // even when a valid material is in hand
                 ItemStack heldItem = event.entityPlayer.getHeldItem();
                 if (heldItem != null && WoodworkingHelper.isValidWoodworkingMaterial(heldItem)) {
-                    event.entityPlayer.openGui(Bids.instance, BidsGui.woodworkingGui, event.world, (int) event.entityPlayer.posX,
-                        (int) event.entityPlayer.posY, (int) event.entityPlayer.posZ);
+                    GuiUtil.openGui(GuiNames.WOODWORKING, event.entityPlayer);
 
                     event.setCanceled(true);
                 }

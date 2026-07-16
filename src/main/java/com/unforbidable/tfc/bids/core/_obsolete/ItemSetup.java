@@ -233,10 +233,10 @@ public class ItemSetup extends BidsItems {
 //        firewoodSeasoned = new ItemFirewoodSeasoned().setNames(Global.WOOD_ALL)
 //            .setUnlocalizedName("Firewood Seasoned");
 
-        board = new ItemBoard().setNames(Global.WOOD_ALL)
-            .setUnlocalizedName("Board");
-        shaft = new ItemShaft().setNames(Global.WOOD_ALL)
-            .setUnlocalizedName("Shaft");
+//        board = new ItemBoard().setNames(Global.WOOD_ALL)
+//            .setUnlocalizedName("Board");
+//        shaft = new ItemShaft().setNames(Global.WOOD_ALL)
+//            .setUnlocalizedName("Shaft");
 
 //        smallStickBundle = new ItemSmallStickBundle()
 //            .setUnlocalizedName("Small Stick Bundle");

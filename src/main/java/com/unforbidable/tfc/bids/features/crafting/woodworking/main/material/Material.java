@@ -1,18 +1,25 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.material;
 
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumWoodworkingMaterialType;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingMaterial;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
 
-public class Material implements IWoodworkingMaterial {
+public class Material implements WoodworkingMaterial {
 
+    private final String oreName;
     private final int workspaceWidth;
     private final int workspaceHeight;
-    private final EnumWoodworkingMaterialType type;
+    private final WoodworkingMaterialType type;
 
-    public Material(int workspaceWidth, int workspaceHeight, EnumWoodworkingMaterialType type) {
+    public Material(String oreName, int workspaceWidth, int workspaceHeight, WoodworkingMaterialType type) {
+        this.oreName = oreName;
         this.workspaceWidth = workspaceWidth;
         this.workspaceHeight = workspaceHeight;
         this.type = type;
+    }
+
+    @Override
+    public String getOreName() {
+        return oreName;
     }
 
     @Override
@@ -26,7 +33,7 @@ public class Material implements IWoodworkingMaterial {
     }
 
     @Override
-    public EnumWoodworkingMaterialType getType() {
+    public WoodworkingMaterialType getType() {
         return type;
     }
 

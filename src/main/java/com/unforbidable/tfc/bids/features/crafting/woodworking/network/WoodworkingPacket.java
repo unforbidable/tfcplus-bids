@@ -1,21 +1,20 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.network;
 
-import com.unforbidable.tfc.bids.core.network._obsolete.ContainerMessageBase;
+import com.unforbidable.tfc.bids.core.network.packet.Packet;
 import io.netty.buffer.ByteBuf;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class WoodworkingMessage extends ContainerMessageBase {
+public class WoodworkingPacket extends Packet {
 
     public static final int EVENT_PERFORM_ACTION = 1;
 
     private int event;
     private int damage;
 
-    private final List<NetworkAction> actions = new ArrayList<NetworkAction>();
+    private final List<NetworkAction> actions = new ArrayList<>();
 
-    public WoodworkingMessage() {
+    public WoodworkingPacket() {
     }
 
     public int getEvent() {
@@ -73,12 +72,6 @@ public class WoodworkingMessage extends ContainerMessageBase {
                 action.toBytes(buf);
             }
         }
-    }
-
-    public static class ClientHandler extends ClientHandlerBase<WoodworkingMessage> {
-    }
-
-    public static class ServerHandler extends ServerHandlerBase<WoodworkingMessage> {
     }
 
 }

@@ -1,25 +1,37 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan;
 
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlan;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.ShapeSet;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan.builder.PlanBuilder;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingPlan;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingShape;
+import java.awt.geom.Area;
 
-public class Plan implements IWoodworkingPlan {
+public class Plan implements WoodworkingPlan {
 
-    private final ShapeSet cutout;
+    private final String name;
+    private final ShapeSet shapes;
 
-    public Plan(ShapeSet cutout) {
-        this.cutout = cutout;
+    public Plan(String name, ShapeSet shapes) {
+        this.name = name;
+        this.shapes = shapes;
     }
 
-    public static PlanBuilder create() {
-        return new PlanBuilder();
+    public static PlanBuilder create(String name) {
+        return new PlanBuilder(name);
     }
 
     @Override
-    public IWoodworkingShape[] getCutoutShapes() {
-        return cutout.getShapes();
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public Area getCutout() {
+         return shapes.getArea();
+    }
+
+    @Override
+    public boolean matches(Area cutout) {
+        return getCutout().equals(cutout);
     }
 
 }

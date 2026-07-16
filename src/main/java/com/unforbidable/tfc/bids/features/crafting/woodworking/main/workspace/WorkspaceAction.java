@@ -1,9 +1,8 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace;
 
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumWoodworkingActionSide;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingAction;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingShape;
-import java.awt.Polygon;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingAction;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 
 public class WorkspaceAction {
@@ -11,13 +10,13 @@ public class WorkspaceAction {
     public final Workspace workspace;
     public final int x;
     public final int y;
-    public final IWoodworkingAction action;
+    public final WoodworkingAction action;
 
     private Area cutout;
     private Area clearance;
     private Area margin;
 
-    public WorkspaceAction(Workspace workspace, int x, int y, IWoodworkingAction action) {
+    public WorkspaceAction(Workspace workspace, int x, int y, WoodworkingAction action) {
         this.workspace = workspace;
         this.x = x;
         this.y = y;
@@ -36,50 +35,32 @@ public class WorkspaceAction {
         return workspace.getEffectiveCutoutArea(this);
     }
 
-    public EnumWoodworkingActionSide getSide() {
+    public WoodworkingActionSide getSide() {
         return action.getSide();
     }
 
     public Area getCutout() {
-        if (cutout != null) {
-            return cutout;
-        }
-
-        cutout = new Area();
-        for (IWoodworkingShape shape : action.getSpec().getCutoutShapes()) {
-            Polygon polygon = shape.getPolygon();
-            polygon.translate(x, y);
-            cutout.add(new Area(polygon));
+        if (cutout == null) {
+            cutout = new Area(action.getSpec().getCutout());
+            cutout.transform(AffineTransform.getTranslateInstance(x, y));
         }
 
         return cutout;
     }
 
     public Area getClearance() {
-        if (clearance != null) {
-            return clearance;
-        }
-
-        clearance = new Area();
-        for (IWoodworkingShape shape : action.getSpec().getClearanceShapes()) {
-            Polygon polygon = shape.getPolygon();
-            polygon.translate(x, y);
-            clearance.add(new Area(polygon));
+        if (clearance == null) {
+            clearance = new Area(action.getSpec().getClearance());
+            clearance.transform(AffineTransform.getTranslateInstance(x, y));
         }
 
         return clearance;
     }
 
     public Area getMargin() {
-        if (margin != null) {
-            return margin;
-        }
-
-        margin = new Area();
-        for (IWoodworkingShape shape : action.getSpec().getMarginShapes()) {
-            Polygon polygon = shape.getPolygon();
-            polygon.translate(x, y);
-            margin.add(new Area(polygon));
+        if (margin == null) {
+            margin = new Area(action.getSpec().getMargin());
+            margin.transform(AffineTransform.getTranslateInstance(x, y));
         }
 
         return margin;

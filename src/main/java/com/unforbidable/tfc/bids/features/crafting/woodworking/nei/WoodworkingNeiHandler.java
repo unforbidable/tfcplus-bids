@@ -4,26 +4,25 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.gui.GuiWoodworking;
-import com.unforbidable.tfc.bids.util.GuiHelper;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan.PlanInstance;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace.WorkspaceClient;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlan;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingRecipe;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
-import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.WoodworkingRecipe;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingMaterial;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingPlan;
-import com.unforbidable.tfc.bids.api._obsolete.WoodworkingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.WoodworkingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.gui.GuiWoodworking;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.main.WoodworkingHelper;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace.WorkspacePlan;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace.WorkspaceClient;
+import com.unforbidable.tfc.bids.util.GuiHelper;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class WoodworkingNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
@@ -55,7 +54,7 @@ public class WoodworkingNeiHandler extends TemplateRecipeHandler implements IHan
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == WoodworkingNeiHandler.class) {
-            for (WoodworkingRecipe recipe : BidsRegistry.WOODWORKING_RECIPES) {
+            for (WoodworkingRecipe recipe : WoodworkingRegistry.recipes) {
                 final List<ItemStack> input = recipe.getIngredients();
                 if (input.size() > 0) {
                     final ItemStack result = recipe.getResult(input.get(0));
@@ -72,7 +71,7 @@ public class WoodworkingNeiHandler extends TemplateRecipeHandler implements IHan
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (WoodworkingRecipe recipe : BidsRegistry.WOODWORKING_RECIPES) {
+        for (WoodworkingRecipe recipe : WoodworkingRegistry.recipes) {
             final List<ItemStack> input = recipe.getIngredients();
             if (input.size() > 0) {
                 final ItemStack result = recipe.getResult(input.get(0));
@@ -89,7 +88,7 @@ public class WoodworkingNeiHandler extends TemplateRecipeHandler implements IHan
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (WoodworkingRecipe recipe : BidsRegistry.WOODWORKING_RECIPES) {
+        for (WoodworkingRecipe recipe : WoodworkingRegistry.recipes) {
             if (recipe.matches(ingredient)) {
                 final List<ItemStack> input = recipe.getIngredients();
                 if (input.size() > 0) {
@@ -104,32 +103,19 @@ public class WoodworkingNeiHandler extends TemplateRecipeHandler implements IHan
     }
 
     private WorkspaceClient createWorkspaceClientForRecipe(WoodworkingRecipe recipe) {
-        IWoodworkingMaterial material = findMaterial(recipe.getIngredients());
+        WoodworkingMaterial material = WoodworkingHelper.findMaterial(recipe.getIngredients());
 
-        IWoodworkingPlan plan = WoodworkingRegistry.getPlanByName(recipe.getPlanName());
+        WoodworkingPlan plan = WoodworkingRegistry.plans.get(p -> p.getName().equals(recipe.getPlanName()));
 
         if (material != null && plan != null) {
-            List<PlanInstance> plans = new ArrayList<PlanInstance>();
-            plans.add(new PlanInstance(recipe.getPlanName(), plan, null));
+            List<WorkspacePlan> plans = new ArrayList<WorkspacePlan>();
+            plans.add(new WorkspacePlan(plan, null, null));
 
             WorkspaceClient workspaceClient = new WorkspaceClient(material, plans);
             workspaceClient.selectPlan(0);
             workspaceClient.initGui(27,4, 69, 96);
 
             return workspaceClient;
-        }
-
-        return null;
-    }
-
-    private IWoodworkingMaterial findMaterial(List<ItemStack> ingredients) {
-        // Find an item that is a registered material
-        // in case the ore recipe contains invalid materials
-        for (ItemStack ingredient : ingredients) {
-            IWoodworkingMaterial material = WoodworkingRegistry.findMaterialForItem(ingredient.getItem());
-            if (material != null) {
-                return material;
-            }
         }
 
         return null;

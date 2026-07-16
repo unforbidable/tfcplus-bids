@@ -4,23 +4,25 @@ import com.dunk.tfc.Containers.ContainerTFC;
 import com.dunk.tfc.Core.Player.PlayerInventory;
 import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.gui.GuiWoodworking;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
 import com.unforbidable.tfc.bids.common.container.inventory.IInventorySlotTracker;
 import com.unforbidable.tfc.bids.common.container.inventory.InventoryCraftingTracked;
 import com.unforbidable.tfc.bids.common.container.slot.SlotOutputOnlyTracked;
-import com.unforbidable.tfc.bids.core.network._obsolete.IMessageHandlingContainer;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.network.NetworkAction;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.network.WoodworkingMessage;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan.PlanInstance;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.WoodworkingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.gui.GuiWoodworking;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.WoodworkingHelper;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace.WorkspacePlan;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace.WorkspaceServer;
-import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
-import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsWoodworking;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingMaterial;
-import com.unforbidable.tfc.bids.api._obsolete.WoodworkingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.network.NetworkAction;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.network.WoodworkingPacket;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -30,11 +32,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-public class ContainerWoodworking extends ContainerTFC implements IMessageHandlingContainer<WoodworkingMessage>, IInventorySlotTracker {
+public class ContainerWoodworking extends ContainerTFC implements PacketHandler<WoodworkingPacket>, IInventorySlotTracker {
 
     private final InventoryCrafting outputInv = new InventoryCraftingTracked(this, 1, 1);
 
@@ -54,8 +52,8 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
 
     private WorkspaceServer createServer(ItemStack heldItem) {
         if (heldItem != null) {
-            IWoodworkingMaterial material = WoodworkingHelper.getWoodworkingMaterial(heldItem);
-            List<PlanInstance> plans = WoodworkingHelper.getWoodworkingPlans(heldItem);
+            WoodworkingMaterial material = WoodworkingHelper.getWoodworkingMaterial(heldItem);
+            List<WorkspacePlan> plans = WoodworkingHelper.getWoodworkingPlans(heldItem);
             if (material != null && !plans.isEmpty()) {
                 return new WorkspaceServer(material, plans);
             }
@@ -64,7 +62,7 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
         Bids.LOG.warn("Woodworking server cannot be initialized.");
 
         // create a dummy server
-        return new WorkspaceServer(WoodworkingRegistry.getMaterialByName(BidsWoodworking.MATERIAL_LOG), new ArrayList<PlanInstance>() {});
+        return new WorkspaceServer(WoodworkingRegistry.materials.get(m -> m.getOreName().equals("logWood")), new ArrayList<WorkspacePlan>() {});
     }
 
     protected void buildLayout() {
@@ -81,12 +79,12 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
     }
 
     @Override
-    public void onContainerMessage(WoodworkingMessage message) {
-        if (!world.isRemote && message.getEvent() == WoodworkingMessage.EVENT_PERFORM_ACTION) {
-            IWoodworkingMaterial material = WoodworkingRegistry.findMaterialForItem(player.getHeldItem().getItem());
+    public void handleNetworkPacket(WoodworkingPacket packet) {
+        if (!world.isRemote && packet.getEvent() == WoodworkingPacket.EVENT_PERFORM_ACTION) {
+            WoodworkingMaterial material = WoodworkingHelper.getWoodworkingMaterial(player.getHeldItem());
             float sawdustMaterialMultiplier = material != null ? getSawdustMaterialMultiplier(material) : 0;
 
-            for (NetworkAction action : message.getActions()) {
+            for (NetworkAction action : packet.getActions()) {
                 boolean result = workspaceServer.performAction(action.name, action.x, action.y);
 
                 if (result) {
@@ -96,7 +94,7 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
                 Bids.LOG.debug("ACTION(\"{}\", {}, {}) => {}", action.name, action.x, action.y, result ? "OK" : "SUCCESS");
             }
 
-            player.inventory.getItemStack().damageItem(message.getDamage(), player);
+            player.inventory.getItemStack().damageItem(packet.getDamage(), player);
             if (player.inventory.getItemStack().stackSize == 0) {
                 player.inventory.setItemStack(null);
             }
@@ -105,7 +103,7 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
         }
     }
 
-    private float getSawdustMaterialMultiplier(IWoodworkingMaterial material) {
+    private float getSawdustMaterialMultiplier(WoodworkingMaterial material) {
         switch (material.getType()) {
             case WOOD_THICK:
                 return 1;
@@ -117,10 +115,10 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
     }
 
     private float getSawdustAmountForAction(String actionName) {
-        if (actionName.startsWith("saw_cut_")) {
+        if (actionName.startsWith("saw")) {
             // Sawing a whole length of a thick material gives 1 sawdust
             return 1 / 25f;
-        } else if (actionName.startsWith("drill_")) {
+        } else if (actionName.startsWith("drill")) {
             // Drilling 15 holes in flat gives 1 sawdust
             return 1 / 7.5f;
         }
@@ -129,12 +127,12 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
     }
 
     private void tryToMatchCutout() {
-        PlanInstance matchingPlan = workspaceServer.findMatchingPlan();
+        WorkspacePlan matchingPlan = workspaceServer.findMatchingPlan();
         if (matchingPlan != null) {
             Bids.LOG.debug("MATCH(\"{}\", {})", matchingPlan.getName(), matchingPlan.getResult().toString());
 
             ItemStack result = matchingPlan.getResult().copy();
-            BidsEventFactory.onWoodworkingItemCrafted(player, player.getHeldItem(), result);
+            BidsEventFactory.onWoodworkingItemCrafted(player, workspaceServer.getCutout(), player.getHeldItem(), result);
 
             outputInv.setInventorySlotContents(0, result);
         } else {
@@ -149,7 +147,7 @@ public class ContainerWoodworking extends ContainerTFC implements IMessageHandli
     @Override
     public void onPickupFromSlot(IInventory inventory, Slot slot, EntityPlayer player, ItemStack itemStack) {
         if (!world.isRemote) {
-            BidsEventFactory.onWoodworkingItemPickedUp(player, player.getHeldItem(), itemStack);
+            BidsEventFactory.onWoodworkingItemPickedUp(player, workspaceServer.getCutout(), player.getHeldItem(), itemStack);
         }
 
         player.inventory.decrStackSize(player.inventory.currentItem, 1);

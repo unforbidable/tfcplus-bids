@@ -1,20 +1,19 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.action;
 
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingAction;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionGroup;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.builder.ActionGroupBuilder;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumWoodworkingMaterialType;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingAction;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingActionGroup;
-
 import java.util.EnumSet;
 
-public class ActionGroup implements IWoodworkingActionGroup {
+public class ActionGroup implements WoodworkingActionGroup {
 
     private final String name;
-    private final IWoodworkingAction[] actions;
+    private final WoodworkingAction[] actions;
     private final float toolDamage;
-    private final EnumSet<EnumWoodworkingMaterialType> usage;
+    private final EnumSet<WoodworkingMaterialType> usage;
 
-    public ActionGroup(String name, IWoodworkingAction[] actions, float toolDamage, EnumSet<EnumWoodworkingMaterialType> usage) {
+    public ActionGroup(String name, WoodworkingAction[] actions, float toolDamage, EnumSet<WoodworkingMaterialType> usage) {
         this.name = name;
         this.actions = actions;
         this.toolDamage = toolDamage;
@@ -31,7 +30,7 @@ public class ActionGroup implements IWoodworkingActionGroup {
     }
 
     @Override
-    public IWoodworkingAction[] getActions() {
+    public WoodworkingAction[] getActions() {
         return actions;
     }
 
@@ -41,7 +40,7 @@ public class ActionGroup implements IWoodworkingActionGroup {
     }
 
     @Override
-    public EnumSet<EnumWoodworkingMaterialType> getUsage() {
+    public EnumSet<WoodworkingMaterialType> getUsage() {
         return usage;
     }
 

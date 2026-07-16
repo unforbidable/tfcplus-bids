@@ -1,15 +1,26 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry;
 
+import java.awt.geom.Area;
+
 public class ShapeSet {
 
     private final Shape[] shapes;
+
+    private Area area;
 
     public ShapeSet(Shape[] shapes) {
         this.shapes = shapes;
     }
 
-    public Shape[] getShapes() {
-        return shapes;
+    public Area getArea() {
+        if (area == null) {
+            area = new Area();
+            for (Shape shape : shapes) {
+                area.add(new Area(shape.getPolygon()));
+            }
+        }
+
+        return area;
     }
 
     public ShapeSet flip(Orientation orientation) {

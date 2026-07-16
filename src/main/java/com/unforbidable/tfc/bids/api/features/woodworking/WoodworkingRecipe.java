@@ -1,10 +1,9 @@
-package com.unforbidable.tfc.bids.api._obsolete.Crafting;
+package com.unforbidable.tfc.bids.api.features.woodworking;
 
 import com.unforbidable.tfc.bids.api.util.SimpleRecipeMatcher;
-import net.minecraft.item.ItemStack;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.item.ItemStack;
 
 public class WoodworkingRecipe implements SimpleRecipeMatcher<ItemStack> {
 

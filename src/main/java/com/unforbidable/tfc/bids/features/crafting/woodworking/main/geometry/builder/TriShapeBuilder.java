@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.bu
 
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Point;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Shape;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import java.util.List;
+import com.unforbidable.tfc.bids.util.accessor.ItemMetaNamesAccessor;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +18,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemShaft extends Item implements ISize {
+public class ItemShaft extends Item implements ISize, ItemMetaNamesAccessor {
 
     private IIcon[] icons;
     protected String[] names;
@@ -30,12 +31,14 @@ public class ItemShaft extends Item implements ISize {
         setMaxStackSize(32);
     }
 
-    public ItemShaft setNames(String[] names) {
+    @Override
+    public Item setMetaNames(String[] names) {
         this.names = names;
         return this;
     }
 
-    public String[] getNames() {
+    @Override
+    public String[] getMetaNames() {
         return names;
     }
 

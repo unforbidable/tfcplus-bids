@@ -1,8 +1,7 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace;
 
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingAction;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace.builder.WorkspaceActionBuilder;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IWoodworkingAction;
-
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
@@ -26,7 +25,7 @@ public class Workspace {
         cutout = new Area();
     }
 
-    public WorkspaceActionBuilder action(IWoodworkingAction action) {
+    public WorkspaceActionBuilder action(WoodworkingAction action) {
         return new WorkspaceActionBuilder(this, action);
     }
 

@@ -9,4 +9,6 @@ public interface GuiNames {
 
     String DOUGH = "Dough";
 
+    String WOODWORKING = "Woodworking";
+
 }

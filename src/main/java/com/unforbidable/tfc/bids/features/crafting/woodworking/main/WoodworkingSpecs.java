@@ -6,12 +6,12 @@ import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.Actio
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Orientation;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.PointF;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Shape;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumWoodworkingActionSide;
-import com.unforbidable.tfc.bids.api._obsolete.Enums.EnumWoodworkingMaterialType;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 
 public class WoodworkingSpecs {
 
-    public static final ActionSpec DRILL_DRILL_1X1 = ActionSpec.create()
+    public static final ActionSpec drillSingle = ActionSpec.create()
         .cutout(Shape.pointAt(0, 0))
         .margin(Shape.rectFrom(-1, -1).size(3, 3))
         .origin(PointF.at(0.5f, 0.5f))
@@ -23,137 +23,137 @@ public class WoodworkingSpecs {
         .origin(PointF.at(1, 1))
         .build();
 
-    public static final ActionSpec SAW_CUT_TOP = ActionSpec.create()
+    public static final ActionSpec sawCutTop = ActionSpec.create()
         .cutout(Shape.pointAt(0, 0))
         .clearance(Shape.rectFrom(0, 0).to(1, -3))
         .origin(PointF.at(0.5f, 0.5f))
         .build();
-    public static final ActionSpec SAW_CUT_BOTTOM = SAW_CUT_TOP.flip(Orientation.VERTICAL);
-    public static final ActionSpec SAW_CUT_RIGHT = SAW_CUT_TOP.rotate(1);
-    public static final ActionSpec SAW_CUT_LEFT = SAW_CUT_RIGHT.flip(Orientation.HORIZONTAL);
+    public static final ActionSpec sawCutBottom = sawCutTop.flip(Orientation.VERTICAL);
+    public static final ActionSpec sawCutRight = sawCutTop.rotate(1);
+    public static final ActionSpec sawCutLeft = sawCutRight.flip(Orientation.HORIZONTAL);
 
-    public static final ActionSpec AXE_CHOP_TOP = ActionSpec.create()
+    public static final ActionSpec axeChopTop = ActionSpec.create()
         .cutout(Shape.rectFrom(-1, 0).size(3, 255))
         .clearance(Shape.rectFrom(-1, 0).size(3, -32))
         .build();
-    public static final ActionSpec AXE_CHOP_BOTTOM = AXE_CHOP_TOP.flip(Orientation.VERTICAL);
+    public static final ActionSpec axeChopBottom = axeChopTop.flip(Orientation.VERTICAL);
 
-    public static final ActionSpec AXE_CARVE_RIGHT_A = ActionSpec.create()
+    public static final ActionSpec axeCarveRightA = ActionSpec.create()
         .cutout(Shape.from(0, 0).to(2, 0).to(4, 2).to(2, 2).build())
         .clearance(Shape.from(2, 0).to(4, 2).to(2, 2)
             .to(10, 10).to(10, 0).build())
         .origin(PointF.at(2, 1))
         .build();
-    public static final ActionSpec AXE_CARVE_RIGHT_B = AXE_CARVE_RIGHT_A.flip(Orientation.VERTICAL);
-    public static final ActionSpec AXE_CARVE_LEFT_A = AXE_CARVE_RIGHT_A.flip(Orientation.HORIZONTAL);
-    public static final ActionSpec AXE_CARVE_LEFT_B = AXE_CARVE_RIGHT_B.flip(Orientation.HORIZONTAL);
+    public static final ActionSpec axeCarveRightB = axeCarveRightA.flip(Orientation.VERTICAL);
+    public static final ActionSpec axeCarveLeftA = axeCarveRightA.flip(Orientation.HORIZONTAL);
+    public static final ActionSpec axeCarveLeftB = axeCarveRightB.flip(Orientation.HORIZONTAL);
 
-    public static final ActionSpec KNIFE_CARVE_RIGHT_A = ActionSpec.create()
+    public static final ActionSpec knifeCarveRightA = ActionSpec.create()
         .cutout(Shape.triFrom(2, 0).size(-2, 2))
         .clearance(Shape.from(2, 0).to(2, 2).to(4, 2).to(4, 0).build())
         .origin(PointF.at(1, 1))
         .build();
-    public static final ActionSpec KNIFE_CARVE_RIGHT_B = KNIFE_CARVE_RIGHT_A.flip(Orientation.VERTICAL);
-    public static final ActionSpec KNIFE_CARVE_RIGHT_C = ActionSpec.create()
+    public static final ActionSpec knifeCarveRightB = knifeCarveRightA.flip(Orientation.VERTICAL);
+    public static final ActionSpec knifeCarveRightC = ActionSpec.create()
         .cutout(Shape.triFrom(0, 0).size(2, 2))
         .clearance(Shape.from(2, 0).to(0, 2).to(2, 2).to(4, 0).build())
         .origin(PointF.at(1, 1))
         .build();
-    public static final ActionSpec KNIFE_CARVE_RIGHT_D = KNIFE_CARVE_RIGHT_C.flip(Orientation.VERTICAL);
-    public static final ActionSpec KNIFE_CARVE_LEFT_A = KNIFE_CARVE_RIGHT_A.flip(Orientation.HORIZONTAL);
-    public static final ActionSpec KNIFE_CARVE_LEFT_B = KNIFE_CARVE_RIGHT_B.flip(Orientation.HORIZONTAL);
-    public static final ActionSpec KNIFE_CARVE_LEFT_C = KNIFE_CARVE_RIGHT_C.flip(Orientation.HORIZONTAL);
-    public static final ActionSpec KNIFE_CARVE_LEFT_D = KNIFE_CARVE_RIGHT_D.flip(Orientation.HORIZONTAL);
+    public static final ActionSpec knifeCarveRightD = knifeCarveRightC.flip(Orientation.VERTICAL);
+    public static final ActionSpec knifeCarveLeftA = knifeCarveRightA.flip(Orientation.HORIZONTAL);
+    public static final ActionSpec knifeCarveLeftB = knifeCarveRightB.flip(Orientation.HORIZONTAL);
+    public static final ActionSpec knifeCarveLeftC = knifeCarveRightC.flip(Orientation.HORIZONTAL);
+    public static final ActionSpec knifeCarveLeftD = knifeCarveRightD.flip(Orientation.HORIZONTAL);
 
-    public static final ActionSpec CHISEL_CUT_H = ActionSpec.create()
+    public static final ActionSpec chiselCutH = ActionSpec.create()
         .cutout(Shape.pointAt(0, 0))
         .clearance(Shape.pointAt(-1, 0))
         .clearance(Shape.pointAt(1, 0))
         .origin(PointF.at(0.5f, 0.5f))
         .build();
-    public static final ActionSpec CHISEL_CUT_V = CHISEL_CUT_H.rotate(1);
+    public static final ActionSpec chiselCutV = chiselCutH.rotate(1);
 
-    public static final ActionGroup DRILL_DRILL = ActionGroup.create("drill_drill")
+    public static final ActionGroup drill = ActionGroup.create("drill")
         .damage(1f)
-        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
-        .usage(EnumWoodworkingMaterialType.WOOD_DELICATE)
-        .add(new Action("drill_drill", DRILL_DRILL_1X1))
+        .usage(WoodworkingMaterialType.WOOD_FLAT)
+        .usage(WoodworkingMaterialType.WOOD_DELICATE)
+        .add(new Action("drillSingle", drillSingle))
         .build();
 
-    public static final ActionGroup SAW_CUT = ActionGroup.create("saw_cut")
+    public static final ActionGroup sawCut = ActionGroup.create("sawCut")
         .damage(0.05f)
-        .usage(EnumWoodworkingMaterialType.WOOD_THICK)
-        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
-        .usage(EnumWoodworkingMaterialType.WOOD_DELICATE)
-        .usage(EnumWoodworkingMaterialType.BONE)
-        .add(new Action("saw_cut_top", SAW_CUT_TOP, EnumWoodworkingActionSide.TOP))
-        .add(new Action("saw_cut_bottom", SAW_CUT_BOTTOM, EnumWoodworkingActionSide.BOTTOM))
-        .add(new Action("saw_cut_right", SAW_CUT_RIGHT, EnumWoodworkingActionSide.RIGHT))
-        .add(new Action("saw_cut_left", SAW_CUT_LEFT, EnumWoodworkingActionSide.LEFT))
+        .usage(WoodworkingMaterialType.WOOD_THICK)
+        .usage(WoodworkingMaterialType.WOOD_FLAT)
+        .usage(WoodworkingMaterialType.WOOD_DELICATE)
+        .usage(WoodworkingMaterialType.BONE)
+        .add(new Action("sawCutTop", sawCutTop, WoodworkingActionSide.TOP))
+        .add(new Action("sawCutBottom", sawCutBottom, WoodworkingActionSide.BOTTOM))
+        .add(new Action("sawCutRight", sawCutRight, WoodworkingActionSide.RIGHT))
+        .add(new Action("sawCutLeft", sawCutLeft, WoodworkingActionSide.LEFT))
         .build();
 
-    public static final ActionGroup AXE_CHOP = ActionGroup.create("axe_chop")
+    public static final ActionGroup axeChop = ActionGroup.create("axeChop")
         .damage(1f)
-        .usage(EnumWoodworkingMaterialType.WOOD_THICK)
-        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
-        .add(new Action("axe_chop_top", AXE_CHOP_TOP, EnumWoodworkingActionSide.TOP))
-        .add(new Action("axe_chop_bottom", AXE_CHOP_BOTTOM, EnumWoodworkingActionSide.BOTTOM))
+        .usage(WoodworkingMaterialType.WOOD_THICK)
+        .usage(WoodworkingMaterialType.WOOD_FLAT)
+        .add(new Action("axeChopTop", axeChopTop, WoodworkingActionSide.TOP))
+        .add(new Action("axeChopBottom", axeChopBottom, WoodworkingActionSide.BOTTOM))
         .build();
 
-    public static final ActionGroup AXE_CARVE = ActionGroup.create("axe_carve")
+    public static final ActionGroup axeCarve = ActionGroup.create("axeCarve")
         .damage(0.5f)
-        .usage(EnumWoodworkingMaterialType.WOOD_THICK)
-        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
-        .add(new Action("axe_carve_right_a", AXE_CARVE_RIGHT_A, EnumWoodworkingActionSide.RIGHT))
-        .add(new Action("axe_carve_right_b", AXE_CARVE_RIGHT_B, EnumWoodworkingActionSide.RIGHT))
-        .add(new Action("axe_carve_left_a", AXE_CARVE_LEFT_A, EnumWoodworkingActionSide.LEFT))
-        .add(new Action("axe_carve_left_b", AXE_CARVE_LEFT_B, EnumWoodworkingActionSide.LEFT))
+        .usage(WoodworkingMaterialType.WOOD_THICK)
+        .usage(WoodworkingMaterialType.WOOD_FLAT)
+        .add(new Action("axeCarveRightA", axeCarveRightA, WoodworkingActionSide.RIGHT))
+        .add(new Action("axeCarveRightB", axeCarveRightB, WoodworkingActionSide.RIGHT))
+        .add(new Action("axeCarveLeftA", axeCarveLeftA, WoodworkingActionSide.LEFT))
+        .add(new Action("axeCarveLeftB", axeCarveLeftB, WoodworkingActionSide.LEFT))
         .build();
 
-    public static final ActionGroup KNIFE_CARVE = ActionGroup.create("knife_carve")
+    public static final ActionGroup knifeCarve = ActionGroup.create("knifeCarve")
         .damage(0.2f)
-        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
-        .usage(EnumWoodworkingMaterialType.WOOD_DELICATE)
-        .add(new Action("knife_carve_right_a", KNIFE_CARVE_RIGHT_A, EnumWoodworkingActionSide.RIGHT))
-        .add(new Action("knife_carve_right_b", KNIFE_CARVE_RIGHT_B, EnumWoodworkingActionSide.RIGHT))
-        .add(new Action("knife_carve_right_c", KNIFE_CARVE_RIGHT_C, EnumWoodworkingActionSide.RIGHT))
-        .add(new Action("knife_carve_right_d", KNIFE_CARVE_RIGHT_D, EnumWoodworkingActionSide.RIGHT))
-        .add(new Action("knife_carve_left_a", KNIFE_CARVE_LEFT_A, EnumWoodworkingActionSide.LEFT))
-        .add(new Action("knife_carve_left_b", KNIFE_CARVE_LEFT_B, EnumWoodworkingActionSide.LEFT))
-        .add(new Action("knife_carve_left_c", KNIFE_CARVE_LEFT_C, EnumWoodworkingActionSide.LEFT))
-        .add(new Action("knife_carve_left_d", KNIFE_CARVE_LEFT_D, EnumWoodworkingActionSide.LEFT))
+        .usage(WoodworkingMaterialType.WOOD_FLAT)
+        .usage(WoodworkingMaterialType.WOOD_DELICATE)
+        .add(new Action("knifeCarveRightA", knifeCarveRightA, WoodworkingActionSide.RIGHT))
+        .add(new Action("knifeCarveRightB", knifeCarveRightB, WoodworkingActionSide.RIGHT))
+        .add(new Action("knifeCarveRightC", knifeCarveRightC, WoodworkingActionSide.RIGHT))
+        .add(new Action("knifeCarveRightD", knifeCarveRightD, WoodworkingActionSide.RIGHT))
+        .add(new Action("knifeCarveLeftA", knifeCarveLeftA, WoodworkingActionSide.LEFT))
+        .add(new Action("knifeCarveLeftB", knifeCarveLeftB, WoodworkingActionSide.LEFT))
+        .add(new Action("knifeCarveLeftC", knifeCarveLeftC, WoodworkingActionSide.LEFT))
+        .add(new Action("knifeCarveLeftD", knifeCarveLeftD, WoodworkingActionSide.LEFT))
         .build();
 
-    public static final ActionGroup CHISEL_CUT = ActionGroup.create("chisel_cut")
+    public static final ActionGroup chiselCut = ActionGroup.create("chiselCut")
         .damage(1f)
-        .usage(EnumWoodworkingMaterialType.WOOD_FLAT)
-        .usage(EnumWoodworkingMaterialType.WOOD_DELICATE)
-        .add(new Action("chisel_cut_h", CHISEL_CUT_H))
-        .add(new Action("chisel_cut_v", CHISEL_CUT_V))
+        .usage(WoodworkingMaterialType.WOOD_FLAT)
+        .usage(WoodworkingMaterialType.WOOD_DELICATE)
+        .add(new Action("chiselCutH", chiselCutH))
+        .add(new Action("chiselCutV", chiselCutV))
         .build();
 
-    public static final ActionSpec KNIFE_FILE_FULL = ActionSpec.create()
+    public static final ActionSpec knifeFileSingle = ActionSpec.create()
         .cutout(Shape.pointAt(0, 0))
         .origin(PointF.at(0.5f, 0.5f))
         .build();
 
-    public static final ActionSpec KNIFE_FILE_CORNER_LEFT_A = ActionSpec.create()
+    public static final ActionSpec knifeFileCornerLeftA = ActionSpec.create()
         .cutout(Shape.triFrom(0, 0).size(1, 1))
         .clearance(Shape.rectFrom(0, 0).size(-1, 1))
         .origin(PointF.at(0.5f, 0.5f))
         .build();
-    public static final ActionSpec KNIFE_FILE_CORNER_LEFT_B = KNIFE_FILE_CORNER_LEFT_A.flip(Orientation.VERTICAL);
-    public static final ActionSpec KNIFE_FILE_CORNER_RIGHT_A = KNIFE_FILE_CORNER_LEFT_A.flip(Orientation.HORIZONTAL);
-    public static final ActionSpec KNIFE_FILE_CORNER_RIGHT_B = KNIFE_FILE_CORNER_RIGHT_A.flip(Orientation.VERTICAL);
+    public static final ActionSpec knifeFileCornerLeftB = knifeFileCornerLeftA.flip(Orientation.VERTICAL);
+    public static final ActionSpec knifeFileCornerRightA = knifeFileCornerLeftA.flip(Orientation.HORIZONTAL);
+    public static final ActionSpec knifeFileCornerRightB = knifeFileCornerRightA.flip(Orientation.VERTICAL);
 
-    public static final ActionGroup KNIFE_FILE = ActionGroup.create("knife_file")
+    public static final ActionGroup knifeFile = ActionGroup.create("knifeFile")
         .damage(0.1f)
-        .usage(EnumWoodworkingMaterialType.BONE)
-        .add(new Action("knife_file_full", KNIFE_FILE_FULL))
-        .add(new Action("knife_file_corner_left_a", KNIFE_FILE_CORNER_LEFT_A))
-        .add(new Action("knife_file_corner_left_b", KNIFE_FILE_CORNER_LEFT_B))
-        .add(new Action("knife_file_corner_right_a", KNIFE_FILE_CORNER_RIGHT_A))
-        .add(new Action("knife_file_corner_right_b", KNIFE_FILE_CORNER_RIGHT_B))
+        .usage(WoodworkingMaterialType.BONE)
+        .add(new Action("knifeFileSingle", knifeFileSingle))
+        .add(new Action("knifeFileCornerLeftA", knifeFileCornerLeftA))
+        .add(new Action("knifeFileCornerLeftB", knifeFileCornerLeftB))
+        .add(new Action("knifeFileCornerRightA", knifeFileCornerRightA))
+        .add(new Action("knifeFileCornerRightB", knifeFileCornerRightB))
         .build();
 
 }
