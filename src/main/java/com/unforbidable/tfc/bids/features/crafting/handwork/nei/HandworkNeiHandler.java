@@ -3,18 +3,17 @@ package com.unforbidable.tfc.bids.features.crafting.handwork.nei;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.api.TFCBlocks;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.features.handwork.HandworkRecipe;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
-import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.HandworkRecipe;
+import com.unforbidable.tfc.bids.features.crafting.handwork.HandworkRegistry;
+import java.awt.Rectangle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
-import java.awt.*;
 
 public class HandworkNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
@@ -46,7 +45,7 @@ public class HandworkNeiHandler extends TemplateRecipeHandler implements IHandle
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == HandworkNeiHandler.class) {
-            for (HandworkRecipe recipe : BidsRegistry.HANDWORK_RECIPES) {
+            for (HandworkRecipe recipe : HandworkRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
                 arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration()));
@@ -58,7 +57,7 @@ public class HandworkNeiHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (HandworkRecipe recipe : BidsRegistry.HANDWORK_RECIPES) {
+        for (HandworkRecipe recipe : HandworkRegistry.recipes) {
             final ItemStack output2 = output.copy();
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
@@ -73,7 +72,7 @@ public class HandworkNeiHandler extends TemplateRecipeHandler implements IHandle
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (HandworkRecipe recipe : BidsRegistry.HANDWORK_RECIPES) {
+        for (HandworkRecipe recipe : HandworkRegistry.recipes) {
             if (recipe.matchesIngredient(ingredient)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);

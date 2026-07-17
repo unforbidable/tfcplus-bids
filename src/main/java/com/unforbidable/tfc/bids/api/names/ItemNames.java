@@ -153,7 +153,7 @@ public interface ItemNames {
     String WOOL_RINSED = "Wool Rinsed";
     String WOOL_DRIED = "Wool Dried";
     String WOOL_FIBER_COARSE = "Wool Fibre Coarse";
-    String WOOL_FINER_REFINED = "Wool Fibre Refined";
+    String WOOL_FIBER_REFINED = "Wool Fibre Refined";
     String WHORL = "Whorl";
     String SPINDLE = "Spindle";
     String WOODEN_COMB_PADDLE = "Wooden Comb Paddle";

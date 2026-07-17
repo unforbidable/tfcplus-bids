@@ -8,17 +8,12 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
-import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManager;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.api.*;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.*;
 import com.unforbidable.tfc.bids.compat.tfc._obsolete.RecipeHelper;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipeBuilder;
 import com.unforbidable.tfc.bids.compat.tfc._obsolete.TFC.BarrelRecipeManager;
-import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
@@ -208,21 +203,21 @@ public class RecipeSetup {
 //                .action(damageTool("itemChisel"));
         }
 
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.whorl),
-            "itemRock", "itemDrillHead");
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.whorl),
+//            "itemRock", "itemDrillHead");
+//
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.spindle),
+//            "itemWhorl", "stickWood");
 
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.spindle),
-            "itemWhorl", "stickWood");
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.primitiveRopeMaker),
+//                "stickWood", "stickWood", "materialBindingStrong", "itemKnife")
+//            .action(damageTool("itemKnife"));
 
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.primitiveRopeMaker),
-                "stickWood", "stickWood", "materialBindingStrong", "itemKnife")
-            .action(damageTool("itemKnife"));
-
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.thornCard),
-            BidsItems.thornBunch, BidsItems.thornBunch, TFCItems.resin, BidsItems.woodenCombPaddle);
-
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.boneHeckle),
-            BidsItems.boneKnifeHead, BidsItems.boneKnifeHead, TFCItems.resin, "materialBindingDecent");
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.thornCard),
+//            BidsItems.thornBunch, BidsItems.thornBunch, TFCItems.resin, BidsItems.woodenCombPaddle);
+//
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.boneHeckle),
+//            BidsItems.boneKnifeHead, BidsItems.boneKnifeHead, TFCItems.resin, "materialBindingDecent");
 
 //        recipes.addShapelessRecipe(new ItemStack(BidsItems.igInStoneDrill),
 //            BidsItems.igInStoneDrillHead, "stickWood", TFCItems.bow);
@@ -293,11 +288,11 @@ public class RecipeSetup {
         recipes.addShapelessRecipe(new ItemStack(BidsItems.kindling),
             BidsItems.smallStickBundle, TFCItems.straw);
 
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.barkFibreKindling),
-            "stickWood", "stickWood", "stickWood", BidsItems.barkFibreCoarse);
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.barkFibreKindling),
-            BidsItems.smallStickBundle, BidsItems.barkFibreCoarse);
-
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.barkFibreKindling),
+//            "stickWood", "stickWood", "stickWood", BidsItems.barkFiberCoarse);
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.barkFibreKindling),
+//            BidsItems.smallStickBundle, BidsItems.barkFiberCoarse);
+//
 //        recipes.addShapelessRecipe(new ItemStack(BidsItems.birchBarkKindling),
 //            "stickWood", "stickWood", "stickWood", BidsItems.birchBarkStrap);
 //        recipes.addShapelessRecipe(new ItemStack(BidsItems.birchBarkKindling),
@@ -312,27 +307,27 @@ public class RecipeSetup {
         recipes.addShapelessRecipe(new ItemStack(TFCItems.stick, 9),
             BidsItems.tiedStickBundle);
 
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.barkFibre),
-                "itemBarkHasFibers", "itemKnife")
-            .action(damageTool("itemKnife"));
-
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.juteStalk),
-                TFCItems.jute, "itemKnife")
-            .action(damageTool("itemKnife"));
-
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.flaxStalk),
-                TFCItems.flax, "itemKnife")
-            .action(damageTool("itemKnife"))
-            .action(extraDrop(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 6)));
-
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.cottonBollRefined),
-                BidsItems.cottonBoll, "itemKnife")
-            .action(damageTool("itemKnife"));
-
-        // Refining TFC cotton in case it has not been converted
-        recipes.addShapelessRecipe(new ItemStack(BidsItems.cottonBollRefined),
-                TFCItems.cotton, "itemKnife")
-            .action(damageTool("itemKnife"));
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.barkFiber),
+//                "itemBarkHasFibers", "itemKnife")
+//            .action(damageTool("itemKnife"));
+//
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.juteStalk),
+//                TFCItems.jute, "itemKnife")
+//            .action(damageTool("itemKnife"));
+//
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.flaxStalk),
+//                TFCItems.flax, "itemKnife")
+//            .action(damageTool("itemKnife"))
+//            .action(extraDrop(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 6)));
+//
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.cottonBollRefined),
+//                BidsItems.cottonBoll, "itemKnife")
+//            .action(damageTool("itemKnife"));
+//
+//        // Refining TFC cotton in case it has not been converted
+//        recipes.addShapelessRecipe(new ItemStack(BidsItems.cottonBollRefined),
+//                TFCItems.cotton, "itemKnife")
+//            .action(damageTool("itemKnife"));
 
 //        recipes.addShapelessRecipe(new ItemStack(BidsItems.birchBarkCup, 1),
 //            BidsItems.birchBarkCupUnfinished, Items.slime_ball);
@@ -1698,43 +1693,43 @@ public class RecipeSetup {
 
     private static void registerHandworkRecipes() {
         Bids.LOG.info("Register handwork recipes");
-
-        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.barkFibreSmooth), new ItemStack(BidsItems.barkFibreCoarse), 80));
-        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(TFCItems.juteFiber), new ItemStack(BidsItems.juteStalkRetted), 80));
-        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.flaxStalkBroken), new ItemStack(BidsItems.flaxStalkDried), 240));
-        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.flaxFiberCoarse), new ItemStack(BidsItems.flaxStalkBroken), 240));
-        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.cottonFiberCoarse), new ItemStack(BidsItems.cottonBollRefined), 60));
-        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.woolFiberCoarse), new ItemStack(BidsItems.woolDried), 60));
-
-        // Flax fiber spinning recipe is preserved as a way to convert TFC+ Flax fibers to string
-        // since unlike other fibers it is not used as an intermediate material in the new extended textile processing
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
-
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberRefined), 120));
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberRefined), 120));
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberRefined), 120));
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreSmooth), 80));
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberRefined), 120));
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberRefined), 120));
-
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberCoarse), 120 * 4));
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberCoarse), 120 * 4));
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberCoarse), 120 * 4));
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberCoarse), 120 * 4));
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberCoarse), 120 * 4));
-        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreCoarse), 80 * 4));
-
-        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 600));
-        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.barkCordage, 12), 600));
-        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.sisalTwine, 8), 600));
-        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.juteTwine, 12), 600));
-
-        BidsRegistry.CARDING_RECIPES.register(new CardingRecipe(new ItemStack(BidsItems.sisalFiberRefined), new ItemStack(BidsItems.sisalFiberCoarse), 80));
-        BidsRegistry.CARDING_RECIPES.register(new CardingRecipe(new ItemStack(BidsItems.cottonFiberRefined), new ItemStack(BidsItems.cottonFiberCoarse), 80));
-        BidsRegistry.CARDING_RECIPES.register(new CardingRecipe(new ItemStack(BidsItems.woolFiberRefined), new ItemStack(BidsItems.woolFiberCoarse), 80));
-
-        BidsRegistry.HECKLING_RECIPES.register(new HecklingRecipe(new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.juteFiberCoarse), 120));
-        BidsRegistry.HECKLING_RECIPES.register(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(BidsItems.flaxFiberCoarse), 120));
+//
+//        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.barkFibreSmooth), new ItemStack(BidsItems.barkFibreCoarse), 80));
+//        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(TFCItems.juteFiber), new ItemStack(BidsItems.juteStalkRetted), 80));
+//        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.flaxStalkBroken), new ItemStack(BidsItems.flaxStalkDried), 240));
+//        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.flaxFiberCoarse), new ItemStack(BidsItems.flaxStalkBroken), 240));
+//        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.cottonFiberCoarse), new ItemStack(BidsItems.cottonBollRefined), 60));
+//        BidsRegistry.HANDWORK_RECIPES.register(new HandworkRecipe(new ItemStack(BidsItems.woolFiberCoarse), new ItemStack(BidsItems.woolDried), 60));
+//
+//        // Flax fiber spinning recipe is preserved as a way to convert TFC+ Flax fibers to string
+//        // since unlike other fibers it is not used as an intermediate material in the new extended textile processing
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
+//
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberRefined), 120));
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberRefined), 120));
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberRefined), 120));
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreSmooth), 80));
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberRefined), 120));
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberRefined), 120));
+//
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberCoarse), 120 * 4));
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberCoarse), 120 * 4));
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberCoarse), 120 * 4));
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberCoarse), 120 * 4));
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberCoarse), 120 * 4));
+//        BidsRegistry.SPINNING_RECIPES.register(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFibreCoarse), 80 * 4));
+//
+//        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 600));
+//        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.barkCordage, 12), 600));
+//        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.sisalTwine, 8), 600));
+//        BidsRegistry.ROPEMAKING_RECIPES.register(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.juteTwine, 12), 600));
+//
+//        BidsRegistry.CARDING_RECIPES.register(new CardingRecipe(new ItemStack(BidsItems.sisalFiberRefined), new ItemStack(BidsItems.sisalFiberCoarse), 80));
+//        BidsRegistry.CARDING_RECIPES.register(new CardingRecipe(new ItemStack(BidsItems.cottonFiberRefined), new ItemStack(BidsItems.cottonFiberCoarse), 80));
+//        BidsRegistry.CARDING_RECIPES.register(new CardingRecipe(new ItemStack(BidsItems.woolFiberRefined), new ItemStack(BidsItems.woolFiberCoarse), 80));
+//
+//        BidsRegistry.HECKLING_RECIPES.register(new HecklingRecipe(new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.juteFiberCoarse), 120));
+//        BidsRegistry.HECKLING_RECIPES.register(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(BidsItems.flaxFiberCoarse), 120));
     }
 
     private static void registerKnappingRecipes() {
@@ -2075,40 +2070,40 @@ public class RecipeSetup {
             .produces(new FluidStack(TFCFluids.HONEYWATER, 5000))
             .withSealTime(0).withMinTechLevel(0).beingSealed(false).removingLiquid(false));
 
-        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
-            .consumes(new ItemStack(TFCItems.sisalFiber), new FluidStack(TFCFluids.FRESHWATER, 100))
-            .produces(new ItemStack(BidsItems.sisalFiberRinsed), new FluidStack(TFCFluids.FRESHWATER, 100))
-            .withSealTime(0).withMinTechLevel(0).beingSealed(false));
-        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
-            .consumes(new ItemStack(BidsItems.juteStalk), new FluidStack(TFCFluids.FRESHWATER, 200))
-            .produces(new ItemStack(BidsItems.juteStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200))
-            .withMinTechLevel(0).beingSealed(false));
-        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
-            .consumes(new ItemStack(BidsItems.flaxStalk), new FluidStack(TFCFluids.FRESHWATER, 200))
-            .produces(new ItemStack(BidsItems.flaxStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200))
-            .withMinTechLevel(0).beingSealed(false));
-        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
-            .consumes(new ItemStack(TFCItems.wool), new FluidStack(TFCFluids.FRESHWATER, 200))
-            .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 200))
-            .withSealTime(16).withMinTechLevel(0).beingSealed(false));
-        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
-            .consumes(new ItemStack(BidsItems.woolWashed), new FluidStack(TFCFluids.FRESHWATER, 100))
-            .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 100))
-            .withSealTime(0).withMinTechLevel(0).beingSealed(false));
-
-        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asMultiItem()
-            .consumes(new ItemStack(BidsItems.sisalTwine), new FluidStack(TFCFluids.WAX, 200))
-            .produces(new ItemStack(TFCBlocks.candleOff), new FluidStack(TFCFluids.WAX, 200))
-            .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0));
-        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asMultiItem()
-            .consumes(new ItemStack(BidsItems.juteTwine), new FluidStack(TFCFluids.WAX, 200))
-            .produces(new ItemStack(TFCBlocks.candleOff), new FluidStack(TFCFluids.WAX, 200))
-            .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0));
-
-        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asMultiItem()
-            .consumes(new ItemStack(BidsItems.cottonBollRefined), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
-            .produces(new ItemStack(TFCItems.ammoniumChlorideBall), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
-            .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0));
+//        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
+//            .consumes(new ItemStack(TFCItems.sisalFiber), new FluidStack(TFCFluids.FRESHWATER, 100))
+//            .produces(new ItemStack(BidsItems.sisalFiberRinsed), new FluidStack(TFCFluids.FRESHWATER, 100))
+//            .withSealTime(0).withMinTechLevel(0).beingSealed(false));
+//        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
+//            .consumes(new ItemStack(BidsItems.juteStalk), new FluidStack(TFCFluids.FRESHWATER, 200))
+//            .produces(new ItemStack(BidsItems.juteStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200))
+//            .withMinTechLevel(0).beingSealed(false));
+//        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
+//            .consumes(new ItemStack(BidsItems.flaxStalk), new FluidStack(TFCFluids.FRESHWATER, 200))
+//            .produces(new ItemStack(BidsItems.flaxStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200))
+//            .withMinTechLevel(0).beingSealed(false));
+//        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
+//            .consumes(new ItemStack(TFCItems.wool), new FluidStack(TFCFluids.FRESHWATER, 200))
+//            .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 200))
+//            .withSealTime(16).withMinTechLevel(0).beingSealed(false));
+//        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asSimple()
+//            .consumes(new ItemStack(BidsItems.woolWashed), new FluidStack(TFCFluids.FRESHWATER, 100))
+//            .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 100))
+//            .withSealTime(0).withMinTechLevel(0).beingSealed(false));
+//
+//        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asMultiItem()
+//            .consumes(new ItemStack(BidsItems.sisalTwine), new FluidStack(TFCFluids.WAX, 200))
+//            .produces(new ItemStack(TFCBlocks.candleOff), new FluidStack(TFCFluids.WAX, 200))
+//            .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0));
+//        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asMultiItem()
+//            .consumes(new ItemStack(BidsItems.juteTwine), new FluidStack(TFCFluids.WAX, 200))
+//            .produces(new ItemStack(TFCBlocks.candleOff), new FluidStack(TFCFluids.WAX, 200))
+//            .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0));
+//
+//        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asMultiItem()
+//            .consumes(new ItemStack(BidsItems.cottonBollRefined), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
+//            .produces(new ItemStack(TFCItems.ammoniumChlorideBall), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
+//            .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0));
 
         BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asItemDemanding()
             .consumes(new ItemStack(TFCItems.powder, 1, 13), new FluidStack(TFCFluids.FRESHWATER, 200))
@@ -2120,10 +2115,10 @@ public class RecipeSetup {
     private static void registerLoomRecipes() {
         Bids.LOG.info("Register TFC loom recipes");
 
-        LoomManager.getInstance().addRecipe(new LoomRecipe(new ItemStack(BidsItems.sisalTwine, 20), new ItemStack(TFCItems.burlapCloth, 1)),
-            new ResourceLocation("terrafirmacraftplus", "textures/blocks/Rope.png"));
-        LoomManager.getInstance().addRecipe(new LoomRecipe(new ItemStack(BidsItems.juteTwine, 16), new ItemStack(TFCItems.burlapCloth, 1)),
-            new ResourceLocation("terrafirmacraftplus", "textures/blocks/Rope.png"));
+//        LoomManager.getInstance().addRecipe(new LoomRecipe(new ItemStack(BidsItems.sisalTwine, 20), new ItemStack(TFCItems.burlapCloth, 1)),
+//            new ResourceLocation("terrafirmacraftplus", "textures/blocks/Rope.png"));
+//        LoomManager.getInstance().addRecipe(new LoomRecipe(new ItemStack(BidsItems.juteTwine, 16), new ItemStack(TFCItems.burlapCloth, 1)),
+//            new ResourceLocation("terrafirmacraftplus", "textures/blocks/Rope.png"));
     }
 
     private static void registerAnvilRecipes() {

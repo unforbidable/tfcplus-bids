@@ -6,6 +6,7 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingCheeseRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
@@ -138,7 +139,7 @@ public class Cooking extends Feature {
                 .build());
 
         // TODO use ore dictionary (FEATURE)
-        for (Item stringItem : new Item[]{TFCItems.silkString, TFCItems.woolYarn, TFCItems.linenString, TFCItems.cottonYarn/*, BidsItems.juteTwine, BidsItems.sisalTwine*/}) {
+        for (Item stringItem : new Item[]{TFCItems.silkString, TFCItems.woolYarn, TFCItems.linenString, TFCItems.cottonYarn, BidsItems.juteTwine, BidsItems.sisalTwine}) {
             setup.registry(CookingRegistry.recipes)
                 .add(CookingRecipe.builder()
                     .consumes(new FluidStack(TFCFluids.WAX, 200), new ItemStack(stringItem))

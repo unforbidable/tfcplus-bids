@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.core.crafting.MatchingRecipe;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManager;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
+import com.unforbidable.tfc.bids.features.material.textile.TextileConfig;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -76,7 +77,7 @@ public class RecipeHelper {
     }
 
     public static void handleSpindleSpinningRecipes() {
-        if (BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes) {
+        if (TextileConfig.removeOriginalSpindleSpinningRecipes) {
             try (RecipeManagerSession recipes = RecipeManager.getSession()) {
                 recipes.currentRecipeStream()
                     .filter(r -> r.input.contains(TFCItems.spindle))
@@ -86,7 +87,7 @@ public class RecipeHelper {
     }
 
     public static void handleRopeMakingRecipes() {
-        if (BidsOptions.Crafting.removeOriginalRopeMakingRecipes) {
+        if (TextileConfig.removeOriginalRopeMakingRecipes) {
             try (RecipeManagerSession recipes = RecipeManager.getSession()) {
                 recipes.currentRecipeStream()
                     .filter(r -> r.output.is(TFCItems.rope))
@@ -96,7 +97,7 @@ public class RecipeHelper {
     }
 
     public static void handleLoomRecipes() {
-        if (BidsOptions.Crafting.removeOriginalBurlapFiberLoomRecipes) {
+        if (TextileConfig.removeOriginalBurlapFiberLoomRecipes) {
             List<LoomRecipe> recipes = LoomManager.getInstance().getRecipes();
             for (int i = 0; i < recipes.size(); i++) {
                 LoomRecipe recipe = recipes.get(i);

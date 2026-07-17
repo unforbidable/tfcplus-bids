@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.features.resource.crop.eventhandler;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.features.resource.crop.CropConfig;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.Random;
@@ -40,13 +39,6 @@ public class CropPlayerInteractHandler {
                 convertPickedItem(entityItem, player, BidsItems.seedsNewGarlic);
             } else if (entityItem.getEntityItem().getItem() == TFCItems.seedsCarrot) {
                 convertPickedItem(entityItem, player, BidsItems.seedsNewCarrot);
-            }
-        }
-
-        if (BidsOptions.Crafting.enableCottonBollAutoConversion) {
-            // When harvesting cotton, return unrefined cotton boll instead
-            if (entityItem.getEntityItem().getItem() == TFCItems.cotton) {
-                convertPickedItem(entityItem, player, BidsItems.cottonBoll);
             }
         }
     }

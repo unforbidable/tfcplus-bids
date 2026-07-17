@@ -34,53 +34,6 @@ public class ConfigHandler {
             BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes,
             "Set this to true if you want to add missing leather armor repair recipes.");
 
-        BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes = config.getBoolean(
-            "removeOriginalSpindleSpinningRecipes", "crafting",
-            BidsOptions.Crafting.removeOriginalSpindleSpinningRecipes,
-            "Set this to true if you want to remove recipes for crafting strings and yarns with spindle in the crafting grid.");
-        BidsOptions.Crafting.spinningDurationMultiplier = config.getFloat(
-            "spinningDurationMultiplier", "crafting",
-            BidsOptions.Crafting.spinningDurationMultiplier, 0.5f, 4f,
-            "Higher values increase the time it takes to spin strings and yarns using a spindle.");
-
-        BidsOptions.Crafting.preventRopeMakingByRightClickingFibers = config.getBoolean(
-            "preventRopeMakingByRightClickingFibers", "crafting",
-            BidsOptions.Crafting.preventRopeMakingByRightClickingFibers,
-            "Set this to true if you want to prevent players from making ropes by right clicking fibers in hand.");
-        BidsOptions.Crafting.removeOriginalRopeMakingRecipes = config.getBoolean(
-            "removeOriginalRopeMakingRecipes", "crafting",
-            BidsOptions.Crafting.removeOriginalRopeMakingRecipes,
-            "Set this to true if you want to remove recipes for crafting ropes from fibers in crafting grid.");
-        BidsOptions.Crafting.ropeMakingDurationMultiplier = config.getFloat(
-            "ropeMakingDurationMultiplier", "crafting",
-            BidsOptions.Crafting.ropeMakingDurationMultiplier, 0.5f, 4f,
-            "Higher values increase the time it takes to twist rope using a primitive rope maker.");
-
-        BidsOptions.Crafting.removeOriginalBurlapFiberLoomRecipes = config.getBoolean(
-            "removeOriginalBurlapFiberLoomRecipes", "crafting",
-            BidsOptions.Crafting.removeOriginalBurlapFiberLoomRecipes,
-            "Set this to true if you want to remove recipes for crafting burlap directly from sisal and jute fibers on a Loom. Burlap can still be crafted from sisal and jute twine.");
-
-        BidsOptions.Crafting.cardingDurationMultiplier = config.getFloat(
-            "cardingDurationMultiplier", "crafting",
-            BidsOptions.Crafting.cardingDurationMultiplier, 0.5f, 4f,
-            "Higher values increase the time it takes to card fibers using a thorn or metal card.");
-
-        BidsOptions.Crafting.hecklingDurationMultiplier = config.getFloat(
-            "hecklingDurationMultiplier", "crafting",
-            BidsOptions.Crafting.hecklingDurationMultiplier, 0.5f, 4f,
-            "Higher values increase the time it takes to heckle fibers using a bone heckle.");
-
-        BidsOptions.Crafting.handworkDurationMultiplier = config.getFloat(
-            "handworkDurationMultiplier", "crafting",
-            BidsOptions.Crafting.handworkDurationMultiplier, 0.5f, 4f,
-            "Higher values increase the time it takes to process items by hand by holding right-mouse button.");
-
-        BidsOptions.Crafting.enableCottonBollAutoConversion = config.getBoolean(
-            "enableCottonBollAutoConversion", "crafting",
-            BidsOptions.Crafting.enableCottonBollAutoConversion,
-            "Set this to true if you want to automatically convert harvested cotton boll when picked up.");
-
         BidsOptions.Miscellaneous.soapUsageRewardXP = config.getInt(
             "soapUsageRewardXP", "miscellaneous",
             BidsOptions.Miscellaneous.soapUsageRewardXP, 0, 4,

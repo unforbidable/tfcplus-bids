@@ -4,12 +4,14 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackFoodRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
+import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.features.crafting.drying.DryingRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.block.BlockDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingrack.eventhandler.DryingRackEventHandler;
 import com.unforbidable.tfc.bids.features.device.dryingrack.render.RenderDryingRack;
@@ -54,10 +56,6 @@ public class DryingRack extends Feature {
             .add(new DryingRackTyingEquipment(TFCItems.linenString, false, Blocks.wool, 0))
             .add(new DryingRackTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0))
             .add(new DryingRackTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0));
-        // TODO register in respective features
-        //.add(new DryingRackTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1))
-        //.add(new DryingRackTyingEquipment(BidsItems.sisalTwine, false, Blocks.wool, 1))
-        //.add(new DryingRackTyingEquipment(BidsItems.juteTwine, false, Blocks.wool, 1));
 
         // TODO add BidsItems.goatCheese drying to respective feature
         final Item[] foodToDry = new Item[]{TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
@@ -73,6 +71,9 @@ public class DryingRack extends Feature {
                     .hours(16)
                     .build());
         }
+
+        setup.registry(DryingRegistry.wetness)
+            .add(TFCItems.seaWeed, new WetnessInfo(500, 1f));
 
         setup.registry(DryingRackRegistry.recipes)
             .add((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()

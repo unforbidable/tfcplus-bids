@@ -200,52 +200,11 @@ public class Woodworking extends Feature {
                 .cutout(Shape.pointAt(4, 20)) // hole
                 .build());
 
-        setup.registry(WoodworkingRegistry.plans)
-            .add(Plan.create(WoodworkingPlanNames.PLAN_COMB_PADDLE)
-                .cutout(Shape.rectFrom(0, 0).size(5, 12)) // top 1/2 left cut off
-                .cutout(Shape.rectFrom(8, 0).size(5, 12)) // top 1/2 right cut off
-                .cutout(Shape.rectFrom(0, 12).size(3, 13)) // bottom 1/2 left cut off
-                .cutout(Shape.rectFrom(10, 12).size(3, 13)) // bottom 1/2 right cut off
-                .cutout(Shape.triFrom(3, 12).size(2, 2)) // top left corner
-                .cutout(Shape.triFrom(10, 12).size(-2, 2)) // top right corner
-                .cutout(Shape.pointAt(4, 23)) // hole
-                .cutout(Shape.pointAt(6, 23)) // hole
-                .cutout(Shape.pointAt(8, 23)) // hole
-                .cutout(Shape.pointAt(4, 21)) // hole
-                .cutout(Shape.pointAt(6, 21)) // hole
-                .cutout(Shape.pointAt(8, 21)) // hole
-                .cutout(Shape.pointAt(4, 19)) // hole
-                .cutout(Shape.pointAt(6, 19)) // hole
-                .cutout(Shape.pointAt(8, 19)) // hole
-                .cutout(Shape.pointAt(4, 17)) // hole
-                .cutout(Shape.pointAt(6, 17)) // hole
-                .cutout(Shape.pointAt(8, 17)) // hole
-                .cutout(Shape.pointAt(4, 15)) // hole
-                .cutout(Shape.pointAt(6, 15)) // hole
-                .cutout(Shape.pointAt(8, 15)) // hole
-                .build());
-
-        setup.registry(WoodworkingRegistry.plans)
-            .add(Plan.create(WoodworkingPlanNames.PLAN_KNIFE_HEAD)
-                .cutout(Shape.rectFrom(0, 0).size(2, 17)) // left
-                .cutout(Shape.rectFrom(4, 0).size(3, 1)) // right top
-                .cutout(Shape.rectFrom(5, 1).size(2, 10)) // right middle
-                .cutout(Shape.rectFrom(4, 11).size(3, 6)) // right bottom
-                .cutout(Shape.triFrom(4, 0).size(-1, 1)) // right top corner
-                .cutout(Shape.triFrom(5, 1).size(-1, 1)) // right lower corner
-                .cutout(Shape.triFrom(5, 11).size(-1, -1)) // right lower corner
-                .cutout(Shape.triFrom(2, 0).size(1, 1)) // right top corner
-                .build());
-
 //        setup.registry(WoodworkingRegistry.recipes)
 //            .add(new WoodworkingOreRecipe(WoodworkingNames.PLAN_MALLET, "logWood", new ItemStack(BidsItems.woodenMallet)));
 //        setup.registry(WoodworkingRegistry.recipes)
 //            .add(new WoodworkingOreRecipe(WoodworkingNames.PLAN_SCUTCHING_KNIFE, "boardWood", new ItemStack(BidsItems.scutchingKnife)));
-//        setup.registry(WoodworkingRegistry.recipes)
-//            .add(new WoodworkingOreRecipe(WoodworkingNames.PLAN_COMB_PADDLE, "boardWood", new ItemStack(BidsItems.woodenCombPaddle)));
 
-//        setup.registry(WoodworkingRegistry.recipes)
-//            .add(new WoodworkingRecipe(WoodworkingNames.PLAN_KNIFE_HEAD, new ItemStack(TFCItems.bone), new ItemStack(BidsItems.boneKnifeHead)));
     }
 
 }

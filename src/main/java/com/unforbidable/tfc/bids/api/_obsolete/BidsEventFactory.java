@@ -2,11 +2,11 @@ package com.unforbidable.tfc.bids.api._obsolete;
 
 import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
 import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
-import com.unforbidable.tfc.bids.api._obsolete.Events.HandworkPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.handwork.HandworkPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
-import com.unforbidable.tfc.bids.api._obsolete.Events.WaterskinChurnEvent;
+import com.unforbidable.tfc.bids.api.features.churning.WaterskinChurnEvent;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingItemEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;

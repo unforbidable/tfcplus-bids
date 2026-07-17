@@ -68,10 +68,6 @@ public class ProcessingSurface extends Feature {
                 setup.ores("blockScrapingSurface")
                     .add(wood.blocks.getThickLog())
                     .add(wood.blocks.getThickLogAlt());
-
-                // TODO Move to own feature
-                setup.ores("blockFlaxWorkingSurface")
-                    .add(wood.blocks.getThickVert());
             }
 
             if (wood.blocks.hasStackedLogs()) {
@@ -166,15 +162,6 @@ public class ProcessingSurface extends Feature {
             .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
                 new ItemStack(TFCItems.sheepSkin, 1, 2),
                 "itemScrapingTool", "blockScrapingSurface", 4));
-
-        // TODO Move to own feature
-//        setup.registry(ProcessingSurfaceRegistry.recipes)
-//            .add(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkBroken),
-//                new ItemStack(BidsItems.flaxStalkDried),
-//                "itemFlaxBreakingTool", "blockFlaxWorkingSurface", 0.25f))
-//            .add(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxFiberCoarse),
-//                new ItemStack(BidsItems.flaxStalkBroken),
-//                "itemFlaxScutchingTool", "blockFlaxWorkingSurface", 0.25f));
     }
 
 }

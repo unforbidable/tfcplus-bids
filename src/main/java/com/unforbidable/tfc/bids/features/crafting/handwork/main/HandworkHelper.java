@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.crafting.handwork.main;
 
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.api._obsolete.Interfaces.IHandworkToolMaterial;
+import com.unforbidable.tfc.bids.api.features.handwork.HandworkToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -34,8 +34,8 @@ public class HandworkHelper {
     }
 
     public static int getColorFromMaterial(ItemStack is, int pass) {
-        if (is.getItem() instanceof IHandworkToolMaterial) {
-            return ((IHandworkToolMaterial) is.getItem()).getColorFromMaterial(is, pass);
+        if (is.getItem() instanceof HandworkToolMaterial) {
+            return ((HandworkToolMaterial) is.getItem()).getColorFromMaterial(is, pass);
         }
 
         if (is.getItem() == TFCItems.linenString) {

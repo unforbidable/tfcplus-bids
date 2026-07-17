@@ -1,11 +1,11 @@
 package com.unforbidable.tfc.bids.features.crafting.spinning.nei;
 
-import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.SpinningRecipe;
+import com.unforbidable.tfc.bids.api.features.handwork.SpinningRecipe;
+import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.features.crafting.handwork.nei.HandworkNeiHandler;
+import com.unforbidable.tfc.bids.features.crafting.spinning.SpinningConfig;
+import com.unforbidable.tfc.bids.features.crafting.spinning.SpinningRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
@@ -27,10 +27,10 @@ public class SpinningNeiHandler extends HandworkNeiHandler {
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == SpinningNeiHandler.class) {
-            for (SpinningRecipe recipe : BidsRegistry.SPINNING_RECIPES) {
+            for (SpinningRecipe recipe : SpinningRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * BidsOptions.Crafting.spinningDurationMultiplier));
+                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * SpinningConfig.spinningDurationMultiplier));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -39,7 +39,7 @@ public class SpinningNeiHandler extends HandworkNeiHandler {
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (SpinningRecipe recipe : BidsRegistry.SPINNING_RECIPES) {
+        for (SpinningRecipe recipe : SpinningRegistry.recipes) {
             final ItemStack output2 = output.copy();
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
@@ -47,18 +47,18 @@ public class SpinningNeiHandler extends HandworkNeiHandler {
             final ItemStack result2 = result.copy();
             result2.stackSize = 1;
             if (ItemStack.areItemStacksEqual(result2, output2)) {
-                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * BidsOptions.Crafting.spinningDurationMultiplier));
+                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * SpinningConfig.spinningDurationMultiplier));
             }
         }
     }
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (SpinningRecipe recipe : BidsRegistry.SPINNING_RECIPES) {
+        for (SpinningRecipe recipe : SpinningRegistry.recipes) {
             if (recipe.matchesIngredient(ingredient)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * BidsOptions.Crafting.spinningDurationMultiplier));
+                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * SpinningConfig.spinningDurationMultiplier));
             }
         }
     }

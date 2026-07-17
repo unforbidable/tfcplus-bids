@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.api._obsolete;
 
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.*;
 import com.unforbidable.tfc.bids.api._obsolete.Interfaces.*;
 import com.unforbidable.tfc.bids.api._obsolete.Registry.*;
+import com.unforbidable.tfc.bids.api.features.handwork.*;
 import net.minecraft.item.ItemStack;
 
 public class BidsRegistry {
@@ -24,11 +24,11 @@ public class BidsRegistry {
 
 //    public static final RecipeRegistry<CarvingRecipe> CARVING_RECIPES = new RecipeRegistry<>("carving");
 //    public static final SimpleRecipeRegistry<ChurningRecipe, FluidStack> CHURNING_RECIPES = new SimpleRecipeRegistry<>("churning");
-    public static final SimpleRecipeRegistry<CardingRecipe, ItemStack> CARDING_RECIPES = new SimpleRecipeRegistry<>("carding");
-    public static final SimpleRecipeRegistry<HandworkRecipe, ItemStack> HANDWORK_RECIPES = new SimpleRecipeRegistry<>("handwork");
-    public static final SimpleRecipeRegistry<HecklingRecipe, ItemStack> HECKLING_RECIPES = new SimpleRecipeRegistry<>("heckling");
-    public static final SimpleRecipeRegistry<RopeMakingRecipe, ItemStack> ROPEMAKING_RECIPES = new SimpleRecipeRegistry<>("ropemaking");
-    public static final SimpleRecipeRegistry<SpinningRecipe, ItemStack> SPINNING_RECIPES = new SimpleRecipeRegistry<>("spinning");
+//    public static final SimpleRecipeRegistry<CardingRecipe, ItemStack> CARDING_RECIPES = new SimpleRecipeRegistry<>("carding");
+//    public static final SimpleRecipeRegistry<HandworkRecipe, ItemStack> HANDWORK_RECIPES = new SimpleRecipeRegistry<>("handwork");
+//    public static final SimpleRecipeRegistry<HecklingRecipe, ItemStack> HECKLING_RECIPES = new SimpleRecipeRegistry<>("heckling");
+//    public static final SimpleRecipeRegistry<RopeMakingRecipe, ItemStack> ROPEMAKING_RECIPES = new SimpleRecipeRegistry<>("ropemaking");
+//    public static final SimpleRecipeRegistry<SpinningRecipe, ItemStack> SPINNING_RECIPES = new SimpleRecipeRegistry<>("spinning");
     //public static final RecipeRegistry<ChoppingBlockRecipe> CHOPPING_BLOCK_RECIPES = new RecipeRegistry<>("chopping");
 //    public static final RecipeRegistry<CookingRecipe> COOKING_RECIPES = new RecipeRegistry<>("cooking");
 //    public static final SimpleRecipeRegistry<DryingRackRecipe, ItemStack> DRYING_RACK_RECIPES = new SimpleRecipeRegistry<>("drying-rack");

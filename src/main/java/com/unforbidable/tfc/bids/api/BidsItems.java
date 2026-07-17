@@ -301,48 +301,53 @@ public class BidsItems {
     public static final Item board = item(ItemNames.BOARD);
     public static final Item shaft = item(ItemNames.SHAFT);
 
+    // Spindle
+    public static final Item whorl = item(ItemNames.WHORL);
+    public static final Item spindle = item(ItemNames.SPINDLE);
 
+    // Rope Maker
+    public static final Item primitiveRopeMaker = item(ItemNames.PRIMITIVE_ROPE_MAKER);
 
+    // Card
+    public static final Item thornBunch = item(ItemNames.THORN_BUNCH);
+    public static final Item thornCard = item(ItemNames.THORN_CARD);
+    public static final Item woodenCombPaddle = item(ItemNames.WOODEN_COMB_PADDLE);
 
+    // Heckle
+    public static final Item boneHeckle = item(ItemNames.BONE_HECKLE);
+    public static final Item boneKnifeHead = item(ItemNames.BONE_KNIFE_BLADE);
 
+    // Textile
+    public static final Item barkFiber = item(ItemNames.BARK_FIBER);
+    public static final Item barkFiberCoarse = item(ItemNames.BARK_FIBER_COARSE);
+    public static final Item barkFiberSmooth = item(ItemNames.BARK_FIBER_SMOOTH);
+    public static final Item barkCordage = item(ItemNames.BARK_CORDAGE);
+    public static final Item barkFibreKindling = item(ItemNames.BARK_FIBER_KINDLING);
+    public static final Item  sisalFiberRinsed = item(ItemNames.SISAL_FIBER_RINSED);
+    public static final Item  sisalFiberCoarse = item(ItemNames.SISAL_FIBER_COARSE);
+    public static final Item  sisalFiberRefined = item(ItemNames.SISAL_FIBER_REFINED);
+    public static final Item  sisalTwine = item(ItemNames.SISAL_TWINE);
+    public static final Item  juteStalk = item(ItemNames.JUTE_STALK);
+    public static final Item  juteStalkRetted = item(ItemNames.JUTE_STALK_RETTED);
+    public static final Item  juteFiberCoarse = item(ItemNames.JUTE_FIBER_COARSE);
+    public static final Item  juteFiberRefined = item(ItemNames.JUTE_FIBER_REFINED);
+    public static final Item  juteTwine = item(ItemNames.JUTE_TWINE);
+    public static final Item  flaxStalk = item(ItemNames.FLAX_STALK);
+    public static final Item  flaxStalkRetted = item(ItemNames.FLAX_STALK_RETTED);
+    public static final Item  flaxStalkDried = item(ItemNames.FLAX_STALK_DRIED);
+    public static final Item  flaxStalkBroken = item(ItemNames.FLAX_STALK_BROKEN);
+    public static final Item  flaxFiberCoarse = item(ItemNames.FLAX_FIBER_COARSE);
+    public static final Item  flaxFiberRefined = item(ItemNames.FLAX_FIBER_REFINED);
+    public static final Item  cottonBoll = item(ItemNames.COTTON_BOLL);
+    public static final Item  cottonBollRefined = item(ItemNames.COTTON_BOLL_REFINED);
+    public static final Item  cottonFiberCoarse = item(ItemNames.COTTON_FIBER_COARSE);
+    public static final Item  cottonFiberRefined = item(ItemNames.COTTON_FIBER_REFINED);
+    public static final Item  woolWashed = item(ItemNames.WOOL_WASHED);
+    public static final Item  woolRinsed = item(ItemNames.WOOL_RINSED);
+    public static final Item  woolDried = item(ItemNames.WOOL_DRIED);
+    public static final Item  woolFiberCoarse = item(ItemNames.WOOL_FIBER_COARSE);
+    public static final Item  woolFiberRefined = item(ItemNames.WOOL_FIBER_REFINED);
 
-
-    public static Item barkFibre;
-    public static Item barkFibreCoarse;
-    public static Item barkFibreSmooth;
-    // OBSOLETE
-    public static Item barkFibreStrip;
-    public static Item barkCordage;
-    public static Item barkFibreKindling;
-
-    public static Item sisalFiberRinsed;
-    public static Item sisalFiberCoarse;
-    public static Item sisalFiberRefined;
-    public static Item sisalTwine;
-
-    public static Item juteStalk;
-    public static Item juteStalkRetted;
-    public static Item juteFiberCoarse;
-    public static Item juteFiberRefined;
-    public static Item juteTwine;
-
-    public static Item flaxStalk;
-    public static Item flaxStalkRetted;
-    public static Item flaxStalkDried;
-    public static Item flaxStalkBroken;
-    public static Item flaxFiberCoarse;
-    public static Item flaxFiberRefined;
-
-    public static Item cottonBoll;
-    public static Item cottonBollRefined;
-    public static Item cottonFiberCoarse;
-    public static Item cottonFiberRefined;
-
-    public static Item woolWashed;
-    public static Item woolRinsed;
-    public static Item woolDried;
-    public static Item woolFiberCoarse;
-    public static Item woolFiberRefined;
 
     public static Item wheatPorridge;
     public static Item barleyPorridge;
@@ -373,16 +378,8 @@ public class BidsItems {
 
     public static Item flaxSeeds;
 
-    public static Item whorl;
-    public static Item spindle;
-    public static Item primitiveRopeMaker;
-    public static Item thornBunch;
-    public static Item thornCard;
-    public static Item boneHeckle;
     public static Item woodenMallet;
     public static Item scutchingKnife;
-    public static Item woodenCombPaddle;
-    public static Item boneKnifeHead;
 
     public static Item soap;
     public static Item uncuredSoap;

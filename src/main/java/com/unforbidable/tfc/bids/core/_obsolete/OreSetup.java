@@ -281,19 +281,19 @@ public class OreSetup {
 //            OreDictionary.registerOre("itemScrapingTool", new ItemStack(knife, 1, WILD));
 //        }
 
-        for (Item item : new Item[] { TFCItems.pole, TFCItems.stick } ) {
-            OreDictionary.registerOre("itemFlaxBreakingTool", new ItemStack(item, 1, WILD));
-            OreDictionary.registerOre("itemFlaxScutchingTool", new ItemStack(item, 1, WILD));
-            OreDictionary.registerOre("itemPrimitiveTool", new ItemStack(item, 1, WILD));
-        }
+//        for (Item item : new Item[] { TFCItems.pole, TFCItems.stick } ) {
+//            OreDictionary.registerOre("itemFlaxBreakingTool", new ItemStack(item, 1, WILD));
+//            OreDictionary.registerOre("itemFlaxScutchingTool", new ItemStack(item, 1, WILD));
+//            OreDictionary.registerOre("itemPrimitiveTool", new ItemStack(item, 1, WILD));
+//        }
+//
+//        OreDictionary.registerOre("itemFlaxBreakingTool", new ItemStack(BidsItems.woodenMallet, 1, WILD));
+//
+//        OreDictionary.registerOre("itemFlaxScutchingTool", new ItemStack(BidsItems.scutchingKnife, 1, WILD));
 
-        OreDictionary.registerOre("itemFlaxBreakingTool", new ItemStack(BidsItems.woodenMallet, 1, WILD));
-
-        OreDictionary.registerOre("itemFlaxScutchingTool", new ItemStack(BidsItems.scutchingKnife, 1, WILD));
-
-        OreDictionary.registerOre("itemWhorl", new ItemStack(BidsItems.whorl, 1, WILD));
-
-        OreDictionary.registerOre("itemSpindle", new ItemStack(BidsItems.spindle));
+//        OreDictionary.registerOre("itemWhorl", new ItemStack(BidsItems.whorl, 1, WILD));
+//
+//        OreDictionary.registerOre("itemSpindle", new ItemStack(BidsItems.spindle));
 
 //        OreDictionary.registerOre("foodBeans", new ItemStack(TFCItems.soybean));
 //        OreDictionary.registerOre("foodBeans", new ItemStack(BidsItems.wildBeans));

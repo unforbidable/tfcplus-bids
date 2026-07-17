@@ -8,25 +8,6 @@ public class BidsOptions {
 
         public static boolean enableSmallAndMediumRawhideSewing = true;
 
-        public static float spinningDurationMultiplier = 1f;
-
-        public static boolean removeOriginalSpindleSpinningRecipes = false;
-
-        public static float ropeMakingDurationMultiplier = 1f;
-
-        public static boolean removeOriginalRopeMakingRecipes = false;
-        public static boolean preventRopeMakingByRightClickingFibers = false;
-
-        public static boolean removeOriginalBurlapFiberLoomRecipes = false;
-
-        public static float cardingDurationMultiplier = 1f;
-
-        public static float hecklingDurationMultiplier = 1f;
-
-        public static float handworkDurationMultiplier = 1f;
-
-        public static boolean enableCottonBollAutoConversion = false;
-
     }
 
     public static class Miscellaneous {

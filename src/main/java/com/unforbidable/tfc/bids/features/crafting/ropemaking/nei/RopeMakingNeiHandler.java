@@ -1,12 +1,12 @@
 package com.unforbidable.tfc.bids.features.crafting.ropemaking.nei;
 
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
-import com.unforbidable.tfc.bids.api._obsolete.Crafting.RopeMakingRecipe;
+import com.unforbidable.tfc.bids.api.features.handwork.RopeMakingRecipe;
+import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.features.crafting.handwork.nei.HandworkNeiHandler;
+import com.unforbidable.tfc.bids.features.crafting.ropemaking.RopeMakingConfig;
+import com.unforbidable.tfc.bids.features.crafting.ropemaking.RopeMakingRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
@@ -26,10 +26,10 @@ public class RopeMakingNeiHandler extends HandworkNeiHandler {
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == RopeMakingNeiHandler.class) {
-            for (RopeMakingRecipe recipe : BidsRegistry.ROPEMAKING_RECIPES) {
+            for (RopeMakingRecipe recipe : RopeMakingRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration() * BidsOptions.Crafting.ropeMakingDurationMultiplier));
+                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration() * RopeMakingConfig.ropeMakingDurationMultiplier));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -38,7 +38,7 @@ public class RopeMakingNeiHandler extends HandworkNeiHandler {
 
     @Override
     public void loadCraftingRecipes(ItemStack output) {
-        for (RopeMakingRecipe recipe : BidsRegistry.ROPEMAKING_RECIPES) {
+        for (RopeMakingRecipe recipe : RopeMakingRegistry.recipes) {
             final ItemStack output2 = output.copy();
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
@@ -46,18 +46,18 @@ public class RopeMakingNeiHandler extends HandworkNeiHandler {
             final ItemStack result2 = result.copy();
             result2.stackSize = 1;
             if (ItemStack.areItemStacksEqual(result2, output2)) {
-                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration() * BidsOptions.Crafting.ropeMakingDurationMultiplier));
+                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration() * RopeMakingConfig.ropeMakingDurationMultiplier));
             }
         }
     }
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (RopeMakingRecipe recipe : BidsRegistry.ROPEMAKING_RECIPES) {
+        for (RopeMakingRecipe recipe : RopeMakingRegistry.recipes) {
             if (recipe.matchesIngredient(ingredient)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration() * BidsOptions.Crafting.ropeMakingDurationMultiplier));
+                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration() * RopeMakingConfig.ropeMakingDurationMultiplier));
             }
         }
     }

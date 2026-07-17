@@ -1,34 +1,23 @@
 package com.unforbidable.tfc.bids.core._obsolete;
 
-import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.api.*;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsFluids;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBowlFluid;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBucketFluid;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemGlassBottleFluid;
 import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
-import com.unforbidable.tfc.bids.features.material.textile.render.HandworkToolItemRenderer;
+import com.unforbidable.tfc.bids.features.crafting.handwork.render.HandworkToolItemRenderer;
 import com.unforbidable.tfc.bids.common.render.SeasonableItemRenderer;
 import com.unforbidable.tfc.bids.common.render.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.api.*;
-import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
 import com.unforbidable.tfc.bids.common.item.*;
-import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.MudBrickRenderInfo;
-import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.SoapRenderInfo;
-import com.unforbidable.tfc.bids.features.material.textile.main.EnumTextileHint;
 import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import com.unforbidable.tfc.bids.features.building.mudbrick.render.DryingMudBrickItemRenderer;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemBoard;
-import com.unforbidable.tfc.bids.features.crafting.woodworking.item.ItemShaft;
-import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
-import com.unforbidable.tfc.bids.features.material.powder.item.ItemMorePowder;
 import com.unforbidable.tfc.bids.features.material.soap.item.ItemSoap;
-import com.unforbidable.tfc.bids.features.material.textile.item.*;
 import com.unforbidable.tfc.bids.features.utility.largebowl.item.ItemLargeBowlFluid;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -248,113 +237,113 @@ public class ItemSetup extends BidsItems {
 //        bark = new ItemBark().setMetaNames(Global.WOOD_ALL)
 //            .setUnlocalizedName("Bark");
 
-        barkFibre = new ItemTextile()
-            .addHint(EnumTextileHint.DRYING_FIBRE)
-            .setUnlocalizedName("Bark Fibre");
-        barkFibreCoarse = new ItemTextile()
-            .addHint(EnumTextileHint.RUBBING)
-            .addHint(EnumTextileHint.SPINNING_TWINE)
-            .setUnlocalizedName("Bark Fibre Coarse");
-        barkFibreSmooth = new ItemTextile()
-            .addHint(EnumTextileHint.SPINNING_CORDAGE)
-            .setUnlocalizedName("Bark Fibre Smooth");
-        barkCordage = new ItemTextile().setMaterialColor(0x8c7a4b)
-            .addHint(EnumTextileHint.TWISTING)
-            .setUnlocalizedName("Bark Cordage");
+//        barkFiber = new ItemTextile()
+//            .addHint(EnumTextileHint.DRYING_FIBER)
+//            .setUnlocalizedName("Bark Fibre");
+//        barkFiberCoarse = new ItemTextile()
+//            .addHint(EnumTextileHint.RUBBING)
+//            .addHint(EnumTextileHint.SPINNING_TWINE)
+//            .setUnlocalizedName("Bark Fibre Coarse");
+//        barkFiberSmooth = new ItemTextile()
+//            .addHint(EnumTextileHint.SPINNING_CORDAGE)
+//            .setUnlocalizedName("Bark Fibre Smooth");
+//        barkCordage = new ItemTextile().setMaterialColor(0x8c7a4b)
+//            .addHint(EnumTextileHint.TWISTING)
+//            .setUnlocalizedName("Bark Cordage");
 
         // OBSOLETE
-        barkFibreStrip = new ItemTerra()
-            .setMetaNames(new String[]{"Fresh", "Cured"})
-            .setUnlocalizedName("Bark Fibre Strip");
+//        barkFibreStrip = new ItemTerra()
+//            .setMetaNames(new String[]{"Fresh", "Cured"})
+//            .setUnlocalizedName("Bark Fibre Strip");
 
-        barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1f)
-            .setUnlocalizedName("Bark Fibre Kindling");
+//        barkFibreKindling = new ItemKindling().setFuelKindlingQuality(1f)
+//            .setUnlocalizedName("Bark Fibre Kindling");
 
-        sisalFiberRinsed = new ItemTextile()
-            .addHint(EnumTextileHint.DRYING_FIBRE)
-            .setUnlocalizedName("Sisal Fibre Rinsed");
-        sisalFiberCoarse = new ItemTextile()
-            .addHint(EnumTextileHint.CARDING)
-            .addHint(EnumTextileHint.SPINNING_TWINE)
-            .setUnlocalizedName("Sisal Fibre Coarse");
-        sisalFiberRefined = new ItemTextile().setMaterialColor(0xfdd9ab)
-            .addHint(EnumTextileHint.SPINNING_TWINE)
-            .setUnlocalizedName("Sisal Fibre Refined");
-        sisalTwine = new ItemTextile().setMaterialColor(0x97784f)
-            .addHint(EnumTextileHint.TWISTING)
-            .addHint(EnumTextileHint.WEAVING_BURLAP)
-            .setUnlocalizedName("Sisal Twine");
-
-        juteStalk = new ItemTextile()
-            .addHint(EnumTextileHint.RETTING_STALK)
-            .setUnlocalizedName("Jute Stalk");
-        juteStalkRetted = new ItemTextile()
-            .addHint(EnumTextileHint.PEELING_STALK)
-            .setUnlocalizedName("Jute Stalk Retted");
-        juteFiberCoarse = new ItemTextile()
-            .addHint(EnumTextileHint.HECKLING)
-            .addHint(EnumTextileHint.SPINNING_TWINE)
-            .setUnlocalizedName("Jute Fibre Coarse");
-        juteFiberRefined = new ItemTextile().setMaterialColor(0xddccb7)
-            .addHint(EnumTextileHint.SPINNING_TWINE)
-            .setUnlocalizedName("Jute Fibre Refined");
-        juteTwine = new ItemTextile().setMaterialColor(0x765d42)
-            .addHint(EnumTextileHint.TWISTING)
-            .addHint(EnumTextileHint.WEAVING_BURLAP)
-            .setUnlocalizedName("Jute Twine");
-
-        flaxStalk = new ItemTextile()
-            .addHint(EnumTextileHint.RETTING_STALK)
-            .setUnlocalizedName("Flax Stalk");
-        flaxStalkRetted = new ItemTextile()
-            .addHint(EnumTextileHint.DRYING_FIBRE)
-            .setUnlocalizedName("Flax Stalk Retted");
-        flaxStalkDried = new ItemTextile()
-            .addHint(EnumTextileHint.BREAKING_HAND)
-            .addHint(EnumTextileHint.BREAKING_SURFACE)
-            .setUnlocalizedName("Flax Stalk Dried");
-        flaxStalkBroken = new ItemTextile()
-            .addHint(EnumTextileHint.SCUTCHING_HAND)
-            .addHint(EnumTextileHint.SCUTCHING_SURFACE)
-            .setUnlocalizedName("Flax Stalk Broken");
-        flaxFiberCoarse = new ItemTextile()
-            .addHint(EnumTextileHint.HECKLING)
-            .addHint(EnumTextileHint.SPINNING_STRING)
-            .setUnlocalizedName("Flax Fibre Coarse");
-        flaxFiberRefined = new ItemTextile().setMaterialColor(0xb0c389)
-            .addHint(EnumTextileHint.SPINNING_STRING)
-            .setUnlocalizedName("Flax Fibre Refined");
-
-        cottonBoll = new ItemTextile()
-            .addHint(EnumTextileHint.REFINING_BOLL)
-            .setUnlocalizedName("Cotton Boll");
-        cottonBollRefined = new ItemTextile()
-            .addHint(EnumTextileHint.WILLOWING_COTTON)
-            .setUnlocalizedName("Cotton Boll Refined");
-        cottonFiberCoarse = new ItemTextile()
-            .addHint(EnumTextileHint.CARDING)
-            .addHint(EnumTextileHint.SPINNING_YARN)
-            .setUnlocalizedName("Cotton Fibre Coarse");
-        cottonFiberRefined = new ItemTextile().setMaterialColor(0xf3faf0)
-            .addHint(EnumTextileHint.SPINNING_YARN)
-            .setUnlocalizedName("Cotton Fibre Refined");
-
-        woolWashed = new ItemTextile()
-            .addHint(EnumTextileHint.RINSING_WOOL)
-            .setUnlocalizedName("Wool Washed");
-        woolRinsed = new ItemTextile()
-            .addHint(EnumTextileHint.DRYING_WOOL)
-            .setUnlocalizedName("Wool Rinsed");
-        woolDried = new ItemTextile()
-            .addHint(EnumTextileHint.WILLOWING_WOOL)
-            .setUnlocalizedName("Wool Dried");
-        woolFiberCoarse = new ItemTextile()
-            .addHint(EnumTextileHint.CARDING)
-            .addHint(EnumTextileHint.SPINNING_YARN)
-            .setUnlocalizedName("Wool Fibre Coarse");
-        woolFiberRefined = new ItemTextile().setMaterialColor(0xf7f7e6)
-            .addHint(EnumTextileHint.SPINNING_YARN)
-            .setUnlocalizedName("Wool Fibre Refined");
+//        sisalFiberRinsed = new ItemTextile()
+//            .addHint(EnumTextileHint.DRYING_FIBER)
+//            .setUnlocalizedName("Sisal Fibre Rinsed");
+//        sisalFiberCoarse = new ItemTextile()
+//            .addHint(EnumTextileHint.CARDING)
+//            .addHint(EnumTextileHint.SPINNING_TWINE)
+//            .setUnlocalizedName("Sisal Fibre Coarse");
+//        sisalFiberRefined = new ItemTextile().setMaterialColor(0xfdd9ab)
+//            .addHint(EnumTextileHint.SPINNING_TWINE)
+//            .setUnlocalizedName("Sisal Fibre Refined");
+//        sisalTwine = new ItemTextile().setMaterialColor(0x97784f)
+//            .addHint(EnumTextileHint.TWISTING)
+//            .addHint(EnumTextileHint.WEAVING_BURLAP)
+//            .setUnlocalizedName("Sisal Twine");
+//
+//        juteStalk = new ItemTextile()
+//            .addHint(EnumTextileHint.RETTING_STALK)
+//            .setUnlocalizedName("Jute Stalk");
+//        juteStalkRetted = new ItemTextile()
+//            .addHint(EnumTextileHint.PEELING_STALK)
+//            .setUnlocalizedName("Jute Stalk Retted");
+//        juteFiberCoarse = new ItemTextile()
+//            .addHint(EnumTextileHint.HECKLING)
+//            .addHint(EnumTextileHint.SPINNING_TWINE)
+//            .setUnlocalizedName("Jute Fibre Coarse");
+//        juteFiberRefined = new ItemTextile().setMaterialColor(0xddccb7)
+//            .addHint(EnumTextileHint.SPINNING_TWINE)
+//            .setUnlocalizedName("Jute Fibre Refined");
+//        juteTwine = new ItemTextile().setMaterialColor(0x765d42)
+//            .addHint(EnumTextileHint.TWISTING)
+//            .addHint(EnumTextileHint.WEAVING_BURLAP)
+//            .setUnlocalizedName("Jute Twine");
+//
+//        flaxStalk = new ItemTextile()
+//            .addHint(EnumTextileHint.RETTING_STALK)
+//            .setUnlocalizedName("Flax Stalk");
+//        flaxStalkRetted = new ItemTextile()
+//            .addHint(EnumTextileHint.DRYING_FIBER)
+//            .setUnlocalizedName("Flax Stalk Retted");
+//        flaxStalkDried = new ItemTextile()
+//            .addHint(EnumTextileHint.BREAKING_HAND)
+//            .addHint(EnumTextileHint.BREAKING_SURFACE)
+//            .setUnlocalizedName("Flax Stalk Dried");
+//        flaxStalkBroken = new ItemTextile()
+//            .addHint(EnumTextileHint.SCUTCHING_HAND)
+//            .addHint(EnumTextileHint.SCUTCHING_SURFACE)
+//            .setUnlocalizedName("Flax Stalk Broken");
+//        flaxFiberCoarse = new ItemTextile()
+//            .addHint(EnumTextileHint.HECKLING)
+//            .addHint(EnumTextileHint.SPINNING_STRING)
+//            .setUnlocalizedName("Flax Fibre Coarse");
+//        flaxFiberRefined = new ItemTextile().setMaterialColor(0xb0c389)
+//            .addHint(EnumTextileHint.SPINNING_STRING)
+//            .setUnlocalizedName("Flax Fibre Refined");
+//
+//        cottonBoll = new ItemTextile()
+//            .addHint(EnumTextileHint.REFINING_BOLL)
+//            .setUnlocalizedName("Cotton Boll");
+//        cottonBollRefined = new ItemTextile()
+//            .addHint(EnumTextileHint.WILLOWING_COTTON)
+//            .setUnlocalizedName("Cotton Boll Refined");
+//        cottonFiberCoarse = new ItemTextile()
+//            .addHint(EnumTextileHint.CARDING)
+//            .addHint(EnumTextileHint.SPINNING_YARN)
+//            .setUnlocalizedName("Cotton Fibre Coarse");
+//        cottonFiberRefined = new ItemTextile().setMaterialColor(0xf3faf0)
+//            .addHint(EnumTextileHint.SPINNING_YARN)
+//            .setUnlocalizedName("Cotton Fibre Refined");
+//
+//        woolWashed = new ItemTextile()
+//            .addHint(EnumTextileHint.RINSING_WOOL)
+//            .setUnlocalizedName("Wool Washed");
+//        woolRinsed = new ItemTextile()
+//            .addHint(EnumTextileHint.DRYING_WOOL)
+//            .setUnlocalizedName("Wool Rinsed");
+//        woolDried = new ItemTextile()
+//            .addHint(EnumTextileHint.WILLOWING_WOOL)
+//            .setUnlocalizedName("Wool Dried");
+//        woolFiberCoarse = new ItemTextile()
+//            .addHint(EnumTextileHint.CARDING)
+//            .addHint(EnumTextileHint.SPINNING_YARN)
+//            .setUnlocalizedName("Wool Fibre Coarse");
+//        woolFiberRefined = new ItemTextile().setMaterialColor(0xf7f7e6)
+//            .addHint(EnumTextileHint.SPINNING_YARN)
+//            .setUnlocalizedName("Wool Fibre Refined");
 
 //        flatBirchBark = new ItemCommonFlat().setTextureFolder("armor/clothing")
 //            .setUnlocalizedName("Flat Birch Bark");
@@ -938,31 +927,31 @@ public class ItemSetup extends BidsItems {
 //            .setMaxDamage(1000 / 50)
 //            .setUnlocalizedName("Pottery Jug.SkimmedMilk");
 
-        whorl = new ItemWhorl()
-            .setUnlocalizedName("Whorl");
-        spindle = new ItemSpindle(TFCItems.woodToolMaterial)
-            .setUnlocalizedName("Spindle");
+//        whorl = new ItemWhorl()
+//            .setUnlocalizedName("Whorl");
+//        spindle = new ItemSpindle(TFCItems.woodToolMaterial)
+//            .setUnlocalizedName("Spindle");
 
-        primitiveRopeMaker = new ItemPrimitiveRopeMaker(TFCItems.woodToolMaterial)
-            .setUnlocalizedName("Primitive Rope Maker");
+//        primitiveRopeMaker = new ItemPrimitiveRopeMaker(TFCItems.woodToolMaterial)
+//            .setUnlocalizedName("Primitive Rope Maker");
 
-        thornBunch = new ItemThornBunch()
-            .setUnlocalizedName("Thorn Bunch");
-        thornCard = new ItemCard(TFCItems.boneToolMaterial)
-            .setUnlocalizedName("Thorn Card");
+//        thornBunch = new ItemThornBunch()
+//            .setUnlocalizedName("Thorn Bunch");
+//        thornCard = new ItemCard(TFCItems.boneToolMaterial)
+//            .setUnlocalizedName("Thorn Card");
 
-        boneHeckle = new ItemHeckle(TFCItems.boneToolMaterial)
-            .setUnlocalizedName("Bone Heckle");
+//        boneHeckle = new ItemHeckle(TFCItems.boneToolMaterial)
+//            .setUnlocalizedName("Bone Heckle");
 
         woodenMallet = new ItemCommonTool(TFCItems.woodToolMaterial)
             .setUnlocalizedName("Wooden Mallet");
         scutchingKnife = new ItemCommonTool(TFCItems.woodToolMaterial)
             .setUnlocalizedName("Scutching Knife");
 
-        woodenCombPaddle = new ItemCommonToolPart()
-            .setUnlocalizedName("Wooden Comb Paddle");
-        boneKnifeHead = new ItemCommonToolHead()
-            .setUnlocalizedName("Bone Knife Blade");
+//        woodenCombPaddle = new ItemCommonToolPart()
+//            .setUnlocalizedName("Wooden Comb Paddle");
+//        boneKnifeHead = new ItemCommonToolHead()
+//            .setUnlocalizedName("Bone Knife Blade");
 
         soap = new ItemSoap()
             .setUnlocalizedName("Soap");
@@ -1397,8 +1386,8 @@ public class ItemSetup extends BidsItems {
         GameRegistry.registerItem(kindling, kindling.getUnlocalizedName());
 
         GameRegistry.registerItem(bark, bark.getUnlocalizedName());
-        GameRegistry.registerItem(barkFibre, barkFibre.getUnlocalizedName());
-        GameRegistry.registerItem(barkFibreStrip, barkFibreStrip.getUnlocalizedName());
+        GameRegistry.registerItem(barkFiber, barkFiber.getUnlocalizedName());
+        //GameRegistry.registerItem(barkFibreStrip, barkFibreStrip.getUnlocalizedName());
         GameRegistry.registerItem(barkCordage, barkCordage.getUnlocalizedName());
         GameRegistry.registerItem(barkFibreKindling, barkFibreKindling.getUnlocalizedName());
 
@@ -1633,8 +1622,8 @@ public class ItemSetup extends BidsItems {
 
         GameRegistry.registerItem(primitiveRopeMaker, primitiveRopeMaker.getUnlocalizedName());
 
-        GameRegistry.registerItem(barkFibreCoarse, barkFibreCoarse.getUnlocalizedName());
-        GameRegistry.registerItem(barkFibreSmooth, barkFibreSmooth.getUnlocalizedName());
+        GameRegistry.registerItem(barkFiberCoarse, barkFiberCoarse.getUnlocalizedName());
+        GameRegistry.registerItem(barkFiberSmooth, barkFiberSmooth.getUnlocalizedName());
 
         GameRegistry.registerItem(sisalFiberRinsed, sisalFiberRinsed.getUnlocalizedName());
         GameRegistry.registerItem(sisalFiberCoarse, sisalFiberCoarse.getUnlocalizedName());

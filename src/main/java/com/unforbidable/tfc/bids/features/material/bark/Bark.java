@@ -17,7 +17,6 @@ import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
 import com.unforbidable.tfc.bids.features.material.bark.item.ItemBark;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 import static com.unforbidable.tfc.bids.api.names.ItemNames.BARK;
 
@@ -38,11 +37,6 @@ public class Bark extends Feature {
     @Override
     public void setup(FeatureSetupBuilder setup) {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            if (wood.hasBarkFibers) {
-                setup.ores("itemBarkHasFibers")
-                    .add(wood.items.getBark());
-            }
-
             // Extracting tannin from bark
             if (wood.hasBarkTannin) {
                 setup.registry(TfcRegistry.Recipes.barrel)

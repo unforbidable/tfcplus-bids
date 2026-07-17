@@ -9,15 +9,20 @@ import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.building.palisade.Palisade;
 import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
 import com.unforbidable.tfc.bids.features.building.wattle.Wattle;
+import com.unforbidable.tfc.bids.features.crafting.carding.Carding;
 import com.unforbidable.tfc.bids.features.crafting.churning.Churning;
 import com.unforbidable.tfc.bids.features.crafting.cooking.Cooking;
 import com.unforbidable.tfc.bids.features.crafting.dough.Dough;
 import com.unforbidable.tfc.bids.features.crafting.drying.Drying;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
+import com.unforbidable.tfc.bids.features.crafting.handwork.Handwork;
+import com.unforbidable.tfc.bids.features.crafting.heckling.Heckling;
 import com.unforbidable.tfc.bids.features.crafting.pressing.Pressing;
 import com.unforbidable.tfc.bids.features.crafting.processing.Processing;
 import com.unforbidable.tfc.bids.features.crafting.quern.Quern;
+import com.unforbidable.tfc.bids.features.crafting.ropemaking.RopeMaking;
 import com.unforbidable.tfc.bids.features.crafting.soaking.Soaking;
+import com.unforbidable.tfc.bids.features.crafting.spinning.Spinning;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.Woodworking;
 import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.cookingpot.CookingPot;
@@ -60,17 +65,22 @@ import com.unforbidable.tfc.bids.features.material.logs.Logs;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
 import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
 import com.unforbidable.tfc.bids.features.material.powder.Powder;
+import com.unforbidable.tfc.bids.features.material.textile.Textile;
 import com.unforbidable.tfc.bids.features.resource.crop.Crop;
 import com.unforbidable.tfc.bids.features.resource.quarry.Quarry;
 import com.unforbidable.tfc.bids.features.resource.well.Well;
 import com.unforbidable.tfc.bids.features.utility.adze.Adze;
+import com.unforbidable.tfc.bids.features.utility.card.Card;
 import com.unforbidable.tfc.bids.features.utility.compositetools.CompositeTools;
 import com.unforbidable.tfc.bids.features.utility.drill.Drill;
 import com.unforbidable.tfc.bids.features.utility.fluidcontainers.FluidContainers;
 import com.unforbidable.tfc.bids.features.utility.handaxe.HandAxe;
+import com.unforbidable.tfc.bids.features.utility.heckle.Heckle;
+import com.unforbidable.tfc.bids.features.utility.heckle.spindle.Spindle;
 import com.unforbidable.tfc.bids.features.utility.largebowl.LargeBowl;
 import com.unforbidable.tfc.bids.features.utility.leatherwear.Leatherwear;
 import com.unforbidable.tfc.bids.features.utility.pail.Pail;
+import com.unforbidable.tfc.bids.features.utility.ropemaker.RopeMaker;
 import com.unforbidable.tfc.bids.features.utility.spear.Spear;
 import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.UnfinishedAnvil;
 
@@ -149,6 +159,16 @@ public class Features {
         new DryingSurface(),
         new Powder(),
         new Woodworking(),
+        new Handwork(),
+        new Spinning(),
+        new Spindle(),
+        new Carding(),
+        new Card(),
+        new Heckling(),
+        new Heckle(),
+        new RopeMaking(),
+        new RopeMaker(),
+        new Textile(),
     };
 
 }
