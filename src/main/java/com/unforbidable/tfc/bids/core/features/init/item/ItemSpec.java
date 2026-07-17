@@ -22,12 +22,13 @@ public class ItemSpec<T extends Item> {
     public final List<ItemHarvestSpec> harvests;
     public final FoodSpec food;
     public final SmokeSpec smoke;
+    public final HintSpec hint;
 
     public ItemSpec(String name, Supplier<T> item, Consumer<T> apply,
                     DrinkSpec drink, OverlaySpec overlay,
                     MoldSpec mold, MetaSpec meta,
                     List<ItemHarvestSpec> harvests,
-                    FoodSpec food, SmokeSpec smoke) {
+                    FoodSpec food, SmokeSpec smoke, HintSpec hint) {
         this.name = name;
         this.item = item;
         this.apply = apply;
@@ -38,6 +39,7 @@ public class ItemSpec<T extends Item> {
         this.harvests = harvests;
         this.food = food;
         this.smoke = smoke;
+        this.hint = hint;
     }
 
     public T getInstance() {

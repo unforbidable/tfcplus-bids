@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.core.features.setup;
 
 import com.unforbidable.tfc.bids.core.features.setup.eventhandler.EventHandlerSpecCollector;
 import com.unforbidable.tfc.bids.core.features.setup.fluidcontainer.FluidContainerGroupBuilder;
+import com.unforbidable.tfc.bids.core.features.setup.help.HelpGroupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.network.NetworkSetupHelper;
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroupBuilder;
 import com.unforbidable.tfc.bids.core.features.setup.recipe.CraftingRecipeSetupBuilder;
@@ -13,13 +14,17 @@ import com.unforbidable.tfc.bids.util.registry.MapRegistry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class FeatureSetupBuilder {
 
     private final List<RegistryGroupBuilder<?>> lists = new ArrayList<>();
     private final List<MapRegistryGroupBuilder<?, ?>> maps = new ArrayList<>();
     private final List<OreGroupBuilder> ores = new ArrayList<>();
+    private final List<HelpGroupBuilder> help = new ArrayList<>();
     private final List<FluidContainerGroupBuilder> fluids = new ArrayList<>();
     private final CraftingRecipeSetupBuilder craftingRecipes = new CraftingRecipeSetupBuilder();
     private final NetworkSetupHelper network = new NetworkSetupHelper();
@@ -48,6 +53,17 @@ public class FeatureSetupBuilder {
     public OreGroupBuilder ores(String name) {
         OreGroupBuilder builder = new OreGroupBuilder(name);
         ores.add(builder);
+
+        return builder;
+    }
+
+    public HelpGroupBuilder help(Item item) {
+        return help(new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
+    }
+
+    public HelpGroupBuilder help(ItemStack itemStack) {
+        HelpGroupBuilder builder = new HelpGroupBuilder(itemStack);
+        this.help.add(builder);
 
         return builder;
     }
@@ -85,6 +101,9 @@ public class FeatureSetupBuilder {
                 .collect(Collectors.toList()),
             ores.stream()
                 .map(OreGroupBuilder::build)
+                .collect(Collectors.toList()),
+            help.stream()
+                .map(HelpGroupBuilder::build)
                 .collect(Collectors.toList()),
             fluids.stream()
                 .map(FluidContainerGroupBuilder::build)

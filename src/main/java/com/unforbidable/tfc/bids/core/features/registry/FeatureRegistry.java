@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.core.features.init.item.ItemSpec;
 import com.unforbidable.tfc.bids.core.features.init.tileentity.TileEntitySpec;
 import com.unforbidable.tfc.bids.core.features.setup.eventhandler.EventHandlerSpec;
 import com.unforbidable.tfc.bids.core.features.setup.fluidcontainer.FluidContainerSpec;
+import com.unforbidable.tfc.bids.core.features.setup.help.HelpGroup;
 import com.unforbidable.tfc.bids.core.features.setup.ore.OreGroup;
 import com.unforbidable.tfc.bids.core.features.setup.registry.MapRegistryGroup;
 import com.unforbidable.tfc.bids.core.features.setup.registry.RegistryAdapter;
@@ -25,6 +26,8 @@ import com.unforbidable.tfc.bids.core.gui.ContainerProvider;
 import com.unforbidable.tfc.bids.core.gui.GuiRegistry;
 import com.unforbidable.tfc.bids.core.gui.client.ClientGuiRegistry;
 import com.unforbidable.tfc.bids.core.gui.client.GuiScreenProvider;
+import com.unforbidable.tfc.bids.core.help.HelpRegistry;
+import com.unforbidable.tfc.bids.core.help.hints.ItemHint;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -266,6 +269,22 @@ public class FeatureRegistry {
         Bids.LOG.info("Register world generator {}", spec.generator.getClass().getCanonicalName());
 
         GameRegistry.registerWorldGenerator(spec.generator, spec.priority);
+    }
+
+    public void registerItemHints(ItemSpec<?> spec) {
+        if (spec.hint != null) {
+            ItemRegistryEntry item = items.get(spec.name);
+            for (String hint : spec.hint.hints) {
+                ItemStack itemStack = new ItemStack(item.instance, 1, OreDictionary.WILDCARD_VALUE);
+                HelpRegistry.hints.add(new ItemHint(itemStack, hint));
+            }
+        }
+    }
+
+    public void registerItemHints(HelpGroup help) {
+        for (String hint : help.hints) {
+            HelpRegistry.hints.add(new ItemHint(help.itemStack, hint));
+        }
     }
 
     @SideOnly(Side.CLIENT)

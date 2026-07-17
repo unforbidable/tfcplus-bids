@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.core.features.init.item;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -19,6 +20,7 @@ public class ItemSpecBuilder<T extends Item> {
     private final List<ItemHarvestSpec> harvest = new ArrayList<>();
     private FoodSpec food;
     private SmokeSpec smoke;
+    private HintSpec hint;
 
     public ItemSpecBuilder(String name, Supplier<T> item) {
         this.name = name;
@@ -101,8 +103,14 @@ public class ItemSpecBuilder<T extends Item> {
         return this;
     }
 
+    public ItemSpecBuilder<T> hints(String ...hints) {
+        hint = new HintSpec(Arrays.asList(hints));
+
+        return this;
+    }
+
     public ItemSpec<T> build() {
-        return new ItemSpec<>(name, item, apply, drink, overlay, mold, meta, harvest, food, smoke);
+        return new ItemSpec<>(name, item, apply, drink, overlay, mold, meta, harvest, food, smoke, hint);
     }
 
 }

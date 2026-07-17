@@ -131,6 +131,14 @@ public class FeatureInit extends Initializable {
             .flatMap(f -> f.setup(context).generators.stream())
             .forEach(registry::registerWorldGen);
 
+        Bids.LOG.info("Register item hints");
+        loader.getFeatures().stream()
+            .flatMap(f -> f.init(context).items.stream())
+            .forEach(registry::registerItemHints);
+        loader.getFeatures().stream()
+            .flatMap(f -> f.setup(context).help.stream())
+            .forEach(registry::registerItemHints);
+
         loader.getFeatures().stream()
             .flatMap(f -> f.setup(context).runs.stream())
             .forEach(Runnable::run);

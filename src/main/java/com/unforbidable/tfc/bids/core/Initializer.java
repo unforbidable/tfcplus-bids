@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.core.crop.CropInit;
 import com.unforbidable.tfc.bids.core.drink.DrinkInit;
 import com.unforbidable.tfc.bids.core.features.FeatureInit;
 import com.unforbidable.tfc.bids.core.gui.GuiInit;
+import com.unforbidable.tfc.bids.core.help.HelpInit;
 import com.unforbidable.tfc.bids.core.keybinding.KeyBindingInit;
 import com.unforbidable.tfc.bids.core.network.NetworkInit;
 import com.unforbidable.tfc.bids.core.player.PlayerInit;
@@ -34,6 +35,7 @@ public class Initializer {
         new CropInit(),
         new SchemeInit(),
         new SurfaceItemInit(),
+        new HelpInit(),
         new CommonInit(),
 
         new FeatureInit(),
