@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.features.device.dryingsurface.block.BlockDrying
 import com.unforbidable.tfc.bids.features.device.dryingsurface.eventhandler.DryingSurfaceEventHandler;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.SoapRenderInfo;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.render.RenderDryingSurface;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.render.RenderTileDryingSurface;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.waila.DryingSurfaceWailaProvider;
 import cpw.mods.fml.relauncher.Side;
@@ -42,6 +43,9 @@ public class DryingSurface extends Feature {
     public void client(FeatureClientSpecBuilder client) {
         client.render(new RenderDryingSurface())
             .block(BlockDryingSurface.class);
+
+        client.render(new RenderTileDryingSurface())
+            .tileEntity(TileEntityDryingSurface.class);
 
         client.waila()
             .data(new DryingSurfaceWailaProvider(), TileEntityDryingSurface.class);
