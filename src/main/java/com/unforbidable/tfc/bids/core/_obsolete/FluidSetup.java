@@ -79,7 +79,7 @@ public class FluidSetup extends BidsFluids {
         FluidRegistry.registerFluid(SOAP);
         FluidRegistry.registerFluid(UNCUREDSOAP);
         FluidRegistry.registerFluid(SOAPYWATER);
-        FluidRegistry.registerFluid(FLAXSEEDOIL);
+        FluidRegistry.registerFluid(flaxSeedOil);
     }
 
     private static void registerLampFuels() {

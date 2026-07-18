@@ -246,10 +246,6 @@ public class SaddleQuern extends Feature {
                 ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f * inputRatio)))
             .add(new StonePressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputRatio)),
                 new ItemStack(TFCItems.agave, 1)));
-
-//        setup.registry(StonePressRegistry.recipes)
-//            .add(new StonePressRecipe(new FluidStack(BidsFluids.FLAXSEEDOIL, 10),
-//                ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f * inputRatio)));
     }
 
 }

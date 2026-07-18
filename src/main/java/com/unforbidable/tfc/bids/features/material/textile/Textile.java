@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.features.material.textile;
 
+import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
@@ -79,6 +80,7 @@ import static com.unforbidable.tfc.bids.api.names.ItemNames.WOOL_FIBER_REFINED;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.WOOL_RINSED;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.WOOL_WASHED;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
+import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
 
 @FeatureName("textile")
 public class Textile extends Feature {
@@ -231,9 +233,8 @@ public class Textile extends Feature {
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.flaxStalk),
                 TFCItems.flax, "itemKnife")
-            .action(damageTool("itemKnife"));
-        // TODO when edible linseed is added
-        //.action(extraDrop(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 6)));
+            .action(damageTool("itemKnife"))
+            .action(extraDrop(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 6)));
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.juteStalk),
                 TFCItems.jute, "itemKnife")

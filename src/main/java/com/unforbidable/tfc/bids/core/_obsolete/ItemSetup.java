@@ -611,9 +611,9 @@ public class ItemSetup extends BidsItems {
 //            .setDecayRate(0.25f)
 //            .setUnlocalizedName("Broad Beans");
 
-        flaxSeeds = new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 0)
-            .setDecayRate(0.01f)
-            .setUnlocalizedName("Flax Seeds");
+//        flaxSeeds = new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 0)
+//            .setDecayRate(0.01f)
+//            .setUnlocalizedName("Flax Seeds");
 //
 //        seedsSeaBeet = new ItemNewCustomSeeds(BidsCrops.SEEBEAT)
 //            .setUnlocalizedName("Seeds Sea Beet");
@@ -707,10 +707,10 @@ public class ItemSetup extends BidsItems {
             .setContainerItem((TFCItems.glassBottle))
             .setMaxDamage(1000 / 50)
             .setUnlocalizedName("Glass Bottle.SoapyWater");
-        flaxSeedOilBottle = new ItemGlassBottleFluid()
-            .setContainerItem((TFCItems.glassBottle))
-            .setMaxDamage(1000 / 50)
-            .setUnlocalizedName("Glass Bottle.FlaxSeedOil");
+//        flaxSeedOilBottle = new ItemGlassBottleFluid()
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setMaxDamage(1000 / 50)
+//            .setUnlocalizedName("Glass Bottle.FlaxSeedOil");
 
 //        waterskinCream = new ItemWaterskinChurn()
 //            .setContainerItem(TFCItems.waterskinEmpty)
@@ -753,10 +753,10 @@ public class ItemSetup extends BidsItems {
 //            .setMetaNames(new String[]{"PotteryBowl", "Bowl"})
 //            .setContainerItem(TFCItems.potteryBowl)
 //            .setUnlocalizedName("Bowl Fish Oil");
-        flaxSeedOilBowl = new ItemBowlFluid()
-            .setMetaNames(new String[]{"PotteryBowl", "Bowl"})
-            .setContainerItem(TFCItems.potteryBowl)
-            .setUnlocalizedName("Bowl Flax Seed Oil");
+//        flaxSeedOilBowl = new ItemBowlFluid()
+//            .setMetaNames(new String[]{"PotteryBowl", "Bowl"})
+//            .setContainerItem(TFCItems.potteryBowl)
+//            .setUnlocalizedName("Bowl Flax Seed Oil");
 
 //        largeClayBowl = new ItemLargeBowl()
 //            .setUnlocalizedName("Large Bowl");
@@ -1003,9 +1003,9 @@ public class ItemSetup extends BidsItems {
             new ItemStack(fishOilBowl, 1, 0), new ItemStack(TFCItems.potteryBowl, 1, 1));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.fishOil, 250),
             new ItemStack(fishOilBowl, 1, 1), new ItemStack(TFCItems.potteryBowl, 1, 2));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.FLAXSEEDOIL, 250),
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.flaxSeedOil, 250),
             new ItemStack(flaxSeedOilBowl, 1, 0), new ItemStack(TFCItems.potteryBowl, 1, 1));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.FLAXSEEDOIL, 250),
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.flaxSeedOil, 250),
             new ItemStack(flaxSeedOilBowl, 1, 1), new ItemStack(TFCItems.potteryBowl, 1, 2));
 
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.BRINE, 1000),

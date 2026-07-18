@@ -348,6 +348,11 @@ public class BidsItems {
     public static final Item  woolFiberCoarse = item(ItemNames.WOOL_FIBER_COARSE);
     public static final Item  woolFiberRefined = item(ItemNames.WOOL_FIBER_REFINED);
 
+    // Linseed
+    public static final Item flaxSeeds = item(ItemNames.FLAX_SEEDS);
+    public static final Item flaxSeedOilBottle = item(ItemNames.BOTTLE_FLAX_SEED_OIL);
+    public static final Item flaxSeedOilBowl = item(ItemNames.BOWL_FLAX_SEED_OIL);
+
 
     public static Item wheatPorridge;
     public static Item barleyPorridge;
@@ -361,9 +366,6 @@ public class BidsItems {
     public static Item weakWoodAshLyeBottle;
     public static Item woodAshLyeBottle;
     public static Item soapyWaterBottle;
-    public static Item flaxSeedOilBottle;
-
-    public static Item flaxSeedOilBowl;
 
     public static Item weakWoodAshLyeLargeBowl;
     public static Item woodAshLyeLargeBowl;
@@ -375,8 +377,6 @@ public class BidsItems {
     public static Item ceramicBucketBrine;
     public static Item ceramicBucketHoneyWater;
     public static Item ceramicBucketMilkVinegar;
-
-    public static Item flaxSeeds;
 
     public static Item woodenMallet;
     public static Item scutchingKnife;

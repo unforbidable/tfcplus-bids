@@ -6,9 +6,10 @@ import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.common.item.ItemFoodLike;
-import com.unforbidable.tfc.bids.util.playerstate.PlayerStateManager;
 import com.unforbidable.tfc.bids.core.player._obsolete.PlayerStats;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
+import com.unforbidable.tfc.bids.features.material.soap.SoapConfig;
+import com.unforbidable.tfc.bids.util.playerstate.PlayerStateManager;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,8 +19,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.Random;
 
 public class ItemSoap extends ItemFoodLike {
 
@@ -97,8 +96,8 @@ public class ItemSoap extends ItemFoodLike {
                 playerStats.lastSoapUsageTicks = TFC_Time.getTotalTicks();
 
                 long ticksSinceLastSoapUsageRewarded = TFC_Time.getTotalTicks() - playerStats.lastSoapUsageRewardedTicks;
-                if (ticksSinceLastSoapUsageRewarded > TFC_Time.HOUR_LENGTH * BidsOptions.Miscellaneous.soapUsageRewardCoolDown) {
-                    int n = BidsOptions.Miscellaneous.soapUsageRewardXP;
+                if (ticksSinceLastSoapUsageRewarded > TFC_Time.HOUR_LENGTH * SoapConfig.soapUsageRewardCoolDown) {
+                    int n = SoapConfig.soapUsageRewardXP;
                     while (n > 0) {
                         int split = EntityXPOrb.getXPSplit(n);
                         player.worldObj.spawnEntityInWorld(new EntityXPOrb(player.worldObj, player.posX, player.posY, player.posZ, split));

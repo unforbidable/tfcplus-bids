@@ -13,6 +13,7 @@ public interface FluidNames {
     String SKIMMED_MILK_CURDLED = "SkimmedMilkCurdled";
     String OILY_FISH_WATER = "OilyFishWater";
     String FISH_OIL = "FishOil";
+    String FLAX_SEED_OIL = "FlaxSeedOil";
 
 //    String BEAN = "bean";
 //    String BEAN_WATER = "beanWater";

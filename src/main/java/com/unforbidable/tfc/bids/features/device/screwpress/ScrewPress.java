@@ -190,11 +190,6 @@ public class ScrewPress extends Feature {
         setup.registry(ScrewPressRegistry.recipes)
             .add(new ScrewPressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputMult)),
                 new ItemStack(TFCItems.agave, 1), 0.8f));
-
-        // TODO move to respective feature
-//        setup.registry(ScrewPressRegistry.recipes)
-//            .add(new ScrewPressRecipe(new FluidStack(BidsFluids.FLAXSEEDOIL, 10),
-//                ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f * inputMult), 0.25f));
     }
 
 }
