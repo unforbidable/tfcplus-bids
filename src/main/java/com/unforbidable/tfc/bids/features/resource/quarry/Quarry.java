@@ -96,10 +96,6 @@ public class Quarry extends Feature {
                 PLUG_AND_FEATHER_PLAN, 2, new ItemStack(BidsItems.plugAndFeather, 8, 4), Skills.GENERAL_SMITHING))
             .add(AnvilRecipe.add(new ItemStack(TFCItems.wroughtIronIngot), null,
                 PLUG_AND_FEATHER_PLAN, 3, new ItemStack(BidsItems.plugAndFeather, 8, 5), Skills.GENERAL_SMITHING));
-
-        // TODO temporary for testing until Rough Stone is added
-        setup.registry(QuarryRegistry.quarriable)
-            .add(new QuarriableStone(TFCBlocks.stoneSed, TFCBlocks.stoneSed, 1, 1f));
     }
 
 }

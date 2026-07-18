@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.building.roughstone;
 
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -25,6 +26,8 @@ import com.unforbidable.tfc.bids.features.building.roughstone.main.carvable.Carv
 import com.unforbidable.tfc.bids.features.building.roughstone.main.carvable.CarvableRoughStoneBrick;
 import com.unforbidable.tfc.bids.features.building.roughstone.main.carvable.CarvableRoughStoneTile;
 import com.unforbidable.tfc.bids.features.building.roughstone.render.RenderRoughStoneFence;
+import com.unforbidable.tfc.bids.features.resource.quarry.QuarryRegistry;
+import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarriableStone;
 
 import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_FENCE_IG_EX;
 import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_FENCE_IG_IN;
@@ -202,5 +205,12 @@ public class RoughStone extends Feature {
             .add(new CarvableRoughStone())
             .add(new CarvableRoughStoneBrick())
             .add(new CarvableRoughStoneTile());
+
+        setup.registry(QuarryRegistry.quarriable)
+            .add(new QuarriableStone(TFCBlocks.stoneSed, BidsBlocks.roughStoneSed, 1, 1))
+            .add(new QuarriableStone(TFCBlocks.stoneMM, BidsBlocks.roughStoneMM, 1, 1))
+            .add(new QuarriableStone(TFCBlocks.stoneIgIn, BidsBlocks.roughStoneIgIn, 1, 1))
+            .add(new QuarriableStone(TFCBlocks.stoneIgEx, BidsBlocks.roughStoneIgEx, 1, 1));
     }
+
 }
