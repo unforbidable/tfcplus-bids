@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.core.surfaceitem;
 
 import com.dunk.tfc.api.Util.Helper;
-import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
+import com.unforbidable.tfc.bids.BidsEventFactory;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MovingObjectPosition;

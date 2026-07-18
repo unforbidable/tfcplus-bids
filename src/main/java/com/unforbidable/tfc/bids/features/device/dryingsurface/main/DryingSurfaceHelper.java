@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.device.dryingsurface.main;
 import com.dunk.tfc.Items.ItemClothing;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
+import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceConfig;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;

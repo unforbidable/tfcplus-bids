@@ -1,17 +1,18 @@
-package com.unforbidable.tfc.bids.api._obsolete;
+package com.unforbidable.tfc.bids;
 
-import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
-import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
-import com.unforbidable.tfc.bids.api.features.handwork.HandworkPlayerEvent;
-import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
-import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
-import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.api.features.churning.WaterskinChurnEvent;
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingItemEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
+import com.unforbidable.tfc.bids.api.features.handwork.HandworkPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
+import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
+import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
+import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlayerEvent;
+import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
+import java.awt.geom.Area;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,7 +21,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import java.awt.geom.Area;
 
 public class BidsEventFactory {
 

@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.crafting.drying.main;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemClothing;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
+import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.IDryingFoodRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;

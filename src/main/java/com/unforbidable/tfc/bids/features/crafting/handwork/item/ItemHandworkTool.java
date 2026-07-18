@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.crafting.handwork.item;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
+import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.features.handwork.HandworkRecipe;
 import com.unforbidable.tfc.bids.common.item.ItemCommonTool;
 import com.unforbidable.tfc.bids.features.crafting.handwork.main.HandworkHelper;

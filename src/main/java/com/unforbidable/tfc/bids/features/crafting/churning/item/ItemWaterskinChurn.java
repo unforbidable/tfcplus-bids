@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.crafting.churning.item;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
+import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.names.SoundNames;
 import com.unforbidable.tfc.bids.api.features.churning.ChurningRecipe;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemWaterskinFluid;

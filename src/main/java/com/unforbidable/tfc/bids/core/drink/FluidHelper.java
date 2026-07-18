@@ -5,7 +5,7 @@ import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.Util.Helper;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
+import com.unforbidable.tfc.bids.BidsEventFactory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.kiln.main.engine;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
+import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.features.kiln.KilnChamber;
 import com.unforbidable.tfc.bids.api.features.kiln.KilnEngine;
 import com.unforbidable.tfc.bids.api.features.kiln.KilnHeatSource;
