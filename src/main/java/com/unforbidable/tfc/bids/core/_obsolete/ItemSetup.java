@@ -695,18 +695,18 @@ public class ItemSetup extends BidsItems {
 //            .setContainerItem((TFCItems.glassBottle))
 //            .setMaxDamage(1000 / 50)
 //            .setUnlocalizedName("Glass Bottle.Cream");
-        weakWoodAshLyeBottle = new ItemGlassBottleFluid()
-            .setContainerItem((TFCItems.glassBottle))
-            .setMaxDamage(1000 / 50)
-            .setUnlocalizedName("Glass Bottle.WeakWoodAshLye");
-        woodAshLyeBottle = new ItemGlassBottleFluid()
-            .setContainerItem((TFCItems.glassBottle))
-            .setMaxDamage(1000 / 50)
-            .setUnlocalizedName("Glass Bottle.WoodAshLye");
-        soapyWaterBottle = new ItemGlassBottleFluid()
-            .setContainerItem((TFCItems.glassBottle))
-            .setMaxDamage(1000 / 50)
-            .setUnlocalizedName("Glass Bottle.SoapyWater");
+//        weakWoodAshLyeBottle = new ItemGlassBottleFluid()
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setMaxDamage(1000 / 50)
+//            .setUnlocalizedName("Glass Bottle.WeakWoodAshLye");
+//        woodAshLyeBottle = new ItemGlassBottleFluid()
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setMaxDamage(1000 / 50)
+//            .setUnlocalizedName("Glass Bottle.WoodAshLye");
+//        soapyWaterBottle = new ItemGlassBottleFluid()
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setMaxDamage(1000 / 50)
+//            .setUnlocalizedName("Glass Bottle.SoapyWater");
 //        flaxSeedOilBottle = new ItemGlassBottleFluid()
 //            .setContainerItem((TFCItems.glassBottle))
 //            .setMaxDamage(1000 / 50)
@@ -793,14 +793,14 @@ public class ItemSetup extends BidsItems {
 //            .setMetaNames(new String[]{"Pottery"})
 //            .setContainerItem(BidsItems.largeClayBowl)
 //            .setUnlocalizedName("Large Bowl.Cream");
-        weakWoodAshLyeLargeBowl = new ItemLargeBowlFluid()
-            .setMetaNames(new String[]{"Pottery"})
-            .setContainerItem(BidsItems.largeClayBowl)
-            .setUnlocalizedName("Large Bowl.WeakWoodAshLye");
-        woodAshLyeLargeBowl = new ItemLargeBowlFluid()
-            .setMetaNames(new String[]{"Pottery"})
-            .setContainerItem(BidsItems.largeClayBowl)
-            .setUnlocalizedName("Large Bowl.WoodAshLye");
+//        weakWoodAshLyeLargeBowl = new ItemLargeBowlFluid()
+//            .setMetaNames(new String[]{"Pottery"})
+//            .setContainerItem(BidsItems.largeClayBowl)
+//            .setUnlocalizedName("Large Bowl.WeakWoodAshLye");
+//        woodAshLyeLargeBowl = new ItemLargeBowlFluid()
+//            .setMetaNames(new String[]{"Pottery"})
+//            .setContainerItem(BidsItems.largeClayBowl)
+//            .setUnlocalizedName("Large Bowl.WoodAshLye");
 
 //        woodenPailEmpty = new ItemPailEmpty()
 //            .setUnlocalizedName("Wooden Pail");
@@ -953,10 +953,10 @@ public class ItemSetup extends BidsItems {
 //        boneKnifeHead = new ItemCommonToolHead()
 //            .setUnlocalizedName("Bone Knife Blade");
 
-        soap = new ItemSoap()
-            .setUnlocalizedName("Soap");
-        uncuredSoap = new ItemFoodLike()
-            .setUnlocalizedName("Uncured Soap");
+//        soap = new ItemSoap()
+//            .setUnlocalizedName("Soap");
+//        uncuredSoap = new ItemFoodLike()
+//            .setUnlocalizedName("Uncured Soap");
 
 //        dryingMudBrick = new ItemDryingMudBrick()
 //            .setUnlocalizedName("Drying Mud Brick");
@@ -973,10 +973,10 @@ public class ItemSetup extends BidsItems {
 //        FluidHelper.registerPartialFluidContainer(BidsFluids.goatMilk, TFCItems.glassBottle, 0, goatMilkBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.skimmedMilk, TFCItems.glassBottle, 0, skimmedMilkBottle, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.cream, TFCItems.glassBottle, 0, creamBottle, 50, 1000);
-        FluidHelper.registerPartialFluidContainer(BidsFluids.WEAKWOODASHLYE, TFCItems.glassBottle, 0, weakWoodAshLyeBottle, 50, 1000);
-        FluidHelper.registerPartialFluidContainer(BidsFluids.WOODASHLYE, TFCItems.glassBottle, 0, woodAshLyeBottle, 50, 1000);
-        FluidHelper.registerPartialFluidContainer(BidsFluids.SOAPYWATER, TFCItems.glassBottle, 0, soapyWaterBottle, 50, 1000);
-        FluidHelper.registerPartialFluidContainer(BidsFluids.FLAXSEEDOIL, TFCItems.glassBottle, 0, flaxSeedOilBottle, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.weakWoodAshLye, TFCItems.glassBottle, 0, weakWoodAshLyeBottle, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.woodAshLye, TFCItems.glassBottle, 0, woodAshLyeBottle, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.soapyWater, TFCItems.glassBottle, 0, soapyWaterBottle, 50, 1000);
+        FluidHelper.registerPartialFluidContainer(BidsFluids.flaxSeedOil, TFCItems.glassBottle, 0, flaxSeedOilBottle, 50, 1000);
 
         FluidHelper.registerPartialFluidContainer(BidsFluids.cream, TFCItems.waterskinEmpty, 0, waterskinCream, 50, 2000);
 
@@ -1051,9 +1051,9 @@ public class ItemSetup extends BidsItems {
             new ItemStack(skimmedMilkLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.cream, 500),
             new ItemStack(creamLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.WEAKWOODASHLYE, 500),
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.weakWoodAshLye, 500),
             new ItemStack(weakWoodAshLyeLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.WOODASHLYE, 500),
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.woodAshLye, 500),
             new ItemStack(woodAshLyeLargeBowl, 1, 0), new ItemStack(largeClayBowl, 1, 1));
 
 //        FluidHelper.registerPartialFluidContainer(TFCFluids.FRESHWATER, woodenPailEmpty, 0, woodenPailFreshWater, 50, 4000);

@@ -66,6 +66,7 @@ import com.unforbidable.tfc.bids.features.material.logs.Logs;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
 import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
 import com.unforbidable.tfc.bids.features.material.powder.Powder;
+import com.unforbidable.tfc.bids.features.material.soap.Soap;
 import com.unforbidable.tfc.bids.features.material.textile.Textile;
 import com.unforbidable.tfc.bids.features.resource.crop.Crop;
 import com.unforbidable.tfc.bids.features.resource.quarry.Quarry;
@@ -161,6 +162,7 @@ public class Features {
         new Powder(),
         new Woodworking(),
         new Linseed(),
+        new Soap(),
         new Handwork(),
         new Spinning(),
         new Spindle(),

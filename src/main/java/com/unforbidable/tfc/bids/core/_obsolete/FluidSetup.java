@@ -70,15 +70,15 @@ public class FluidSetup extends BidsFluids {
         FluidRegistry.registerFluid(skimmedMilkVinegar);
         FluidRegistry.registerFluid(skimmedMilkCurdled);
         FluidRegistry.registerFluid(cream);
-        FluidRegistry.registerFluid(WEAKWOODASHLYE);
-        FluidRegistry.registerFluid(WOODASHLYE);
-        FluidRegistry.registerFluid(TALLOWWOODASHLYE);
-        FluidRegistry.registerFluid(OLIVEOILWEAKWOODASHLYE);
-        FluidRegistry.registerFluid(FISHOILWEAKWOODASHLYE);
-        FluidRegistry.registerFluid(FLAXSEEDOILWEAKWOODASHLYE);
-        FluidRegistry.registerFluid(SOAP);
-        FluidRegistry.registerFluid(UNCUREDSOAP);
-        FluidRegistry.registerFluid(SOAPYWATER);
+        FluidRegistry.registerFluid(weakWoodAshLye);
+        FluidRegistry.registerFluid(woodAshLye);
+        FluidRegistry.registerFluid(tallowWoodAshLye);
+        FluidRegistry.registerFluid(oliveOilWeakWoodAshLye);
+        FluidRegistry.registerFluid(fishOilWeakWoodAshLye);
+        FluidRegistry.registerFluid(flaxSeedOilWeakWoodAshLye);
+        FluidRegistry.registerFluid(soap);
+        FluidRegistry.registerFluid(uncuredSoap);
+        FluidRegistry.registerFluid(soapyWater);
         FluidRegistry.registerFluid(flaxSeedOil);
     }
 

@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.api;
 
-import com.dunk.tfc.Core.FluidBaseTFC;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
 import java.util.Locale;
@@ -21,6 +20,15 @@ public class BidsFluids {
     public static final Fluid oilyFishWater = fluid(FluidNames.OILY_FISH_WATER);
     public static final Fluid fishOil = fluid(FluidNames.FISH_OIL);
     public static final Fluid flaxSeedOil = fluid(FluidNames.FLAX_SEED_OIL);
+    public static final Fluid weakWoodAshLye = fluid(FluidNames.WEAK_WOOD_ASH_LYE);
+    public static final Fluid woodAshLye = fluid(FluidNames.WOOD_ASH_LYE);
+    public static final Fluid tallowWoodAshLye = fluid(FluidNames.TALLOW_WOOD_ASH_LYE);
+    public static final Fluid oliveOilWeakWoodAshLye = fluid(FluidNames.OLIVE_OIL_WEAK_WOOD_ASH_LYE);
+    public static final Fluid fishOilWeakWoodAshLye = fluid(FluidNames.FISH_OIL_WEAK_WOOD_ASH_LYE);
+    public static final Fluid flaxSeedOilWeakWoodAshLye = fluid(FluidNames.FLAX_SEED_OIL_WEAK_WOOD_ASH_LYE);
+    public static final Fluid soap = fluid(FluidNames.SOAP);
+    public static final Fluid uncuredSoap = fluid(FluidNames.UNCURED_SOAP);
+    public static final Fluid soapyWater = fluid(FluidNames.SOAPY_WATER);
 
     private static Fluid fluid(String name) {
         Fluid fluid = FluidRegistry.getFluid(name.toLowerCase(Locale.ENGLISH));
@@ -29,18 +37,5 @@ public class BidsFluids {
         }
         return fluid;
     }
-
-
-
-
-    public static final Fluid WEAKWOODASHLYE = new FluidBaseTFC("WeakWoodAshLye").setBaseColor(0xffc075);
-    public static final Fluid WOODASHLYE = new FluidBaseTFC("WoodAshLye").setBaseColor(0xd88a10);
-    public static final Fluid TALLOWWOODASHLYE = new FluidBaseTFC("TallowWoodAshLye").setBaseColor(0xcc9258);
-    public static final Fluid OLIVEOILWEAKWOODASHLYE = new FluidBaseTFC("OliveOilWeakWoodAshLye").setBaseColor(0xcda55f);
-    public static final Fluid FISHOILWEAKWOODASHLYE = new FluidBaseTFC("FishOilWeakWoodAshLye").setBaseColor(0xcda55f);
-    public static final Fluid FLAXSEEDOILWEAKWOODASHLYE = new FluidBaseTFC("FlaxSeedOilWeakWoodAshLye").setBaseColor(0xcda55f);
-    public static final Fluid SOAP = new FluidBaseTFC("Soap").setBaseColor(0xecc29b);
-    public static final Fluid UNCUREDSOAP = new FluidBaseTFC("UncuredSoap").setBaseColor(0xdeb186);
-    public static final Fluid SOAPYWATER = new FluidBaseTFC("SoapyWater").setBaseColor(0x305090);
 
 }

@@ -11,6 +11,7 @@ import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
+import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.features.handwork.CardingRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.HandworkRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.HecklingRecipe;
@@ -379,14 +380,13 @@ public class Textile extends Feature {
             .add(new HecklingRecipe(new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.juteFiberCoarse), 120))
             .add(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(BidsItems.flaxFiberCoarse), 120));
 
-        // TODO enable when soap is added
-//        setup.registry(CookingRegistry.recipes)
-//            .add(CookingRecipe.builder()
-//                .consumes(new FluidStack(BidsFluids.SOAPYWATER, 100), new ItemStack(TFCItems.wool))
-//                .produces(new ItemStack(BidsItems.woolWashed, 1))
-//                .withHeat()
-//                .inTime(50)
-//                .build());
+        setup.registry(CookingRegistry.recipes)
+            .add(CookingRecipe.builder()
+                .consumes(new FluidStack(BidsFluids.soapyWater, 100), new ItemStack(TFCItems.wool))
+                .produces(new ItemStack(BidsItems.woolWashed, 1))
+                .withHeat()
+                .inTime(50)
+                .build());
 
         setup.registry(TfcRegistry.Recipes.barrel)
             .add(BarrelRecipe.add(builder -> builder

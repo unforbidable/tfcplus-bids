@@ -63,6 +63,10 @@ public class LargeBowl extends Feature {
             .container(BidsItems.skimmedMilkLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
         setup.fluid(BidsFluids.cream)
             .container(BidsItems.creamLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
+        setup.fluid(BidsFluids.weakWoodAshLye)
+            .container(BidsItems.weakWoodAshLyeLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
+        setup.fluid(BidsFluids.woodAshLye)
+            .container(BidsItems.woodAshLyeLargeBowl, 500, false, BidsItems.largeClayBowl, 1);
 
         setup.ores("itemMilkingContainer")
             .add(new ItemStack(BidsItems.largeClayBowl, 1, 1));

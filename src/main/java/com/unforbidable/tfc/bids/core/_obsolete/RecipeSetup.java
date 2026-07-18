@@ -23,7 +23,6 @@ import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -346,20 +345,20 @@ public class RecipeSetup {
 //        recipes.addShapedRecipe(new ItemStack(BidsBlocks.wattleTrapdoor),
 //            "W ", "P ", 'P', TFCItems.pole, 'W', TFCBlocks.wattle);
 //
-        // Select TFC recipes where new cordage and twines can be used
-        recipes.addShapedRecipe(new ItemStack(TFCBlocks.primitiveLoom),
-            "LS", "SL", 'L', "stickWood", 'S', "materialBindingStrong");
-        recipes.addShapedRecipe(new ItemStack(TFCBlocks.primitiveLoom),
-            "LS", "SL", 'S', "stickWood", 'L', "materialBindingStrong");
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.unstrungBow),
-            TFCItems.pole, "itemKnife", "materialBindingStrong")
-            .action(damageTool("itemKnife"));
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.bow),
-            TFCItems.unstrungBow, "materialBindingStrong");
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.splint),
-            TFCItems.stick, "materialBindingStrong");
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.compositeBow),
-            TFCItems.unstrungCompositeBow, "materialBindingStrong");
+//        // Select TFC recipes where new cordage and twines can be used
+//        recipes.addShapedRecipe(new ItemStack(TFCBlocks.primitiveLoom),
+//            "LS", "SL", 'L', "stickWood", 'S', "materialBindingStrong");
+//        recipes.addShapedRecipe(new ItemStack(TFCBlocks.primitiveLoom),
+//            "LS", "SL", 'S', "stickWood", 'L', "materialBindingStrong");
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.unstrungBow),
+//            TFCItems.pole, "itemKnife", "materialBindingStrong")
+//            .action(damageTool("itemKnife"));
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.bow),
+//            TFCItems.unstrungBow, "materialBindingStrong");
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.splint),
+//            TFCItems.stick, "materialBindingStrong");
+//        recipes.addShapelessRecipe(new ItemStack(TFCItems.compositeBow),
+//            TFCItems.unstrungCompositeBow, "materialBindingStrong");
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
 //            if (wood.items.hasPeeledLog()) {
@@ -2104,12 +2103,12 @@ public class RecipeSetup {
 //            .consumes(new ItemStack(BidsItems.cottonBollRefined), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
 //            .produces(new ItemStack(TFCItems.ammoniumChlorideBall), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
 //            .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0));
-
-        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asItemDemanding()
-            .consumes(new ItemStack(TFCItems.powder, 1, 13), new FluidStack(TFCFluids.FRESHWATER, 200))
-            .produces(new FluidStack(BidsFluids.WEAKWOODASHLYE, 200))
-            .withMinTechLevel(0).withSealTime(20)
-        );
+//
+//        BarrelRecipeManager.addRecipe(BarrelRecipeBuilder.asItemDemanding()
+//            .consumes(new ItemStack(TFCItems.powder, 1, 13), new FluidStack(TFCFluids.FRESHWATER, 200))
+//            .produces(new FluidStack(BidsFluids.weakWoodAshLye, 200))
+//            .withMinTechLevel(0).withSealTime(20)
+//        );
     }
 
     private static void registerLoomRecipes() {

@@ -14,6 +14,16 @@ public interface FluidNames {
     String OILY_FISH_WATER = "OilyFishWater";
     String FISH_OIL = "FishOil";
     String FLAX_SEED_OIL = "FlaxSeedOil";
+    String WEAK_WOOD_ASH_LYE = "WeakWoodAshLye";
+    String WOOD_ASH_LYE = "WoodAshLye";
+    String TALLOW_WOOD_ASH_LYE = "TallowWoodAshLye";
+    String OLIVE_OIL_WEAK_WOOD_ASH_LYE = "OliveOilWeakWoodAshLye";
+    String FISH_OIL_WEAK_WOOD_ASH_LYE = "FishOilWeakWoodAshLye";
+    String FLAX_SEED_OIL_WEAK_WOOD_ASH_LYE = "FlaxSeedOilWeakWoodAshLye";
+    String SOAP = "Soap";
+    String UNCURED_SOAP = "UncuredSoap";
+    String SOAPY_WATER = "SoapyWater";
+
 
 //    String BEAN = "bean";
 //    String BEAN_WATER = "beanWater";

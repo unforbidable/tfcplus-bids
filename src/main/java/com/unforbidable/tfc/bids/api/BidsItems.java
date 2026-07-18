@@ -353,6 +353,15 @@ public class BidsItems {
     public static final Item flaxSeedOilBottle = item(ItemNames.BOTTLE_FLAX_SEED_OIL);
     public static final Item flaxSeedOilBowl = item(ItemNames.BOWL_FLAX_SEED_OIL);
 
+    // Soap
+    public static final Item soap = item(ItemNames.SOAP);
+    public static final Item uncuredSoap = item(ItemNames.SOAP_UNCURED);
+    public static final Item weakWoodAshLyeBottle = item(ItemNames.BOTTLE_WEAK_WOOD_ASH_LYE);
+    public static final Item weakWoodAshLyeLargeBowl = item(ItemNames.LARGE_BOWL_WEAK_WOOD_ASH_LYE);
+    public static final Item woodAshLyeBottle = item(ItemNames.BOTTLE_WOOD_ASH_LYE);
+    public static final Item woodAshLyeLargeBowl = item(ItemNames.LARGE_BOWL_WOOD_ASH_LYE);
+    public static final Item soapyWaterBottle = item(ItemNames.BOTTLE_SOAPY_WATER);
+
 
     public static Item wheatPorridge;
     public static Item barleyPorridge;
@@ -363,12 +372,6 @@ public class BidsItems {
 
     public static Item honeyWaterBottle;
     public static Item milkVinegarBottle;
-    public static Item weakWoodAshLyeBottle;
-    public static Item woodAshLyeBottle;
-    public static Item soapyWaterBottle;
-
-    public static Item weakWoodAshLyeLargeBowl;
-    public static Item woodAshLyeLargeBowl;
 
     public static Item woodenBucketBrine;
     public static Item woodenBucketHoneyWater;
@@ -380,10 +383,6 @@ public class BidsItems {
 
     public static Item woodenMallet;
     public static Item scutchingKnife;
-
-    public static Item soap;
-    public static Item uncuredSoap;
-
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, name);
         if (item == null) {
