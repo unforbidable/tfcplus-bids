@@ -348,6 +348,12 @@ public class BidsItems {
     public static final Item  woolFiberCoarse = item(ItemNames.WOOL_FIBER_COARSE);
     public static final Item  woolFiberRefined = item(ItemNames.WOOL_FIBER_REFINED);
 
+    // Mallet
+    public static final Item woodenMallet = item(ItemNames.WOODEN_MALLET);
+
+    // Scutching Knife
+    public static final Item scutchingKnife = item(ItemNames.SCUTCHING_KNIFE);
+
     // Linseed
     public static final Item flaxSeeds = item(ItemNames.FLAX_SEEDS);
     public static final Item flaxSeedOilBottle = item(ItemNames.BOTTLE_FLAX_SEED_OIL);
@@ -381,8 +387,6 @@ public class BidsItems {
     public static Item ceramicBucketHoneyWater;
     public static Item ceramicBucketMilkVinegar;
 
-    public static Item woodenMallet;
-    public static Item scutchingKnife;
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, name);
         if (item == null) {

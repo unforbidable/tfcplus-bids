@@ -179,32 +179,6 @@ public class Woodworking extends Feature {
         setup.registry(WoodworkingRegistry.recipes)
             .add(new WoodworkingOreRecipe(WoodworkingPlanNames.PLAN_PADDLE, "boardWood", new ItemStack(TFCItems.paddle)))
             .add(new WoodworkingRecipe(WoodworkingPlanNames.PLAN_NEEDLE, new ItemStack(TFCItems.bone), new ItemStack(TFCItems.boneNeedle)));
-
-        // TODO move to respective features
-
-        setup.registry(WoodworkingRegistry.plans)
-            .add(Plan.create(WoodworkingPlanNames.PLAN_MALLET)
-                .cutout(Shape.rectFrom(0, 0).size(5, 9)) // top 1/3 left cut off
-                .cutout(Shape.rectFrom(8, 0).size(5, 9)) // top 1/3 right cut off
-                .cutout(Shape.rectFrom(0, 9).size(2, 16)) // bottom 2/3 left cut off
-                .cutout(Shape.rectFrom(11, 9).size(2, 16)) // bottom 2/3 right cut off
-                .build());
-
-        setup.registry(WoodworkingRegistry.plans)
-            .add(Plan.create(WoodworkingPlanNames.PLAN_SCUTCHING_KNIFE)
-                .cutout(Shape.rectFrom(8, 0).size(5, 25)) // right cut off
-                .cutout(Shape.rectFrom(0, 0).size(5, 9)) // top 1/3 left cut off
-                .cutout(Shape.rectFrom(0, 9).size(2, 16)) // bottom 2/3 left cut off
-                .cutout(Shape.triFrom(2, 9).size(3, 3)) // top left corner
-                .cutout(Shape.triFrom(2, 25).size(3, -3)) // bottom left corner
-                .cutout(Shape.pointAt(4, 20)) // hole
-                .build());
-
-//        setup.registry(WoodworkingRegistry.recipes)
-//            .add(new WoodworkingOreRecipe(WoodworkingNames.PLAN_MALLET, "logWood", new ItemStack(BidsItems.woodenMallet)));
-//        setup.registry(WoodworkingRegistry.recipes)
-//            .add(new WoodworkingOreRecipe(WoodworkingNames.PLAN_SCUTCHING_KNIFE, "boardWood", new ItemStack(BidsItems.scutchingKnife)));
-
     }
 
 }

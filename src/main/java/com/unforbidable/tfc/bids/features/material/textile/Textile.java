@@ -215,12 +215,6 @@ public class Textile extends Feature {
             .add(TFCItems.pole)
             .add(TFCItems.stick);
 
-        // TODO move to respective feature
-        //setup.ores("itemFlaxBreakingTool")
-        //    .add(BidsItems.woodenMallet);
-        //setup.ores("itemFlaxScutchingTool")
-        //   .add(BidsItems.scutchingKnife);
-
         // TODO allow refining and extracting using a hand axe
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.barkFiber),

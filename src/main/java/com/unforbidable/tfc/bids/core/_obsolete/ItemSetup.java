@@ -943,10 +943,10 @@ public class ItemSetup extends BidsItems {
 //        boneHeckle = new ItemHeckle(TFCItems.boneToolMaterial)
 //            .setUnlocalizedName("Bone Heckle");
 
-        woodenMallet = new ItemCommonTool(TFCItems.woodToolMaterial)
-            .setUnlocalizedName("Wooden Mallet");
-        scutchingKnife = new ItemCommonTool(TFCItems.woodToolMaterial)
-            .setUnlocalizedName("Scutching Knife");
+//        woodenMallet = new ItemCommonTool(TFCItems.woodToolMaterial)
+//            .setUnlocalizedName("Wooden Mallet");
+//        scutchingKnife = new ItemCommonTool(TFCItems.woodToolMaterial)
+//            .setUnlocalizedName("Scutching Knife");
 
 //        woodenCombPaddle = new ItemCommonToolPart()
 //            .setUnlocalizedName("Wooden Comb Paddle");

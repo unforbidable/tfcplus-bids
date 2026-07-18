@@ -81,8 +81,10 @@ import com.unforbidable.tfc.bids.features.utility.heckle.Heckle;
 import com.unforbidable.tfc.bids.features.utility.heckle.spindle.Spindle;
 import com.unforbidable.tfc.bids.features.utility.largebowl.LargeBowl;
 import com.unforbidable.tfc.bids.features.utility.leatherwear.Leatherwear;
+import com.unforbidable.tfc.bids.features.utility.mallet.Mallet;
 import com.unforbidable.tfc.bids.features.utility.pail.Pail;
 import com.unforbidable.tfc.bids.features.utility.ropemaker.RopeMaker;
+import com.unforbidable.tfc.bids.features.utility.scutchingknife.ScutchingKnife;
 import com.unforbidable.tfc.bids.features.utility.spear.Spear;
 import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.UnfinishedAnvil;
 
@@ -173,6 +175,8 @@ public class Features {
         new RopeMaking(),
         new RopeMaker(),
         new Textile(),
+        new Mallet(),
+        new ScutchingKnife(),
     };
 
 }
