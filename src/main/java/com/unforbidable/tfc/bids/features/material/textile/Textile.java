@@ -39,6 +39,7 @@ import com.unforbidable.tfc.bids.features.crafting.ropemaking.RopeMakingRegistry
 import com.unforbidable.tfc.bids.features.crafting.spinning.SpinningRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;
+import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
 import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.SoakingSurfaceRegistry;
@@ -248,6 +249,9 @@ public class Textile extends Feature {
         setup.recipes().addShapeless(new ItemStack(BidsItems.cottonBollRefined),
                 TFCItems.cotton, "itemKnife")
             .action(damageTool("itemKnife"));
+
+        setup.registry(FirepitRegistry.fuel)
+            .add(BidsItems.barkFibreKindling, (FirepitFuelMaterial) BidsItems.barkFibreKindling);
 
         setup.registry(DryingRegistry.wetness)
             .add(BidsItems.barkFiber, new WetnessInfo(500, 1f))
