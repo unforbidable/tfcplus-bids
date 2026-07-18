@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.utility.compositetools;
 
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
@@ -22,7 +23,9 @@ public class CompositeTools extends Feature {
         setup.ores("materialBinding")
             .add(TFCItems.cottonYarn, TFCItems.woolYarn, TFCItems.silkString)
             .add(TFCItems.sinew)
-            .add(TFCItems.linenString);
+            .add(TFCItems.linenString)
+            .add(BidsItems.barkCordage)
+            .add(BidsItems.juteTwine, BidsItems.sisalTwine);
 
         if (CompositeToolsConfig.enableGrassCordageAsToolBinding) {
             setup.ores("materialBinding")
@@ -31,14 +34,20 @@ public class CompositeTools extends Feature {
 
         setup.ores("materialBindingDecent")
             .add(TFCItems.sinew)
-            .add(TFCItems.linenString);
+            .add(TFCItems.linenString)
+            .add(BidsItems.barkCordage)
+            .add(BidsItems.juteTwine, BidsItems.sisalTwine);
 
         // Also used for drying rack construction
         setup.ores("materialBindingStrong")
-            .add(TFCItems.linenString);
+            .add(TFCItems.linenString)
+            .add(BidsItems.barkCordage)
+            .add(BidsItems.juteTwine, BidsItems.sisalTwine);
 
         setup.ores("materialBowstring")
-            .add(TFCItems.linenString);
+            .add(TFCItems.linenString)
+            .add(BidsItems.barkCordage)
+            .add(BidsItems.juteTwine, BidsItems.sisalTwine);
 
         setup.recipes()
             .match(r -> r.output.isAny("itemAxeStone", "itemHammerStone", "itemKnifeStone",
