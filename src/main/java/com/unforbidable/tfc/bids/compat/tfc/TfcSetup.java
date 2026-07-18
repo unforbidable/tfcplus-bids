@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.compat.tfc;
 
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
@@ -13,12 +14,16 @@ import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableStackedLogs;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableStoneBrick;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableStoneLargeBrick;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableWoodVert;
+import com.unforbidable.tfc.bids.core.crafting.RecipeManager;
+import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.core.drink.DrinkRegistry;
 import com.unforbidable.tfc.bids.core.drink.registry.DrinkFluid;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
 import net.minecraft.item.ItemStack;
+
+import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 public class TfcSetup {
 
@@ -170,6 +175,27 @@ public class TfcSetup {
         CarvingRegistry.carvable.add(new CarvableSmoothStone());
         CarvingRegistry.carvable.add(new CarvableBrick());
         CarvingRegistry.carvable.add(new CarvableFireBrick());
+    }
+
+    public static void setupRecipes() {
+        RecipeManagerSession recipes = RecipeManager.getSession();
+
+        // Select TFC recipes where new cordage and twines can be used
+        recipes.addShapedRecipe(new ItemStack(TFCBlocks.primitiveLoom),
+            "LS", "SL", 'L', "stickWood", 'S', "materialBindingStrong");
+        recipes.addShapedRecipe(new ItemStack(TFCBlocks.primitiveLoom),
+            "LS", "SL", 'S', "stickWood", 'L', "materialBindingStrong");
+        recipes.addShapelessRecipe(new ItemStack(TFCItems.unstrungBow),
+                TFCItems.pole, "itemKnife", "materialBindingStrong")
+            .action(damageTool("itemKnife"));
+        recipes.addShapelessRecipe(new ItemStack(TFCItems.bow),
+            TFCItems.unstrungBow, "materialBindingStrong");
+        recipes.addShapelessRecipe(new ItemStack(TFCItems.splint),
+            TFCItems.stick, "materialBindingStrong");
+        recipes.addShapelessRecipe(new ItemStack(TFCItems.compositeBow),
+            TFCItems.unstrungCompositeBow, "materialBindingStrong");
+
+        recipes.flush();
     }
 
 }
