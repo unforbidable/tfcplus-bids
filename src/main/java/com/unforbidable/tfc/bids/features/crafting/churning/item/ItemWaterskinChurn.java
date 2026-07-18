@@ -4,7 +4,7 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api._obsolete.BidsEventFactory;
-import com.unforbidable.tfc.bids.api._obsolete.BidsSounds;
+import com.unforbidable.tfc.bids.api.names.SoundNames;
 import com.unforbidable.tfc.bids.api.features.churning.ChurningRecipe;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemWaterskinFluid;
 import com.unforbidable.tfc.bids.features.crafting.churning.ChurningConfig;
@@ -128,7 +128,7 @@ public class ItemWaterskinChurn extends ItemWaterskinFluid {
             if (ticksElapsedSinceStart >= CHURN_CYCLE_TICKS) {
                 player.stopUsingItem();
             } else if (ticksElapsedSinceSoundPlayed >= CHURN_SOUND_TICKS) {
-                player.worldObj.playSoundAtEntity(player, BidsSounds.WATERSKIN_SLOSH, 1F, 1f);
+                player.worldObj.playSoundAtEntity(player, SoundNames.WATERSKIN_SLOSH, 1F, 1f);
 
                 state.ticksSoundPlayed = TFC_Time.getTotalTicks();
             }
