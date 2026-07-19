@@ -17,6 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
 import static com.unforbidable.tfc.bids.api.names.ItemNames.HARDENED_WOODEN_SPEAR;
+import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 @FeatureName("spear")
 public class Spear extends Feature {
@@ -35,6 +36,10 @@ public class Spear extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
+        setup.recipes().addShapeless(new ItemStack(TFCItems.woodenSpear, 1),
+                TFCItems.pole, "itemHandAxe")
+            .action(damageTool("itemHandAxe"));
+
         setup.registry(TfcRegistry.Values.heat)
             .add(HeatValue.add(new ItemStack(TFCItems.woodenSpear), 1, 100, new ItemStack(BidsItems.hardenedWoodenSpear)));
     }
