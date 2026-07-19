@@ -27,20 +27,24 @@ public class Hide extends Feature {
         setup.event()
             .handler(new HideLivingDropsEventHandler());
 
+        setup.ores("itemNeedleStrung")
+            .add(TFCItems.boneNeedleStrung)
+            .add(TFCItems.ironNeedleStrung);
+
         setup.recipes().addShapeless(new ItemStack(TFCItems.hide),
                 new ItemStack(BidsItems.moreHide, 1, 0),
-                new ItemStack(BidsItems.moreHide, 1, 0), "itemNeedleAndThread")
-            .action(damageTool("itemNeedleAndThread", 10));
+                new ItemStack(BidsItems.moreHide, 1, 0), "itemNeedleStrung")
+            .action(damageTool("itemNeedleStrung", 10));
 
         setup.recipes().addShapeless(new ItemStack(TFCItems.hide, 1, 1),
                 new ItemStack(TFCItems.hide, 1, 0),
-                new ItemStack(TFCItems.hide, 1, 0), "itemNeedleAndThread")
-            .action(damageTool("itemNeedleAndThread", 20));
+                new ItemStack(TFCItems.hide, 1, 0), "itemNeedleStrung")
+            .action(damageTool("itemNeedleStrung", 20));
 
         setup.recipes().addShapeless(new ItemStack(TFCItems.hide, 1, 2),
                 new ItemStack(TFCItems.hide, 1, 1),
-                new ItemStack(TFCItems.hide, 1, 1), "itemNeedleAndThread")
-            .action(damageTool("itemNeedleAndThread", 40));
+                new ItemStack(TFCItems.hide, 1, 1), "itemNeedleStrung")
+            .action(damageTool("itemNeedleStrung", 40));
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.moreHide, 2),
                 new ItemStack(TFCItems.hide, 1, 0), "itemKnife")
