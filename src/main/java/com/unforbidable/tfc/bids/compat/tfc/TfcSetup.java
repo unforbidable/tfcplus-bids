@@ -7,6 +7,7 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableBrick;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableFireBrick;
+import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableMudBrick;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvablePlanks;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableRawStone;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableSmoothStone;
@@ -174,6 +175,7 @@ public class TfcSetup {
         CarvingRegistry.carvable.add(new CarvableStoneLargeBrick());
         CarvingRegistry.carvable.add(new CarvableSmoothStone());
         CarvingRegistry.carvable.add(new CarvableBrick());
+        CarvingRegistry.carvable.add(new CarvableMudBrick());
         CarvingRegistry.carvable.add(new CarvableFireBrick());
     }
 

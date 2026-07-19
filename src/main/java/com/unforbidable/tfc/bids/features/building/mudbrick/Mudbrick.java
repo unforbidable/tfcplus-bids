@@ -21,7 +21,6 @@ import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
 import com.unforbidable.tfc.bids.features.building.mudbrick.block.BlockMudbrickChimney;
 import com.unforbidable.tfc.bids.features.building.mudbrick.block.itemblock.ItemMudbrickChimney;
 import com.unforbidable.tfc.bids.features.building.mudbrick.item.ItemDryingMudBrick;
-import com.unforbidable.tfc.bids.features.building.mudbrick.main.carvable.CarvableMudBrick;
 import com.unforbidable.tfc.bids.features.building.mudbrick.render.DryingMudBrickItemRenderer;
 import com.unforbidable.tfc.bids.features.building.mudbrick.tileentity.TileEntityMudBrickChimney;
 import com.unforbidable.tfc.bids.features.crafting.drying.DryingRegistry;
@@ -108,9 +107,6 @@ public class Mudbrick extends Feature {
         setup.registry(DryingRegistry.wetness)
             .add(TFCItems.mudBrick, new WetnessInfo(500, 1f))
             .add(BidsItems.dryingMudBrick, new WetnessInfo(500, 0.5f));
-
-        setup.registry(CarvingRegistry.carvable)
-            .add(new CarvableMudBrick());
     }
 
 }

@@ -1,17 +1,17 @@
-package com.unforbidable.tfc.bids.features.building.mudbrick.main.carvable;
+package com.unforbidable.tfc.bids.compat.tfc.carvable;
 
 import com.dunk.tfc.Blocks.BlockMudBricks;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.carving.Carvable;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.util.Random;
-
 public class CarvableMudBrick implements Carvable {
+
     @Override
     public boolean canCarveBlock(Block block, int metadata) {
         return block instanceof BlockMudBricks;
@@ -52,4 +52,5 @@ public class CarvableMudBrick implements Carvable {
     public String getCarvingSoundEffect() {
         return "dig.stone";
     }
+
 }
