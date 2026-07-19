@@ -3,11 +3,11 @@ package com.unforbidable.tfc.bids.features.crafting.cooking.eventhandler;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import java.util.List;
 
 public class CookedFoodTooltipHandler {
 

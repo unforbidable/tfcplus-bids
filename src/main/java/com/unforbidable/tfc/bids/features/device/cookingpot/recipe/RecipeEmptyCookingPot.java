@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.cookingpot.recipe;
 
-import com.unforbidable.tfc.bids.features.device.cookingpot.tileentity.TileEntityCookingPot;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.features.device.cookingpot.tileentity.TileEntityCookingPot;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;

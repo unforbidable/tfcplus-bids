@@ -45,9 +45,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
     private static final float MAX_GRIND_WEIGHT = 4;
 
-    public static enum Selection {
+    public enum Selection {
         NONE, INPUT_STACK, WORK_STONE
-    };
+    }
 
     ItemStack[] storage = new ItemStack[MAX_STORAGE];
     int orientation = 0;

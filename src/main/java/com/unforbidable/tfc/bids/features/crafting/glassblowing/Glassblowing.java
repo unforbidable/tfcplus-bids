@@ -1,12 +1,7 @@
 package com.unforbidable.tfc.bids.features.crafting.glassblowing;
 
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.core.features.Feature;
-import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
-import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
-import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
-import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
-import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.common.item.ItemCommonFlat;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.names.AnvilRules;
@@ -15,16 +10,23 @@ import com.unforbidable.tfc.bids.compat.tfc.names.Skills;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.AnvilPlan;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.AnvilRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.values.PartialMold;
+import com.unforbidable.tfc.bids.core.features.Feature;
+import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
+import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
+import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.container.ContainerSpecialCraftingGlass;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.gui.GuiKnappingGlass;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBlowpipe;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
 import static com.unforbidable.tfc.bids.api.names.GuiNames.GLASSBLOWING;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.*;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.BRASS_BLOWPIPE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.FLAT_GLASS;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.METAL_BLOWPIPE;
 
 /**
  * <li>metal blowpipe - iron blow pipe for glassblowing</li>

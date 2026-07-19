@@ -13,7 +13,6 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.features.kiln.KilnEngine;
-import com.unforbidable.tfc.bids.features.device.kiln.KilnEngineProvider;
 import com.unforbidable.tfc.bids.api.features.woodpile.FireSettingEvent;
 import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
@@ -26,6 +25,7 @@ import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.DynamicEnvironment;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.StaticEnvironment;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
+import com.unforbidable.tfc.bids.features.device.kiln.KilnEngineProvider;
 import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileConfig;
 import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileRegistry;
 import com.unforbidable.tfc.bids.features.device.woodpile.block.BlockWoodpile;
@@ -676,7 +676,7 @@ public class TileEntityWoodpile extends TileEntity implements IInventory, Packet
                     // or the destination barrel is full,
                     // so next attempt is delayed
                     pitchTimer.delay(PITCH_MOVEMENT_FAILURE_DELAY);
-                };
+                }
             }
 
             if (openDelayedGUIplayer != null) {

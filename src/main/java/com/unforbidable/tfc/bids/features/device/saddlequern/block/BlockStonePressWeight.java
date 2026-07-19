@@ -48,10 +48,10 @@ public class BlockStonePressWeight extends BlockContainer {
     public void registerBlockIcons(IIconRegister registerer) {
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
-        List<ItemStack> materialBlockSubBlocks = new ArrayList<ItemStack>();
+        List<ItemStack> materialBlockSubBlocks = new ArrayList<>();
         materialBlock.getSubBlocks(item, tabs, materialBlockSubBlocks);
 
         for (ItemStack is : materialBlockSubBlocks) {

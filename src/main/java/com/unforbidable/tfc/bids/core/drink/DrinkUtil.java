@@ -2,10 +2,10 @@ package com.unforbidable.tfc.bids.core.drink;
 
 import com.dunk.tfc.Items.ItemDrink;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.core.drink.registry.DrinkFluid;
-import com.unforbidable.tfc.bids.core.drink.registry.DrinkVessel;
 import com.unforbidable.tfc.bids.common.item.ItemCommonAlcohol;
 import com.unforbidable.tfc.bids.common.item.ItemCommonDrink;
+import com.unforbidable.tfc.bids.core.drink.registry.DrinkFluid;
+import com.unforbidable.tfc.bids.core.drink.registry.DrinkVessel;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

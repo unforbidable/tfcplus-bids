@@ -1,10 +1,7 @@
 package com.unforbidable.tfc.bids.core.features.setup.recipe;
 
 import com.unforbidable.tfc.bids.core.crafting.ActionableRecipe;
-import com.unforbidable.tfc.bids.core.crafting.MatchingRecipe;
-
 import java.util.List;
-import java.util.function.Consumer;
 
 public class CraftingRecipeSetup {
 

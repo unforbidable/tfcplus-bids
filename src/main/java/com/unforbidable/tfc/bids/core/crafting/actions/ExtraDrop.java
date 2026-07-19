@@ -2,12 +2,11 @@ package com.unforbidable.tfc.bids.core.crafting.actions;
 
 import com.unforbidable.tfc.bids.core.crafting.CraftingContext;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import java.util.function.Consumer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.function.Consumer;
 
 public class ExtraDrop  {
 

@@ -2,9 +2,9 @@ package com.unforbidable.tfc.bids.features.device.screwpress.container;
 
 import com.dunk.tfc.Containers.ContainerTFC;
 import com.dunk.tfc.Core.Player.PlayerInventory;
-import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressBarrel;
 import com.unforbidable.tfc.bids.features.device.screwpress.container.slot.SlotScrewPressInput;
 import com.unforbidable.tfc.bids.features.device.screwpress.container.slot.SlotScrewPressOutput;
+import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressBarrel;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;

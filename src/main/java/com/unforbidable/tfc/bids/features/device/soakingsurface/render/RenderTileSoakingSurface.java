@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.device.soakingsurface.render;
 
 import com.dunk.tfc.Render.TESR.TESRBase;
-import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceHelper;
+import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

@@ -1,25 +1,25 @@
 package com.unforbidable.tfc.bids.util.metal;
 
 import com.dunk.tfc.Core.Metal.MetalRegistry;
-import com.dunk.tfc.Core.TFC_Achievements;
 import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMold;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMoldBase;
 import com.dunk.tfc.Items.Pottery.ItemPotterySheetMold;
 import com.dunk.tfc.api.Constant.Global;
-import com.dunk.tfc.api.*;
+import com.dunk.tfc.api.HeatIndex;
+import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.Interfaces.ISmeltable;
-import com.unforbidable.tfc.bids.Bids;
+import com.dunk.tfc.api.Metal;
+import com.dunk.tfc.api.TFCItems;
+import com.dunk.tfc.api.TFC_ItemHeat;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.util.metal.MoreSmeltable;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBlowpipe;
-import com.unforbidable.tfc.bids.api.BidsItems;
-import net.minecraft.entity.player.EntityPlayer;
+import java.util.Arrays;
+import java.util.List;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class MetalHelper {
 

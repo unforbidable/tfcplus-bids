@@ -43,7 +43,7 @@ public class BlockChoppingBlock extends BlockContainer {
     public void registerBlockIcons(IIconRegister registerer) {
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
         int offset = materialBlock.damageDropped(0);

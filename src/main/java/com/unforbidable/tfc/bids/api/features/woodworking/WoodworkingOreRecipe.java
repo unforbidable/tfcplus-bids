@@ -1,9 +1,8 @@
 package com.unforbidable.tfc.bids.api.features.woodworking;
 
+import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.List;
 
 public class WoodworkingOreRecipe extends WoodworkingRecipe {
 

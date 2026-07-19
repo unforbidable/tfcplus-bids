@@ -11,10 +11,9 @@ import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderConfigurato
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
-import com.unforbidable.tfc.bids.util.wood.LogWallHelper;
-import com.unforbidable.tfc.bids.util.wood.WoodHelper;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
 import com.unforbidable.tfc.bids.util.ItemHelper;
+import com.unforbidable.tfc.bids.util.wood.LogWallHelper;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -82,7 +81,7 @@ public class ItemPeeledLog extends Item implements ISize, WoodpileRenderable {
         return this.getUnlocalizedName() + "." + names[itemstack.getItemDamage()];
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list) {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
@@ -112,7 +111,7 @@ public class ItemPeeledLog extends Item implements ISize, WoodpileRenderable {
         return EnumWeight.MEDIUM;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

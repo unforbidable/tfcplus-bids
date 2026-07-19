@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.features.device.cookingprep.gui;
 
 import com.dunk.tfc.GUI.GuiContainerTFC;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.features.device.cookingprep.container.ContainerCookingPrep;
 import com.unforbidable.tfc.bids.features.device.cookingprep.tileentity.TileEntityCookingPrep;
-import com.unforbidable.tfc.bids.Tags;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;

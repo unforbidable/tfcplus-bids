@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.compat.waila.providers;
 
 import com.unforbidable.tfc.bids.compat.waila.registry.WailaRegistry;
 import com.unforbidable.tfc.bids.compat.waila.registry.WailaRegistryEntry;
+import java.util.List;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import mcp.mobius.waila.api.IWailaEntityProvider;
@@ -10,8 +11,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class WailaEntityProvider implements IWailaEntityProvider {
 

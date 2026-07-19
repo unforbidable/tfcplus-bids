@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.features.device.cookingpot.block;
 import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotBounds;
 import cpw.mods.fml.relauncher.Side;
@@ -36,6 +35,7 @@ public class BlockCookingPotLid extends Block {
         setBlockBounds((float) bb.minX, (float) bb.minY, (float) bb.minZ, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ);
     }
 
+    @SuppressWarnings({"unchecked" })
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {

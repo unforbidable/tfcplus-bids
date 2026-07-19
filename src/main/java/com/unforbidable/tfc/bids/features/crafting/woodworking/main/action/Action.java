@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.action;
 
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingAction;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
 
 public class Action implements WoodworkingAction {
 

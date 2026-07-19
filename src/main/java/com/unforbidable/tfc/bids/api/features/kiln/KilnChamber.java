@@ -1,9 +1,8 @@
 package com.unforbidable.tfc.bids.api.features.kiln;
 
 import com.unforbidable.tfc.bids.util.BlockCoord;
-import net.minecraft.tileentity.TileEntity;
-
 import java.util.List;
+import net.minecraft.tileentity.TileEntity;
 
 public interface KilnChamber {
 

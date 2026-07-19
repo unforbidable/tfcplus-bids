@@ -103,6 +103,7 @@ public class ItemCookingPotLid extends ItemBlock implements ISize {
         }
     }
 
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

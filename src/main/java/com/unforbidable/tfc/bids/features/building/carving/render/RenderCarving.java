@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.features.building.carving.render;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.util.render.RenderBlocksLightCacheSides;
 import com.unforbidable.tfc.bids.util.render.RenderIconProvider;
-
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

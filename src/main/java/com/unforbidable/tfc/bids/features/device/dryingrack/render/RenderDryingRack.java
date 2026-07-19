@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.features.device.dryingrack.render;
 
-import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackBounds;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackHelper;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackItem;
-import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
+import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;

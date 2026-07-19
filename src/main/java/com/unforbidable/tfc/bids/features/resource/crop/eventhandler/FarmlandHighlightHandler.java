@@ -13,10 +13,10 @@ import com.dunk.tfc.TileEntities.TEFarmland;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.TFCOptions;
-import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewCrop;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.crop.CropAccess;
 import com.unforbidable.tfc.bids.core.crop.CropHelper;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewCrop;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.Tessellator;
@@ -103,7 +103,7 @@ public class FarmlandHighlightHandler {
 
                 GL11.glEnable(GL11.GL_CULL_FACE);
 
-                /**
+                /*
                  * Draw the outliens around the boxes
                  */
 

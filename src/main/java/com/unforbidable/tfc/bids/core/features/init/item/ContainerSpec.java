@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.core.features.init.item;
 
-import net.minecraft.item.Item;
 import java.util.function.Supplier;
+import net.minecraft.item.Item;
 
 public class ContainerSpec {
 

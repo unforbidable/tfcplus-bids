@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.features.resource.crop.block;
 
 import com.dunk.tfc.Blocks.BlockFarmland;
-import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewFarmland;
-import com.unforbidable.tfc.bids.core.crop.CropHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.core.crop.CropHelper;
+import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewFarmland;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

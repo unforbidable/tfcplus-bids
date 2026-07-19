@@ -68,7 +68,7 @@ public class ItemBoard extends Item implements ISize, ItemMetaNamesAccessor {
         return this.getUnlocalizedName() + "." + names[itemstack.getItemDamage()];
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list) {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
@@ -98,7 +98,7 @@ public class ItemBoard extends Item implements ISize, ItemMetaNamesAccessor {
         return EnumWeight.MEDIUM;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

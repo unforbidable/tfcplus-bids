@@ -1,9 +1,7 @@
 package com.unforbidable.tfc.bids.core.config;
 
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfigLoader;
-import com.unforbidable.tfc.bids.features.material.soap.SoapConfig;
 import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import java.io.File;
 import net.minecraftforge.common.config.Configuration;
@@ -26,13 +24,6 @@ public class ConfigHandler {
 
         // Features are configured
         FeatureConfigLoader.load(config);
-
-        // TODO move to specific feature
-//
-//        BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes = config.getBoolean(
-//            "craftingAddMissingLeatherRepairRecipes", "crafting",
-//            BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes,
-//            "Set this to true if you want to add missing leather armor repair recipes.");
 
         config.save();
     }

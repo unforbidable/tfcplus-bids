@@ -1,16 +1,14 @@
 package com.unforbidable.tfc.bids.util;
 
-import java.util.List;
-
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.HeatRegistry;
 import com.dunk.tfc.api.TFC_ItemHeat;
-import net.minecraft.util.EnumChatFormatting;
-import org.lwjgl.input.Keyboard;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import java.util.List;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
+import org.lwjgl.input.Keyboard;
 
 public class ItemHelper {
 
@@ -28,10 +26,12 @@ public class ItemHelper {
         com.dunk.tfc.Items.ItemTerra.addSizeInformation(object, arraylist);
     }
 
+    @SuppressWarnings({"unchecked" })
     public static void addHeatInformation(ItemStack object, List arraylist) {
         com.dunk.tfc.Items.ItemTerra.addHeatInformation(object, arraylist);
     }
 
+    @SuppressWarnings({"unchecked" })
     public static void addHeatStatusInformation(ItemStack itemStack, List list) {
         if (TFC_ItemHeat.hasTemp(itemStack)) {
             String s = "";

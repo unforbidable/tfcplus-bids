@@ -2,10 +2,11 @@ package com.unforbidable.tfc.bids.features.device.screwpress.block;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
-import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressLever;
-import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
+import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressHelper;
+import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressLever;
+import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,8 +17,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.ArrayList;
 
 public class BlockScrewPressLeverTop extends Block {
 

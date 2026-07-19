@@ -41,7 +41,7 @@ public class ItemExtraClothingPiece extends ItemClothingPiece {
         return extraIndices.get(name);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
         super.getSubItems(item, tabs, list);

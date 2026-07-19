@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.action;
 
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSpec;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.builder.ActionSpecBuilder;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Orientation;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.PointF;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.ShapeSet;
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSpec;
 import java.awt.geom.Area;
 
 public class ActionSpec implements WoodworkingActionSpec {

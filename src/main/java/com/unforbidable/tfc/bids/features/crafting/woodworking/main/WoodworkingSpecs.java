@@ -1,13 +1,13 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main;
 
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.Action;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.ActionGroup;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.ActionSpec;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Orientation;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.PointF;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Shape;
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 
 public class WoodworkingSpecs {
 

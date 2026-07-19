@@ -7,8 +7,9 @@ import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.Items.Pottery.ItemPotteryMold;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.util.GuiUtil;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.util.GuiUtil;
+import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,8 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 import static com.unforbidable.tfc.bids.api.names.GuiNames.GLASSBLOWING;
 
@@ -88,7 +87,7 @@ public class ItemMetalBlowpipe extends ItemPotteryMold {
                 + getUnlocalizedName().replace("item.", "") + ".Glass");
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemTerra.addSizeInformation(is, list);
@@ -108,7 +107,7 @@ public class ItemMetalBlowpipe extends ItemPotteryMold {
         return false;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
         list.add(new ItemStack(item, 1, baseDamage - 1));

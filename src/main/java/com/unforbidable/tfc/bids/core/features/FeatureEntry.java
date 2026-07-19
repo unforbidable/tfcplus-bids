@@ -6,8 +6,8 @@ import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfigContext;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpec;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
-import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupParams;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupParams;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

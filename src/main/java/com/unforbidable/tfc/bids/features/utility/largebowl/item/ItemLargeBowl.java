@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.features.utility.largebowl.item;
 
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.core.drink.FluidHelper;
-import com.unforbidable.tfc.bids.common.item.ItemCommonPottery;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.common.item.ItemCommonPottery;
+import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;

@@ -2,17 +2,16 @@ package com.unforbidable.tfc.bids.features.device.screwpress.render;
 
 import com.dunk.tfc.Reference;
 import com.dunk.tfc.Render.TESR.TESRBase;
-import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressDisc;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressBounds;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressDiscPosition;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressHelper;
+import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressDisc;
 import com.unforbidable.tfc.bids.util.render.RenderHelper;
+import java.util.List;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import org.lwjgl.opengl.GL11;
-
-import java.util.List;
 
 public class RenderTileScrewPressDisc extends TESRBase {
 

@@ -2,11 +2,10 @@ package com.unforbidable.tfc.bids.core.crafting.matchers;
 
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.core.crafting.RecipeAccessor;
-import net.minecraft.item.ItemStack;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import net.minecraft.item.ItemStack;
 
 public class RecipeMatcher {
 

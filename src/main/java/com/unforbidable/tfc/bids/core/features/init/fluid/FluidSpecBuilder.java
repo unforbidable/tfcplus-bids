@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.core.features.init.fluid;
 
-import net.minecraftforge.fluids.Fluid;
 import java.util.function.Function;
+import net.minecraftforge.fluids.Fluid;
 
 public class FluidSpecBuilder<T extends Fluid> {
 

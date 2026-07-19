@@ -5,16 +5,15 @@ import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.features.building.mudbrick.block.BlockMudbrickChimney;
 import com.unforbidable.tfc.bids.util.ItemHelper;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-
-import java.util.List;
 
 public class ItemMudbrickChimney extends ItemBlock implements ISize {
 
@@ -64,7 +63,7 @@ public class ItemMudbrickChimney extends ItemBlock implements ISize {
         return super.getUnlocalizedName(is);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
         ItemHelper.addSizeInformation(is, arraylist);

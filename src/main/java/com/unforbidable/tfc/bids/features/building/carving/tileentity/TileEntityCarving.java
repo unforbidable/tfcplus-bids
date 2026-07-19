@@ -1,6 +1,9 @@
 package com.unforbidable.tfc.bids.features.building.carving.tileentity;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.features.carving.AdzeMode;
+import com.unforbidable.tfc.bids.api.features.carving.Carvable;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
 import com.unforbidable.tfc.bids.core.network.Network;
 import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
@@ -8,9 +11,7 @@ import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBit;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBitMap;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
 import com.unforbidable.tfc.bids.features.building.carving.network.CarvingPacket;
-import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
-import com.unforbidable.tfc.bids.api.features.carving.AdzeMode;
-import com.unforbidable.tfc.bids.api.features.carving.Carvable;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -18,8 +19,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-
-import java.util.List;
 
 public class TileEntityCarving extends TileEntity implements PacketHandler<CarvingPacket> {
 

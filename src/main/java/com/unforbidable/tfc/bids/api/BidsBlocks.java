@@ -98,8 +98,8 @@ public class BidsBlocks {
 
     // Firewood
     public static final Block stackedFirewood = block(BlockNames.STACKED_FIREWOOD);
-    public static final Block stackedFirewood2 = block(BlockNames.STACKED_FIREWOOD_2);;
-    public static final Block stackedFirewood3 = block(BlockNames.STACKED_FIREWOOD_3);;
+    public static final Block stackedFirewood2 = block(BlockNames.STACKED_FIREWOOD_2);
+    public static final Block stackedFirewood3 = block(BlockNames.STACKED_FIREWOOD_3);
 
     // Chopping block
     public static final Block choppingBlock = block(BlockNames.CHOPPING_BLOCK);

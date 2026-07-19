@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.core.features.setup.registry;
 
 import com.unforbidable.tfc.bids.util.registry.Entry;
 import com.unforbidable.tfc.bids.util.registry.MapRegistry;
-
 import java.util.ArrayList;
 import java.util.List;
 

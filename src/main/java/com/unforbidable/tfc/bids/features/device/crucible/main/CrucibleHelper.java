@@ -8,15 +8,14 @@ import com.dunk.tfc.TileEntities.TEForge;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Metal;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.util.chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityCrucible;
+import com.unforbidable.tfc.bids.util.chimney.ChimneyHelper;
+import java.util.List;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.List;
 
 public class CrucibleHelper {
 
@@ -102,7 +101,7 @@ public class CrucibleHelper {
         // Surrounding blocks need to be solid and non flamable
         // or a chimney
         if (valid) {
-            ForgeDirection checkList[] = { ForgeDirection.NORTH, ForgeDirection.EAST, ForgeDirection.SOUTH,
+            ForgeDirection[] checkList = { ForgeDirection.NORTH, ForgeDirection.EAST, ForgeDirection.SOUTH,
                 ForgeDirection.WEST };
 
             for (ForgeDirection dir : checkList) {

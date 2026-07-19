@@ -1,9 +1,8 @@
 package com.unforbidable.tfc.bids.api.util.food;
 
 import com.dunk.tfc.api.HeatIndex;
-import net.minecraft.item.ItemStack;
-
 import java.util.Random;
+import net.minecraft.item.ItemStack;
 
 public class BidsFoodHeatIndex extends HeatIndex {
 

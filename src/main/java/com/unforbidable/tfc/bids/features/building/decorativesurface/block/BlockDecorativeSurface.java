@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.building.decorativesurface.block;
 
 import com.dunk.tfc.Core.TFC_Textures;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.main.DecorativeSurfaceMetadata;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.tileentity.TileEntityDecorativeSurface;

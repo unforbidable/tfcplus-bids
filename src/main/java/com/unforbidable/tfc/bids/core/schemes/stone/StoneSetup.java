@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.core.schemes.stone;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.core.schemes.stone.StoneBuilder;
 
 import static com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme.DEFAULT;
 

@@ -1,11 +1,9 @@
 package com.unforbidable.tfc.bids.features.device.crucible.waila;
 
-import java.util.List;
-
 import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.compat.waila.providers.WailaDataProvider;
 import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityCrucible;
-
+import java.util.List;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.item.ItemStack;

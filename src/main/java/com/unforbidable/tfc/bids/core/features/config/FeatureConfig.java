@@ -1,8 +1,7 @@
 package com.unforbidable.tfc.bids.core.features.config;
 
-import net.minecraftforge.common.config.Configuration;
-
 import java.util.function.Consumer;
+import net.minecraftforge.common.config.Configuration;
 
 public class FeatureConfig {
 

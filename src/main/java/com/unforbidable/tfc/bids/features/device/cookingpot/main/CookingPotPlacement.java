@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.cookingpot.main;
 
-import com.unforbidable.tfc.bids.features.device.cookingpot.main.placements.Ground;
 import com.unforbidable.tfc.bids.features.device.cookingpot.main.placements.FirepitEdge;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.placements.Ground;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public enum CookingPotPlacement {

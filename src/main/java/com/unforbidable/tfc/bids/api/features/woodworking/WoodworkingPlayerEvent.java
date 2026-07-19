@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.api.features.woodworking;
 
+import java.awt.geom.Area;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import java.awt.geom.Area;
 
 public class WoodworkingPlayerEvent extends PlayerEvent {
 

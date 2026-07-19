@@ -4,9 +4,9 @@ import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.util.wood.LogWallHelper;
 import com.unforbidable.tfc.bids.util.wood.WoodHelper;
-import com.unforbidable.tfc.bids.util.ItemHelper;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -77,7 +77,7 @@ public class ItemLogWall extends ItemBlock implements ISize {
         return EnumWeight.MEDIUM;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

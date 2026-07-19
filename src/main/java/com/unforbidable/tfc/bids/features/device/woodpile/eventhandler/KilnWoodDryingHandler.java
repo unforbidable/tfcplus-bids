@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.eventhandler;
 
-import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
+import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.tileentity.TileEntity;
 

@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.features.device.crucible.block.itemblock;
 
 import com.dunk.tfc.TileEntities.TEPottery;
 import com.dunk.tfc.api.TFCBlocks;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

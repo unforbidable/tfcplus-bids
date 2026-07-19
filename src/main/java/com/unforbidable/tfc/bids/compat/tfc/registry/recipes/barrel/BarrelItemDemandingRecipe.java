@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.compat.tfc.registry.recipes.barrel;
 
 import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.api.Crafting.BarrelRecipe;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 

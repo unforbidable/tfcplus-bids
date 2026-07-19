@@ -1,10 +1,8 @@
 package com.unforbidable.tfc.bids.core.network;
 
 import com.unforbidable.tfc.bids.core.network.packet.Packet;
-import com.unforbidable.tfc.bids.core.network.packet.PacketContext;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import io.netty.buffer.ByteBuf;
-
 import java.text.MessageFormat;
 
 public class NetworkMessage implements IMessage {

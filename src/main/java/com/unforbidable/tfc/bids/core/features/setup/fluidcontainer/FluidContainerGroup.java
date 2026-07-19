@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.core.features.setup.fluidcontainer;
 
-import net.minecraftforge.fluids.Fluid;
 import java.util.List;
+import net.minecraftforge.fluids.Fluid;
 
 public class FluidContainerGroup {
 

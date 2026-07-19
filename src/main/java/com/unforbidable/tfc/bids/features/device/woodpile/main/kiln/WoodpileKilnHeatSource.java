@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.woodpile.main.kiln;
 
-import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import com.unforbidable.tfc.bids.api.features.kiln.KilnHeatSource;
+import com.unforbidable.tfc.bids.features.device.woodpile.tileentity.TileEntityWoodpile;
 import net.minecraft.world.World;
 
 public class WoodpileKilnHeatSource implements KilnHeatSource {

@@ -1,13 +1,11 @@
 package com.unforbidable.tfc.bids.features.device.crucible.main;
 
+import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.Metal;
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.dunk.tfc.api.Metal;
-import com.dunk.tfc.api.Constant.Global;
-import com.unforbidable.tfc.bids.Bids;
-
-import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

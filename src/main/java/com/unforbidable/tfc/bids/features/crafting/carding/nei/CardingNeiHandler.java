@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.crafting.carding.nei;
 
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
 import com.unforbidable.tfc.bids.api.features.handwork.CardingRecipe;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.features.crafting.carding.CardingConfig;

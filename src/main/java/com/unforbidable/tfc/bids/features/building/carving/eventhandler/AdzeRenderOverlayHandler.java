@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.features.building.carving.eventhandler;
 
 import com.dunk.tfc.Core.TFC_Core;
-import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
-import com.unforbidable.tfc.bids.features.utility.adze.item.ItemAdze;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.features.carving.AdzeMode;
+import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
+import com.unforbidable.tfc.bids.features.utility.adze.item.ItemAdze;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;

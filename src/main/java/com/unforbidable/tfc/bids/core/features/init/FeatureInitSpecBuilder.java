@@ -2,13 +2,18 @@ package com.unforbidable.tfc.bids.core.features.init;
 
 import com.unforbidable.tfc.bids.core.features.init.block.BlockSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.fluid.FluidSpecBuilder;
-import com.unforbidable.tfc.bids.core.features.init.tileentity.TileEntitySpec;
 import com.unforbidable.tfc.bids.core.features.init.gui.GuiContainerSpec;
 import com.unforbidable.tfc.bids.core.features.init.item.ItemSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.init.tileentity.TileEntitySpec;
 import com.unforbidable.tfc.bids.core.gui.provider.GuiProvider;
 import com.unforbidable.tfc.bids.core.gui.provider.SimpleGuiFunction;
 import com.unforbidable.tfc.bids.core.gui.provider.SpecialGuiFunction;
 import com.unforbidable.tfc.bids.core.gui.provider.TileEntityGuiFunction;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -18,12 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class FeatureInitSpecBuilder {
 

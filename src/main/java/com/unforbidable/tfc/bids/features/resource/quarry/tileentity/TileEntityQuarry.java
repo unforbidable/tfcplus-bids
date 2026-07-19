@@ -1,14 +1,17 @@
 package com.unforbidable.tfc.bids.features.resource.quarry.tileentity;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.features.quarry.PlugAndFeather;
+import com.unforbidable.tfc.bids.api.features.quarry.Quarriable;
 import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
 import com.unforbidable.tfc.bids.core.network.Network;
 import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarryHelper;
 import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarrySideWedgeData;
 import com.unforbidable.tfc.bids.util.Timer;
-import com.unforbidable.tfc.bids.api.features.quarry.PlugAndFeather;
-import com.unforbidable.tfc.bids.api.features.quarry.Quarriable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -18,10 +21,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TileEntityQuarry extends TileEntity implements PacketHandler<SimpleUpdatePacket> {
 

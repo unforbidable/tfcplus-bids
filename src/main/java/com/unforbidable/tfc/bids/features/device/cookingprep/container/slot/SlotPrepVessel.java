@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.cookingprep.container.slot;
 
-import com.unforbidable.tfc.bids.features.device.cookingprep.main.CookingPrepHelper;
 import com.unforbidable.tfc.bids.common.container.slot.TrackedSlot;
+import com.unforbidable.tfc.bids.features.device.cookingprep.main.CookingPrepHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 

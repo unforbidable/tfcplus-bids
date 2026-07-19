@@ -20,7 +20,7 @@ public class QuarryWedgeModeller {
 
     private static QuarryWedgeBounds[] calculateEdgeWedgeBounds(ForgeDirection side, ForgeDirection edge) {
         int n = 4;
-        QuarryWedgeBounds list[] = new QuarryWedgeBounds[n];
+        QuarryWedgeBounds[] list = new QuarryWedgeBounds[n];
 
         for (int i = 0; i < n; i++) {
             list[i] = calculateOne(side, edge, i);

@@ -2,13 +2,12 @@ package com.unforbidable.tfc.bids.core.crafting;
 
 import com.unforbidable.tfc.bids.core.crafting.editors.RecipeEditor;
 import com.unforbidable.tfc.bids.core.crafting.matchers.ObjectMatcher;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class CloningRecipe {
 

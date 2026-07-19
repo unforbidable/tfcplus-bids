@@ -2,9 +2,7 @@ package com.unforbidable.tfc.bids.features.device.cookingprep.block;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Textures;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api._obsolete.BidsGui;
 import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.features.device.cookingprep.tileentity.TileEntityCookingPrep;
 import com.unforbidable.tfc.bids.util.GuiUtil;

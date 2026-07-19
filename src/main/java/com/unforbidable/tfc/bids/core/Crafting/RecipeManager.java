@@ -1,10 +1,9 @@
 package com.unforbidable.tfc.bids.core.crafting;
 
 import cpw.mods.fml.common.gameevent.PlayerEvent;
-import net.minecraft.inventory.InventoryCrafting;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.inventory.InventoryCrafting;
 
 public class RecipeManager {
 

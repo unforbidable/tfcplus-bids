@@ -3,10 +3,9 @@ package com.unforbidable.tfc.bids.core.crafting.actions;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.core.crafting.CraftingContext;
 import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
+import java.util.function.Consumer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import java.util.function.Consumer;
 
 public class CopySeasoning extends HandleTagCompound {
 

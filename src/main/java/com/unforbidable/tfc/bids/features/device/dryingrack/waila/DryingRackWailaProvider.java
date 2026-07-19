@@ -8,21 +8,20 @@ import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCOptions;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
-import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEnvironment;
 import com.unforbidable.tfc.bids.api.features.drying.IDryingFoodRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
 import com.unforbidable.tfc.bids.compat.waila.providers.WailaDataProvider;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEnvironment;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHelper;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.StaticEnvironment;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackItem;
 import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
+import java.util.List;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
-
-import java.util.List;
 
 public class DryingRackWailaProvider extends WailaDataProvider {
 

@@ -13,13 +13,14 @@ import com.unforbidable.tfc.bids.api.features.quarry.PlugAndFeather;
 import com.unforbidable.tfc.bids.api.features.quarry.Quarriable;
 import com.unforbidable.tfc.bids.common.item.ItemCommonTool;
 import com.unforbidable.tfc.bids.compat.tfc.TfcUtil;
-import com.unforbidable.tfc.bids.util.ItemHelper;
-import com.unforbidable.tfc.bids.util.crafting.CraftingHelper;
 import com.unforbidable.tfc.bids.features.resource.quarry.QuarryConfig;
-import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
 import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarryDrillDataAgent;
 import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarryDrillTarget;
 import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarryHelper;
+import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
+import com.unforbidable.tfc.bids.util.ItemHelper;
+import com.unforbidable.tfc.bids.util.crafting.CraftingHelper;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,8 +33,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.List;
 
 public class ItemDrill extends ItemCommonTool {
 
@@ -277,7 +276,7 @@ public class ItemDrill extends ItemCommonTool {
             // as needed later for drill damaging
             ForgeDirection d = quarry.getQuarryOrientation();
             Block actualBlock = world.getBlock(x - d.offsetX, y - d.offsetY, z - d.offsetZ);
-            int metadata = world.getBlockMetadata(x - d.offsetX, y - d.offsetY, z - d.offsetZ);;
+            int metadata = world.getBlockMetadata(x - d.offsetX, y - d.offsetY, z - d.offsetZ);
             damageDrill(world, x, y, z, stack, player, actualBlock, metadata);
             ItemStack consumedPlugAndFeather = consumePlugAndFeather(player, actualBlock, metadata);
             if (consumedPlugAndFeather != null) {
@@ -490,7 +489,6 @@ public class ItemDrill extends ItemCommonTool {
         return null;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> list) {
         ItemTerraTool.addSmithingBonusInformation(is, list);

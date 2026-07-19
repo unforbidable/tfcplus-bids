@@ -4,13 +4,13 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.features.utility.pail.item.ItemPailFluid;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.utility.pail.item.ItemPailEmpty;
+import com.unforbidable.tfc.bids.features.utility.pail.item.ItemPailFluid;
 import net.minecraft.item.ItemStack;
 
 import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_PAIL;

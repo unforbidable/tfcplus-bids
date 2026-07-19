@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.features.device.screwpress.gui;
 
 import com.dunk.tfc.GUI.GuiContainerTFC;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.features.device.screwpress.container.ContainerScrewPress;
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressBarrel;
-import com.unforbidable.tfc.bids.Tags;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;

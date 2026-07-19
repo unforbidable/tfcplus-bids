@@ -5,7 +5,6 @@ import com.unforbidable.tfc.bids.core.features.init.fluid.FluidSpec;
 import com.unforbidable.tfc.bids.core.features.init.gui.GuiContainerSpec;
 import com.unforbidable.tfc.bids.core.features.init.item.ItemSpec;
 import com.unforbidable.tfc.bids.core.features.init.tileentity.TileEntitySpec;
-
 import java.util.List;
 
 public class FeatureInitSpec {

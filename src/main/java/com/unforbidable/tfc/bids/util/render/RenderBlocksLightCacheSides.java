@@ -1,9 +1,7 @@
 package com.unforbidable.tfc.bids.util.render;
 
-import java.util.EnumSet;
-
 import com.dunk.tfc.Render.RenderBlocksFixUV;
-
+import java.util.EnumSet;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -18,13 +16,13 @@ public class RenderBlocksLightCacheSides extends RenderBlocksFixUV {
 
     private EnumSet<ForgeDirection> facesToDraw = EnumSet.allOf( ForgeDirection.class );
 
-	private RenderFaceData sides[]  = new RenderFaceData[6];
+	private RenderFaceData[] sides  = new RenderFaceData[6];
 
 	private static class RenderPointData
 	{
 		private int brightness;
 		private float r, g, b;
-	};
+	}
 
 	private static class RenderFaceData
 	{
@@ -104,7 +102,7 @@ public class RenderBlocksLightCacheSides extends RenderBlocksFixUV {
 			return o;
 		}
 
-	};
+	}
 
 	/**
 	* enable or disable caching

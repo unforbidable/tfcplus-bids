@@ -1,8 +1,7 @@
 package com.unforbidable.tfc.bids.core.crafting;
 
-import net.minecraft.item.crafting.IRecipe;
-
 import java.util.function.Consumer;
+import net.minecraft.item.crafting.IRecipe;
 
 public class ActionableRecipe {
 

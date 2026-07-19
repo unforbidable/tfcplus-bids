@@ -50,6 +50,7 @@ public class BlockAquifer extends BlockContainer {
         return textureOffset;
     }
 
+    @SuppressWarnings({"unchecked" })
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item item, CreativeTabs tabs, List list) {

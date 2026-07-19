@@ -15,16 +15,6 @@ public class ClientProxy extends CommonProxy {
         super.preInit(event);
 
         Initializer.preInitClientOnly(event);
-
-//        FMLCommonHandler.instance().bus().register(new ClientTickHandler());
-//
-//        NetworkRegistry.INSTANCE.registerGuiHandler(Bids.instance, new ClientGuiHandler());
-//        MinecraftForge.EVENT_BUS.register(new ClientGuiHandler());
-//        MinecraftForge.EVENT_BUS.register(new FarmlandHighlightHandler());
-//        MinecraftForge.EVENT_BUS.register(new PlacementHighlightHandler());
-//        MinecraftForge.EVENT_BUS.register(new AdzeHighlightHandler());
-//
-//        BlockSetup.preInitClientOnly();
     }
 
     @Override
@@ -33,14 +23,6 @@ public class ClientProxy extends CommonProxy {
         super.init(event);
 
         Initializer.initClientOnly(event);
-
-//        if (Loader.isModLoaded("Waila")) {
-//            WailaSetup.init();
-//        }
-//
-//        if (Loader.isModLoaded("NotEnoughItems")) {
-//            NotEnoughItemsSetup.init();
-//        }
     }
 
     @Override
@@ -49,15 +31,6 @@ public class ClientProxy extends CommonProxy {
         super.postInit(event);
 
         Initializer.postInitClientOnly(event);
-
-
-//        ItemSetup.postInitClientOnly();
-//
-//        KeyBindingSetup.postInit();
-//
-//        FMLCommonHandler.instance().bus().register(new KeyBindingHandler());
-//        MinecraftForge.EVENT_BUS.register(new RenderOverlayHandler());
-
     }
 
 }

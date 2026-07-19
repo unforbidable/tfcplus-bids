@@ -1,15 +1,13 @@
 package com.unforbidable.tfc.bids.features.device.crucible.block.itemblock;
 
-import java.util.List;
-
-import com.dunk.tfc.api.TFC_ItemHeat;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
-import com.unforbidable.tfc.bids.util.ItemHelper;
+import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.features.device.crucible.main.CrucibleLiquidStorage;
-
+import com.unforbidable.tfc.bids.util.ItemHelper;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -49,7 +47,7 @@ public abstract class ItemCrucible extends ItemBlock implements ISize {
         return EnumItemReach.SHORT;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

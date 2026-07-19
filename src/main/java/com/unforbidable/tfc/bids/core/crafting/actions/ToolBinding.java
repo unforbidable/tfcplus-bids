@@ -5,10 +5,9 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.core.crafting.CraftingContext;
 import com.unforbidable.tfc.bids.util.crafting.CraftingHelper;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import java.util.function.Consumer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.function.Consumer;
 
 public class ToolBinding {
 

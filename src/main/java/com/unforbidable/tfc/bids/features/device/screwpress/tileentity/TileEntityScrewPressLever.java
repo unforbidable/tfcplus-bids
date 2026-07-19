@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.features.device.screwpress.tileentity;
 
 import com.dunk.tfc.Blocks.Devices.BlockAxleBearing;
-import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressDiscPosition;
 import com.unforbidable.tfc.bids.api.features.screw.ScrewLoadProvider;
 import com.unforbidable.tfc.bids.features.device.screw.tileentity.TileEntityScrew;
+import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressDiscPosition;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;

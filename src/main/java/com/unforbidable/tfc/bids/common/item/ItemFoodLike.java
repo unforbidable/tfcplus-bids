@@ -10,18 +10,17 @@ import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.Util.Helper;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.util.ItemHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class ItemFoodLike extends ItemExtraFood implements ISize {
 
@@ -30,6 +29,8 @@ public class ItemFoodLike extends ItemExtraFood implements ISize {
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
     }
 
+    @SuppressWarnings({"unchecked" })
+    @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
         list.add(createTag(new ItemStack(this, 1), 160.0F));
     }
@@ -69,13 +70,14 @@ public class ItemFoodLike extends ItemExtraFood implements ISize {
         return 1;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);
         addFoodWeightInformation(is, player, list);
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private void addFoodWeightInformation(ItemStack is, EntityPlayer player, List list) {
         float ounces = Helper.roundNumber(Food.getWeight(is), 100.0F);
         if (ounces > 0.0F && ounces <= 160.0F) {

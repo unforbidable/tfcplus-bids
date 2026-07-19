@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.api.features.churning;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraft.entity.player.EntityPlayer;
 
 public class WaterskinChurnEvent extends PlayerEvent {
 

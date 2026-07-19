@@ -1,9 +1,8 @@
 package com.unforbidable.tfc.bids.core.features.registry;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.api.annotations.BlockId;
-
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;

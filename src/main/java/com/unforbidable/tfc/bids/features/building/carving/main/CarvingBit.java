@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.building.carving.main;
 
 import com.unforbidable.tfc.bids.Bids;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -35,7 +34,7 @@ public class CarvingBit {
         }
 
         if (bitX >= dimension || bitY >= dimension || bitZ >= dimension ||
-                bitX < 0 || bitY < 0 || bitX < 0) {
+                bitX < 0 || bitY < 0 || bitX < 0) { // TODO should be bitZ?
             Bids.LOG.warn("Trying to use an out of bounds bit: " + bitX + ", " + bitY + ", " + bitZ);
             return 0;
         }

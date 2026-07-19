@@ -2,11 +2,10 @@ package com.unforbidable.tfc.bids.core.crafting.actions;
 
 import com.unforbidable.tfc.bids.core.crafting.CraftingContext;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-
 import java.util.List;
 import java.util.function.Consumer;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class KeepItem {
 

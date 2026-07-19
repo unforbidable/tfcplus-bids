@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.action;
 
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingAction;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionGroup;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.builder.ActionGroupBuilder;
 import java.util.EnumSet;
 

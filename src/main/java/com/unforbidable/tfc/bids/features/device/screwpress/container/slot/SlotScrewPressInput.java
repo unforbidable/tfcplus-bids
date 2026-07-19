@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.screwpress.container.slot;
 
-import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressHelper;
 import com.unforbidable.tfc.bids.common.container.slot.TrackedSlot;
+import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 

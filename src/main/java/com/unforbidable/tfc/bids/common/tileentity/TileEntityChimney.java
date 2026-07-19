@@ -1,16 +1,14 @@
 package com.unforbidable.tfc.bids.common.tileentity;
 
-import com.unforbidable.tfc.bids.util.chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.api.util.chimney.Chimney;
-
+import com.unforbidable.tfc.bids.util.chimney.ChimneyHelper;
+import java.util.List;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-
-import java.util.List;
 
 public abstract class TileEntityChimney extends TileEntity implements Chimney {
 

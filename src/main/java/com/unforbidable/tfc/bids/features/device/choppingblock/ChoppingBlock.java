@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.choppingblock;
 
 import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
 import com.unforbidable.tfc.bids.core.features.Feature;

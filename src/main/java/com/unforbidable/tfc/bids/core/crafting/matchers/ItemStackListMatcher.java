@@ -1,12 +1,11 @@
 package com.unforbidable.tfc.bids.core.crafting.matchers;
 
+import java.util.Arrays;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class ItemStackListMatcher extends ObjectMatcher {
 

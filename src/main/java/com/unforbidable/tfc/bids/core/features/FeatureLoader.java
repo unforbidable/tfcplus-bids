@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.core.features;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.features.Features;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

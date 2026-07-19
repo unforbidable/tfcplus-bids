@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.firepit.main.fuels;
 
-import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
+import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import net.minecraft.item.ItemStack;
 
 public class FuelLogsTFC implements FirepitFuelMaterial {

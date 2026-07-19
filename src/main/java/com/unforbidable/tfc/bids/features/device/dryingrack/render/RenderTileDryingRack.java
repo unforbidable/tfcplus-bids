@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.features.device.dryingrack.render;
 
 import com.dunk.tfc.Render.TESR.TESRBase;
-import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackBounds;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackItem;
+import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Vec3;

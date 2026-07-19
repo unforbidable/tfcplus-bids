@@ -2,16 +2,15 @@ package com.unforbidable.tfc.bids.features.resource.well.item;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBucketFluid;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBucketFluid;
+import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.Random;
 
 public class ItemBucketRopeFluid extends ItemBucketFluid {
 

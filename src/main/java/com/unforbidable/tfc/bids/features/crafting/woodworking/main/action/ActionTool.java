@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.action;
 
-import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.builder.ActionToolBuilder;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionGroup;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingTool;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.builder.ActionToolBuilder;
 
 public class ActionTool implements WoodworkingTool {
 

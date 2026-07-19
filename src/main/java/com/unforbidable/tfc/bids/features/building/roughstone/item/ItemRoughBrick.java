@@ -5,9 +5,11 @@ import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.util.accessor.ItemMetaNamesAccessor;
+import java.util.Arrays;
+import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,12 +17,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class ItemRoughBrick extends Item implements ISize, ItemMetaNamesAccessor {
 
-    protected IIcon icons[];
+    protected IIcon[] icons;
     protected String[] names;
     protected List<Integer> metaWhitelist = null;
     protected String textureName;
@@ -62,7 +61,7 @@ public class ItemRoughBrick extends Item implements ISize, ItemMetaNamesAccessor
             return this.itemIcon;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
         for (int i = 0; i < names.length; i++) {
@@ -117,7 +116,7 @@ public class ItemRoughBrick extends Item implements ISize, ItemMetaNamesAccessor
         return EnumWeight.HEAVY;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

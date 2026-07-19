@@ -2,11 +2,10 @@ package com.unforbidable.tfc.bids.core.schemes.wood;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import net.minecraft.item.ItemStack;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.item.ItemStack;
 
 public class WoodScheme {
 

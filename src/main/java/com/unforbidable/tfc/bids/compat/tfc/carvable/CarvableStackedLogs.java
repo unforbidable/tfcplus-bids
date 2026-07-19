@@ -1,13 +1,11 @@
 package com.unforbidable.tfc.bids.compat.tfc.carvable;
 
-import java.util.Random;
-
 import com.dunk.tfc.Blocks.Flora.BlockStackedLogHoriz;
 import com.dunk.tfc.Blocks.Flora.BlockStackedLogVert;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.carving.Carvable;
-
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

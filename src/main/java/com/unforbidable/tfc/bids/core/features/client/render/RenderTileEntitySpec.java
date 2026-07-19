@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.core.features.client.render;
 
+import java.util.List;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import java.util.List;
 
 public class RenderTileEntitySpec {
 

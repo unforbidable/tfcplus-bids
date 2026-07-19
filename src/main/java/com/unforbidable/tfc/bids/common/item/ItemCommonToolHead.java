@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.common.item;
 import com.dunk.tfc.Items.Tools.ItemMiscToolHead;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 
 public class ItemCommonToolHead extends ItemMiscToolHead {

@@ -1,8 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.crucible.main;
 
-import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityCrucible;
-
+import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import net.minecraft.item.ItemStack;
 
 public class CrucibleInputMonitor {

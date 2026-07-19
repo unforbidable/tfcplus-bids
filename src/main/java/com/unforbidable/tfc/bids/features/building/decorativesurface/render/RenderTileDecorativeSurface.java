@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.building.decorativesurface.render;
 
 import com.dunk.tfc.Render.TESR.TESRBase;
-import com.unforbidable.tfc.bids.features.building.decorativesurface.tileentity.TileEntityDecorativeSurface;
 import com.unforbidable.tfc.bids.features.building.decorativesurface.main.DecorativeSurfaceMetadata;
+import com.unforbidable.tfc.bids.features.building.decorativesurface.tileentity.TileEntityDecorativeSurface;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

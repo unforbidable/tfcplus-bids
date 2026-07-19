@@ -10,8 +10,8 @@ import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
 import com.unforbidable.tfc.bids.util.ItemHelper;
-import java.util.List;
 import com.unforbidable.tfc.bids.util.accessor.ItemMetaNamesAccessor;
+import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -77,7 +77,7 @@ public class ItemBark extends Item implements ISize, FirepitFuelMaterial, ItemMe
         return this.getUnlocalizedName() + "." + names[itemstack.getItemDamage()];
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list) {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
@@ -107,7 +107,7 @@ public class ItemBark extends Item implements ISize, FirepitFuelMaterial, ItemMe
         return EnumWeight.LIGHT;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

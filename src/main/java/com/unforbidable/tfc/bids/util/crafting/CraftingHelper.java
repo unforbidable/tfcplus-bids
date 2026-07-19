@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.util.crafting;
 
 import com.dunk.tfc.api.Crafting.AnvilManager;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class CraftingHelper {
 

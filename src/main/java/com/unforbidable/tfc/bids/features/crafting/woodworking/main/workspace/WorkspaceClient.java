@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace;
 
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingAction;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionGroup;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingTool;
 import java.awt.Point;

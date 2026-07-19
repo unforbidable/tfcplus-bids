@@ -2,15 +2,15 @@ package com.unforbidable.tfc.bids.features.building.carving.main;
 
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.features.carving.AdzeMode;
 import com.unforbidable.tfc.bids.api.features.carving.Carvable;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingTool;
 import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
 import com.unforbidable.tfc.bids.features.building.carving.main.playerstate.CarvingPlayerState;
+import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
 import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
 import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
 import com.unforbidable.tfc.bids.util.playerstate.PlayerStateManager;
-import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
-import com.unforbidable.tfc.bids.api.features.carving.AdzeMode;
-import com.unforbidable.tfc.bids.api.features.carving.CarvingTool;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;

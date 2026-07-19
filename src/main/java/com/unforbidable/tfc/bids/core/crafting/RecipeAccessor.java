@@ -5,19 +5,18 @@ import com.unforbidable.tfc.bids.core.crafting.editors.NullRecipeEditor;
 import com.unforbidable.tfc.bids.core.crafting.editors.RecipeEditor;
 import com.unforbidable.tfc.bids.core.crafting.editors.ShapedRecipeEditor;
 import com.unforbidable.tfc.bids.core.crafting.editors.ShapelessRecipeEditor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RecipeAccessor {
 

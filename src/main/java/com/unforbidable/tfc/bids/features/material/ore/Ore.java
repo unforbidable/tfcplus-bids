@@ -2,6 +2,9 @@ package com.unforbidable.tfc.bids.features.material.ore;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
+import com.unforbidable.tfc.bids.compat.tfc.registry.values.HeatValue;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
@@ -9,14 +12,11 @@ import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.material.ore.item.ItemOreBit;
 import com.unforbidable.tfc.bids.util.metal.MetalHelper;
-import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
-import com.unforbidable.tfc.bids.compat.tfc.registry.values.HeatValue;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.ORE_BIT;
+import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 /**
  * <li><b>ore bit</b> - ore broken into more granular form yielding 5 unit per item, easier to smelt than larger chunks</li>

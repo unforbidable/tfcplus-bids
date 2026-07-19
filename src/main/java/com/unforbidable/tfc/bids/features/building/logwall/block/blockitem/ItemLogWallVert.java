@@ -76,7 +76,7 @@ public class ItemLogWallVert extends ItemBlock implements ISize {
         return EnumWeight.MEDIUM;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

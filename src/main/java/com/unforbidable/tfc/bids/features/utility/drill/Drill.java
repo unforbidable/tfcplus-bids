@@ -1,14 +1,7 @@
 package com.unforbidable.tfc.bids.features.utility.drill;
 
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.core.features.Feature;
-import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
-import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
-import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
-import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
-import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
-import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
-import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.common.item.ItemCommonPotteryMold;
 import com.unforbidable.tfc.bids.common.item.ItemCommonToolHead;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
@@ -20,12 +13,37 @@ import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.AnvilRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KilnRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.values.PartialMold;
+import com.unforbidable.tfc.bids.core.features.Feature;
+import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
+import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
+import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
+import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
+import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.features.utility.drill.item.ItemDrill;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import net.minecraft.item.ItemStack;
 
 import static com.dunk.tfc.Core.Recipes.getStackNoTemp;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.*;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_BISMUTH_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_BLACK_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_COPPER;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_BISMUTH_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_BLACK_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_COPPER;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_STONE_IG_EX;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_STONE_IG_IN;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_STONE_MM;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_STONE_SED;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_WROUGHT_IRON;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_MOLD;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_STONE_IG_EX;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_STONE_IG_IN;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_STONE_MM;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_STONE_SED;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_WROUGHT_IRON;
 
 /**
  * <li>drill - tool from stone and metals up to wrought iron</li>

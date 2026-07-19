@@ -2,8 +2,8 @@ package com.unforbidable.tfc.bids.features.device.firepit.render;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitConfig;
-import com.unforbidable.tfc.bids.util.render.RenderHelper;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
+import com.unforbidable.tfc.bids.util.render.RenderHelper;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

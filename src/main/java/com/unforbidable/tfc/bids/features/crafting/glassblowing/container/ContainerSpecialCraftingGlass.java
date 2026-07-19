@@ -2,10 +2,8 @@ package com.unforbidable.tfc.bids.features.crafting.glassblowing.container;
 
 import com.dunk.tfc.Containers.ContainerSpecialCrafting;
 import com.dunk.tfc.Core.Player.PlayerInfo;
-import com.unforbidable.tfc.bids.core.gui.provider.GuiProviderContext;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

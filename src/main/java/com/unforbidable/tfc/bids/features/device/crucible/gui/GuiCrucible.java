@@ -1,12 +1,10 @@
 package com.unforbidable.tfc.bids.features.device.crucible.gui;
 
-import java.util.ArrayList;
-
 import com.dunk.tfc.Core.Player.PlayerInventory;
 import com.dunk.tfc.GUI.GuiContainerTFC;
-import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityCrucible;
 import com.unforbidable.tfc.bids.features.device.crucible.CrucibleConfig;
-
+import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityCrucible;
+import java.util.ArrayList;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

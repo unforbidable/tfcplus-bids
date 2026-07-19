@@ -3,9 +3,10 @@ package com.unforbidable.tfc.bids.core.schemes.stone;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.item.ItemStack;
-
-import java.util.*;
 
 public class StoneScheme {
 

@@ -3,9 +3,8 @@ package com.unforbidable.tfc.bids.core.features.client.keybinding;
 import com.unforbidable.tfc.bids.core.keybinding.KeyBindingRegistry;
 import com.unforbidable.tfc.bids.core.keybinding.action.KeyBindingAction;
 import com.unforbidable.tfc.bids.core.keybinding.action.KeyBindingActionContext;
-import net.minecraft.client.settings.KeyBinding;
-
 import java.util.function.Consumer;
+import net.minecraft.client.settings.KeyBinding;
 
 public class KeyBindingClientHelper {
 

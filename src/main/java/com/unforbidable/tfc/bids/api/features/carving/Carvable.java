@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.api.features.carving;
 
 import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

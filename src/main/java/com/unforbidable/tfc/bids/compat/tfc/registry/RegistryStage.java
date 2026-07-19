@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.compat.tfc.registry;
 
 import com.unforbidable.tfc.bids.Bids;
-
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;

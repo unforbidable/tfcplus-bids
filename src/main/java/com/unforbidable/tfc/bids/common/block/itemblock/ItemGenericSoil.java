@@ -7,13 +7,12 @@ import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.features.resource.well.block.BlockAquifer;
 import com.unforbidable.tfc.bids.util.ItemHelper;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-
-import java.util.List;
 
 public class ItemGenericSoil extends ItemBlock implements ISize {
 
@@ -31,6 +30,7 @@ public class ItemGenericSoil extends ItemBlock implements ISize {
         return true;
     }
 
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
         ItemHelper.addSizeInformation(is, arraylist);

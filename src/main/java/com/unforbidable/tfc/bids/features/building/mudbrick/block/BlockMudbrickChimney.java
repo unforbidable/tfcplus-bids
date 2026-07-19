@@ -1,19 +1,17 @@
 package com.unforbidable.tfc.bids.features.building.mudbrick.block;
 
-import java.util.List;
-import java.util.Random;
-
+import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Effects.FastFlameFX;
 import com.dunk.tfc.Reference;
-import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
-
 import com.unforbidable.tfc.bids.features.building.mudbrick.tileentity.TileEntityMudBrickChimney;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -173,7 +171,7 @@ public class BlockMudbrickChimney extends BlockContainer {
         }
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
         int count;

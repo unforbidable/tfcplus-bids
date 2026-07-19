@@ -1,7 +1,5 @@
 package com.unforbidable.tfc.bids.features.device.firepit.item;
 
-import java.util.List;
-
 import com.dunk.tfc.api.Enums.EnumFuelMaterial;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
@@ -9,13 +7,13 @@ import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.util.ItemHelper;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
-import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderConfigurator;
-
+import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
+import com.unforbidable.tfc.bids.util.ItemHelper;
+import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -68,7 +66,7 @@ public class ItemTiedStickBundle extends Item implements ISize, FirepitFuelMater
         return EnumWeight.LIGHT;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

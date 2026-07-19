@@ -75,7 +75,7 @@ public class ItemFirewood extends Item implements ISize, WoodpileRenderable, Fir
         return this.getUnlocalizedName() + "." + names[itemstack.getItemDamage()];
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list) {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
@@ -113,7 +113,7 @@ public class ItemFirewood extends Item implements ISize, WoodpileRenderable, Fir
         return EnumWeight.MEDIUM;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

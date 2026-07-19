@@ -2,9 +2,9 @@ package com.unforbidable.tfc.bids.features.device.screwpress.block;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressBounds;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressHelper;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;

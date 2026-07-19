@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.core.features.registry;
 
 import com.unforbidable.tfc.bids.Bids;
-import net.minecraft.block.Block;
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.block.Block;
 
 public class BlockRenderIdProvider {
 

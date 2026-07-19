@@ -1,11 +1,9 @@
 package com.unforbidable.tfc.bids.common.item;
 
-import java.util.List;
-
 import com.dunk.tfc.Items.Pottery.ItemPotteryBase;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-
+import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -34,7 +32,7 @@ public class ItemCommonPottery extends ItemPotteryBase {
                     + getUnlocalizedName().replace("item.", "") + ".Ceramic");
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list) {
         list.add(new ItemStack(this, 1, 0));

@@ -2,11 +2,10 @@ package com.unforbidable.tfc.bids.features.device.crucible.recipe;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.util.metal.MetalHelper;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.features.device.crucible.main.CrucibleLiquidItem;
 import com.unforbidable.tfc.bids.features.device.crucible.main.CrucibleLiquidStorage;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-
+import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -40,7 +39,7 @@ public class RecipeCrucibleConversion implements IRecipe {
             if (tag != null) {
                 converted.setTagCompound(fromTFC ? convertNBTFromTFC(tag) : convertNBTToTFC(tag));
 
-                Bids.LOG.debug("Converted NBT from: " + tag.toString() + " to: " + converted.getTagCompound());
+                Bids.LOG.debug("Converted NBT from: " + tag + " to: " + converted.getTagCompound());
             }
         }
 

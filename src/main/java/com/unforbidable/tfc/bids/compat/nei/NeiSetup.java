@@ -3,6 +3,8 @@ package com.unforbidable.tfc.bids.compat.nei;
 import codechicken.nei.api.API;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiHandlerEntry;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiHiderEntry;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiRegistry;
@@ -16,27 +18,6 @@ public class NeiSetup {
 
         NeiRegistry.handlers.stream()
             .forEach(NeiSetup::registerHandler);
-
-//        registerHandler(new QuarryNeiHandler());
-//        registerHandler(new SeasoningNeiHandler());
-//        registerHandler(new FirepitFuelNeiHandler());
-//        registerHandler(new DryingNeiHandler());
-//        registerHandler(new CarvingNeiHandler());
-//        registerHandler(new ChoppingNeiHandler());
-//        registerHandler(new SaddleQuernNeiHandler());
-//        registerHandler(new StonePressNeiHandler());
-//        registerHandler(new CookingNeiHandler());
-//        registerHandler(new CookingPrepNeiHandler());
-//        registerHandler(new ScrewPressNeiHandler());
-//        registerHandler(new ChurningNeiHandler());
-//        registerHandler(new ProcessingNeiHandler());
-//        registerHandler(new SoakingNeiHandler());
-//        registerHandler(new SpinningNeiHandler());
-//        registerHandler(new RopeMakingNeiHandler());
-//        registerHandler(new HandworkNeiHandler());
-//        registerHandler(new CardingNeiHandler());
-//        registerHandler(new HecklingNeiHandler());
-//        registerHandler(new WoodworkingNeiHandler());
     }
 
     private static void registerHandler(NeiHandlerEntry entry) {
@@ -77,11 +58,9 @@ public class NeiSetup {
         NeiRegistry.hiders.stream()
             .forEach(NeiSetup::hide);
 
+        // TODO hide from NEI
 //        hideItem(BidsItems.flatGlass);
-//        hideItem(BidsItems.barkFibreStrip); // OBSOLETE
 //        hideItem(BidsItems.flatBirchBark);
-//
-//        hideItem(BidsItems.sedRoughStoneLooseBrick);
 //
 //        hideItem(BidsItems.stuffedPepper);
 //        hideItem(BidsItems.stuffedMushroom);

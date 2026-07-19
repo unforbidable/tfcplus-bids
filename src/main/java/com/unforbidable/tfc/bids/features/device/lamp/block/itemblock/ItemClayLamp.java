@@ -14,6 +14,7 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.features.device.lamp.tileentity.TileEntityClayLamp;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -22,8 +23,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
-
-import java.util.List;
 
 public class ItemClayLamp extends ItemTerraBlock implements ISize, IFluidContainerItem, ISmashable {
 
@@ -85,6 +84,7 @@ public class ItemClayLamp extends ItemTerraBlock implements ISize, IFluidContain
         return false;
     }
 
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

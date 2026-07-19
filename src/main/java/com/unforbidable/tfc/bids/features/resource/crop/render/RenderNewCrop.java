@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.resource.crop.render;
 
-import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewCrop;
 import com.unforbidable.tfc.bids.core.crop.BidsCropIndex;
 import com.unforbidable.tfc.bids.core.crop.BidsCropManager;
+import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewCrop;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

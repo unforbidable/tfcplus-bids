@@ -1,9 +1,8 @@
 package com.unforbidable.tfc.bids.util.chunk;
 
-import net.minecraft.world.World;
-
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.world.World;
 
 public class ChunkStateManager {
 

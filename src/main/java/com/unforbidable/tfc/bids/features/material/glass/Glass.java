@@ -1,15 +1,15 @@
 package com.unforbidable.tfc.bids.features.material.glass;
 
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
+import com.unforbidable.tfc.bids.common.item.ItemDrinkingGlass;
+import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
+import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
-import com.unforbidable.tfc.bids.common.item.ItemDrinkingGlass;
-import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
-import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
-import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.names.ItemNames;
 import net.minecraft.item.ItemStack;
 
 /**

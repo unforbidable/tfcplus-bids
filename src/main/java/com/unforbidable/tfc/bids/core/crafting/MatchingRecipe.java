@@ -1,6 +1,8 @@
 package com.unforbidable.tfc.bids.core.crafting;
 
-import com.unforbidable.tfc.bids.core.crafting.matchers.*;
+import com.unforbidable.tfc.bids.core.crafting.matchers.ObjectMatcher;
+import com.unforbidable.tfc.bids.core.crafting.matchers.RecipeInputMatcher;
+import com.unforbidable.tfc.bids.core.crafting.matchers.RecipeMatcher;
 
 public class MatchingRecipe {
 

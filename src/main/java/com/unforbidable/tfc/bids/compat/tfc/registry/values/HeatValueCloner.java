@@ -1,10 +1,9 @@
 package com.unforbidable.tfc.bids.compat.tfc.registry.values;
 
-import com.unforbidable.tfc.bids.compat.tfc.registry.RegistryActor;
 import com.unforbidable.tfc.bids.compat.tfc.registry.RegistryStage;
 import com.unforbidable.tfc.bids.compat.tfc.registry.actors.RegistryCloningActor;
-import net.minecraft.item.ItemStack;
 import java.util.function.Predicate;
+import net.minecraft.item.ItemStack;
 
 public class HeatValueCloner extends RegistryCloningActor<HeatValue> {
 

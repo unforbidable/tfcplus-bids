@@ -1,9 +1,9 @@
 package com.unforbidable.tfc.bids.core.features.client.render;
 
-import net.minecraft.item.Item;
-import net.minecraftforge.client.IItemRenderer;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.IItemRenderer;
 
 public class RenderItemBuilder {
 

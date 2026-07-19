@@ -1,19 +1,17 @@
 package com.unforbidable.tfc.bids.features.device.crucible.item;
 
-import java.util.List;
-
-import com.dunk.tfc.api.Metal;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.Interfaces.ISmeltable;
+import com.dunk.tfc.api.Metal;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.api.util.metal.MoreSmeltable;
-
+import com.unforbidable.tfc.bids.util.ItemHelper;
+import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -53,7 +51,7 @@ public class ItemGlassLump extends Item implements ISize, ISmeltable, MoreSmelta
         return 1;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
         ItemStack is = new ItemStack(this, 1, 0);
@@ -102,7 +100,7 @@ public class ItemGlassLump extends Item implements ISize, ISmeltable, MoreSmelta
         return false;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

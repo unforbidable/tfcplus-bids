@@ -1,16 +1,15 @@
 package com.unforbidable.tfc.bids.features.device.screwpress.block;
 
 import com.dunk.tfc.Core.TFC_Core;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressBounds;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressHelper;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
+import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
 
 public class BlockScrewPressRackMiddle extends BlockScrewPressRackPart {
 

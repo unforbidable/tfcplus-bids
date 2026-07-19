@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.processingsurface.render;
 
-import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
 import com.unforbidable.tfc.bids.features.device.processingsurface.main.ProcessingSurfaceHelper;
+import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

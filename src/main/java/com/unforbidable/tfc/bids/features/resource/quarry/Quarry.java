@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.features.resource.quarry;
 
-import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -21,7 +20,6 @@ import com.unforbidable.tfc.bids.features.resource.quarry.item.ItemPlugAndFeathe
 import com.unforbidable.tfc.bids.features.resource.quarry.nei.QuarryNeiHandler;
 import com.unforbidable.tfc.bids.features.resource.quarry.render.RenderQuarry;
 import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
-import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarriableStone;
 import com.unforbidable.tfc.bids.features.resource.quarry.waila.QuarryWailaProvider;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

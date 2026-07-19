@@ -1,11 +1,10 @@
 package com.unforbidable.tfc.bids.compat.nei;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 
 public class HandlerInfo {
 

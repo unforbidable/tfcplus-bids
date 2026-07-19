@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.compat.tfc;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.compat.tfc.eventhandler.WorldEventHandler;
 import com.unforbidable.tfc.bids.core.Initializable;
 import com.unforbidable.tfc.bids.core.network.Network;
 import com.unforbidable.tfc.bids.core.player.network.InitClientPacket;
-import com.unforbidable.tfc.bids.compat.tfc.eventhandler.WorldEventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;

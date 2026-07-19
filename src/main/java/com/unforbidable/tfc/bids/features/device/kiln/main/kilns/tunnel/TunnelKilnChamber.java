@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.kiln.main.kilns.tunnel;
 
-import com.unforbidable.tfc.bids.features.device.kiln.main.ValidatorKilnChamber;
 import com.unforbidable.tfc.bids.api.features.kiln.KilnHeatSource;
+import com.unforbidable.tfc.bids.features.device.kiln.main.ValidatorKilnChamber;
 import net.minecraft.world.World;
 
 public class TunnelKilnChamber extends ValidatorKilnChamber<TunnelKilnValidator, TunnelKilnValidationParams> {

@@ -1,10 +1,12 @@
 package com.unforbidable.tfc.bids.core.drink;
 
 import com.unforbidable.tfc.bids.Tags;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
-
-import java.util.*;
 
 public class FluidOverlayMap {
 

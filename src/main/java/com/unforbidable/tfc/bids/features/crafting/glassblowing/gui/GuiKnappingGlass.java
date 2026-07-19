@@ -1,9 +1,7 @@
 package com.unforbidable.tfc.bids.features.crafting.glassblowing.gui;
 
 import com.dunk.tfc.GUI.GuiKnapping;
-import com.unforbidable.tfc.bids.core.gui.provider.GuiProviderContext;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

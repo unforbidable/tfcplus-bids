@@ -4,7 +4,6 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-
 import com.unforbidable.tfc.bids.api.features.cooking.CookingIngredientOverride;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;

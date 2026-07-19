@@ -30,6 +30,7 @@ public class BlockWattleGate extends BlockCustomWall implements ConnectableFence
         setHardness(2f);
     }
 
+    @SuppressWarnings({"unchecked" })
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
@@ -84,6 +85,7 @@ public class BlockWattleGate extends BlockCustomWall implements ConnectableFence
         }
     }
 
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity) {
         int meta = world.getBlockMetadata(x, y, z);

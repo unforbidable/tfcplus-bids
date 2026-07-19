@@ -33,9 +33,6 @@ public class Bids {
     public void preInit(FMLPreInitializationEvent event) {
         network = NetworkRegistry.INSTANCE.newSimpleChannel("BidsChannel");
 
-        //GameRegistry.registerWorldGenerator(new AquiferWorldGen(), 0);
-        //GameRegistry.registerWorldGenerator(new CropWorldGen(), 0);
-
         proxy.preInit(event);
     }
 

@@ -9,6 +9,8 @@ import com.dunk.tfc.api.Events.AnvilCraftEvent;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.churning.WaterskinChurnEvent;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingPotPlayerEvent;
@@ -19,17 +21,16 @@ import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.features.quarry.QuarryPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlayerEvent;
-import com.unforbidable.tfc.bids.features.resource.well.block.BlockAquifer;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
+import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBlowpipe;
+import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
+import com.unforbidable.tfc.bids.features.resource.crop.item.ItemNewCustomSeeds;
+import com.unforbidable.tfc.bids.features.resource.well.block.BlockAquifer;
+import com.unforbidable.tfc.bids.features.utility.heckle.spindle.item.ItemSpindle;
 import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
-import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
-import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBlowpipe;
-import com.unforbidable.tfc.bids.features.resource.crop.item.ItemNewCustomSeeds;
-import com.unforbidable.tfc.bids.features.utility.heckle.spindle.item.ItemSpindle;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -38,8 +39,6 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.List;
 
 public class StatsEventHandler {
 

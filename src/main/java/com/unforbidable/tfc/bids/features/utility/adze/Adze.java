@@ -28,7 +28,25 @@ import com.unforbidable.tfc.bids.features.utility.adze.item.ItemAdze;
 import net.minecraft.item.ItemStack;
 
 import static com.dunk.tfc.Core.Recipes.getStackNoTemp;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.*;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_BISMUTH_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_BLACK_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_COPPER;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_BISMUTH_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_BLACK_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_BRONZE;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_COPPER;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_STONE_IG_EX;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_STONE_IG_IN;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_STONE_MM;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_STONE_SED;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_WROUGHT_IRON;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_MOLD;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_STONE_IG_EX;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_STONE_IG_IN;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_STONE_MM;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_STONE_SED;
+import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_WROUGHT_IRON;
 
 /**
  * <li>adze - tool from stone and metals up to wrought iron</li>

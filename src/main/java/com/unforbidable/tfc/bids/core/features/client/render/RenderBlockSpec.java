@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.core.features.client.render;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import net.minecraft.block.Block;
 import java.util.List;
+import net.minecraft.block.Block;
 
 public class RenderBlockSpec {
 

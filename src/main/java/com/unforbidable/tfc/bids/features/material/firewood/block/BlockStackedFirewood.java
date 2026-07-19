@@ -1,19 +1,18 @@
 package com.unforbidable.tfc.bids.features.material.firewood.block;
 
-import com.unforbidable.tfc.bids.util.wood.WoodHelper;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
-import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.util.wood.WoodHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
-
-import java.util.List;
 
 public class BlockStackedFirewood extends Block {
 
@@ -64,7 +63,7 @@ public class BlockStackedFirewood extends Block {
         return blockIcon;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {

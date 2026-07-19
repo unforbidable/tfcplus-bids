@@ -4,10 +4,10 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.unforbidable.tfc.bids.util.crafting.CraftingHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.oredict.OreDictionary;
-import java.util.List;
 
 public class CompositeToolTooltipHandler {
 

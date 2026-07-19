@@ -1,5 +1,8 @@
 package com.unforbidable.tfc.bids.core.crafting;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,10 +11,6 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class RecipeFactory {
 
@@ -81,6 +80,7 @@ public class RecipeFactory {
         return new ShapelessRecipes(output, list);
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked" })
     private static ShapedRecipes createShapedRecipe(ItemStack output, Object[] input) {
         // Input is prepared much like in CraftingManager::addRecipe()
         String s = "";

@@ -1,8 +1,7 @@
 package com.unforbidable.tfc.bids.core.features.setup.ore;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.List;
+import net.minecraft.item.ItemStack;
 
 public class OreGroup {
 

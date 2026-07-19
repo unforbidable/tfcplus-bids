@@ -11,8 +11,8 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.crop.BidsCropIndex;
 import com.unforbidable.tfc.bids.core.crop.BidsCropManager;
-import com.unforbidable.tfc.bids.core.crop.cultivation.CropCultivation;
 import com.unforbidable.tfc.bids.core.crop.CropHelper;
+import com.unforbidable.tfc.bids.core.crop.cultivation.CropCultivation;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import java.util.List;
 import net.minecraft.block.Block;
@@ -43,6 +43,7 @@ public class ItemNewCustomSeeds extends ItemCustomSeeds {
             + this.getUnlocalizedName().replace("item.", ""));
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         if (side == 1 && !world.isRemote) {
             if (player.canPlayerEdit(x, y, z, side, stack) && player.canPlayerEdit(x, y + 1, z, side, stack)) {
@@ -95,6 +96,7 @@ public class ItemNewCustomSeeds extends ItemCustomSeeds {
         }
     }
 
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
         super.addInformation(is, player, arraylist, flag);

@@ -1,14 +1,12 @@
 package com.unforbidable.tfc.bids.features.building.roughstone.block.blockitem;
 
-import java.util.List;
-
 import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStone;
 import com.unforbidable.tfc.bids.util.ItemHelper;
-
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -68,7 +66,7 @@ public class ItemRoughStone extends ItemBlock implements ISize {
         return EnumWeight.HEAVY;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

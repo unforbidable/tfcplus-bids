@@ -13,10 +13,10 @@ import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredientS
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrepRegistry;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
-import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrepRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;

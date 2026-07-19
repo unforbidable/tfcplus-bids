@@ -3,15 +3,14 @@ package com.unforbidable.tfc.bids.core.crafting.editors;
 import com.unforbidable.tfc.bids.core.crafting.matchers.ItemStackListMatcher;
 import com.unforbidable.tfc.bids.core.crafting.matchers.ItemStackMatcher;
 import com.unforbidable.tfc.bids.core.crafting.matchers.ObjectMatcher;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.oredict.OreDictionary;
-
 import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.oredict.OreDictionary;
 
 public abstract class RecipeEditor {
     protected ItemStack output;

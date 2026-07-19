@@ -1,9 +1,8 @@
 package com.unforbidable.tfc.bids.util.playerstate;
 
-import net.minecraft.entity.player.EntityPlayer;
-
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class PlayerStateManager {
 

@@ -6,16 +6,15 @@ import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.dunk.tfc.api.Metal;
+import com.unforbidable.tfc.bids.api.util.metal.MoreSmeltable;
 import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.block.BlockUnfinishedAnvil;
 import com.unforbidable.tfc.bids.util.ItemHelper;
-import com.unforbidable.tfc.bids.api.util.metal.MoreSmeltable;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-
-import java.util.List;
 
 public class ItemUnfinishedAnvil extends ItemBlock implements ISize, ISmeltable, MoreSmeltable {
 
@@ -106,7 +105,7 @@ public class ItemUnfinishedAnvil extends ItemBlock implements ISize, ISmeltable,
         return true;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(itemStack, list);

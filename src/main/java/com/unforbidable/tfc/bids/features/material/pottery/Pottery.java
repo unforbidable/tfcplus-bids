@@ -1,17 +1,17 @@
 package com.unforbidable.tfc.bids.features.material.pottery;
 
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.common.item.ItemCommonPottery;
+import com.unforbidable.tfc.bids.common.item.ItemDrinkingPottery;
+import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
+import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KilnRecipe;
+import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
-import com.unforbidable.tfc.bids.common.item.ItemDrinkingPottery;
-import com.unforbidable.tfc.bids.common.item.ItemCommonPottery;
-import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
-import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KilnRecipe;
-import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import net.minecraft.item.ItemStack;
 
 import static com.unforbidable.tfc.bids.api.names.ItemNames.CLAY_MUG;

@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.device.screwpress.render;
 
 import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressBarrel;
 import com.unforbidable.tfc.bids.features.device.screwpress.main.ScrewPressBounds;
+import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressBarrel;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

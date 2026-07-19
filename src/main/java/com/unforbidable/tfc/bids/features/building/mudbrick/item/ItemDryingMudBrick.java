@@ -5,13 +5,12 @@ import com.dunk.tfc.api.Constant.Global;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-
-import java.util.List;
 
 public class ItemDryingMudBrick extends ItemTerra {
 
@@ -21,6 +20,7 @@ public class ItemDryingMudBrick extends ItemTerra {
         this.setCreativeTab(BidsCreativeTabs.bidsMaterials);
     }
 
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list) {
         for (int i = 0; i < Global.STONE_ALL.length; i++)
@@ -33,6 +33,7 @@ public class ItemDryingMudBrick extends ItemTerra {
         return false;
     }
 
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
         super.addInformation(is, player, arraylist, flag);

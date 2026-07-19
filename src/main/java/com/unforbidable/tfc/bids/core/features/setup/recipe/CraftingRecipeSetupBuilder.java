@@ -3,13 +3,12 @@ package com.unforbidable.tfc.bids.core.features.setup.recipe;
 import com.unforbidable.tfc.bids.core.crafting.ActionableRecipeBuilder;
 import com.unforbidable.tfc.bids.core.crafting.MatchingRecipe;
 import com.unforbidable.tfc.bids.core.crafting.RecipeFactory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 
 public class CraftingRecipeSetupBuilder {
 

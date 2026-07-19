@@ -538,7 +538,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         }
 
         // Only sync output if output configured to be displayed
-        if (prevOutput != output && CrucibleConfig.enableOutputDisplay) {
+        if (prevOutput != output && CrucibleConfig.enableOutputDisplay) { // TODO use equals?
             updateGui(UPDATE_OUTPUT);
         }
     }

@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.device.kiln.main;
 
 import com.dunk.tfc.Blocks.BlockFireBrick;
-import com.unforbidable.tfc.bids.util.chimney.ChimneyHelper;
 import com.unforbidable.tfc.bids.BidsEventFactory;
+import com.unforbidable.tfc.bids.util.chimney.ChimneyHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;

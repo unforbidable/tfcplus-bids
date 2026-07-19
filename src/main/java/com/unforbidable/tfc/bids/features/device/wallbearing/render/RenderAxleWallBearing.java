@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.features.device.wallbearing.render;
 
-import com.dunk.tfc.Blocks.Devices.*;
+import com.dunk.tfc.Blocks.Devices.BlockAxleBearing;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.TFCBlocks;
-import com.unforbidable.tfc.bids.features.device.wallbearing.tileentity.TileEntityAxleWallBearing;
 import com.unforbidable.tfc.bids.features.device.wallbearing.main.AxleWallBearingBounds;
+import com.unforbidable.tfc.bids.features.device.wallbearing.tileentity.TileEntityAxleWallBearing;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;

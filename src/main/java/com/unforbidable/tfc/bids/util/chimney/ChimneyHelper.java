@@ -4,7 +4,6 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.TileEntities.TEChimney;
 import com.unforbidable.tfc.bids.api.util.chimney.Chimney;
 import com.unforbidable.tfc.bids.features.device.crucible.tileentity.TileEntityCrucible;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;

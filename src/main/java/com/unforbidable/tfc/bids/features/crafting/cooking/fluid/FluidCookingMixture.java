@@ -3,17 +3,16 @@ package com.unforbidable.tfc.bids.features.crafting.cooking.fluid;
 import com.dunk.tfc.Core.FluidBaseTFC;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureInfo;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingMixture;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureFluid;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureInfo;
+import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.List;
 
 public class FluidCookingMixture extends FluidBaseTFC implements CookingMixtureFluid {
 

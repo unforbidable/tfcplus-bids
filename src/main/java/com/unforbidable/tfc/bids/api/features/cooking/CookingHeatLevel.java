@@ -4,5 +4,5 @@ public enum CookingHeatLevel {
     NONE,
     LOW,
     MEDIUM,
-    HIGH;
+    HIGH
 }

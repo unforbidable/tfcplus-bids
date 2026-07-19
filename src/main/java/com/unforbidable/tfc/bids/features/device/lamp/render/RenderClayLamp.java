@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.lamp.render;
 
-import com.unforbidable.tfc.bids.features.device.lamp.tileentity.TileEntityClayLamp;
 import com.unforbidable.tfc.bids.features.device.lamp.main.ClayLampBounds;
+import com.unforbidable.tfc.bids.features.device.lamp.tileentity.TileEntityClayLamp;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;

@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.common.item;
 import com.dunk.tfc.Items.ItemAlcohol;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.core.drink.DrinkOverlayHandler;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;

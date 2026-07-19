@@ -1,9 +1,5 @@
 package com.unforbidable.tfc.bids.features.utility.adze.item;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.dunk.tfc.Items.Tools.ItemTerraTool;
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.dunk.tfc.api.Enums.EnumItemReach;
@@ -14,11 +10,13 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.util.ItemHelper;
-import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingTool;
-
+import com.unforbidable.tfc.bids.features.building.carving.main.CarvingHelper;
+import com.unforbidable.tfc.bids.util.ItemHelper;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.SharedMonsterAttributes;

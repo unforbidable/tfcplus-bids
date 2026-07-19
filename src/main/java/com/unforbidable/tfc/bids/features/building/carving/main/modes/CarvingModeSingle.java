@@ -1,16 +1,15 @@
 package com.unforbidable.tfc.bids.features.building.carving.main.modes;
 
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.features.carving.CarvingMode;
 import com.unforbidable.tfc.bids.features.building.carving.CarvingConfig;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBit;
 import com.unforbidable.tfc.bids.features.building.carving.main.CarvingBitMap;
 import com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving;
-import com.unforbidable.tfc.bids.api.features.carving.CarvingMode;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
-
 import java.util.Collections;
 import java.util.List;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import static com.unforbidable.tfc.bids.features.building.carving.tileentity.TileEntityCarving.CARVING_DIMENSION;
 

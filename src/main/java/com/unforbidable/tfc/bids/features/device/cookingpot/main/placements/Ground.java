@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.device.cookingpot.main.placements;
 
-import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotPlacementSpec;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingPotHeatProvider;
+import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotPlacementSpec;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 

@@ -1,8 +1,8 @@
 package com.unforbidable.tfc.bids.features.crafting.drying.main.Environment;
 
-import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEnvironment;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import net.minecraft.world.World;
 
 public class ItemEnvironment implements DryingEnvironment {

@@ -1,8 +1,7 @@
 package com.unforbidable.tfc.bids.core.keybinding.action;
 
-import net.minecraft.client.settings.KeyBinding;
-
 import java.util.function.Consumer;
+import net.minecraft.client.settings.KeyBinding;
 
 public class KeyBindingAction {
 

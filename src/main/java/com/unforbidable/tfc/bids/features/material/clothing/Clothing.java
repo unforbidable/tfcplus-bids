@@ -13,10 +13,10 @@ import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import net.minecraft.item.ItemStack;
 
+import static com.unforbidable.tfc.bids.api.names.ItemNames.CUP_PIECE;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.EXTRA_BAG_PIECE;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.EXTRA_COAT_BODY_BACK;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.EXTRA_COAT_BODY_FRONT;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CUP_PIECE;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.EXTRA_REPAIR_PATCH;
 import static com.unforbidable.tfc.bids.api.names.ItemNames.EXTRA_STRAP;
 

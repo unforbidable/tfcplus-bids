@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.features.device.wallhook.render;
 
 import com.dunk.tfc.Render.TESR.TESRBase;
-import com.unforbidable.tfc.bids.features.device.wallhook.tileentity.TileEntityWallHook;
+import com.unforbidable.tfc.bids.api.features.wallhook.WallHookPos;
 import com.unforbidable.tfc.bids.features.device.wallhook.main.WallHookBounds;
 import com.unforbidable.tfc.bids.features.device.wallhook.main.WallHookHelper;
-import com.unforbidable.tfc.bids.api.features.wallhook.WallHookPos;
+import com.unforbidable.tfc.bids.features.device.wallhook.tileentity.TileEntityWallHook;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;

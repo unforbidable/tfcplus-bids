@@ -2,12 +2,12 @@ package com.unforbidable.tfc.bids.features.device.soakingsurface.block;
 
 import com.dunk.tfc.Core.TFC_Textures;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
-import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
-import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceHelper;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.features.device.screw.block.BlockScrew;
+import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceHelper;
+import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -20,8 +20,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
 
 public class BlockSoakingSurface extends BlockContainer {
 

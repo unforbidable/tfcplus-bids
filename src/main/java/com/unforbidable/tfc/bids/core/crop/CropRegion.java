@@ -1,7 +1,5 @@
 package com.unforbidable.tfc.bids.core.crop;
 
-import com.unforbidable.tfc.bids.core.crop.BidsCropIndex;
-
 import java.util.ArrayList;
 import java.util.List;
 

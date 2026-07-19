@@ -1,16 +1,28 @@
 package com.unforbidable.tfc.bids.features.device.wallhook.main;
 
-import com.dunk.tfc.Items.*;
-import com.dunk.tfc.Items.Tools.*;
+import com.dunk.tfc.Items.ItemClothing;
+import com.dunk.tfc.Items.ItemCustomLeash;
+import com.dunk.tfc.Items.ItemLeatherBag;
+import com.dunk.tfc.Items.ItemQuiver;
+import com.dunk.tfc.Items.ItemWaterskin;
+import com.dunk.tfc.Items.Tools.ItemFirestarter;
+import com.dunk.tfc.Items.Tools.ItemProPick;
+import com.dunk.tfc.Items.Tools.ItemSpindle;
+import com.dunk.tfc.Items.Tools.ItemTrowel;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.features.resource.well.item.ItemBucketRopeEmpty;
-import com.unforbidable.tfc.bids.common.item.ItemCommonTool;
-import com.unforbidable.tfc.bids.api.features.wallhook.WallHookPos;
 import com.unforbidable.tfc.bids.api.features.wallhook.Hangable;
-import net.minecraft.item.*;
+import com.unforbidable.tfc.bids.api.features.wallhook.WallHookPos;
+import com.unforbidable.tfc.bids.common.item.ItemCommonTool;
+import com.unforbidable.tfc.bids.features.resource.well.item.ItemBucketRopeEmpty;
+import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemFlintAndSteel;
+import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemShears;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
+import net.minecraft.item.ItemTool;
 
 public class WallHookHelper {
 

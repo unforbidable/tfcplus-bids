@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.material;
 
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 
 public class Material implements WoodworkingMaterial {
 

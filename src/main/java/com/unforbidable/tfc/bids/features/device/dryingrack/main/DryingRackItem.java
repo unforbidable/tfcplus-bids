@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.dryingrack.main;
 
-import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

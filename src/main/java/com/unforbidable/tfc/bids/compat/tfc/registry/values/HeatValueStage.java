@@ -5,10 +5,10 @@ import com.dunk.tfc.api.HeatRaw;
 import com.dunk.tfc.api.HeatRegistry;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.compat.tfc.registry.RegistryStage;
-import net.minecraft.item.ItemStack;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import net.minecraft.item.ItemStack;
 
 public class HeatValueStage extends RegistryStage<HeatValue> {
 

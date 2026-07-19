@@ -1,10 +1,9 @@
 package com.unforbidable.tfc.bids.core.features.init.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
 
 public class BlockSpecBuilder<T extends Block> {
 

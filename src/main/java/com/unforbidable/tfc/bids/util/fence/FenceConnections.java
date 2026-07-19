@@ -1,11 +1,13 @@
 package com.unforbidable.tfc.bids.util.fence;
 
 import com.unforbidable.tfc.bids.common.block.BlockCommonFence;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.minecraft.block.Block;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
-
-import java.util.*;
 
 public class FenceConnections {
 

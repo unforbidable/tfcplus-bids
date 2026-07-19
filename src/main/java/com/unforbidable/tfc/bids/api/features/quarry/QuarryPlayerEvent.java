@@ -9,7 +9,7 @@ public class QuarryPlayerEvent extends PlayerEvent {
 
     public enum Action {
         QUARRY_FINISHED
-    };
+    }
 
     public final TileEntityQuarry tileEntityQuarry;
     public final Action action;

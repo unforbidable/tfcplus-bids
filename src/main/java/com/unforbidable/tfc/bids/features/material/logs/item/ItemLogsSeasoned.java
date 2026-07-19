@@ -23,7 +23,7 @@ public class ItemLogsSeasoned extends ItemLogs {
         return this.getUnlocalizedName() + "." + metaNames[itemstack.getItemDamage()];
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list) {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {

@@ -42,6 +42,7 @@ public class ItemWallHook extends ItemBlock implements ISize {
         return 16;
     }
 
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List list, boolean arg3) {
         ItemHelper.addSizeInformation(is, list);

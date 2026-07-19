@@ -57,6 +57,7 @@ public class BlockCommonFence extends BlockCustomWall {
         return block.renderAsNormalBlock() && block.isOpaqueCube() && block.getMaterial().isOpaque();
     }
 
+    @SuppressWarnings({"unchecked" })
     @Override
     public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity) {
         FenceConnections fc = new FenceConnections(world, x, y, z);

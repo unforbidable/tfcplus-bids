@@ -6,8 +6,8 @@ import com.dunk.tfc.Items.ItemBlocks.ItemLargeVessel;
 import com.dunk.tfc.TileEntities.TEFirepit;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.BidsEventFactory;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureFluid;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotHelper;
@@ -66,6 +66,7 @@ public class BlockCookingPot extends BlockContainer {
         return CookingPotHelper.onCookingPotCollisionRayTrace(world, x, y, z, startVec, endVec);
     }
 
+    @SuppressWarnings({"unchecked" })
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {

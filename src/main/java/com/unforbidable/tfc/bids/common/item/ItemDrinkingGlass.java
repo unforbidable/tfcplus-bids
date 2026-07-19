@@ -4,16 +4,15 @@ import com.dunk.tfc.Items.ItemGlassBottle;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Metal;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
-import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.core.drink.FluidHelper;
+import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class ItemDrinkingGlass extends ItemGlassBottle {
 
@@ -47,7 +46,7 @@ public class ItemDrinkingGlass extends ItemGlassBottle {
                 + getUnlocalizedName().replace("item.", ""));
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"unchecked" })
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
         list.add(new ItemStack(item, 1, 0));

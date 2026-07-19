@@ -6,17 +6,23 @@ import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.features.resource.well.WellConfig;
 import com.unforbidable.tfc.bids.util.BlockCoord;
 import com.unforbidable.tfc.bids.util.WorldGenHelper;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import cpw.mods.fml.common.IWorldGenerator;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
-
-import java.util.*;
 
 public class AquiferWorldGen implements IWorldGenerator {
 

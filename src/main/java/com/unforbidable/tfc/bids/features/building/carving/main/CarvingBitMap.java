@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.building.carving.main;
 
 import com.unforbidable.tfc.bids.Bids;
-
 import net.minecraft.nbt.NBTTagCompound;
 
 public class CarvingBitMap {
