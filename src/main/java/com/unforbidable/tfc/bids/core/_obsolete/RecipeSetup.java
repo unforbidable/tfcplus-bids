@@ -1,26 +1,27 @@
 package com.unforbidable.tfc.bids.core._obsolete;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
-import com.dunk.tfc.api.Crafting.*;
-import com.dunk.tfc.api.TFCBlocks;
+import com.dunk.tfc.api.Crafting.AnvilManager;
+import com.dunk.tfc.api.Crafting.AnvilReq;
+import com.dunk.tfc.api.Crafting.ClothingManager;
+import com.dunk.tfc.api.Crafting.KilnCraftingManager;
+import com.dunk.tfc.api.Crafting.KilnRecipe;
+import com.dunk.tfc.api.Crafting.SewingPattern;
+import com.dunk.tfc.api.Crafting.SewingRecipe;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api.BidsFluids;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api._obsolete.BidsOptions;
+import com.unforbidable.tfc.bids.compat.tfc._obsolete.TFC.BarrelRecipeManager;
+import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipeBuilder;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManager;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
-import com.unforbidable.tfc.bids.api.*;
-import com.unforbidable.tfc.bids.compat.tfc._obsolete.RecipeHelper;
-import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipeBuilder;
-import com.unforbidable.tfc.bids.compat.tfc._obsolete.TFC.BarrelRecipeManager;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
-import com.unforbidable.tfc.bids.features.player.achievements.eventhandler.CraftingHandler;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -28,7 +29,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
-import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
 
 public class RecipeSetup {
 
@@ -645,9 +645,9 @@ public class RecipeSetup {
         recipes.close();
 
 //        RecipeHelper.handleCompositeToolRecipes();
-        RecipeHelper.handleSpindleSpinningRecipes();
-        RecipeHelper.handleRopeMakingRecipes();
-        RecipeHelper.handleLoomRecipes();
+//        RecipeHelper.handleSpindleSpinningRecipes();
+//        RecipeHelper.handleRopeMakingRecipes();
+//        RecipeHelper.handleLoomRecipes();
     }
 
     private static void registerCarvingRecipes() {
@@ -2213,7 +2213,7 @@ public class RecipeSetup {
     private static void registerHandlers() {
         Bids.LOG.info("Register crafting handlers");
 
-        FMLCommonHandler.instance().bus().register(new CraftingHandler());
+//        FMLCommonHandler.instance().bus().register(new CraftingHandler());
     }
 
 }

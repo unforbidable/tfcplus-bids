@@ -1,16 +1,19 @@
-package com.unforbidable.tfc.bids.core._obsolete;
+package com.unforbidable.tfc.bids.core.stats;
 
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api._obsolete.BidsAchievements;
-import com.unforbidable.tfc.bids.api._obsolete.BidsStats;
+import com.unforbidable.tfc.bids.core.Initializable;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.StatBase;
 import net.minecraftforge.common.AchievementPage;
+import net.minecraftforge.common.MinecraftForge;
 
-public class AchievementSetup {
+public class StatsInit extends Initializable {
 
-    public static void init() {
-        Bids.LOG.info("Setup achievements and stats");
+    @Override
+    public void init(FMLInitializationEvent event) {
+        Bids.LOG.info("Setup stats and achievements");
 
         Achievement[] achievements = new Achievement[] {
             BidsAchievements.DOUBLE_FORTUNE,
@@ -62,6 +65,9 @@ public class AchievementSetup {
         for (StatBase s : stats) {
             s.registerStat();
         }
+
+        MinecraftForge.EVENT_BUS.register(new StatsEventHandler());
+        FMLCommonHandler.instance().bus().register(new StatsCraftingHandler());
     }
 
 }

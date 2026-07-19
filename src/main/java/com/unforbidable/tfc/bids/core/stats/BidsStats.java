@@ -1,11 +1,10 @@
-package com.unforbidable.tfc.bids.api._obsolete;
+package com.unforbidable.tfc.bids.core.stats;
 
+import java.text.DecimalFormat;
 import net.minecraft.stats.IStatType;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatBasic;
 import net.minecraft.util.ChatComponentTranslation;
-
-import java.text.DecimalFormat;
 
 public class BidsStats {
 

@@ -145,16 +145,6 @@ public class MetalHelper {
         return oreItems.contains(is.getItem()) && getMetalFromSmeltable(is) == Global.PIGIRON;
     }
 
-    public static void triggerCopperAgeAchievement(EntityPlayer player) {
-        player.triggerAchievement(TFC_Achievements.achCopperAge);
-        Bids.LOG.debug("Copper Age achievement triggered");
-    }
-
-    public static void triggerCrucibleAchievement(EntityPlayer player) {
-        player.triggerAchievement(TFC_Achievements.achCrucible);
-        Bids.LOG.debug("Crucible achievement triggered");
-    }
-
     public static boolean isNativeOre(ItemStack itemstack) {
         if (itemstack.getItem() == TFCItems.oreChunk
                 || itemstack.getItem() == TFCItems.smallOreChunk) {

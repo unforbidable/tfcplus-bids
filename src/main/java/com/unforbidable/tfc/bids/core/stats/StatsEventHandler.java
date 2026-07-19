@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.player.achievements.eventhandler;
+package com.unforbidable.tfc.bids.core.stats;
 
 import com.dunk.tfc.Core.TFC_Achievements;
 import com.dunk.tfc.Items.ItemMeltedMetal;
@@ -27,10 +27,8 @@ import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.features.resource.crop.item.ItemNewCustomSeeds;
 import com.unforbidable.tfc.bids.features.utility.heckle.spindle.item.ItemSpindle;
-import com.unforbidable.tfc.bids.api._obsolete.BidsAchievements;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsStats;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,7 +41,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 
-public class AchievementHandler {
+public class StatsEventHandler {
 
     @SubscribeEvent
     public void onItemPickup(EntityItemPickupEvent event) {
@@ -158,7 +156,7 @@ public class AchievementHandler {
             // Trigger the copper age achievement when a full
             // tool mold is removed from the output slot
             if (MetalHelper.isFullToolMold(event.result)) {
-                MetalHelper.triggerCopperAgeAchievement(event.entityPlayer);
+                event.entityPlayer.triggerAchievement(TFC_Achievements.achCopperAge);
             }
 
             if (event.result.getItem() instanceof ItemMeltedMetal) {

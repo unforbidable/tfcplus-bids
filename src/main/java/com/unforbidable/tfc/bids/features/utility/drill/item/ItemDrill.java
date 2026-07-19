@@ -14,7 +14,7 @@ import com.unforbidable.tfc.bids.api.features.quarry.Quarriable;
 import com.unforbidable.tfc.bids.common.item.ItemCommonTool;
 import com.unforbidable.tfc.bids.compat.tfc.TfcUtil;
 import com.unforbidable.tfc.bids.util.ItemHelper;
-import com.unforbidable.tfc.bids.compat.tfc._obsolete.RecipeHelper;
+import com.unforbidable.tfc.bids.util.crafting.CraftingHelper;
 import com.unforbidable.tfc.bids.features.resource.quarry.QuarryConfig;
 import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
 import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarryDrillDataAgent;
@@ -419,7 +419,7 @@ public class ItemDrill extends ItemCommonTool {
                     if (requireBinding) {
                         player.inventory.consumeInventoryItem(foundBinding.getItem());
 
-                        RecipeHelper.applyCompositeToolBindingBonus(newStack, foundBinding);
+                        CraftingHelper.applyCompositeToolBindingBonus(newStack, foundBinding);
                     }
 
                     if (bowstringBroke) {

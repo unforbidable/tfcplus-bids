@@ -2,7 +2,7 @@ package com.unforbidable.tfc.bids.features.utility.compositetools.eventhandler;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.api.Crafting.AnvilManager;
-import com.unforbidable.tfc.bids.compat.tfc._obsolete.RecipeHelper;
+import com.unforbidable.tfc.bids.util.crafting.CraftingHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -19,7 +19,7 @@ public class CompositeToolTooltipHandler {
     }
 
     private boolean isStoneTool(ItemStack tool) {
-        for (String ore : RecipeHelper.getStoneToolOreNames()) {
+        for (String ore : CraftingHelper.getStoneToolOreNames()) {
             int stoneToolOreId = OreDictionary.getOreID(ore);
             for (int id : OreDictionary.getOreIDs(tool)) {
                 if (id == stoneToolOreId) {

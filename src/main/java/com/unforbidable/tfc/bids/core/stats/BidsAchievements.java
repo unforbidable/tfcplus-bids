@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.api._obsolete;
+package com.unforbidable.tfc.bids.core.stats;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;

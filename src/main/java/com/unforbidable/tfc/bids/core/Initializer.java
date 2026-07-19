@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.core.keybinding.KeyBindingInit;
 import com.unforbidable.tfc.bids.core.network.NetworkInit;
 import com.unforbidable.tfc.bids.core.player.PlayerInit;
 import com.unforbidable.tfc.bids.core.schemes.SchemeInit;
+import com.unforbidable.tfc.bids.core.stats.StatsInit;
 import com.unforbidable.tfc.bids.core.surfaceitem.SurfaceItemInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -39,6 +40,8 @@ public class Initializer {
         new CommonInit(),
 
         new FeatureInit(),
+
+        new StatsInit(),
 
         // These must run after FeatureInit
         // this is where TFC, WAILA and NEI stuff get actually registered
