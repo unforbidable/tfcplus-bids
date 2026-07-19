@@ -368,25 +368,6 @@ public class BidsItems {
     public static final Item woodAshLyeLargeBowl = item(ItemNames.LARGE_BOWL_WOOD_ASH_LYE);
     public static final Item soapyWaterBottle = item(ItemNames.BOTTLE_SOAPY_WATER);
 
-
-    public static Item wheatPorridge;
-    public static Item barleyPorridge;
-    public static Item oatPorridge;
-    public static Item ryePorridge;
-    public static Item ricePorridge;
-    public static Item cornmealPorridge;
-
-    public static Item honeyWaterBottle;
-    public static Item milkVinegarBottle;
-
-    public static Item woodenBucketBrine;
-    public static Item woodenBucketHoneyWater;
-    public static Item woodenBucketMilkVinegar;
-
-    public static Item ceramicBucketBrine;
-    public static Item ceramicBucketHoneyWater;
-    public static Item ceramicBucketMilkVinegar;
-
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, name);
         if (item == null) {

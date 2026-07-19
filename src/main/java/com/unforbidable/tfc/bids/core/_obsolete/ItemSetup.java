@@ -734,12 +734,12 @@ public class ItemSetup extends BidsItems {
 //            .setMaxDamage(1000 / 50)
 //            .setUnlocalizedName("Glass Bottle.SkimmedMilk");
 
-        honeyWaterBottle = new ItemGlassBottleFluid()
-            .setContainerItem((TFCItems.glassBottle))
-            .setUnlocalizedName("Glass Bottle.HoneyWater");
-        milkVinegarBottle = new ItemGlassBottleFluid()
-            .setContainerItem((TFCItems.glassBottle))
-            .setUnlocalizedName("Glass Bottle.MilkVinegar");
+//        honeyWaterBottle = new ItemGlassBottleFluid()
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setUnlocalizedName("Glass Bottle.HoneyWater");
+//        milkVinegarBottle = new ItemGlassBottleFluid()
+//            .setContainerItem((TFCItems.glassBottle))
+//            .setUnlocalizedName("Glass Bottle.MilkVinegar");
 
 //        vinegarBowl = new ItemBowlFluid()
 //            .setMetaNames(new String[]{"PotteryBowl", "Bowl"})
@@ -818,31 +818,31 @@ public class ItemSetup extends BidsItems {
 //            .setContainerItem(woodenPailEmpty)
 //            .setUnlocalizedName("Wooden Pail.GoatMilk");
 
-        ceramicBucketBrine = new ItemBucketFluid(true)
-            .setContainerItem((TFCItems.clayBucketEmpty))
-            .setUnlocalizedName("Ceramic Bucket.Brine");
-        ceramicBucketHoneyWater = new ItemBucketFluid(true)
-            .setContainerItem((TFCItems.clayBucketEmpty))
-            .setUnlocalizedName("Ceramic Bucket.HoneyWater");
-        ceramicBucketMilkVinegar = new ItemBucketFluid(true)
-            .setContainerItem((TFCItems.clayBucketEmpty))
-            .setUnlocalizedName("Ceramic Bucket.MilkVinegar");
+//        ceramicBucketBrine = new ItemBucketFluid(true)
+//            .setContainerItem((TFCItems.clayBucketEmpty))
+//            .setUnlocalizedName("Ceramic Bucket.Brine");
+//        ceramicBucketHoneyWater = new ItemBucketFluid(true)
+//            .setContainerItem((TFCItems.clayBucketEmpty))
+//            .setUnlocalizedName("Ceramic Bucket.HoneyWater");
+//        ceramicBucketMilkVinegar = new ItemBucketFluid(true)
+//            .setContainerItem((TFCItems.clayBucketEmpty))
+//            .setUnlocalizedName("Ceramic Bucket.MilkVinegar");
 //        ceramicBucketOilyFishWater = new ItemBucketFluid(true)
 //            .setContainerItem((TFCItems.clayBucketEmpty))
 //            .setUnlocalizedName("Ceramic Bucket.OilyFishWater");
 //        ceramicBucketGoatMilk = new ItemBucketFluid(true)
 //            .setContainerItem((TFCItems.clayBucketEmpty))
 //            .setUnlocalizedName("Ceramic Bucket.GoatMilk");
-
-        woodenBucketBrine = new ItemBucketFluid(false)
-            .setContainerItem((TFCItems.woodenBucketEmpty))
-            .setUnlocalizedName("Wooden Bucket.Brine");
-        woodenBucketHoneyWater = new ItemBucketFluid(false)
-            .setContainerItem((TFCItems.woodenBucketEmpty))
-            .setUnlocalizedName("Wooden Bucket.HoneyWater");
-        woodenBucketMilkVinegar = new ItemBucketFluid(false)
-            .setContainerItem((TFCItems.woodenBucketEmpty))
-            .setUnlocalizedName("Wooden Bucket.MilkVinegar");
+//
+//        woodenBucketBrine = new ItemBucketFluid(false)
+//            .setContainerItem((TFCItems.woodenBucketEmpty))
+//            .setUnlocalizedName("Wooden Bucket.Brine");
+//        woodenBucketHoneyWater = new ItemBucketFluid(false)
+//            .setContainerItem((TFCItems.woodenBucketEmpty))
+//            .setUnlocalizedName("Wooden Bucket.HoneyWater");
+//        woodenBucketMilkVinegar = new ItemBucketFluid(false)
+//            .setContainerItem((TFCItems.woodenBucketEmpty))
+//            .setUnlocalizedName("Wooden Bucket.MilkVinegar");
 //        woodenBucketOilyFishWater = new ItemBucketFluid(false)
 //            .setContainerItem((TFCItems.woodenBucketEmpty))
 //            .setUnlocalizedName("Wooden Bucket.OilyFishWater");
@@ -986,10 +986,10 @@ public class ItemSetup extends BidsItems {
 //        FluidHelper.registerPartialFluidContainer(BidsFluids.goatMilk, TFCItems.potteryJug, 1, potteryJugGoatMilk, 50, 1000);
         FluidHelper.registerPartialFluidContainer(BidsFluids.skimmedMilk, TFCItems.potteryJug, 1, potteryJugSkimmedMilk, 50, 1000);
 
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
-            new ItemStack(honeyWaterBottle), new ItemStack(TFCItems.glassBottle));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
-            new ItemStack(milkVinegarBottle), new ItemStack(TFCItems.glassBottle));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
+//            new ItemStack(honeyWaterBottle), new ItemStack(TFCItems.glassBottle));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
+//            new ItemStack(milkVinegarBottle), new ItemStack(TFCItems.glassBottle));
 
 //        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.VINEGAR, 250),
 //            new ItemStack(vinegarBowl, 1, 0), new ItemStack(TFCItems.potteryBowl, 1, 1));
@@ -1008,27 +1008,27 @@ public class ItemSetup extends BidsItems {
         FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.flaxSeedOil, 250),
             new ItemStack(flaxSeedOilBowl, 1, 1), new ItemStack(TFCItems.potteryBowl, 1, 2));
 
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.BRINE, 1000),
-            new ItemStack(ceramicBucketBrine), new ItemStack(TFCItems.clayBucketEmpty));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
-            new ItemStack(ceramicBucketHoneyWater), new ItemStack(TFCItems.clayBucketEmpty));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
-            new ItemStack(ceramicBucketMilkVinegar), new ItemStack(TFCItems.clayBucketEmpty));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.oilyFishWater, 1000),
-            new ItemStack(ceramicBucketOilyFishWater), new ItemStack(TFCItems.clayBucketEmpty));
-//        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.goatMilk, 1000),
-//            new ItemStack(ceramicBucketGoatMilk), new ItemStack(TFCItems.clayBucketEmpty));
-
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.BRINE, 1000),
-            new ItemStack(woodenBucketBrine), new ItemStack(TFCItems.woodenBucketEmpty));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
-            new ItemStack(woodenBucketHoneyWater), new ItemStack(TFCItems.woodenBucketEmpty));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
-            new ItemStack(woodenBucketMilkVinegar), new ItemStack(TFCItems.woodenBucketEmpty));
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.oilyFishWater, 1000),
-            new ItemStack(woodenBucketOilyFishWater), new ItemStack(TFCItems.woodenBucketEmpty));
-//        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.goatMilk, 1000),
-//            new ItemStack(woodenBucketGoatMilk), new ItemStack(TFCItems.woodenBucketEmpty));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.BRINE, 1000),
+//            new ItemStack(ceramicBucketBrine), new ItemStack(TFCItems.clayBucketEmpty));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
+//            new ItemStack(ceramicBucketHoneyWater), new ItemStack(TFCItems.clayBucketEmpty));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
+//            new ItemStack(ceramicBucketMilkVinegar), new ItemStack(TFCItems.clayBucketEmpty));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.oilyFishWater, 1000),
+//            new ItemStack(ceramicBucketOilyFishWater), new ItemStack(TFCItems.clayBucketEmpty));
+////        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.goatMilk, 1000),
+////            new ItemStack(ceramicBucketGoatMilk), new ItemStack(TFCItems.clayBucketEmpty));
+//
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.BRINE, 1000),
+//            new ItemStack(woodenBucketBrine), new ItemStack(TFCItems.woodenBucketEmpty));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.HONEYWATER, 1000),
+//            new ItemStack(woodenBucketHoneyWater), new ItemStack(TFCItems.woodenBucketEmpty));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.MILKVINEGAR, 1000),
+//            new ItemStack(woodenBucketMilkVinegar), new ItemStack(TFCItems.woodenBucketEmpty));
+//        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.oilyFishWater, 1000),
+//            new ItemStack(woodenBucketOilyFishWater), new ItemStack(TFCItems.woodenBucketEmpty));
+////        FluidContainerRegistry.registerFluidContainer(new FluidStack(BidsFluids.goatMilk, 1000),
+////            new ItemStack(woodenBucketGoatMilk), new ItemStack(TFCItems.woodenBucketEmpty));
 
         FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.FRESHWATER, 1000),
             new ItemStack(ceramicBucketRopeWater), new ItemStack(ceramicBucketRope));
@@ -1194,7 +1194,7 @@ public class ItemSetup extends BidsItems {
 
         Item[] foodItems = {
             wheatCrushed, barleyCrushed, oatCrushed, riceCrushed, ryeCrushed, cornmealCrushed,
-            wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge, cornmealPorridge,
+//            wheatPorridge, barleyPorridge, oatPorridge, ricePorridge, ryePorridge, cornmealPorridge,
             wheatDoughUnshaped, barleyDoughUnshaped, oatDoughUnshaped, riceDoughUnshaped, ryeDoughUnshaped, cornmealDoughUnshaped,
             wheatDoughHardtack, barleyDoughHardtack, oatDoughHardtack, riceDoughHardtack, ryeDoughHardtack, cornmealDoughHardtack,
             wheatHardtack, barleyHardtack, oatHardtack, riceHardtack, ryeHardtack, cornmealHardtack,
@@ -1338,350 +1338,350 @@ public class ItemSetup extends BidsItems {
     private static void registerItems() {
         Bids.LOG.info("Register items");
 
-        GameRegistry.registerItem(oreBit, oreBit.getUnlocalizedName());
-
-        GameRegistry.registerItem(metalBlowpipe, metalBlowpipe.getUnlocalizedName());
-        GameRegistry.registerItem(brassBlowpipe, brassBlowpipe.getUnlocalizedName());
-
-        GameRegistry.registerItem(flatGlass, flatGlass.getUnlocalizedName());
-
-        GameRegistry.registerItem(drinkingGlass, drinkingGlass.getUnlocalizedName());
-        GameRegistry.registerItem(glassJug, glassJug.getUnlocalizedName());
-        GameRegistry.registerItem(shotGlass, shotGlass.getUnlocalizedName());
-
-        GameRegistry.registerItem(clayPipe, clayPipe.getUnlocalizedName());
-
-        GameRegistry.registerItem(clayMug, clayMug.getUnlocalizedName());
-
-        GameRegistry.registerItem(glassLump, glassLump.getUnlocalizedName());
-
-//        GameRegistry.registerItem(igInStoneDrillHead, igInStoneDrillHead.getUnlocalizedName());
-//        GameRegistry.registerItem(sedStoneDrillHead, sedStoneDrillHead.getUnlocalizedName());
-//        GameRegistry.registerItem(igExStoneDrillHead, igExStoneDrillHead.getUnlocalizedName());
-//        GameRegistry.registerItem(mMStoneDrillHead, mMStoneDrillHead.getUnlocalizedName());
-
-//        GameRegistry.registerItem(igInStoneDrill, igInStoneDrill.getUnlocalizedName());
-//        GameRegistry.registerItem(sedStoneDrill, sedStoneDrill.getUnlocalizedName());
-//        GameRegistry.registerItem(igExStoneDrill, igExStoneDrill.getUnlocalizedName());
-//        GameRegistry.registerItem(mMStoneDrill, mMStoneDrill.getUnlocalizedName());
-
-        GameRegistry.registerItem(igInStoneAdzeHead, igInStoneAdzeHead.getUnlocalizedName());
-        GameRegistry.registerItem(sedStoneAdzeHead, sedStoneAdzeHead.getUnlocalizedName());
-        GameRegistry.registerItem(igExStoneAdzeHead, igExStoneAdzeHead.getUnlocalizedName());
-        GameRegistry.registerItem(mMStoneAdzeHead, mMStoneAdzeHead.getUnlocalizedName());
-
-        GameRegistry.registerItem(igInStoneAdze, igInStoneAdze.getUnlocalizedName());
-        GameRegistry.registerItem(sedStoneAdze, sedStoneAdze.getUnlocalizedName());
-        GameRegistry.registerItem(igExStoneAdze, igExStoneAdze.getUnlocalizedName());
-        GameRegistry.registerItem(mMStoneAdze, mMStoneAdze.getUnlocalizedName());
-
-//        GameRegistry.registerItem(sedRoughStoneLooseBrick, sedRoughStoneLooseBrick.getUnlocalizedName());
-
-        GameRegistry.registerItem(peeledLog, peeledLog.getUnlocalizedName());
-        GameRegistry.registerItem(peeledLogSeasoned, peeledLogSeasoned.getUnlocalizedName());
-        GameRegistry.registerItem(logsSeasoned, logsSeasoned.getUnlocalizedName());
-
-        GameRegistry.registerItem(smallStickBundle, smallStickBundle.getUnlocalizedName());
-        GameRegistry.registerItem(tiedStickBundle, tiedStickBundle.getUnlocalizedName());
-        GameRegistry.registerItem(kindling, kindling.getUnlocalizedName());
-
-        GameRegistry.registerItem(bark, bark.getUnlocalizedName());
-        GameRegistry.registerItem(barkFiber, barkFiber.getUnlocalizedName());
-        //GameRegistry.registerItem(barkFibreStrip, barkFibreStrip.getUnlocalizedName());
-        GameRegistry.registerItem(barkCordage, barkCordage.getUnlocalizedName());
-        GameRegistry.registerItem(barkFibreKindling, barkFibreKindling.getUnlocalizedName());
-
-        GameRegistry.registerItem(firewood, firewood.getUnlocalizedName());
-        GameRegistry.registerItem(firewoodSeasoned, firewoodSeasoned.getUnlocalizedName());
-
-        GameRegistry.registerItem(flatBirchBark, flatBirchBark.getUnlocalizedName());
-        GameRegistry.registerItem(birchBarkSheet, birchBarkSheet.getUnlocalizedName());
-        GameRegistry.registerItem(extraStrap, extraStrap.getUnlocalizedName());
-        GameRegistry.registerItem(extraRepairPatch, extraRepairPatch.getUnlocalizedName());
-        GameRegistry.registerItem(extraBagPiece, extraBagPiece.getUnlocalizedName());
-        GameRegistry.registerItem(birchBarkBag, birchBarkBag.getUnlocalizedName());
-        GameRegistry.registerItem(cupPiece, cupPiece.getUnlocalizedName());
-        GameRegistry.registerItem(birchBarkCupUnfinished, birchBarkCupUnfinished.getUnlocalizedName());
-        GameRegistry.registerItem(birchBarkCup, birchBarkCup.getUnlocalizedName());
-        GameRegistry.registerItem(birchBarkShoes, birchBarkShoes.getUnlocalizedName());
-        GameRegistry.registerItem(birchBarkKindling, birchBarkKindling.getUnlocalizedName());
-
-        GameRegistry.registerItem(wheatCrushed, wheatCrushed.getUnlocalizedName());
-        GameRegistry.registerItem(barleyCrushed, barleyCrushed.getUnlocalizedName());
-        GameRegistry.registerItem(oatCrushed, oatCrushed.getUnlocalizedName());
-        GameRegistry.registerItem(ryeCrushed, ryeCrushed.getUnlocalizedName());
-        GameRegistry.registerItem(riceCrushed, riceCrushed.getUnlocalizedName());
-        GameRegistry.registerItem(cornmealCrushed, cornmealCrushed.getUnlocalizedName());
-//        GameRegistry.registerItem(wheatPorridge, wheatPorridge.getUnlocalizedName());
-//        GameRegistry.registerItem(barleyPorridge, barleyPorridge.getUnlocalizedName());
-//        GameRegistry.registerItem(oatPorridge, oatPorridge.getUnlocalizedName());
-//        GameRegistry.registerItem(ryePorridge, ryePorridge.getUnlocalizedName());
-//        GameRegistry.registerItem(ricePorridge, ricePorridge.getUnlocalizedName());
-//        GameRegistry.registerItem(cornmealPorridge, cornmealPorridge.getUnlocalizedName());
-
-        GameRegistry.registerItem(plugAndFeather, plugAndFeather.getUnlocalizedName());
-
-        GameRegistry.registerItem(appleCrushed, appleCrushed.getUnlocalizedName());
-        GameRegistry.registerItem(oliveCrushed, oliveCrushed.getUnlocalizedName());
-
-        GameRegistry.registerItem(oliveOilBottle, oliveOilBottle.getUnlocalizedName());
-        GameRegistry.registerItem(vinegarBottle, vinegarBottle.getUnlocalizedName());
-        GameRegistry.registerItem(saltWaterBottle, saltWaterBottle.getUnlocalizedName());
-        GameRegistry.registerItem(brineBottle, brineBottle.getUnlocalizedName());
-        GameRegistry.registerItem(honeyBottle, honeyBottle.getUnlocalizedName());
-        GameRegistry.registerItem(honeyWaterBottle, honeyWaterBottle.getUnlocalizedName());
-        GameRegistry.registerItem(milkVinegarBottle, milkVinegarBottle.getUnlocalizedName());
-
-        GameRegistry.registerItem(vinegarBowl, vinegarBowl.getUnlocalizedName());
-        GameRegistry.registerItem(oliveOilBowl, oliveOilBowl.getUnlocalizedName());
-
-        GameRegistry.registerItem(ceramicBucketBrine, ceramicBucketBrine.getUnlocalizedName());
-        GameRegistry.registerItem(ceramicBucketHoneyWater, ceramicBucketHoneyWater.getUnlocalizedName());
-        GameRegistry.registerItem(ceramicBucketMilkVinegar, ceramicBucketMilkVinegar.getUnlocalizedName());
-
-        GameRegistry.registerItem(woodenBucketBrine, woodenBucketBrine.getUnlocalizedName());
-        GameRegistry.registerItem(woodenBucketHoneyWater, woodenBucketHoneyWater.getUnlocalizedName());
-        GameRegistry.registerItem(woodenBucketMilkVinegar, woodenBucketMilkVinegar.getUnlocalizedName());
-
-        GameRegistry.registerItem(ceramicBucketRope, ceramicBucketRope.getUnlocalizedName());
-        GameRegistry.registerItem(ceramicBucketRopeWater, ceramicBucketRopeWater.getUnlocalizedName());
-        GameRegistry.registerItem(woodenBucketRope, woodenBucketRope.getUnlocalizedName());
-        GameRegistry.registerItem(woodenBucketRopeWater, woodenBucketRopeWater.getUnlocalizedName());
-
-        GameRegistry.registerItem(roughStoneBrick, roughStoneBrick.getUnlocalizedName());
-        GameRegistry.registerItem(roughStoneTile, roughStoneTile.getUnlocalizedName());
-
-        GameRegistry.registerItem(largeClayBowl, largeClayBowl.getUnlocalizedName());
-        GameRegistry.registerItem(freshWaterLargeBowl, freshWaterLargeBowl.getUnlocalizedName());
-        GameRegistry.registerItem(saltWaterLargeBowl, saltWaterLargeBowl.getUnlocalizedName());
-        GameRegistry.registerItem(vinegarLargeBowl, vinegarLargeBowl.getUnlocalizedName());
-        GameRegistry.registerItem(milkLargeBowl, milkLargeBowl.getUnlocalizedName());
-        GameRegistry.registerItem(honeyLargeBowl, honeyLargeBowl.getUnlocalizedName());
-
-        GameRegistry.registerItem(clayMoldAdze, clayMoldAdze.getUnlocalizedName());
-        GameRegistry.registerItem(copperAdzeHead, copperAdzeHead.getUnlocalizedName());
-        GameRegistry.registerItem(bronzeAdzeHead, bronzeAdzeHead.getUnlocalizedName());
-        GameRegistry.registerItem(bismuthBronzeAdzeHead, bismuthBronzeAdzeHead.getUnlocalizedName());
-        GameRegistry.registerItem(blackBronzeAdzeHead, blackBronzeAdzeHead.getUnlocalizedName());
-
-        GameRegistry.registerItem(copperAdze, copperAdze.getUnlocalizedName());
-        GameRegistry.registerItem(bronzeAdze, bronzeAdze.getUnlocalizedName());
-        GameRegistry.registerItem(bismuthBronzeAdze, bismuthBronzeAdze.getUnlocalizedName());
-        GameRegistry.registerItem(blackBronzeAdze, blackBronzeAdze.getUnlocalizedName());
+//        GameRegistry.registerItem(oreBit, oreBit.getUnlocalizedName());
 //
-//        GameRegistry.registerItem(clayMoldDrill, clayMoldDrill.getUnlocalizedName());
-//        GameRegistry.registerItem(copperDrillHead, copperDrillHead.getUnlocalizedName());
-//        GameRegistry.registerItem(bronzeDrillHead, bronzeDrillHead.getUnlocalizedName());
-//        GameRegistry.registerItem(bismuthBronzeDrillHead, bismuthBronzeDrillHead.getUnlocalizedName());
-//        GameRegistry.registerItem(blackBronzeDrillHead, blackBronzeDrillHead.getUnlocalizedName());
+//        GameRegistry.registerItem(metalBlowpipe, metalBlowpipe.getUnlocalizedName());
+//        GameRegistry.registerItem(brassBlowpipe, brassBlowpipe.getUnlocalizedName());
 //
-//        GameRegistry.registerItem(copperDrill, copperDrill.getUnlocalizedName());
-//        GameRegistry.registerItem(bronzeDrill, bronzeDrill.getUnlocalizedName());
-//        GameRegistry.registerItem(bismuthBronzeDrill, bismuthBronzeDrill.getUnlocalizedName());
-//        GameRegistry.registerItem(blackBronzeDrill, blackBronzeDrill.getUnlocalizedName());
-
-        GameRegistry.registerItem(extraCoatBodyFront, extraCoatBodyFront.getUnlocalizedName());
-        GameRegistry.registerItem(extraCoatBodyBack, extraCoatBodyBack.getUnlocalizedName());
-        GameRegistry.registerItem(leatherCoat, leatherCoat.getUnlocalizedName());
-
-        GameRegistry.registerItem(fishOilBottle, fishOilBottle.getUnlocalizedName());
-        GameRegistry.registerItem(fishOilBowl, fishOilBowl.getUnlocalizedName());
-        GameRegistry.registerItem(oilyFishWaterBottle, oilyFishWaterBottle.getUnlocalizedName());
-        GameRegistry.registerItem(ceramicBucketOilyFishWater, ceramicBucketOilyFishWater.getUnlocalizedName());
-        GameRegistry.registerItem(woodenBucketOilyFishWater, woodenBucketOilyFishWater.getUnlocalizedName());
-
-        GameRegistry.registerItem(steamingMeshCloth, steamingMeshCloth.getUnlocalizedName());
-
-        GameRegistry.registerItem(goatMilkBottle, goatMilkBottle.getUnlocalizedName());
-        GameRegistry.registerItem(goatMilkLargeBowl, goatMilkLargeBowl.getUnlocalizedName());
-        GameRegistry.registerItem(ceramicBucketGoatMilk, ceramicBucketGoatMilk.getUnlocalizedName());
-        GameRegistry.registerItem(woodenBucketGoatMilk, woodenBucketGoatMilk.getUnlocalizedName());
-
-        GameRegistry.registerItem(goatCheese, goatCheese.getUnlocalizedName());
-
-        GameRegistry.registerItem(stuffedPepper, stuffedPepper.getUnlocalizedName());
-        GameRegistry.registerItem(stuffedMushroom, stuffedMushroom.getUnlocalizedName());
-
-        GameRegistry.registerItem(seaBeet, seaBeet.getUnlocalizedName());
-        GameRegistry.registerItem(beetroot, beetroot.getUnlocalizedName());
-        GameRegistry.registerItem(sugarBeet, sugarBeet.getUnlocalizedName());
-        GameRegistry.registerItem(wildBeans, wildBeans.getUnlocalizedName());
-        GameRegistry.registerItem(broadBeans, broadBeans.getUnlocalizedName());
-
-        GameRegistry.registerItem(seedsSeaBeet, seedsSeaBeet.getUnlocalizedName());
-        GameRegistry.registerItem(seedsBeetroot, seedsBeetroot.getUnlocalizedName());
-        GameRegistry.registerItem(seedsSugarBeet, seedsSugarBeet.getUnlocalizedName());
-        GameRegistry.registerItem(seedsWildBeans, seedsWildBeans.getUnlocalizedName());
-        GameRegistry.registerItem(seedsBroadBeans, seedsBroadBeans.getUnlocalizedName());
-
-        GameRegistry.registerItem(suet, suet.getUnlocalizedName());
-        GameRegistry.registerItem(tallow, tallow.getUnlocalizedName());
-
-        GameRegistry.registerItem(pemmican, pemmican.getUnlocalizedName());
-
-        GameRegistry.registerItem(wroughtIronAdze, wroughtIronAdze.getUnlocalizedName());
-        GameRegistry.registerItem(wroughtIronAdzeHead, wroughtIronAdzeHead.getUnlocalizedName());
-//        GameRegistry.registerItem(wroughtIronDrill, wroughtIronDrill.getUnlocalizedName());
-//        GameRegistry.registerItem(wroughtIronDrillHead, wroughtIronDrillHead.getUnlocalizedName());
-
-        GameRegistry.registerItem(seedsNewBarley, seedsNewBarley.getUnlocalizedName());
-        GameRegistry.registerItem(seedsNewOat, seedsNewOat.getUnlocalizedName());
-        GameRegistry.registerItem(seedsNewRye, seedsNewRye.getUnlocalizedName());
-        GameRegistry.registerItem(seedsNewWheat, seedsNewWheat.getUnlocalizedName());
-        GameRegistry.registerItem(seedsWinterBarley, seedsWinterBarley.getUnlocalizedName());
-        GameRegistry.registerItem(seedsWinterOat, seedsWinterOat.getUnlocalizedName());
-        GameRegistry.registerItem(seedsWinterRye, seedsWinterRye.getUnlocalizedName());
-        GameRegistry.registerItem(seedsWinterWheat, seedsWinterWheat.getUnlocalizedName());
-
-        GameRegistry.registerItem(seedsNewOnion, seedsNewOnion.getUnlocalizedName());
-        GameRegistry.registerItem(seedsNewCabbage, seedsNewCabbage.getUnlocalizedName());
-        GameRegistry.registerItem(seedsNewGarlic, seedsNewGarlic.getUnlocalizedName());
-        GameRegistry.registerItem(seedsNewCarrot, seedsNewCarrot.getUnlocalizedName());
-
-        GameRegistry.registerItem(cookingMixture, cookingMixture.getUnlocalizedName());
-        GameRegistry.registerItem(stew, stew.getUnlocalizedName());
-        GameRegistry.registerItem(soup, soup.getUnlocalizedName());
-        GameRegistry.registerItem(porridge, porridge.getUnlocalizedName());
-
-        GameRegistry.registerItem(bambooShoot, bambooShoot.getUnlocalizedName());
-
-        GameRegistry.registerItem(omelet, omelet.getUnlocalizedName());
-
-        GameRegistry.registerItem(wheatDoughUnshaped, wheatDoughUnshaped.getUnlocalizedName());
-        GameRegistry.registerItem(barleyDoughUnshaped, barleyDoughUnshaped.getUnlocalizedName());
-        GameRegistry.registerItem(oatDoughUnshaped, oatDoughUnshaped.getUnlocalizedName());
-        GameRegistry.registerItem(ryeDoughUnshaped, ryeDoughUnshaped.getUnlocalizedName());
-        GameRegistry.registerItem(riceDoughUnshaped, riceDoughUnshaped.getUnlocalizedName());
-        GameRegistry.registerItem(cornmealDoughUnshaped, cornmealDoughUnshaped.getUnlocalizedName());
-
-        GameRegistry.registerItem(wheatDoughHardtack, wheatDoughHardtack.getUnlocalizedName());
-        GameRegistry.registerItem(barleyDoughHardtack, barleyDoughHardtack.getUnlocalizedName());
-        GameRegistry.registerItem(oatDoughHardtack, oatDoughHardtack.getUnlocalizedName());
-        GameRegistry.registerItem(ryeDoughHardtack, ryeDoughHardtack.getUnlocalizedName());
-        GameRegistry.registerItem(riceDoughHardtack, riceDoughHardtack.getUnlocalizedName());
-        GameRegistry.registerItem(cornmealDoughHardtack, cornmealDoughHardtack.getUnlocalizedName());
-
-        GameRegistry.registerItem(wheatHardtack, wheatHardtack.getUnlocalizedName());
-        GameRegistry.registerItem(barleyHardtack, barleyHardtack.getUnlocalizedName());
-        GameRegistry.registerItem(oatHardtack, oatHardtack.getUnlocalizedName());
-        GameRegistry.registerItem(ryeHardtack, ryeHardtack.getUnlocalizedName());
-        GameRegistry.registerItem(riceHardtack, riceHardtack.getUnlocalizedName());
-        GameRegistry.registerItem(cornmealHardtack, cornmealHardtack.getUnlocalizedName());
-
-        GameRegistry.registerItem(wheatDoughFlatbread, wheatDoughFlatbread.getUnlocalizedName());
-        GameRegistry.registerItem(barleyDoughFlatbread, barleyDoughFlatbread.getUnlocalizedName());
-        GameRegistry.registerItem(oatDoughFlatbread, oatDoughFlatbread.getUnlocalizedName());
-        GameRegistry.registerItem(ryeDoughFlatbread, ryeDoughFlatbread.getUnlocalizedName());
-        GameRegistry.registerItem(riceDoughFlatbread, riceDoughFlatbread.getUnlocalizedName());
-        GameRegistry.registerItem(cornmealDoughFlatbread, cornmealDoughFlatbread.getUnlocalizedName());
-
-        GameRegistry.registerItem(wheatFlatbread, wheatFlatbread.getUnlocalizedName());
-        GameRegistry.registerItem(barleyFlatbread, barleyFlatbread.getUnlocalizedName());
-        GameRegistry.registerItem(oatFlatbread, oatFlatbread.getUnlocalizedName());
-        GameRegistry.registerItem(ryeFlatbread, ryeFlatbread.getUnlocalizedName());
-        GameRegistry.registerItem(riceFlatbread, riceFlatbread.getUnlocalizedName());
-        GameRegistry.registerItem(cornmealFlatbread, cornmealFlatbread.getUnlocalizedName());
-
-        GameRegistry.registerItem(flatDough, flatDough.getUnlocalizedName());
-
-        GameRegistry.registerItem(wrap, wrap.getUnlocalizedName());
-
-        GameRegistry.registerItem(moreHide, moreHide.getUnlocalizedName());
-
-        GameRegistry.registerItem(woodenPailEmpty, woodenPailEmpty.getUnlocalizedName());
-        GameRegistry.registerItem(woodenPailFreshWater, woodenPailFreshWater.getUnlocalizedName());
-        GameRegistry.registerItem(woodenPailMilk, woodenPailMilk.getUnlocalizedName());
-        GameRegistry.registerItem(woodenPailGoatMilk, woodenPailGoatMilk.getUnlocalizedName());
-
-        GameRegistry.registerItem(potteryJugVinegar, potteryJugVinegar.getUnlocalizedName());
-        GameRegistry.registerItem(potteryJugOliveOil, potteryJugOliveOil.getUnlocalizedName());
-        GameRegistry.registerItem(potteryJugFishOil, potteryJugFishOil.getUnlocalizedName());
-
-        GameRegistry.registerItem(butter, butter.getUnlocalizedName());
-
-        GameRegistry.registerItem(hardCheese, hardCheese.getUnlocalizedName());
-
-        GameRegistry.registerItem(potteryJugGoatMilk, potteryJugGoatMilk.getUnlocalizedName());
-        GameRegistry.registerItem(potteryJugSkimmedMilk, potteryJugSkimmedMilk.getUnlocalizedName());
-        GameRegistry.registerItem(skimmedMilkBottle, skimmedMilkBottle.getUnlocalizedName());
-        GameRegistry.registerItem(skimmedMilkLargeBowl, skimmedMilkLargeBowl.getUnlocalizedName());
-        GameRegistry.registerItem(creamBottle, creamBottle.getUnlocalizedName());
-        GameRegistry.registerItem(creamLargeBowl, creamLargeBowl.getUnlocalizedName());
-
-        GameRegistry.registerItem(waterskinCream, waterskinCream.getUnlocalizedName());
-
-        GameRegistry.registerItem(igInHandAxe, igInHandAxe.getUnlocalizedName());
-        GameRegistry.registerItem(sedHandAxe, sedHandAxe.getUnlocalizedName());
-        GameRegistry.registerItem(igExHandAxe, igExHandAxe.getUnlocalizedName());
-        GameRegistry.registerItem(mMHandAxe, mMHandAxe.getUnlocalizedName());
-
-        GameRegistry.registerItem(hardenedWoodenSpear, hardenedWoodenSpear.getUnlocalizedName());
-
-        GameRegistry.registerItem(whorl, whorl.getUnlocalizedName());
-        GameRegistry.registerItem(spindle, spindle.getUnlocalizedName());
-
-        GameRegistry.registerItem(primitiveRopeMaker, primitiveRopeMaker.getUnlocalizedName());
-
-        GameRegistry.registerItem(barkFiberCoarse, barkFiberCoarse.getUnlocalizedName());
-        GameRegistry.registerItem(barkFiberSmooth, barkFiberSmooth.getUnlocalizedName());
-
-        GameRegistry.registerItem(sisalFiberRinsed, sisalFiberRinsed.getUnlocalizedName());
-        GameRegistry.registerItem(sisalFiberCoarse, sisalFiberCoarse.getUnlocalizedName());
-        GameRegistry.registerItem(sisalFiberRefined, sisalFiberRefined.getUnlocalizedName());
-        GameRegistry.registerItem(sisalTwine, sisalTwine.getUnlocalizedName());
-
-        GameRegistry.registerItem(juteStalk, juteStalk.getUnlocalizedName());
-        GameRegistry.registerItem(juteStalkRetted, juteStalkRetted.getUnlocalizedName());
-        GameRegistry.registerItem(juteFiberCoarse, juteFiberCoarse.getUnlocalizedName());
-        GameRegistry.registerItem(juteFiberRefined, juteFiberRefined.getUnlocalizedName());
-        GameRegistry.registerItem(juteTwine, juteTwine.getUnlocalizedName());
-
-        GameRegistry.registerItem(flaxStalk, flaxStalk.getUnlocalizedName());
-        GameRegistry.registerItem(flaxStalkRetted, flaxStalkRetted.getUnlocalizedName());
-        GameRegistry.registerItem(flaxStalkDried, flaxStalkDried.getUnlocalizedName());
-        GameRegistry.registerItem(flaxStalkBroken, flaxStalkBroken.getUnlocalizedName());
-        GameRegistry.registerItem(flaxFiberCoarse, flaxFiberCoarse.getUnlocalizedName());
-        GameRegistry.registerItem(flaxFiberRefined, flaxFiberRefined.getUnlocalizedName());
-
-        GameRegistry.registerItem(cottonBoll, cottonBoll.getUnlocalizedName());
-        GameRegistry.registerItem(cottonBollRefined, cottonBollRefined.getUnlocalizedName());
-        GameRegistry.registerItem(cottonFiberCoarse, cottonFiberCoarse.getUnlocalizedName());
-        GameRegistry.registerItem(cottonFiberRefined, cottonFiberRefined.getUnlocalizedName());
-
-        GameRegistry.registerItem(woolWashed, woolWashed.getUnlocalizedName());
-        GameRegistry.registerItem(woolRinsed, woolRinsed.getUnlocalizedName());
-        GameRegistry.registerItem(woolDried, woolDried.getUnlocalizedName());
-        GameRegistry.registerItem(woolFiberCoarse, woolFiberCoarse.getUnlocalizedName());
-        GameRegistry.registerItem(woolFiberRefined, woolFiberRefined.getUnlocalizedName());
-
-        GameRegistry.registerItem(thornBunch, thornBunch.getUnlocalizedName());
-        GameRegistry.registerItem(thornCard, thornCard.getUnlocalizedName());
-
-        GameRegistry.registerItem(boneHeckle, boneHeckle.getUnlocalizedName());
-
-        GameRegistry.registerItem(board, board.getUnlocalizedName());
-        GameRegistry.registerItem(shaft, shaft.getUnlocalizedName());
-
-        GameRegistry.registerItem(woodenMallet, woodenMallet.getUnlocalizedName());
-        GameRegistry.registerItem(scutchingKnife, scutchingKnife.getUnlocalizedName());
-        GameRegistry.registerItem(woodenCombPaddle, woodenCombPaddle.getUnlocalizedName());
-        GameRegistry.registerItem(boneKnifeHead, boneKnifeHead.getUnlocalizedName());
-
-        GameRegistry.registerItem(morePowder, morePowder.getUnlocalizedName());
-
-        GameRegistry.registerItem(weakWoodAshLyeBottle, weakWoodAshLyeBottle.getUnlocalizedName());
-        GameRegistry.registerItem(woodAshLyeBottle, woodAshLyeBottle.getUnlocalizedName());
-        GameRegistry.registerItem(weakWoodAshLyeLargeBowl, weakWoodAshLyeLargeBowl.getUnlocalizedName());
-        GameRegistry.registerItem(woodAshLyeLargeBowl, woodAshLyeLargeBowl.getUnlocalizedName());
-        GameRegistry.registerItem(soapyWaterBottle, soapyWaterBottle.getUnlocalizedName());
-        GameRegistry.registerItem(soap, soap.getUnlocalizedName());
-        GameRegistry.registerItem(uncuredSoap, uncuredSoap.getUnlocalizedName());
-
-        GameRegistry.registerItem(dryingMudBrick, dryingMudBrick.getUnlocalizedName());
-
-        GameRegistry.registerItem(flaxSeeds, flaxSeeds.getUnlocalizedName());
-        GameRegistry.registerItem(flaxSeedOilBottle, flaxSeedOilBottle.getUnlocalizedName());
-        GameRegistry.registerItem(flaxSeedOilBowl, flaxSeedOilBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(flatGlass, flatGlass.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(drinkingGlass, drinkingGlass.getUnlocalizedName());
+//        GameRegistry.registerItem(glassJug, glassJug.getUnlocalizedName());
+//        GameRegistry.registerItem(shotGlass, shotGlass.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(clayPipe, clayPipe.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(clayMug, clayMug.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(glassLump, glassLump.getUnlocalizedName());
+//
+////        GameRegistry.registerItem(igInStoneDrillHead, igInStoneDrillHead.getUnlocalizedName());
+////        GameRegistry.registerItem(sedStoneDrillHead, sedStoneDrillHead.getUnlocalizedName());
+////        GameRegistry.registerItem(igExStoneDrillHead, igExStoneDrillHead.getUnlocalizedName());
+////        GameRegistry.registerItem(mMStoneDrillHead, mMStoneDrillHead.getUnlocalizedName());
+//
+////        GameRegistry.registerItem(igInStoneDrill, igInStoneDrill.getUnlocalizedName());
+////        GameRegistry.registerItem(sedStoneDrill, sedStoneDrill.getUnlocalizedName());
+////        GameRegistry.registerItem(igExStoneDrill, igExStoneDrill.getUnlocalizedName());
+////        GameRegistry.registerItem(mMStoneDrill, mMStoneDrill.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(igInStoneAdzeHead, igInStoneAdzeHead.getUnlocalizedName());
+//        GameRegistry.registerItem(sedStoneAdzeHead, sedStoneAdzeHead.getUnlocalizedName());
+//        GameRegistry.registerItem(igExStoneAdzeHead, igExStoneAdzeHead.getUnlocalizedName());
+//        GameRegistry.registerItem(mMStoneAdzeHead, mMStoneAdzeHead.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(igInStoneAdze, igInStoneAdze.getUnlocalizedName());
+//        GameRegistry.registerItem(sedStoneAdze, sedStoneAdze.getUnlocalizedName());
+//        GameRegistry.registerItem(igExStoneAdze, igExStoneAdze.getUnlocalizedName());
+//        GameRegistry.registerItem(mMStoneAdze, mMStoneAdze.getUnlocalizedName());
+//
+////        GameRegistry.registerItem(sedRoughStoneLooseBrick, sedRoughStoneLooseBrick.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(peeledLog, peeledLog.getUnlocalizedName());
+//        GameRegistry.registerItem(peeledLogSeasoned, peeledLogSeasoned.getUnlocalizedName());
+//        GameRegistry.registerItem(logsSeasoned, logsSeasoned.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(smallStickBundle, smallStickBundle.getUnlocalizedName());
+//        GameRegistry.registerItem(tiedStickBundle, tiedStickBundle.getUnlocalizedName());
+//        GameRegistry.registerItem(kindling, kindling.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(bark, bark.getUnlocalizedName());
+//        GameRegistry.registerItem(barkFiber, barkFiber.getUnlocalizedName());
+//        //GameRegistry.registerItem(barkFibreStrip, barkFibreStrip.getUnlocalizedName());
+//        GameRegistry.registerItem(barkCordage, barkCordage.getUnlocalizedName());
+//        GameRegistry.registerItem(barkFibreKindling, barkFibreKindling.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(firewood, firewood.getUnlocalizedName());
+//        GameRegistry.registerItem(firewoodSeasoned, firewoodSeasoned.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(flatBirchBark, flatBirchBark.getUnlocalizedName());
+//        GameRegistry.registerItem(birchBarkSheet, birchBarkSheet.getUnlocalizedName());
+//        GameRegistry.registerItem(extraStrap, extraStrap.getUnlocalizedName());
+//        GameRegistry.registerItem(extraRepairPatch, extraRepairPatch.getUnlocalizedName());
+//        GameRegistry.registerItem(extraBagPiece, extraBagPiece.getUnlocalizedName());
+//        GameRegistry.registerItem(birchBarkBag, birchBarkBag.getUnlocalizedName());
+//        GameRegistry.registerItem(cupPiece, cupPiece.getUnlocalizedName());
+//        GameRegistry.registerItem(birchBarkCupUnfinished, birchBarkCupUnfinished.getUnlocalizedName());
+//        GameRegistry.registerItem(birchBarkCup, birchBarkCup.getUnlocalizedName());
+//        GameRegistry.registerItem(birchBarkShoes, birchBarkShoes.getUnlocalizedName());
+//        GameRegistry.registerItem(birchBarkKindling, birchBarkKindling.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(wheatCrushed, wheatCrushed.getUnlocalizedName());
+//        GameRegistry.registerItem(barleyCrushed, barleyCrushed.getUnlocalizedName());
+//        GameRegistry.registerItem(oatCrushed, oatCrushed.getUnlocalizedName());
+//        GameRegistry.registerItem(ryeCrushed, ryeCrushed.getUnlocalizedName());
+//        GameRegistry.registerItem(riceCrushed, riceCrushed.getUnlocalizedName());
+//        GameRegistry.registerItem(cornmealCrushed, cornmealCrushed.getUnlocalizedName());
+////        GameRegistry.registerItem(wheatPorridge, wheatPorridge.getUnlocalizedName());
+////        GameRegistry.registerItem(barleyPorridge, barleyPorridge.getUnlocalizedName());
+////        GameRegistry.registerItem(oatPorridge, oatPorridge.getUnlocalizedName());
+////        GameRegistry.registerItem(ryePorridge, ryePorridge.getUnlocalizedName());
+////        GameRegistry.registerItem(ricePorridge, ricePorridge.getUnlocalizedName());
+////        GameRegistry.registerItem(cornmealPorridge, cornmealPorridge.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(plugAndFeather, plugAndFeather.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(appleCrushed, appleCrushed.getUnlocalizedName());
+//        GameRegistry.registerItem(oliveCrushed, oliveCrushed.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(oliveOilBottle, oliveOilBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(vinegarBottle, vinegarBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(saltWaterBottle, saltWaterBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(brineBottle, brineBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(honeyBottle, honeyBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(honeyWaterBottle, honeyWaterBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(milkVinegarBottle, milkVinegarBottle.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(vinegarBowl, vinegarBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(oliveOilBowl, oliveOilBowl.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(ceramicBucketBrine, ceramicBucketBrine.getUnlocalizedName());
+//        GameRegistry.registerItem(ceramicBucketHoneyWater, ceramicBucketHoneyWater.getUnlocalizedName());
+//        GameRegistry.registerItem(ceramicBucketMilkVinegar, ceramicBucketMilkVinegar.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(woodenBucketBrine, woodenBucketBrine.getUnlocalizedName());
+//        GameRegistry.registerItem(woodenBucketHoneyWater, woodenBucketHoneyWater.getUnlocalizedName());
+//        GameRegistry.registerItem(woodenBucketMilkVinegar, woodenBucketMilkVinegar.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(ceramicBucketRope, ceramicBucketRope.getUnlocalizedName());
+//        GameRegistry.registerItem(ceramicBucketRopeWater, ceramicBucketRopeWater.getUnlocalizedName());
+//        GameRegistry.registerItem(woodenBucketRope, woodenBucketRope.getUnlocalizedName());
+//        GameRegistry.registerItem(woodenBucketRopeWater, woodenBucketRopeWater.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(roughStoneBrick, roughStoneBrick.getUnlocalizedName());
+//        GameRegistry.registerItem(roughStoneTile, roughStoneTile.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(largeClayBowl, largeClayBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(freshWaterLargeBowl, freshWaterLargeBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(saltWaterLargeBowl, saltWaterLargeBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(vinegarLargeBowl, vinegarLargeBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(milkLargeBowl, milkLargeBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(honeyLargeBowl, honeyLargeBowl.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(clayMoldAdze, clayMoldAdze.getUnlocalizedName());
+//        GameRegistry.registerItem(copperAdzeHead, copperAdzeHead.getUnlocalizedName());
+//        GameRegistry.registerItem(bronzeAdzeHead, bronzeAdzeHead.getUnlocalizedName());
+//        GameRegistry.registerItem(bismuthBronzeAdzeHead, bismuthBronzeAdzeHead.getUnlocalizedName());
+//        GameRegistry.registerItem(blackBronzeAdzeHead, blackBronzeAdzeHead.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(copperAdze, copperAdze.getUnlocalizedName());
+//        GameRegistry.registerItem(bronzeAdze, bronzeAdze.getUnlocalizedName());
+//        GameRegistry.registerItem(bismuthBronzeAdze, bismuthBronzeAdze.getUnlocalizedName());
+//        GameRegistry.registerItem(blackBronzeAdze, blackBronzeAdze.getUnlocalizedName());
+////
+////        GameRegistry.registerItem(clayMoldDrill, clayMoldDrill.getUnlocalizedName());
+////        GameRegistry.registerItem(copperDrillHead, copperDrillHead.getUnlocalizedName());
+////        GameRegistry.registerItem(bronzeDrillHead, bronzeDrillHead.getUnlocalizedName());
+////        GameRegistry.registerItem(bismuthBronzeDrillHead, bismuthBronzeDrillHead.getUnlocalizedName());
+////        GameRegistry.registerItem(blackBronzeDrillHead, blackBronzeDrillHead.getUnlocalizedName());
+////
+////        GameRegistry.registerItem(copperDrill, copperDrill.getUnlocalizedName());
+////        GameRegistry.registerItem(bronzeDrill, bronzeDrill.getUnlocalizedName());
+////        GameRegistry.registerItem(bismuthBronzeDrill, bismuthBronzeDrill.getUnlocalizedName());
+////        GameRegistry.registerItem(blackBronzeDrill, blackBronzeDrill.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(extraCoatBodyFront, extraCoatBodyFront.getUnlocalizedName());
+//        GameRegistry.registerItem(extraCoatBodyBack, extraCoatBodyBack.getUnlocalizedName());
+//        GameRegistry.registerItem(leatherCoat, leatherCoat.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(fishOilBottle, fishOilBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(fishOilBowl, fishOilBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(oilyFishWaterBottle, oilyFishWaterBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(ceramicBucketOilyFishWater, ceramicBucketOilyFishWater.getUnlocalizedName());
+//        GameRegistry.registerItem(woodenBucketOilyFishWater, woodenBucketOilyFishWater.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(steamingMeshCloth, steamingMeshCloth.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(goatMilkBottle, goatMilkBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(goatMilkLargeBowl, goatMilkLargeBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(ceramicBucketGoatMilk, ceramicBucketGoatMilk.getUnlocalizedName());
+//        GameRegistry.registerItem(woodenBucketGoatMilk, woodenBucketGoatMilk.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(goatCheese, goatCheese.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(stuffedPepper, stuffedPepper.getUnlocalizedName());
+//        GameRegistry.registerItem(stuffedMushroom, stuffedMushroom.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(seaBeet, seaBeet.getUnlocalizedName());
+//        GameRegistry.registerItem(beetroot, beetroot.getUnlocalizedName());
+//        GameRegistry.registerItem(sugarBeet, sugarBeet.getUnlocalizedName());
+//        GameRegistry.registerItem(wildBeans, wildBeans.getUnlocalizedName());
+//        GameRegistry.registerItem(broadBeans, broadBeans.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(seedsSeaBeet, seedsSeaBeet.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsBeetroot, seedsBeetroot.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsSugarBeet, seedsSugarBeet.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsWildBeans, seedsWildBeans.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsBroadBeans, seedsBroadBeans.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(suet, suet.getUnlocalizedName());
+//        GameRegistry.registerItem(tallow, tallow.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(pemmican, pemmican.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(wroughtIronAdze, wroughtIronAdze.getUnlocalizedName());
+//        GameRegistry.registerItem(wroughtIronAdzeHead, wroughtIronAdzeHead.getUnlocalizedName());
+////        GameRegistry.registerItem(wroughtIronDrill, wroughtIronDrill.getUnlocalizedName());
+////        GameRegistry.registerItem(wroughtIronDrillHead, wroughtIronDrillHead.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(seedsNewBarley, seedsNewBarley.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsNewOat, seedsNewOat.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsNewRye, seedsNewRye.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsNewWheat, seedsNewWheat.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsWinterBarley, seedsWinterBarley.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsWinterOat, seedsWinterOat.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsWinterRye, seedsWinterRye.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsWinterWheat, seedsWinterWheat.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(seedsNewOnion, seedsNewOnion.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsNewCabbage, seedsNewCabbage.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsNewGarlic, seedsNewGarlic.getUnlocalizedName());
+//        GameRegistry.registerItem(seedsNewCarrot, seedsNewCarrot.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(cookingMixture, cookingMixture.getUnlocalizedName());
+//        GameRegistry.registerItem(stew, stew.getUnlocalizedName());
+//        GameRegistry.registerItem(soup, soup.getUnlocalizedName());
+//        GameRegistry.registerItem(porridge, porridge.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(bambooShoot, bambooShoot.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(omelet, omelet.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(wheatDoughUnshaped, wheatDoughUnshaped.getUnlocalizedName());
+//        GameRegistry.registerItem(barleyDoughUnshaped, barleyDoughUnshaped.getUnlocalizedName());
+//        GameRegistry.registerItem(oatDoughUnshaped, oatDoughUnshaped.getUnlocalizedName());
+//        GameRegistry.registerItem(ryeDoughUnshaped, ryeDoughUnshaped.getUnlocalizedName());
+//        GameRegistry.registerItem(riceDoughUnshaped, riceDoughUnshaped.getUnlocalizedName());
+//        GameRegistry.registerItem(cornmealDoughUnshaped, cornmealDoughUnshaped.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(wheatDoughHardtack, wheatDoughHardtack.getUnlocalizedName());
+//        GameRegistry.registerItem(barleyDoughHardtack, barleyDoughHardtack.getUnlocalizedName());
+//        GameRegistry.registerItem(oatDoughHardtack, oatDoughHardtack.getUnlocalizedName());
+//        GameRegistry.registerItem(ryeDoughHardtack, ryeDoughHardtack.getUnlocalizedName());
+//        GameRegistry.registerItem(riceDoughHardtack, riceDoughHardtack.getUnlocalizedName());
+//        GameRegistry.registerItem(cornmealDoughHardtack, cornmealDoughHardtack.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(wheatHardtack, wheatHardtack.getUnlocalizedName());
+//        GameRegistry.registerItem(barleyHardtack, barleyHardtack.getUnlocalizedName());
+//        GameRegistry.registerItem(oatHardtack, oatHardtack.getUnlocalizedName());
+//        GameRegistry.registerItem(ryeHardtack, ryeHardtack.getUnlocalizedName());
+//        GameRegistry.registerItem(riceHardtack, riceHardtack.getUnlocalizedName());
+//        GameRegistry.registerItem(cornmealHardtack, cornmealHardtack.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(wheatDoughFlatbread, wheatDoughFlatbread.getUnlocalizedName());
+//        GameRegistry.registerItem(barleyDoughFlatbread, barleyDoughFlatbread.getUnlocalizedName());
+//        GameRegistry.registerItem(oatDoughFlatbread, oatDoughFlatbread.getUnlocalizedName());
+//        GameRegistry.registerItem(ryeDoughFlatbread, ryeDoughFlatbread.getUnlocalizedName());
+//        GameRegistry.registerItem(riceDoughFlatbread, riceDoughFlatbread.getUnlocalizedName());
+//        GameRegistry.registerItem(cornmealDoughFlatbread, cornmealDoughFlatbread.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(wheatFlatbread, wheatFlatbread.getUnlocalizedName());
+//        GameRegistry.registerItem(barleyFlatbread, barleyFlatbread.getUnlocalizedName());
+//        GameRegistry.registerItem(oatFlatbread, oatFlatbread.getUnlocalizedName());
+//        GameRegistry.registerItem(ryeFlatbread, ryeFlatbread.getUnlocalizedName());
+//        GameRegistry.registerItem(riceFlatbread, riceFlatbread.getUnlocalizedName());
+//        GameRegistry.registerItem(cornmealFlatbread, cornmealFlatbread.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(flatDough, flatDough.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(wrap, wrap.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(moreHide, moreHide.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(woodenPailEmpty, woodenPailEmpty.getUnlocalizedName());
+//        GameRegistry.registerItem(woodenPailFreshWater, woodenPailFreshWater.getUnlocalizedName());
+//        GameRegistry.registerItem(woodenPailMilk, woodenPailMilk.getUnlocalizedName());
+//        GameRegistry.registerItem(woodenPailGoatMilk, woodenPailGoatMilk.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(potteryJugVinegar, potteryJugVinegar.getUnlocalizedName());
+//        GameRegistry.registerItem(potteryJugOliveOil, potteryJugOliveOil.getUnlocalizedName());
+//        GameRegistry.registerItem(potteryJugFishOil, potteryJugFishOil.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(butter, butter.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(hardCheese, hardCheese.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(potteryJugGoatMilk, potteryJugGoatMilk.getUnlocalizedName());
+//        GameRegistry.registerItem(potteryJugSkimmedMilk, potteryJugSkimmedMilk.getUnlocalizedName());
+//        GameRegistry.registerItem(skimmedMilkBottle, skimmedMilkBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(skimmedMilkLargeBowl, skimmedMilkLargeBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(creamBottle, creamBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(creamLargeBowl, creamLargeBowl.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(waterskinCream, waterskinCream.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(igInHandAxe, igInHandAxe.getUnlocalizedName());
+//        GameRegistry.registerItem(sedHandAxe, sedHandAxe.getUnlocalizedName());
+//        GameRegistry.registerItem(igExHandAxe, igExHandAxe.getUnlocalizedName());
+//        GameRegistry.registerItem(mMHandAxe, mMHandAxe.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(hardenedWoodenSpear, hardenedWoodenSpear.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(whorl, whorl.getUnlocalizedName());
+//        GameRegistry.registerItem(spindle, spindle.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(primitiveRopeMaker, primitiveRopeMaker.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(barkFiberCoarse, barkFiberCoarse.getUnlocalizedName());
+//        GameRegistry.registerItem(barkFiberSmooth, barkFiberSmooth.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(sisalFiberRinsed, sisalFiberRinsed.getUnlocalizedName());
+//        GameRegistry.registerItem(sisalFiberCoarse, sisalFiberCoarse.getUnlocalizedName());
+//        GameRegistry.registerItem(sisalFiberRefined, sisalFiberRefined.getUnlocalizedName());
+//        GameRegistry.registerItem(sisalTwine, sisalTwine.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(juteStalk, juteStalk.getUnlocalizedName());
+//        GameRegistry.registerItem(juteStalkRetted, juteStalkRetted.getUnlocalizedName());
+//        GameRegistry.registerItem(juteFiberCoarse, juteFiberCoarse.getUnlocalizedName());
+//        GameRegistry.registerItem(juteFiberRefined, juteFiberRefined.getUnlocalizedName());
+//        GameRegistry.registerItem(juteTwine, juteTwine.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(flaxStalk, flaxStalk.getUnlocalizedName());
+//        GameRegistry.registerItem(flaxStalkRetted, flaxStalkRetted.getUnlocalizedName());
+//        GameRegistry.registerItem(flaxStalkDried, flaxStalkDried.getUnlocalizedName());
+//        GameRegistry.registerItem(flaxStalkBroken, flaxStalkBroken.getUnlocalizedName());
+//        GameRegistry.registerItem(flaxFiberCoarse, flaxFiberCoarse.getUnlocalizedName());
+//        GameRegistry.registerItem(flaxFiberRefined, flaxFiberRefined.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(cottonBoll, cottonBoll.getUnlocalizedName());
+//        GameRegistry.registerItem(cottonBollRefined, cottonBollRefined.getUnlocalizedName());
+//        GameRegistry.registerItem(cottonFiberCoarse, cottonFiberCoarse.getUnlocalizedName());
+//        GameRegistry.registerItem(cottonFiberRefined, cottonFiberRefined.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(woolWashed, woolWashed.getUnlocalizedName());
+//        GameRegistry.registerItem(woolRinsed, woolRinsed.getUnlocalizedName());
+//        GameRegistry.registerItem(woolDried, woolDried.getUnlocalizedName());
+//        GameRegistry.registerItem(woolFiberCoarse, woolFiberCoarse.getUnlocalizedName());
+//        GameRegistry.registerItem(woolFiberRefined, woolFiberRefined.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(thornBunch, thornBunch.getUnlocalizedName());
+//        GameRegistry.registerItem(thornCard, thornCard.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(boneHeckle, boneHeckle.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(board, board.getUnlocalizedName());
+//        GameRegistry.registerItem(shaft, shaft.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(woodenMallet, woodenMallet.getUnlocalizedName());
+//        GameRegistry.registerItem(scutchingKnife, scutchingKnife.getUnlocalizedName());
+//        GameRegistry.registerItem(woodenCombPaddle, woodenCombPaddle.getUnlocalizedName());
+//        GameRegistry.registerItem(boneKnifeHead, boneKnifeHead.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(morePowder, morePowder.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(weakWoodAshLyeBottle, weakWoodAshLyeBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(woodAshLyeBottle, woodAshLyeBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(weakWoodAshLyeLargeBowl, weakWoodAshLyeLargeBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(woodAshLyeLargeBowl, woodAshLyeLargeBowl.getUnlocalizedName());
+//        GameRegistry.registerItem(soapyWaterBottle, soapyWaterBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(soap, soap.getUnlocalizedName());
+//        GameRegistry.registerItem(uncuredSoap, uncuredSoap.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(dryingMudBrick, dryingMudBrick.getUnlocalizedName());
+//
+//        GameRegistry.registerItem(flaxSeeds, flaxSeeds.getUnlocalizedName());
+//        GameRegistry.registerItem(flaxSeedOilBottle, flaxSeedOilBottle.getUnlocalizedName());
+//        GameRegistry.registerItem(flaxSeedOilBowl, flaxSeedOilBowl.getUnlocalizedName());
     }
 
 }
