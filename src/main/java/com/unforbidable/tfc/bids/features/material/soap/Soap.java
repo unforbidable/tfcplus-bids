@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.fluid.FluidCommon;
@@ -24,6 +25,8 @@ import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.main.rendering.SoapRenderInfo;
 import com.unforbidable.tfc.bids.features.material.soap.item.ItemSoap;
 import com.unforbidable.tfc.bids.features.utility.largebowl.item.ItemLargeBowlFluid;
 import cpw.mods.fml.relauncher.Side;
@@ -181,6 +184,19 @@ public class Soap extends Feature {
                 .produces(new FluidStack(BidsFluids.soapyWater, 1))
                 .inTime(20 / 1000f)
                 .build());
+
+        setup.registry(DryingSurfaceRegistry.recipes)
+            .add((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
+                .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.uncuredSoap), 1))
+                .produces(ItemFoodTFC.createTag(new ItemStack(BidsItems.soap), 1))
+                .dry()
+                .cover()
+                .hours(40)
+                .build());
+
+        setup.registry(DryingSurfaceRegistry.render)
+            .add(BidsItems.soap, new SoapRenderInfo(true))
+            .add(BidsItems.uncuredSoap, new SoapRenderInfo(false));
     }
 
 }
