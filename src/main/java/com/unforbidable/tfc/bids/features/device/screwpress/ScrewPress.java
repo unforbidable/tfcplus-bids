@@ -1,15 +1,10 @@
 package com.unforbidable.tfc.bids.features.device.screwpress;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
-import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsFluids;
-import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api._obsolete.BidsRegistry;
 import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
-import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -17,7 +12,6 @@ import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressBarrel;
 import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressDisc;
 import com.unforbidable.tfc.bids.features.device.screwpress.block.BlockScrewPressLever;
