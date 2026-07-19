@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.device.wallhook.block.BlockWallHook;
+import com.unforbidable.tfc.bids.features.device.wallhook.block.blockitem.ItemWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.render.RenderTileWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.render.RenderWallHook;
 import com.unforbidable.tfc.bids.features.device.wallhook.tileentity.TileEntityWallHook;
@@ -23,7 +24,7 @@ public class WallHook extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(WALL_HOOK, BlockWallHook::new);
+        init.block(WALL_HOOK, BlockWallHook::new, ItemWallHook.class);
 
         init.tileEntity(TileEntityWallHook.class, "BidsWallHook");
     }
