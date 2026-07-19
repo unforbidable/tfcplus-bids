@@ -28,11 +28,11 @@ public class ConfigHandler {
         FeatureConfigLoader.load(config);
 
         // TODO move to specific feature
-
-        BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes = config.getBoolean(
-            "craftingAddMissingLeatherRepairRecipes", "crafting",
-            BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes,
-            "Set this to true if you want to add missing leather armor repair recipes.");
+//
+//        BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes = config.getBoolean(
+//            "craftingAddMissingLeatherRepairRecipes", "crafting",
+//            BidsOptions.Crafting.craftingAddMissingLeatherRepairRecipes,
+//            "Set this to true if you want to add missing leather armor repair recipes.");
 
         config.save();
     }

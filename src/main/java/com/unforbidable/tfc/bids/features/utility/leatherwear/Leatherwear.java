@@ -68,6 +68,24 @@ public class Leatherwear extends Feature {
                 new ItemStack(BidsItems.leatherCoat, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(TFCItems.repairPatch, 1, 2))
             );
+
+        // Adding missing TFC+ recipe for repairing leather boots
+        setup.registry(TfcRegistry.Recipes.sewing)
+            .add(SewingRecipe.addRepair(new ItemStack(TFCItems.leatherBoots, 1),
+                new ItemStack(TFCItems.leatherBoots, 1, OreDictionary.WILDCARD_VALUE),
+                new ItemStack(TFCItems.repairPatch, 1, 2)));
+
+        // Adding missing TFC+ recipe for repairing leather cap
+        setup.registry(TfcRegistry.Recipes.sewing)
+            .add(SewingRecipe.addRepair(new ItemStack(TFCItems.leatherCoif, 1),
+                new ItemStack(TFCItems.leatherCoif, 1, OreDictionary.WILDCARD_VALUE),
+                new ItemStack(TFCItems.repairPatch, 1, 2)));
+
+        // Adding missing TFC+ recipe for repairing leather shorts
+        setup.registry(TfcRegistry.Recipes.sewing)
+            .add(SewingRecipe.addRepair(new ItemStack(TFCItems.leatherShorts, 1),
+                new ItemStack(TFCItems.leatherShorts, 1, OreDictionary.WILDCARD_VALUE),
+                new ItemStack(TFCItems.repairPatch, 1, 2)));
     }
 
 }
