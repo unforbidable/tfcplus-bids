@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.core.player._obsolete;
+package com.unforbidable.tfc.bids.core.player.stats;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

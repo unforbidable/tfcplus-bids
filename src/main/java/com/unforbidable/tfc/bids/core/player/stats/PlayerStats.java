@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.core.player._obsolete;
+package com.unforbidable.tfc.bids.core.player.stats;
 
 import com.unforbidable.tfc.bids.Bids;
 import net.minecraft.client.Minecraft;
@@ -56,7 +56,7 @@ public class PlayerStats {
     }
 
     private void writeToNBT(NBTTagCompound entityData) {
-        NBTTagCompound tag = player.getEntityData().getCompoundTag("bids");
+        NBTTagCompound tag = entityData.getCompoundTag("bids");
 
         tag.setLong("lastSoapUsageTicks", lastSoapUsageTicks);
         tag.setLong("lastSoapUsageRewardedTicks", lastSoapUsageRewardedTicks);

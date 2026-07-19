@@ -6,7 +6,7 @@ import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.common.item.ItemFoodLike;
-import com.unforbidable.tfc.bids.core.player._obsolete.PlayerStats;
+import com.unforbidable.tfc.bids.core.player.stats.PlayerStats;
 import com.unforbidable.tfc.bids.features.material.soap.SoapConfig;
 import com.unforbidable.tfc.bids.util.playerstate.PlayerStateManager;
 import java.util.Random;
