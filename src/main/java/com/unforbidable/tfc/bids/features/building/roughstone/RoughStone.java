@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.building.roughstone;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCBlocks;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -28,6 +29,8 @@ import com.unforbidable.tfc.bids.features.building.roughstone.main.carvable.Carv
 import com.unforbidable.tfc.bids.features.building.roughstone.render.RenderRoughStoneFence;
 import com.unforbidable.tfc.bids.features.resource.quarry.QuarryRegistry;
 import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarriableStone;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_FENCE_IG_EX;
 import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_FENCE_IG_IN;
@@ -158,6 +161,10 @@ public class RoughStone extends Feature {
     @Override
     public void setup(FeatureSetupBuilder setup) {
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
+            if (stone.quern) {
+                OreDictionary.registerOre("stoneQuern", stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE));
+            }
+
             setup.recipes().addShaped(stone.items.getItem(EnumStoneItemType.ROUGH_STONE_TILE, 4),
                     "SA", "  ", 'S', stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), 'A', "itemAdze")
                 .action(damageTool("itemAdze"));
@@ -200,6 +207,11 @@ public class RoughStone extends Feature {
                     stone.items.getItem(EnumStoneItemType.ROUGH_STONE_BRICK), "itemChisel")
                 .action(damageTool("itemChisel"));
         }
+
+        setup.recipes().addShaped(new ItemStack(TFCItems.quern),
+            "  W", "PPP", 'P', "stoneQuern", 'W', "stickWood");
+        setup.recipes().addShaped(new ItemStack(TFCItems.millstone),
+            "PPP", "P P", "PPP", 'P', "stoneQuern");
 
         setup.registry(CarvingRegistry.carvable)
             .add(new CarvableRoughStone())
