@@ -1,22 +1,25 @@
 package com.unforbidable.tfc.bids.features.building.logwall;
 
+import com.unforbidable.tfc.bids.core.features.Feature;
+import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
+import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
+import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
+import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWall;
 import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWallVert;
+import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWall;
 import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWall16;
 import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWall32;
 import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWallVert;
 import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWallVert16;
 import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWallVert32;
 import com.unforbidable.tfc.bids.features.building.logwall.main.LogWallType;
-import com.unforbidable.tfc.bids.core.features.Feature;
-import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
-import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
-import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
-import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWall;
-import com.unforbidable.tfc.bids.features.building.logwall.block.blockitem.ItemLogWall;
 import com.unforbidable.tfc.bids.features.building.logwall.main.LogWallVertType;
+import com.unforbidable.tfc.bids.features.building.logwall.main.carvable.CarvableLogWall;
+import com.unforbidable.tfc.bids.features.building.logwall.main.carvable.CarvableLogWallVert;
 
 import static com.unforbidable.tfc.bids.api.names.BlockNames.LOG_WALL_CORNER;
 import static com.unforbidable.tfc.bids.api.names.BlockNames.LOG_WALL_CORNER_2;
@@ -43,7 +46,6 @@ import static com.unforbidable.tfc.bids.api.names.BlockNames.LOG_WALL_VERT_ALT;
 import static com.unforbidable.tfc.bids.api.names.BlockNames.LOG_WALL_VERT_ALT_2;
 import static com.unforbidable.tfc.bids.api.names.BlockNames.LOG_WALL_VERT_ALT_3;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
-import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
 
 @FeatureName("logWall")
 public class LogWall extends Feature {
@@ -142,6 +144,10 @@ public class LogWall extends Feature {
                 }
             }
         }
+
+        setup.registry(CarvingRegistry.carvable)
+            .add(new CarvableLogWall())
+            .add(new CarvableLogWallVert());
     }
 
 }
