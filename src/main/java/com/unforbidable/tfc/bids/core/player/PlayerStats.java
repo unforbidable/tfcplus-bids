@@ -1,9 +1,9 @@
-package com.unforbidable.tfc.bids.core.player.stats;
+package com.unforbidable.tfc.bids.core.player;
 
-import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.player.network.PlayerStatsPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class PlayerStats {
@@ -24,14 +24,14 @@ public class PlayerStats {
         return playerStats;
     }
 
-    public static PlayerStats fromMessage(PlayerStatsMessage message) {
+    public static PlayerStats fromPacket(PlayerStatsPacket message) {
         PlayerStats playerStats = new PlayerStats(Minecraft.getMinecraft().thePlayer);
         playerStats.readFromMessage(message);
 
         return playerStats;
     }
 
-    private void readFromMessage(PlayerStatsMessage message) {
+    private void readFromMessage(PlayerStatsPacket message) {
         lastSoapUsageTicks = message.lastSoapUsageTicks;
         lastSoapUsageRewardedTicks = message.lastSoapUsageRewardedTicks;
     }
@@ -65,11 +65,11 @@ public class PlayerStats {
     }
 
     private void sendUpdate() {
-        PlayerStatsMessage message = new PlayerStatsMessage();
-        message.lastSoapUsageTicks = lastSoapUsageTicks;
-        message.lastSoapUsageRewardedTicks = lastSoapUsageRewardedTicks;
+        PlayerStatsPacket packet = new PlayerStatsPacket();
+        packet.lastSoapUsageTicks = lastSoapUsageTicks;
+        packet.lastSoapUsageRewardedTicks = lastSoapUsageRewardedTicks;
 
-        Bids.network.sendTo(message, (EntityPlayerMP) player);
+        Network.sendToClient(packet, player);
     }
 
 }
