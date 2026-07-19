@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.device.lamp;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -20,8 +21,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CLAY_LAMP;
-
 @FeatureName("lamp")
 public class Lamp extends Feature {
 
@@ -32,7 +31,7 @@ public class Lamp extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(CLAY_LAMP, BlockClayLamp::new, ItemClayLamp.class);
+        init.block(BlockNames.CLAY_LAMP, BlockClayLamp::new, ItemClayLamp.class);
 
         init.tileEntity(TileEntityClayLamp.class, "BidsClayLamp");
     }

@@ -7,6 +7,8 @@ import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockRecipe;
 import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.render.SeasonableItemRenderer;
 import com.unforbidable.tfc.bids.common.render.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -28,11 +30,6 @@ import com.unforbidable.tfc.bids.features.material.firewood.block.BlockStackedFi
 import com.unforbidable.tfc.bids.features.material.firewood.item.ItemFirewood;
 import com.unforbidable.tfc.bids.features.material.firewood.item.ItemFirewoodSeasoned;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.STACKED_FIREWOOD;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.STACKED_FIREWOOD_2;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.STACKED_FIREWOOD_3;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FIREWOOD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FIREWOOD_SEASONED;
 import static com.unforbidable.tfc.bids.core.crafting.actions.CopySeasoning.copySeasoning;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
@@ -42,13 +39,13 @@ public class Firewood extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(STACKED_FIREWOOD, () -> new BlockStackedFirewood(0));
-        init.block(STACKED_FIREWOOD_2, () -> new BlockStackedFirewood(16));
-        init.block(STACKED_FIREWOOD_3, () -> new BlockStackedFirewood(32));
+        init.block(BlockNames.STACKED_FIREWOOD, () -> new BlockStackedFirewood(0));
+        init.block(BlockNames.STACKED_FIREWOOD_2, () -> new BlockStackedFirewood(16));
+        init.block(BlockNames.STACKED_FIREWOOD_3, () -> new BlockStackedFirewood(32));
 
-        init.item(FIREWOOD, ItemFirewood::new)
+        init.item(ItemNames.FIREWOOD, ItemFirewood::new)
             .meta(Global.WOOD_ALL);
-        init.item(FIREWOOD_SEASONED, ItemFirewoodSeasoned::new)
+        init.item(ItemNames.FIREWOOD_SEASONED, ItemFirewoodSeasoned::new)
             .meta(Global.WOOD_ALL);
     }
 

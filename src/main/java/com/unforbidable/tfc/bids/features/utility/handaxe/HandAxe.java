@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.utility.handaxe;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -15,20 +16,15 @@ import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.features.utility.handaxe.item.ItemHandAxe;
 import net.minecraft.item.Item;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.HAND_AXE_IG_EX;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.HAND_AXE_IG_IN;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.HAND_AXE_MM;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.HAND_AXE_SED;
-
 @FeatureName("handAxe")
 public class HandAxe extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(HAND_AXE_IG_IN, () -> new ItemHandAxe(TFCItems.igInToolMaterial));
-        init.item(HAND_AXE_SED, () -> new ItemHandAxe(TFCItems.sedToolMaterial));
-        init.item(HAND_AXE_IG_EX, () -> new ItemHandAxe(TFCItems.igExToolMaterial));
-        init.item(HAND_AXE_MM, () -> new ItemHandAxe(TFCItems.mMToolMaterial));
+        init.item(ItemNames.HAND_AXE_IG_IN, () -> new ItemHandAxe(TFCItems.igInToolMaterial));
+        init.item(ItemNames.HAND_AXE_SED, () -> new ItemHandAxe(TFCItems.sedToolMaterial));
+        init.item(ItemNames.HAND_AXE_IG_EX, () -> new ItemHandAxe(TFCItems.igExToolMaterial));
+        init.item(ItemNames.HAND_AXE_MM, () -> new ItemHandAxe(TFCItems.mMToolMaterial));
     }
 
     @Override

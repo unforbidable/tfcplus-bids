@@ -4,6 +4,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
@@ -13,20 +14,15 @@ import com.unforbidable.tfc.bids.features.utility.pail.item.ItemPailEmpty;
 import com.unforbidable.tfc.bids.features.utility.pail.item.ItemPailFluid;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_PAIL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_PAIL_FRESH_WATER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_PAIL_GOAT_MILK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_PAIL_MILK;
-
 @FeatureName("pail")
 public class Pail extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(WOODEN_PAIL, ItemPailEmpty::new);
-        init.item(WOODEN_PAIL_MILK, ItemPailFluid::new);
-        init.item(WOODEN_PAIL_FRESH_WATER, ItemPailFluid::new);
-        init.item(WOODEN_PAIL_GOAT_MILK, ItemPailFluid::new);
+        init.item(ItemNames.WOODEN_PAIL, ItemPailEmpty::new);
+        init.item(ItemNames.WOODEN_PAIL_MILK, ItemPailFluid::new);
+        init.item(ItemNames.WOODEN_PAIL_FRESH_WATER, ItemPailFluid::new);
+        init.item(ItemNames.WOODEN_PAIL_GOAT_MILK, ItemPailFluid::new);
     }
 
     @Override

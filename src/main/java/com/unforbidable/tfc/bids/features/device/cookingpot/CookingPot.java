@@ -3,6 +3,8 @@ package com.unforbidable.tfc.bids.features.device.cookingpot;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KilnRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
@@ -29,26 +31,21 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.COOKING_POT;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.COOKING_POT_LID;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.STEAMING_MESH;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.STEAMING_MESH_CLOTH;
-
 @FeatureName("cookingPot")
 public class CookingPot extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(COOKING_POT, BlockCookingPot::new, ItemCookingPot.class)
+        init.block(BlockNames.COOKING_POT, BlockCookingPot::new, ItemCookingPot.class)
             .apply(b -> b.setBlockTextureName("Cooking Pot"));
-        init.block(COOKING_POT_LID, BlockCookingPotLid::new, ItemCookingPotLid.class)
+        init.block(BlockNames.COOKING_POT_LID, BlockCookingPotLid::new, ItemCookingPotLid.class)
             .apply(b -> b.setBlockTextureName("Cooking Pot Lid"));
-        init.block(STEAMING_MESH, BlockSteamingMesh::new)
+        init.block(BlockNames.STEAMING_MESH, BlockSteamingMesh::new)
             .apply(b -> b.setBlockTextureName("Steaming Mesh"));
 
         init.tileEntity(TileEntityCookingPot.class, "BidsCookingPot");
 
-        init.item(STEAMING_MESH_CLOTH, ItemSteamingMeshCloth::new)
+        init.item(ItemNames.STEAMING_MESH_CLOTH, ItemSteamingMeshCloth::new)
             .apply(i -> i.setMaxDamage(TFCItems.linenUses));
     }
 

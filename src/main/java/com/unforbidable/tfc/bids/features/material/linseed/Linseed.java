@@ -7,6 +7,8 @@ import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
 import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
+import com.unforbidable.tfc.bids.api.names.FluidNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.fluid.FluidCommon;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBowlFluid;
@@ -29,24 +31,20 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import static com.unforbidable.tfc.bids.api.names.FluidNames.FLAX_SEED_OIL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_FLAX_SEED_OIL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOWL_FLAX_SEED_OIL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FLAX_SEEDS;
-
 @FeatureName("linseed")
 public class Linseed extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.fluid(FLAX_SEED_OIL, FluidCommon::new)
+        init.fluid(FluidNames.FLAX_SEED_OIL, FluidCommon::new)
             .color(0x977d59);
 
-        init.item(FLAX_SEEDS, () -> new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 0))
+        init.item(ItemNames.FLAX_SEEDS, () -> new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 0))
             .food(0.01f);
 
-        init.item(BOTTLE_FLAX_SEED_OIL, ItemGlassBottleFluid::new);
-        init.item(BOWL_FLAX_SEED_OIL, ItemBowlFluid::new)
+        // TODO Add jug of linseed (FEATURE)
+        init.item(ItemNames.BOTTLE_FLAX_SEED_OIL, ItemGlassBottleFluid::new);
+        init.item(ItemNames.BOWL_FLAX_SEED_OIL, ItemBowlFluid::new)
             .meta("PotteryBowl", "Bowl");
     }
 

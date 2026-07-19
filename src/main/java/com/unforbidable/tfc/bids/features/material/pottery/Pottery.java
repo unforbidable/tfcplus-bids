@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.material.pottery;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonPottery;
 import com.unforbidable.tfc.bids.common.item.ItemDrinkingPottery;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
@@ -14,9 +15,6 @@ import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CLAY_MUG;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CLAY_PIPE;
-
 /**
  * <li>clay pipe - currently only used for crafting a mud brick chimney</li>
  * <li>clay mug - 200 mB container for drinking</li>
@@ -26,9 +24,9 @@ public class Pottery extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(CLAY_PIPE, ItemCommonPottery::new);
+        init.item(ItemNames.CLAY_PIPE, ItemCommonPottery::new);
 
-        init.item(CLAY_MUG, ItemDrinkingPottery::new)
+        init.item(ItemNames.CLAY_MUG, ItemDrinkingPottery::new)
             .drink(200, true)
             .overlays(0, 100);
     }

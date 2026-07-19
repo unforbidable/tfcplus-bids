@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.utility.heckle;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingRecipe;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.api.names.WoodworkingPlanNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonToolHead;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -18,16 +19,13 @@ import com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan.Plan;
 import com.unforbidable.tfc.bids.features.utility.heckle.item.ItemHeckle;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BONE_HECKLE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BONE_KNIFE_BLADE;
-
 @FeatureName("heckle")
 public class Heckle extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(BONE_KNIFE_BLADE, ItemCommonToolHead::new);
-        init.item(BONE_HECKLE, () -> new ItemHeckle(TFCItems.boneToolMaterial));
+        init.item(ItemNames.BONE_KNIFE_BLADE, ItemCommonToolHead::new);
+        init.item(ItemNames.BONE_HECKLE, () -> new ItemHeckle(TFCItems.boneToolMaterial));
     }
 
     @Override

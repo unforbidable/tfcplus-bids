@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.device.soakingsurface;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -17,14 +18,12 @@ import com.unforbidable.tfc.bids.features.device.soakingsurface.waila.SoakingSur
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SOAKING_SURFACE;
-
 @FeatureName("soakingSurface")
 public class SoakingSurface extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(SOAKING_SURFACE, BlockSoakingSurface::new);
+        init.block(BlockNames.SOAKING_SURFACE, BlockSoakingSurface::new);
 
         init.tileEntity(TileEntitySoakingSurface.class, "BidsSoakingSurface");
     }

@@ -17,9 +17,6 @@ import com.unforbidable.tfc.bids.features.building.palisade.render.RenderPalisad
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.PALISADE;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.PALISADE_2;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.PALISADE_3;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 @FeatureName("palisade")
@@ -27,13 +24,13 @@ public class Palisade extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(PALISADE, () -> new BlockPalisade(lookup.block(BlockNames.LOG_WALL_VERT), 0), ItemPalisade.class)
+        init.block(BlockNames.PALISADE, () -> new BlockPalisade(lookup.block(BlockNames.LOG_WALL_VERT), 0), ItemPalisade.class)
             .harvest("axe", 0)
             .fireInfo(5, 5);
-        init.block(PALISADE_2, () -> new BlockPalisade(lookup.block(BlockNames.LOG_WALL_VERT_2), 16), ItemPalisade16.class)
+        init.block(BlockNames.PALISADE_2, () -> new BlockPalisade(lookup.block(BlockNames.LOG_WALL_VERT_2), 16), ItemPalisade16.class)
             .harvest("axe", 0)
             .fireInfo(5, 5);
-        init.block(PALISADE_3, () -> new BlockPalisade(lookup.block(BlockNames.LOG_WALL_VERT_3), 32), ItemPalisade32.class)
+        init.block(BlockNames.PALISADE_3, () -> new BlockPalisade(lookup.block(BlockNames.LOG_WALL_VERT_3), 32), ItemPalisade32.class)
             .harvest("axe", 0)
             .fireInfo(5, 5);
     }

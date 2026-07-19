@@ -4,6 +4,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KilnRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
@@ -16,15 +17,6 @@ import com.unforbidable.tfc.bids.features.utility.largebowl.item.ItemLargeBowl;
 import com.unforbidable.tfc.bids.features.utility.largebowl.item.ItemLargeBowlFluid;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_CREAM;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_FRESH_WATER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_GOAT_MILK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_HONEY;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_MILK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_SALT_WATER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_SKIMMED_MILK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_VINEGAR;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
 
@@ -33,16 +25,16 @@ public class LargeBowl extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(LARGE_BOWL, ItemLargeBowl::new);
+        init.item(ItemNames.LARGE_BOWL, ItemLargeBowl::new);
 
-        init.item(LARGE_BOWL_FRESH_WATER, ItemLargeBowlFluid::new);
-        init.item(LARGE_BOWL_SALT_WATER, ItemLargeBowlFluid::new);
-        init.item(LARGE_BOWL_VINEGAR, ItemLargeBowlFluid::new);
-        init.item(LARGE_BOWL_MILK, ItemLargeBowlFluid::new);
-        init.item(LARGE_BOWL_HONEY, ItemLargeBowlFluid::new);
-        init.item(LARGE_BOWL_GOAT_MILK, ItemLargeBowlFluid::new);
-        init.item(LARGE_BOWL_SKIMMED_MILK, ItemLargeBowlFluid::new);
-        init.item(LARGE_BOWL_CREAM, ItemLargeBowlFluid::new);
+        init.item(ItemNames.LARGE_BOWL_FRESH_WATER, ItemLargeBowlFluid::new);
+        init.item(ItemNames.LARGE_BOWL_SALT_WATER, ItemLargeBowlFluid::new);
+        init.item(ItemNames.LARGE_BOWL_VINEGAR, ItemLargeBowlFluid::new);
+        init.item(ItemNames.LARGE_BOWL_MILK, ItemLargeBowlFluid::new);
+        init.item(ItemNames.LARGE_BOWL_HONEY, ItemLargeBowlFluid::new);
+        init.item(ItemNames.LARGE_BOWL_GOAT_MILK, ItemLargeBowlFluid::new);
+        init.item(ItemNames.LARGE_BOWL_SKIMMED_MILK, ItemLargeBowlFluid::new);
+        init.item(ItemNames.LARGE_BOWL_CREAM, ItemLargeBowlFluid::new);
     }
 
     @Override

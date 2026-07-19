@@ -3,6 +3,8 @@ package com.unforbidable.tfc.bids.features.resource.quarry;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.names.AnvilRules;
 import com.unforbidable.tfc.bids.compat.tfc.names.Skills;
@@ -25,8 +27,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.QUARRY;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.PLUG_AND_FEATHER;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 /**
@@ -45,13 +45,13 @@ public class Quarry extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(QUARRY, BlockQuarry::new)
+        init.block(BlockNames.QUARRY, BlockQuarry::new)
             .harvest("hammer", 0)
             .apply(b -> b.setBlockName("Quarry"));
 
         init.tileEntity(TileEntityQuarry.class, "BidsQuarry");
 
-        init.item(PLUG_AND_FEATHER, ItemPlugAndFeather::new)
+        init.item(ItemNames.PLUG_AND_FEATHER, ItemPlugAndFeather::new)
             .meta("Wood", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze", "Wrought Iron");
     }
 

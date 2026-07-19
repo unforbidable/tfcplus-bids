@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingCheeseRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackFoodRecipe;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.fluid.FluidCommon;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
@@ -26,9 +27,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-
-import static com.unforbidable.tfc.bids.api.names.ItemNames.GOAT_CHEESE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.HARD_CHEESE;
 
 /**
  * <b>Adds new cheeses and fluids to make them</b>
@@ -49,11 +47,11 @@ public class Cheese extends Feature {
         init.fluid(FluidNames.SKIMMED_MILK_CURDLED, FluidCommon::new)
             .color(0xfffbe8);
 
-        init.item(GOAT_CHEESE, () -> new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20))
+        init.item(ItemNames.GOAT_CHEESE, () -> new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20))
             .food(0.5f, 0.6f)
             .apply(ItemFoodTFC::setCanSmoke)
             .apply(i -> i.setSmokeAbsorbMultiplier(1));
-        init.item(HARD_CHEESE, () -> new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20))
+        init.item(ItemNames.HARD_CHEESE, () -> new ItemExtraFood(EnumFoodGroup.Dairy, 0, 35, 20, 0, 20))
             .food(0.3f, 0.25f)
             .apply(ItemFoodTFC::setCanSmoke)
             .apply(i -> i.setSmokeAbsorbMultiplier(0.5f));

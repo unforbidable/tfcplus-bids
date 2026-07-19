@@ -5,6 +5,8 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -34,12 +36,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.FIREPIT;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.TIED_STICK_BUNDLE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.KINDLING;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.STICK_BUNDLE_SMALL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.STICK_BUNDLE_TIED;
-
 @FeatureName("firepit")
 public class Firepit extends Feature {
 
@@ -50,17 +46,17 @@ public class Firepit extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(FIREPIT, BlockNewFirepit::new);
-        init.block(TIED_STICK_BUNDLE, BlockTiedStickBundle::new);
+        init.block(BlockNames.FIREPIT, BlockNewFirepit::new);
+        init.block(BlockNames.TIED_STICK_BUNDLE, BlockTiedStickBundle::new);
 
-        init.item(KINDLING, ItemKindling::new)
+        init.item(ItemNames.KINDLING, ItemKindling::new)
             .apply(i -> i.setFuelKindlingQuality(0.50f));
-        init.item(STICK_BUNDLE_SMALL, ItemSmallStickBundle::new);
-        init.item(STICK_BUNDLE_TIED, ItemTiedStickBundle::new);
+        init.item(ItemNames.STICK_BUNDLE_SMALL, ItemSmallStickBundle::new);
+        init.item(ItemNames.STICK_BUNDLE_TIED, ItemTiedStickBundle::new);
 
         init.tileEntity(TileEntityNewFirepit.class, "BidsNewFirepit");
 
-        init.gui(FIREPIT, ContainerNewFirepit::new);
+        init.gui(BlockNames.FIREPIT, ContainerNewFirepit::new);
     }
 
     @SideOnly(Side.CLIENT)
@@ -69,7 +65,7 @@ public class Firepit extends Feature {
         client.render(new RenderNewFirepit())
             .block(BlockNewFirepit.class);
 
-        client.gui(FIREPIT, GuiNewFirepit::new);
+        client.gui(BlockNames.FIREPIT, GuiNewFirepit::new);
 
         client.nei()
             .handler(new FirepitFuelNeiHandler())

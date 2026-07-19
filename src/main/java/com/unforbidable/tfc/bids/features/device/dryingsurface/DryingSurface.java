@@ -4,6 +4,7 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -22,8 +23,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.DRYING_SURFACE;
-
 @FeatureName("dryingSurface")
 public class DryingSurface extends Feature {
 
@@ -34,7 +33,7 @@ public class DryingSurface extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(DRYING_SURFACE, BlockDryingSurface::new);
+        init.block(BlockNames.DRYING_SURFACE, BlockDryingSurface::new);
 
         init.tileEntity(TileEntityDryingSurface.class, "BidsDryingSurface");
     }

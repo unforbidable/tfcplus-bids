@@ -4,6 +4,7 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -18,8 +19,6 @@ import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
 import com.unforbidable.tfc.bids.features.material.bark.item.ItemBark;
 import net.minecraftforge.fluids.FluidStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARK;
-
 @FeatureName("bark")
 public class Bark extends Feature {
 
@@ -30,7 +29,7 @@ public class Bark extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(BARK, ItemBark::new)
+        init.item(ItemNames.BARK, ItemBark::new)
             .meta(Global.WOOD_ALL);
     }
 

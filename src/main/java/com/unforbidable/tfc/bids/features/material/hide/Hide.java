@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.material.hide;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
@@ -11,7 +12,6 @@ import com.unforbidable.tfc.bids.features.material.hide.eventhandler.HideLivingD
 import com.unforbidable.tfc.bids.features.material.hide.item.ItemMoreRawhide;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.MORE_HIDE;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 @FeatureName("hide")
@@ -19,7 +19,7 @@ public class Hide extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(MORE_HIDE, ItemMoreRawhide::new);
+        init.item(ItemNames.MORE_HIDE, ItemMoreRawhide::new);
     }
 
     @Override

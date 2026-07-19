@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.utility.fluidcontainers;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBowlFluid;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemGlassBottleFluid;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemPotteryFluid;
@@ -12,16 +13,6 @@ import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_BRINE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_HONEY;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_OLIVE_OIL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_SALT_WATER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_VINEGAR;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOWL_OLIVE_OIL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOWL_VINEGAR;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.JUG_OLIVE_OIL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.JUG_VINEGAR;
-
 /**
  * <li>various additional TFC containers for TFC fluids</li>
  */
@@ -30,18 +21,18 @@ public class FluidContainers extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(BOTTLE_OLIVE_OIL, ItemGlassBottleFluid::new);
-        init.item(BOTTLE_VINEGAR, ItemGlassBottleFluid::new);
-        init.item(BOTTLE_BRINE, ItemGlassBottleFluid::new);
-        init.item(BOTTLE_HONEY, ItemGlassBottleFluid::new);
-        init.item(BOTTLE_SALT_WATER, ItemGlassBottleFluid::new);
+        init.item(ItemNames.BOTTLE_OLIVE_OIL, ItemGlassBottleFluid::new);
+        init.item(ItemNames.BOTTLE_VINEGAR, ItemGlassBottleFluid::new);
+        init.item(ItemNames.BOTTLE_BRINE, ItemGlassBottleFluid::new);
+        init.item(ItemNames.BOTTLE_HONEY, ItemGlassBottleFluid::new);
+        init.item(ItemNames.BOTTLE_SALT_WATER, ItemGlassBottleFluid::new);
 
-        init.item(JUG_OLIVE_OIL, ItemPotteryFluid::new);
-        init.item(JUG_VINEGAR, ItemPotteryFluid::new);
+        init.item(ItemNames.JUG_OLIVE_OIL, ItemPotteryFluid::new);
+        init.item(ItemNames.JUG_VINEGAR, ItemPotteryFluid::new);
 
-        init.item(BOWL_OLIVE_OIL, ItemBowlFluid::new)
+        init.item(ItemNames.BOWL_OLIVE_OIL, ItemBowlFluid::new)
             .meta("PotteryBowl", "Bowl");
-        init.item(BOWL_VINEGAR, ItemBowlFluid::new)
+        init.item(ItemNames.BOWL_VINEGAR, ItemBowlFluid::new)
             .meta("PotteryBowl", "Bowl");
     }
 

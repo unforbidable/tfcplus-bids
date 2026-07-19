@@ -4,6 +4,7 @@ import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -17,34 +18,27 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARLEY_CRUSHED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CORN_CRUSHED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.OAT_CRUSHED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RICE_CRUSHED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RYE_CRUSHED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WHEAT_CRUSHED;
-
 @FeatureName("coarseFour")
 public class CoarseFlour extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(WHEAT_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.WHEAT_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(1.5f, false, false)
             .apply(i -> i.setIngredientOverride(TFCItems.wheatWhole));
-        init.item(BARLEY_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
+        init.item(ItemNames.BARLEY_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
             .food(1.5f, false, false)
             .apply(i -> i.setIngredientOverride(TFCItems.barleyWhole));
-        init.item(OAT_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.OAT_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(1.5f, false, false)
             .apply(i -> i.setIngredientOverride(TFCItems.oatWhole));
-        init.item(RYE_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
+        init.item(ItemNames.RYE_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
             .food(1.5f, false, false)
             .apply(i -> i.setIngredientOverride(TFCItems.ryeWhole));
-        init.item(RICE_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.RICE_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(1.5f, false, false)
             .apply(i -> i.setIngredientOverride(TFCItems.riceWhole));
-        init.item(CORN_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
+        init.item(ItemNames.CORN_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
             .food(1.5f, false, false)
             .apply(i -> i.setIngredientOverride(TFCItems.maizeEar));
 

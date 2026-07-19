@@ -4,6 +4,7 @@ import com.dunk.tfc.Core.Recipes;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -27,8 +28,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.PROCESSING_SURFACE;
-
 @FeatureName("processingSurface")
 public class ProcessingSurface extends Feature {
 
@@ -39,7 +38,7 @@ public class ProcessingSurface extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(PROCESSING_SURFACE, BlockProcessingSurface::new);
+        init.block(BlockNames.PROCESSING_SURFACE, BlockProcessingSurface::new);
 
         init.tileEntity(TileEntityProcessingSurface.class, "BidsProcessingSurface");
     }

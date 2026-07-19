@@ -5,6 +5,8 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.tileentity.TileEntityChimney;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KilnRecipe;
@@ -37,10 +39,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CLAY_CRUCIBLE;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.FIRE_CLAY_CRUCIBLE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.GLASS_LUMP;
-
 /**
  * <li><b>clay/pottery crucible</b> - primitive crucible</li>
  * <li><b>fire clay crucible</b> - full sized crucible</li>
@@ -57,19 +55,19 @@ public class Crucible extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(CLAY_CRUCIBLE, BlockClayCrucible::new, ItemClayCrucible.class)
+        init.block(BlockNames.CLAY_CRUCIBLE, BlockClayCrucible::new, ItemClayCrucible.class)
             .apply(b -> b.setBlockTextureName("Pottery Crucible")
                 .setHardness(CrucibleConfig.enableClayHandBreakable ? 0.5f : 4.0f));
         init.tileEntity(TileEntityClayCrucible.class, "BidsClayCrucible");
-        init.gui(CLAY_CRUCIBLE, ContainerClayCrucible::new);
+        init.gui(BlockNames.CLAY_CRUCIBLE, ContainerClayCrucible::new);
 
-        init.block(FIRE_CLAY_CRUCIBLE, BlockFireClayCrucible::new, ItemFireClayCrucible.class)
+        init.block(BlockNames.FIRE_CLAY_CRUCIBLE, BlockFireClayCrucible::new, ItemFireClayCrucible.class)
             .apply(b -> b.setBlockTextureName("Fire Clay Crucible")
                 .setHardness(CrucibleConfig.enableClayHandBreakable ? 0.5f : 4.0f));
         init.tileEntity(TileEntityFireClayCrucible.class, "BidsFireClayCrucible");
-        init.gui(FIRE_CLAY_CRUCIBLE, ContainerFireClayCrucible::new);
+        init.gui(BlockNames.FIRE_CLAY_CRUCIBLE, ContainerFireClayCrucible::new);
 
-        init.item(GLASS_LUMP, ItemGlassLump::new);
+        init.item(ItemNames.GLASS_LUMP, ItemGlassLump::new);
     }
 
     @Override
@@ -80,8 +78,8 @@ public class Crucible extends Feature {
         client.render(new RenderFireClayCrucible())
             .block(BlockFireClayCrucible.class);
 
-        client.gui(CLAY_CRUCIBLE, GuiClayCrucible::new);
-        client.gui(FIRE_CLAY_CRUCIBLE, GuiFireClayCrucible::new);
+        client.gui(BlockNames.CLAY_CRUCIBLE, GuiClayCrucible::new);
+        client.gui(BlockNames.FIRE_CLAY_CRUCIBLE, GuiFireClayCrucible::new);
 
         client.waila()
             .data(new CrucibleWailaProvider(), TileEntityCrucible.class)

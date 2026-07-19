@@ -19,6 +19,7 @@ import com.unforbidable.tfc.bids.api.features.handwork.RopeMakingRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.SpinningRecipe;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.LoomRecipe;
@@ -52,35 +53,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARK_CORDAGE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARK_FIBER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARK_FIBER_COARSE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARK_FIBER_KINDLING;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARK_FIBER_SMOOTH;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.COTTON_BOLL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.COTTON_BOLL_REFINED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.COTTON_FIBER_COARSE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.COTTON_FIBER_REFINED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FLAX_FIBER_COARSE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FLAX_FIBER_REFINED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FLAX_STALK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FLAX_STALK_BROKEN;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FLAX_STALK_DRIED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FLAX_STALK_RETTED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.JUTE_FIBER_COARSE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.JUTE_FIBER_REFINED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.JUTE_STALK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.JUTE_STALK_RETTED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.JUTE_TWINE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SISAL_FIBER_COARSE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SISAL_FIBER_REFINED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SISAL_FIBER_RINSED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SISAL_TWINE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOOL_DRIED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOOL_FIBER_COARSE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOOL_FIBER_REFINED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOOL_RINSED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOOL_WASHED;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
 
@@ -94,76 +66,76 @@ public class Textile extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(BARK_FIBER, ItemTextile::new)
+        init.item(ItemNames.BARK_FIBER, ItemTextile::new)
             .hints(TextileHints.DRYING_FIBER);
-        init.item(BARK_FIBER_COARSE, ItemTextile::new)
+        init.item(ItemNames.BARK_FIBER_COARSE, ItemTextile::new)
             .hints(TextileHints.RUBBING, TextileHints.SPINNING_CORDAGE);
-        init.item(BARK_FIBER_SMOOTH, ItemTextile::new)
+        init.item(ItemNames.BARK_FIBER_SMOOTH, ItemTextile::new)
             .hints(TextileHints.SPINNING_CORDAGE);
-        init.item(BARK_CORDAGE, ItemTextile::new)
+        init.item(ItemNames.BARK_CORDAGE, ItemTextile::new)
             .hints(TextileHints.TWISTING)
             .apply(i -> i.setMaterialColor(0x8c7a4b));
 
-        init.item(BARK_FIBER_KINDLING, ItemKindling::new)
+        init.item(ItemNames.BARK_FIBER_KINDLING, ItemKindling::new)
             .apply(i -> i.setFuelKindlingQuality(1f));
 
-        init.item(SISAL_FIBER_RINSED, ItemTextile::new)
+        init.item(ItemNames.SISAL_FIBER_RINSED, ItemTextile::new)
             .hints(TextileHints.DRYING_FIBER);
-        init.item(SISAL_FIBER_COARSE, ItemTextile::new)
+        init.item(ItemNames.SISAL_FIBER_COARSE, ItemTextile::new)
             .hints(TextileHints.CARDING, TextileHints.SPINNING_TWINE);
-        init.item(SISAL_FIBER_REFINED, ItemTextile::new)
+        init.item(ItemNames.SISAL_FIBER_REFINED, ItemTextile::new)
             .hints(TextileHints.SPINNING_TWINE)
             .apply(i -> i.setMaterialColor(0xfdd9ab));
-        init.item(SISAL_TWINE, ItemTextile::new)
+        init.item(ItemNames.SISAL_TWINE, ItemTextile::new)
             .hints(TextileHints.TWISTING, TextileHints.WEAVING_BURLAP)
             .apply(i -> i.setMaterialColor(0x97784f));
 
-        init.item(JUTE_STALK, ItemTextile::new)
+        init.item(ItemNames.JUTE_STALK, ItemTextile::new)
             .hints(TextileHints.RETTING_STALK);
-        init.item(JUTE_STALK_RETTED, ItemTextile::new)
+        init.item(ItemNames.JUTE_STALK_RETTED, ItemTextile::new)
             .hints(TextileHints.PEELING_STALK);
-        init.item(JUTE_FIBER_COARSE, ItemTextile::new)
+        init.item(ItemNames.JUTE_FIBER_COARSE, ItemTextile::new)
             .hints(TextileHints.HECKLING, TextileHints.SPINNING_TWINE);
-        init.item(JUTE_FIBER_REFINED, ItemTextile::new)
+        init.item(ItemNames.JUTE_FIBER_REFINED, ItemTextile::new)
             .hints(TextileHints.SPINNING_TWINE)
             .apply(i -> i.setMaterialColor(0xddccb7));
-        init.item(JUTE_TWINE, ItemTextile::new)
+        init.item(ItemNames.JUTE_TWINE, ItemTextile::new)
             .hints(TextileHints.TWISTING, TextileHints.WEAVING_BURLAP)
             .apply(i -> i.setMaterialColor(0x765d42));
 
-        init.item(FLAX_STALK, ItemTextile::new)
+        init.item(ItemNames.FLAX_STALK, ItemTextile::new)
             .hints(TextileHints.RETTING_STALK);
-        init.item(FLAX_STALK_RETTED, ItemTextile::new)
+        init.item(ItemNames.FLAX_STALK_RETTED, ItemTextile::new)
             .hints(TextileHints.DRYING_STALK);
-        init.item(FLAX_STALK_DRIED, ItemTextile::new)
+        init.item(ItemNames.FLAX_STALK_DRIED, ItemTextile::new)
             .hints(TextileHints.BREAKING_HAND, TextileHints.BREAKING_SURFACE);
-        init.item(FLAX_STALK_BROKEN, ItemTextile::new)
+        init.item(ItemNames.FLAX_STALK_BROKEN, ItemTextile::new)
             .hints(TextileHints.SCUTCHING_HAND, TextileHints.SCUTCHING_SURFACE);
-        init.item(FLAX_FIBER_COARSE, ItemTextile::new)
+        init.item(ItemNames.FLAX_FIBER_COARSE, ItemTextile::new)
             .hints(TextileHints.HECKLING, TextileHints.SPINNING_STRING);
-        init.item(FLAX_FIBER_REFINED, ItemTextile::new)
+        init.item(ItemNames.FLAX_FIBER_REFINED, ItemTextile::new)
             .hints(TextileHints.SPINNING_STRING)
             .apply(i -> i.setMaterialColor(0xb0c389));
 
-        init.item(COTTON_BOLL, ItemTextile::new)
+        init.item(ItemNames.COTTON_BOLL, ItemTextile::new)
             .hints(TextileHints.REFINING_BOLL);
-        init.item(COTTON_BOLL_REFINED, ItemTextile::new)
+        init.item(ItemNames.COTTON_BOLL_REFINED, ItemTextile::new)
             .hints(TextileHints.WILLOWING_COTTON);
-        init.item(COTTON_FIBER_COARSE, ItemTextile::new)
+        init.item(ItemNames.COTTON_FIBER_COARSE, ItemTextile::new)
             .hints(TextileHints.CARDING, TextileHints.SPINNING_YARN);
-        init.item(COTTON_FIBER_REFINED, ItemTextile::new)
+        init.item(ItemNames.COTTON_FIBER_REFINED, ItemTextile::new)
             .hints(TextileHints.SPINNING_YARN)
             .apply(i -> i.setMaterialColor(0xf3faf0));
 
-        init.item(WOOL_WASHED, ItemTextile::new)
+        init.item(ItemNames.WOOL_WASHED, ItemTextile::new)
             .hints(TextileHints.RINSING_WOOL);
-        init.item(WOOL_RINSED, ItemTextile::new)
+        init.item(ItemNames.WOOL_RINSED, ItemTextile::new)
             .hints(TextileHints.DRYING_WOOL);
-        init.item(WOOL_DRIED, ItemTextile::new)
+        init.item(ItemNames.WOOL_DRIED, ItemTextile::new)
             .hints(TextileHints.WILLOWING_WOOL);
-        init.item(WOOL_FIBER_COARSE, ItemTextile::new)
+        init.item(ItemNames.WOOL_FIBER_COARSE, ItemTextile::new)
             .hints(TextileHints.CARDING, TextileHints.SPINNING_YARN);
-        init.item(WOOL_FIBER_REFINED, ItemTextile::new)
+        init.item(ItemNames.WOOL_FIBER_REFINED, ItemTextile::new)
             .hints(TextileHints.SPINNING_YARN)
             .apply(i -> i.setMaterialColor(0xf7f7e6));
     }

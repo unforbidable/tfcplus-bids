@@ -5,6 +5,7 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockRecipe;
 import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.render.SeasonableItemRenderer;
 import com.unforbidable.tfc.bids.common.render.SeasonedItemRenderer;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -26,9 +27,6 @@ import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLog;
 import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLogSeasoned;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LOG_SEASONED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.PEELED_LOG;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.PEELED_LOG_SEASONED;
 import static com.unforbidable.tfc.bids.core.crafting.actions.CopySeasoning.copySeasoning;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
@@ -39,9 +37,9 @@ public class Logs extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(LOG_SEASONED, ItemLogsSeasoned::new);
-        init.item(PEELED_LOG, ItemPeeledLog::new);
-        init.item(PEELED_LOG_SEASONED, ItemPeeledLogSeasoned::new);
+        init.item(ItemNames.LOG_SEASONED, ItemLogsSeasoned::new);
+        init.item(ItemNames.PEELED_LOG, ItemPeeledLog::new);
+        init.item(ItemNames.PEELED_LOG_SEASONED, ItemPeeledLogSeasoned::new);
     }
 
     @Override

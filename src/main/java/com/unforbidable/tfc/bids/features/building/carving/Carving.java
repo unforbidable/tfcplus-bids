@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.building.carving;
 
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -21,9 +22,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CARVING_ROCK;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CARVING_WOOD;
-
 @FeatureName("carving")
 public class Carving extends Feature {
 
@@ -34,10 +32,10 @@ public class Carving extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(CARVING_ROCK, () -> new BlockCarving(Material.rock))
+        init.block(BlockNames.CARVING_ROCK, () -> new BlockCarving(Material.rock))
             .harvest("shovel", 0);
 
-        init.block(CARVING_WOOD, () -> new BlockCarving(Material.wood))
+        init.block(BlockNames.CARVING_WOOD, () -> new BlockCarving(Material.wood))
             .harvest("axe", 0)
             .fireInfo(5, 5);
 

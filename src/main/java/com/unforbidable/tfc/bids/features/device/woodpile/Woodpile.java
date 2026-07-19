@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.device.woodpile;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -40,17 +41,6 @@ import com.unforbidable.tfc.bids.features.device.woodpile.waila.WoodpileWailaPro
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CRACKED_ORE;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CRACKED_ORE_1B;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CRACKED_ORE_2;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CRACKED_ORE_3;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CRACKED_STONE_IG_EX;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CRACKED_STONE_IG_IN;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CRACKED_STONE_MM;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CRACKED_STONE_SED;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.LIGHT;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.WOODPILE;
-
 @FeatureName("woodpile")
 public class Woodpile extends Feature {
 
@@ -61,33 +51,33 @@ public class Woodpile extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(WOODPILE, BlockWoodpile::new)
+        init.block(BlockNames.WOODPILE, BlockWoodpile::new)
             .apply(b -> b.setBlockTextureName("Wood Pile"));
 
-        init.block(CRACKED_STONE_SED, BlockCrackedStoneSed::new, ItemCrackedStone.class)
+        init.block(BlockNames.CRACKED_STONE_SED, BlockCrackedStoneSed::new, ItemCrackedStone.class)
             .apply(b -> b.setBlockName("CrackedSedRock"));
-        init.block(CRACKED_STONE_MM, BlockCrackedStoneMM::new, ItemCrackedStone.class)
+        init.block(BlockNames.CRACKED_STONE_MM, BlockCrackedStoneMM::new, ItemCrackedStone.class)
             .apply(b -> b.setBlockName("CrackedMMRock"));
-        init.block(CRACKED_STONE_IG_IN, BlockCrackedStoneIgIn::new, ItemCrackedStone.class)
+        init.block(BlockNames.CRACKED_STONE_IG_IN, BlockCrackedStoneIgIn::new, ItemCrackedStone.class)
             .apply(b -> b.setBlockName("CrackedIgInRock"));
-        init.block(CRACKED_STONE_IG_EX, BlockCrackedStoneIgEx::new, ItemCrackedStone.class)
+        init.block(BlockNames.CRACKED_STONE_IG_EX, BlockCrackedStoneIgEx::new, ItemCrackedStone.class)
             .apply(b -> b.setBlockName("CrackedIgExRock"));
 
-        init.block(CRACKED_ORE, BlockCrackedOre::new)
+        init.block(BlockNames.CRACKED_ORE, BlockCrackedOre::new)
             .apply(b -> b.setBlockName("Ore"));
-        init.block(CRACKED_ORE_1B, BlockCrackedOre::new)
+        init.block(BlockNames.CRACKED_ORE_1B, BlockCrackedOre::new)
             .apply(b -> b.setBlockName("Ore"))
             .apply(b -> b.setDamageOffset(16));
-        init.block(CRACKED_ORE_2, BlockCrackedOre2::new)
+        init.block(BlockNames.CRACKED_ORE_2, BlockCrackedOre2::new)
             .apply(b -> b.setBlockName("Ore"));
-        init.block(CRACKED_ORE_3, BlockCrackedOre3::new)
+        init.block(BlockNames.CRACKED_ORE_3, BlockCrackedOre3::new)
             .apply(b -> b.setBlockName("Ore"));
 
-        init.block(LIGHT, BlockLight::new);
+        init.block(BlockNames.LIGHT, BlockLight::new);
 
         init.tileEntity(TileEntityWoodpile.class, "BidsWoodPile");
 
-        init.gui(WOODPILE, ContainerWoodpile::new);
+        init.gui(BlockNames.WOODPILE, ContainerWoodpile::new);
     }
 
     @SideOnly(Side.CLIENT)
@@ -107,7 +97,7 @@ public class Woodpile extends Feature {
             .block(BlockCrackedOre2.class)
             .block(BlockCrackedOre3.class);
 
-        client.gui(WOODPILE, GuiWoodpile::new);
+        client.gui(BlockNames.WOODPILE, GuiWoodpile::new);
 
         client.waila()
             .data(new WoodpileWailaProvider(), TileEntityWoodpile.class)

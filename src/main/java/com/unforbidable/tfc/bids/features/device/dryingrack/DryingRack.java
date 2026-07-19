@@ -6,6 +6,7 @@ import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackFoodRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -25,14 +26,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.DRYING_RACK;
-
 @FeatureName("dryingRack")
 public class DryingRack extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(DRYING_RACK, BlockDryingRack::new);
+        init.block(BlockNames.DRYING_RACK, BlockDryingRack::new);
 
         init.tileEntity(TileEntityDryingRack.class, "BidsDryingRack");
     }

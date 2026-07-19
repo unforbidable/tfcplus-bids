@@ -6,6 +6,8 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingOreRecipe;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingRecipe;
+import com.unforbidable.tfc.bids.api.names.GuiNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.api.names.WoodworkingPlanNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -31,27 +33,23 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.GuiNames.WOODWORKING;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOARD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SHAFT;
-
 @FeatureName("woodworking")
 public class Woodworking extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(BOARD, ItemBoard::new)
+        init.item(ItemNames.BOARD, ItemBoard::new)
             .meta(Global.WOOD_ALL);
-        init.item(SHAFT, ItemShaft::new)
+        init.item(ItemNames.SHAFT, ItemShaft::new)
             .meta(Global.WOOD_ALL);
 
-        init.gui(WOODWORKING, ContainerWoodworking::new);
+        init.gui(GuiNames.WOODWORKING, ContainerWoodworking::new);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.gui(WOODWORKING, GuiWoodworking::new);
+        client.gui(GuiNames.WOODWORKING, GuiWoodworking::new);
 
         client.nei()
             .handler(new WoodworkingNeiHandler());

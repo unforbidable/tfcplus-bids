@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.material.ore;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.values.HeatValue;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -15,7 +16,6 @@ import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ORE_BIT;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 /**
@@ -26,7 +26,7 @@ public class Ore extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(ORE_BIT, ItemOreBit::new);
+        init.item(ItemNames.ORE_BIT, ItemOreBit::new);
     }
 
     @Override

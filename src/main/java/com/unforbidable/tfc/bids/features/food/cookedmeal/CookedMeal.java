@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingMixture;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredient;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -25,24 +26,19 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.OMELET;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.PORRIDGE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SOUP;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.STEW;
-
 @FeatureName("cookedMeal")
 public class CookedMeal extends Feature {
 
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(STEW, ItemCookedMeal::new)
+        init.item(ItemNames.STEW, ItemCookedMeal::new)
             .meta("Stew.Bean", "Stew.Meat", "Stew.Fish", "Stew.Vegetable");
-        init.item(SOUP, ItemCookedMeal::new)
+        init.item(ItemNames.SOUP, ItemCookedMeal::new)
             .meta("Soup.Bean", "Soup.Meat", "Soup.Fish", "Soup.Vegetable");
-        init.item(PORRIDGE, ItemCookedMeal::new)
+        init.item(ItemNames.PORRIDGE, ItemCookedMeal::new)
             .meta("Porridge.Water", "Porridge.Milk");
-        init.item(OMELET, ItemCookedMeal::new);
+        init.item(ItemNames.OMELET, ItemCookedMeal::new);
     }
 
     @SideOnly(Side.CLIENT)

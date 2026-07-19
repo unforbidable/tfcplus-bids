@@ -6,6 +6,7 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredient;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepSaladRecipe;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -23,24 +24,22 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.COOKING_PREP;
-
 @FeatureName("cookingPrep")
 public class CookingPrep extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(COOKING_PREP, BlockCookingPrep::new);
+        init.block(BlockNames.COOKING_PREP, BlockCookingPrep::new);
 
         init.tileEntity(TileEntityCookingPrep.class, "BidsCookingPrep");
 
-        init.gui(COOKING_PREP, ContainerCookingPrep::new);
+        init.gui(BlockNames.COOKING_PREP, ContainerCookingPrep::new);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.gui(COOKING_PREP, GuiCookingPrep::new);
+        client.gui(BlockNames.COOKING_PREP, GuiCookingPrep::new);
 
         client.render(new RenderTileCookingPrep())
             .tileEntity(TileEntityCookingPrep.class);

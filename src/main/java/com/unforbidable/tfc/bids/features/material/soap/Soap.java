@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.fluid.FluidCommon;
 import com.unforbidable.tfc.bids.common.item.ItemFoodLike;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemGlassBottleFluid;
@@ -29,14 +30,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_SOAPY_WATER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_WEAK_WOOD_ASH_LYE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_WOOD_ASH_LYE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_WEAK_WOOD_ASH_LYE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LARGE_BOWL_WOOD_ASH_LYE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SOAP;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SOAP_UNCURED;
 
 @FeatureName("soap")
 public class Soap extends Feature {
@@ -67,14 +60,14 @@ public class Soap extends Feature {
         init.fluid(FluidNames.SOAPY_WATER, FluidCommon::new)
             .color(0x305090);
 
-        init.item(SOAP, ItemSoap::new);
-        init.item(SOAP_UNCURED, ItemFoodLike::new);
+        init.item(ItemNames.SOAP, ItemSoap::new);
+        init.item(ItemNames.SOAP_UNCURED, ItemFoodLike::new);
 
-        init.item(BOTTLE_WEAK_WOOD_ASH_LYE, ItemGlassBottleFluid::new);
-        init.item(BOTTLE_WOOD_ASH_LYE, ItemGlassBottleFluid::new);
-        init.item(BOTTLE_SOAPY_WATER, ItemGlassBottleFluid::new);
-        init.item(LARGE_BOWL_WEAK_WOOD_ASH_LYE, ItemLargeBowlFluid::new);
-        init.item(LARGE_BOWL_WOOD_ASH_LYE, ItemLargeBowlFluid::new);
+        init.item(ItemNames.BOTTLE_WEAK_WOOD_ASH_LYE, ItemGlassBottleFluid::new);
+        init.item(ItemNames.BOTTLE_WOOD_ASH_LYE, ItemGlassBottleFluid::new);
+        init.item(ItemNames.BOTTLE_SOAPY_WATER, ItemGlassBottleFluid::new);
+        init.item(ItemNames.LARGE_BOWL_WEAK_WOOD_ASH_LYE, ItemLargeBowlFluid::new);
+        init.item(ItemNames.LARGE_BOWL_WOOD_ASH_LYE, ItemLargeBowlFluid::new);
     }
 
     @SideOnly(Side.CLIENT)

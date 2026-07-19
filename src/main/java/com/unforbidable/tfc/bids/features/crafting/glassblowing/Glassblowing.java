@@ -2,6 +2,8 @@ package com.unforbidable.tfc.bids.features.crafting.glassblowing;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.GuiNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonFlat;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.names.AnvilRules;
@@ -23,11 +25,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.GuiNames.GLASSBLOWING;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BRASS_BLOWPIPE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FLAT_GLASS;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.METAL_BLOWPIPE;
-
 /**
  * <li>metal blowpipe - iron blow pipe for glassblowing</li>
  * <li>brass blowpipe - brass blow pipe for glassblowing</li>
@@ -40,19 +37,19 @@ public class Glassblowing extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(METAL_BLOWPIPE, ItemMetalBlowpipe::new);
+        init.item(ItemNames.METAL_BLOWPIPE, ItemMetalBlowpipe::new);
 
-        init.item(BRASS_BLOWPIPE, ItemMetalBlowpipe::new);
+        init.item(ItemNames.BRASS_BLOWPIPE, ItemMetalBlowpipe::new);
 
-        init.item(FLAT_GLASS, ItemCommonFlat::new);
+        init.item(ItemNames.FLAT_GLASS, ItemCommonFlat::new);
 
-        init.gui(GLASSBLOWING, ContainerSpecialCraftingGlass::new);
+        init.gui(GuiNames.GLASSBLOWING, ContainerSpecialCraftingGlass::new);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void client(FeatureClientSpecBuilder client) {
-        client.gui(GLASSBLOWING, GuiKnappingGlass::new);
+        client.gui(GuiNames.GLASSBLOWING, GuiKnappingGlass::new);
 
         client.nei()
             .hide(BidsItems.flatGlass);

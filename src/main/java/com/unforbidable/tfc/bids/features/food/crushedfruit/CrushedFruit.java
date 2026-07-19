@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
 import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -26,9 +27,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.APPLE_CRUSHED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.OLIVE_CRUSHED;
-
 /**
  * <li>crushed apple and olive - intermediate material for pressing apples and olive in stone press</li>
  */
@@ -38,9 +36,9 @@ public class CrushedFruit extends Feature {
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         // TODO add water % that of apple 0.86f and olive 0.6f or somewhat higher (FIX)
-        init.item(APPLE_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Fruit, 40, 20, 0, 10, 0))
+        init.item(ItemNames.APPLE_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Fruit, 40, 20, 0, 10, 0))
             .food(4f);
-        init.item(OLIVE_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Fruit, 10, 0, 3, 50, 0))
+        init.item(ItemNames.OLIVE_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Fruit, 10, 0, 3, 50, 0))
             .food(4f);
     }
 

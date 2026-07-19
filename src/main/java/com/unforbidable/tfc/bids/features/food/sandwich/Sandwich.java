@@ -6,6 +6,7 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredient;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -21,20 +22,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.STUFFED_MUSHROOM;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.STUFFED_PEPPER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WRAP;
-
 @FeatureName("sandwich")
 public class Sandwich extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(STUFFED_PEPPER, () -> new ItemMoreSandwich(new float[]{3, 6, 4, 2, 1}))
+        init.item(ItemNames.STUFFED_PEPPER, () -> new ItemMoreSandwich(new float[]{3, 6, 4, 2, 1}))
             .meta("Stuffed Pepper.Green", "Stuffed Pepper.Yellow", "Stuffed Pepper.Red");
-        init.item(STUFFED_MUSHROOM, () -> new ItemMoreSandwich(new float[]{2, 3, 2, 2, 1}))
+        init.item(ItemNames.STUFFED_MUSHROOM, () -> new ItemMoreSandwich(new float[]{2, 3, 2, 2, 1}))
             .meta("Stuffed Mushroom.Brown");
-        init.item(WRAP, () -> new ItemWrap(new float[]{3, 6, 4, 2, 1}))
+        init.item(ItemNames.WRAP, () -> new ItemWrap(new float[]{3, 6, 4, 2, 1}))
             .meta("Wrap.Wheat", "Wrap.Barley", "Wrap.Oat", "Wrap.Rye", "Wrap.Corn", "Wrap.Rice");
     }
 

@@ -6,6 +6,7 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
@@ -39,15 +40,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CROP;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.TILLED_SOIL;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.TILLED_SOIL2;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BEETROOT;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BROAD_BEANS;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SEA_BEET;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SUGAR_BEET;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WILD_BEANS;
-
 @FeatureName("crop")
 public class Crop extends Feature {
 
@@ -59,24 +51,24 @@ public class Crop extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(CROP, BlockNewCrop::new)
+        init.block(BlockNames.CROP, BlockNewCrop::new)
             .fireInfo(5, 5);
-        init.block(TILLED_SOIL, () -> new BlockNewFarmland(TFCBlocks.dirt, 0));
-        init.block(TILLED_SOIL2, () -> new BlockNewFarmland(TFCBlocks.dirt2, 16));
+        init.block(BlockNames.TILLED_SOIL, () -> new BlockNewFarmland(TFCBlocks.dirt, 0));
+        init.block(BlockNames.TILLED_SOIL2, () -> new BlockNewFarmland(TFCBlocks.dirt2, 16));
 
         init.tileEntity(TileEntityNewCrop.class, "BidsNewCrop");
         init.tileEntity(TileEntityNewFarmland.class, "BidsNewFarmland");
 
-        init.item(SEA_BEET, () -> new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 40, 10, 0))
+        init.item(ItemNames.SEA_BEET, () -> new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 40, 10, 0))
             .food(1.4f, 0.2f);
-        init.item(BEETROOT, () -> new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 0, 10, 30))
+        init.item(ItemNames.BEETROOT, () -> new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 0, 10, 30))
             .food(0.8f, 0.8f);
-        init.item(SUGAR_BEET, () -> new ItemExtraFood(EnumFoodGroup.Vegetable, 60, 0, 0, 0, 0))
+        init.item(ItemNames.SUGAR_BEET, () -> new ItemExtraFood(EnumFoodGroup.Vegetable, 60, 0, 0, 0, 0))
             .food(0.8f, 0.8f);
-        init.item(WILD_BEANS, () -> new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 20))
+        init.item(ItemNames.WILD_BEANS, () -> new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 20))
             .food(0.5f, 0.2f)
             .apply(i -> i.setCookTempIndex(1));
-        init.item(BROAD_BEANS, () -> new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 40))
+        init.item(ItemNames.BROAD_BEANS, () -> new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 40))
             .food(0.25f, 0.2f)
             .apply(i -> i.setCookTempIndex(1));
 

@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.food.flatbread;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
@@ -18,48 +19,35 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARLEY_DOUGH_FLATBREAD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARLEY_FLATBREAD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CORN_DOUGH_FLATBREAD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CORN_FLATBREAD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.OAT_DOUGH_FLATBREAD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.OAT_FLATBREAD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RICE_DOUGH_FLATBREAD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RICE_FLATBREAD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RYE_DOUGH_FLATBREAD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RYE_FLATBREAD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WHEAT_DOUGH_FLATBREAD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WHEAT_FLATBREAD;
-
 @FeatureName("flatbread")
 public class Flatbread extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(WHEAT_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.WHEAT_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(3f, 0.7f, false, false);
-        init.item(BARLEY_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
+        init.item(ItemNames.BARLEY_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
             .food(3f, 0.7f, false, false);
-        init.item(OAT_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.OAT_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(3f, 0.7f, false, false);
-        init.item(RYE_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
+        init.item(ItemNames.RYE_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
             .food(3f, 0.7f, false, false);
-        init.item(RICE_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.RICE_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(3f, 0.7f, false, false);
-        init.item(CORN_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
+        init.item(ItemNames.CORN_DOUGH_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
             .food(3f, 0.7f, false, false);
 
-        init.item(WHEAT_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.WHEAT_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .apply(ItemExtraFood::setNutritionAsIfCooked);
-        init.item(BARLEY_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
+        init.item(ItemNames.BARLEY_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
             .apply(ItemExtraFood::setNutritionAsIfCooked);
-        init.item(OAT_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.OAT_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .apply(ItemExtraFood::setNutritionAsIfCooked);
-        init.item(RYE_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
+        init.item(ItemNames.RYE_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
             .apply(ItemExtraFood::setNutritionAsIfCooked);
-        init.item(RICE_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.RICE_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .apply(ItemExtraFood::setNutritionAsIfCooked);
-        init.item(CORN_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
+        init.item(ItemNames.CORN_FLATBREAD, () -> new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
             .apply(ItemExtraFood::setNutritionAsIfCooked);
     }
 

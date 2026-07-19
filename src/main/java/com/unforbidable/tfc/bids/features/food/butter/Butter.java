@@ -32,11 +32,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_CREAM;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_SKIMMED_MILK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.JUG_SKIMMED_MILK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WATERSKIN_CREAM;
-
 @FeatureName("butter")
 public class Butter extends Feature {
 
@@ -48,20 +43,20 @@ public class Butter extends Feature {
         init.fluid(FluidNames.CREAM, FluidCommon::new)
             .color(0xfffdd0);
 
-        init.item(BOTTLE_SKIMMED_MILK, () -> new ItemCommonDrink(1000, false, 0, 20, 40, 60, 80, 100))
+        init.item(ItemNames.BOTTLE_SKIMMED_MILK, () -> new ItemCommonDrink(1000, false, 0, 20, 40, 60, 80, 100))
             .apply(i -> i.setCanDrinkInParts(true)
                 .setFoodGroup(EnumFoodGroup.Dairy)
                 .setCalories(0.321f)
                 .setWaterRestoreRatio(1f));
-        init.item(JUG_SKIMMED_MILK, () -> new ItemCommonDrink(1000, true, 0, 20, 40, 60, 80, 100))
+        init.item(ItemNames.JUG_SKIMMED_MILK, () -> new ItemCommonDrink(1000, true, 0, 20, 40, 60, 80, 100))
             .apply(i -> i.setCanDrinkInParts(true)
                 .setFoodGroup(EnumFoodGroup.Dairy)
                 .setCalories(0.321f)
                 .setWaterRestoreRatio(1f));
 
-        init.item(BOTTLE_CREAM, ItemGlassBottleFluid::new);
+        init.item(ItemNames.BOTTLE_CREAM, ItemGlassBottleFluid::new);
 
-        init.item(WATERSKIN_CREAM, ItemWaterskinChurn::new);
+        init.item(ItemNames.WATERSKIN_CREAM, ItemWaterskinChurn::new);
 
         init.item(ItemNames.BUTTER, () -> new ItemExtraFood(EnumFoodGroup.Dairy, 35, 0, 10, 0, 50))
             .food(1f)

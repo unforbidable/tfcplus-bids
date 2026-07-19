@@ -5,6 +5,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -38,14 +39,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SCREW_PRESS_BARREL;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SCREW_PRESS_DISC;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SCREW_PRESS_LEVER;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SCREW_PRESS_LEVER_TOP;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SCREW_PRESS_RACK_BOTTOM;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SCREW_PRESS_RACK_BRIDGE;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SCREW_PRESS_RACK_MIDDLE;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SCREW_PRESS_RACK_TOP;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 @FeatureName("screwPress")
@@ -58,28 +51,28 @@ public class ScrewPress extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(SCREW_PRESS_RACK_BOTTOM, BlockScrewPressRackBottom::new, ItemScrewPress.class)
+        init.block(BlockNames.SCREW_PRESS_RACK_BOTTOM, BlockScrewPressRackBottom::new, ItemScrewPress.class)
             .fireInfo(5, 5);
-        init.block(SCREW_PRESS_RACK_MIDDLE, BlockScrewPressRackMiddle::new, ItemScrewPress.class)
+        init.block(BlockNames.SCREW_PRESS_RACK_MIDDLE, BlockScrewPressRackMiddle::new, ItemScrewPress.class)
             .fireInfo(5, 5);
-        init.block(SCREW_PRESS_RACK_TOP, BlockScrewPressRackTop::new, ItemScrewPress.class)
+        init.block(BlockNames.SCREW_PRESS_RACK_TOP, BlockScrewPressRackTop::new, ItemScrewPress.class)
             .fireInfo(5, 5);
-        init.block(SCREW_PRESS_RACK_BRIDGE, BlockScrewPressRackBridge::new, ItemScrewPress.class)
+        init.block(BlockNames.SCREW_PRESS_RACK_BRIDGE, BlockScrewPressRackBridge::new, ItemScrewPress.class)
             .fireInfo(5, 5);
-        init.block(SCREW_PRESS_BARREL, BlockScrewPressBarrel::new, ItemScrewPress.class)
+        init.block(BlockNames.SCREW_PRESS_BARREL, BlockScrewPressBarrel::new, ItemScrewPress.class)
             .fireInfo(5, 5);
-        init.block(SCREW_PRESS_DISC, BlockScrewPressDisc::new, ItemScrewPress.class)
+        init.block(BlockNames.SCREW_PRESS_DISC, BlockScrewPressDisc::new, ItemScrewPress.class)
             .fireInfo(5, 5);
-        init.block(SCREW_PRESS_LEVER, BlockScrewPressLever::new, ItemScrewPress.class)
+        init.block(BlockNames.SCREW_PRESS_LEVER, BlockScrewPressLever::new, ItemScrewPress.class)
             .fireInfo(5, 5);
-        init.block(SCREW_PRESS_LEVER_TOP, BlockScrewPressLeverTop::new, ItemScrewPress.class)
+        init.block(BlockNames.SCREW_PRESS_LEVER_TOP, BlockScrewPressLeverTop::new, ItemScrewPress.class)
             .fireInfo(5, 5);
 
         init.tileEntity(TileEntityScrewPressBarrel.class, "BidsScrewPressBarrel");
         init.tileEntity(TileEntityScrewPressDisc.class, "BidsScrewPressDisc");
         init.tileEntity(TileEntityScrewPressLever.class, "BidsScrewPressLever");
 
-        init.gui(SCREW_PRESS_BARREL, ContainerScrewPress::new);
+        init.gui(BlockNames.SCREW_PRESS_BARREL, ContainerScrewPress::new);
     }
 
     @SideOnly(Side.CLIENT)
@@ -107,7 +100,7 @@ public class ScrewPress extends Feature {
         client.render(new RenderTileScrewPressLever())
             .tileEntity(TileEntityScrewPressLever.class);
 
-        client.gui(SCREW_PRESS_BARREL, GuiScrewPress::new);
+        client.gui(BlockNames.SCREW_PRESS_BARREL, GuiScrewPress::new);
 
         client.waila()
             .data(new ScrewPressBarrelWailaProvider(), TileEntityScrewPressBarrel.class);

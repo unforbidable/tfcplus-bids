@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.utility.drill;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonPotteryMold;
 import com.unforbidable.tfc.bids.common.item.ItemCommonToolHead;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
@@ -25,25 +26,6 @@ import com.unforbidable.tfc.bids.features.utility.drill.item.ItemDrill;
 import net.minecraft.item.ItemStack;
 
 import static com.dunk.tfc.Core.Recipes.getStackNoTemp;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_BISMUTH_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_BLACK_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_COPPER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_BISMUTH_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_BLACK_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_COPPER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_STONE_IG_EX;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_STONE_IG_IN;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_STONE_MM;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_STONE_SED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_HEAD_WROUGHT_IRON;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_MOLD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_STONE_IG_EX;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_STONE_IG_IN;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_STONE_MM;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_STONE_SED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRILL_WROUGHT_IRON;
 
 /**
  * <li>drill - tool from stone and metals up to wrought iron</li>
@@ -55,27 +37,27 @@ public class Drill extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(DRILL_HEAD_STONE_SED, () -> new ItemCommonToolHead(TFCItems.sedToolMaterial));
-        init.item(DRILL_HEAD_STONE_MM, () -> new ItemCommonToolHead(TFCItems.mMToolMaterial));
-        init.item(DRILL_HEAD_STONE_IG_EX, () -> new ItemCommonToolHead(TFCItems.igExToolMaterial));
-        init.item(DRILL_HEAD_STONE_IG_IN, () -> new ItemCommonToolHead(TFCItems.igInToolMaterial));
-        init.item(DRILL_HEAD_COPPER, () -> new ItemCommonToolHead(TFCItems.copperToolMaterial));
-        init.item(DRILL_HEAD_BRONZE, () -> new ItemCommonToolHead(TFCItems.bronzeToolMaterial));
-        init.item(DRILL_HEAD_BISMUTH_BRONZE, () -> new ItemCommonToolHead(TFCItems.bismuthBronzeToolMaterial));
-        init.item(DRILL_HEAD_BLACK_BRONZE, () -> new ItemCommonToolHead(TFCItems.blackBronzeToolMaterial));
-        init.item(DRILL_HEAD_WROUGHT_IRON, () -> new ItemCommonToolHead(TFCItems.ironToolMaterial));
+        init.item(ItemNames.DRILL_HEAD_STONE_SED, () -> new ItemCommonToolHead(TFCItems.sedToolMaterial));
+        init.item(ItemNames.DRILL_HEAD_STONE_MM, () -> new ItemCommonToolHead(TFCItems.mMToolMaterial));
+        init.item(ItemNames.DRILL_HEAD_STONE_IG_EX, () -> new ItemCommonToolHead(TFCItems.igExToolMaterial));
+        init.item(ItemNames.DRILL_HEAD_STONE_IG_IN, () -> new ItemCommonToolHead(TFCItems.igInToolMaterial));
+        init.item(ItemNames.DRILL_HEAD_COPPER, () -> new ItemCommonToolHead(TFCItems.copperToolMaterial));
+        init.item(ItemNames.DRILL_HEAD_BRONZE, () -> new ItemCommonToolHead(TFCItems.bronzeToolMaterial));
+        init.item(ItemNames.DRILL_HEAD_BISMUTH_BRONZE, () -> new ItemCommonToolHead(TFCItems.bismuthBronzeToolMaterial));
+        init.item(ItemNames.DRILL_HEAD_BLACK_BRONZE, () -> new ItemCommonToolHead(TFCItems.blackBronzeToolMaterial));
+        init.item(ItemNames.DRILL_HEAD_WROUGHT_IRON, () -> new ItemCommonToolHead(TFCItems.ironToolMaterial));
 
-        init.item(DRILL_STONE_SED, () -> new ItemDrill(TFCItems.sedToolMaterial));
-        init.item(DRILL_STONE_MM, () -> new ItemDrill(TFCItems.mMToolMaterial));
-        init.item(DRILL_STONE_IG_EX, () -> new ItemDrill(TFCItems.igExToolMaterial));
-        init.item(DRILL_STONE_IG_IN, () -> new ItemDrill(TFCItems.igInToolMaterial));
-        init.item(DRILL_COPPER, () -> new ItemDrill(TFCItems.copperToolMaterial));
-        init.item(DRILL_BRONZE, () -> new ItemDrill(TFCItems.bronzeToolMaterial));
-        init.item(DRILL_BISMUTH_BRONZE, () -> new ItemDrill(TFCItems.bismuthBronzeToolMaterial));
-        init.item(DRILL_BLACK_BRONZE, () -> new ItemDrill(TFCItems.blackBronzeToolMaterial));
-        init.item(DRILL_WROUGHT_IRON, () -> new ItemDrill(TFCItems.ironToolMaterial));
+        init.item(ItemNames.DRILL_STONE_SED, () -> new ItemDrill(TFCItems.sedToolMaterial));
+        init.item(ItemNames.DRILL_STONE_MM, () -> new ItemDrill(TFCItems.mMToolMaterial));
+        init.item(ItemNames.DRILL_STONE_IG_EX, () -> new ItemDrill(TFCItems.igExToolMaterial));
+        init.item(ItemNames.DRILL_STONE_IG_IN, () -> new ItemDrill(TFCItems.igInToolMaterial));
+        init.item(ItemNames.DRILL_COPPER, () -> new ItemDrill(TFCItems.copperToolMaterial));
+        init.item(ItemNames.DRILL_BRONZE, () -> new ItemDrill(TFCItems.bronzeToolMaterial));
+        init.item(ItemNames.DRILL_BISMUTH_BRONZE, () -> new ItemDrill(TFCItems.bismuthBronzeToolMaterial));
+        init.item(ItemNames.DRILL_BLACK_BRONZE, () -> new ItemDrill(TFCItems.blackBronzeToolMaterial));
+        init.item(ItemNames.DRILL_WROUGHT_IRON, () -> new ItemDrill(TFCItems.ironToolMaterial));
 
-        init.item(DRILL_MOLD, ItemCommonPotteryMold::new)
+        init.item(ItemNames.DRILL_MOLD, ItemCommonPotteryMold::new)
             .mold(4, Metals.COPPER, Metals.BRONZE, Metals.BISMUTHBRONZE, Metals.BLACKBRONZE)
             .meta("Clay", "Ceramic", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze");
     }

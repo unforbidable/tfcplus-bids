@@ -5,6 +5,7 @@ import com.dunk.tfc.api.Interfaces.IEquipable;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraCoat;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.SewingRecipe;
@@ -16,14 +17,12 @@ import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.LEATHER_COAT;
-
 @FeatureName("leatherwear")
 public class Leatherwear extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(LEATHER_COAT, () -> new ItemExtraCoat(IEquipable.ClothingType.COAT))
+        init.item(ItemNames.LEATHER_COAT, () -> new ItemExtraCoat(IEquipable.ClothingType.COAT))
             .apply(i -> {
                 i.setResourceLocation(Tags.MOD_ID, "textures/models/armor/leather_coat_color.png")
                     .setBodySunProtection(1f)

@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.device.screw;
 
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -17,7 +18,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.WOOD_SCREW;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 @FeatureName("screw")
@@ -25,7 +25,7 @@ public class Screw extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(WOOD_SCREW, () -> new BlockScrew(Material.wood))
+        init.block(BlockNames.WOOD_SCREW, () -> new BlockScrew(Material.wood))
             .hardness(0.5f)
             .texture("Wood Screw")
             .fireInfo(5, 5);

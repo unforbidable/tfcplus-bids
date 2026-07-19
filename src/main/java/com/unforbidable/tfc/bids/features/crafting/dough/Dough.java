@@ -5,6 +5,7 @@ import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.names.GuiNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonFlat;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
@@ -22,38 +23,30 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARLEY_DOUGH_UNSHAPED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CORN_DOUGH_UNSHAPED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FLAT_DOUGH;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.OAT_DOUGH_UNSHAPED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RICE_DOUGH_UNSHAPED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RYE_DOUGH_UNSHAPED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WHEAT_DOUGH_UNSHAPED;
-
 @FeatureName("dough")
 public class Dough extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(FLAT_DOUGH, ItemCommonFlat::new)
+        init.item(ItemNames.FLAT_DOUGH, ItemCommonFlat::new)
             .apply(i -> i.setTextureFolder("food"));
 
-        init.item(WHEAT_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.WHEAT_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(1, 0.7f)
             .apply(i -> i.setFlatDoughDamage(0));
-        init.item(BARLEY_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
+        init.item(ItemNames.BARLEY_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
             .food(1, 0.7f)
             .apply(i -> i.setFlatDoughDamage(1));
-        init.item(OAT_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.OAT_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(1, 0.7f)
             .apply(i -> i.setFlatDoughDamage(2));
-        init.item(RYE_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
+        init.item(ItemNames.RYE_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
             .food(1, 0.7f)
             .apply(i -> i.setFlatDoughDamage(3));
-        init.item(RICE_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.RICE_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(1, 0.7f)
             .apply(i -> i.setFlatDoughDamage(4));
-        init.item(CORN_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
+        init.item(ItemNames.CORN_DOUGH_UNSHAPED, () -> new ItemUnshapedDough(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
             .food(1, 0.7f)
             .apply(i -> i.setFlatDoughDamage(5));
 

@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.building.wattle;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -19,24 +20,20 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.WATTLE_GATE;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.WATTLE_TRAPDOOR;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.WATTLE_TRAPDOOR_COVER;
-
 @FeatureName("wattle")
 public class Wattle extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(WATTLE_TRAPDOOR, BlockWattleTrapDoor::new, ItemWattleTrapDoor.class)
+        init.block(BlockNames.WATTLE_TRAPDOOR, BlockWattleTrapDoor::new, ItemWattleTrapDoor.class)
             .harvest("axe", 0)
             .fireInfo(10, 30)
             .apply(i -> i.setBlockTextureName("Wattle Trap Door"));
 
-        init.block(WATTLE_TRAPDOOR_COVER, BlockWattleTrapDoorCover::new, ItemWattleGate.class)
+        init.block(BlockNames.WATTLE_TRAPDOOR_COVER, BlockWattleTrapDoorCover::new, ItemWattleGate.class)
             .fireInfo(60, 20);
 
-        init.block(WATTLE_GATE, BlockWattleGate::new)
+        init.block(BlockNames.WATTLE_GATE, BlockWattleGate::new)
             .harvest("axe", 0)
             .fireInfo(5, 5)
             .apply(i -> i.setBlockTextureName("Wattle Gate"));

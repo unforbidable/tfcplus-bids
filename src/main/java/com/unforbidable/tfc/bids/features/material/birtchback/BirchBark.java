@@ -6,6 +6,7 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonClothSheet;
 import com.unforbidable.tfc.bids.common.item.ItemCommonFlat;
 import com.unforbidable.tfc.bids.common.item.ItemCommonSewable;
@@ -30,13 +31,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BIRCH_BARK_BAG;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BIRCH_BARK_CUP;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BIRCH_BARK_CUP_UNFINISHED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BIRCH_BARK_KINDLING;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BIRCH_BARK_SHEET;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BIRCH_BARK_SHOES;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.FLAT_BIRCH_BARK;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 @FeatureName("birchBark")
@@ -44,25 +38,25 @@ public class BirchBark extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(FLAT_BIRCH_BARK, ItemCommonFlat::new)
+        init.item(ItemNames.FLAT_BIRCH_BARK, ItemCommonFlat::new)
             .apply(i -> i.setTextureFolder("armor/clothing"));
 
-        init.item(BIRCH_BARK_SHEET, ItemCommonClothSheet::new)
-            .apply(i -> i.setSpecialCraftingType(lookup.item(FLAT_BIRCH_BARK)));
+        init.item(ItemNames.BIRCH_BARK_SHEET, ItemCommonClothSheet::new)
+            .apply(i -> i.setSpecialCraftingType(lookup.item(ItemNames.FLAT_BIRCH_BARK)));
 
-        init.item(BIRCH_BARK_BAG, ItemExtraBag::new)
+        init.item(ItemNames.BIRCH_BARK_BAG, ItemExtraBag::new)
             .apply(i -> i.setMaxDamage(12));
 
-        init.item(BIRCH_BARK_CUP_UNFINISHED, ItemCommonSewable::new);
+        init.item(ItemNames.BIRCH_BARK_CUP_UNFINISHED, ItemCommonSewable::new);
 
-        init.item(BIRCH_BARK_CUP, ItemDrinkingCloth::new)
+        init.item(ItemNames.BIRCH_BARK_CUP, ItemDrinkingCloth::new)
             .drink(250, false)
             .overlays(0, 100);
 
-        init.item(BIRCH_BARK_KINDLING, ItemKindling::new)
+        init.item(ItemNames.BIRCH_BARK_KINDLING, ItemKindling::new)
             .apply(i -> i.setFuelKindlingQuality(1f));
 
-        init.item(BIRCH_BARK_SHOES, () -> new ItemExtraBoots(IEquipable.ClothingType.BOOTS))
+        init.item(ItemNames.BIRCH_BARK_SHOES, () -> new ItemExtraBoots(IEquipable.ClothingType.BOOTS))
             .apply(i -> {
                 i.setResourceLocation(Tags.MOD_ID, "textures/models/armor/clothing/birch_bark_shoes_color.png")
                     .setArmorCoverage("SOCKS", 4)

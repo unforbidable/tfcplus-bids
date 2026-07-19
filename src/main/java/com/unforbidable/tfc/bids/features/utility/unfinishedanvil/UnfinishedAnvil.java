@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.utility.unfinishedanvil;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.names.AnvilRules;
 import com.unforbidable.tfc.bids.compat.tfc.names.Skills;
@@ -22,13 +23,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.UNFINISHED_ANVIL_STAGE_1;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.UNFINISHED_ANVIL_STAGE_2;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.UNFINISHED_ANVIL_STAGE_3;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.UNFINISHED_ANVIL_STAGE_4;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.UNFINISHED_ANVIL_STAGE_5;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.UNFINISHED_ANVIL_STAGE_6;
-
 @FeatureName("unfinishedAnvil")
 public class UnfinishedAnvil extends Feature {
 
@@ -38,12 +32,12 @@ public class UnfinishedAnvil extends Feature {
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         // TODO use items instead of blocks
 
-        init.block(UNFINISHED_ANVIL_STAGE_1, () -> new BlockUnfinishedAnvil(0), ItemUnfinishedAnvil.class);
-        init.block(UNFINISHED_ANVIL_STAGE_2, () -> new BlockUnfinishedAnvil(1), ItemUnfinishedAnvil.class);
-        init.block(UNFINISHED_ANVIL_STAGE_3, () -> new BlockUnfinishedAnvil(2), ItemUnfinishedAnvil.class);
-        init.block(UNFINISHED_ANVIL_STAGE_4, () -> new BlockUnfinishedAnvil(3), ItemUnfinishedAnvil.class);
-        init.block(UNFINISHED_ANVIL_STAGE_5, () -> new BlockUnfinishedAnvil(4), ItemUnfinishedAnvil.class);
-        init.block(UNFINISHED_ANVIL_STAGE_6, () -> new BlockUnfinishedAnvil(5), ItemUnfinishedAnvil.class);
+        init.block(BlockNames.UNFINISHED_ANVIL_STAGE_1, () -> new BlockUnfinishedAnvil(0), ItemUnfinishedAnvil.class);
+        init.block(BlockNames.UNFINISHED_ANVIL_STAGE_2, () -> new BlockUnfinishedAnvil(1), ItemUnfinishedAnvil.class);
+        init.block(BlockNames.UNFINISHED_ANVIL_STAGE_3, () -> new BlockUnfinishedAnvil(2), ItemUnfinishedAnvil.class);
+        init.block(BlockNames.UNFINISHED_ANVIL_STAGE_4, () -> new BlockUnfinishedAnvil(3), ItemUnfinishedAnvil.class);
+        init.block(BlockNames.UNFINISHED_ANVIL_STAGE_5, () -> new BlockUnfinishedAnvil(4), ItemUnfinishedAnvil.class);
+        init.block(BlockNames.UNFINISHED_ANVIL_STAGE_6, () -> new BlockUnfinishedAnvil(5), ItemUnfinishedAnvil.class);
     }
 
     @SideOnly(Side.CLIENT)

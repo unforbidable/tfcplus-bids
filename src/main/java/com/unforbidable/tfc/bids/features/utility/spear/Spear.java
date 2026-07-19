@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.utility.spear;
 import com.dunk.tfc.Render.Item.PoleItemRenderer;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.values.HeatValue;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -16,7 +17,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.HARDENED_WOODEN_SPEAR;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 @FeatureName("spear")
@@ -24,7 +24,7 @@ public class Spear extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(HARDENED_WOODEN_SPEAR, ItemHardenedWoodenSpear::new);
+        init.item(ItemNames.HARDENED_WOODEN_SPEAR, ItemHardenedWoodenSpear::new);
     }
 
     @SideOnly(Side.CLIENT)

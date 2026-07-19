@@ -4,6 +4,8 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.block.itemblock.ItemGenericSoil;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -22,12 +24,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.AQUIFER;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.AQUIFER_2;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CERAMIC_BUCKET_AND_ROPE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CERAMIC_BUCKET_AND_ROPE_FRESH_WATER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_BUCKET_AND_ROPE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_BUCKET_AND_ROPE_FRESH_WATER;
 import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
 
 @FeatureName("well")
@@ -40,14 +36,14 @@ public class Well extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(WOODEN_BUCKET_AND_ROPE, () -> new ItemBucketRopeEmpty(false));
-        init.item(WOODEN_BUCKET_AND_ROPE_FRESH_WATER, () -> new ItemBucketRopeFluid(false));
+        init.item(ItemNames.WOODEN_BUCKET_AND_ROPE, () -> new ItemBucketRopeEmpty(false));
+        init.item(ItemNames.WOODEN_BUCKET_AND_ROPE_FRESH_WATER, () -> new ItemBucketRopeFluid(false));
 
-        init.item(CERAMIC_BUCKET_AND_ROPE, () -> new ItemBucketRopeEmpty(true));
-        init.item(CERAMIC_BUCKET_AND_ROPE_FRESH_WATER, () -> new ItemBucketRopeFluid(true));
+        init.item(ItemNames.CERAMIC_BUCKET_AND_ROPE, () -> new ItemBucketRopeEmpty(true));
+        init.item(ItemNames.CERAMIC_BUCKET_AND_ROPE_FRESH_WATER, () -> new ItemBucketRopeFluid(true));
 
-        init.block(AQUIFER, () -> new BlockAquifer(0, TFCBlocks.gravel), ItemGenericSoil.class);
-        init.block(AQUIFER_2, () -> new BlockAquifer(16, TFCBlocks.gravel2), ItemGenericSoil.class);
+        init.block(BlockNames.AQUIFER, () -> new BlockAquifer(0, TFCBlocks.gravel), ItemGenericSoil.class);
+        init.block(BlockNames.AQUIFER_2, () -> new BlockAquifer(16, TFCBlocks.gravel2), ItemGenericSoil.class);
 
         init.tileEntity(TileEntityAquifer.class, "BidsAquifer");
     }

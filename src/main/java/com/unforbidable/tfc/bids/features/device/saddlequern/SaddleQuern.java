@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
 import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -41,13 +42,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_SED;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SADDLE_QUERN_BASE;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SADDLE_QUERN_HANDSTONE;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.SADDLE_QUERN_PRESSING_STONE;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.STONE_PRESS_LEVER;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.STONE_PRESS_WEIGHT;
-
 @FeatureName("saddleQuern")
 public class SaddleQuern extends Feature {
 
@@ -59,20 +53,20 @@ public class SaddleQuern extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(SADDLE_QUERN_BASE, () -> new BlockSaddleQuern(lookup.block(ROUGH_STONE_SED)), ItemSaddleQuern.class)
+        init.block(BlockNames.SADDLE_QUERN_BASE, () -> new BlockSaddleQuern(lookup.block(BlockNames.ROUGH_STONE_SED)), ItemSaddleQuern.class)
             .harvest("shovel", 0);
 
-        init.block(SADDLE_QUERN_HANDSTONE, () -> new BlockWorkStone(lookup.block(ROUGH_STONE_SED)), ItemWorkStone.class)
+        init.block(BlockNames.SADDLE_QUERN_HANDSTONE, () -> new BlockWorkStone(lookup.block(BlockNames.ROUGH_STONE_SED)), ItemWorkStone.class)
             .apply(b -> b.setWorkStoneType(WorkStoneType.SADDLE_QUERN_CRUSHING));
 
-        init.block(SADDLE_QUERN_PRESSING_STONE, () -> new BlockWorkStone(lookup.block(ROUGH_STONE_SED)), ItemWorkStone.class)
+        init.block(BlockNames.SADDLE_QUERN_PRESSING_STONE, () -> new BlockWorkStone(lookup.block(BlockNames.ROUGH_STONE_SED)), ItemWorkStone.class)
             .apply(b -> b.setWorkStoneType(WorkStoneType.SADDLE_QUERN_PRESSING));
 
-        init.block(STONE_PRESS_LEVER, BlockStonePressLever::new)
+        init.block(BlockNames.STONE_PRESS_LEVER, BlockStonePressLever::new)
             .fireInfo(5, 5)
             .harvest("axe", 0);
 
-        init.block(STONE_PRESS_WEIGHT, () -> new BlockStonePressWeight(lookup.block(ROUGH_STONE_SED)), ItemStonePressWeight.class)
+        init.block(BlockNames.STONE_PRESS_WEIGHT, () -> new BlockStonePressWeight(lookup.block(BlockNames.ROUGH_STONE_SED)), ItemStonePressWeight.class)
             .harvest("shovel", 0);
 
         init.tileEntity(TileEntitySaddleQuern.class, "BidsDrainingStone");

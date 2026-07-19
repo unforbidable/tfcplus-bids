@@ -7,6 +7,8 @@ import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
 import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -30,10 +32,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.MUD_BRICK_CHIMNEY;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.MUD_BRICK_CHIMNEY_2;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.DRYING_MUD_BRICK;
-
 /**
  * <li><b>mud brick chimney</b> - primitive chimney enabling early furnace and kiln</li>
  * <li><b>drying mud brick</b> - partially dried mud brick for intermediate drying step</li></>
@@ -43,16 +41,16 @@ public class Mudbrick extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(MUD_BRICK_CHIMNEY, () -> new BlockMudbrickChimney(0), ItemMudbrickChimney.class)
+        init.block(BlockNames.MUD_BRICK_CHIMNEY, () -> new BlockMudbrickChimney(0), ItemMudbrickChimney.class)
             .harvest("shovel", 0)
             .apply(b -> b.setDirt(TFCBlocks.dirt));
-        init.block(MUD_BRICK_CHIMNEY_2, () -> new BlockMudbrickChimney(16), ItemMudbrickChimney.class)
+        init.block(BlockNames.MUD_BRICK_CHIMNEY_2, () -> new BlockMudbrickChimney(16), ItemMudbrickChimney.class)
             .harvest("shovel", 0)
             .apply(b -> b.setDirt(TFCBlocks.dirt2));
 
         init.tileEntity(TileEntityMudBrickChimney.class, "BidsChimney");
 
-        init.item(DRYING_MUD_BRICK, ItemDryingMudBrick::new);
+        init.item(ItemNames.DRYING_MUD_BRICK, ItemDryingMudBrick::new);
     }
 
     @SideOnly(Side.CLIENT)

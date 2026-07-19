@@ -4,6 +4,8 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -32,28 +34,6 @@ import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarriableStone;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_FENCE_IG_EX;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_FENCE_IG_IN;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_FENCE_MM;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_FENCE_SED;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_IG_EX;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_IG_IN;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_MM;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_BRICK_SED;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_IG_EX;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_IG_IN;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_MM;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_SED;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_TILE_FENCE_IG_EX;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_TILE_FENCE_IG_IN;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_TILE_FENCE_MM;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_TILE_FENCE_SED;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_TILE_IG_EX;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_TILE_IG_IN;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_TILE_MM;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.ROUGH_STONE_TILE_SED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ROUGH_STONE_BRICK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ROUGH_STONE_TILE;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 @FeatureName("roughStone")
@@ -61,94 +41,86 @@ public class RoughStone extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(ROUGH_STONE_SED, BlockRoughStone::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_SED, BlockRoughStone::new, ItemRoughStone.class)
             .meta(Global.STONE_SED)
             .harvest("shovel", 0)
             // 0 - Shale, 4 - Sandstone
             .apply(b -> b.setMetaHavingTopTexture(0, 4));
-        init.block(ROUGH_STONE_MM, BlockRoughStone::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_MM, BlockRoughStone::new, ItemRoughStone.class)
             .meta(Global.STONE_MM)
             .harvest("shovel", 0)
             // 1 - Slate, 2 - Phyllite, 3 - Shist
             .apply(b -> b.setMetaHavingTopTexture(1, 2, 3));
-        init.block(ROUGH_STONE_IG_IN, BlockRoughStone::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_IG_IN, BlockRoughStone::new, ItemRoughStone.class)
             .meta(Global.STONE_IGIN)
             .harvest("shovel", 0);
-        init.block(ROUGH_STONE_IG_EX, BlockRoughStone::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_IG_EX, BlockRoughStone::new, ItemRoughStone.class)
             .meta(Global.STONE_IGEX)
             .harvest("shovel", 0);
 
-        init.block(ROUGH_STONE_BRICK_SED, BlockRoughStoneBrick::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_BRICK_SED, BlockRoughStoneBrick::new, ItemRoughStone.class)
             .meta(Global.STONE_SED)
             // 0 - Shale, 4 - Sandstone
             .harvest("shovel", 0)
             .apply(b -> b.setMetaHavingTopTexture(0, 4));
-        init.block(ROUGH_STONE_BRICK_MM, BlockRoughStoneBrick::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_BRICK_MM, BlockRoughStoneBrick::new, ItemRoughStone.class)
             .meta(Global.STONE_MM)
             .harvest("shovel", 0)
             // 1 - Slate, 2 - Phyllite, 3 - Shist
             .apply(b -> b.setMetaHavingTopTexture(1, 2, 3));
-        init.block(ROUGH_STONE_BRICK_IG_IN, BlockRoughStoneBrick::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_BRICK_IG_IN, BlockRoughStoneBrick::new, ItemRoughStone.class)
             .meta(Global.STONE_IGIN)
             .harvest("shovel", 0);
-        init.block(ROUGH_STONE_BRICK_IG_EX, BlockRoughStoneBrick::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_BRICK_IG_EX, BlockRoughStoneBrick::new, ItemRoughStone.class)
             .meta(Global.STONE_IGEX)
             .harvest("shovel", 0);
 
-        init.block(ROUGH_STONE_TILE_SED, BlockRoughStoneTile::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_TILE_SED, BlockRoughStoneTile::new, ItemRoughStone.class)
             .meta(Global.STONE_SED)
             .harvest("shovel", 0);
-        init.block(ROUGH_STONE_TILE_MM, BlockRoughStoneTile::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_TILE_MM, BlockRoughStoneTile::new, ItemRoughStone.class)
             .meta(Global.STONE_MM)
             .harvest("shovel", 0);
-        init.block(ROUGH_STONE_TILE_IG_IN, BlockRoughStoneTile::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_TILE_IG_IN, BlockRoughStoneTile::new, ItemRoughStone.class)
             .meta(Global.STONE_IGIN)
             .harvest("shovel", 0);
-        init.block(ROUGH_STONE_TILE_IG_EX, BlockRoughStoneTile::new, ItemRoughStone.class)
+        init.block(BlockNames.ROUGH_STONE_TILE_IG_EX, BlockRoughStoneTile::new, ItemRoughStone.class)
             .meta(Global.STONE_IGEX)
             .harvest("shovel", 0);
 
-        init.block(ROUGH_STONE_BRICK_FENCE_SED, () -> new BlockRoughStoneFence(lookup.block(ROUGH_STONE_BRICK_SED)),
-                ItemRoughStoneFence.class)
+        init.block(BlockNames.ROUGH_STONE_BRICK_FENCE_SED, () -> new BlockRoughStoneFence(lookup.block(BlockNames.ROUGH_STONE_BRICK_SED)), ItemRoughStoneFence.class)
             .meta(Global.STONE_SED)
             .harvest("shovel", 0)
-            .apply(b -> b.setMaterialBlockTopBottom(lookup.block(ROUGH_STONE_TILE_SED)));
-        init.block(ROUGH_STONE_BRICK_FENCE_MM, () -> new BlockRoughStoneFence(lookup.block(ROUGH_STONE_BRICK_MM)),
-                ItemRoughStoneFence.class)
+            .apply(b -> b.setMaterialBlockTopBottom(lookup.block(BlockNames.ROUGH_STONE_TILE_SED)));
+        init.block(BlockNames.ROUGH_STONE_BRICK_FENCE_MM, () -> new BlockRoughStoneFence(lookup.block(BlockNames.ROUGH_STONE_BRICK_MM)), ItemRoughStoneFence.class)
             .meta(Global.STONE_MM)
             .harvest("shovel", 0)
-            .apply(b -> b.setMaterialBlockTopBottom(lookup.block(ROUGH_STONE_TILE_MM)));
-        init.block(ROUGH_STONE_BRICK_FENCE_IG_IN, () -> new BlockRoughStoneFence(lookup.block(ROUGH_STONE_BRICK_IG_IN)),
-                ItemRoughStoneFence.class)
+            .apply(b -> b.setMaterialBlockTopBottom(lookup.block(BlockNames.ROUGH_STONE_TILE_MM)));
+        init.block(BlockNames.ROUGH_STONE_BRICK_FENCE_IG_IN, () -> new BlockRoughStoneFence(lookup.block(BlockNames.ROUGH_STONE_BRICK_IG_IN)), ItemRoughStoneFence.class)
             .meta(Global.STONE_IGIN)
             .harvest("shovel", 0)
-            .apply(b -> b.setMaterialBlockTopBottom(lookup.block(ROUGH_STONE_TILE_IG_IN)));
-        init.block(ROUGH_STONE_BRICK_FENCE_IG_EX, () -> new BlockRoughStoneFence(lookup.block(ROUGH_STONE_BRICK_IG_EX)),
-                ItemRoughStoneFence.class)
+            .apply(b -> b.setMaterialBlockTopBottom(lookup.block(BlockNames.ROUGH_STONE_TILE_IG_IN)));
+        init.block(BlockNames.ROUGH_STONE_BRICK_FENCE_IG_EX, () -> new BlockRoughStoneFence(lookup.block(BlockNames.ROUGH_STONE_BRICK_IG_EX)), ItemRoughStoneFence.class)
             .meta(Global.STONE_IGEX)
             .harvest("shovel", 0)
-            .apply(b -> b.setMaterialBlockTopBottom(lookup.block(ROUGH_STONE_TILE_IG_EX)));
+            .apply(b -> b.setMaterialBlockTopBottom(lookup.block(BlockNames.ROUGH_STONE_TILE_IG_EX)));
 
-        init.block(ROUGH_STONE_TILE_FENCE_SED, () -> new BlockRoughStoneFence(lookup.block(ROUGH_STONE_TILE_SED)),
-                ItemRoughStoneFence.class)
+        init.block(BlockNames.ROUGH_STONE_TILE_FENCE_SED, () -> new BlockRoughStoneFence(lookup.block(BlockNames.ROUGH_STONE_TILE_SED)), ItemRoughStoneFence.class)
             .meta(Global.STONE_SED)
             .harvest("shovel", 0);
-        init.block(ROUGH_STONE_TILE_FENCE_MM, () -> new BlockRoughStoneFence(lookup.block(ROUGH_STONE_TILE_MM)),
-                ItemRoughStoneFence.class)
+        init.block(BlockNames.ROUGH_STONE_TILE_FENCE_MM, () -> new BlockRoughStoneFence(lookup.block(BlockNames.ROUGH_STONE_TILE_MM)), ItemRoughStoneFence.class)
             .meta(Global.STONE_MM)
             .harvest("shovel", 0);
-        init.block(ROUGH_STONE_TILE_FENCE_IG_IN, () -> new BlockRoughStoneFence(lookup.block(ROUGH_STONE_TILE_IG_IN)),
-                ItemRoughStoneFence.class)
+        init.block(BlockNames.ROUGH_STONE_TILE_FENCE_IG_IN, () -> new BlockRoughStoneFence(lookup.block(BlockNames.ROUGH_STONE_TILE_IG_IN)), ItemRoughStoneFence.class)
             .meta(Global.STONE_IGIN)
             .harvest("shovel", 0);
-        init.block(ROUGH_STONE_TILE_FENCE_IG_EX, () -> new BlockRoughStoneFence(lookup.block(ROUGH_STONE_TILE_IG_EX)),
-                ItemRoughStoneFence.class)
+        init.block(BlockNames.ROUGH_STONE_TILE_FENCE_IG_EX, () -> new BlockRoughStoneFence(lookup.block(BlockNames.ROUGH_STONE_TILE_IG_EX)), ItemRoughStoneFence.class)
             .meta(Global.STONE_IGEX)
             .harvest("shovel", 0);
 
-        init.item(ROUGH_STONE_BRICK, ItemRoughBrick::new)
+        init.item(ItemNames.ROUGH_STONE_BRICK, ItemRoughBrick::new)
             .meta(Global.STONE_ALL);
-        init.item(ROUGH_STONE_TILE, ItemRoughTile::new)
+        init.item(ItemNames.ROUGH_STONE_TILE, ItemRoughTile::new)
             .meta(Global.STONE_ALL);
     }
 

@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.food.hardtack;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
@@ -18,53 +19,40 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARLEY_DOUGH_HARDTACK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BARLEY_HARDTACK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CORN_DOUGH_HARDTACK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CORN_HARDTACK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.OAT_DOUGH_HARDTACK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.OAT_HARDTACK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RICE_DOUGH_HARDTACK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RICE_HARDTACK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RYE_DOUGH_HARDTACK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.RYE_HARDTACK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WHEAT_DOUGH_HARDTACK;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WHEAT_HARDTACK;
-
 @FeatureName("hardtack")
 public class Hardtack extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(WHEAT_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.WHEAT_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(3f, 0.7f, false, false);
-        init.item(BARLEY_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
+        init.item(ItemNames.BARLEY_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
             .food(3f, 0.7f, false, false);
-        init.item(OAT_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.OAT_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(3f, 0.7f, false, false);
-        init.item(RYE_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
+        init.item(ItemNames.RYE_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
             .food(3f, 0.7f, false, false);
-        init.item(RICE_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.RICE_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(3f, 0.7f, false, false);
-        init.item(CORN_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
+        init.item(ItemNames.CORN_DOUGH_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
             .food(3f, 0.7f, false, false);
 
-        init.item(WHEAT_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.WHEAT_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(0.02f)
             .apply(ItemExtraFood::setNutritionAsIfCooked);
-        init.item(BARLEY_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
+        init.item(ItemNames.BARLEY_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 5, 20))
             .food(0.02f)
             .apply(ItemExtraFood::setNutritionAsIfCooked);
-        init.item(OAT_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.OAT_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(0.02f)
             .apply(ItemExtraFood::setNutritionAsIfCooked);
-        init.item(RYE_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
+        init.item(ItemNames.RYE_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 15, 0, 0, 20))
             .food(0.02f)
             .apply(ItemExtraFood::setNutritionAsIfCooked);
-        init.item(RICE_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
+        init.item(ItemNames.RICE_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 0, 20))
             .food(0.02f)
             .apply(ItemExtraFood::setNutritionAsIfCooked);
-        init.item(CORN_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
+        init.item(ItemNames.CORN_HARDTACK, () -> new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
             .food(0.02f)
             .apply(ItemExtraFood::setNutritionAsIfCooked);
     }

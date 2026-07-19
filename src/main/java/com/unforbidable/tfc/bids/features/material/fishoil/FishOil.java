@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
 import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.common.fluid.FluidCommon;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBowlFluid;
@@ -32,13 +33,6 @@ import com.unforbidable.tfc.bids.features.material.fishoil.fuel.FuelFishOil;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_FISH_OIL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOTTLE_OILY_FISH_WATER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.BOWL_FISH_OIL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.CERAMIC_BUCKET_OILY_FISH_WATER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.JUG_FISH_OIL;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_BUCKET_OILY_FISH_WATER;
-
 @FeatureName("fishOil")
 public class FishOil extends Feature {
 
@@ -49,13 +43,13 @@ public class FishOil extends Feature {
         init.fluid(FluidNames.FISH_OIL, FluidCommon::new)
             .color(0xa1a36f);
 
-        init.item(BOTTLE_OILY_FISH_WATER, ItemGlassBottleFluid::new);
-        init.item(WOODEN_BUCKET_OILY_FISH_WATER, () -> new ItemBucketFluid(false));
-        init.item(CERAMIC_BUCKET_OILY_FISH_WATER, () -> new ItemBucketFluid(true));
+        init.item(ItemNames.BOTTLE_OILY_FISH_WATER, ItemGlassBottleFluid::new);
+        init.item(ItemNames.WOODEN_BUCKET_OILY_FISH_WATER, () -> new ItemBucketFluid(false));
+        init.item(ItemNames.CERAMIC_BUCKET_OILY_FISH_WATER, () -> new ItemBucketFluid(true));
 
-        init.item(BOTTLE_FISH_OIL, ItemGlassBottleFluid::new);
-        init.item(JUG_FISH_OIL, ItemPotteryFluid::new);
-        init.item(BOWL_FISH_OIL, ItemBowlFluid::new)
+        init.item(ItemNames.BOTTLE_FISH_OIL, ItemGlassBottleFluid::new);
+        init.item(ItemNames.JUG_FISH_OIL, ItemPotteryFluid::new);
+        init.item(ItemNames.BOWL_FISH_OIL, ItemBowlFluid::new)
             .meta("PotteryBowl", "Bowl");
     }
 

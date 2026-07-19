@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.utility.scutchingknife;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingOreRecipe;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.api.names.WoodworkingPlanNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonTool;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -15,14 +16,12 @@ import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Sha
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan.Plan;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SCUTCHING_KNIFE;
-
 @FeatureName("scutchingKnife")
 public class ScutchingKnife extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(SCUTCHING_KNIFE, () -> new ItemCommonTool(TFCItems.woodToolMaterial));
+        init.item(ItemNames.SCUTCHING_KNIFE, () -> new ItemCommonTool(TFCItems.woodToolMaterial));
     }
 
     @Override

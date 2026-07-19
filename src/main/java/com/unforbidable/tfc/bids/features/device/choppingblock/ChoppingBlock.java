@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.device.choppingblock;
 import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -22,20 +23,16 @@ import com.unforbidable.tfc.bids.features.device.choppingblock.waila.ChoppingBlo
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CHOPPING_BLOCK;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CHOPPING_BLOCK_2;
-import static com.unforbidable.tfc.bids.api.names.BlockNames.CHOPPING_BLOCK_3;
-
 @FeatureName("choppingBlock")
 public class ChoppingBlock extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(CHOPPING_BLOCK, () -> new BlockChoppingBlock(TFCBlocks.woodVert), ItemChoppingBlock.class)
+        init.block(BlockNames.CHOPPING_BLOCK, () -> new BlockChoppingBlock(TFCBlocks.woodVert), ItemChoppingBlock.class)
             .fireInfo(5, 5);
-        init.block(CHOPPING_BLOCK_2, () -> new BlockChoppingBlock(TFCBlocks.woodVert2), ItemChoppingBlock.class)
+        init.block(BlockNames.CHOPPING_BLOCK_2, () -> new BlockChoppingBlock(TFCBlocks.woodVert2), ItemChoppingBlock.class)
             .fireInfo(5, 5);
-        init.block(CHOPPING_BLOCK_3, () -> new BlockChoppingBlock(TFCBlocks.woodVert3), ItemChoppingBlock.class)
+        init.block(BlockNames.CHOPPING_BLOCK_3, () -> new BlockChoppingBlock(TFCBlocks.woodVert3), ItemChoppingBlock.class)
             .fireInfo(5, 5);
 
         init.tileEntity(TileEntityChoppingBlock.class, "BidsChoppingBlock");

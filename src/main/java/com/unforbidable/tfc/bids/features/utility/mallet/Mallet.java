@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.utility.mallet;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingOreRecipe;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.api.names.WoodworkingPlanNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonTool;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -15,14 +16,12 @@ import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Sha
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan.Plan;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_MALLET;
-
 @FeatureName("mallet")
 public class Mallet extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(WOODEN_MALLET, () -> new ItemCommonTool(TFCItems.woodToolMaterial));
+        init.item(ItemNames.WOODEN_MALLET, () -> new ItemCommonTool(TFCItems.woodToolMaterial));
     }
 
     @Override

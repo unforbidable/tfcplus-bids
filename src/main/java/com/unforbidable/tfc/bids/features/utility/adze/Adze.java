@@ -5,6 +5,7 @@ import com.dunk.tfc.api.TFCItems;
 import com.google.common.collect.Sets;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonPotteryMold;
 import com.unforbidable.tfc.bids.common.item.ItemCommonToolHead;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
@@ -28,25 +29,6 @@ import com.unforbidable.tfc.bids.features.utility.adze.item.ItemAdze;
 import net.minecraft.item.ItemStack;
 
 import static com.dunk.tfc.Core.Recipes.getStackNoTemp;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_BISMUTH_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_BLACK_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_COPPER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_BISMUTH_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_BLACK_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_BRONZE;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_COPPER;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_STONE_IG_EX;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_STONE_IG_IN;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_STONE_MM;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_STONE_SED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_HEAD_WROUGHT_IRON;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_MOLD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_STONE_IG_EX;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_STONE_IG_IN;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_STONE_MM;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_STONE_SED;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.ADZE_WROUGHT_IRON;
 
 /**
  * <li>adze - tool from stone and metals up to wrought iron</li>
@@ -58,45 +40,45 @@ public class Adze extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(ADZE_HEAD_STONE_SED, () -> new ItemCommonToolHead(TFCItems.sedToolMaterial));
-        init.item(ADZE_HEAD_STONE_MM, () -> new ItemCommonToolHead(TFCItems.mMToolMaterial));
-        init.item(ADZE_HEAD_STONE_IG_EX, () -> new ItemCommonToolHead(TFCItems.igExToolMaterial));
-        init.item(ADZE_HEAD_STONE_IG_IN, () -> new ItemCommonToolHead(TFCItems.igInToolMaterial));
-        init.item(ADZE_HEAD_COPPER, () -> new ItemCommonToolHead(TFCItems.copperToolMaterial));
-        init.item(ADZE_HEAD_BRONZE, () -> new ItemCommonToolHead(TFCItems.bronzeToolMaterial));
-        init.item(ADZE_HEAD_BISMUTH_BRONZE, () -> new ItemCommonToolHead(TFCItems.bismuthBronzeToolMaterial));
-        init.item(ADZE_HEAD_BLACK_BRONZE, () -> new ItemCommonToolHead(TFCItems.blackBronzeToolMaterial));
-        init.item(ADZE_HEAD_WROUGHT_IRON, () -> new ItemCommonToolHead(TFCItems.ironToolMaterial));
+        init.item(ItemNames.ADZE_HEAD_STONE_SED, () -> new ItemCommonToolHead(TFCItems.sedToolMaterial));
+        init.item(ItemNames.ADZE_HEAD_STONE_MM, () -> new ItemCommonToolHead(TFCItems.mMToolMaterial));
+        init.item(ItemNames.ADZE_HEAD_STONE_IG_EX, () -> new ItemCommonToolHead(TFCItems.igExToolMaterial));
+        init.item(ItemNames.ADZE_HEAD_STONE_IG_IN, () -> new ItemCommonToolHead(TFCItems.igInToolMaterial));
+        init.item(ItemNames.ADZE_HEAD_COPPER, () -> new ItemCommonToolHead(TFCItems.copperToolMaterial));
+        init.item(ItemNames.ADZE_HEAD_BRONZE, () -> new ItemCommonToolHead(TFCItems.bronzeToolMaterial));
+        init.item(ItemNames.ADZE_HEAD_BISMUTH_BRONZE, () -> new ItemCommonToolHead(TFCItems.bismuthBronzeToolMaterial));
+        init.item(ItemNames.ADZE_HEAD_BLACK_BRONZE, () -> new ItemCommonToolHead(TFCItems.blackBronzeToolMaterial));
+        init.item(ItemNames.ADZE_HEAD_WROUGHT_IRON, () -> new ItemCommonToolHead(TFCItems.ironToolMaterial));
 
-        init.item(ADZE_STONE_SED, () -> new ItemAdze(TFCItems.sedToolMaterial))
+        init.item(ItemNames.ADZE_STONE_SED, () -> new ItemAdze(TFCItems.sedToolMaterial))
             .harvest("shovel", 1)
             .harvest("axe", 1);
-        init.item(ADZE_STONE_MM, () -> new ItemAdze(TFCItems.mMToolMaterial))
+        init.item(ItemNames.ADZE_STONE_MM, () -> new ItemAdze(TFCItems.mMToolMaterial))
             .harvest("shovel", 1)
             .harvest("axe", 1);
-        init.item(ADZE_STONE_IG_EX, () -> new ItemAdze(TFCItems.igExToolMaterial))
+        init.item(ItemNames.ADZE_STONE_IG_EX, () -> new ItemAdze(TFCItems.igExToolMaterial))
             .harvest("shovel", 1)
             .harvest("axe", 1);
-        init.item(ADZE_STONE_IG_IN, () -> new ItemAdze(TFCItems.igInToolMaterial))
+        init.item(ItemNames.ADZE_STONE_IG_IN, () -> new ItemAdze(TFCItems.igInToolMaterial))
             .harvest("shovel", 1)
             .harvest("axe", 1);
-        init.item(ADZE_COPPER, () -> new ItemAdze(TFCItems.copperToolMaterial))
+        init.item(ItemNames.ADZE_COPPER, () -> new ItemAdze(TFCItems.copperToolMaterial))
             .harvest("shovel", 1)
             .harvest("axe", 1);
-        init.item(ADZE_BRONZE, () -> new ItemAdze(TFCItems.bronzeToolMaterial))
+        init.item(ItemNames.ADZE_BRONZE, () -> new ItemAdze(TFCItems.bronzeToolMaterial))
             .harvest("shovel", 1)
             .harvest("axe", 1);
-        init.item(ADZE_BISMUTH_BRONZE, () -> new ItemAdze(TFCItems.bismuthBronzeToolMaterial))
+        init.item(ItemNames.ADZE_BISMUTH_BRONZE, () -> new ItemAdze(TFCItems.bismuthBronzeToolMaterial))
             .harvest("shovel", 1)
             .harvest("axe", 1);
-        init.item(ADZE_BLACK_BRONZE, () -> new ItemAdze(TFCItems.blackBronzeToolMaterial))
+        init.item(ItemNames.ADZE_BLACK_BRONZE, () -> new ItemAdze(TFCItems.blackBronzeToolMaterial))
             .harvest("shovel", 1)
             .harvest("axe", 1);
-        init.item(ADZE_WROUGHT_IRON, () -> new ItemAdze(TFCItems.ironToolMaterial))
+        init.item(ItemNames.ADZE_WROUGHT_IRON, () -> new ItemAdze(TFCItems.ironToolMaterial))
             .harvest("shovel", 1)
             .harvest("axe", 1);
 
-        init.item(ADZE_MOLD, ItemCommonPotteryMold::new)
+        init.item(ItemNames.ADZE_MOLD, ItemCommonPotteryMold::new)
             .mold(4, Metals.COPPER, Metals.BRONZE, Metals.BISMUTHBRONZE, Metals.BLACKBRONZE)
             .meta("Clay", "Ceramic", "Copper", "Bronze", "Bismuth Bronze", "Black Bronze");
     }

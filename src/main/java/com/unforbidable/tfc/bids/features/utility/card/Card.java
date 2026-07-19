@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.utility.card;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingOreRecipe;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.api.names.WoodworkingPlanNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonToolPart;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -22,18 +23,14 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.THORN_BUNCH;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.THORN_CARD;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.WOODEN_COMB_PADDLE;
-
 @FeatureName("card")
 public class Card extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(THORN_BUNCH, ItemThornBunch::new);
-        init.item(WOODEN_COMB_PADDLE, ItemCommonToolPart::new);
-        init.item(THORN_CARD, () -> new ItemCard(TFCItems.boneToolMaterial));
+        init.item(ItemNames.THORN_BUNCH, ItemThornBunch::new);
+        init.item(ItemNames.WOODEN_COMB_PADDLE, ItemCommonToolPart::new);
+        init.item(ItemNames.THORN_CARD, () -> new ItemCard(TFCItems.boneToolMaterial));
     }
 
     @SideOnly(Side.CLIENT)

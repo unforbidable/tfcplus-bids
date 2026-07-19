@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.fluid.FluidCommon;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
@@ -27,9 +28,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.SUET;
-import static com.unforbidable.tfc.bids.api.names.ItemNames.TALLOW;
-
 @FeatureName("tallow")
 public class Tallow extends Feature {
 
@@ -38,9 +36,9 @@ public class Tallow extends Feature {
         init.fluid(FluidNames.TALLOW, FluidCommon::new)
             .color(0xf0db3a);
 
-        init.item(SUET, () -> new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 30))
+        init.item(ItemNames.SUET, () -> new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 30))
             .food(2.5f, true, false, true, false);
-        init.item(TALLOW, () -> new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 60))
+        init.item(ItemNames.TALLOW, () -> new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 60))
             .food(0.05f)
             .apply(ItemExtraFood::setNutritionAsIfCooked);
     }

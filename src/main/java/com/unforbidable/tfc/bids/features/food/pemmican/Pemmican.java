@@ -5,6 +5,7 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredient;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -18,14 +19,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.ItemNames.PEMMICAN;
-
 @FeatureName("pemmican")
 public class Pemmican extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(PEMMICAN, () -> new ItemPemmican(new float[]{0, 40, 20, 10, 10}))
+        init.item(ItemNames.PEMMICAN, () -> new ItemPemmican(new float[]{0, 40, 20, 10, 10}))
             .meta("Pemmican");
     }
 

@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.device.wallhook;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -17,14 +18,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
-import static com.unforbidable.tfc.bids.api.names.BlockNames.WALL_HOOK;
-
 @FeatureName("wallHook")
 public class WallHook extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.block(WALL_HOOK, BlockWallHook::new, ItemWallHook.class);
+        init.block(BlockNames.WALL_HOOK, BlockWallHook::new, ItemWallHook.class);
 
         init.tileEntity(TileEntityWallHook.class, "BidsWallHook");
     }
