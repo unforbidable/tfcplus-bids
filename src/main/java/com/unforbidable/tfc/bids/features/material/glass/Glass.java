@@ -7,9 +7,12 @@ import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
+import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -33,6 +36,13 @@ public class Glass extends Feature {
             .drink(2000, false)
             .overlays(0, 11, 22, 33, 44, 55, 66, 77, 88, 100)
             .apply(i -> i.setGlassReturnAmount(80));
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void client(FeatureClientSpecBuilder client) {
+        client.nei()
+            .hide(BidsItems.flatGlass);
     }
 
     @Override

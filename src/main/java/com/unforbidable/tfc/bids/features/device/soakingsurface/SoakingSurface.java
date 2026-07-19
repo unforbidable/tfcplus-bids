@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.soakingsurface;
 
 import com.dunk.tfc.api.TFCBlocks;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -39,6 +40,9 @@ public class SoakingSurface extends Feature {
 
         client.waila()
             .data(new SoakingSurfaceWailaProvider(), TileEntitySoakingSurface.class);
+
+        client.nei()
+            .hide(BidsBlocks.soakingSurface);
     }
 
     @Override

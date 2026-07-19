@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.features.building.carving;
 
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -61,7 +62,9 @@ public class Carving extends Feature {
             .data(new CarvingWailaProvider(), TileEntityCarving.class);
 
         client.nei()
-            .handler(new CarvingNeiHandler());
+            .handler(new CarvingNeiHandler())
+            .hide(BidsBlocks.carvingRock)
+            .hide(BidsBlocks.carvingWood);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.building.decorativesurface;
 
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -40,6 +41,9 @@ public class DecorativeSurface extends Feature {
 
         client.waila()
             .data(new DecorativeSurfaceWailaProvider(), TileEntityDecorativeSurface.class);
+
+        client.nei()
+            .hide(BidsBlocks.decorativeSurface);
     }
 
     @Override

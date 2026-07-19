@@ -111,6 +111,11 @@ public class ScrewPress extends Feature {
 
         client.waila()
             .data(new ScrewPressBarrelWailaProvider(), TileEntityScrewPressBarrel.class);
+
+        client.nei()
+            .hide(BidsBlocks.screwPressRackMiddle)
+            .hide(BidsBlocks.screwPressRackTop)
+            .hide(BidsBlocks.screwPressLeverTop);
     }
 
     @Override

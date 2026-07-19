@@ -17,11 +17,14 @@ import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.SewingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
+import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
 import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -70,6 +73,13 @@ public class BirchBark extends Feature {
                     .addWalkableSurface(Material.sand, 0.02f);
                 i.setRepairCost(2);
             });
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void client(FeatureClientSpecBuilder client) {
+        client.nei()
+            .hide(BidsItems.flatBirchBark);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.dryingsurface;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -49,6 +50,9 @@ public class DryingSurface extends Feature {
 
         client.waila()
             .data(new DryingSurfaceWailaProvider(), TileEntityDryingSurface.class);
+
+        client.nei()
+            .hide(BidsBlocks.dryingSurface);
     }
 
     @Override

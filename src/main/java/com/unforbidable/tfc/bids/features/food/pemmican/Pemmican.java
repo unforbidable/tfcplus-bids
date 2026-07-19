@@ -34,6 +34,9 @@ public class Pemmican extends Feature {
     public void client(FeatureClientSpecBuilder client) {
         client.render(new FoodItemRenderer())
             .item(BidsItems.pemmican);
+
+        client.nei()
+            .hide(BidsItems.pemmican);
     }
 
     @Override

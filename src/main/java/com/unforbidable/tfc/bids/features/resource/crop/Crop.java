@@ -4,6 +4,7 @@ import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.Enums.EnumRegion;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
@@ -113,6 +114,11 @@ public class Crop extends Feature {
 
         client.event()
             .handler(new FarmlandHighlightHandler());
+
+        client.nei()
+            .hide(BidsBlocks.newCrops)
+            .hide(BidsBlocks.newTilledSoil)
+            .hide(BidsBlocks.newTilledSoil2);
     }
 
     @Override

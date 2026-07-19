@@ -42,7 +42,8 @@ public class Cooking extends Feature {
     @Override
     public void client(FeatureClientSpecBuilder client) {
         client.nei()
-            .handler(new CookingNeiHandler());
+            .handler(new CookingNeiHandler())
+            .hide(BidsItems.cookingMixture);
     }
 
     @Override

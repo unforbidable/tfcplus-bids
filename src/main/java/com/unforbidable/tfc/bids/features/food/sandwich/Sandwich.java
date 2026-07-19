@@ -45,6 +45,11 @@ public class Sandwich extends Feature {
             .item(BidsItems.stuffedPepper)
             .item(BidsItems.stuffedMushroom)
             .item(BidsItems.wrap);
+
+        client.nei()
+            .hide(BidsItems.stuffedPepper)
+            .hide(BidsItems.stuffedMushroom)
+            .hide(BidsItems.wrap);
     }
 
     @Override

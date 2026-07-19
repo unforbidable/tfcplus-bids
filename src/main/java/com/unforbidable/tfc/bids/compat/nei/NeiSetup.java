@@ -3,8 +3,6 @@ package com.unforbidable.tfc.bids.compat.nei;
 import codechicken.nei.api.API;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiHandlerEntry;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiHiderEntry;
 import com.unforbidable.tfc.bids.compat.nei.registry.NeiRegistry;
@@ -57,70 +55,6 @@ public class NeiSetup {
 
         NeiRegistry.hiders.stream()
             .forEach(NeiSetup::hide);
-
-        // TODO hide from NEI
-//        hideItem(BidsItems.flatGlass);
-//        hideItem(BidsItems.flatBirchBark);
-//
-//        hideItem(BidsItems.stuffedPepper);
-//        hideItem(BidsItems.stuffedMushroom);
-//        hideItem(BidsItems.pemmican);
-//        hideItem(BidsItems.cookingMixture);
-//        hideItem(BidsItems.stew);
-//        hideItem(BidsItems.soup);
-//        hideItem(BidsItems.porridge);
-//
-//        hideBlock(BidsBlocks.clayCrucible, 2);
-//        hideBlock(BidsBlocks.carvingRock);
-//        hideBlock(BidsBlocks.carvingWood);
-//        hideBlock(BidsBlocks.quarry);
-//        hideBlock(BidsBlocks.woodPile);
-//        hideBlock(BidsBlocks.newFirepit);
-//        hideBlock(BidsBlocks.dryingRack);
-//        hideBlock(BidsBlocks.dryingSurface);
-//        hideBlock(BidsBlocks.soakingSurface);
-//        hideBlock(BidsBlocks.processingSurface);
-//        hideBlock(BidsBlocks.tiedStickBundle);
-//
-//        hideBlock(BidsBlocks.logWallEastAlt);
-//        hideBlock(BidsBlocks.logWallEastAlt2);
-//        hideBlock(BidsBlocks.logWallEastAlt3);
-//        hideBlock(BidsBlocks.logWallNorth);
-//        hideBlock(BidsBlocks.logWallNorth2);
-//        hideBlock(BidsBlocks.logWallNorth3);
-//        hideBlock(BidsBlocks.logWallNorthAlt);
-//        hideBlock(BidsBlocks.logWallNorthAlt2);
-//        hideBlock(BidsBlocks.logWallNorthAlt3);
-//        hideBlock(BidsBlocks.logWallCorner);
-//        hideBlock(BidsBlocks.logWallCorner2);
-//        hideBlock(BidsBlocks.logWallCorner3);
-//        hideBlock(BidsBlocks.logWallCornerAlt);
-//        hideBlock(BidsBlocks.logWallCornerAlt2);
-//        hideBlock(BidsBlocks.logWallCornerAlt3);
-//
-//        hideBlock(BidsBlocks.logWallVertAlt);
-//        hideBlock(BidsBlocks.logWallVertAlt2);
-//        hideBlock(BidsBlocks.logWallVertAlt3);
-//
-//        hideBlock(BidsBlocks.steamingMesh);
-//
-//        hideBlock(BidsBlocks.newCrops);
-//        hideBlock(BidsBlocks.newTilledSoil);
-//        hideBlock(BidsBlocks.newTilledSoil2);
-//
-//        hideBlock(BidsBlocks.screwPressRackMiddle);
-//        hideBlock(BidsBlocks.screwPressRackTop);
-//        hideBlock(BidsBlocks.screwPressLeverTop);
-//
-//        // meta 11 does not exist but NEI still tries to show it and causes errors
-//        hideBlock(BidsBlocks.unfinishedAnvilStage1, 11);
-//        hideBlock(BidsBlocks.unfinishedAnvilStage2, 11);
-//        hideBlock(BidsBlocks.unfinishedAnvilStage3, 11);
-//        hideBlock(BidsBlocks.unfinishedAnvilStage4, 11);
-//        hideBlock(BidsBlocks.unfinishedAnvilStage5, 11);
-//        hideBlock(BidsBlocks.unfinishedAnvilStage6, 11);
-//
-//        hideBlock(BidsBlocks.light);
     }
 
     private static void hide(NeiHiderEntry neiHiderEntry) {

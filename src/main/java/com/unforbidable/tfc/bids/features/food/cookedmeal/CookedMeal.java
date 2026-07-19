@@ -53,6 +53,12 @@ public class CookedMeal extends Feature {
             .item(BidsItems.soup)
             .item(BidsItems.porridge)
             .item(BidsItems.omelet);
+
+        client.nei()
+            .hide(BidsItems.stew)
+            .hide(BidsItems.soup)
+            .hide(BidsItems.porridge)
+            .hide(BidsItems.omelet);
     }
 
     @Override

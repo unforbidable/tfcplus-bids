@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.utility.unfinishedanvil;
 
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.names.AnvilRules;
 import com.unforbidable.tfc.bids.compat.tfc.names.Skills;
@@ -50,6 +51,15 @@ public class UnfinishedAnvil extends Feature {
     public void client(FeatureClientSpecBuilder client) {
         client.render(new RenderUnfinishedAnvil())
             .block(BlockUnfinishedAnvil.class);
+
+        // meta 11 does not exist but NEI still tries to show it and causes errors
+        client.nei()
+            .hide(BidsBlocks.unfinishedAnvilStage1, 11)
+            .hide(BidsBlocks.unfinishedAnvilStage2, 11)
+            .hide(BidsBlocks.unfinishedAnvilStage3, 11)
+            .hide(BidsBlocks.unfinishedAnvilStage4, 11)
+            .hide(BidsBlocks.unfinishedAnvilStage5, 11)
+            .hide(BidsBlocks.unfinishedAnvilStage6, 11);
     }
 
     @Override

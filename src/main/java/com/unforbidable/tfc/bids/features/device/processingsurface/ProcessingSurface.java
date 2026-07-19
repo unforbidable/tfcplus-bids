@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.device.processingsurface;
 
 import com.dunk.tfc.Core.Recipes;
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -51,6 +52,9 @@ public class ProcessingSurface extends Feature {
 
         client.waila()
             .data(new ProcessingSurfaceWailaProvider(), TileEntityProcessingSurface.class);
+
+        client.nei()
+            .hide(BidsBlocks.processingSurface);
     }
 
     @Override

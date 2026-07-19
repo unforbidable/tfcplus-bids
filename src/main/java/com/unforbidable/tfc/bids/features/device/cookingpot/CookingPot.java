@@ -64,6 +64,9 @@ public class CookingPot extends Feature {
 
         client.waila()
             .data(new CookingPotWailaProvider(), TileEntityCookingPot.class);
+
+        client.nei()
+            .hide(BidsBlocks.steamingMesh);
     }
 
     @Override

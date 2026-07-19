@@ -1,7 +1,9 @@
 package com.unforbidable.tfc.bids.features.building.logwall;
 
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
+import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
@@ -20,6 +22,8 @@ import com.unforbidable.tfc.bids.features.building.logwall.main.LogWallType;
 import com.unforbidable.tfc.bids.features.building.logwall.main.LogWallVertType;
 import com.unforbidable.tfc.bids.features.building.logwall.main.carvable.CarvableLogWall;
 import com.unforbidable.tfc.bids.features.building.logwall.main.carvable.CarvableLogWallVert;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 import static com.unforbidable.tfc.bids.api.names.BlockNames.LOG_WALL_CORNER;
 import static com.unforbidable.tfc.bids.api.names.BlockNames.LOG_WALL_CORNER_2;
@@ -105,6 +109,30 @@ public class LogWall extends Feature {
             .fireInfo(5, 5);
         init.block(LOG_WALL_VERT_ALT_3, () -> new BlockLogWallVert(LogWallVertType.ALT, 32), ItemLogWallVert32.class)
             .fireInfo(5, 5);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void client(FeatureClientSpecBuilder client) {
+        client.nei()
+            .hide(BidsBlocks.logWallEastAlt)
+            .hide(BidsBlocks.logWallEastAlt2)
+            .hide(BidsBlocks.logWallEastAlt3)
+            .hide(BidsBlocks.logWallNorth)
+            .hide(BidsBlocks.logWallNorth2)
+            .hide(BidsBlocks.logWallNorth3)
+            .hide(BidsBlocks.logWallNorthAlt)
+            .hide(BidsBlocks.logWallNorthAlt2)
+            .hide(BidsBlocks.logWallNorthAlt3)
+            .hide(BidsBlocks.logWallCorner)
+            .hide(BidsBlocks.logWallCorner2)
+            .hide(BidsBlocks.logWallCorner3)
+            .hide(BidsBlocks.logWallCornerAlt)
+            .hide(BidsBlocks.logWallCornerAlt2)
+            .hide(BidsBlocks.logWallCornerAlt3)
+            .hide(BidsBlocks.logWallVertAlt)
+            .hide(BidsBlocks.logWallVertAlt2)
+            .hide(BidsBlocks.logWallVertAlt3);
     }
 
     @Override
