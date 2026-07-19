@@ -20,6 +20,7 @@ public class TfcInit extends Initializable {
     @Override
     public void init(FMLInitializationEvent event) {
         TfcSetup.setupRecipes();
+        TfcSetup.setupBarrelRecipes();
         TfcSetup.setupGlassblowing();
         TfcSetup.setupCarving();
 

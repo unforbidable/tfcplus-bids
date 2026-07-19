@@ -1,10 +1,12 @@
 package com.unforbidable.tfc.bids.compat.tfc;
 
+import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableBrick;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableFireBrick;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableMudBrick;
@@ -15,14 +17,15 @@ import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableStackedLogs;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableStoneBrick;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableStoneLargeBrick;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableWoodVert;
+import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipe;
+import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManager;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.core.drink.DrinkRegistry;
 import com.unforbidable.tfc.bids.core.drink.registry.DrinkFluid;
-import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
@@ -198,6 +201,42 @@ public class TfcSetup {
             TFCItems.unstrungCompositeBow, "materialBindingStrong");
 
         recipes.flush();
+    }
+
+    public static void setupBarrelRecipes() {
+        TfcRegistry.Recipes.barrel.add(BarrelRecipe.addAlcohol(builder -> builder
+            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.riceGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000))
+            .produces(new FluidStack(TFCFluids.RICEBEER, 5000))
+            .withMinTechLevel(0).requiringCooked(true)));
+        TfcRegistry.Recipes.barrel.add(BarrelRecipe.addAlcohol(builder -> builder
+            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.wheatGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000))
+            .produces(new FluidStack(TFCFluids.WHEATBEER, 5000))
+            .withMinTechLevel(0).requiringCooked(true)));
+        TfcRegistry.Recipes.barrel.add(BarrelRecipe.addAlcohol(builder -> builder
+            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.ryeGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000))
+            .produces(new FluidStack(TFCFluids.RYEBEER, 5000))
+            .withMinTechLevel(0).requiringCooked(true)));
+        TfcRegistry.Recipes.barrel.add(BarrelRecipe.addAlcohol(builder -> builder
+            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.barleyGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000))
+            .produces(new FluidStack(TFCFluids.BEER, 5000))
+            .withMinTechLevel(0).requiringCooked(true)));
+        TfcRegistry.Recipes.barrel.add(BarrelRecipe.addAlcohol(builder -> builder
+            .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.cornGerm), 80, true), new FluidStack(TFCFluids.FRESHWATER, 5000))
+            .produces(new FluidStack(TFCFluids.CORNBEER, 5000))
+            .withMinTechLevel(0).requiringCooked(true)));
+
+        TfcRegistry.Recipes.barrel.add(BarrelRecipe.addLiquidToLiquid(builder -> builder
+            .consumes(new FluidStack(TFCFluids.SALTWATER, 4500), new FluidStack(TFCFluids.VINEGAR, 500))
+            .produces(new FluidStack(TFCFluids.BRINE, 5000))
+            .withSealTime(0).withMinTechLevel(0).beingSealed(false).removingLiquid(false)));
+        TfcRegistry.Recipes.barrel.add(BarrelRecipe.addLiquidToLiquid(builder -> builder
+            .consumes(new FluidStack(TFCFluids.MILK, 4500), new FluidStack(TFCFluids.VINEGAR, 500))
+            .produces(new FluidStack(TFCFluids.MILKVINEGAR, 5000))
+            .withSealTime(0).withMinTechLevel(0).beingSealed(false).removingLiquid(false)));
+        TfcRegistry.Recipes.barrel.add(BarrelRecipe.addLiquidToLiquid(builder -> builder
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 4500), new FluidStack(TFCFluids.HONEY, 500))
+            .produces(new FluidStack(TFCFluids.HONEYWATER, 5000))
+            .withSealTime(0).withMinTechLevel(0).beingSealed(false).removingLiquid(false)));
     }
 
 }
