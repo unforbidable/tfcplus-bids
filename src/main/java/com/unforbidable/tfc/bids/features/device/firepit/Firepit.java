@@ -32,6 +32,7 @@ import com.unforbidable.tfc.bids.features.device.firepit.waila.FirepitWailaProvi
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import static com.unforbidable.tfc.bids.api.names.BlockNames.FIREPIT;
 import static com.unforbidable.tfc.bids.api.names.BlockNames.TIED_STICK_BUNDLE;
@@ -84,6 +85,25 @@ public class Firepit extends Feature {
         setup.event()
             .handler(new FirepitInteractHandler());
 
+        setup.recipes().addShapeless(new ItemStack(BidsItems.smallStickBundle),
+            "stickWood", "stickWood", "stickWood");
+        setup.recipes().addShapeless(new ItemStack(TFCItems.stick, 3),
+            BidsItems.smallStickBundle);
+
+        setup.recipes().addShapeless(new ItemStack(BidsItems.kindling),
+            "stickWood", "stickWood", "stickWood", TFCItems.straw);
+        setup.recipes().addShapeless(new ItemStack(BidsItems.kindling),
+            BidsItems.smallStickBundle, TFCItems.straw);
+
+        setup.recipes().addShapeless(new ItemStack(BidsItems.tiedStickBundle),
+            BidsItems.smallStickBundle, new ItemStack(BidsItems.smallStickBundle),
+            BidsItems.smallStickBundle, TFCItems.grassCordage);
+        setup.recipes().addShapeless(new ItemStack(BidsItems.tiedStickBundle),
+            TFCItems.stickBundle, TFCItems.grassCordage);
+
+        setup.recipes().addShapeless(new ItemStack(TFCItems.stick, 9),
+            BidsItems.tiedStickBundle);
+
         setup.registry(FirepitRegistry.fuel)
             .add(BidsItems.kindling, (FirepitFuelMaterial) BidsItems.kindling)
             .add(BidsItems.smallStickBundle, (FirepitFuelMaterial) BidsItems.smallStickBundle)
@@ -92,10 +112,6 @@ public class Firepit extends Feature {
             .add(TFCItems.fireStarter, new FuelStickTFC())
             .add(TFCItems.stickBundle, new FuelStickBundleTFC())
             .add(Item.getItemFromBlock(TFCBlocks.peat), new FuelPeatTFC());
-            //.add(BidsItems.bark, (FirepitFuelMaterial) BidsItems.bark)
-            //.add(BidsItems.barkFibreKindling, (FirepitFuelMaterial) BidsItems.barkFibreKindling)
-            //.add(BidsItems.birchBarkKindling, (FirepitFuelMaterial) BidsItems.birchBarkKindling)
-            //.add(BidsItems.firewoodSeasoned, (FirepitFuelMaterial) BidsItems.firewoodSeasoned)
 
         if (FirepitConfig.allowFuelLogsTFC) {
             setup.registry(FirepitRegistry.fuel)
