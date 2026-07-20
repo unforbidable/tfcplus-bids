@@ -370,7 +370,7 @@ public class BidsItems {
     public static final Item soapyWaterBottle = item(ItemNames.BOTTLE_SOAPY_WATER);
 
     private static Item item(String name) {
-        Item item = GameRegistry.findItem(Tags.MOD_ID, name);
+        Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {
             Bids.LOG.error("Item not found in game registry: {}", name);
         }

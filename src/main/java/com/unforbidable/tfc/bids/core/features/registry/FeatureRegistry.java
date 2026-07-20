@@ -118,7 +118,7 @@ public class FeatureRegistry {
     public void registerItem(ItemRegistryEntry entry) {
         Bids.LOG.info("Register item '{}'", entry.spec.name);
 
-        GameRegistry.registerItem(entry.instance, entry.spec.name);
+        GameRegistry.registerItem(entry.instance, entry.instance.getUnlocalizedName());
     }
 
     public void registerFluid(FluidSpec<?> spec) {
