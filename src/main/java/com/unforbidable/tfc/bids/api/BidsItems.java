@@ -358,6 +358,7 @@ public class BidsItems {
     public static final Item flaxSeeds = item(ItemNames.FLAX_SEEDS);
     public static final Item flaxSeedOilBottle = item(ItemNames.BOTTLE_FLAX_SEED_OIL);
     public static final Item flaxSeedOilBowl = item(ItemNames.BOWL_FLAX_SEED_OIL);
+    public static final Item potteryJugFlaxSeedOil = item(ItemNames.JUG_FLAX_SEED_OIL);
 
     // Soap
     public static final Item soap = item(ItemNames.SOAP);

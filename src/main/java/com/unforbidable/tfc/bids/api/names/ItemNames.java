@@ -261,6 +261,7 @@ public interface ItemNames {
     String FLAX_SEEDS = "Flax Seeds";
     String BOTTLE_FLAX_SEED_OIL = "Glass Bottle.FlaxSeedOil";
     String BOWL_FLAX_SEED_OIL = "Bowl Flax Seed Oil";
+    String JUG_FLAX_SEED_OIL = "Pottery Jug.FlaxSeedOil";
 
     // Crushed Fruit
     String APPLE_CRUSHED = "Apple Crushed";

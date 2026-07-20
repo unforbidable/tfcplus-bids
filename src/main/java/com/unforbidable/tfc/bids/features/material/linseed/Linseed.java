@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.common.fluid.FluidCommon;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemBowlFluid;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemGlassBottleFluid;
+import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemPotteryFluid;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -42,8 +43,8 @@ public class Linseed extends Feature {
         init.item(ItemNames.FLAX_SEEDS, () -> new ItemExtraFood(EnumFoodGroup.Protein, 10, 0, 0, 10, 0))
             .food(0.01f);
 
-        // TODO Add jug of linseed (FEATURE)
         init.item(ItemNames.BOTTLE_FLAX_SEED_OIL, ItemGlassBottleFluid::new);
+        init.item(ItemNames.JUG_FLAX_SEED_OIL, ItemPotteryFluid::new);
         init.item(ItemNames.BOWL_FLAX_SEED_OIL, ItemBowlFluid::new)
             .meta("PotteryBowl", "Bowl");
     }
@@ -59,6 +60,7 @@ public class Linseed extends Feature {
     public void setup(FeatureSetupBuilder setup) {
         setup.fluid(BidsFluids.flaxSeedOil)
             .container(BidsItems.flaxSeedOilBottle, 1000, true, TFCItems.glassBottle)
+            .container(BidsItems.potteryJugFlaxSeedOil, 1000, true, TFCItems.potteryJug, 1)
             .container(BidsItems.flaxSeedOilBowl, 0, 250, false, TFCItems.potteryBowl, 1)
             .container(BidsItems.flaxSeedOilBowl, 1, 250, false, TFCItems.potteryBowl, 2);
 
