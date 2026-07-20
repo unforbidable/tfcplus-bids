@@ -44,7 +44,7 @@ public class Milk extends Feature {
                 .setFoodGroup(EnumFoodGroup.Dairy)
                 .setCalories(0.642f)
                 .setWaterRestoreRatio(1f));
-        init.item(ItemNames.JUG_GOAT_MILK, () -> new ItemCommonDrink(1000, true, 0, 20, 40, 60, 80, 100))
+        init.item(ItemNames.JUG_GOAT_MILK, () -> new ItemCommonDrink(1000, true))
             .apply(i -> i.setCanDrinkInParts(true)
                 .setFoodGroup(EnumFoodGroup.Dairy)
                 .setCalories(0.642f)

@@ -210,7 +210,7 @@ public class FeatureRegistry {
 
         ItemRegistryEntry item = items.get(spec.name);
         DrinkRegistry.vessels.add(new DrinkVessel(item.instance, spec.drink.volume,
-            spec.drink.pottery, spec.overlay != null ? spec.overlay.partialOverlays : new int[] {0, 100}));
+            spec.drink.pottery, spec.overlay != null ? spec.overlay.partialOverlays : new int[] {}));
     }
 
     public void registerOre(OreGroup ore) {
