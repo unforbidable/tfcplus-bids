@@ -34,7 +34,7 @@ public class CarvingBit {
         }
 
         if (bitX >= dimension || bitY >= dimension || bitZ >= dimension ||
-                bitX < 0 || bitY < 0 || bitX < 0) { // TODO should be bitZ?
+                bitX < 0 || bitY < 0 || bitZ < 0) {
             Bids.LOG.warn("Trying to use an out of bounds bit: " + bitX + ", " + bitY + ", " + bitZ);
             return 0;
         }
