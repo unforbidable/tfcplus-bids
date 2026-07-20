@@ -200,7 +200,7 @@ public class Textile extends Feature {
         setup.recipes().addShapeless(new ItemStack(BidsItems.flaxStalk),
                 TFCItems.flax, "itemScrapingTool")
             .action(damageTool("itemScrapingTool"))
-            .action(extraDrop(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 6)));
+            .action(extraDrop(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 2)));
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.juteStalk),
                 TFCItems.jute, "itemScrapingTool")
