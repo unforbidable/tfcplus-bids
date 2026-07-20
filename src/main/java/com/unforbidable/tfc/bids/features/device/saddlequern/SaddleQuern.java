@@ -156,8 +156,6 @@ public class SaddleQuern extends Feature {
             }
         }
 
-        // TODO investigate how come only food stuff can be processed but other recipes exist
-
         setup.registry(SaddleQuernRegistry.recipes)
             .add(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 2, 9), // Salt
                 new ItemStack(TFCItems.looseRock, 1, 5)));
@@ -191,8 +189,6 @@ public class SaddleQuern extends Feature {
                 .add(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 2, 6), // Lapis Lazuli
                     new ItemStack(TFCItems.oreChunk, 1, 318)));
         }
-
-        // TODO more stone press recipes to respective features
 
         // TODO consider maintaining a single list of universal pressing recipes, adapted for stone press and screw press
 

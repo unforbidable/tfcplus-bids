@@ -525,7 +525,18 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory, Pac
 
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 } else {
-                    Bids.LOG.warn("Only food stuffs are supported");
+                    storage[SLOT_OUTPUT_STACK] = output;
+
+                    input.stackSize -= 1;
+                    if (input.stackSize == 0) {
+                        storage[SLOT_INPUT_STACK] = null;
+                    }
+
+                    Bids.LOG.debug("Output: " + output.getDisplayName());
+
+                    clientNeedToUpdate = true;
+
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 }
             } else {
                 Bids.LOG.warn("Recipe not found for: " + input.getDisplayName());
@@ -565,10 +576,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory, Pac
 
                 // First look for existing stack anywhere in the container
                 for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
-                    if (inv.getStackInSlot(slot) != null
-                            && inv.getStackInSlot(slot).getItem() == output.getItem()) {
+                    ItemStack existing = inv.getStackInSlot(slot);
+                    if (existing != null && existing.getItem() == output.getItem()) {
                         if (output.getItem() instanceof IFood) {
-                            ItemStack existing = inv.getStackInSlot(slot);
                             float existingWeight = Food.getWeight(existing);
 
                             if (existingWeight < Global.FOOD_MAX_WEIGHT) {
@@ -614,7 +624,14 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory, Pac
                                 }
                             }
                         } else {
-                            Bids.LOG.warn("Only food stuffs are supported");
+                            if (existing.getItemDamage() == output.getItemDamage()) {
+                                int canBeAdded = existing.getMaxStackSize() - existing.stackSize;
+                                if (canBeAdded > 0) {
+                                    int isAdded = Math.min(canBeAdded, output.stackSize);
+                                    existing.stackSize += isAdded;
+                                    output.stackSize -= isAdded;
+                                }
+                            }
                         }
                     }
 
