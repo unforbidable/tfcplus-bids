@@ -134,8 +134,6 @@ public class ChoppingNeiHandler extends TemplateRecipeHandler implements IHandle
             return new PositionedStack(ingred, 39, 24);
         }
 
-        // TODO show extra drop (FEATURE)
-
         @Override
         public List<PositionedStack> getOtherStacks() {
             List<PositionedStack> list = new ArrayList<PositionedStack>();

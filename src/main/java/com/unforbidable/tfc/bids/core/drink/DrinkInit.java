@@ -8,8 +8,6 @@ public class DrinkInit extends Initializable {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        // TODO check IDs are unique
-
         // Register fluid containers based on registered drinks
         Bids.LOG.info("Register drink fluid containers");
         DrinkRegistry.vessels.stream()

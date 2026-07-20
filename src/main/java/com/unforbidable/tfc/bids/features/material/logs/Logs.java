@@ -61,12 +61,6 @@ public class Logs extends Feature {
             .add(BidsItems.peeledLogSeasoned);
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            // TODO allow TFC logs only if configured (FEATURE)
-//            if (wood.hardwood) {
-//                OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getLog());
-//                OreDictionary.registerOre("logWoodPlugAndFeather", wood.items.getChoppedLog());
-//            }
-
             if (wood.items.hasLog()) {
                 setup.ores("logWoodAny")
                     .add(wood.items.getLog());

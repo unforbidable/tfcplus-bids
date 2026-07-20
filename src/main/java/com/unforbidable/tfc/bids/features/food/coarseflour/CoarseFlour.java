@@ -41,8 +41,6 @@ public class CoarseFlour extends Feature {
         init.item(ItemNames.CORN_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Grain, 25, 0, 0, 0, 20))
             .food(1.5f, false, false)
             .apply(i -> i.setIngredientOverride(TFCItems.maizeEar));
-
-        // TODO porridge made by cooking coarse flour in water finally discontinued?
     }
 
     @SideOnly(Side.CLIENT)

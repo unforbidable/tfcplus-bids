@@ -111,7 +111,6 @@ public class Woodpile extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-        // TODO check split log rendering when peeled logs / log walls are added
         setup.registry(WoodpileRegistry.renderable)
             .add(TFCItems.logs, new RenderableLogsTFC())
             .add(TFCItems.thickLogs, new RenderableThickLogsTFC());

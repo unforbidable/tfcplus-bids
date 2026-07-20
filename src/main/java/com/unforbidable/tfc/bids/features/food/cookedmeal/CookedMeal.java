@@ -59,8 +59,6 @@ public class CookedMeal extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-        // TODO each cooking mixture represented by its own Fluid
-
         CookingMixture beanMixture = new CookingMixture("bean", 0x99420f);
         CookingMixture beanWaterMixture = new CookingMixture("beanWater", 0x996140);
         CookingMixture beanStewMixture = new CookingMixture("beanStew", 0x693111,
