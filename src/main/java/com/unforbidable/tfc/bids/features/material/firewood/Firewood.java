@@ -92,7 +92,7 @@ public class Firewood extends Feature {
             if (wood.items.hasSeasonedFirewood()) {
                 setup.recipes().addShapeless(wood.items.getSeasonedFirewood(),
                         wood.getOreWithSuffix("logWoodSeasoned"), "itemAxe")
-                    .action(damageTool("itemAdze")) // TODO wrong tool damaged (FIX)
+                    .action(damageTool("itemAxe"))
                     .action(extraDrop(wood.items.getBark(), BarkConfig.dropSplittingSeasonedChance));
 
                 if (wood.items.hasSeasonedLog()) {
