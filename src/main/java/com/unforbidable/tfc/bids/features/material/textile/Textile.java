@@ -187,15 +187,22 @@ public class Textile extends Feature {
             .add(TFCItems.pole)
             .add(TFCItems.stick);
 
+        setup.ores("materialFiber")
+            .add(BidsItems.barkFiberCoarse, BidsItems.barkFiberSmooth)
+            .add(BidsItems.flaxFiberCoarse, BidsItems.flaxFiberRefined)
+            .add(BidsItems.juteFiberCoarse, BidsItems.juteFiberRefined)
+            .add(BidsItems.sisalFiberCoarse, BidsItems.sisalFiberRefined)
+            .add(BidsItems.woolFiberCoarse, BidsItems.woolFiberRefined)
+            .add(BidsItems.cottonFiberCoarse, BidsItems.cottonFiberRefined);
+
+        setup.recipes().addShapeless(new ItemStack(BidsItems.barkFibreKindling),
+            "stickWood", "stickWood", "stickWood", "materialFiber");
+        setup.recipes().addShapeless(new ItemStack(BidsItems.barkFibreKindling),
+            BidsItems.smallStickBundle, "materialFiber");
+
         setup.recipes().addShapeless(new ItemStack(BidsItems.barkFiber),
                 "itemBarkHasFibers", "itemScrapingTool")
             .action(damageTool("itemScrapingTool"));
-
-        // TODO allow refined bark fiber to make kindling (FEATURE)
-        setup.recipes().addShapeless(new ItemStack(BidsItems.barkFibreKindling),
-            "stickWood", "stickWood", "stickWood", BidsItems.barkFiberCoarse);
-        setup.recipes().addShapeless(new ItemStack(BidsItems.barkFibreKindling),
-            BidsItems.smallStickBundle, BidsItems.barkFiberCoarse);
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.flaxStalk),
                 TFCItems.flax, "itemScrapingTool")
