@@ -12,6 +12,9 @@ import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
+import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
+import com.unforbidable.tfc.bids.core.network.Network;
+import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuernRegistry;
 import com.unforbidable.tfc.bids.features.device.saddlequern.StonePressRegistry;
 import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockWorkStone;
@@ -30,7 +33,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 
-public class TileEntitySaddleQuern extends TileEntity implements IInventory {
+public class TileEntitySaddleQuern extends TileEntity implements IInventory, PacketHandler<SimpleUpdatePacket> {
 
     public static final int MAX_STORAGE = 3;
 
@@ -65,6 +68,8 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
     WorkStoneType cachedWorkStoneType = WorkStoneType.NONE;
     boolean isCachedWorkStoneTypeValid = false;
+
+    boolean clientNeedToUpdate = false;
 
     public TileEntitySaddleQuern() {
         super();
@@ -135,10 +140,14 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                 worldObj.spawnEntityInWorld(ei);
 
                 storage[SLOT_INPUT_STACK] = null;
+
+                clientNeedToUpdate = true;
             }
         }
 
-        updateClient();
+        if (worldObj != null && !worldObj.isRemote) {
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        }
 
         return true;
     }
@@ -170,7 +179,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
         isCachedWorkStoneTypeValid = false;
 
-        updateClient();
+        clientNeedToUpdate = true;
+
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
         return true;
     }
@@ -199,7 +210,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
             }
         }
 
-        updateClient();
+        clientNeedToUpdate = true;
+
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
         return true;
     }
@@ -239,7 +252,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
         storage[SLOT_INPUT_STACK] = null;
 
-        updateClient();
+        clientNeedToUpdate = true;
+
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
         return true;
     }
@@ -257,7 +272,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
             worldObj.playSoundEffect(xCoord, yCoord, zCoord, TFC_Sounds.STONEDRAG, 1, 1);
 
-            updateClient();
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
             operationTimer.delay(OPERATION_TICKS);
         }
@@ -271,21 +286,22 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
         return operationTimer.getTicksToGo() > 0;
     }
 
-    private void updateClient() {
-        if (worldObj != null && !worldObj.isRemote) {
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        }
-    }
-
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
+            // When inventory content changes
+            if (clientNeedToUpdate) {
+                sendUpdateMessage();
+
+                clientNeedToUpdate = false;
+            }
+
             if (cancelOperationTimer.tick()) {
                 Bids.LOG.debug("Quern hand stone is no longer used");
 
                 isWorking = false;
 
-                updateClient();
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
 
             if (decayTimer.tick()) {
@@ -321,7 +337,6 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                     Bids.LOG.debug("Pressing stopped");
                 }
             }
-
         } else {
             if (isWorking || workStoneStage > 0) {
                 workStoneStage++;
@@ -350,7 +365,7 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                 nextPressOperationTicks += PRESSING_DELAY;
             }
 
-            updateClient();
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 
@@ -506,7 +521,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
                     Bids.LOG.debug("Output: " + output.getDisplayName() + " weight: " + Food.getWeight(output));
 
-                    updateClient();
+                    clientNeedToUpdate = true;
+
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 } else {
                     Bids.LOG.warn("Only food stuffs are supported");
                 }
@@ -528,7 +545,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
 
             storage[SLOT_OUTPUT_STACK] = null;
 
-            updateClient();
+            clientNeedToUpdate = true;
+
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 
@@ -625,7 +644,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                     storage[SLOT_OUTPUT_STACK] = null;
                 }
 
-                updateClient();
+                clientNeedToUpdate = true;
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
         }
     }
@@ -771,7 +792,9 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
                 // Item has decayed out of existence
                 storage[slot] = null;
 
-                updateClient();
+                clientNeedToUpdate = true;
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
         } else {
             if (storage[slot] != null) {
@@ -815,6 +838,17 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory {
     @Override
     public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
         return false;
+    }
+
+    public void sendUpdateMessage() {
+        Network.sendToTileEntity(new SimpleUpdatePacket(), this);
+        Bids.LOG.debug("Sent update message");
+    }
+
+    @Override
+    public void handleNetworkPacket(SimpleUpdatePacket packet) {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        Bids.LOG.debug("Client updated at [{},{},{}]", xCoord, yCoord, zCoord);
     }
 
 }
