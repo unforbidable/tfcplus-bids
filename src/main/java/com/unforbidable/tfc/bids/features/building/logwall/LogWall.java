@@ -34,57 +34,81 @@ public class LogWall extends Feature {
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.block(BlockNames.LOG_WALL_EAST, () -> new BlockLogWall(LogWallType.EAST, 0), ItemLogWall.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_NORTH, () -> new BlockLogWall(LogWallType.NORTH, 0), ItemLogWall.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_CORNER, () -> new BlockLogWall(LogWallType.CORNER, 0), ItemLogWall.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_EAST_ALT, () -> new BlockLogWall(LogWallType.EAST_ALT, 0), ItemLogWall.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_NORTH_ALT, () -> new BlockLogWall(LogWallType.NORTH_ALT, 0), ItemLogWall.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_CORNER_ALT, () -> new BlockLogWall(LogWallType.CORNER_ALT, 0), ItemLogWall.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
 
         init.block(BlockNames.LOG_WALL_EAST_2, () -> new BlockLogWall(LogWallType.EAST, 16), ItemLogWall16.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_NORTH_2, () -> new BlockLogWall(LogWallType.NORTH, 16), ItemLogWall16.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_CORNER_2, () -> new BlockLogWall(LogWallType.CORNER, 16), ItemLogWall16.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_EAST_ALT_2, () -> new BlockLogWall(LogWallType.EAST_ALT, 16), ItemLogWall16.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_NORTH_ALT_2, () -> new BlockLogWall(LogWallType.NORTH_ALT, 16), ItemLogWall16.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_CORNER_ALT_2, () -> new BlockLogWall(LogWallType.CORNER_ALT, 16), ItemLogWall16.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
 
         init.block(BlockNames.LOG_WALL_EAST_3, () -> new BlockLogWall(LogWallType.EAST, 32), ItemLogWall32.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_NORTH_3, () -> new BlockLogWall(LogWallType.NORTH, 32), ItemLogWall32.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_CORNER_3, () -> new BlockLogWall(LogWallType.CORNER, 32), ItemLogWall32.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_EAST_ALT_3, () -> new BlockLogWall(LogWallType.EAST_ALT, 32), ItemLogWall32.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_NORTH_ALT_3, () -> new BlockLogWall(LogWallType.NORTH_ALT, 32), ItemLogWall32.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_CORNER_ALT_3, () -> new BlockLogWall(LogWallType.CORNER_ALT, 32), ItemLogWall32.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
 
         init.block(BlockNames.LOG_WALL_VERT, () -> new BlockLogWallVert(LogWallVertType.DEFAULT, 0), ItemLogWallVert.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_VERT_ALT, () -> new BlockLogWallVert(LogWallVertType.ALT, 0), ItemLogWallVert.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
 
         init.block(BlockNames.LOG_WALL_VERT_2, () -> new BlockLogWallVert(LogWallVertType.DEFAULT, 16), ItemLogWallVert16.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_VERT_ALT_2, () -> new BlockLogWallVert(LogWallVertType.ALT, 16), ItemLogWallVert16.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
 
         init.block(BlockNames.LOG_WALL_VERT_3, () -> new BlockLogWallVert(LogWallVertType.DEFAULT, 32), ItemLogWallVert32.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
         init.block(BlockNames.LOG_WALL_VERT_ALT_3, () -> new BlockLogWallVert(LogWallVertType.ALT, 32), ItemLogWallVert32.class)
+            .harvest("adze", 0)
             .fireInfo(5, 5);
     }
 

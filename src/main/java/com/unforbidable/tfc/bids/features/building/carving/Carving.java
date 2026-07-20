@@ -33,7 +33,7 @@ public class Carving extends Feature {
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.block(BlockNames.CARVING_ROCK, () -> new BlockCarving(Material.rock))
-            .harvest("shovel", 0);
+            .harvest("pickaxe", 0);
 
         init.block(BlockNames.CARVING_WOOD, () -> new BlockCarving(Material.wood))
             .harvest("axe", 0)

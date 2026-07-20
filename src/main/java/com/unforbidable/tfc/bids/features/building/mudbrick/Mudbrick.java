@@ -42,10 +42,10 @@ public class Mudbrick extends Feature {
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.block(BlockNames.MUD_BRICK_CHIMNEY, () -> new BlockMudbrickChimney(0), ItemMudbrickChimney.class)
-            .harvest("shovel", 0)
+            .harvest("adze", 0)
             .apply(b -> b.setDirt(TFCBlocks.dirt));
         init.block(BlockNames.MUD_BRICK_CHIMNEY_2, () -> new BlockMudbrickChimney(16), ItemMudbrickChimney.class)
-            .harvest("shovel", 0)
+            .harvest("adze", 0)
             .apply(b -> b.setDirt(TFCBlocks.dirt2));
 
         init.tileEntity(TileEntityMudBrickChimney.class, "BidsChimney");

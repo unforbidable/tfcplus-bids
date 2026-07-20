@@ -51,32 +51,23 @@ public class Adze extends Feature {
         init.item(ItemNames.ADZE_HEAD_WROUGHT_IRON, () -> new ItemCommonToolHead(TFCItems.ironToolMaterial));
 
         init.item(ItemNames.ADZE_STONE_SED, () -> new ItemAdze(TFCItems.sedToolMaterial))
-            .harvest("shovel", 1)
-            .harvest("axe", 1);
+            .harvest("adze", 1);
         init.item(ItemNames.ADZE_STONE_MM, () -> new ItemAdze(TFCItems.mMToolMaterial))
-            .harvest("shovel", 1)
-            .harvest("axe", 1);
+            .harvest("adze", 1);
         init.item(ItemNames.ADZE_STONE_IG_EX, () -> new ItemAdze(TFCItems.igExToolMaterial))
-            .harvest("shovel", 1)
-            .harvest("axe", 1);
+            .harvest("adze", 1);
         init.item(ItemNames.ADZE_STONE_IG_IN, () -> new ItemAdze(TFCItems.igInToolMaterial))
-            .harvest("shovel", 1)
-            .harvest("axe", 1);
+            .harvest("adze", 1);
         init.item(ItemNames.ADZE_COPPER, () -> new ItemAdze(TFCItems.copperToolMaterial))
-            .harvest("shovel", 1)
-            .harvest("axe", 1);
+            .harvest("adze", 1);
         init.item(ItemNames.ADZE_BRONZE, () -> new ItemAdze(TFCItems.bronzeToolMaterial))
-            .harvest("shovel", 1)
-            .harvest("axe", 1);
+            .harvest("adze", 2);
         init.item(ItemNames.ADZE_BISMUTH_BRONZE, () -> new ItemAdze(TFCItems.bismuthBronzeToolMaterial))
-            .harvest("shovel", 1)
-            .harvest("axe", 1);
+            .harvest("adze", 2);
         init.item(ItemNames.ADZE_BLACK_BRONZE, () -> new ItemAdze(TFCItems.blackBronzeToolMaterial))
-            .harvest("shovel", 1)
-            .harvest("axe", 1);
+            .harvest("adze", 2);
         init.item(ItemNames.ADZE_WROUGHT_IRON, () -> new ItemAdze(TFCItems.ironToolMaterial))
-            .harvest("shovel", 1)
-            .harvest("axe", 1);
+            .harvest("adze", 3);
 
         init.item(ItemNames.ADZE_MOLD, ItemCommonPotteryMold::new)
             .mold(4, Metals.COPPER, Metals.BRONZE, Metals.BISMUTHBRONZE, Metals.BLACKBRONZE)
@@ -85,11 +76,10 @@ public class Adze extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-        // TODO see if using new too class "adze" is possible
-        ItemAdze.effectiveAgainstBlocks.addAll(Sets.newHashSet(BidsBlocks.carvingRock, BidsBlocks.carvingWood,
-            BidsBlocks.roughStoneSed, BidsBlocks.roughStoneBrickSed, BidsBlocks.roughStoneTileSed,
-            BidsBlocks.mudBrickChimney, BidsBlocks.mudBrickChimney2,
-            TFCBlocks.mudBricks, TFCBlocks.mudBricks2));
+        ItemAdze.effectiveAgainstBlocks.addAll(Sets.newHashSet(
+            BidsBlocks.carvingWood, BidsBlocks.carvingRock,
+            TFCBlocks.mudBricks, TFCBlocks.mudBricks2
+        ));
 
         setup.ores("itemAdzeHead")
             .add(BidsItems.sedStoneAdzeHead, BidsItems.mMStoneAdzeHead, BidsItems.igInStoneAdzeHead, BidsItems.igExStoneAdzeHead)
