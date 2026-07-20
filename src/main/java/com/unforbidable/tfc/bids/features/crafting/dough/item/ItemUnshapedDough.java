@@ -15,8 +15,6 @@ import net.minecraft.world.World;
 
 public class ItemUnshapedDough extends ItemExtraFood {
 
-    // TODO extend LooseRock and implement iFood for better behavior while still decaying
-
     private int flatDoughDamage = 0;
 
     public ItemUnshapedDough(EnumFoodGroup fg, int sw, int so, int sa, int bi, int um) {

@@ -60,7 +60,6 @@ public class DryingRack extends Feature {
             .add(new DryingRackTyingEquipment(TFCItems.cottonYarn, false, Blocks.wool, 0))
             .add(new DryingRackTyingEquipment(TFCItems.silkString, false, Blocks.wool, 0));
 
-        // TODO add BidsItems.goatCheese drying to respective feature
         final Item[] foodToDry = new Item[]{TFCItems.venisonRaw, TFCItems.beefRaw, TFCItems.chickenRaw,
             TFCItems.porkchopRaw, TFCItems.fishRaw, TFCItems.seastarRaw, TFCItems.scallopRaw,
             TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese};
