@@ -183,21 +183,22 @@ public class Logs extends Feature {
                 }
             }
 
-            // TODO: sawing planks drops sawdust (FEATURE)
             // TODO: actually replace TFC recipes using ore (CLEANUP)
 
             // Copies of TFC recipes for items made logs
             if (wood.items.hasLumber()) {
                 setup.recipes().addShapeless(wood.items.getLumber(8),
                         wood.getOreWithSuffix("logWoodPeeledSeasoned"), "itemSaw")
-                    .action(damageTool("itemSaw"));
+                    .action(damageTool("itemSaw"))
+                    .action(extraDrop(new ItemStack(BidsItems.morePowder, 4, 0)));
             }
 
             // Copies of TFC recipes for block made from logs
             if (wood.items.hasPeeledLog() || wood.items.hasSeasonedLog()) {
                 setup.recipes().addShaped(wood.blocks.getWoodSupport(8),
                         "A2", " 2", '2', wood.getOreWithSuffix("logWood"), 'A', "itemSaw")
-                    .action(damageTool("itemSaw"));
+                    .action(damageTool("itemSaw"))
+                    .action(extraDrop(new ItemStack(BidsItems.morePowder, 4, 0)));
 
                 setup.recipes().addShaped(wood.blocks.getFence(6),
                     "LPL", "LPL", 'L', wood.getOreWithSuffix("logWood"), 'P', wood.items.getLumber());
