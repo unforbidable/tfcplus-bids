@@ -157,13 +157,11 @@ public class Crop extends Feature {
         setup.recipes().addShapeless(new ItemStack(BidsItems.seedsNewGarlic), TFCItems.seedsGarlic);
         setup.recipes().addShapeless(new ItemStack(BidsItems.seedsNewCarrot), TFCItems.seedsCarrot);
 
-        // TODO allow wild beans growing in warmer areas (FEATURE)
-
         setup.registry(CropRegistry.crops)
             .add(BidsCropIndex.builder(CropIds.SEABEET, "seebeet")
                 .grows(1, 16, 4, 4, 5, 0, 0.25f)
                 .generates(new EnumRegion[]{EnumRegion.EUROPE, EnumRegion.AFRICA, EnumRegion.ASIA},
-                    150, 3000, 1, 18, CropCoastAffinity.COAST_ONLY)
+                    150, 3000, 1, 21, CropCoastAffinity.COAST_ONLY)
                 .withCommonness(7)
                 .giveSkillWildHarvestChance(25)
                 .dropsSeed(BidsItems.seedsSeaBeet, 50)
@@ -190,7 +188,7 @@ public class Crop extends Feature {
                 .grows(1, 28, 7, 4, 5, 0, 0.4f)
                 .restoresNutrients(5, 0, 5)
                 .generates(new EnumRegion[]{EnumRegion.AFRICA, EnumRegion.ASIA},
-                    120, 1200, 3, 18, CropCoastAffinity.INLAND_ONLY)
+                    120, 1200, 3, 23, CropCoastAffinity.INLAND_ONLY)
                 .dropsSeed(BidsItems.seedsWildBeans)
                 .dropsOutput(BidsItems.wildBeans, 10f)
                 .canBeCultivated(new CropCultivation(BidsItems.seedsBroadBeans, 1, 0.1f))
