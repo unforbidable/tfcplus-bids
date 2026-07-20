@@ -187,11 +187,9 @@ public class Textile extends Feature {
             .add(TFCItems.pole)
             .add(TFCItems.stick);
 
-        // TODO allow refining and extracting using a hand axe
-
         setup.recipes().addShapeless(new ItemStack(BidsItems.barkFiber),
-                "itemBarkHasFibers", "itemKnife")
-            .action(damageTool("itemKnife"));
+                "itemBarkHasFibers", "itemScrapingTool")
+            .action(damageTool("itemScrapingTool"));
 
         // TODO allow refined bark fiber to make kindling (FEATURE)
         setup.recipes().addShapeless(new ItemStack(BidsItems.barkFibreKindling),
@@ -200,22 +198,22 @@ public class Textile extends Feature {
             BidsItems.smallStickBundle, BidsItems.barkFiberCoarse);
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.flaxStalk),
-                TFCItems.flax, "itemKnife")
-            .action(damageTool("itemKnife"))
+                TFCItems.flax, "itemScrapingTool")
+            .action(damageTool("itemScrapingTool"))
             .action(extraDrop(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 6)));
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.juteStalk),
-                TFCItems.jute, "itemKnife")
-            .action(damageTool("itemKnife"));
+                TFCItems.jute, "itemScrapingTool")
+            .action(damageTool("itemScrapingTool"));
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.cottonBollRefined),
-                BidsItems.cottonBoll, "itemKnife")
-            .action(damageTool("itemKnife"));
+                BidsItems.cottonBoll, "itemScrapingTool")
+            .action(damageTool("itemScrapingTool"));
 
         // Refining TFC cotton in case it has not been converted
         setup.recipes().addShapeless(new ItemStack(BidsItems.cottonBollRefined),
-                TFCItems.cotton, "itemKnife")
-            .action(damageTool("itemKnife"));
+                TFCItems.cotton, "itemScrapingTool")
+            .action(damageTool("itemScrapingTool"));
 
         setup.registry(FirepitRegistry.fuel)
             .add(BidsItems.barkFibreKindling, (FirepitFuelMaterial) BidsItems.barkFibreKindling);
