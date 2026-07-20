@@ -35,11 +35,10 @@ public class CrushedFruit extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        // TODO add water % that of apple 0.86f and olive 0.6f or somewhat higher (FIX)
         init.item(ItemNames.APPLE_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Fruit, 40, 20, 0, 10, 0))
-            .food(4f);
+            .food(4f, 0.86f);
         init.item(ItemNames.OLIVE_CRUSHED, () -> new ItemExtraFood(EnumFoodGroup.Fruit, 10, 0, 3, 50, 0))
-            .food(4f);
+            .food(4f, 0.6f);
     }
 
     @SideOnly(Side.CLIENT)
