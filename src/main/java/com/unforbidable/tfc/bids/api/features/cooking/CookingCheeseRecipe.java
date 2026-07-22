@@ -17,13 +17,13 @@ public class CookingCheeseRecipe extends CookingRecipe {
     }
 
     @Override
-    protected boolean doesInputItemMatch(CookingRecipe template) {
+    protected boolean doesInputItemMatch(CookingRecipeInputTemplate template) {
         return template.getInputItemStack() == null ||
             allowInfusion && template.getInputFluidStack() != null &&
                 canInfuseCheeseWithItemStack(template);
     }
 
-    protected boolean canInfuseCheeseWithItemStack(CookingRecipe template) {
+    protected boolean canInfuseCheeseWithItemStack(CookingRecipeInputTemplate template) {
         if (template.getInputItemStack().getItem() instanceof IFood) {
             // Maximum allowed infuser weight is 20 per 10000 mB
             float maxInfuserWeight = template.getInputFluidStack().amount / 10000f * (Global.FOOD_MAX_WEIGHT / 8);
@@ -37,7 +37,7 @@ public class CookingCheeseRecipe extends CookingRecipe {
     }
 
     @Override
-    public CookingRecipeCraftingResult getCraftingResult(CookingRecipe template) {
+    public CookingRecipeCraftingResult getCraftingResult(CookingRecipeInputTemplate template) {
         CookingRecipeCraftingResult result = super.getCraftingResult(template);
 
         if (allowInfusion && template.getInputItemStack() != null && template.getInputFluidStack() != null) {

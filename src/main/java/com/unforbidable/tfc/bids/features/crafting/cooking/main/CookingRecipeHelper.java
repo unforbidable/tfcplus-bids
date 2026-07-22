@@ -2,10 +2,11 @@ package com.unforbidable.tfc.bids.features.crafting.cooking.main;
 
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
 
 public class CookingRecipeHelper {
 
-    public static String getRecipeOutputDisplayText(CookingRecipe recipe, CookingRecipe template) {
+    public static String getRecipeOutputDisplayText(CookingRecipe recipe, CookingRecipeInputTemplate template) {
         CookingRecipeCraftingResult result = recipe.getCraftingResult(template);
 
         if (result.getOutputItemStack() != null) {

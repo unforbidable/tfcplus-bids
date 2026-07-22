@@ -3,13 +3,16 @@ package com.unforbidable.tfc.bids.features.crafting.cooking.main;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCFluids;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingOreRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class CookingHelper {
     public static final int META_COOKING_POT_HAS_LID = 8;
@@ -81,12 +84,16 @@ public class CookingHelper {
         }
     }
 
-    public static List<CookingRecipe> getRecipesMatchingTemplate(CookingRecipe template) {
-        List<CookingRecipe> matches = new ArrayList<CookingRecipe>();
+    public static List<CookingRecipe> getRecipesMatchingTemplate(CookingRecipeInputTemplate template) {
+        List<CookingRecipe> matches = new ArrayList<>();
 
         for (CookingRecipe recipe : CookingRegistry.recipes) {
             if (recipe.matchesTemplate(template)) {
-                matches.add(recipe);
+                if (template.getInputItemStack() != null && recipe instanceof CookingOreRecipe) {
+                    matches.add(flattenCookingOreRecipe((CookingOreRecipe) recipe, template.getInputItemStack()));
+                } else {
+                    matches.add(recipe);
+                }
             }
         }
 
@@ -94,15 +101,40 @@ public class CookingHelper {
     }
 
     public static List<CookingRecipe> getRecipesMatchingInput(ItemStack inputItemStack) {
-        List<CookingRecipe> matches = new ArrayList<CookingRecipe>();
+        List<CookingRecipe> matches = new ArrayList<>();
 
         for (CookingRecipe recipe : CookingRegistry.recipes) {
             if (recipe.matchesInput(inputItemStack)) {
-                matches.add(recipe);
+                if (recipe instanceof CookingOreRecipe) {
+                    matches.add(flattenCookingOreRecipe((CookingOreRecipe) recipe, inputItemStack));
+                } else {
+                    matches.add(recipe);
+                }
             }
         }
 
         return matches;
+    }
+
+    public static CookingRecipe flattenCookingOreRecipe(CookingOreRecipe recipe, ItemStack inputItemStack) {
+        // Cooking ore recipes are processed as normal cooking recipes
+        // with input item stack resolved to ore ingredient that matches the actual input stack
+        return new CookingRecipe(recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack(),
+            recipe.getOutputFluidStack(), recipe.getSecondaryOutputFluidStack(),
+            getOreMatchingInputItemStack(recipe.getInputOreName(), inputItemStack), recipe.getOutputItemStack(),
+            recipe.getAccessory(), recipe.getLidUsage(),
+            recipe.getMinHeatLevel(), recipe.getMaxHeatLevel(),
+            recipe.getTime(), recipe.isFixedTime());
+    }
+
+    private static ItemStack getOreMatchingInputItemStack(String oreName, ItemStack inputItemStack) {
+        for (ItemStack ore : OreDictionary.getOres(oreName)) {
+            if (OreDictionary.itemMatches(ore, inputItemStack, false)) {
+                return ore;
+            }
+        }
+
+        return null;
     }
 
 }

@@ -16,8 +16,10 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingAccessory;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingLidUsage;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingOreRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.compat.nei.NeiHelper;
@@ -25,7 +27,9 @@ import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -71,12 +75,7 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == CookingNeiHandler.class) {
             for (CookingRecipe recipe : CookingRegistry.recipes) {
-                CookingRecipe template = new CookingRecipe(
-                    recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack(), recipe.getOutputFluidStack(), recipe.getSecondaryOutputFluidStack(),
-                    recipe.getInputItemStack(), recipe.getOutputItemStack(),
-                    recipe.getAccessory(), recipe.getLidUsage(), recipe.getMinHeatLevel(), recipe.getMaxHeatLevel(), recipe.getTime(), recipe.isFixedTime()
-                );
-                arecipes.add(new CachedCookingRecipe(template));
+                arecipes.add(new CachedCookingRecipe(recipe));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -104,19 +103,29 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
         // TODO match cooking mixes in bowls
 
         for (CookingRecipe recipe : CookingRegistry.recipes) {
-            if (recipe.getInputItemStack() != null && areItemStacksEqual(recipe.getInputItemStack(), ingredient)) {
+            if (recipe.matchesInput(ingredient)) {
                 ItemStack inputItem = ingredient.copy();
-                inputItem.stackSize = recipe.getInputItemStack().stackSize;
-                if (inputItem.getItem() instanceof ItemFoodTFC) {
-                    Food.setWeight(inputItem, Food.getWeight(recipe.getInputItemStack()));
+
+                if (recipe instanceof CookingOreRecipe) {
+                    CookingRecipe flatRecipe = CookingHelper.flattenCookingOreRecipe((CookingOreRecipe)recipe, ingredient);
+
+                    inputItem.stackSize = flatRecipe.getInputItemStack().stackSize;
+                    if (inputItem.getItem() instanceof ItemFoodTFC) {
+                        Food.setWeight(inputItem, Food.getWeight(flatRecipe.getInputItemStack()));
+                    }
+                } else {
+                    inputItem.stackSize = recipe.getInputItemStack().stackSize;
+                    if (inputItem.getItem() instanceof ItemFoodTFC) {
+                        Food.setWeight(inputItem, Food.getWeight(recipe.getInputItemStack()));
+                    }
                 }
 
-                CookingRecipe template = new CookingRecipe(
+                CookingRecipe sizedRecipe = new CookingRecipe(
                     recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack(), recipe.getOutputFluidStack(), recipe.getSecondaryOutputFluidStack(),
                     inputItem, recipe.getOutputItemStack(),
                     recipe.getAccessory(), recipe.getLidUsage(), recipe.getMinHeatLevel(), recipe.getMaxHeatLevel(), recipe.getTime(), recipe.isFixedTime()
                 );
-                arecipes.add(new CachedCookingRecipe(template));
+                arecipes.add(new CachedCookingRecipe(sizedRecipe));
             } else if (recipe.getInputFluidStack() != null && NeiHelper.isFluidEqual(recipe.getInputFluidStack(), ingredient)) {
                 arecipes.add(new CachedCookingRecipe(recipe));
             } else if (recipe.getSecondaryInputFluidStack() != null && NeiHelper.isFluidEqual(recipe.getSecondaryInputFluidStack(), ingredient)) {
@@ -303,7 +312,7 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
     }
 
     public class CachedCookingRecipe extends CachedRecipe {
-        private final ItemStack inputItemStack;
+        private final List<ItemStack> inputItemStacks;
         private final ItemStack outputItemStack;
         private final FluidStackGroup inputFluids;
         private final FluidStackGroup outputFluids;
@@ -313,19 +322,27 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
         private final boolean heat;
         private String duration;
 
-        public CachedCookingRecipe(CookingRecipe template) {
-            CookingRecipeCraftingResult result = template.getCraftingResult(template);
+        public CachedCookingRecipe(CookingRecipe recipe) {
+            CookingRecipeInputTemplate template = new CookingRecipeInputTemplate(
+                recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack(),
+                recipe instanceof CookingOreRecipe ? recipe.getInputItemStacks().get(0) : recipe.getInputItemStack(),
+                recipe.getAccessory(), recipe.getLidUsage(), recipe.getMinHeatLevel(), recipe.getMaxHeatLevel()
+            );
 
-            inputFluids = new FluidStackGroup(template.getInputFluidStack(), template.getSecondaryInputFluidStack());
+            CookingRecipeCraftingResult result = recipe.getCraftingResult(template);
+
+            inputFluids = new FluidStackGroup(recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack());
             outputFluids = new FluidStackGroup(result.getOutputFluidStack(), result.getSecondaryOutputFluidStack());
 
-            inputItemStack = template.getInputItemStack() != null ? template.getInputItemStack().copy() : null;
+            inputItemStacks = recipe.getInputItemStacks();
             outputItemStack = result.getOutputItemStack() != null ? result.getOutputItemStack().copy() : null;
 
             int runs = getRuns();
             if (runs > 0) {
-                if (inputItemStack != null && inputItemStack.getItem() instanceof ItemFoodTFC) {
-                    Food.setWeight(inputItemStack, Food.getWeight(inputItemStack) * runs);
+                for (ItemStack input : inputItemStacks) {
+                    if (input.getItem() instanceof ItemFoodTFC) {
+                        Food.setWeight(input, Food.getWeight(input) * runs);
+                    }
                 }
 
                 if (outputItemStack != null && outputItemStack.getItem() instanceof ItemFoodTFC) {
@@ -336,14 +353,14 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
                 outputFluids.multiplyAmounts(runs);
             }
 
-            lid = template.getLidUsage() != null && template.getLidUsage() == CookingLidUsage.ON;
-            steamingMesh = template.getAccessory() != null && template.getAccessory() == CookingAccessory.STEAMING_MESH;
-            heat = template.getMinHeatLevel() != null && template.getMinHeatLevel() != CookingHeatLevel.NONE;
+            lid = recipe.getLidUsage() != null && recipe.getLidUsage() == CookingLidUsage.ON;
+            steamingMesh = recipe.getAccessory() != null && recipe.getAccessory() == CookingAccessory.STEAMING_MESH;
+            heat = recipe.getMinHeatLevel() != null && recipe.getMinHeatLevel() != CookingHeatLevel.NONE;
 
-            if (template.getTime() > 0) {
-                float hours = template.getTime() / (float)TFC_Time.HOUR_LENGTH;
+            if (recipe.getTime() > 0) {
+                float hours = recipe.getTime() / (float)TFC_Time.HOUR_LENGTH;
 
-                if (inputItemStack != null && inputItemStack.getItem() instanceof ItemFoodTFC) {
+                if (!inputItemStacks.isEmpty() && inputItemStacks.get(0).getItem() instanceof ItemFoodTFC) {
                     // For input items that are food, the total time is determined by the number of runs
                     hours *= runs;
                 }
@@ -361,6 +378,7 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
 
         private int getRuns() {
             double runs = 0;
+            ItemStack inputItemStack = !inputItemStacks.isEmpty() ? inputItemStacks.get(0) : null;
             if ((inputItemStack == null || inputItemStack.getItem() instanceof ItemFoodTFC) &&
                 (outputItemStack == null || outputItemStack.getItem() instanceof ItemFoodTFC)) {
                 if (inputFluids.getTotalAmount() > 0) {
@@ -405,23 +423,24 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
 
         @Override
         public PositionedStack getIngredient() {
-            if (inputItemStack != null) {
-                return new PositionedStack(inputItemStack, 39, 25);
-            }
-
-            return null;
+            return super.getIngredient();
         }
 
         @Override
         public List<PositionedStack> getIngredients() {
-            return super.getIngredients();
+            if (!inputItemStacks.isEmpty()) {
+                int n = cycleticks % (20 * inputItemStacks.size());
+                return Collections.singletonList(new PositionedStack(inputItemStacks.get(n / 20), 39, 25));
+            } else {
+                return Collections.emptyList();
+            }
         }
 
         @Override
         public List<PositionedStack> getOtherStacks() {
-            List<PositionedStack> list = new ArrayList<PositionedStack>();
+            List<PositionedStack> list = new ArrayList<>();
 
-            List<Object> topItems = new ArrayList<Object>();
+            List<Object> topItems = new ArrayList<>();
             if (isHeat()) {
                 topItems.add(new ItemStack(Blocks.fire, 1, 1));
             }

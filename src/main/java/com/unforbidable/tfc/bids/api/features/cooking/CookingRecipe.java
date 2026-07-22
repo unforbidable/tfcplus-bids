@@ -2,6 +2,8 @@ package com.unforbidable.tfc.bids.api.features.cooking;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import java.util.Collections;
+import java.util.List;
 
 public class CookingRecipe {
 
@@ -53,6 +55,14 @@ public class CookingRecipe {
         return inputItemStack;
     }
 
+    public List<ItemStack> getInputItemStacks() {
+        if (inputItemStack != null) {
+            return Collections.singletonList(inputItemStack);
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
     public ItemStack getOutputItemStack() {
         return outputItemStack;
     }
@@ -81,7 +91,7 @@ public class CookingRecipe {
         return fixedTime;
     }
 
-    public boolean matchesTemplate(CookingRecipe template) {
+    public boolean matchesTemplate(CookingRecipeInputTemplate template) {
         return doesInputFluidMatch(template) &&
             doesSecondaryInputFluidMatch(template) &&
             doesInputItemMatch(template) &&
@@ -91,7 +101,7 @@ public class CookingRecipe {
             doesAccessoryMatch(template);
     }
 
-    protected boolean doesInputFluidMatch(CookingRecipe template) {
+    protected boolean doesInputFluidMatch(CookingRecipeInputTemplate template) {
         boolean match = getInputFluidStack() == null && template.getInputFluidStack() == null ||
             getInputFluidStack() != null && template.getInputFluidStack() != null && areFluidsEqual(template.getInputFluidStack(), getInputFluidStack()) ||
             getInputFluidStack() == null && template.getInputFluidStack() != null && areFluidsEqual(template.getInputFluidStack(), getOutputFluidStack());
@@ -109,7 +119,7 @@ public class CookingRecipe {
         }
     }
 
-    protected boolean doesSecondaryInputFluidMatch(CookingRecipe template) {
+    protected boolean doesSecondaryInputFluidMatch(CookingRecipeInputTemplate template) {
         boolean match = getSecondaryInputFluidStack() == null && template.getSecondaryInputFluidStack() == null ||
             getSecondaryInputFluidStack() != null && template.getSecondaryInputFluidStack() != null && getSecondaryInputFluidStack().isFluidEqual(template.getSecondaryInputFluidStack());
         //Bids.LOG.info("doesSecondaryInputFluidMatch: " + match);
@@ -117,7 +127,7 @@ public class CookingRecipe {
         return match;
     }
 
-    protected boolean doesInputItemMatch(CookingRecipe template) {
+    protected boolean doesInputItemMatch(CookingRecipeInputTemplate template) {
         boolean match = getInputItemStack() == null && template.getInputItemStack() == null ||
             getInputItemStack() != null && template.getInputItemStack() != null && getInputItemStack().isItemEqual(template.getInputItemStack())
                 && getInputItemStack().getItemDamage() == template.getInputItemStack().getItemDamage();
@@ -126,35 +136,35 @@ public class CookingRecipe {
         return match;
     }
 
-    protected boolean doesMinHeatLevelMatch(CookingRecipe template) {
+    protected boolean doesMinHeatLevelMatch(CookingRecipeInputTemplate template) {
         boolean match = getMinHeatLevel() == null || getMinHeatLevel().compareTo(template.getMinHeatLevel()) <= 0;
         //Bids.LOG.info("doesMinHeatLevelMatch: " + match);
 
         return match;
     }
 
-    protected boolean doesMaxHeatLevelMatch(CookingRecipe template) {
+    protected boolean doesMaxHeatLevelMatch(CookingRecipeInputTemplate template) {
         boolean match = getMaxHeatLevel() == null || getMaxHeatLevel().compareTo(template.getMaxHeatLevel()) >= 0;
         //Bids.LOG.info("doesMaxHeatLevelMatch: " + match);
 
         return match;
     }
 
-    protected boolean doesLidUsageMatch(CookingRecipe template) {
+    protected boolean doesLidUsageMatch(CookingRecipeInputTemplate template) {
         boolean match = getLidUsage() == null || getLidUsage() == template.getLidUsage();
         //Bids.LOG.info("doesLidUsageMatch: " + match);
 
         return match;
     }
 
-    protected boolean doesAccessoryMatch(CookingRecipe template) {
+    protected boolean doesAccessoryMatch(CookingRecipeInputTemplate template) {
         boolean match = getAccessory() == null || getAccessory() == template.getAccessory();
         //Bids.LOG.info("doesAccessoryMatch: " + match);
 
         return match;
     }
 
-    public CookingRecipeCraftingResult getCraftingResult(CookingRecipe template) {
+    public CookingRecipeCraftingResult getCraftingResult(CookingRecipeInputTemplate template) {
         if (getOutputFluidStack() != null && template.getInputFluidStack() != null &&
             template.getInputFluidStack().getFluid() instanceof CookingMixtureFluid) {
             CookingMixtureFluid cookingFluid = (CookingMixtureFluid) template.getInputFluidStack().getFluid();

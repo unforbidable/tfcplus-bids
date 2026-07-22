@@ -22,6 +22,7 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureItem;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingPotPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
 import com.unforbidable.tfc.bids.api.util.food.BidsFoodHeatIndex;
 import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
 import com.unforbidable.tfc.bids.core.network.Network;
@@ -127,7 +128,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
             isCachedRecipeValid = true;
             cachedRecipe = null;
 
-            CookingRecipe template = createRecipeTemplate();
+            CookingRecipeInputTemplate template = createRecipeTemplate();
             for (CookingRecipe recipe : CookingHelper.getRecipesMatchingTemplate(template)) {
                 // Ensure the recipe can run - checking the amounts
                 if (calculateTotalRecipeRuns(recipe) > 0) {
@@ -426,24 +427,22 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
         }
     }
 
-    private CookingRecipe createRecipeTemplate() {
-        return new CookingRecipe(
-            getPrimaryFluidStack(), null, null, null,
-            getInputItemStack(), null,
+    private CookingRecipeInputTemplate createRecipeTemplate() {
+        return new CookingRecipeInputTemplate(
+            getPrimaryFluidStack(), null,
+            getInputItemStack(),
             hasSteamingMesh() ? CookingAccessory.STEAMING_MESH : CookingAccessory.NONE,
             hasLid() ? CookingLidUsage.ON : CookingLidUsage.OFF,
-            getHeatLevel(), getHeatLevel(), 0,
-            false);
+            getHeatLevel(), getHeatLevel());
     }
 
-    private CookingRecipe createRecipeTemplateWithSecondaryInputFluidStack(FluidStack secondaryInputFluidStack) {
-        return new CookingRecipe(
-            getPrimaryFluidStack(), secondaryInputFluidStack, null, null,
-            null, null,
+    private CookingRecipeInputTemplate createRecipeTemplateWithSecondaryInputFluidStack(FluidStack secondaryInputFluidStack) {
+        return new CookingRecipeInputTemplate(
+            getPrimaryFluidStack(), secondaryInputFluidStack,
+            null,
             hasSteamingMesh() ? CookingAccessory.STEAMING_MESH : CookingAccessory.NONE,
             hasLid() ? CookingLidUsage.ON : CookingLidUsage.OFF,
-            getHeatLevel(), getHeatLevel(), 0,
-            false);
+            getHeatLevel(), getHeatLevel());
     }
 
     private FluidStack getFluidStackFromItemStack(ItemStack itemStack) {
@@ -593,7 +592,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
 
         if (hasFluid() && FluidContainerRegistry.isFilledContainer(itemStack)) {
             FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
-            CookingRecipe template = createRecipeTemplateWithSecondaryInputFluidStack(fluidStack);
+            CookingRecipeInputTemplate template = createRecipeTemplateWithSecondaryInputFluidStack(fluidStack);
             for (CookingRecipe recipe : CookingHelper.getRecipesMatchingTemplate(template)) {
                 Bids.LOG.debug("Found mixing recipe: " + CookingRecipeHelper.getRecipeHashString(recipe));
 
@@ -1035,7 +1034,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
         recipeCanPauseWhenParametersChange = true;
     }
 
-    private void handleRecipeOutput(CookingRecipe recipe, CookingRecipe template) {
+    private void handleRecipeOutput(CookingRecipe recipe, CookingRecipeInputTemplate template) {
         int runs = calculateTotalRecipeRuns(recipe);
 
         CookingRecipeCraftingResult result = recipe.getCraftingResult(template);

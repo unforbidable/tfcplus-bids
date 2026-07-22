@@ -138,15 +138,12 @@ public class Cooking extends Feature {
                 .inFixedTime(8000)
                 .build());
 
-        // TODO use ore dictionary (FEATURE)
-        for (Item stringItem : new Item[]{TFCItems.silkString, TFCItems.woolYarn, TFCItems.linenString, TFCItems.cottonYarn, BidsItems.juteTwine, BidsItems.sisalTwine}) {
-            setup.registry(CookingRegistry.recipes)
-                .add(CookingRecipe.builder()
-                    .consumes(new FluidStack(TFCFluids.WAX, 200), new ItemStack(stringItem))
-                    .produces(new ItemStack(TFCBlocks.candleOff, 1))
-                    .withHeat()
-                    .build());
-        }
+        setup.registry(CookingRegistry.recipes)
+            .add(CookingRecipe.builder()
+                .consumes(new FluidStack(TFCFluids.WAX, 200), "materialString")
+                .produces(new ItemStack(TFCBlocks.candleOff, 1))
+                .withHeat()
+                .build());
 
         setup.event()
             .handler(new CookedFoodTooltipHandler());

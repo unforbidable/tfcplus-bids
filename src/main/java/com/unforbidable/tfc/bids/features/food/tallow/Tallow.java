@@ -77,14 +77,11 @@ public class Tallow extends Feature {
                 .inTime(250 / 5000f)
                 .build());
 
-        for (Item stringItem : new Item[]{TFCItems.silkString, TFCItems.woolYarn, TFCItems.linenString, TFCItems.cottonYarn, BidsItems.juteTwine, BidsItems.sisalTwine}) {
-            setup.registry(CookingRegistry.recipes)
-                .add(CookingRecipe.builder()
-                    .consumes(new FluidStack(BidsFluids.tallow, 200), new ItemStack(stringItem))
-                    .produces(new ItemStack(TFCBlocks.candleOff, 1))
-                    .build());
-        }
-
+        setup.registry(CookingRegistry.recipes)
+            .add(CookingRecipe.builder()
+                .consumes(new FluidStack(BidsFluids.tallow, 200), "materialString")
+                .produces(new ItemStack(TFCBlocks.candleOff, 1))
+                .build());
     }
 
 }

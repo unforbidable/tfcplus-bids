@@ -10,6 +10,7 @@ public class CookingRecipeBuilder {
     protected FluidStack outputFluidStack;
     protected FluidStack secondaryOutputFluidStack;
     protected ItemStack inputItemStack;
+    protected String inputOreName;
     protected ItemStack outputItemStack;
     protected CookingAccessory accessory = CookingAccessory.NONE;
     protected CookingLidUsage lidUsage;
@@ -34,9 +35,20 @@ public class CookingRecipeBuilder {
         return this;
     }
 
+    public CookingRecipeBuilder consumes(String inputOreName) {
+        this.inputOreName = inputOreName;
+        return this;
+    }
+
     public CookingRecipeBuilder consumes(FluidStack inputFluidStack, ItemStack inputItemStack) {
         this.inputFluidStack = inputFluidStack;
         this.inputItemStack = inputItemStack;
+        return this;
+    }
+
+    public CookingRecipeBuilder consumes(FluidStack inputFluidStack, String inputOreName) {
+        this.inputFluidStack = inputFluidStack;
+        this.inputOreName = inputOreName;
         return this;
     }
 
@@ -113,11 +125,17 @@ public class CookingRecipeBuilder {
     }
 
     public CookingRecipe build() {
-        return new CookingRecipe(inputFluidStack, secondaryInputFluidStack,
-            outputFluidStack, secondaryOutputFluidStack,
-            inputItemStack, outputItemStack,
-            accessory, lidUsage, minHeatLevel, maxHeatLevel, time, fixedTime);
-
+        if (inputOreName != null) {
+            return new CookingOreRecipe(inputFluidStack, secondaryInputFluidStack,
+                outputFluidStack, secondaryOutputFluidStack,
+                inputOreName, outputItemStack,
+                accessory, lidUsage, minHeatLevel, maxHeatLevel, time, fixedTime);
+        } else {
+            return new CookingRecipe(inputFluidStack, secondaryInputFluidStack,
+                outputFluidStack, secondaryOutputFluidStack,
+                inputItemStack, outputItemStack,
+                accessory, lidUsage, minHeatLevel, maxHeatLevel, time, fixedTime);
+        }
     }
 
 }
