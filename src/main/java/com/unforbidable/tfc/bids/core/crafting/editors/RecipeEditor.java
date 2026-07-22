@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import com.unforbidable.tfc.bids.core.crafting.matchers.OreMatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
@@ -23,7 +24,9 @@ public abstract class RecipeEditor {
 
     @SuppressWarnings({"unchecked"})
     private static ObjectMatcher getMatcherForItem(Object item) {
-        if (item instanceof List<?>) {
+        if (item instanceof String) {
+            return new OreMatcher((String) item);
+        } else if (item instanceof List<?>) {
             return new ItemStackListMatcher((List<ItemStack>) item);
         } else {
             return new ItemStackMatcher((ItemStack) item);
@@ -36,18 +39,22 @@ public abstract class RecipeEditor {
 
     public void removeInputItem(Predicate<ObjectMatcher> predicate) {
         for (int i = 0; i < items.length; i++) {
-            ObjectMatcher matcher = RecipeEditor.getMatcherForItem(items[i]);
-            if (predicate.test(matcher)) {
-                items[i] = null;
+            if (items[i] != null) {
+                ObjectMatcher matcher = RecipeEditor.getMatcherForItem(items[i]);
+                if (predicate.test(matcher)) {
+                    items[i] = null;
+                }
             }
         }
     }
 
     public void replaceInputItem(Predicate<ObjectMatcher> predicate, Object item) {
         for (int i = 0; i < items.length; i++) {
-            ObjectMatcher matcher = RecipeEditor.getMatcherForItem(items[i]);
-            if (predicate.test(matcher)) {
-                items[i] = item;
+            if (items[i] != null) {
+                ObjectMatcher matcher = RecipeEditor.getMatcherForItem(items[i]);
+                if (predicate.test(matcher)) {
+                    items[i] = item;
+                }
             }
         }
     }
