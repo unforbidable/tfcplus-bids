@@ -196,21 +196,6 @@ public class TfcSetup {
     public static void setupRecipes() {
         RecipeManagerSession recipes = RecipeManager.getSession();
 
-        // Select TFC recipes where new cordage and twines can be used
-        recipes.addShapedRecipe(new ItemStack(TFCBlocks.primitiveLoom),
-            "LS", "SL", 'L', "stickWood", 'S', "materialBindingStrong");
-        recipes.addShapedRecipe(new ItemStack(TFCBlocks.primitiveLoom),
-            "LS", "SL", 'S', "stickWood", 'L', "materialBindingStrong");
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.unstrungBow),
-                TFCItems.pole, "itemKnife", "materialBindingStrong")
-            .action(damageTool("itemKnife"));
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.bow),
-            TFCItems.unstrungBow, "materialBindingStrong");
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.splint),
-            TFCItems.stick, "materialBindingStrong");
-        recipes.addShapelessRecipe(new ItemStack(TFCItems.compositeBow),
-            TFCItems.unstrungCompositeBow, "materialBindingStrong");
-
         // Replace original needle which take either materialString or sinew
         // with new recipe that takes materialStringFine
         // This adding new material to materialString that aren't suitable as a thread
