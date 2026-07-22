@@ -195,6 +195,11 @@ public class Textile extends Feature {
             .add(BidsItems.woolFiberCoarse, BidsItems.woolFiberRefined)
             .add(BidsItems.cottonFiberCoarse, BidsItems.cottonFiberRefined);
 
+        setup.ores("materialString")
+            .add(BidsItems.barkCordage)
+            .add(BidsItems.juteTwine)
+            .add(BidsItems.sisalTwine);
+
         setup.recipes().addShapeless(new ItemStack(BidsItems.barkFibreKindling),
             "stickWood", "stickWood", "stickWood", "materialFiber");
         setup.recipes().addShapeless(new ItemStack(BidsItems.barkFibreKindling),
