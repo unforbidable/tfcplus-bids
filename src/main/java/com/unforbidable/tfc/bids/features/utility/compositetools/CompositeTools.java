@@ -32,19 +32,15 @@ public class CompositeTools extends Feature {
                 .add(TFCItems.grassCordage);
         }
 
-        setup.ores("materialBindingDecent")
+        // Also used for drying rack construction
+        setup.ores("materialBindingStrong")
             .add(TFCItems.sinew)
             .add(TFCItems.linenString)
             .add(BidsItems.barkCordage)
             .add(BidsItems.juteTwine, BidsItems.sisalTwine);
 
-        // Also used for drying rack construction
-        setup.ores("materialBindingStrong")
-            .add(TFCItems.linenString)
-            .add(BidsItems.barkCordage)
-            .add(BidsItems.juteTwine, BidsItems.sisalTwine);
-
         setup.ores("materialBowstring")
+            .add(TFCItems.sinew)
             .add(TFCItems.linenString)
             .add(BidsItems.barkCordage)
             .add(BidsItems.juteTwine, BidsItems.sisalTwine);

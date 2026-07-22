@@ -35,7 +35,7 @@ public class RopeMaker extends Feature {
     @Override
     public void setup(FeatureSetupBuilder setup) {
         setup.recipes().addShapeless(new ItemStack(BidsItems.primitiveRopeMaker),
-                "stickWood", "stickWood", "materialBindingDecent", "itemKnife")
+                "stickWood", "stickWood", "materialBindingStrong", "itemKnife")
             .action(damageTool("itemKnife"));
     }
 

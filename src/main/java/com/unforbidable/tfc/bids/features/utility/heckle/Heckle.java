@@ -37,7 +37,7 @@ public class Heckle extends Feature {
     @Override
     public void setup(FeatureSetupBuilder setup) {
         setup.recipes().addShapeless(new ItemStack(BidsItems.boneHeckle),
-            BidsItems.boneKnifeHead, BidsItems.boneKnifeHead, TFCItems.resin, "materialBindingDecent");
+            BidsItems.boneKnifeHead, BidsItems.boneKnifeHead, TFCItems.resin, "materialBindingStrong");
 
         setup.registry(WoodworkingRegistry.plans)
             .add(Plan.create(WoodworkingPlanNames.PLAN_KNIFE_HEAD)

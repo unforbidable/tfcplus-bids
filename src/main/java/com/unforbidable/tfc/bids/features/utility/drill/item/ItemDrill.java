@@ -19,7 +19,7 @@ import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarryDrillTarget
 import com.unforbidable.tfc.bids.features.resource.quarry.main.QuarryHelper;
 import com.unforbidable.tfc.bids.features.resource.quarry.tileentity.TileEntityQuarry;
 import com.unforbidable.tfc.bids.util.ItemHelper;
-import com.unforbidable.tfc.bids.util.crafting.CraftingHelper;
+import com.unforbidable.tfc.bids.features.utility.compositetools.main.CompositeToolHelper;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -418,7 +418,7 @@ public class ItemDrill extends ItemCommonTool {
                     if (requireBinding) {
                         player.inventory.consumeInventoryItem(foundBinding.getItem());
 
-                        CraftingHelper.applyCompositeToolBindingBonus(newStack, foundBinding);
+                        CompositeToolHelper.applyCompositeToolBindingBonus(newStack, foundBinding);
                     }
 
                     if (bowstringBroke) {

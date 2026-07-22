@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.core.stats;
 import com.dunk.tfc.Core.TFC_Achievements;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.util.crafting.CraftingHelper;
+import com.unforbidable.tfc.bids.features.utility.compositetools.main.CompositeToolHelper;
 import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
@@ -20,8 +20,7 @@ public class StatsCraftingHandler {
             e.player.triggerAchievement(TFC_Achievements.achCrucible);
         }
 
-        List<Integer> stoneToolOreIds = CraftingHelper.getStoneToolOreIds();
-        if (OreDictionaryHelper.itemHasAnyOreId(e.crafting, stoneToolOreIds)) {
+        if (CompositeToolHelper.isCompositeTool(e.crafting)) {
             for (int i = 0; i < e.craftMatrix.getSizeInventory(); i++) {
                 ItemStack is = e.craftMatrix.getStackInSlot(i);
                 if (OreDictionaryHelper.itemMatchesOre(is, "materialBinding", false)) {

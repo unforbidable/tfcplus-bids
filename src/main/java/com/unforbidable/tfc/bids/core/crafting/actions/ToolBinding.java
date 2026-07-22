@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.core.crafting.actions;
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.core.crafting.CraftingContext;
-import com.unforbidable.tfc.bids.util.crafting.CraftingHelper;
+import com.unforbidable.tfc.bids.features.utility.compositetools.main.CompositeToolHelper;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import java.util.function.Consumer;
 import net.minecraft.item.ItemStack;
@@ -26,7 +26,7 @@ public class ToolBinding {
             if (is != null) {
                 for (int id : OreDictionary.getOreIDs(is)) {
                     if (id == bindingOreId) {
-                        CraftingHelper.applyCompositeToolBindingBonus(event.crafting, is);
+                        CompositeToolHelper.applyCompositeToolBindingBonus(event.crafting, is);
                     }
                 }
             }

@@ -24,12 +24,20 @@ public class OreDictionaryHelper {
         }
     }
 
-    public static boolean itemHasAnyOreId(ItemStack output, List<Integer> stoneToolOreIds) {
-        for (int oreId : OreDictionary.getOreIDs(output)) {
-            for (int stoneToolOreId : stoneToolOreIds) {
-                if (stoneToolOreId == oreId) {
-                    return true;
-                }
+    public static boolean itemStackIsOre(ItemStack itemStack, String oreName) {
+        for (ItemStack ore : OreDictionary.getOres(oreName)) {
+            if (OreDictionary.itemMatches(ore, itemStack, false)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean itemStackIsAnyOre(ItemStack tool, List<String> ores) {
+        for (String ore : ores) {
+            if (itemStackIsOre(tool, ore)) {
+                return true;
             }
         }
 
