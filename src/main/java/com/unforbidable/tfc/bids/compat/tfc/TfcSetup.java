@@ -19,6 +19,7 @@ import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableStoneLargeBrick;
 import com.unforbidable.tfc.bids.compat.tfc.carvable.CarvableWoodVert;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
+import com.unforbidable.tfc.bids.core.crafting.MatchingRecipe;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManager;
 import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.core.drink.DrinkRegistry;
@@ -26,6 +27,7 @@ import com.unforbidable.tfc.bids.core.drink.registry.DrinkFluid;
 import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
@@ -182,6 +184,15 @@ public class TfcSetup {
         CarvingRegistry.carvable.add(new CarvableFireBrick());
     }
 
+    public static void setupOres() {
+        // Strings that can be strung on a needle
+        OreDictionary.registerOre("materialStringFine", TFCItems.silkString);
+        OreDictionary.registerOre("materialStringFine", TFCItems.linenString);
+        OreDictionary.registerOre("materialStringFine", TFCItems.woolYarn);
+        OreDictionary.registerOre("materialStringFine", TFCItems.cottonYarn);
+        OreDictionary.registerOre("materialStringFine", TFCItems.sinew);
+    }
+
     public static void setupRecipes() {
         RecipeManagerSession recipes = RecipeManager.getSession();
 
@@ -199,6 +210,18 @@ public class TfcSetup {
             TFCItems.stick, "materialBindingStrong");
         recipes.addShapelessRecipe(new ItemStack(TFCItems.compositeBow),
             TFCItems.unstrungCompositeBow, "materialBindingStrong");
+
+        // Replace original needle which take either materialString or sinew
+        // with new recipe that takes materialStringFine
+        // This adding new material to materialString that aren't suitable as a thread
+        // Recipes using sinews are removed, as those are part of ore materialStringFine
+        recipes.match(r -> r.output.isAny(TFCItems.boneNeedleStrung, TFCItems.ironNeedleStrung) &&
+                r.input.contains(TFCItems.sinew))
+            .forEach(MatchingRecipe::remove);
+        recipes.match(r -> r.output.isAny(TFCItems.boneNeedleStrung, TFCItems.ironNeedleStrung))
+            .forEach(r -> r.replace()
+                .removeInput(i -> i.is("materialString"))
+                .addInput("materialStringFine"));
 
         recipes.flush();
     }
