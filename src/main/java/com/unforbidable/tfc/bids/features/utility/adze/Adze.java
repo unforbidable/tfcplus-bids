@@ -144,13 +144,13 @@ public class Adze extends Feature {
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
             setup.registry(TfcRegistry.Recipes.knapping)
                 .add(KnappingRecipe.add(stone.items.getItem(EnumStoneItemType.ADZE_HEAD),
-                    "     ", " ### ", "#####", " ### ", "  #  ",
+                    "#####", "#  ##", "#    ", "     ", "     ",
                     '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)));
         }
 
         setup.registry(TfcRegistry.Recipes.knapping)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.clayMoldAdze),
-                "  #  ", "  #  ", "  #  ", " ### ", "  #  ",
+                "#####", "#  ##", "#    ", "     ", "     ",
                 '#', new ItemStack(TFCItems.flatClay, 1, 1)));
 
         setup.registry(TfcRegistry.Recipes.kiln)
