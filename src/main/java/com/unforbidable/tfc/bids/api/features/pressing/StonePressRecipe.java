@@ -14,7 +14,7 @@ public class StonePressRecipe implements SimpleRecipeMatcher<ItemStack> {
     final FluidStack output;
     final ItemStack input;
 
-    public StonePressRecipe(FluidStack output, ItemStack input) {
+    public StonePressRecipe(ItemStack input, FluidStack output) {
         this.output = output;
         this.input = input;
     }

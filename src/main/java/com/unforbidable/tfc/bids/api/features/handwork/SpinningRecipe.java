@@ -4,8 +4,8 @@ import net.minecraft.item.ItemStack;
 
 public class SpinningRecipe extends HandworkRecipe {
 
-    public SpinningRecipe(ItemStack output, ItemStack input, int duration) {
-        super(output, input, duration);
+    public SpinningRecipe(ItemStack input, ItemStack output, int duration) {
+        super(input, output, duration);
     }
 
 }

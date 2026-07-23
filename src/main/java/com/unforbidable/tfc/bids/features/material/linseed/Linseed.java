@@ -68,12 +68,12 @@ public class Linseed extends Feature {
             .add(BidsFluids.flaxSeedOil, new FuelFlaxSeedOil());
 
         setup.registry(StonePressRegistry.recipes)
-            .add(new StonePressRecipe(new FluidStack(BidsFluids.flaxSeedOil, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f / StonePressConfig.efficiency)));
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f / StonePressConfig.efficiency),
+                new FluidStack(BidsFluids.flaxSeedOil, 10)));
 
         setup.registry(ScrewPressRegistry.recipes)
-            .add(new ScrewPressRecipe(new FluidStack(BidsFluids.flaxSeedOil, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f / ScrewPressConfig.efficiency), 0.25f));
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f / ScrewPressConfig.efficiency),
+                new FluidStack(BidsFluids.flaxSeedOil, 10), 0.25f));
     }
 
 }

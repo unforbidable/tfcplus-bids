@@ -85,85 +85,61 @@ public class ProcessingSurface extends Feature {
         }
 
         setup.registry(ProcessingSurfaceRegistry.recipes)
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 0),
-                new ItemStack(TFCItems.soakedHide, 1, 0),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.soakedHide, 1, 0), new ItemStack(TFCItems.scrapedHide, 1, 0),
                 "itemScrapingTool", "blockScrapingSurface", 1))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 1),
-                new ItemStack(TFCItems.soakedHide, 1, 1),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.soakedHide, 1, 1), new ItemStack(TFCItems.scrapedHide, 1, 1),
                 "itemScrapingTool", "blockScrapingSurface", 2))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.scrapedHide, 1, 2),
-                new ItemStack(TFCItems.soakedHide, 1, 2),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.soakedHide, 1, 2), new ItemStack(TFCItems.scrapedHide, 1, 2),
                 "itemScrapingTool", "blockScrapingSurface", 4));
 
         setup.registry(ProcessingSurfaceRegistry.recipes)
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-                new ItemStack(TFCItems.fur, 1, 0),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.fur, 1, 0), new ItemStack(TFCItems.hide, 1, 0),
                 "itemScrapingTool", "blockScrapingSurface", 1))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-                new ItemStack(TFCItems.fur, 1, 1),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.fur, 1, 1), new ItemStack(TFCItems.hide, 1, 1),
                 "itemScrapingTool", "blockScrapingSurface", 2))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-                new ItemStack(TFCItems.fur, 1, 2),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.fur, 1, 2), new ItemStack(TFCItems.hide, 1, 2),
                 "itemScrapingTool", "blockScrapingSurface", 4))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-                new ItemStack(TFCItems.furScrap, 1, 0),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.furScrap, 1, 0), new ItemStack(TFCItems.hide, 1, 0),
                 "itemScrapingTool", "blockScrapingSurface", 1))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-                new ItemStack(TFCItems.furScrap, 1, 1),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.furScrap, 1, 1), new ItemStack(TFCItems.hide, 1, 1),
                 "itemScrapingTool", "blockScrapingSurface", 2))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-                new ItemStack(TFCItems.furScrap, 1, 2),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.furScrap, 1, 2), new ItemStack(TFCItems.hide, 1, 2),
                 "itemScrapingTool", "blockScrapingSurface", 4));
 
         setup.registry(ProcessingSurfaceRegistry.recipes)
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-                new ItemStack(TFCItems.wolfFur, 1, 0),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.wolfFur, 1, 0), new ItemStack(TFCItems.hide, 1, 0),
                 "itemScrapingTool", "blockScrapingSurface", 1))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-                new ItemStack(TFCItems.wolfFur, 1, 1),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.wolfFur, 1, 1), new ItemStack(TFCItems.hide, 1, 1),
                 "itemScrapingTool", "blockScrapingSurface", 2))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-                new ItemStack(TFCItems.wolfFur, 1, 2),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.wolfFur, 1, 2), new ItemStack(TFCItems.hide, 1, 2),
                 "itemScrapingTool", "blockScrapingSurface", 4))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-                new ItemStack(TFCItems.wolfFurScrap, 1, 0),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.wolfFurScrap, 1, 0), new ItemStack(TFCItems.hide, 1, 0),
                 "itemScrapingTool", "blockScrapingSurface", 1))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-                new ItemStack(TFCItems.wolfFurScrap, 1, 1),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.wolfFurScrap, 1, 1), new ItemStack(TFCItems.hide, 1, 1),
                 "itemScrapingTool", "blockScrapingSurface", 2))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-                new ItemStack(TFCItems.wolfFurScrap, 1, 2),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.wolfFurScrap, 1, 2), new ItemStack(TFCItems.hide, 1, 2),
                 "itemScrapingTool", "blockScrapingSurface", 4));
 
         setup.registry(ProcessingSurfaceRegistry.recipes)
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-                new ItemStack(TFCItems.bearFur, 1, 0),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.bearFur, 1, 0), new ItemStack(TFCItems.hide, 1, 0),
                 "itemScrapingTool", "blockScrapingSurface", 1))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-                new ItemStack(TFCItems.bearFur, 1, 1),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.bearFur, 1, 1), new ItemStack(TFCItems.hide, 1, 1),
                 "itemScrapingTool", "blockScrapingSurface", 2))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-                new ItemStack(TFCItems.bearFur, 1, 2),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.bearFur, 1, 2), new ItemStack(TFCItems.hide, 1, 2),
                 "itemScrapingTool", "blockScrapingSurface", 4))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-                new ItemStack(TFCItems.bearFurScrap, 1, 0),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.bearFurScrap, 1, 0), new ItemStack(TFCItems.hide, 1, 0),
                 "itemScrapingTool", "blockScrapingSurface", 1))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-                new ItemStack(TFCItems.bearFurScrap, 1, 1),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.bearFurScrap, 1, 1), new ItemStack(TFCItems.hide, 1, 1),
                 "itemScrapingTool", "blockScrapingSurface", 2))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-                new ItemStack(TFCItems.bearFurScrap, 1, 2),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.bearFurScrap, 1, 2), new ItemStack(TFCItems.hide, 1, 2),
                 "itemScrapingTool", "blockScrapingSurface", 4));
 
         setup.registry(ProcessingSurfaceRegistry.recipes)
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 0),
-                new ItemStack(TFCItems.sheepSkin, 1, 0),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.sheepSkin, 1, 0), new ItemStack(TFCItems.hide, 1, 0),
                 "itemScrapingTool", "blockScrapingSurface", 1))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 1),
-                new ItemStack(TFCItems.sheepSkin, 1, 1),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.sheepSkin, 1, 1), new ItemStack(TFCItems.hide, 1, 1),
                 "itemScrapingTool", "blockScrapingSurface", 2))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.hide, 1, 2),
-                new ItemStack(TFCItems.sheepSkin, 1, 2),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.sheepSkin, 1, 2), new ItemStack(TFCItems.hide, 1, 2),
                 "itemScrapingTool", "blockScrapingSurface", 4));
     }
 

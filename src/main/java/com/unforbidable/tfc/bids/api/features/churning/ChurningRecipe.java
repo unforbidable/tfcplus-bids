@@ -14,7 +14,7 @@ public class ChurningRecipe implements SimpleRecipeMatcher<FluidStack> {
     private final FluidStack input;
     private final float duration;
 
-    public ChurningRecipe(ItemStack output, FluidStack input, float duration) {
+    public ChurningRecipe(FluidStack input, ItemStack output, float duration) {
         this.output = output;
         this.input = input;
         this.duration = duration;

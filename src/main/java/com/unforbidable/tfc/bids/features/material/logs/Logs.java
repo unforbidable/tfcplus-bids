@@ -88,8 +88,8 @@ public class Logs extends Feature {
                     .add(wood.items.getSeasonedLog());
 
                 setup.registry(WoodpileRegistry.seasoning)
-                    .add(new SeasoningRecipe(wood.items.getSeasonedLog(),
-                        wood.items.getLog(), SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.LOG)));
+                    .add(new SeasoningRecipe(wood.items.getLog(), wood.items.getSeasonedLog(),
+                        SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.LOG)));
 
                 if (wood.items.hasChoppedLog()) {
                     setup.ores("logWoodAny")
@@ -100,8 +100,8 @@ public class Logs extends Feature {
                         .add(wood.items.getSeasonedChoppedLog());
 
                     setup.registry(WoodpileRegistry.seasoning)
-                        .add(new SeasoningRecipe(wood.items.getSeasonedChoppedLog(),
-                            wood.items.getChoppedLog(), SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.CHOPPED_LOG)));
+                        .add(new SeasoningRecipe(wood.items.getChoppedLog(), wood.items.getSeasonedChoppedLog(),
+                            SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.CHOPPED_LOG)));
                 }
             }
 
@@ -122,9 +122,8 @@ public class Logs extends Feature {
                     .action(copySeasoning(TFCItems.logs));
 
                 setup.registry(ChoppingBlockRegistry.recipes)
-                    .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                        wood.items.getPeeledLog(), wood.items.getLog(),
-                        wood.items.getBark(), BarkConfig.dropPeelingChance));
+                    .add(new ChoppingBlockRecipe(wood.items.getLog(), wood.items.getPeeledLog(),
+                        wood.items.getBark(), BarkConfig.dropPeelingChance, "blockChoppingBlock", "itemAdze"));
 
                 if (wood.items.hasChoppedLog()) {
                     setup.recipes().addShapeless(wood.items.getPeeledLog(),
@@ -133,9 +132,9 @@ public class Logs extends Feature {
                         .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingChance));
 
                     setup.registry(ChoppingBlockRegistry.recipes)
-                        .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                            wood.items.getPeeledLog(), wood.items.getChoppedLog(),
-                            wood.items.getBark(), BarkConfig.dropPeelingChance));
+                        .add(new ChoppingBlockRecipe(wood.items.getChoppedLog(), wood.items.getPeeledLog(),
+                            wood.items.getBark(), BarkConfig.dropPeelingChance,
+                            "blockChoppingBlock", "itemAdze"));
                 }
             }
 
@@ -162,13 +161,13 @@ public class Logs extends Feature {
                     .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
 
                 setup.registry(ChoppingBlockRegistry.recipes)
-                    .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                        wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedLog(),
-                        wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
+                    .add(new ChoppingBlockRecipe(wood.items.getSeasonedLog(), wood.items.getSeasonedPeeledLog(),
+                        wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance,
+                        "blockChoppingBlock", "itemAdze"));
 
                 setup.registry(WoodpileRegistry.seasoning)
-                    .add(new SeasoningRecipe(wood.items.getSeasonedPeeledLog(),
-                        wood.items.getPeeledLog(), SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.PEELED_LOG)));
+                    .add(new SeasoningRecipe(wood.items.getPeeledLog(), wood.items.getSeasonedPeeledLog(),
+                        SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.PEELED_LOG)));
 
                 if (wood.items.hasSeasonedChoppedLog()) {
                     setup.recipes().addShapeless(wood.items.getSeasonedPeeledLog(),
@@ -177,9 +176,9 @@ public class Logs extends Feature {
                         .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
 
                     setup.registry(ChoppingBlockRegistry.recipes)
-                        .add(new ChoppingBlockRecipe("blockChoppingBlock", "itemAdze",
-                            wood.items.getSeasonedPeeledLog(), wood.items.getSeasonedChoppedLog(),
-                            wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
+                        .add(new ChoppingBlockRecipe(wood.items.getSeasonedChoppedLog(), wood.items.getSeasonedPeeledLog(),
+                            wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance,
+                            "blockChoppingBlock", "itemAdze"));
                 }
             }
 

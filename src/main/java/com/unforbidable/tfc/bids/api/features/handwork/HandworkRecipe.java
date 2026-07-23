@@ -9,7 +9,7 @@ public class HandworkRecipe implements SimpleRecipeMatcher<ItemStack> {
     private final ItemStack input;
     private final int duration;
 
-    public HandworkRecipe(ItemStack output, ItemStack input, int duration) {
+    public HandworkRecipe(ItemStack input, ItemStack output, int duration) {
         this.output = output;
         this.input = input;
         this.duration = duration;

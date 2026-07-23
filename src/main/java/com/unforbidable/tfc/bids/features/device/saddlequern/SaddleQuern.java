@@ -137,57 +137,58 @@ public class SaddleQuern extends Feature {
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
             if (stone.soft) {
                 setup.registry(CarvingRegistry.recipes)
-                    .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.SADDLE_QUERN),
-                        stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), saddleQuernPattern));
+                    .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE),
+                        stone.blocks.getBlockStack(EnumStoneBlockType.SADDLE_QUERN), saddleQuernPattern));
 
                 for (CarvingRecipePattern handstonePattern : handstonePatterns) {
                     setup.registry(CarvingRegistry.recipes)
-                        .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.HAND_STONE),
-                            stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), handstonePattern));
+                        .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE),
+                            stone.blocks.getBlockStack(EnumStoneBlockType.HAND_STONE), handstonePattern));
                 }
 
                 setup.registry(CarvingRegistry.recipes)
-                    .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.PRESSING_STONE),
-                        stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), pressingStonePattern));
+                    .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE),
+                        stone.blocks.getBlockStack(EnumStoneBlockType.PRESSING_STONE), pressingStonePattern));
 
                 setup.registry(CarvingRegistry.recipes)
-                    .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.WEIGHT_STONE),
-                        stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE), weightStonePattern));
+                    .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.ROUGH_STONE),
+                        stone.blocks.getBlockStack(EnumStoneBlockType.WEIGHT_STONE), weightStonePattern));
             }
         }
 
+        // Salt
         setup.registry(SaddleQuernRegistry.recipes)
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 2, 9), // Salt
-                new ItemStack(TFCItems.looseRock, 1, 5)));
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.looseRock, 1, 5),
+                new ItemStack(TFCItems.powder, 2, 9) ));
 
         setup.registry(SaddleQuernRegistry.recipes)
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.dye, 1, 15), // Bone Meal
-                new ItemStack(TFCItems.bone)))
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.dye, 1, 15), // Bone Meal
-                new ItemStack(TFCItems.boneFragment)));
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.bone),
+                new ItemStack(TFCItems.dye, 1, 15)))
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.boneFragment),
+                new ItemStack(TFCItems.dye, 1, 15)));
 
         if (SaddleQuernConfig.allowGrindHematite) {
             setup.registry(SaddleQuernRegistry.recipes)
-                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 1, 5), // Hematite
-                    new ItemStack(TFCItems.smallOreChunk, 1, 3)));
+                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.smallOreChunk, 1, 3),
+                    new ItemStack(TFCItems.powder, 1, 5)));
         }
 
         if (SaddleQuernConfig.allowGrindLimonite) {
             setup.registry(SaddleQuernRegistry.recipes)
-                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 1, 7), // Limonite
-                    new ItemStack(TFCItems.smallOreChunk, 1, 11)));
+                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.smallOreChunk, 1, 11),
+                    new ItemStack(TFCItems.powder, 1, 7)));
         }
 
         if (SaddleQuernConfig.allowGrindMalachite) {
             setup.registry(SaddleQuernRegistry.recipes)
-                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 1, 8), // Malachite
-                    new ItemStack(TFCItems.smallOreChunk, 1, 9)));
+                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.smallOreChunk, 1, 9),
+                    new ItemStack(TFCItems.powder, 1, 8)));
         }
 
         if (SaddleQuernConfig.allowGrindLapisLazuli) {
             setup.registry(SaddleQuernRegistry.recipes)
-                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.powder, 2, 6), // Lapis Lazuli
-                    new ItemStack(TFCItems.oreChunk, 1, 318)));
+                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.oreChunk, 1, 318),
+                    new ItemStack(TFCItems.powder, 2, 6)));
         }
 
         // TODO consider maintaining a single list of universal pressing recipes, adapted for stone press and screw press
@@ -196,46 +197,46 @@ public class SaddleQuern extends Feature {
         float outputRatio = StonePressConfig.efficiency; // output multiplier (for food input)
 
         setup.registry(StonePressRegistry.recipes)
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.GRAPEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.CANEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.LEMONJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.ORANGEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.orange), 0.5f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.PEACHJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.peach), 0.55f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.PLUMJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.plum), 0.65f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.FIGJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.fig), 0.5f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.CHERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.cherry), 0.7f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.DATEJUICE, 6),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.date), 0.8f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.PAPAYAJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.papaya), 0.6f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.strawberry), 0.65f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.blackberry), 0.61f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.blueberry), 0.6f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.bunchberry), 0.68f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.cranberry), 0.7f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.elderberry), 0.58f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.gooseberry), 0.6f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f * inputRatio)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputRatio)),
-                new ItemStack(TFCItems.agave, 1)));
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f * inputRatio),
+                new FluidStack(TFCFluids.GRAPEJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f * inputRatio),
+                new FluidStack(TFCFluids.CANEJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f * inputRatio),
+                new FluidStack(TFCFluids.LEMONJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.orange), 0.5f * inputRatio),
+                new FluidStack(TFCFluids.ORANGEJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.peach), 0.55f * inputRatio),
+                new FluidStack(TFCFluids.PEACHJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.plum), 0.65f * inputRatio),
+                new FluidStack(TFCFluids.PLUMJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.fig), 0.5f * inputRatio),
+                new FluidStack(TFCFluids.FIGJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.cherry), 0.7f * inputRatio),
+                new FluidStack(TFCFluids.CHERRYJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.date), 0.8f * inputRatio),
+                new FluidStack(TFCFluids.DATEJUICE, 6)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.papaya), 0.6f * inputRatio),
+                new FluidStack(TFCFluids.PAPAYAJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.strawberry), 0.65f * inputRatio),
+                new FluidStack(TFCFluids.BERRYJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.blackberry), 0.61f * inputRatio),
+                new FluidStack(TFCFluids.BERRYJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.blueberry), 0.6f * inputRatio),
+                new FluidStack(TFCFluids.BERRYJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.bunchberry), 0.68f * inputRatio),
+                new FluidStack(TFCFluids.BERRYJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.cranberry), 0.7f * inputRatio),
+                new FluidStack(TFCFluids.BERRYJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.elderberry), 0.58f * inputRatio),
+                new FluidStack(TFCFluids.BERRYJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.gooseberry), 0.6f * inputRatio),
+                new FluidStack(TFCFluids.BERRYJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f * inputRatio),
+                new FluidStack(TFCFluids.BERRYJUICE, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f * inputRatio),
+                new FluidStack(TFCFluids.BERRYJUICE, 10)))
+            .add(new StonePressRecipe(new ItemStack(TFCItems.agave, 1),
+                new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputRatio))));
     }
 
 }

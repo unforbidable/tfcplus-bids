@@ -52,21 +52,21 @@ public class CrushedFruit extends Feature {
     @Override
     public void setup(FeatureSetupBuilder setup) {
         setup.registry(SaddleQuernRegistry.recipes)
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.appleCrushed), new ItemStack(TFCItems.greenApple)))
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.appleCrushed), new ItemStack(TFCItems.redApple)))
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.oliveCrushed), new ItemStack(TFCItems.olive)));
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.greenApple), new ItemStack(BidsItems.appleCrushed)))
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.redApple), new ItemStack(BidsItems.appleCrushed)))
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.olive), new ItemStack(BidsItems.oliveCrushed)));
 
         setup.registry(StonePressRegistry.recipes)
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f / StonePressConfig.efficiency)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f / StonePressConfig.efficiency)));
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f / StonePressConfig.efficiency),
+                new FluidStack(TFCFluids.OLIVEOIL, 10)))
+            .add(new StonePressRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f / StonePressConfig.efficiency),
+                new FluidStack(TFCFluids.APPLEJUICE, 10)));
 
         setup.registry(ScrewPressRegistry.recipes)
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f / ScrewPressConfig.efficiency), 1f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f / ScrewPressConfig.efficiency), 1f));
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f / ScrewPressConfig.efficiency),
+                new FluidStack(TFCFluids.OLIVEOIL, 10), 1f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f / ScrewPressConfig.efficiency),
+                new FluidStack(TFCFluids.APPLEJUICE, 10), 1f));
     }
 
 }

@@ -70,13 +70,13 @@ public class FishOil extends Feature {
         // Require fish to be steamed to medium level
         Food.setCooked(steamedFishStonePress, CookingHelper.getTempForItemStackCookedLevel(steamedFishStonePress, 3));
         setup.registry(StonePressRegistry.recipes)
-            .add(new StonePressRecipe(new FluidStack(BidsFluids.oilyFishWater, 10), steamedFishStonePress));
+            .add(new StonePressRecipe(steamedFishStonePress, new FluidStack(BidsFluids.oilyFishWater, 10)));
 
         ItemStack steamedFishScrewPress = BidsFood.setSteamed(ItemFoodTFC.createTag(new ItemStack(TFCItems.fishRaw), 0.5f / ScrewPressConfig.efficiency), true);
         // Require fish to be steamed to medium level
         Food.setCooked(steamedFishScrewPress, CookingHelper.getTempForItemStackCookedLevel(steamedFishScrewPress, 3));
         setup.registry(ScrewPressRegistry.recipes)
-            .add(new ScrewPressRecipe(new FluidStack(BidsFluids.oilyFishWater, 10), steamedFishScrewPress, 0.65f));
+            .add(new ScrewPressRecipe(steamedFishScrewPress, new FluidStack(BidsFluids.oilyFishWater, 10), 0.65f));
 
         setup.registry(CookingRegistry.recipes).add(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.oilyFishWater, 1000))

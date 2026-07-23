@@ -4,8 +4,8 @@ import net.minecraft.item.ItemStack;
 
 public class CardingRecipe extends HandworkRecipe {
 
-    public CardingRecipe(ItemStack output, ItemStack input, int duration) {
-        super(output, input, duration);
+    public CardingRecipe(ItemStack input, ItemStack output, int duration) {
+        super(input, output, duration);
     }
 
 }

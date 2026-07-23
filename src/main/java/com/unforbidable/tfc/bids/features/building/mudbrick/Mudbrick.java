@@ -77,8 +77,8 @@ public class Mudbrick extends Feature {
                 'B', stone.items.getItem(EnumStoneItemType.MUD_BRICK));
 
             setup.registry(CarvingRegistry.recipes)
-                .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY),
-                    stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICKS), chimneyPattern));
+                .add(new CarvingRecipe(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICKS),
+                    stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY), chimneyPattern));
         }
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {

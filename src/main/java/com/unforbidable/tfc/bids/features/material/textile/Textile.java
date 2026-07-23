@@ -292,69 +292,67 @@ public class Textile extends Feature {
                 .build());
 
         setup.registry(SoakingSurfaceRegistry.recipes)
-            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkRetted),
-                new ItemStack(BidsItems.flaxStalk), "blockFreshWater", 20))
-            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.juteStalkRetted),
-                new ItemStack(BidsItems.juteStalk), "blockFreshWater", 20))
-            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.sisalFiberRinsed),
-                new ItemStack(TFCItems.sisalFiber), "blockFreshWater", 0))
+            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.flaxStalk), new ItemStack(BidsItems.flaxStalkRetted),
+                "blockFreshWater", 20))
+            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.juteStalk), new ItemStack(BidsItems.juteStalkRetted),
+                "blockFreshWater", 20))
+            .add(new SoakingSurfaceRecipe(new ItemStack(TFCItems.sisalFiber), new ItemStack(BidsItems.sisalFiberRinsed),
+                "blockFreshWater", 0))
             // Washing wool can be skipped however the wool needs to be rinsed for an extended period of time
-            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed),
-                new ItemStack(TFCItems.wool), "blockFreshWater", 20))
-            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolRinsed),
-                new ItemStack(BidsItems.woolWashed), "blockFreshWater", 0));
+            .add(new SoakingSurfaceRecipe(new ItemStack(TFCItems.wool), new ItemStack(BidsItems.woolRinsed),
+                "blockFreshWater", 20))
+            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolWashed), new ItemStack(BidsItems.woolRinsed),
+                "blockFreshWater", 0));
 
         setup.registry(ProcessingSurfaceRegistry.recipes)
-            .add(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkBroken),
-                new ItemStack(BidsItems.flaxStalkDried),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkDried), new ItemStack(BidsItems.flaxStalkBroken),
                 "itemFlaxBreakingTool", "blockFlaxWorkingSurface", 0.25f))
-            .add(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxFiberCoarse),
-                new ItemStack(BidsItems.flaxStalkBroken),
+            .add(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkBroken), new ItemStack(BidsItems.flaxFiberCoarse),
                 "itemFlaxScutchingTool", "blockFlaxWorkingSurface", 0.25f));
 
         setup.registry(HandworkRegistry.recipes)
-            .add(new HandworkRecipe(new ItemStack(BidsItems.barkFiberSmooth), new ItemStack(BidsItems.barkFiberCoarse), 80))
-            .add(new HandworkRecipe(new ItemStack(TFCItems.juteFiber), new ItemStack(BidsItems.juteStalkRetted), 80))
-            .add(new HandworkRecipe(new ItemStack(BidsItems.flaxStalkBroken), new ItemStack(BidsItems.flaxStalkDried), 240))
-            .add(new HandworkRecipe(new ItemStack(BidsItems.flaxFiberCoarse), new ItemStack(BidsItems.flaxStalkBroken), 240))
-            .add(new HandworkRecipe(new ItemStack(BidsItems.cottonFiberCoarse), new ItemStack(BidsItems.cottonBollRefined), 60))
-            .add(new HandworkRecipe(new ItemStack(BidsItems.woolFiberCoarse), new ItemStack(BidsItems.woolDried), 60));
+            .add(new HandworkRecipe(new ItemStack(BidsItems.barkFiberCoarse), new ItemStack(BidsItems.barkFiberSmooth), 80))
+            .add(new HandworkRecipe(new ItemStack(BidsItems.juteStalkRetted), new ItemStack(TFCItems.juteFiber), 80))
+            .add(new HandworkRecipe(new ItemStack(BidsItems.flaxStalkDried), new ItemStack(BidsItems.flaxStalkBroken), 240))
+            .add(new HandworkRecipe(new ItemStack(BidsItems.flaxStalkBroken), new ItemStack(BidsItems.flaxFiberCoarse), 240))
+            .add(new HandworkRecipe(new ItemStack(BidsItems.cottonBollRefined), new ItemStack(BidsItems.cottonFiberCoarse), 60))
+            .add(new HandworkRecipe(new ItemStack(BidsItems.woolDried), new ItemStack(BidsItems.woolFiberCoarse), 60));
 
         // Flax fiber spinning recipe is preserved as a way to convert TFC+ Flax fibers to string
         // since unlike other fibers it is not used as an intermediate material in the new extended textile processing
         setup.registry(SpinningRegistry.recipes)
-            .add(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(TFCItems.flaxFiber), 120));
+            .add(new SpinningRecipe(new ItemStack(TFCItems.flaxFiber), new ItemStack(TFCItems.linenString, 4), 120));
 
         setup.registry(SpinningRegistry.recipes)
-            .add(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberRefined), 120))
-            .add(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberRefined), 120))
-            .add(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberRefined), 120))
-            .add(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFiberSmooth), 80))
-            .add(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberRefined), 120))
-            .add(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberRefined), 120));
+            .add(new SpinningRecipe(new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(TFCItems.linenString, 4), 120))
+            .add(new SpinningRecipe(new ItemStack(BidsItems.cottonFiberRefined), new ItemStack(TFCItems.cottonYarn, 6), 120))
+            .add(new SpinningRecipe(new ItemStack(BidsItems.woolFiberRefined), new ItemStack(TFCItems.woolYarn, 8), 120))
+            .add(new SpinningRecipe(new ItemStack(BidsItems.barkFiberSmooth), new ItemStack(BidsItems.barkCordage, 2), 80))
+            .add(new SpinningRecipe(new ItemStack(BidsItems.sisalFiberRefined), new ItemStack(BidsItems.sisalTwine, 2), 120))
+            .add(new SpinningRecipe(new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.juteTwine, 2), 120));
 
         setup.registry(SpinningRegistry.recipes)
-            .add(new SpinningRecipe(new ItemStack(TFCItems.linenString, 4), new ItemStack(BidsItems.flaxFiberCoarse), 120 * 4))
-            .add(new SpinningRecipe(new ItemStack(TFCItems.cottonYarn, 6), new ItemStack(BidsItems.cottonFiberCoarse), 120 * 4))
-            .add(new SpinningRecipe(new ItemStack(TFCItems.woolYarn, 8), new ItemStack(BidsItems.woolFiberCoarse), 120 * 4))
-            .add(new SpinningRecipe(new ItemStack(BidsItems.sisalTwine, 2), new ItemStack(BidsItems.sisalFiberCoarse), 120 * 4))
-            .add(new SpinningRecipe(new ItemStack(BidsItems.juteTwine, 2), new ItemStack(BidsItems.juteFiberCoarse), 120 * 4))
-            .add(new SpinningRecipe(new ItemStack(BidsItems.barkCordage, 2), new ItemStack(BidsItems.barkFiberCoarse), 80 * 4));
+            .add(new SpinningRecipe(new ItemStack(BidsItems.flaxFiberCoarse), new ItemStack(TFCItems.linenString, 4), 120 * 4))
+            .add(new SpinningRecipe(new ItemStack(BidsItems.cottonFiberCoarse), new ItemStack(TFCItems.cottonYarn, 6), 120 * 4))
+            .add(new SpinningRecipe(new ItemStack(BidsItems.woolFiberCoarse), new ItemStack(TFCItems.woolYarn, 8), 120 * 4))
+            .add(new SpinningRecipe(new ItemStack(BidsItems.sisalFiberCoarse), new ItemStack(BidsItems.sisalTwine, 2), 120 * 4))
+            .add(new SpinningRecipe(new ItemStack(BidsItems.juteFiberCoarse), new ItemStack(BidsItems.juteTwine, 2), 120 * 4))
+            .add(new SpinningRecipe(new ItemStack(BidsItems.barkFiberCoarse), new ItemStack(BidsItems.barkCordage, 2), 80 * 4));
 
         setup.registry(RopeMakingRegistry.recipes)
-            .add(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(TFCItems.linenString, 16), 600))
-            .add(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.barkCordage, 12), 600))
-            .add(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.sisalTwine, 8), 600))
-            .add(new RopeMakingRecipe(new ItemStack(TFCItems.rope), new ItemStack(BidsItems.juteTwine, 12), 600));
+            .add(new RopeMakingRecipe(new ItemStack(TFCItems.linenString, 16), new ItemStack(TFCItems.rope), 600))
+            .add(new RopeMakingRecipe(new ItemStack(BidsItems.barkCordage, 12), new ItemStack(TFCItems.rope), 600))
+            .add(new RopeMakingRecipe(new ItemStack(BidsItems.sisalTwine, 8), new ItemStack(TFCItems.rope), 600))
+            .add(new RopeMakingRecipe(new ItemStack(BidsItems.juteTwine, 12), new ItemStack(TFCItems.rope), 600));
 
         setup.registry(CardingRegistry.recipes)
-            .add(new CardingRecipe(new ItemStack(BidsItems.sisalFiberRefined), new ItemStack(BidsItems.sisalFiberCoarse), 80))
-            .add(new CardingRecipe(new ItemStack(BidsItems.cottonFiberRefined), new ItemStack(BidsItems.cottonFiberCoarse), 80))
-            .add(new CardingRecipe(new ItemStack(BidsItems.woolFiberRefined), new ItemStack(BidsItems.woolFiberCoarse), 80));
+            .add(new CardingRecipe(new ItemStack(BidsItems.sisalFiberCoarse), new ItemStack(BidsItems.sisalFiberRefined), 80))
+            .add(new CardingRecipe(new ItemStack(BidsItems.cottonFiberCoarse), new ItemStack(BidsItems.cottonFiberRefined), 80))
+            .add(new CardingRecipe(new ItemStack(BidsItems.woolFiberCoarse), new ItemStack(BidsItems.woolFiberRefined), 80));
 
         setup.registry(HecklingRegistry.recipes)
-            .add(new HecklingRecipe(new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.juteFiberCoarse), 120))
-            .add(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(BidsItems.flaxFiberCoarse), 120));
+            .add(new HecklingRecipe(new ItemStack(BidsItems.juteFiberCoarse), new ItemStack(BidsItems.juteFiberRefined), 120))
+            .add(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberCoarse), new ItemStack(BidsItems.flaxFiberRefined), 120));
 
         setup.registry(CookingRegistry.recipes)
             .add(CookingRecipe.builder()

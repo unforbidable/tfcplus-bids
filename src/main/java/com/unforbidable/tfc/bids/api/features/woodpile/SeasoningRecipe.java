@@ -9,7 +9,7 @@ public class SeasoningRecipe implements SimpleRecipeMatcher<ItemStack> {
     final ItemStack input;
     final int duration;
 
-    public SeasoningRecipe(ItemStack output, ItemStack input, int duration) {
+    public SeasoningRecipe(ItemStack input, ItemStack output, int duration) {
         this.output = output;
         this.input = input;
         this.duration = duration;

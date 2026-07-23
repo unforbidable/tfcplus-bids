@@ -130,58 +130,58 @@ public class ScrewPress extends Feature {
         float outputMult = ScrewPressConfig.efficiency; // output multiplier (for food input)
 
         setup.registry(ScrewPressRegistry.recipes)
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.olive), 0.64f * inputMult), 1f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.redApple), 0.7f * inputMult), 1f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.greenApple), 0.7f * inputMult), 1f));
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.olive), 0.64f * inputMult),
+                new FluidStack(TFCFluids.OLIVEOIL, 10), 1f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.redApple), 0.7f * inputMult),
+                new FluidStack(TFCFluids.APPLEJUICE, 10), 1f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.greenApple), 0.7f * inputMult),
+                new FluidStack(TFCFluids.APPLEJUICE, 10), 1f));
 
         setup.registry(ScrewPressRegistry.recipes)
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.GRAPEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f * inputMult), 0.5f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.CANEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f * inputMult), 0.8f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.LEMONJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f * inputMult), 0.65f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.ORANGEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.orange), 0.5f * inputMult), 0.65f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.PEACHJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.peach), 0.55f * inputMult), 0.8f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.PLUMJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.plum), 0.65f * inputMult), 0.8f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.FIGJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.fig), 0.5f * inputMult), 0.8f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.CHERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.cherry), 0.7f * inputMult), 0.8f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.DATEJUICE, 6),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.date), 0.8f * inputMult), 0.8f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.PAPAYAJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.papaya), 0.6f * inputMult), 0.8f));
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.grapes), 0.5f * inputMult),
+                new FluidStack(TFCFluids.GRAPEJUICE, 10), 0.5f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.sugarcane), 0.8f * inputMult),
+                new FluidStack(TFCFluids.CANEJUICE, 10), 0.8f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.lemon), 0.65f * inputMult),
+                new FluidStack(TFCFluids.LEMONJUICE, 10), 0.65f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.orange), 0.5f * inputMult),
+                new FluidStack(TFCFluids.ORANGEJUICE, 10), 0.65f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.peach), 0.55f * inputMult),
+                new FluidStack(TFCFluids.PEACHJUICE, 10), 0.8f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.plum), 0.65f * inputMult),
+                new FluidStack(TFCFluids.PLUMJUICE, 10), 0.8f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.fig), 0.5f * inputMult),
+                new FluidStack(TFCFluids.FIGJUICE, 10), 0.8f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.cherry), 0.7f * inputMult),
+                new FluidStack(TFCFluids.CHERRYJUICE, 10), 0.8f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.date), 0.8f * inputMult),
+                new FluidStack(TFCFluids.DATEJUICE, 6), 0.8f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.papaya), 0.6f * inputMult),
+                new FluidStack(TFCFluids.PAPAYAJUICE, 10), 0.8f));
 
         setup.registry(ScrewPressRegistry.recipes)
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.strawberry), 0.65f * inputMult), 0.5f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.blackberry), 0.61f * inputMult), 0.5f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.blueberry), 0.6f * inputMult), 0.5f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.bunchberry), 0.68f * inputMult), 0.5f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.cranberry), 0.7f * inputMult), 0.5f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.elderberry), 0.58f * inputMult), 0.5f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.gooseberry), 0.6f * inputMult), 0.5f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f * inputMult), 0.5f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.BERRYJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f * inputMult), 0.5f));
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.strawberry), 0.65f * inputMult),
+                new FluidStack(TFCFluids.BERRYJUICE, 10), 0.5f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.blackberry), 0.61f * inputMult),
+                new FluidStack(TFCFluids.BERRYJUICE, 10), 0.5f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.blueberry), 0.6f * inputMult),
+                new FluidStack(TFCFluids.BERRYJUICE, 10), 0.5f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.bunchberry), 0.68f * inputMult),
+                new FluidStack(TFCFluids.BERRYJUICE, 10), 0.5f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.cranberry), 0.7f * inputMult),
+                new FluidStack(TFCFluids.BERRYJUICE, 10), 0.5f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.elderberry), 0.58f * inputMult),
+                new FluidStack(TFCFluids.BERRYJUICE, 10), 0.5f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.gooseberry), 0.6f * inputMult),
+                new FluidStack(TFCFluids.BERRYJUICE, 10), 0.5f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.raspberry), 0.6f * inputMult),
+                new FluidStack(TFCFluids.BERRYJUICE, 10), 0.5f))
+            .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.snowberry), 0.66f * inputMult),
+                new FluidStack(TFCFluids.BERRYJUICE, 10), 0.5f));
 
         setup.registry(ScrewPressRegistry.recipes)
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputMult)),
-                new ItemStack(TFCItems.agave, 1), 0.8f));
+            .add(new ScrewPressRecipe(new ItemStack(TFCItems.agave, 1),
+                new FluidStack(TFCFluids.AGAVEJUICE, Math.round(40 * outputMult)), 0.8f));
     }
 
 }
