@@ -64,9 +64,9 @@ public class CrushedFruit extends Feature {
 
         setup.registry(ScrewPressRegistry.recipes)
             .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f / ScrewPressConfig.efficiency),
-                new FluidStack(TFCFluids.OLIVEOIL, 10), 1f))
+                new FluidStack(TFCFluids.OLIVEOIL, 10), 0.25f))
             .add(new ScrewPressRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f / ScrewPressConfig.efficiency),
-                new FluidStack(TFCFluids.APPLEJUICE, 10), 1f));
+                new FluidStack(TFCFluids.APPLEJUICE, 10), 0.25f));
     }
 
 }
