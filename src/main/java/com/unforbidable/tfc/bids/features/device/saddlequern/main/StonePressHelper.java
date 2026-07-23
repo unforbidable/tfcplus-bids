@@ -5,6 +5,8 @@ import com.dunk.tfc.Blocks.BlockPlasteredBlock;
 import com.dunk.tfc.Blocks.BlockWattleDaub;
 import com.dunk.tfc.Blocks.Terrain.BlockSmooth;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.features.pressing.PressingRecipe;
+import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
 import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWall;
 import com.unforbidable.tfc.bids.features.building.logwall.block.BlockLogWallVert;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStoneBrick;
@@ -17,6 +19,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+
+import java.util.Optional;
 
 public class StonePressHelper {
     public static boolean canPlaceLeverAt(World world, int x, int y, int z) {
@@ -25,7 +30,7 @@ public class StonePressHelper {
             ForgeDirection d = saddleQuern.getOutputForgeDirection();
 
             // Anchor block behind, 4x air above and in front
-            return isValidAnchorBlockAt(world,x - d.offsetX, y + 1, z - d.offsetZ)
+            return isValidAnchorBlockAt(world, x - d.offsetX, y + 1, z - d.offsetZ)
                 && world.isAirBlock(x, y + 1, z)
                 && world.isAirBlock(x + d.offsetX, y + 1, z + d.offsetZ)
                 && world.isAirBlock(x + d.offsetX * 2, y + 1, z + d.offsetZ * 2)
@@ -77,6 +82,18 @@ public class StonePressHelper {
         }
 
         return false;
+    }
+
+    public static StonePressRecipe adaptPressingRecipe(PressingRecipe recipe) {
+        // Adapt all pressing recipes with resistance no higher than 0.8
+        // This excludes apples and olives, which need to be crushed first
+        if (recipe.getResistance() <= 0.8) {
+            ItemStack input = recipe.getInputItem().copy();
+            FluidStack output = recipe.getOutputFluid().copy();
+            return new StonePressRecipe(input, output);
+        } else {
+            return null;
+        }
     }
 
 }
