@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingAccessory;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingLidUsage;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingMixture;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingOreRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
@@ -29,7 +30,10 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import com.unforbidable.tfc.bids.features.crafting.cooking.fluid.FluidCookingMixture;
+import com.unforbidable.tfc.bids.features.crafting.cooking.item.ItemCookingMixture;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -88,7 +92,8 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
             if (recipe.getOutputItemStack() != null && areItemStacksEqual(recipe.getOutputItemStack(), output)) {
                 // Item matches
                 arecipes.add(new CachedCookingRecipe(recipe));
-            } else if (recipe.getOutputFluidStack() != null && NeiHelper.isFluidEqual(recipe.getOutputFluidStack(), output)) {
+            } else if (recipe.getOutputFluidStack() != null && (NeiHelper.isFluidEqual(recipe.getOutputFluidStack(), output) ||
+                CookingMixtureHelper.isCookingMixtureFluidEqual(recipe.getOutputFluidStack(), output))) {
                 // Fluid matches
                 arecipes.add(new CachedCookingRecipe(recipe));
             } else if (recipe.getSecondaryOutputFluidStack() != null && NeiHelper.isFluidEqual(recipe.getSecondaryOutputFluidStack(), output)) {
@@ -100,8 +105,6 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        // TODO match cooking mixes in bowls
-
         for (CookingRecipe recipe : CookingRegistry.recipes) {
             if (recipe.matchesInput(ingredient)) {
                 ItemStack inputItem = ingredient.copy();
@@ -126,7 +129,8 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
                     recipe.getAccessory(), recipe.getLidUsage(), recipe.getMinHeatLevel(), recipe.getMaxHeatLevel(), recipe.getTime(), recipe.isFixedTime()
                 );
                 arecipes.add(new CachedCookingRecipe(sizedRecipe));
-            } else if (recipe.getInputFluidStack() != null && NeiHelper.isFluidEqual(recipe.getInputFluidStack(), ingredient)) {
+            } else if (recipe.getInputFluidStack() != null && (NeiHelper.isFluidEqual(recipe.getInputFluidStack(), ingredient) ||
+                CookingMixtureHelper.isCookingMixtureFluidEqual(recipe.getInputFluidStack(), ingredient))) {
                 arecipes.add(new CachedCookingRecipe(recipe));
             } else if (recipe.getSecondaryInputFluidStack() != null && NeiHelper.isFluidEqual(recipe.getSecondaryInputFluidStack(), ingredient)) {
                 arecipes.add(new CachedCookingRecipe(recipe));
@@ -258,6 +262,14 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
                 if (cap == 0) itemStack.stackSize = 0;
                 else itemStack.stackSize = fluidStack.amount / cap;
                 itemStacks.add(itemStack);
+            }
+        }
+        if (itemStacks.size() == 0) {
+            if (fluidStack.getFluid() instanceof FluidCookingMixture) {
+                CookingMixture cookingMixture = CookingMixtureHelper.getCookingMixture(fluidStack);
+                if (cookingMixture != null) {
+                    itemStacks.add(cookingMixture.asItemStack());
+                }
             }
         }
         if (itemStacks.size() == 0)
