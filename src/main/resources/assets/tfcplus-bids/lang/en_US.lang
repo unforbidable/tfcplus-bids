@@ -1589,6 +1589,7 @@ gui.Handwork=Handwork
 gui.Carding=Carding
 gui.Heckling=Heckling
 gui.Woodworking=Woodworking
+gui.Threshing=Threshing
 
 key.BidsToolMode=Cycle Tool Mode
 

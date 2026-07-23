@@ -23,6 +23,7 @@ import com.unforbidable.tfc.bids.features.crafting.quern.Quern;
 import com.unforbidable.tfc.bids.features.crafting.ropemaking.RopeMaking;
 import com.unforbidable.tfc.bids.features.crafting.soaking.Soaking;
 import com.unforbidable.tfc.bids.features.crafting.spinning.Spinning;
+import com.unforbidable.tfc.bids.features.crafting.threshing.Threshing;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.Woodworking;
 import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.cookingpot.CookingPot;
@@ -177,6 +178,7 @@ public class Features {
         new Textile(),
         new Mallet(),
         new ScutchingKnife(),
+        new Threshing(),
     };
 
 }

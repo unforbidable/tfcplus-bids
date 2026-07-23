@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
 import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
+import com.unforbidable.tfc.bids.api.features.threshing.ThreshingPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlayerEvent;
 import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
@@ -115,6 +116,11 @@ public class BidsEventFactory {
         SurfaceItemEvent.Place event = new SurfaceItemEvent.Place(itemStack, world, x, y, z, face, hitX, hitY, hitZ, entityPlayer);
         MinecraftForge.EVENT_BUS.post(event);
         return event.placed;
+    }
+
+    public static void onThreshingItemCrafted(EntityPlayer player, ItemStack input, ItemStack result, ItemStack extra, ItemStack tool) {
+        ThreshingPlayerEvent event = new ThreshingPlayerEvent(player, ThreshingPlayerEvent.Action.ITEM_CRAFTED, input, result, extra, tool);
+        MinecraftForge.EVENT_BUS.post(event);
     }
 
 }
