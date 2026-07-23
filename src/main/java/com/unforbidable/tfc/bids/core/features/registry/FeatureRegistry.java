@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Objects;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -228,8 +228,7 @@ public class FeatureRegistry {
     public <S, T> void registerListAdapter(RegistryAdapter<S, T> adapter) {
         adapter.source.stream()
             .map(adapter.mapper)
-            .filter(Optional::isPresent)
-            .map(Optional::get)
+            .filter(Objects::nonNull)
             .forEach(adapter.target::add);
     }
 
