@@ -11,7 +11,6 @@ import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
-import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.features.handwork.CardingRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.HandworkRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.HecklingRecipe;
@@ -41,8 +40,6 @@ import com.unforbidable.tfc.bids.features.crafting.ropemaking.RopeMakingRegistry
 import com.unforbidable.tfc.bids.features.crafting.spinning.SpinningRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;
-import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
-import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.SoakingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.material.textile.eventhandler.TextileInteractEventHandler;
@@ -66,19 +63,6 @@ public class Textile extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(ItemNames.BARK_FIBER, ItemTextile::new)
-            .hints(TextileHints.DRYING_FIBER);
-        init.item(ItemNames.BARK_FIBER_COARSE, ItemTextile::new)
-            .hints(TextileHints.RUBBING, TextileHints.SPINNING_CORDAGE);
-        init.item(ItemNames.BARK_FIBER_SMOOTH, ItemTextile::new)
-            .hints(TextileHints.SPINNING_CORDAGE);
-        init.item(ItemNames.BARK_CORDAGE, ItemTextile::new)
-            .hints(TextileHints.TWISTING)
-            .apply(i -> i.setMaterialColor(0x8c7a4b));
-
-        init.item(ItemNames.BARK_FIBER_KINDLING, ItemKindling::new)
-            .apply(i -> i.setFuelKindlingQuality(1f));
-
         init.item(ItemNames.SISAL_FIBER_RINSED, ItemTextile::new)
             .hints(TextileHints.DRYING_FIBER);
         init.item(ItemNames.SISAL_FIBER_COARSE, ItemTextile::new)
@@ -163,14 +147,6 @@ public class Textile extends Feature {
             .hints(TextileHints.RINSING_FIBER);
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
-            if (wood.hasBarkFibers) {
-                setup.ores("itemBarkHasFibers")
-                    .add(wood.items.getBark());
-
-                setup.help(wood.items.getBark())
-                    .hints(TextileHints.EXTRACTING);
-            }
-
             if (wood.blocks.hasThickLog()) {
                 setup.ores("blockFlaxWorkingSurface")
                     .add(wood.blocks.getThickVert());
@@ -188,7 +164,6 @@ public class Textile extends Feature {
             .add(TFCItems.stick);
 
         setup.ores("materialFiber")
-            .add(BidsItems.barkFiberCoarse, BidsItems.barkFiberSmooth)
             .add(BidsItems.flaxFiberCoarse, BidsItems.flaxFiberRefined)
             .add(BidsItems.juteFiberCoarse, BidsItems.juteFiberRefined)
             .add(BidsItems.sisalFiberCoarse, BidsItems.sisalFiberRefined)
@@ -196,18 +171,8 @@ public class Textile extends Feature {
             .add(BidsItems.cottonFiberCoarse, BidsItems.cottonFiberRefined);
 
         setup.ores("materialString")
-            .add(BidsItems.barkCordage)
             .add(BidsItems.juteTwine)
             .add(BidsItems.sisalTwine);
-
-        setup.recipes().addShapeless(new ItemStack(BidsItems.barkFibreKindling),
-            "stickWood", "stickWood", "stickWood", "materialFiber");
-        setup.recipes().addShapeless(new ItemStack(BidsItems.barkFibreKindling),
-            BidsItems.smallStickBundle, "materialFiber");
-
-        setup.recipes().addShapeless(new ItemStack(BidsItems.barkFiber),
-                "itemBarkHasFibers", "itemScrapingTool")
-            .action(damageTool("itemScrapingTool"));
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.flaxStalk),
                 TFCItems.flax, "itemScrapingTool")
@@ -227,11 +192,7 @@ public class Textile extends Feature {
                 TFCItems.cotton, "itemScrapingTool")
             .action(damageTool("itemScrapingTool"));
 
-        setup.registry(FirepitRegistry.fuel)
-            .add(BidsItems.barkFibreKindling, (FirepitFuelMaterial) BidsItems.barkFibreKindling);
-
         setup.registry(DryingRegistry.wetness)
-            .add(BidsItems.barkFiber, new WetnessInfo(500, 1f))
             .add(BidsItems.sisalFiberRinsed, new WetnessInfo(500, 1f))
             .add(TFCItems.juteFiber, new WetnessInfo(500, 1f))
             .add(BidsItems.flaxStalk, new WetnessInfo(1000, 1f))
@@ -239,12 +200,6 @@ public class Textile extends Feature {
             .add(BidsItems.woolRinsed, new WetnessInfo(1000, 1f));
 
         setup.registry(DryingRackRegistry.recipes)
-            .add((DryingRackRecipe) DryingRackRecipe.builder()
-                .consumes(new ItemStack(BidsItems.barkFiber))
-                .produces(new ItemStack(BidsItems.barkFiberCoarse))
-                .dry()
-                .hours(12)
-                .build())
             .add((DryingRackRecipe) DryingRackRecipe.builder()
                 .consumes(new ItemStack(BidsItems.sisalFiberRinsed))
                 .produces(new ItemStack(BidsItems.sisalFiberCoarse))
@@ -271,12 +226,6 @@ public class Textile extends Feature {
                 .build());
 
         setup.registry(DryingSurfaceRegistry.recipes)
-            .add((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
-                .consumes(new ItemStack(BidsItems.barkFiber))
-                .produces(new ItemStack(BidsItems.barkFiberCoarse))
-                .dry()
-                .hours(12)
-                .build())
             .add((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
                 .consumes(new ItemStack(BidsItems.flaxStalk))
                 .produces(new ItemStack(BidsItems.flaxStalkRetted))
@@ -311,7 +260,6 @@ public class Textile extends Feature {
                 "itemFlaxScutchingTool", "blockFlaxWorkingSurface", 0.25f));
 
         setup.registry(HandworkRegistry.recipes)
-            .add(new HandworkRecipe(new ItemStack(BidsItems.barkFiberCoarse), new ItemStack(BidsItems.barkFiberSmooth), 80))
             .add(new HandworkRecipe(new ItemStack(BidsItems.juteStalkRetted), new ItemStack(TFCItems.juteFiber), 80))
             .add(new HandworkRecipe(new ItemStack(BidsItems.flaxStalkDried), new ItemStack(BidsItems.flaxStalkBroken), 240))
             .add(new HandworkRecipe(new ItemStack(BidsItems.flaxStalkBroken), new ItemStack(BidsItems.flaxFiberCoarse), 240))
@@ -327,7 +275,6 @@ public class Textile extends Feature {
             .add(new SpinningRecipe(new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(TFCItems.linenString, 4), 120))
             .add(new SpinningRecipe(new ItemStack(BidsItems.cottonFiberRefined), new ItemStack(TFCItems.cottonYarn, 6), 120))
             .add(new SpinningRecipe(new ItemStack(BidsItems.woolFiberRefined), new ItemStack(TFCItems.woolYarn, 8), 120))
-            .add(new SpinningRecipe(new ItemStack(BidsItems.barkFiberSmooth), new ItemStack(BidsItems.barkCordage, 2), 80))
             .add(new SpinningRecipe(new ItemStack(BidsItems.sisalFiberRefined), new ItemStack(BidsItems.sisalTwine, 2), 120))
             .add(new SpinningRecipe(new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.juteTwine, 2), 120));
 
@@ -336,12 +283,10 @@ public class Textile extends Feature {
             .add(new SpinningRecipe(new ItemStack(BidsItems.cottonFiberCoarse), new ItemStack(TFCItems.cottonYarn, 6), 120 * 4))
             .add(new SpinningRecipe(new ItemStack(BidsItems.woolFiberCoarse), new ItemStack(TFCItems.woolYarn, 8), 120 * 4))
             .add(new SpinningRecipe(new ItemStack(BidsItems.sisalFiberCoarse), new ItemStack(BidsItems.sisalTwine, 2), 120 * 4))
-            .add(new SpinningRecipe(new ItemStack(BidsItems.juteFiberCoarse), new ItemStack(BidsItems.juteTwine, 2), 120 * 4))
-            .add(new SpinningRecipe(new ItemStack(BidsItems.barkFiberCoarse), new ItemStack(BidsItems.barkCordage, 2), 80 * 4));
+            .add(new SpinningRecipe(new ItemStack(BidsItems.juteFiberCoarse), new ItemStack(BidsItems.juteTwine, 2), 120 * 4));
 
         setup.registry(RopeMakingRegistry.recipes)
             .add(new RopeMakingRecipe(new ItemStack(TFCItems.linenString, 16), new ItemStack(TFCItems.rope), 600))
-            .add(new RopeMakingRecipe(new ItemStack(BidsItems.barkCordage, 12), new ItemStack(TFCItems.rope), 600))
             .add(new RopeMakingRecipe(new ItemStack(BidsItems.sisalTwine, 8), new ItemStack(TFCItems.rope), 600))
             .add(new RopeMakingRecipe(new ItemStack(BidsItems.juteTwine, 12), new ItemStack(TFCItems.rope), 600));
 
@@ -406,7 +351,6 @@ public class Textile extends Feature {
             .add(LoomRecipe.add(new ItemStack(BidsItems.juteTwine, 16), new ItemStack(TFCItems.burlapCloth, 1), ropeRes));
 
         setup.registry(DryingRackRegistry.tyingEquipment)
-            .add(new DryingRackTyingEquipment(BidsItems.barkCordage, false, Blocks.wool, 1))
             .add(new DryingRackTyingEquipment(BidsItems.sisalTwine, false, Blocks.wool, 1))
             .add(new DryingRackTyingEquipment(BidsItems.juteTwine, false, Blocks.wool, 1));
 

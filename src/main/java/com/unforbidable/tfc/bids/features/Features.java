@@ -55,6 +55,7 @@ import com.unforbidable.tfc.bids.features.food.pemmican.Pemmican;
 import com.unforbidable.tfc.bids.features.food.sandwich.Sandwich;
 import com.unforbidable.tfc.bids.features.food.tallow.Tallow;
 import com.unforbidable.tfc.bids.features.material.bark.Bark;
+import com.unforbidable.tfc.bids.features.material.barkfiber.BarkFiber;
 import com.unforbidable.tfc.bids.features.material.birtchbark.BirchBark;
 import com.unforbidable.tfc.bids.features.material.clothing.Clothing;
 import com.unforbidable.tfc.bids.features.material.firewood.Firewood;
@@ -175,6 +176,7 @@ public class Features {
         new RopeMaking(),
         new RopeMaker(),
         new Textile(),
+        new BarkFiber(),
         new Mallet(),
         new ScutchingKnife(),
     };
