@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.utility.heckle.spindle;
+package com.unforbidable.tfc.bids.features.utility.spindle;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -10,8 +10,8 @@ import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.crafting.handwork.render.HandworkToolItemRenderer;
-import com.unforbidable.tfc.bids.features.utility.heckle.spindle.item.ItemSpindle;
-import com.unforbidable.tfc.bids.features.utility.heckle.spindle.item.ItemWhorl;
+import com.unforbidable.tfc.bids.features.utility.spindle.item.ItemSpindle;
+import com.unforbidable.tfc.bids.features.utility.spindle.item.ItemWhorl;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;

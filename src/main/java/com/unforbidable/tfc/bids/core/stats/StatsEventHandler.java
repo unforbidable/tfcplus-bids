@@ -26,7 +26,7 @@ import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBl
 import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
 import com.unforbidable.tfc.bids.features.resource.crop.item.ItemNewCustomSeeds;
 import com.unforbidable.tfc.bids.features.resource.well.block.BlockAquifer;
-import com.unforbidable.tfc.bids.features.utility.heckle.spindle.item.ItemSpindle;
+import com.unforbidable.tfc.bids.features.utility.spindle.item.ItemSpindle;
 import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
