@@ -1,6 +1,8 @@
 package com.unforbidable.tfc.bids.core.crafting.matchers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,9 +33,7 @@ public class ItemStackMatcher extends ObjectMatcher {
 
     @Override
     public boolean is(String ore) {
-        int oreId = OreDictionary.getOreID(ore);
-        return Arrays.stream(OreDictionary.getOreIDs(itemStack))
-            .anyMatch(value -> oreId == value);
+        return OreDictionaryHelper.itemStackIsOre(itemStack, ore);
     }
 
 }

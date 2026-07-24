@@ -4,14 +4,13 @@ import com.unforbidable.tfc.bids.core.crafting.matchers.ItemStackListMatcher;
 import com.unforbidable.tfc.bids.core.crafting.matchers.ItemStackMatcher;
 import com.unforbidable.tfc.bids.core.crafting.matchers.ObjectMatcher;
 import java.text.MessageFormat;
-import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import com.unforbidable.tfc.bids.core.crafting.matchers.OreMatcher;
+import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.oredict.OreDictionary;
 
 public abstract class RecipeEditor {
     protected ItemStack output;
@@ -102,7 +101,7 @@ public abstract class RecipeEditor {
         Object[] copy = input.clone();
         for (int i = 0; i < copy.length; i++) {
             if (copy[i] instanceof List<?>) {
-                String ore = findLikelyOreName((List<ItemStack>) copy[i]);
+                String ore = OreDictionaryHelper.findLikelyOreName((List<ItemStack>) copy[i]);
                 if (ore != null) {
                     copy[i] = ore;
                 } else {
@@ -115,35 +114,6 @@ public abstract class RecipeEditor {
         }
 
         return copy;
-    }
-
-    private static String findLikelyOreName(List<ItemStack> itemStacks) {
-        for (String ore : OreDictionary.getOreNames()) {
-            List<ItemStack> oreItemStacks = OreDictionary.getOres(ore, false);
-            if (itemStackListsMatch(itemStacks, oreItemStacks)) {
-                return ore;
-            }
-        }
-
-        return null;
-    }
-
-    private static boolean itemStackListsMatch(List<ItemStack> list1, List<ItemStack> list2) {
-        if (list1.size() != list2.size()) {
-            return false;
-        }
-
-        Iterator<ItemStack> it1 = list1.iterator();
-        Iterator<ItemStack> it2 = list2.iterator();
-        while (it1.hasNext()) {
-            ItemStack is1 = it1.next();
-            ItemStack is2 = it2.next();
-            if (!OreDictionary.itemMatches(is1, is2, false)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
 }
