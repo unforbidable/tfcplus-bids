@@ -5,9 +5,11 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.threshing.ThreshingRecipe;
+import com.unforbidable.tfc.bids.core.crafting.MatchingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.crafting.threshing.eventhandler.ThreshingEventHandler;
 import com.unforbidable.tfc.bids.features.crafting.threshing.nei.ThreshingNeiHandler;
@@ -17,6 +19,11 @@ import net.minecraft.item.ItemStack;
 
 @FeatureName("threshing")
 public class Threshing extends Feature {
+
+    @Override
+    public void config(FeatureConfig config) {
+        config.using(ThreshingConfig::load, "crafting");
+    }
 
     @SideOnly(Side.CLIENT)
     @Override
@@ -52,6 +59,14 @@ public class Threshing extends Feature {
                 ItemFoodTFC.createTag(new ItemStack(TFCItems.ryeWhole), 4), new ItemStack(TFCItems.straw), 20))
             .add(new ThreshingRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.riceGrain), 2),
                 ItemFoodTFC.createTag(new ItemStack(TFCItems.riceWhole), 4), new ItemStack(TFCItems.straw), 10));
+
+        if (ThreshingConfig.removeOriginalGrainRefiningRecipes) {
+            setup.recipes()
+                .match(r -> r.output.isAny(TFCItems.wheatGrain, TFCItems.barleyGrain, TFCItems.oatGrain, TFCItems.ryeGrain, TFCItems.riceGrain) &&
+                    r.input.containsAny(TFCItems.wheatWhole, TFCItems.barleyWhole, TFCItems.oatWhole, TFCItems.ryeWhole, TFCItems.riceWhole) &&
+                    r.input.contains("itemKnife"))
+                .edit(MatchingRecipe::remove);
+        }
     }
 
 }

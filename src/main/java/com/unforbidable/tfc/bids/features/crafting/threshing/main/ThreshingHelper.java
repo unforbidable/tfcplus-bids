@@ -5,6 +5,7 @@ import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.features.threshing.ThreshingFloor;
 import com.unforbidable.tfc.bids.api.features.threshing.ThreshingRecipe;
+import com.unforbidable.tfc.bids.features.crafting.threshing.ThreshingConfig;
 import com.unforbidable.tfc.bids.features.crafting.threshing.ThreshingRegistry;
 import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.util.playerstate.PlayerStateManager;
@@ -90,7 +91,8 @@ public class ThreshingHelper {
                                 0.4F + (world.rand.nextFloat() / 2), 0.7F + world.rand.nextFloat());
                         }
 
-                        setPlayerThreshingDelay(player, Math.round(recipe.getDuration() * getToolDurationMultiplier(tool)));
+                        int delay = Math.round(recipe.getDuration() * getToolDurationMultiplier(tool) * ThreshingConfig.threshingDurationMultiplier);
+                        setPlayerThreshingDelay(player, delay);
                     }
 
                     return true;
