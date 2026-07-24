@@ -4,6 +4,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
 public class BidsItems {
@@ -368,6 +369,9 @@ public class BidsItems {
     public static final Item woodAshLyeBottle = item(ItemNames.BOTTLE_WOOD_ASH_LYE);
     public static final Item woodAshLyeLargeBowl = item(ItemNames.LARGE_BOWL_WOOD_ASH_LYE);
     public static final Item soapyWaterBottle = item(ItemNames.BOTTLE_SOAPY_WATER);
+
+    // Flail
+    public static final Item woodenFlail = item(ItemNames.WOODEN_FLAIL);
 
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);

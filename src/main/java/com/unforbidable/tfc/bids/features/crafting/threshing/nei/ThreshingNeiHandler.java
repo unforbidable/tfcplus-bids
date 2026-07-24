@@ -7,6 +7,7 @@ import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.threshing.ThreshingRecipe;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
@@ -97,7 +98,7 @@ public class ThreshingNeiHandler extends TemplateRecipeHandler implements IHandl
 
     @Override
     public HandlerInfo getHandlerInfo() {
-        HandlerInfo handler = new HandlerInfo(TFCItems.pole, 0);
+        HandlerInfo handler = new HandlerInfo(BidsItems.woodenFlail, 0);
         for (ItemStack is : OreDictionary.getOres("itemThreshingTool", false)) {
             handler.addCatalyst(is.getItem(), is.getItemDamage());
         }

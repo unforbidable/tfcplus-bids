@@ -337,4 +337,7 @@ public interface ItemNames {
     // Mudbrick
     String DRYING_MUD_BRICK = "Drying Mud Brick";
 
+    // Flail
+    String WOODEN_FLAIL = "Wooden Flail";
+
 }

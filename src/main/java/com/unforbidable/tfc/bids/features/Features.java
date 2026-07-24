@@ -77,6 +77,7 @@ import com.unforbidable.tfc.bids.features.utility.adze.Adze;
 import com.unforbidable.tfc.bids.features.utility.card.Card;
 import com.unforbidable.tfc.bids.features.utility.compositetools.CompositeTools;
 import com.unforbidable.tfc.bids.features.utility.drill.Drill;
+import com.unforbidable.tfc.bids.features.utility.flail.Flail;
 import com.unforbidable.tfc.bids.features.utility.fluidcontainers.FluidContainers;
 import com.unforbidable.tfc.bids.features.utility.handaxe.HandAxe;
 import com.unforbidable.tfc.bids.features.utility.heckle.Heckle;
@@ -181,6 +182,7 @@ public class Features {
         new Mallet(),
         new ScutchingKnife(),
         new Threshing(),
+        new Flail(),
     };
 
 }
