@@ -192,6 +192,10 @@ public class Textile extends Feature {
                 TFCItems.cotton, "itemScrapingTool")
             .action(damageTool("itemScrapingTool"));
 
+        setup.recipes().addShapeless(new ItemStack(TFCItems.sisalFiber),
+                TFCItems.agave, "itemHandAxe")
+            .action(damageTool("itemHandAxe"));
+
         setup.registry(DryingRegistry.wetness)
             .add(BidsItems.sisalFiberRinsed, new WetnessInfo(500, 1f))
             .add(TFCItems.juteFiber, new WetnessInfo(500, 1f))
