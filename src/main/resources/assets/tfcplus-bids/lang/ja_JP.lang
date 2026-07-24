@@ -41,11 +41,11 @@ tile.ChoppingBlock3.name=薪割り台
 tile.WattleTrapDoor.name=編みトラップドア
 tile.WattleTrapDoorCover.name=藁で覆った編みトラップドア
 
-tile.SaddleQuernSed.name=磨臼
+tile.SaddleQuernBaseSed.name=磨臼
 tile.SaddleQuernHandstoneSed.name=磨臼の上臼
 tile.SaddleQuernPressingStoneSed.name=圧搾機の押石
 tile.StonePressLever.name=圧搾機の竿
-tile.StonePressWeight.name=重石
+tile.StonePressWeightSed.name=重石
 
 tile.RoughStoneSed.Chalk.name=切り出した白亜
 tile.RoughStoneSed.Chert.name=切り出したチャート

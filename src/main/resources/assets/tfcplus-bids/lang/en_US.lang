@@ -44,11 +44,11 @@ tile.WattleTrapDoor.name=Wattle Trapdoor
 tile.WattleTrapDoorCover.name=Covered Wattle Trapdoor
 tile.WattleGate.name=Wattle Gate
 
-tile.SaddleQuernSed.name=Saddle Quern
+tile.SaddleQuernBaseSed.name=Saddle Quern
 tile.SaddleQuernHandstoneSed.name=Saddle Quern Handstone
 tile.SaddleQuernPressingStoneSed.name=Pressing Stone
 tile.StonePressLever.name=Stone Press Lever
-tile.StonePressWeight.name=Stone Press Weight
+tile.StonePressWeightSed.name=Stone Press Weight
 
 tile.RoughStoneSed.Chalk.name=Rough Chalk
 tile.RoughStoneSed.Chert.name=Rough Chert
@@ -724,6 +724,7 @@ item.Pottery Jug.OliveOil.name=Olive Oil Jug
 item.Pottery Jug.FishOil.name=Fish Oil Jug
 item.Pottery Jug.GoatMilk.name=Goat Milk Jug
 item.Pottery Jug.SkimmedMilk.name=Skimmed Milk Jug
+item.Pottery Jug.FlaxSeedOil.name=Linseed Oil Jug
 
 item.Bowl Vinegar.PotteryBowl.name=Ceramic Bowl (Vinegar)
 item.Bowl Vinegar.Bowl.name=Bowl (Vinegar)
@@ -1208,7 +1209,7 @@ item.Bark Fibre Strip.Cured.name=Cured Bark Fiber Strip
 item.Flat Bark Fibre.name=Flat Bark Fiber
 
 item.Bark Cordage.name=Bark Cordage
-item.Bark Fibre Kindling.name=Bark Fiber Kindling
+item.Bark Fibre Kindling.name=Fiber Kindling
 
 item.Sisal Fibre Rinsed.name=Rinsed Sisal Fibers
 item.Sisal Fibre Coarse.name=Coarse Sisal Fibers

@@ -1,7 +1,5 @@
 package com.unforbidable.tfc.bids;
 
-import com.unforbidable.tfc.bids.WorldGen.AquiferWorldGen;
-import com.unforbidable.tfc.bids.WorldGen.CropWorldGen;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
@@ -10,7 +8,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,9 +32,6 @@ public class Bids {
     // etc, and register them with the GameRegistry."
     public void preInit(FMLPreInitializationEvent event) {
         network = NetworkRegistry.INSTANCE.newSimpleChannel("BidsChannel");
-
-        GameRegistry.registerWorldGenerator(new AquiferWorldGen(), 0);
-        GameRegistry.registerWorldGenerator(new CropWorldGen(), 0);
 
         proxy.preInit(event);
     }

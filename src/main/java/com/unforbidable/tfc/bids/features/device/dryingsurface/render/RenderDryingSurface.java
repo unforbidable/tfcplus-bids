@@ -1,0 +1,79 @@
+package com.unforbidable.tfc.bids.features.device.dryingsurface.render;
+
+import com.dunk.tfc.Render.RenderBlocksWithRotation;
+import com.unforbidable.tfc.bids.api.features.drying.IDryingItemRenderInfo;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.main.DryingSurfaceHelper;
+import com.unforbidable.tfc.bids.features.device.dryingsurface.tileentity.TileEntityDryingSurface;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.IBlockAccess;
+
+public class RenderDryingSurface implements ISimpleBlockRenderingHandler {
+
+    @Override
+    public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
+    }
+
+    @Override
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+        if (renderer.hasOverrideBlockTexture()) {
+            renderer.renderStandardBlock(block, x, y, z);
+
+            return true;
+        }
+
+        RenderBlocksWithRotation rendererWithRotation = new RenderBlocksWithRotation(renderer);
+        rendererWithRotation.renderAllFaces = true;
+        rendererWithRotation.staticTexture = true;
+
+        RenderBlocksWithRotation.yRotation = 0;
+        RenderBlocksWithRotation.rotation = 0;
+
+        TileEntityDryingSurface te = (TileEntityDryingSurface) world.getTileEntity(x, y, z);
+
+        for (int i = 0; i < TileEntityDryingSurface.MAX_STORAGE; i++) {
+            DryingItem dryingItem = te.getItem(i);
+            if (dryingItem != null) {
+                IDryingItemRenderInfo renderInfo = DryingSurfaceRegistry.render.get(dryingItem.getCurrentItem().getItem());
+                if (renderInfo != null) {
+                    Vec3 pos = DryingSurfaceHelper.getDryingSurfaceItemVector(i);
+                    AxisAlignedBB bounds = renderInfo.getRenderBounds(dryingItem);
+                    rendererWithRotation.setRenderBounds(bounds.minX * 0.5 + pos.xCoord - 0.25, bounds.minY * 0.5, bounds.minZ * 0.5 + pos.zCoord - 0.25,
+                        bounds.maxX * 0.5 + pos.xCoord - 0.25, bounds.maxY * 0.5, bounds.maxZ * 0.5 + pos.zCoord - 0.25);
+
+                    IIcon icon = renderInfo.getRenderIcon(dryingItem);
+                    rendererWithRotation.setOverrideBlockTexture(icon);
+
+                    int color = renderInfo.getRenderColor(dryingItem);
+                    float r = (color >> 16 & 255) / 255.0F;
+                    float g = (color >> 8 & 255) / 255.0F;
+                    float b = (color & 255) / 255.0F;
+                    rendererWithRotation.renderStandardBlockWithColorMultiplier(block, x, y, z, r, g, b);
+
+                    rendererWithRotation.clearOverrideBlockTexture();
+                }
+            }
+        }
+
+        rendererWithRotation.renderAllFaces = false;
+
+        return true;
+    }
+
+    @Override
+    public boolean shouldRender3DInInventory(int modelId) {
+        return false;
+    }
+
+    @Override
+    public int getRenderId() {
+        return 0;
+    }
+
+}

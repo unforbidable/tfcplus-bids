@@ -1,0 +1,77 @@
+package com.unforbidable.tfc.bids.features.crafting.woodworking.network;
+
+import com.unforbidable.tfc.bids.core.network.packet.Packet;
+import io.netty.buffer.ByteBuf;
+import java.util.ArrayList;
+import java.util.List;
+
+public class WoodworkingPacket extends Packet {
+
+    public static final int EVENT_PERFORM_ACTION = 1;
+
+    private int event;
+    private int damage;
+
+    private final List<NetworkAction> actions = new ArrayList<>();
+
+    public WoodworkingPacket() {
+    }
+
+    public int getEvent() {
+        return event;
+    }
+
+    public void setEvent(int event) {
+        this.event = event;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public List<NetworkAction> getActions() {
+        return actions;
+    }
+
+    public void addAction(NetworkAction networkAction) {
+        actions.add(networkAction);
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        super.fromBytes(buf);
+
+        event = buf.readByte();
+        if (event == EVENT_PERFORM_ACTION) {
+            damage = buf.readByte();
+
+            byte nActions = buf.readByte();
+            for (int i = 0; i < nActions; i++) {
+                NetworkAction action = new NetworkAction();
+                action.fromBytes(buf);
+                actions.add(action);
+            }
+        }
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        super.toBytes(buf);
+
+        buf.writeByte(event);
+
+        if (event == EVENT_PERFORM_ACTION) {
+            buf.writeByte(damage);
+
+            buf.writeByte(actions.size());
+            for (NetworkAction action : actions) {
+                action.toBytes(buf);
+            }
+        }
+    }
+
+}

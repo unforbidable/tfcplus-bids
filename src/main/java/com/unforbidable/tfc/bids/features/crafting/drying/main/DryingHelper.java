@@ -1,0 +1,176 @@
+package com.unforbidable.tfc.bids.features.crafting.drying.main;
+
+import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.Items.ItemClothing;
+import com.dunk.tfc.api.Enums.EnumFuelMaterial;
+import com.dunk.tfc.api.Food;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.IDryingFoodRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
+import com.unforbidable.tfc.bids.features.crafting.drying.DryingRegistry;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+
+public class DryingHelper {
+
+    public static ItemStack getResultItem(DryingItem dryingItem, DryingRecipe recipe) {
+        if (recipe instanceof IDryingFoodRecipe) {
+            // Food already has the dried/smoked info on the input item
+            return dryingItem.inputItem.copy();
+        } else {
+            return recipe.getResult(dryingItem.inputItem);
+        }
+    }
+
+    public static ItemStack getDestroyedResultItem(DryingItem dryingItem, DryingRecipe recipe) {
+        return recipe.getDestroyedResult(dryingItem.inputItem);
+    }
+
+    public static void initializeInputItemProgress(DryingItem dryingItem, DryingRecipe recipe) {
+        if (recipe instanceof IDryingFoodRecipe) {
+            // Some food stuffs are already partially dried
+            // and this lets the drying engine know
+            int dried = Food.getDried(dryingItem.inputItem);
+            dryingItem.progress = (float) dried / Food.DRYHOURS;
+
+            if (((IDryingFoodRecipe) recipe).isAllowSmoke()) {
+                int smoke = Food.getSmokeCounter(dryingItem.inputItem);
+                dryingItem.smoke = (float) smoke / Food.SMOKEHOURS;
+            }
+        }
+    }
+
+    public static void initializeInputItemWetness(DryingItem dryingItem) {
+        if (dryingItem.inputItem.getItem() instanceof ItemClothing) {
+            // take wetness from clothes
+            int wetness = TFC_Core.getClothingWetness(dryingItem.inputItem);
+            dryingItem.wetness = Math.min(wetness / 4000f, 1);
+        }
+    }
+
+    public static void applyInputItemProgress(DryingItem dryingItem, DryingRecipe recipe) {
+        if (recipe instanceof IDryingFoodRecipe) {
+            // When food is drying the NBT is updated to track progress
+            // The progress saved is scaled to 4 hours
+            // because above 4 hours the food is considered dried
+            // So for example if the recipe drying time is set to 12 hours
+            // the progress is saved every 12/4 = 3 hours
+            int dried = (int) Math.floor(dryingItem.progress * Food.DRYHOURS);
+            Food.setDried(dryingItem.inputItem, dried);
+        }
+    }
+
+    public static void applyInputItemSmoke(DryingItem dryingItem, DryingRecipe recipe, int fuelTasteProfile) {
+        if (recipe instanceof IDryingFoodRecipe && ((IDryingFoodRecipe) recipe).isAllowSmoke()) {
+            int smoke = (int) Math.floor(dryingItem.smoke * Food.SMOKEHOURS);
+            Food.setSmokeCounter(dryingItem.inputItem, smoke);
+
+            if (dryingItem.smoke == 1) {
+                // Setting this makes TFC think the item is smoked
+                // so do it only when smoking is done
+                Food.setFuelProfile(dryingItem.inputItem, EnumFuelMaterial.getFuelProfile(fuelTasteProfile));
+            }
+        }
+    }
+
+    public static void applyInputItemWetness(DryingItem dryingItem) {
+        if (dryingItem.inputItem.getItem() instanceof ItemClothing) {
+            if (!dryingItem.inputItem.hasTagCompound()) {
+                dryingItem.inputItem.setTagCompound(new NBTTagCompound());
+                dryingItem.inputItem.getTagCompound().setLong("lastWorn", TFC_Time.getTotalDays());
+            }
+            int wetness = Math.round(dryingItem.wetness * 4000);
+            dryingItem.inputItem.getTagCompound().setInteger("wetness", wetness);
+        }
+    }
+
+    public static void handleNormalDry(World world, int x, int y, int z, ItemStack itemStack, long ticks) {
+        NBTTagCompound nbt = itemStack.stackTagCompound;
+        if (nbt == null) {
+            nbt = new NBTTagCompound();
+            nbt.setLong("lastWorn", TFC_Time.getTotalDays());
+            itemStack.stackTagCompound = nbt;
+            return;
+        }
+        int wetness = nbt.getInteger("wetness");
+        if (wetness > 0) {
+            float humidity = TFC_Core.getHumidity(world, x, y, z);
+            wetness -= ticks * (world.rand.nextFloat() > humidity ? 1 : 0);
+            wetness = Math.max(0, wetness);
+        }
+        nbt.setInteger("wetness", wetness);
+        itemStack.stackTagCompound = nbt;
+    }
+
+    public static void handleClothesInRain(ItemStack itemStack, int ticks) {
+        NBTTagCompound nbt = itemStack.stackTagCompound;
+        if (nbt == null) {
+            nbt = new NBTTagCompound();
+            nbt.setLong("lastWorn", TFC_Time.getTotalDays());
+            itemStack.stackTagCompound = nbt;
+            return;
+        }
+        int wetness = nbt.getInteger("wetness");
+        if (wetness >= 0) {
+            wetness += 2 * ticks;
+            wetness = Math.min(2000, wetness);
+        }
+        nbt.setInteger("wetness", wetness);
+        itemStack.stackTagCompound = nbt;
+    }
+
+    public static String getProgressInfoString(float progress) {
+        int roundedProgress = (int)Math.floor(progress * 100);
+        return roundedProgress > 0 ? String.format(" (%d%%)", roundedProgress) : "";
+    }
+
+    public static String getItemStackInfoString(ItemStack item) {
+        return (item.stackSize > 1 ? (item.stackSize + "x") : "") + item.getDisplayName();
+    }
+
+    public static WetnessInfo getWetnessInfo(ItemStack inputItem) {
+        if (inputItem.getItem() instanceof ItemClothing) {
+            return new WetnessInfo(1000, 1);
+        } else {
+            return DryingRegistry.wetness.get(inputItem.getItem());
+        }
+    }
+
+    public static void initializeInputItem(DryingItem dryingItem, DryingRecipe recipe) {
+        dryingItem.resultItem = null;
+        dryingItem.progress = 0;
+        dryingItem.failure = 0;
+        dryingItem.lastProgressUpdatedTicks = TFC_Time.getTotalTicks();
+
+        WetnessInfo wetnessInfo = DryingRegistry.wetness.get(dryingItem.inputItem.getItem());
+        if (wetnessInfo == null || wetnessInfo.capacity == 0) {
+            dryingItem.wetness = 0;
+        }
+
+        if (recipe != null) {
+            // If input item already has some progress done
+            // we take this progress and move the start ticks back accordingly
+            DryingHelper.initializeInputItemProgress(dryingItem, recipe);
+
+            if (dryingItem.progress == 1) {
+                // Should progress initialize to complete, set the result
+                dryingItem.resultItem = DryingHelper.getResultItem(dryingItem, recipe);
+            }
+        } else {
+            // For items without a recipe only wetness will be handled
+            DryingHelper.initializeInputItemWetness(dryingItem);
+        }
+    }
+
+    public static String getHoursRemainingInfoString(long ticks) {
+        float hours = (float)ticks / TFC_Time.HOUR_LENGTH;
+        if (hours > 1.5f) {
+            return String.format("%d", (int)Math.ceil(hours));
+        } else {
+            return String.format("%.1f", (float)Math.ceil(hours * 10) / 10f);
+        }
+    }
+
+}

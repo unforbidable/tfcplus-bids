@@ -1,0 +1,271 @@
+package com.unforbidable.tfc.bids.features.crafting.pressing.nei;
+
+import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.NEIClientConfig;
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.GuiCraftingRecipe;
+import codechicken.nei.recipe.GuiRecipe;
+import codechicken.nei.recipe.GuiUsageRecipe;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Constant.Global;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
+import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
+import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.compat.nei.NeiHelper;
+import com.unforbidable.tfc.bids.features.device.saddlequern.StonePressRegistry;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import org.lwjgl.opengl.GL11;
+
+public class StonePressNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
+
+    static final String HANDLER_ID = "stonepress";
+
+    public static ResourceLocation guiTexture = new ResourceLocation(Tags.MOD_ID,
+            "textures/gui/nei/gui_stonepress.png");
+
+    @Override
+    public String getRecipeName() {
+        return StatCollector.translateToLocal("gui.StonePress");
+    }
+
+    @Override
+    public String getGuiTexture() {
+        return guiTexture.toString();
+    }
+
+    @Override
+    public String getOverlayIdentifier() {
+        return HANDLER_ID;
+    }
+
+    @Override
+    public void loadTransferRects() {
+        transferRects.add(new RecipeTransferRect(new Rectangle(71, 23, 24, 18), HANDLER_ID));
+    }
+
+    @Override
+    public void loadCraftingRecipes(String outputId, Object... results) {
+        if (outputId.equals(HANDLER_ID) && getClass() == StonePressNeiHandler.class) {
+            for (StonePressRecipe recipe : StonePressRegistry.recipes) {
+                final ItemStack input = recipe.getInput().copy();
+                final FluidStack result = recipe.getCraftingResult().copy();
+                if ((input.getItem() instanceof ItemFood)) {
+                    ItemFoodTFC.createTag(input);
+                }
+                arecipes.add(new CachedStonePressRecipe(input, result));
+            }
+        } else {
+            super.loadCraftingRecipes(outputId, results);
+        }
+    }
+
+    @Override
+    public void loadCraftingRecipes(ItemStack output) {
+        for (StonePressRecipe recipe : StonePressRegistry.recipes) {
+            final ItemStack input = recipe.getInput().copy();
+            final FluidStack result = recipe.getCraftingResult().copy();
+            if (NeiHelper.isFluidEqual(result, output)) {
+                arecipes.add(new CachedStonePressRecipe(input, result));
+            }
+        }
+    }
+
+    @Override
+    public void loadUsageRecipes(ItemStack ingredient) {
+        for (StonePressRecipe recipe : StonePressRegistry.recipes) {
+            if (recipe.matches(ingredient)) {
+                final ItemStack input = ingredient.copy();
+                input.stackSize = recipe.getInput().stackSize;
+                if (input.getItem() instanceof ItemFoodTFC) {
+                    input.setTagCompound(recipe.getInput().getTagCompound());
+                }
+
+                final FluidStack result = recipe.getCraftingResult().copy();
+                arecipes.add(new CachedStonePressRecipe(input, result));
+            }
+        }
+    }
+
+    @Override
+    public void drawExtras(int recipe)
+    {
+        CachedRecipe crecipe = arecipes.get(recipe);
+        if (crecipe instanceof CachedStonePressRecipe)
+        {
+            CachedStonePressRecipe cachedStonePressRecipe = (CachedStonePressRecipe) crecipe;
+
+            if (cachedStonePressRecipe.getFluidResult() != null) {
+                drawFluidInRect(cachedStonePressRecipe.getFluidResult().getFluid(), recipeOutFluidRect());
+            }
+        }
+    }
+
+    @Override
+    public List<String> handleItemTooltip(GuiRecipe gui, ItemStack stack, List<String> currenttip, int recipe)
+    {
+        CachedRecipe irecipe = arecipes.get(recipe);
+        if (irecipe instanceof CachedStonePressRecipe)
+        {
+            Point mousepos = GuiDraw.getMousePosition();
+            Point offset = gui.getRecipePosition(recipe);
+            Point relMouse = new Point(mousepos.x - gui.guiLeft - offset.x, mousepos.y - gui.guiTop - offset.y);
+            if (recipeOutFluidRect().contains(relMouse) && (((CachedStonePressRecipe) irecipe).getFluidResult() != null)) {
+                currenttip.add(tooltipForFluid(((CachedStonePressRecipe) irecipe).getFluidResult()));
+            }
+        }
+        return currenttip;
+    }
+
+    @Override
+    public boolean keyTyped(GuiRecipe gui, char keyChar, int keyCode, int recipe)
+    {
+        if (keyCode == NEIClientConfig.getKeyBinding("gui.recipe"))
+        {
+            if (transferFluid(gui, recipe, false)) return true;
+        }
+        else if (keyCode == NEIClientConfig.getKeyBinding("gui.usage"))
+        {
+            if (transferFluid(gui, recipe, true)) return true;
+        }
+
+        return super.keyTyped(gui, keyChar, keyCode, recipe);
+    }
+
+    @Override
+    public boolean mouseClicked(GuiRecipe gui, int button, int recipe)
+    {
+        if (button == 0)
+        {
+            if (transferFluid(gui, recipe, false)) return true;
+        }
+        else if (button == 1)
+        {
+            if (transferFluid(gui, recipe, true)) return true;
+        }
+
+        return super.mouseClicked(gui, button, recipe);
+    }
+
+    private static String tooltipForFluid(FluidStack fluidStack)
+    {
+        return fluidStack.getLocalizedName() + " (" + fluidStack.amount + "mB)";
+    }
+    private boolean transferFluid(GuiRecipe gui, int recipe, boolean usage)
+    {
+        CachedRecipe crecipe = arecipes.get(recipe);
+        if (crecipe instanceof CachedStonePressRecipe)
+        {
+            Point mousepos = GuiDraw.getMousePosition();
+            Point offset = gui.getRecipePosition(recipe);
+            Point relMouse = new Point(mousepos.x - gui.guiLeft - offset.x, mousepos.y - gui.guiTop - offset.y);
+            ItemStack fluidStack = null;
+            if (recipeOutFluidRect().contains(relMouse) && (((CachedStonePressRecipe) crecipe).getFluidResult() != null)) {
+                fluidStack = getItemStacksForFluid(((CachedStonePressRecipe) crecipe).getFluidResult())[0];
+            }
+            if (fluidStack != null) {
+                return usage
+                    ? GuiUsageRecipe.openRecipeGui("item", fluidStack)
+                    : GuiCraftingRecipe.openRecipeGui("item", fluidStack);
+            }
+        }
+        return false;
+    }
+
+    private static ItemStack[] getItemStacksForFluid(FluidStack fluidStack)
+    {
+        if (fluidStack == null) return null;
+
+        List<ItemStack> itemStacks = new ArrayList<ItemStack>();
+        for (FluidContainerRegistry.FluidContainerData data : FluidContainerRegistry.getRegisteredFluidContainerData())
+        {
+            if (data.fluid.isFluidEqual(fluidStack))
+            {
+                ItemStack itemStack = data.filledContainer.copy();
+                int cap = FluidContainerRegistry.getContainerCapacity(data.fluid, data.emptyContainer);
+                if (cap == 0) itemStack.stackSize = 0;
+                else itemStack.stackSize = fluidStack.amount / cap;
+                itemStacks.add(itemStack);
+            }
+        }
+        if (itemStacks.size() == 0)
+        {
+            ItemStack itemStack = new ItemStack(fluidStack.getFluid().getBlock(), fluidStack.amount / FluidContainerRegistry.BUCKET_VOLUME);
+            if (itemStack.getItem() == null)
+            {
+                itemStack = new ItemStack(Blocks.sponge, itemStack.stackSize).setStackDisplayName(fluidStack.getLocalizedName());
+                itemStack.getTagCompound().setString("FLUID", fluidStack.getFluid().getName());
+            }
+            itemStacks.add(itemStack);
+        }
+        return itemStacks.toArray(new ItemStack[itemStacks.size()]);
+    }
+
+    private static void drawFluidInRect(Fluid fluid, Rectangle rect)
+    {
+        IIcon fluidIcon = fluid.getIcon();
+        Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+        int color = fluid.getColor();
+        GL11.glColor4ub((byte) ((color >> 16) & 255), (byte) ((color >> 8) & 255), (byte) (color & 255), (byte) (0xaa & 255));
+        GuiDraw.gui.drawTexturedModelRectFromIcon(rect.x, rect.y, fluidIcon, rect.width, rect.height);
+    }
+
+    private static Rectangle recipeOutFluidRect()
+    {
+        return new Rectangle(115, 7, 8, 50);
+    }
+
+    @Override
+    public HandlerInfo getHandlerInfo() {
+        HandlerInfo info = new HandlerInfo(BidsBlocks.saddleQuernPressingStoneSed, 4);
+        for (int i = 0; i < Global.STONE_SED.length; i++) {
+            info.addCatalyst(BidsBlocks.saddleQuernBaseSed, i);
+            info.addCatalyst(BidsBlocks.saddleQuernPressingStoneSed, i);
+            info.addCatalyst(BidsBlocks.stonePressWeightSed, i);
+        }
+        return info;
+    }
+
+    public class CachedStonePressRecipe extends CachedRecipe {
+
+        final ItemStack ingred;
+        final FluidStack result;
+
+        public CachedStonePressRecipe(ItemStack ingred, FluidStack result) {
+            this.ingred = ingred;
+            this.result = result;
+        }
+
+        @Override
+        public PositionedStack getResult() {
+            return null;
+        }
+
+        @Override
+        public PositionedStack getIngredient() {
+            return new PositionedStack(ingred, 39, 24);
+        }
+
+        public FluidStack getFluidResult() {
+            return result;
+        }
+
+    }
+
+}

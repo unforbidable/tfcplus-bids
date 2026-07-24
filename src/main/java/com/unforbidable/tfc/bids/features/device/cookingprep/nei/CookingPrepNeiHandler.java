@@ -1,0 +1,214 @@
+package com.unforbidable.tfc.bids.features.device.cookingprep.nei;
+
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Interfaces.IFood;
+import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredient;
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredientSpec;
+import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
+import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
+import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.features.crafting.cooking.item.ItemCookingMixture;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
+import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrepRegistry;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.oredict.OreDictionary;
+
+public class CookingPrepNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
+
+    static final String HANDLER_ID = "cookingprep";
+
+    public static ResourceLocation guiTexture = new ResourceLocation(Tags.MOD_ID,
+            "textures/gui/nei/gui_cookingprep.png");
+
+    @Override
+    public String getRecipeName() {
+        return BidsBlocks.cookingPrep.getLocalizedName();
+    }
+
+    @Override
+    public String getGuiTexture() {
+        return guiTexture.toString();
+    }
+
+    @Override
+    public String getOverlayIdentifier() {
+        return HANDLER_ID;
+    }
+
+    @Override
+    public void loadTransferRects() {
+        transferRects.add(new RecipeTransferRect(new Rectangle(109, 23, 24, 18), HANDLER_ID));
+    }
+
+    @Override
+    public void loadCraftingRecipes(String outputId, Object... results) {
+        if (outputId.equals(HANDLER_ID) && getClass() == CookingPrepNeiHandler.class) {
+            for (CookingPrepRecipe recipe : CookingPrepRegistry.recipes) {
+                arecipes.add(new CachedPrepRecipe(recipe, recipe.getOutput()));
+            }
+        } else {
+            super.loadCraftingRecipes(outputId, results);
+        }
+    }
+
+    @Override
+    public void loadCraftingRecipes(ItemStack output) {
+        for (CookingPrepRecipe recipe : CookingPrepRegistry.recipes) {
+            final ItemStack result = recipe.getOutput();
+            if (recipe.getOutput().getItem() instanceof ItemCookingMixture) {
+                String outputMixtureName = CookingMixtureHelper.getCookingMixtureName(recipe.getOutput());
+                if (outputMixtureName != null && outputMixtureName.equals(CookingMixtureHelper.getCookingMixtureName(output))) {
+                    arecipes.add(new CachedPrepRecipe(recipe, output));
+                }
+            } else if (OreDictionary.itemMatches(result, output, true)) {
+                arecipes.add(new CachedPrepRecipe(recipe, output));
+            }
+        }
+    }
+
+    @Override
+    public void loadUsageRecipes(ItemStack ingredient) {
+        for (CookingPrepRecipe recipe : CookingPrepRegistry.recipes) {
+            if (recipe.doesVesselOrIngredientMatch(ingredient)) {
+                arecipes.add(new CachedPrepRecipe(recipe, recipe.getOutput()));
+            }
+        }
+    }
+
+    @Override
+    public HandlerInfo getHandlerInfo() {
+        HandlerInfo info = new HandlerInfo(BidsBlocks.cookingPrep, 0);
+        info.addCatalyst(BidsItems.largeClayBowl, 1);
+        return info;
+    }
+
+    @Override
+    public void drawForeground(int index) {
+        if (arecipes.get(index) instanceof CachedPrepRecipe) {
+            CachedPrepRecipe recipe = (CachedPrepRecipe) arecipes.get(index);
+            int[] xs = { 18, 40, 58, 76, 94 };
+            for (int i = 0; i < 5; i++) {
+                if (recipe.ingredients[i].getWeight() > 0) {
+                    drawCenteredString(Minecraft.getMinecraft().fontRenderer,
+                        String.valueOf(Math.round(recipe.ingredients[i].getWeight())), xs[i], 14, 0x555555);
+                }
+            }
+        }
+    }
+
+    private static void drawCenteredString(FontRenderer fontrenderer, String s, int i, int j, int k) {
+        fontrenderer.drawString(s, i - fontrenderer.getStringWidth(s) / 2, j, k);
+    }
+
+    public List<ItemStack> getAllIngredients(CookingPrepIngredient prepIngredient) {
+        List<ItemStack> list = new ArrayList<ItemStack>();
+
+        for (ItemStack is : prepIngredient.getAllowedItemStacks()) {
+            if (prepIngredient.matches(is)) {
+                list.add(is);
+            }
+        }
+
+        if (prepIngredient.getAllowedOreNames().size() > 0) {
+            for (String oreName : prepIngredient.getAllowedOreNames()) {
+                for (ItemStack is : OreDictionary.getOres(oreName, false)) {
+                    if (prepIngredient.matches(is)) {
+                        list.add(is);
+                    }
+                }
+            }
+        }
+
+        if (prepIngredient.getAllowedFoodGroups().size() > 0 || list.size() == 0) {
+            for (Item item : TFCItems.foodList) {
+                ItemStack is = new ItemStack(item);
+                if (prepIngredient.matches(is)) {
+                    list.add(is);
+                }
+            }
+        }
+
+        return list;
+    }
+
+    public class CachedPrepRecipe extends CachedRecipe {
+
+        final CookingPrepIngredientSpec[] ingredients;
+        final PositionedStack result;
+        final List<List<PositionedStack>> inputs;
+
+        public CachedPrepRecipe(CookingPrepRecipe recipe, ItemStack output) {
+            ingredients = recipe.getIngredients();
+            inputs = new ArrayList<List<PositionedStack>>(CookingPrepRecipe.INGREDIENT_COUNT);
+
+            int[] xs = { 10, 32, 50, 68, 86 };
+
+            int totalWeight = 0;
+            for (int i = 0; i < CookingPrepRecipe.INGREDIENT_COUNT; i++) {
+                if (ingredients[i].getWeight() > 0) {
+                    totalWeight += ingredients[i].getWeight();
+                }
+
+                CookingPrepIngredientSpec ingredient = recipe.getIngredients()[i];
+                if (ingredient != null) {
+                    List<PositionedStack> slot = new ArrayList<PositionedStack>();
+                    for (ItemStack is : getAllIngredients(ingredient.getIngredient())) {
+                        if (i > 0 && recipe.doesVesselMatch(is)) {
+                            // Skip items that can also be used as the vessel
+                            continue;
+                        }
+
+                        if (is.getItem() instanceof IFood) {
+                            ItemFoodTFC.createTag(is, ingredients[i].getWeight());
+                        }
+
+                        slot.add(new PositionedStack(is, xs[i], 24));
+                    }
+                    inputs.add(slot);
+                }
+            }
+
+            if (output.getItem() instanceof IFood) {
+                ItemFoodTFC.createTag(output, totalWeight);
+            }
+            result = new PositionedStack(output, 137, 24);
+        }
+
+        @Override
+        public PositionedStack getResult() {
+            return result;
+        }
+
+        @Override
+        public List<PositionedStack> getIngredients() {
+            List<PositionedStack> list = new ArrayList<PositionedStack>(5);
+
+            int shift = 0;
+            for (List<PositionedStack> slot : inputs) {
+                if (slot.size() > 0) {
+                    final int i = (cycleticks + shift * 20) % (20 * slot.size());
+                    list.add(slot.get(i / 20));
+
+                    shift++;
+                }
+            }
+
+            return list;
+        }
+
+    }
+
+}

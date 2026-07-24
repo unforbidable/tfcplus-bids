@@ -1,0 +1,224 @@
+package com.unforbidable.tfc.bids.features.material.logs;
+
+import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockRecipe;
+import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
+import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
+import com.unforbidable.tfc.bids.api.names.ItemNames;
+import com.unforbidable.tfc.bids.common.render.SeasonableItemRenderer;
+import com.unforbidable.tfc.bids.common.render.SeasonedItemRenderer;
+import com.unforbidable.tfc.bids.core.features.Feature;
+import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
+import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
+import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.core.schemes.wood.EnumWoodItemType;
+import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
+import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
+import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlockRegistry;
+import com.unforbidable.tfc.bids.features.device.woodpile.WoodpileRegistry;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.renderable.RenderableLogsTFC;
+import com.unforbidable.tfc.bids.features.device.woodpile.main.seasoning.SeasoningHelper;
+import com.unforbidable.tfc.bids.features.material.bark.BarkConfig;
+import com.unforbidable.tfc.bids.features.material.logs.item.ItemLogsSeasoned;
+import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLog;
+import com.unforbidable.tfc.bids.features.material.logs.item.ItemPeeledLogSeasoned;
+import net.minecraft.item.ItemStack;
+
+import static com.unforbidable.tfc.bids.core.crafting.actions.CopySeasoning.copySeasoning;
+import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
+import static com.unforbidable.tfc.bids.core.crafting.actions.ExtraDrop.extraDrop;
+import static com.unforbidable.tfc.bids.core.crafting.actions.KeepItem.keepItem;
+
+@FeatureName("logs")
+public class Logs extends Feature {
+
+    @Override
+    public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
+        init.item(ItemNames.LOG_SEASONED, ItemLogsSeasoned::new);
+        init.item(ItemNames.PEELED_LOG, ItemPeeledLog::new);
+        init.item(ItemNames.PEELED_LOG_SEASONED, ItemPeeledLogSeasoned::new);
+    }
+
+    @Override
+    public void client(FeatureClientSpecBuilder client) {
+        client.render(new SeasonableItemRenderer())
+            .item(TFCItems.logs)
+            .item(BidsItems.peeledLog);
+
+        client.render(new SeasonedItemRenderer())
+            .item(BidsItems.logsSeasoned)
+            .item(BidsItems.peeledLogSeasoned);
+    }
+
+    @Override
+    public void setup(FeatureSetupBuilder setup) {
+        setup.ores("logWood")
+            .add(BidsItems.logsSeasoned)
+            .add(BidsItems.peeledLog)
+            .add(BidsItems.peeledLogSeasoned);
+
+        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
+            if (wood.items.hasLog()) {
+                setup.ores("logWoodAny")
+                    .add(wood.items.getLog());
+                setup.ores(wood.getOreWithSuffix("logWood"))
+                    .add(wood.items.getLog());
+                setup.ores(wood.getOreWithSuffix("logWoodFresh"))
+                    .add(wood.items.getLog());
+            }
+
+            if (wood.items.hasChoppedLog()) {
+                setup.ores("logWoodAny")
+                    .add(wood.items.getChoppedLog());
+                setup.ores(wood.getOreWithSuffix("logWood"))
+                    .add(wood.items.getChoppedLog());
+                setup.ores(wood.getOreWithSuffix("logWoodFresh"))
+                    .add(wood.items.getChoppedLog());
+            }
+
+            if (wood.items.hasSeasonedLog()) {
+                setup.ores("logWoodAny")
+                    .add(wood.items.getSeasonedLog());
+                setup.ores(wood.getOreWithSuffix("logWood"))
+                    .add(wood.items.getSeasonedLog());
+                setup.ores(wood.getOreWithSuffix("logWoodSeasoned"))
+                    .add(wood.items.getSeasonedLog());
+
+                setup.registry(WoodpileRegistry.seasoning)
+                    .add(new SeasoningRecipe(wood.items.getLog(), wood.items.getSeasonedLog(),
+                        SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.LOG)));
+
+                if (wood.items.hasChoppedLog()) {
+                    setup.ores("logWoodAny")
+                        .add(wood.items.getSeasonedChoppedLog());
+                    setup.ores(wood.getOreWithSuffix("logWood"))
+                        .add(wood.items.getSeasonedChoppedLog());
+                    setup.ores(wood.getOreWithSuffix("logWoodSeasoned"))
+                        .add(wood.items.getSeasonedChoppedLog());
+
+                    setup.registry(WoodpileRegistry.seasoning)
+                        .add(new SeasoningRecipe(wood.items.getChoppedLog(), wood.items.getSeasonedChoppedLog(),
+                            SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.CHOPPED_LOG)));
+                }
+            }
+
+            if (wood.items.hasPeeledLog()) {
+                setup.ores("logWoodAny")
+                    .add(wood.items.getPeeledLog());
+                setup.ores(wood.getOreWithSuffix("logWood"))
+                    .add(wood.items.getPeeledLog());
+                setup.ores(wood.getOreWithSuffix("logWoodFresh"))
+                    .add(wood.items.getPeeledLog());
+                setup.ores(wood.getOreWithSuffix("logWoodPeeled"))
+                    .add(wood.items.getPeeledLog());
+
+                setup.recipes().addShapeless(wood.items.getPeeledLog(),
+                        wood.items.getLog(), "itemAdze")
+                    .action(damageTool("itemAdze"))
+                    .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingChance))
+                    .action(copySeasoning(TFCItems.logs));
+
+                setup.registry(ChoppingBlockRegistry.recipes)
+                    .add(new ChoppingBlockRecipe(wood.items.getLog(), wood.items.getPeeledLog(),
+                        wood.items.getBark(), BarkConfig.dropPeelingChance, "blockChoppingBlock", "itemAdze"));
+
+                if (wood.items.hasChoppedLog()) {
+                    setup.recipes().addShapeless(wood.items.getPeeledLog(),
+                            wood.items.getChoppedLog(), "itemAdze")
+                        .action(damageTool("itemAdze"))
+                        .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingChance));
+
+                    setup.registry(ChoppingBlockRegistry.recipes)
+                        .add(new ChoppingBlockRecipe(wood.items.getChoppedLog(), wood.items.getPeeledLog(),
+                            wood.items.getBark(), BarkConfig.dropPeelingChance,
+                            "blockChoppingBlock", "itemAdze"));
+                }
+            }
+
+            if (wood.items.hasSeasonedPeeledLog()) {
+                setup.ores("logWoodPeeledSeasoned")
+                    .add(wood.items.getSeasonedPeeledLog());
+                setup.ores("logWoodAny")
+                    .add(wood.items.getSeasonedPeeledLog());
+                setup.ores(wood.getOreWithSuffix("logWood"))
+                    .add(wood.items.getSeasonedPeeledLog());
+                setup.ores(wood.getOreWithSuffix("logWoodSeasoned"))
+                    .add(wood.items.getSeasonedPeeledLog());
+                setup.ores(wood.getOreWithSuffix("logWoodPeeledSeasoned"))
+                    .add(wood.items.getSeasonedPeeledLog());
+
+                if (wood.hardwood) {
+                    setup.ores("logWoodPlugAndFeather")
+                        .add(wood.items.getSeasonedPeeledLog());
+                }
+
+                setup.recipes().addShapeless(wood.items.getSeasonedPeeledLog(),
+                        wood.items.getSeasonedLog(), "itemAdze")
+                    .action(damageTool("itemAdze"))
+                    .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
+
+                setup.registry(ChoppingBlockRegistry.recipes)
+                    .add(new ChoppingBlockRecipe(wood.items.getSeasonedLog(), wood.items.getSeasonedPeeledLog(),
+                        wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance,
+                        "blockChoppingBlock", "itemAdze"));
+
+                setup.registry(WoodpileRegistry.seasoning)
+                    .add(new SeasoningRecipe(wood.items.getPeeledLog(), wood.items.getSeasonedPeeledLog(),
+                        SeasoningHelper.getWoodSeasoningDuration(wood, EnumWoodItemType.PEELED_LOG)));
+
+                if (wood.items.hasSeasonedChoppedLog()) {
+                    setup.recipes().addShapeless(wood.items.getSeasonedPeeledLog(),
+                            wood.items.getSeasonedChoppedLog(), "itemAdze")
+                        .action(damageTool("itemAdze"))
+                        .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
+
+                    setup.registry(ChoppingBlockRegistry.recipes)
+                        .add(new ChoppingBlockRecipe(wood.items.getSeasonedChoppedLog(), wood.items.getSeasonedPeeledLog(),
+                            wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance,
+                            "blockChoppingBlock", "itemAdze"));
+                }
+            }
+
+            // TODO: actually replace TFC recipes using ore (CLEANUP)
+
+            // Copies of TFC recipes for items made logs
+            if (wood.items.hasLumber()) {
+                setup.recipes().addShapeless(wood.items.getLumber(8),
+                        wood.getOreWithSuffix("logWoodPeeledSeasoned"), "itemSaw")
+                    .action(damageTool("itemSaw"))
+                    .action(extraDrop(new ItemStack(BidsItems.morePowder, 4, 0)));
+            }
+
+            // Copies of TFC recipes for block made from logs
+            if (wood.items.hasPeeledLog() || wood.items.hasSeasonedLog()) {
+                setup.recipes().addShaped(wood.blocks.getWoodSupport(8),
+                        "A2", " 2", '2', wood.getOreWithSuffix("logWood"), 'A', "itemSaw")
+                    .action(damageTool("itemSaw"))
+                    .action(extraDrop(new ItemStack(BidsItems.morePowder, 4, 0)));
+
+                setup.recipes().addShaped(wood.blocks.getFence(6),
+                    "LPL", "LPL", 'L', wood.getOreWithSuffix("logWood"), 'P', wood.items.getLumber());
+            }
+        }
+
+        // Copies of TFC recipes for generic wood items made logs
+        setup.recipes().addShapeless(new ItemStack(TFCItems.pole),
+                "logWoodAny", "itemKnife")
+            .action(damageTool("itemKnife"));
+        setup.recipes().addShaped(new ItemStack(TFCItems.clayTile),
+                " X", "XL", 'L', "logWoodAny", 'X', "lumpClay")
+            .action(keepItem("logWoodAny"));
+        setup.recipes().addShapeless(new ItemStack(TFCItems.paddle),
+                TFCItems.pole, "logWoodAny", "itemKnife")
+            .action(damageTool("itemKnife"));
+
+        setup.registry(WoodpileRegistry.renderable)
+            .add(BidsItems.logsSeasoned, new RenderableLogsTFC())
+            .add(BidsItems.peeledLog, (WoodpileRenderable) BidsItems.peeledLog)
+            .add(BidsItems.peeledLogSeasoned, (WoodpileRenderable) BidsItems.peeledLogSeasoned);
+    }
+
+}

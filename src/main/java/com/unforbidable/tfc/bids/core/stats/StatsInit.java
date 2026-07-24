@@ -1,0 +1,73 @@
+package com.unforbidable.tfc.bids.core.stats;
+
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.core.Initializable;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import net.minecraft.stats.Achievement;
+import net.minecraft.stats.StatBase;
+import net.minecraftforge.common.AchievementPage;
+import net.minecraftforge.common.MinecraftForge;
+
+public class StatsInit extends Initializable {
+
+    @Override
+    public void init(FMLInitializationEvent event) {
+        Bids.LOG.info("Setup stats and achievements");
+
+        Achievement[] achievements = new Achievement[] {
+            BidsAchievements.DOUBLE_FORTUNE,
+            BidsAchievements.COMPOSITE_TOOL,
+            BidsAchievements.STONE_ADZE,
+            BidsAchievements.BARK,
+            BidsAchievements.BARK_CORDAGE,
+            BidsAchievements.BARK_ROPE,
+            BidsAchievements.STONE_DRILL,
+            BidsAchievements.ROUGH_STONE,
+            BidsAchievements.METAL_DRILL,
+            BidsAchievements.HARD_QUERN,
+            BidsAchievements.SADDLE_QUERN,
+            BidsAchievements.HAND_STONE,
+            BidsAchievements.STONE_PRESS_LEVER,
+            BidsAchievements.PRESSING_STONE_USE,
+            BidsAchievements.WEIGHT_STONE_USE,
+            BidsAchievements.CERAMIC_CRUCIBLE,
+            BidsAchievements.CRUCIBLE_INGOT,
+            BidsAchievements.WELDED_ANVIL,
+            BidsAchievements.CRUCIBLE_GLASS,
+            BidsAchievements.COOKING_POT,
+            BidsAchievements.COOKED_MEAL,
+            BidsAchievements.MUSHROOM_STEW,
+            BidsAchievements.MILK_PORRIDGE,
+            BidsAchievements.BUTTER,
+            BidsAchievements.AQUIFER,
+            BidsAchievements.CULTIVATED_SEED,
+            BidsAchievements.WINTER_CEREAL_SEED
+        };
+
+        for (Achievement a : achievements) {
+            a.registerStat();
+        }
+
+        AchievementPage.registerAchievementPage(new AchievementPage("Bids", achievements));
+
+        StatBase[] stats = new StatBase[] {
+            BidsStats.BLOCKS_QUARRIED,
+            BidsStats.SADDLE_QUERN_USED,
+            BidsStats.MEALS_COOKED,
+            BidsStats.FIREWOOD_CHOPPED,
+            BidsStats.MILK_MILKED,
+            BidsStats.BUTTER_CHURNED,
+            BidsStats.MATERIAL_SCRAPED,
+            BidsStats.MATERIAL_SPUN,
+        };
+
+        for (StatBase s : stats) {
+            s.registerStat();
+        }
+
+        MinecraftForge.EVENT_BUS.register(new StatsEventHandler());
+        FMLCommonHandler.instance().bus().register(new StatsCraftingHandler());
+    }
+
+}

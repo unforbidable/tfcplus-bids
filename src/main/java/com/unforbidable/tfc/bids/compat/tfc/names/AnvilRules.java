@@ -1,0 +1,17 @@
+package com.unforbidable.tfc.bids.compat.tfc.names;
+
+public interface AnvilRules {
+
+    String BENDLAST = "BENDLAST";
+    String BENDSECONDFROMLAST = "BENDSECONDFROMLAST";
+    String ANY = "ANY";
+    String HITLAST = "HITLAST";
+    String PUNCHNOTLAST = "PUNCHNOTLAST";
+    String DRAWNOTLAST = "DRAWNOTLAST";
+    String PUNCHLAST = "PUNCHLAST";
+    String PUNCHSECONDFROMLAST = "PUNCHSECONDFROMLAST";
+    String HITTHIRDFROMLAST = "HITTHIRDFROMLAST";
+    String SHRINKTHIRDFROMLAST = "SHRINKTHIRDFROMLAST";
+    String HITSECONDFROMLAST = "HITSECONDFROMLAST";
+
+}

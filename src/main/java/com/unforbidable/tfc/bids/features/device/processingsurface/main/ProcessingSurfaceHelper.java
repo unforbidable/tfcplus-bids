@@ -1,0 +1,138 @@
+package com.unforbidable.tfc.bids.features.device.processingsurface.main;
+
+import com.dunk.tfc.Core.TFC_Textures;
+import com.dunk.tfc.Items.Tools.ItemWeapon;
+import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.BidsEventFactory;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceConfig;
+import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
+
+public class ProcessingSurfaceHelper {
+
+    private static final Map<String, IIcon> icons = new HashMap<String, IIcon>();
+
+    public static IIcon getIconForItem(ItemStack itemStack) {
+        String key = getItemKey(itemStack);
+        if (icons.containsKey(key)) {
+            return icons.get(key);
+        } else {
+            ItemStack itemStackWild = new ItemStack(itemStack.getItem(), 1, OreDictionary.WILDCARD_VALUE);
+            String keyWild = getItemKey(itemStackWild);
+            if (icons.containsKey(keyWild)) {
+                return icons.get(keyWild);
+            } else {
+                return TFC_Textures.invisibleTexture;
+            }
+        }
+    }
+
+    public static float getToolEfficiency(ItemStack tool) {
+        Item item = tool.getItem();
+        if (item instanceof ItemTool) {
+            return getToolMaterial(item).getEfficiencyOnProperMaterial();
+        } else if (item instanceof ItemWeapon) {
+            return getWeaponMat(item).getEfficiencyOnProperMaterial();
+        } else {
+            return 1f;
+        }
+    }
+
+    private static Item.ToolMaterial getToolMaterial(Item item) {
+        return ((ItemTool) item).func_150913_i();
+    }
+
+    private static Item.ToolMaterial getWeaponMat(Item item) {
+        try {
+            Field toolMatField = ItemWeapon.class.getDeclaredField("toolMat");
+            toolMatField.setAccessible(true);
+            return (Item.ToolMaterial)toolMatField.get(item);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void registerProcessingSurfaceRecipeIcons(IIconRegister registerer) {
+        for (ProcessingSurfaceRecipe recipe : ProcessingSurfaceRegistry.recipes) {
+            ItemStack input = recipe.getInput();
+            ItemStack result = recipe.getResult(input);
+
+            registerSurfaceItemIcon(registerer, input);
+            registerSurfaceItemIcon(registerer, result);
+        }
+    }
+
+    private static void registerSurfaceItemIcon(IIconRegister registerer, ItemStack itemStack) {
+        String blockIconName = getIconName(itemStack);
+        Bids.LOG.info("Surface block texture {} will be used for item {}", blockIconName, itemStack);
+
+        IIcon icon = registerer.registerIcon(blockIconName);
+        icons.put(getItemKey(itemStack), icon);
+    }
+
+    public static int getOrientation(EntityPlayer player) {
+        int dir = (int) Math.floor(player.rotationYaw * 4F / 360F + 0.5D);
+        return dir & 3;
+    }
+
+    private static String getIconName(ItemStack itemStack) {
+        String itemIconName = itemStack.getItem().getUnlocalizedName().replace("item.", "");
+        String blockIconName = getDefaultBlockIconName(itemIconName);
+        return BidsEventFactory.onSurfaceItemIcon(itemStack, blockIconName);
+    }
+
+    private static String getDefaultBlockIconName(String itemIconName) {
+        int modPartEnd = itemIconName.indexOf(':');
+        int filePartStart = itemIconName.lastIndexOf('/');
+        String filePart = filePartStart < 0 ? itemIconName.substring(modPartEnd + 1) : itemIconName.substring(filePartStart + 1);
+        return Tags.MOD_ID + ":surface/" + filePart;
+    }
+
+    private static String getItemKey(ItemStack itemStack) {
+        return itemStack.getUnlocalizedName() + "@" + itemStack.getItemDamage();
+    }
+
+    public static ProcessingSurfaceRecipe findMatchingRecipe(ItemStack input, World world, int x, int y, int z) {
+        Block surfaceBlock = world.getBlock(x, y, z);
+        int surfaceBlockMetadata = world.getBlockMetadata(x, y, z);
+        ItemStack surface = new ItemStack(surfaceBlock, 1, surfaceBlockMetadata);
+
+        for (ProcessingSurfaceRecipe recipe : ProcessingSurfaceRegistry.recipes) {
+            if (recipe.matchesInput(input) && recipe.matchesSurface(surface)) {
+                return recipe;
+            }
+        }
+
+        return null;
+    }
+
+    public static boolean isValidProcessingSurfaceItem(ItemStack itemStack, World world, int x, int y, int z) {
+        return isItemAllowed(itemStack) && ProcessingSurfaceHelper.findMatchingRecipe(itemStack, world, x, y, z) != null;
+    }
+
+    private static boolean isItemAllowed(ItemStack heldItem) {
+        if (heldItem.getItem() == TFCItems.soakedHide) {
+            // Only allow soaked hides to be scrapped if enabled in the config
+            return ProcessingSurfaceConfig.enableProcessingSurfaceLeatherRackOverride;
+        }
+
+        return true;
+    }
+
+}
