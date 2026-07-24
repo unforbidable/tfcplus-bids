@@ -63,12 +63,9 @@ public class ChoppingBlock extends Feature {
             if (wood.blocks.hasChoppingBlock()) {
                 setup.ores("blockChoppingBlock")
                     .add(wood.blocks.getChoppingBlock());
-            }
 
-            if (wood.blocks.hasChoppingBlock()) {
                 setup.registry(CarvingRegistry.recipes)
-                    .add(new CarvingRecipe(wood.blocks.getChoppingBlock(),
-                        wood.blocks.getWoodVert(), choppingBlockPattern));
+                    .add(new CarvingRecipe(wood.blocks.getWoodVert(), wood.blocks.getChoppingBlock(), choppingBlockPattern));
             }
         }
     }

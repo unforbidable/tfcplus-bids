@@ -4,8 +4,8 @@ import net.minecraft.item.ItemStack;
 
 public class HecklingRecipe extends HandworkRecipe {
 
-    public HecklingRecipe(ItemStack output, ItemStack input, int duration) {
-        super(output, input, duration);
+    public HecklingRecipe(ItemStack input, ItemStack output, int duration) {
+        super(input, output, duration);
     }
 
 }

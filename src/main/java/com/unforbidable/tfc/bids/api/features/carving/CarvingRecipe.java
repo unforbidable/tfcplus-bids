@@ -9,7 +9,7 @@ public class CarvingRecipe {
     final ItemStack input;
     final CarvingRecipePattern pattern;
 
-    public CarvingRecipe(ItemStack output, ItemStack input, CarvingRecipePattern pattern) {
+    public CarvingRecipe(ItemStack input, ItemStack output, CarvingRecipePattern pattern) {
         this.output = output;
         this.input = input;
         this.pattern = pattern;

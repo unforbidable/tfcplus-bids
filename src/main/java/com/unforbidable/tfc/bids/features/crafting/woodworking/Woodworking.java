@@ -141,7 +141,7 @@ public class Woodworking extends Feature {
 
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             setup.registry(WoodworkingRegistry.recipes)
-                .add(new WoodworkingOreRecipe(WoodworkingPlanNames.PLAN_LUMBER, wood.getOreWithSuffix("logWood"), wood.items.getLumber(4)))
+                .add(new WoodworkingOreRecipe(WoodworkingPlanNames.PLAN_LUMBER, wood.getOreWithSuffix("logWood"), wood.items.getLumber(8)))
                 .add(new WoodworkingOreRecipe(WoodworkingPlanNames.PLAN_SUPPORT, wood.getOreWithSuffix("logWood"), wood.blocks.getWoodSupport(4)));
 
             if (wood.items.hasBoard()) {

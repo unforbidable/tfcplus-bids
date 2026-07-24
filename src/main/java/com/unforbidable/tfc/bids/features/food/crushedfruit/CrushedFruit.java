@@ -5,8 +5,7 @@ import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
-import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
+import com.unforbidable.tfc.bids.api.features.pressing.PressingRecipe;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
@@ -17,11 +16,8 @@ import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.features.crafting.pressing.PressingRegistry;
 import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuernRegistry;
-import com.unforbidable.tfc.bids.features.device.saddlequern.StonePressConfig;
-import com.unforbidable.tfc.bids.features.device.saddlequern.StonePressRegistry;
-import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPressConfig;
-import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPressRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
@@ -52,21 +48,15 @@ public class CrushedFruit extends Feature {
     @Override
     public void setup(FeatureSetupBuilder setup) {
         setup.registry(SaddleQuernRegistry.recipes)
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.appleCrushed), new ItemStack(TFCItems.greenApple)))
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.appleCrushed), new ItemStack(TFCItems.redApple)))
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.oliveCrushed), new ItemStack(TFCItems.olive)));
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.greenApple), new ItemStack(BidsItems.appleCrushed)))
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.redApple), new ItemStack(BidsItems.appleCrushed)))
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.olive), new ItemStack(BidsItems.oliveCrushed)));
 
-        setup.registry(StonePressRegistry.recipes)
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f / StonePressConfig.efficiency)))
-            .add(new StonePressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f / StonePressConfig.efficiency)));
-
-        setup.registry(ScrewPressRegistry.recipes)
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.OLIVEOIL, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f / ScrewPressConfig.efficiency), 1f))
-            .add(new ScrewPressRecipe(new FluidStack(TFCFluids.APPLEJUICE, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f / ScrewPressConfig.efficiency), 1f));
+        setup.registry(PressingRegistry.recipes)
+            .add(new PressingRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f),
+                new FluidStack(TFCFluids.OLIVEOIL, 10), 0.25f))
+            .add(new PressingRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed), 0.7f),
+                new FluidStack(TFCFluids.APPLEJUICE, 10), 0.25f));
     }
 
 }

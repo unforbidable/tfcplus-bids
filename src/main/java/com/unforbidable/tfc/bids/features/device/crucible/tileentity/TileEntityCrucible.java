@@ -21,6 +21,7 @@ import com.unforbidable.tfc.bids.util.metal.MetalHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -538,7 +539,7 @@ public abstract class TileEntityCrucible extends TileEntity implements IInventor
         }
 
         // Only sync output if output configured to be displayed
-        if (prevOutput != output && CrucibleConfig.enableOutputDisplay) { // TODO use equals?
+        if (!Objects.equals(prevOutput, output) && CrucibleConfig.enableOutputDisplay) {
             updateGui(UPDATE_OUTPUT);
         }
     }

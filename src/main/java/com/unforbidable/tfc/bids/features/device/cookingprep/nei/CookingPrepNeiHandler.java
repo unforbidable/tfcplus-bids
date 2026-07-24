@@ -13,6 +13,8 @@ import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredientS
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
+import com.unforbidable.tfc.bids.features.crafting.cooking.item.ItemCookingMixture;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrepRegistry;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -55,7 +57,7 @@ public class CookingPrepNeiHandler extends TemplateRecipeHandler implements IHan
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(HANDLER_ID) && getClass() == CookingPrepNeiHandler.class) {
             for (CookingPrepRecipe recipe : CookingPrepRegistry.recipes) {
-                arecipes.add(new CachedPrepRecipe(recipe));
+                arecipes.add(new CachedPrepRecipe(recipe, recipe.getOutput()));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -66,8 +68,13 @@ public class CookingPrepNeiHandler extends TemplateRecipeHandler implements IHan
     public void loadCraftingRecipes(ItemStack output) {
         for (CookingPrepRecipe recipe : CookingPrepRegistry.recipes) {
             final ItemStack result = recipe.getOutput();
-            if (OreDictionary.itemMatches(result, output, true)) {
-                arecipes.add(new CachedPrepRecipe(recipe));
+            if (recipe.getOutput().getItem() instanceof ItemCookingMixture) {
+                String outputMixtureName = CookingMixtureHelper.getCookingMixtureName(recipe.getOutput());
+                if (outputMixtureName != null && outputMixtureName.equals(CookingMixtureHelper.getCookingMixtureName(output))) {
+                    arecipes.add(new CachedPrepRecipe(recipe, output));
+                }
+            } else if (OreDictionary.itemMatches(result, output, true)) {
+                arecipes.add(new CachedPrepRecipe(recipe, output));
             }
         }
     }
@@ -76,7 +83,7 @@ public class CookingPrepNeiHandler extends TemplateRecipeHandler implements IHan
     public void loadUsageRecipes(ItemStack ingredient) {
         for (CookingPrepRecipe recipe : CookingPrepRegistry.recipes) {
             if (recipe.doesVesselOrIngredientMatch(ingredient)) {
-                arecipes.add(new CachedPrepRecipe(recipe));
+                arecipes.add(new CachedPrepRecipe(recipe, recipe.getOutput()));
             }
         }
     }
@@ -143,7 +150,7 @@ public class CookingPrepNeiHandler extends TemplateRecipeHandler implements IHan
         final PositionedStack result;
         final List<List<PositionedStack>> inputs;
 
-        public CachedPrepRecipe(CookingPrepRecipe recipe) {
+        public CachedPrepRecipe(CookingPrepRecipe recipe, ItemStack output) {
             ingredients = recipe.getIngredients();
             inputs = new ArrayList<List<PositionedStack>>(CookingPrepRecipe.INGREDIENT_COUNT);
 
@@ -174,7 +181,6 @@ public class CookingPrepNeiHandler extends TemplateRecipeHandler implements IHan
                 }
             }
 
-            ItemStack output = recipe.getOutput().copy();
             if (output.getItem() instanceof IFood) {
                 ItemFoodTFC.createTag(output, totalWeight);
             }

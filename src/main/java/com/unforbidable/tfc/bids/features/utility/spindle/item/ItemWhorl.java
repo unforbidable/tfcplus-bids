@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.utility.heckle.spindle.item;
+package com.unforbidable.tfc.bids.features.utility.spindle.item;
 
 import com.dunk.tfc.Items.ItemTerra;
 import com.dunk.tfc.api.Enums.EnumItemReach;

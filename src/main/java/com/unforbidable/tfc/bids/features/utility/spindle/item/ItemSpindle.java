@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.utility.heckle.spindle.item;
+package com.unforbidable.tfc.bids.features.utility.spindle.item;
 
 import com.unforbidable.tfc.bids.api.features.handwork.HandworkRecipe;
 import com.unforbidable.tfc.bids.features.crafting.handwork.item.ItemHandworkTool;

@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.material.birtchback;
+package com.unforbidable.tfc.bids.features.material.birtchbark;
 
 import com.dunk.tfc.api.Armor;
 import com.dunk.tfc.api.Interfaces.IEquipable;

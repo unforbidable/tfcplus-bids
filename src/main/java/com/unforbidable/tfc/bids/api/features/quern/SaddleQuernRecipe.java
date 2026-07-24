@@ -11,7 +11,7 @@ public class SaddleQuernRecipe implements SimpleRecipeMatcher<ItemStack> {
     final ItemStack output;
     final ItemStack input;
 
-    public SaddleQuernRecipe(ItemStack output, ItemStack input) {
+    public SaddleQuernRecipe(ItemStack input, ItemStack output) {
         this.output = output;
         this.input = input;
     }

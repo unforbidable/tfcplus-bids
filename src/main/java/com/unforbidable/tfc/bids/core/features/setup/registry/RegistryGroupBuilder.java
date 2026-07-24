@@ -4,7 +4,6 @@ import com.unforbidable.tfc.bids.util.registry.ListRegistry;
 import com.unforbidable.tfc.bids.util.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
 public class RegistryGroupBuilder<T> {
@@ -23,7 +22,7 @@ public class RegistryGroupBuilder<T> {
         return this;
     }
 
-    public <S> RegistryGroupBuilder<T> adapt(Registry<S> source, Function<S, Optional<T>> mapper) {
+    public <S> RegistryGroupBuilder<T> adapt(Registry<S> source, Function<S, T> mapper) {
         this.adapters.add(new RegistryAdapter<>(source, registry, mapper));
 
         return this;

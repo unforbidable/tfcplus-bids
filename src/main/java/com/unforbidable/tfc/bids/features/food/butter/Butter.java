@@ -87,8 +87,8 @@ public class Butter extends Feature {
             ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)), new ItemStack(TFCItems.powder, 1, 9));
 
         setup.registry(ChurningRegistry.recipes)
-            .add(new ChurningRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.butter), Global.FOOD_MAX_WEIGHT / 4000),
-                new FluidStack(BidsFluids.cream, 1), 1));
+            .add(new ChurningRecipe(new FluidStack(BidsFluids.cream, 1), ItemFoodTFC.createTag(new ItemStack(BidsItems.butter), Global.FOOD_MAX_WEIGHT / 4000),
+                1));
 
         setup.registry(CookingRegistry.recipes).add(CookingRecipe.builder()
                 .consumes(new FluidStack(TFCFluids.MILK, 500))

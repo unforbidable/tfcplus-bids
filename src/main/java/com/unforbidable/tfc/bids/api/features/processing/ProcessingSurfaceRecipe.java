@@ -12,7 +12,7 @@ public class ProcessingSurfaceRecipe {
 
     private final float effort;
 
-    public ProcessingSurfaceRecipe(ItemStack output, ItemStack input, String toolOreName, String surfaceBlockOreName, float effort) {
+    public ProcessingSurfaceRecipe(ItemStack input, ItemStack output, String toolOreName, String surfaceBlockOreName, float effort) {
         this.output = output;
         this.input = input;
         this.toolOreName = toolOreName;

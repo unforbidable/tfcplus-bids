@@ -12,7 +12,7 @@ public class ChoppingBlockRecipe {
     private final ItemStack extraDrop;
     private final float extraDropChance;
 
-    public ChoppingBlockRecipe(String choppingBlockOreName, String toolOreName, ItemStack output, ItemStack input, ItemStack extraDrop, float extraDropChance) {
+    public ChoppingBlockRecipe(ItemStack input, ItemStack output, ItemStack extraDrop, float extraDropChance, String choppingBlockOreName, String toolOreName) {
         this.choppingBlockOreName = choppingBlockOreName;
         this.toolOreName = toolOreName;
         this.output = output;

@@ -11,7 +11,7 @@ public class SoakingSurfaceRecipe {
 
     private final long hours;
 
-    public SoakingSurfaceRecipe(ItemStack output, ItemStack input, String fluidBlockOreName, long hours) {
+    public SoakingSurfaceRecipe(ItemStack input, ItemStack output, String fluidBlockOreName, long hours) {
         this.output = output;
         this.input = input;
         this.fluidBlockOreName = fluidBlockOreName;

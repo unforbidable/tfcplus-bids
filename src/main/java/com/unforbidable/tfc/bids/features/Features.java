@@ -56,7 +56,8 @@ import com.unforbidable.tfc.bids.features.food.pemmican.Pemmican;
 import com.unforbidable.tfc.bids.features.food.sandwich.Sandwich;
 import com.unforbidable.tfc.bids.features.food.tallow.Tallow;
 import com.unforbidable.tfc.bids.features.material.bark.Bark;
-import com.unforbidable.tfc.bids.features.material.birtchback.BirchBark;
+import com.unforbidable.tfc.bids.features.material.barkfiber.BarkFiber;
+import com.unforbidable.tfc.bids.features.material.birtchbark.BirchBark;
 import com.unforbidable.tfc.bids.features.material.clothing.Clothing;
 import com.unforbidable.tfc.bids.features.material.firewood.Firewood;
 import com.unforbidable.tfc.bids.features.material.fishoil.FishOil;
@@ -79,7 +80,7 @@ import com.unforbidable.tfc.bids.features.utility.drill.Drill;
 import com.unforbidable.tfc.bids.features.utility.fluidcontainers.FluidContainers;
 import com.unforbidable.tfc.bids.features.utility.handaxe.HandAxe;
 import com.unforbidable.tfc.bids.features.utility.heckle.Heckle;
-import com.unforbidable.tfc.bids.features.utility.heckle.spindle.Spindle;
+import com.unforbidable.tfc.bids.features.utility.spindle.Spindle;
 import com.unforbidable.tfc.bids.features.utility.largebowl.LargeBowl;
 import com.unforbidable.tfc.bids.features.utility.leatherwear.Leatherwear;
 import com.unforbidable.tfc.bids.features.utility.mallet.Mallet;
@@ -176,6 +177,7 @@ public class Features {
         new RopeMaking(),
         new RopeMaker(),
         new Textile(),
+        new BarkFiber(),
         new Mallet(),
         new ScutchingKnife(),
         new Threshing(),

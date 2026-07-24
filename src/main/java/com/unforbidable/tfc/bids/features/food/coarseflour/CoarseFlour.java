@@ -67,12 +67,12 @@ public class CoarseFlour extends Feature {
             .add(BidsItems.cornmealCrushed);
 
         setup.registry(SaddleQuernRegistry.recipes)
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.wheatCrushed), new ItemStack(TFCItems.wheatGrain)))
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.barleyCrushed), new ItemStack(TFCItems.barleyGrain)))
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.oatCrushed), new ItemStack(TFCItems.oatGrain)))
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.ryeCrushed), new ItemStack(TFCItems.ryeGrain)))
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.riceCrushed), new ItemStack(TFCItems.riceGrain)))
-            .add(new SaddleQuernRecipe(new ItemStack(BidsItems.cornmealCrushed), new ItemStack(TFCItems.maizeEar)));
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.wheatGrain), new ItemStack(BidsItems.wheatCrushed)))
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.barleyGrain), new ItemStack(BidsItems.barleyCrushed)))
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.oatGrain), new ItemStack(BidsItems.oatCrushed)))
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.ryeGrain), new ItemStack(BidsItems.ryeCrushed)))
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.riceGrain), new ItemStack(BidsItems.riceCrushed)))
+            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.maizeEar), new ItemStack(BidsItems.cornmealCrushed)));
     }
 
 }

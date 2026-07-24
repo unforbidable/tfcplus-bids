@@ -5,8 +5,7 @@ import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
-import com.unforbidable.tfc.bids.api.features.pressing.StonePressRecipe;
+import com.unforbidable.tfc.bids.api.features.pressing.PressingRecipe;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.fluid.FluidCommon;
@@ -21,11 +20,8 @@ import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.features.crafting.pressing.PressingRegistry;
 import com.unforbidable.tfc.bids.features.device.lamp.LampRegistry;
-import com.unforbidable.tfc.bids.features.device.saddlequern.StonePressConfig;
-import com.unforbidable.tfc.bids.features.device.saddlequern.StonePressRegistry;
-import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPressConfig;
-import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPressRegistry;
 import com.unforbidable.tfc.bids.features.material.linseed.fuel.FuelFlaxSeedOil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -67,13 +63,9 @@ public class Linseed extends Feature {
         setup.registry(LampRegistry.fuel)
             .add(BidsFluids.flaxSeedOil, new FuelFlaxSeedOil());
 
-        setup.registry(StonePressRegistry.recipes)
-            .add(new StonePressRecipe(new FluidStack(BidsFluids.flaxSeedOil, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f / StonePressConfig.efficiency)));
-
-        setup.registry(ScrewPressRegistry.recipes)
-            .add(new ScrewPressRecipe(new FluidStack(BidsFluids.flaxSeedOil, 10),
-                ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f / ScrewPressConfig.efficiency), 0.25f));
+        setup.registry(PressingRegistry.recipes)
+            .add(new PressingRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.flaxSeeds), 0.8f),
+                new FluidStack(BidsFluids.flaxSeedOil, 10), 0.25f));
     }
 
 }

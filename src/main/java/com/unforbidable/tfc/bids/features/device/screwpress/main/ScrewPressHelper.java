@@ -1,8 +1,12 @@
 package com.unforbidable.tfc.bids.features.device.screwpress.main;
 
+import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.features.pressing.PressingRecipe;
 import com.unforbidable.tfc.bids.api.features.pressing.ScrewPressRecipe;
+import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPressConfig;
 import com.unforbidable.tfc.bids.features.device.screwpress.ScrewPressRegistry;
 import com.unforbidable.tfc.bids.features.device.screwpress.tileentity.TileEntityScrewPressLever;
 import net.minecraft.item.ItemStack;
@@ -11,6 +15,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 
 public class ScrewPressHelper {
 
@@ -91,6 +96,23 @@ public class ScrewPressHelper {
             // Somehow an item that cannot be pressed ended up in the basket
             return Float.MAX_VALUE;
         }
+    }
+
+    public static ScrewPressRecipe adaptPressingRecipe(PressingRecipe recipe) {
+        ItemStack input = recipe.getInputItem().copy();
+        ItemStack outputItem = recipe.getOutputItem() != null ? recipe.getOutputItem().copy() : null;
+        FluidStack outputFluid = recipe.getOutputFluid().copy();
+
+        // Screw press efficiency affects the recipe input or output volume
+        if (recipe.getInputItem().getItem() instanceof ItemFoodTFC) {
+            float weight = Food.getWeight(input);
+            Food.setWeight(input, weight / ScrewPressConfig.efficiency);
+        } else {
+            float amount = outputFluid.amount;
+            outputFluid.amount = Math.round(amount * ScrewPressConfig.efficiency);
+        }
+
+        return new ScrewPressRecipe(input, outputItem, outputFluid, recipe.getResistance());
     }
 
 }

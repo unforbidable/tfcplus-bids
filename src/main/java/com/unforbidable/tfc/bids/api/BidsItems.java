@@ -160,19 +160,19 @@ public class BidsItems {
     public static final Item cornmealCrushed = item(ItemNames.CORN_CRUSHED);
 
     // Flatbread
-    public static final  Item wheatDoughFlatbread = item(ItemNames.WHEAT_DOUGH_FLATBREAD);
-    public static final  Item barleyDoughFlatbread = item(ItemNames.BARLEY_DOUGH_FLATBREAD);
-    public static final  Item oatDoughFlatbread = item(ItemNames.OAT_DOUGH_FLATBREAD);
-    public static final  Item ryeDoughFlatbread = item(ItemNames.RYE_DOUGH_FLATBREAD);
-    public static final  Item riceDoughFlatbread = item(ItemNames.RICE_DOUGH_FLATBREAD);
-    public static final  Item cornmealDoughFlatbread = item(ItemNames.CORN_DOUGH_FLATBREAD);
+    public static final Item wheatDoughFlatbread = item(ItemNames.WHEAT_DOUGH_FLATBREAD);
+    public static final Item barleyDoughFlatbread = item(ItemNames.BARLEY_DOUGH_FLATBREAD);
+    public static final Item oatDoughFlatbread = item(ItemNames.OAT_DOUGH_FLATBREAD);
+    public static final Item ryeDoughFlatbread = item(ItemNames.RYE_DOUGH_FLATBREAD);
+    public static final Item riceDoughFlatbread = item(ItemNames.RICE_DOUGH_FLATBREAD);
+    public static final Item cornmealDoughFlatbread = item(ItemNames.CORN_DOUGH_FLATBREAD);
 
-    public static final  Item wheatFlatbread = item(ItemNames.WHEAT_FLATBREAD);
-    public static final  Item barleyFlatbread = item(ItemNames.BARLEY_FLATBREAD);
-    public static final  Item oatFlatbread = item(ItemNames.OAT_FLATBREAD);
-    public static final  Item ryeFlatbread = item(ItemNames.RYE_FLATBREAD);
-    public static final  Item riceFlatbread = item(ItemNames.RICE_FLATBREAD);
-    public static final  Item cornmealFlatbread = item(ItemNames.CORN_FLATBREAD);
+    public static final Item wheatFlatbread = item(ItemNames.WHEAT_FLATBREAD);
+    public static final Item barleyFlatbread = item(ItemNames.BARLEY_FLATBREAD);
+    public static final Item oatFlatbread = item(ItemNames.OAT_FLATBREAD);
+    public static final Item ryeFlatbread = item(ItemNames.RYE_FLATBREAD);
+    public static final Item riceFlatbread = item(ItemNames.RICE_FLATBREAD);
+    public static final Item cornmealFlatbread = item(ItemNames.CORN_FLATBREAD);
 
     // Dough
     public static final Item flatDough = item(ItemNames.FLAT_DOUGH);
@@ -323,30 +323,30 @@ public class BidsItems {
     public static final Item barkFiberSmooth = item(ItemNames.BARK_FIBER_SMOOTH);
     public static final Item barkCordage = item(ItemNames.BARK_CORDAGE);
     public static final Item barkFibreKindling = item(ItemNames.BARK_FIBER_KINDLING);
-    public static final Item  sisalFiberRinsed = item(ItemNames.SISAL_FIBER_RINSED);
-    public static final Item  sisalFiberCoarse = item(ItemNames.SISAL_FIBER_COARSE);
-    public static final Item  sisalFiberRefined = item(ItemNames.SISAL_FIBER_REFINED);
-    public static final Item  sisalTwine = item(ItemNames.SISAL_TWINE);
-    public static final Item  juteStalk = item(ItemNames.JUTE_STALK);
-    public static final Item  juteStalkRetted = item(ItemNames.JUTE_STALK_RETTED);
-    public static final Item  juteFiberCoarse = item(ItemNames.JUTE_FIBER_COARSE);
-    public static final Item  juteFiberRefined = item(ItemNames.JUTE_FIBER_REFINED);
-    public static final Item  juteTwine = item(ItemNames.JUTE_TWINE);
-    public static final Item  flaxStalk = item(ItemNames.FLAX_STALK);
-    public static final Item  flaxStalkRetted = item(ItemNames.FLAX_STALK_RETTED);
-    public static final Item  flaxStalkDried = item(ItemNames.FLAX_STALK_DRIED);
-    public static final Item  flaxStalkBroken = item(ItemNames.FLAX_STALK_BROKEN);
-    public static final Item  flaxFiberCoarse = item(ItemNames.FLAX_FIBER_COARSE);
-    public static final Item  flaxFiberRefined = item(ItemNames.FLAX_FIBER_REFINED);
-    public static final Item  cottonBoll = item(ItemNames.COTTON_BOLL);
-    public static final Item  cottonBollRefined = item(ItemNames.COTTON_BOLL_REFINED);
-    public static final Item  cottonFiberCoarse = item(ItemNames.COTTON_FIBER_COARSE);
-    public static final Item  cottonFiberRefined = item(ItemNames.COTTON_FIBER_REFINED);
-    public static final Item  woolWashed = item(ItemNames.WOOL_WASHED);
-    public static final Item  woolRinsed = item(ItemNames.WOOL_RINSED);
-    public static final Item  woolDried = item(ItemNames.WOOL_DRIED);
-    public static final Item  woolFiberCoarse = item(ItemNames.WOOL_FIBER_COARSE);
-    public static final Item  woolFiberRefined = item(ItemNames.WOOL_FIBER_REFINED);
+    public static final Item sisalFiberRinsed = item(ItemNames.SISAL_FIBER_RINSED);
+    public static final Item sisalFiberCoarse = item(ItemNames.SISAL_FIBER_COARSE);
+    public static final Item sisalFiberRefined = item(ItemNames.SISAL_FIBER_REFINED);
+    public static final Item sisalTwine = item(ItemNames.SISAL_TWINE);
+    public static final Item juteStalk = item(ItemNames.JUTE_STALK);
+    public static final Item juteStalkRetted = item(ItemNames.JUTE_STALK_RETTED);
+    public static final Item juteFiberCoarse = item(ItemNames.JUTE_FIBER_COARSE);
+    public static final Item juteFiberRefined = item(ItemNames.JUTE_FIBER_REFINED);
+    public static final Item juteTwine = item(ItemNames.JUTE_TWINE);
+    public static final Item flaxStalk = item(ItemNames.FLAX_STALK);
+    public static final Item flaxStalkRetted = item(ItemNames.FLAX_STALK_RETTED);
+    public static final Item flaxStalkDried = item(ItemNames.FLAX_STALK_DRIED);
+    public static final Item flaxStalkBroken = item(ItemNames.FLAX_STALK_BROKEN);
+    public static final Item flaxFiberCoarse = item(ItemNames.FLAX_FIBER_COARSE);
+    public static final Item flaxFiberRefined = item(ItemNames.FLAX_FIBER_REFINED);
+    public static final Item cottonBoll = item(ItemNames.COTTON_BOLL);
+    public static final Item cottonBollRefined = item(ItemNames.COTTON_BOLL_REFINED);
+    public static final Item cottonFiberCoarse = item(ItemNames.COTTON_FIBER_COARSE);
+    public static final Item cottonFiberRefined = item(ItemNames.COTTON_FIBER_REFINED);
+    public static final Item woolWashed = item(ItemNames.WOOL_WASHED);
+    public static final Item woolRinsed = item(ItemNames.WOOL_RINSED);
+    public static final Item woolDried = item(ItemNames.WOOL_DRIED);
+    public static final Item woolFiberCoarse = item(ItemNames.WOOL_FIBER_COARSE);
+    public static final Item woolFiberRefined = item(ItemNames.WOOL_FIBER_REFINED);
 
     // Mallet
     public static final Item woodenMallet = item(ItemNames.WOODEN_MALLET);

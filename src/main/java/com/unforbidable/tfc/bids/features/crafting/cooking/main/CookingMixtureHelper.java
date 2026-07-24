@@ -213,4 +213,10 @@ public class CookingMixtureHelper {
         return null;
     }
 
+    public static boolean isCookingMixtureFluidEqual(FluidStack fluid, ItemStack itemStack) {
+        String fluidName = getCookingMixtureName(fluid);
+        String itemName = getCookingMixtureName(itemStack);
+        return fluidName != null && fluidName.equals(itemName);
+    }
+
 }

@@ -1,17 +1,22 @@
-package com.unforbidable.tfc.bids.features.utility.heckle.spindle;
+package com.unforbidable.tfc.bids.features.utility.spindle;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
+import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
+import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
+import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
+import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.features.crafting.handwork.render.HandworkToolItemRenderer;
-import com.unforbidable.tfc.bids.features.utility.heckle.spindle.item.ItemSpindle;
-import com.unforbidable.tfc.bids.features.utility.heckle.spindle.item.ItemWhorl;
+import com.unforbidable.tfc.bids.features.utility.spindle.item.ItemSpindle;
+import com.unforbidable.tfc.bids.features.utility.spindle.item.ItemWhorl;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
@@ -41,11 +46,15 @@ public class Spindle extends Feature {
         setup.ores("itemSpindle")
             .add(BidsItems.spindle);
 
-        setup.recipes().addShapeless(new ItemStack(BidsItems.whorl),
-            "itemRock", "itemDrillHead");
-
         setup.recipes().addShapeless(new ItemStack(BidsItems.spindle),
             "itemWhorl", "stickWood");
+
+        for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
+            setup.registry(TfcRegistry.Recipes.knapping)
+                .add(KnappingRecipe.add(new ItemStack(BidsItems.whorl, 1, 0),
+                    " ### ", "#####", "## ##", "#####", " ### ",
+                    '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)));
+        }
     }
 
 }

@@ -16,11 +16,11 @@ public class ScrewPressRecipe implements SimpleRecipeMatcher<ItemStack> {
     final ItemStack outputItem;
     final float resistance;
 
-    public ScrewPressRecipe(FluidStack outputFluid, ItemStack inputItem, float resistance) {
-        this(outputFluid, null, inputItem, resistance);
+    public ScrewPressRecipe(ItemStack inputItem, FluidStack outputFluid, float resistance) {
+        this(inputItem, null, outputFluid, resistance);
     }
 
-    public ScrewPressRecipe(FluidStack outputFluid, ItemStack outputItem, ItemStack inputItem, float resistance) {
+    public ScrewPressRecipe(ItemStack inputItem, ItemStack outputItem, FluidStack outputFluid, float resistance) {
         this.outputFluid = outputFluid;
         this.outputItem = outputItem;
         this.inputItem = inputItem;
