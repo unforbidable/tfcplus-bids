@@ -311,7 +311,7 @@ public class Textile extends Feature {
                 .inTime(50)
                 .build());
 
-        setup.registry(TfcRegistry.Recipes.barrel)
+        setup.registry(TfcRegistry.Barrel.recipes)
             .add(BarrelRecipe.add(builder -> builder
                 .consumes(new ItemStack(TFCItems.sisalFiber), new FluidStack(TFCFluids.FRESHWATER, 100))
                 .produces(new ItemStack(BidsItems.sisalFiberRinsed), new FluidStack(TFCFluids.FRESHWATER, 100))
@@ -333,7 +333,7 @@ public class Textile extends Feature {
                 .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 100))
                 .withSealTime(0).withMinTechLevel(0).beingSealed(false)));
 
-        setup.registry(TfcRegistry.Recipes.barrel)
+        setup.registry(TfcRegistry.Barrel.recipes)
             .add(BarrelRecipe.addMultiItem(builder -> builder
                 .consumes(new ItemStack(BidsItems.sisalTwine), new FluidStack(TFCFluids.WAX, 200))
                 .produces(new ItemStack(TFCBlocks.candleOff), new FluidStack(TFCFluids.WAX, 200))
@@ -343,14 +343,14 @@ public class Textile extends Feature {
                 .produces(new ItemStack(TFCBlocks.candleOff), new FluidStack(TFCFluids.WAX, 200))
                 .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0)));
 
-        setup.registry(TfcRegistry.Recipes.barrel)
+        setup.registry(TfcRegistry.Barrel.recipes)
             .add(BarrelRecipe.addMultiItem(builder -> builder
                 .consumes(new ItemStack(BidsItems.cottonBollRefined), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
                 .produces(new ItemStack(TFCItems.ammoniumChlorideBall), new FluidStack(TFCFluids.AMMONIUMCHLORIDE, 250))
                 .keepingStackSize(false).withSealTime(0).beingSealed(false).withMinTechLevel(0)));
 
         ResourceLocation ropeRes = new ResourceLocation("terrafirmacraftplus", "textures/blocks/Rope.png");
-        setup.registry(TfcRegistry.Recipes.loom)
+        setup.registry(TfcRegistry.Loom.recipes)
             .add(LoomRecipe.add(new ItemStack(BidsItems.sisalTwine, 20), new ItemStack(TFCItems.burlapCloth, 1), ropeRes))
             .add(LoomRecipe.add(new ItemStack(BidsItems.juteTwine, 16), new ItemStack(TFCItems.burlapCloth, 1), ropeRes));
 
@@ -371,7 +371,7 @@ public class Textile extends Feature {
         }
 
         if (TextileConfig.removeOriginalBurlapFiberLoomRecipes) {
-            setup.registry(TfcRegistry.Recipes.loom)
+            setup.registry(TfcRegistry.Loom.recipes)
                 .add(LoomRecipe.remove(TFCItems.sisalFiber))
                 .add(LoomRecipe.remove(TFCItems.juteFiber));
         }

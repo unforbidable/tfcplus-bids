@@ -57,14 +57,14 @@ public class Glassblowing extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-        setup.registry(TfcRegistry.Values.molds)
+        setup.registry(TfcRegistry.Metal.molds)
             .add(PartialMold.add(Metals.GLASS, BidsItems.metalBlowpipe, 2, BidsItems.metalBlowpipe, 1, 2))
             .add(PartialMold.add(Metals.GLASS, BidsItems.brassBlowpipe, 2, BidsItems.brassBlowpipe, 1, 2));
 
-        setup.registry(TfcRegistry.Recipes.anvilPlans)
+        setup.registry(TfcRegistry.Anvil.plans)
             .add(AnvilPlan.add(BLOWPIPE_PLAN, AnvilRules.BENDLAST, AnvilRules.BENDSECONDFROMLAST, AnvilRules.ANY));
 
-        setup.registry(TfcRegistry.Recipes.anvil)
+        setup.registry(TfcRegistry.Anvil.recipes)
             .add(AnvilRecipe.add(new ItemStack(TFCItems.wroughtIronSheet), null, BLOWPIPE_PLAN, 3,
                 new ItemStack(BidsItems.metalBlowpipe, 1, 1), Skills.TOOLSMITH))
             .add(AnvilRecipe.add(new ItemStack(TFCItems.brassSheet), null, BLOWPIPE_PLAN, 2,

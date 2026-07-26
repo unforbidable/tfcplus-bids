@@ -96,7 +96,7 @@ public class Crucible extends Feature {
         setup.recipes().add(new RecipeCrucibleConversion(true));
         setup.recipes().add(new RecipeCrucibleConversion(false));
 
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsBlocks.clayCrucible, 1, 1),
                 "#####", " ### ", " ### ", " ### ", "     ",
                 '#', new ItemStack(TFCItems.flatClay, 1, 1)))
@@ -104,7 +104,7 @@ public class Crucible extends Feature {
                 "#####", " ### ", " ### ", " ### ", "     ",
                 '#', new ItemStack(TFCItems.flatClay, 1, 3)));
 
-        setup.registry(TfcRegistry.Recipes.kiln)
+        setup.registry(TfcRegistry.Kiln.recipes)
             .add(KilnRecipe.add(new ItemStack(BidsBlocks.clayCrucible, 1, 1), 0,
                 new ItemStack(BidsBlocks.clayCrucible, 1, 0)));
 

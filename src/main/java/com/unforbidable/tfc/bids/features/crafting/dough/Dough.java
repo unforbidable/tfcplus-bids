@@ -82,7 +82,7 @@ public class Dough extends Feature {
         setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealDoughUnshaped)),
             ItemFoodTFC.createTag(new ItemStack(TFCItems.cornmealGround)), "itemLargeBowlWater");
 
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(ItemFoodTFC.createTag(new ItemStack(TFCItems.wheatDough), 160),
                 "     ", " ### ", "#####", "#####", "#####", '#', new ItemStack(BidsItems.flatDough, 1, 0)))
             .add(KnappingRecipe.add(ItemFoodTFC.createTag(new ItemStack(TFCItems.barleyDough), 160),

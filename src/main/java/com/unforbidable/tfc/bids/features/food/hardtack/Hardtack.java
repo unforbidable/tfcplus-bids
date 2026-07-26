@@ -86,7 +86,7 @@ public class Hardtack extends Feature {
             .add(BidsItems.riceHardtack)
             .add(BidsItems.cornmealHardtack);
 
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatDoughHardtack), 160),
                 "#####", "# # #", "#####", "# # #", "#####", '#', new ItemStack(BidsItems.flatDough, 1, 0)))
             .add(KnappingRecipe.add(ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyDoughHardtack), 160),
@@ -100,7 +100,7 @@ public class Hardtack extends Feature {
             .add(KnappingRecipe.add(ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealDoughHardtack), 160),
                 "#####", "# # #", "#####", "# # #", "#####", '#', new ItemStack(BidsItems.flatDough, 1, 5)));
 
-        setup.registry(TfcRegistry.Values.heat)
+        setup.registry(TfcRegistry.Heat.values)
             .add(HeatValue.add(new ItemStack(BidsItems.wheatDoughHardtack), 1, 88,
                 new ItemStack(BidsItems.wheatHardtack), true))
             .add(HeatValue.add(new ItemStack(BidsItems.barleyDoughHardtack), 1, 88,
@@ -114,7 +114,7 @@ public class Hardtack extends Feature {
             .add(HeatValue.add(new ItemStack(BidsItems.cornmealDoughHardtack), 1, 88,
                 new ItemStack(BidsItems.cornmealHardtack), true));
 
-        setup.registry(TfcRegistry.Values.heat)
+        setup.registry(TfcRegistry.Heat.values)
             .add(HeatValue.add(new ItemStack(BidsItems.wheatHardtack), 1, 177, null))
             .add(HeatValue.add(new ItemStack(BidsItems.barleyHardtack), 1, 177, null))
             .add(HeatValue.add(new ItemStack(BidsItems.oatHardtack), 1, 177, null))

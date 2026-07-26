@@ -36,12 +36,12 @@ public class Pottery extends Feature {
         setup.recipes().addShapeless(new ItemStack(BidsItems.clayPipe),
             TFCItems.clayTile, TFCItems.clayTile);
 
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.clayMug, 2),
                 "#####", "#####", "    #", "   # ", "    #",
                 '#', new ItemStack(TFCItems.flatClay, 1, 1)));
 
-        setup.registry(TfcRegistry.Recipes.kiln)
+        setup.registry(TfcRegistry.Kiln.recipes)
             .add(KilnRecipe.add(new ItemStack(BidsItems.clayPipe, 1, 0), 0,
                 new ItemStack(BidsItems.clayPipe, 1, 1)))
             .add(KilnRecipe.add(new ItemStack(BidsItems.clayMug, 1, 0), 0,

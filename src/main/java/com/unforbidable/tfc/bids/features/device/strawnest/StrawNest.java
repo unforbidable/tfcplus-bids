@@ -48,7 +48,7 @@ public class StrawNest extends Feature {
         setup.event()
             .handler(new ChickenEntitySpawnHandler());
 
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsBlocks.strawNest, 1),
                 "     ", "#   #", "#   #", " ### ", "     ", '#',
                 new ItemStack(TFCItems.flatStraw, 1)));

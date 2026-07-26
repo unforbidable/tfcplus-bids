@@ -36,7 +36,7 @@ public class Clothing extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.extraStrap, 3),
                 "# # #", "# # #", "# # #", "# # #", "# # #", '#', BidsItems.flatBirchBark))
             .add(KnappingRecipe.add(new ItemStack(BidsItems.extraBagPiece, 2, 0),
@@ -48,7 +48,7 @@ public class Clothing extends Feature {
             .add(KnappingRecipe.add(new ItemStack(BidsItems.cupPiece, 1, 0),
                 "     ", "     ", "#### ", "### #", "#### ", '#', BidsItems.flatBirchBark));
 
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.extraCoatBodyFront, 1, 0),
                 "#   #", "## ##", "## ##", "## ##", "## ##", '#', TFCItems.flatLeather))
             .add(KnappingRecipe.add(new ItemStack(BidsItems.extraCoatBodyBack, 1, 0),

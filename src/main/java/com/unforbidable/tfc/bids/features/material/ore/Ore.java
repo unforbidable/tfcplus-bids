@@ -74,7 +74,7 @@ public class Ore extends Feature {
                         .action(damageTool("itemHammer", 4));
                 }
 
-                setup.registry(TfcRegistry.Values.heat)
+                setup.registry(TfcRegistry.Heat.values)
                     .add(HeatValue.clone(new ItemStack(TFCItems.smallOreChunk, 1, i))
                         .as(new ItemStack(BidsItems.oreBit, 1, i)));
             }

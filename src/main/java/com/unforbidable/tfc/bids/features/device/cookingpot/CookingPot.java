@@ -76,7 +76,7 @@ public class CookingPot extends Feature {
 
         setup.recipes().add(new RecipeEmptyCookingPot());
 
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsBlocks.cookingPot),
                 " ### ", " ### ", " ### ", " ### ", "#   #", '#',
                 new ItemStack(TFCItems.flatClay, 1, 1)))
@@ -84,14 +84,14 @@ public class CookingPot extends Feature {
                 "## ##", "     ", "#####", "#####", "#####", '#',
                 new ItemStack(TFCItems.flatClay, 1, 1)));
 
-        setup.registry(TfcRegistry.Recipes.kiln)
+        setup.registry(TfcRegistry.Kiln.recipes)
             .add(KilnRecipe.add(new ItemStack(BidsBlocks.cookingPot, 1, 0), 0,
                 new ItemStack(BidsBlocks.cookingPot, 1, 1)))
             .add(KilnRecipe.add(new ItemStack(BidsBlocks.cookingPotLid, 1, 0), 0,
                 new ItemStack(BidsBlocks.cookingPotLid, 1, 1)));
 
         for (Item flatItem : new Item[]{TFCItems.flatLinen, TFCItems.flatWool, TFCItems.flatSilk, TFCItems.flatCotton, TFCItems.flatBurlap}) {
-            setup.registry(TfcRegistry.Recipes.knapping)
+            setup.registry(TfcRegistry.Knapping.recipes)
                 .add(KnappingRecipe.add(new ItemStack(BidsItems.steamingMeshCloth),
                     "#####", "# # #", "#####", "# # #", "#####", '#', flatItem));
         }

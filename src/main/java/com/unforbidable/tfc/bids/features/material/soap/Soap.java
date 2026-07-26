@@ -92,7 +92,7 @@ public class Soap extends Feature {
         setup.fluid(BidsFluids.soapyWater)
             .container(BidsItems.soapyWaterBottle, 1000, true, TFCItems.glassBottle);
 
-        setup.registry(TfcRegistry.Recipes.barrel)
+        setup.registry(TfcRegistry.Barrel.recipes)
             .add(BarrelRecipe.addItemDemanding(builder -> builder
                 .consumes(new ItemStack(TFCItems.powder, 1, 13), new FluidStack(TFCFluids.FRESHWATER, 200))
                 .produces(new FluidStack(BidsFluids.weakWoodAshLye, 200))

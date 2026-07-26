@@ -40,7 +40,7 @@ public class Spear extends Feature {
                 TFCItems.pole, "itemHandAxe")
             .action(damageTool("itemHandAxe"));
 
-        setup.registry(TfcRegistry.Values.heat)
+        setup.registry(TfcRegistry.Heat.values)
             .add(HeatValue.add(new ItemStack(TFCItems.woodenSpear), 1, 100, new ItemStack(BidsItems.hardenedWoodenSpear)));
     }
 

@@ -47,7 +47,7 @@ public class Glass extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.drinkingGlass, 2),
                 "     ", "     ", "#   #", "#   #", "#####", '#', BidsItems.flatGlass))
             .add(KnappingRecipe.add(new ItemStack(BidsItems.shotGlass, 4),

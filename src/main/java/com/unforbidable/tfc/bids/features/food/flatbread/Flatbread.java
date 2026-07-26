@@ -95,7 +95,7 @@ public class Flatbread extends Feature {
             ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealFlatbread)), "itemLargeBowlWater");
 
         // unshaped dough -> flatbread dough
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatDoughFlatbread), 160),
                 " ### ", "#####", "#####", "#####", " ### ", '#', new ItemStack(BidsItems.flatDough, 1, 0)))
             .add(KnappingRecipe.add(ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyDoughFlatbread), 160),
@@ -109,7 +109,7 @@ public class Flatbread extends Feature {
             .add(KnappingRecipe.add(ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealDoughFlatbread), 160),
                 " ### ", "#####", "#####", "#####", " ### ", '#', new ItemStack(BidsItems.flatDough, 1, 5)));
 
-        setup.registry(TfcRegistry.Values.heat)
+        setup.registry(TfcRegistry.Heat.values)
             .add(HeatValue.add(new ItemStack(BidsItems.wheatDoughFlatbread), 1, 88,
                 new ItemStack(BidsItems.wheatFlatbread), true))
             .add(HeatValue.add(new ItemStack(BidsItems.barleyDoughFlatbread), 1, 88,
@@ -123,7 +123,7 @@ public class Flatbread extends Feature {
             .add(HeatValue.add(new ItemStack(BidsItems.cornmealDoughFlatbread), 1, 88,
                 new ItemStack(BidsItems.cornmealFlatbread), true));
 
-        setup.registry(TfcRegistry.Values.heat)
+        setup.registry(TfcRegistry.Heat.values)
             .add(HeatValue.add(new ItemStack(BidsItems.wheatFlatbread), 1, 177, null))
             .add(HeatValue.add(new ItemStack(BidsItems.barleyFlatbread), 1, 177, null))
             .add(HeatValue.add(new ItemStack(BidsItems.oatFlatbread), 1, 177, null))

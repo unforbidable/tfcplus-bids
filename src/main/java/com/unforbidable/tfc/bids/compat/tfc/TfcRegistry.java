@@ -17,23 +17,37 @@ public class TfcRegistry {
     // Features register TFC recipes and values into registries below
     // and those are subsequently passed into TFC initializer from here
 
-    public static class Recipes {
-
-        public static final ListRegistry<RegistryActor<KnappingRecipe>> knapping = new ListRegistry<>();
-        public static final ListRegistry<RegistryActor<KilnRecipe>> kiln = new ListRegistry<>();
-        public static final ListRegistry<RegistryActor<AnvilPlan>> anvilPlans = new ListRegistry<>();
-        public static final ListRegistry<RegistryActor<AnvilRecipe>> anvil = new ListRegistry<>();
-        public static final ListRegistry<RegistryActor<BarrelRecipe>> barrel = new ListRegistry<>();
-        public static final ListRegistry<RegistryActor<SewingRecipe>> sewing = new ListRegistry<>();
-        public static final ListRegistry<RegistryActor<LoomRecipe>> loom = new ListRegistry<>();
-
+    public static class Knapping {
+        public static final ListRegistry<RegistryActor<KnappingRecipe>> recipes = new ListRegistry<>();
     }
 
-    public static class Values {
+    public static class Kiln {
+        public static final ListRegistry<RegistryActor<KilnRecipe>> recipes = new ListRegistry<>();
+    }
 
-        public static final ListRegistry<RegistryActor<HeatValue>> heat = new ListRegistry<>();
+    public static class Anvil {
+        public static final ListRegistry<RegistryActor<AnvilPlan>> plans = new ListRegistry<>();
+        public static final ListRegistry<RegistryActor<AnvilRecipe>> recipes = new ListRegistry<>();
+    }
+
+    public static class Barrel {
+        public static final ListRegistry<RegistryActor<BarrelRecipe>> recipes = new ListRegistry<>();
+    }
+
+    public static class Sewing {
+        public static final ListRegistry<RegistryActor<SewingRecipe>> recipes = new ListRegistry<>();
+    }
+
+    public static class Loom {
+        public static final ListRegistry<RegistryActor<LoomRecipe>> recipes = new ListRegistry<>();
+    }
+
+    public static class Heat {
+        public static final ListRegistry<RegistryActor<HeatValue>> values = new ListRegistry<>();
+    }
+
+    public static class Metal {
         public static final ListRegistry<RegistryActor<PartialMold>> molds = new ListRegistry<>();
-
     }
 
 }

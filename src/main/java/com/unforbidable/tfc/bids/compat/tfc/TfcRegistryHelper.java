@@ -10,23 +10,23 @@ public class TfcRegistryHelper {
 
     public static void registerCommon() {
         Bids.LOG.info("Register TFC recipes");
-        register(TfcRegistry.Recipes.knapping);
-        register(TfcRegistry.Recipes.kiln);
-        register(TfcRegistry.Recipes.barrel);
-        register(TfcRegistry.Recipes.loom);
+        register(TfcRegistry.Knapping.recipes);
+        register(TfcRegistry.Kiln.recipes);
+        register(TfcRegistry.Barrel.recipes);
+        register(TfcRegistry.Loom.recipes);
 
         Bids.LOG.info("Register TFC values");
-        register(TfcRegistry.Values.heat);
-        register(TfcRegistry.Values.molds);
+        register(TfcRegistry.Heat.values);
+        register(TfcRegistry.Metal.molds);
     }
 
     public static void registerWorldLoad() {
         if (!worldBoundRecipesRegistered) {
             Bids.LOG.info("Register TFC world-bound recipes");
 
-            register(TfcRegistry.Recipes.anvilPlans);
-            register(TfcRegistry.Recipes.anvil);
-            register(TfcRegistry.Recipes.sewing);
+            register(TfcRegistry.Anvil.plans);
+            register(TfcRegistry.Anvil.recipes);
+            register(TfcRegistry.Sewing.recipes);
 
             worldBoundRecipesRegistered = true;
         }

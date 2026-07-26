@@ -44,7 +44,7 @@ public class Bamboo extends Feature {
                 new ItemStack(TFCBlocks.sapling2, 1, 8), "itemKnife")
             .action(damageTool("itemKnife"));
 
-        setup.registry(TfcRegistry.Values.heat)
+        setup.registry(TfcRegistry.Heat.values)
             .add(HeatValue.add(new ItemStack(BidsItems.bambooShoot), 1, 82, null));
     }
 

@@ -80,10 +80,10 @@ public class Quarry extends Feature {
                 "logWoodPlugAndFeather", "itemAdze")
             .action(damageTool("itemAdze"));
 
-        setup.registry(TfcRegistry.Recipes.anvilPlans)
+        setup.registry(TfcRegistry.Anvil.plans)
             .add(AnvilPlan.add(PLUG_AND_FEATHER_PLAN, AnvilRules.HITLAST, AnvilRules.BENDSECONDFROMLAST, AnvilRules.SHRINKTHIRDFROMLAST));
 
-        setup.registry(TfcRegistry.Recipes.anvil)
+        setup.registry(TfcRegistry.Anvil.recipes)
             .add(AnvilRecipe.add(new ItemStack(TFCItems.copperIngot), null,
                 PLUG_AND_FEATHER_PLAN, 1, new ItemStack(BidsItems.plugAndFeather, 8, 1), Skills.GENERAL_SMITHING))
             .add(AnvilRecipe.add(new ItemStack(TFCItems.bronzeIngot), null,

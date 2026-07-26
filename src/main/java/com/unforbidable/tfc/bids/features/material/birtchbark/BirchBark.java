@@ -93,7 +93,7 @@ public class BirchBark extends Feature {
         setup.registry(FirepitRegistry.fuel)
                 .add(BidsItems.birchBarkKindling, (FirepitFuelMaterial) BidsItems.birchBarkKindling);
 
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.birchBarkShoes),
                 "  ###", "   ##", "     ", "##   ", "###  ", '#', BidsItems.flatBirchBark));
 
@@ -106,7 +106,7 @@ public class BirchBark extends Feature {
             {73, 21}
         }};
 
-        setup.registry(TfcRegistry.Recipes.sewing)
+        setup.registry(TfcRegistry.Sewing.recipes)
             .add(SewingRecipe.add(new ItemStack(BidsItems.birchBarkBag), bagSewing,
                 new ItemStack(BidsItems.extraBagPiece, 1, 0),
                 new ItemStack(BidsItems.extraBagPiece, 1, 0),
@@ -124,19 +124,19 @@ public class BirchBark extends Feature {
             {11, 37}
         }};
 
-        setup.registry(TfcRegistry.Recipes.sewing)
+        setup.registry(TfcRegistry.Sewing.recipes)
             .add(SewingRecipe.add(new ItemStack(BidsItems.birchBarkCupUnfinished), cupSewing,
                 new ItemStack(BidsItems.cupPiece, 1, 0),
                 new ItemStack(BidsItems.extraStrap, 1, 0))
             );
 
-        setup.registry(TfcRegistry.Recipes.sewing)
+        setup.registry(TfcRegistry.Sewing.recipes)
             .add(SewingRecipe.addRepair(new ItemStack(BidsItems.birchBarkBag),
                 new ItemStack(BidsItems.birchBarkBag, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(BidsItems.extraRepairPatch, 1, 0))
             );
 
-        setup.registry(TfcRegistry.Recipes.sewing)
+        setup.registry(TfcRegistry.Sewing.recipes)
             .add(SewingRecipe.addRepair(new ItemStack(BidsItems.birchBarkShoes),
                 new ItemStack(BidsItems.birchBarkShoes, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(BidsItems.extraStrap, 1, 0))

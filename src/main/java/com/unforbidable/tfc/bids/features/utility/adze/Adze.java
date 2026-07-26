@@ -142,31 +142,31 @@ public class Adze extends Feature {
             "#", "I", '#', BidsItems.wroughtIronAdzeHead, 'I', "stickWood");
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
-            setup.registry(TfcRegistry.Recipes.knapping)
+            setup.registry(TfcRegistry.Knapping.recipes)
                 .add(KnappingRecipe.add(stone.items.getItem(EnumStoneItemType.ADZE_HEAD),
                     "#####", "#  ##", "#    ", "     ", "     ",
                     '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)));
         }
 
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.clayMoldAdze),
                 "#####", "#  ##", "#    ", "     ", "     ",
                 '#', new ItemStack(TFCItems.flatClay, 1, 1)));
 
-        setup.registry(TfcRegistry.Recipes.kiln)
+        setup.registry(TfcRegistry.Kiln.recipes)
             .add(KilnRecipe.add(new ItemStack(BidsItems.clayMoldAdze), 0,
                 new ItemStack(BidsItems.clayMoldAdze, 1, 1)));
 
-        setup.registry(TfcRegistry.Values.molds)
+        setup.registry(TfcRegistry.Metal.molds)
             .add(PartialMold.add(Metals.COPPER, BidsItems.clayMoldAdze, 2, BidsItems.clayMoldAdze, 4, 2))
             .add(PartialMold.add(Metals.BRONZE, BidsItems.clayMoldAdze, 3, BidsItems.clayMoldAdze, 4, 2))
             .add(PartialMold.add(Metals.BISMUTHBRONZE, BidsItems.clayMoldAdze, 4, BidsItems.clayMoldAdze, 4, 2))
             .add(PartialMold.add(Metals.BLACKBRONZE, BidsItems.clayMoldAdze, 5, BidsItems.clayMoldAdze, 4, 2));
 
-        setup.registry(TfcRegistry.Recipes.anvilPlans)
+        setup.registry(TfcRegistry.Anvil.plans)
             .add(AnvilPlan.add(ADZE_PLAN, AnvilRules.PUNCHLAST, AnvilRules.PUNCHSECONDFROMLAST, AnvilRules.HITTHIRDFROMLAST));
 
-        setup.registry(TfcRegistry.Recipes.anvil)
+        setup.registry(TfcRegistry.Anvil.recipes)
             .add(AnvilRecipe.add(new ItemStack(TFCItems.copperIngot), null, ADZE_PLAN, 1,
                 new ItemStack(BidsItems.copperAdzeHead), Skills.TOOLSMITH))
             .add(AnvilRecipe.add(new ItemStack(TFCItems.bronzeIngot), null, ADZE_PLAN, 2,

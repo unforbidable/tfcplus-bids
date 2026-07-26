@@ -58,7 +58,7 @@ public class UnfinishedAnvil extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-        setup.registry(TfcRegistry.Recipes.anvilPlans)
+        setup.registry(TfcRegistry.Anvil.plans)
             .add(AnvilPlan.add(ANVIL_PLAN, AnvilRules.HITLAST, AnvilRules.HITSECONDFROMLAST, AnvilRules.HITTHIRDFROMLAST));
 
         setupUnfinishedAnvilRecipesAndHeatForMaterial(setup, 1, TFCItems.copperIngot2x, 0);
@@ -74,7 +74,7 @@ public class UnfinishedAnvil extends Feature {
     }
 
     private void setupUnfinishedAnvilRecipesAndHeatForMaterial(FeatureSetupBuilder setup, int material, Item input, int req) {
-        setup.registry(TfcRegistry.Recipes.anvil)
+        setup.registry(TfcRegistry.Anvil.recipes)
             .add(AnvilRecipe.addWeld(new ItemStack(input), new ItemStack(input),
                 req, BlockUnfinishedAnvil.getUnfinishedAnvil(material, 0)))
             .add(AnvilRecipe.addWeld(new ItemStack(input), BlockUnfinishedAnvil.getUnfinishedAnvil(material, 0),
@@ -90,7 +90,7 @@ public class UnfinishedAnvil extends Feature {
             .add(AnvilRecipe.add(BlockUnfinishedAnvil.getUnfinishedAnvil(material, 5), null,
                 ANVIL_PLAN, req, BlockUnfinishedAnvil.getFinishedAnvil(material), Skills.GENERAL_SMITHING));
 
-        setup.registry(TfcRegistry.Values.heat)
+        setup.registry(TfcRegistry.Heat.values)
             .add(HeatValue.clone(new ItemStack(input))
                 .as(BlockUnfinishedAnvil.getUnfinishedAnvil(material, 0), 4)
                 .as(BlockUnfinishedAnvil.getUnfinishedAnvil(material, 1), 6)

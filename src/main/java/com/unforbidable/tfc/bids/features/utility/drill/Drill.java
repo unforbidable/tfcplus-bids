@@ -115,31 +115,31 @@ public class Drill extends Feature {
             BidsItems.wroughtIronDrillHead, "stickWood", TFCItems.bow);
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
-            setup.registry(TfcRegistry.Recipes.knapping)
+            setup.registry(TfcRegistry.Knapping.recipes)
                 .add(KnappingRecipe.add(stone.items.getItem(EnumStoneItemType.DRILL_HEAD),
                     "     ", " ### ", "#####", " ### ", "  #  ",
                     '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)));
         }
 
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.clayMoldDrill),
                 "  #  ", "  #  ", "  #  ", " ### ", "  #  ",
                 '#', new ItemStack(TFCItems.flatClay, 1, 1)));
 
-        setup.registry(TfcRegistry.Recipes.kiln)
+        setup.registry(TfcRegistry.Kiln.recipes)
             .add(KilnRecipe.add(new ItemStack(BidsItems.clayMoldDrill), 0,
                 new ItemStack(BidsItems.clayMoldDrill, 1, 1)));
 
-        setup.registry(TfcRegistry.Values.molds)
+        setup.registry(TfcRegistry.Metal.molds)
             .add(PartialMold.add(Metals.COPPER, BidsItems.clayMoldDrill, 2, BidsItems.clayMoldDrill, 4, 2))
             .add(PartialMold.add(Metals.BRONZE, BidsItems.clayMoldDrill, 3, BidsItems.clayMoldDrill, 4, 2))
             .add(PartialMold.add(Metals.BISMUTHBRONZE, BidsItems.clayMoldDrill, 4, BidsItems.clayMoldDrill, 4, 2))
             .add(PartialMold.add(Metals.BLACKBRONZE, BidsItems.clayMoldDrill, 5, BidsItems.clayMoldDrill, 4, 2));
 
-        setup.registry(TfcRegistry.Recipes.anvilPlans)
+        setup.registry(TfcRegistry.Anvil.plans)
             .add(AnvilPlan.add(DRILL_PLAN, AnvilRules.HITLAST, AnvilRules.PUNCHNOTLAST, AnvilRules.DRAWNOTLAST));
 
-        setup.registry(TfcRegistry.Recipes.anvil)
+        setup.registry(TfcRegistry.Anvil.recipes)
             .add(AnvilRecipe.add(new ItemStack(TFCItems.copperIngot), null, DRILL_PLAN, 1,
                 new ItemStack(BidsItems.copperDrillHead), Skills.TOOLSMITH))
             .add(AnvilRecipe.add(new ItemStack(TFCItems.bronzeIngot), null, DRILL_PLAN, 2,

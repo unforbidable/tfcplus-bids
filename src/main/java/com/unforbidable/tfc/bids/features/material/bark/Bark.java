@@ -38,7 +38,7 @@ public class Bark extends Feature {
         for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
             // Extracting tannin from bark
             if (wood.hasBarkTannin) {
-                setup.registry(TfcRegistry.Recipes.barrel)
+                setup.registry(TfcRegistry.Barrel.recipes)
                     .add(BarrelRecipe.addItemDemanding(builder -> builder
                         .consumes(wood.items.getBark(), new FluidStack(TFCFluids.FRESHWATER, 625))
                         .produces(new FluidStack(TFCFluids.TANNIN, 500))

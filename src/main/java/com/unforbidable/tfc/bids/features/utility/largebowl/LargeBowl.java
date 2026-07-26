@@ -76,12 +76,12 @@ public class LargeBowl extends Feature {
             .action(damageTool("itemKnife"))
             .action(extraDrop(new ItemStack(TFCItems.emptyHoneycomb, 2)));
 
-        setup.registry(TfcRegistry.Recipes.knapping)
+        setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.largeClayBowl),
                 "#####", " ### ", " ### ", "#   #", "#####", '#',
                 new ItemStack(TFCItems.flatClay, 1, 1)));
 
-        setup.registry(TfcRegistry.Recipes.kiln)
+        setup.registry(TfcRegistry.Kiln.recipes)
             .add(KilnRecipe.add(new ItemStack(BidsItems.largeClayBowl, 1, 0), 0,
                 new ItemStack(BidsItems.largeClayBowl, 1, 1)));
     }

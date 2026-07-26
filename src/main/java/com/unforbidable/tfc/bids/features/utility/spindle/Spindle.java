@@ -50,7 +50,7 @@ public class Spindle extends Feature {
             "itemWhorl", "stickWood");
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
-            setup.registry(TfcRegistry.Recipes.knapping)
+            setup.registry(TfcRegistry.Knapping.recipes)
                 .add(KnappingRecipe.add(new ItemStack(BidsItems.whorl, 1, 0),
                     " ### ", "#####", "## ##", "#####", " ### ",
                     '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)));

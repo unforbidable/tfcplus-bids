@@ -54,7 +54,7 @@ public class Leatherwear extends Feature {
             {{97 - 25, 33}, {97 - 21, 15}}
         };
 
-        setup.registry(TfcRegistry.Recipes.sewing)
+        setup.registry(TfcRegistry.Sewing.recipes)
             .add(SewingRecipe.add(new ItemStack(BidsItems.leatherCoat), coatSewing,
                 new ItemStack(BidsItems.extraCoatBodyFront, 1, 0),
                 new ItemStack(BidsItems.extraCoatBodyBack, 1, 0),
@@ -62,26 +62,26 @@ public class Leatherwear extends Feature {
                 new ItemStack(TFCItems.shirtSleeves, 1, 2))
             );
 
-        setup.registry(TfcRegistry.Recipes.sewing)
+        setup.registry(TfcRegistry.Sewing.recipes)
             .add(SewingRecipe.addRepair(new ItemStack(BidsItems.leatherCoat),
                 new ItemStack(BidsItems.leatherCoat, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(TFCItems.repairPatch, 1, 2))
             );
 
         // Adding missing TFC+ recipe for repairing leather boots
-        setup.registry(TfcRegistry.Recipes.sewing)
+        setup.registry(TfcRegistry.Sewing.recipes)
             .add(SewingRecipe.addRepair(new ItemStack(TFCItems.leatherBoots, 1),
                 new ItemStack(TFCItems.leatherBoots, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(TFCItems.repairPatch, 1, 2)));
 
         // Adding missing TFC+ recipe for repairing leather cap
-        setup.registry(TfcRegistry.Recipes.sewing)
+        setup.registry(TfcRegistry.Sewing.recipes)
             .add(SewingRecipe.addRepair(new ItemStack(TFCItems.leatherCoif, 1),
                 new ItemStack(TFCItems.leatherCoif, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(TFCItems.repairPatch, 1, 2)));
 
         // Adding missing TFC+ recipe for repairing leather shorts
-        setup.registry(TfcRegistry.Recipes.sewing)
+        setup.registry(TfcRegistry.Sewing.recipes)
             .add(SewingRecipe.addRepair(new ItemStack(TFCItems.leatherShorts, 1),
                 new ItemStack(TFCItems.leatherShorts, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(TFCItems.repairPatch, 1, 2)));
