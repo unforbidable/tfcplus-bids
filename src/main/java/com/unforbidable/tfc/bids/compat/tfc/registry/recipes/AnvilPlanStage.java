@@ -12,7 +12,7 @@ public class AnvilPlanStage extends RegistryStage<AnvilPlan> {
 
     @Override
     public void add(AnvilPlan plan) {
-        Bids.LOG.info("Register TFC anvil plan '{}'", plan.name);
+        Bids.LOG.debug("Register TFC anvil plan '{}'", plan.name);
 
         try {
             RuleEnum[] rules = new RuleEnum[plan.rules.length];

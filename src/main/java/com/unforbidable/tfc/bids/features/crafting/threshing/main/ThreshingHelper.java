@@ -35,16 +35,12 @@ public class ThreshingHelper {
                             long timeRemaining = state.threshingFinishedTick - TFC_Time.getTotalTicks();
                             if (timeRemaining < 0) {
                                 if (timeRemaining >= -5) {
-                                    Bids.LOG.info("DONE");
                                     doThresh(world, x, y, z, player, tool, entityItem, recipe);
-                                } else {
-                                    Bids.LOG.info("LATE");
                                 }
 
                                 PlayerStateManager.clearPlayerState(player, ThreshingPlayerState.class);
                             }
                         } else {
-                            Bids.LOG.info("DELAY");
                             int duration = Math.round(recipe.getDuration() * getToolDurationMultiplier(tool) * ThreshingConfig.threshingDurationMultiplier);
                             ThreshingPlayerState newState = new ThreshingPlayerState();
                             newState.threshingFinishedTick = TFC_Time.getTotalTicks() + duration;

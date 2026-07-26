@@ -38,7 +38,7 @@ public class NeiSetup {
         handlerMetadata.setInteger("maxRecipesPerPage", handlerInfo.getRecipesPerPage());
         FMLInterModComms.sendMessage("NotEnoughItems", "registerHandlerInfo", handlerMetadata);
 
-        Bids.LOG.info("Sent registerHandlerInfo message for: " + handlerId);
+        Bids.LOG.debug("Sent registerHandlerInfo message for: " + handlerId);
 
         for (HandlerCatalystInfo catalystInfo : handlerInfo.getCatalysts()) {
             NBTTagCompound catalystMetadata = new NBTTagCompound();

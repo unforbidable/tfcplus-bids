@@ -283,14 +283,14 @@ public class TileEntityCarving extends TileEntity implements PacketHandler<Carvi
                 carvedBits.setBytes(packet.getCarveData());
                 cachedCraftingResultIsValid = false;
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                Bids.LOG.info("Client updated at [{},{},{}]", xCoord, yCoord, zCoord);
+                Bids.LOG.debug("Client updated at [{},{},{}]", xCoord, yCoord, zCoord);
             }
         } else {
             if (packet.getAction() == ACTION_SELECT_BIT) {
                 selectedBit = packet.getBit();
                 selectedSide = packet.getSide();
                 carvingMode = packet.getCarvingMode();
-                Bids.LOG.info("Selected bit " + (selectedBit.isEmpty() ? "None"
+                Bids.LOG.debug("Selected bit " + (selectedBit.isEmpty() ? "None"
                     : (selectedBit.bitX + ", " + selectedBit.bitY + ", " + selectedBit.bitZ)));
 
                 if (!clientInitialized) {
@@ -311,7 +311,7 @@ public class TileEntityCarving extends TileEntity implements PacketHandler<Carvi
         packet.setCarvingMode(mode);
         Network.sendToTileEntity(packet, this);
 
-        Bids.LOG.info("Send select bit packet " + bit.bitX + ", " + bit.bitY +
+        Bids.LOG.debug("Send select bit packet " + bit.bitX + ", " + bit.bitY +
                 ", " + bit.bitZ + " side " + side + " mode " + mode);
     }
 
@@ -321,7 +321,7 @@ public class TileEntityCarving extends TileEntity implements PacketHandler<Carvi
         packet.setCarvedData(carvedBits.getBytes());
         Network.sendToTileEntity(packet, this);
 
-        Bids.LOG.info("Sent update packet: " + flags);
+        Bids.LOG.debug("Sent update packet: " + flags);
     }
 
 }

@@ -64,7 +64,7 @@ public class FeatureRegistry {
     private final BlockIdProvider blockIdProvider = new BlockIdProvider();
 
     public BlockRegistryEntry initBlock(BlockSpec<?> spec) {
-        Bids.LOG.info("Init block '{}'", spec.name);
+        Bids.LOG.debug("Init block '{}'", spec.name);
 
         Block block = spec.getInstance();
         int id = blockIdProvider.getBlockId(spec.name);
@@ -77,7 +77,7 @@ public class FeatureRegistry {
     }
 
     public void registerBlock(BlockRegistryEntry entry) {
-        Bids.LOG.info("Register block '{}'", entry.spec.name);
+        Bids.LOG.debug("Register block '{}'", entry.spec.name);
 
         if (registeredBlocksById.containsKey(entry.id)) {
             Bids.LOG.warn("Block integrity cannot be assured because block {} requests subscribes to ID {} which has already been claimed by block {}",
@@ -104,7 +104,7 @@ public class FeatureRegistry {
     }
 
     public ItemRegistryEntry initItem(ItemSpec<?> spec) {
-        Bids.LOG.info("Init item '{}'", spec.name);
+        Bids.LOG.debug("Init item '{}'", spec.name);
 
         Item item = spec.getInstance();
 
@@ -116,20 +116,20 @@ public class FeatureRegistry {
     }
 
     public void registerItem(ItemRegistryEntry entry) {
-        Bids.LOG.info("Register item '{}'", entry.spec.name);
+        Bids.LOG.debug("Register item '{}'", entry.spec.name);
 
         GameRegistry.registerItem(entry.instance, entry.instance.getUnlocalizedName());
     }
 
     public void registerFluid(FluidSpec<?> spec) {
-        Bids.LOG.info("Register fluid '{}'", spec.name);
+        Bids.LOG.debug("Register fluid '{}'", spec.name);
 
         Fluid instance = spec.getInstance();
         FluidRegistry.registerFluid(instance);
     }
 
     public void registerTileEntity(TileEntitySpec spec) {
-        Bids.LOG.info("Register tile entity {} as '{}'",
+        Bids.LOG.debug("Register tile entity {} as '{}'",
             spec.type, spec.id);
 
         GameRegistry.registerTileEntity(spec.type, spec.id);
@@ -137,7 +137,7 @@ public class FeatureRegistry {
 
     @SideOnly(Side.CLIENT)
     public void registerBlockRenderer(RenderBlockSpec spec) {
-        Bids.LOG.info("Register simple block renderer {} for {} block(s)",
+        Bids.LOG.debug("Register simple block renderer {} for {} block(s)",
             spec.renderer.getClass(), spec.blocks.size());
 
         int id = RenderingRegistry.getNextAvailableRenderId();
@@ -154,7 +154,7 @@ public class FeatureRegistry {
 
     @SideOnly(Side.CLIENT)
     public void registerTileEntitySpecialRender(RenderTileEntitySpec spec) {
-        Bids.LOG.info("Register tile special renderer {} for {} tile entity(-ies).",
+        Bids.LOG.debug("Register tile special renderer {} for {} tile entity(-ies).",
             spec.renderer.getClass(), spec.tileEntities);
 
         for (Class<? extends TileEntity> type : spec.tileEntities) {
@@ -164,7 +164,7 @@ public class FeatureRegistry {
 
     @SideOnly(Side.CLIENT)
     public void registerItemRenderer(RenderItemSpec spec) {
-        Bids.LOG.info("Register item renderer {} for {} item(s)",
+        Bids.LOG.debug("Register item renderer {} for {} item(s)",
             spec.renderer.getClass(), spec.items.size());
 
         for (Item item : spec.items) {
@@ -173,7 +173,7 @@ public class FeatureRegistry {
     }
 
     public void registerFireInfo(BlockSpec<?> spec) {
-        Bids.LOG.info("Register fire info for block '{}' {}, {}",
+        Bids.LOG.debug("Register fire info for block '{}' {}, {}",
             spec.name, spec.fireInfo.encouragement, spec.fireInfo.flammability);
 
         BlockRegistryEntry block = blocks.get(spec.name);
@@ -181,7 +181,7 @@ public class FeatureRegistry {
     }
 
     public void initItemFluidContainer(FluidContainerSpec spec) {
-        Bids.LOG.info("Init fluid container {} for item {}",
+        Bids.LOG.debug("Init fluid container {} for item {}",
             spec.empty, spec.filled);
 
         spec.filled.setContainerItem(spec.empty);
@@ -192,7 +192,7 @@ public class FeatureRegistry {
     }
 
     public void registerFluidContainer(FluidContainerSpec spec) {
-        Bids.LOG.info("Register fluid container for fluid '{}' volume {}{}", spec.fluid.getName(),
+        Bids.LOG.debug("Register fluid container for fluid '{}' volume {}{}", spec.fluid.getName(),
             spec.volume, spec.partial ? " (partial)" : "");
 
         if (spec.partial) {
@@ -206,7 +206,7 @@ public class FeatureRegistry {
     }
 
     public void registerDrinks(ItemSpec<?> spec) {
-        Bids.LOG.info("Register drinks for container item '{}'", spec.name);
+        Bids.LOG.debug("Register drinks for container item '{}'", spec.name);
 
         ItemRegistryEntry item = items.get(spec.name);
         DrinkRegistry.vessels.add(new DrinkVessel(item.instance, spec.drink.volume,
@@ -214,13 +214,13 @@ public class FeatureRegistry {
     }
 
     public void registerOre(OreGroup ore) {
-        Bids.LOG.info("Register {} ores for '{}'", ore.items.size(), ore.name);
+        Bids.LOG.debug("Register {} ores for '{}'", ore.items.size(), ore.name);
 
         ore.items.forEach(i -> OreDictionary.registerOre(ore.name, i));
     }
 
     public <T> void registerList(RegistryGroup<T> group) {
-        Bids.LOG.info("Register {} list values", group.values.size());
+        Bids.LOG.debug("Register {} list values", group.values.size());
 
         group.values.forEach(group.registry::add);
     }
@@ -233,13 +233,13 @@ public class FeatureRegistry {
     }
 
     public <K, V> void registerMap(MapRegistryGroup<K, V> group) {
-        Bids.LOG.info("Register {} map values", group.values.size());
+        Bids.LOG.debug("Register {} map values", group.values.size());
 
         group.values.forEach(group.registry::add);
     }
 
     public void registerGuiContainer(GuiContainerSpec<?, ?> container) {
-        Bids.LOG.info("Register GUI container '{}'", container.name);
+        Bids.LOG.debug("Register GUI container '{}'", container.name);
 
         int id = GuiRegistry.getNextAvailableId();
         GuiRegistry.guis.add(container.name, id);
@@ -248,7 +248,7 @@ public class FeatureRegistry {
 
     @SideOnly(Side.CLIENT)
     public void registerGuiScreen(GuiScreenSpec<?, ?> screen) {
-        Bids.LOG.info("Register GUI screen '{}'", screen.name);
+        Bids.LOG.debug("Register GUI screen '{}'", screen.name);
 
         Integer id = GuiRegistry.guis.get(screen.name);
         if (id != null) {
@@ -259,13 +259,13 @@ public class FeatureRegistry {
     }
 
     public void registerEventHandler(EventHandlerSpec spec) {
-        Bids.LOG.info("Register event handler {}", spec.instance.getClass().getCanonicalName());
+        Bids.LOG.debug("Register event handler {}", spec.instance.getClass().getCanonicalName());
 
         MinecraftForge.EVENT_BUS.register(spec.instance);
     }
 
     public void registerWorldGen(WorldGenSpec spec) {
-        Bids.LOG.info("Register world generator {}", spec.generator.getClass().getCanonicalName());
+        Bids.LOG.debug("Register world generator {}", spec.generator.getClass().getCanonicalName());
 
         GameRegistry.registerWorldGenerator(spec.generator, spec.priority);
     }

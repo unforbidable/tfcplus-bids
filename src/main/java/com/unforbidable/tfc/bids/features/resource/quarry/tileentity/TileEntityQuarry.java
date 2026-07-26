@@ -344,7 +344,7 @@ public class TileEntityQuarry extends TileEntity implements PacketHandler<Simple
     @Override
     public void handleNetworkPacket(SimpleUpdatePacket packet) {
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        Bids.LOG.info("Tile entity updated at: [{},{},{}]", xCoord, yCoord, zCoord);
+        Bids.LOG.debug("Tile entity updated at: [{},{},{}]", xCoord, yCoord, zCoord);
     }
 
 }

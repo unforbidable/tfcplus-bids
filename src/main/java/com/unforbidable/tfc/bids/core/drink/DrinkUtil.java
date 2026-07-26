@@ -18,14 +18,14 @@ public class DrinkUtil {
     public static final int SIP = 50;
 
     public static void registerVessel(DrinkVessel vessel) {
-        Bids.LOG.info("Register drinks for container item {}", vessel.containerItem.getUnlocalizedName());
+        Bids.LOG.debug("Register drinks for container item {}", vessel.containerItem.getUnlocalizedName());
 
         DrinkRegistry.drinks.stream()
             .forEach(drink -> registerDrinkForVessel(drink, vessel));
     }
 
     private static void registerDrinkForVessel(DrinkFluid drink, DrinkVessel vessel) {
-        Bids.LOG.info("Register drink '{}' for container item {}", drink.fluid.getName(), vessel.containerItem.getUnlocalizedName());
+        Bids.LOG.debug("Register drink '{}' for container item {}", drink.fluid.getName(), vessel.containerItem.getUnlocalizedName());
 
         boolean canDrinkInParts = vessel.volume / SIP > 1;
 

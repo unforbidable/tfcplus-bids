@@ -16,7 +16,7 @@ public class HeatValueStage extends RegistryStage<HeatValue> {
 
     @Override
     public void add(HeatValue value) {
-        Bids.LOG.info("Register TFC heat index for {}", value.input);
+        Bids.LOG.debug("Register TFC heat index for {}", value.input);
 
         try {
             HeatRaw raw = new HeatRaw(value.specificHeat, value.meltTemp);
@@ -30,7 +30,7 @@ public class HeatValueStage extends RegistryStage<HeatValue> {
 
     @Override
     public void clone(Predicate<HeatValue> predicate, List<Function<HeatValue, HeatValue>> mappers) {
-        Bids.LOG.info("Clone TFC heat index");
+        Bids.LOG.debug("Clone TFC heat index");
 
         try {
             HeatValue existing = HeatRegistry.getInstance().getHeatList().stream()

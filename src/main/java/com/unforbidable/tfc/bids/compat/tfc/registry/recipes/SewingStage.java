@@ -11,7 +11,7 @@ public class SewingStage extends RegistryStage<SewingRecipe> {
 
     @Override
     public void add(SewingRecipe recipe) {
-        Bids.LOG.info("Register TFC sewing recipe {}for {}",
+        Bids.LOG.debug("Register TFC sewing recipe {}for {}",
             recipe.pattern == null ? "(repair) " : "", recipe.output);
 
         try {

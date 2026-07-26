@@ -1693,12 +1693,12 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
     @Override
     public void handleNetworkPacket(SimpleUpdatePacket packet) {
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        Bids.LOG.info("Client updated at: [{},{},{}]", xCoord, yCoord, zCoord);
+        Bids.LOG.debug("Client updated at: [{},{},{}]", xCoord, yCoord, zCoord);
     }
 
     public void sendUpdateMessage() {
         Network.sendToTileEntity(new SimpleUpdatePacket(), this);
-        Bids.LOG.info("Sent update message");
+        Bids.LOG.debug("Sent update message");
     }
 
 }

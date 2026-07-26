@@ -11,7 +11,7 @@ public class PartialMoldStage extends RegistryStage<PartialMold> {
 
     @Override
     public void add(PartialMold value) {
-        Bids.LOG.info("Register TFC partial mold {} for metal {}", value.mold, value.metal);
+        Bids.LOG.debug("Register TFC partial mold {} for metal {}", value.mold, value.metal);
 
         try {
             Metal metal = MetalRegistry.instance.getMetalFromString(value.metal);

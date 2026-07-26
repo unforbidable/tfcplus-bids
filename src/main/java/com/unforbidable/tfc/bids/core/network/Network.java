@@ -26,7 +26,7 @@ public class Network {
 
     public static <T extends Packet> void registerPacket(Class<T> type) {
         if (getPacketTypeDiscriminator(type) == -1) {
-            Bids.LOG.info("Register network packet {}", type.getCanonicalName());
+            Bids.LOG.debug("Register network packet {}", type.getCanonicalName());
 
             int discriminator = nextDiscriminator++;
             packets.add(new PacketDiscriminator(discriminator, type));

@@ -14,7 +14,7 @@ public class TileEntityMessageHandler implements IMessageHandler<TileEntityMessa
 
     @Override
     public IMessage onMessage(TileEntityMessage message, MessageContext ctx) {
-        Bids.LOG.info("Received tile entity message for location [{},{},{}] on side {}",
+        Bids.LOG.debug("Received tile entity message for location [{},{},{}] on side {}",
             message.x, message.y, message.z, ctx.side);
 
         World world = NetworkUtil.getWorldFromMessageContext(ctx);
@@ -28,7 +28,7 @@ public class TileEntityMessageHandler implements IMessageHandler<TileEntityMessa
     private <T extends Packet> void handlePacket(T packet, TileEntity tileEntity) {
         PacketHandler<T> handler = getTileEntityHandler(tileEntity);
         if (handler != null) {
-            Bids.LOG.info("Tile entity {} will receive packet {}", tileEntity.getClass().getCanonicalName(),
+            Bids.LOG.debug("Tile entity {} will receive packet {}", tileEntity.getClass().getCanonicalName(),
                 packet.getClass().getCanonicalName());
 
             handler.handleNetworkPacket(packet);

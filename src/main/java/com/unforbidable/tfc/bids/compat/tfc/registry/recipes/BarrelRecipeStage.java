@@ -14,12 +14,7 @@ public class BarrelRecipeStage extends RegistryStage<BarrelRecipe> {
 
     @Override
     public void add(BarrelRecipe recipe) {
-        if (recipe.inputItem != null) {
-             String name = recipe.inputItem.getDisplayName();
-             Bids.LOG.info("NAME: {}", name);
-        }
-
-        Bids.LOG.info("Register TFC barrel recipe for {}", recipe);
+        Bids.LOG.debug("Register TFC barrel recipe for {}", recipe);
 
         try {
             com.dunk.tfc.api.Crafting.BarrelRecipe recipeTfc = getRecipeInstance(recipe)

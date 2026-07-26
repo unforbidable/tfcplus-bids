@@ -43,7 +43,6 @@ public class ItemFlail extends ItemCommonWeapon {
                     state.y = y;
                     state.z = z;
                     PlayerStateManager.setPlayerState(player, state);
-                    Bids.LOG.info("BEGIN");
                 }
             }
         }
@@ -59,7 +58,6 @@ public class ItemFlail extends ItemCommonWeapon {
                 long timeRemaining = state.threshingFinishedTick - TFC_Time.getTotalTicks();
                 if (timeRemaining < 0) {
                     if (timeRemaining >= -5) {
-                        Bids.LOG.info("DONE");
                         for (EntityItem entityItem : ThreshingHelper.getEntityItemNearBy(player.worldObj, state.x, state.y, state.z)) {
                             ThreshingRecipe recipe = ThreshingRegistry.recipes.findMatchingRecipe(entityItem.getEntityItem());
                             if (recipe != null) {
@@ -68,8 +66,6 @@ public class ItemFlail extends ItemCommonWeapon {
                         }
 
                         player.stopUsingItem();
-                    } else {
-                        Bids.LOG.info("LATE");
                     }
 
                     PlayerStateManager.clearPlayerState(player, ThreshingPlayerState.class);
@@ -81,7 +77,6 @@ public class ItemFlail extends ItemCommonWeapon {
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int count) {
         if (!player.worldObj.isRemote) {
-            Bids.LOG.info("END");
             PlayerStateManager.clearPlayerState(player, ThreshingPlayerState.class);
         }
     }

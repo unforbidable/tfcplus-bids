@@ -11,7 +11,7 @@ public class AnvilRecipeStage extends RegistryStage<AnvilRecipe> {
 
     @Override
     public void add(AnvilRecipe recipe) {
-        Bids.LOG.info("Register TFC anvil recipe for {}", recipe.output);
+        Bids.LOG.debug("Register TFC anvil recipe for {}", recipe.output);
 
         try {
             com.dunk.tfc.api.Crafting.AnvilRecipe recipeTfc = recipe.welding ?

@@ -12,7 +12,7 @@ public class LoomRecipeStage extends RegistryStage<LoomRecipe> {
 
     @Override
     public void add(LoomRecipe recipe) {
-        Bids.LOG.info("Register TFC loom recipe {} -> {}",
+        Bids.LOG.debug("Register TFC loom recipe {} -> {}",
             recipe.input, recipe.output);
 
         try {

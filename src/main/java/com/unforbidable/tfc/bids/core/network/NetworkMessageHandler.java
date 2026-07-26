@@ -10,7 +10,7 @@ public class NetworkMessageHandler implements IMessageHandler<NetworkMessage, IM
 
     @Override
     public IMessage onMessage(NetworkMessage message, MessageContext ctx) {
-        Bids.LOG.info("Received message type {} on side {}", message.getPacket().getClass(), ctx.side);
+        Bids.LOG.debug("Received message type {} on side {}", message.getPacket().getClass(), ctx.side);
 
         PacketContext context = NetworkUtil.getPackerContextFromMessageContext(ctx);
 

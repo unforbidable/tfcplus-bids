@@ -14,14 +14,12 @@ public class ContainerMessageHandler implements IMessageHandler<ContainerMessage
 
     @Override
     public IMessage onMessage(ContainerMessage message, MessageContext ctx) {
-        Bids.LOG.info("Received container message id {} on side {}", message.id, ctx.side);
+        Bids.LOG.debug("Received container message id {} on side {}", message.id, ctx.side);
 
         EntityPlayer player = NetworkUtil.getPlayerFromMessageContext(ctx);
         Container container = player.openContainer;
 
         if (container.windowId == message.id) {
-            Bids.LOG.info("Open container ID {}", container.windowId);
-
             handlePacket(message.getPacket(), container);
         } else {
             Bids.LOG.warn("Open container ID {} does not match message ID {}",
@@ -34,7 +32,7 @@ public class ContainerMessageHandler implements IMessageHandler<ContainerMessage
     private <T extends Packet> void handlePacket(T packet, Container container) {
         PacketHandler<T> handler = getContainerHandler(container);
         if (handler != null) {
-            Bids.LOG.info("Open container {} will receive packet {}", container.getClass().getCanonicalName(),
+            Bids.LOG.debug("Open container {} will receive packet {}", container.getClass().getCanonicalName(),
                 packet.getClass().getCanonicalName());
 
             handler.handleNetworkPacket(packet);

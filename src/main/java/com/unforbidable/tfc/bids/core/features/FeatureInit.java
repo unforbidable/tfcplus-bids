@@ -102,12 +102,12 @@ public class FeatureInit extends Initializable {
         RecipeManagerSession session = RecipeManager.getSession();
         loader.getFeatures().stream()
             .flatMap(f -> f.setup(context).crafting.recipes.stream())
-            .peek(r -> Bids.LOG.info("Register crafting recipe for {}", r.recipe.getRecipeOutput()))
+            .peek(r -> Bids.LOG.debug("Register crafting recipe for {}", r.recipe.getRecipeOutput()))
             .forEach(session::add);
 
         loader.getFeatures().stream()
             .flatMap(f -> f.setup(context).crafting.matchers.stream())
-            .peek(m -> Bids.LOG.info("Handle crafting recipes changes"))
+            .peek(m -> Bids.LOG.debug("Handle crafting recipes changes"))
             .forEach(r -> session.match(r.matching).forEach(r.cloning));
         session.flush();
 

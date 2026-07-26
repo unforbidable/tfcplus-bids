@@ -10,7 +10,7 @@ public class KnappingRecipeStage extends RegistryStage<KnappingRecipe> {
 
     @Override
     public void add(KnappingRecipe recipe) {
-        Bids.LOG.info("Register TFC knapping recipe for {}", recipe.output);
+        Bids.LOG.debug("Register TFC knapping recipe for {}", recipe.output);
 
         try {
             CraftingManagerTFC.getInstance().addRecipe(recipe.output, recipe.input);

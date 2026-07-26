@@ -10,7 +10,7 @@ public class KilnRecipeStage extends RegistryStage<KilnRecipe> {
 
     @Override
     public void add(KilnRecipe recipe) {
-        Bids.LOG.info("Register TFC kiln recipe for {}", recipe.result);
+        Bids.LOG.debug("Register TFC kiln recipe for {}", recipe.result);
 
         try {
             com.dunk.tfc.api.Crafting.KilnRecipe tfcRecipe = new com.dunk.tfc.api.Crafting.KilnRecipe(recipe.input, recipe.level, recipe.result);

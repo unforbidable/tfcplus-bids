@@ -103,7 +103,7 @@ public class RecipeManagerSession implements AutoCloseable {
             .findFirst()
             .ifPresent(RecipeManager.actionableRecipes::remove);
 
-        Bids.LOG.info("Existing recipe removed: {}", matchingRecipe.recipe.getOutput());
+        Bids.LOG.debug("Existing recipe removed: {}", matchingRecipe.recipe.getOutput());
         Bids.LOG.debug("{}", matchingRecipe.recipe);
     }
 
@@ -117,7 +117,7 @@ public class RecipeManagerSession implements AutoCloseable {
 
             GameRegistry.addRecipe(actionableRecipe.recipe);
 
-            Bids.LOG.info("Cloned recipe added: {}", cloningRecipe.recipe.getOutput());
+            Bids.LOG.debug("Cloned recipe added: {}", cloningRecipe.recipe.getOutput());
             Bids.LOG.debug("{} -> {}", RecipeAccessor.of(actionableRecipe.recipe), cloningRecipe.recipe);
         } catch (Exception ex) {
             Bids.LOG.warn("Failed to clone recipe from {} due to error: {}", cloningRecipe.recipe, ex.getMessage(), ex);
