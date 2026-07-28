@@ -78,11 +78,6 @@ public class ItemTiedStickBundle extends Item implements ISize, FirepitFuelMater
     }
 
     @Override
-    public float getFuelKindlingQuality(ItemStack itemStack) {
-        return 0.25f;
-    }
-
-    @Override
     public int getFuelBurnTime(ItemStack itemStack) {
         return (int) (EnumFuelMaterial.STICKBUNDLE.burnTimeMax * 1.1f);
     }

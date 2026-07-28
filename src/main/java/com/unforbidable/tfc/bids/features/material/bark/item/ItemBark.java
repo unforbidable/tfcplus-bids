@@ -119,12 +119,6 @@ public class ItemBark extends Item implements ISize, FirepitFuelMaterial, ItemMe
     }
 
     @Override
-    public float getFuelKindlingQuality(ItemStack itemStack) {
-        // Birch bark can be used as kindling
-        return itemStack.getItemDamage() == 2 ? 1.25f : 0;
-    }
-
-    @Override
     public int getFuelBurnTime(ItemStack itemStack) {
         return WoodScheme.DEFAULT.findWood(itemStack).maxBurnTime;
     }

@@ -6,7 +6,6 @@ import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
-import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.features.handwork.HandworkRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.RopeMakingRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.SpinningRecipe;
@@ -24,8 +23,6 @@ import com.unforbidable.tfc.bids.features.crafting.ropemaking.RopeMakingRegistry
 import com.unforbidable.tfc.bids.features.crafting.spinning.SpinningRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;
-import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
-import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
 import com.unforbidable.tfc.bids.features.material.textile.item.ItemTextile;
 import com.unforbidable.tfc.bids.features.material.textile.main.TextileHints;
 import net.minecraft.init.Blocks;
@@ -47,9 +44,6 @@ public class BarkFiber extends Feature {
         init.item(ItemNames.BARK_CORDAGE, ItemTextile::new)
             .hints(TextileHints.TWISTING)
             .apply(i -> i.setMaterialColor(0x8c7a4b));
-
-        init.item(ItemNames.BARK_FIBER_KINDLING, ItemKindling::new)
-            .apply(i -> i.setFuelKindlingQuality(1f));
     }
 
     @Override
@@ -70,17 +64,9 @@ public class BarkFiber extends Feature {
         setup.ores("materialString")
             .add(BidsItems.barkCordage);
 
-        setup.recipes().addShapeless(new ItemStack(BidsItems.barkFibreKindling),
-            "stickWood", "stickWood", "stickWood", "materialFiber");
-        setup.recipes().addShapeless(new ItemStack(BidsItems.barkFibreKindling),
-            BidsItems.smallStickBundle, "materialFiber");
-
         setup.recipes().addShapeless(new ItemStack(BidsItems.barkFiber),
                 "itemBarkHasFibers", "itemScrapingTool")
             .action(damageTool("itemScrapingTool"));
-
-        setup.registry(FirepitRegistry.fuel)
-            .add(BidsItems.barkFibreKindling, (FirepitFuelMaterial) BidsItems.barkFibreKindling);
 
         setup.registry(DryingRegistry.wetness)
             .add(BidsItems.barkFiber, new WetnessInfo(500, 1f));

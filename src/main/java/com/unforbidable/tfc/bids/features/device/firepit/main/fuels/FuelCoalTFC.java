@@ -13,11 +13,6 @@ public class FuelCoalTFC implements FirepitFuelMaterial {
     }
 
     @Override
-    public float getFuelKindlingQuality(ItemStack itemStack) {
-        return 0;
-    }
-
-    @Override
     public int getFuelBurnTime(ItemStack itemStack) {
         // Charcoal burns longer in a firepit
         return (int) (EnumFuelMaterial.CHARCOAL.burnTimeMax * 1.5f);

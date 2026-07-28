@@ -1198,7 +1198,6 @@ item.Shaft.Limba.name=Limba Shaft
 
 item.Small Stick Bundle.name=Small Bundle of Sticks
 item.Tied Stick Bundle.name=Tied Bundle of Sticks
-item.Kindling.name=Straw Kindling
 
 item.Bark Fibre.name=Bark Fibers
 item.Bark Fibre Coarse.name=Coarse Bark Fibers
@@ -1209,7 +1208,6 @@ item.Bark Fibre Strip.Cured.name=Cured Bark Fiber Strip
 item.Flat Bark Fibre.name=Flat Bark Fiber
 
 item.Bark Cordage.name=Bark Cordage
-item.Bark Fibre Kindling.name=Fiber Kindling
 
 item.Sisal Fibre Rinsed.name=Rinsed Sisal Fibers
 item.Sisal Fibre Coarse.name=Coarse Sisal Fibers
@@ -1249,7 +1247,6 @@ item.Cup Piece.Birch Bark.name=Birch Bark Cup Piece
 item.Birch Bark Bag.name=Birch Bark Bag
 item.Birch Bark Cup Unfinished.name=Unfinished Birch Bark Cup
 item.Birch Bark Shoes.name=Birch Bark Shoes
-item.Birch Bark Kindling.name=Birch Bark Kindling
 
 item.Coat Front.Leather.name=Leather Coat Front
 item.Coat Back.Leather.name=Leather Coat Back
@@ -1458,8 +1455,6 @@ gui.Help.Adze=Sneak and §bRight Click §7block to begin carving.
 gui.Help.Adze2=Sneak and §bRight Click §7block to lock or unlock carving.
 gui.Help.Adze3=§bRight Click §7block to carve.
 gui.Help.BastFibreStrip=§bRight Click §7with 5 in a stack to craft.
-gui.Help.Kindling=§bRight Click §7to place a firepit.
-gui.Help.Kindling2=Requires 2 loose rocks on the ground.
 gui.Help.Pottery=Sneak and §bRight Click §7block to place.
 gui.Help.CookingPot=§bRight Click §7block to place.
 gui.Help.CookingPotLid=§bRight Click §7block to place.
@@ -1555,7 +1550,7 @@ gui.Drying.requirements.wet=Wet
 gui.Drying.requirements.warm=Warm
 gui.Drying.requirements.cover=Cover
 gui.Drying.requirements.freezing=Freezing
-gui.KindlingQuality=Kindling Quality
+gui.Kindling=Kindling
 gui.ChoppingBlock=Chopping Block
 gui.SaddleQuern=Saddle Quern
 gui.StonePress=Stone Press

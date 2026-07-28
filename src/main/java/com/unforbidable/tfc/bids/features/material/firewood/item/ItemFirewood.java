@@ -186,11 +186,6 @@ public class ItemFirewood extends Item implements ISize, WoodpileRenderable, Fir
     }
 
     @Override
-    public float getFuelKindlingQuality(ItemStack itemStack) {
-        return 0;
-    }
-
-    @Override
     public int getFuelBurnTime(ItemStack itemStack) {
         return WoodScheme.DEFAULT.findWood(itemStack).maxBurnTime;
     }

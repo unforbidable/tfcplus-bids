@@ -8,7 +8,7 @@ import com.dunk.tfc.api.Interfaces.ISize;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
-import com.unforbidable.tfc.bids.features.device.woodpile.main.WoodpileHelper;
+import com.unforbidable.tfc.bids.features.device.firepit.main.FirepitHelper;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -29,7 +29,7 @@ public class ItemSmallStickBundle extends Item implements ISize, FirepitFuelMate
     @Override
     public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side,
             float hitX, float hitY, float hitZ) {
-        if (WoodpileHelper.createWoodpileAt(itemStack, player, world, x, y, z, side)) {
+        if (FirepitHelper.createFirepitAt(itemStack, player, world, x, y, z, side)) {
             return true;
         }
 
@@ -71,11 +71,6 @@ public class ItemSmallStickBundle extends Item implements ISize, FirepitFuelMate
     @Override
     public boolean isFuelValid(ItemStack itemStack) {
         return true;
-    }
-
-    @Override
-    public float getFuelKindlingQuality(ItemStack itemStack) {
-        return 0.25f;
     }
 
     @Override

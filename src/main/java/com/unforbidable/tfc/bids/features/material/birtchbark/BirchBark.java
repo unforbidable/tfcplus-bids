@@ -23,7 +23,6 @@ import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
-import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -53,9 +52,6 @@ public class BirchBark extends Feature {
             .drink(250, false)
             .overlays(0, 100);
 
-        init.item(ItemNames.BIRCH_BARK_KINDLING, ItemKindling::new)
-            .apply(i -> i.setFuelKindlingQuality(1f));
-
         init.item(ItemNames.BIRCH_BARK_SHOES, () -> new ItemExtraBoots(IEquipable.ClothingType.BOOTS))
             .apply(i -> {
                 i.setResourceLocation(Tags.MOD_ID, "textures/models/armor/clothing/birch_bark_shoes_color.png")
@@ -78,20 +74,12 @@ public class BirchBark extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-        setup.recipes().addShapeless(new ItemStack(BidsItems.birchBarkKindling),
-            "stickWood", "stickWood", "stickWood", BidsItems.extraStrap);
-        setup.recipes().addShapeless(new ItemStack(BidsItems.birchBarkKindling),
-            BidsItems.smallStickBundle, BidsItems.extraStrap);
-
         setup.recipes().addShapeless(new ItemStack(BidsItems.birchBarkCup),
             BidsItems.birchBarkCupUnfinished, Items.slime_ball);
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.birchBarkSheet),
                 new ItemStack(BidsItems.bark, 1, 2), "itemKnife")
             .action(damageTool("itemKnife"));
-
-        setup.registry(FirepitRegistry.fuel)
-                .add(BidsItems.birchBarkKindling, (FirepitFuelMaterial) BidsItems.birchBarkKindling);
 
         setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.birchBarkShoes),

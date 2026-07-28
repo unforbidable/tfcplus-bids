@@ -4,16 +4,12 @@ import com.dunk.tfc.Blocks.Devices.BlockFirepit;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
 import com.dunk.tfc.Items.Tools.ItemCustomShovel;
-import com.dunk.tfc.Items.Tools.ItemFirestarter;
 import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
-import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.util.GuiUtil;
 import java.util.Random;
@@ -43,7 +39,7 @@ public class BlockNewFirepit extends BlockFirepit {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX,
-            float hitY, float hitZ) {
+                                     float hitY, float hitZ) {
         // We want the super method to do everything
         // except open the GUI
         // The current solution is to do what super does ourselves
@@ -56,10 +52,10 @@ public class BlockNewFirepit extends BlockFirepit {
             }
         }
 
-        return true;
+        return false;
     }
 
-    private boolean     handleInteraction(World world, int x, int y, int z, EntityPlayer entityplayer, int side) {
+    private boolean handleInteraction(World world, int x, int y, int z, EntityPlayer entityplayer, int side) {
         ItemStack equippedItem = entityplayer.getCurrentEquippedItem();
         TEFirepit te = (TEFirepit) world.getTileEntity(x, y, z);
         if (equippedItem != null) {
@@ -79,57 +75,29 @@ public class BlockNewFirepit extends BlockFirepit {
                 return true;
             }
 
-            if (item == Item.getItemFromBlock(TFCBlocks.torchOff)
-                    && te.fireTemp > 100) {
+            if (item == Item.getItemFromBlock(TFCBlocks.torchOff) && te.fireTemp > 100) {
                 entityplayer.inventory.consumeInventoryItem(Item.getItemFromBlock(TFCBlocks.torchOff));
                 TFC_Core.giveItemToPlayer(new ItemStack(TFCBlocks.torch), entityplayer);
 
                 return true;
             }
 
-            if (item == Item.getItemFromBlock(TFCBlocks.candleOff)
-                && te.fireTemp > 100) {
+            if (item == Item.getItemFromBlock(TFCBlocks.candleOff) && te.fireTemp > 100) {
                 entityplayer.inventory.consumeInventoryItem(Item.getItemFromBlock(TFCBlocks.candleOff));
                 TFC_Core.giveItemToPlayer(new ItemStack(TFCBlocks.candle), entityplayer);
 
                 return true;
             }
 
-            if ((item instanceof ItemFirestarter || item instanceof ItemFlintAndSteel)
-                    && te.fireTemp < 210 && te.fireItemStacks[5] != null) {
-                // No longer 100% chance of success
-                // and kindling is required
-                final ItemStack kindling = te.fireItemStacks[5];
-                final FirepitFuelMaterial fuel = FirepitRegistry.fuel.get(kindling.getItem());
+            if (item instanceof ItemFlintAndSteel && te.fireTemp < 210 && te.fireItemStacks[5] != null) {
+                Random rand = new Random();
+                world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "fire.ignite", 1.0F,
+                    rand.nextFloat() * 0.4F + 0.8F);
 
-                if (fuel != null && fuel.getFuelKindlingQuality(kindling) > 0) {
-                    float chance = fuel.getFuelKindlingQuality(kindling);
+                te.fireTemp = 300;
+                world.setBlockMetadataWithNotify(x, y, z, 1, 3);
 
-                    if (item instanceof ItemFlintAndSteel) {
-                        Random rand = new Random();
-                        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "fire.ignite", 1.0F,
-                                rand.nextFloat() * 0.4F + 0.8F);
-
-                        // 100% chance with straw kindling
-                        // 50% chance without
-                        chance *= 2;
-                    } else if (item instanceof ItemFirestarter) {
-                        // 100% chance with bark fiber kindling
-                        // 50% chance with straw kindling
-                        // 25% chance without
-                        chance *= 1f;
-                    }
-
-                    Bids.LOG.debug("Chance to start fire: " + chance);
-
-                    if (world.rand.nextDouble() < chance) {
-                        te.fireTemp = 300;
-
-                        world.setBlockMetadataWithNotify(x, y, z, 1, 3);
-                    }
-
-                    equippedItem.damageItem(1, entityplayer);
-                }
+                equippedItem.damageItem(1, entityplayer);
 
                 return true;
             }

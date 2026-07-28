@@ -91,7 +91,6 @@ public interface ItemNames {
     String BIRCH_BARK_BAG = "Birch Bark Bag";
     String BIRCH_BARK_CUP_UNFINISHED = "Birch Bark Cup Unfinished";
     String BIRCH_BARK_CUP = "Birch Bark Cup";
-    String BIRCH_BARK_KINDLING = "Birch Bark Kindling";
     String BIRCH_BARK_SHOES = "Birch Bark Shoes";
 
     // Clothing
@@ -119,7 +118,6 @@ public interface ItemNames {
     // Firepit
     String STICK_BUNDLE_SMALL = "Small Stick Bundle";
     String STICK_BUNDLE_TIED = "Tied Stick Bundle";
-    String KINDLING = "Kindling";
 
     // Hide
     String MORE_HIDE = "More Hide";
@@ -129,7 +127,6 @@ public interface ItemNames {
     String BARK_FIBER_COARSE = "Bark Fibre Coarse";
     String BARK_FIBER_SMOOTH = "Bark Fibre Smooth";
     String BARK_CORDAGE = "Bark Cordage";
-    String BARK_FIBER_KINDLING = "Bark Fibre Kindling";
     String SISAL_FIBER_RINSED = "Sisal Fibre Rinsed";
     String SISAL_FIBER_COARSE = "Sisal Fibre Coarse";
     String SISAL_FIBER_REFINED = "Sisal Fibre Refined";

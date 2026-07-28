@@ -12,11 +12,6 @@ public class FuelStickBundleTFC implements FirepitFuelMaterial {
     }
 
     @Override
-    public float getFuelKindlingQuality(ItemStack itemStack) {
-        return 0.25f;
-    }
-
-    @Override
     public int getFuelBurnTime(ItemStack itemStack) {
         return EnumFuelMaterial.STICKBUNDLE.burnTimeMax;
     }

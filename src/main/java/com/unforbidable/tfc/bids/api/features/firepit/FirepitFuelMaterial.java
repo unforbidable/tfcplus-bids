@@ -6,8 +6,6 @@ public interface FirepitFuelMaterial {
 
     boolean isFuelValid(ItemStack itemStack);
 
-    float getFuelKindlingQuality(ItemStack itemStack);
-
     int getFuelBurnTime(ItemStack itemStack);
 
     int getFuelMaxTemp(ItemStack itemStack);

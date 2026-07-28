@@ -4,7 +4,6 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
 public class BidsItems {
@@ -80,7 +79,6 @@ public class BidsItems {
     // Firepit
     public static final Item smallStickBundle = item(ItemNames.STICK_BUNDLE_SMALL);
     public static final Item tiedStickBundle = item(ItemNames.STICK_BUNDLE_TIED);
-    public static final Item kindling = item(ItemNames.KINDLING);
 
     // Rough Stone
     public static final Item roughStoneBrick = item(ItemNames.ROUGH_STONE_BRICK);
@@ -113,7 +111,6 @@ public class BidsItems {
     public static final Item birchBarkCupUnfinished = item(ItemNames.BIRCH_BARK_CUP_UNFINISHED);
     public static final Item birchBarkCup = item(ItemNames.BIRCH_BARK_CUP);
     public static final Item birchBarkShoes = item(ItemNames.BIRCH_BARK_SHOES);
-    public static final Item birchBarkKindling = item(ItemNames.BIRCH_BARK_KINDLING);
 
     // Leatherwear
     public static final Item leatherCoat = item(ItemNames.LEATHER_COAT);
@@ -323,7 +320,6 @@ public class BidsItems {
     public static final Item barkFiberCoarse = item(ItemNames.BARK_FIBER_COARSE);
     public static final Item barkFiberSmooth = item(ItemNames.BARK_FIBER_SMOOTH);
     public static final Item barkCordage = item(ItemNames.BARK_CORDAGE);
-    public static final Item barkFibreKindling = item(ItemNames.BARK_FIBER_KINDLING);
     public static final Item sisalFiberRinsed = item(ItemNames.SISAL_FIBER_RINSED);
     public static final Item sisalFiberCoarse = item(ItemNames.SISAL_FIBER_COARSE);
     public static final Item sisalFiberRefined = item(ItemNames.SISAL_FIBER_REFINED);

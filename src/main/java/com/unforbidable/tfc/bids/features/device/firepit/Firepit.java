@@ -19,7 +19,6 @@ import com.unforbidable.tfc.bids.features.device.firepit.block.BlockTiedStickBun
 import com.unforbidable.tfc.bids.features.device.firepit.container.ContainerNewFirepit;
 import com.unforbidable.tfc.bids.features.device.firepit.eventhandler.FirepitInteractHandler;
 import com.unforbidable.tfc.bids.features.device.firepit.gui.GuiNewFirepit;
-import com.unforbidable.tfc.bids.features.device.firepit.item.ItemKindling;
 import com.unforbidable.tfc.bids.features.device.firepit.item.ItemSmallStickBundle;
 import com.unforbidable.tfc.bids.features.device.firepit.item.ItemTiedStickBundle;
 import com.unforbidable.tfc.bids.features.device.firepit.main.fuels.FuelCoalTFC;
@@ -49,8 +48,6 @@ public class Firepit extends Feature {
         init.block(BlockNames.FIREPIT, BlockNewFirepit::new);
         init.block(BlockNames.TIED_STICK_BUNDLE, BlockTiedStickBundle::new);
 
-        init.item(ItemNames.KINDLING, ItemKindling::new)
-            .apply(i -> i.setFuelKindlingQuality(0.50f));
         init.item(ItemNames.STICK_BUNDLE_SMALL, ItemSmallStickBundle::new);
         init.item(ItemNames.STICK_BUNDLE_TIED, ItemTiedStickBundle::new);
 
@@ -81,15 +78,16 @@ public class Firepit extends Feature {
         setup.event()
             .handler(new FirepitInteractHandler());
 
+        setup.ores("materialKindling")
+            .add(BidsItems.smallStickBundle)
+            .add(BidsItems.tiedStickBundle)
+            .add(TFCItems.stick)
+            .add(TFCItems.stickBundle);
+
         setup.recipes().addShapeless(new ItemStack(BidsItems.smallStickBundle),
             "stickWood", "stickWood", "stickWood");
         setup.recipes().addShapeless(new ItemStack(TFCItems.stick, 3),
             BidsItems.smallStickBundle);
-
-        setup.recipes().addShapeless(new ItemStack(BidsItems.kindling),
-            "stickWood", "stickWood", "stickWood", TFCItems.straw);
-        setup.recipes().addShapeless(new ItemStack(BidsItems.kindling),
-            BidsItems.smallStickBundle, TFCItems.straw);
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.tiedStickBundle),
             BidsItems.smallStickBundle, new ItemStack(BidsItems.smallStickBundle),
@@ -101,7 +99,6 @@ public class Firepit extends Feature {
             BidsItems.tiedStickBundle);
 
         setup.registry(FirepitRegistry.fuel)
-            .add(BidsItems.kindling, (FirepitFuelMaterial) BidsItems.kindling)
             .add(BidsItems.smallStickBundle, (FirepitFuelMaterial) BidsItems.smallStickBundle)
             .add(BidsItems.tiedStickBundle, (FirepitFuelMaterial) BidsItems.tiedStickBundle)
             .add(TFCItems.stick, new FuelStickTFC())

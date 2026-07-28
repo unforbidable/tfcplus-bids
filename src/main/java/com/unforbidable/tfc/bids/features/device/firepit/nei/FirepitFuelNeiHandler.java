@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
+import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
 import com.unforbidable.tfc.bids.util.registry.Entry;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class FirepitFuelNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
@@ -120,10 +122,8 @@ public class FirepitFuelNeiHandler extends TemplateRecipeHandler implements IHan
         }
 
         public String getKindlingString() {
-            float kindlingQuality = fuel.getFuelKindlingQuality(new ItemStack(ingred));
-            return kindlingQuality > 0
-                    ? String.format("%s: %d%%", StatCollector.translateToLocal("gui.KindlingQuality"), Math.round(kindlingQuality * 100))
-                    : "";
+            boolean kindling = OreDictionaryHelper.itemStackIsOre(new ItemStack(ingred), "materialKindling");
+            return kindling ? StatCollector.translateToLocal("gui.Kindling") : "";
         }
 
         @Override
