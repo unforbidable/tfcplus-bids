@@ -12,6 +12,7 @@ public class WoodBuilder {
     private boolean hasBark;
     private boolean hasBarkFibers;
     private boolean hasBarkTannin;
+    private boolean hasBarkFlammable;
     private boolean hasLargeLogs;
     private boolean hardwood;
     private boolean resinous;
@@ -60,6 +61,13 @@ public class WoodBuilder {
         return this;
     }
 
+    public WoodBuilder setHasBarkFlammable() {
+        this.hasBark = true;
+        this.hasBarkFlammable = true;
+
+        return this;
+    }
+
     public WoodBuilder setHasLargeLogs() {
         this.hasLargeLogs = true;
 
@@ -93,7 +101,7 @@ public class WoodBuilder {
     }
 
     public WoodIndex build() {
-        return new WoodIndex(index, name, maxBurnTemp, maxBurnTime, tasteProfile, hasBark, hasBarkFibers, hasBarkTannin, hasLargeLogs, hardwood, resinous, inflammable);
+        return new WoodIndex(index, name, maxBurnTemp, maxBurnTime, tasteProfile, hasBark, hasBarkFibers, hasBarkTannin, hasBarkFlammable, hasLargeLogs, hardwood, resinous, inflammable);
     }
 
 }

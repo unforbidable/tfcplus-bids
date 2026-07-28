@@ -27,6 +27,7 @@ public class WoodSetup {
         DEFAULT.registerWood(new WoodBuilder(2, "BIRCH")
             .setFuelMaterial(EnumFuelMaterial.BIRCH)
             .setHasBarkTannin()
+            .setHasBarkFlammable()
             .setHasLargeLogs()
             .setHardwood()
             .build());
@@ -68,7 +69,7 @@ public class WoodSetup {
 
         DEFAULT.registerWood(new WoodBuilder(8, "PINE")
             .setFuelMaterial(EnumFuelMaterial.PINE)
-            .setHasBark()
+            .setHasBarkFlammable()
             .setHasLargeLogs()
             .setResinous()
             .build());
