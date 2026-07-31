@@ -59,7 +59,7 @@ public class BarkFiber extends Feature {
         }
 
         setup.ores("materialFiber")
-            .add(BidsItems.barkFiberCoarse, BidsItems.barkFiberSmooth);
+            .add(BidsItems.barkFiber, BidsItems.barkFiberCoarse, BidsItems.barkFiberSmooth);
 
         setup.ores("materialString")
             .add(BidsItems.barkCordage);

@@ -164,9 +164,10 @@ public class Textile extends Feature {
             .add(TFCItems.stick);
 
         setup.ores("materialFiber")
+            .add(TFCItems.flaxFiber, TFCItems.sisalFiber, TFCItems.juteFiber)
             .add(BidsItems.flaxFiberCoarse, BidsItems.flaxFiberRefined)
             .add(BidsItems.juteFiberCoarse, BidsItems.juteFiberRefined)
-            .add(BidsItems.sisalFiberCoarse, BidsItems.sisalFiberRefined)
+            .add(BidsItems.sisalFiberRinsed, BidsItems.sisalFiberCoarse, BidsItems.sisalFiberRefined)
             .add(BidsItems.woolFiberCoarse, BidsItems.woolFiberRefined)
             .add(BidsItems.cottonFiberCoarse, BidsItems.cottonFiberRefined);
 
