@@ -37,6 +37,12 @@ public class TileEntityNewFirepit extends TEFirepit implements PacketHandler<Sim
     public TileEntityNewFirepit() {
         super();
 
+        // Unless initWithKindling is used
+        // firepit is lit but with short burn time and no fuel.
+        // Fuel is instead collected normally (sticks on the ground)
+        fireTemp = 10;
+        fuelTimeLeft = 20;
+        fuelBurnTemp = 80;
         ashNumber = 0;
     }
 
