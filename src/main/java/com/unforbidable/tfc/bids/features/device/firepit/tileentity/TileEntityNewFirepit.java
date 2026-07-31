@@ -6,7 +6,6 @@ import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.firepit.FirepitFuelMaterial;
 import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
 import com.unforbidable.tfc.bids.core.network.Network;
@@ -38,10 +37,6 @@ public class TileEntityNewFirepit extends TEFirepit implements PacketHandler<Sim
     public TileEntityNewFirepit() {
         super();
 
-        // The default start is when a fire starter was used
-        // with a bunch of sticks (and maybe straw)
-        // Init using BidsItems.kindling parameters
-        initWithKindling(new ItemStack(BidsItems.kindling), true);
     }
 
     public int getFuelCount() {
