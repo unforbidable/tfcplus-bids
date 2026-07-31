@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.features.crafting.woodworking;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingOreRecipe;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingRecipe;
@@ -63,8 +62,12 @@ public class Woodworking extends Feature {
         setup.event()
             .handler(new WoodworkingEventHandler());
 
-        setup.ores("boardWood")
-            .add(BidsItems.board);
+        for (WoodIndex wood : WoodScheme.DEFAULT.getWoods()) {
+            if (wood.items.hasLog()) {
+                setup.ores("boardWood")
+                    .add(wood.items.getBoard());
+            }
+        }
 
         setup.ores("materialBone")
             .add(TFCItems.bone);
@@ -101,6 +104,7 @@ public class Woodworking extends Feature {
                 .ore("itemHandAxe")
                 .offset(-6, -6)
                 .addActions(WoodworkingSpecs.axeCarve)
+                .addActions(WoodworkingSpecs.axeChopShort)
                 .addActions(WoodworkingSpecs.knifeFile)
                 .build())
             .add(ActionTool.create()

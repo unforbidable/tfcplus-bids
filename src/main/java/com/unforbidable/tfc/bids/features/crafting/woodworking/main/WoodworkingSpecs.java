@@ -38,6 +38,13 @@ public class WoodworkingSpecs {
         .build();
     public static final ActionSpec axeChopBottom = axeChopTop.flip(Orientation.VERTICAL);
 
+    public static final ActionSpec axeChopShortTop = ActionSpec.create()
+        .cutout(Shape.rectFrom(-1, -4).size(3, 9))
+        .clearance(Shape.rectFrom(-1, -4).size(3, -8))
+        .clearance(Shape.pointAt(0, 4))
+        .build();
+    public static final ActionSpec axeChopShortBottom = axeChopShortTop.flip(Orientation.VERTICAL);
+
     public static final ActionSpec axeCarveRightA = ActionSpec.create()
         .cutout(Shape.from(0, 0).to(2, 0).to(4, 2).to(2, 2).build())
         .clearance(Shape.from(2, 0).to(4, 2).to(2, 2)
@@ -98,6 +105,14 @@ public class WoodworkingSpecs {
         .usage(WoodworkingMaterialType.WOOD_FLAT)
         .add(new Action("axeChopTop", axeChopTop, WoodworkingActionSide.TOP))
         .add(new Action("axeChopBottom", axeChopBottom, WoodworkingActionSide.BOTTOM))
+        .build();
+
+    public static final ActionGroup axeChopShort = ActionGroup.create("axeChopShort")
+        .damage(0.5f)
+        .usage(WoodworkingMaterialType.WOOD_THICK)
+        .usage(WoodworkingMaterialType.WOOD_FLAT)
+        .add(new Action("axeChopShortTop", axeChopShortTop, WoodworkingActionSide.TOP))
+        .add(new Action("axeChopShortBottom", axeChopShortBottom, WoodworkingActionSide.BOTTOM))
         .build();
 
     public static final ActionGroup axeCarve = ActionGroup.create("axeCarve")
