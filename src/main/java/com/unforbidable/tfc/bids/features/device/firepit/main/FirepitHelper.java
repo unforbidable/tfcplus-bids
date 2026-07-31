@@ -7,6 +7,8 @@ import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -104,6 +106,10 @@ public class FirepitHelper {
                 && block != TFCBlocks.charcoal
                 && block != Blocks.coal_block
                 && block != TFCBlocks.pottery;
+    }
+
+    public static boolean isKindling(ItemStack itemStack) {
+        return OreDictionaryHelper.itemStackIsOre(itemStack, "materialKindling");
     }
 
 }

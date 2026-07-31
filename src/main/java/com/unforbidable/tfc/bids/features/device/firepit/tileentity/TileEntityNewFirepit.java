@@ -12,6 +12,7 @@ import com.unforbidable.tfc.bids.core.network.Network;
 import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitConfig;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitRegistry;
+import com.unforbidable.tfc.bids.features.device.firepit.main.FirepitFuelEntityScanner;
 import com.unforbidable.tfc.bids.util.Timer;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,6 @@ import java.util.Random;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 
 public class TileEntityNewFirepit extends TEFirepit implements PacketHandler<SimpleUpdatePacket> {
 
@@ -149,17 +149,12 @@ public class TileEntityNewFirepit extends TEFirepit implements PacketHandler<Sim
         super.careForInventorySlot(itemStack);
     }
 
-    @SuppressWarnings("unchecked")
     protected boolean collectFuel() {
         boolean isThereMoreToCollect = false;
         if (fireItemStacks[0] == null) {
-            final AxisAlignedBB bounds = AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord,
-                    xCoord + 1, yCoord + 1.1, zCoord + 1);
-            final List<EntityItem> list = (List<EntityItem>) worldObj.getEntitiesWithinAABB(EntityItem.class, bounds);
-
-            for (EntityItem entity : list) {
-                final ItemStack is = entity.getEntityItem();
-
+            FirepitFuelEntityScanner entityScanner = new FirepitFuelEntityScanner(worldObj, xCoord, yCoord, zCoord);
+            for (EntityItem entity : entityScanner.getFuelEntities()) {
+                ItemStack is = entity.getEntityItem();
                 if (isValidFuelMaterial(is)) {
                     while (is.stackSize > 0 && fireItemStacks[FUEL_INPUT_SLOT] == null) {
                         ItemStack one = is.copy();
