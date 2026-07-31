@@ -37,6 +37,7 @@ public class TileEntityNewFirepit extends TEFirepit implements PacketHandler<Sim
     public TileEntityNewFirepit() {
         super();
 
+        ashNumber = 0;
     }
 
     public int getFuelCount() {
@@ -62,14 +63,12 @@ public class TileEntityNewFirepit extends TEFirepit implements PacketHandler<Sim
             fuelBurnTemp = fuel.getFuelMaxTemp(kindling);
             fuelTasteProfile = fuel.getFuelTasteProfile(kindling);
             fireTemp = fuelBurnTemp / 2f;
-            ashNumber = 1;
         } else {
             fireItemStacks[FUEL_BURN_SLOT] = new ItemStack(kindling.getItem(), 1, kindling.getItemDamage());
             fuelTimeLeft = 0;
             fuelBurnTemp = 0;
             fuelTasteProfile = 0;
             fireTemp = 0;
-            ashNumber = 0;
         }
     }
 
