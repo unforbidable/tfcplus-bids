@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids;
 import com.unforbidable.tfc.bids.api.features.churning.WaterskinChurnEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingItemEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
+import com.unforbidable.tfc.bids.api.features.firestarting.FireStartingEvent;
 import com.unforbidable.tfc.bids.api.features.handwork.HandworkPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
 import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
@@ -121,6 +122,30 @@ public class BidsEventFactory {
     public static void onThreshingItemCrafted(EntityPlayer player, ItemStack input, ItemStack result, ItemStack extra, ItemStack tool) {
         ThreshingPlayerEvent event = new ThreshingPlayerEvent(player, ThreshingPlayerEvent.Action.ITEM_CRAFTED, input, result, extra, tool);
         MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static boolean onFireStartingStart(EntityPlayer player, World world, int x, int y, int z, int side) {
+        FireStartingEvent event = new FireStartingEvent(player, world, x, y, z, side, FireStartingEvent.Stage.START);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.result && !event.isCanceled();
+    }
+
+    public static boolean onFireStartingComplete(EntityPlayer player, World world, int x, int y, int z, int side) {
+        FireStartingEvent event = new FireStartingEvent(player, world, x, y, z, side, FireStartingEvent.Stage.COMPLETE);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.result && !event.isCanceled();
+    }
+
+    public static boolean onFireStartingIgnite(EntityPlayer player, World world, int x, int y, int z, int side) {
+        FireStartingEvent event = new FireStartingEvent(player, world, x, y, z, side, FireStartingEvent.Stage.IGNITE);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.result && !event.isCanceled();
+    }
+
+    public static boolean onFireStartingPropagate(EntityPlayer player, World world, int x, int y, int z, int side) {
+        FireStartingEvent event = new FireStartingEvent(player, world, x, y, z, side, FireStartingEvent.Stage.PROPAGATE);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.result && !event.isCanceled();
     }
 
 }

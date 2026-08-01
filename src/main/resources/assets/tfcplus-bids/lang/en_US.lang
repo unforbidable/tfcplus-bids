@@ -1390,6 +1390,12 @@ item.Drying Mud Brick.name=Drying Mud Brick
 
 item.Wooden Flail.name=Wooden Flail
 
+item.Firestarter Fire Plow.name=Fire Plow
+item.Firestarter Hand Drill.name=Hand Drill
+item.Firestarter Bow Drill.name=Bow Drill
+
+item.Tinder.Straw.name=Straw Tinder
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk
@@ -1587,6 +1593,9 @@ gui.Carding=Carding
 gui.Heckling=Heckling
 gui.Woodworking=Woodworking
 gui.Threshing=Threshing
+gui.firepit.noKindling=Firepit requires kindling to catch fire
+gui.tinder.smoldering=Smoldering
+gui.tinder.spent=Spent
 
 key.BidsToolMode=Cycle Tool Mode
 

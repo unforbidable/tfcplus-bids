@@ -369,6 +369,12 @@ public class BidsItems {
     // Flail
     public static final Item woodenFlail = item(ItemNames.WOODEN_FLAIL);
 
+    // Firestarter
+    public static final Item firePlowFirestarter = item(ItemNames.FIRE_PLOW);
+    public static final Item handDrillFirestarter = item(ItemNames.HAND_DRILL);
+    public static final Item bowDrillFirestarter = item(ItemNames.BOW_DRILL);
+    public static final Item tinder = item(ItemNames.TINDER);
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {

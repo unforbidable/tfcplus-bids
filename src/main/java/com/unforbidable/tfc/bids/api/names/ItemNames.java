@@ -337,4 +337,10 @@ public interface ItemNames {
     // Flail
     String WOODEN_FLAIL = "Wooden Flail";
 
+    // Firestarter
+    String FIRE_PLOW = "Firestarter Fire Plow";
+    String HAND_DRILL = "Firestarter Hand Drill";
+    String BOW_DRILL = "Firestarter Bow Drill";
+    String TINDER = "Tinder";
+
 }

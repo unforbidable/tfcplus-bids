@@ -4,6 +4,7 @@ import com.dunk.tfc.Blocks.Devices.BlockFirepit;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Items.Pottery.ItemPotteryBlowpipe;
 import com.dunk.tfc.Items.Tools.ItemCustomShovel;
+import com.dunk.tfc.Items.Tools.ItemFirestarter;
 import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
@@ -89,10 +90,12 @@ public class BlockNewFirepit extends BlockFirepit {
                 return true;
             }
 
-            if (item instanceof ItemFlintAndSteel && te.fireTemp < 210 && te.fireItemStacks[5] != null) {
-                Random rand = new Random();
-                world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "fire.ignite", 1.0F,
-                    rand.nextFloat() * 0.4F + 0.8F);
+            if ((item instanceof ItemFirestarter || item instanceof ItemFlintAndSteel) && te.fireTemp < 210 && te.fireItemStacks[5] != null) {
+                if (item instanceof ItemFlintAndSteel) {
+                    Random rand = new Random();
+                    world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "fire.ignite", 1.0F,
+                        rand.nextFloat() * 0.4F + 0.8F);
+                }
 
                 te.fireTemp = 300;
                 world.setBlockMetadataWithNotify(x, y, z, 1, 3);

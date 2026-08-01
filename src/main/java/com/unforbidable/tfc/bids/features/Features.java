@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.features.crafting.churning.Churning;
 import com.unforbidable.tfc.bids.features.crafting.cooking.Cooking;
 import com.unforbidable.tfc.bids.features.crafting.dough.Dough;
 import com.unforbidable.tfc.bids.features.crafting.drying.Drying;
+import com.unforbidable.tfc.bids.features.crafting.firestarting.FireStarting;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.Glassblowing;
 import com.unforbidable.tfc.bids.features.crafting.handwork.Handwork;
 import com.unforbidable.tfc.bids.features.crafting.heckling.Heckling;
@@ -183,6 +184,7 @@ public class Features {
         new ScutchingKnife(),
         new Threshing(),
         new Flail(),
+        new FireStarting(),
     };
 
 }
