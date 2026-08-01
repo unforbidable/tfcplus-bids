@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.features.crafting.firestarting.FireStartingRegistry;
 import com.unforbidable.tfc.bids.features.device.firepit.block.BlockNewFirepit;
 import com.unforbidable.tfc.bids.features.device.firepit.block.BlockTiedStickBundle;
 import com.unforbidable.tfc.bids.features.device.firepit.container.ContainerNewFirepit;
@@ -21,6 +22,7 @@ import com.unforbidable.tfc.bids.features.device.firepit.eventhandler.FirepitInt
 import com.unforbidable.tfc.bids.features.device.firepit.gui.GuiNewFirepit;
 import com.unforbidable.tfc.bids.features.device.firepit.item.ItemSmallStickBundle;
 import com.unforbidable.tfc.bids.features.device.firepit.item.ItemTiedStickBundle;
+import com.unforbidable.tfc.bids.features.device.firepit.main.firestarting.FirepitFireStartingHandler;
 import com.unforbidable.tfc.bids.features.device.firepit.main.fuels.FuelCoalTFC;
 import com.unforbidable.tfc.bids.features.device.firepit.main.fuels.FuelLogsTFC;
 import com.unforbidable.tfc.bids.features.device.firepit.main.fuels.FuelPeatTFC;
@@ -121,6 +123,9 @@ public class Firepit extends Feature {
                 TFCBlocks.firepit = BidsBlocks.newFirepit;
             });
         }
+
+        setup.registry(FireStartingRegistry.handlers)
+            .add(new FirepitFireStartingHandler(8));
     }
 
 }
