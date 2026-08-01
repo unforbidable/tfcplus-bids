@@ -85,7 +85,7 @@ public class FireStartingHelper {
                     float chance = getChanceForTinderQuality(tinderQuality) * humidityModifier;
                     boolean success = world.rand.nextFloat() < chance;
 
-                    Bids.LOG.info("Fire starting chance {} -> success: {}", chance, success);
+                    Bids.LOG.debug("Fire starting chance {} -> success: {}", chance, success);
 
                     if (success) {
                         boolean ignited = BidsEventFactory.onFireStartingIgnite(player, world, x, y, z, side);

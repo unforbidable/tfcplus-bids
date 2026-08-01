@@ -171,12 +171,10 @@ public class TileEntityStonePressWeight extends TileEntity implements PacketHand
     @Override
     public void handleNetworkPacket(SimpleUpdatePacket packet) {
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        Bids.LOG.info("Client updated at: [{},{},{}]", xCoord, yCoord, zCoord);
     }
 
     public void sendUpdatePacket() {
         Network.sendToTileEntity(new SimpleUpdatePacket(), this);
-        Bids.LOG.info("Sent update message");
     }
 
 }

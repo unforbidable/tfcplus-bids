@@ -40,15 +40,13 @@ public class ItemTinder extends ItemCommonMisc {
                 if (!atWetBlock) {
                     int yCoordActual = yCoord - (int) Math.round(block.getBlockBoundsMaxY());
 
-                    Bids.LOG.info("onEntityItemUpdate - starting fire attempt at {},{},{}", xCoord, yCoordActual, zCoord);
+                    Bids.LOG.debug("onEntityItemUpdate - starting fire attempt at {},{},{}", xCoord, yCoordActual, zCoord);
                     boolean ignited = BidsEventFactory.onFireStartingIgnite(null, entityItem.worldObj, xCoord, yCoordActual, zCoord, 1);
                     if (ignited) {
-                        Bids.LOG.info("onEntityItemUpdate - fire started");
                         entityItem.setDead();
                     }
                 }
             } else if (entityItem.age > 200) {
-                Bids.LOG.info("onEntityItemUpdate - spent");
                 entityItem.setDead();
             }
 
@@ -75,14 +73,11 @@ public class ItemTinder extends ItemCommonMisc {
                 boolean ignited = BidsEventFactory.onFireStartingIgnite(player, world, x, y, z, side);
                 if (ignited) {
                     itemStack.stackSize--;
-                    Bids.LOG.info("onItemUse - fire started");
                     return true;
                 }
             } else {
                 boolean canPropagate = BidsEventFactory.onFireStartingPropagate(player, world, x, y, z, side);
                 if (canPropagate) {
-                    Bids.LOG.info("onItemUse - ignite tinder");
-
                     ItemStack smolderingTinder = itemStack.copy();
                     smolderingTinder.stackSize = 1;
                     FireStartingHelper.setTinderSmolderingTemperature(smolderingTinder, true);

@@ -21,8 +21,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.Optional;
-
 public class StonePressHelper {
     public static boolean canPlaceLeverAt(World world, int x, int y, int z) {
         TileEntitySaddleQuern saddleQuern = (TileEntitySaddleQuern) world.getTileEntity(x, y, z);

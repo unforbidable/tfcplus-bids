@@ -42,7 +42,7 @@ public class FireStartingEventHandler {
                 if (TFC_ItemHeat.hasTemp(itemStack)) {
                     if (FireStartingHelper.isTinderSpent(itemStack)){
                         slot.putStack(null);
-                        Bids.LOG.info("Tinder is spent!");
+                        Bids.LOG.debug("Tinder is spent!");
                     }
                 }
             }
@@ -65,7 +65,7 @@ public class FireStartingEventHandler {
                     event.result = handler.propagate(event.entityPlayer, event.world, event.x, event.y, event.z, event.side);
                 }
 
-                Bids.LOG.info("Fire starting stage {} result: {} ({})", event.stage, event.result, handler.getClass().getCanonicalName());
+                Bids.LOG.debug("Fire starting stage {} result: {} ({})", event.stage, event.result, handler.getClass().getCanonicalName());
             }
         }
 
