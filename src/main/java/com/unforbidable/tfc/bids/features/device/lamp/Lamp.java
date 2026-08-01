@@ -11,8 +11,10 @@ import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.features.crafting.firestarting.FireStartingRegistry;
 import com.unforbidable.tfc.bids.features.device.lamp.block.BlockClayLamp;
 import com.unforbidable.tfc.bids.features.device.lamp.block.itemblock.ItemClayLamp;
+import com.unforbidable.tfc.bids.features.device.lamp.main.firestarting.ClayLampFileStartingHandler;
 import com.unforbidable.tfc.bids.features.device.lamp.main.fuel.FuelOliveOil;
 import com.unforbidable.tfc.bids.features.device.lamp.render.RenderClayLamp;
 import com.unforbidable.tfc.bids.features.device.lamp.tileentity.TileEntityClayLamp;
@@ -54,6 +56,9 @@ public class Lamp extends Feature {
 
         setup.registry(LampRegistry.fuel)
             .add(TFCFluids.OLIVEOIL, new FuelOliveOil());
+
+        setup.registry(FireStartingRegistry.handlers)
+            .add(new ClayLampFileStartingHandler(2));
     }
 
 }
