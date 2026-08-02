@@ -5,6 +5,7 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockRecipe;
 import com.unforbidable.tfc.bids.api.features.woodpile.SeasoningRecipe;
 import com.unforbidable.tfc.bids.api.features.woodpile.WoodpileRenderable;
+import com.unforbidable.tfc.bids.api.meta.MorePowder;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.render.SeasonableItemRenderer;
 import com.unforbidable.tfc.bids.common.render.SeasonedItemRenderer;
@@ -189,7 +190,7 @@ public class Logs extends Feature {
                 setup.recipes().addShapeless(wood.items.getLumber(8),
                         wood.getOreWithSuffix("logWoodPeeledSeasoned"), "itemSaw")
                     .action(damageTool("itemSaw"))
-                    .action(extraDrop(new ItemStack(BidsItems.morePowder, 4, 0)));
+                    .action(extraDrop(new ItemStack(BidsItems.morePowder, 4, MorePowder.SAWDUST)));
             }
 
             // Copies of TFC recipes for block made from logs
@@ -197,7 +198,7 @@ public class Logs extends Feature {
                 setup.recipes().addShaped(wood.blocks.getWoodSupport(8),
                         "A2", " 2", '2', wood.getOreWithSuffix("logWood"), 'A', "itemSaw")
                     .action(damageTool("itemSaw"))
-                    .action(extraDrop(new ItemStack(BidsItems.morePowder, 4, 0)));
+                    .action(extraDrop(new ItemStack(BidsItems.morePowder, 4, MorePowder.SAWDUST)));
 
                 setup.recipes().addShaped(wood.blocks.getFence(6),
                     "LPL", "LPL", 'L', wood.getOreWithSuffix("logWood"), 'P', wood.items.getLumber());
