@@ -35,6 +35,9 @@ public class ItemCommonMisc extends Item implements ISize, ItemMetaNamesAccessor
     @Override
     public Item setMetaNames(String[] names) {
         this.metaNames = names;
+
+        setHasSubtypes(names != null);
+
         return this;
     }
 
