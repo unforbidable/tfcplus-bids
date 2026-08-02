@@ -20,8 +20,16 @@ public class ItemCommonMisc extends Item implements ISize, ItemMetaNamesAccessor
     protected String[] metaNames;
     protected IIcon[] metaIcons;
 
+    protected String textureFolder = "";
+
     public ItemCommonMisc() {
         setMaxStackSize(64);
+    }
+
+    public ItemCommonMisc setTextureFolder(String textureFolder) {
+        this.textureFolder = textureFolder;
+
+        return this;
     }
 
     @Override
@@ -45,19 +53,23 @@ public class ItemCommonMisc extends Item implements ISize, ItemMetaNamesAccessor
         if (metaNames != null) {
             metaIcons = new IIcon[metaNames.length];
             for (int i = 0; i < metaNames.length; i++) {
-                metaIcons[i] = registerer.registerIcon(Tags.MOD_ID + ":tools/"
+                metaIcons[i] = registerer.registerIcon(Tags.MOD_ID + ":" + textureFolder + "/"
                     + this.getUnlocalizedName().replace("item.", "") + "." + metaNames[i]);
             }
         } else {
-            itemIcon = registerer.registerIcon(Tags.MOD_ID + ":tools/"
+            itemIcon = registerer.registerIcon(Tags.MOD_ID + ":" + textureFolder + "/"
                 + this.getUnlocalizedName().replace("item.", ""));
         }
     }
 
     @Override
     public IIcon getIconFromDamage(int i) {
-        if (metaNames != null && i < metaNames.length && metaIcons[i] != null) {
-            return metaIcons[i];
+        if (metaNames != null) {
+            if (i < metaNames.length && metaIcons[i] != null) {
+                return metaIcons[i];
+            } else {
+                return metaIcons[0];
+            }
         } else {
             return this.itemIcon;
         }
@@ -77,7 +89,7 @@ public class ItemCommonMisc extends Item implements ISize, ItemMetaNamesAccessor
 
     @Override
     public String getUnlocalizedName(ItemStack itemstack) {
-        if (metaNames != null) {
+        if (metaNames != null && itemstack.getItemDamage() < metaNames.length) {
             return this.getUnlocalizedName() + "." + metaNames[itemstack.getItemDamage()];
         } else {
             return super.getUnlocalizedName(itemstack);

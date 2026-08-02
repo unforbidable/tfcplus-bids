@@ -17,6 +17,7 @@ public class ItemTinder extends ItemCommonMisc {
 
     public ItemTinder() {
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
+        setTextureFolder("tools");
     }
 
     @Override
