@@ -1398,6 +1398,13 @@ item.Firestarter Hand Drill.name=Hand Drill
 item.Firestarter Bow Drill.name=Bow Drill
 
 item.Tinder.Straw.name=Straw Tinder
+item.Tinder.Birch Bark.name=Birch Bark Tinder
+item.Tinder.Bast.name=Bast Tinder
+item.Tinder.Flax.name=Flax Tinder
+item.Tinder.Jute.name=Jute Tinder
+item.Tinder.Sisal.name=Sisal Tinder
+item.Tinder.Cotton.name=Cotton Tinder
+item.Tinder.Wool.name=Wool Tinder
 
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
