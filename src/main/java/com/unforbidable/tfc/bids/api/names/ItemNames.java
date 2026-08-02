@@ -151,6 +151,7 @@ public interface ItemNames {
     String WOOL_DRIED = "Wool Dried";
     String WOOL_FIBER_COARSE = "Wool Fibre Coarse";
     String WOOL_FIBER_REFINED = "Wool Fibre Refined";
+    String TOW = "Tow";
     String WHORL = "Whorl";
     String SPINDLE = "Spindle";
     String WOODEN_COMB_PADDLE = "Wooden Comb Paddle";

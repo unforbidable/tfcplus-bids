@@ -18,6 +18,7 @@ import com.unforbidable.tfc.bids.api.features.handwork.RopeMakingRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.SpinningRecipe;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.meta.Tow;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipe;
@@ -43,6 +44,7 @@ import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegi
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.SoakingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.material.textile.eventhandler.TextileInteractEventHandler;
+import com.unforbidable.tfc.bids.features.material.textile.item.ItemTow;
 import com.unforbidable.tfc.bids.features.material.textile.item.ItemTextile;
 import com.unforbidable.tfc.bids.features.material.textile.main.TextileHints;
 import net.minecraft.init.Blocks;
@@ -122,6 +124,9 @@ public class Textile extends Feature {
         init.item(ItemNames.WOOL_FIBER_REFINED, ItemTextile::new)
             .hints(TextileHints.SPINNING_YARN)
             .apply(i -> i.setMaterialColor(0xf7f7e6));
+
+        init.item(ItemNames.TOW, ItemTow::new)
+            .meta("Flax", "Jute");
     }
 
     @Override
@@ -170,6 +175,10 @@ public class Textile extends Feature {
             .add(BidsItems.sisalFiberRinsed, BidsItems.sisalFiberCoarse, BidsItems.sisalFiberRefined)
             .add(BidsItems.woolFiberCoarse, BidsItems.woolFiberRefined)
             .add(BidsItems.cottonFiberCoarse, BidsItems.cottonFiberRefined);
+
+        setup.ores("materialTow")
+            .add(new ItemStack(BidsItems.tow, 1, Tow.FLAX))
+            .add(new ItemStack(BidsItems.tow, 1, Tow.JUTE));
 
         setup.ores("materialString")
             .add(BidsItems.juteTwine)
@@ -301,8 +310,10 @@ public class Textile extends Feature {
             .add(new CardingRecipe(new ItemStack(BidsItems.woolFiberCoarse), new ItemStack(BidsItems.woolFiberRefined), 80));
 
         setup.registry(HecklingRegistry.recipes)
-            .add(new HecklingRecipe(new ItemStack(BidsItems.juteFiberCoarse), new ItemStack(BidsItems.juteFiberRefined), 120))
-            .add(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberCoarse), new ItemStack(BidsItems.flaxFiberRefined), 120));
+            .add(new HecklingRecipe(new ItemStack(BidsItems.juteFiberCoarse),
+                new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.tow, 1, Tow.JUTE), 120))
+            .add(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberCoarse),
+                new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(BidsItems.tow, 1, Tow.FLAX), 120));
 
         setup.registry(CookingRegistry.recipes)
             .add(CookingRecipe.builder()

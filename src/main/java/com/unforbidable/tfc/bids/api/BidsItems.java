@@ -344,6 +344,7 @@ public class BidsItems {
     public static final Item woolDried = item(ItemNames.WOOL_DRIED);
     public static final Item woolFiberCoarse = item(ItemNames.WOOL_FIBER_COARSE);
     public static final Item woolFiberRefined = item(ItemNames.WOOL_FIBER_REFINED);
+    public static final Item tow = item(ItemNames.TOW);
 
     // Mallet
     public static final Item woodenMallet = item(ItemNames.WOODEN_MALLET);
