@@ -77,7 +77,7 @@ public abstract class ItemHandworkTool extends ItemCommonTool implements ISize {
         if (pass == 1) {
             HandworkProgress progress = HandworkHelper.loadHandworkProgress(is);
             if (progress != null) {
-                return HandworkHelper.getColorFromMaterial(progress.outputItem, pass);
+                return HandworkHelper.getColorFromMaterial(progress.resultItem, pass);
             }
         }
 
@@ -135,9 +135,15 @@ public abstract class ItemHandworkTool extends ItemCommonTool implements ISize {
             if (currentProgress != null) {
                 if (currentProgress.stage >= getNumStages() - 1) {
                     if (!world.isRemote && player.isSneaking()) {
-                        BidsEventFactory.onHandworkItemCrafted(player, currentProgress.inputItem, currentProgress.outputItem, is);
+                        BidsEventFactory.onHandworkItemCrafted(player, currentProgress.inputItem,
+                            currentProgress.resultItem, currentProgress.extraResultItem, is);
 
-                        TFC_Core.giveItemToPlayer(currentProgress.outputItem, player);
+                        TFC_Core.giveItemToPlayer(currentProgress.resultItem, player);
+
+                        if (currentProgress.extraResultItem != null) {
+                            TFC_Core.giveItemToPlayer(currentProgress.extraResultItem, player);
+                        }
+
                         HandworkHelper.clearHandworkProgress(is);
 
                         is.damageItem(1, player);
@@ -163,7 +169,7 @@ public abstract class ItemHandworkTool extends ItemCommonTool implements ISize {
                                 player.inventory.decrStackSize(i, recipe.getInput().stackSize);
                                 ItemStack input = ingredient.copy();
                                 input.stackSize = recipe.getInput().stackSize;
-                                HandworkProgress progress = new HandworkProgress(recipe.getResult(ingredient), input, recipe.getDuration(), 0);
+                                HandworkProgress progress = new HandworkProgress(input, recipe.getResult(ingredient), recipe.getExtraResult(ingredient), recipe.getDuration(), 0);
                                 HandworkHelper.writeHandworkProgress(is, progress);
                             }
                         }
@@ -185,7 +191,7 @@ public abstract class ItemHandworkTool extends ItemCommonTool implements ISize {
     public String getItemStackDisplayName(ItemStack is) {
         HandworkProgress progress = HandworkHelper.loadHandworkProgress(is);
         if (progress != null) {
-            return super.getItemStackDisplayName(is) + " (" + progress.outputItem.getDisplayName() + ")";
+            return super.getItemStackDisplayName(is) + " (" + progress.resultItem.getDisplayName() + ")";
         } else {
             return super.getItemStackDisplayName(is);
         }

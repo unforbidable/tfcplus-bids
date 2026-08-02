@@ -36,6 +36,9 @@ public class Heckle extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
+        setup.ores("itemHeckle")
+            .add(BidsItems.boneHeckle);
+
         setup.recipes().addShapeless(new ItemStack(BidsItems.boneHeckle),
             BidsItems.boneKnifeHead, BidsItems.boneKnifeHead, TFCItems.resin, "materialBindingStrong");
 

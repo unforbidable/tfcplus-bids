@@ -55,7 +55,7 @@ public class ItemHeckle extends ItemHandworkTool {
     @Override
     protected String getHandworkFinishHelpString(HandworkProgress progress) {
         return StatCollector.translateToLocal("gui.Help.Heckling.Finish") +
-            progress.outputItem.getDisplayName() +
+            progress.resultItem.getDisplayName() +
             StatCollector.translateToLocal("gui.Help.Heckling.Finish2");
     }
 

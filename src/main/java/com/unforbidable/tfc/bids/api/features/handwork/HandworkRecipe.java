@@ -7,11 +7,17 @@ public class HandworkRecipe implements SimpleRecipeMatcher<ItemStack> {
 
     private final ItemStack output;
     private final ItemStack input;
+    private final ItemStack extra;
     private final int duration;
 
     public HandworkRecipe(ItemStack input, ItemStack output, int duration) {
+        this(input, output, null, duration);
+    }
+
+    public HandworkRecipe(ItemStack input, ItemStack output, ItemStack extra, int duration) {
         this.output = output;
         this.input = input;
+        this.extra = extra;
         this.duration = duration;
     }
 
@@ -21,6 +27,10 @@ public class HandworkRecipe implements SimpleRecipeMatcher<ItemStack> {
 
     public ItemStack getInput() {
         return input;
+    }
+
+    public ItemStack getExtra() {
+        return extra;
     }
 
     public int getDuration() {
@@ -39,6 +49,11 @@ public class HandworkRecipe implements SimpleRecipeMatcher<ItemStack> {
 
     public ItemStack getResult(ItemStack ingredient) {
         return getOutput().copy();
+    }
+
+    public ItemStack getExtraResult(ItemStack ingredient) {
+        ItemStack extraResult = getExtra();
+        return extraResult != null ? extraResult.copy() : null;
     }
 
 }

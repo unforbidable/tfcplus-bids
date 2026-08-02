@@ -8,4 +8,8 @@ public class HecklingRecipe extends HandworkRecipe {
         super(input, output, duration);
     }
 
+    public HecklingRecipe(ItemStack input, ItemStack output, ItemStack extra, int duration) {
+        super(input, output, extra, duration);
+    }
+
 }

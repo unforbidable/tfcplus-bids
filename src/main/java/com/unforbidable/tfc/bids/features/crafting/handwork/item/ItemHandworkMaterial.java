@@ -38,9 +38,16 @@ public class ItemHandworkMaterial extends ItemTerra implements HandworkToolMater
                 HandworkRecipe recipe = HandworkRegistry.recipes.findMatchingRecipe(stack);
                 if (recipe != null) {
                     ItemStack outputItem = recipe.getResult(stack);
-                    BidsEventFactory.onHandworkItemCrafted(player, stack, outputItem, null);
+                    ItemStack extraOutputItem = recipe.getExtraResult(stack);
+
+                    BidsEventFactory.onHandworkItemCrafted(player, stack, outputItem, extraOutputItem, null);
 
                     TFC_Core.giveItemToPlayer(outputItem, player);
+
+                    if (extraOutputItem != null) {
+                        TFC_Core.giveItemToPlayer(extraOutputItem, player);
+                    }
+
                     stack.stackSize -= recipe.getInput().stackSize;
                 }
 

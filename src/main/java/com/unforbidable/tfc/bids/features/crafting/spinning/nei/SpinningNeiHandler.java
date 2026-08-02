@@ -30,7 +30,8 @@ public class SpinningNeiHandler extends HandworkNeiHandler {
             for (SpinningRecipe recipe : SpinningRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * SpinningConfig.spinningDurationMultiplier));
+                final ItemStack extra = recipe.getExtraResult(input);
+                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, extra, recipe.getDuration() * SpinningConfig.spinningDurationMultiplier));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -46,8 +47,13 @@ public class SpinningNeiHandler extends HandworkNeiHandler {
             final ItemStack result = recipe.getResult(input);
             final ItemStack result2 = result.copy();
             result2.stackSize = 1;
-            if (ItemStack.areItemStacksEqual(result2, output2)) {
-                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * SpinningConfig.spinningDurationMultiplier));
+            final ItemStack extra = recipe.getExtraResult(input);
+            final ItemStack extra2 = extra != null ? extra.copy() : null;
+            if (extra2 != null) {
+                extra2.stackSize = 1;
+            }
+            if (ItemStack.areItemStacksEqual(result2, output2) || extra2 != null && ItemStack.areItemStacksEqual(extra2, output2)) {
+                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, extra, recipe.getDuration() * SpinningConfig.spinningDurationMultiplier));
             }
         }
     }
@@ -58,7 +64,8 @@ public class SpinningNeiHandler extends HandworkNeiHandler {
             if (recipe.matchesIngredient(ingredient)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, recipe.getDuration() * SpinningConfig.spinningDurationMultiplier));
+                final ItemStack extra = recipe.getExtraResult(input);
+                arecipes.add(new HandworkNeiHandler.CachedHandworkRecipe(input, result, extra, recipe.getDuration() * SpinningConfig.spinningDurationMultiplier));
             }
         }
     }

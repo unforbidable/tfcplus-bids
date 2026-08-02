@@ -37,14 +37,14 @@ public class ItemSpindle extends ItemHandworkTool {
     @Override
     protected String getHandworkProcessHelpString(HandworkProgress progress) {
         return StatCollector.translateToLocal("gui.Help.Spinning.Process") +
-            progress.outputItem.getDisplayName() +
+            progress.resultItem.getDisplayName() +
             StatCollector.translateToLocal("gui.Help.Spinning.Process2");
     }
 
     @Override
     protected String getHandworkFinishHelpString(HandworkProgress progress) {
         return StatCollector.translateToLocal("gui.Help.Spinning.Finish") +
-            progress.outputItem.getDisplayName() +
+            progress.resultItem.getDisplayName() +
             StatCollector.translateToLocal("gui.Help.Spinning.Finish2");
     }
 

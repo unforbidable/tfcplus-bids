@@ -13,14 +13,16 @@ public class HandworkPlayerEvent extends PlayerEvent {
     public final Action action;
     public final ItemStack input;
     public final ItemStack result;
+    public final ItemStack extraResult;
     public final ItemStack tool;
 
-    public HandworkPlayerEvent(EntityPlayer player, Action action, ItemStack input, ItemStack result, ItemStack tool) {
+    public HandworkPlayerEvent(EntityPlayer player, Action action, ItemStack input, ItemStack result, ItemStack extraResult, ItemStack tool) {
         super(player);
 
         this.action = action;
         this.input = input;
         this.result = result;
+        this.extraResult = extraResult;
         this.tool = tool;
     }
 

@@ -9,6 +9,8 @@ import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.features.crafting.handwork.HandworkRegistry;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -48,7 +50,8 @@ public class HandworkNeiHandler extends TemplateRecipeHandler implements IHandle
             for (HandworkRecipe recipe : HandworkRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration()));
+                final ItemStack extra = recipe.getExtraResult(input);
+                arecipes.add(new CachedHandworkRecipe(input, result, extra, recipe.getDuration()));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -64,8 +67,13 @@ public class HandworkNeiHandler extends TemplateRecipeHandler implements IHandle
             final ItemStack result = recipe.getResult(input);
             final ItemStack result2 = result.copy();
             result2.stackSize = 1;
-            if (ItemStack.areItemStacksEqual(result2, output2)) {
-                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration()));
+            final ItemStack extra = recipe.getExtraResult(input);
+            final ItemStack extra2 = extra != null ? extra.copy() : null;
+            if (extra2 != null) {
+                extra2.stackSize = 1;
+            }
+            if (ItemStack.areItemStacksEqual(result2, output2) || extra2 != null && ItemStack.areItemStacksEqual(extra2, output2)) {
+                arecipes.add(new CachedHandworkRecipe(input, result, extra, recipe.getDuration()));
             }
         }
     }
@@ -76,7 +84,8 @@ public class HandworkNeiHandler extends TemplateRecipeHandler implements IHandle
             if (recipe.matchesIngredient(ingredient)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration()));
+                final ItemStack extra = recipe.getExtraResult(input);
+                arecipes.add(new CachedHandworkRecipe(input, result, extra, recipe.getDuration()));
             }
         }
     }
@@ -105,11 +114,13 @@ public class HandworkNeiHandler extends TemplateRecipeHandler implements IHandle
 
         final ItemStack ingred;
         final ItemStack result;
+        final ItemStack extra;
         final float duration;
 
-        public CachedHandworkRecipe(ItemStack ingred, ItemStack result, float duration) {
+        public CachedHandworkRecipe(ItemStack ingred, ItemStack result, ItemStack extra, float duration) {
             this.ingred = ingred.copy();
             this.result = result.copy();
+            this.extra = extra != null ? extra.copy() : null;
             this.duration = duration;
         }
 
@@ -121,6 +132,15 @@ public class HandworkNeiHandler extends TemplateRecipeHandler implements IHandle
         @Override
         public PositionedStack getIngredient() {
             return new PositionedStack(ingred, 39, 24);
+        }
+
+        @Override
+        public List<PositionedStack> getOtherStacks() {
+            List<PositionedStack> list = new ArrayList<PositionedStack>();
+            if (extra != null) {
+                list.add(new PositionedStack(extra, 129, 24));
+            }
+            return list;
         }
 
         public String getDurationString() {

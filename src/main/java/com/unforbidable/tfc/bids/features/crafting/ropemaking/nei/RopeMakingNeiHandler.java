@@ -29,7 +29,8 @@ public class RopeMakingNeiHandler extends HandworkNeiHandler {
             for (RopeMakingRecipe recipe : RopeMakingRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration() * RopeMakingConfig.ropeMakingDurationMultiplier));
+                final ItemStack extra = recipe.getExtraResult(input);
+                arecipes.add(new CachedHandworkRecipe(input, result, extra, recipe.getDuration() * RopeMakingConfig.ropeMakingDurationMultiplier));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -45,8 +46,13 @@ public class RopeMakingNeiHandler extends HandworkNeiHandler {
             final ItemStack result = recipe.getResult(input);
             final ItemStack result2 = result.copy();
             result2.stackSize = 1;
-            if (ItemStack.areItemStacksEqual(result2, output2)) {
-                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration() * RopeMakingConfig.ropeMakingDurationMultiplier));
+            final ItemStack extra = recipe.getExtraResult(input);
+            final ItemStack extra2 = extra != null ? extra.copy() : null;
+            if (extra2 != null) {
+                extra2.stackSize = 1;
+            }
+            if (ItemStack.areItemStacksEqual(result2, output2) || extra2 != null && ItemStack.areItemStacksEqual(extra2, output2)) {
+                arecipes.add(new CachedHandworkRecipe(input, result, extra, recipe.getDuration() * RopeMakingConfig.ropeMakingDurationMultiplier));
             }
         }
     }
@@ -57,7 +63,8 @@ public class RopeMakingNeiHandler extends HandworkNeiHandler {
             if (recipe.matchesIngredient(ingredient)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                arecipes.add(new CachedHandworkRecipe(input, result, recipe.getDuration() * RopeMakingConfig.ropeMakingDurationMultiplier));
+                final ItemStack extra = recipe.getExtraResult(input);
+                arecipes.add(new CachedHandworkRecipe(input, result, extra, recipe.getDuration() * RopeMakingConfig.ropeMakingDurationMultiplier));
             }
         }
     }
