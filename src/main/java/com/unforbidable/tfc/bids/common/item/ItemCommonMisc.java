@@ -20,7 +20,7 @@ public class ItemCommonMisc extends Item implements ISize, ItemMetaNamesAccessor
     protected String[] metaNames;
     protected IIcon[] metaIcons;
 
-    protected String textureFolder = "";
+    protected String textureFolder;
 
     public ItemCommonMisc() {
         setMaxStackSize(64);
@@ -53,14 +53,15 @@ public class ItemCommonMisc extends Item implements ISize, ItemMetaNamesAccessor
 
     @Override
     public void registerIcons(IIconRegister registerer) {
+        String folder = textureFolder == null || textureFolder.length() == 0 ? "" : textureFolder + "/";
         if (metaNames != null) {
             metaIcons = new IIcon[metaNames.length];
             for (int i = 0; i < metaNames.length; i++) {
-                metaIcons[i] = registerer.registerIcon(Tags.MOD_ID + ":" + textureFolder + "/"
+                metaIcons[i] = registerer.registerIcon(Tags.MOD_ID + ":" + folder
                     + this.getUnlocalizedName().replace("item.", "") + "." + metaNames[i]);
             }
         } else {
-            itemIcon = registerer.registerIcon(Tags.MOD_ID + ":" + textureFolder + "/"
+            itemIcon = registerer.registerIcon(Tags.MOD_ID + ":" + folder
                 + this.getUnlocalizedName().replace("item.", ""));
         }
     }
