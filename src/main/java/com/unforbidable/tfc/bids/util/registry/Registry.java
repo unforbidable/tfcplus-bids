@@ -11,4 +11,6 @@ public interface Registry<V> extends Iterable<V> {
 
     V get(Predicate<V> predicate);
 
+    boolean has(Predicate<V> predicate);
+
 }

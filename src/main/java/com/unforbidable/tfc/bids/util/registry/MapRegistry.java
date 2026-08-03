@@ -31,6 +31,16 @@ public class MapRegistry<K, V> implements Registry<Entry<K, V>>, KeyRegistry<K, 
     }
 
     @Override
+    public boolean has(K key) {
+        return items.containsKey(key);
+    }
+
+    @Override
+    public boolean has(Predicate<Entry<K, V>> predicate) {
+        return stream().anyMatch(predicate);
+    }
+
+    @Override
     public Entry<K, V> get(Predicate<Entry<K, V>> predicate) {
         return stream().filter(predicate)
             .findFirst().orElse(null);

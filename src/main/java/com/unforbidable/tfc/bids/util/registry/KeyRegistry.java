@@ -6,4 +6,6 @@ public interface KeyRegistry<K, V> {
 
     V get(K key);
 
+    boolean has(K key);
+
 }

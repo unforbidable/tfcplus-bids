@@ -27,6 +27,11 @@ public class ListRegistry<T> implements Registry<T> {
     }
 
     @Override
+    public boolean has(Predicate<T> predicate) {
+        return stream().anyMatch(predicate);
+    }
+
+    @Override
     public Iterator<T> iterator() {
         return items.iterator();
     }
