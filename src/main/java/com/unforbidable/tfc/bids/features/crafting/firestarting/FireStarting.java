@@ -4,7 +4,7 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.meta.Tinder;
 import com.unforbidable.tfc.bids.api.meta.Tow;
-import com.unforbidable.tfc.bids.api.meta.Wood;
+import com.unforbidable.tfc.bids.compat.tfc.meta.Wood;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.core.crafting.MatchingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
