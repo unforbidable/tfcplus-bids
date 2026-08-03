@@ -4,6 +4,7 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Items.Tools.ItemCustomShovel;
 import com.dunk.tfc.TileEntities.TEFirepit;
 import com.dunk.tfc.api.TFCItems;
+import com.unforbidable.tfc.bids.compat.tfc.meta.Powder;
 import com.unforbidable.tfc.bids.features.device.firepit.FirepitConfig;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -24,7 +25,7 @@ public class FirepitInteractHandler {
                         if (te instanceof TEFirepit && !(te instanceof TileEntityNewFirepit)) {
                             TEFirepit firepit = (TEFirepit) te;
                             if (firepit.ashNumber > 0 && firepit.fireTemp <= 1F) {
-                                TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.powder, firepit.ashNumber, 13), event.entityPlayer);
+                                TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.powder, firepit.ashNumber, Powder.ASH), event.entityPlayer);
                                 firepit.ashNumber = 0;
 
                                 heldItem.damageItem(1, event.entityPlayer);

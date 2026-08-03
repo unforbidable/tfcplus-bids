@@ -16,6 +16,7 @@ import com.unforbidable.tfc.bids.common.item.ItemFoodLike;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemGlassBottleFluid;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
+import com.unforbidable.tfc.bids.compat.tfc.meta.Powder;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -94,14 +95,14 @@ public class Soap extends Feature {
 
         setup.registry(TfcRegistry.Barrel.recipes)
             .add(BarrelRecipe.addItemDemanding(builder -> builder
-                .consumes(new ItemStack(TFCItems.powder, 1, 13), new FluidStack(TFCFluids.FRESHWATER, 200))
+                .consumes(new ItemStack(TFCItems.powder, 1, Powder.ASH), new FluidStack(TFCFluids.FRESHWATER, 200))
                 .produces(new FluidStack(BidsFluids.weakWoodAshLye, 200))
                 .withMinTechLevel(0).withSealTime(20)
             ));
 
         setup.registry(CookingRegistry.recipes)
             .add(CookingRecipe.builder()
-                .consumes(new FluidStack(TFCFluids.FRESHWATER, 200), new ItemStack(TFCItems.powder, 1, 13))
+                .consumes(new FluidStack(TFCFluids.FRESHWATER, 200), new ItemStack(TFCItems.powder, 1, Powder.ASH))
                 .produces(new FluidStack(BidsFluids.weakWoodAshLye, 200))
                 .inFixedTime(20000)
                 .build())

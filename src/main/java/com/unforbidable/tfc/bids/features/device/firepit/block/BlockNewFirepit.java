@@ -10,6 +10,7 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.names.BlockNames;
+import com.unforbidable.tfc.bids.compat.tfc.meta.Powder;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.firepit.tileentity.TileEntityNewFirepit;
 import com.unforbidable.tfc.bids.util.GuiUtil;
@@ -107,7 +108,7 @@ public class BlockNewFirepit extends BlockFirepit {
 
             // Extract ash using a shovel when the fire is out
             if (item instanceof ItemCustomShovel && te.ashNumber > 0 && te.fireTemp <= 1F) {
-                TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.powder, te.ashNumber, 13), entityplayer);
+                TFC_Core.giveItemToPlayer(new ItemStack(TFCItems.powder, te.ashNumber, Powder.ASH), entityplayer);
                 te.ashNumber = 0;
 
                 equippedItem.damageItem(1, entityplayer);

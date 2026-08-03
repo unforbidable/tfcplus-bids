@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingCheeseRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
+import com.unforbidable.tfc.bids.compat.tfc.meta.Powder;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -63,13 +64,13 @@ public class Cooking extends Feature {
         // TFC recipes adapted from cooking pot
         setup.registry(CookingRegistry.recipes)
             .add(CookingRecipe.builder()
-                .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), new ItemStack(TFCItems.powder, 1, 9))
+                .consumes(new FluidStack(TFCFluids.FRESHWATER, 500), new ItemStack(TFCItems.powder, 1, Powder.SALT))
                 .produces(new FluidStack(TFCFluids.SALTWATER, 500))
                 .inTime(20)
                 .build())
             .add(CookingRecipe.builder()
                 .consumes(new FluidStack(TFCFluids.SALTWATER, 500))
-                .produces(new ItemStack(TFCItems.powder, 1, 9))
+                .produces(new ItemStack(TFCItems.powder, 1, Powder.SALT))
                 .withHeat()
                 .withoutLid()
                 .inTime(750)
