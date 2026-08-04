@@ -14,6 +14,7 @@ import com.unforbidable.tfc.bids.compat.tfc.meta.Powder;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
@@ -30,6 +31,11 @@ import net.minecraftforge.fluids.FluidStack;
 
 @FeatureName("cooking")
 public class Cooking extends Feature {
+
+    @Override
+    public void config(FeatureConfig config) {
+        config.using(CookingConfig::load);
+    }
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {

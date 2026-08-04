@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.device.cookingprep.block.BlockCookingPrep;
 import com.unforbidable.tfc.bids.features.device.cookingprep.container.ContainerCookingPrep;
+import com.unforbidable.tfc.bids.features.device.cookingprep.eventhandler.CookingPrepEventHandler;
 import com.unforbidable.tfc.bids.features.device.cookingprep.gui.GuiCookingPrep;
 import com.unforbidable.tfc.bids.features.device.cookingprep.nei.CookingPrepNeiHandler;
 import com.unforbidable.tfc.bids.features.device.cookingprep.render.RenderTileCookingPrep;
@@ -50,6 +51,9 @@ public class CookingPrep extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
+        setup.event()
+            .handler(new CookingPrepEventHandler());
+
         setup.ores("itemCookingPrepVessel")
             .add(new ItemStack(TFCItems.potteryBowl, 1, 1))
             .add(new ItemStack(TFCItems.potteryBowl, 1, 2));

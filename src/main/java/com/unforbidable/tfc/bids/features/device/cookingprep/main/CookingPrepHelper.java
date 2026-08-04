@@ -1,10 +1,17 @@
 package com.unforbidable.tfc.bids.features.device.cookingprep.main;
 
+import com.dunk.tfc.TileEntities.TEBarrel;
+import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
 import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrepRegistry;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class CookingPrepHelper {
 
@@ -28,6 +35,22 @@ public class CookingPrepHelper {
         }
 
         return list;
+    }
+
+    public static void placeCookingPrep(World world, int x, int y, int z) {
+        world.setBlock(x, y, z, BidsBlocks.cookingPrep);
+    }
+
+    public static boolean isValidCookingPrepLocation(World world, int x, int y, int z) {
+        if (world.isAirBlock(x, y, z) && world.isSideSolid(x, y - 1, z, ForgeDirection.UP)) {
+            Block block = world.getBlock(x, y - 1, z);
+            if (block.getMaterial() == Material.rock || block.getMaterial() == Material.wood || block.getMaterial() == Material.iron) {
+                world.setBlock(x, y, z, BidsBlocks.cookingPrep);
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
