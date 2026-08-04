@@ -18,7 +18,7 @@ import com.unforbidable.tfc.bids.api.features.handwork.RopeMakingRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.SpinningRecipe;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
-import com.unforbidable.tfc.bids.api.meta.Tow;
+import com.unforbidable.tfc.bids.api.meta.TowMeta;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipe;
@@ -177,8 +177,8 @@ public class Textile extends Feature {
             .add(BidsItems.cottonFiberCoarse, BidsItems.cottonFiberRefined);
 
         setup.ores("materialTow")
-            .add(new ItemStack(BidsItems.tow, 1, Tow.FLAX))
-            .add(new ItemStack(BidsItems.tow, 1, Tow.JUTE));
+            .add(new ItemStack(BidsItems.tow, 1, TowMeta.FLAX))
+            .add(new ItemStack(BidsItems.tow, 1, TowMeta.JUTE));
 
         setup.ores("materialString")
             .add(BidsItems.juteTwine)
@@ -311,9 +311,9 @@ public class Textile extends Feature {
 
         setup.registry(HecklingRegistry.recipes)
             .add(new HecklingRecipe(new ItemStack(BidsItems.juteFiberCoarse),
-                new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.tow, 1, Tow.JUTE), 120))
+                new ItemStack(BidsItems.juteFiberRefined), new ItemStack(BidsItems.tow, 1, TowMeta.JUTE), 120))
             .add(new HecklingRecipe(new ItemStack(BidsItems.flaxFiberCoarse),
-                new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(BidsItems.tow, 1, Tow.FLAX), 120));
+                new ItemStack(BidsItems.flaxFiberRefined), new ItemStack(BidsItems.tow, 1, TowMeta.FLAX), 120));
 
         setup.registry(CookingRegistry.recipes)
             .add(CookingRecipe.builder()

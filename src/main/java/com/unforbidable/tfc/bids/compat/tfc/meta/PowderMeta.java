@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.compat.tfc.meta;
 
-public interface Powder {
+public interface PowderMeta {
 
     int FLUX = 0;
     int KAOLINITE = 1;

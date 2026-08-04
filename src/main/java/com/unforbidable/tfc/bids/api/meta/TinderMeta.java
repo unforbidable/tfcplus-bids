@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.api.meta;
 
-public interface Tinder {
+public interface TinderMeta {
 
     int STRAW = 0;
     int BIRCH_BARK = 1;

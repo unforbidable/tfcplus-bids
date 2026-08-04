@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.compat.tfc.meta;
 
-public interface Wood {
+public interface WoodMeta {
 
     int BIRCH = 2;
 

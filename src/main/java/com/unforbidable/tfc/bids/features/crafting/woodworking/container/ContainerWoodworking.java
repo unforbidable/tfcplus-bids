@@ -7,7 +7,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
-import com.unforbidable.tfc.bids.api.meta.MorePowder;
+import com.unforbidable.tfc.bids.api.meta.MorePowderMeta;
 import com.unforbidable.tfc.bids.common.container.inventory.IInventorySlotTracker;
 import com.unforbidable.tfc.bids.common.container.inventory.InventoryCraftingTracked;
 import com.unforbidable.tfc.bids.common.container.slot.SlotOutputOnlyTracked;
@@ -174,7 +174,7 @@ public class ContainerWoodworking extends ContainerTFC implements PacketHandler<
             int totalAmount = integralAmount + (new Random().nextFloat() < partialAmount ? 1 : 0);
 
             if (totalAmount > 0) {
-                ItemStack is = new ItemStack(BidsItems.morePowder, totalAmount, MorePowder.SAWDUST);
+                ItemStack is = new ItemStack(BidsItems.morePowder, totalAmount, MorePowderMeta.SAWDUST);
                 TFC_Core.giveItemToPlayer(is, player);
             }
 

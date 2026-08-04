@@ -5,7 +5,7 @@ import com.dunk.tfc.api.Interfaces.IEquipable;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.compat.tfc.meta.Wood;
+import com.unforbidable.tfc.bids.compat.tfc.meta.WoodMeta;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonClothSheet;
 import com.unforbidable.tfc.bids.common.item.ItemCommonFlat;
@@ -77,7 +77,7 @@ public class BirchBark extends Feature {
             BidsItems.birchBarkCupUnfinished, Items.slime_ball);
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.birchBarkSheet),
-                new ItemStack(BidsItems.bark, 1, Wood.BIRCH), "itemKnife")
+                new ItemStack(BidsItems.bark, 1, WoodMeta.BIRCH), "itemKnife")
             .action(damageTool("itemKnife"));
 
         setup.registry(TfcRegistry.Knapping.recipes)

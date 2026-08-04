@@ -2,10 +2,10 @@ package com.unforbidable.tfc.bids.features.crafting.firestarting;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.meta.Tinder;
-import com.unforbidable.tfc.bids.api.meta.Tow;
-import com.unforbidable.tfc.bids.compat.tfc.meta.Wood;
+import com.unforbidable.tfc.bids.api.meta.TinderMeta;
+import com.unforbidable.tfc.bids.api.meta.TowMeta;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
+import com.unforbidable.tfc.bids.compat.tfc.meta.WoodMeta;
 import com.unforbidable.tfc.bids.core.crafting.MatchingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -71,14 +71,14 @@ public class FireStarting extends Feature {
             .handler(new FireStartingEventHandler());
 
         setup.ores("materialTinderGood")
-            .add(new ItemStack(BidsItems.tinder, 1, Tinder.BIRCH_BARK))
-            .add(new ItemStack(BidsItems.tinder, 1, Tinder.BAST))
-            .add(new ItemStack(BidsItems.tinder, 1, Tinder.FLAX))
-            .add(new ItemStack(BidsItems.tinder, 1, Tinder.SISAL));
+            .add(new ItemStack(BidsItems.tinder, 1, TinderMeta.BIRCH_BARK))
+            .add(new ItemStack(BidsItems.tinder, 1, TinderMeta.BAST))
+            .add(new ItemStack(BidsItems.tinder, 1, TinderMeta.FLAX))
+            .add(new ItemStack(BidsItems.tinder, 1, TinderMeta.SISAL));
 
         setup.ores("materialTinderExcellent")
-            .add(new ItemStack(BidsItems.tinder, 1, Tinder.JUTE))
-            .add(new ItemStack(BidsItems.tinder, 1, Tinder.COTTON));
+            .add(new ItemStack(BidsItems.tinder, 1, TinderMeta.JUTE))
+            .add(new ItemStack(BidsItems.tinder, 1, TinderMeta.COTTON));
 
         setup.ores("stickWoodBundle")
             .add(TFCItems.stickBundle)
@@ -96,63 +96,63 @@ public class FireStarting extends Feature {
         setup.ores("materialTinderStraw2")
             .add(TFCItems.straw);
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 2, Tinder.STRAW), "materialTinderStraw2");
+            .addShapeless(new ItemStack(BidsItems.tinder, 2, TinderMeta.STRAW), "materialTinderStraw2");
 
         setup.ores("materialTinderBirchBark2")
-            .add(new ItemStack(BidsItems.bark, 1, Wood.BIRCH));
+            .add(new ItemStack(BidsItems.bark, 1, WoodMeta.BIRCH));
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 2, Tinder.BIRCH_BARK), "materialTinderBirchBark2");
+            .addShapeless(new ItemStack(BidsItems.tinder, 2, TinderMeta.BIRCH_BARK), "materialTinderBirchBark2");
 
         setup.ores("materialTinderBast1")
             .add(BidsItems.barkCordage);
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 1, Tinder.BAST), "materialTinderBast1");
+            .addShapeless(new ItemStack(BidsItems.tinder, 1, TinderMeta.BAST), "materialTinderBast1");
 
         setup.ores("materialTinderBast4")
             .add(BidsItems.barkFiberCoarse, BidsItems.barkFiberSmooth, BidsItems.barkCordage);
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 4, Tinder.BAST), "materialTinderBast4");
+            .addShapeless(new ItemStack(BidsItems.tinder, 4, TinderMeta.BAST), "materialTinderBast4");
 
         setup.ores("materialTinderFlax1")
-            .add(new ItemStack(BidsItems.tow, 1, Tow.FLAX));
+            .add(new ItemStack(BidsItems.tow, 1, TowMeta.FLAX));
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 1, Tinder.FLAX), "materialTinderFlax1");
+            .addShapeless(new ItemStack(BidsItems.tinder, 1, TinderMeta.FLAX), "materialTinderFlax1");
 
         setup.ores("materialTinderFlax4")
             .add(TFCItems.flaxFiber, BidsItems.flaxFiberCoarse, BidsItems.flaxFiberRefined);
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 4, Tinder.FLAX), "materialTinderFlax4");
+            .addShapeless(new ItemStack(BidsItems.tinder, 4, TinderMeta.FLAX), "materialTinderFlax4");
 
         setup.ores("materialTinderJute1")
             .add(BidsItems.juteTwine)
-            .add(new ItemStack(BidsItems.tow, 1, Tow.JUTE));
+            .add(new ItemStack(BidsItems.tow, 1, TowMeta.JUTE));
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 1, Tinder.JUTE), "materialTinderJute1");
+            .addShapeless(new ItemStack(BidsItems.tinder, 1, TinderMeta.JUTE), "materialTinderJute1");
 
         setup.ores("materialTinderJute4")
             .add(BidsItems.juteFiberCoarse, BidsItems.juteFiberRefined);
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 4, Tinder.JUTE), "materialTinderJute4");
+            .addShapeless(new ItemStack(BidsItems.tinder, 4, TinderMeta.JUTE), "materialTinderJute4");
 
         setup.ores("materialTinderSisal1")
             .add(BidsItems.sisalTwine);
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 1, Tinder.SISAL), "materialTinderSisal1");
+            .addShapeless(new ItemStack(BidsItems.tinder, 1, TinderMeta.SISAL), "materialTinderSisal1");
 
         setup.ores("materialTinderSisal4")
             .add(BidsItems.sisalFiberCoarse, BidsItems.sisalFiberRefined, BidsItems.sisalTwine);
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 4, Tinder.SISAL), "materialTinderSisal4");
+            .addShapeless(new ItemStack(BidsItems.tinder, 4, TinderMeta.SISAL), "materialTinderSisal4");
 
         setup.ores("materialTinderCotton1")
             .add(TFCItems.cottonYarn);
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 1, Tinder.COTTON), "materialTinderCotton1");
+            .addShapeless(new ItemStack(BidsItems.tinder, 1, TinderMeta.COTTON), "materialTinderCotton1");
 
         setup.ores("materialTinderCotton4")
             .add(TFCItems.cotton, BidsItems.cottonBollRefined, BidsItems.cottonFiberCoarse, BidsItems.cottonFiberRefined);
         setup.recipes()
-            .addShapeless(new ItemStack(BidsItems.tinder, 4, Tinder.COTTON), "materialTinderCotton4");
+            .addShapeless(new ItemStack(BidsItems.tinder, 4, TinderMeta.COTTON), "materialTinderCotton4");
 
         if (FireStartingConfig.replaceOriginalFirestarterRecipes) {
             setup.recipes()

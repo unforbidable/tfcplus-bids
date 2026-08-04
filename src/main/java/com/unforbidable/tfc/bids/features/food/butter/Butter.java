@@ -16,7 +16,7 @@ import com.unforbidable.tfc.bids.common.item.ItemCommonDrink;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.item.filledcontainer.ItemGlassBottleFluid;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
-import com.unforbidable.tfc.bids.compat.tfc.meta.Powder;
+import com.unforbidable.tfc.bids.compat.tfc.meta.PowderMeta;
 import com.unforbidable.tfc.bids.core.drink.DrinkRegistry;
 import com.unforbidable.tfc.bids.core.drink.registry.DrinkFluid;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -85,7 +85,7 @@ public class Butter extends Feature {
             .add(new DrinkFluid("SkimmedMilk", BidsFluids.skimmedMilk, 1, 0.321f, EnumFoodGroup.Dairy));
 
         setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)), new ItemStack(TFCItems.powder, 1, Powder.SALT));
+            ItemFoodTFC.createTag(new ItemStack(BidsItems.butter, 1)), new ItemStack(TFCItems.powder, 1, PowderMeta.SALT));
 
         setup.registry(ChurningRegistry.recipes)
             .add(new ChurningRecipe(new FluidStack(BidsFluids.cream, 1), ItemFoodTFC.createTag(new ItemStack(BidsItems.butter), Global.FOOD_MAX_WEIGHT / 4000),

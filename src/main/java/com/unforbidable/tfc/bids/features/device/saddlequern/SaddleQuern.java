@@ -6,7 +6,7 @@ import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
 import com.unforbidable.tfc.bids.api.names.BlockNames;
-import com.unforbidable.tfc.bids.compat.tfc.meta.Powder;
+import com.unforbidable.tfc.bids.compat.tfc.meta.PowderMeta;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -157,7 +157,7 @@ public class SaddleQuern extends Feature {
         // Salt
         setup.registry(SaddleQuernRegistry.recipes)
             .add(new SaddleQuernRecipe(new ItemStack(TFCItems.looseRock, 1, 5),
-                new ItemStack(TFCItems.powder, 2, Powder.SALT)));
+                new ItemStack(TFCItems.powder, 2, PowderMeta.SALT)));
 
         setup.registry(SaddleQuernRegistry.recipes)
             .add(new SaddleQuernRecipe(new ItemStack(TFCItems.bone),
@@ -168,25 +168,25 @@ public class SaddleQuern extends Feature {
         if (SaddleQuernConfig.allowGrindHematite) {
             setup.registry(SaddleQuernRegistry.recipes)
                 .add(new SaddleQuernRecipe(new ItemStack(TFCItems.smallOreChunk, 1, 3),
-                    new ItemStack(TFCItems.powder, 1, Powder.HEMATITE)));
+                    new ItemStack(TFCItems.powder, 1, PowderMeta.HEMATITE)));
         }
 
         if (SaddleQuernConfig.allowGrindLimonite) {
             setup.registry(SaddleQuernRegistry.recipes)
                 .add(new SaddleQuernRecipe(new ItemStack(TFCItems.smallOreChunk, 1, 11),
-                    new ItemStack(TFCItems.powder, 1, Powder.LIMONITE)));
+                    new ItemStack(TFCItems.powder, 1, PowderMeta.LIMONITE)));
         }
 
         if (SaddleQuernConfig.allowGrindMalachite) {
             setup.registry(SaddleQuernRegistry.recipes)
                 .add(new SaddleQuernRecipe(new ItemStack(TFCItems.smallOreChunk, 1, 9),
-                    new ItemStack(TFCItems.powder, 1, Powder.MALACHITE)));
+                    new ItemStack(TFCItems.powder, 1, PowderMeta.MALACHITE)));
         }
 
         if (SaddleQuernConfig.allowGrindLapisLazuli) {
             setup.registry(SaddleQuernRegistry.recipes)
                 .add(new SaddleQuernRecipe(new ItemStack(TFCItems.oreChunk, 1, 318),
-                    new ItemStack(TFCItems.powder, 2, Powder.LAPIS_LAZULI)));
+                    new ItemStack(TFCItems.powder, 2, PowderMeta.LAPIS_LAZULI)));
         }
 
         setup.registry(StonePressRegistry.recipes)
