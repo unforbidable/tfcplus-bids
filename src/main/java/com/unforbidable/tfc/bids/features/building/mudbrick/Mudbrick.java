@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
 import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
+import com.unforbidable.tfc.bids.compat.tfc.meta.WoodMeta;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
@@ -73,7 +74,7 @@ public class Mudbrick extends Feature {
                 "PB", "BB", 'P', new ItemStack(BidsItems.clayPipe, 1, 1),
                 'B', stone.items.getItem(EnumStoneItemType.MUD_BRICK));
             setup.recipes().addShaped(stone.blocks.getBlockStack(EnumStoneBlockType.MUD_BRICK_CHIMNEY, 2),
-                "PB", "BB", 'P', new ItemStack(TFCItems.logs, 1, 48), // Bamboo
+                "PB", "BB", 'P', new ItemStack(TFCItems.logs, 1, WoodMeta.BAMBOO * 2),
                 'B', stone.items.getItem(EnumStoneItemType.MUD_BRICK));
 
             setup.registry(CarvingRegistry.recipes)
