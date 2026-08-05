@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.cookingprep.main;
 
 import com.dunk.tfc.TileEntities.TEBarrel;
+import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
 import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrepRegistry;
@@ -51,6 +52,11 @@ public class CookingPrepHelper {
         }
 
         return false;
+    }
+
+    public static boolean canGrowYeast(ItemStack itemStack) {
+        return !Food.isBrined(itemStack) && !Food.isPickled(itemStack) && !Food.isSalted(itemStack) &&
+            CookingPrepRegistry.yeast.has(i -> i == itemStack.getItem());
     }
 
 }

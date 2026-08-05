@@ -24,6 +24,7 @@ public class TfcInit extends Initializable {
         TfcSetup.setupBarrelRecipes();
         TfcSetup.setupGlassblowing();
         TfcSetup.setupCarving();
+        TfcSetup.setupYeastFood();
 
         TfcRegistryHelper.registerCommon();
 

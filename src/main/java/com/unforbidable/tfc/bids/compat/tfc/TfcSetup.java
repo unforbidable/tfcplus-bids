@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.compat.tfc;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
@@ -24,6 +25,8 @@ import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.core.drink.DrinkRegistry;
 import com.unforbidable.tfc.bids.core.drink.registry.DrinkFluid;
 import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
+import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrepRegistry;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -244,6 +247,12 @@ public class TfcSetup {
             .consumes(new FluidStack(TFCFluids.FRESHWATER, 4500), new FluidStack(TFCFluids.HONEY, 500))
             .produces(new FluidStack(TFCFluids.HONEYWATER, 5000))
             .withSealTime(0).withMinTechLevel(0).beingSealed(false).removingLiquid(false)));
+    }
+
+    public static void setupYeastFood() {
+        for (Item item : TEBarrel.getYeastFoods()) {
+            CookingPrepRegistry.yeast.add(item);
+        }
     }
 
 }

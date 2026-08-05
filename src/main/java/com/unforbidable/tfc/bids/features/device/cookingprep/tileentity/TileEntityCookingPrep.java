@@ -11,6 +11,9 @@ import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepOutput;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.common.container.slot.ISlotTracker;
+import com.unforbidable.tfc.bids.features.crafting.cooking.CookingConfig;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.DynamicEnvironment;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.StaticEnvironment;
 import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrepRegistry;
 import com.unforbidable.tfc.bids.features.device.cookingprep.main.CookingPrepHelper;
 import com.unforbidable.tfc.bids.features.device.cookingprep.main.PrepVirtualCuttingRecipe;
@@ -34,14 +37,31 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
     private final static int MAX_STORAGE = 10;
     private static final int SLOT_OUTPUT = 5;
 
-    private static final int ITEM_TICK_INTERVAL = 50;
     private static final int UPDATE_WEIGHTS_INTERVAL = 1;
+    private static final int YEAST_GROWTH_INTERVAL = 50;
+
+    public static final float MIN_DECAY_RATIO = 0.01f;
+    public static final float MAX_DECAY_RATIO = 0.1f;
+    public static final float DECAY_CHANCE_BASE = 1f;
+    public static final float DECAY_CHANCE_MULTIPLIER = 100f;
+
+    public static final float IDEAL_TEMP = 25f;
+    public static final float TEMP_HEAT_MODIFIER = 15f;
+    public static final float IDEAL_TEMP_COVER_MULTIPLIER = 0.5f;
+    public static final float TEMP_CHANCE_BASE = 0.5f;
+    public static final float TEMP_CHANCE_MULTIPLIER = 3f;
+
+    public static final float HUMIDITY_CHANCE_BASE = 0.5f;
+    public static final float HUMIDITY_CHANCE_MULTIPLIER = 1f;
+
 
     public ItemStack[] storage = new ItemStack[MAX_STORAGE];
     public int[] dayStored = new int[MAX_STORAGE];
 
-    private final Timer itemTickTimer = new Timer(ITEM_TICK_INTERVAL);
+    private long nextYeastGrowAttemptTicks;
+
     private final Timer updateWeightsTimer = new Timer(UPDATE_WEIGHTS_INTERVAL);
+    private final Timer yeastGrowthTimer = new Timer(YEAST_GROWTH_INTERVAL);
 
     private float[] recipeIngredientWeights = null;
     private boolean needToUpdateWeights = false;
@@ -64,8 +84,25 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
-            if (itemTickTimer.tick()) {
+            if (nextYeastGrowAttemptTicks > TFC_Time.getTotalTicks()) {
+                // No ticking (decay) when yeast growing is behind time
                 handleItemTicking();
+            }
+
+            if (yeastGrowthTimer.tick()) {
+                if (nextYeastGrowAttemptTicks == 0) {
+                    nextYeastGrowAttemptTicks = TFC_Time.getTotalTicks();
+                }
+
+                if (nextYeastGrowAttemptTicks <= TFC_Time.getTotalTicks()) {
+                    while (nextYeastGrowAttemptTicks <= TFC_Time.getTotalTicks()) {
+                        growYeast();
+                        nextYeastGrowAttemptTicks += TFC_Time.HOUR_LENGTH;
+                    }
+
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    markDirty();
+                }
             }
         } else {
             if (updateWeightsTimer.tick()) {
@@ -115,6 +152,10 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
             }
         }
         tag.setTag("storage", itemTagList);
+
+        tag.setIntArray("dayStored", dayStored);
+
+        tag.setLong("nextYeastGrowAttemptTicks", nextYeastGrowAttemptTicks);
     }
 
     public void readDataFromNBT(NBTTagCompound tag) {
@@ -128,6 +169,15 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
             final int slot = itemTag.getInteger("slot");
             storage[slot] = ItemStack.loadItemStackFromNBT(itemTag);
         }
+
+        if (tag.hasKey("dayStored")) {
+            dayStored = tag.getIntArray("dayStored");
+        } else {
+            dayStored = new int[storage.length];
+            Arrays.fill(dayStored, -1);
+        }
+
+        nextYeastGrowAttemptTicks = tag.getLong("nextYeastGrowAttemptTicks");
 
         // Update weights shown in the GUI for the current recipe
         if (worldObj != null && worldObj.isRemote) {
@@ -275,6 +325,63 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
         } else {
             needToUpdateWeights = true;
         }
+    }
+
+    private void growYeast() {
+        DynamicEnvironment environment = new StaticEnvironment(worldObj, xCoord, yCoord, zCoord)
+            .ofTicks(TFC_Time.getTotalTicks());
+
+        int yeastCount = 0;
+        for (ItemStack itemStack : storage) {
+            if (itemStack != null && Food.isYeasty(itemStack)) {
+                yeastCount++;
+            }
+        }
+
+        for (int i = 1; i < 4; i++) {
+            if (storage[i] != null && !Food.isYeasty(storage[i]) && CookingPrepHelper.canGrowYeast(storage[i])) {
+                int days = TFC_Time.getTotalDays() - dayStored[i];
+                boolean forceYeastGrowth = CookingConfig.forceYeastGrowthAfterDays > 0 && days >= CookingConfig.forceYeastGrowthAfterDays;
+                float chance = forceYeastGrowth ? 1 : getYeastGrowthChanceBasedOnEnvironment(environment, storage[i], yeastCount);
+                if (worldObj.rand.nextFloat() < chance) {
+                    Food.setYeasty(storage[i], true);
+                }
+            }
+        }
+    }
+
+    private float getYeastGrowthChanceBasedOnEnvironment(DynamicEnvironment environment, ItemStack itemStack, int yeastCount) {
+        if (CookingConfig.environmentalYeastGrowthBaseChance > 0 &&
+            (!environment.isExposed() || environment.getPrecipitation() == 0)) {
+            float decay = Math.max(0, Food.getDecay(itemStack));
+            float weight = Food.getWeight(itemStack);
+            float decayRatio = decay / weight;
+
+            if (decayRatio >= MIN_DECAY_RATIO) {
+                float decayMultiplier = DECAY_CHANCE_BASE + Math.min(Math.max(0f, decayRatio - MIN_DECAY_RATIO), MAX_DECAY_RATIO) * DECAY_CHANCE_MULTIPLIER;
+
+                float temp = environment.getTemperature();
+                float effectiveTemp = temp + (environment.isHeated() ? TEMP_HEAT_MODIFIER : 0);
+                float idealTempDelta = Math.abs(IDEAL_TEMP - effectiveTemp);
+                float coverAdjustedIdealTempDelta = environment.isExposed() ? idealTempDelta : idealTempDelta * IDEAL_TEMP_COVER_MULTIPLIER;
+                float tempRatio = 1f - coverAdjustedIdealTempDelta / IDEAL_TEMP;
+                float tempMultiplier = TEMP_CHANCE_BASE + Math.min(1f, tempRatio) * TEMP_CHANCE_MULTIPLIER;
+
+                float humidityMultiplier = HUMIDITY_CHANCE_BASE + environment.getHumidity() * HUMIDITY_CHANCE_MULTIPLIER;
+
+                float nearbyYeastMultiplier = yeastCount > 0 ? 2f : 1f;
+
+                float chance = CookingConfig.environmentalYeastGrowthBaseChance * nearbyYeastMultiplier *
+                    decayMultiplier * tempMultiplier * humidityMultiplier / TFC_Time.HOURS_IN_DAY;
+
+                Bids.LOG.debug("Yeast chance: {} (D: {}, T: {}, H: {}, Y: {})", chance,
+                    decayMultiplier, tempMultiplier, humidityMultiplier, nearbyYeastMultiplier);
+
+                return chance;
+            }
+        }
+
+        return 0;
     }
 
     private void onOutputPickedFromSlot(ItemStack itemStack, EntityPlayer player) {
