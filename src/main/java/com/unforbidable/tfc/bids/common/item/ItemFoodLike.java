@@ -8,6 +8,7 @@ import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Util.Helper;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
@@ -27,6 +28,12 @@ public class ItemFoodLike extends ItemExtraFood implements ISize {
     public ItemFoodLike() {
         super(EnumFoodGroup.None, 0, 0, 0, 0, 0, false, false);
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
+    }
+
+    public ItemFoodLike noMergeRecipes() {
+        TFCItems.foodList.remove(this);
+
+        return this;
     }
 
     @SuppressWarnings({"unchecked" })
