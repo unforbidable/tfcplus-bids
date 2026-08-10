@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.features.utility.handaxe;
 
+import com.dunk.tfc.Blocks.Flora.BlockBranch;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.google.common.collect.Sets;
@@ -16,6 +17,7 @@ import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.features.utility.handaxe.item.ItemHandAxe;
+import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.item.Item;
 
 @FeatureName("handAxe")
@@ -64,6 +66,18 @@ public class HandAxe extends Feature {
                     "  #  ", " ### ", " ### ", "#####", " ### ",
                     '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)));
         }
+
+        setup.run(() -> {
+            // Change the hardness of non-trunk branches from 30 to 15
+            GameData.getBlockRegistry().typeSafeIterable().forEach(block -> {
+                if (block instanceof BlockBranch) {
+                    BlockBranch blockBranch = (BlockBranch) block;
+                    if (blockBranch.getSourceX() != 0 || blockBranch.getSourceZ() != 0) {
+                        block.setHardness(15);
+                    }
+                }
+            });
+        });
     }
 
 }

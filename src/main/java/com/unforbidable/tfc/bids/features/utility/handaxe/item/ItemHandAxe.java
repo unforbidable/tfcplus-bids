@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.features.utility.handaxe.item;
 
+import com.dunk.tfc.Blocks.Flora.BlockBranch;
 import com.dunk.tfc.Items.Tools.ItemTerraTool;
 import com.dunk.tfc.api.Crafting.AnvilManager;
 import com.dunk.tfc.api.Enums.EnumItemReach;
@@ -37,7 +38,16 @@ public class ItemHandAxe extends ItemTerraTool implements ISize, IKnife {
 
     @Override
     public float getDigSpeed(ItemStack stack, Block block, int meta) {
-        return super.getDigSpeed(stack, block, meta) * 0.5f;
+        return (isBlockActualBranch(block) ? efficiencyOnProperMaterial : super.getDigSpeed(stack, block, meta)) * 0.5f;
+    }
+
+    private boolean isBlockActualBranch(Block block) {
+        if (block instanceof BlockBranch) {
+            BlockBranch blockBranch = (BlockBranch) block;
+            return blockBranch.getSourceX() != 0 || blockBranch.getSourceZ() != 0;
+        }
+
+        return false;
     }
 
     @Override
