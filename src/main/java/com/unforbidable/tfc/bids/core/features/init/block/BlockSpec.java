@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.core.features.init.block;
 import com.unforbidable.tfc.bids.features.building.roughstone.block.BlockRoughStone;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import com.unforbidable.tfc.bids.util.accessor.BlockMetaNamesAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 
@@ -47,9 +48,8 @@ public class BlockSpec<T extends Block> {
             instance.setHarvestLevel(harvest.toolClass, harvest.level);
         }
 
-        // TODO use interface for block with meta names
-        if (meta != null && instance instanceof BlockRoughStone) {
-            ((BlockRoughStone)instance).setMetaNames(meta.names);
+        if (meta != null && instance instanceof BlockMetaNamesAccessor) {
+            ((BlockMetaNamesAccessor)instance).setMetaNames(meta.names);
         }
 
         if (apply != null) {
