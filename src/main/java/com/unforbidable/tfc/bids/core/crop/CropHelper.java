@@ -4,6 +4,7 @@ import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.TileEntities.TEFarmland;
 import com.dunk.tfc.api.TFCBlocks;
+import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewCrop;
 import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewFarmland;
@@ -61,14 +62,19 @@ public class CropHelper {
     public static void growCrop(BidsCropIndex cropIndex, World world, Random rand, int x, int y, int z) {
         world.setBlock(x, y, z, BidsBlocks.newCrops);
 
-        float gt = Math.max((float)cropIndex.growthTime / TFC_Time.daysInMonth, 0.01f);
-        int month = TFC_Time.getSeasonAdjustedMonth(z);
-        float mg = Math.min(month / gt, 1.0f) * (0.75f + (rand.nextFloat() * 0.25f));
-        float growth = Math.min(cropIndex.numGrowthStages * mg, cropIndex.numGrowthStages);
-
+        // Ensure block has been placed
+        // as it can fail due to other generation, especially springs
         TileEntityNewCrop te = (TileEntityNewCrop)world.getTileEntity(x, y, z);
-        te.cropId = cropIndex.cropId;
-        te.growth = growth;
+        if (te != null) {
+
+            float gt = Math.max((float)cropIndex.growthTime / TFC_Time.daysInMonth, 0.01f);
+            int month = TFC_Time.getSeasonAdjustedMonth(z);
+            float mg = Math.min(month / gt, 1.0f) * (0.75f + (rand.nextFloat() * 0.25f));
+            float growth = Math.min(cropIndex.numGrowthStages * mg, cropIndex.numGrowthStages);
+
+            te.cropId = cropIndex.cropId;
+            te.growth = growth;
+        }
     }
 
     public static boolean canCropGrowBlock(BidsCropIndex cropIndex, World world, int x, int y, int z) {
