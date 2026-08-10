@@ -12,6 +12,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import java.util.HashSet;
 import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -21,12 +22,12 @@ import net.minecraft.item.ItemStack;
 
 public class ItemHandAxe extends ItemTerraTool implements ISize, IKnife {
 
-    private static final Set<Block> BLOCKS_EFFECTIVE_AGAINST = Sets.newHashSet();
+    public static final Set<Block> effectiveAgainstBlocks = new HashSet<>();
 
     private final float damageVsEntity;
 
     public ItemHandAxe(ToolMaterial material) {
-        super(0, material, BLOCKS_EFFECTIVE_AGAINST);
+        super(0, material, effectiveAgainstBlocks);
 
         damageVsEntity = material.getDamageVsEntity() * 0.5f;
 

@@ -1,6 +1,8 @@
 package com.unforbidable.tfc.bids.features.utility.handaxe;
 
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
+import com.google.common.collect.Sets;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
@@ -29,6 +31,12 @@ public class HandAxe extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
+        ItemHandAxe.effectiveAgainstBlocks.addAll(Sets.newHashSet(
+            TFCBlocks.dirt, TFCBlocks.dirt2,
+            TFCBlocks.grass, TFCBlocks.grass2,
+            TFCBlocks.dryGrass, TFCBlocks.dryGrass2
+        ));
+
         final Item[] handAxes = new Item[]{BidsItems.sedHandAxe, BidsItems.mMHandAxe, BidsItems.igInHandAxe, BidsItems.igExHandAxe};
 
         setup.ores("itemHandAxe")
