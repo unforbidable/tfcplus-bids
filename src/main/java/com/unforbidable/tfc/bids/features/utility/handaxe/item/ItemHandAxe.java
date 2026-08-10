@@ -32,7 +32,6 @@ public class ItemHandAxe extends ItemTerraTool implements ISize, IKnife {
         damageVsEntity = material.getDamageVsEntity() * 0.5f;
 
         setCreativeTab(BidsCreativeTabs.bidsTools);
-        setMaxDamage(material.getMaxUses() * 3);
         setNoRepair();
     }
 
