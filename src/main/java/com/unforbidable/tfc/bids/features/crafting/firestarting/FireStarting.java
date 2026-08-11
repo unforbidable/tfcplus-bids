@@ -109,7 +109,7 @@ public class FireStarting extends Feature {
             .addShapeless(new ItemStack(BidsItems.tinder, 1, TinderMeta.BAST), "materialTinderBast1");
 
         setup.ores("materialTinderBast4")
-            .add(BidsItems.barkFiberCoarse, BidsItems.barkFiberSmooth, BidsItems.barkCordage);
+            .add(BidsItems.barkFiberCoarse, BidsItems.barkFiberSmooth);
         setup.recipes()
             .addShapeless(new ItemStack(BidsItems.tinder, 4, TinderMeta.BAST), "materialTinderBast4");
 
