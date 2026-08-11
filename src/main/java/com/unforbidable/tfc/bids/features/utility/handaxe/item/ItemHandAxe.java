@@ -38,7 +38,7 @@ public class ItemHandAxe extends ItemTerraTool implements ISize, IKnife {
 
     @Override
     public float getDigSpeed(ItemStack stack, Block block, int meta) {
-        return (isBlockActualBranch(block) ? efficiencyOnProperMaterial : super.getDigSpeed(stack, block, meta)) * 0.5f;
+        return Math.max(1, (isBlockActualBranch(block) ? efficiencyOnProperMaterial : super.getDigSpeed(stack, block, meta)) * 0.5f);
     }
 
     private boolean isBlockActualBranch(Block block) {
