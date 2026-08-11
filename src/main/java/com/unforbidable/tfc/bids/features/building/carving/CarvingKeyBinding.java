@@ -7,7 +7,7 @@ import com.unforbidable.tfc.bids.features.utility.adze.item.ItemAdze;
 public class CarvingKeyBinding {
 
     public static void changeToolMode(KeyBindingActionContext context) {
-        if (context.player.getCurrentEquippedItem().getItem() instanceof ItemAdze) {
+        if (context.player.getCurrentEquippedItem() != null && context.player.getCurrentEquippedItem().getItem() instanceof ItemAdze) {
             CarvingHelper.setPlayerCarvingMode(context.player);
         }
     }
