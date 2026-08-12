@@ -72,6 +72,7 @@ import com.unforbidable.tfc.bids.features.material.powder.Powder;
 import com.unforbidable.tfc.bids.features.material.soap.Soap;
 import com.unforbidable.tfc.bids.features.material.textile.Textile;
 import com.unforbidable.tfc.bids.features.resource.crop.Crop;
+import com.unforbidable.tfc.bids.features.resource.flora.Flora;
 import com.unforbidable.tfc.bids.features.resource.quarry.Quarry;
 import com.unforbidable.tfc.bids.features.resource.well.Well;
 import com.unforbidable.tfc.bids.features.utility.adze.Adze;
@@ -186,6 +187,7 @@ public class Features {
         new Threshing(),
         new Flail(),
         new FireStarting(),
+        new Flora(),
         new Straw(),
     };
 

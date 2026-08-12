@@ -188,6 +188,9 @@ public class BidsBlocks {
     // Drying surface
     public static final Block dryingSurface = block(BlockNames.DRYING_SURFACE);
 
+    // Flora
+    public static final Block moreGrass = block(BlockNames.MORE_GRASS);
+
     private static Block block(String name) {
         Block block = GameRegistry.findBlock(Tags.MOD_ID, name);
         if (block == null) {
