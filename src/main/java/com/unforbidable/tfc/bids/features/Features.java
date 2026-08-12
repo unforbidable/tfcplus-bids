@@ -82,6 +82,7 @@ import com.unforbidable.tfc.bids.features.utility.flail.Flail;
 import com.unforbidable.tfc.bids.features.utility.fluidcontainers.FluidContainers;
 import com.unforbidable.tfc.bids.features.utility.handaxe.HandAxe;
 import com.unforbidable.tfc.bids.features.utility.heckle.Heckle;
+import com.unforbidable.tfc.bids.features.resource.straw.Straw;
 import com.unforbidable.tfc.bids.features.utility.spindle.Spindle;
 import com.unforbidable.tfc.bids.features.utility.largebowl.LargeBowl;
 import com.unforbidable.tfc.bids.features.utility.leatherwear.Leatherwear;
@@ -185,6 +186,7 @@ public class Features {
         new Threshing(),
         new Flail(),
         new FireStarting(),
+        new Straw(),
     };
 
 }
