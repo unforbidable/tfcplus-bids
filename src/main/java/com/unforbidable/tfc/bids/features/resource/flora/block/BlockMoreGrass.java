@@ -6,6 +6,7 @@ import com.dunk.tfc.TerraFirmaCraft;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.util.accessor.BlockMetaNamesAccessor;
 import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
@@ -125,6 +126,8 @@ public class BlockMoreGrass extends BlockCustomTallGrass implements BlockMetaNam
     }
 
     private void createNettle(World world, EntityPlayer player, int i, int j, int k) {
+        EntityItem ei = new EntityItem(world, i + 0.5F, j + 0.5F, k + 0.5F, new ItemStack(BidsItems.nettle, 1));
+        world.spawnEntityInWorld(ei);
     }
 
     @Override

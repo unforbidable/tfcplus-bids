@@ -376,6 +376,15 @@ public class BidsItems {
     public static final Item bowDrillFirestarter = item(ItemNames.BOW_DRILL);
     public static final Item tinder = item(ItemNames.TINDER);
 
+    // Nettle
+    public static final Item nettle = item(ItemNames.NETTLE);
+    public static final Item nettleStalk = item(ItemNames.NETTLE_STALK);
+    public static final Item nettleStalkRetted = item(ItemNames.NETTLE_STALK_RETTED);
+    public static final Item nettleFiber = item(ItemNames.NETTLE_FIBER);
+    public static final Item nettleFiberCoarse = item(ItemNames.NETTLE_FIBER_COARSE);
+    public static final Item nettleFiberRefined = item(ItemNames.NETTLE_FIBER_REFINED);
+    public static final Item nettleTwine = item(ItemNames.NETTLE_TWINE);
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {

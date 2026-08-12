@@ -66,6 +66,7 @@ import com.unforbidable.tfc.bids.features.material.glass.Glass;
 import com.unforbidable.tfc.bids.features.material.hide.Hide;
 import com.unforbidable.tfc.bids.features.material.linseed.Linseed;
 import com.unforbidable.tfc.bids.features.material.logs.Logs;
+import com.unforbidable.tfc.bids.features.material.nettle.Nettle;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
 import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
 import com.unforbidable.tfc.bids.features.material.powder.Powder;
@@ -188,6 +189,7 @@ public class Features {
         new Flail(),
         new FireStarting(),
         new Flora(),
+        new Nettle(),
         new Straw(),
     };
 
