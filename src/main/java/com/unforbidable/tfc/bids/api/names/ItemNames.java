@@ -344,4 +344,13 @@ public interface ItemNames {
     String BOW_DRILL = "Firestarter Bow Drill";
     String TINDER = "Tinder";
 
+    // Nettle
+    String NETTLE = "Nettle";
+    String NETTLE_STALK = "Nettle Stalk";
+    String NETTLE_STALK_RETTED = "Nettle Stalk Retted";
+    String NETTLE_FIBER = "Nettle Fibre";
+    String NETTLE_FIBER_COARSE = "Nettle Fibre Coarse";
+    String NETTLE_FIBER_REFINED = "Nettle Fibre Refined";
+    String NETTLE_TWINE = "Nettle Twine";
+
 }

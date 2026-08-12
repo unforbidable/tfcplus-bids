@@ -25,10 +25,14 @@ public class HandAxe extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(ItemNames.HAND_AXE_IG_IN, () -> new ItemHandAxe(TFCItems.igInToolMaterial));
-        init.item(ItemNames.HAND_AXE_SED, () -> new ItemHandAxe(TFCItems.sedToolMaterial));
-        init.item(ItemNames.HAND_AXE_IG_EX, () -> new ItemHandAxe(TFCItems.igExToolMaterial));
-        init.item(ItemNames.HAND_AXE_MM, () -> new ItemHandAxe(TFCItems.mMToolMaterial));
+        init.item(ItemNames.HAND_AXE_IG_IN, () -> new ItemHandAxe(TFCItems.igInToolMaterial))
+            .harvest("knife", 1);
+        init.item(ItemNames.HAND_AXE_SED, () -> new ItemHandAxe(TFCItems.sedToolMaterial))
+            .harvest("knife", 1);
+        init.item(ItemNames.HAND_AXE_IG_EX, () -> new ItemHandAxe(TFCItems.igExToolMaterial))
+            .harvest("knife", 1);
+        init.item(ItemNames.HAND_AXE_MM, () -> new ItemHandAxe(TFCItems.mMToolMaterial))
+            .harvest("knife", 1);
     }
 
     @Override

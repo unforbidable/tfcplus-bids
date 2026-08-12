@@ -297,4 +297,8 @@ public interface BlockNames {
     @BlockId(113)
     String DRYING_SURFACE = "DryingSurface";
 
+    // Flora
+    @BlockId(114)
+    String MORE_GRASS = "MoreGrass";
+
 }

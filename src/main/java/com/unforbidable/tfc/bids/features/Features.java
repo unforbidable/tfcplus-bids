@@ -66,12 +66,14 @@ import com.unforbidable.tfc.bids.features.material.glass.Glass;
 import com.unforbidable.tfc.bids.features.material.hide.Hide;
 import com.unforbidable.tfc.bids.features.material.linseed.Linseed;
 import com.unforbidable.tfc.bids.features.material.logs.Logs;
+import com.unforbidable.tfc.bids.features.material.nettle.Nettle;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
 import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
 import com.unforbidable.tfc.bids.features.material.powder.Powder;
 import com.unforbidable.tfc.bids.features.material.soap.Soap;
 import com.unforbidable.tfc.bids.features.material.textile.Textile;
 import com.unforbidable.tfc.bids.features.resource.crop.Crop;
+import com.unforbidable.tfc.bids.features.resource.flora.Flora;
 import com.unforbidable.tfc.bids.features.resource.quarry.Quarry;
 import com.unforbidable.tfc.bids.features.resource.well.Well;
 import com.unforbidable.tfc.bids.features.utility.adze.Adze;
@@ -82,6 +84,7 @@ import com.unforbidable.tfc.bids.features.utility.flail.Flail;
 import com.unforbidable.tfc.bids.features.utility.fluidcontainers.FluidContainers;
 import com.unforbidable.tfc.bids.features.utility.handaxe.HandAxe;
 import com.unforbidable.tfc.bids.features.utility.heckle.Heckle;
+import com.unforbidable.tfc.bids.features.resource.straw.Straw;
 import com.unforbidable.tfc.bids.features.utility.spindle.Spindle;
 import com.unforbidable.tfc.bids.features.utility.largebowl.LargeBowl;
 import com.unforbidable.tfc.bids.features.utility.leatherwear.Leatherwear;
@@ -185,6 +188,9 @@ public class Features {
         new Threshing(),
         new Flail(),
         new FireStarting(),
+        new Flora(),
+        new Nettle(),
+        new Straw(),
     };
 
 }

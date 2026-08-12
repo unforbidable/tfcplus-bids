@@ -25,7 +25,7 @@ public class CompositeTools extends Feature {
             .add(TFCItems.sinew)
             .add(TFCItems.linenString)
             .add(BidsItems.barkCordage)
-            .add(BidsItems.juteTwine, BidsItems.sisalTwine);
+            .add(BidsItems.juteTwine, BidsItems.sisalTwine, BidsItems.nettleTwine);
 
         if (CompositeToolsConfig.enableGrassCordageAsToolBinding) {
             setup.ores("materialBinding")
@@ -37,13 +37,13 @@ public class CompositeTools extends Feature {
             .add(TFCItems.sinew)
             .add(TFCItems.linenString)
             .add(BidsItems.barkCordage)
-            .add(BidsItems.juteTwine, BidsItems.sisalTwine);
+            .add(BidsItems.juteTwine, BidsItems.sisalTwine, BidsItems.nettleTwine);
 
         setup.ores("materialBowstring")
             .add(TFCItems.sinew)
             .add(TFCItems.linenString)
             .add(BidsItems.barkCordage)
-            .add(BidsItems.juteTwine, BidsItems.sisalTwine);
+            .add(BidsItems.juteTwine, BidsItems.sisalTwine, BidsItems.nettleTwine);
 
         setup.recipes()
             .match(r -> r.output.isAny("itemAxeStone", "itemHammerStone", "itemKnifeStone",

@@ -345,6 +345,8 @@ tile.SoakingSurface.name=Soaking Surface
 
 tile.DryingSurface.name=Drying Surface
 
+tile.MoreGrass.Nettle.name=Nettles
+
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit
 item.Ore Bit.Galena.name=Galena Ore Bit
@@ -1237,6 +1239,14 @@ item.Wool Rinsed.name=Rinsed Wool
 item.Wool Dried.name=Dried Wool
 item.Wool Fibre Coarse.name=Coarse Wool Fiber
 item.Wool Fibre Refined.name=Refined Wool Fiber
+
+item.Nettle.name=Nettles
+item.Nettle Stalk.name=Nettle Stalks
+item.Nettle Stalk Retted.name=Retted Nettle Stalks
+item.Nettle Fibre.name=Nettle Fibers
+item.Nettle Fibre Coarse.name=Coarse Nettle Fibers
+item.Nettle Fibre Refined.name=Refined Nettle Fibers
+item.Nettle Twine.name=Nettle Twine
 
 item.Flat Birch Bark.name=Flat Birch Bark
 item.Birch Bark Sheet.name=Birch Bark Sheet
