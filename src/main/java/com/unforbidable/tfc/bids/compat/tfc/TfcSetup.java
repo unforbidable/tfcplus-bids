@@ -188,27 +188,27 @@ public class TfcSetup {
 
     public static void setupOres() {
         // Strings that can be strung on a needle
-        OreDictionary.registerOre("materialStringFine", TFCItems.silkString);
-        OreDictionary.registerOre("materialStringFine", TFCItems.linenString);
-        OreDictionary.registerOre("materialStringFine", TFCItems.woolYarn);
-        OreDictionary.registerOre("materialStringFine", TFCItems.cottonYarn);
-        OreDictionary.registerOre("materialStringFine", TFCItems.sinew);
+        OreDictionary.registerOre("materialThread", TFCItems.silkString);
+        OreDictionary.registerOre("materialThread", TFCItems.linenString);
+        OreDictionary.registerOre("materialThread", TFCItems.woolYarn);
+        OreDictionary.registerOre("materialThread", TFCItems.cottonYarn);
+        OreDictionary.registerOre("materialThread", TFCItems.sinew);
     }
 
     public static void setupRecipes() {
         RecipeManagerSession recipes = RecipeManager.getSession();
 
         // Replace original needle which take either materialString or sinew
-        // with new recipe that takes materialStringFine
+        // with new recipe that takes materialThread
         // This adding new material to materialString that aren't suitable as a thread
-        // Recipes using sinews are removed, as those are part of ore materialStringFine
+        // Recipes using sinews are removed, as those are part of ore materialThread
         recipes.match(r -> r.output.isAny(TFCItems.boneNeedleStrung, TFCItems.ironNeedleStrung) &&
                 r.input.contains(TFCItems.sinew))
             .forEach(MatchingRecipe::remove);
         recipes.match(r -> r.output.isAny(TFCItems.boneNeedleStrung, TFCItems.ironNeedleStrung))
             .forEach(r -> r.replace()
                 .removeInput(i -> i.is("materialString"))
-                .addInput("materialStringFine"));
+                .addInput("materialThread"));
 
         recipes.flush();
     }
