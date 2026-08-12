@@ -4,7 +4,7 @@ import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 
 public class StrawConfig {
 
-    public static float tallGrassBlockHardness = 2;
+    public static float tallGrassBlockHardness = 0;
     public static float cropBlockHardness = 3;
 
     public static void load(FeatureConfig config) {
