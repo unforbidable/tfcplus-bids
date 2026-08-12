@@ -49,4 +49,7 @@ public class BidsStats {
     public static final StatBase MATERIAL_SPUN = new StatBasic("stat.bidsMaterialSpun", new ChatComponentTranslation("stat.bidsMaterialSpun"))
         .initIndependentStat();
 
+    public static final StatBase FIRES_STARTED = new StatBasic("stat.bidsFiresStarted", new ChatComponentTranslation("stat.bidsFiresStarted"))
+        .initIndependentStat();
+
 }

@@ -60,6 +60,7 @@ public class StatsInit extends Initializable {
             BidsStats.BUTTER_CHURNED,
             BidsStats.MATERIAL_SCRAPED,
             BidsStats.MATERIAL_SPUN,
+            BidsStats.FIRES_STARTED,
         };
 
         for (StatBase s : stats) {

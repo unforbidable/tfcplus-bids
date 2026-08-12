@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.api.features.choppingblock.ChoppingBlockPlayerE
 import com.unforbidable.tfc.bids.api.features.churning.WaterskinChurnEvent;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingPotPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.crucible.CruciblePlayerEvent;
+import com.unforbidable.tfc.bids.api.features.firestarting.FireStartingEvent;
 import com.unforbidable.tfc.bids.api.features.handwork.HandworkPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
@@ -253,6 +254,13 @@ public class StatsEventHandler {
             event.result.getItem() == BidsItems.shaft && event.result.stackSize == 2) {
                 event.entityPlayer.triggerAchievement(BidsAchievements.DOUBLE_FORTUNE);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onFireStarting(FireStartingEvent event) {
+        if (event.stage == FireStartingEvent.Stage.COMPLETE && event.result && !event.isCanceled()) {
+            event.entityPlayer.addStat(BidsStats.FIRES_STARTED, 1);
         }
     }
 
