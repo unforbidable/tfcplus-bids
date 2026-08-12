@@ -75,9 +75,7 @@ public class FireStartingHelper {
                         "terrafirmacraftplus:item.firestarter", 0.5F, 0.05F);
                 }
 
-                if (remainingTicks == 1 &&
-                    BidsEventFactory.onFireStartingStart(player, world, x, y, z, side) &&
-                    BidsEventFactory.onFireStartingComplete(player, world, x, y, z, side)) {
+                if (remainingTicks == 1 && BidsEventFactory.onFireStartingStart(player, world, x, y, z, side)) {
                     FireStartingEntityScanner scanner = new FireStartingEntityScanner(world, x, y, z);
                     TinderQuality tinderQuality = scanner.getTinderQuality();
 
@@ -87,7 +85,7 @@ public class FireStartingHelper {
 
                     Bids.LOG.debug("Fire starting chance {} -> success: {}", chance, success);
 
-                    if (success) {
+                    if (success && BidsEventFactory.onFireStartingComplete(player, world, x, y, z, side, success)) {
                         boolean ignited = BidsEventFactory.onFireStartingIgnite(player, world, x, y, z, side);
 
                         EntityItem tinderEntityItem = scanner.getTinder();

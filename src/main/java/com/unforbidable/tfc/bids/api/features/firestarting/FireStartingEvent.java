@@ -20,6 +20,7 @@ public class FireStartingEvent extends PlayerEvent {
         /**
          * When one fire starting cycle is completed, whether successfully or not.
          * <p>
+         * The initial value of <code>result</code> indicates whether the fire starting cycle completed with success.
          * Value of <code>result</code> indicates whether the fire starting is allowed to complete.
          * <p>
          * Server side only.

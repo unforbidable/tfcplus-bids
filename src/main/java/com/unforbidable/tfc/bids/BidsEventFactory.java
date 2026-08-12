@@ -130,8 +130,9 @@ public class BidsEventFactory {
         return event.result && !event.isCanceled();
     }
 
-    public static boolean onFireStartingComplete(EntityPlayer player, World world, int x, int y, int z, int side) {
+    public static boolean onFireStartingComplete(EntityPlayer player, World world, int x, int y, int z, int side, boolean result) {
         FireStartingEvent event = new FireStartingEvent(player, world, x, y, z, side, FireStartingEvent.Stage.COMPLETE);
+        event.result = result;
         MinecraftForge.EVENT_BUS.post(event);
         return event.result && !event.isCanceled();
     }
