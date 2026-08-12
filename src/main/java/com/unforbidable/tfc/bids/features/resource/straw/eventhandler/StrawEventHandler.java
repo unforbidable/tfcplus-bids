@@ -40,6 +40,11 @@ public class StrawEventHandler {
     public void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
         ItemStack heldItem = event.entityPlayer.getHeldItem();
         if (heldItem != null) {
+            // This cancels axe efficiency on specified plant blocks
+            if (heldItem.getItem() instanceof ItemAxe && shouldCancelAxeEffectiveness(event.block, event.metadata)) {
+                event.newSpeed = 1;
+            }
+
             // Tool harvest is not considered for digging speed calculation of weapons, such as knives, and a stone flake
             // If the "tool" is effective, use the digging speed directly from the material
             // And add smithing bonus
@@ -65,6 +70,10 @@ public class StrawEventHandler {
                 event.newSpeed = ((ItemCustomShovel)heldItem.getItem()).func_150913_i().getEfficiencyOnProperMaterial() * 1.5f;
             }
         }
+    }
+
+    private boolean shouldCancelAxeEffectiveness(Block block, int metadata) {
+        return block.getMaterial() == Material.plants || block.getMaterial() == Material.vine;
     }
 
     private static float getWeaponEfficiencyOnProperMaterial(Item item) {
