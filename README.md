@@ -41,12 +41,14 @@ Please find the latest release at [courseforge](https://www.curseforge.com/minec
 * [Unshaped Dough](../../wiki/Unshaped-Dough) - unshaped flour and water mixture which can be formed into dough for Bread, Flatbread and Hardtack
 * [Pail](../../wiki/Pail) - a large wooden container for transferring liquids and milking up to 4 animals in one go (including Ibex)
 * [Butter](../../wiki/Butter) - a dairy foodstuff made by churning Cream which is separated from milk
-* [Hand Axe](../../wiki/Hand-Axe) - primitive stone tool for cutting and scraping
+* [Hand Axe](../../wiki/Hand-Axe) - primitive stone tool for digging, cutting and scraping
 * [Composite Tools](../../wiki/Composite-Tools) - stone tools made with a binding material for enhanced durability and mining speed
-* [Textile](../../wiki/Textile) - new textile materials and extended processing
+* [Textile](../../wiki/Textile) - new textile materials, Bark and Nettles, and extended processing
 * [Item Carving](../../wiki/Woodworking) - woodworking recipes to produce wooden tools and various material (also from bone)
 * [Soap](../../wiki/Soap) - for performing basic hygiene while earning XP periodically and more
 * [Edible Seeds](../../wiki/Edible-Seeds) - consumable seeds and derived oils such as Linseed
+* [Firestarter](../../wiki/Firestarter) - new fire starting tools and mechanics with optional tinder
+* [Flail](../../wiki/Flail) - for threshing grains (a simple pole can also be used)
 
 See the [wiki](../../wiki) for complete list and detailed description of features current and upcoming.
 

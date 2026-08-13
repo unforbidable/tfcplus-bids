@@ -775,3 +775,49 @@
 - Added: Drying Rack can finally be used to smoke food stuff
 - Updated: Chinese translation by Eternal130
 - Fixed: Various recipes involving igneous rough stone related blocks were corrected
+
+1.0.0 (2026-08-12)
+- Note: Major refactoring took place, and although some items have been removed, new save is not needed
+- Added: Nettles grow along rivers, lakes and ponds in temperate to cold climate
+- Added: Grain can be threshed with a pole when dropped on the floor
+- Added: Wooden Flail for faster threshing of grains
+- Added: Fire Plow fire starter
+- Added: Hand Drill fire starter
+- Added: Bow Drill fire starter
+- Added: Tinder to assist fire starting and transfer
+- Added: Flax and Jute Tow as byproduct of heckling coarse fibers
+- Added: Linseed Oil Jug container
+- Changed: Using new primitive fire starters is always animated with varying duration but equal chance depending on tinder
+- Changed: Fire starting chance of success is affected by humidity (optional)
+- Changed: Sawdust is dropped also when crafting Lumber and Support Beams from peeled or seasoned logs
+- Changed: Woodworking recipe for sawing lumber now gives 8 pieces, much like the crafting grid recipe
+- Changed: Hand Axe can chop off shorter vertical left overs from carving sides during Woodworking
+- Changed: Hand Axe is more effective at cutting tree branches
+- Changed: Hand Axe is more effective at digging soil
+- Changed: Hand Axe can be used to refine Flax, Jute, Sisal, and to extract Bark fiber
+- Changed: Hand Axe can be used to create a Cooking Prep surface
+- Changed: Knifes can be used to create a Cooking Prep surface instead of TFC Food Prep (optional)
+- Changed: Eligible foodstuffs can now grow yeast when placed on a Cooking prep surface either based simply on elapsed days, on environmental conditions, or both (optional)
+- Changed: Adze has got its own tool class "adze"
+- Changed: Sea Beet and Wild Beans can also generate in slightly warmer areas
+- Changed: Cooking recipes now support ore name as input item
+- Changed: Ore "materialString" now includes Bark Cordage and Nettle, Jute and Sisal twine which allows them to be used in many TFC recipes and mechanics
+- Changed: TFC needle stringing recipes now use ore "materialThread" instead of "materialString" which includes Sinew along with the strings and yarns
+- Changed: Reduced tool binding classification between "Strong" and "Poor"
+- Changed: Saddle Quern efficiency is now the same as that of TFC Hopper Press
+- Changed: Stone Whorl is now made by knapping 2 rocks together
+- Changed: Stone Flakes boast half the effectiveness of Igneous stone material when used to harvest grass and certain other plants
+- Changed: Axes are no longer broadly effective harvesting tool against any and all plant and vine based blocks
+- Changed: Stone Flake, Hand Axes, Knives and Scythes are now effective tools to harvest Tall Grass and Crops
+- Changed: Crop block hardness increased (optional)
+- Changed: Tall grass block hardness increased (optional)
+- Changed: An shovel can be used to destroy tall grass with increased hardness quickly, without harvesting any straw
+- Changed: Tree branch hardness reduced to half of that of the main tree trunk
+- Removed: Obsolete fluid containers and old porridge removed
+- Removed: Kindling items as a requirement to light a fire pit replaced by Tinder and the new fire starting mechanics
+- Fixed: Saddle Quern can now actually crush non-food material such as rock salt
+- Fixed: Correct tool is damaged when crafting firewood from seasoned logs
+- Fixed: Crushed fruit now has the same water percentage as the original fruit
+- Fixed: Cooking Mixtures used in Cooking and Cooking Prep recipes should match in NEI more often
+- Fixed: Tool effectiveness is correctly calculated when weapons are used to harvest block (this affects knives especially)
+- Fixed: Crash caused by an attempt to access a crop after unsuccessful generation due to conflict with a generated spring
