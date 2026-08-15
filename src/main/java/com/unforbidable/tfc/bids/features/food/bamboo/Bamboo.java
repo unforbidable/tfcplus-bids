@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
+import com.unforbidable.tfc.bids.compat.tfc.meta.WoodMeta;
 import com.unforbidable.tfc.bids.compat.tfc.registry.values.HeatValue;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -41,7 +42,7 @@ public class Bamboo extends Feature {
     @Override
     public void setup(FeatureSetupBuilder setup) {
         setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.bambooShoot), 2.5f),
-                new ItemStack(TFCBlocks.sapling2, 1, 8), "itemKnife")
+                new ItemStack(TFCBlocks.sapling2, 1, WoodMeta.BAMBOO - 16), "itemKnife")
             .action(damageTool("itemKnife"));
 
         setup.registry(TfcRegistry.Heat.values)
