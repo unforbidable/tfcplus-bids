@@ -13,6 +13,7 @@ public interface WoodworkingPlanNames {
     String PLAN_SCUTCHING_KNIFE = "scutchingKnife";
     String PLAN_COMB_PADDLE = "combPaddle";
     String PLAN_NEEDLE = "needle";
+    String PLAN_SPEAR = "spear";
     String PLAN_KNIFE_HEAD = "knifeHead";
 
 }
