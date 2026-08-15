@@ -92,7 +92,6 @@ public class WoodworkingSpecs {
         .damage(0.05f)
         .usage(WoodworkingMaterialType.WOOD_THICK)
         .usage(WoodworkingMaterialType.WOOD_FLAT)
-        .usage(WoodworkingMaterialType.WOOD_DELICATE)
         .usage(WoodworkingMaterialType.BONE)
         .add(new Action("sawCutTop", sawCutTop, WoodworkingActionSide.TOP))
         .add(new Action("sawCutBottom", sawCutBottom, WoodworkingActionSide.BOTTOM))
