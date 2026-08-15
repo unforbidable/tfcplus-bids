@@ -98,6 +98,7 @@ public class Woodworking extends Feature {
                 .ore("itemKnife")
                 .offset(-5, -6)
                 .addActions(WoodworkingSpecs.knifeCarve)
+                .addActions(WoodworkingSpecs.knifeCut)
                 .addActions(WoodworkingSpecs.knifeFile)
                 .build())
             .add(ActionTool.create()
