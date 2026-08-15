@@ -385,6 +385,9 @@ public class BidsItems {
     public static final Item nettleFiberRefined = item(ItemNames.NETTLE_FIBER_REFINED);
     public static final Item nettleTwine = item(ItemNames.NETTLE_TWINE);
 
+    // Fern
+    public static final Item fernRhizome = item(ItemNames.FERN_RHIZOME);
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {

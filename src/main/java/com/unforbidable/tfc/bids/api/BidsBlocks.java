@@ -190,6 +190,7 @@ public class BidsBlocks {
 
     // Flora
     public static final Block moreGrass = block(BlockNames.MORE_GRASS);
+    public static final Block brackenFern = block(BlockNames.BRACKEN_FERN);
 
     private static Block block(String name) {
         Block block = GameRegistry.findBlock(Tags.MOD_ID, name);

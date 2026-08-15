@@ -301,4 +301,7 @@ public interface BlockNames {
     @BlockId(114)
     String MORE_GRASS = "MoreGrass";
 
+    @BlockId(115)
+    String BRACKEN_FERN = "BrackenFern";
+
 }

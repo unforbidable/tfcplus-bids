@@ -50,6 +50,7 @@ import com.unforbidable.tfc.bids.features.food.cheese.Cheese;
 import com.unforbidable.tfc.bids.features.food.coarseflour.CoarseFlour;
 import com.unforbidable.tfc.bids.features.food.cookedmeal.CookedMeal;
 import com.unforbidable.tfc.bids.features.food.crushedfruit.CrushedFruit;
+import com.unforbidable.tfc.bids.features.food.fern.Fern;
 import com.unforbidable.tfc.bids.features.food.flatbread.Flatbread;
 import com.unforbidable.tfc.bids.features.food.hardtack.Hardtack;
 import com.unforbidable.tfc.bids.features.food.milk.Milk;
@@ -191,6 +192,7 @@ public class Features {
         new Flora(),
         new Nettle(),
         new Straw(),
+        new Fern(),
     };
 
 }
