@@ -4,6 +4,7 @@ import com.unforbidable.tfc.bids.common.CommonInit;
 import com.unforbidable.tfc.bids.compat.nei.NeiInit;
 import com.unforbidable.tfc.bids.compat.tfc.TfcInit;
 import com.unforbidable.tfc.bids.compat.waila.WailaInit;
+import com.unforbidable.tfc.bids.core.chunk.ChunkInit;
 import com.unforbidable.tfc.bids.core.config.ConfigInit;
 import com.unforbidable.tfc.bids.core.crafting.CraftingInit;
 import com.unforbidable.tfc.bids.core.crop.CropInit;
@@ -28,6 +29,7 @@ public class Initializer {
         // Core initializers are listed here
         new ConfigInit(),
         new NetworkInit(),
+        new ChunkInit(),
         new PlayerInit(),
         new GuiInit(),
         new KeyBindingInit(),

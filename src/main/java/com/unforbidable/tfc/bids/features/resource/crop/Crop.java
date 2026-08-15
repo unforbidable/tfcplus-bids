@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
+import com.unforbidable.tfc.bids.core.chunk.ChunkRegistry;
 import com.unforbidable.tfc.bids.core.crop.BidsCropIndex;
 import com.unforbidable.tfc.bids.core.crop.CropCoastAffinity;
 import com.unforbidable.tfc.bids.core.crop.CropIds;
@@ -32,6 +33,7 @@ import com.unforbidable.tfc.bids.features.resource.crop.eventhandler.CropChunkEv
 import com.unforbidable.tfc.bids.features.resource.crop.eventhandler.CropPlayerInteractHandler;
 import com.unforbidable.tfc.bids.features.resource.crop.eventhandler.FarmlandHighlightHandler;
 import com.unforbidable.tfc.bids.features.resource.crop.item.ItemNewCustomSeeds;
+import com.unforbidable.tfc.bids.features.resource.crop.main.CropChunkData;
 import com.unforbidable.tfc.bids.features.resource.crop.render.RenderNewCrop;
 import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewCrop;
 import com.unforbidable.tfc.bids.features.resource.crop.tileentity.TileEntityNewFarmland;
@@ -122,6 +124,9 @@ public class Crop extends Feature {
 
         setup.world()
             .gen(new CropWorldGen(), 0);
+
+        setup.registry(ChunkRegistry.data)
+            .add(CropChunkData.class);
 
         setup.ores("seedCultivated")
             .add(BidsItems.seedsBeetroot)

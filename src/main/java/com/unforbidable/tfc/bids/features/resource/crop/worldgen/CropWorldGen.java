@@ -4,11 +4,12 @@ import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Constant.Global;
+import com.unforbidable.tfc.bids.core.chunk.ChunkData;
 import com.unforbidable.tfc.bids.core.crop.BidsCropIndex;
 import com.unforbidable.tfc.bids.core.crop.BidsCropManager;
 import com.unforbidable.tfc.bids.core.crop.CropHelper;
+import com.unforbidable.tfc.bids.features.resource.crop.main.CropChunkData;
 import com.unforbidable.tfc.bids.util.WorldGenHelper;
-import com.unforbidable.tfc.bids.util.chunk.ChunkStateManager;
 import cpw.mods.fml.common.IWorldGenerator;
 import java.util.List;
 import java.util.Random;
@@ -25,7 +26,9 @@ public class CropWorldGen implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-        ChunkStateManager.getChunkState(world, chunkX, chunkZ).setLastSpringGenYear(TFC_Time.getYear());
+        CropChunkData data = ChunkData.of(world, chunkX, chunkZ)
+            .get(CropChunkData.class);
+        data.lastSpringGenYear = TFC_Time.getYear();
 
         generateCrops(world, random, chunkX, chunkZ, false);
     }
