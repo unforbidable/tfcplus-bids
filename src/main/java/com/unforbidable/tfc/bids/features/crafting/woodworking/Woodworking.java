@@ -69,12 +69,16 @@ public class Woodworking extends Feature {
             }
         }
 
+        setup.ores("poleWood")
+            .add(TFCItems.pole);
+
         setup.ores("materialBone")
             .add(TFCItems.bone);
 
         setup.registry(WoodworkingRegistry.materials)
             .add(new Material("logWood", 13, 25, WoodworkingMaterialType.WOOD_THICK))
             .add(new Material("boardWood", 13, 25, WoodworkingMaterialType.WOOD_FLAT))
+            .add(new Material("poleWood", 4, 20, WoodworkingMaterialType.WOOD_DELICATE))
             .add(new Material("materialBone", 7, 17, WoodworkingMaterialType.BONE));
 
         setup.registry(WoodworkingRegistry.tools)
@@ -177,11 +181,16 @@ public class Woodworking extends Feature {
                 .cutout(Shape.triFrom(4, 0).size(-1, 1)) // right tip corner
                 .cutout(Shape.triFrom(5, 11).size(-1, 1)) // lower right tip corner
                 .cutout(Shape.pointAt(3, 15)) // hole
+                .build())
+            .add(Plan.create(WoodworkingPlanNames.PLAN_SPEAR)
+                .cutout(Shape.triFrom(0, 0).size(2, 2)) // top left corner
+                .cutout(Shape.triFrom(4, 0).size(-2, 2)) // top right corner
                 .build());
 
         setup.registry(WoodworkingRegistry.recipes)
             .add(new WoodworkingOreRecipe(WoodworkingPlanNames.PLAN_PADDLE, "boardWood", new ItemStack(TFCItems.paddle)))
-            .add(new WoodworkingRecipe(WoodworkingPlanNames.PLAN_NEEDLE, new ItemStack(TFCItems.bone), new ItemStack(TFCItems.boneNeedle)));
+            .add(new WoodworkingOreRecipe(WoodworkingPlanNames.PLAN_NEEDLE, "materialBone", new ItemStack(TFCItems.boneNeedle)))
+            .add(new WoodworkingOreRecipe(WoodworkingPlanNames.PLAN_SPEAR, "poleWood", new ItemStack(TFCItems.woodenSpear)));
     }
 
 }
