@@ -19,6 +19,9 @@ import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.features.utility.handaxe.item.ItemHandAxe;
 import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 @FeatureName("handAxe")
 public class HandAxe extends Feature {
@@ -63,6 +66,11 @@ public class HandAxe extends Feature {
             .add(handAxes);
         setup.ores("itemPrimitiveTool")
             .add(handAxes);
+
+        // TODO Pending a proper way to get wicker (reeds?)
+        setup.recipes().addShapeless(new ItemStack(TFCItems.wicker, 2),
+                TFCItems.pole, "itemHandAxe")
+            .action(damageTool("itemHandAxe"));
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
             setup.registry(TfcRegistry.Knapping.recipes)
