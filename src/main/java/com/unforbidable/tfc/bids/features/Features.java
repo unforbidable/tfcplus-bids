@@ -70,6 +70,7 @@ import com.unforbidable.tfc.bids.features.material.nettle.Nettle;
 import com.unforbidable.tfc.bids.features.material.ore.Ore;
 import com.unforbidable.tfc.bids.features.material.pottery.Pottery;
 import com.unforbidable.tfc.bids.features.material.powder.Powder;
+import com.unforbidable.tfc.bids.features.material.skin.Skin;
 import com.unforbidable.tfc.bids.features.material.soap.Soap;
 import com.unforbidable.tfc.bids.features.material.textile.Textile;
 import com.unforbidable.tfc.bids.features.resource.crop.Crop;
@@ -191,6 +192,7 @@ public class Features {
         new Flora(),
         new Nettle(),
         new Straw(),
+        new Skin(),
     };
 
 }

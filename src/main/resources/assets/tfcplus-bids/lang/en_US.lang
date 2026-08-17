@@ -1416,6 +1416,15 @@ item.Tinder.Sisal.name=Sisal Tinder
 item.Tinder.Cotton.name=Cotton Tinder
 item.Tinder.Wool.name=Wool Tinder
 
+item.Generic Skin.name=Skin
+item.Generic Fur.name=Skin
+item.Sheep Skin.name=Sheep Skin
+item.Wolf Fur.name=Wolf Fur
+item.Bear Fur.name=Bear Fur
+item.Dehaired Skin.name=Skin
+item.Rawhide.name=Rawhide
+item.Leather.name=Leather
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk
@@ -1448,6 +1457,16 @@ infusion.steamed.name=
 
 word.steamed=Steamed
 word.boiled=Boiled
+word.fleshed=Fleshed
+word.clean=Clean
+word.preserved=Preserved
+word.prepared=Prepared
+word.dehaired=Dehaired
+word.tanned=Tanned
+word.large=Large
+word.medium=Medium
+word.small=Small
+word.verySmall=Very Small
 
 cookingMixture.bean=Bean Mix
 cookingMixture.beanWater=Bean + Water Mix
@@ -1616,6 +1635,9 @@ gui.Threshing=Threshing
 gui.firepit.noKindling=Firepit requires kindling to catch fire
 gui.tinder.smoldering=Smoldering
 gui.tinder.spent=Spent
+gui.skin.amount=Weight
+gui.skin.decay=Decay
+gui.skin.fluid=Soaked:
 
 key.BidsToolMode=Cycle Tool Mode
 

@@ -385,6 +385,16 @@ public class BidsItems {
     public static final Item nettleFiberRefined = item(ItemNames.NETTLE_FIBER_REFINED);
     public static final Item nettleTwine = item(ItemNames.NETTLE_TWINE);
 
+    // Skins
+    public static final Item genericSkin = item(ItemNames.GENERIC_SKIN);
+    public static final Item genericFur = item(ItemNames.GENERIC_FUR);
+    public static final Item wolfFur = item(ItemNames.WOLF_FUR);
+    public static final Item bearFur = item(ItemNames.BEAR_FUR);
+    public static final Item sheepSkin = item(ItemNames.SHEEP_SKIN);
+    public static final Item dehairedSkin = item(ItemNames.DEHAIRED_SKIN);
+    public static final Item rawhide = item(ItemNames.RAWHIDE);
+    public static final Item leather = item(ItemNames.LEATHER);
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {
