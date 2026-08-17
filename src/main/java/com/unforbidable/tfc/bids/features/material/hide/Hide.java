@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.material.hide;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.meta.MoreHideMeta;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -19,7 +20,8 @@ public class Hide extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(ItemNames.MORE_HIDE, ItemMoreRawhide::new);
+        init.item(ItemNames.MORE_HIDE, ItemMoreRawhide::new)
+            .meta("VerySmallHide");
     }
 
     @Override
@@ -32,8 +34,8 @@ public class Hide extends Feature {
             .add(TFCItems.ironNeedleStrung);
 
         setup.recipes().addShapeless(new ItemStack(TFCItems.hide),
-                new ItemStack(BidsItems.moreHide, 1, 0),
-                new ItemStack(BidsItems.moreHide, 1, 0), "itemNeedleStrung")
+                new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.VERY_SMALL_HIDE),
+                new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.VERY_SMALL_HIDE), "itemNeedleStrung")
             .action(damageTool("itemNeedleStrung", 10));
 
         setup.recipes().addShapeless(new ItemStack(TFCItems.hide, 1, 1),
@@ -46,7 +48,7 @@ public class Hide extends Feature {
                 new ItemStack(TFCItems.hide, 1, 1), "itemNeedleStrung")
             .action(damageTool("itemNeedleStrung", 40));
 
-        setup.recipes().addShapeless(new ItemStack(BidsItems.moreHide, 2),
+        setup.recipes().addShapeless(new ItemStack(BidsItems.moreHide, 2, MoreHideMeta.VERY_SMALL_HIDE),
                 new ItemStack(TFCItems.hide, 1, 0), "itemKnife")
             .action(damageTool("itemKnife"));
     }

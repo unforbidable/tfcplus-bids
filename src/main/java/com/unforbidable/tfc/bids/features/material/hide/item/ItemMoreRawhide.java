@@ -9,16 +9,21 @@ import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import java.util.List;
+import com.unforbidable.tfc.bids.util.accessor.ItemMetaNamesAccessor;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemMoreRawhide extends ItemTerra implements ISize {
+public class ItemMoreRawhide extends ItemTerra implements ISize, ItemMetaNamesAccessor {
 
     public ItemMoreRawhide() {
         setCreativeTab(BidsCreativeTabs.bidsMaterials);
-        setMetaNames(new String[] { "Tiny" });
+    }
+
+    @Override
+    public String[] getMetaNames() {
+        return metaNames;
     }
 
     @Override
