@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.compat.tfc.meta.RepairPatchMeta;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
@@ -17,6 +18,7 @@ import com.unforbidable.tfc.bids.features.material.skin.container.ContainerSpeci
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinCuttingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinMergingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinShearingRecipe;
+import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinLivingDropsEventHandler;
 import com.unforbidable.tfc.bids.features.material.skin.gui.GuiKnappingSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemDehairedSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFinishedSkin;
@@ -36,6 +38,11 @@ import static com.unforbidable.tfc.bids.features.material.skin.crafting.action.S
  */
 @FeatureName("skin")
 public class Skin extends Feature {
+
+    @Override
+    public void config(FeatureConfig config) {
+        config.using(SkinConfig::load, "butchery");
+    }
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
@@ -74,6 +81,9 @@ public class Skin extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
+        setup.event()
+            .handler(new SkinLivingDropsEventHandler());
+
         setup.recipes()
             .add(new SkinCuttingRecipe(SkinHelper.createStack(BidsItems.genericFur, SkinTagAccess.STAGE_PRESERVED),
                 "itemKnife", TFCItems.furScrap, null, new ItemStack(TFCItems.repairPatch, 1, RepairPatchMeta.FUR)))

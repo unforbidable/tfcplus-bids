@@ -5,6 +5,7 @@ import com.dunk.tfc.Items.ItemLeather;
 import com.dunk.tfc.Items.ItemRawHide;
 import com.dunk.tfc.api.Entities.IAnimal;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.features.material.skin.SkinConfig;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.ArrayList;
 import net.minecraft.entity.item.EntityItem;
@@ -17,14 +18,17 @@ public class HideLivingDropsEventHandler {
 
     @SubscribeEvent
     public void onLivingDrops(LivingDropsEvent event) {
-        if (event.entityLiving instanceof IAnimal) {
-            EntityPlayer butcherPlayer = getButcherPlayer(event);
-            if (butcherPlayer != null) {
-                int tinyRawHideCount = getTinyRawHideCountForDrops(event.drops);
-                if (tinyRawHideCount > 0) {
-                    ItemStack tinyRawHideItemStack = new ItemStack(BidsItems.moreHide, tinyRawHideCount, 0);
-                    EntityItem entityItem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, tinyRawHideItemStack);
-                    event.drops.add(entityItem);
+        // Very small rawhide drops not desirable when Skins are dropped
+        if (!SkinConfig.enableAnimalSkinDropReplacement) {
+            if (event.entityLiving instanceof IAnimal) {
+                EntityPlayer butcherPlayer = getButcherPlayer(event);
+                if (butcherPlayer != null) {
+                    int tinyRawHideCount = getTinyRawHideCountForDrops(event.drops);
+                    if (tinyRawHideCount > 0) {
+                        ItemStack tinyRawHideItemStack = new ItemStack(BidsItems.moreHide, tinyRawHideCount, 0);
+                        EntityItem entityItem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, tinyRawHideItemStack);
+                        event.drops.add(entityItem);
+                    }
                 }
             }
         }
