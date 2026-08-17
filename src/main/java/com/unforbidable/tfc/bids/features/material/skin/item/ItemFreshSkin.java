@@ -33,7 +33,6 @@ public class ItemFreshSkin extends ItemSkin {
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_FLESHED, tag -> tag.setAnimal(animal)));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN, tag -> tag.setAnimal(animal)));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN, tag -> tag.setAnimal(animal).setSalted()));
-        list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN, tag -> tag.setAnimal(animal).setSalted().setFuelProfile(new int[]{1, 1, 1, 1, 1})));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_PRESERVED, tag -> tag.setAnimal(animal)));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_PREPARED, tag -> tag.setAnimal(animal)));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_PREPARED, tag -> tag.setAnimal(animal).setFluid(TFCFluids.LIMEWATER.getName())));
@@ -70,11 +69,10 @@ public class ItemFreshSkin extends ItemSkin {
         }
 
         float saltedModifier = tag.isSalted() ? 0.25f : 1f;
-        float smokedModifier = tag.isSmoked() ? 0.5f : 1f;
         float stageModifier = getSkinProcessingStageDecayMultiplier(itemStack);
         float fluidModifier = getFluidDecayMultiplier(itemStack);
 
-        return super.getDecayRate(itemStack) * saltedModifier * smokedModifier * stageModifier * fluidModifier;
+        return super.getDecayRate(itemStack) * saltedModifier * stageModifier * fluidModifier;
     }
 
     protected float getSkinProcessingStageDecayMultiplier(ItemStack itemStack) {
