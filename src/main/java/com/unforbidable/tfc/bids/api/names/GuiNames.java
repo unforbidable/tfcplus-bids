@@ -11,4 +11,6 @@ public interface GuiNames {
 
     String WOODWORKING = "Woodworking";
 
+    String SKIN = "Skin";
+
 }

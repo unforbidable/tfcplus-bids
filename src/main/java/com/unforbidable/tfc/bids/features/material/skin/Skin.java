@@ -2,12 +2,15 @@ package com.unforbidable.tfc.bids.features.material.skin;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.names.GuiNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
+import com.unforbidable.tfc.bids.features.material.skin.container.ContainerSpecialCraftingSkin;
+import com.unforbidable.tfc.bids.features.material.skin.gui.GuiKnappingSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemDehairedSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFinishedSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFreshSkin;
@@ -41,6 +44,8 @@ public class Skin extends Feature {
             .apply(i -> i.setSpecialCraftingItem(TFCItems.flatHide));
         init.item(ItemNames.LEATHER, ItemFinishedSkin::new)
             .apply(i -> i.setSpecialCraftingItem(TFCItems.flatLeather));
+
+        init.gui(GuiNames.SKIN, ContainerSpecialCraftingSkin::new);
     }
 
     @SideOnly(Side.CLIENT)
@@ -55,5 +60,7 @@ public class Skin extends Feature {
             .item(BidsItems.dehairedSkin)
             .item(BidsItems.rawhide)
             .item(BidsItems.leather);
+
+        client.gui(GuiNames.SKIN, GuiKnappingSkin::new);
     }
 }
