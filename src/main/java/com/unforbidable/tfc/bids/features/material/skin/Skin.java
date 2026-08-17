@@ -2,18 +2,26 @@ package com.unforbidable.tfc.bids.features.material.skin;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.meta.MoreHideMeta;
 import com.unforbidable.tfc.bids.api.names.GuiNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
+import com.unforbidable.tfc.bids.api.util.nbt.SkinTagAccess;
+import com.unforbidable.tfc.bids.compat.tfc.meta.RepairPatchMeta;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
+import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.material.skin.container.ContainerSpecialCraftingSkin;
+import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinCuttingRecipe;
+import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinMergingRecipe;
+import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinShearingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.gui.GuiKnappingSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemDehairedSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFinishedSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFreshSkin;
+import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
 import com.unforbidable.tfc.bids.features.material.skin.render.SkinItemRenderer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -63,4 +71,64 @@ public class Skin extends Feature {
 
         client.gui(GuiNames.SKIN, GuiKnappingSkin::new);
     }
+
+    @Override
+    public void setup(FeatureSetupBuilder setup) {
+        setup.recipes()
+            .add(new SkinCuttingRecipe(SkinHelper.createStack(BidsItems.genericFur, SkinTagAccess.STAGE_PRESERVED),
+                "itemKnife", TFCItems.furScrap, null, new ItemStack(TFCItems.repairPatch, 1, RepairPatchMeta.FUR)))
+            .action(cutSkin())
+            .action(damageTool("itemKnife"));
+
+        setup.recipes()
+            .add(new SkinCuttingRecipe(SkinHelper.createStack(BidsItems.wolfFur, SkinTagAccess.STAGE_PRESERVED),
+                "itemKnife", TFCItems.wolfFurScrap, null, new ItemStack(TFCItems.repairPatch, 1, RepairPatchMeta.WOLF_FUR)))
+            .action(cutSkin())
+            .action(damageTool("itemKnife"));
+
+        setup.recipes()
+            .add(new SkinCuttingRecipe(SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_PRESERVED),
+                "itemKnife", TFCItems.bearFurScrap, null, new ItemStack(TFCItems.repairPatch, 1, RepairPatchMeta.BEAR_FUR)))
+            .action(cutSkin())
+            .action(damageTool("itemKnife"));
+
+        setup.recipes()
+            .add(new SkinCuttingRecipe(SkinHelper.createStack(BidsItems.rawhide),
+                "itemKnife", TFCItems.hide, new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.VERY_SMALL_HIDE), null))
+            .action(cutSkin())
+            .action(damageTool("itemKnife"));
+
+        setup.recipes()
+            .add(new SkinCuttingRecipe(SkinHelper.createStack(BidsItems.leather),
+                "itemKnife", null, null, new ItemStack(TFCItems.leather), null, new ItemStack(TFCItems.repairPatch, 1, RepairPatchMeta.LEATHER)))
+            .action(cutSkin())
+            .action(damageTool("itemKnife"));
+
+        setup.recipes()
+            .add(new SkinShearingRecipe(SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_PRESERVED),
+                "itemKnife", SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_PRESERVED, tag -> tag.setAnimal("sheepTFC"))))
+            .action(shearSkin(new ItemStack(TFCItems.wool)))
+            .action(damageTool("itemKnife"));
+
+        setup.recipes()
+            .add(new SkinMergingRecipe(SkinHelper.createStack(BidsItems.leather),
+                null, SkinHelper.SKIN_MAX_WEIGHT));
+
+        setup.recipes()
+            .add(new SkinMergingRecipe(SkinHelper.createStack(BidsItems.rawhide),
+                null, SkinHelper.WEIGHT_MEDIUM - 0.01f));
+
+        setup.recipes()
+            .add(new SkinMergingRecipe(SkinHelper.createStack(BidsItems.genericFur, SkinTagAccess.STAGE_PRESERVED),
+                null, SkinHelper.WEIGHT_MEDIUM - 0.01f));
+
+        setup.recipes()
+            .add(new SkinMergingRecipe(SkinHelper.createStack(BidsItems.wolfFur, SkinTagAccess.STAGE_PRESERVED),
+                null, SkinHelper.WEIGHT_MEDIUM - 0.01f));
+
+        setup.recipes()
+            .add(new SkinMergingRecipe(SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_PRESERVED),
+                null, SkinHelper.WEIGHT_MEDIUM - 0.01f));
+    }
+
 }
