@@ -8,8 +8,6 @@ import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
-import com.unforbidable.tfc.bids.features.material.skin.item.ItemSkin;
-import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,18 +66,9 @@ public class ProcessingNeiHandler extends TemplateRecipeHandler implements IHand
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getResult(input);
             if (result.getItem() == output2.getItem() && result.getItemDamage() == output2.getItemDamage()) {
-                if (result.getItem() instanceof ItemSkin && output.getItem() instanceof ItemSkin) {
-                    List<ItemStack> tools = OreDictionary.getOres(recipe.getToolOreName(), false);
-                    List<ItemStack> blocks = OreDictionary.getOres(recipe.getSurfaceBlockOreName(), false);
-                    ItemStack input2 = input.copy();
-                    SkinTag.of(input2).setAnimal(SkinTag.of(output2).getAnimal());
-                    SkinTag.of(input2).setWeight(SkinTag.of(output2).getWeight());
-                    arecipes.add(new CachedProcessingSurfaceRecipe(input2, output2, tools, blocks));
-                } else {
-                    List<ItemStack> tools = OreDictionary.getOres(recipe.getToolOreName(), false);
-                    List<ItemStack> blocks = OreDictionary.getOres(recipe.getSurfaceBlockOreName(), false);
-                    arecipes.add(new CachedProcessingSurfaceRecipe(input, output2, tools, blocks));
-                }
+                List<ItemStack> tools = OreDictionary.getOres(recipe.getToolOreName(), false);
+                List<ItemStack> blocks = OreDictionary.getOres(recipe.getSurfaceBlockOreName(), false);
+                arecipes.add(new CachedProcessingSurfaceRecipe(input, result, tools, blocks));
             }
         }
     }
@@ -88,8 +77,8 @@ public class ProcessingNeiHandler extends TemplateRecipeHandler implements IHand
     public void loadUsageRecipes(ItemStack ingredient) {
         for (ProcessingSurfaceRecipe recipe : ProcessingSurfaceRegistry.recipes) {
             if (recipe.matchesInput(ingredient)) {
-                final ItemStack input = ingredient.copy();
-                final ItemStack result = recipe.getResult(input);
+                final ItemStack input = recipe.getInput();
+                final ItemStack result = recipe.getResult(ingredient);
                 List<ItemStack> tools = OreDictionary.getOres(recipe.getToolOreName(), false);
                 List<ItemStack> blocks = OreDictionary.getOres(recipe.getSurfaceBlockOreName(), false);
                 arecipes.add(new CachedProcessingSurfaceRecipe(input, result, tools, blocks));
