@@ -97,4 +97,17 @@ public class ItemFreshSkin extends ItemSkin {
         return 1f;
     }
 
+    @Override
+    protected String getSurfaceIconBaseName(ItemStack itemStack) {
+        SkinTag tag = SkinTag.of(itemStack);
+        if (tag.isStage("") || tag.isStage(SkinTagAccess.STAGE_FLESHED) || tag.isStage(SkinTagAccess.STAGE_DEHAIRED)) {
+            // Same icon for all skins for fleshing
+            // as it looks the same from the flesh side
+            // Dehaired skin looks the same from the hair side as well
+            return "Skin";
+        }
+
+        return super.getSurfaceIconBaseName(itemStack);
+    }
+
 }

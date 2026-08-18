@@ -2,6 +2,8 @@ package com.unforbidable.tfc.bids.features.material.skin;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.features.processing.SkinProcessingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.meta.MoreHideMeta;
 import com.unforbidable.tfc.bids.api.names.GuiNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
@@ -14,6 +16,7 @@ import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.material.skin.container.ContainerSpecialCraftingSkin;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinCuttingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinMergingRecipe;
@@ -139,6 +142,40 @@ public class Skin extends Feature {
         setup.recipes()
             .add(new SkinMergingRecipe(SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_PRESERVED),
                 null, SkinHelper.WEIGHT_MEDIUM - 0.01f));
+
+        setup.registry(ProcessingSurfaceRegistry.recipes)
+            .add(new SkinProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.genericFur),
+                SkinHelper.createStack(BidsItems.genericFur, SkinTagAccess.STAGE_FLESHED),
+                "itemScrapingTool", "blockScrapingSurface", 4f))
+            .add(new SkinProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.genericSkin),
+                SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_FLESHED),
+                "itemScrapingTool", "blockScrapingSurface", 4f))
+            .add(new SkinProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.sheepSkin),
+                SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_FLESHED),
+                "itemScrapingTool", "blockScrapingSurface", 4f))
+            .add(new SkinProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.wolfFur),
+                SkinHelper.createStack(BidsItems.wolfFur, SkinTagAccess.STAGE_FLESHED),
+                "itemScrapingTool", "blockScrapingSurface", 4f))
+            .add(new SkinProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.bearFur),
+                SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_FLESHED),
+                "itemScrapingTool", "blockScrapingSurface", 4f));
+
+        setup.registry(ProcessingSurfaceRegistry.recipes)
+            .add(new SkinProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.genericFur, SkinTagAccess.STAGE_PREPARED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
+                "itemScrapingTool", "blockScrapingSurface", 6f))
+            .add(new SkinProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_PREPARED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
+                "itemScrapingTool", "blockScrapingSurface", 2f))
+            .add(new SkinProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_PREPARED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("sheepTFC")),
+                "itemScrapingTool", "blockScrapingSurface", 8f))
+            .add(new SkinProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.wolfFur, SkinTagAccess.STAGE_PREPARED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("wolfTFC")),
+                "itemScrapingTool", "blockScrapingSurface", 8f))
+            .add(new SkinProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_PREPARED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("bearTFC")),
+                "itemScrapingTool", "blockScrapingSurface", 10f));
     }
 
 }

@@ -11,6 +11,7 @@ import com.dunk.tfc.api.TFCOptions;
 import com.dunk.tfc.api.Util.Helper;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.features.surfaceitem.ItemSurfaceIconAccessor;
 import com.unforbidable.tfc.bids.api.names.GuiNames;
 import com.unforbidable.tfc.bids.api.util.nbt.SkinTagAccess;
 import com.unforbidable.tfc.bids.common.item.ItemFoodLike;
@@ -30,9 +31,10 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingAccessor {
+public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingAccessor, ItemSurfaceIconAccessor {
 
     private Item specialCraftingItem;
+    private String surfaceIconName;
 
     public ItemSkin() {
         setMaxStackSize(1);
@@ -256,6 +258,33 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
     @Override
     public ItemStack[] loadBagInventory(ItemStack itemStack) {
         return null;
+    }
+
+    @Override
+    public void setSurfaceIconName(String surfaceIconName) {
+        this.surfaceIconName = surfaceIconName;
+    }
+
+    @Override
+    public String getSurfaceIconName(ItemStack itemStack) {
+        if (surfaceIconName != null) {
+            return surfaceIconName;
+        } else {
+            return Tags.MOD_ID + ":surface/skin/" + getSurfaceIconBaseName(itemStack) + "." + getSurfaceIconStageName(itemStack);
+        }
+    }
+
+    protected String getSurfaceIconBaseName(ItemStack itemStack) {
+        return itemStack.getUnlocalizedName().replace("item.", "");
+    }
+
+    protected String getSurfaceIconStageName(ItemStack itemStack) {
+        String stage = SkinTag.of(itemStack).getStage();
+        if (stage == null || stage.isEmpty()) {
+            return "Fresh";
+        } else {
+            return stage.substring(0, 1).toUpperCase() + stage.substring(1);
+        }
     }
 
 }
