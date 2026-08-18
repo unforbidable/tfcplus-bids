@@ -45,6 +45,15 @@ public class FoodTag extends ItemTag {
         return this;
     }
 
+    public int getDecayTimer() {
+        return Food.getDecayTimer(stack());
+    }
+
+    public FoodTag setDecayTimer(int value) {
+        Food.setDecayTimer(stack(), value);
+        return this;
+    }
+
     public boolean isSalted() {
         return Food.isSalted(stack());
     }

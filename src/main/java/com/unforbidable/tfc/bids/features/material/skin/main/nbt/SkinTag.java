@@ -59,4 +59,8 @@ public class SkinTag extends FoodTag {
         return access.getFluid().length() > 0;
     }
 
+    public boolean isFluid(String value) {
+        return value.equals(getFluid());
+    }
+
 }

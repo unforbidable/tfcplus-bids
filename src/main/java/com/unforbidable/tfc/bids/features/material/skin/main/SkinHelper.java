@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.features.material.skin.main;
 
+import com.unforbidable.tfc.bids.features.material.skin.item.ItemSkin;
 import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
 import com.unforbidable.tfc.bids.util.nbt.ItemTag;
 import net.minecraft.item.Item;
@@ -56,6 +57,16 @@ public class SkinHelper {
 
     public static ItemStack createStack(Item item, String stage, Consumer<SkinTag> apply) {
         return ItemTag.create(new ItemStack(item), SkinTag::new, tag -> { tag.setStage(stage); apply.accept(tag); });
+    public static boolean areItemStacksEqual(ItemStack result, ItemStack output) {
+        if (result.getItem() instanceof ItemSkin) {
+            SkinTag resultTag = SkinTag.of(result);
+            SkinTag outputTag = SkinTag.of(output);
+            return result.getItem() == output.getItem() &&
+                result.getItemDamage() == output.getItemDamage() &&
+                resultTag.isStage(outputTag.getStage());
+        } else {
+            return ItemStack.areItemStacksEqual(result, output);
+        }
     }
 
 }
