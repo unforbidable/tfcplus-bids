@@ -7,12 +7,9 @@ import com.unforbidable.tfc.bids.api.util.nbt.SkinTagAccess;
 import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
 import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
 import java.util.List;
-import java.util.Locale;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 
 public class ItemFreshSkin extends ItemSkin {
 
@@ -92,11 +89,9 @@ public class ItemFreshSkin extends ItemSkin {
 
     protected float getFluidDecayMultiplier(ItemStack itemStack) {
         SkinTag tag = SkinTag.of(itemStack);
-        if (tag.hasFluid() && (tag.isStage(SkinTagAccess.STAGE_PREPARED) || tag.isStage(SkinTagAccess.STAGE_DEHAIRED))) {
-            Fluid fluid = FluidRegistry.getFluid(tag.getFluid().toLowerCase(Locale.ENGLISH));
-            if (fluid == TFCFluids.LIMEWATER || fluid == BidsFluids.weakWoodAshLye) {
-                return 1f / 8;
-            }
+        if ((tag.isStage(SkinTagAccess.STAGE_PREPARED) || tag.isStage(SkinTagAccess.STAGE_DEHAIRED)) &&
+            (tag.isFluid(TFCFluids.LIMEWATER.getName()) || tag.isFluid(BidsFluids.weakWoodAshLye.getName()))) {
+            return 1f / 8;
         }
 
         return 1f;
