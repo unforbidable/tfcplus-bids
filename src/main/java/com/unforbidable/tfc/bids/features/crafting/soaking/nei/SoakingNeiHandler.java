@@ -67,13 +67,11 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
     @Override
     public void loadCraftingRecipes(ItemStack output) {
         for (SoakingSurfaceRecipe recipe : SoakingSurfaceRegistry.recipes) {
-            final ItemStack output2 = output.copy();
-            output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getResult(input);
-            if (ItemStack.areItemStacksEqual(result, output2)) {
+            if (result.getItem() == output.getItem() && result.getItemDamage() == output.getItemDamage()) {
                 List<ItemStack> blocks = SoakingSurfaceHelper.getBlocksForFluid(recipe.getFluid());
-                arecipes.add(new CachedSoakingSurfaceRecipe(input, output2, blocks, recipe.getTicks()));
+                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, blocks, recipe.getTicks()));
             }
         }
     }
@@ -82,7 +80,7 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
     public void loadUsageRecipes(ItemStack ingredient) {
         for (SoakingSurfaceRecipe recipe : SoakingSurfaceRegistry.recipes) {
             if (recipe.matchesInput(ingredient)) {
-                final ItemStack input = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
+                final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
                 List<ItemStack> blocks = SoakingSurfaceHelper.getBlocksForFluid(recipe.getFluid());
                 arecipes.add(new CachedSoakingSurfaceRecipe(input, result, blocks, recipe.getTicks()));
