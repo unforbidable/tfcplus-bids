@@ -324,28 +324,6 @@ public class Textile extends Feature {
                 .build());
 
         setup.registry(TfcRegistry.Barrel.recipes)
-            .add(BarrelRecipe.add(builder -> builder
-                .consumes(new ItemStack(TFCItems.sisalFiber), new FluidStack(TFCFluids.FRESHWATER, 100))
-                .produces(new ItemStack(BidsItems.sisalFiberRinsed), new FluidStack(TFCFluids.FRESHWATER, 100))
-                .withSealTime(0).withMinTechLevel(0).beingSealed(false)))
-            .add(BarrelRecipe.add(builder -> builder
-                .consumes(new ItemStack(BidsItems.juteStalk), new FluidStack(TFCFluids.FRESHWATER, 200))
-                .produces(new ItemStack(BidsItems.juteStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200))
-                .withMinTechLevel(0).beingSealed(false)))
-            .add(BarrelRecipe.add(builder -> builder
-                .consumes(new ItemStack(BidsItems.flaxStalk), new FluidStack(TFCFluids.FRESHWATER, 200))
-                .produces(new ItemStack(BidsItems.flaxStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200))
-                .withMinTechLevel(0).beingSealed(false)))
-            .add(BarrelRecipe.add(builder -> builder
-                .consumes(new ItemStack(TFCItems.wool), new FluidStack(TFCFluids.FRESHWATER, 200))
-                .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 200))
-                .withSealTime(16).withMinTechLevel(0).beingSealed(false)))
-            .add(BarrelRecipe.add(builder -> builder
-                .consumes(new ItemStack(BidsItems.woolWashed), new FluidStack(TFCFluids.FRESHWATER, 100))
-                .produces(new ItemStack(BidsItems.woolRinsed), new FluidStack(TFCFluids.FRESHWATER, 100))
-                .withSealTime(0).withMinTechLevel(0).beingSealed(false)));
-
-        setup.registry(TfcRegistry.Barrel.recipes)
             .add(BarrelRecipe.addMultiItem(builder -> builder
                 .consumes(new ItemStack(BidsItems.sisalTwine), new FluidStack(TFCFluids.WAX, 200))
                 .produces(new ItemStack(TFCBlocks.candleOff), new FluidStack(TFCFluids.WAX, 200))

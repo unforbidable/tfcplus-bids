@@ -13,7 +13,6 @@ import com.unforbidable.tfc.bids.api.features.handwork.SpinningRecipe;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingRecipe;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
-import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.LoomRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -98,12 +97,6 @@ public class Nettle extends Feature {
 
         setup.registry(HecklingRegistry.recipes)
             .add(new HecklingRecipe(new ItemStack(BidsItems.nettleFiberCoarse), new ItemStack(BidsItems.nettleFiberRefined), 80));
-
-        setup.registry(TfcRegistry.Barrel.recipes)
-            .add(BarrelRecipe.add(builder -> builder
-                .consumes(new ItemStack(BidsItems.nettleStalk), new FluidStack(TFCFluids.FRESHWATER, 200))
-                .produces(new ItemStack(BidsItems.nettleStalkRetted), new FluidStack(TFCFluids.FRESHWATER, 200))
-                .withMinTechLevel(0).beingSealed(false)));
 
         setup.registry(TfcRegistry.Loom.recipes)
             .add(LoomRecipe.add(new ItemStack(BidsItems.nettleTwine, 24), new ItemStack(TFCItems.burlapCloth, 1),

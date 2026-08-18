@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.compat.tfc;
 
+import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
@@ -25,6 +26,7 @@ import com.unforbidable.tfc.bids.core.crafting.RecipeManagerSession;
 import com.unforbidable.tfc.bids.core.drink.DrinkRegistry;
 import com.unforbidable.tfc.bids.core.drink.registry.DrinkFluid;
 import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingRegistry;
 import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrepRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -247,6 +249,17 @@ public class TfcSetup {
             .consumes(new FluidStack(TFCFluids.FRESHWATER, 4500), new FluidStack(TFCFluids.HONEY, 500))
             .produces(new FluidStack(TFCFluids.HONEYWATER, 5000))
             .withSealTime(0).withMinTechLevel(0).beingSealed(false).removingLiquid(false)));
+
+        SoakingRegistry.recipes.stream()
+            .filter(recipe -> !recipe.requiresHeat && !recipe.importedFromTfc)
+            .forEach(recipe -> {
+                TfcRegistry.Barrel.recipes.add(BarrelRecipe.add(builder -> builder
+                    .consumes(recipe.input, recipe.fluid)
+                    .produces(recipe.output, recipe.fluid)
+                    .withSealTime((int) (recipe.ticks / TFC_Time.HOUR_LENGTH))
+                    .withMinTechLevel(0)
+                    .beingSealed(false)));
+            });
     }
 
     public static void setupYeastFood() {
