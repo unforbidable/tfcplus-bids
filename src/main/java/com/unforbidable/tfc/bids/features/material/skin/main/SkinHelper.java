@@ -24,39 +24,41 @@ public class SkinHelper {
 
 
     public static ItemStack createTag(ItemStack itemStack, Consumer<SkinTag> apply) {
-        return ItemTag.create(itemStack, SkinTag::new, apply);
+        return ItemTag.create(itemStack, SkinTag::new, tag -> { tag.setWeight(SKIN_MAX_WEIGHT); apply.accept(tag); });
     }
 
     public static ItemStack createTag(ItemStack itemStack) {
-        return ItemTag.create(itemStack, SkinTag::new, tag -> {});
+        return createTag(itemStack, tag -> {});
     }
 
     public static ItemStack createStack(Item item) {
-        return ItemTag.create(new ItemStack(item), SkinTag::new, tag -> {});
+        return createTag(new ItemStack(item));
     }
 
     public static ItemStack createStack(Item item, float weight) {
-        return ItemTag.create(new ItemStack(item), SkinTag::new, tag -> tag.setWeight(weight));
+        return createTag(new ItemStack(item), tag -> tag.setWeight(weight));
     }
 
     public static ItemStack createStack(Item item, float weight, Consumer<SkinTag> apply) {
-        return ItemTag.create(new ItemStack(item), SkinTag::new, tag -> { tag.setWeight(weight); apply.accept(tag); });
+        return createTag(new ItemStack(item), tag -> { tag.setWeight(weight); apply.accept(tag); });
     }
 
     public static ItemStack createStack(Item item, float weight, String stage) {
-        return ItemTag.create(new ItemStack(item), SkinTag::new, tag -> tag.setStage(stage).setWeight(weight));
+        return createTag(new ItemStack(item), tag -> tag.setStage(stage).setWeight(weight));
     }
 
     public static ItemStack createStack(Item item, float weight, String stage, Consumer<SkinTag> apply) {
-        return ItemTag.create(new ItemStack(item), SkinTag::new, tag -> { tag.setStage(stage).setWeight(weight); apply.accept(tag); });
+        return createTag(new ItemStack(item), tag -> { tag.setStage(stage).setWeight(weight); apply.accept(tag); });
     }
 
     public static ItemStack createStack(Item item, String stage) {
-        return ItemTag.create(new ItemStack(item), SkinTag::new, tag -> tag.setStage(stage));
+        return createTag(new ItemStack(item), tag -> tag.setStage(stage));
     }
 
     public static ItemStack createStack(Item item, String stage, Consumer<SkinTag> apply) {
-        return ItemTag.create(new ItemStack(item), SkinTag::new, tag -> { tag.setStage(stage); apply.accept(tag); });
+        return createTag(new ItemStack(item), tag -> { tag.setStage(stage); apply.accept(tag); });
+    }
+
     public static boolean areItemStacksEqual(ItemStack result, ItemStack output) {
         if (result.getItem() instanceof ItemSkin) {
             SkinTag resultTag = SkinTag.of(result);
