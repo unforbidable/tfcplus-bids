@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.features.surfaceitem.ItemSurfaceIconAccessor;
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceConfig;
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
 import java.lang.reflect.Field;
@@ -20,24 +21,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class ProcessingSurfaceHelper {
 
     private static final Map<String, IIcon> icons = new HashMap<String, IIcon>();
 
     public static IIcon getIconForItem(ItemStack itemStack) {
-        String key = getItemKey(itemStack);
+        String key = getIconName(itemStack);
         if (icons.containsKey(key)) {
             return icons.get(key);
         } else {
-            ItemStack itemStackWild = new ItemStack(itemStack.getItem(), 1, OreDictionary.WILDCARD_VALUE);
-            String keyWild = getItemKey(itemStackWild);
-            if (icons.containsKey(keyWild)) {
-                return icons.get(keyWild);
-            } else {
-                return TFC_Textures.invisibleTexture;
-            }
+            return TFC_Textures.invisibleTexture;
         }
     }
 
@@ -82,8 +76,10 @@ public class ProcessingSurfaceHelper {
         String blockIconName = getIconName(itemStack);
         Bids.LOG.info("Surface block texture {} will be used for item {}", blockIconName, itemStack);
 
-        IIcon icon = registerer.registerIcon(blockIconName);
-        icons.put(getItemKey(itemStack), icon);
+        if (!icons.containsKey(blockIconName)) {
+            IIcon icon = registerer.registerIcon(blockIconName);
+            icons.put(blockIconName, icon);
+        }
     }
 
     public static int getOrientation(EntityPlayer player) {
@@ -92,20 +88,27 @@ public class ProcessingSurfaceHelper {
     }
 
     private static String getIconName(ItemStack itemStack) {
-        String itemIconName = itemStack.getItem().getUnlocalizedName().replace("item.", "");
-        String blockIconName = getDefaultBlockIconName(itemIconName);
+        String blockIconName = getBlockIconName(itemStack);
         return BidsEventFactory.onSurfaceItemIcon(itemStack, blockIconName);
     }
 
-    private static String getDefaultBlockIconName(String itemIconName) {
+    private static String getBlockIconName(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof ItemSurfaceIconAccessor) {
+            String iconName = ((ItemSurfaceIconAccessor) itemStack.getItem()).getSurfaceIconName(itemStack);
+            if (iconName != null) {
+                return iconName;
+            }
+        }
+
+        return getDefaultBlockIconName(itemStack);
+    }
+
+    private static String getDefaultBlockIconName(ItemStack itemStack) {
+        String itemIconName = itemStack.getItem().getUnlocalizedName().replace("item.", "");
         int modPartEnd = itemIconName.indexOf(':');
         int filePartStart = itemIconName.lastIndexOf('/');
         String filePart = filePartStart < 0 ? itemIconName.substring(modPartEnd + 1) : itemIconName.substring(filePartStart + 1);
         return Tags.MOD_ID + ":surface/" + filePart;
-    }
-
-    private static String getItemKey(ItemStack itemStack) {
-        return itemStack.getUnlocalizedName() + "@" + itemStack.getItemDamage();
     }
 
     public static ProcessingSurfaceRecipe findMatchingRecipe(ItemStack input, World world, int x, int y, int z) {
