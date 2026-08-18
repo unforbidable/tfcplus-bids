@@ -59,6 +59,22 @@ public class ItemFreshSkin extends ItemSkin {
     }
 
     @Override
+    public int getDamage(ItemStack itemStack) {
+        SkinTag tag = SkinTag.of(itemStack);
+        if (tag.isStage(SkinTagAccess.STAGE_FLESHED)) {
+            return 1;
+        } else if (tag.isStage(SkinTagAccess.STAGE_CLEAN)) {
+            return 2;
+        } else if (tag.isStage(SkinTagAccess.STAGE_PREPARED)) {
+            return 3;
+        } else if (tag.isStage(SkinTagAccess.STAGE_PRESERVED)) {
+            return 9;
+        }
+
+        return 0;
+    }
+
+    @Override
     public float getDecayRate(ItemStack itemStack) {
         SkinTag tag = SkinTag.of(itemStack);
         if (tag.isStage(SkinTagAccess.STAGE_PRESERVED)) {

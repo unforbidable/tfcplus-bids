@@ -8,13 +8,11 @@ import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
+import com.unforbidable.tfc.bids.features.material.skin.item.ItemSkin;
+import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
-import com.unforbidable.tfc.bids.features.device.processingsurface.main.ProcessingSurfaceHelper;
-import com.unforbidable.tfc.bids.features.material.skin.item.ItemSkin;
-import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
-import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -69,17 +67,15 @@ public class ProcessingNeiHandler extends TemplateRecipeHandler implements IHand
             output2.stackSize = 1;
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getResult(input);
-            if (result.getItem() instanceof ItemSkin) {
-                if (SkinHelper.areItemStacksEqual(result, output2)) {
+            if (result.getItem() == output2.getItem() && result.getItemDamage() == output2.getItemDamage()) {
+                if (result.getItem() instanceof ItemSkin && output.getItem() instanceof ItemSkin) {
                     List<ItemStack> tools = OreDictionary.getOres(recipe.getToolOreName(), false);
                     List<ItemStack> blocks = OreDictionary.getOres(recipe.getSurfaceBlockOreName(), false);
                     ItemStack input2 = input.copy();
                     SkinTag.of(input2).setAnimal(SkinTag.of(output2).getAnimal());
                     SkinTag.of(input2).setWeight(SkinTag.of(output2).getWeight());
                     arecipes.add(new CachedProcessingSurfaceRecipe(input2, output2, tools, blocks));
-                }
-            } else {
-                if (ItemStack.areItemStacksEqual(result, output2)) {
+                } else {
                     List<ItemStack> tools = OreDictionary.getOres(recipe.getToolOreName(), false);
                     List<ItemStack> blocks = OreDictionary.getOres(recipe.getSurfaceBlockOreName(), false);
                     arecipes.add(new CachedProcessingSurfaceRecipe(input, output2, tools, blocks));

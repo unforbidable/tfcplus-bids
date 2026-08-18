@@ -1,26 +1,18 @@
 package com.unforbidable.tfc.bids.api.features.processing;
 
 import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
-import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public abstract class ProcessingSurfaceEvent extends Event {
+public abstract class ProcessingSurfaceEvent extends ProcessingEvent {
 
     public final TileEntityProcessingSurface tileEntity;
-    public final ItemStack input;
-    public final ItemStack result;
     public final ItemStack tool;
-    public final EntityPlayer player;
-    public final float effort;
 
-    public ProcessingSurfaceEvent(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float effort) {
+    public ProcessingSurfaceEvent(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player) {
+        super(input, result, player);
         this.tileEntity = tileEntity;
-        this.input = input;
-        this.result = result;
         this.tool = tool;
-        this.player = player;
-        this.effort = effort;
     }
 
     public static class ToolEfficiencyCheck extends ProcessingSurfaceEvent {
@@ -28,22 +20,38 @@ public abstract class ProcessingSurfaceEvent extends Event {
         public final float originalEfficiency;
         public float newEfficiency;
 
-        public ToolEfficiencyCheck(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float effort, float originalEfficiency) {
-            super(tileEntity, input, result, tool, player, effort);
+        public ToolEfficiencyCheck(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float originalEfficiency) {
+            super(tileEntity, input, result, tool, player);
 
             this.originalEfficiency = originalEfficiency;
             newEfficiency = originalEfficiency;
         }
     }
 
+    public static class EffortCheck extends ProcessingSurfaceEvent {
+
+        public final float originalEffort;
+        public float newEffort;
+
+        public EffortCheck(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float originalEffort) {
+            super(tileEntity, input, result, tool, player);
+
+            this.originalEffort = originalEffort;
+            newEffort = originalEffort;
+        }
+
+    }
+
     public static class Progress extends ProcessingSurfaceEvent {
 
         public final float progress;
+        public final float effort;
 
-        public Progress(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float effort, float progress) {
-            super(tileEntity, input, result, tool, player, effort);
+        public Progress(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float progress, float effort) {
+            super(tileEntity, input, result, tool, player);
 
             this.progress = progress;
+            this.effort = effort;
         }
     }
 

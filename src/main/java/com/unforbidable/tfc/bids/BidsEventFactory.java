@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.api.features.firestarting.FireStartingEvent;
 import com.unforbidable.tfc.bids.api.features.handwork.HandworkPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
 import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
+import com.unforbidable.tfc.bids.api.features.processing.ProcessingEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.api.features.threshing.ThreshingPlayerEvent;
@@ -64,14 +65,25 @@ public class BidsEventFactory {
         MinecraftForge.EVENT_BUS.post(event);
     }
 
-    public static float onProcessingSurfaceToolEfficiencyCheck(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float effort, float originalEfficiency) {
-        ProcessingSurfaceEvent.ToolEfficiencyCheck event = new ProcessingSurfaceEvent.ToolEfficiencyCheck(tileEntity, input, result, tool, player, effort, originalEfficiency);
+    public static float onProcessingSurfaceToolEfficiencyCheck(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float originalEfficiency) {
+        ProcessingSurfaceEvent.ToolEfficiencyCheck event = new ProcessingSurfaceEvent.ToolEfficiencyCheck(tileEntity, input, result, tool, player, originalEfficiency);
         MinecraftForge.EVENT_BUS.post(event);
         return event.newEfficiency;
     }
 
-    public static void onProcessingSurfaceProgress(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float effort, float progress) {
-        ProcessingSurfaceEvent.Progress event = new ProcessingSurfaceEvent.Progress(tileEntity, input, result, tool, player, effort, progress);
+    public static float onProcessingSurfaceEffortCheck(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float originalEffort) {
+        ProcessingSurfaceEvent.EffortCheck event = new ProcessingSurfaceEvent.EffortCheck(tileEntity, input, result, tool, player, originalEffort);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.newEffort;
+    }
+
+    public static void onProcessingSurfaceProgress(TileEntityProcessingSurface tileEntity, ItemStack input, ItemStack result, ItemStack tool, EntityPlayer player, float progress, float effort) {
+        ProcessingSurfaceEvent.Progress event = new ProcessingSurfaceEvent.Progress(tileEntity, input, result, tool, player, progress, effort);
+        MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static void onProcessingItemCrafted(ItemStack input, ItemStack result, EntityPlayer player) {
+        ProcessingEvent.ItemCrafted event = new ProcessingEvent.ItemCrafted(input, result, player);
         MinecraftForge.EVENT_BUS.post(event);
     }
 

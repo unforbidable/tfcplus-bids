@@ -44,6 +44,16 @@ public class ItemDehairedSkin extends ItemFreshSkin {
     }
 
     @Override
+    public int getDamage(ItemStack itemStack) {
+        SkinTag tag = SkinTag.of(itemStack);
+        if (tag.isStage(SkinTagAccess.STAGE_TANNED)) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    @Override
     protected void addSkinProcessingStageShiftInformation(ItemStack itemStack, EntityPlayer player, List<String> list) {
         SkinTag tag = SkinTag.of(itemStack);
         if (tag.isStage(SkinTagAccess.STAGE_DEHAIRED)) {

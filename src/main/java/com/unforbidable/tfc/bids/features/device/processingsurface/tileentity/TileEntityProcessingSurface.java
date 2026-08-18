@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import java.util.Random;
 
 public class TileEntityProcessingSurface extends TileEntity implements PacketHandler<SimpleUpdatePacket> {
 
@@ -38,6 +39,8 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
     boolean clientNeedToUpdate = true;
 
     private ProcessingSurfaceRecipe cachedRecipe = null;
+
+    private final Random toolDamageFractionRandom = new Random();
 
     public ItemStack getInputItem() {
         return inputItem;
@@ -70,26 +73,43 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
         if (!isWorkDone()) {
             ProcessingSurfaceRecipe recipe = getCurrentRecipe();
             if (recipe != null && recipe.matchesTool(player.getHeldItem())) {
+                // Effort from recipe
+                float originalEffort = recipe.getEffort(inputItem);
+                // and it can be further modified in event
+                float newEffort = BidsEventFactory.onProcessingSurfaceEffortCheck(this, inputItem, resultItem, player.getHeldItem(), player, originalEffort);
                 // Efficiency is based on tool material
                 float originalEfficiency = ProcessingSurfaceHelper.getToolEfficiency(player.getHeldItem());
                 // and it can be further modified in event
-                float newEfficiency = BidsEventFactory.onProcessingSurfaceToolEfficiencyCheck(this, inputItem, resultItem, player.getHeldItem(), player, recipe.getEffort(inputItem), originalEfficiency);
+                float newEfficiency = BidsEventFactory.onProcessingSurfaceToolEfficiencyCheck(this, inputItem, resultItem, player.getHeldItem(), player, originalEfficiency);
                 if (newEfficiency > 0) {
                     float workAmount = newEfficiency * WORK_AMOUNT_PER_TOOL_EFFICIENCY;
 
                     float prevWorkCounter = workCounter;
-                    workCounter += workAmount;
+                    workCounter = Math.min(workCounter + (workAmount / newEffort), DEFAULT_MAX_WORK);
 
-                    float progress = getWorkProgress();
-                    BidsEventFactory.onProcessingSurfaceProgress(this, inputItem, resultItem, player.getHeldItem(), player, recipe.getEffort(inputItem), progress);
+                    if (!worldObj.isRemote) {
+                        float progress = getWorkProgress();
+                        BidsEventFactory.onProcessingSurfaceProgress(this, inputItem, resultItem, player.getHeldItem(), player, progress, newEffort);
 
-                    int toolDamage = (int) Math.floor(workCounter) - (int) Math.floor(prevWorkCounter);
-                    if (toolDamage > 0) {
-                        player.getHeldItem().damageItem(toolDamage, player);
+                        if (progress == 1f) {
+                            BidsEventFactory.onProcessingItemCrafted(inputItem, resultItem, player);
+                        }
+
+                        if ((int) Math.floor(workCounter) > (int) Math.floor(prevWorkCounter)) {
+                            // tool damage can be less than one if effort is a fraction
+                            if (newEffort < 1) {
+                                // fractions should add up at random over time
+                                if (toolDamageFractionRandom.nextFloat() < newEffort) {
+                                    player.getHeldItem().damageItem(1, player);
+                                }
+                            } else {
+                                player.getHeldItem().damageItem(1, player);
+                            }
+                        }
                     }
 
                     if (worldObj.isRemote) {
-                        int visualProgress = (int) Math.floor(workCounter / recipe.getEffort(inputItem)) - (int) Math.floor(prevWorkCounter / recipe.getEffort(inputItem));
+                        int visualProgress = (int) Math.floor(workCounter) - (int) Math.floor(prevWorkCounter);
                         if (visualProgress > 0) {
                             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                         }
@@ -100,29 +120,19 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
     }
 
     public int getWorkCounter() {
-        ProcessingSurfaceRecipe recipe = getCurrentRecipe();
-        if (recipe != null) {
-            return (int) Math.floor(workCounter / recipe.getEffort(inputItem));
-        } else {
-            return (int) Math.floor(workCounter);
-        }
+        return (int) Math.floor(workCounter);
     }
 
     public float getWorkProgress() {
         if (isWorkDone()) {
             return 1f;
         } else {
-            return workCounter / getMaxWork();
+            return workCounter / DEFAULT_MAX_WORK;
         }
     }
 
     public boolean isWorkDone() {
-        return workCounter >= getMaxWork();
-    }
-
-    private float getMaxWork() {
-        ProcessingSurfaceRecipe recipe = getCurrentRecipe();
-        return recipe != null ? recipe.getEffort(inputItem) * DEFAULT_MAX_WORK : DEFAULT_MAX_WORK;
+        return workCounter >= DEFAULT_MAX_WORK;
     }
 
     public void onProcessingSurfaceBroken() {

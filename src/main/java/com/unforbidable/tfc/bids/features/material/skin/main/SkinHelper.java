@@ -59,16 +59,4 @@ public class SkinHelper {
         return createTag(new ItemStack(item), tag -> { tag.setStage(stage); apply.accept(tag); });
     }
 
-    public static boolean areItemStacksEqual(ItemStack result, ItemStack output) {
-        if (result.getItem() instanceof ItemSkin) {
-            SkinTag resultTag = SkinTag.of(result);
-            SkinTag outputTag = SkinTag.of(output);
-            return result.getItem() == output.getItem() &&
-                result.getItemDamage() == output.getItemDamage() &&
-                resultTag.isStage(outputTag.getStage());
-        } else {
-            return ItemStack.areItemStacksEqual(result, output);
-        }
-    }
-
 }
