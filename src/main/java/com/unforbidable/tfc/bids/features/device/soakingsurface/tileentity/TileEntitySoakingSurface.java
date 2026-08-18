@@ -155,7 +155,7 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
             SoakingSurfaceRecipe recipe = SoakingSurfaceHelper.findMatchingRecipe(storage[slot].soakingItem, worldObj, xCoord, yCoord + 1, zCoord);
             if (recipe != null) {
                 long elapsed = TFC_Time.getTotalTicks() - storage[slot].soakingStartTicks;
-                float ticksNeeded = recipe.getHours() * TFC_Time.HOUR_LENGTH * SoakingConfig.soakingDurationMultiplier;
+                float ticksNeeded = recipe.getTicks() * SoakingConfig.soakingDurationMultiplier;
                 float progress = elapsed > ticksNeeded ? 1 : elapsed / ticksNeeded;
                 float hoursRemaining = (ticksNeeded - elapsed) / TFC_Time.HOUR_LENGTH;
                 return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, recipe.getResult(storage[slot].soakingItem).copy(), progress, hoursRemaining);

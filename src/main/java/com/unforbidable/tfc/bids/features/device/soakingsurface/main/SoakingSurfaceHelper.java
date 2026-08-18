@@ -1,13 +1,16 @@
 package com.unforbidable.tfc.bids.features.device.soakingsurface.main;
 
 import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.features.soaking.SoakingRecipe;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.SoakingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.block.BlockSoakingSurface;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
 import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
 import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -15,6 +18,13 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidBlock;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class SoakingSurfaceHelper {
 
@@ -148,16 +158,37 @@ public class SoakingSurfaceHelper {
 
     public static SoakingSurfaceRecipe findMatchingRecipe(ItemStack input, World world, int x, int y, int z) {
         Block surfaceBlock = world.getBlock(x, y, z);
-        int surfaceBlockMetadata = world.getBlockMetadata(x, y, z);
-        ItemStack surface = new ItemStack(surfaceBlock, 1, surfaceBlockMetadata);
-
-        for (SoakingSurfaceRecipe recipe : SoakingSurfaceRegistry.recipes) {
-            if (recipe.matchesInput(input) && recipe.matchesSurface(surface)) {
-                return recipe;
+        if (surfaceBlock instanceof IFluidBlock) {
+            Fluid blockFluid = ((IFluidBlock) surfaceBlock).getFluid();
+            for (SoakingSurfaceRecipe recipe : SoakingSurfaceRegistry.recipes) {
+                if (recipe.matchesInput(input) && recipe.matchesFluid(blockFluid)) {
+                    return recipe;
+                }
             }
         }
 
         return null;
+    }
+
+    public static List<ItemStack> getBlocksForFluid(FluidStack fluid) {
+        List<ItemStack> list = new ArrayList<>();
+
+        for (Object o : Block.blockRegistry) {
+            Block block = (Block) o;
+            if (block instanceof IFluidBlock) {
+                Fluid blockFluid = ((IFluidBlock) block).getFluid();
+                if (blockFluid == fluid.getFluid()) {
+                    ItemStack is = new ItemStack(block);
+                    list.add(is);
+                }
+            }
+        }
+
+        return list;
+    }
+
+    public static SoakingSurfaceRecipe adaptSoakingRecipe(SoakingRecipe recipe) {
+        return new SoakingSurfaceRecipe(recipe.input, recipe.output, recipe.fluid, (int) (recipe.ticks * 1.5));
     }
 
 }

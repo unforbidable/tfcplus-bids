@@ -17,7 +17,7 @@ import com.unforbidable.tfc.bids.api.features.handwork.HecklingRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.RopeMakingRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.SpinningRecipe;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
-import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.features.soaking.SoakingRecipe;
 import com.unforbidable.tfc.bids.api.meta.TowMeta;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
@@ -38,14 +38,14 @@ import com.unforbidable.tfc.bids.features.crafting.drying.DryingRegistry;
 import com.unforbidable.tfc.bids.features.crafting.handwork.HandworkRegistry;
 import com.unforbidable.tfc.bids.features.crafting.heckling.HecklingRegistry;
 import com.unforbidable.tfc.bids.features.crafting.ropemaking.RopeMakingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingRegistry;
 import com.unforbidable.tfc.bids.features.crafting.spinning.SpinningRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
-import com.unforbidable.tfc.bids.features.device.soakingsurface.SoakingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.material.textile.eventhandler.TextileInteractEventHandler;
-import com.unforbidable.tfc.bids.features.material.textile.item.ItemTow;
 import com.unforbidable.tfc.bids.features.material.textile.item.ItemTextile;
+import com.unforbidable.tfc.bids.features.material.textile.item.ItemTow;
 import com.unforbidable.tfc.bids.features.material.textile.main.TextileHints;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -254,18 +254,18 @@ public class Textile extends Feature {
                 .hours(20)
                 .build());
 
-        setup.registry(SoakingSurfaceRegistry.recipes)
-            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.flaxStalk), new ItemStack(BidsItems.flaxStalkRetted),
-                "blockFreshWater", 20))
-            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.juteStalk), new ItemStack(BidsItems.juteStalkRetted),
-                "blockFreshWater", 20))
-            .add(new SoakingSurfaceRecipe(new ItemStack(TFCItems.sisalFiber), new ItemStack(BidsItems.sisalFiberRinsed),
-                "blockFreshWater", 0))
+        setup.registry(SoakingRegistry.recipes)
+            .add(new SoakingRecipe(new ItemStack(BidsItems.flaxStalk), new ItemStack(BidsItems.flaxStalkRetted),
+                new FluidStack(TFCFluids.FRESHWATER, 200), 8000))
+            .add(new SoakingRecipe(new ItemStack(BidsItems.juteStalk), new ItemStack(BidsItems.juteStalkRetted),
+                new FluidStack(TFCFluids.FRESHWATER, 200), 8000))
+            .add(new SoakingRecipe(new ItemStack(TFCItems.sisalFiber), new ItemStack(BidsItems.sisalFiberRinsed),
+                new FluidStack(TFCFluids.FRESHWATER, 200)))
             // Washing wool can be skipped however the wool needs to be rinsed for an extended period of time
-            .add(new SoakingSurfaceRecipe(new ItemStack(TFCItems.wool), new ItemStack(BidsItems.woolRinsed),
-                "blockFreshWater", 20))
-            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.woolWashed), new ItemStack(BidsItems.woolRinsed),
-                "blockFreshWater", 0));
+            .add(new SoakingRecipe(new ItemStack(TFCItems.wool), new ItemStack(BidsItems.woolRinsed),
+                new FluidStack(TFCFluids.FRESHWATER, 200), 8000))
+            .add(new SoakingRecipe(new ItemStack(BidsItems.woolWashed), new ItemStack(BidsItems.woolRinsed),
+                new FluidStack(TFCFluids.FRESHWATER, 200)));
 
         setup.registry(ProcessingSurfaceRegistry.recipes)
             .add(new ProcessingSurfaceRecipe(new ItemStack(BidsItems.flaxStalkDried), new ItemStack(BidsItems.flaxStalkBroken),

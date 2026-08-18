@@ -1,21 +1,23 @@
 package com.unforbidable.tfc.bids.api.features.soaking;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class SoakingSurfaceRecipe {
 
     private final ItemStack output;
     private final ItemStack input;
-    private final String fluidBlockOreName;
+    private final FluidStack fluid;
 
-    private final long hours;
+    private final int ticks;
 
-    public SoakingSurfaceRecipe(ItemStack input, ItemStack output, String fluidBlockOreName, long hours) {
+    public SoakingSurfaceRecipe(ItemStack input, ItemStack output, FluidStack fluid, int ticks) {
         this.output = output;
         this.input = input;
-        this.fluidBlockOreName = fluidBlockOreName;
-        this.hours = hours;
+        this.fluid = fluid;
+        this.ticks = ticks;
     }
 
     public ItemStack getOutput() {
@@ -26,12 +28,12 @@ public class SoakingSurfaceRecipe {
         return input;
     }
 
-    public String getFluidBlockOreName() {
-        return fluidBlockOreName;
+    public FluidStack getFluid() {
+        return fluid;
     }
 
-    public long getHours() {
-        return hours;
+    public long getTicks() {
+        return ticks;
     }
 
     public boolean matchesInput(ItemStack ingredient) {
@@ -39,16 +41,8 @@ public class SoakingSurfaceRecipe {
             || input.getItemDamage() == OreDictionary.WILDCARD_VALUE);
     }
 
-    public boolean matchesSurface(ItemStack surface) {
-        for (ItemStack item : OreDictionary.getOres(fluidBlockOreName, false)) {
-            if (surface.getItem() == item.getItem()
-                && (surface.getItemDamage() == item.getItemDamage()
-                || item.getItemDamage() == OreDictionary.WILDCARD_VALUE)) {
-                return true;
-            }
-        }
-
-        return false;
+    public boolean matchesFluid(Fluid fluid) {
+        return this.fluid.getFluid() == fluid;
     }
 
     public ItemStack getResult(ItemStack ingredient) {

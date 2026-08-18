@@ -5,15 +5,16 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingConfig;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.SoakingSurfaceRegistry;
+import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceHelper;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -21,7 +22,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
@@ -56,8 +56,8 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
             for (SoakingSurfaceRecipe recipe : SoakingSurfaceRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                List<ItemStack> blocks = OreDictionary.getOres(recipe.getFluidBlockOreName(), false);
-                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, blocks, recipe.getHours()));
+                List<ItemStack> blocks = SoakingSurfaceHelper.getBlocksForFluid(recipe.getFluid());
+                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, blocks, recipe.getTicks()));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -72,8 +72,8 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getResult(input);
             if (ItemStack.areItemStacksEqual(result, output2)) {
-                List<ItemStack> blocks = OreDictionary.getOres(recipe.getFluidBlockOreName(), false);
-                arecipes.add(new CachedSoakingSurfaceRecipe(input, output2, blocks, recipe.getHours()));
+                List<ItemStack> blocks = SoakingSurfaceHelper.getBlocksForFluid(recipe.getFluid());
+                arecipes.add(new CachedSoakingSurfaceRecipe(input, output2, blocks, recipe.getTicks()));
             }
         }
     }
@@ -84,14 +84,8 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
             if (recipe.matchesInput(ingredient)) {
                 final ItemStack input = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
                 final ItemStack result = recipe.getResult(input);
-                List<ItemStack> blocks = OreDictionary.getOres(recipe.getFluidBlockOreName(), false);
-                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, blocks, recipe.getHours()));
-            } else if (recipe.matchesSurface(ingredient)) {
-                final ItemStack input = recipe.getInput();
-                final ItemStack result = recipe.getResult(input);
-                List<ItemStack> blocks = new ArrayList<ItemStack>();
-                blocks.add(ingredient);
-                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, blocks, recipe.getHours()));
+                List<ItemStack> blocks = SoakingSurfaceHelper.getBlocksForFluid(recipe.getFluid());
+                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, blocks, recipe.getTicks()));
             }
         }
     }
@@ -155,7 +149,7 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
             this.ingred = ingred.copy();
             this.result = result.copy();
             this.blocks = blocks;
-            this.duration = (long) (duration * SoakingConfig.soakingDurationMultiplier);
+            this.duration = (long) (duration * SoakingConfig.soakingDurationMultiplier / TFC_Time.HOUR_LENGTH);
         }
 
         @Override

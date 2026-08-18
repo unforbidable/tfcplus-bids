@@ -10,7 +10,7 @@ import com.unforbidable.tfc.bids.api.features.handwork.HandworkRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.HecklingRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.RopeMakingRecipe;
 import com.unforbidable.tfc.bids.api.features.handwork.SpinningRecipe;
-import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.features.soaking.SoakingRecipe;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipe;
@@ -24,9 +24,9 @@ import com.unforbidable.tfc.bids.features.crafting.drying.DryingRegistry;
 import com.unforbidable.tfc.bids.features.crafting.handwork.HandworkRegistry;
 import com.unforbidable.tfc.bids.features.crafting.heckling.HecklingRegistry;
 import com.unforbidable.tfc.bids.features.crafting.ropemaking.RopeMakingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingRegistry;
 import com.unforbidable.tfc.bids.features.crafting.spinning.SpinningRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
-import com.unforbidable.tfc.bids.features.device.soakingsurface.SoakingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.material.textile.item.ItemTextile;
 import com.unforbidable.tfc.bids.features.material.textile.main.TextileHints;
 import net.minecraft.init.Blocks;
@@ -71,9 +71,9 @@ public class Nettle extends Feature {
                 BidsItems.nettle, "itemScrapingTool")
             .action(damageTool("itemScrapingTool"));
 
-        setup.registry(SoakingSurfaceRegistry.recipes)
-            .add(new SoakingSurfaceRecipe(new ItemStack(BidsItems.nettleStalk), new ItemStack(BidsItems.nettleStalkRetted),
-                "blockFreshWater", 20));
+        setup.registry(SoakingRegistry.recipes)
+            .add(new SoakingRecipe(new ItemStack(BidsItems.nettleStalk), new ItemStack(BidsItems.nettleStalkRetted),
+                new FluidStack(TFCFluids.FRESHWATER, 200), 8000));
 
         setup.registry(HandworkRegistry.recipes)
             .add(new HandworkRecipe(new ItemStack(BidsItems.nettleStalkRetted), new ItemStack(BidsItems.nettleFiber), 80));
