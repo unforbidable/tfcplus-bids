@@ -36,7 +36,7 @@ public class ProcessingSurfaceRecipe {
         return surfaceBlockOreName;
     }
 
-    public float getEffort() {
+    public float getEffort(ItemStack itemStack) {
         return effort;
     }
 

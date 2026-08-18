@@ -73,7 +73,7 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
                 // Efficiency is based on tool material
                 float originalEfficiency = ProcessingSurfaceHelper.getToolEfficiency(player.getHeldItem());
                 // and it can be further modified in event
-                float newEfficiency = BidsEventFactory.onProcessingSurfaceToolEfficiencyCheck(this, inputItem, resultItem, player.getHeldItem(), player, recipe.getEffort(), originalEfficiency);
+                float newEfficiency = BidsEventFactory.onProcessingSurfaceToolEfficiencyCheck(this, inputItem, resultItem, player.getHeldItem(), player, recipe.getEffort(inputItem), originalEfficiency);
                 if (newEfficiency > 0) {
                     float workAmount = newEfficiency * WORK_AMOUNT_PER_TOOL_EFFICIENCY;
 
@@ -81,7 +81,7 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
                     workCounter += workAmount;
 
                     float progress = getWorkProgress();
-                    BidsEventFactory.onProcessingSurfaceProgress(this, inputItem, resultItem, player.getHeldItem(), player, recipe.getEffort(), progress);
+                    BidsEventFactory.onProcessingSurfaceProgress(this, inputItem, resultItem, player.getHeldItem(), player, recipe.getEffort(inputItem), progress);
 
                     int toolDamage = (int) Math.floor(workCounter) - (int) Math.floor(prevWorkCounter);
                     if (toolDamage > 0) {
@@ -89,7 +89,7 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
                     }
 
                     if (worldObj.isRemote) {
-                        int visualProgress = (int) Math.floor(workCounter / recipe.getEffort()) - (int) Math.floor(prevWorkCounter / recipe.getEffort());
+                        int visualProgress = (int) Math.floor(workCounter / recipe.getEffort(inputItem)) - (int) Math.floor(prevWorkCounter / recipe.getEffort(inputItem));
                         if (visualProgress > 0) {
                             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                         }
@@ -102,7 +102,7 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
     public int getWorkCounter() {
         ProcessingSurfaceRecipe recipe = getCurrentRecipe();
         if (recipe != null) {
-            return (int) Math.floor(workCounter / recipe.getEffort());
+            return (int) Math.floor(workCounter / recipe.getEffort(inputItem));
         } else {
             return (int) Math.floor(workCounter);
         }
@@ -122,7 +122,7 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
 
     private float getMaxWork() {
         ProcessingSurfaceRecipe recipe = getCurrentRecipe();
-        return recipe != null ? recipe.getEffort() * DEFAULT_MAX_WORK : DEFAULT_MAX_WORK;
+        return recipe != null ? recipe.getEffort(inputItem) * DEFAULT_MAX_WORK : DEFAULT_MAX_WORK;
     }
 
     public void onProcessingSurfaceBroken() {
