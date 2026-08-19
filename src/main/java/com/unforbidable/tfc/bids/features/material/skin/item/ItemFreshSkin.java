@@ -159,6 +159,16 @@ public class ItemFreshSkin extends ItemSkin {
     }
 
     @Override
+    protected String getFluidUnlocalizedName(ItemStack itemStack) {
+        if (SkinTag.of(itemStack).isFluid(TFCFluids.TANNIN.getName())) {
+            // Do not show tannin fluid as the tanned stage is indicative enough
+            return null;
+        } else {
+            return super.getFluidUnlocalizedName(itemStack);
+        }
+    }
+
+    @Override
     protected void addSkinProcessingStageShiftInformation(ItemStack itemStack, EntityPlayer player, List<String> list) {
         SkinTag tag = SkinTag.of(itemStack);
         if (tag.isStage("")) {
