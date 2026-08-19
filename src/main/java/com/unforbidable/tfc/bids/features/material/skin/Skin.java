@@ -198,13 +198,13 @@ public class Skin extends Feature {
                 SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_DEHAIRED),
                 "itemScrapingTool", "blockScrapingSurface", 2f))
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("sheepTFC")),
+                SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_DEHAIRED),
                 "itemScrapingTool", "blockScrapingSurface", 4f))
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.wolfFur, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.wolfFur, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("wolfTFC")),
+                SkinHelper.createStack(BidsItems.wolfFur, SkinTagAccess.STAGE_DEHAIRED),
                 "itemScrapingTool", "blockScrapingSurface", 4f))
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("bearTFC")),
+                SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_DEHAIRED),
                 "itemScrapingTool", "blockScrapingSurface", 6f));
 
         // Fleshed -> Clean
