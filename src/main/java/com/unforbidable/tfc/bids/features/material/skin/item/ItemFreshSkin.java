@@ -72,20 +72,6 @@ public class ItemFreshSkin extends ItemSkin {
     }
 
     @Override
-    public int getColorFromItemStack(ItemStack itemStack, int pass) {
-        SkinTag tag = SkinTag.of(itemStack);
-        if (tag.isStage(SkinTagAccess.STAGE_FLESHED) || tag.isStage("")) {
-            return 0xffeecc;
-        }
-
-        if (tag.isStage(SkinTagAccess.STAGE_PREPARED) || tag.isStage(SkinTagAccess.STAGE_DEHAIRED)) {
-            return 0xccccaa;
-        }
-
-        return 0xffffff;
-    }
-
-    @Override
     public int getDamage(ItemStack itemStack) {
         String stage = SkinTag.of(itemStack).getStage();
         switch (stage) {
