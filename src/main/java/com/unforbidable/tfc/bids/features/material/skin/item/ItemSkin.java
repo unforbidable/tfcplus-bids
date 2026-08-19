@@ -91,16 +91,7 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
 
     @Override
     public EnumWeight getWeight(ItemStack itemStack) {
-        float weight = SkinTag.of(itemStack).getWeight();
-        if (weight >= SkinHelper.WEIGHT_LARGE) {
-            return EnumWeight.MEDIUM;
-        } else if (weight >= SkinHelper.WEIGHT_MEDIUM) {
-            return EnumWeight.MEDIUM;
-        } else if (weight >= SkinHelper.WEIGHT_SMALL) {
-            return EnumWeight.LIGHT;
-        } else {
-            return EnumWeight.LIGHT;
-        }
+        return EnumWeight.LIGHT;
     }
 
     @Override
