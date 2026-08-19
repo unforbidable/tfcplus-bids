@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.compat.tfc.recipe.barrel;
 
 
+import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.api.Crafting.BarrelRecipe;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.Interfaces.IFood;
@@ -12,6 +13,19 @@ public class BarrelFoodHandlingRecipe extends BarrelRecipe {
 
     public BarrelFoodHandlingRecipe(ItemStack inputItem, FluidStack inputFluid, ItemStack outIS, FluidStack outputFluid) {
         super(inputItem, inputFluid, outIS, outputFluid);
+    }
+
+    @Override
+    public Boolean matches(ItemStack item, FluidStack fluid, TEBarrel te) {
+        return super.matches(item, fluid, te) && foodMatches(item);
+    }
+
+    protected boolean foodMatches(ItemStack item) {
+        if (item != null && item.getItem() instanceof IFood && recipeIS != null && recipeIS.getItem() instanceof IFood) {
+            return Food.areEqual(item, recipeIS);
+        }
+
+        return true;
     }
 
     @Override
