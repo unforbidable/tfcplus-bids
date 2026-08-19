@@ -102,8 +102,10 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
             return EnumSize.MEDIUM;
         } else if (weight >= SkinHelper.WEIGHT_SMALL) {
             return EnumSize.SMALL;
-        } else {
+        } else if (weight >= SkinHelper.WEIGHT_VERY_SMALL) {
             return EnumSize.VERYSMALL;
+        } else {
+            return EnumSize.TINY;
         }
     }
 
