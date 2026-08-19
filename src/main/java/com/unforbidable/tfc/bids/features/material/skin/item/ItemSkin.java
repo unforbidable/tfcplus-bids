@@ -98,9 +98,9 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
     public EnumSize getSize(ItemStack itemStack) {
         float weight = SkinTag.of(itemStack).getWeight();
         if (weight >= SkinHelper.WEIGHT_LARGE) {
-            return EnumSize.MEDIUM;
+            return EnumSize.LARGE;
         } else if (weight >= SkinHelper.WEIGHT_MEDIUM) {
-            return EnumSize.SMALL;
+            return EnumSize.MEDIUM;
         } else if (weight >= SkinHelper.WEIGHT_SMALL) {
             return EnumSize.SMALL;
         } else {
@@ -112,15 +112,7 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
     public String getItemStackDisplayName(ItemStack itemStack) {
         StringBuilder name = new StringBuilder();
 
-        SkinTag tag = SkinTag.of(itemStack);
-
-        String sizeName = getSkinSizeUnlocalizedName(itemStack);
-        if (sizeName != null && sizeName.length() > 0) {
-            name.append(TFC_Core.translate("word." + sizeName))
-                .append(' ');
-        }
-
-        if (tag.isSalted()) {
+        if (SkinTag.of(itemStack).isSalted()) {
             name.append(TFC_Core.translate("word.salted"))
                 .append(' ');
         }

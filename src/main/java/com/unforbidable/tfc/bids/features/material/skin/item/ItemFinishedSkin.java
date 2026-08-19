@@ -21,11 +21,6 @@ public class ItemFinishedSkin extends ItemSkin {
     }
 
     @Override
-    protected String getSkinSizeUnlocalizedName(ItemStack itemStack) {
-        return "";
-    }
-
-    @Override
     protected void addSkinProcessingStageShiftInformation(ItemStack itemStack, EntityPlayer player, List<String> list) {
         if (itemStack.getItem() == BidsItems.rawhide) {
             list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Preserved"));
