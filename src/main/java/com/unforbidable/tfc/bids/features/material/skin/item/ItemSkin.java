@@ -132,10 +132,6 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
             name.append(TFC_Core.translate("word.salted")).append(' ');
         }
 
-        if (tag.isSmoked()) {
-            name.append(TFC_Core.translate("word.smoked")).append(' ');
-        }
-
         String stageName = getSkinProcessingStageUnlocalizedName(itemStack);
         if (stageName != null && stageName.length() > 0) {
             name.append(TFC_Core.translate("word." + stageName)).append(' ');
