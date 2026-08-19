@@ -23,7 +23,6 @@ import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinShearingRec
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinLivingDropsEventHandler;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinProcessingHandler;
 import com.unforbidable.tfc.bids.features.material.skin.gui.GuiKnappingSkin;
-import com.unforbidable.tfc.bids.features.material.skin.item.ItemDehairedSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFinishedSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFreshSkin;
 import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
@@ -57,7 +56,6 @@ public class Skin extends Feature {
         init.item(ItemNames.BEAR_FUR, ItemFreshSkin::new)
             .apply(i -> i.setSpecialCraftingItem(TFCItems.flatBearFur));
         init.item(ItemNames.SHEEP_SKIN, ItemFreshSkin::new);
-        init.item(ItemNames.DEHAIRED_SKIN, ItemDehairedSkin::new);
         init.item(ItemNames.RAWHIDE, ItemFinishedSkin::new)
             .apply(i -> i.setSpecialCraftingItem(TFCItems.flatHide));
         init.item(ItemNames.LEATHER, ItemFinishedSkin::new)
@@ -75,7 +73,6 @@ public class Skin extends Feature {
             .item(BidsItems.wolfFur)
             .item(BidsItems.bearFur)
             .item(BidsItems.sheepSkin)
-            .item(BidsItems.dehairedSkin)
             .item(BidsItems.rawhide)
             .item(BidsItems.leather);
 
@@ -163,19 +160,17 @@ public class Skin extends Feature {
 
         setup.registry(ProcessingSurfaceRegistry.recipes)
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.genericFur, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
                 "itemScrapingTool", "blockScrapingSurface", 6f))
+                SkinHelper.createStack(BidsItems.genericFur, SkinTagAccess.STAGE_DEHAIRED),
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_DEHAIRED),
                 "itemScrapingTool", "blockScrapingSurface", 2f))
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("sheepTFC")),
                 "itemScrapingTool", "blockScrapingSurface", 8f))
+                SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("sheepTFC")),
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.wolfFur, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("wolfTFC")),
                 "itemScrapingTool", "blockScrapingSurface", 8f))
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("bearTFC")),
                 "itemScrapingTool", "blockScrapingSurface", 10f));
     }
 

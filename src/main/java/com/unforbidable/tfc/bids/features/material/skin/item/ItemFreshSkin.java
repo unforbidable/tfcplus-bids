@@ -1,31 +1,31 @@
 package com.unforbidable.tfc.bids.features.material.skin.item;
 
 import com.dunk.tfc.api.TFCFluids;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.util.nbt.SkinTagAccess;
 import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
 import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
 import java.util.List;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
 public class ItemFreshSkin extends ItemSkin {
+
+    protected IIcon tannedIcon;
+    protected IIcon dehairedIcon;
 
     @SuppressWarnings("unchecked")
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
-        if (this == BidsItems.genericFur) {
-            list.add(SkinHelper.createStack(this, 4, SkinTagAccess.STAGE_PRESERVED));
-            list.add(SkinHelper.createStack(this, 4, SkinTagAccess.STAGE_PRESERVED, tag -> tag.setAnimal("deerTFC")));
-            list.add(SkinHelper.createStack(this, 4, SkinTagAccess.STAGE_PRESERVED, tag -> tag.setAnimal("bisonTFC")));
-        }
-
         String animal = this == BidsItems.genericFur ? "deerTFC" : (this == BidsItems.genericSkin ? "pigTFC" : null);
 
-        list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_SMALL, tag -> tag.setAnimal(animal)));
-        list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_MEDIUM, tag -> tag.setAnimal(animal)));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, tag -> tag.setAnimal(animal)));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_FLESHED, tag -> tag.setAnimal(animal)));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN, tag -> tag.setAnimal(animal)));
@@ -33,6 +33,33 @@ public class ItemFreshSkin extends ItemSkin {
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_PRESERVED, tag -> tag.setAnimal(animal)));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_PREPARED, tag -> tag.setAnimal(animal)));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_PREPARED, tag -> tag.setAnimal(animal).setFluid(TFCFluids.LIMEWATER.getName())));
+        list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal(animal)));
+        list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_TANNED, tag -> tag.setAnimal(animal)));
+
+        if (this == BidsItems.genericFur) {
+            list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_DEHAIRED));
+            list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_TANNED));
+        }
+    }
+
+    @Override
+    public void registerIcons(IIconRegister registerer) {
+        super.registerIcons(registerer);
+
+        tannedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Skin.Tanned");
+        dehairedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Skin.Dehaired");
+    }
+
+    @Override
+    public IIcon getIconIndex(ItemStack itemStack) {
+        String stage = SkinTag.of(itemStack).getStage();
+        if (stage.equals(SkinTagAccess.STAGE_DEHAIRED)) {
+            return dehairedIcon;
+        } else if (stage.equals(SkinTagAccess.STAGE_TANNED)) {
+            return tannedIcon;
+        } else {
+            return super.getIconIndex(itemStack);
+        }
     }
 
     @Override
@@ -60,15 +87,20 @@ public class ItemFreshSkin extends ItemSkin {
 
     @Override
     public int getDamage(ItemStack itemStack) {
-        SkinTag tag = SkinTag.of(itemStack);
-        if (tag.isStage(SkinTagAccess.STAGE_FLESHED)) {
-            return 1;
-        } else if (tag.isStage(SkinTagAccess.STAGE_CLEAN)) {
-            return 2;
-        } else if (tag.isStage(SkinTagAccess.STAGE_PREPARED)) {
-            return 3;
-        } else if (tag.isStage(SkinTagAccess.STAGE_PRESERVED)) {
-            return 9;
+        String stage = SkinTag.of(itemStack).getStage();
+        switch (stage) {
+            case SkinTagAccess.STAGE_FLESHED:
+                return 1;
+            case SkinTagAccess.STAGE_CLEAN:
+                return 2;
+            case SkinTagAccess.STAGE_PREPARED:
+                return 3;
+            case SkinTagAccess.STAGE_PRESERVED:
+                return 9;
+            case SkinTagAccess.STAGE_DEHAIRED:
+                return 11;
+            case SkinTagAccess.STAGE_TANNED:
+                return 12;
         }
 
         return 0;
@@ -124,6 +156,28 @@ public class ItemFreshSkin extends ItemSkin {
         }
 
         return super.getSurfaceIconBaseName(itemStack);
+    }
+
+    @Override
+    protected void addSkinProcessingStageShiftInformation(ItemStack itemStack, EntityPlayer player, List<String> list) {
+        SkinTag tag = SkinTag.of(itemStack);
+        if (tag.isStage("")) {
+            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Fresh"));
+        } else if (tag.isStage(SkinTagAccess.STAGE_FLESHED)) {
+            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Fleshed"));
+        } else if (tag.isStage(SkinTagAccess.STAGE_CLEAN)) {
+            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Clean"));
+            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Clean2"));
+        } else if (tag.isStage(SkinTagAccess.STAGE_PRESERVED)) {
+            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Preserved"));
+        } else if (tag.isStage(SkinTagAccess.STAGE_PREPARED)) {
+            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Prepared"));
+        } else if (tag.isStage(SkinTagAccess.STAGE_DEHAIRED)) {
+            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Dehaired"));
+            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Dehaired2"));
+        } else if (tag.isStage(SkinTagAccess.STAGE_TANNED)) {
+            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Tanned"));
+        }
     }
 
 }

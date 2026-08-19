@@ -391,7 +391,6 @@ public class BidsItems {
     public static final Item wolfFur = item(ItemNames.WOLF_FUR);
     public static final Item bearFur = item(ItemNames.BEAR_FUR);
     public static final Item sheepSkin = item(ItemNames.SHEEP_SKIN);
-    public static final Item dehairedSkin = item(ItemNames.DEHAIRED_SKIN);
     public static final Item rawhide = item(ItemNames.RAWHIDE);
     public static final Item leather = item(ItemNames.LEATHER);
 

@@ -13,7 +13,6 @@ import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.features.surfaceitem.ItemSurfaceIconAccessor;
 import com.unforbidable.tfc.bids.api.names.GuiNames;
-import com.unforbidable.tfc.bids.api.util.nbt.SkinTagAccess;
 import com.unforbidable.tfc.bids.common.item.ItemFoodLike;
 import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
 import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
@@ -123,13 +122,6 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
                 .append(' ');
         }
 
-        String animal = tag.getAnimal();
-        if (animal.length() > 0) {
-            String animalName = "entity." + TFC_Core.translate(animal) + ".name";
-            name.append(TFC_Core.translate(animalName))
-                .append(' ');
-        }
-
         name.append(TFC_Core.translate(this.getUnlocalizedName(itemStack) + ".name"));
 
         String fluidName = getFluidUnlocalizedName(itemStack);
@@ -142,6 +134,16 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
         return name.toString();
     }
 
+    @Override
+    public String getUnlocalizedName(ItemStack itemStack) {
+        String animal = SkinTag.of(itemStack).getAnimal();
+        if (animal.length() > 0) {
+            return super.getUnlocalizedName() + "." + animal;
+        }
+
+        return super.getUnlocalizedName();
+    }
+
     protected String getFluidUnlocalizedName(ItemStack itemStack) {
         String fluidName = SkinTag.of(itemStack).getFluid();
         if (fluidName != null && !fluidName.isEmpty()) {
@@ -152,22 +154,6 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
         }
 
         return null;
-    }
-
-    protected String getSkinSizeUnlocalizedName(ItemStack itemStack) {
-        float weight = SkinTag.of(itemStack).getWeight();
-        if (weight == SkinHelper.SKIN_MAX_WEIGHT) {
-            // Mostly used in recipes and kind of irrelevant
-            return "";
-        } else if (weight >= SkinHelper.WEIGHT_LARGE) {
-            return "large";
-        } else if (weight >= SkinHelper.WEIGHT_MEDIUM) {
-            return "medium";
-        } else if (weight >= SkinHelper.WEIGHT_SMALL) {
-            return "small";
-        } else {
-            return "verySmall";
-        }
     }
 
     protected String getSkinProcessingStageUnlocalizedName(ItemStack itemStack) {
@@ -224,19 +210,6 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
     }
 
     protected void addSkinProcessingStageShiftInformation(ItemStack itemStack, EntityPlayer player, List<String> list) {
-        SkinTag tag = SkinTag.of(itemStack);
-        if (tag.isStage("")) {
-            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Fresh"));
-        } else if (tag.isStage(SkinTagAccess.STAGE_FLESHED)) {
-            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Fleshed"));
-        } else if (tag.isStage(SkinTagAccess.STAGE_CLEAN)) {
-            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Clean"));
-            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Clean2"));
-        } else if (tag.isStage(SkinTagAccess.STAGE_PRESERVED)) {
-            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Preserved"));
-        } else if (tag.isStage(SkinTagAccess.STAGE_PREPARED)) {
-            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Prepared"));
-        }
     }
 
     @Override
@@ -279,7 +252,7 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
     }
 
     protected String getSurfaceIconBaseName(ItemStack itemStack) {
-        return itemStack.getUnlocalizedName().replace("item.", "");
+        return getUnlocalizedName().replace("item.", "");
     }
 
     protected String getSurfaceIconStageName(ItemStack itemStack) {

@@ -359,7 +359,6 @@ public interface ItemNames {
     String WOLF_FUR = "Wolf Fur";
     String BEAR_FUR = "Bear Fur";
     String SHEEP_SKIN = "Sheep Skin";
-    String DEHAIRED_SKIN = "Dehaired Skin";
     String RAWHIDE = "Rawhide";
     String LEATHER = "Leather";
 
