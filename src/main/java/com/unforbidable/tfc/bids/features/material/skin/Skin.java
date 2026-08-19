@@ -246,10 +246,13 @@ public class Skin extends Feature {
         }
 
         // Dehaired -> Tanned
-        setup.registry(SoakingRegistry.recipes)
-            .add(new SoakingRecipe(SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_DEHAIRED),
-                SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_TANNED),
-                new FluidStack(TFCFluids.TANNIN, 1000), 8000));
+        Item[] skinsToTan = {BidsItems.genericSkin, BidsItems.genericFur, BidsItems.sheepSkin, BidsItems.wolfFur, BidsItems.bearFur};
+        for (Item skin : skinsToTan) {
+            setup.registry(SoakingRegistry.recipes)
+                .add(new SoakingRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_DEHAIRED),
+                    SkinHelper.createStack(skin, SkinTagAccess.STAGE_TANNED),
+                    new FluidStack(TFCFluids.TANNIN, 1000), 8000));
+        }
 
         // Rawhide -> Dehaired
         setup.registry(SoakingRegistry.recipes)
