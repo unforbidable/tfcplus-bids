@@ -125,25 +125,50 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
 
         String sizeName = getSkinSizeUnlocalizedName(itemStack);
         if (sizeName != null && sizeName.length() > 0) {
-            name.append(TFC_Core.translate("word." + sizeName)).append(' ');
+            name.append(TFC_Core.translate("word." + sizeName))
+                .append(' ');
         }
 
         if (tag.isSalted()) {
-            name.append(TFC_Core.translate("word.salted")).append(' ');
+            name.append(TFC_Core.translate("word.salted"))
+                .append(' ');
         }
 
         String stageName = getSkinProcessingStageUnlocalizedName(itemStack);
         if (stageName != null && stageName.length() > 0) {
-            name.append(TFC_Core.translate("word." + stageName)).append(' ');
+            name.append(TFC_Core.translate("word." + stageName))
+                .append(' ');
         }
 
         String animal = tag.getAnimal();
         if (animal.length() > 0) {
             String animalName = "entity." + TFC_Core.translate(animal) + ".name";
-            name.append(TFC_Core.translate(animalName)).append(' ');
+            name.append(TFC_Core.translate(animalName))
+                .append(' ');
         }
 
-        return name.append(TFC_Core.translate(this.getUnlocalizedName(itemStack) + ".name")).toString();
+        name.append(TFC_Core.translate(this.getUnlocalizedName(itemStack) + ".name"));
+
+        String fluidName = getFluidUnlocalizedName(itemStack);
+        if (fluidName != null) {
+            name.append(" (")
+                .append(TFC_Core.translate(fluidName))
+                .append(')');
+        }
+
+        return name.toString();
+    }
+
+    protected String getFluidUnlocalizedName(ItemStack itemStack) {
+        String fluidName = SkinTag.of(itemStack).getFluid();
+        if (fluidName != null && !fluidName.isEmpty()) {
+            Fluid fluid = FluidRegistry.getFluid(fluidName);
+            if (fluid != null) {
+                return fluid.getUnlocalizedName();
+            }
+        }
+
+        return null;
     }
 
     protected String getSkinSizeUnlocalizedName(ItemStack itemStack) {
@@ -184,14 +209,6 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
 
         float weight = tag.getWeight();
         list.add(TFC_Core.translate("gui.skin.amount") + " " + weight + " oz");
-
-        if (tag.hasFluid()) {
-            Fluid fluid = FluidRegistry.getFluid(tag.getFluid());
-            if (fluid != null) {
-                list.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.skin.fluid") + " " +
-                    EnumChatFormatting.BLUE + TFC_Core.translate(fluid.getUnlocalizedName()));
-            }
-        }
 
         float decay = tag.getDecay();
         if (decay > 0) {

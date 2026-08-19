@@ -1647,7 +1647,6 @@ gui.tinder.smoldering=Smoldering
 gui.tinder.spent=Spent
 gui.skin.amount=Weight
 gui.skin.decay=Decay
-gui.skin.fluid=Soaked:
 
 key.BidsToolMode=Cycle Tool Mode
 
