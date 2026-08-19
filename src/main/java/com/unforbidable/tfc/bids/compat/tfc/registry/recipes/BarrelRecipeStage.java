@@ -5,8 +5,9 @@ import com.dunk.tfc.api.Crafting.BarrelLiquidToLiquidRecipe;
 import com.dunk.tfc.api.Crafting.BarrelManager;
 import com.dunk.tfc.api.Crafting.BarrelMultiItemRecipe;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.compat.tfc.recipe.barrel.BarrelFoodHandlingRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.RegistryStage;
-import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.barrel.BarrelItemDemandingRecipe;
+import com.unforbidable.tfc.bids.compat.tfc.recipe.barrel.BarrelItemDemandingRecipe;
 
 public class BarrelRecipeStage extends RegistryStage<BarrelRecipe> {
 
@@ -42,6 +43,8 @@ public class BarrelRecipeStage extends RegistryStage<BarrelRecipe> {
                     .setKeepStackSize(recipe.keepStackSize);
             case ITEM_DEMANDING:
                 return new BarrelItemDemandingRecipe(recipe.inputItem, recipe.inputFluid, recipe.outputItem, recipe.outputFluid);
+            case FOOD_HANDLING:
+                return new BarrelFoodHandlingRecipe(recipe.inputItem, recipe.inputFluid, recipe.outputItem, recipe.outputFluid);
             case SIMPLE:
             default:
                 return new com.dunk.tfc.api.Crafting.BarrelRecipe(recipe.inputItem, recipe.inputFluid, recipe.outputItem, recipe.outputFluid);

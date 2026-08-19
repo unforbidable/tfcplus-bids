@@ -56,6 +56,10 @@ public class BarrelRecipe {
         return new RegistryAddingActor<>(BarrelRecipeStage.instance, buildRecipe(BarrelRecipeType.ITEM_DEMANDING, consumer));
     }
 
+    public static RegistryActor<BarrelRecipe> addFoodHandling(Consumer<BarrelRecipeBuilder> consumer) {
+        return new RegistryAddingActor<>(BarrelRecipeStage.instance, buildRecipe(BarrelRecipeType.FOOD_HANDLING, consumer));
+    }
+
     public static RegistryActor<BarrelRecipe> addMultiItem(Consumer<BarrelRecipeBuilder> consumer) {
         return new RegistryAddingActor<>(BarrelRecipeStage.instance, buildRecipe(BarrelRecipeType.MULTI_ITEM, consumer));
     }

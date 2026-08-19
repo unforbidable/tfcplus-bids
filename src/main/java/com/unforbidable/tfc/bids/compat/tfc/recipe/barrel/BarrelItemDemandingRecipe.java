@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.compat.tfc.registry.recipes.barrel;
+package com.unforbidable.tfc.bids.compat.tfc.recipe.barrel;
 
 import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.api.Crafting.BarrelRecipe;

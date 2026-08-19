@@ -253,7 +253,7 @@ public class TfcSetup {
         SoakingRegistry.recipes.stream()
             .filter(recipe -> !recipe.requiresHeat && !recipe.importedFromTfc)
             .forEach(recipe -> {
-                TfcRegistry.Barrel.recipes.add(BarrelRecipe.add(builder -> builder
+                TfcRegistry.Barrel.recipes.add(BarrelRecipe.addFoodHandling(builder -> builder
                     .consumes(recipe.input, recipe.fluid)
                     .produces(recipe.output, recipe.fluid)
                     .withSealTime((int) (recipe.ticks / TFC_Time.HOUR_LENGTH))

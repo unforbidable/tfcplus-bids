@@ -6,4 +6,5 @@ enum BarrelRecipeType {
     LIQUID_TO_LIQUID,
     MULTI_ITEM,
     ITEM_DEMANDING,
+    FOOD_HANDLING,
 }
