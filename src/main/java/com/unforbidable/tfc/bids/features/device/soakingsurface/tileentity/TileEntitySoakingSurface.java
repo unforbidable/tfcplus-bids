@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity;
 
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
 import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
 import com.unforbidable.tfc.bids.core.network.Network;
@@ -22,6 +23,9 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidBlock;
 
 public class TileEntitySoakingSurface extends TileEntity implements PacketHandler<SimpleUpdatePacket> {
 
@@ -158,7 +162,15 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
                 float ticksNeeded = recipe.getTicks() * SoakingConfig.soakingDurationMultiplier;
                 float progress = elapsed > ticksNeeded ? 1 : elapsed / ticksNeeded;
                 float hoursRemaining = (ticksNeeded - elapsed) / TFC_Time.HOUR_LENGTH;
-                return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, recipe.getResult(storage[slot].soakingItem).copy(), progress, hoursRemaining);
+
+                ItemStack result = recipe.getResult(storage[slot].soakingItem).copy();
+                Fluid fluid = getSoakingFluid();
+                if (fluid != null) {
+                    // TODO needs to be refactored so that the event is fired only once
+                    BidsEventFactory.onSoakingItemCrafted(storage[slot].soakingItem, result, new FluidStack(fluid, 1000));
+                }
+
+                return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, result, progress, hoursRemaining);
             } else {
                 // dummy slot progress when recipe gets invalidated
                 return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, storage[slot].soakingItem, 0, 0);
@@ -252,6 +264,15 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
         }
 
         return false;
+    }
+
+    private Fluid getSoakingFluid() {
+        Block surfaceBlock = worldObj.getBlock(xCoord, yCoord + 1, zCoord);
+        if (surfaceBlock instanceof IFluidBlock) {
+            return ((IFluidBlock) surfaceBlock).getFluid();
+        }
+
+        return null;
     }
 
     private int findAvailableSlot() {

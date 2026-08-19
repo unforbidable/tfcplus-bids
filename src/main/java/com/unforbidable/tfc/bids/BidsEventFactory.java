@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.api.features.kiln.KilnEvent;
 import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
+import com.unforbidable.tfc.bids.api.features.soaking.SoakingEvent;
 import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.api.features.threshing.ThreshingPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlayerEvent;
@@ -159,6 +160,11 @@ public class BidsEventFactory {
         FireStartingEvent event = new FireStartingEvent(player, world, x, y, z, side, FireStartingEvent.Stage.PROPAGATE);
         MinecraftForge.EVENT_BUS.post(event);
         return event.result && !event.isCanceled();
+    }
+
+    public static void onSoakingItemCrafted(ItemStack input, ItemStack result, FluidStack fluid) {
+        SoakingEvent.ItemCrafted event = new SoakingEvent.ItemCrafted(input, result, fluid);
+        MinecraftForge.EVENT_BUS.post(event);
     }
 
 }
