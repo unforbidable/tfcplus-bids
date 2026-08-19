@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.compat.tfc.recipe.barrel;
 
 
+import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.api.Crafting.BarrelRecipe;
 import com.dunk.tfc.api.Food;
@@ -32,13 +33,15 @@ public class BarrelFoodHandlingRecipe extends BarrelRecipe {
     public Stack<ItemStack> getResult(ItemStack inIS, FluidStack inFS, int sealedTime) {
         Stack<ItemStack> stacks = super.getResult(inIS, inFS, sealedTime);
 
-        if (inIS != null && inIS.getItem() instanceof IFood && recipeOutIS != null && recipeOutIS.getItem() instanceof IFood) {
+        if (recipeOutIS != null && recipeOutIS.getItem() instanceof IFood) {
             // Handle food properly
-
             ItemStack result = recipeOutIS.copy();
-            Food.setWeight(result, Food.getWeight(inIS));
-            Food.setDecay(result, Food.getDecay(inIS));
-            Food.setDecayTimer(result, Food.getDecayTimer(inIS));
+
+            if (inIS != null && inIS.getItem() instanceof IFood) {
+                Food.setWeight(result, Food.getWeight(inIS));
+                Food.setDecay(result, Food.getDecay(inIS));
+                Food.setDecayTimer(result, Food.getDecayTimer(inIS));
+            }
 
             stacks.clear();
             stacks.push(result);
