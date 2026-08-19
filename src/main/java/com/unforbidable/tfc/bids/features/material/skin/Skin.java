@@ -156,8 +156,8 @@ public class Skin extends Feature {
 
         // Salting
         Item[] skinsToSalt = {BidsItems.genericSkin, BidsItems.genericFur, BidsItems.sheepSkin, BidsItems.wolfFur, BidsItems.bearFur};
-        String[] stagesToSalt = {"", SkinTagAccess.STAGE_FLESHED, SkinTagAccess.STAGE_CLEAN};
         for (Item skin : skinsToSalt) {
+            String[] stagesToSalt = {"", SkinTagAccess.STAGE_FLESHED, SkinTagAccess.STAGE_CLEAN, SkinTagAccess.STAGE_DEHAIRED};
             for (String stage : stagesToSalt) {
                 setup.recipes()
                     .add(new SkinSaltingRecipe(SkinHelper.createStack(skin, stage),
@@ -165,10 +165,14 @@ public class Skin extends Feature {
             }
 
             // Washing salt off of clean skin, so it can be prepared for dehairing
-            setup.registry(SoakingRegistry.recipes)
-                .add(new SoakingRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN, FoodTag::setSalted),
-                    SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN),
-                    new FluidStack(TFCFluids.FRESHWATER, 200)));
+            // and also dehaired skin to allow rawhide and tanning
+            String[] stagesToWashSalt = {SkinTagAccess.STAGE_CLEAN, SkinTagAccess.STAGE_DEHAIRED};
+            for (String stage : stagesToWashSalt) {
+                setup.registry(SoakingRegistry.recipes)
+                    .add(new SoakingRecipe(SkinHelper.createStack(skin, stage, FoodTag::setSalted),
+                        SkinHelper.createStack(skin, stage),
+                        new FluidStack(TFCFluids.FRESHWATER, 200)));
+            }
         }
 
         // Fresh -> Fleshed
