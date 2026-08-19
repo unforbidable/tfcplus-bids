@@ -260,6 +260,12 @@ public class Skin extends Feature {
                 SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_DEHAIRED),
                 new FluidStack(TFCFluids.FRESHWATER, 1000), 8000));
 
+        // Very Small Raw Hide -> Dehaired
+        setup.registry(SoakingRegistry.recipes)
+            .add(new SoakingRecipe(new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.VERY_SMALL_HIDE),
+                SkinHelper.createStack(BidsItems.genericSkin, SkinHelper.WEIGHT_VERY_SMALL, SkinTagAccess.STAGE_DEHAIRED),
+                new FluidStack(TFCFluids.FRESHWATER, 100), 1000));
+
         // Preserved -> Clean
         Item[] skinToRehydrate = {BidsItems.genericSkin, BidsItems.genericFur, BidsItems.sheepSkin, BidsItems.wolfFur, BidsItems.bearFur};
         for (Item skin : skinToRehydrate) {
