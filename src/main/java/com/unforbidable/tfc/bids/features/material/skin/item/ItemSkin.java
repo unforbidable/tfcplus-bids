@@ -30,6 +30,8 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingAccessor, ItemSurfaceIconAccessor {
 
@@ -185,8 +187,11 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
         list.add(TFC_Core.translate("gui.skin.amount") + " " + weight + " oz");
 
         if (tag.hasFluid()) {
-            list.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.skin.fluid") + " " +
-                EnumChatFormatting.BLUE + TFC_Core.translate("fluid." + tag.getFluid()));
+            Fluid fluid = FluidRegistry.getFluid(tag.getFluid());
+            if (fluid != null) {
+                list.add(EnumChatFormatting.GRAY + TFC_Core.translate("gui.skin.fluid") + " " +
+                    EnumChatFormatting.BLUE + TFC_Core.translate(fluid.getUnlocalizedName()));
+            }
         }
 
         float decay = tag.getDecay();
