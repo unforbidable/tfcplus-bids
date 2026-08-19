@@ -1,10 +1,12 @@
 package com.unforbidable.tfc.bids.features.material.skin.item;
 
+import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.util.nbt.SkinTagAccess;
+import com.unforbidable.tfc.bids.features.material.skin.SkinConfig;
 import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
 import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
 import java.util.List;
@@ -13,8 +15,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
 public class ItemFreshSkin extends ItemSkin {
 
@@ -40,6 +44,20 @@ public class ItemFreshSkin extends ItemSkin {
             list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_DEHAIRED));
             list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_TANNED));
         }
+    }
+
+    @Override
+    public boolean onUpdate(ItemStack is, World world, int x, int y, int z) {
+        SkinTag tag = SkinTag.of(is);
+        if (tag.isStage(SkinTagAccess.STAGE_CLEAN)) {
+            float decayPercent = tag.getDecay() / tag.getWeight();
+            if (decayPercent > SkinConfig.hairDamageDecayPercent) {
+                tag.setStage(SkinTagAccess.STAGE_PREPARED);
+                tag.setDecayTimer((int) (tag.getDecayTimer() + TFC_Time.HOUR_LENGTH));
+            }
+        }
+
+        return false;
     }
 
     @Override
@@ -152,6 +170,23 @@ public class ItemFreshSkin extends ItemSkin {
         } else {
             return super.getFluidUnlocalizedName(itemStack);
         }
+    }
+
+    @Override
+    protected void addSkinInformation(ItemStack itemStack, EntityPlayer player, List<String> list) {
+        SkinTag tag = SkinTag.of(itemStack);
+        if (tag.isStage(SkinTagAccess.STAGE_CLEAN)) {
+            float decayPercent = tag.getDecay() / tag.getWeight();
+            if (decayPercent > SkinConfig.hairDamageDecayPercent - SkinConfig.hairDamageDecayPercent * 0.5f) {
+                list.add(EnumChatFormatting.RED + StatCollector.translateToLocal("gui.skin.hairDamageWarning"));
+                list.add(EnumChatFormatting.RED + StatCollector.translateToLocal("gui.skin.hairDamageWarning2"));
+            }
+        } else if (tag.isStage(SkinTagAccess.STAGE_PREPARED) && !tag.hasFluid()) {
+            list.add(EnumChatFormatting.YELLOW + StatCollector.translateToLocal("gui.skin.hairDamaged"));
+            list.add(EnumChatFormatting.YELLOW + StatCollector.translateToLocal("gui.skin.hairDamaged2"));
+        }
+
+        super.addSkinInformation(itemStack, player, list);
     }
 
     @Override

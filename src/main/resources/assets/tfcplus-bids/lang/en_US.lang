@@ -1662,6 +1662,10 @@ gui.tinder.smoldering=Smoldering
 gui.tinder.spent=Spent
 gui.skin.amount=Weight
 gui.skin.decay=Decay
+gui.skin.hairDamageWarning=Hair damage is imminent due to decay.
+gui.skin.hairDamageWarning2=Consider smoking the skin for preservation.
+gui.skin.hairDamaged=Decay caused hair damage.
+gui.skin.hairDamaged2=Remove hair to make rawhide or leather.
 
 key.BidsToolMode=Cycle Tool Mode
 
