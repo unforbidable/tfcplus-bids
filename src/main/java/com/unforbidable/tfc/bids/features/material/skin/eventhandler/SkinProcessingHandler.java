@@ -1,6 +1,9 @@
 package com.unforbidable.tfc.bids.features.material.skin.eventhandler;
 
+import com.dunk.tfc.Core.TFCTabs;
+import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.TFCFluids;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
@@ -45,8 +48,34 @@ public class SkinProcessingHandler {
 
             resultTag.setFluid(input.getFluid());
             resultTag.setWeight(input.getWeight());
-            resultTag.setDecay(input.getDecay());
-            resultTag.setDecayTimer(input.getDecayTimer());
+
+            // Some decay is removed after fleshing and dehairing
+            // decay less than 1% is forgiven
+            float decayMultiplier = getDecayMultiplierForStage(resultTag.getStage());
+            if (decayMultiplier != 1) {
+                float newDecay = input.getDecay() * decayMultiplier;
+
+                if (newDecay / input.getWeight() < 0.01f) {
+                    resultTag.setDecay(0);
+                } else {
+                    resultTag.setDecay(Math.round(newDecay * 100) / 100f);
+                }
+
+                resultTag.setDecayTimer((int) (input.getDecayTimer() + TFC_Time.HOUR_LENGTH));
+            } else {
+                resultTag.setDecay(input.getDecay());
+                resultTag.setDecayTimer(input.getDecayTimer());
+            }
+        }
+    }
+
+    private float getDecayMultiplierForStage(String stage) {
+        if (stage.equals(SkinTagAccess.STAGE_FLESHED)) {
+            return 0.25f;
+        } else if (stage.equals(SkinTagAccess.STAGE_DEHAIRED)) {
+            return 0.5f;
+        } else {
+            return 1f;
         }
     }
 
