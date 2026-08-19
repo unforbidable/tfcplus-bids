@@ -40,6 +40,9 @@ public class SkinProcessingHandler {
                 resultTag.setAnimal(input.getAnimal());
             }
 
+            // Salted is removed with the scraped material
+            resultTag.setSalted(false);
+
             resultTag.setFluid(input.getFluid());
             resultTag.setWeight(input.getWeight());
             resultTag.setDecay(input.getDecay());

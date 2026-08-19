@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.api.meta.MoreHideMeta;
 import com.unforbidable.tfc.bids.api.names.GuiNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.api.util.nbt.SkinTagAccess;
+import com.unforbidable.tfc.bids.compat.tfc.meta.PowderMeta;
 import com.unforbidable.tfc.bids.compat.tfc.meta.RepairPatchMeta;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -19,6 +20,7 @@ import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSur
 import com.unforbidable.tfc.bids.features.material.skin.container.ContainerSpecialCraftingSkin;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinCuttingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinMergingRecipe;
+import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinSaltingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinShearingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinLivingDropsEventHandler;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinProcessingHandler;
@@ -29,6 +31,7 @@ import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
 import com.unforbidable.tfc.bids.features.material.skin.render.SkinItemRenderer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
@@ -140,6 +143,23 @@ public class Skin extends Feature {
         setup.recipes()
             .add(new SkinMergingRecipe(SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_PRESERVED),
                 null, SkinHelper.WEIGHT_MEDIUM - 0.01f));
+
+        // Salting
+        Item[] skinsToSalt = {BidsItems.genericSkin, BidsItems.genericFur, BidsItems.sheepSkin, BidsItems.wolfFur, BidsItems.bearFur};
+        String[] stagesToSalt = {"", SkinTagAccess.STAGE_FLESHED, SkinTagAccess.STAGE_CLEAN};
+        for (Item skin : skinsToSalt) {
+            for (String stage : stagesToSalt) {
+                setup.recipes()
+                    .add(new SkinSaltingRecipe(SkinHelper.createStack(skin, stage),
+                        SkinHelper.createStack(skin, stage, SkinTag::setSalted), new ItemStack(TFCItems.powder, 1, PowderMeta.SALT)));
+            }
+
+            // Washing salt off of clean skin, so it can be prepared for dehairing
+            setup.registry(SoakingRegistry.recipes)
+                .add(new SoakingRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN, FoodTag::setSalted),
+                    SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN),
+                    new FluidStack(TFCFluids.FRESHWATER, 200)));
+        }
 
         // Fresh -> Fleshed
         setup.registry(ProcessingSurfaceRegistry.recipes)
