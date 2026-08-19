@@ -152,7 +152,10 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
 
     protected String getSkinSizeUnlocalizedName(ItemStack itemStack) {
         float weight = SkinTag.of(itemStack).getWeight();
-        if (weight >= SkinHelper.WEIGHT_LARGE) {
+        if (weight == SkinHelper.SKIN_MAX_WEIGHT) {
+            // Mostly used in recipes and kind of irrelevant
+            return "";
+        } else if (weight >= SkinHelper.WEIGHT_LARGE) {
             return "large";
         } else if (weight >= SkinHelper.WEIGHT_MEDIUM) {
             return "medium";
