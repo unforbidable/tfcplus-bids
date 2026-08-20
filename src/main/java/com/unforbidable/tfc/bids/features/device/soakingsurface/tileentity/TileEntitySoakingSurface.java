@@ -11,6 +11,7 @@ import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingConfig;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceHelper;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceItem;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceSlotProgress;
+import com.unforbidable.tfc.bids.util.Timer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -35,6 +36,8 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
 
     private int originalBlockId = 0;
     private int originalBlockMetadata = 0;
+
+    private final Timer checkProgressTimer = new Timer(100);
 
     private int selectedSlot = -1;
 
@@ -74,9 +77,9 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
         return selectedSlot;
     }
 
-    public ItemStack getSelectedActualItem() {
+    public ItemStack getSelectedItemStack() {
         if (selectedSlot != -1) {
-            return getSlotActualItem(selectedSlot);
+            return getSlotItemStack(selectedSlot);
         }
 
         return null;
@@ -114,6 +117,29 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
 
                 clientNeedToUpdate = false;
             }
+
+            if (checkProgressTimer.tick()) {
+                checkProgress();
+            }
+        }
+    }
+
+    private void checkProgress() {
+        for (int i = 0; i < MAX_STORAGE; i++) {
+            SoakingSurfaceSlotProgress progress = getSlotProgress(i);
+            if (progress != null && progress.progress >= 1f) {
+                ItemStack result = progress.recipe.getResult(storage[i].soakingItem).copy();
+                Fluid fluid = getSoakingFluid();
+                FluidStack fluidStack = fluid != null ? new FluidStack(fluid, 1000) : null;
+
+                BidsEventFactory.onSoakingItemCrafted(storage[i].soakingItem, result, fluidStack);
+
+                storage[i] = new SoakingSurfaceItem(result, TFC_Time.getTotalTicks());
+
+                markDirty();
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                clientNeedToUpdate = true;
+            }
         }
     }
 
@@ -137,7 +163,7 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
 
     private void dropItems() {
         for (int i = 0; i < MAX_STORAGE; i++) {
-            ItemStack is = getSlotActualItem(i);
+            ItemStack is = getSlotItemStack(i);
             if (is != null) {
                 final EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.1, zCoord + 0.5, is);
                 worldObj.spawnEntityInWorld(ei);
@@ -145,10 +171,9 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
         }
     }
 
-    public ItemStack getSlotActualItem(int slot) {
-        SoakingSurfaceSlotProgress slotProgress = getSlotProgress(slot);
-        if (slotProgress != null) {
-            return slotProgress.progress == 1 ? slotProgress.result : slotProgress.input;
+    public ItemStack getSlotItemStack(int slot) {
+        if (storage[slot] != null) {
+            return storage[slot].soakingItem;
         } else {
             return null;
         }
@@ -162,18 +187,7 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
                 float ticksNeeded = recipe.getTicks() * SoakingConfig.soakingDurationMultiplier;
                 float progress = elapsed > ticksNeeded ? 1 : elapsed / ticksNeeded;
                 float hoursRemaining = (ticksNeeded - elapsed) / TFC_Time.HOUR_LENGTH;
-
-                ItemStack result = recipe.getResult(storage[slot].soakingItem).copy();
-                Fluid fluid = getSoakingFluid();
-                if (fluid != null) {
-                    // TODO needs to be refactored so that the event is fired only once
-                    BidsEventFactory.onSoakingItemCrafted(storage[slot].soakingItem, result, new FluidStack(fluid, 1000));
-                }
-
-                return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, result, progress, hoursRemaining);
-            } else {
-                // dummy slot progress when recipe gets invalidated
-                return new SoakingSurfaceSlotProgress(storage[slot].soakingItem, storage[slot].soakingItem, 0, 0);
+                return new SoakingSurfaceSlotProgress(recipe, progress, hoursRemaining);
             }
         }
 
@@ -286,7 +300,7 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
     }
 
     public boolean retrieveItem(int slot, EntityPlayer player) {
-        ItemStack is = getSlotActualItem(slot);
+        ItemStack is = getSlotItemStack(slot);
         if (is != null) {
             final EntityItem ei = new EntityItem(worldObj, player.posX, player.posY, player.posZ, is);
             worldObj.spawnEntityInWorld(ei);

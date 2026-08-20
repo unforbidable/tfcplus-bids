@@ -20,7 +20,7 @@ public class RenderTileSoakingSurface extends TESRBase {
             customitem.hoverStart = 0f;
 
             for (int i = 0; i < 4; i++) {
-                ItemStack item = soakingSurface.getSlotActualItem(i);
+                ItemStack item = soakingSurface.getSlotItemStack(i);
 
                 if (item != null) {
                     GL11.glPushMatrix(); // start

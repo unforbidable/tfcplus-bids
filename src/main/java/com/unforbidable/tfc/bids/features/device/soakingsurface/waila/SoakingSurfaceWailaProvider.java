@@ -21,7 +21,7 @@ public class SoakingSurfaceWailaProvider extends WailaDataProvider {
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
         if (accessor.getTileEntity() instanceof TileEntitySoakingSurface) {
             TileEntitySoakingSurface soakingSurface = (TileEntitySoakingSurface) accessor.getTileEntity();
-            return soakingSurface.getSelectedActualItem();
+            return soakingSurface.getSelectedItemStack();
         }
 
         return super.getWailaStack(accessor, config);
@@ -32,9 +32,12 @@ public class SoakingSurfaceWailaProvider extends WailaDataProvider {
         if (accessor.getTileEntity() instanceof TileEntitySoakingSurface) {
             TileEntitySoakingSurface soakingSurface = (TileEntitySoakingSurface) accessor.getTileEntity();
             SoakingSurfaceSlotProgress progress = soakingSurface.getSelectedItemProgress();
-            if (progress != null && progress.progress < 1) {
-                currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": " + progress.result.getDisplayName());
-                currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.HoursRemaining") + ": " + ((int)Math.ceil(progress.hoursRemaining)));
+            if (progress != null) {
+                ItemStack result = progress.recipe.getResult(soakingSurface.getSelectedItemStack());
+                if (result != null) {
+                    currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": " + result.getDisplayName());
+                    currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.HoursRemaining") + ": " + ((int) Math.ceil(Math.max(0, progress.hoursRemaining))));
+                }
             }
         }
 
