@@ -5,8 +5,8 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemClothing;
 import com.dunk.tfc.api.Enums.EnumFuelMaterial;
 import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.Interfaces.IFood;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
-import com.unforbidable.tfc.bids.api.features.drying.IDryingFoodRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
 import com.unforbidable.tfc.bids.features.crafting.drying.DryingRegistry;
 import net.minecraft.item.ItemStack;
@@ -16,8 +16,9 @@ import net.minecraft.world.World;
 public class DryingHelper {
 
     public static ItemStack getResultItem(DryingItem dryingItem, DryingRecipe recipe) {
-        if (recipe instanceof IDryingFoodRecipe) {
-            // Food already has the dried/smoked info on the input item
+        if (!recipe.hasResult()) {
+            // For drying/smoking Foodstuffs there is no output item
+            // and the input item already has the dried/smoked info on the input item
             return dryingItem.inputItem.copy();
         } else {
             return recipe.getResult(dryingItem.inputItem);
@@ -29,15 +30,24 @@ public class DryingHelper {
     }
 
     public static void initializeInputItemProgress(DryingItem dryingItem, DryingRecipe recipe) {
-        if (recipe instanceof IDryingFoodRecipe) {
-            // Some food stuffs are already partially dried
+        if (dryingItem.inputItem.getItem() instanceof IFood) {
+            // Some food stuffs are already partially dried or smoked
             // and this lets the drying engine know
-            int dried = Food.getDried(dryingItem.inputItem);
-            dryingItem.progress = (float) dried / Food.DRYHOURS;
-
-            if (((IDryingFoodRecipe) recipe).isAllowSmoke()) {
+            if (recipe.isRequiresSmoke()) {
+                // For items that require smoke
+                // set the main progress from smoke
                 int smoke = Food.getSmokeCounter(dryingItem.inputItem);
-                dryingItem.smoke = (float) smoke / Food.SMOKEHOURS;
+                dryingItem.progress = (float) smoke / Food.SMOKEHOURS;
+            } else if (recipe.isRequiresDry()) {
+                int dried = Food.getDried(dryingItem.inputItem);
+                dryingItem.progress = (float) dried / Food.DRYHOURS;
+
+                // for items that require dry but not smoke, but can be smoked as well
+                // set the secondary smoking progress
+                if (recipe.canSmoke()) {
+                    int smoke = Food.getSmokeCounter(dryingItem.inputItem);
+                    dryingItem.smoke = (float) smoke / Food.SMOKEHOURS;
+                }
             }
         }
     }
@@ -50,20 +60,32 @@ public class DryingHelper {
         }
     }
 
-    public static void applyInputItemProgress(DryingItem dryingItem, DryingRecipe recipe) {
-        if (recipe instanceof IDryingFoodRecipe) {
-            // When food is drying the NBT is updated to track progress
-            // The progress saved is scaled to 4 hours
-            // because above 4 hours the food is considered dried
-            // So for example if the recipe drying time is set to 12 hours
-            // the progress is saved every 12/4 = 3 hours
-            int dried = (int) Math.floor(dryingItem.progress * Food.DRYHOURS);
-            Food.setDried(dryingItem.inputItem, dried);
+    public static void applyInputItemProgress(DryingItem dryingItem, DryingRecipe recipe, int fuelTasteProfile) {
+        if (dryingItem.inputItem.getItem() instanceof IFood) {
+            if (recipe.isRequiresSmoke()) {
+                // For items that require smoke the main progress tracks smoking instead
+                int smoke = (int) Math.floor(dryingItem.smoke * Food.SMOKEHOURS);
+                Food.setSmokeCounter(dryingItem.inputItem, smoke);
+
+                if (dryingItem.smoke == 1) {
+                    // Setting this makes TFC think the item is smoked
+                    // so do it only when smoking is done
+                    Food.setFuelProfile(dryingItem.inputItem, EnumFuelMaterial.getFuelProfile(fuelTasteProfile));
+                }
+            } else if (recipe.isRequiresDry()) {
+                // When food is drying the NBT is updated to track progress
+                // The progress saved is scaled to 4 hours
+                // because above 4 hours the food is considered dried
+                // So for example if the recipe drying time is set to 12 hours
+                // the progress is saved every 12/4 = 3 hours
+                int dried = (int) Math.floor(dryingItem.progress * Food.DRYHOURS);
+                Food.setDried(dryingItem.inputItem, dried);
+            }
         }
     }
 
     public static void applyInputItemSmoke(DryingItem dryingItem, DryingRecipe recipe, int fuelTasteProfile) {
-        if (recipe instanceof IDryingFoodRecipe && ((IDryingFoodRecipe) recipe).isAllowSmoke()) {
+        if (dryingItem.inputItem.getItem() instanceof IFood) {
             int smoke = (int) Math.floor(dryingItem.smoke * Food.SMOKEHOURS);
             Food.setSmokeCounter(dryingItem.inputItem, smoke);
 

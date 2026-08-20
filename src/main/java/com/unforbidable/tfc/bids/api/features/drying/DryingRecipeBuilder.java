@@ -14,6 +14,8 @@ public class DryingRecipeBuilder {
     protected boolean requiresWarm;
     protected boolean requiresFreezing;
     protected boolean requiresNotWet;
+    protected boolean requiresSmoke;
+    protected int canSmokeDuration;
 
     public DryingRecipeBuilder consumes(ItemStack inputItem) {
         this.inputItem = inputItem;
@@ -74,8 +76,20 @@ public class DryingRecipeBuilder {
         return this;
     }
 
+    public DryingRecipeBuilder smoke() {
+        this.requiresSmoke = true;
+
+        return this;
+    }
+
+    public DryingRecipeBuilder canSmokeInHours(int duration) {
+        this.canSmokeDuration = duration;
+
+        return this;
+    }
+
     public DryingRecipe build() {
-        return new DryingRecipe(inputItem, outputItem, destroyedOutputItem, duration, requiresDry, requiresWet, requiresCover, requiresWarm, requiresFreezing, requiresNotWet);
+        return new DryingRecipe(inputItem, outputItem, destroyedOutputItem, duration, requiresDry, requiresWet, requiresCover, requiresWarm, requiresFreezing, requiresNotWet, requiresSmoke, canSmokeDuration);
     }
 
 }

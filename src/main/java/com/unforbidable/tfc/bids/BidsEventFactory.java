@@ -1,6 +1,8 @@
 package com.unforbidable.tfc.bids;
 
 import com.unforbidable.tfc.bids.api.features.churning.WaterskinChurnEvent;
+import com.unforbidable.tfc.bids.api.features.drying.DryingEnvironment;
+import com.unforbidable.tfc.bids.api.features.drying.DryingEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingItemEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.api.features.firestarting.FireStartingEvent;
@@ -14,6 +16,7 @@ import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.api.features.threshing.ThreshingPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlayerEvent;
 import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHost;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
 import java.awt.geom.Area;
@@ -164,6 +167,11 @@ public class BidsEventFactory {
 
     public static void onSoakingItemCrafted(ItemStack input, ItemStack result, FluidStack fluid) {
         SoakingEvent.ItemCrafted event = new SoakingEvent.ItemCrafted(input, result, fluid);
+        MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static void onDryingItemCrafted(ItemStack input, ItemStack result, DryingEnvironment environment) {
+        DryingEvent.ItemCrafted event = new DryingEvent.ItemCrafted(input, result, environment);
         MinecraftForge.EVENT_BUS.post(event);
     }
 

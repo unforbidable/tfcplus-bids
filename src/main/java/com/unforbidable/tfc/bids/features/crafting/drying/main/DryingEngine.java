@@ -5,7 +5,6 @@ import com.dunk.tfc.Items.ItemClothing;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
-import com.unforbidable.tfc.bids.api.features.drying.IDryingFoodRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
 import com.unforbidable.tfc.bids.features.crafting.drying.DryingConfig;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.DynamicEnvironment;
@@ -159,12 +158,14 @@ public class DryingEngine {
                 long ticksRemaining = (long) ((1 - dryingItem.progress) * ticksRequiredTotal / match);
                 dryingItem.finishedTicks = dryingItem.lastProgressUpdatedTicks + ticksRemaining;
 
-                DryingHelper.applyInputItemProgress(dryingItem, recipe);
+                DryingHelper.applyInputItemProgress(dryingItem, recipe, env.getFuelTasteProfile());
 
                 if (dryingItem.progress == 1) {
                     dryingItem.finishedTicks = 0;
 
                     dryingItem.resultItem = DryingHelper.getResultItem(dryingItem, recipe);
+
+                    BidsEventFactory.onDryingItemCrafted(dryingItem.inputItem, dryingItem.resultItem, env);
 
                     if (dryingItem.resultItem != null) {
                         DryingItem nextDryingItem = new DryingItem();
@@ -195,10 +196,12 @@ public class DryingEngine {
             }
 
             // check if smoking is possible and not complete
-            if (recipe instanceof IDryingFoodRecipe && ((IDryingFoodRecipe) recipe).isAllowSmoke() && dryingItem.smoke < 1) {
+            // this handles especially foodstuffs that can be dried as well as smoked
+            // normal item smoking (such as skins) is handled above
+            if (!recipe.isRequiresSmoke() && recipe.canSmoke() && dryingItem.smoke < 1) {
                 if (env.isSmoked()) {
                     // smoke gain is constant and does not depend on recipe match
-                    long ticksRequiredTotal = (long) (((IDryingFoodRecipe) recipe).getSmokeDuration() * TFC_Time.HOUR_LENGTH * DryingConfig.smokingDurationMultiplier);
+                    long ticksRequiredTotal = Math.round(recipe.getCanSmokeDuration() * TFC_Time.HOUR_LENGTH * DryingConfig.smokingDurationMultiplier);
                     float smokeToAdd = ticksElapsed / (float) ticksRequiredTotal;
 
                     float prevSmoke = dryingItem.smoke;

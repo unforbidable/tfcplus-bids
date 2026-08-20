@@ -8,7 +8,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
 import com.unforbidable.tfc.bids.compat.waila.providers.WailaDataProvider;
-import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEnvironment;
+import com.unforbidable.tfc.bids.api.features.drying.DryingEnvironment;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHelper;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.StaticEnvironment;

@@ -79,7 +79,7 @@ public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerI
             final ItemStack input = recipe.getInputItem();
             final ItemStack result = recipe.getResult(input);
             output.stackSize = result.stackSize;
-            if (ItemStack.areItemStacksEqual(result, output) || result.getItem() instanceof IFood && result.getItem() == output.getItem()) {
+            if (result.getItem() == output.getItem() && result.getItemDamage() == output.getItemDamage()) {
                 arecipes.add(new CachedDryingRecipe(input, output, recipe.getDuration(), BidsBlocks.dryingRack.getLocalizedName(), getRecipeInfo(recipe)));
             }
         }
@@ -88,7 +88,7 @@ public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerI
             final ItemStack input = recipe.getInputItem();
             final ItemStack result = recipe.getResult(input);
             output.stackSize = result.stackSize;
-            if (ItemStack.areItemStacksEqual(result, output) || result.getItem() instanceof IFood && result.getItem() == output.getItem()) {
+            if (result.getItem() == output.getItem() && result.getItemDamage() == output.getItemDamage()) {
                 arecipes.add(new CachedDryingRecipe(input, output, recipe.getDuration(), BidsBlocks.dryingSurface.getLocalizedName(), getRecipeInfo(recipe)));
             }
         }

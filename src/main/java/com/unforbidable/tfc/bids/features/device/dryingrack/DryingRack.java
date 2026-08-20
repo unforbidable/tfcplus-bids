@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.device.dryingrack;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.features.drying.DryingRackFoodRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
 import com.unforbidable.tfc.bids.api.names.BlockNames;
@@ -65,12 +65,12 @@ public class DryingRack extends Feature {
             TFCItems.calamariRaw, TFCItems.muttonRaw, TFCItems.horseMeatRaw, TFCItems.cheese};
         for (Item food : foodToDry) {
             setup.registry(DryingRackRegistry.recipes)
-                .add((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
-                    .smoke(12)
+                .add((DryingRackRecipe) DryingRackRecipe.builder()
                     .tied()
                     .consumes(ItemFoodTFC.createTag(new ItemStack(food), 1))
                     .dry()
                     .hours(16)
+                    .canSmokeInHours(12)
                     .build());
         }
 
@@ -78,7 +78,7 @@ public class DryingRack extends Feature {
             .add(TFCItems.seaWeed, new WetnessInfo(500, 1f));
 
         setup.registry(DryingRackRegistry.recipes)
-            .add((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
+            .add((DryingRackRecipe) DryingRackRecipe.builder()
                 .consumes(ItemFoodTFC.createTag(new ItemStack(TFCItems.seaWeed), 1))
                 .dry()
                 .hours(16)

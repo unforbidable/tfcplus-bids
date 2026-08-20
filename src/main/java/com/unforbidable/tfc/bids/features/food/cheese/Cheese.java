@@ -8,7 +8,7 @@ import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingCheeseRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
-import com.unforbidable.tfc.bids.api.features.drying.DryingRackFoodRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.fluid.FluidCommon;
@@ -111,12 +111,12 @@ public class Cheese extends Feature {
 
         for (Item food : new Item[] { BidsItems.goatCheese }) {
             setup.registry(DryingRackRegistry.recipes)
-                .add((DryingRackFoodRecipe) DryingRackFoodRecipe.builder()
-                    .smoke(12)
+                .add((DryingRackRecipe) DryingRackRecipe.builder()
                     .tied()
                     .consumes(ItemFoodTFC.createTag(new ItemStack(food), 1))
                     .dry()
                     .hours(16)
+                    .canSmokeInHours(12)
                     .build());
         }
     }

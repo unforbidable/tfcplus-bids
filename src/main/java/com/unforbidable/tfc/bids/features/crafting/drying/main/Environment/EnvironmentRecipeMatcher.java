@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.crafting.drying.main.Environment;
 
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
-import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEnvironment;
+import com.unforbidable.tfc.bids.api.features.drying.DryingEnvironment;
 
 public class EnvironmentRecipeMatcher {
 
@@ -21,7 +21,15 @@ public class EnvironmentRecipeMatcher {
     }
 
     public float match() {
-        return matchCover() * matchFreezing() * matchWarm() * matchWet() * matchDry();
+        return matchCover() * matchFreezing() * matchWarm() * matchWet() * matchDry() * matchSmoke();
+    }
+
+    private float matchSmoke() {
+        if (recipe.isRequiresSmoke()) {
+            return env.isSmoked() ? 1f : 0;
+        } else {
+            return 1;
+        }
     }
 
     private float matchDry() {

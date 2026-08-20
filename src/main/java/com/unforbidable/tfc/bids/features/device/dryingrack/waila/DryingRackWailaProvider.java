@@ -8,10 +8,9 @@ import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCOptions;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
-import com.unforbidable.tfc.bids.api.features.drying.IDryingFoodRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.WetnessInfo;
 import com.unforbidable.tfc.bids.compat.waila.providers.WailaDataProvider;
-import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEnvironment;
+import com.unforbidable.tfc.bids.api.features.drying.DryingEnvironment;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHelper;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.Environment.StaticEnvironment;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackItem;
@@ -72,7 +71,7 @@ public class DryingRackWailaProvider extends WailaDataProvider {
                             currenttip.add(ChatFormatting.RED + StatCollector.translateToLocal("gui.Ruined") + ": "
                                 + ChatFormatting.WHITE + output + progress);
                         } else {
-                            if (recipe instanceof IDryingFoodRecipe) {
+                            if (recipe.canSmoke()) {
                                 // Show drying output and progress only when in progress
                                 if (dryingItem.finishedTicks > 0) {
                                     // Output is fully dried, on top of existing tags

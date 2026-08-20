@@ -16,8 +16,10 @@ public class DryingRecipe implements SimpleRecipeMatcher<ItemStack> {
     private final boolean requiresWarm;
     private final boolean requiresFreezing;
     private final boolean requiresNotWet;
+    private final boolean requiresSmoke;
+    private final int canSmokeDuration;
 
-    public DryingRecipe(ItemStack inputItem, ItemStack outputItem, ItemStack destroyedOutputItem, int duration, boolean requiresDry, boolean requiresWet, boolean requiresCover, boolean requiresWarm, boolean requiresFreezing, boolean requiresNotWet) {
+    public DryingRecipe(ItemStack inputItem, ItemStack outputItem, ItemStack destroyedOutputItem, int duration, boolean requiresDry, boolean requiresWet, boolean requiresCover, boolean requiresWarm, boolean requiresFreezing, boolean requiresNotWet, boolean requiresSmoke, int canSmokeDuration) {
         this.inputItem = inputItem;
         this.outputItem = outputItem;
         this.destroyedOutputItem = destroyedOutputItem;
@@ -28,6 +30,8 @@ public class DryingRecipe implements SimpleRecipeMatcher<ItemStack> {
         this.requiresWarm = requiresWarm;
         this.requiresFreezing = requiresFreezing;
         this.requiresNotWet = requiresNotWet;
+        this.requiresSmoke = requiresSmoke;
+        this.canSmokeDuration = canSmokeDuration;
     }
 
     public ItemStack getInputItem() {
@@ -62,6 +66,18 @@ public class DryingRecipe implements SimpleRecipeMatcher<ItemStack> {
         return requiresNotWet;
     }
 
+    public boolean isRequiresSmoke() {
+        return requiresSmoke;
+    }
+
+    public boolean canSmoke() {
+        return getCanSmokeDuration() > 0;
+    }
+
+    public int getCanSmokeDuration() {
+        return canSmokeDuration;
+    }
+
     @Override
     public boolean matches(ItemStack ingredient) {
         return matchesIngredient(ingredient);
@@ -73,11 +89,20 @@ public class DryingRecipe implements SimpleRecipeMatcher<ItemStack> {
     }
 
     public ItemStack getResult(ItemStack ingredient) {
-        return outputItem.copy();
+        if (outputItem != null) {
+            return outputItem.copy();
+        } else {
+            // For drying/smoking Foodstuffs there is no output item
+            return ingredient.copy();
+        }
     }
 
     public ItemStack getDestroyedResult(ItemStack ingredient) {
         return destroyedOutputItem != null ? destroyedOutputItem.copy() : null;
+    }
+
+    public boolean hasResult() {
+        return outputItem != null;
     }
 
 }

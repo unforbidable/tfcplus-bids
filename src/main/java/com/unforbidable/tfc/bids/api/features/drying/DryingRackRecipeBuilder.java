@@ -13,7 +13,7 @@ public class DryingRackRecipeBuilder extends DryingRecipeBuilder {
     @Override
     public DryingRackRecipe build() {
         return new DryingRackRecipe(inputItem, outputItem, destroyedOutputItem, duration,
-            requiresDry, requiresWet, requiresCover, requiresWarm, requiresFreezing, requiresNotWet,
+            requiresDry, requiresWet, requiresCover, requiresWarm, requiresFreezing, requiresNotWet, requiresSmoke, canSmokeDuration,
             requiresTyingEquipment);
     }
 

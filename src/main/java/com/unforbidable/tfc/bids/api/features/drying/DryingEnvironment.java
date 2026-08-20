@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.crafting.drying.main;
+package com.unforbidable.tfc.bids.api.features.drying;
 
 public interface DryingEnvironment {
 
