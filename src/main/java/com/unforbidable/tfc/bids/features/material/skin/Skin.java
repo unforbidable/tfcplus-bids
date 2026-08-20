@@ -4,6 +4,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingRecipe;
 import com.unforbidable.tfc.bids.api.meta.MoreHideMeta;
@@ -21,12 +22,14 @@ import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingRegistry;
+import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.material.skin.container.ContainerSpecialCraftingSkin;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinCuttingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinMergingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinSaltingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinShearingRecipe;
+import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinDryingHandler;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinLivingDropsEventHandler;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinProcessingHandler;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinSoakingHandler;
@@ -96,7 +99,8 @@ public class Skin extends Feature {
         setup.event()
             .handler(new SkinLivingDropsEventHandler())
             .handler(new SkinProcessingHandler())
-            .handler(new SkinSoakingHandler());
+            .handler(new SkinSoakingHandler())
+            .handler(new SkinDryingHandler());
 
         setup.recipes()
             .add(new SkinCuttingRecipe(SkinHelper.createStack(BidsItems.genericFur, SkinTagAccess.STAGE_PRESERVED),
@@ -358,6 +362,19 @@ public class Skin extends Feature {
             .add(new SoakingRecipe(new ItemStack(TFCItems.bearFurScrap, 1, 2),
                 SkinHelper.createStack(BidsItems.bearFur, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN),
                 new FluidStack(TFCFluids.FRESHWATER, 800), 8000));
+
+        // Clean -> Preserved
+        Item[] skinsToPreserve = {BidsItems.genericSkin, BidsItems.genericFur, BidsItems.sheepSkin, BidsItems.wolfFur, BidsItems.bearFur};
+        for (Item skin : skinsToPreserve) {
+            setup.registry(DryingRackRegistry.recipes)
+                .add((DryingRackRecipe) DryingRackRecipe.builder()
+                    .consumes(SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN))
+                    .produces(SkinHelper.createStack(skin, SkinTagAccess.STAGE_PRESERVED))
+                    .dry()
+                    .smoke()
+                    .hours(12)
+                    .build());
+        }
     }
 
 }
