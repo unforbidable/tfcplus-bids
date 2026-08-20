@@ -81,6 +81,22 @@ public class ItemFreshSkin extends ItemSkin {
     }
 
     @Override
+    public IIcon getIconFromDamage(int damage) {
+        if (damage == 8) {
+            return dehairedIcon;
+        } else if (damage == 9) {
+            return tannedIcon;
+        } else {
+            return super.getIconFromDamage(damage);
+        }
+    }
+
+    @Override
+    public IIcon getIcon(ItemStack stack, int pass) {
+        return getIconIndex(stack);
+    }
+
+    @Override
     public ItemStack getSpecialCraftingItemStack(ItemStack itemStack) {
         if (SkinTag.of(itemStack).isStage(SkinTagAccess.STAGE_PRESERVED)) {
             return super.getSpecialCraftingItemStack(itemStack);
@@ -100,11 +116,11 @@ public class ItemFreshSkin extends ItemSkin {
             case SkinTagAccess.STAGE_PREPARED:
                 return 3;
             case SkinTagAccess.STAGE_PRESERVED:
-                return 9;
+                return 6;
             case SkinTagAccess.STAGE_DEHAIRED:
-                return 11;
+                return 8;
             case SkinTagAccess.STAGE_TANNED:
-                return 12;
+                return 9;
         }
 
         return 0;
