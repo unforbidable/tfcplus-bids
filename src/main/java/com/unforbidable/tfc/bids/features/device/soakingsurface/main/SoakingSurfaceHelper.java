@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.soakingsurface.main;
 
 import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingRecipe;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
@@ -10,7 +9,8 @@ import com.unforbidable.tfc.bids.features.device.soakingsurface.block.BlockSoaki
 import com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity.TileEntitySoakingSurface;
 import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
 import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
-import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -19,12 +19,8 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class SoakingSurfaceHelper {
 
@@ -188,7 +184,15 @@ public class SoakingSurfaceHelper {
     }
 
     public static SoakingSurfaceRecipe adaptSoakingRecipe(SoakingRecipe recipe) {
-        return new SoakingSurfaceRecipe(recipe.input, recipe.output, recipe.fluid, (int) (recipe.ticks * 1.5));
+        if (isSupportedFluid(recipe.fluid)) {
+            return new SoakingSurfaceRecipe(recipe.input, recipe.output, recipe.fluid, (int) (recipe.ticks * 1.5));
+        } else {
+            return null;
+        }
+    }
+
+    private static boolean isSupportedFluid(FluidStack fluid) {
+        return !getBlocksForFluid(fluid).isEmpty();
     }
 
 }
