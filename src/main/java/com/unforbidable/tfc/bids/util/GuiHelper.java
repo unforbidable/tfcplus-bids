@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.util;
 
+import codechicken.lib.gui.GuiDraw;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
@@ -8,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
@@ -60,6 +62,31 @@ public class GuiHelper {
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             GL11.glDisable(GL11.GL_BLEND);
         }
+    }
+
+    public static void drawIconCustomColor(ResourceLocation icon, int x, int y, int u, int v, int width, int height, int color) {
+        // 2. Bind your texture file
+        Minecraft.getMinecraft().getTextureManager().bindTexture(icon);
+
+        // 3. Enable blending if your icon has transparency
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+        // 4. Apply your custom color (values must be between 0.0F and 1.0F)
+        float r = (float)(color >> 16 & 255) / 255.0F;
+        float g = (float)(color >> 8 & 255) / 255.0F;
+        float b = (float)(color & 255) / 255.0F;
+        float a = 1.0F; // Opacity
+        GL11.glColor4f(r, g, b, a);
+
+        // 5. Draw the texture slot (x, y, textureX, textureY, width, height)
+        GuiDraw.drawTexturedModalRect(x, y, u, v, width, height);
+
+        // 6. CRUCIAL: Reset the color back to solid white so it doesn't corrupt subsequent GUI elements
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+        // 7. Clean up state if necessary
+        GL11.glDisable(GL11.GL_BLEND);
     }
 
 }

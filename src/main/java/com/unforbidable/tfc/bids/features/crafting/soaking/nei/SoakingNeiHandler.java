@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.features.crafting.soaking.nei;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
-import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.dunk.tfc.Core.TFC_Time;
@@ -12,23 +11,27 @@ import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingConfig;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.SoakingSurfaceRegistry;
-import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceHelper;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
+import com.unforbidable.tfc.bids.util.GuiHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fluids.FluidStack;
 
 public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandlerInfoProvider {
 
     static final String HANDLER_ID = "soakingsurface";
 
     public static ResourceLocation guiTexture = new ResourceLocation(Tags.MOD_ID,
-            "textures/gui/nei/gui_soakingsurface.png");
+        "textures/gui/nei/gui_soakingsurface.png");
+
+    public static ResourceLocation guiTextureIcons = new ResourceLocation(Tags.MOD_ID,
+        "textures/gui/nei/gui_soakingsurface_fluid.png");
 
     @Override
     public String getRecipeName() {
@@ -56,8 +59,7 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
             for (SoakingSurfaceRecipe recipe : SoakingSurfaceRegistry.recipes) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                List<ItemStack> blocks = SoakingSurfaceHelper.getBlocksForFluid(recipe.getFluid());
-                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, blocks, recipe.getTicks()));
+                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, recipe.getFluid(), recipe.getTicks()));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -70,8 +72,7 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
             final ItemStack input = recipe.getInput();
             final ItemStack result = recipe.getResult(input);
             if (result.getItem() == output.getItem() && result.getItemDamage() == output.getItemDamage()) {
-                List<ItemStack> blocks = SoakingSurfaceHelper.getBlocksForFluid(recipe.getFluid());
-                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, blocks, recipe.getTicks()));
+                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, recipe.getFluid(), recipe.getTicks()));
             }
         }
     }
@@ -82,8 +83,7 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
             if (recipe.matchesInput(ingredient)) {
                 final ItemStack input = recipe.getInput();
                 final ItemStack result = recipe.getResult(input);
-                List<ItemStack> blocks = SoakingSurfaceHelper.getBlocksForFluid(recipe.getFluid());
-                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, blocks, recipe.getTicks()));
+                arecipes.add(new CachedSoakingSurfaceRecipe(input, result, recipe.getFluid(), recipe.getTicks()));
             }
         }
     }
@@ -105,8 +105,14 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
             // Because TFC water blocks don't have items
             // they cannot be rendered in guy as neatly as vanilla water blocks
             // the soaking block is always rendered as "water"
-            // and only the tooltip below shows the actual block name(s)
-            GuiContainerManager.drawItems.renderItemIntoGUI(Minecraft.getMinecraft().fontRenderer, GuiDraw.renderEngine, new ItemStack(Blocks.water), 19, 24);
+            // and the tooltip below shows the fluid name
+//            GuiContainerManager.drawItems.renderItemIntoGUI(Minecraft.getMinecraft().fontRenderer, GuiDraw.renderEngine, new ItemStack(Blocks.water), 19, 24);
+
+            FluidStack fluid = ((CachedSoakingSurfaceRecipe) crecipe).fluid;
+            if (fluid != null) {
+                int i = cycleticks % 32;
+                GuiHelper.drawIconCustomColor(guiTextureIcons, 19, 24, 0, i * 16, 16, 16, fluid.getFluid().getColor(fluid));
+            }
         }
     }
 
@@ -122,10 +128,9 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
             Point offset = gui.getRecipePosition(recipe);
             Point relMouse = new Point(mousepos.x - gui.guiLeft - offset.x, mousepos.y - gui.guiTop - offset.y);
             Rectangle rect = new Rectangle(19, 24, 16, 16);
-            List<ItemStack> blocks = ((CachedSoakingSurfaceRecipe) irecipe).blocks;
-            if (rect.contains(relMouse) && blocks.size() > 0) {
-                int i = (cycleticks / 20) % (blocks.size());
-                currenttip.add(blocks.get(i).getDisplayName());
+            FluidStack fluid = ((CachedSoakingSurfaceRecipe) irecipe).fluid;
+            if (rect.contains(relMouse) && fluid != null) {
+                currenttip.add(fluid.getLocalizedName());
             }
         }
         return currenttip;
@@ -140,13 +145,13 @@ public class SoakingNeiHandler extends TemplateRecipeHandler implements IHandler
 
         final ItemStack ingred;
         final ItemStack result;
-        final List<ItemStack> blocks;
+        final FluidStack fluid;
         final long duration;
 
-        public CachedSoakingSurfaceRecipe(ItemStack ingred, ItemStack result, List<ItemStack> blocks, long duration) {
+        public CachedSoakingSurfaceRecipe(ItemStack ingred, ItemStack result, FluidStack fluid, long duration) {
             this.ingred = ingred.copy();
             this.result = result.copy();
-            this.blocks = blocks;
+            this.fluid = fluid;
             this.duration = (long) (duration * SoakingConfig.soakingDurationMultiplier / TFC_Time.HOUR_LENGTH);
         }
 
