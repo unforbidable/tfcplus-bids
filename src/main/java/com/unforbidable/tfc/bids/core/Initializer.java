@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.core.help.HelpInit;
 import com.unforbidable.tfc.bids.core.keybinding.KeyBindingInit;
 import com.unforbidable.tfc.bids.core.network.NetworkInit;
 import com.unforbidable.tfc.bids.core.player.PlayerInit;
+import com.unforbidable.tfc.bids.core.scheduler.SchedulerInit;
 import com.unforbidable.tfc.bids.core.schemes.SchemeInit;
 import com.unforbidable.tfc.bids.core.stats.StatsInit;
 import com.unforbidable.tfc.bids.core.surfaceitem.SurfaceItemInit;
@@ -28,6 +29,7 @@ public class Initializer {
     private static final Initializable[] initializers = {
         // Core initializers are listed here
         new ConfigInit(),
+        new SchedulerInit(),
         new NetworkInit(),
         new ChunkInit(),
         new PlayerInit(),
