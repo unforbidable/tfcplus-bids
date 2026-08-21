@@ -2,6 +2,8 @@ package com.unforbidable.tfc.bids.features.building.peg.block;
 
 import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,6 +25,26 @@ public class BlockPeg extends Block {
         setBlockBounds(0.45f, 0, 0.45f, 0.55f, 0.5f, 0.55f);
     }
 
+    @Override
+    public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
+    }
+
+    @Override
+    public int damageDropped(int metadata) {
+        if (metadata > 0) {
+            // Restoring item durability but usually some is lost due to metadata rounding
+            int damage = (int)Math.ceil((metadata) / 15f * BidsItems.hardenedDiggingStick.getMaxDamage());
+            Bids.LOG.info("Dropped digging stick, meta: {} -> damage: {}", metadata, damage);
+            return damage;
+        }
+
+        return 0;
+    }
+
+    @Override
+    public Item getItemDropped(int metadata, Random rand, int fortune) {
+        return BidsItems.hardenedDiggingStick;
+    }
 
     @Override
     @SideOnly(Side.CLIENT)

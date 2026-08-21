@@ -8,6 +8,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
+import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import java.util.HashSet;
@@ -60,6 +61,65 @@ public class ItemDiggingStick extends ItemTerraTool {
     @Override
     public EnumAction getItemUseAction(ItemStack is) {
         return EnumAction.block;
+    }
+
+    @Override
+    public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player) {
+        if (!player.isUsingItem() && player.isSneaking()) {
+            MovingObjectPosition mop = getMovingObjectPositionFromPlayer(world, player, false);
+            if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mop.sideHit == 1) {
+                if (canPlacePeg(is, world, mop.blockX, mop.blockY + 1, mop.blockZ)) {
+                    player.setItemInUse(is, (int) (getMaxItemUseDuration(is) / efficiencyOnProperMaterial));
+                }
+            }
+        }
+
+        return is;
+    }
+
+    @Override
+    public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
+        if (player.isSneaking()) {
+            if (count == 1) {
+                MovingObjectPosition mop = getMovingObjectPositionFromPlayer(player.worldObj, player, false);
+                if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mop.sideHit == 1) {
+                    if (canPlacePeg(stack, player.worldObj, mop.blockX, mop.blockY + 1, mop.blockZ)) {
+                        player.worldObj.playSoundEffect(mop.blockX + 0.5F, mop.blockY + 0.5F, mop.blockZ + 0.5F,
+                            "dig.wood", 0.4F + (player.worldObj.rand.nextFloat() / 2), 0.7F + player.worldObj.rand.nextFloat());
+
+                        if (!player.worldObj.isRemote) {
+                            placePeg(stack, player.worldObj, mop.blockX, mop.blockY + 1, mop.blockZ);
+                        }
+
+                        if (!player.capabilities.isCreativeMode) {
+                            stack.stackSize--;
+                        }
+                    }
+                }
+            }
+        } else {
+            player.stopUsingItem();
+        }
+    }
+
+    protected boolean canPlacePeg(ItemStack stack, World world, int x, int y, int z) {
+        return stack.getItem() == BidsItems.hardenedDiggingStick && world.isAirBlock(x, y, z) && BidsBlocks.woodenPeg.canBlockStay(world, x, y, z);
+    }
+
+    protected void placePeg(ItemStack stack, World world, int x, int y, int z) {
+        int metadata = getMetadata(stack.getItemDamage());
+        Bids.LOG.info("Placed digging stick, damage: {} -> meta: {}", stack.getItemDamage(), metadata);
+        world.setBlock(x, y, z, BidsBlocks.woodenPeg, metadata, 2);
+    }
+
+    @Override
+    public int getMetadata(int damage) {
+        if (damage > 0) {
+            // Damage is rounded up to the closest metadata value, which means some durability is often lost
+            return (int)Math.ceil(damage / (float)BidsItems.hardenedDiggingStick.getMaxDamage() * 15);
+        }
+
+        return 0;
     }
 
     @Override
