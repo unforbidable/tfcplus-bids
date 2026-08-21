@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.features.building.firebrick.Firebrick;
 import com.unforbidable.tfc.bids.features.building.logwall.LogWall;
 import com.unforbidable.tfc.bids.features.building.mudbrick.Mudbrick;
 import com.unforbidable.tfc.bids.features.building.palisade.Palisade;
+import com.unforbidable.tfc.bids.features.building.peg.Peg;
 import com.unforbidable.tfc.bids.features.building.roughstone.RoughStone;
 import com.unforbidable.tfc.bids.features.building.wattle.Wattle;
 import com.unforbidable.tfc.bids.features.crafting.carding.Carding;
@@ -195,6 +196,7 @@ public class Features {
         new Straw(),
         new Skin(),
         new DiggingStick(),
+        new Peg(),
     };
 
 }
