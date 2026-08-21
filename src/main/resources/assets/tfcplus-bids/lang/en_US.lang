@@ -1449,6 +1449,8 @@ item.Leather.name=Leather
 item.Digging Stick.name=Digging Stick
 item.Hardened Digging Stick.name=Hardened Digging Stick
 
+entity.PegLeashKnot.name=Leash Knot
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk

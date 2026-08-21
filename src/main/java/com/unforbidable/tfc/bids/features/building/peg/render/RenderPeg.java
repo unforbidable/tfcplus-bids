@@ -23,7 +23,7 @@ public class RenderPeg implements ISimpleBlockRenderingHandler {
         RenderBlocksWithRotation rendererWithRotation = new RenderBlocksWithRotation(renderer);
         rendererWithRotation.renderAllFaces = true;
 
-        rendererWithRotation.setRenderBounds(0.45, 0, 0.45, 0.55, 0.5, 0.55);
+        rendererWithRotation.setRenderBounds(0.4375, 0, 0.4375, 0.5625, 0.8, 0.5625);
         rendererWithRotation.renderStandardBlockWithColorMultiplier(block, x, y, z, 1, 1, 1);
 
         rendererWithRotation.renderAllFaces = false;
