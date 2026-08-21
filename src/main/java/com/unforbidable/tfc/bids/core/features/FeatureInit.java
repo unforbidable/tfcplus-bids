@@ -73,6 +73,11 @@ public class FeatureInit extends Initializable {
             .flatMap(f -> f.client(context).tileEntities.stream())
             .forEach(registry::registerTileEntitySpecialRender);
 
+        Bids.LOG.info("Register entity renderers");
+        loader.getFeatures().stream()
+            .flatMap(f -> f.client(context).entities.stream())
+            .forEach(registry::registerEntityRenderer);
+
         Bids.LOG.info("Register item renderers");
         loader.getFeatures().stream()
             .flatMap(f -> f.client(context).items.stream())

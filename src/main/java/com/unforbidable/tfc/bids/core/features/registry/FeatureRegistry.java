@@ -7,6 +7,7 @@ import com.unforbidable.tfc.bids.core.drink.registry.DrinkVessel;
 import com.unforbidable.tfc.bids.core.features.client.eventhandler.EventHandlerClientSpec;
 import com.unforbidable.tfc.bids.core.features.client.gui.GuiScreenSpec;
 import com.unforbidable.tfc.bids.core.features.client.render.RenderBlockSpec;
+import com.unforbidable.tfc.bids.core.features.client.render.RenderEntitySpec;
 import com.unforbidable.tfc.bids.core.features.client.render.RenderItemSpec;
 import com.unforbidable.tfc.bids.core.features.client.render.RenderTileEntitySpec;
 import com.unforbidable.tfc.bids.core.features.init.block.BlockSpec;
@@ -41,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -170,6 +172,16 @@ public class FeatureRegistry {
 
         for (Class<? extends TileEntity> type : spec.tileEntities) {
             ClientRegistry.bindTileEntitySpecialRenderer(type, spec.renderer);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void registerEntityRenderer(RenderEntitySpec spec) {
+        Bids.LOG.debug("Register entity renderer {} for {} entity(-ies).",
+            spec.renderer.getClass(), spec.entities);
+
+        for (Class<? extends Entity> type : spec.entities) {
+            RenderingRegistry.registerEntityRenderingHandler(type, spec.renderer);
         }
     }
 
