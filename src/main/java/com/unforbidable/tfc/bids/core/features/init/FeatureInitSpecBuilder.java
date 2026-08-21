@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.core.features.init;
 
 import com.unforbidable.tfc.bids.core.features.init.block.BlockSpecBuilder;
+import com.unforbidable.tfc.bids.core.features.init.entity.EntitySpec;
 import com.unforbidable.tfc.bids.core.features.init.fluid.FluidSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.gui.GuiContainerSpec;
 import com.unforbidable.tfc.bids.core.features.init.item.ItemSpecBuilder;
@@ -15,6 +16,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
@@ -30,6 +32,7 @@ public class FeatureInitSpecBuilder {
     private final List<ItemSpecBuilder<?>> items = new ArrayList<>();
     private final List<FluidSpecBuilder<?>> fluids = new ArrayList<>();
     private final List<TileEntitySpec> tileEntities = new ArrayList<>();
+    private final List<EntitySpec> entities = new ArrayList<>();
     private final List<GuiContainerSpec<?, ?>> containers = new ArrayList<>();
 
     public <T extends Block> BlockSpecBuilder<T> block(String name, Supplier<T> block, Class<? extends ItemBlock> itemBlock) {
@@ -61,6 +64,10 @@ public class FeatureInitSpecBuilder {
         tileEntities.add(new TileEntitySpec(type, id));
     }
 
+    public void entity(String name, Class<? extends Entity> type) {
+        entities.add(new EntitySpec(name, type));
+    }
+
     public <G extends Container> void gui(String name, SimpleGuiFunction<InventoryPlayer, World, Integer, Integer, Integer, G> fn) {
         containers.add(new GuiContainerSpec<>(name, GuiProvider.of(fn)));
     }
@@ -85,6 +92,7 @@ public class FeatureInitSpecBuilder {
                 .map(FluidSpecBuilder::build)
                 .collect(Collectors.toList()),
             tileEntities,
+            entities,
             containers);
     }
 

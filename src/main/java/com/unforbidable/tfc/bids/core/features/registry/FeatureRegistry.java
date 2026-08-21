@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.core.features.client.render.RenderBlockSpec;
 import com.unforbidable.tfc.bids.core.features.client.render.RenderItemSpec;
 import com.unforbidable.tfc.bids.core.features.client.render.RenderTileEntitySpec;
 import com.unforbidable.tfc.bids.core.features.init.block.BlockSpec;
+import com.unforbidable.tfc.bids.core.features.init.entity.EntitySpec;
 import com.unforbidable.tfc.bids.core.features.init.fluid.FluidSpec;
 import com.unforbidable.tfc.bids.core.features.init.gui.GuiContainerSpec;
 import com.unforbidable.tfc.bids.core.features.init.item.ItemSpec;
@@ -30,6 +31,7 @@ import com.unforbidable.tfc.bids.core.help.HelpRegistry;
 import com.unforbidable.tfc.bids.core.help.hints.ItemHint;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -133,6 +135,15 @@ public class FeatureRegistry {
             spec.type, spec.id);
 
         GameRegistry.registerTileEntity(spec.type, spec.id);
+    }
+
+    public void registerEntity(EntitySpec spec) {
+        Bids.LOG.debug("Register entity {} with name '{}'",
+            spec.type, spec.name);
+
+        int entityId = EntityRegistry.findGlobalUniqueEntityId();
+        EntityRegistry.registerGlobalEntityID(spec.type, spec.name, entityId);
+        EntityRegistry.registerModEntity(spec.type, spec.name, entityId, Bids.instance, 160, 20, false);
     }
 
     @SideOnly(Side.CLIENT)

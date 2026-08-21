@@ -46,6 +46,11 @@ public class FeatureInit extends Initializable {
             .flatMap(f -> f.init(context).tileEntities.stream())
             .forEach(registry::registerTileEntity);
 
+        Bids.LOG.info("Register entities");
+        loader.getFeatures().stream()
+            .flatMap(f -> f.init(context).entities.stream())
+            .forEach(registry::registerEntity);
+
         // technically part of setup, must run in preInit but only once all items, block and fluids are registered
         // sets the empty container of item instances of filled container items
         Bids.LOG.info("Init item fluid containers");
