@@ -394,6 +394,10 @@ public class BidsItems {
     public static final Item rawhide = item(ItemNames.RAWHIDE);
     public static final Item leather = item(ItemNames.LEATHER);
 
+    // Digging Stick
+    public static final Item diggingStick = item(ItemNames.DIGGING_STICK);
+    public static final Item hardenedDiggingStick = item(ItemNames.HARDENED_DIGGING_STICK);
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {

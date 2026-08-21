@@ -15,5 +15,6 @@ public interface WoodworkingPlanNames {
     String PLAN_NEEDLE = "needle";
     String PLAN_SPEAR = "spear";
     String PLAN_KNIFE_HEAD = "knifeHead";
+    String PLAN_DIGGING_STICK = "diggingStick";
 
 }

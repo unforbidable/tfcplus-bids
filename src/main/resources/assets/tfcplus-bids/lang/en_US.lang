@@ -1444,6 +1444,9 @@ item.Bear Fur.name=Bearskin
 item.Rawhide.name=Rawhide
 item.Leather.name=Leather
 
+item.Digging Stick.name=Digging Stick
+item.Hardened Digging Stick.name=Hardened Digging Stick
+
 fluid.FishOil=Fish Oil
 fluid.OilyFishWater=Oily Fish Water
 fluid.GoatMilk=Goat Milk
@@ -1602,6 +1605,7 @@ gui.plans.scutchingKnife=Scutching Knife
 gui.plans.combPaddle=Comb Paddle
 gui.plans.needle=Needle
 gui.plans.knifeHead=Knife Blade
+gui.plans.diggingStick=Digging Stick
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Seconds=Seconds

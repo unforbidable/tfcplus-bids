@@ -80,6 +80,7 @@ import com.unforbidable.tfc.bids.features.resource.well.Well;
 import com.unforbidable.tfc.bids.features.utility.adze.Adze;
 import com.unforbidable.tfc.bids.features.utility.card.Card;
 import com.unforbidable.tfc.bids.features.utility.compositetools.CompositeTools;
+import com.unforbidable.tfc.bids.features.utility.diggingstick.DiggingStick;
 import com.unforbidable.tfc.bids.features.utility.drill.Drill;
 import com.unforbidable.tfc.bids.features.utility.flail.Flail;
 import com.unforbidable.tfc.bids.features.utility.fluidcontainers.FluidContainers;
@@ -193,6 +194,7 @@ public class Features {
         new Nettle(),
         new Straw(),
         new Skin(),
+        new DiggingStick(),
     };
 
 }

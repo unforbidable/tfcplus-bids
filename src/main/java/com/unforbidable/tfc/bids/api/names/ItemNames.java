@@ -362,4 +362,8 @@ public interface ItemNames {
     String RAWHIDE = "Rawhide";
     String LEATHER = "Leather";
 
+    // Digging Stick
+    String DIGGING_STICK = "Digging Stick";
+    String HARDENED_DIGGING_STICK = "Hardened Digging Stick";
+
 }
