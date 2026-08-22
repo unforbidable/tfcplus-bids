@@ -66,7 +66,7 @@ public class EnvironmentRecipeMatcher {
 
     private float matchCover() {
         if (recipe.isRequiresCover()) {
-            return !env.isExposed() ? 1 : 0;
+            return !env.isExposed() ? 1 : (env.getSunlight() < 0.25f ? 1 - env.getSunlight() : 0);
         } else {
             return 1;
         }
