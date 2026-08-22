@@ -6,8 +6,8 @@ import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.building.peg.entity.EntityPegLeashKnot;
+import com.unforbidable.tfc.bids.features.device.dryingframe.block.BlockDryingPegs;
 import com.unforbidable.tfc.bids.util.LeashHelper;
-import com.unforbidable.tfc.bids.util.fence.FenceConnections;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockPeg extends Block {
 
@@ -84,9 +85,21 @@ public class BlockPeg extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block par5) {
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if (!canBlockStay(world, x, y, z)) {
             TFC_Core.setBlockToAirWithDrops(world, x, y, z);
+        }
+
+        if (block instanceof BlockPeg) {
+            // Propagate change to neighbor drying pegs
+            for (int i = 2; i < 6; i++) {
+                ForgeDirection dir = ForgeDirection.getOrientation(i);
+                int x2 = x + dir.offsetX;
+                int z2 = z + dir.offsetZ;
+                if (world.getBlock(x2, y, z2) instanceof BlockDryingPegs) {
+                    world.notifyBlockOfNeighborChange(x2, y, z2, this);
+                }
+            }
         }
     }
 

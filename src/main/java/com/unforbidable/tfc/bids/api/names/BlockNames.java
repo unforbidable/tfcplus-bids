@@ -305,4 +305,7 @@ public interface BlockNames {
     @BlockId(115)
     String WOODEN_PEG = "WoodenPeg";
 
+    @BlockId(115)
+    String DRYING_PEGS = "DryingPegs";
+
 }

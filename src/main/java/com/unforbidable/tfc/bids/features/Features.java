@@ -31,6 +31,7 @@ import com.unforbidable.tfc.bids.features.device.choppingblock.ChoppingBlock;
 import com.unforbidable.tfc.bids.features.device.cookingpot.CookingPot;
 import com.unforbidable.tfc.bids.features.device.cookingprep.CookingPrep;
 import com.unforbidable.tfc.bids.features.device.crucible.Crucible;
+import com.unforbidable.tfc.bids.features.device.dryingframe.DryingFrame;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurface;
 import com.unforbidable.tfc.bids.features.device.firepit.Firepit;
@@ -197,6 +198,7 @@ public class Features {
         new Skin(),
         new DiggingStick(),
         new Peg(),
+        new DryingFrame(),
     };
 
 }

@@ -194,6 +194,9 @@ public class BidsBlocks {
     // Peg
     public static final Block woodenPeg = block(BlockNames.WOODEN_PEG);
 
+    // Drying Pegs
+    public static final Block dryingPegs = block(BlockNames.DRYING_PEGS);
+
     private static Block block(String name) {
         Block block = GameRegistry.findBlock(Tags.MOD_ID, name);
         if (block == null) {
