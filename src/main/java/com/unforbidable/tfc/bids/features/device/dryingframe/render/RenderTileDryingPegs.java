@@ -14,9 +14,11 @@ public class RenderTileDryingPegs extends TESRBase {
     public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partialTick) {
         TileEntityDryingPegs te = (TileEntityDryingPegs) tileentity;
 
-        ItemStack itemStack = te.getItem();
-        if (itemStack != null) {
-            renderItemStackHorizontal(x, y, z, itemStack, 0);
+        if (te.hasItem()) {
+            ItemStack itemStack = te.getItem().inputItem;
+            if (itemStack != null) {
+                renderItemStackHorizontal(x, y, z, itemStack, 0);
+            }
         }
     }
 

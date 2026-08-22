@@ -1,11 +1,23 @@
 package com.unforbidable.tfc.bids.features.device.dryingframe.tileentity;
 
+import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.api.features.drying.DryingFrameRecipe;
+import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
 import com.unforbidable.tfc.bids.core.network.Network;
 import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingEngine;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHelper;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHost;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
+import com.unforbidable.tfc.bids.features.device.dryingframe.DryingFrameRegistry;
+import com.unforbidable.tfc.bids.features.device.dryingframe.main.DryingFrameItem;
+import com.unforbidable.tfc.bids.util.Timer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -14,13 +26,20 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 
-public class TileEntityDryingPegs extends TileEntity implements PacketHandler<SimpleUpdatePacket> {
+public class TileEntityDryingPegs extends TileEntity implements IInventory, DryingHost, PacketHandler<SimpleUpdatePacket> {
 
-    private static final int MAX_STORAGE = 2;
+    private static final int MAX_STORAGE = 1;
     private static final int SLOT_ITEM = 0;
-    private static final int SLOT_CORDAGE = 1;
 
-    ItemStack[] storage = new ItemStack[MAX_STORAGE];
+    private static final long DRYING_INTERVAL = 100;
+    private static final int DRYING_TIMER_INTERVAL = 20;
+
+    DryingFrameItem[] storage = new DryingFrameItem[MAX_STORAGE];
+
+    Timer dryingTimer = new Timer(DRYING_TIMER_INTERVAL);
+    Timer decayTimer = new Timer(100);
+
+    long lastDryingTicks = 0;
 
     boolean clientNeedToUpdate = false;
 
@@ -33,15 +52,34 @@ public class TileEntityDryingPegs extends TileEntity implements PacketHandler<Si
 
                 clientNeedToUpdate = false;
             }
+
+            if (decayTimer.tick()) {
+                TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, false);
+            }
+
+            // Check if enough time had passed
+            // for drying interval
+            if (dryingTimer.tick() && TFC_Time.getTotalTicks() > lastDryingTicks + DRYING_INTERVAL) {
+                new DryingEngine(this).update();
+
+                lastDryingTicks = TFC_Time.getTotalTicks();
+            }
         }
     }
 
     public void placeItemStack(ItemStack itemStack, ItemStack cordage, EntityPlayer player) {
         if (storage[SLOT_ITEM] == null) {
-            storage[SLOT_ITEM] = itemStack.copy();
-            storage[SLOT_ITEM].stackSize = 1;
+            ItemStack input = itemStack.copy();
+            input.stackSize = 1;
 
-            storage[SLOT_CORDAGE] = cordage;
+            DryingFrameItem dryingFrameItem = new DryingFrameItem();
+            dryingFrameItem.inputItem = input;
+            dryingFrameItem.tyingItem = cordage;
+
+            DryingFrameRecipe recipe = getRecipeForInputItem(itemStack);
+            DryingHelper.initializeInputItem(dryingFrameItem, recipe);
+
+            storage[SLOT_ITEM] = dryingFrameItem;
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
@@ -53,23 +91,28 @@ public class TileEntityDryingPegs extends TileEntity implements PacketHandler<Si
         return storage[SLOT_ITEM] != null;
     }
 
-    public ItemStack getItem() {
+    public DryingFrameItem getItem() {
         return storage[SLOT_ITEM];
     }
 
-    public ItemStack getCordage() {
-        return storage[SLOT_CORDAGE];
-    }
-
     public void onDryingPegsBroken() {
-        for (ItemStack is : storage) {
+        for (DryingFrameItem is : storage) {
             if (is != null) {
-                EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
+                EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is.getCurrentItem());
                 ei.motionX = 0;
                 ei.motionZ = 0;
                 worldObj.spawnEntityInWorld(ei);
+
+                EntityItem ei2 = new EntityItem(worldObj, xCoord, yCoord, zCoord, is.tyingItem);
+                ei2.motionX = 0;
+                ei2.motionZ = 0;
+                worldObj.spawnEntityInWorld(ei2);
             }
         }
+    }
+
+    private DryingFrameRecipe getRecipeForInputItem(ItemStack inputItem) {
+        return DryingFrameRegistry.recipes.findMatchingRecipe(inputItem);
     }
 
     @Override
@@ -128,7 +171,7 @@ public class TileEntityDryingPegs extends TileEntity implements PacketHandler<Si
         for (int i = 0; i < itemTagList.tagCount(); i++) {
             NBTTagCompound itemTag = itemTagList.getCompoundTagAt(i);
             final int slot = itemTag.getInteger("slot");
-            storage[slot] = ItemStack.loadItemStackFromNBT(itemTag);
+            storage[slot] = DryingFrameItem.loadDryingFrameItemFromNBT(itemTag);
         }
     }
 
@@ -141,6 +184,112 @@ public class TileEntityDryingPegs extends TileEntity implements PacketHandler<Si
     public void sendUpdateMessage() {
         Network.sendToTileEntity(new SimpleUpdatePacket(), this);
         Bids.LOG.debug("Sent update message");
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return MAX_STORAGE;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int slot) {
+        // This is called by TFC to retrieve items for decay calc etc
+        return storage[slot] != null ? storage[slot].getCurrentItem() : null;
+    }
+
+    @Override
+    public ItemStack decrStackSize(int slot, int amount) {
+        return null;
+    }
+
+    @Override
+    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
+        return null;
+    }
+
+    @Override
+    public void setInventorySlotContents(int slot, ItemStack itemStack) {
+        // This is called by TFC to return items after decay calc etc
+        if (itemStack == null) {
+            if (storage[slot] != null) {
+                // Item has decayed out of existence
+                storage[slot] = null;
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+                clientNeedToUpdate = true;
+            } else {
+                // null for null returned
+            }
+        } else {
+            DryingFrameItem prev = storage[slot];
+
+            if (prev != null) {
+                storage[slot].updateCurrentItem(itemStack);
+            } else {
+                // This should not happen
+                Bids.LOG.warn("TFC returned an item after decay calculation into a slot that is empty.");
+            }
+        }
+    }
+
+    @Override
+    public String getInventoryName() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCustomInventoryName() {
+        return false;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return false;
+    }
+
+    @Override
+    public void openInventory() {
+
+    }
+
+    @Override
+    public void closeInventory() {
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+        return false;
+    }
+
+    @Override
+    public DryingItem[] getDryingStorage() {
+        return storage;
+    }
+
+    @Override
+    public DryingRecipe getDryingRecipe(DryingItem item) {
+        return getRecipeForInputItem(item.inputItem);
+    }
+
+    @Override
+    public float getWetnessIncreaseRate() {
+        return 0.2f;
+    }
+
+    @Override
+    public float getWetnessReductionRate() {
+        return 0.6f;
+    }
+
+    @Override
+    public void notifyClientChanges() {
+        clientNeedToUpdate = true;
     }
 
 }

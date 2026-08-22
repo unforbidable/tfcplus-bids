@@ -9,12 +9,16 @@ import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.drying.DryingFrameRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.features.crafting.drying.DryingConfig;
+import com.unforbidable.tfc.bids.features.device.dryingframe.DryingFrame;
+import com.unforbidable.tfc.bids.features.device.dryingframe.DryingFrameRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingsurface.DryingSurfaceRegistry;
 import java.awt.Rectangle;
@@ -68,6 +72,12 @@ public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerI
                 final ItemStack result = recipe.getResult(input);
                 arecipes.add(new CachedDryingRecipe(input, result, recipe.getDuration(), BidsBlocks.dryingSurface.getLocalizedName(), getRecipeInfo(recipe)));
             }
+
+            for (DryingFrameRecipe recipe : DryingFrameRegistry.recipes) {
+                final ItemStack input = recipe.getInputItem();
+                final ItemStack result = recipe.getResult(input);
+                arecipes.add(new CachedDryingRecipe(input, result, recipe.getDuration(), BidsBlocks.dryingPegs.getLocalizedName(), getRecipeInfo(recipe)));
+            }
         } else {
             super.loadCraftingRecipes(outputId, results);
         }
@@ -90,6 +100,15 @@ public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerI
             output.stackSize = result.stackSize;
             if (result.getItem() == output.getItem() && result.getItemDamage() == output.getItemDamage()) {
                 arecipes.add(new CachedDryingRecipe(input, output, recipe.getDuration(), BidsBlocks.dryingSurface.getLocalizedName(), getRecipeInfo(recipe)));
+            }
+        }
+
+        for (DryingFrameRecipe recipe : DryingFrameRegistry.recipes) {
+            final ItemStack input = recipe.getInputItem();
+            final ItemStack result = recipe.getResult(input);
+            output.stackSize = result.stackSize;
+            if (result.getItem() == output.getItem() && result.getItemDamage() == output.getItemDamage()) {
+                arecipes.add(new CachedDryingRecipe(input, output, recipe.getDuration(), BidsBlocks.dryingPegs.getLocalizedName(), getRecipeInfo(recipe)));
             }
         }
     }
@@ -119,6 +138,19 @@ public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerI
 
                 final ItemStack result = recipe.getResult(input);
                 arecipes.add(new CachedDryingRecipe(input, result, recipe.getDuration(), BidsBlocks.dryingSurface.getLocalizedName(), getRecipeInfo(recipe)));
+            }
+        }
+
+        for (DryingFrameRecipe recipe : DryingFrameRegistry.recipes) {
+            if (recipe.matches(ingredient)) {
+                final ItemStack input = ingredient.copy();
+                input.stackSize = recipe.getInputItem().stackSize;
+                if (input.getItem() instanceof ItemFoodTFC) {
+                    input.setTagCompound(recipe.getInputItem().getTagCompound());
+                }
+
+                final ItemStack result = recipe.getResult(input);
+                arecipes.add(new CachedDryingRecipe(input, result, recipe.getDuration(), BidsBlocks.dryingPegs.getLocalizedName(), getRecipeInfo(recipe)));
             }
         }
     }
@@ -167,6 +199,7 @@ public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerI
     public HandlerInfo getHandlerInfo() {
         HandlerInfo info = new HandlerInfo(TFCItems.pole);
         info.addCatalyst(TFCItems.pole);
+        info.addCatalyst(BidsItems.hardenedDiggingStick);
         for (ItemStack is : OreDictionary.getOres("materialBindingStrong", false)) {
             info.addCatalyst(is.getItem(), is.getItemDamage());
         }

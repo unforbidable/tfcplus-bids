@@ -31,7 +31,7 @@ public class RenderDryingPegs implements ISimpleBlockRenderingHandler {
             int cordageMetadata = 12;
             Block cordageBlock = Blocks.wool;
 
-            ItemStack cordage = dryingPegs.getCordage();
+            ItemStack cordage = dryingPegs.getItem().tyingItem;
             if (cordage != null) {
                 DryingRackTyingEquipment tyingEquipment = DryingRackHelper.findTyingEquipment(cordage);
                 if (tyingEquipment != null) {
