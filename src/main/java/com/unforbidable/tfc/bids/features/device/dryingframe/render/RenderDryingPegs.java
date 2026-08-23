@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.dryingframe.render;
 
 import com.dunk.tfc.Render.RenderBlocksWithRotation;
-import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackTyingEquipment;
 import com.unforbidable.tfc.bids.features.device.dryingframe.tileentity.TileEntityDryingPegs;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackHelper;
@@ -12,6 +11,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class RenderDryingPegs implements ISimpleBlockRenderingHandler {
 
@@ -51,28 +51,29 @@ public class RenderDryingPegs implements ISimpleBlockRenderingHandler {
             double minY = 0.326 - thickHalf;
             double maxY = 0.326 + thickHalf;
 
-            for (int i = 0; i < 8; i++) {
-                RenderBlocksWithRotation.yRotation += rotationRenderer.rot45;
+            for (int i = 0; i < 4; i++) {
+                RenderBlocksWithRotation.yRotation += rotationRenderer.rot45 * 2;
 
                 double minX = 0.5 - thickHalf;
-                double minZ = (i % 2 == 0) ? 1.05 : 0.8;
+                double minZ = 1.05;
                 double maxX = 0.5 + thickHalf;
-                double maxZ = (i % 2 == 0) ? 1.9 : 1.5;
+                double maxZ = 1.4;
                 rotationRenderer.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
                 rotationRenderer.renderStandardBlock(cordageBlock, x, y, z);
             }
             RenderBlocksWithRotation.yRotation = 0;
 
-            double pegHalf = BidsBlocks.woodenPeg.getBlockBoundsMaxX() - 0.5;
-            for (int i = -1; i < 2; i++) {
-                for (int j = -1; j < 2; j++) {
-                    if (i != 0 || j != 0) {
-                        double minXZ = 0.5 - pegHalf - thick;
-                        double maxXZ = 0.5 + pegHalf + thick;
-                        rotationRenderer.setRenderBounds(minXZ + i, minY, minXZ + j, maxXZ + i, maxY, maxXZ + j);
-                        rotationRenderer.renderStandardBlock(cordageBlock, x, y, z);
-                    }
-                }
+            for (int i = 2; i < 6; i++) {
+                ForgeDirection dir = ForgeDirection.getOrientation(i);
+                Block pegBlock = world.getBlock(x + dir.offsetX, y, z + dir.offsetZ);
+                double pegHalf = pegBlock.getBlockBoundsMaxX() - 0.5;
+
+                double minX = 0.5 - pegHalf - thick + dir.offsetX;
+                double maxX = 0.5 + pegHalf + thick + dir.offsetX;
+                double minZ = 0.5 - pegHalf - thick + dir.offsetZ;
+                double maxZ = 0.5 + pegHalf + thick + dir.offsetZ;
+                rotationRenderer.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
+                rotationRenderer.renderStandardBlock(cordageBlock, x, y, z);
             }
 
             Minecraft.getMinecraft().theWorld.setBlockMetadataWithNotify(x, y, z, prevMeta, 0);

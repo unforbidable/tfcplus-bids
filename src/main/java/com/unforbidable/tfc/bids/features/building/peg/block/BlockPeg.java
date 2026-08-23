@@ -4,6 +4,7 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.drying.DryingPegsAnchorBlock;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.building.peg.entity.EntityPegLeashKnot;
 import com.unforbidable.tfc.bids.features.device.dryingframe.block.BlockDryingPegs;
@@ -24,7 +25,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockPeg extends Block {
+public class BlockPeg extends Block implements DryingPegsAnchorBlock {
 
     public BlockPeg() {
         super(Material.wood);

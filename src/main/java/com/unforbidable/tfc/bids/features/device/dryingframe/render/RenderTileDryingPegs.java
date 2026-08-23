@@ -17,26 +17,13 @@ public class RenderTileDryingPegs extends TESRBase {
         if (te.hasItem()) {
             ItemStack itemStack = te.getItem().getCurrentItem();
             if (itemStack != null) {
-                renderItemStackHorizontal(x, y, z, itemStack, 0);
+                renderItemStackHorizontal(x, y, z, itemStack);
             }
         }
     }
 
-    private void renderItemStackHorizontal(double x, double y, double z, ItemStack itemStack, int orientation) {
-        switch (orientation) {
-            case 0:
-                renderItemStack(x, y, z, itemStack, Vec3.createVectorHelper(0.5, 0.34, 0.07), 0);
-                break;
-            case 1:
-                renderItemStack(x, y, z, itemStack, Vec3.createVectorHelper(1 - 0.07, 0.34, 0.5 - 0.01), 270);
-                break;
-            case 2:
-                renderItemStack(x, y, z, itemStack, Vec3.createVectorHelper(0.5, 0.34, 1 - 0.06), 180);
-                break;
-            case 3:
-                renderItemStack(x, y, z, itemStack, Vec3.createVectorHelper(0.07, 0.34, 0.5), 90);
-                break;
-        }
+    private void renderItemStackHorizontal(double x, double y, double z, ItemStack itemStack) {
+        renderItemStack(x, y, z, itemStack, Vec3.createVectorHelper(0.5 - 0.3, 0.34, 0.07 + 0.12), 45);
     }
 
     private void renderItemStack(double x, double y, double z, ItemStack is, Vec3 pos, int angle) {

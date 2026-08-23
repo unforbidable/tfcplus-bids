@@ -3,7 +3,7 @@ package com.unforbidable.tfc.bids.features.device.dryingframe.block;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Textures;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
-import com.unforbidable.tfc.bids.features.building.peg.block.BlockPeg;
+import com.unforbidable.tfc.bids.features.device.dryingframe.main.DryingPegsHelper;
 import com.unforbidable.tfc.bids.features.device.dryingframe.tileentity.TileEntityDryingPegs;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,6 +23,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockDryingPegs extends BlockContainer {
 
@@ -112,14 +113,10 @@ public class BlockDryingPegs extends BlockContainer {
 
     @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
-        for (int i = -1; i < 2; i++) {
-            for (int j = -1; j < 2; j++) {
-                if (i != 0 || j != 0) {
-                    Block block = world.getBlock(x + i, y, z + j);
-                    if (!(block instanceof BlockPeg)) {
-                        return false;
-                    }
-                }
+        for (int i = 2; i < 6; i++) {
+            ForgeDirection dir = ForgeDirection.getOrientation(i);
+            if (!DryingPegsHelper.isBlockDryingPegAnchor(world, x + dir.offsetX, y, z + dir.offsetZ)) {
+                return false;
             }
         }
 

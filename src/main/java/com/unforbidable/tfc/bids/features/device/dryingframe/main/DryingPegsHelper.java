@@ -1,9 +1,11 @@
 package com.unforbidable.tfc.bids.features.device.dryingframe.main;
 
 import com.unforbidable.tfc.bids.api.BidsBlocks;
+import com.unforbidable.tfc.bids.api.features.drying.DryingPegsAnchorBlock;
 import com.unforbidable.tfc.bids.features.device.dryingframe.tileentity.TileEntityDryingPegs;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackHelper;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFreshSkin;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -61,6 +63,11 @@ public class DryingPegsHelper {
         }
 
         return -1;
+    }
+
+    public static boolean isBlockDryingPegAnchor(World world, int x, int y, int z) {
+        Block block = world.getBlock(x, y, z);
+        return block instanceof DryingPegsAnchorBlock;
     }
 
 }
