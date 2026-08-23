@@ -17,6 +17,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
@@ -35,6 +36,11 @@ public class BlockPeg extends Block {
     @Override
     public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity) {
         // Collision should be disabled at least for knot entity else it gets pushed above the peg
+
+        if (entity instanceof EntityAnimal) {
+            // Prevent (leashed) animals from standing on top of the peg
+            super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
+        }
     }
 
     @Override
