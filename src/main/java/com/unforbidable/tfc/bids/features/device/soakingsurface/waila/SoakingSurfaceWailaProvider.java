@@ -32,7 +32,7 @@ public class SoakingSurfaceWailaProvider extends WailaDataProvider {
         if (accessor.getTileEntity() instanceof TileEntitySoakingSurface) {
             TileEntitySoakingSurface soakingSurface = (TileEntitySoakingSurface) accessor.getTileEntity();
             SoakingSurfaceSlotProgress progress = soakingSurface.getSelectedItemProgress();
-            if (progress != null) {
+            if (progress != null && progress.recipe.getTicks() > 0) {
                 ItemStack result = progress.recipe.getResult(soakingSurface.getSelectedItemStack());
                 if (result != null) {
                     currenttip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": " + result.getDisplayName());
