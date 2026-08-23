@@ -366,4 +366,7 @@ public interface ItemNames {
     String DIGGING_STICK = "Digging Stick";
     String HARDENED_DIGGING_STICK = "Hardened Digging Stick";
 
+    // Smoother
+    String BONE_SMOOTHER = "Bone Smoother";
+
 }

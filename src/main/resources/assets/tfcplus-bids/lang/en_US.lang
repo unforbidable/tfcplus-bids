@@ -1451,6 +1451,8 @@ item.Leather.name=Leather
 item.Digging Stick.name=Digging Stick
 item.Hardened Digging Stick.name=Hardened Digging Stick
 
+item.Bone Smoother.name=Bone Smoother
+
 entity.PegLeashKnot.name=Leash Knot
 
 fluid.FishOil=Fish Oil
@@ -1612,6 +1614,7 @@ gui.plans.combPaddle=Comb Paddle
 gui.plans.needle=Needle
 gui.plans.knifeHead=Knife Blade
 gui.plans.diggingStick=Digging Stick
+gui.plans.boneSmoother=Bone Smoother
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Seconds=Seconds

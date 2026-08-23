@@ -398,6 +398,9 @@ public class BidsItems {
     public static final Item diggingStick = item(ItemNames.DIGGING_STICK);
     public static final Item hardenedDiggingStick = item(ItemNames.HARDENED_DIGGING_STICK);
 
+    // Smoother
+    public static final Item boneSmoother = item(ItemNames.BONE_SMOOTHER);
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {

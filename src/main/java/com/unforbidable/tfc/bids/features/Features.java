@@ -89,6 +89,7 @@ import com.unforbidable.tfc.bids.features.utility.fluidcontainers.FluidContainer
 import com.unforbidable.tfc.bids.features.utility.handaxe.HandAxe;
 import com.unforbidable.tfc.bids.features.utility.heckle.Heckle;
 import com.unforbidable.tfc.bids.features.resource.straw.Straw;
+import com.unforbidable.tfc.bids.features.utility.smoother.Smoother;
 import com.unforbidable.tfc.bids.features.utility.spindle.Spindle;
 import com.unforbidable.tfc.bids.features.utility.largebowl.LargeBowl;
 import com.unforbidable.tfc.bids.features.utility.leatherwear.Leatherwear;
@@ -199,6 +200,7 @@ public class Features {
         new DiggingStick(),
         new Peg(),
         new DryingFrame(),
+        new Smoother(),
     };
 
 }
