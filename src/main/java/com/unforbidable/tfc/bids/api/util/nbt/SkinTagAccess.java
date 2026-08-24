@@ -10,6 +10,8 @@ public class SkinTagAccess {
     public static final String STAGE_PREPARED = "prepared";
     public static final String STAGE_DEHAIRED = "dehaired";
     public static final String STAGE_TANNED = "tanned";
+    public static final String STAGE_DRIED = "dried";
+    public static final String STAGE_WORKED = "worked";
 
     public static final String TAG_SKIN_PROCESSING = "Skin Processing";
     public static final String TAG_STAGE = "stage";

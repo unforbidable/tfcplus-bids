@@ -4,6 +4,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.drying.DryingFrameRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingRecipe;
@@ -22,6 +23,7 @@ import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingRegistry;
+import com.unforbidable.tfc.bids.features.device.dryingframe.DryingFrameRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
 import com.unforbidable.tfc.bids.features.material.skin.container.ContainerSpecialCraftingSkin;
@@ -158,9 +160,10 @@ public class Skin extends Feature {
             .add(new SkinMergingRecipe(SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_PRESERVED),
                 null, SkinHelper.WEIGHT_MEDIUM - 0.01f));
 
+        Item[] skins = {BidsItems.genericSkin, BidsItems.genericFur, BidsItems.sheepSkin, BidsItems.wolfFur, BidsItems.bearFur};
+
         // Salting
-        Item[] skinsToSalt = {BidsItems.genericSkin, BidsItems.genericFur, BidsItems.sheepSkin, BidsItems.wolfFur, BidsItems.bearFur};
-        for (Item skin : skinsToSalt) {
+        for (Item skin : skins) {
             String[] stagesToSalt = {"", SkinTagAccess.STAGE_FLESHED, SkinTagAccess.STAGE_CLEAN, SkinTagAccess.STAGE_DEHAIRED};
             for (String stage : stagesToSalt) {
                 setup.recipes()
@@ -216,8 +219,7 @@ public class Skin extends Feature {
                 "itemScrapingTool", "blockScrapingSurface", 6f));
 
         // Fleshed -> Clean
-        Item[] skinsToRinse = {BidsItems.genericSkin, BidsItems.genericFur, BidsItems.sheepSkin, BidsItems.wolfFur, BidsItems.bearFur};
-        for (Item skin : skinsToRinse) {
+        for (Item skin : skins) {
             setup.registry(SoakingRegistry.recipes)
                 .add(new SoakingRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_FLESHED),
                     SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN),
@@ -250,8 +252,7 @@ public class Skin extends Feature {
         }
 
         // Dehaired -> Tanned
-        Item[] skinsToTan = {BidsItems.genericSkin, BidsItems.genericFur, BidsItems.sheepSkin, BidsItems.wolfFur, BidsItems.bearFur};
-        for (Item skin : skinsToTan) {
+        for (Item skin : skins) {
             setup.registry(SoakingRegistry.recipes)
                 .add(new SoakingRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_DEHAIRED),
                     SkinHelper.createStack(skin, SkinTagAccess.STAGE_TANNED),
@@ -271,8 +272,7 @@ public class Skin extends Feature {
                 new FluidStack(TFCFluids.FRESHWATER, 100), 1000));
 
         // Preserved -> Clean
-        Item[] skinToRehydrate = {BidsItems.genericSkin, BidsItems.genericFur, BidsItems.sheepSkin, BidsItems.wolfFur, BidsItems.bearFur};
-        for (Item skin : skinToRehydrate) {
+        for (Item skin : skins) {
             setup.registry(SoakingRegistry.recipes)
                 .add(new SoakingRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_PRESERVED),
                     SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN),
@@ -364,8 +364,7 @@ public class Skin extends Feature {
                 new FluidStack(TFCFluids.FRESHWATER, 800), 8000));
 
         // Clean -> Preserved
-        Item[] skinsToPreserve = {BidsItems.genericSkin, BidsItems.genericFur, BidsItems.sheepSkin, BidsItems.wolfFur, BidsItems.bearFur};
-        for (Item skin : skinsToPreserve) {
+        for (Item skin : skins) {
             setup.registry(DryingRackRegistry.recipes)
                 .add((DryingRackRecipe) DryingRackRecipe.builder()
                     .consumes(SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN))
@@ -373,6 +372,53 @@ public class Skin extends Feature {
                     .dry()
                     .smoke()
                     .hours(12)
+                    .build());
+        }
+
+        // Dehaired Skin -> Rawhide
+        for (Item skin : skins) {
+            setup.registry(DryingFrameRegistry.recipes)
+                .add((DryingFrameRecipe) DryingFrameRecipe.builder()
+                    .consumesTyingEquipment()
+                    .consumes(SkinHelper.createStack(skin, SkinTagAccess.STAGE_DEHAIRED))
+                    .produces(SkinHelper.createStack(BidsItems.rawhide))
+                    .dry()
+                    .cover()
+                    .hours(12)
+                    .build());
+        }
+
+        // Tanned Skin -> Dried Skin
+        for (Item skin : skins) {
+            setup.registry(DryingFrameRegistry.recipes)
+                .add((DryingFrameRecipe) DryingFrameRecipe.builder()
+                    .consumesTyingEquipment()
+                    .consumes(SkinHelper.createStack(skin, SkinTagAccess.STAGE_TANNED))
+                    .produces(SkinHelper.createStack(skin, SkinTagAccess.STAGE_DRIED))
+                    .dry()
+                    .cover()
+                    .hours(8)
+                    .build());
+        }
+
+        // Dried Skin -> Worked Skin
+        for (Item skin : skins) {
+            setup.registry(ProcessingSurfaceRegistry.recipes)
+                .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_DRIED),
+                    SkinHelper.createStack(skin, SkinTagAccess.STAGE_WORKED),
+                    "itemLeatherSmoothingTool", "blockScrapingSurface", 0.5f));
+        }
+
+        // Worked Skin -> Leather
+        for (Item skin : skins) {
+            setup.registry(DryingFrameRegistry.recipes)
+                .add((DryingFrameRecipe) DryingFrameRecipe.builder()
+                    .consumesTyingEquipment()
+                    .consumes(SkinHelper.createStack(skin, SkinTagAccess.STAGE_WORKED))
+                    .produces(SkinHelper.createStack(BidsItems.leather))
+                    .dry()
+                    .cover()
+                    .hours(8)
                     .build());
         }
     }

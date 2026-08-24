@@ -22,8 +22,10 @@ import net.minecraft.world.World;
 
 public class ItemFreshSkin extends ItemSkin {
 
-    protected IIcon tannedIcon;
     protected IIcon dehairedIcon;
+    protected IIcon tannedIcon;
+    protected IIcon driedIcon;
+    protected IIcon workedIcon;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -64,30 +66,30 @@ public class ItemFreshSkin extends ItemSkin {
     public void registerIcons(IIconRegister registerer) {
         super.registerIcons(registerer);
 
-        tannedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Skin.Tanned");
         dehairedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Skin.Dehaired");
+        tannedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Skin.Tanned");
+        driedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Skin.Dried");
+        workedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Skin.Worked");
     }
 
     @Override
     public IIcon getIconIndex(ItemStack itemStack) {
-        String stage = SkinTag.of(itemStack).getStage();
-        if (stage.equals(SkinTagAccess.STAGE_DEHAIRED)) {
-            return dehairedIcon;
-        } else if (stage.equals(SkinTagAccess.STAGE_TANNED)) {
-            return tannedIcon;
-        } else {
-            return super.getIconIndex(itemStack);
-        }
+        return getIconFromDamage(itemStack.getItemDamage());
     }
 
     @Override
     public IIcon getIconFromDamage(int damage) {
-        if (damage == 8) {
-            return dehairedIcon;
-        } else if (damage == 9) {
-            return tannedIcon;
-        } else {
-            return super.getIconFromDamage(damage);
+        switch (damage) {
+            case 5:
+                return dehairedIcon;
+            case 6:
+                return tannedIcon;
+            case 7:
+                return driedIcon;
+            case 8:
+                return workedIcon;
+            default:
+                return super.getIconFromDamage(damage);
         }
     }
 
@@ -116,11 +118,15 @@ public class ItemFreshSkin extends ItemSkin {
             case SkinTagAccess.STAGE_PREPARED:
                 return 3;
             case SkinTagAccess.STAGE_PRESERVED:
-                return 6;
+                return 4;
             case SkinTagAccess.STAGE_DEHAIRED:
-                return 8;
+                return 5;
             case SkinTagAccess.STAGE_TANNED:
-                return 9;
+                return 6;
+            case SkinTagAccess.STAGE_DRIED:
+                return 7;
+            case SkinTagAccess.STAGE_WORKED:
+                return 8;
         }
 
         return 0;
@@ -148,7 +154,7 @@ public class ItemFreshSkin extends ItemSkin {
         if (tag.isStage(SkinTagAccess.STAGE_CLEAN) || tag.isStage(SkinTagAccess.STAGE_PREPARED) || tag.isStage(SkinTagAccess.STAGE_DEHAIRED)) {
             return 1f / 8;
         }
-        if (tag.isStage(SkinTagAccess.STAGE_TANNED)) {
+        if (tag.isStage(SkinTagAccess.STAGE_TANNED) || tag.isStage(SkinTagAccess.STAGE_DRIED) || tag.isStage(SkinTagAccess.STAGE_WORKED)) {
             return 1f / 64;
         }
 
@@ -168,10 +174,11 @@ public class ItemFreshSkin extends ItemSkin {
     @Override
     protected String getSurfaceIconBaseName(ItemStack itemStack) {
         SkinTag tag = SkinTag.of(itemStack);
-        if (tag.isStage("") || tag.isStage(SkinTagAccess.STAGE_FLESHED) || tag.isStage(SkinTagAccess.STAGE_DEHAIRED)) {
+        if (tag.isStage("") || tag.isStage(SkinTagAccess.STAGE_FLESHED) || tag.isStage(SkinTagAccess.STAGE_DEHAIRED)
+            || tag.isStage(SkinTagAccess.STAGE_DRIED) || tag.isStage(SkinTagAccess.STAGE_WORKED)) {
             // Same icon for all skins for fleshing
             // as it looks the same from the flesh side
-            // Dehaired skin looks the same from the hair side as well
+            // Dehaired, Dried, Worked skin looks the same from the hair side as well
             return "Skin";
         }
 
@@ -224,6 +231,10 @@ public class ItemFreshSkin extends ItemSkin {
             list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Dehaired2"));
         } else if (tag.isStage(SkinTagAccess.STAGE_TANNED)) {
             list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Tanned"));
+        } else if (tag.isStage(SkinTagAccess.STAGE_DRIED)) {
+            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Dried"));
+        } else if (tag.isStage(SkinTagAccess.STAGE_WORKED)) {
+            list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Worked"));
         }
     }
 
