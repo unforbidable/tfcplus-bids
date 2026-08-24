@@ -1,18 +1,23 @@
 package com.unforbidable.tfc.bids.features.material.skin.eventhandler;
 
-import com.dunk.tfc.Core.TFCTabs;
+import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCFluids;
-import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.util.nbt.SkinTagAccess;
+import com.unforbidable.tfc.bids.features.material.skin.SkinConfig;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemSkin;
+import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
 import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import java.util.Random;
 
 public class SkinProcessingHandler {
+
+    private static final Random skillIncreasePartialChance = new Random();
 
     @SubscribeEvent
     public void onProcessingSurfaceEffortCheck(ProcessingSurfaceEvent.EffortCheck event) {
@@ -27,6 +32,11 @@ public class SkinProcessingHandler {
             if (tag.isStage(SkinTagAccess.STAGE_PREPARED) && (tag.isFluid(TFCFluids.LIMEWATER.getName()) || tag.isFluid(BidsFluids.weakWoodAshLye.getName()))) {
                 event.newEffort *= 0.25f;
             }
+
+            // Effort is further reduced by up to 50% depending on butchering skill
+            float skill = TFC_Core.getSkillStats(event.player).getSkillMultiplier(Global.SKILL_BUTCHERING);
+            float skillModifier = (1 - skill * 0.5f);
+            event.newEffort *= skillModifier;
         }
     }
 
@@ -66,6 +76,27 @@ public class SkinProcessingHandler {
                 resultTag.setDecay(input.getDecay());
                 resultTag.setDecayTimer(input.getDecayTimer());
             }
+
+            float skillIncreasePerStage = getSkillGainForStage(resultTag.getStage());
+            if (skillIncreasePerStage > 0) {
+                float skillIncreaseFloat = skillIncreasePerStage * resultTag.getWeight() / SkinHelper.WEIGHT_SMALL;
+                int skillIncreaseInt = (int) Math.floor(skillIncreaseFloat);
+                int skillIncrease = skillIncreaseInt + (skillIncreasePartialChance.nextFloat() < (skillIncreaseFloat - skillIncreaseInt) ? 1 : 0);
+                TFC_Core.getSkillStats(event.player).increaseSkill(Global.SKILL_BUTCHERING, skillIncrease);
+            }
+        }
+    }
+
+    private float getSkillGainForStage(String stage) {
+        switch (stage) {
+            case SkinTagAccess.STAGE_FLESHED:
+                return SkinConfig.butcheringSkillGainPerSmallSkinFleshed;
+            case SkinTagAccess.STAGE_DEHAIRED:
+                return SkinConfig.butcheringSkillGainPerSmallSkinDehaired;
+            case SkinTagAccess.STAGE_WORKED:
+                return SkinConfig.butcheringSkillGainPerSmallSkinWorked;
+            default:
+                return 0;
         }
     }
 
