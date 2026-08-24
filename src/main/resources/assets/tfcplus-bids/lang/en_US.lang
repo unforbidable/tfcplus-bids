@@ -1683,6 +1683,15 @@ gui.skin.hairDamageWarning=Hair damage is imminent due to decay.
 gui.skin.hairDamageWarning2=Consider smoking the skin for preservation.
 gui.skin.hairDamaged=Decay caused hair damage.
 gui.skin.hairDamaged2=Remove hair to make rawhide or leather.
+gui.animal.growth=Growth
+gui.animal.size=Size
+gui.animal.strength=Strength
+gui.animal.growthVeryYoung=Very Young
+gui.animal.growthYoung=Young
+gui.animal.growthAlmostAdult=Almost Adult
+gui.animal.average=Average
+gui.animal.aboveAverage=Above Average
+gui.animal.belowAverage=Below Average
 
 key.BidsToolMode=Cycle Tool Mode
 

@@ -1,12 +1,17 @@
 package com.unforbidable.tfc.bids.features.resource.butchery;
 
 import com.dunk.tfc.api.Constant.Global;
+import com.dunk.tfc.api.Entities.IAnimal;
 import com.dunk.tfc.api.SkillsManager;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
+import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.features.resource.butchery.waila.AnimalButcheryWailaProvider;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @FeatureName("butchery")
 public class Butchery extends Feature {
@@ -14,6 +19,13 @@ public class Butchery extends Feature {
     @Override
     public void config(FeatureConfig config) {
         config.using(ButcheryConfig::load);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void client(FeatureClientSpecBuilder client) {
+        client.waila()
+            .entity(new AnimalButcheryWailaProvider(), IAnimal.class);
     }
 
     @Override
