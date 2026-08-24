@@ -75,9 +75,11 @@ import com.unforbidable.tfc.bids.features.material.powder.Powder;
 import com.unforbidable.tfc.bids.features.material.skin.Skin;
 import com.unforbidable.tfc.bids.features.material.soap.Soap;
 import com.unforbidable.tfc.bids.features.material.textile.Textile;
+import com.unforbidable.tfc.bids.features.resource.butchery.Butchery;
 import com.unforbidable.tfc.bids.features.resource.crop.Crop;
 import com.unforbidable.tfc.bids.features.resource.flora.Flora;
 import com.unforbidable.tfc.bids.features.resource.quarry.Quarry;
+import com.unforbidable.tfc.bids.features.resource.straw.Straw;
 import com.unforbidable.tfc.bids.features.resource.well.Well;
 import com.unforbidable.tfc.bids.features.utility.adze.Adze;
 import com.unforbidable.tfc.bids.features.utility.card.Card;
@@ -88,16 +90,15 @@ import com.unforbidable.tfc.bids.features.utility.flail.Flail;
 import com.unforbidable.tfc.bids.features.utility.fluidcontainers.FluidContainers;
 import com.unforbidable.tfc.bids.features.utility.handaxe.HandAxe;
 import com.unforbidable.tfc.bids.features.utility.heckle.Heckle;
-import com.unforbidable.tfc.bids.features.resource.straw.Straw;
-import com.unforbidable.tfc.bids.features.utility.smoother.Smoother;
-import com.unforbidable.tfc.bids.features.utility.spindle.Spindle;
 import com.unforbidable.tfc.bids.features.utility.largebowl.LargeBowl;
 import com.unforbidable.tfc.bids.features.utility.leatherwear.Leatherwear;
 import com.unforbidable.tfc.bids.features.utility.mallet.Mallet;
 import com.unforbidable.tfc.bids.features.utility.pail.Pail;
 import com.unforbidable.tfc.bids.features.utility.ropemaker.RopeMaker;
 import com.unforbidable.tfc.bids.features.utility.scutchingknife.ScutchingKnife;
+import com.unforbidable.tfc.bids.features.utility.smoother.Smoother;
 import com.unforbidable.tfc.bids.features.utility.spear.Spear;
+import com.unforbidable.tfc.bids.features.utility.spindle.Spindle;
 import com.unforbidable.tfc.bids.features.utility.unfinishedanvil.UnfinishedAnvil;
 
 public class Features {
@@ -201,6 +202,7 @@ public class Features {
         new Peg(),
         new DryingFrame(),
         new Smoother(),
+        new Butchery(),
     };
 
 }
