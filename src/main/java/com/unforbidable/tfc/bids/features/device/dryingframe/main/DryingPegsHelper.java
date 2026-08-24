@@ -1,7 +1,8 @@
 package com.unforbidable.tfc.bids.features.device.dryingframe.main;
 
+import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
-import com.unforbidable.tfc.bids.api.features.drying.DryingPegsAnchorBlock;
+import com.unforbidable.tfc.bids.features.building.peg.block.BlockPeg;
 import com.unforbidable.tfc.bids.features.device.dryingframe.tileentity.TileEntityDryingPegs;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackHelper;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFreshSkin;
@@ -9,6 +10,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -67,7 +70,17 @@ public class DryingPegsHelper {
 
     public static boolean isBlockDryingPegAnchor(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
-        return block instanceof DryingPegsAnchorBlock;
+        // By default, can attach to Pegs
+        boolean canAttach = block instanceof BlockPeg;
+        return BidsEventFactory.onDryingPegsAnchorAttach(world, x, y, z, block, canAttach);
+    }
+
+    public static AxisAlignedBB getBlockDryingPegAnchorBounds(World world, int x, int y, int z) {
+        Block block = world.getBlock(x, y, z);
+        // By default, this works for Pegs, and other blocks with static bounds that tightly match the model
+        AxisAlignedBB knotBounds = AxisAlignedBB.getBoundingBox(block.getBlockBoundsMinX(), 0, block.getBlockBoundsMinZ(),
+            block.getBlockBoundsMaxX(), 0, block.getBlockBoundsMaxZ());
+        return BidsEventFactory.onDryingPegsAnchorBounds(world, x, y, z, block, knotBounds);
     }
 
 }

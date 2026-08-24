@@ -4,6 +4,7 @@ import com.unforbidable.tfc.bids.api.features.churning.WaterskinChurnEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingEnvironment;
 import com.unforbidable.tfc.bids.api.features.drying.DryingEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingItemEvent;
+import com.unforbidable.tfc.bids.api.features.drying.DryingPegsAnchorEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
 import com.unforbidable.tfc.bids.api.features.firestarting.FireStartingEvent;
 import com.unforbidable.tfc.bids.api.features.handwork.HandworkPlayerEvent;
@@ -16,14 +17,16 @@ import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.api.features.threshing.ThreshingPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlayerEvent;
 import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
-import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingHost;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
 import java.awt.geom.Area;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
@@ -173,6 +176,20 @@ public class BidsEventFactory {
     public static void onDryingItemCrafted(ItemStack input, ItemStack result, DryingEnvironment environment) {
         DryingEvent.ItemCrafted event = new DryingEvent.ItemCrafted(input, result, environment);
         MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static boolean onDryingPegsAnchorAttach(World world, int x, int y, int z, Block block, boolean canAttach) {
+        DryingPegsAnchorEvent.Attach event = new DryingPegsAnchorEvent.Attach(world, x, y, z, block);
+        event.canAttach = canAttach;
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.canAttach && !event.isCanceled();
+    }
+
+    public static AxisAlignedBB onDryingPegsAnchorBounds(World world, int x, int y, int z, Block block, AxisAlignedBB knotBounds){
+        DryingPegsAnchorEvent.Bounds event = new DryingPegsAnchorEvent.Bounds(world, x, y, z, block);
+        event.knotBounds = knotBounds;
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.knotBounds;
     }
 
 }
