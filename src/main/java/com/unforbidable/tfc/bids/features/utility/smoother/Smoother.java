@@ -21,7 +21,8 @@ public class Smoother extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(ItemNames.BONE_SMOOTHER, () -> new ItemCommonTool(TFCItems.boneToolMaterial));
+        init.item(ItemNames.BONE_SMOOTHER, () -> new ItemCommonTool(TFCItems.boneToolMaterial))
+            .apply(i -> i.setMaxDamage(60));
     }
 
     @Override
