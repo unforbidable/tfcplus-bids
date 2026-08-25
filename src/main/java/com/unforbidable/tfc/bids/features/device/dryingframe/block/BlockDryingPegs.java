@@ -60,6 +60,9 @@ public class BlockDryingPegs extends BlockContainer {
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
         if (entityplayer.getHeldItem() == null) {
             if (!world.isRemote && entityplayer.isSneaking()) {
+                TileEntityDryingPegs tileEntityDryingPegs = (TileEntityDryingPegs) world.getTileEntity(x, y, z);
+                tileEntityDryingPegs.retrieveItem(entityplayer);
+
                 world.setBlock(x, y, z, Blocks.air, 0, 2);
             }
         }

@@ -84,6 +84,18 @@ public class TileEntityDryingPegs extends TileEntity implements IInventory, Dryi
         }
     }
 
+    public void retrieveItem(EntityPlayer entityplayer) {
+        if (storage[SLOT_ITEM] != null) {
+            TFC_Core.giveItemToPlayer(storage[SLOT_ITEM].getCurrentItem(), entityplayer);
+
+            if (storage[SLOT_ITEM].tyingItem != null) {
+                TFC_Core.giveItemToPlayer(storage[SLOT_ITEM].tyingItem, entityplayer);
+            }
+
+            storage[SLOT_ITEM] = null;
+        }
+    }
+
     public boolean hasItem() {
         return storage[SLOT_ITEM] != null;
     }
