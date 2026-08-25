@@ -30,6 +30,7 @@ import com.unforbidable.tfc.bids.features.material.skin.container.ContainerSpeci
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinCuttingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinMergingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinSaltingRecipe;
+import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinDecorativeSurfaceEventHandler;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinDryingHandler;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinLivingDropsEventHandler;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinProcessingHandler;
@@ -104,7 +105,8 @@ public class Skin extends Feature {
             .handler(new SkinLivingDropsEventHandler())
             .handler(new SkinProcessingHandler())
             .handler(new SkinSoakingHandler())
-            .handler(new SkinDryingHandler());
+            .handler(new SkinDryingHandler())
+            .handler(new SkinDecorativeSurfaceEventHandler());
 
         // Use scheme to set up recipes for all sorts of fresh hides
         SkinScheme.setup();

@@ -37,7 +37,6 @@ public class TileEntityDryingPegs extends TileEntity implements IInventory, Dryi
     DryingFrameItem[] storage = new DryingFrameItem[MAX_STORAGE];
 
     Timer dryingTimer = new Timer(DRYING_TIMER_INTERVAL);
-    Timer decayTimer = new Timer(100);
 
     long lastDryingTicks = 0;
 
@@ -53,9 +52,7 @@ public class TileEntityDryingPegs extends TileEntity implements IInventory, Dryi
                 clientNeedToUpdate = false;
             }
 
-            if (decayTimer.tick()) {
-                TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, false);
-            }
+            TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, false);
 
             // Check if enough time had passed
             // for drying interval

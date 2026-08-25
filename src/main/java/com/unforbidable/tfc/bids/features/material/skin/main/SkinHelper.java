@@ -22,6 +22,8 @@ public class SkinHelper {
 
     public static final float BASE_DECAY_RATE = 16f;
 
+    public static final float WEIGHT_CONVERSION_BONUS = 1 / 16f;
+
 
     public static ItemStack createTag(ItemStack itemStack, Consumer<SkinTag> apply) {
         return ItemTag.create(itemStack, SkinTag::new, tag -> { tag.setWeight(SKIN_MAX_WEIGHT); apply.accept(tag); });
