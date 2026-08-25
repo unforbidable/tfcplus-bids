@@ -14,6 +14,8 @@ import com.unforbidable.tfc.bids.features.material.skin.SkinConfig;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemSkin;
 import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
 import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
+import com.unforbidable.tfc.bids.features.material.skin.main.scheme.SkinIndex;
+import com.unforbidable.tfc.bids.features.material.skin.main.scheme.SkinScheme;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.ItemStack;
 import java.util.Random;
@@ -88,7 +90,8 @@ public class SkinProcessingHandler {
                 TFC_Core.getSkillStats(event.player).increaseSkill(Global.SKILL_BUTCHERING, skillIncrease);
             }
 
-            if (event.input.getItem() == BidsItems.sheepSkin) {
+            SkinIndex skin = SkinScheme.find(event.input.getItem());
+            if (skin != null && skin.wool != null) {
                 // Sheepskin shearing, must be Clean or Preserved
                 if (input.isStage(SkinTagAccess.STAGE_CLEAN) || input.isStage(SkinTagAccess.STAGE_PRESERVED)) {
                     // Stack size depends on weight, 1 per small skin size
@@ -96,7 +99,8 @@ public class SkinProcessingHandler {
                     float weight = input.getWeight();
                     int stackSize = (int) Math.floor(weight / SkinHelper.WEIGHT_SMALL);
                     if (stackSize > 0) {
-                        ItemStack wool = new ItemStack(TFCItems.wool, stackSize, 0);
+                        ItemStack wool = skin.wool.extraDrop.copy();
+                        wool.stackSize *= stackSize;
                         TFC_Core.giveItemToPlayer(wool, event.player);
                     }
                 }
