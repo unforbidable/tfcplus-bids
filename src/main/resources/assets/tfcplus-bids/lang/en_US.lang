@@ -1636,6 +1636,7 @@ gui.Drying.requirements.wet=Wet
 gui.Drying.requirements.warm=Warm
 gui.Drying.requirements.cover=Cover
 gui.Drying.requirements.freezing=Freezing
+gui.Drying.requirements.smoke=Smoke
 gui.Kindling=Kindling
 gui.ChoppingBlock=Chopping Block
 gui.SaddleQuern=Saddle Quern

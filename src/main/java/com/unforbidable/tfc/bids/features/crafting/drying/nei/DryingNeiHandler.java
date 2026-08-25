@@ -170,6 +170,9 @@ public class DryingNeiHandler extends TemplateRecipeHandler implements IHandlerI
         if (recipe.isRequiresFreezing()) {
             reqs.add(TFC_Core.translate("gui.Drying.requirements.freezing"));
         }
+        if (recipe.isRequiresSmoke()) {
+            reqs.add(TFC_Core.translate("gui.Drying.requirements.smoke"));
+        }
 
         if (reqs.size() > 0) {
             return " (" + String.join(" & ", reqs) + ")";
