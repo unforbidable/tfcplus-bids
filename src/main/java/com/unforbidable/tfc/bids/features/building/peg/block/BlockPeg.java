@@ -31,7 +31,7 @@ public class BlockPeg extends Block implements DryingPegsAnchorBlock {
         super(Material.wood);
 
         setHardness(2f);
-        setBlockBounds(0.4375f, 0, 0.4375f, 0.5625f, 0.8f, 0.5625f);
+        setBlockBounds(0.45f, 0, 0.45f, 0.55f, 0.8f, 0.55f);
     }
 
     @Override

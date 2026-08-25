@@ -17,7 +17,7 @@ public class RenderPegLeashKnot extends Render {
         GL11.glPushMatrix();
         GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glTranslatef((float)x, (float)y, (float)z);
-        float scale = 0.04F;
+        float scale = 0.035F;
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glScalef(-1.0F, -1.0F, 1.0F);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
