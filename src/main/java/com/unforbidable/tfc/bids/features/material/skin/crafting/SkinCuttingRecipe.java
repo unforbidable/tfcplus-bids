@@ -112,13 +112,17 @@ public class SkinCuttingRecipe implements IRecipe {
                 if (is.getItem() instanceof ItemSkin) {
                     float weight = SkinTag.of(is).getWeight();
 
-                    if (largeOutput != null && weight >= SkinHelper.WEIGHT_LARGE) {
+                    // Required weight is reduced to forgive minor decay
+                    // especially after processing converted fixed size TFC furs and rawhide
+                    // e.g. allowing processing a large fur into a large rawhide even with certain decay
+                    // note this only lowers the required size and the full size will be consumed when available
+                    if (largeOutput != null && weight >= SkinHelper.WEIGHT_LARGE * SkinHelper.WEIGHT_CUT_REQUIRED) {
                         return largeOutput.copy();
-                    } else if (mediumOutput != null && weight >= SkinHelper.WEIGHT_MEDIUM) {
+                    } else if (mediumOutput != null && weight >= SkinHelper.WEIGHT_MEDIUM * SkinHelper.WEIGHT_CUT_REQUIRED) {
                         return mediumOutput.copy();
-                    } else if (smallOutput != null && weight >= SkinHelper.WEIGHT_SMALL) {
+                    } else if (smallOutput != null && weight >= SkinHelper.WEIGHT_SMALL * SkinHelper.WEIGHT_CUT_REQUIRED) {
                         return smallOutput.copy();
-                    } else if (verySmallOutput != null && weight >= SkinHelper.WEIGHT_VERY_SMALL) {
+                    } else if (verySmallOutput != null && weight >= SkinHelper.WEIGHT_VERY_SMALL * SkinHelper.WEIGHT_CUT_REQUIRED) {
                         return verySmallOutput.copy();
                     } else if (tinyOutput != null) {
                         ItemStack repairPatches = tinyOutput.copy();

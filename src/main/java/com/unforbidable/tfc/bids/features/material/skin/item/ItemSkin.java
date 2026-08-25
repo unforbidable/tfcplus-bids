@@ -47,7 +47,12 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player) {
         ItemStack specialCraftingType = getSpecialCraftingItemStack(itemstack);
-        if (specialCraftingType != null && SkinTag.of(itemstack).getWeight() >= SkinHelper.WEIGHT_SMALL) {
+
+        // Required weight is reduced to forgive minor decay
+        // especially after processing converted fixed size TFC furs and rawhide
+        // e.g. allowing processing a large fur into a large rawhide even with certain decay
+        // note this only lowers the required size and the full size will be consumed when available
+        if (specialCraftingType != null && SkinTag.of(itemstack).getWeight() >= SkinHelper.WEIGHT_SMALL * SkinHelper.WEIGHT_CUT_REQUIRED) {
             PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(player);
             pi.specialCraftingType = specialCraftingType;
             pi.specialCraftingTypeAlternate = null;

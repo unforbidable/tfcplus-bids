@@ -22,7 +22,7 @@ public class SkinHelper {
 
     public static final float BASE_DECAY_RATE = 16f;
 
-    public static final float WEIGHT_CONVERSION_BONUS = 1 / 16f;
+    public static final float WEIGHT_CUT_REQUIRED = 15 / 16f;
 
 
     public static ItemStack createTag(ItemStack itemStack, Consumer<SkinTag> apply) {
