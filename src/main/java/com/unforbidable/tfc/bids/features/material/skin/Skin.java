@@ -230,7 +230,7 @@ public class Skin extends Feature {
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
                 SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_TANNED),
-                new FluidStack(TFCFluids.TANNIN, 1000), 8000));
+                new FluidStack(TFCFluids.TANNIN, 200), 8000));
 
         // Tanned Skin -> Dried Skin
         setup.registry(DryingFrameRegistry.recipes)
