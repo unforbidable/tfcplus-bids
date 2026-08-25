@@ -284,97 +284,97 @@ public class Skin extends Feature {
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(SkinHelper.createStack(BidsItems.rawhide),
                 SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
-                new FluidStack(TFCFluids.FRESHWATER, 1000), 8000));
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000));
 
         // Very Small Raw Hide -> Dehaired
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.VERY_SMALL_HIDE),
                 SkinHelper.createStack(BidsItems.dehairedSkin, SkinHelper.WEIGHT_VERY_SMALL, SkinTagAccess.STAGE_DEHAIRED),
-                new FluidStack(TFCFluids.FRESHWATER, 100), 1000));
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000));
 
         // TFC Raw Hide -> Dehaired
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(new ItemStack(TFCItems.hide, 1, 0),
                 SkinHelper.createStack(BidsItems.dehairedSkin, SkinHelper.WEIGHT_SMALL, SkinTagAccess.STAGE_DEHAIRED),
-                new FluidStack(TFCFluids.FRESHWATER, 200), 2000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.hide, 1, 1),
                 SkinHelper.createStack(BidsItems.dehairedSkin, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_DEHAIRED),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.hide, 1, 2),
                 SkinHelper.createStack(BidsItems.dehairedSkin, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_DEHAIRED),
-                new FluidStack(TFCFluids.FRESHWATER, 800), 8000));
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000));
 
         // TFC Fur -> Clean (Fur)
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(new ItemStack(TFCItems.fur, 1, 0),
                 SkinHelper.createStack(BidsItems.genericFur, SkinHelper.WEIGHT_SMALL, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 200), 2000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.fur, 1, 1),
                 SkinHelper.createStack(BidsItems.genericFur, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.fur, 1, 2),
                 SkinHelper.createStack(BidsItems.genericFur, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 800), 8000));
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000));
 
         // TFC Fur Scrap -> Clean (Fur)
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(new ItemStack(TFCItems.furScrap, 1, 0),
                 SkinHelper.createStack(BidsItems.genericFur, SkinHelper.WEIGHT_SMALL, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 200), 2000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.furScrap, 1, 1),
                 SkinHelper.createStack(BidsItems.genericFur, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.furScrap, 1, 2),
                 SkinHelper.createStack(BidsItems.genericFur, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 800), 8000));
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000));
 
         // TFC Wolf Fur -> Clean (Wolf Fur)
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(new ItemStack(TFCItems.wolfFur, 1, 0),
                 SkinHelper.createStack(BidsItems.wolfFur, SkinHelper.WEIGHT_SMALL, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 200), 2000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.wolfFur, 1, 1),
                 SkinHelper.createStack(BidsItems.wolfFur, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.wolfFur, 1, 2),
                 SkinHelper.createStack(BidsItems.wolfFur, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 800), 8000));
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000));
 
         // TFC Wolf Fur Scrap -> Clean (Wolf Fur)
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(new ItemStack(TFCItems.wolfFurScrap, 1, 0),
                 SkinHelper.createStack(BidsItems.wolfFur, SkinHelper.WEIGHT_SMALL, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 200), 2000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.wolfFurScrap, 1, 1),
                 SkinHelper.createStack(BidsItems.wolfFur, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.wolfFurScrap, 1, 2),
                 SkinHelper.createStack(BidsItems.wolfFur, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 800), 8000));
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000));
 
         // TFC Bear Fur -> Clean (Bear Fur)
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(new ItemStack(TFCItems.bearFur, 1, 0),
                 SkinHelper.createStack(BidsItems.bearFur, SkinHelper.WEIGHT_SMALL, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 200), 2000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.bearFur, 1, 1),
                 SkinHelper.createStack(BidsItems.bearFur, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.bearFur, 1, 2),
                 SkinHelper.createStack(BidsItems.bearFur, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 800), 8000));
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000));
 
         // TFC Bear Fur Scrap -> Clean (Bear Fur)
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(new ItemStack(TFCItems.bearFurScrap, 1, 0),
                 SkinHelper.createStack(BidsItems.bearFur, SkinHelper.WEIGHT_SMALL, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 200), 2000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.bearFurScrap, 1, 1),
                 SkinHelper.createStack(BidsItems.bearFur, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 400), 4000))
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.bearFurScrap, 1, 2),
                 SkinHelper.createStack(BidsItems.bearFur, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN),
-                new FluidStack(TFCFluids.FRESHWATER, 800), 8000));
+                new FluidStack(TFCFluids.FRESHWATER, 200), 4000));
     }
 
 }
