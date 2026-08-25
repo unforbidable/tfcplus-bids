@@ -187,7 +187,7 @@ public class DryingHelper {
     }
 
     public static String getHoursRemainingInfoString(long ticks) {
-        float hours = (float)ticks / TFC_Time.HOUR_LENGTH;
+        float hours = Math.max(0, (float)ticks / TFC_Time.HOUR_LENGTH);
         if (hours > 1.5f) {
             return String.format("%d", (int)Math.ceil(hours));
         } else {
