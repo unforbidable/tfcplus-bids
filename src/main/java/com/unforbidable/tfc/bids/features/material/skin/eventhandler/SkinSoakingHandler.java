@@ -30,12 +30,12 @@ public class SkinSoakingHandler {
 
                 resultTag.setWeight(inputTag.getWeight());
                 resultTag.setDecay(inputTag.getDecay());
-                resultTag.setDecayTimer(inputTag.getDecayTimer() + 6);
+                resultTag.setDecayTimer(inputTag.getDecayTimer() + 1);
             }
 
             if (resultTag.isStage(SkinTagAccess.STAGE_CLEAN) || resultTag.isStage(SkinTagAccess.STAGE_DEHAIRED)) {
                 // Rehydrated skin gets decay postponed further
-                resultTag.setDecayTimer((int) (TFC_Time.getTotalHours() + 24));
+                resultTag.setDecayTimer((int) (TFC_Time.getTotalHours() + 6));
             }
         }
     }

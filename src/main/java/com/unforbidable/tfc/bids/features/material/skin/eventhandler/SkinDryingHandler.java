@@ -29,7 +29,7 @@ public class SkinDryingHandler {
             } else {
                 resultTag.setWeight(inputTag.getWeight());
                 resultTag.setDecay(inputTag.getDecay());
-                resultTag.setDecayTimer(inputTag.getDecayTimer() + 6);
+                resultTag.setDecayTimer(inputTag.getDecayTimer() + 1);
             }
 
             if (!(event.result.getItem() instanceof ItemFinishedSkin)) {

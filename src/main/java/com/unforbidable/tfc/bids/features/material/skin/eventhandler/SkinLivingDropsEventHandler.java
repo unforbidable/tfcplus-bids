@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.material.skin.eventhandler;
 
 import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Entities.EntityProjectileTFC;
 import com.dunk.tfc.Entities.Mobs.EntityBear;
 import com.dunk.tfc.Entities.Mobs.EntityBighornSheepTFC;
@@ -51,7 +52,8 @@ public class SkinLivingDropsEventHandler {
 
                     Bids.LOG.info("Dropped skin size: {} (size: {}, butcher: {})", weight, result.size, bonus);
 
-                    ItemStack is = SkinHelper.createStack(result.item, weight, tag -> tag.setAnimal(result.name));
+                    ItemStack is = SkinHelper.createStack(result.item, weight, tag -> tag.setAnimal(result.name)
+                        .setDecayTimer((int) (TFC_Time.getTotalHours() + 4)));
                     EntityItem entityItem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, is);
 
                     purgeOriginalDrops(event.drops);

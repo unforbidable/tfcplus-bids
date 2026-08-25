@@ -73,7 +73,7 @@ public class SkinProcessingHandler {
                     resultTag.setDecay(Math.round(newDecay * 100) / 100f);
                 }
 
-                resultTag.setDecayTimer(input.getDecayTimer() + 6);
+                resultTag.setDecayTimer(input.getDecayTimer() + 1);
             } else {
                 resultTag.setDecay(input.getDecay());
                 resultTag.setDecayTimer(input.getDecayTimer());
