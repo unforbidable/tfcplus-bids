@@ -30,7 +30,6 @@ import com.unforbidable.tfc.bids.features.material.skin.container.ContainerSpeci
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinCuttingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinMergingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinSaltingRecipe;
-import com.unforbidable.tfc.bids.features.material.skin.crafting.SkinShearingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinDryingHandler;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinLivingDropsEventHandler;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinProcessingHandler;
@@ -51,7 +50,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 import static com.unforbidable.tfc.bids.features.material.skin.crafting.action.CutSkin.cutSkin;
-import static com.unforbidable.tfc.bids.features.material.skin.crafting.action.ShearSkin.shearSkin;
 
 /**
  * Fresh skins decay rapidly until scraped.
@@ -138,12 +136,6 @@ public class Skin extends Feature {
             .action(damageTool("itemKnife"));
 
         setup.recipes()
-            .add(new SkinShearingRecipe(SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_PRESERVED),
-                "itemKnife", SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_PRESERVED, tag -> tag.setAnimal("sheepTFC.sheared"))))
-            .action(shearSkin(new ItemStack(TFCItems.wool)))
-            .action(damageTool("itemKnife"));
-
-        setup.recipes()
             .add(new SkinMergingRecipe(SkinHelper.createStack(BidsItems.leather),
                 null, SkinHelper.SKIN_MAX_WEIGHT));
 
@@ -195,6 +187,15 @@ public class Skin extends Feature {
             .add(new SoakingRecipe(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, FoodTag::setSalted),
                 SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
                 new FluidStack(TFCFluids.FRESHWATER, 200)));
+
+        // Sheep Skin
+        setup.registry(ProcessingSurfaceRegistry.recipes)
+            .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_CLEAN),
+                SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_CLEAN, tag -> tag.setAnimal("sheepTFC.sheared")),
+                "itemScrapingTool", "blockScrapingSurface", 0.5f))
+            .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_PRESERVED),
+                SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_PRESERVED, tag -> tag.setAnimal("sheepTFC.sheared")),
+                "itemScrapingTool", "blockScrapingSurface", 0.5f));
 
         // Fresh -> Fleshed
         setup.registry(ProcessingSurfaceRegistry.recipes)

@@ -33,8 +33,10 @@ public class ItemFreshSkin extends ItemSkin implements ItemMetaNamesAccessor {
         String animal = this == BidsItems.genericFur ? "deerTFC" : (this == BidsItems.genericSkin ? "pigTFC" : null);
 
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_MEDIUM, tag -> tag.setAnimal(animal)));
+        list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_CLEAN, tag -> tag.setAnimal(animal)));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_PREPARED, tag -> tag.setAnimal(animal).setFluid(TFCFluids.LIMEWATER.getName())));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, tag -> tag.setAnimal(animal)));
+        list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN, tag -> tag.setAnimal(animal)));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_PREPARED, tag -> tag.setAnimal(animal).setFluid(TFCFluids.LIMEWATER.getName())));
     }
 

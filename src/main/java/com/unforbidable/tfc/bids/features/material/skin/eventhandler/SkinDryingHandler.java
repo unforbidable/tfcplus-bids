@@ -24,7 +24,7 @@ public class SkinDryingHandler {
             if (resultTag.isStage(SkinTagAccess.STAGE_PRESERVED) || event.result.getItem() instanceof ItemFinishedSkin) {
                 // When skin is preserved, or turned into rawhide or leather
                 // remove decay from weight
-                float newWeight = inputTag.getWeight() - inputTag.getDecay();
+                float newWeight = inputTag.getWeight() - Math.max(0, inputTag.getDecay());
                 resultTag.setWeight(Math.round(newWeight));
             } else {
                 resultTag.setWeight(inputTag.getWeight());

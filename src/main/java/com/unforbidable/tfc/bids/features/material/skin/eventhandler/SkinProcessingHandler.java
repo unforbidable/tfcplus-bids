@@ -4,7 +4,9 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCFluids;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
+import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.util.nbt.SkinTagAccess;
@@ -13,6 +15,7 @@ import com.unforbidable.tfc.bids.features.material.skin.item.ItemSkin;
 import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
 import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.item.ItemStack;
 import java.util.Random;
 
 public class SkinProcessingHandler {
@@ -62,8 +65,8 @@ public class SkinProcessingHandler {
             // Some decay is removed after fleshing and dehairing
             // decay less than 1% is forgiven
             float decayMultiplier = getDecayMultiplierForStage(resultTag.getStage());
-            if (decayMultiplier != 1) {
-                float newDecay = input.getDecay() * decayMultiplier;
+            if (decayMultiplier != 1 && input.getDecay() > 0) {
+                float newDecay = Math.max(0, input.getDecay()) * decayMultiplier;
 
                 if (newDecay / input.getWeight() < 0.01f) {
                     resultTag.setDecay(0);
@@ -83,6 +86,20 @@ public class SkinProcessingHandler {
                 int skillIncreaseInt = (int) Math.floor(skillIncreaseFloat);
                 int skillIncrease = skillIncreaseInt + (skillIncreasePartialChance.nextFloat() < (skillIncreaseFloat - skillIncreaseInt) ? 1 : 0);
                 TFC_Core.getSkillStats(event.player).increaseSkill(Global.SKILL_BUTCHERING, skillIncrease);
+            }
+
+            if (event.input.getItem() == BidsItems.sheepSkin) {
+                // Sheepskin shearing, must be Clean or Preserved
+                if (input.isStage(SkinTagAccess.STAGE_CLEAN) || input.isStage(SkinTagAccess.STAGE_PRESERVED)) {
+                    // Stack size depends on weight, 1 per small skin size
+                    // which can be 0 if the skin is too small
+                    float weight = input.getWeight();
+                    int stackSize = (int) Math.floor(weight / SkinHelper.WEIGHT_SMALL);
+                    if (stackSize > 0) {
+                        ItemStack wool = new ItemStack(TFCItems.wool, stackSize, 0);
+                        TFC_Core.giveItemToPlayer(wool, event.player);
+                    }
+                }
             }
         }
     }
