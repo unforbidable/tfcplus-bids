@@ -179,11 +179,21 @@ public class ItemFreshSkin extends ItemSkin {
             // Same icon for all skins for fleshing
             // as it looks the same from the flesh side
             // Dehaired, Dried, Worked skin looks the same from the hair side as well
-            return "Skin";
+            return "Skin." + getSurfaceIconStageName(itemStack);
         }
 
         return super.getSurfaceIconBaseName(itemStack);
     }
+
+    protected String getSurfaceIconStageName(ItemStack itemStack) {
+        String stage = SkinTag.of(itemStack).getStage();
+        if (stage == null || stage.isEmpty()) {
+            return "Fresh";
+        } else {
+            return stage.substring(0, 1).toUpperCase() + stage.substring(1);
+        }
+    }
+
 
     @Override
     protected String getFluidUnlocalizedName(ItemStack itemStack) {

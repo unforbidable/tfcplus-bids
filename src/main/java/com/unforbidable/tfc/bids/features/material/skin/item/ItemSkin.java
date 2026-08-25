@@ -249,21 +249,12 @@ public class ItemSkin extends ItemFoodLike implements IBag, ItemSpecialCraftingA
         if (surfaceIconName != null) {
             return surfaceIconName;
         } else {
-            return Tags.MOD_ID + ":surface/skin/" + getSurfaceIconBaseName(itemStack) + "." + getSurfaceIconStageName(itemStack);
+            return Tags.MOD_ID + ":surface/skin/" + getSurfaceIconBaseName(itemStack);
         }
     }
 
     protected String getSurfaceIconBaseName(ItemStack itemStack) {
         return getUnlocalizedName().replace("item.", "");
-    }
-
-    protected String getSurfaceIconStageName(ItemStack itemStack) {
-        String stage = SkinTag.of(itemStack).getStage();
-        if (stage == null || stage.isEmpty()) {
-            return "Fresh";
-        } else {
-            return stage.substring(0, 1).toUpperCase() + stage.substring(1);
-        }
     }
 
 }
