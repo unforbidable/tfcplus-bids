@@ -36,6 +36,7 @@ import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinLivingD
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinProcessingHandler;
 import com.unforbidable.tfc.bids.features.material.skin.eventhandler.SkinSoakingHandler;
 import com.unforbidable.tfc.bids.features.material.skin.gui.GuiKnappingSkin;
+import com.unforbidable.tfc.bids.features.material.skin.item.ItemDehairedSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFinishedSkin;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFreshSkin;
 import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
@@ -73,6 +74,7 @@ public class Skin extends Feature {
         init.item(ItemNames.BEAR_FUR, ItemFreshSkin::new)
             .apply(i -> i.setSpecialCraftingItem(TFCItems.flatBearFur));
         init.item(ItemNames.SHEEP_SKIN, ItemFreshSkin::new);
+        init.item(ItemNames.DEHAIRED_SKIN, ItemDehairedSkin::new);
         init.item(ItemNames.RAWHIDE, ItemFinishedSkin::new)
             .apply(i -> i.setSpecialCraftingItem(TFCItems.flatHide));
         init.item(ItemNames.LEATHER, ItemFinishedSkin::new)
@@ -90,6 +92,7 @@ public class Skin extends Feature {
             .item(BidsItems.wolfFur)
             .item(BidsItems.bearFur)
             .item(BidsItems.sheepSkin)
+            .item(BidsItems.dehairedSkin)
             .item(BidsItems.rawhide)
             .item(BidsItems.leather);
 
@@ -136,7 +139,7 @@ public class Skin extends Feature {
 
         setup.recipes()
             .add(new SkinShearingRecipe(SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_PRESERVED),
-                "itemKnife", SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_PRESERVED, tag -> tag.setAnimal("sheepTFC"))))
+                "itemKnife", SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_PRESERVED, tag -> tag.setAnimal("sheepTFC.sheared"))))
             .action(shearSkin(new ItemStack(TFCItems.wool)))
             .action(damageTool("itemKnife"));
 
@@ -164,23 +167,34 @@ public class Skin extends Feature {
 
         // Salting
         for (Item skin : skins) {
-            String[] stagesToSalt = {"", SkinTagAccess.STAGE_FLESHED, SkinTagAccess.STAGE_CLEAN, SkinTagAccess.STAGE_DEHAIRED};
-            for (String stage : stagesToSalt) {
-                setup.recipes()
-                    .add(new SkinSaltingRecipe(SkinHelper.createStack(skin, stage),
-                        SkinHelper.createStack(skin, stage, SkinTag::setSalted), new ItemStack(TFCItems.powder, 1, PowderMeta.SALT)));
-            }
+            setup.recipes()
+                .add(new SkinSaltingRecipe(SkinHelper.createStack(skin),
+                    SkinHelper.createStack(skin, SkinTag::setSalted), new ItemStack(TFCItems.powder, 1, PowderMeta.SALT)));
+
+            setup.recipes()
+                .add(new SkinSaltingRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_FLESHED),
+                    SkinHelper.createStack(skin, SkinTagAccess.STAGE_FLESHED, SkinTag::setSalted), new ItemStack(TFCItems.powder, 1, PowderMeta.SALT)));
+
+            setup.recipes()
+                .add(new SkinSaltingRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN),
+                    SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN, SkinTag::setSalted), new ItemStack(TFCItems.powder, 1, PowderMeta.SALT)));
 
             // Washing salt off of clean skin, so it can be prepared for dehairing
-            // and also dehaired skin to allow rawhide and tanning
-            String[] stagesToWashSalt = {SkinTagAccess.STAGE_CLEAN, SkinTagAccess.STAGE_DEHAIRED};
-            for (String stage : stagesToWashSalt) {
-                setup.registry(SoakingRegistry.recipes)
-                    .add(new SoakingRecipe(SkinHelper.createStack(skin, stage, FoodTag::setSalted),
-                        SkinHelper.createStack(skin, stage),
-                        new FluidStack(TFCFluids.FRESHWATER, 200)));
-            }
+            setup.registry(SoakingRegistry.recipes)
+                .add(new SoakingRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN, FoodTag::setSalted),
+                    SkinHelper.createStack(skin, SkinTagAccess.STAGE_CLEAN),
+                    new FluidStack(TFCFluids.FRESHWATER, 200)));
         }
+
+        setup.recipes()
+            .add(new SkinSaltingRecipe(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, SkinTag::setSalted),
+                new ItemStack(TFCItems.powder, 1, PowderMeta.SALT)));
+
+        setup.registry(SoakingRegistry.recipes)
+            .add(new SoakingRecipe(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, FoodTag::setSalted),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
+                new FluidStack(TFCFluids.FRESHWATER, 200)));
 
         // Fresh -> Fleshed
         setup.registry(ProcessingSurfaceRegistry.recipes)
@@ -203,19 +217,19 @@ public class Skin extends Feature {
         // Prepared -> Dehaired
         setup.registry(ProcessingSurfaceRegistry.recipes)
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.genericFur, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.genericFur, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
                 "itemScrapingTool", "blockScrapingSurface", 4f))
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
                 "itemScrapingTool", "blockScrapingSurface", 2f))
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.sheepSkin, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("sheepTFC")),
                 "itemScrapingTool", "blockScrapingSurface", 4f))
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.wolfFur, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.wolfFur, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("wolfTFC")),
                 "itemScrapingTool", "blockScrapingSurface", 4f))
             .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_PREPARED),
-                SkinHelper.createStack(BidsItems.bearFur, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, tag -> tag.setAnimal("bearTFC")),
                 "itemScrapingTool", "blockScrapingSurface", 6f));
 
         // Fleshed -> Clean
@@ -252,23 +266,21 @@ public class Skin extends Feature {
         }
 
         // Dehaired -> Tanned
-        for (Item skin : skins) {
-            setup.registry(SoakingRegistry.recipes)
-                .add(new SoakingRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_DEHAIRED),
-                    SkinHelper.createStack(skin, SkinTagAccess.STAGE_TANNED),
-                    new FluidStack(TFCFluids.TANNIN, 1000), 8000));
-        }
+        setup.registry(SoakingRegistry.recipes)
+            .add(new SoakingRecipe(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_TANNED),
+                new FluidStack(TFCFluids.TANNIN, 1000), 8000));
 
         // Rawhide -> Dehaired
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(SkinHelper.createStack(BidsItems.rawhide),
-                SkinHelper.createStack(BidsItems.genericSkin, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
                 new FluidStack(TFCFluids.FRESHWATER, 1000), 8000));
 
         // Very Small Raw Hide -> Dehaired
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.VERY_SMALL_HIDE),
-                SkinHelper.createStack(BidsItems.genericSkin, SkinHelper.WEIGHT_VERY_SMALL, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinHelper.WEIGHT_VERY_SMALL, SkinTagAccess.STAGE_DEHAIRED),
                 new FluidStack(TFCFluids.FRESHWATER, 100), 1000));
 
         // Preserved -> Clean
@@ -282,13 +294,13 @@ public class Skin extends Feature {
         // TFC Raw Hide -> Dehaired
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(new ItemStack(TFCItems.hide, 1, 0),
-                SkinHelper.createStack(BidsItems.genericSkin, SkinHelper.WEIGHT_SMALL, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinHelper.WEIGHT_SMALL, SkinTagAccess.STAGE_DEHAIRED),
                 new FluidStack(TFCFluids.FRESHWATER, 200), 2000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.hide, 1, 1),
-                SkinHelper.createStack(BidsItems.genericSkin, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_DEHAIRED),
                 new FluidStack(TFCFluids.FRESHWATER, 400), 4000))
             .add(new SoakingRecipe(new ItemStack(TFCItems.hide, 1, 2),
-                SkinHelper.createStack(BidsItems.genericSkin, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_DEHAIRED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_DEHAIRED),
                 new FluidStack(TFCFluids.FRESHWATER, 800), 8000));
 
         // TFC Fur -> Clean (Fur)
@@ -375,52 +387,44 @@ public class Skin extends Feature {
                     .build());
         }
 
-        // Dehaired Skin -> Rawhide
-        for (Item skin : skins) {
-            setup.registry(DryingFrameRegistry.recipes)
-                .add((DryingFrameRecipe) DryingFrameRecipe.builder()
-                    .consumesTyingEquipment()
-                    .consumes(SkinHelper.createStack(skin, SkinTagAccess.STAGE_DEHAIRED))
-                    .produces(SkinHelper.createStack(BidsItems.rawhide))
-                    .dry()
-                    .cover()
-                    .hours(12)
-                    .build());
-        }
+        // Dehaired Skin -> Rawhide0
+        setup.registry(DryingFrameRegistry.recipes)
+            .add((DryingFrameRecipe) DryingFrameRecipe.builder()
+                .consumesTyingEquipment()
+                .consumes(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED))
+                .produces(SkinHelper.createStack(BidsItems.rawhide))
+                .dry()
+                .cover()
+                .hours(12)
+                .build());
 
         // Tanned Skin -> Dried Skin
-        for (Item skin : skins) {
-            setup.registry(DryingFrameRegistry.recipes)
-                .add((DryingFrameRecipe) DryingFrameRecipe.builder()
-                    .consumesTyingEquipment()
-                    .consumes(SkinHelper.createStack(skin, SkinTagAccess.STAGE_TANNED))
-                    .produces(SkinHelper.createStack(skin, SkinTagAccess.STAGE_DRIED))
-                    .dry()
-                    .cover()
-                    .hours(8)
-                    .build());
-        }
+        setup.registry(DryingFrameRegistry.recipes)
+            .add((DryingFrameRecipe) DryingFrameRecipe.builder()
+                .consumesTyingEquipment()
+                .consumes(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_TANNED))
+                .produces(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DRIED))
+                .dry()
+                .cover()
+                .hours(8)
+                .build());
 
         // Dried Skin -> Worked Skin
-        for (Item skin : skins) {
-            setup.registry(ProcessingSurfaceRegistry.recipes)
-                .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(skin, SkinTagAccess.STAGE_DRIED),
-                    SkinHelper.createStack(skin, SkinTagAccess.STAGE_WORKED),
-                    "itemLeatherSmoothingTool", "blockScrapingSurface", 0.5f));
-        }
+        setup.registry(ProcessingSurfaceRegistry.recipes)
+            .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DRIED),
+                SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_WORKED),
+                "itemLeatherSmoothingTool", "blockScrapingSurface", 0.5f));
 
         // Worked Skin -> Leather
-        for (Item skin : skins) {
-            setup.registry(DryingFrameRegistry.recipes)
-                .add((DryingFrameRecipe) DryingFrameRecipe.builder()
-                    .consumesTyingEquipment()
-                    .consumes(SkinHelper.createStack(skin, SkinTagAccess.STAGE_WORKED))
-                    .produces(SkinHelper.createStack(BidsItems.leather))
-                    .dry()
-                    .cover()
-                    .hours(8)
-                    .build());
-        }
+        setup.registry(DryingFrameRegistry.recipes)
+            .add((DryingFrameRecipe) DryingFrameRecipe.builder()
+                .consumesTyingEquipment()
+                .consumes(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_WORKED))
+                .produces(SkinHelper.createStack(BidsItems.leather))
+                .dry()
+                .cover()
+                .hours(8)
+                .build());
     }
 
 }

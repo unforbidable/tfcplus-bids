@@ -35,6 +35,10 @@ public class SkinHelper {
         return createTag(new ItemStack(item));
     }
 
+    public static ItemStack createStack(Item item, Consumer<SkinTag> apply) {
+        return createTag(new ItemStack(item), apply);
+    }
+
     public static ItemStack createStack(Item item, float weight) {
         return createTag(new ItemStack(item), tag -> tag.setWeight(weight));
     }
