@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids;
 
 import com.unforbidable.tfc.bids.api.features.churning.WaterskinChurnEvent;
+import com.unforbidable.tfc.bids.api.features.decorativesurface.DecorativeSurfaceEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingEnvironment;
 import com.unforbidable.tfc.bids.api.features.drying.DryingEvent;
 import com.unforbidable.tfc.bids.api.features.drying.DryingItemEvent;
@@ -190,6 +191,14 @@ public class BidsEventFactory {
         event.knotBounds = knotBounds;
         MinecraftForge.EVENT_BUS.post(event);
         return event.knotBounds;
+    }
+
+
+    public static boolean onDecorativeSurfacePlace(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int face, boolean initialCanPlace) {
+        DecorativeSurfaceEvent.Place event = new DecorativeSurfaceEvent.Place(itemStack, player, world, x, y, z, face);
+        event.canPlace = initialCanPlace;
+        MinecraftForge.EVENT_BUS.post(event);
+        return !event.isCanceled() && event.canPlace;
     }
 
 }

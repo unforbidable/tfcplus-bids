@@ -16,7 +16,7 @@ public class DecorativeSurfaceEventHandler {
     @SubscribeEvent
     public void onSurfaceItemPlace(SurfaceItemEvent.Place event) {
         if (!event.placed && event.player.isSneaking() && event.face > 0) {
-            if (DecorativeSurfaceHelper.isDecorativeSurfaceItem(event.player.getHeldItem())) {
+            if (DecorativeSurfaceHelper.canPlaceItem(event.itemStack, event.player, event.world, event.x, event.y, event.z, event.face)) {
                 ForgeDirection dir = ForgeDirection.getOrientation(event.face);
                 int x2 = event.x + dir.offsetX;
                 int y2 = event.y + dir.offsetY;
