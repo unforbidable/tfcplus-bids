@@ -1,12 +1,9 @@
 package com.unforbidable.tfc.bids.features.material.skin.eventhandler;
 
 import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCFluids;
-import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
-import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.util.nbt.SkinTagAccess;
@@ -17,8 +14,8 @@ import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
 import com.unforbidable.tfc.bids.features.material.skin.main.scheme.SkinIndex;
 import com.unforbidable.tfc.bids.features.material.skin.main.scheme.SkinScheme;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.item.ItemStack;
 import java.util.Random;
+import net.minecraft.item.ItemStack;
 
 public class SkinProcessingHandler {
 
@@ -76,7 +73,7 @@ public class SkinProcessingHandler {
                     resultTag.setDecay(Math.round(newDecay * 100) / 100f);
                 }
 
-                resultTag.setDecayTimer((int) (input.getDecayTimer() + TFC_Time.HOUR_LENGTH));
+                resultTag.setDecayTimer(input.getDecayTimer() + 6);
             } else {
                 resultTag.setDecay(input.getDecay());
                 resultTag.setDecayTimer(input.getDecayTimer());

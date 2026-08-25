@@ -47,7 +47,7 @@ public class ItemFreshSkin extends ItemSkin implements ItemMetaNamesAccessor {
             float decayPercent = tag.getDecay() / tag.getWeight();
             if (decayPercent > SkinConfig.hairDamageDecayPercent) {
                 tag.setStage(SkinTagAccess.STAGE_PREPARED);
-                tag.setDecayTimer((int) (tag.getDecayTimer() + TFC_Time.HOUR_LENGTH));
+                tag.setDecayTimer(tag.getDecayTimer() + 6);
             }
         }
 
