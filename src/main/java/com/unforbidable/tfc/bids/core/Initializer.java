@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.core.crafting.CraftingInit;
 import com.unforbidable.tfc.bids.core.crop.CropInit;
 import com.unforbidable.tfc.bids.core.drink.DrinkInit;
 import com.unforbidable.tfc.bids.core.features.FeatureInit;
+import com.unforbidable.tfc.bids.core.features.FeatureScannerInit;
 import com.unforbidable.tfc.bids.core.gui.GuiInit;
 import com.unforbidable.tfc.bids.core.help.HelpInit;
 import com.unforbidable.tfc.bids.core.keybinding.KeyBindingInit;
@@ -27,6 +28,9 @@ import java.util.Arrays;
 public class Initializer {
 
     private static final Initializable[] initializers = {
+        // Discover features - used in config
+        new FeatureScannerInit(),
+
         // Core initializers are listed here
         new ConfigInit(),
         new SchedulerInit(),
