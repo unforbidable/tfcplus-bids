@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.building.palisade;
 
 import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
+import com.unforbidable.tfc.bids.core.features.annotations.FeatureLoadAfter;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
@@ -20,6 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 @FeatureName("palisade")
+@FeatureLoadAfter("logWall")
 public class Palisade extends Feature {
 
     @Override

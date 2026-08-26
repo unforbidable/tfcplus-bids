@@ -11,6 +11,7 @@ import com.unforbidable.tfc.bids.compat.tfc.meta.LooseRockMeta;
 import com.unforbidable.tfc.bids.compat.tfc.meta.OreMeta;
 import com.unforbidable.tfc.bids.compat.tfc.meta.PowderMeta;
 import com.unforbidable.tfc.bids.core.features.Feature;
+import com.unforbidable.tfc.bids.core.features.annotations.FeatureLoadAfter;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
@@ -45,6 +46,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
 @FeatureName("saddleQuern")
+@FeatureLoadAfter("roughStone")
 public class SaddleQuern extends Feature {
 
     @Override
