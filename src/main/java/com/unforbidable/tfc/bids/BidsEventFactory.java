@@ -16,7 +16,7 @@ import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingEvent;
 import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.api.features.threshing.ThreshingPlayerEvent;
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingEvent;
 import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
@@ -27,7 +27,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
@@ -107,12 +106,12 @@ public class BidsEventFactory {
     }
 
     public static void onWoodworkingItemCrafted(EntityPlayer player, Area cutout, ItemStack input, ItemStack result) {
-        WoodworkingPlayerEvent event = new WoodworkingPlayerEvent(player, WoodworkingPlayerEvent.Action.ITEM_CRAFTED, cutout, input, result);
+        WoodworkingEvent.ItemCrafted event = new WoodworkingEvent.ItemCrafted(player, cutout, input, result);
         MinecraftForge.EVENT_BUS.post(event);
     }
 
     public static void onWoodworkingItemPickedUp(EntityPlayer player, Area cutout, ItemStack input, ItemStack result) {
-        WoodworkingPlayerEvent event = new WoodworkingPlayerEvent(player, WoodworkingPlayerEvent.Action.ITEM_PICKED_UP, cutout, input, result);
+        WoodworkingEvent.ItemPickedUp event = new WoodworkingEvent.ItemPickedUp(player, cutout, input, result);
         MinecraftForge.EVENT_BUS.post(event);
     }
 

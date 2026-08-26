@@ -21,7 +21,7 @@ import com.unforbidable.tfc.bids.api.features.milk.AnimalMilkEvent;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.features.quarry.QuarryPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernPlayerEvent;
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingEvent;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
 import com.unforbidable.tfc.bids.features.crafting.glassblowing.item.ItemMetalBlowpipe;
 import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
@@ -248,12 +248,10 @@ public class StatsEventHandler {
     }
 
     @SubscribeEvent
-    public void onWoodworking(WoodworkingPlayerEvent event) {
-        if (event.action == WoodworkingPlayerEvent.Action.ITEM_CRAFTED) {
-            if (event.result.getItem() == BidsItems.board && event.result.stackSize == 2 ||
+    public void onWoodworking(WoodworkingEvent.ItemCrafted event) {
+        if (event.result.getItem() == BidsItems.board && event.result.stackSize == 2 ||
             event.result.getItem() == BidsItems.shaft && event.result.stackSize == 2) {
-                event.entityPlayer.triggerAchievement(BidsAchievements.DOUBLE_FORTUNE);
-            }
+            event.player.triggerAchievement(BidsAchievements.DOUBLE_FORTUNE);
         }
     }
 
