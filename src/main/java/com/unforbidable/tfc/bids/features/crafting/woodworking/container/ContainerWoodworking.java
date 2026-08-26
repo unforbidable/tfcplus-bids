@@ -2,13 +2,10 @@ package com.unforbidable.tfc.bids.features.crafting.woodworking.container;
 
 import com.dunk.tfc.Containers.ContainerTFC;
 import com.dunk.tfc.Core.Player.PlayerInventory;
-import com.dunk.tfc.Core.TFC_Core;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsEventFactory;
-import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSummary;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
-import com.unforbidable.tfc.bids.api.meta.MorePowderMeta;
-import com.unforbidable.tfc.bids.api.names.WoodworkingMaterialNames;
 import com.unforbidable.tfc.bids.common.container.inventory.IInventorySlotTracker;
 import com.unforbidable.tfc.bids.common.container.inventory.InventoryCraftingTracked;
 import com.unforbidable.tfc.bids.common.container.slot.SlotOutputOnlyTracked;
@@ -23,8 +20,9 @@ import com.unforbidable.tfc.bids.features.crafting.woodworking.network.Woodworki
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -40,7 +38,8 @@ public class ContainerWoodworking extends ContainerTFC implements PacketHandler<
 
     private final World world;
     private final WorkspaceServer workspaceServer;
-    private float sawdustAmount = 0;
+
+    private final Map<String, Integer> actionHistory = new HashMap<>();
 
     public ContainerWoodworking(InventoryPlayer inventory, World world, int x, int y, int z) {
         workspaceServer = createServer(inventory.player.getHeldItem());
@@ -83,17 +82,18 @@ public class ContainerWoodworking extends ContainerTFC implements PacketHandler<
     @Override
     public void handleNetworkPacket(WoodworkingPacket packet) {
         if (!world.isRemote && packet.getEvent() == WoodworkingPacket.EVENT_PERFORM_ACTION) {
-            WoodworkingMaterial material = WoodworkingHelper.getWoodworkingMaterial(player.getHeldItem());
-            float sawdustMaterialMultiplier = material != null ? getSawdustMaterialMultiplier(material) : 0;
-
             for (NetworkAction action : packet.getActions()) {
                 boolean result = workspaceServer.performAction(action.name, action.x, action.y);
 
-                if (result) {
-                    sawdustAmount += getSawdustAmountForAction(action.name) * sawdustMaterialMultiplier;
-                }
-
                 Bids.LOG.debug("ACTION(\"{}\", {}, {}) => {}", action.name, action.x, action.y, result ? "OK" : "SUCCESS");
+
+                if (result) {
+                    if (actionHistory.containsKey(action.name)) {
+                        actionHistory.put(action.name, actionHistory.get(action.name) + 1);
+                    } else {
+                        actionHistory.put(action.name, 1);
+                    }
+                }
             }
 
             player.inventory.getItemStack().damageItem(packet.getDamage(), player);
@@ -105,36 +105,13 @@ public class ContainerWoodworking extends ContainerTFC implements PacketHandler<
         }
     }
 
-    private float getSawdustMaterialMultiplier(WoodworkingMaterial material) {
-        switch (material.getMaterialName()) {
-            case WoodworkingMaterialNames.WOOD_THICK:
-                return 1;
-            case WoodworkingMaterialNames.WOOD_FLAT:
-                return 0.5f;
-        }
-
-        return 0;
-    }
-
-    private float getSawdustAmountForAction(String actionName) {
-        if (actionName.startsWith("saw")) {
-            // Sawing a whole length of a thick material gives 1 sawdust
-            return 1 / 25f;
-        } else if (actionName.startsWith("drill")) {
-            // Drilling 15 holes in flat gives 1 sawdust
-            return 1 / 7.5f;
-        }
-
-        return 0;
-    }
-
     private void tryToMatchCutout() {
         WorkspacePlan matchingPlan = workspaceServer.findMatchingPlan();
         if (matchingPlan != null) {
             Bids.LOG.debug("MATCH(\"{}\", {})", matchingPlan.getName(), matchingPlan.getResult().toString());
 
             ItemStack result = matchingPlan.getResult().copy();
-            BidsEventFactory.onWoodworkingItemCrafted(player, workspaceServer.getCutout(), player.getHeldItem(), result);
+            BidsEventFactory.onWoodworkingItemCrafted(player, workspaceServer.getCutout(), player.getHeldItem(), result, getSummary());
 
             outputInv.setInventorySlotContents(0, result);
         } else {
@@ -149,15 +126,13 @@ public class ContainerWoodworking extends ContainerTFC implements PacketHandler<
     @Override
     public void onPickupFromSlot(IInventory inventory, Slot slot, EntityPlayer player, ItemStack itemStack) {
         if (!world.isRemote) {
-            BidsEventFactory.onWoodworkingItemPickedUp(player, workspaceServer.getCutout(), player.getHeldItem(), itemStack);
+            BidsEventFactory.onWoodworkingItemPickedUp(player, workspaceServer.getCutout(), player.getHeldItem(), itemStack, getSummary());
         }
 
         player.inventory.decrStackSize(player.inventory.currentItem, 1);
 
         if (!world.isRemote) {
-            // Sawdust is collected during the sawing and drilling
-            // only dropped when the output is retrieved
-            dropSawdust();
+            actionHistory.clear();
 
             workspaceServer.reset();
         } else {
@@ -168,19 +143,12 @@ public class ContainerWoodworking extends ContainerTFC implements PacketHandler<
         }
     }
 
-    private void dropSawdust() {
-        if (sawdustAmount > 0) {
-            int integralAmount = (int) Math.floor(sawdustAmount);
-            float partialAmount = sawdustAmount - integralAmount;
-            int totalAmount = integralAmount + (new Random().nextFloat() < partialAmount ? 1 : 0);
-
-            if (totalAmount > 0) {
-                ItemStack is = new ItemStack(BidsItems.morePowder, totalAmount, MorePowderMeta.SAWDUST);
-                TFC_Core.giveItemToPlayer(is, player);
-            }
-
-            sawdustAmount = 0;
+    private List<WoodworkingActionSummary> getSummary() {
+        List<WoodworkingActionSummary> footprints = new ArrayList<>();
+        for (Map.Entry<String, Integer> e : actionHistory.entrySet()) {
+            footprints.add(new WoodworkingActionSummary(e.getKey(), e.getValue()));
         }
+        return footprints;
     }
 
     @Override

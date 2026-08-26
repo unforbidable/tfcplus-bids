@@ -16,11 +16,13 @@ import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingEvent;
 import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.api.features.threshing.ThreshingPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSummary;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingEvent;
 import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
 import java.awt.geom.Area;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -105,13 +107,13 @@ public class BidsEventFactory {
         MinecraftForge.EVENT_BUS.post(event);
     }
 
-    public static void onWoodworkingItemCrafted(EntityPlayer player, Area cutout, ItemStack input, ItemStack result) {
-        WoodworkingEvent.ItemCrafted event = new WoodworkingEvent.ItemCrafted(player, cutout, input, result);
+    public static void onWoodworkingItemCrafted(EntityPlayer player, Area cutout, ItemStack input, ItemStack result, List<WoodworkingActionSummary> summary) {
+        WoodworkingEvent.ItemCrafted event = new WoodworkingEvent.ItemCrafted(player, cutout, input, result, summary);
         MinecraftForge.EVENT_BUS.post(event);
     }
 
-    public static void onWoodworkingItemPickedUp(EntityPlayer player, Area cutout, ItemStack input, ItemStack result) {
-        WoodworkingEvent.ItemPickedUp event = new WoodworkingEvent.ItemPickedUp(player, cutout, input, result);
+    public static void onWoodworkingItemPickedUp(EntityPlayer player, Area cutout, ItemStack input, ItemStack result, List<WoodworkingActionSummary> summary) {
+        WoodworkingEvent.ItemPickedUp event = new WoodworkingEvent.ItemPickedUp(player, cutout, input, result, summary);
         MinecraftForge.EVENT_BUS.post(event);
     }
 
