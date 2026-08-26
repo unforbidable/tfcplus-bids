@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
 import com.unforbidable.tfc.bids.api.meta.MorePowderMeta;
+import com.unforbidable.tfc.bids.api.names.WoodworkingMaterialNames;
 import com.unforbidable.tfc.bids.common.container.inventory.IInventorySlotTracker;
 import com.unforbidable.tfc.bids.common.container.inventory.InventoryCraftingTracked;
 import com.unforbidable.tfc.bids.common.container.slot.SlotOutputOnlyTracked;
@@ -105,10 +106,10 @@ public class ContainerWoodworking extends ContainerTFC implements PacketHandler<
     }
 
     private float getSawdustMaterialMultiplier(WoodworkingMaterial material) {
-        switch (material.getType()) {
-            case WOOD_THICK:
+        switch (material.getMaterialName()) {
+            case WoodworkingMaterialNames.WOOD_THICK:
                 return 1;
-            case WOOD_FLAT:
+            case WoodworkingMaterialNames.WOOD_FLAT:
                 return 0.5f;
         }
 

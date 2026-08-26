@@ -5,6 +5,6 @@ public interface WoodworkingMaterial {
     String getOreName();
     int getWorkspaceWidth();
     int getWorkspaceHeight();
-    WoodworkingMaterialType getType();
+    String getMaterialName();
 
 }

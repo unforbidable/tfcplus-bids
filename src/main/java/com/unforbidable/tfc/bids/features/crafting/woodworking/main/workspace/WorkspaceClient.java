@@ -263,7 +263,7 @@ public class WorkspaceClient {
 
             for (WoodworkingActionGroup group : tool.getActionGroups()) {
                 for (WoodworkingAction action : group.getActions()) {
-                    if (group.getUsage().contains(material.getType())) {
+                    if (group.getUsage().contains(material.getMaterialName())) {
                         availableActions.add(action);
                     }
                 }

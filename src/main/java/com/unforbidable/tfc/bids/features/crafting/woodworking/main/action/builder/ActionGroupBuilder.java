@@ -1,17 +1,17 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.builder;
 
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingAction;
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.ActionGroup;
 import java.util.ArrayList;
-import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ActionGroupBuilder {
 
     private final String name;
     private final List<WoodworkingAction> actions = new ArrayList<WoodworkingAction>();
-    private final EnumSet<WoodworkingMaterialType> usage = EnumSet.noneOf(WoodworkingMaterialType.class);
+    private final Set<String> usage = new HashSet<>();
     private float toolDamage = 0;
 
     public ActionGroupBuilder(String name) {
@@ -24,7 +24,7 @@ public class ActionGroupBuilder {
         return this;
     }
 
-    public ActionGroupBuilder usage(WoodworkingMaterialType usage) {
+    public ActionGroupBuilder usage(String usage) {
         this.usage.add(usage);
 
         return this;

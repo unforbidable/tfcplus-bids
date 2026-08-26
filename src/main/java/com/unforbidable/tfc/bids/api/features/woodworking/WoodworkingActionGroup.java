@@ -1,12 +1,12 @@
 package com.unforbidable.tfc.bids.api.features.woodworking;
 
-import java.util.EnumSet;
+import java.util.Set;
 
 public interface WoodworkingActionGroup {
 
     String getName();
     WoodworkingAction[] getActions();
-    EnumSet<WoodworkingMaterialType> getUsage();
+    Set<String> getUsage();
     float getToolDamage();
 
 }

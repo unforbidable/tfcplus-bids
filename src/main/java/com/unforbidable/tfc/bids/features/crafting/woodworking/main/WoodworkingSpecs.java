@@ -1,7 +1,7 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main;
 
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
+import com.unforbidable.tfc.bids.api.names.WoodworkingMaterialNames;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.Action;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.ActionGroup;
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.action.ActionSpec;
@@ -83,16 +83,16 @@ public class WoodworkingSpecs {
 
     public static final ActionGroup drill = ActionGroup.create("drill")
         .damage(1f)
-        .usage(WoodworkingMaterialType.WOOD_FLAT)
-        .usage(WoodworkingMaterialType.WOOD_DELICATE)
+        .usage(WoodworkingMaterialNames.WOOD_FLAT)
+        .usage(WoodworkingMaterialNames.WOOD_DELICATE)
         .add(new Action("drillSingle", drillSingle))
         .build();
 
     public static final ActionGroup sawCut = ActionGroup.create("sawCut")
         .damage(0.05f)
-        .usage(WoodworkingMaterialType.WOOD_THICK)
-        .usage(WoodworkingMaterialType.WOOD_FLAT)
-        .usage(WoodworkingMaterialType.BONE)
+        .usage(WoodworkingMaterialNames.WOOD_THICK)
+        .usage(WoodworkingMaterialNames.WOOD_FLAT)
+        .usage(WoodworkingMaterialNames.BONE)
         .add(new Action("sawCutTop", sawCutTop, WoodworkingActionSide.TOP))
         .add(new Action("sawCutBottom", sawCutBottom, WoodworkingActionSide.BOTTOM))
         .add(new Action("sawCutRight", sawCutRight, WoodworkingActionSide.RIGHT))
@@ -101,24 +101,24 @@ public class WoodworkingSpecs {
 
     public static final ActionGroup axeChop = ActionGroup.create("axeChop")
         .damage(1f)
-        .usage(WoodworkingMaterialType.WOOD_THICK)
-        .usage(WoodworkingMaterialType.WOOD_FLAT)
+        .usage(WoodworkingMaterialNames.WOOD_THICK)
+        .usage(WoodworkingMaterialNames.WOOD_FLAT)
         .add(new Action("axeChopTop", axeChopTop, WoodworkingActionSide.TOP))
         .add(new Action("axeChopBottom", axeChopBottom, WoodworkingActionSide.BOTTOM))
         .build();
 
     public static final ActionGroup handAxeChopShort = ActionGroup.create("handAxeChopShort")
         .damage(0.5f)
-        .usage(WoodworkingMaterialType.WOOD_THICK)
-        .usage(WoodworkingMaterialType.WOOD_FLAT)
+        .usage(WoodworkingMaterialNames.WOOD_THICK)
+        .usage(WoodworkingMaterialNames.WOOD_FLAT)
         .add(new Action("axeChopShortTop", axeChopShortTop, WoodworkingActionSide.TOP))
         .add(new Action("axeChopShortBottom", axeChopShortBottom, WoodworkingActionSide.BOTTOM))
         .build();
 
     public static final ActionGroup axeCarve = ActionGroup.create("axeCarve")
         .damage(0.5f)
-        .usage(WoodworkingMaterialType.WOOD_THICK)
-        .usage(WoodworkingMaterialType.WOOD_FLAT)
+        .usage(WoodworkingMaterialNames.WOOD_THICK)
+        .usage(WoodworkingMaterialNames.WOOD_FLAT)
         .add(new Action("axeCarveRightA", axeCarveRightA, WoodworkingActionSide.RIGHT))
         .add(new Action("axeCarveRightB", axeCarveRightB, WoodworkingActionSide.RIGHT))
         .add(new Action("axeCarveLeftA", axeCarveLeftA, WoodworkingActionSide.LEFT))
@@ -127,8 +127,8 @@ public class WoodworkingSpecs {
 
     public static final ActionGroup knifeCarve = ActionGroup.create("knifeCarve")
         .damage(0.2f)
-        .usage(WoodworkingMaterialType.WOOD_FLAT)
-        .usage(WoodworkingMaterialType.WOOD_DELICATE)
+        .usage(WoodworkingMaterialNames.WOOD_FLAT)
+        .usage(WoodworkingMaterialNames.WOOD_DELICATE)
         .add(new Action("knifeCarveRightA", knifeCarveRightA, WoodworkingActionSide.RIGHT))
         .add(new Action("knifeCarveRightB", knifeCarveRightB, WoodworkingActionSide.RIGHT))
         .add(new Action("knifeCarveLeftA", knifeCarveLeftA, WoodworkingActionSide.LEFT))
@@ -137,8 +137,8 @@ public class WoodworkingSpecs {
 
     public static final ActionGroup knifeCut = ActionGroup.create("knifeCut")
         .damage(0.5f)
-        .usage(WoodworkingMaterialType.WOOD_FLAT)
-        .usage(WoodworkingMaterialType.WOOD_DELICATE)
+        .usage(WoodworkingMaterialNames.WOOD_FLAT)
+        .usage(WoodworkingMaterialNames.WOOD_DELICATE)
         .add(new Action("knifeCutTop", knifeCutTop, WoodworkingActionSide.TOP))
         .add(new Action("knifeCutBottom", knifeCutBottom, WoodworkingActionSide.BOTTOM))
         .add(new Action("knifeCutRight", knifeCutRight, WoodworkingActionSide.RIGHT))
@@ -147,9 +147,9 @@ public class WoodworkingSpecs {
 
     public static final ActionGroup handAxeCarve = ActionGroup.create("handAxeCarve")
         .damage(0.5f)
-        .usage(WoodworkingMaterialType.WOOD_THICK)
-        .usage(WoodworkingMaterialType.WOOD_FLAT)
-        .usage(WoodworkingMaterialType.WOOD_DELICATE)
+        .usage(WoodworkingMaterialNames.WOOD_THICK)
+        .usage(WoodworkingMaterialNames.WOOD_FLAT)
+        .usage(WoodworkingMaterialNames.WOOD_DELICATE)
         .add(new Action("knifeCarveRightA", knifeCarveRightA, WoodworkingActionSide.RIGHT))
         .add(new Action("knifeCarveRightB", knifeCarveRightB, WoodworkingActionSide.RIGHT))
         .add(new Action("knifeCarveLeftA", knifeCarveLeftA, WoodworkingActionSide.LEFT))
@@ -158,8 +158,8 @@ public class WoodworkingSpecs {
 
     public static final ActionGroup chiselCut = ActionGroup.create("chiselCut")
         .damage(1f)
-        .usage(WoodworkingMaterialType.WOOD_FLAT)
-        .usage(WoodworkingMaterialType.WOOD_DELICATE)
+        .usage(WoodworkingMaterialNames.WOOD_FLAT)
+        .usage(WoodworkingMaterialNames.WOOD_DELICATE)
         .add(new Action("chiselCutH", chiselCutH))
         .add(new Action("chiselCutV", chiselCutV))
         .build();
@@ -180,7 +180,7 @@ public class WoodworkingSpecs {
 
     public static final ActionGroup knifeFile = ActionGroup.create("knifeFile")
         .damage(0.1f)
-        .usage(WoodworkingMaterialType.BONE)
+        .usage(WoodworkingMaterialNames.BONE)
         .add(new Action("knifeFileSingle", knifeFileSingle))
         .add(new Action("knifeFileCornerLeftA", knifeFileCornerLeftA))
         .add(new Action("knifeFileCornerLeftB", knifeFileCornerLeftB))

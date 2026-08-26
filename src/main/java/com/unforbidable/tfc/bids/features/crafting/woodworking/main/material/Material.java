@@ -1,20 +1,19 @@
 package com.unforbidable.tfc.bids.features.crafting.woodworking.main.material;
 
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 
 public class Material implements WoodworkingMaterial {
 
     private final String oreName;
     private final int workspaceWidth;
     private final int workspaceHeight;
-    private final WoodworkingMaterialType type;
+    private final String materialName;
 
-    public Material(String oreName, int workspaceWidth, int workspaceHeight, WoodworkingMaterialType type) {
+    public Material(String oreName, int workspaceWidth, int workspaceHeight, String materialName) {
         this.oreName = oreName;
         this.workspaceWidth = workspaceWidth;
         this.workspaceHeight = workspaceHeight;
-        this.type = type;
+        this.materialName = materialName;
     }
 
     @Override
@@ -33,8 +32,8 @@ public class Material implements WoodworkingMaterial {
     }
 
     @Override
-    public WoodworkingMaterialType getType() {
-        return type;
+    public String getMaterialName() {
+        return materialName;
     }
 
 }

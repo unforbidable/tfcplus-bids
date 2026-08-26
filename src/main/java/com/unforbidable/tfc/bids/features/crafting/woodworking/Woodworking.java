@@ -2,11 +2,11 @@ package com.unforbidable.tfc.bids.features.crafting.woodworking;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.TFCItems;
-import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterialType;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingOreRecipe;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingRecipe;
 import com.unforbidable.tfc.bids.api.names.GuiNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
+import com.unforbidable.tfc.bids.api.names.WoodworkingMaterialNames;
 import com.unforbidable.tfc.bids.api.names.WoodworkingPlanNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -76,10 +76,10 @@ public class Woodworking extends Feature {
             .add(TFCItems.bone);
 
         setup.registry(WoodworkingRegistry.materials)
-            .add(new Material("logWood", 13, 25, WoodworkingMaterialType.WOOD_THICK))
-            .add(new Material("boardWood", 13, 25, WoodworkingMaterialType.WOOD_FLAT))
-            .add(new Material("poleWood", 4, 20, WoodworkingMaterialType.WOOD_DELICATE))
-            .add(new Material("materialBone", 7, 17, WoodworkingMaterialType.BONE));
+            .add(new Material("logWood", 13, 25, WoodworkingMaterialNames.WOOD_THICK))
+            .add(new Material("boardWood", 13, 25, WoodworkingMaterialNames.WOOD_FLAT))
+            .add(new Material("poleWood", 4, 20, WoodworkingMaterialNames.WOOD_DELICATE))
+            .add(new Material("materialBone", 7, 17, WoodworkingMaterialNames.BONE));
 
         setup.registry(WoodworkingRegistry.tools)
             .add(ActionTool.create()
