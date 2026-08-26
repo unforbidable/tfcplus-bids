@@ -347,6 +347,8 @@ tile.DryingSurface.name=Drying Surface
 
 tile.MoreGrass.Nettle.name=Nettles
 
+tile.BrackenFern.name=Bracken Fern
+
 tile.WoodenPeg.name=Wooden Peg
 
 tile.DryingPegs.name=Ground Pegging
@@ -1332,6 +1334,8 @@ item.Butter.name=Butter
 
 item.Bamboo Shoot.name=Bamboo Shoots
 
+item.Fern Rhizome.name=Fern Rhizome
+
 item.Flax Seeds.name=Linseed
 
 item.Plug And Feather.Wood.name=Plug and Feather (Wood)
@@ -1611,6 +1615,7 @@ gui.plans.board2=Board
 gui.plans.shaft=Shaft
 gui.plans.shaft2=Shaft
 gui.plans.paddle=Paddle
+gui.plans.spear=Spear
 gui.plans.mallet=Wooden Mallet
 gui.plans.scutchingKnife=Scutching Knife
 gui.plans.combPaddle=Comb Paddle

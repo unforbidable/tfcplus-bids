@@ -190,6 +190,7 @@ public class BidsBlocks {
 
     // Flora
     public static final Block moreGrass = block(BlockNames.MORE_GRASS);
+    public static final Block brackenFern = block(BlockNames.BRACKEN_FERN);
 
     // Peg
     public static final Block woodenPeg = block(BlockNames.WOODEN_PEG);

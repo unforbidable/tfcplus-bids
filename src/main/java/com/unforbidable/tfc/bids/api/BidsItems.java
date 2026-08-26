@@ -385,6 +385,9 @@ public class BidsItems {
     public static final Item nettleFiberRefined = item(ItemNames.NETTLE_FIBER_REFINED);
     public static final Item nettleTwine = item(ItemNames.NETTLE_TWINE);
 
+    // Fern
+    public static final Item fernRhizome = item(ItemNames.FERN_RHIZOME);
+
     // Skins
     public static final Item genericSkin = item(ItemNames.GENERIC_SKIN);
     public static final Item genericFur = item(ItemNames.GENERIC_FUR);

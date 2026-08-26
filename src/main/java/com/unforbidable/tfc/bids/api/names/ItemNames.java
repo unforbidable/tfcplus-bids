@@ -353,6 +353,9 @@ public interface ItemNames {
     String NETTLE_FIBER_REFINED = "Nettle Fibre Refined";
     String NETTLE_TWINE = "Nettle Twine";
 
+    // Fern
+    String FERN_RHIZOME = "Fern Rhizome";
+
     // Skins
     String GENERIC_SKIN = "Generic Skin";
     String GENERIC_FUR = "Generic Fur";

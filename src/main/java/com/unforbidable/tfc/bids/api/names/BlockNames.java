@@ -301,11 +301,16 @@ public interface BlockNames {
     @BlockId(114)
     String MORE_GRASS = "MoreGrass";
 
-    // Peg
+    // Fern
     @BlockId(115)
+    String BRACKEN_FERN = "BrackenFern";
+
+    // Peg
+    @BlockId(116)
     String WOODEN_PEG = "WoodenPeg";
 
-    @BlockId(116)
+    // Drying Frame
+    @BlockId(117)
     String DRYING_PEGS = "DryingPegs";
 
 }

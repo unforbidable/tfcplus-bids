@@ -29,7 +29,6 @@ public class BlockMoreGrass extends BlockCustomTallGrass implements BlockMetaNam
     private IIcon[] icons;
 
     public BlockMoreGrass() {
-        super();
         setHardness(3f);
         setBlockBounds(0.1f, 0.0f, 0.1f, 0.9f, 0.8f, 0.9f);
         setCreativeTab(BidsCreativeTabs.bidsDefault);
