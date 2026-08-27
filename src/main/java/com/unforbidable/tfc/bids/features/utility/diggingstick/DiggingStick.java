@@ -26,8 +26,10 @@ public class DiggingStick extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(ItemNames.DIGGING_STICK, () -> new ItemDiggingStick(TFCItems.woodToolMaterial));
-        init.item(ItemNames.HARDENED_DIGGING_STICK, () -> new ItemDiggingStick(BidsToolMaterial.hardenedWood));
+        init.item(ItemNames.DIGGING_STICK, () -> new ItemDiggingStick(TFCItems.woodToolMaterial))
+            .harvest("digger", 1);
+        init.item(ItemNames.HARDENED_DIGGING_STICK, () -> new ItemDiggingStick(BidsToolMaterial.hardenedWood))
+            .harvest("digger", 1);
     }
 
     @Override
