@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.utility.harvest;
+package com.unforbidable.tfc.bids.util.harvest;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.util.ore.OreDictionaryHelper;
