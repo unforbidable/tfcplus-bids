@@ -118,6 +118,16 @@ public class WoodworkingHelper {
     public static void damageItem(ItemStack itemStack, int damage, EntityPlayer player) {
         if (itemStack.isItemStackDamageable()) {
             itemStack.damageItem(damage, player);
+        } else {
+            if (!player.capabilities.isCreativeMode) {
+                itemStack.stackSize -= damage;
+
+                if (itemStack.stackSize < 0) {
+                    itemStack.stackSize = 0;
+                }
+
+                player.inventory.markDirty();
+            }
         }
     }
 
