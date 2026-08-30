@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.crafting.woodworking.gui;
 
 import com.dunk.tfc.GUI.GuiContainerTFC;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSide;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
@@ -272,11 +273,16 @@ public class GuiWoodworking extends GuiContainerTFC {
             WoodworkingPacket packet = new WoodworkingPacket();
             packet.setEvent(WoodworkingPacket.EVENT_PERFORM_ACTION);
 
+            // TODO control damage on serverside
             float accumulatedDamage = 0;
             for (WorkspaceAction workspaceAction : performedActions) {
                 packet.addAction(new NetworkAction(workspaceAction.action.getName(), workspaceAction.x, workspaceAction.y));
-                accumulatedDamage += WoodworkingHelper.getActionToolDamageByName(workspaceAction.action.getName());
+                float damage = WoodworkingHelper.getActionToolDamageByName(workspaceAction.action.getName());
+                float newDamage = BidsEventFactory.onWoodworkingToolDamage(mc.thePlayer, mc.thePlayer.inventory.getItemStack(), workspaceAction.action, damage);
+                accumulatedDamage += newDamage;
             }
+
+            Bids.LOG.info("Accumulated damage: {}", accumulatedDamage);
 
             int integralDamage = (int) Math.floor(accumulatedDamage);
             float partialDamage = accumulatedDamage - integralDamage;
@@ -284,7 +290,9 @@ public class GuiWoodworking extends GuiContainerTFC {
 
             if (totalDamage > 0) {
                 packet.setDamage(totalDamage);
-                mc.thePlayer.inventory.getItemStack().damageItem(totalDamage, mc.thePlayer);
+
+                WoodworkingHelper.damageItem(mc.thePlayer.inventory.getItemStack(), totalDamage, mc.thePlayer);
+
                 if (mc.thePlayer.inventory.getItemStack().stackSize == 0) {
                     mc.thePlayer.inventory.setItemStack(null);
                 }

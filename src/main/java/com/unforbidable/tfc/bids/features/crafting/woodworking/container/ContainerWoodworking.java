@@ -96,9 +96,13 @@ public class ContainerWoodworking extends ContainerTFC implements PacketHandler<
                 }
             }
 
-            player.inventory.getItemStack().damageItem(packet.getDamage(), player);
-            if (player.inventory.getItemStack().stackSize == 0) {
-                player.inventory.setItemStack(null);
+            if (packet.getDamage() > 0) {
+                WoodworkingHelper.damageItem(player.inventory.getItemStack(), packet.getDamage(), player);
+
+                player.inventory.getItemStack().damageItem(packet.getDamage(), player);
+                if (player.inventory.getItemStack().stackSize == 0) {
+                    player.inventory.setItemStack(null);
+                }
             }
 
             tryToMatchCutout();

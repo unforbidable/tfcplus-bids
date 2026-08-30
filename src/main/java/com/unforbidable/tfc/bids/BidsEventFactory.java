@@ -16,8 +16,11 @@ import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceEvent;
 import com.unforbidable.tfc.bids.api.features.soaking.SoakingEvent;
 import com.unforbidable.tfc.bids.api.features.surfaceitem.SurfaceItemEvent;
 import com.unforbidable.tfc.bids.api.features.threshing.ThreshingPlayerEvent;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingAction;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSummary;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingEvent;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingMaterial;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingToolEvent;
 import com.unforbidable.tfc.bids.api.util.fluid.FillContainerEvent;
 import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
@@ -115,6 +118,13 @@ public class BidsEventFactory {
     public static void onWoodworkingItemPickedUp(EntityPlayer player, Area cutout, ItemStack input, ItemStack result, List<WoodworkingActionSummary> summary) {
         WoodworkingEvent.ItemPickedUp event = new WoodworkingEvent.ItemPickedUp(player, cutout, input, result, summary);
         MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static float onWoodworkingToolDamage(EntityPlayer player, ItemStack tool, WoodworkingAction action, float initialDamage) {
+        WoodworkingToolEvent.Damage event = new WoodworkingToolEvent.Damage(player, tool, action, initialDamage);
+        event.newDamage = initialDamage;
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.newDamage;
     }
 
     public static boolean onDryingItemActivated(TileEntity dryingTileEntity, DryingItem dryingItem, DryingRecipe dryingRecipe, EntityPlayer player, int slot) {

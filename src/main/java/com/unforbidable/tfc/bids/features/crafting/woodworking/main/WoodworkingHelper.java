@@ -11,6 +11,7 @@ import com.unforbidable.tfc.bids.features.crafting.woodworking.main.workspace.Wo
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -112,6 +113,12 @@ public class WoodworkingHelper {
 
         return null;
 
+    }
+
+    public static void damageItem(ItemStack itemStack, int damage, EntityPlayer player) {
+        if (itemStack.isItemStackDamageable()) {
+            itemStack.damageItem(damage, player);
+        }
     }
 
 }
