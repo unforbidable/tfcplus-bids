@@ -178,7 +178,7 @@ public class Skin extends Feature {
                     .produces(SkinHelper.createStack(skin.item, SkinTagAccess.STAGE_PRESERVED))
                     .dry()
                     .smoke()
-                    .hours(12)
+                    .hours(8)
                     .build());
 
             // Preserved -> Clean
@@ -232,20 +232,20 @@ public class Skin extends Feature {
                 SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_TANNED),
                 new FluidStack(TFCFluids.TANNIN, 200), 8000));
 
-        // Tanned Skin -> Dried Skin
+        // Tanned Skin -> Cured Skin
         setup.registry(DryingFrameRegistry.recipes)
             .add((DryingFrameRecipe) DryingFrameRecipe.builder()
                 .consumesTyingEquipment()
                 .consumes(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_TANNED))
-                .produces(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DRIED))
+                .produces(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_CURED))
                 .dry()
                 .cover()
                 .hours(8)
                 .build());
 
-        // Dried Skin -> Worked Skin
+        // Cured Skin -> Worked Skin
         setup.registry(ProcessingSurfaceRegistry.recipes)
-            .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DRIED),
+            .add(new ProcessingSurfaceRecipe(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_CURED),
                 SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_WORKED),
                 "itemLeatherSmoothingTool", "blockScrapingSurface", 0.5f));
 

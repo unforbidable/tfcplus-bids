@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.features.material.skin.item;
 
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.util.nbt.SkinTagAccess;
 import com.unforbidable.tfc.bids.features.material.skin.main.SkinHelper;
@@ -79,7 +78,7 @@ public class ItemDehairedSkin extends ItemFreshSkin {
                 return 0;
             case SkinTagAccess.STAGE_TANNED:
                 return 1;
-            case SkinTagAccess.STAGE_DRIED:
+            case SkinTagAccess.STAGE_CURED:
                 return 2;
             case SkinTagAccess.STAGE_WORKED:
                 return 3;
@@ -101,7 +100,7 @@ public class ItemDehairedSkin extends ItemFreshSkin {
         if (tag.isStage(SkinTagAccess.STAGE_DEHAIRED)) {
             return 1f / 8;
         }
-        if (tag.isStage(SkinTagAccess.STAGE_TANNED) || tag.isStage(SkinTagAccess.STAGE_DRIED) || tag.isStage(SkinTagAccess.STAGE_WORKED)) {
+        if (tag.isStage(SkinTagAccess.STAGE_TANNED) || tag.isStage(SkinTagAccess.STAGE_CURED) || tag.isStage(SkinTagAccess.STAGE_WORKED)) {
             return 1f / 64;
         }
 
@@ -111,7 +110,7 @@ public class ItemDehairedSkin extends ItemFreshSkin {
     @Override
     protected String getSurfaceIconBaseName(ItemStack itemStack) {
         SkinTag tag = SkinTag.of(itemStack);
-        if (tag.isStage(SkinTagAccess.STAGE_DEHAIRED) || tag.isStage(SkinTagAccess.STAGE_DRIED) || tag.isStage(SkinTagAccess.STAGE_WORKED)) {
+        if (tag.isStage(SkinTagAccess.STAGE_DEHAIRED) || tag.isStage(SkinTagAccess.STAGE_CURED) || tag.isStage(SkinTagAccess.STAGE_WORKED)) {
             return "Dehaired Skin." + getSurfaceIconStageName(itemStack);
         }
 
@@ -126,7 +125,7 @@ public class ItemDehairedSkin extends ItemFreshSkin {
             list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Dehaired2"));
         } else if (tag.isStage(SkinTagAccess.STAGE_TANNED)) {
             list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Tanned"));
-        } else if (tag.isStage(SkinTagAccess.STAGE_DRIED)) {
+        } else if (tag.isStage(SkinTagAccess.STAGE_CURED)) {
             list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Dried"));
         } else if (tag.isStage(SkinTagAccess.STAGE_WORKED)) {
             list.add(StatCollector.translateToLocal("gui.Help.Skin.Stage.Worked"));
