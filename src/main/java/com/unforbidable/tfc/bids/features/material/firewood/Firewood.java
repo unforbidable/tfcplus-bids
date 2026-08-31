@@ -95,6 +95,12 @@ public class Firewood extends Feature {
                     .action(damageTool("itemAxe"))
                     .action(extraDrop(wood.items.getBark(), BarkConfig.dropSplittingSeasonedChance));
 
+                if (!wood.hardwood) {
+                    setup.recipes().addShapeless(wood.items.getSeasonedFirewood(),
+                            wood.getOreWithSuffix("logWoodSeasoned"), "itemHandAxe")
+                        .action(damageTool("itemHandAxe"));
+                }
+
                 if (wood.items.hasSeasonedLog()) {
                     setup.registry(ChoppingBlockRegistry.recipes)
                         .add(new ChoppingBlockRecipe(wood.items.getSeasonedLog(), wood.items.getSeasonedFirewood(),
