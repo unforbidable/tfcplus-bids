@@ -12,6 +12,7 @@ public class CommonInit extends Initializable {
     public void preInit(FMLPreInitializationEvent event) {
         Bids.LOG.info("Inject tool material");
         EnumHelper.addToolMaterial(ToolMaterialNames.HARDENED_WOOD, 0, 60, 5.0f, 100, 1);
+        EnumHelper.addToolMaterial(ToolMaterialNames.ANTLER, 0, 300, 6.0f, 150, 1);
     }
 
 }
