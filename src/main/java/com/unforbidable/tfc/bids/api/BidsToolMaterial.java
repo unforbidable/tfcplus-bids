@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 public class BidsToolMaterial {
 
     public static final Item.ToolMaterial hardenedWood = Item.ToolMaterial.valueOf(ToolMaterialNames.HARDENED_WOOD);
+    public static final Item.ToolMaterial flint = Item.ToolMaterial.valueOf(ToolMaterialNames.FLINT);
     public static final Item.ToolMaterial antler = Item.ToolMaterial.valueOf(ToolMaterialNames.ANTLER);
 
 }
