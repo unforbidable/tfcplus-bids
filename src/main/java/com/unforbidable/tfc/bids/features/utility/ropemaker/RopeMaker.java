@@ -37,6 +37,9 @@ public class RopeMaker extends Feature {
         setup.recipes().addShapeless(new ItemStack(BidsItems.primitiveRopeMaker),
                 "stickWood", "stickWood", "materialBindingStrong", "itemKnife")
             .action(damageTool("itemKnife"));
+        setup.recipes().addShapeless(new ItemStack(BidsItems.primitiveRopeMaker),
+                "stickWood", "stickWood", "materialBindingStrong", "itemHandAxe")
+            .action(damageTool("itemHandAxe"));
     }
 
 }
