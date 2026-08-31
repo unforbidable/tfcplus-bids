@@ -4,6 +4,7 @@ import com.dunk.tfc.api.Enums.EnumItemReach;
 import com.dunk.tfc.api.Enums.EnumSize;
 import com.dunk.tfc.api.Enums.EnumWeight;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.util.ItemHelper;
 import com.unforbidable.tfc.bids.util.accessor.ItemMetaNamesAccessor;
@@ -24,6 +25,7 @@ public class ItemCommonMisc extends Item implements ISize, ItemMetaNamesAccessor
 
     public ItemCommonMisc() {
         setMaxStackSize(64);
+        setCreativeTab(BidsCreativeTabs.bidsMaterials);
     }
 
     public ItemCommonMisc setTextureFolder(String textureFolder) {
