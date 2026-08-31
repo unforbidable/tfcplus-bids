@@ -373,4 +373,7 @@ public interface ItemNames {
     // Smoother
     String BONE_SMOOTHER = "Bone Smoother";
 
+    // Antler
+    String ANTLER = "Antler";
+
 }

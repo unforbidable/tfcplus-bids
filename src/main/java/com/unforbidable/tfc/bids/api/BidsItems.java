@@ -405,6 +405,9 @@ public class BidsItems {
     // Smoother
     public static final Item boneSmoother = item(ItemNames.BONE_SMOOTHER);
 
+    // Antler
+    public static final Item antler = item(ItemNames.ANTLER);
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {
