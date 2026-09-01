@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 public class SkinFurSpec {
 
     public static final SkinFurSpec generic = new SkinFurSpec(4f,
-        new ItemStack(TFCItems.fur, 1, 2), new ItemStack(TFCItems.fur, 1 ,1), new ItemStack(TFCItems.fur, 1, 0),
+        new ItemStack(TFCItems.furScrap, 1, 2), new ItemStack(TFCItems.furScrap, 1 ,1), new ItemStack(TFCItems.furScrap, 1, 0),
         null, new ItemStack(TFCItems.repairPatch, RepairPatchMeta.FUR));
     public static final SkinFurSpec wolf = new SkinFurSpec(4f,
         new ItemStack(TFCItems.wolfFurScrap, 1, 2), new ItemStack(TFCItems.wolfFurScrap, 1 ,1), new ItemStack(TFCItems.wolfFurScrap, 1, 0),
