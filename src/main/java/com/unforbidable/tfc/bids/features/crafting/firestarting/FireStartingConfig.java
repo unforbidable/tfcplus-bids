@@ -23,8 +23,8 @@ public class FireStartingConfig {
             "Higher values increase the time it takes to start fire using manual fire starting tools.");
         fireStartingHumidityImpact = config.getFloat(
             "fireStartingHumidityImpact",
-            fireStartingHumidityImpact, 0.0f, 2f,
-            "Higher values increase the impact of humidity on the fire starting chance of success. Set to 0 to ignore humidity when starting fire.");
+            fireStartingHumidityImpact, 0.0f, 1f,
+            "Higher values increase the impact of humidity on the fire starting chance of success. Set to 0 to ignore humidity when starting fire, 1 to make starting fire impossible.");
         fireStartingChanceNoTinder = config.getFloat(
             "fireStartingChanceNoTinder",
             fireStartingChanceNoTinder, 0.0f, 2f,
