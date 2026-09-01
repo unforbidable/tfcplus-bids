@@ -1458,6 +1458,11 @@ item.Bone Smoother.name=Bone Smoother
 
 item.Antler.Deer.name=Deer Antler
 
+item.Flint Core.name=Flint Core
+item.Flint Flake.name=Flint Flake
+item.Bone Pressure Flaker.name=Bone Pressure Flaker
+item.Antler Billet.name=Antler Billet
+
 entity.PegLeashKnot.name=Leash Knot
 
 fluid.FishOil=Fish Oil
@@ -1625,6 +1630,8 @@ gui.plans.needle=Needle
 gui.plans.knifeHead=Knife Blade
 gui.plans.diggingStick=Digging Stick
 gui.plans.boneSmoother=Bone Smoother
+gui.plans.pressureFlaker=Pressure Flaker
+gui.plans.flintCore=Flint Core
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Seconds=Seconds

@@ -13,4 +13,6 @@ public interface GuiNames {
 
     String SKIN = "Skin";
 
+    String FLINT = "Flint";
+
 }

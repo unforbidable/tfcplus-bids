@@ -408,6 +408,12 @@ public class BidsItems {
     // Antler
     public static final Item antler = item(ItemNames.ANTLER);
 
+    // Flint Knapping
+    public static final Item flintCore = item(ItemNames.FLINT_CORE);
+    public static final Item flintFlake = item(ItemNames.FLINT_FLAKE);
+    public static final Item antlerBillet = item(ItemNames.ANTLER_BILLET);
+    public static final Item bonePressureFlaker = item(ItemNames.BONE_PRESSURE_FLAKER);
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {

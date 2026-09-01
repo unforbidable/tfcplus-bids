@@ -376,4 +376,10 @@ public interface ItemNames {
     // Antler
     String ANTLER = "Antler";
 
+    // Flint Knapping
+    String FLINT_CORE = "Flint Core";
+    String FLINT_FLAKE = "Flint Flake";
+    String ANTLER_BILLET = "Antler Billet";
+    String BONE_PRESSURE_FLAKER = "Bone Pressure Flaker";
+
 }
