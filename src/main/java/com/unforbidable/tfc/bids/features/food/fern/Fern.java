@@ -22,7 +22,7 @@ public class Fern extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(ItemNames.FERN_RHIZOME, () -> new ItemExtraFood(EnumFoodGroup.Grain, 10, 0, 0, 20, 0))
+        init.item(ItemNames.FERN_RHIZOME, () -> new ItemExtraFood(EnumFoodGroup.Vegetable, 10, 0, 0, 20, 0))
             .food(0.5f, 0.5f, true, false, true, true);
     }
 
