@@ -17,6 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Random;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,6 +33,11 @@ public class BlockBrackenFern extends BlockCustomTallGrass {
         setBlockBounds(0.1f, 0.0f, 0.1f, 0.9f, 1.8f, 0.9f);
         setCreativeTab(BidsCreativeTabs.bidsDefault);
         setStepSound(Block.soundTypeGrass);
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.plants;
     }
 
     @SideOnly(Side.CLIENT)
@@ -93,6 +99,11 @@ public class BlockBrackenFern extends BlockCustomTallGrass {
 
     @Override
     public boolean canBeReplacedByLeaves(IBlockAccess world, int x, int y, int z) {
+        return false;
+    }
+
+    @Override
+    public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
         return false;
     }
 
