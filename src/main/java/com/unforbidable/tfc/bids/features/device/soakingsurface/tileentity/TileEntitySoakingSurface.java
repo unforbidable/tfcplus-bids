@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity;
 
+import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsEventFactory;
@@ -40,6 +41,9 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
     private final Timer checkProgressTimer = new Timer(100);
 
     private int selectedSlot = -1;
+
+    private long freezingLastTrackedTicks = 0;
+    private long freezingProgressDelayTicks = 0;
 
     boolean clientNeedToUpdate = false;
     boolean clientDataLoaded = false;
@@ -119,7 +123,33 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
             }
 
             if (checkProgressTimer.tick()) {
+                trackFreezing();
                 checkProgress();
+            }
+        }
+    }
+
+    private void trackFreezing() {
+        if (freezingLastTrackedTicks == 0) {
+            freezingLastTrackedTicks = TFC_Time.getTotalTicks();
+        } else {
+            long nextCheck = freezingLastTrackedTicks + TFC_Time.HOUR_LENGTH;
+            if (nextCheck < TFC_Time.getTotalTicks()) {
+                while (nextCheck < TFC_Time.getTotalTicks()) {
+                    int th = (int) (nextCheck / TFC_Time.HOUR_LENGTH);
+                    int day = TFC_Time.getDayFromTotalHours(th);
+                    int hour = TFC_Time.getHourOfDayFromTotalHours(th);
+                    float temp = TFC_Climate.getHeightAdjustedTempSpecificDay(worldObj, day, hour, xCoord, yCoord, zCoord);
+                    if (temp < 0) {
+                        freezingProgressDelayTicks += TFC_Time.HOUR_LENGTH;
+                    }
+
+                    nextCheck += TFC_Time.HOUR_LENGTH;
+                    freezingLastTrackedTicks += TFC_Time.HOUR_LENGTH;
+
+                    markDirty();
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                }
             }
         }
     }
@@ -183,7 +213,7 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
         if (storage[slot] != null) {
             SoakingSurfaceRecipe recipe = SoakingSurfaceHelper.findMatchingRecipe(storage[slot].soakingItem, worldObj, xCoord, yCoord + 1, zCoord);
             if (recipe != null) {
-                long elapsed = TFC_Time.getTotalTicks() - storage[slot].soakingStartTicks;
+                long elapsed = TFC_Time.getTotalTicks() - storage[slot].soakingStartTicks - freezingProgressDelayTicks;
                 float ticksNeeded = recipe.getTicks() * SoakingConfig.soakingDurationMultiplier;
                 float progress = elapsed > ticksNeeded ? 1 : elapsed / ticksNeeded;
                 float hoursRemaining = (ticksNeeded - elapsed) / TFC_Time.HOUR_LENGTH;
@@ -244,6 +274,9 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
             }
         }
         tag.setTag("storage", itemTagList);
+
+        tag.setLong("freezingLastTrackedTicks", freezingLastTrackedTicks);
+        tag.setLong("freezingProgressDelayTicks", freezingProgressDelayTicks);
     }
 
     public void readSoakingSurfaceDataFromNBT(NBTTagCompound tag) {
@@ -260,6 +293,9 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
             final int slot = itemTag.getInteger("slot");
             storage[slot] = SoakingSurfaceItem.loadItemStackFromNBT(itemTag);
         }
+
+        freezingLastTrackedTicks = tag.getLong("freezingLastTrackedTicks");
+        freezingProgressDelayTicks = tag.getLong("freezingProgressDelayTicks");
     }
 
     public boolean canPlaceItem(ItemStack item) {
