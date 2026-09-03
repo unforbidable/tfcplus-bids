@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.soakingsurface.tileentity;
 
 import com.dunk.tfc.Core.TFC_Climate;
+import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsEventFactory;
@@ -8,6 +9,7 @@ import com.unforbidable.tfc.bids.api.features.soaking.SoakingSurfaceRecipe;
 import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
 import com.unforbidable.tfc.bids.core.network.Network;
 import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
+import com.unforbidable.tfc.bids.features.crafting.drying.main.DryingItem;
 import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingConfig;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceHelper;
 import com.unforbidable.tfc.bids.features.device.soakingsurface.main.SoakingSurfaceItem;
@@ -18,6 +20,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -29,7 +32,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 
-public class TileEntitySoakingSurface extends TileEntity implements PacketHandler<SimpleUpdatePacket> {
+public class TileEntitySoakingSurface extends TileEntity implements IInventory, PacketHandler<SimpleUpdatePacket> {
 
     public static final int MAX_STORAGE = 4;
 
@@ -39,6 +42,7 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
     private int originalBlockMetadata = 0;
 
     private final Timer checkProgressTimer = new Timer(100);
+    private final Timer decayTimer = new Timer(100);
 
     private int selectedSlot = -1;
 
@@ -120,6 +124,10 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
                 sendUpdateMessage();
 
                 clientNeedToUpdate = false;
+            }
+
+            if (decayTimer.tick()) {
+                TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, false);
             }
 
             if (checkProgressTimer.tick()) {
@@ -381,6 +389,86 @@ public class TileEntitySoakingSurface extends TileEntity implements PacketHandle
     public void handleNetworkPacket(SimpleUpdatePacket packet) {
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         Bids.LOG.debug("Client updated at [{},{},{}]", xCoord, yCoord, zCoord);
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return MAX_STORAGE;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int slot) {
+        // This is called by TFC to retrieve items for decay calc etc
+        return storage[slot] != null ? storage[slot].soakingItem : null;
+    }
+
+    @Override
+    public ItemStack decrStackSize(int slot, int amount) {
+        return null;
+    }
+
+    @Override
+    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
+        return null;
+    }
+
+    @Override
+    public void setInventorySlotContents(int slot, ItemStack itemStack) {
+        // This is called by TFC to return items after decay calc etc
+        if (itemStack == null) {
+            if (storage[slot] != null) {
+                // Item has decayed out of existence
+                storage[slot] = null;
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+                clientNeedToUpdate = true;
+            } else {
+                // null for null returned
+            }
+        } else {
+            SoakingSurfaceItem prev = storage[slot];
+
+            if (prev != null && prev.soakingItem != itemStack) {
+                storage[slot] = new SoakingSurfaceItem(itemStack, prev.soakingStartTicks);
+            } else {
+                // This should not happen
+                Bids.LOG.warn("TFC returned an item after decay calculation into a slot that is empty.");
+            }
+        }
+    }
+
+    @Override
+    public String getInventoryName() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCustomInventoryName() {
+        return false;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return false;
+    }
+
+    @Override
+    public void openInventory() {
+    }
+
+    @Override
+    public void closeInventory() {
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+        return false;
     }
 
 }
