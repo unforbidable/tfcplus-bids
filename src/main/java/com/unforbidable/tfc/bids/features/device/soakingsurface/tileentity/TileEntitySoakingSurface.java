@@ -429,8 +429,10 @@ public class TileEntitySoakingSurface extends TileEntity implements IInventory, 
         } else {
             SoakingSurfaceItem prev = storage[slot];
 
-            if (prev != null && prev.soakingItem != itemStack) {
-                storage[slot] = new SoakingSurfaceItem(itemStack, prev.soakingStartTicks);
+            if (prev != null) {
+                if (prev.soakingItem != itemStack) {
+                    storage[slot] = new SoakingSurfaceItem(itemStack, prev.soakingStartTicks);
+                }
             } else {
                 // This should not happen
                 Bids.LOG.warn("TFC returned an item after decay calculation into a slot that is empty.");
