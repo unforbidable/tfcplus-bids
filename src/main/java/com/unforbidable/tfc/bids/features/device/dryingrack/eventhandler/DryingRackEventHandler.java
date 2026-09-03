@@ -10,15 +10,25 @@ public class DryingRackEventHandler {
 
     @SubscribeEvent
     public void onSurfaceItem(SurfaceItemEvent.Place event) {
-        if (!event.placed && event.face > 1 && event.player.isSneaking()) {
+        if (!event.placed && event.player.isSneaking()) {
             if (event.itemStack.getItem() == TFCItems.pole && event.itemStack.stackSize > 1) {
-                ForgeDirection dir = ForgeDirection.getOrientation(event.face);
-                if (DryingRackHelper.canPlaceDryingRackAt(event.world, event.x, event.y, event.z, dir)) {
-                    if (!event.world.isRemote) {
-                        DryingRackHelper.placeDryingRackFromItemsAt(event.itemStack, event.player, event.world, event.x, event.y, event.z, dir);
-                    }
+                if (event.face == 1) {
+                    if (DryingRackHelper.canPlaceDryingRackSideOnTop(event.world, event.x, event.y, event.z)) {
+                        if (!event.world.isRemote) {
+                            DryingRackHelper.placeDryingRackSideFromItemsAt(event.itemStack, event.player, event.world, event.x, event.y, event.z);
+                        }
 
-                    event.placed = true;
+                        event.placed = true;
+                    }
+                } else if (event.face > 1) {
+                    ForgeDirection dir = ForgeDirection.getOrientation(event.face);
+                    if (DryingRackHelper.canPlaceDryingRackAt(event.world, event.x, event.y, event.z, dir)) {
+                        if (!event.world.isRemote) {
+                            DryingRackHelper.placeDryingRackFromItemsAt(event.itemStack, event.player, event.world, event.x, event.y, event.z, dir);
+                        }
+
+                        event.placed = true;
+                    }
                 }
             }
         }

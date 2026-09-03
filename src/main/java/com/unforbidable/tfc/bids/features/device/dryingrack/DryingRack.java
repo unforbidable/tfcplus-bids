@@ -15,8 +15,10 @@ import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.crafting.drying.DryingRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.block.BlockDryingRack;
+import com.unforbidable.tfc.bids.features.device.dryingrack.block.BlockDryingRackSide;
 import com.unforbidable.tfc.bids.features.device.dryingrack.eventhandler.DryingRackEventHandler;
 import com.unforbidable.tfc.bids.features.device.dryingrack.render.RenderDryingRack;
+import com.unforbidable.tfc.bids.features.device.dryingrack.render.RenderDryingRackSide;
 import com.unforbidable.tfc.bids.features.device.dryingrack.render.RenderTileDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingrack.tileentity.TileEntityDryingRack;
 import com.unforbidable.tfc.bids.features.device.dryingrack.waila.DryingRackWailaProvider;
@@ -32,6 +34,7 @@ public class DryingRack extends Feature {
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.block(BlockNames.DRYING_RACK, BlockDryingRack::new);
+        init.block(BlockNames.DRYING_RACK_SIDE, BlockDryingRackSide::new);
 
         init.tileEntity(TileEntityDryingRack.class, "BidsDryingRack");
     }
@@ -41,6 +44,8 @@ public class DryingRack extends Feature {
     public void client(FeatureClientSpecBuilder client) {
         client.render(new RenderDryingRack())
             .block(BlockDryingRack.class);
+        client.render(new RenderDryingRackSide())
+            .block(BlockDryingRackSide.class);
 
         client.render(new RenderTileDryingRack())
             .tileEntity(TileEntityDryingRack.class);
@@ -49,7 +54,8 @@ public class DryingRack extends Feature {
             .data(new DryingRackWailaProvider(), TileEntityDryingRack.class);
 
         client.nei()
-            .hide(BidsBlocks.dryingRack);
+            .hide(BidsBlocks.dryingRack)
+            .hide(BidsBlocks.dryingRackSide);
     }
 
     @Override

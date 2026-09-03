@@ -1,6 +1,5 @@
 package com.unforbidable.tfc.bids.features.device.dryingrack.block;
 
-import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackBounds;
@@ -16,6 +15,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -32,7 +32,6 @@ public class BlockDryingRack extends BlockContainer {
         super(Material.wood);
 
         setHardness(2);
-        setCreativeTab(BidsCreativeTabs.bidsDefault);
     }
 
     @Override
@@ -84,26 +83,29 @@ public class BlockDryingRack extends BlockContainer {
         return null;
     }
 
-    private boolean isBlockRackOrSolidSide(World world, int x, int y, int z, ForgeDirection d) {
-        Block block = world.getBlock(x, y, z);
-        return block instanceof BlockDryingRack || block.isSideSolid(world, x, y, z, d);
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        if (!canBlockStay(world, x, y ,z)) {
+            world.setBlock(x, y, z, Blocks.air, 0, 2);
+            world.notifyBlockChange(x, y, z, Blocks.air);
+        }
     }
 
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block b) {
-        super.onNeighborBlockChange(world, x, y, z, b);
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        int orientation = world.getBlockMetadata(x, y, z) % 2;
+        ForgeDirection d = ForgeDirection.getOrientation(orientation * 2 + 2);
+        ForgeDirection o = d.getOpposite();
 
-        if (!world.isRemote) {
-            int orientation = world.getBlockMetadata(x, y, z) % 2;
-            ForgeDirection d = ForgeDirection.getOrientation(orientation * 2 + 2);
-            ForgeDirection o = d.getOpposite();
+        return isValidDryingRackNeighbor(world, x + d.offsetX, y, z + d.offsetZ, o) &&
+            isValidDryingRackNeighbor(world, x + o.offsetX, y, z + o.offsetZ, d);
+    }
 
-            if (!isBlockRackOrSolidSide(world, x + d.offsetX, y, z + d.offsetZ, o)
-                    || !isBlockRackOrSolidSide(world, x + o.offsetX, y, z + o.offsetZ, d)) {
-                world.getBlock(x, y, z).dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
-                world.setBlockToAir(x, y, z);
-            }
-        }
+    private boolean isValidDryingRackNeighbor(World world, int x, int y, int z, ForgeDirection d) {
+        Block block = world.getBlock(x, y, z);
+        return block instanceof BlockDryingRack ||
+            block instanceof BlockDryingRackSide ||
+            block.isSideSolid(world, x, y, z, d);
     }
 
     @Override

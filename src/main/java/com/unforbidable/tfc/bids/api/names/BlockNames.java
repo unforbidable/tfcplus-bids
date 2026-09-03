@@ -134,6 +134,8 @@ public interface BlockNames {
     // Drying Rack
     @BlockId(30)
     String DRYING_RACK = "DryingRack";
+    @BlockId(118)
+    String DRYING_RACK_SIDE = "DryingRackSide";
 
     // Firewood
     @BlockId(31)
