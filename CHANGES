@@ -821,3 +821,37 @@
 - Fixed: Cooking Mixtures used in Cooking and Cooking Prep recipes should match in NEI more often
 - Fixed: Tool effectiveness is correctly calculated when weapons are used to harvest block (this affects knives especially)
 - Fixed: Crash caused by an attempt to access a crop after unsuccessful generation due to conflict with a generated spring
+
+1.1.0 (2026-09-04)
+- Added: Bracken Fern
+- Added: Fern Rhizome as edible vegetable when cooked
+- Added: Deer Antler drop from male Deer
+- Added: Wooden Shovel
+- Added: Digging Stick
+- Added: Wooden Peg for leashing animals
+- Added: Flint Knapping based on Woodworking with Flint Cores and Flakes
+- Added: Bone Pressure Flaker
+- Added: Antler Billet
+- Added: Flint Hand Axe
+- Added: Flint Knife
+- Added: Hides drop from animals with decay and expanded processing, replacing regular TFC Fur/Rawhide drops (optional)
+- Added: Bone Smoother
+- Added: Drying Pegs for drying hides under tension
+- Added: Fleshing, dehairing and burnishing leather raises the player's butchering skill (optional)
+- Added: High butchering skill allows the player to see size and strength info about animals in WAILA when holding shift
+- Added: Drying Rack Sides for free standing drying rack
+- Added: Drying Rack Cover for rain protection
+- Changed: Bison now drops fur bearing animal skin (optional)
+- Changed: Stone Hand Axe pattern changed to be closer to a stone Axe head
+- Changed: Soaking Surface progress paused when temperature is below 0
+- Changed: Recipes that require cover (from direct sunlight) now progress during the night
+- Changed: Increased the Butchering skill cap to 300 in response to having added new ways to level it up (optional)
+- Changed: Drying rack can smoke items without drying as per recipe specification
+- Changed: Hand Axe can be used to split seasoned non-hardwood logs into firewood
+- Changed: Hand Axe can be used to craft a primitive rope maker
+- Changed: Hardening spears, digging sticks and wooden shovels in a firepit now doubles the durability
+- Changed: Balanced (mostly increased) durability of various primitive textile processing tools
+- Fixed: Added missing spear plan localized name
+- Fixed: Nettles no longer die to snow
+- Fixed: Tools are now correctly damaged when used to harvest tall grass block configured with durability greater than 0
+- Fixed: Damaged tools created via Woodworking now correctly match recipe result in NEI
