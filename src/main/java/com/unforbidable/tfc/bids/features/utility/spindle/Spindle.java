@@ -28,7 +28,8 @@ public class Spindle extends Feature {
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.item(ItemNames.WHORL, ItemWhorl::new)
             .meta("Stone");
-        init.item(ItemNames.SPINDLE, () -> new ItemSpindle(TFCItems.woodToolMaterial));
+        init.item(ItemNames.SPINDLE, () -> new ItemSpindle(TFCItems.woodToolMaterial))
+            .apply(i -> i.setMaxDamage(40));
     }
 
     @SideOnly(Side.CLIENT)

@@ -21,7 +21,8 @@ public class ScutchingKnife extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(ItemNames.SCUTCHING_KNIFE, () -> new ItemCommonTool(TFCItems.woodToolMaterial));
+        init.item(ItemNames.SCUTCHING_KNIFE, () -> new ItemCommonTool(TFCItems.woodToolMaterial))
+            .apply(i -> i.setMaxDamage(80));
     }
 
     @Override

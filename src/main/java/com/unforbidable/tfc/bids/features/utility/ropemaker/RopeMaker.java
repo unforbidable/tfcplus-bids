@@ -22,7 +22,8 @@ public class RopeMaker extends Feature {
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
-        init.item(ItemNames.PRIMITIVE_ROPE_MAKER, () -> new ItemPrimitiveRopeMaker(TFCItems.woodToolMaterial));
+        init.item(ItemNames.PRIMITIVE_ROPE_MAKER, () -> new ItemPrimitiveRopeMaker(TFCItems.woodToolMaterial))
+            .apply(i -> i.setMaxDamage(20));
     }
 
     @SideOnly(Side.CLIENT)

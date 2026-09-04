@@ -25,7 +25,8 @@ public class Heckle extends Feature {
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.item(ItemNames.BONE_KNIFE_BLADE, ItemCommonToolHead::new);
-        init.item(ItemNames.BONE_HECKLE, () -> new ItemHeckle(TFCItems.boneToolMaterial));
+        init.item(ItemNames.BONE_HECKLE, () -> new ItemHeckle(TFCItems.boneToolMaterial))
+            .apply(i -> i.setMaxDamage(40));
     }
 
     @Override

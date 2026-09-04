@@ -30,7 +30,8 @@ public class Card extends Feature {
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.item(ItemNames.THORN_BUNCH, ItemThornBunch::new);
         init.item(ItemNames.WOODEN_COMB_PADDLE, ItemCommonToolPart::new);
-        init.item(ItemNames.THORN_CARD, () -> new ItemCard(TFCItems.boneToolMaterial));
+        init.item(ItemNames.THORN_CARD, () -> new ItemCard(TFCItems.boneToolMaterial))
+            .apply(i -> i.setMaxDamage(40));
     }
 
     @SideOnly(Side.CLIENT)
