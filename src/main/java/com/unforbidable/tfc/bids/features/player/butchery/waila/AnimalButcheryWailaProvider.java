@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.resource.butchery.waila;
+package com.unforbidable.tfc.bids.features.player.butchery.waila;
 
 import com.dunk.tfc.Core.Player.SkillStats;
 import com.dunk.tfc.Core.TFC_Core;
@@ -6,7 +6,7 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Entities.IAnimal;
 import com.dunk.tfc.api.TFCOptions;
 import com.unforbidable.tfc.bids.compat.waila.providers.WailaEntityProvider;
-import com.unforbidable.tfc.bids.features.resource.butchery.main.AverageAnimalProvider;
+import com.unforbidable.tfc.bids.features.player.butchery.main.AverageAnimalProvider;
 import java.util.List;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;

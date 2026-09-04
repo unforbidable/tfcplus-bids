@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.resource.butchery;
+package com.unforbidable.tfc.bids.features.player.butchery;
 
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Entities.IAnimal;
@@ -9,7 +9,7 @@ import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
 import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
-import com.unforbidable.tfc.bids.features.resource.butchery.waila.AnimalButcheryWailaProvider;
+import com.unforbidable.tfc.bids.features.player.butchery.waila.AnimalButcheryWailaProvider;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

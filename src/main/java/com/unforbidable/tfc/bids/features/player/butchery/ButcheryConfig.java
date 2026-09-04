@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.resource.butchery;
+package com.unforbidable.tfc.bids.features.player.butchery;
 
 import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 

@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.features.resource.butchery.main;
+package com.unforbidable.tfc.bids.features.player.butchery.main;
 
 import com.dunk.tfc.Entities.Mobs.EntityBear;
 import com.dunk.tfc.Entities.Mobs.EntityCowTFC;
