@@ -17,7 +17,7 @@ public class ItemDehairedSkin extends ItemFreshSkin {
 
     protected IIcon dehairedIcon;
     protected IIcon tannedIcon;
-    protected IIcon driedIcon;
+    protected IIcon curedIcon;
     protected IIcon workedIcon;
 
     @SuppressWarnings("unchecked")
@@ -31,7 +31,7 @@ public class ItemDehairedSkin extends ItemFreshSkin {
     public void registerIcons(IIconRegister registerer) {
         dehairedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Dehaired Skin.Dehaired");
         tannedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Dehaired Skin.Tanned");
-        driedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Dehaired Skin.Dried");
+        curedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Dehaired Skin.Cured");
         workedIcon = registerer.registerIcon(Tags.MOD_ID + ":skin/Dehaired Skin.Worked");
     }
 
@@ -48,7 +48,7 @@ public class ItemDehairedSkin extends ItemFreshSkin {
             case 1:
                 return tannedIcon;
             case 2:
-                return driedIcon;
+                return curedIcon;
             case 3:
                 return workedIcon;
         }
