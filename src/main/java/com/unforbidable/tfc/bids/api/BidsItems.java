@@ -141,6 +141,7 @@ public class BidsItems {
     public static final Item sedHandAxe = item(ItemNames.HAND_AXE_SED);
     public static final Item igExHandAxe = item(ItemNames.HAND_AXE_IG_EX);
     public static final Item mMHandAxe = item(ItemNames.HAND_AXE_MM);
+    public static final Item flintHandAxe = item(ItemNames.FLINT_HAND_AXE);
 
     // Crushed fruit
     public static final Item appleCrushed = item(ItemNames.APPLE_CRUSHED);

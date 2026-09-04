@@ -5,6 +5,8 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.google.common.collect.Sets;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.BidsToolMaterial;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingOreRecipe;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
@@ -16,6 +18,10 @@ import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
+import com.unforbidable.tfc.bids.features.crafting.flintknapping.main.FlintKnappingPlans;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.WoodworkingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Shape;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan.Plan;
 import com.unforbidable.tfc.bids.features.utility.handaxe.item.ItemHandAxe;
 import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.item.Item;
@@ -40,6 +46,9 @@ public class HandAxe extends Feature {
         init.item(ItemNames.HAND_AXE_MM, () -> new ItemHandAxe(TFCItems.mMToolMaterial))
             .harvest("knife", 1)
             .harvest("digger", 1);
+        init.item(ItemNames.FLINT_HAND_AXE, () -> new ItemHandAxe(BidsToolMaterial.flint))
+            .harvest("knife", 1)
+            .harvest("digger", 1);
     }
 
     @Override
@@ -50,7 +59,7 @@ public class HandAxe extends Feature {
             TFCBlocks.dryGrass, TFCBlocks.dryGrass2
         ));
 
-        final Item[] handAxes = new Item[]{BidsItems.sedHandAxe, BidsItems.mMHandAxe, BidsItems.igInHandAxe, BidsItems.igExHandAxe};
+        final Item[] handAxes = new Item[]{BidsItems.sedHandAxe, BidsItems.mMHandAxe, BidsItems.igInHandAxe, BidsItems.igExHandAxe, BidsItems.flintHandAxe};
 
         setup.ores("itemHandAxe")
             .add(handAxes);
@@ -82,6 +91,17 @@ public class HandAxe extends Feature {
                     "  #  ", " ### ", "#####", "#####", " ### ",
                     '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)));
         }
+
+        setup.registry(WoodworkingRegistry.plans)
+            .add(Plan.create(FlintKnappingPlans.PLAN_FLINT_HAND_AXE)
+                .cutout(Shape.triFrom(0, 0).size(4, 4))
+                .cutout(Shape.triFrom(13, 0).size(-4, 4))
+                .cutout(Shape.triFrom(0, 17).size(2, -2))
+                .cutout(Shape.triFrom(13, 17).size(-2, -2))
+                .build());
+
+        setup.registry(WoodworkingRegistry.recipes)
+            .add(new WoodworkingOreRecipe(FlintKnappingPlans.PLAN_FLINT_HAND_AXE, "materialFlintCore", new ItemStack(BidsItems.flintHandAxe)));
 
         setup.run(() -> {
             // Change the hardness of non-trunk branches from 30 to 15

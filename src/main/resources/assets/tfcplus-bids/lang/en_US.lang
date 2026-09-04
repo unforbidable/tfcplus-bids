@@ -809,6 +809,7 @@ item.IgIn Hand Axe.name=Hand Axe
 item.Sed Hand Axe.name=Hand Axe
 item.IgEx Hand Axe.name=Hand Axe
 item.MM Hand Axe.name=Hand Axe
+item.Flint Hand Axe.name=Flint Hand Axe
 
 item.Hardened Wooden Spear.name=Hardened Wooden Spear
 
@@ -1638,6 +1639,7 @@ gui.plans.diggingStick=Digging Stick
 gui.plans.boneSmoother=Bone Smoother
 gui.plans.pressureFlaker=Pressure Flaker
 gui.plans.flintCore=Flint Core
+gui.plans.flintHandAxe=Flint Hand Axe
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Seconds=Seconds

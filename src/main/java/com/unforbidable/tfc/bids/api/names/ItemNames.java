@@ -74,6 +74,7 @@ public interface ItemNames {
     String HAND_AXE_MM = "MM Hand Axe";
     String HAND_AXE_IG_IN = "IgIn Hand Axe";
     String HAND_AXE_IG_EX = "IgEx Hand Axe";
+    String FLINT_HAND_AXE = "Flint Hand Axe";
 
     // Spear
     String HARDENED_WOODEN_SPEAR = "Hardened Wooden Spear";
