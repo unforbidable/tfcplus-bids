@@ -54,7 +54,7 @@ public class BlockNewFirepit extends BlockFirepit {
             }
         }
 
-        return false;
+        return true;
     }
 
     private boolean handleInteraction(World world, int x, int y, int z, EntityPlayer entityplayer, int side) {

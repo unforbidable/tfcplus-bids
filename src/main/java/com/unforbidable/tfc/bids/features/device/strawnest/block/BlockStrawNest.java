@@ -77,10 +77,9 @@ public class BlockStrawNest extends BlockContainer {
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             GuiUtil.openGui(BlockNames.STRAW_NEST, entityplayer, world.getTileEntity(x, y, z));
-            return true;
         }
 
-        return false;
+        return true;
     }
 
     @Override
