@@ -14,9 +14,6 @@ public class ItemFinishedSkin extends ItemSkin {
     @SuppressWarnings("unchecked")
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
-        list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_SMALL + 8f));
-        list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_SMALL));
-        list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_MEDIUM));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE));
     }
 

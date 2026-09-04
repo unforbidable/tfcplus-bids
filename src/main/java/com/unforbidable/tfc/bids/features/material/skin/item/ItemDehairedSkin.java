@@ -23,7 +23,6 @@ public class ItemDehairedSkin extends ItemFreshSkin {
     @SuppressWarnings("unchecked")
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
-        list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_MEDIUM, SkinTagAccess.STAGE_DEHAIRED));
         list.add(SkinHelper.createStack(this, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_DEHAIRED));
     }
 
