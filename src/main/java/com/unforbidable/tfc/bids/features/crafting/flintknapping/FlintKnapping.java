@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.api.names.WoodworkingPlanNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonTool;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
+import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
@@ -30,6 +31,11 @@ import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageT
 
 @FeatureName("flintKnapping")
 public class FlintKnapping extends Feature {
+
+    @Override
+    public void config(FeatureConfig config) {
+        config.using(FlintKnappingConfig::load, "crafting");
+    }
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
@@ -81,22 +87,33 @@ public class FlintKnapping extends Feature {
             .add(new Material("materialFlintCore", 13, 17, FlintKnappingMaterials.FLINT_CORE))
             .add(new Material("materialFlintFlake", 8, 12, FlintKnappingMaterials.FLINT_FLAKE));
 
-        setup.registry(WoodworkingRegistry.tools)
-            .add(ActionTool.create()
-                .ore("itemRockHardHammer")
-                .offset(0, 0)
-                .addActions(FlintKnappingSpec.hammerSplit)
-                .addActions(FlintKnappingSpec.hardHammerReduce)
-                .addActions(FlintKnappingSpec.hardHammerClean)
-                .build());
-
-        setup.registry(WoodworkingRegistry.tools)
-            .add(ActionTool.create()
-                .ore("itemRockSoftHammer")
-                .offset(0, 0)
-                .addActions(FlintKnappingSpec.softHammerReduce)
-                .addActions(FlintKnappingSpec.softHammerClean)
-                .build());
+        if (FlintKnappingConfig.enableFlintKnappingAnyStone) {
+            setup.registry(WoodworkingRegistry.tools)
+                .add(ActionTool.create()
+                    .ore("itemRock")
+                    .offset(0, 0)
+                    .addActions(FlintKnappingSpec.hammerSplit)
+                    .addActions(FlintKnappingSpec.hardHammerReduce)
+                    .addActions(FlintKnappingSpec.hardHammerClean)
+                    .addActions(FlintKnappingSpec.softHammerReduce)
+                    .addActions(FlintKnappingSpec.softHammerClean)
+                    .build());
+        } else {
+            setup.registry(WoodworkingRegistry.tools)
+                .add(ActionTool.create()
+                    .ore("itemRockHardHammer")
+                    .offset(0, 0)
+                    .addActions(FlintKnappingSpec.hammerSplit)
+                    .addActions(FlintKnappingSpec.hardHammerReduce)
+                    .addActions(FlintKnappingSpec.hardHammerClean)
+                    .build())
+                .add(ActionTool.create()
+                    .ore("itemRockSoftHammer")
+                    .offset(0, 0)
+                    .addActions(FlintKnappingSpec.softHammerReduce)
+                    .addActions(FlintKnappingSpec.softHammerClean)
+                    .build());
+        }
 
         setup.registry(WoodworkingRegistry.tools)
             .add(ActionTool.create()
