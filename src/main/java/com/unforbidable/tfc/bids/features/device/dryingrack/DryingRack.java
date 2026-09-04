@@ -15,6 +15,7 @@ import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.crafting.drying.DryingRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.block.BlockDryingRack;
+import com.unforbidable.tfc.bids.features.device.dryingrack.block.BlockDryingRackCover;
 import com.unforbidable.tfc.bids.features.device.dryingrack.block.BlockDryingRackSide;
 import com.unforbidable.tfc.bids.features.device.dryingrack.eventhandler.DryingRackEventHandler;
 import com.unforbidable.tfc.bids.features.device.dryingrack.render.RenderDryingRack;
@@ -35,6 +36,7 @@ public class DryingRack extends Feature {
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.block(BlockNames.DRYING_RACK, BlockDryingRack::new);
         init.block(BlockNames.DRYING_RACK_SIDE, BlockDryingRackSide::new);
+        init.block(BlockNames.DRYING_RACK_COVER, BlockDryingRackCover::new);
 
         init.tileEntity(TileEntityDryingRack.class, "BidsDryingRack");
     }

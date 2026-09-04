@@ -1,9 +1,11 @@
 package com.unforbidable.tfc.bids.features.device.dryingrack.block;
 
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackAnchorBlock;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
+import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackHelper;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackSideBounds;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,8 +15,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -98,6 +102,19 @@ public class BlockDryingRackSide extends Block implements DryingRackAnchorBlock 
     public boolean canBlockStay(World world, int x, int y, int z) {
         Block below = world.getBlock(x, y - 1, z);
         return below instanceof BlockDryingRackSide || below.isSideSolid(world, x, y - 1, z, ForgeDirection.UP);
+    }
+
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+                                    float hitY, float hitZ) {
+        if (player.getHeldItem() != null) {
+            ItemStack heldItem = player.getHeldItem();
+            if (heldItem.getItem() == Item.getItemFromBlock(TFCBlocks.thatch) &&
+                DryingRackHelper.canPlaceDryingRackCoverAbove(world, x, y, z)) {
+                DryingRackHelper.placeDryingRackCoverAbove(heldItem, player, world, x, y, z);
+            }
+        }
+
+        return true;
     }
 
     @Override

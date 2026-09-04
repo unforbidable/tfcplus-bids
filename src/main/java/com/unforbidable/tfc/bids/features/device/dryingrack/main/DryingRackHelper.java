@@ -270,4 +270,14 @@ public class DryingRackHelper {
         }
     }
 
+    public static boolean canPlaceDryingRackCoverAbove(World world, int x, int y, int z) {
+        return world.isAirBlock(x, y + 1, z) &&
+            BidsBlocks.dryingRackCover.canBlockStay(world, x, y + 1, z);
+    }
+
+    public static void placeDryingRackCoverAbove(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z) {
+        world.setBlock(x, y + 1, z, BidsBlocks.dryingRackCover);
+        itemStack.stackSize--;
+    }
+
 }

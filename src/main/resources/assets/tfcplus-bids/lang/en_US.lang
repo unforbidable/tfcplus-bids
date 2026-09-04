@@ -36,6 +36,7 @@ tile.NewFirepit.name=Firepit
 
 tile.DryingRack.name=Drying Rack
 tile.DryingRackSide.name=Drying Rack Side
+tile.DryingRackCover.name=Drying Rack Cover
 
 tile.ChoppingBlock.name=Chopping Block
 tile.ChoppingBlock2.name=Chopping Block

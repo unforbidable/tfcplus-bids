@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.dryingrack.block;
 
+import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.core.features.registry.BlockRenderIdProvider;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackBounds;
@@ -58,9 +59,15 @@ public class BlockDryingRack extends BlockContainer {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
             float hitY, float hitZ) {
-        ItemStack heldItemStack = player.getCurrentEquippedItem();
-        if (heldItemStack != null) {
-            if (DryingRackHelper.placeItemOnDryingRackAt(heldItemStack, player, world, x, y, z, hitX, hitY, hitZ)) {
+        ItemStack heldItem = player.getCurrentEquippedItem();
+        if (heldItem != null) {
+            if (heldItem.getItem() == Item.getItemFromBlock(TFCBlocks.thatch) &&
+                DryingRackHelper.canPlaceDryingRackCoverAbove(world, x, y, z)) {
+                DryingRackHelper.placeDryingRackCoverAbove(heldItem, player, world, x, y, z);
+                return true;
+            }
+
+            if (DryingRackHelper.placeItemOnDryingRackAt(heldItem, player, world, x, y, z, hitX, hitY, hitZ)) {
                 return true;
             }
         } else {

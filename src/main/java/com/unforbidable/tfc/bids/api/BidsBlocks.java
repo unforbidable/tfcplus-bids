@@ -96,6 +96,7 @@ public class BidsBlocks {
     // Drying rack
     public static final Block dryingRack = block(BlockNames.DRYING_RACK);
     public static final Block dryingRackSide = block(BlockNames.DRYING_RACK_SIDE);
+    public static final Block dryingRackCover = block(BlockNames.DRYING_RACK_COVER);
 
     // Firewood
     public static final Block stackedFirewood = block(BlockNames.STACKED_FIREWOOD);
