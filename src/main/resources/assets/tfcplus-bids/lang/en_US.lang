@@ -1456,6 +1456,9 @@ item.Leather.name=Leather
 item.Digging Stick.name=Digging Stick
 item.Hardened Digging Stick.name=Hardened Digging Stick
 
+item.Wooden Shovel.name=Wooden Shovel
+item.Hardened Wooden Shovel.name=Hardened Wooden Shovel
+
 item.Bone Smoother.name=Bone Smoother
 
 item.Antler.Deer.name=Deer Antler
@@ -1628,6 +1631,7 @@ gui.plans.spear=Spear
 gui.plans.mallet=Wooden Mallet
 gui.plans.scutchingKnife=Scutching Knife
 gui.plans.combPaddle=Comb Paddle
+gui.plans.shovel=Shovel
 gui.plans.needle=Needle
 gui.plans.knifeHead=Knife Blade
 gui.plans.diggingStick=Digging Stick

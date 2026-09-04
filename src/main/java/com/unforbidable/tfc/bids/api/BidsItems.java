@@ -402,6 +402,10 @@ public class BidsItems {
     public static final Item diggingStick = item(ItemNames.DIGGING_STICK);
     public static final Item hardenedDiggingStick = item(ItemNames.HARDENED_DIGGING_STICK);
 
+    // Shovel
+    public static final Item woodenShovel = item(ItemNames.WOODEN_SHOVEL);
+    public static final Item hardenedWoodenShovel = item(ItemNames.HARDENED_WOODEN_SHOVEL);
+
     // Smoother
     public static final Item boneSmoother = item(ItemNames.BONE_SMOOTHER);
 
