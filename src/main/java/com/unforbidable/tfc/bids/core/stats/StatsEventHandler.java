@@ -253,6 +253,14 @@ public class StatsEventHandler {
             event.result.getItem() == BidsItems.shaft && event.result.stackSize == 2) {
             event.player.triggerAchievement(BidsAchievements.DOUBLE_FORTUNE);
         }
+
+        if (event.result.getItem() == BidsItems.flintCore) {
+            event.player.triggerAchievement(TFC_Achievements.achStoneAge);
+        }
+
+        if (event.result.getItem() == BidsItems.flintKnifeBlade && event.result.stackSize == 2) {
+            event.player.triggerAchievement(TFC_Achievements.achTwoKnives);
+        }
     }
 
     @SubscribeEvent
