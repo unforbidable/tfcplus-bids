@@ -71,7 +71,7 @@ public class FlintEventHandler {
 
     private float getFlakeAmountForAction(String actionName) {
         if (actionName.startsWith("hardHammerReduce") || actionName.startsWith("softHammerReduce")) {
-            return 1 / 8f;
+            return 1 / 4f;
         }
 
         return 0;
