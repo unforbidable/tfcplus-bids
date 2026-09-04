@@ -30,6 +30,13 @@ public class StrawEventHandler {
             float hardness = event.block.getBlockHardness(event.world, event.x, event.y, event.z);
             if (hardness > 0) {
                 HarvestHelper.harvestStraw(event.getPlayer(), event.world, event.x, event.y, event.z, event.block, event.blockMetadata);
+
+                // Make sure tool is still damaged
+                if (event.getPlayer().getHeldItem() != null) {
+                    ItemStack is = event.getPlayer().getHeldItem();
+                    is.getItem().onBlockDestroyed(is, event.world, event.block, event.x, event.y, event.z, event.getPlayer());
+                }
+
                 event.setCanceled(true);
             }
         }
