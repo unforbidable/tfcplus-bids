@@ -76,7 +76,7 @@ public class WoodworkingNeiHandler extends TemplateRecipeHandler implements IHan
             if (input.size() > 0) {
                 final ItemStack result = recipe.getResult(input.get(0));
                 output.stackSize = result.stackSize;
-                if (ItemStack.areItemStacksEqual(result, output)) {
+                if (result.isItemStackDamageable() && result.getItem() == output.getItem() || ItemStack.areItemStacksEqual(result, output)) {
                     WorkspaceClient workspaceClient = createWorkspaceClientForRecipe(recipe);
                     if (workspaceClient != null) {
                         arecipes.add(new CachedWoodworkingRecipe(input, result, workspaceClient));
