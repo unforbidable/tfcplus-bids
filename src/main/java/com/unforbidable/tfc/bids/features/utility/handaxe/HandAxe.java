@@ -88,7 +88,7 @@ public class HandAxe extends Feature {
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
             setup.registry(TfcRegistry.Knapping.recipes)
                 .add(KnappingRecipe.add(stone.items.getItem(EnumStoneItemType.HAND_AXE),
-                    "  #  ", " ### ", "#####", "#####", " ### ",
+                    "  ## ", "#####", "#####", "#####", "  ## ",
                     '#', stone.items.getItem(EnumStoneItemType.FLAT_ROCK)));
         }
 
