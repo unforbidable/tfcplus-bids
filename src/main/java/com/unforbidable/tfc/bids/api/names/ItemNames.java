@@ -387,4 +387,7 @@ public interface ItemNames {
     String ANTLER_BILLET = "Antler Billet";
     String BONE_PRESSURE_FLAKER = "Bone Pressure Flaker";
 
+    // Flint Gear
+    String FLINT_KNIFE_BLADE = "Flint Knife Blade";
+    String FLINT_KNIFE = "Flint Knife";
 }

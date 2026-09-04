@@ -1469,6 +1469,10 @@ item.Flint Flake.name=Flint Flake
 item.Bone Pressure Flaker.name=Bone Pressure Flaker
 item.Antler Billet.name=Antler Billet
 
+item.Flint Knife Blade.name=Flint Knife Blade
+
+item.Flint Knife.name=Flint Knife
+
 entity.PegLeashKnot.name=Leash Knot
 
 fluid.FishOil=Fish Oil
@@ -1640,6 +1644,9 @@ gui.plans.boneSmoother=Bone Smoother
 gui.plans.pressureFlaker=Pressure Flaker
 gui.plans.flintCore=Flint Core
 gui.plans.flintHandAxe=Flint Hand Axe
+gui.plans.flintKnifeBladeA=Flint Knife Blade
+gui.plans.flintKnifeBladeB=Flint Knife Blade
+gui.plans.flintKnifeBlade2=Flint Knife Blade
 gui.Hours=Hours
 gui.HoursRemaining=Hours Remaining
 gui.Seconds=Seconds
