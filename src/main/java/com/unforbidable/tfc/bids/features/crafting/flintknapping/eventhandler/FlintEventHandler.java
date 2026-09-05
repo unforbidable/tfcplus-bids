@@ -62,7 +62,7 @@ public class FlintEventHandler {
                     float partialAmount = flake - integralAmount;
                     int totalAmount = integralAmount + (new Random().nextFloat() < partialAmount ? 1 : 0);
                     if (totalAmount > 0) {
-                        TFC_Core.giveItemToPlayer(new ItemStack(BidsItems.flintFlake), event.player);
+                        TFC_Core.giveItemToPlayer(new ItemStack(BidsItems.flintFlake, totalAmount), event.player);
                     }
                 }
             }
