@@ -213,7 +213,8 @@ public class GuiWoodworking extends GuiContainerTFC {
         if (workspaceClient.isMouseInsideGui()) {
             if (mouseEvent == 0) {
                 if (repeatingActionPos != null) {
-                    while (tryToCatchUpRepeatingAction(mouseX, mouseY)) {
+                    // Watch out for tool being destroyed during dragging = no current action
+                    while (workspaceClient.getCurrentAction() != null && tryToCatchUpRepeatingAction(mouseX, mouseY)) {
                         workspaceClient.setMouseLocation(repeatingActionPos);
                         if (workspaceClient.canPerformCurrentAction()) {
                             if (workspaceClient.performCurrentAction()) {

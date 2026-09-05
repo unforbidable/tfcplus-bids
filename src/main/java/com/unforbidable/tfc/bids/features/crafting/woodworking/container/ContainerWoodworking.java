@@ -97,11 +97,18 @@ public class ContainerWoodworking extends ContainerTFC implements PacketHandler<
             }
 
             if (packet.getDamage() > 0) {
-                WoodworkingHelper.damageItem(player.inventory.getItemStack(), packet.getDamage(), player);
+                if (player.inventory.getItemStack() != null) {
+                    WoodworkingHelper.damageItem(player.inventory.getItemStack(), packet.getDamage(), player);
 
-                player.inventory.getItemStack().damageItem(packet.getDamage(), player);
-                if (player.inventory.getItemStack().stackSize == 0) {
-                    player.inventory.setItemStack(null);
+                    player.inventory.getItemStack().damageItem(packet.getDamage(), player);
+                    if (player.inventory.getItemStack().stackSize == 0) {
+                        player.inventory.setItemStack(null);
+                    }
+                } else {
+                    // So long as the client is in control of the tool damage
+                    // seems like a race condition can occur if client manages to damage a tool
+                    // that server already destroyed
+                    Bids.LOG.warn("Client attempted to damage already destroyed tool");
                 }
             }
 
