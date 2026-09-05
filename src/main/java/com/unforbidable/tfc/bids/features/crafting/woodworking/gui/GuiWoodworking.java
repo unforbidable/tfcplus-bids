@@ -282,7 +282,7 @@ public class GuiWoodworking extends GuiContainerTFC {
                 accumulatedDamage += newDamage;
             }
 
-            Bids.LOG.info("Accumulated damage: {}", accumulatedDamage);
+            Bids.LOG.debug("Accumulated damage: {}", accumulatedDamage);
 
             int integralDamage = (int) Math.floor(accumulatedDamage);
             float partialDamage = accumulatedDamage - integralDamage;
