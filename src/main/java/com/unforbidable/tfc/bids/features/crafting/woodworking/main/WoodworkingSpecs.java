@@ -41,7 +41,7 @@ public class WoodworkingSpecs {
     public static final ActionSpec axeChopShortTop = ActionSpec.create()
         .cutout(Shape.rectFrom(-1, -4).size(3, 9))
         .clearance(Shape.rectFrom(-1, -4).size(3, -8))
-        .clearance(Shape.pointAt(0, 4))
+        .clearance(Shape.from(-1, 5).to(0, 4).to(1, 4).to(2, 5).build())
         .build();
     public static final ActionSpec axeChopShortBottom = axeChopShortTop.flip(Orientation.VERTICAL);
 
