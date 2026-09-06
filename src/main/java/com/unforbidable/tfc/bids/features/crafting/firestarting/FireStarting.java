@@ -2,9 +2,12 @@ package com.unforbidable.tfc.bids.features.crafting.firestarting;
 
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingOreRecipe;
 import com.unforbidable.tfc.bids.api.meta.TinderMeta;
 import com.unforbidable.tfc.bids.api.meta.TowMeta;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
+import com.unforbidable.tfc.bids.api.names.WoodworkingPlanNames;
+import com.unforbidable.tfc.bids.common.item.ItemCommonMisc;
 import com.unforbidable.tfc.bids.compat.tfc.meta.WoodMeta;
 import com.unforbidable.tfc.bids.core.crafting.MatchingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -25,6 +28,9 @@ import com.unforbidable.tfc.bids.features.crafting.firestarting.main.handlers.Po
 import com.unforbidable.tfc.bids.features.crafting.firestarting.main.network.TinderBurningHandler;
 import com.unforbidable.tfc.bids.features.crafting.firestarting.main.network.TinderBurningPacket;
 import com.unforbidable.tfc.bids.features.crafting.firestarting.render.TinderItemRenderer;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.WoodworkingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.main.geometry.Shape;
+import com.unforbidable.tfc.bids.features.crafting.woodworking.main.plan.Plan;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
@@ -48,6 +54,8 @@ public class FireStarting extends Feature {
         init.item(ItemNames.BOW_DRILL, ItemNewFirestarter::new)
             .apply(i -> i.setMaxItemUseDuration(40)
                 .setMaxDamage(32));
+        init.item(ItemNames.FIRE_BOARD, ItemCommonMisc::new)
+            .apply(i -> i.setTextureFolder("wood"));
 
         init.item(ItemNames.TINDER, ItemTinder::new)
             .meta("Straw", "Birch Bark", "Bast", "Flax", "Jute", "Sisal", "Cotton");
@@ -87,11 +95,26 @@ public class FireStarting extends Feature {
 
         setup.recipes()
             .addShaped(new ItemStack(BidsItems.handDrillFirestarter), "S", "B",
-                'S', "stickWood", 'B', "boardWood");
+                'S', "stickWood", 'B', BidsItems.fireBoard);
 
         setup.recipes()
             .addShaped(new ItemStack(BidsItems.bowDrillFirestarter), "SD", "B ",
-                'D', TFCItems.bow, 'S', "stickWood", 'B', "boardWood");
+                'D', TFCItems.bow, 'S', "stickWood", 'B', BidsItems.fireBoard);
+
+        setup.registry(WoodworkingRegistry.plans)
+            .add(Plan.create(WoodworkingPlanNames.PLAN_FIRE_BOARD)
+                .cutout(Shape.from(0, 3).to(2,5).to(0, 7).build())
+                .cutout(Shape.from(0, 8).to(2,10).to(0, 12).build())
+                .cutout(Shape.from(0, 13).to(2,15).to(0, 17).build())
+                .cutout(Shape.from(0, 18).to(2,20).to(0, 22).build())
+                .cutout(Shape.from(13, 3).to(11,5).to(13, 7).build())
+                .cutout(Shape.from(13, 8).to(11,10).to(13, 12).build())
+                .cutout(Shape.from(13, 13).to(11,15).to(13, 17).build())
+                .cutout(Shape.from(13, 18).to(11,20).to(13, 22).build())
+                .build());
+
+        setup.registry(WoodworkingRegistry.recipes)
+            .add(new WoodworkingOreRecipe(WoodworkingPlanNames.PLAN_FIRE_BOARD, "boardWood", new ItemStack(BidsItems.fireBoard)));
 
         setup.ores("materialTinderStraw2")
             .add(TFCItems.straw);

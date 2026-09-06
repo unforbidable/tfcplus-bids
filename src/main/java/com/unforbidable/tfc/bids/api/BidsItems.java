@@ -376,6 +376,7 @@ public class BidsItems {
     public static final Item handDrillFirestarter = item(ItemNames.HAND_DRILL);
     public static final Item bowDrillFirestarter = item(ItemNames.BOW_DRILL);
     public static final Item tinder = item(ItemNames.TINDER);
+    public static final Item fireBoard = item(ItemNames.FIRE_BOARD);
 
     // Nettle
     public static final Item nettle = item(ItemNames.NETTLE);

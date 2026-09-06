@@ -344,6 +344,7 @@ public interface ItemNames {
     String HAND_DRILL = "Firestarter Hand Drill";
     String BOW_DRILL = "Firestarter Bow Drill";
     String TINDER = "Tinder";
+    String FIRE_BOARD = "Fire Board";
 
     // Nettle
     String NETTLE = "Nettle";
