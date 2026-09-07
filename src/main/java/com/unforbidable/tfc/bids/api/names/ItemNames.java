@@ -123,6 +123,9 @@ public interface ItemNames {
     // Hide
     String MORE_HIDE = "More Hide";
 
+    // Hide Vessel
+    String HIDE_VESSEL = "Hide Vessel";
+
     // Textile
     String BARK_FIBER = "Bark Fibre";
     String BARK_FIBER_COARSE = "Bark Fibre Coarse";

@@ -1276,6 +1276,9 @@ item.Leather Coat.name=Leather Coat
 
 item.More Hide.VerySmallHide.name=Very Small Raw Hide
 
+item.Hide Vessel.Empty.name=Wet Hide Bag
+item.Hide Vessel.Filled.name=Hide Vessel
+
 item.More Powder.Sawdust.name=Sawdust
 
 item.Wheat Crushed.name=Coarse Wheat Flour
@@ -1613,6 +1616,8 @@ gui.Help.Skin.Stage.Dehaired2=Soak in §eTannin §7for making leather.
 gui.Help.Skin.Stage.Tanned=Dry on a §eDrying Frame §7to begin making leather.
 gui.Help.Skin.Stage.Dried=Use a §eSmoothing Bone §7on a surface to burnish it.
 gui.Help.Skin.Stage.Worked=Dry on a §eDrying Frame §7again to finish making leather.
+gui.Help.HideVessel.Filled=Rawhide vessel filled with water will break down.
+gui.Help.HideVessel.Empty=Hang on a §eDrying Rack §7and dry it completely to stop breakage.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified

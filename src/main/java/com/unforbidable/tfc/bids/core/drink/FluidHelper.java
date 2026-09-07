@@ -53,7 +53,7 @@ public class FluidHelper {
         return is;
     }
 
-    private static Fluid getFluidFromWorld(World world, EntityPlayer player, MovingObjectPosition mop) {
+    public static Fluid getFluidFromWorld(World world, EntityPlayer player, MovingObjectPosition mop) {
         int x = mop.blockX;
         int y = mop.blockY;
         int z = mop.blockZ;
@@ -79,7 +79,7 @@ public class FluidHelper {
         return null;
     }
 
-    private static Fluid getFluidFromBlockAt(World world, int x, int y, int z) {
+    public static Fluid getFluidFromBlockAt(World world, int x, int y, int z) {
         if (TFC_Core.isFreshWater(world.getBlock(x, y, z))) {
             return TFCFluids.FRESHWATER;
         }

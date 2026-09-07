@@ -240,8 +240,11 @@ public class BidsItems {
     public static final Item suet = item(ItemNames.SUET);
     public static final Item tallow = item(ItemNames.TALLOW);
 
-    // More hide
+    // Hide
     public static final Item moreHide = item(ItemNames.MORE_HIDE);
+
+    // Hide Vessel
+    public static final Item hideVessel = item(ItemNames.HIDE_VESSEL);
 
     // Pemmican
     public static final Item pemmican = item(ItemNames.PEMMICAN);
