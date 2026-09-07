@@ -426,6 +426,11 @@ public class BidsItems {
     // Flint Gear
     public static final Item flintKnifeBlade = item(ItemNames.FLINT_KNIFE_BLADE);
     public static final Item flintKnife = item(ItemNames.FLINT_KNIFE);
+
+    // Heating Stone
+    public static final Item heatingStone = item(ItemNames.HEATING_STONE);
+
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {

@@ -394,4 +394,8 @@ public interface ItemNames {
     // Flint Gear
     String FLINT_KNIFE_BLADE = "Flint Knife Blade";
     String FLINT_KNIFE = "Flint Knife";
+
+    // Heating Stone
+    String HEATING_STONE = "Heating Stone";
+
 }
