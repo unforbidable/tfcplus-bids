@@ -1,7 +1,10 @@
 package com.unforbidable.tfc.bids.features.crafting.flintknapping.eventhandler;
 
+import com.dunk.tfc.Blocks.Terrain.BlockGravel;
 import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Items.ItemBlocks.ItemSoil;
 import com.dunk.tfc.Items.ItemLooseRock;
+import com.dunk.tfc.api.TFCBlocks;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingActionSummary;
 import com.unforbidable.tfc.bids.api.features.woodworking.WoodworkingEvent;
@@ -12,7 +15,10 @@ import com.unforbidable.tfc.bids.features.crafting.flintknapping.main.FlintKnapp
 import com.unforbidable.tfc.bids.features.crafting.woodworking.main.WoodworkingHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.world.BlockEvent;
 
 public class FlintEventHandler {
 
@@ -75,6 +81,34 @@ public class FlintEventHandler {
         }
 
         return 0;
+    }
+
+    @SubscribeEvent
+    public void onBlockHarvestDrops(BlockEvent.HarvestDropsEvent event) {
+        if (event.block instanceof BlockGravel) {
+            // Find gravel block to be replaced
+            // If a flint is already dropping by chance instead, do nothing
+            for (int i = 0; i < event.drops.size(); i++) {
+                ItemStack drop = event.drops.get(i);
+                if (drop.getItem() instanceof ItemSoil) {
+                    Block dropBlock = Block.getBlockFromItem(drop.getItem());
+                    if (dropBlock instanceof BlockGravel) {
+                        // Dropped soil item block is that of Gravel
+                        // just need to find out which and get the whole meta
+                        int damage = drop.getItemDamage() + (dropBlock == TFCBlocks.gravel2 ? 16 : 0);
+                        if (hasRockTypeAffinity(damage) && event.world.rand.nextInt(3) == 0) {
+                            // Replace the dropped gravel block item stack
+                            ItemStack newDrop = new ItemStack(Items.flint);
+                            event.drops.set(i, newDrop);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean hasRockTypeAffinity(int damage) {
+        return damage == StoneMeta.CHERT;
     }
 
 }
