@@ -29,7 +29,7 @@ public class HeatingStoneEventHandler {
 
     @SubscribeEvent
     public void onBlockHarvestDrops(BlockEvent.HarvestDropsEvent event) {
-        if (event.block instanceof BlockGravel) {
+        if (event.block instanceof BlockGravel && event.harvester.getHeldItem() == null) {
             // Check elevation as a quick guess if the gravel might be near water
             if (event.y > Global.SEALEVEL + 3) {
                 // Find gravel block to be replaced
