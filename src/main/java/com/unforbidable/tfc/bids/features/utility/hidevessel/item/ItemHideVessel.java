@@ -62,7 +62,7 @@ public class ItemHideVessel extends ItemTerra implements IBag, IFluidContainerIt
                     Bids.LOG.info("Hide vessel destroyed");
                 } else {
                     tag.setDamage(newDamage);
-                    tag.setLastDamageTicks(lastDamageTicks + damageInterval);
+                    tag.setLastDamageTicks(TFC_Time.getTotalTicks());
 
                     Bids.LOG.info("Hide vessel damaged {}/{}", newDamage, HideVesselHelper.HIDE_VESSEL_MAX_DAMAGE);
                 }
