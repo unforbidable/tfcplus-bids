@@ -5,6 +5,7 @@ public interface FluidNames {
     String GOAT_MILK = "GoatMilk";
     String COOKING_MIXTURE = "CookingMixture";
     String TALLOW = "Tallow";
+    String TALLOW_WATER = "TallowWater";
     String SKIMMED_MILK = "SkimmedMilk";
     String CREAM = "Cream";
     String GOAT_MILK_VINEGAR = "GoatMilkVinegar";

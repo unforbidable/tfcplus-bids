@@ -11,6 +11,7 @@ public class BidsFluids {
     public static final Fluid goatMilk = fluid(FluidNames.GOAT_MILK);
     public static final Fluid cookingMixture = fluid(FluidNames.COOKING_MIXTURE);
     public static final Fluid tallow = fluid(FluidNames.TALLOW);
+    public static final Fluid tallowWater = fluid(FluidNames.TALLOW_WATER);
     public static final Fluid skimmedMilk = fluid(FluidNames.SKIMMED_MILK);
     public static final Fluid cream = fluid(FluidNames.CREAM);
     public static final Fluid goatMilkVinegar = fluid(FluidNames.GOAT_MILK_VINEGAR);
