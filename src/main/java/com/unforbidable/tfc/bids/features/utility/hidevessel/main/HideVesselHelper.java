@@ -20,7 +20,9 @@ public class HideVesselHelper {
     public static final int HIDE_VESSEL_CAPACITY = 1000;
     public static final long HIDE_VESSEL_EMPTY_DAMAGE_INTERVAL = TFC_Time.HOUR_LENGTH * 16;
     public static final long HIDE_VESSEL_FILLED_DAMAGE_INTERVAL = TFC_Time.HOUR_LENGTH * 8;
+    public static final long HIDE_VESSEL_GROUND_DAMAGE_INTERVAL = TFC_Time.HOUR_LENGTH * 8;
     public static final int HIDE_VESSEL_MAX_DAMAGE = 20;
+    public static final float HIDE_VESSEL_HEAD_DAMAGE_PER_STONE = 0.2f;
 
     public static boolean isValidHideVesselFluid(Fluid fluid) {
         return fluid == TFCFluids.FRESHWATER;

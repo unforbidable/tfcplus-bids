@@ -200,6 +200,9 @@ public class BidsBlocks {
     // Drying Pegs
     public static final Block dryingPegs = block(BlockNames.DRYING_PEGS);
 
+    // Cooking Pit
+    public static final Block hideCookingPit = block(BlockNames.HIDE_COOKING_PIT);
+
     private static Block block(String name) {
         Block block = GameRegistry.findBlock(Tags.MOD_ID, name);
         if (block == null) {

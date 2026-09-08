@@ -10,7 +10,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsCreativeTabs;
 import com.unforbidable.tfc.bids.Tags;
-import com.unforbidable.tfc.bids.core.drink.FluidHelper;
+import com.unforbidable.tfc.bids.features.device.cookingpit.main.CookingPitHelper;
 import com.unforbidable.tfc.bids.features.utility.hidevessel.main.HideVesselHelper;
 import com.unforbidable.tfc.bids.features.utility.hidevessel.main.nbt.HideVesselTag;
 import com.unforbidable.tfc.bids.util.ItemHelper;
@@ -75,22 +75,31 @@ public class ItemHideVessel extends ItemTerra implements IBag, IFluidContainerIt
     @Override
     public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float hitX,
                              float hitY, float hitZ) {
-        // Only fresh water and salt water can be emptied in the world
-        FluidStack fluidStack = HideVesselTag.of(is).getFluid();
-        if (fluidStack != null) {
-            Fluid fluid = fluidStack.getFluid();
-            if (fluid == TFCFluids.FRESHWATER || fluid == TFCFluids.SALTWATER) {
-                ForgeDirection d = ForgeDirection.getOrientation(side);
-                int x2 = x + d.offsetX;
-                int y2 = y + d.offsetY;
-                int z2 = z + d.offsetZ;
+        if (player.isSneaking()) {
+            if (side == 1) {
+                HideVesselTag tag = HideVesselTag.of(is);
+                if (CookingPitHelper.placeHideCookingPitAt(world, x, y + 1, z, tag.getFluid(), tag.getDamage())) {
+                    is.stackSize--;
+                }
+            }
+        } else {
+            // Only fresh water and salt water can be emptied in the world
+            FluidStack fluidStack = HideVesselTag.of(is).getFluid();
+            if (fluidStack != null) {
+                Fluid fluid = fluidStack.getFluid();
+                if (fluid == TFCFluids.FRESHWATER || fluid == TFCFluids.SALTWATER) {
+                    ForgeDirection d = ForgeDirection.getOrientation(side);
+                    int x2 = x + d.offsetX;
+                    int y2 = y + d.offsetY;
+                    int z2 = z + d.offsetZ;
 
-                if (world.isAirBlock(x2, y2, z2)) {
-                    world.setBlock(x2, y2, z2, fluid == TFCFluids.FRESHWATER ? TFCBlocks.freshWater : TFCBlocks.saltWater, 2, 0x1);
+                    if (world.isAirBlock(x2, y2, z2)) {
+                        world.setBlock(x2, y2, z2, fluid == TFCFluids.FRESHWATER ? TFCBlocks.freshWater : TFCBlocks.saltWater, 2, 0x1);
 
-                    HideVesselTag.of(is).clearFluid();
+                        HideVesselTag.of(is).clearFluid();
 
-                    return true;
+                        return true;
+                    }
                 }
             }
         }

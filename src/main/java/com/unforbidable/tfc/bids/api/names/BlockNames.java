@@ -317,4 +317,7 @@ public interface BlockNames {
     @BlockId(117)
     String DRYING_PEGS = "DryingPegs";
 
+    @BlockId(120)
+    String HIDE_COOKING_PIT = "HideCookingPit";
+
 }
