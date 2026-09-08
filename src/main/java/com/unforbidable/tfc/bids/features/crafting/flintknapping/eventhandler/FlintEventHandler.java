@@ -85,7 +85,7 @@ public class FlintEventHandler {
 
     @SubscribeEvent
     public void onBlockHarvestDrops(BlockEvent.HarvestDropsEvent event) {
-        if (event.block instanceof BlockGravel) {
+        if (event.block instanceof BlockGravel && event.harvester.getHeldItem() == null) {
             // Find gravel block to be replaced
             // If a flint is already dropping by chance instead, do nothing
             for (int i = 0; i < event.drops.size(); i++) {
