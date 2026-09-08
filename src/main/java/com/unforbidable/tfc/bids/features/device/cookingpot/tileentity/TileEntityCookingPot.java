@@ -1,35 +1,29 @@
 package com.unforbidable.tfc.bids.features.device.cookingpot.tileentity;
 
-import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
-import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Food;
-import com.dunk.tfc.api.HeatIndex;
-import com.dunk.tfc.api.HeatRegistry;
-import com.dunk.tfc.api.Interfaces.ICookableFood;
-import com.dunk.tfc.api.TFC_ItemHeat;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.cooking.CookedMeal;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingAccessory;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingHost;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingLidUsage;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingMixture;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureFluid;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureItem;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingPotPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
-import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
-import com.unforbidable.tfc.bids.api.util.food.BidsFoodHeatIndex;
 import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
 import com.unforbidable.tfc.bids.core.network.Network;
 import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingEngine;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingFoodTicker;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingFoodTickerResult;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingRecipeHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingRecipeProgress;
 import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotBounds;
 import com.unforbidable.tfc.bids.features.device.cookingpot.main.CookingPotPlacement;
@@ -53,7 +47,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class TileEntityCookingPot extends TileEntity implements PacketHandler<SimpleUpdatePacket>, IInventory {
+public class TileEntityCookingPot extends TileEntity implements CookingHost, PacketHandler<SimpleUpdatePacket>, IInventory {
 
     private static final int MAX_STORAGE = 3;
     private static final int MAX_FLUIDS = 3;
@@ -68,36 +62,29 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
 
     private static final int HEAT_CHECK_INTERVAL = 10;
     private static final int HEAT_CHECK_DELAY_AFTER_PLACEMENT_CHANGE = 50;
-    private static final int RECIPE_HANDLE_INTERVAL = 20;
-    private static final int RECIPE_HANDLE_INTERVAL_AFTER_PARAMETER_CHANGE = 5;
     private static final int ITEM_TICK_INTERVAL = 50;
 
     private final ItemStack[] storage = new ItemStack[MAX_STORAGE];
     private final FluidStack[] fluids = new FluidStack[MAX_FLUIDS];
 
+    private final CookingEngine cookingEngine = new CookingEngine(this);
+    private final CookingFoodTicker cookingFoodTicker = new CookingFoodTicker(this, ITEM_TICK_INTERVAL);
+
     private CookingPotPlacement placement = CookingPotPlacement.GROUND;
     private CookingPotBounds cachedBounds = null;
     private CookingHeatLevel heatLevel = CookingHeatLevel.NONE;
-
-    private CookingRecipe cachedRecipe = null;
-    private boolean isCachedRecipeValid = false;
-
-    private CookingRecipeProgress recipeProgress = null;
 
     boolean clientNeedToUpdate = false;
     boolean clientDataLoaded = false;
     boolean inputItemSelected = false;
 
     private final Timer heatCheckTimer = new Timer(HEAT_CHECK_INTERVAL);
-    private final Timer recipeHandleTimer = new Timer(RECIPE_HANDLE_INTERVAL);
     private final Timer itemTickTimer = new Timer(ITEM_TICK_INTERVAL);
-
-    private boolean recipeCanPauseWhenParametersChange = true;
 
     private int accessoryDamage = 0;
 
     public CookingRecipeProgress getRecipeProgress() {
-        return recipeProgress;
+        return cookingEngine.getRecipeProgress();
     }
 
     public CookingPotPlacement getPlacement() {
@@ -123,24 +110,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
         return cachedBounds;
     }
 
-    public CookingRecipe getCachedRecipe() {
-        if (!isCachedRecipeValid) {
-            isCachedRecipeValid = true;
-            cachedRecipe = null;
-
-            CookingRecipeInputTemplate template = createRecipeTemplate();
-            for (CookingRecipe recipe : CookingHelper.getRecipesMatchingTemplate(template)) {
-                // Ensure the recipe can run - checking the amounts
-                if (calculateTotalRecipeRuns(recipe) > 0) {
-                    cachedRecipe = recipe;
-                    break;
-                }
-            }
-        }
-
-        return cachedRecipe;
-    }
-
+    @Override
     public CookingHeatLevel getHeatLevel() {
         return heatLevel;
     }
@@ -157,7 +127,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
-            onRecipeParametersChanged(false);
+            cookingEngine.onRecipeParametersChanged(false);
 
             return true;
         }
@@ -173,7 +143,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
-            onRecipeParametersChanged(false);
+            cookingEngine.onRecipeParametersChanged(false);
 
             return true;
         }
@@ -210,7 +180,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 clientNeedToUpdate = true;
 
-                onRecipeParametersChanged(true);
+                cookingEngine.onRecipeParametersChanged(true);
 
                 return true;
             }
@@ -243,7 +213,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
                         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                         clientNeedToUpdate = true;
 
-                        onRecipeParametersChanged(true);
+                        cookingEngine.onRecipeParametersChanged(true);
 
                         return true;
                     }
@@ -309,12 +279,16 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
 
             // Cancel any recipe that may be in progress
             // otherwise instant recipes returning output immediately will not work
-            cancelRecipeProgress();
+            if (cookingEngine.cancelRecipeProgress()) {
+                // Sync data with the client
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                clientNeedToUpdate = true;
+            }
 
             // Process recipe right after item is placed
             // and remember the input item
             ItemStack before = storage[SLOT_INPUT].copy();
-            handleRecipeProgress();
+            cookingEngine.handleRecipeProgress();
 
             if (hasInputItem() && !ItemStack.areItemStacksEqual(before, storage[SLOT_INPUT])) {
                 // If the input item changed
@@ -323,7 +297,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
                 giveItemStackToPlayer(player, storage[SLOT_INPUT]);
                 storage[SLOT_INPUT] = null;
 
-                onRecipeParametersChanged(true);
+                cookingEngine.onRecipeParametersChanged(true);
             }
 
             return true;
@@ -342,7 +316,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
     }
 
     private int getInputItemStackSizeForRecipe(ItemStack itemStack) {
-        if (isCookableFoodItemStack(itemStack)) {
+        if (CookingHelper.isCookableFoodItemStack(itemStack)) {
             // Food items default to stack size of 1
             return 1;
         } else {
@@ -427,19 +401,11 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
         }
     }
 
-    private CookingRecipeInputTemplate createRecipeTemplate() {
+    @Override
+    public CookingRecipeInputTemplate createRecipeTemplate() {
         return new CookingRecipeInputTemplate(
             getPrimaryFluidStack(), null,
             getInputItemStack(),
-            hasSteamingMesh() ? CookingAccessory.STEAMING_MESH : CookingAccessory.NONE,
-            hasLid() ? CookingLidUsage.ON : CookingLidUsage.OFF,
-            getHeatLevel(), getHeatLevel());
-    }
-
-    private CookingRecipeInputTemplate createRecipeTemplateWithSecondaryInputFluidStack(FluidStack secondaryInputFluidStack) {
-        return new CookingRecipeInputTemplate(
-            getPrimaryFluidStack(), secondaryInputFluidStack,
-            null,
             hasSteamingMesh() ? CookingAccessory.STEAMING_MESH : CookingAccessory.NONE,
             hasLid() ? CookingLidUsage.ON : CookingLidUsage.OFF,
             getHeatLevel(), getHeatLevel());
@@ -463,7 +429,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
-            onRecipeParametersChanged(false);
+            cookingEngine.onRecipeParametersChanged(false);
 
             return true;
         } else if (hasInputItem()) {
@@ -476,7 +442,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
-            onRecipeParametersChanged(true);
+            cookingEngine.onRecipeParametersChanged(true);
 
             return true;
         } else if (hasAccessory()) {
@@ -487,7 +453,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
-            onRecipeParametersChanged(true);
+            cookingEngine.onRecipeParametersChanged(true);
 
             return true;
         } else {
@@ -538,7 +504,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
-            onRecipeParametersChanged(true);
+            cookingEngine.onRecipeParametersChanged(true);
 
             return true;
         }
@@ -590,96 +556,22 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
             return itemStack;
         }
 
-        if (hasFluid() && FluidContainerRegistry.isFilledContainer(itemStack)) {
-            FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
-            CookingRecipeInputTemplate template = createRecipeTemplateWithSecondaryInputFluidStack(fluidStack);
-            for (CookingRecipe recipe : CookingHelper.getRecipesMatchingTemplate(template)) {
-                Bids.LOG.debug("Found mixing recipe: " + CookingRecipeHelper.getRecipeHashString(recipe));
-
-                int primaryAmountRequired = recipe.getInputFluidStack().amount;
-                int primaryAmountAvailable = getTopFluidStack().amount;
-
-                float runs = (float)primaryAmountAvailable / primaryAmountRequired;
-                int secondaryAmountRequired = Math.round(recipe.getSecondaryInputFluidStack().amount * runs);
-                Bids.LOG.debug("secondaryAmountRequired: " + secondaryAmountRequired);
-
-                int minAmountToDrainRequired = Math.round(secondaryAmountRequired * 0.6f);
-                int maxAmountToDrainRequired = Math.round(secondaryAmountRequired * 1.3f);
-                Bids.LOG.debug("minAmountToDrainRequired: " + minAmountToDrainRequired);
-                Bids.LOG.debug("maxAmountToDrainRequired: " + maxAmountToDrainRequired);
-
-                int drainedAmount = checkDrainAmount(itemStack, secondaryAmountRequired);
-                Bids.LOG.debug("Input container will be drained for amount: " + drainedAmount);
-
-                if (drainedAmount < minAmountToDrainRequired || drainedAmount > maxAmountToDrainRequired) {
-                    Bids.LOG.debug("The container cannot be drained as required");
-                    continue;
-                }
-
-                if (drainedAmount + getTotalLiquidVolume() > getMaxFluidVolume()) {
-                    Bids.LOG.debug("The cooking pot cannot fit the drained amount");
-                    continue;
-                }
-
-                ItemStack drainingItemStack = doDrainAmount(itemStack, drainedAmount);
-
-                // FluidContainerRegistry.getFluidForFilledItem will not produce the correct fluid amount
-                // for partial containers such as glass bottles
-                // The correct amount is needed to handle merging cooking mixes with other fluids
-                template.getSecondaryInputFluidStack().amount = drainedAmount;
-
-                handleRecipeOutput(recipe, template);
+        if (hasFluid() && !hasTopLayerFluid()) {
+            int drainedAmount = cookingEngine.handleFluidMixing(itemStack);
+            if (drainedAmount > 0) {
+                ItemStack drainingItemStack = CookingHelper.doDrainAmount(itemStack, drainedAmount);
 
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 clientNeedToUpdate = true;
 
                 // Mixing liquids resets recipe parameters
-                onRecipeParametersChanged(true);
+                cookingEngine.onRecipeParametersChanged(true);
 
                 return drainingItemStack;
             }
         }
 
         return itemStack;
-    }
-
-    private ItemStack doDrainAmount(ItemStack itemStack, int requiredAmount) {
-        int drainedAmount = 0;
-        ItemStack drainedItemStack = itemStack;
-        while (drainedAmount < requiredAmount && FluidContainerRegistry.isFilledContainer(drainedItemStack)) {
-            FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(drainedItemStack);
-
-            int availableAmount = fluidStack.amount;
-            drainedItemStack = FluidContainerRegistry.drainFluidContainer(drainedItemStack);
-            drainedAmount += availableAmount;
-        }
-
-        return drainedItemStack;
-    }
-
-    private int checkDrainAmount(ItemStack itemStack, int requiredAmount) {
-        int drainedAmount = 0;
-        int tolerance = FluidContainerRegistry.getContainerCapacity(itemStack) / 2;
-        ItemStack drainedItemStack = itemStack;
-        FluidStack originalFluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
-        while (drainedAmount + tolerance < requiredAmount && FluidContainerRegistry.isFilledContainer(drainedItemStack)) {
-            FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(drainedItemStack);
-            // Ensure the fluid is still the same
-            if (!originalFluidStack.isFluidEqual(fluidStack)) {
-                break;
-            }
-
-            int availableAmount = fluidStack.amount;
-            drainedItemStack = FluidContainerRegistry.drainFluidContainer(drainedItemStack);
-            drainedAmount += availableAmount;
-        }
-
-        // Ensure the exact amount was drained
-        if (drainedAmount <= requiredAmount + tolerance) {
-            return drainedAmount;
-        } else {
-            return 0;
-        }
     }
 
     public ItemStack removeLiquid(ItemStack is) {
@@ -703,7 +595,10 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
         } else if (is.getItem() instanceof IFluidContainerItem) {
             FluidStack isfs = ((IFluidContainerItem) is.getItem()).getFluid(is);
             if (isfs == null || topFluidStack.isFluidEqual(isfs)) {
-                removeLiquidAmount(((IFluidContainerItem) is.getItem()).fill(is, topFluidStack, true));
+                int amount = ((IFluidContainerItem) is.getItem()).fill(is, topFluidStack, true);
+                if (amount > 0) {
+                    removeLiquidAmount(amount);
+                }
 
                 return is;
             }
@@ -734,7 +629,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         clientNeedToUpdate = true;
 
-        onRecipeParametersChanged(true);
+        cookingEngine.onRecipeParametersChanged(true);
     }
 
     public void drainTopLiquid() {
@@ -748,7 +643,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             clientNeedToUpdate = true;
 
-            onRecipeParametersChanged(true);
+            cookingEngine.onRecipeParametersChanged(true);
         }
     }
 
@@ -849,6 +744,11 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
         return total;
     }
 
+    @Override
+    public FluidStack getFluidStack() {
+        return getTopFluidStack();
+    }
+
     public FluidStack getTopFluidStack() {
         if (fluids[FLUID_TOP_LAYER] != null) {
             return fluids[FLUID_TOP_LAYER];
@@ -867,7 +767,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
         heatLevel = CookingHeatLevel.NONE;
 
         // Cancel recipe progress
-        recipeProgress = null;
+        cookingEngine.cancelRecipeProgress();
 
         if (fluids[FLUID_BEFORE_SEPARATION] != null) {
             // When block is broken - that is picked up -
@@ -882,33 +782,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         clientNeedToUpdate = true;
 
-        onRecipeParametersChanged(false);
-    }
-
-    private void onRecipeParametersChanged(boolean cancelRecipe) {
-        Bids.LOG.debug("Recipe parameters changed - recipe cancellation: " + cancelRecipe);
-
-        isCachedRecipeValid = false;
-
-        // By default, recipes can pause when parameters change
-        // unless a change occurred that cancels the recipe
-        if (cancelRecipe) {
-            recipeCanPauseWhenParametersChange = false;
-        }
-
-        // Handle the recipe progress after delay
-        recipeHandleTimer.delay(RECIPE_HANDLE_INTERVAL_AFTER_PARAMETER_CHANGE);
-    }
-
-    private void cancelRecipeProgress() {
-        isCachedRecipeValid = false;
-
-        if (recipeProgress != null) {
-            recipeProgress = null;
-            // Sync data with the client
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-            clientNeedToUpdate = true;
-        }
+        cookingEngine.onRecipeParametersChanged(false);
     }
 
     private void remixSeparatedFluids() {
@@ -921,531 +795,57 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
         fluids[FLUID_BEFORE_SEPARATION] = null;
     }
 
-    private void handleRecipeProgress() {
-        boolean update = false;
-
-        CookingRecipe recipe = getCachedRecipe();
-
-        if (recipeProgress == null) {
-            // No recipe is in progress
-            // see if we can start one
-            if (recipe != null) {
-                String displayText = CookingRecipeHelper.getRecipeOutputDisplayText(recipe, createRecipeTemplate());
-                String hashString = CookingRecipeHelper.getRecipeHashString(recipe);
-                int totalRuns = calculateTotalRecipeRuns(recipe);
-
-                recipeProgress = new CookingRecipeProgress(displayText, hashString, totalRuns);
-                update = true;
-
-                Bids.LOG.debug("Recipe progress started: " + recipeProgress.getOutputHashString());
-            }
+    @Override
+    public void onItemChanged(ItemStack output) {
+        if (output == null) {
+            // When input item is consumed, apply any accumulated accessory damage
+            applyAccessoryDamage();
         }
 
-        if (recipeProgress != null) {
-            // A recipe is in progress
-            // see if the progress matches the current recipe
-            if (recipe != null &&
-                recipeProgress.getTotalRuns() == calculateTotalRecipeRuns(recipe) &&
-                recipeProgress.getOutputHashString().equals(CookingRecipeHelper.getRecipeHashString(recipe))) {
-                // Resume paused recipe if it has been paused
-                if (recipeProgress.isProgressPaused()) {
-                    Bids.LOG.debug("Recipe progress resumed: " + recipeProgress.getOutputHashString());
+        storage[SLOT_INPUT] = output;
 
-                    recipeProgress.setProgressPaused(false);
-
-                    update = true;
-                }
-
-                int lastProgressRounded = recipeProgress.getProgressRounded();
-
-                // Determine how much progress is made
-                long totalRecipeTicks = (long) Math.ceil(recipe.getTime() * (recipe.isFixedTime() ? 1 : recipeProgress.getTotalRuns()));
-
-                Bids.LOG.debug("runs: " + recipeProgress.getTotalRuns());
-                Bids.LOG.debug("totalRecipeTicks: " + totalRecipeTicks);
-
-                if (totalRecipeTicks > 0) {
-                    long lastUpdateTicks = recipeProgress.getLastUpdateTicks();
-                    long elapsedTicks = TFC_Time.getTotalTicks() - lastUpdateTicks;
-                    float progress = (float) elapsedTicks / totalRecipeTicks;
-                    float heatAdjustedProgress = adjustProgressForHeat(recipe, getHeatLevel(), progress);
-                    recipeProgress.addProgress(heatAdjustedProgress);
-                } else {
-                    // For recipe without time the progress is completed immediately
-                    recipeProgress.addProgress(1f);
-                }
-
-                if (recipeProgress.getProgress() == 1f) {
-                    Bids.LOG.debug("Recipe progress completed: " + recipeProgress.getOutputHashString());
-
-                    handleRecipeOutput(recipe, createRecipeTemplate());
-
-                    recipeProgress = null;
-
-                    // Update the cached recipe that may be invalid after completion
-                    isCachedRecipeValid = false;
-                    recipe = getCachedRecipe();
-
-                    update = true;
-                } else {
-                    Bids.LOG.debug("Recipe progress updated: " + recipeProgress.getOutputHashString() + " - " + recipeProgress.getProgress());
-
-                    // If output changes for any reason, update the display text
-                    String displayText = CookingRecipeHelper.getRecipeOutputDisplayText(recipe, createRecipeTemplate());
-                    recipeProgress.setOutputDisplayText(displayText);
-
-                    // Only send update to the client when the rounded progress changes
-                    if (lastProgressRounded != recipeProgress.getProgressRounded()) {
-                        update = true;
-                    }
-                }
-            } else {
-                // When the recipe in progress does not match because
-                // sometimes the progress can be paused, depending on the kind of changes
-                // This prevents progress being lost, when heat changes or lid is manipulated,
-                // when substantial progress has been made
-                // Substantial progress means the recipe has run for a certain amount of time
-                // This allows melting tallow to be cancelled even when almost done
-                if (recipeCanPauseWhenParametersChange && TFC_Time.getTotalTicks() - recipeProgress.getStartTicks() > 500) {
-                    if (!recipeProgress.isProgressPaused()) {
-                        Bids.LOG.debug("Recipe progress paused: " + recipeProgress.getOutputHashString());
-
-                        recipeProgress.setProgressPaused(true);
-
-                        update = true;
-                    }
-                } else {
-                    Bids.LOG.debug("Recipe progress cancelled: " + recipeProgress.getOutputHashString());
-
-                    recipeProgress = null;
-
-                    update = true;
-                }
-            }
-        }
-
-        if (update) {
-            // Sync data with the client
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-            clientNeedToUpdate = true;
-        }
-
-        // By default, pause recipe unless explicitly stated otherwise
-        recipeCanPauseWhenParametersChange = true;
-    }
-
-    private void handleRecipeOutput(CookingRecipe recipe, CookingRecipeInputTemplate template) {
-        int runs = calculateTotalRecipeRuns(recipe);
-
-        CookingRecipeCraftingResult result = recipe.getCraftingResult(template);
-        if (result.getOutputItemStack() != null) {
-            // When the recipe has output item stack,
-            // any input stack is always replaced with the output item stack
-            storage[SLOT_INPUT] = result.getOutputItemStack().copy();
-            if (storage[SLOT_INPUT].getItem() instanceof ItemFoodTFC) {
-                // Multiply the weight for foodstuff
-                float weight = Food.getWeight(storage[SLOT_INPUT]);
-                Food.setWeight(storage[SLOT_INPUT], weight * runs);
-                // Delay the start of decay of crafted food items
-                Food.setDecayTimer(storage[SLOT_INPUT], (int)TFC_Time.getTotalHours() + 1);
-            } else {
-                // Multiply the stack size for non foodstuff
-                storage[SLOT_INPUT].stackSize *= runs;
-            }
-        } else if (recipe.getInputItemStack() != null) {
-            // Otherwise consume appropriate size of the input item stack
-            // or food weight
-            if (recipe.getInputItemStack().getItem() instanceof ItemFoodTFC) {
-                float availableWeight = Food.getWeight(storage[SLOT_INPUT]);
-                float consumedWeight = Food.getWeight(recipe.getInputItemStack()) * runs;
-
-                Bids.LOG.debug("availableWeight: " + availableWeight);
-                Bids.LOG.debug("consumedWeight: " + consumedWeight);
-
-                float remainingWeight = availableWeight - consumedWeight;
-                if (remainingWeight > 0) {
-                    Food.setWeight(storage[SLOT_INPUT], remainingWeight);
-                } else {
-                    storage[SLOT_INPUT].stackSize = 0;
-                }
-            } else {
-                int consumedStackSize = recipe.getInputItemStack().stackSize * runs;
-
-                Bids.LOG.debug("availableStackSize: " + storage[SLOT_INPUT].stackSize);
-                Bids.LOG.debug("consumedStackSize: " + consumedStackSize);
-
-                storage[SLOT_INPUT].stackSize -= consumedStackSize;
-            }
-
-            if (storage[SLOT_INPUT].stackSize < 0) {
-                Bids.LOG.warn("Recipe consumed more items than available");
-                storage[SLOT_INPUT].stackSize = 0;
-            }
-
-            if (storage[SLOT_INPUT].stackSize == 0) {
-                storage[SLOT_INPUT] = null;
-
-                // When input item is consumed, apply any accumulated accessory damage
-                applyAccessoryDamage();
-            }
-        }
-
-        if (result.getOutputFluidStack() != null) {
-            // When the recipe has output fluid stack
-            // any input fluid stack is always replaced
-            // or merged with existing liquid
-            if (hasFluid() && !hasTopLayerFluid() && recipe.getInputFluidStack() == null) {
-                fluids[FLUID_PRIMARY].amount += result.getOutputFluidStack().amount * runs;
-            } else {
-                FluidStack originalFluid = fluids[FLUID_PRIMARY];
-
-                fluids[FLUID_PRIMARY] = result.getOutputFluidStack().copy();
-
-                if (recipe.getInputFluidStack() != null && recipe.getSecondaryInputFluidStack() != null) {
-                    // For fluid mixing
-                    // the volume of both input liquids is considered rather than number of runs
-                    // to handle tolerance
-                    int inputAmount = recipe.getInputFluidStack().amount + recipe.getSecondaryInputFluidStack().amount;
-                    int outputAmount = recipe.getOutputFluidStack().amount;
-
-                    // Always 1 for lossless and gain-less fluid mixing
-                    float inputOutputRatio = (float)inputAmount / outputAmount;
-
-                    int actualInputAmount = template.getInputFluidStack().amount + template.getSecondaryInputFluidStack().amount;
-                    float actualOutputAmount = actualInputAmount / inputOutputRatio;
-
-                    fluids[FLUID_PRIMARY].amount = Math.round(actualOutputAmount);
-                } else {
-                    fluids[FLUID_PRIMARY].amount *= runs;
-                }
-
-                // When two liquids are created, the secondary one goes to the top
-                if (result.getSecondaryOutputFluidStack() != null) {
-                    fluids[FLUID_TOP_LAYER] = result.getSecondaryOutputFluidStack().copy();
-                    fluids[FLUID_TOP_LAYER].amount *= runs;
-
-                    // Remember the input fluid to allow remixing
-                    fluids[FLUID_BEFORE_SEPARATION] = originalFluid;
-                }
-            }
-        } else if (recipe.getInputFluidStack() != null) {
-            // Otherwise consume appropriate amount of the input fluid stack
-            int consumedAmount = recipe.getInputFluidStack().amount * runs;
-
-            Bids.LOG.debug("availableAmount: " + fluids[FLUID_PRIMARY].amount);
-            Bids.LOG.debug("consumedAmount: " + consumedAmount);
-
-            fluids[FLUID_PRIMARY].amount -= consumedAmount;
-
-            if (fluids[FLUID_PRIMARY].amount < 0) {
-                Bids.LOG.warn("Recipe consumed more fluid than available");
-                fluids[FLUID_PRIMARY].amount = 0;
-            }
-
-            if (fluids[FLUID_PRIMARY].amount == 0) {
-                fluids[FLUID_PRIMARY] = null;
-            }
-        }
-    }
-
-    private float adjustProgressForHeat(CookingRecipe recipe, CookingHeatLevel heatLevel, float progress) {
-        if (recipe.getMinHeatLevel() == null || recipe.getMinHeatLevel() == CookingHeatLevel.NONE) {
-            return progress;
-        }
-
-        switch (heatLevel) {
-            case LOW:
-                return progress * 0.6f;
-
-            case MEDIUM:
-                return progress * 1.2f;
-
-            case HIGH:
-                return progress * 1.8f;
-        }
-
-        return 0;
-    }
-
-    private int calculateTotalRecipeRuns(CookingRecipe recipe) {
-        // Melting recipes (solid input changes and liquid output) are processed one set of ingredients at a time
-        // Total time is one run of the recipe
-        if (recipe.getInputItemStack() != null && recipe.getOutputItemStack() == null
-            && recipe.getOutputFluidStack() != null && recipe.getInputFluidStack() == null) {
-            // Except when input item is food with weight
-            // then the amount of runs is given by the weight of the recipe input and the actual input weight
-            if (recipe.getInputItemStack().getItem() instanceof ItemFoodTFC) {
-                int inputFoodRuns = getRunsForInputFood(recipe);
-                int outputFluidRunsToFit = getOutputFluidRunsToFit(recipe);
-                return Math.min(inputFoodRuns, outputFluidRunsToFit);
-            } else {
-                return 1;
-            }
-        }
-
-        // Total recipe time depends on both the solid and liquid input
-        if (recipe.getInputItemStack() != null && recipe.getInputFluidStack() != null) {
-            int itemRuns = getRunsForInputItemStack(recipe);
-            int fluidRuns = getRunsForInputFluidStack(recipe);
-
-            // If recipe also has fluid output, ensure enough items
-            if (recipe.getOutputFluidStack() != null && itemRuns < fluidRuns) {
-                Bids.LOG.debug("Not enough items for recipe");
-                return 0;
-            }
-
-            // If recipe also has input output, ensure enough liquid
-            if (recipe.getOutputItemStack() != null && fluidRuns < itemRuns) {
-                Bids.LOG.debug("Not enough fluid for recipe");
-                return 0;
-            }
-
-            return Math.min(itemRuns, fluidRuns);
-        }
-
-        // Total recipe time depends on the input item stack size
-        if (recipe.getInputItemStack() != null) {
-            return getRunsForInputItemStack(recipe);
-        }
-
-        // Total recipe time depends on the input fluid amount
-        if (recipe.getInputFluidStack() != null) {
-            return getRunsForInputFluidStack(recipe);
-        }
-
-        // Making things out of thin air?
-        return 1;
-    }
-
-    private int getOutputFluidRunsToFit(CookingRecipe recipe) {
-        if (!hasTopLayerFluid() && !hasFluid() || getTopFluidStack().isFluidEqual(recipe.getOutputFluidStack())) {
-            int totalAmountToFit = getMaxFluidVolume() - getTotalLiquidVolume();
-            return (int)Math.floor((float)totalAmountToFit / recipe.getOutputFluidStack().amount);
-        } else {
-            // Not compatible fluids present
-            return 0;
-        }
-    }
-
-    private int getRunsForInputFood(CookingRecipe recipe) {
-        float recipeInputWeight = Food.getWeight(recipe.getInputItemStack());
-        float actualInputWeight = Food.getWeight(getInputItemStack()) - Math.max(Food.getDecay(getInputItemStack()), 0);
-        return (int)Math.ceil(actualInputWeight / recipeInputWeight);
-    }
-
-    private int getRunsForInputFluidStack(CookingRecipe recipe) {
-        int recipeAmount = recipe.getInputFluidStack().amount;
-        int actualInputAmount = getTotalLiquidVolume();
-        return (int)Math.floor((float)actualInputAmount / recipeAmount);
-    }
-
-    private int getRunsForInputItemStack(CookingRecipe recipe) {
-        if (getInputItemStack().getItem() instanceof ItemFoodTFC) {
-            float recipeInputStackWeight = Food.getWeight(recipe.getInputItemStack());
-            float actualInputStackWeight = Food.getWeight(getInputItemStack());
-            return (int) Math.floor(actualInputStackWeight / recipeInputStackWeight);
-        } else {
-            int recipeStackSize = recipe.getInputItemStack().stackSize;
-            int actualInputStackSize = getInputItemStack().stackSize;
-            return (int) Math.floor((float) actualInputStackSize / recipeStackSize);
-        }
-    }
-
-    private void handleInputItemTicking() {
-        if (getInputItemStack() != null && isCookableFoodItemStack(getInputItemStack())) {
-            boolean lastCooked = Food.isCooked(getInputItemStack());
-            int lastCookedLevel = CookingHelper.getItemStackCookedLevel(getInputItemStack());
-            int requiredFluidAmount = CookingHelper.calculateRequiredCookingFluidAmount(Food.getWeight(getInputItemStack()), hasSteamingMesh(), lastCookedLevel);
-
-            // Cooking requires heat, input fluid (valid and sufficient amount), and lid when steaming
-            // and cooking level cannot exceed the maximum
-            boolean canCook = getHeatLevel() != CookingHeatLevel.NONE &&
-                hasFluid() && !hasTopLayerFluid() &&
-                CookingHelper.isValidCookingFluid(getPrimaryFluidStack(), hasSteamingMesh()) &&
-                getPrimaryFluidStack().amount >= requiredFluidAmount &&
-                (!hasSteamingMesh() || hasLid()) &&
-                lastCookedLevel < getMaxCookedLevel(getInputItemStack());
-
-            // Cooking down requires no heat
-            boolean canCoolDown = getHeatLevel() == CookingHeatLevel.NONE;
-
-            if (canCook) {
-                handleItemStackHeating(getInputItemStack());
-            } else if (canCoolDown) {
-                handleItemStackCooling(getInputItemStack());
-            }
-
-            TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, canCook);
-
-            if (canCook) {
-                if (tryToMorphInputItem()) {
-                    // Cook boiled or steamed item again
-                    TFC_Core.handleItemTicking(this, worldObj, xCoord, yCoord, zCoord, true);
-                }
-            }
-
-            // Make sure item has not decayed or burned
-            if (hasInputItem()) {
-                if (lastCooked != Food.isCooked(getInputItemStack())) {
-                    // When the food is cooked for the first time alter the taste
-                    CookingHelper.setInputStackCookedNBT(getInputItemStack(), getPrimaryFluidStack(), hasSteamingMesh());
-                }
-
-                if (canCook && lastCookedLevel != CookingHelper.getItemStackCookedLevel(getInputItemStack())) {
-                    // Whenever the cooked level is raised some liquid is consumed
-                    fluids[FLUID_PRIMARY].amount -= requiredFluidAmount;
-                    if (fluids[FLUID_PRIMARY].amount == 0) {
-                        fluids[FLUID_PRIMARY] = null;
-                    }
-
-                    // When steaming, the steaming mesh is damaged proportionally to the amount of liquid consumed
-                    if (hasSteamingMesh()) {
-                        Bids.LOG.debug("accessoryDamage: " + accessoryDamage);
-                        accessoryDamage += requiredFluidAmount / 100;
-                        Bids.LOG.debug("accessoryDamage (after): " + accessoryDamage);
-                    }
-
-                    Bids.LOG.debug("Consumed input liquid amount: " + requiredFluidAmount);
-
-                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                    clientNeedToUpdate = true;
-                }
-            }
-        }
-    }
-
-    private boolean tryToMorphInputItem() {
-        HeatIndex hi = HeatRegistry.getInstance().findMatchingIndex(getInputItemStack());
-        if (hi instanceof BidsFoodHeatIndex) {
-            BidsFoodHeatIndex bidsFoodHeatIndex = (BidsFoodHeatIndex) hi;
-
-            float temp = TFC_ItemHeat.getTemp(getInputItemStack());
-            if (temp > bidsFoodHeatIndex.meltTemp) {
-                if (!hasSteamingMesh() && bidsFoodHeatIndex.hasBoilingOutput()) {
-                    morphInputItemStackInto(bidsFoodHeatIndex.getBoilingOutput(getInputItemStack()));
-
-                    // Boiling adds weight due to water absorption
-                    if (getInputItemStack().getItem() instanceof ItemFoodTFC) {
-                        float weight = Food.getWeight(getInputItemStack());
-                        float newWeight = Math.min(160f, weight * 1.2f);
-                        Food.setWeight(getInputItemStack(), newWeight);
-                    }
-
-                    return true;
-                }
-
-                if (hasSteamingMesh() && bidsFoodHeatIndex.hasSteamingOutput()) {
-                    morphInputItemStackInto(bidsFoodHeatIndex.getSteamingOutput(getInputItemStack()));
-
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private void morphInputItemStackInto(ItemStack targetItemStack) {
-        storage[SLOT_INPUT] = targetItemStack;
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        markDirty();
+
         clientNeedToUpdate = true;
     }
 
-    private int getMaxCookedLevel(ItemStack itemStack) {
-        int cookedTempIndex = ((ItemFoodTFC) itemStack.getItem()).cookTempIndex;
-        if (getHeatLevel() == CookingHeatLevel.LOW || hasSteamingMesh()) {
-            // Cooking with low heat or steaming - Medium / Light
-            return cookedTempIndex == 0 ? 3 : 2;
+    @Override
+    public void onFluidChanged(FluidStack output, FluidStack secondaryOutput) {
+        if (output != null && secondaryOutput != null) {
+            // When two liquids are created, the secondary one goes to the top
+            // Remember the input fluid to allow remixing
+            fluids[FLUID_BEFORE_SEPARATION] = fluids[FLUID_PRIMARY];
+            fluids[FLUID_PRIMARY] = output;
+            fluids[FLUID_TOP_LAYER] = secondaryOutput;
         } else {
-            // Cooking with medium or high heat (not steaming) - Well done / Medium
-            return cookedTempIndex == 0 ? 5 : 3;
+            fluids[FLUID_PRIMARY] = output;
         }
+
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        markDirty();
+
+        clientNeedToUpdate = true;
     }
 
-    private boolean isCookableFoodItemStack(ItemStack itemStack) {
-        // Only allow cooking food items with heat index
-        HeatIndex hi = HeatRegistry.getInstance().findMatchingIndex(itemStack);
-        if (itemStack.getItem() instanceof ItemFoodTFC
-            && itemStack.getItem() instanceof ICookableFood
-            && hi != null) {
-
-            // Check heat registry to ensure there is no output or meltTemp lower than 160
-            // The assumption is that the output is for baking (cooking directly in the fire), such as bread
-            // which should not be possible with boiling or steaming in a cooking pot
-            // Therefore food that turns into another item when cooked, cannot be boiled
-            // Grain based food can still be cooked, such pasta, as long as it's the same item
-            // See weed can be cooked, even though it turns into soda ash
-            // because cooking pot cannot reach the temperate at which it burns
-            return !hi.hasOutput() || hi.meltTemp > 150;
-        }
-
-        return false;
-    }
-
-    private void handleItemStackCooling(ItemStack itemStack) {
-        float temp = TFC_ItemHeat.getTemp(itemStack);
-        if (temp == 0) {
-            temp = TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord);
-        }
-
-        int cookedTempIndex = ((ItemFoodTFC) itemStack.getItem()).cookTempIndex;
-        float cookedTemp = Food.globalCookTemps[cookedTempIndex];
-        float targetTemp = TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord);
-
-        if (Math.abs(targetTemp - temp) < cookedTemp) {
-            // Jump to target at a threshold
-            temp = targetTemp;
-        } else {
-            // Cool down fast in a liquid that is cooling down too
-            float bonus = 10f;
-            if (targetTemp > temp) {
-                temp += (TFC_ItemHeat.getTempIncrease(itemStack, targetTemp) * ITEM_TICK_INTERVAL * bonus);
-                temp = Math.min(targetTemp, temp);
-            } else {
-                temp -= (TFC_ItemHeat.getTempDecrease(itemStack, targetTemp) * ITEM_TICK_INTERVAL * bonus);
-                temp = Math.max(targetTemp, temp);
+    private void handleInputItemTicking() {
+        CookingFoodTickerResult result = cookingFoodTicker.tick(getInputItemStack(), getFluidStack(), heatLevel, hasSteamingMesh(), hasLid(), !hasTopLayerFluid());
+        if (result.updated) {
+            if (fluids[FLUID_PRIMARY].amount == 0) {
+                fluids[FLUID_PRIMARY] = null;
             }
+
+            // When steaming, the steaming mesh takes 1 damage
+            if (hasSteamingMesh()) {
+                accessoryDamage += 1;
+                Bids.LOG.debug("accessoryDamage: " + accessoryDamage);
+            }
+
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            markDirty();
+
+            clientNeedToUpdate = true;
         }
-
-        TFC_ItemHeat.setTemp(itemStack, temp, true);
-    }
-
-    private void handleItemStackHeating(ItemStack itemStack) {
-        float temp = TFC_ItemHeat.getTemp(itemStack);
-        if (temp == 0) {
-            temp = TFC_Climate.getHeightAdjustedTemp(worldObj, xCoord, yCoord, zCoord);
-        }
-
-        float targetTemp = getTargetTemp();
-
-        // Steaming takes longer
-        if (hasSteamingMesh()) {
-            targetTemp *= 0.75;
-        }
-
-        // Cooking a large stack of food with LOW heat level will still take a while though
-        float bonus = 1 + (1 - Food.getWeight(itemStack) / Global.FOOD_MAX_WEIGHT) * 2;
-
-        if (targetTemp > temp) {
-            temp += (TFC_ItemHeat.getTempIncrease(itemStack, targetTemp) * ITEM_TICK_INTERVAL * bonus);
-        } else {
-            temp -= (TFC_ItemHeat.getTempDecrease(itemStack, targetTemp) * ITEM_TICK_INTERVAL);
-        }
-
-        TFC_ItemHeat.setTemp(itemStack, temp, true);
-    }
-
-    private float getTargetTemp() {
-        switch (getHeatLevel()) {
-            case HIGH:
-                return 400;
-            case MEDIUM:
-                return 300;
-            case LOW:
-                return 250;
-        }
-
-        return 0;
     }
 
     @SideOnly(Side.CLIENT)
@@ -1481,8 +881,10 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
                 }
             }
 
-            if (recipeHandleTimer.tick()) {
-                handleRecipeProgress();
+            if (cookingEngine.update()) {
+                // Sync data with the client
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                markDirty();
             }
 
             if (itemTickTimer.tick()) {
@@ -1565,11 +967,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
             tag.setTag("fluids", fluidTagList);
         }
 
-        if (recipeProgress != null) {
-            NBTTagCompound progressTag = new NBTTagCompound();
-            recipeProgress.writeToNBT(progressTag);
-            tag.setTag("progress", progressTag);
-        }
+        cookingEngine.writeDataToNBT(tag);
     }
 
     public void readDataFromNBT(NBTTagCompound tag) {
@@ -1614,12 +1012,7 @@ public class TileEntityCookingPot extends TileEntity implements PacketHandler<Si
             }
         }
 
-        if (tag.hasKey("progress")) {
-            NBTTagCompound progressTag = tag.getCompoundTag("progress");
-            recipeProgress = CookingRecipeProgress.readFromNBT(progressTag);
-        } else {
-            recipeProgress = null;
-        }
+        cookingEngine.readDataFromNBT(tag);
     }
 
     @Override

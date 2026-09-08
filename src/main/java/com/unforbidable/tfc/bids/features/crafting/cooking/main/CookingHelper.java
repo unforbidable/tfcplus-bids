@@ -2,6 +2,9 @@ package com.unforbidable.tfc.bids.features.crafting.cooking.main;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.HeatIndex;
+import com.dunk.tfc.api.HeatRegistry;
+import com.dunk.tfc.api.Interfaces.ICookableFood;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingOreRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
@@ -11,6 +14,7 @@ import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -135,6 +139,65 @@ public class CookingHelper {
         }
 
         return null;
+    }
+
+    public static ItemStack doDrainAmount(ItemStack itemStack, int requiredAmount) {
+        int drainedAmount = 0;
+        ItemStack drainedItemStack = itemStack;
+        while (drainedAmount < requiredAmount && FluidContainerRegistry.isFilledContainer(drainedItemStack)) {
+            FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(drainedItemStack);
+
+            int availableAmount = fluidStack.amount;
+            drainedItemStack = FluidContainerRegistry.drainFluidContainer(drainedItemStack);
+            drainedAmount += availableAmount;
+        }
+
+        return drainedItemStack;
+    }
+
+    public static int canDrainAmount(ItemStack itemStack, int requiredAmount) {
+        int drainedAmount = 0;
+        int tolerance = FluidContainerRegistry.getContainerCapacity(itemStack) / 2;
+        ItemStack drainedItemStack = itemStack;
+        FluidStack originalFluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
+        while (drainedAmount + tolerance < requiredAmount && FluidContainerRegistry.isFilledContainer(drainedItemStack)) {
+            FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(drainedItemStack);
+            // Ensure the fluid is still the same
+            if (!originalFluidStack.isFluidEqual(fluidStack)) {
+                break;
+            }
+
+            int availableAmount = fluidStack.amount;
+            drainedItemStack = FluidContainerRegistry.drainFluidContainer(drainedItemStack);
+            drainedAmount += availableAmount;
+        }
+
+        // Ensure the exact amount was drained
+        if (drainedAmount <= requiredAmount + tolerance) {
+            return drainedAmount;
+        } else {
+            return 0;
+        }
+    }
+
+    public static boolean isCookableFoodItemStack(ItemStack itemStack) {
+        // Only allow cooking food items with heat index
+        HeatIndex hi = HeatRegistry.getInstance().findMatchingIndex(itemStack);
+        if (itemStack.getItem() instanceof ItemFoodTFC
+            && itemStack.getItem() instanceof ICookableFood
+            && hi != null) {
+
+            // Check heat registry to ensure there is no output or meltTemp lower than 160
+            // The assumption is that the output is for baking (cooking directly in the fire), such as bread
+            // which should not be possible with boiling or steaming in a cooking pot
+            // Therefore food that turns into another item when cooked, cannot be boiled
+            // Grain based food can still be cooked, such pasta, as long as it's the same item
+            // See weed can be cooked, even though it turns into soda ash
+            // because cooking pot cannot reach the temperate at which it burns
+            return !hi.hasOutput() || hi.meltTemp > 150;
+        }
+
+        return false;
     }
 
 }
