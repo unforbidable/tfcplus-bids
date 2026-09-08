@@ -6,7 +6,6 @@ import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Events.ItemCookEvent;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFC_ItemHeat;
-import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.meta.HeatingStoneMeta;
 import com.unforbidable.tfc.bids.api.meta.StoneMeta;
@@ -50,14 +49,8 @@ public class HeatingStoneEventHandler {
                             int fortune = Math.min(3, event.fortuneLevel + rockTypeAffinity);
 
                             if (event.world.rand.nextInt(10 - fortune * 3) == 0) {
-                                // Higher elevation gravel blocks are more likely to drop heating stone that is already cured
-                                int curedFortune = Math.min(8, Math.max(0, (event.y - Global.SEALEVEL - 6) / 4));
-                                int meta = event.world.rand.nextInt(10 - curedFortune) == 0 ? HeatingStoneMeta.CURED : HeatingStoneMeta.FRESH;
-
-                                Bids.LOG.info("{}, {} -> {}", event.y, curedFortune, meta);
-
                                 // Replace the dropped gravel block item stack
-                                ItemStack newDrop = new ItemStack(BidsItems.heatingStone, 1, meta);
+                                ItemStack newDrop = new ItemStack(BidsItems.heatingStone, 1, HeatingStoneMeta.COLD);
                                 event.drops.set(i, newDrop);
                             }
                         }

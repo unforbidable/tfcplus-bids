@@ -22,7 +22,7 @@ public class HeatingStone extends Feature {
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.item(ItemNames.HEATING_STONE, ItemHeatingStone::new)
-            .meta("Fresh", "Cured", "Hot");
+            .meta("Cold", "Hot");
     }
 
     @Override
@@ -30,16 +30,8 @@ public class HeatingStone extends Feature {
         setup.event()
             .handler(new HeatingStoneEventHandler());
 
-        setup.registry(DryingSurfaceRegistry.recipes)
-            .add((DryingSurfaceRecipe) DryingSurfaceRecipe.builder()
-                .consumes(new ItemStack(BidsItems.heatingStone, 1, HeatingStoneMeta.FRESH))
-                .produces(new ItemStack(BidsItems.heatingStone, 1, HeatingStoneMeta.CURED))
-                .dry()
-                .hours(20)
-                .build());
-
         setup.registry(TfcRegistry.Heat.values)
-            .add(HeatValue.add(new ItemStack(BidsItems.heatingStone, 1, HeatingStoneMeta.CURED), 0.5f, 480,
+            .add(HeatValue.add(new ItemStack(BidsItems.heatingStone, 1, HeatingStoneMeta.COLD), 0.5f, 480,
                 new ItemStack(BidsItems.heatingStone, 1, HeatingStoneMeta.HOT)))
             .add(HeatValue.add(new ItemStack(BidsItems.heatingStone, 1, HeatingStoneMeta.HOT), 1f, 1480, null));
     }

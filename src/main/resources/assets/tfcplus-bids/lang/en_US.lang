@@ -1477,8 +1477,7 @@ item.Flint Knife Blade.name=Flint Knife Blade
 
 item.Flint Knife.name=Flint Knife
 
-item.Heating Stone.Fresh.name=Damp Heating Stone
-item.Heating Stone.Cured.name=Heating Stone
+item.Heating Stone.Cold.name=Heating Stone
 item.Heating Stone.Hot.name=Glowing Hot Stone
 
 entity.PegLeashKnot.name=Leash Knot

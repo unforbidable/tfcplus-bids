@@ -23,8 +23,7 @@ public class ItemHeatingStone extends ItemCommonTerraMisc {
     @SuppressWarnings("unchecked")
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
-        list.add(new ItemStack(this, 1, HeatingStoneMeta.FRESH));
-        list.add(new ItemStack(this, 1, HeatingStoneMeta.CURED));
+        list.add(new ItemStack(this, 1, HeatingStoneMeta.COLD));
 
         ItemStack is = new ItemStack(this, 1, HeatingStoneMeta.HOT);
         TFC_ItemHeat.setTemp(is, 500);
@@ -37,7 +36,7 @@ public class ItemHeatingStone extends ItemCommonTerraMisc {
         // Only called when item not being heated up
         // Can happen during heating, when the fuel is "reloading"
         if (is.hasTagCompound() && (is.getItemDamage() == HeatingStoneMeta.HOT ||
-            is.getItemDamage() == HeatingStoneMeta.CURED && TFC_ItemHeat.hasTemp(is))) {
+            is.getItemDamage() == HeatingStoneMeta.COLD && TFC_ItemHeat.hasTemp(is))) {
             // Cannot use TFC the hold temperature system
             // but doing something similar
             if (is.stackTagCompound.hasKey("lastHeated")) {
@@ -71,10 +70,10 @@ public class ItemHeatingStone extends ItemCommonTerraMisc {
 
             if (is.getItemDamage() == HeatingStoneMeta.HOT && TFC_ItemHeat.getTemp(is) < 480) {
                 // No longer glowing hot but continue cooling
-                is.setItemDamage(HeatingStoneMeta.CURED);
+                is.setItemDamage(HeatingStoneMeta.COLD);
             }
 
-            if (is.getItemDamage() == HeatingStoneMeta.CURED && TFC_ItemHeat.getTemp(is) < 80) {
+            if (is.getItemDamage() == HeatingStoneMeta.COLD && TFC_ItemHeat.getTemp(is) < 80) {
                 // If only "Warming" temp, try to remove
                 TFC_ItemHeat.removeTempTag(is);
             }
@@ -87,7 +86,7 @@ public class ItemHeatingStone extends ItemCommonTerraMisc {
     @Override
     public boolean onEntityItemUpdate(EntityItem entityItem) {
         if (entityItem.getEntityItem().getItemDamage() == HeatingStoneMeta.HOT ||
-            entityItem.getEntityItem().getItemDamage() == HeatingStoneMeta.CURED && TFC_ItemHeat.hasTemp(entityItem.getEntityItem())) {
+            entityItem.getEntityItem().getItemDamage() == HeatingStoneMeta.COLD && TFC_ItemHeat.hasTemp(entityItem.getEntityItem())) {
             if (entityItem.age > 20) {
                 int xCoord = (int) Math.floor(entityItem.posX);
                 int yCoord = (int) Math.floor(entityItem.posY);
@@ -100,7 +99,7 @@ public class ItemHeatingStone extends ItemCommonTerraMisc {
 
                 if (atWetBlock) {
                     // CURED stone changed to CURED as well, as a quick way to remove temperature and any other tags
-                    entityItem.setEntityItemStack(new ItemStack(BidsItems.heatingStone, 1, HeatingStoneMeta.CURED));
+                    entityItem.setEntityItemStack(new ItemStack(BidsItems.heatingStone, 1, HeatingStoneMeta.COLD));
                 }
             }
         }
