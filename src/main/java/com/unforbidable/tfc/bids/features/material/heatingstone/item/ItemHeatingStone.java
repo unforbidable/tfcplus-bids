@@ -7,9 +7,12 @@ import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.meta.HeatingStoneMeta;
 import com.unforbidable.tfc.bids.common.item.ItemCommonTerraMisc;
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import java.util.List;
 
 public class ItemHeatingStone extends ItemCommonTerraMisc {
 
@@ -17,12 +20,24 @@ public class ItemHeatingStone extends ItemCommonTerraMisc {
         setTextureFolder("rocks");
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public void getSubItems(Item item, CreativeTabs tabs, List list) {
+        list.add(new ItemStack(this, 1, HeatingStoneMeta.FRESH));
+        list.add(new ItemStack(this, 1, HeatingStoneMeta.CURED));
+
+        ItemStack is = new ItemStack(this, 1, HeatingStoneMeta.HOT);
+        TFC_ItemHeat.setTemp(is, 500);
+        is.stackTagCompound.setLong("heatedUntilStone", TFC_Time.getTotalTicks() + 2000);
+        list.add(is);
+    }
+
     @Override
     public boolean onUpdate(ItemStack is, World world, int x, int y, int z) {
         // Only called when item not being heated up
         // Can happen during heating, when the fuel is "reloading"
-        if (is.getItemDamage() == HeatingStoneMeta.HOT ||
-            is.getItemDamage() == HeatingStoneMeta.CURED && TFC_ItemHeat.hasTemp(is)) {
+        if (is.hasTagCompound() && (is.getItemDamage() == HeatingStoneMeta.HOT ||
+            is.getItemDamage() == HeatingStoneMeta.CURED && TFC_ItemHeat.hasTemp(is))) {
             // Cannot use TFC the hold temperature system
             // but doing something similar
             if (is.stackTagCompound.hasKey("lastHeated")) {
