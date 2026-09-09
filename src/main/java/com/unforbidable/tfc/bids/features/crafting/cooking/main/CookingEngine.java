@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingHost;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
+import com.unforbidable.tfc.bids.common.fluid.FluidDilutable;
 import com.unforbidable.tfc.bids.util.Timer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -295,11 +296,17 @@ public class CookingEngine {
 
         // Total recipe time depends on both the solid and liquid input
         if (recipe.getInputItemStack() != null && recipe.getInputFluidStack() != null) {
+            // Unless the recipe has an output liquid that is dilutable with the input liquid
+            // Then any excess liquid is used to dilute the output liquid
+            boolean dilutable = recipe.getOutputFluidStack() != null && recipe.getOutputFluidStack().getFluid() instanceof FluidDilutable &&
+                ((FluidDilutable) recipe.getOutputFluidStack().getFluid()).dilutingFluid == recipe.getInputFluidStack().getFluid();
+
             int itemRuns = getRunsForInputItemStack(recipe);
             int fluidRuns = getRunsForInputFluidStack(recipe);
 
             // If recipe also has fluid output, ensure enough items
-            if (recipe.getOutputFluidStack() != null && itemRuns < fluidRuns) {
+            // unless dilutable
+            if (recipe.getOutputFluidStack() != null && itemRuns < fluidRuns && !dilutable) {
                 Bids.LOG.debug("Not enough items for recipe");
                 return 0;
             }
@@ -347,6 +354,17 @@ public class CookingEngine {
     private int getRunsForInputFluidStack(CookingRecipe recipe) {
         int recipeAmount = recipe.getInputFluidStack().amount;
         int actualInputAmount = host.getTotalLiquidVolume();
+
+        // If the input stack is diluted, we only care for the undiluted amount
+        if (host.getFluidStack().getFluid() instanceof FluidDilutable) {
+            actualInputAmount = ((FluidDilutable) host.getFluidStack().getFluid()).getUndilutedAmount(host.getFluidStack());
+        }
+
+        // Should the output stack be diluted, consider minimal diluting amount of the fluid, and save it to be used to dilute the output
+        if (recipe.getOutputFluidStack() != null && recipe.getOutputFluidStack().getFluid() instanceof FluidDilutable) {
+            actualInputAmount -= ((FluidDilutable) recipe.getOutputFluidStack().getFluid()).minDilution;
+        }
+
         return (int)Math.floor((float)actualInputAmount / recipeAmount);
     }
 
@@ -420,7 +438,7 @@ public class CookingEngine {
         if (result.getOutputFluidStack() != null) {
             // When the recipe has output fluid stack
             // any input fluid stack is always replaced
-            // or merged with existing liquid
+            // or added to the existing liquid
             if (host.getFluidStack() != null && recipe.getInputFluidStack() == null) {
                 FluidStack output = host.getFluidStack().copy();
                 output.amount += result.getOutputFluidStack().amount * runs;
@@ -444,6 +462,20 @@ public class CookingEngine {
                     output.amount = Math.round(actualOutputAmount);
                 } else {
                     output.amount *= runs;
+                }
+
+                if (recipe.getOutputFluidStack().getFluid() instanceof FluidDilutable) {
+                    // Recipes with dilutable output fluid allow excess input fluid
+                    // to dilute the output liquid
+                    // Find out the amount if any
+                    float actuallyConsumedInputAmount = recipe.getInputFluidStack().amount * runs;
+                    float remainingInputAmount = template.getInputFluidStack().amount - actuallyConsumedInputAmount;
+                    float remainingInputAmountRatio = remainingInputAmount / actuallyConsumedInputAmount;
+                    // Ignore tiny amount, possibly from decay
+                    if (remainingInputAmountRatio > 0.1f) {
+                        output.amount += remainingInputAmount;
+                        ((FluidDilutable)output.getFluid()).setDilutingAmount(output, Math.round(remainingInputAmount));
+                    }
                 }
 
                 if (result.getSecondaryOutputFluidStack() != null) {
@@ -472,6 +504,27 @@ public class CookingEngine {
             }
 
             if (output.amount > 0) {
+                // If the entirety of the undiluted portion of dilutable fluid is consumed
+                // or if the undiluted amount isn't enough to complete a single recipe run
+                // the output becomes the remaining diluting fluid
+                if (output.getFluid() instanceof FluidDilutable) {
+                    FluidDilutable dilutable = (FluidDilutable) output.getFluid();
+                    int dilutingAmount = dilutable.getDilutingAmount(output);
+                    int undilutedAmount = output.amount - dilutingAmount;
+
+                    if (undilutedAmount < 0) {
+                        Bids.LOG.warn("Recipe consumed more undiluted fluid than available");
+                    }
+
+                    int oneRunAmount = recipe.getInputFluidStack().amount;
+                    if (undilutedAmount == 0 || undilutedAmount < oneRunAmount) {
+                        output = dilutable.getDilutingFluid(output);
+                    }
+                }
+
+                // Floor the amount to a sip volume
+                output.amount = (int)Math.floor(output.amount / 50f) * 50;
+
                 host.onFluidChanged(output, null);
             } else {
                 host.onFluidChanged(null, null);

@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.api.features.cooking;
 
+import com.unforbidable.tfc.bids.common.fluid.FluidDilutable;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import java.util.Collections;
@@ -111,7 +112,10 @@ public class CookingRecipe {
     }
 
     protected boolean areFluidsEqual(FluidStack one, FluidStack other) {
-        if (one.getFluid() instanceof CookingMixtureFluid) {
+        if (one.getFluid() instanceof FluidDilutable) {
+            // Ignore NBT (diluting fluid)
+            return one.getFluid() == other.getFluid();
+        } else if (one.getFluid() instanceof CookingMixtureFluid) {
             // For cooking fluids we use custom method
             return ((CookingMixtureFluid) one.getFluid()).areCookingFluidsEqual(one, other);
         } else {
