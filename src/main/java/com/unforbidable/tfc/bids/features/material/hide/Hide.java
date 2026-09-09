@@ -57,9 +57,12 @@ public class Hide extends Feature {
                 new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.VERY_SMALL_HIDE), "itemKnife")
             .action(damageTool("itemKnife"));
 
+        setup.ores("itemHideBagUndamaged")
+            .add(new ItemStack(TFCItems.hideBag, 1, 0));
+
         setup.recipes()
             .addShapeless(new ItemStack(BidsItems.moreHide, 16, MoreHideMeta.HIDE_SCRAP),
-                new ItemStack(TFCItems.hideBag, 1, 0), "itemKnife")
+                "itemHideBagUndamaged", "itemKnife")
             .action(damageTool("itemKnife"));
 
         for (int i = 1; i <= TFCItems.hideBag.getMaxDamage(); i++) {
