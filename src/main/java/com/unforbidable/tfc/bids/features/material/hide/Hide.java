@@ -21,7 +21,7 @@ public class Hide extends Feature {
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.item(ItemNames.MORE_HIDE, ItemMoreRawhide::new)
-            .meta("VerySmallHide");
+            .meta("VerySmallHide", "HideScrap", "RuinedHideScrap");
     }
 
     @Override
@@ -50,6 +50,11 @@ public class Hide extends Feature {
 
         setup.recipes().addShapeless(new ItemStack(BidsItems.moreHide, 2, MoreHideMeta.VERY_SMALL_HIDE),
                 new ItemStack(TFCItems.hide, 1, 0), "itemKnife")
+            .action(damageTool("itemKnife"));
+
+        setup.recipes()
+            .addShapeless(new ItemStack(BidsItems.moreHide, 8, MoreHideMeta.HIDE_SCRAP),
+                new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.VERY_SMALL_HIDE), "itemKnife")
             .action(damageTool("itemKnife"));
     }
 

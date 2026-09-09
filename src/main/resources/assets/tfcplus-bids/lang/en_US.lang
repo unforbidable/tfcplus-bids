@@ -1277,6 +1277,8 @@ item.Coat Back.Leather.name=Leather Coat Back
 item.Leather Coat.name=Leather Coat
 
 item.More Hide.VerySmallHide.name=Very Small Raw Hide
+item.More Hide.HideScrap.name=Raw Hide Scrap
+item.More Hide.RuinedHideScrap.name=Ruined Raw Hide Scrap
 
 item.Hide Vessel.Empty.name=Wet Hide Bag
 item.Hide Vessel.Filled.name=Hide Vessel
