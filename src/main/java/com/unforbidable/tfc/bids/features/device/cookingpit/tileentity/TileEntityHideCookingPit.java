@@ -5,7 +5,6 @@ import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import com.unforbidable.tfc.bids.features.utility.hidevessel.main.HideVesselHelper;
-import com.unforbidable.tfc.bids.features.utility.hidevessel.main.nbt.HideVesselTag;
 import com.unforbidable.tfc.bids.util.Timer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -49,7 +48,7 @@ public class TileEntityHideCookingPit extends TileEntityCookingPit {
         super.onBreakBlock();
 
         ItemStack is = new ItemStack(BidsItems.hideVessel);
-        HideVesselTag.of(is).setDamage((int) Math.ceil(hideVesselDamage));
+        is.setItemDamage((int) Math.ceil(hideVesselDamage));
 
         EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, is);
         worldObj.spawnEntityInWorld(ei);
@@ -84,7 +83,7 @@ public class TileEntityHideCookingPit extends TileEntityCookingPit {
     protected void onHeatingStoneConsumed() {
         super.onHeatingStoneConsumed();
 
-        hideVesselDamage += HideVesselHelper.HIDE_VESSEL_HEAD_DAMAGE_PER_STONE;
+        hideVesselDamage += HideVesselHelper.HIDE_VESSEL_DAMAGE_PER_STONE;
     }
 
     @Override

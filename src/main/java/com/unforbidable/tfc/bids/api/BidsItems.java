@@ -245,6 +245,7 @@ public class BidsItems {
 
     // Hide Vessel
     public static final Item hideVessel = item(ItemNames.HIDE_VESSEL);
+    public static final Item hideVesselFreshWater = item(ItemNames.HIDE_VESSEL_FRESH_WATER);
 
     // Pemmican
     public static final Item pemmican = item(ItemNames.PEMMICAN);

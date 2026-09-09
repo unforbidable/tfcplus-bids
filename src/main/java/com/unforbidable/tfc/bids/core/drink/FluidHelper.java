@@ -95,7 +95,7 @@ public class FluidHelper {
         return null;
     }
 
-    private static int getTotalContainerCapacity(ItemStack is, Fluid fluid) {
+    public static int getTotalContainerCapacity(ItemStack is, Fluid fluid) {
         FluidStack fs = new FluidStack(fluid, 1);
         int total = 0;
 

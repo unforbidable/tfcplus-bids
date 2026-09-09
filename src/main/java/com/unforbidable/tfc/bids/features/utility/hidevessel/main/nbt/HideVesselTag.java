@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.features.utility.hidevessel.main.nbt;
 import com.unforbidable.tfc.bids.util.nbt.ItemTag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.FluidStack;
 
 public class HideVesselTag extends ItemTag {
 
@@ -13,33 +12,6 @@ public class HideVesselTag extends ItemTag {
 
     public static HideVesselTag of(ItemStack itemStack) {
         return new HideVesselTag(itemStack);
-    }
-
-    public boolean hasFluid() {
-        return stack().hasTagCompound() && stack().getTagCompound().hasKey("fluid");
-    }
-
-    public FluidStack getFluid() {
-        return hasFluid() ? FluidStack.loadFluidStackFromNBT(stack().getTagCompound().getCompoundTag("fluid")) : null;
-    }
-
-    public HideVesselTag setFluid(FluidStack fluidStack) {
-        if (!stack().hasTagCompound()) {
-            stack().setTagCompound(new NBTTagCompound());
-        }
-        NBTTagCompound fluidTag = new NBTTagCompound();
-        fluidStack.writeToNBT(fluidTag);
-        stack().getTagCompound().setTag("fluid", fluidTag);
-
-        return this;
-    }
-
-    public HideVesselTag clearFluid() {
-        if (hasFluid()) {
-            stack().getTagCompound().removeTag("fluid");
-        }
-
-        return this;
     }
 
     public long getLastDamageTicks() {
@@ -55,17 +27,14 @@ public class HideVesselTag extends ItemTag {
         return this;
     }
 
-    public int getDamage() {
-        return stack().hasTagCompound() ? stack().getTagCompound().getInteger("damage") : 0;
-    }
+    public void clearLastDamageTicks() {
+        if (stack().hasTagCompound()) {
+            stack().getTagCompound().removeTag("lastDamageTicks");
 
-    public HideVesselTag setDamage(int damage) {
-        if (!stack().hasTagCompound()) {
-            stack().setTagCompound(new NBTTagCompound());
+            if (stack().getTagCompound().hasNoTags()) {
+                stack().setTagCompound(null);
+            }
         }
-        stack().getTagCompound().setInteger("damage", damage);
-
-        return this;
     }
 
 }

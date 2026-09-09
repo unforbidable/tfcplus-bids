@@ -1281,8 +1281,8 @@ item.More Hide.HideScrap.name=Raw Hide Scrap
 item.More Hide.RuinedHideScrap.name=Ruined Raw Hide Scrap
 
 item.Hide Vessel.Empty.name=Wet Hide Bag
-item.Hide Vessel.Filled.name=Hide Vessel
 item.Hide Vessel.Ruined.name=Ruined Hide Bag
+item.Hide Vessel.FreshWater.name=Hide Vessel (Fresh Water)
 
 item.More Powder.Sawdust.name=Sawdust
 

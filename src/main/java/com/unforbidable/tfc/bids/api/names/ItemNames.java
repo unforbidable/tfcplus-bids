@@ -125,6 +125,7 @@ public interface ItemNames {
 
     // Hide Vessel
     String HIDE_VESSEL = "Hide Vessel";
+    String HIDE_VESSEL_FRESH_WATER = "Hide Vessel.FreshWater";
 
     // Textile
     String BARK_FIBER = "Bark Fibre";
