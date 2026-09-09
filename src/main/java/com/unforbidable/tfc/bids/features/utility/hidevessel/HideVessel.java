@@ -4,6 +4,7 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.meta.HideVesselMeta;
+import com.unforbidable.tfc.bids.api.meta.MoreHideMeta;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -15,6 +16,8 @@ import com.unforbidable.tfc.bids.features.utility.hidevessel.eventhandler.HideVe
 import com.unforbidable.tfc.bids.features.utility.hidevessel.item.ItemHideVessel;
 import com.unforbidable.tfc.bids.features.utility.hidevessel.main.HideVesselHelper;
 import net.minecraft.item.ItemStack;
+
+import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
 
 @FeatureName("hideVessel")
 public class HideVessel extends Feature {
@@ -37,6 +40,16 @@ public class HideVessel extends Feature {
                 .dry()
                 .hours(2)
                 .build());
+
+        setup.recipes()
+            .addShapeless(new ItemStack(BidsItems.moreHide, 16, MoreHideMeta.RUINED_HIDE_SCRAP),
+                new ItemStack(BidsItems.hideVessel, 1, HideVesselMeta.RUINED), "itemKnife")
+            .action(damageTool("itemKnife"));
+
+        setup.recipes()
+            .addShapeless(new ItemStack(BidsItems.moreHide, 16, MoreHideMeta.RUINED_HIDE_SCRAP),
+                new ItemStack(BidsItems.hideVessel, 1, HideVesselMeta.EMPTY), "itemKnife")
+            .action(damageTool("itemKnife"));
     }
 
 }
