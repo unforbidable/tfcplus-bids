@@ -12,6 +12,7 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.fluid.FluidCommon;
+import com.unforbidable.tfc.bids.common.fluid.FluidDilutable;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -34,7 +35,7 @@ public class Tallow extends Feature {
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
         init.fluid(FluidNames.TALLOW, FluidCommon::new)
             .color(0xf0db3a);
-        init.fluid(FluidNames.TALLOW_WATER, FluidCommon::new)
+        init.fluid(FluidNames.TALLOW_WATER, FluidDilutable::new)
             .color(0xf0db3a);
 
         init.item(ItemNames.SUET, () -> new ItemExtraFood(EnumFoodGroup.Protein, 0, 0, 0, 0, 30))
