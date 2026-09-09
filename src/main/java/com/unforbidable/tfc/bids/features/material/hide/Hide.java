@@ -56,6 +56,21 @@ public class Hide extends Feature {
             .addShapeless(new ItemStack(BidsItems.moreHide, 8, MoreHideMeta.HIDE_SCRAP),
                 new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.VERY_SMALL_HIDE), "itemKnife")
             .action(damageTool("itemKnife"));
+
+        setup.recipes()
+            .addShapeless(new ItemStack(BidsItems.moreHide, 16, MoreHideMeta.HIDE_SCRAP),
+                new ItemStack(TFCItems.hideBag, 1, 0), "itemKnife")
+            .action(damageTool("itemKnife"));
+
+        for (int i = 1; i < TFCItems.hideBag.getMaxDamage(); i++) {
+            setup.ores("itemHideBagDamaged")
+                .add(new ItemStack(TFCItems.hideBag, 1, i));
+        }
+
+        setup.recipes()
+            .addShapeless(new ItemStack(BidsItems.moreHide, 16, MoreHideMeta.RUINED_HIDE_SCRAP),
+                "itemHideBagDamaged", "itemKnife")
+            .action(damageTool("itemKnife"));
     }
 
 }
