@@ -62,7 +62,7 @@ public class Hide extends Feature {
                 new ItemStack(TFCItems.hideBag, 1, 0), "itemKnife")
             .action(damageTool("itemKnife"));
 
-        for (int i = 1; i < TFCItems.hideBag.getMaxDamage(); i++) {
+        for (int i = 1; i <= TFCItems.hideBag.getMaxDamage(); i++) {
             setup.ores("itemHideBagDamaged")
                 .add(new ItemStack(TFCItems.hideBag, 1, i));
         }
