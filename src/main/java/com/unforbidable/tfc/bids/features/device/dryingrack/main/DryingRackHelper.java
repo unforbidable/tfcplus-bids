@@ -78,7 +78,7 @@ public class DryingRackHelper {
             // 2 cordage per each non-solid wall attachment
             // 2 cordage per each section if span is longer than 1
             int firstExtraCordage = world.isSideSolid(x, y, z, side) ? 0 : 2;
-            int lastExtraCordage = world.isSideSolid(x + side.offsetX * span, y, z + side.offsetZ * span, side.getOpposite()) ? 0 : 2;
+            int lastExtraCordage = world.isSideSolid(x + side.offsetX * (span + 1), y, z + side.offsetZ * (span + 1), side.getOpposite()) ? 0 : 2;
             int totalCordageAmount = firstExtraCordage + lastExtraCordage + (span > 1 ? span * 2 : 0);
 
             ItemStack cordage = totalCordageAmount > 0 ? findCordageOnPlayer(player, totalCordageAmount) : null;
