@@ -60,7 +60,7 @@ public class RenderDryingPegs implements ISimpleBlockRenderingHandler {
                 double minX = 0.5 - thickHalf;
                 double minZ = 1.05;
                 double maxX = 0.5 + thickHalf;
-                double maxZ = 1.4;
+                double maxZ = 1.5;
                 rotationRenderer.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
                 rotationRenderer.renderStandardBlock(cordageBlock, x, y, z);
             }
