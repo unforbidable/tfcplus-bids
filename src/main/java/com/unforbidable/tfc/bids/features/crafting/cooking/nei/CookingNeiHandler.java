@@ -320,6 +320,8 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
         info.addCatalyst(BidsBlocks.cookingPot, 1);
         info.addCatalyst(BidsBlocks.cookingPotLid, 1);
         info.addCatalyst(BidsItems.steamingMeshCloth);
+        info.addCatalyst(BidsItems.hideVesselFreshWater);
+        info.addCatalyst(BidsItems.heatingStone);
         return info;
     }
 
