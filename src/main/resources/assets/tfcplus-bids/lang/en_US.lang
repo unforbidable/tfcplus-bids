@@ -1627,6 +1627,7 @@ gui.Help.Skin.Stage.Dried=Use a §eSmoothing Bone §7on a surface to burnish it.
 gui.Help.Skin.Stage.Worked=Dry on a §eDrying Frame §7again to finish making leather.
 gui.Help.HideVessel.Filled=Rawhide vessel filled with water will break down.
 gui.Help.HideVessel.Empty=Hang on a §eDrying Rack §7and dry it completely to stop breakage.
+gui.Help.HideBag=Or sneak and §bRight Click §7liquid block to fill.
 gui.Units=Units
 gui.Empty=Empty
 gui.Solidified=Solidified

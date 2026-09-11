@@ -17,8 +17,10 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
 import net.minecraftforge.fluids.Fluid;
@@ -97,12 +99,27 @@ public class HideVesselEventHandler {
 
     @SuppressWarnings("unchecked")
     private void checkContainerForHideVessel(Container inventory) {
-        for (Slot slot : (List<Slot>)inventory.inventorySlots) {
+        for (Slot slot : (List<Slot>) inventory.inventorySlots) {
             ItemStack itemStack = slot.getStack();
             if (itemStack != null && itemStack.getItem() instanceof ItemHideVesselFluid) {
                 if (itemStack.getItemDamage() == HideVesselMeta.RUINED) {
                     slot.putStack(new ItemStack(BidsItems.hideVessel, 1, HideVesselMeta.RUINED));
                     Bids.LOG.debug("Fluid lost!");
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onItemTooltip(ItemTooltipEvent event) {
+        if (event.itemStack.getItem() == TFCItems.hideBag) {
+            // Add hint about filling hide bag with fluid
+            String originalHint = StatCollector.translateToLocal("gui.PotteryBase.Inst0");
+            for (int i = 0; i < event.toolTip.size(); i++) {
+                if (originalHint.equals(event.toolTip.get(i))) {
+                    event.toolTip.add(i + 1, StatCollector.translateToLocal("gui.Help.HideBag"));
+
+                    break;
                 }
             }
         }
