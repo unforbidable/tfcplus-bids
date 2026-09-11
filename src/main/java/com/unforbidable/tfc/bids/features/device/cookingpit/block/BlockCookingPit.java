@@ -132,7 +132,7 @@ public abstract class BlockCookingPit extends BlockContainer {
                                     EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         TileEntityCookingPit te = (TileEntityCookingPit) world.getTileEntity(x, y, z);
         ItemStack equippedItem = player.getCurrentEquippedItem();
-        boolean rimHit = (hitX < 8 / 32f || hitX > 24 / 32f) && (hitZ < 8 / 32f || hitZ > 24 / 32f);
+        boolean rimHit = hitX < 8 / 32f || hitX > 24 / 32f || hitZ < 8 / 32f || hitZ > 24 / 32f;
 
         if (!world.isRemote) {
             if (equippedItem == null) {
