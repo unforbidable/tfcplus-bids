@@ -61,8 +61,9 @@ public class CookingEngine {
 
             CookingRecipeInputTemplate template = host.createRecipeTemplate();
             for (CookingRecipe recipe : CookingHelper.getRecipesMatchingTemplate(template)) {
-                // Ensure the recipe can run - checking the amounts
-                if (calculateTotalRecipeRuns(recipe) > 0) {
+                // Ensure host allows the recipe and
+                // that the recipe can run - checking the amounts
+                if (host.isValidCookingRecipe(recipe) && calculateTotalRecipeRuns(recipe) > 0) {
                     cachedRecipe = recipe;
                     break;
                 }

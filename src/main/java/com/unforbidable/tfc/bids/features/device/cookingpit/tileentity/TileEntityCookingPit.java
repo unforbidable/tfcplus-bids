@@ -137,6 +137,11 @@ public abstract class TileEntityCookingPit extends TileEntity implements Cooking
             getHeatLevel(), getHeatLevel());
     }
 
+    @Override
+    public boolean isValidCookingRecipe(CookingRecipe recipe) {
+        return true;
+    }
+
     public CookingRecipeProgress getRecipeProgress() {
         return cookingEngine.getRecipeProgress();
     }
@@ -353,7 +358,7 @@ public abstract class TileEntityCookingPit extends TileEntity implements Cooking
     }
 
     public boolean addLiquid(FluidStack inFS) {
-        if (inFS != null && isValidFluid(inFS)) {
+        if (inFS != null && isValidFluidStack(inFS)) {
             if (fluids[FLUID_PRIMARY] == null) {
                 // Cannot fill up from larger amount
                 if (inFS.amount > getMaxFluidVolume()) {
@@ -384,7 +389,7 @@ public abstract class TileEntityCookingPit extends TileEntity implements Cooking
         return false;
     }
 
-    protected abstract boolean isValidFluid(FluidStack fluid);
+    protected abstract boolean isValidFluidStack(FluidStack fluid);
 
     public ItemStack addLiquid(ItemStack is) {
         if (is == null || is.stackSize > 1) {

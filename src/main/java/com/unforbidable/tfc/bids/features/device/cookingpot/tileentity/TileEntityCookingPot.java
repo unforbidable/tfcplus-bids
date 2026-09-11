@@ -411,6 +411,11 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
             getHeatLevel(), getHeatLevel());
     }
 
+    @Override
+    public boolean isValidCookingRecipe(CookingRecipe recipe) {
+        return true;
+    }
+
     private FluidStack getFluidStackFromItemStack(ItemStack itemStack) {
         if (itemStack != null && itemStack.getItem() instanceof IFluidContainerItem) {
             IFluidContainerItem container = (IFluidContainerItem) itemStack.getItem();

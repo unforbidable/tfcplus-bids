@@ -4,11 +4,14 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
+import com.unforbidable.tfc.bids.common.fluid.FluidDilutable;
 import com.unforbidable.tfc.bids.features.utility.hidevessel.main.HideVesselHelper;
 import com.unforbidable.tfc.bids.util.Timer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 public class TileEntityHideCookingPit extends TileEntityCookingPit {
@@ -39,8 +42,31 @@ public class TileEntityHideCookingPit extends TileEntityCookingPit {
     }
 
     @Override
-    protected boolean isValidFluid(FluidStack fluid) {
-        return fluid.getFluid() == TFCFluids.FRESHWATER;
+    protected boolean isValidFluidStack(FluidStack fluidStack) {
+        return isValidFluid(fluidStack.getFluid()) ||
+            fluidStack.getFluid() instanceof FluidDilutable && isValidFluid(((FluidDilutable) fluidStack.getFluid()).dilutingFluid);
+    }
+
+    private boolean isValidFluid(Fluid fluid) {
+        return fluid == TFCFluids.FRESHWATER;
+    }
+
+    @Override
+    public boolean isValidCookingRecipe(CookingRecipe recipe) {
+        if (!super.isValidCookingRecipe(recipe)) {
+            return false;
+        }
+
+        // 1) Fluid separation is not supported
+        // 2) Must have input fluid that is valid OR none
+        // 3) Must have output fluid that is valid OR input fluid must be diluted (with a valid fluid - see 2)
+        // This allows melting snow, which does not need fresh water to start
+        // Snow can melt slowly without fire (assuming cooking pit is in cave or some tent, near a firepit, something)
+        // To melt with boiling stones, without a fluid no heating is possible, so it just works out
+        return recipe.getSecondaryOutputFluidStack() == null &&
+            (recipe.getInputFluidStack() == null || isValidFluidStack(recipe.getInputFluidStack())) &&
+            (recipe.getOutputFluidStack() != null && isValidFluidStack(recipe.getOutputFluidStack()) ||
+                recipe.getOutputFluidStack() == null && recipe.getInputFluidStack().getFluid() instanceof FluidDilutable);
     }
 
     @Override
