@@ -247,12 +247,12 @@ public abstract class TileEntityCookingPit extends TileEntity implements Cooking
 
         // Cancel any recipe that may be in progress
         // otherwise instant recipes returning output immediately will not work
-        //cancelRecipeProgress();
+        cookingEngine.cancelRecipeProgress();
 
         // Process recipe right after item is placed
         // and remember the input item
         ItemStack before = storage[SLOT_INPUT].copy();
-        //handleRecipeProgress();
+        cookingEngine.handleRecipeProgress();
 
         if (hasInputItem() && !ItemStack.areItemStacksEqual(before, storage[SLOT_INPUT])) {
             // If the input item changed
