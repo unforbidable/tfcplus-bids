@@ -5,6 +5,7 @@ import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepIngredient;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepRecipe;
+import com.unforbidable.tfc.bids.api.meta.MoreHideMeta;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -54,8 +55,9 @@ public class Pemmican extends Feature {
             .allow("foodGrainGround")
             .allow("foodGrainCrushed")
             .build();
+
         CookingPrepRegistry.recipes.add(new CookingPrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.pemmican)),
-            CookingPrepIngredient.from(BidsItems.moreHide, 0).toSpec(),
+            CookingPrepIngredient.from(BidsItems.moreHide, MoreHideMeta.VERY_SMALL_HIDE).toSpec(),
             leanMeat.toSpec(40, true), tallow.toSpec(20, true), berriesAndFlours.toSpec(10), berriesAndFlours.toSpec(10)));
     }
 
