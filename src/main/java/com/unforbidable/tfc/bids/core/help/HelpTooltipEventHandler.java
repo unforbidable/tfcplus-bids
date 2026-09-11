@@ -18,13 +18,19 @@ public class HelpTooltipEventHandler {
 
         if (!hints.isEmpty()) {
             if (ItemHelper.showShiftInformation()) {
-                event.toolTip.add(StatCollector.translateToLocal("gui.Help"));
+                String help = StatCollector.translateToLocal("gui.Help");
+                if (!event.toolTip.contains(help)) {
+                    event.toolTip.add(help);
+                }
 
                 for (String hint : hints) {
                     event.toolTip.add(StatCollector.translateToLocal("gui.Help." + hint));
                 }
             } else {
-                event.toolTip.add(StatCollector.translateToLocal("gui.ShowHelp"));
+                String showHelp = StatCollector.translateToLocal("gui.ShowHelp");
+                if (!event.toolTip.contains(showHelp)) {
+                    event.toolTip.add(showHelp);
+                }
             }
         }
     }
