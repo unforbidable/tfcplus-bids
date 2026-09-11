@@ -152,13 +152,20 @@ public class CookingPrepRecipe implements SimpleRecipeMatcher<ItemStack[]> {
         float totalAvailableWeight = 0;
 
         for (ItemStack consumedIngredient : consumedIngredients) {
-            if (consumedIngredient != null) {
+            if (doesIngredientContribute(consumedIngredient)) {
                 float weight = Food.getWeight(consumedIngredient);
                 totalAvailableWeight += weight;
             }
         }
 
         return totalAvailableWeight;
+    }
+
+    private boolean doesIngredientContribute(ItemStack consumedIngredient) {
+        // Even though consumed, only actual food contributes to weight and taste
+        // This leaves out any food-like item, such as skins
+        return consumedIngredient != null &&
+            consumedIngredient.getItem() instanceof IFood && ((IFood) consumedIngredient.getItem()).getFoodGroup() != null;
     }
 
     private boolean areIngredientsUnique(ItemStack[] ingredients) {
@@ -213,7 +220,7 @@ public class CookingPrepRecipe implements SimpleRecipeMatcher<ItemStack[]> {
         int[] tastes = { 0, 0, 0, 0, 0 };
         float totalWeight = getTotalConsumedIngredientWeight(consumedIngredients);
         for (int i = 0; i < INGREDIENT_COUNT; i++) {
-            if (consumedIngredients[i] != null) {
+            if (doesIngredientContribute(consumedIngredients[i])) {
                 float weightMult = this.ingredients[i].getWeight() / totalWeight;
                 tastes[0] += ((IFood)consumedIngredients[i].getItem()).getTasteSweet(consumedIngredients[i]) * weightMult;
                 tastes[1] += ((IFood)consumedIngredients[i].getItem()).getTasteSour(consumedIngredients[i]) * weightMult;
@@ -233,7 +240,7 @@ public class CookingPrepRecipe implements SimpleRecipeMatcher<ItemStack[]> {
         for (int i = 0; i < INGREDIENT_COUNT; i++) {
             // Skipping slots with no weight
             if (this.ingredients[i].getWeight() > 0) {
-                if (consumedIngredients[i] != null) {
+                if (doesIngredientContribute(consumedIngredients[i])) {
                     fg[j] = ((IFood) consumedIngredients[i].getItem()).getFoodID();
                 } else {
                     fg[j] = -1;
