@@ -404,9 +404,6 @@ public class TileEntityCookingPrep extends TileEntity implements IInventory, ISl
             // Set decay when the output is picked as if it was just created
             Food.setDecayTimer(itemStack, (int)TFC_Time.getTotalHours() + 1);
 
-            // Default decay rate for meals is 2x
-            Food.setDecayRate(itemStack, 2);
-
             if (player != null && itemStack.getItem() instanceof ItemMeal) {
                 int skillIncrease = getCookingSkillIncrease(itemStack);
 

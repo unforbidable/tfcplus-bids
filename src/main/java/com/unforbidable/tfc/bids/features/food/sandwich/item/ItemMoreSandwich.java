@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.food.sandwich.item;
 
 import com.dunk.tfc.Core.Player.FoodStatsTFC;
 import com.dunk.tfc.Food.ItemSandwich;
+import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.features.cookingprep.CookingPrepOutput;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -48,6 +49,7 @@ public class ItemMoreSandwich extends ItemSandwich implements CookingPrepOutput 
 
     @Override
     public void onCrafted(ItemStack is, EntityPlayer player) {
+        Food.setDecayRate(is, 2f);
     }
 
     @Override
