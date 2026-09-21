@@ -84,15 +84,15 @@ public class Flatbread extends Feature {
         setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatDoughFlatbread)),
             ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatCrushed)), "itemLargeBowlWater");
         setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyDoughFlatbread)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyFlatbread)), "itemLargeBowlWater");
+            ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyCrushed)), "itemLargeBowlWater");
         setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.oatDoughFlatbread)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.oatFlatbread)), "itemLargeBowlWater");
+            ItemFoodTFC.createTag(new ItemStack(BidsItems.oatCrushed)), "itemLargeBowlWater");
         setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeDoughFlatbread)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeFlatbread)), "itemLargeBowlWater");
+            ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeCrushed)), "itemLargeBowlWater");
         setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.riceDoughFlatbread)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.riceFlatbread)), "itemLargeBowlWater");
+            ItemFoodTFC.createTag(new ItemStack(BidsItems.riceCrushed)), "itemLargeBowlWater");
         setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealDoughFlatbread)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealFlatbread)), "itemLargeBowlWater");
+            ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealCrushed)), "itemLargeBowlWater");
 
         // unshaped dough -> flatbread dough
         setup.registry(TfcRegistry.Knapping.recipes)
