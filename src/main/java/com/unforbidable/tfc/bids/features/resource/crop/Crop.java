@@ -10,6 +10,8 @@ import com.unforbidable.tfc.bids.api.names.BlockNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
+import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
+import com.unforbidable.tfc.bids.compat.tfc.registry.values.HeatValue;
 import com.unforbidable.tfc.bids.core.chunk.ChunkRegistry;
 import com.unforbidable.tfc.bids.core.crop.BidsCropIndex;
 import com.unforbidable.tfc.bids.core.crop.CropCoastAffinity;
@@ -293,6 +295,13 @@ public class Crop extends Feature {
                 .dropsOutput(TFCItems.carrot, 30f)
                 .renders(new CropRendererTFC(CropRenderType.CROSSED_SQUARES, 0.45, 1, "Carrots"))
                 .build());
+
+        setup.registry(TfcRegistry.Heat.values)
+            .add(HeatValue.add(new ItemStack(BidsItems.seaBeet), 1, 117, null))
+            .add(HeatValue.add(new ItemStack(BidsItems.beetroot), 1, 117, null))
+            .add(HeatValue.add(new ItemStack(BidsItems.sugarBeet), 1, 117, null))
+            .add(HeatValue.add(new ItemStack(BidsItems.wildBeans), 1, 117, null))
+            .add(HeatValue.add(new ItemStack(BidsItems.broadBeans), 1, 117, null));
     }
 
 }
