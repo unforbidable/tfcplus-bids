@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.device.dryingsurface.waila;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.ItemClothing;
+import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.TFCOptions;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRecipe;
@@ -69,7 +70,13 @@ public class DryingSurfaceWailaProvider extends WailaDataProvider {
                             currenttip.add(ChatFormatting.RED + StatCollector.translateToLocal("gui.Ruined") + ": "
                                 + ChatFormatting.WHITE + output + progress);
                         } else if (dryingItem.progress < 1) {
-                            String output = DryingHelper.getItemStackInfoString(DryingHelper.getResultItem(dryingItem, recipe));
+                            ItemStack result = DryingHelper.getResultItem(dryingItem, recipe);
+                            if (recipe.isRequiresDry() && result.getItem() == dryingItem.inputItem.getItem()) {
+                                // If the same item is being dried, set dried NBT tag
+                                Food.setDried(result, Food.DRYHOURS);
+                            }
+
+                            String output = DryingHelper.getItemStackInfoString(result);
                             String progress = DryingHelper.getProgressInfoString(dryingItem.progress);
                             currenttip.add(ChatFormatting.GRAY + StatCollector.translateToLocal("gui.Output") + ": "
                                 + ChatFormatting.WHITE + output + progress);
