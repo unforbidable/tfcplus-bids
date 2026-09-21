@@ -58,11 +58,11 @@ public class Pemmican extends Feature {
 
         CookingPrepRegistry.recipes.add(new CookingPrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.pemmican)),
             CookingPrepIngredient.from(BidsItems.moreHide, MoreHideMeta.VERY_SMALL_HIDE).toSpec(),
-            leanMeat.toSpec(40, true), tallow.toSpec(20, true), berriesAndFlours.toSpec(10), berriesAndFlours.toSpec(10)));
+            tallow.toSpec(40, true), leanMeat.toSpec(20, true), berriesAndFlours.toSpec(10), berriesAndFlours.toSpec(10)));
 
         CookingPrepRegistry.recipes.add(new CookingPrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.pemmican)),
             CookingPrepIngredient.from(BidsItems.rawhide).toSpec(8),
-            leanMeat.toSpec(40, true), tallow.toSpec(20, true), berriesAndFlours.toSpec(10), berriesAndFlours.toSpec(10)));
+            tallow.toSpec(40, true), leanMeat.toSpec(20, true), berriesAndFlours.toSpec(10), berriesAndFlours.toSpec(10)));
     }
 
 }
