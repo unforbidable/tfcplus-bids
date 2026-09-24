@@ -10,6 +10,7 @@ import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
 import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
 import java.util.List;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
@@ -18,6 +19,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 public class CookingPitHelper {
@@ -60,15 +62,15 @@ public class CookingPitHelper {
         }
     }
 
-    public static boolean placeHideCookingPitAt(World world, int x, int y, int z, FluidStack fluidStack, int damage) {
+    public static boolean placeHideCookingPitAt(World world, int x, int y, int z, ItemStack itemStack, EntityPlayer player) {
         if (world.isAirBlock(x, y, z) && BidsBlocks.hideCookingPit.canBlockStay(world, x, y, z)) {
             if (!world.isRemote) {
                 world.setBlock(x, y, z, BidsBlocks.hideCookingPit, 0, 3);
                 TileEntityHideCookingPit te = (TileEntityHideCookingPit) world.getTileEntity(x, y, z);
-                te.setHideVesselDamage(damage);
+                te.setHideVesselDamage(itemStack.getItemDamage());
 
-                if (fluidStack != null) {
-                    te.addLiquid(fluidStack);
+                if (FluidContainerRegistry.isFilledContainer(itemStack)) {
+                    te.interactWithItemStack(itemStack, player);
                 }
 
                 world.markBlockForUpdate(x, y, z);

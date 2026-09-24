@@ -53,8 +53,7 @@ public class ItemHideVessel extends ItemTerra implements IBag {
                              float hitY, float hitZ) {
         if (player.isSneaking()) {
             if (side == 1) {
-                int damage = is.getItemDamage();
-                if (CookingPitHelper.placeHideCookingPitAt(world, x, y + 1, z, null, damage)) {
+                if (CookingPitHelper.placeHideCookingPitAt(world, x, y + 1, z, is, player)) {
                     is.stackSize--;
                 }
             }

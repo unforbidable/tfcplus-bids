@@ -1,20 +1,29 @@
 package com.unforbidable.tfc.bids.features.crafting.cooking.main;
 
+import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.Items.ItemBlocks.ItemBarrels;
+import com.dunk.tfc.Items.ItemBlocks.ItemLargeVessel;
 import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.Bids;
+import com.unforbidable.tfc.bids.BidsEventFactory;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingAccessory;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHost;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureFluid;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
 import com.unforbidable.tfc.bids.common.fluid.FluidDilutable;
 import com.unforbidable.tfc.bids.util.Timer;
+import com.unforbidable.tfc.bids.util.fluid.DualFluid;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
 
 public class CookingEngine {
 
@@ -225,6 +234,370 @@ public class CookingEngine {
         return 0;
     }
 
+    public boolean handleItemInteraction(ItemStack equippedItem, EntityPlayer player) {
+        return tryToPlaceItemStack(equippedItem, player) ||
+            tryToDrainItemStack(equippedItem, player) ||
+            tryToFillItemStack(equippedItem, player) ||
+            tryToHandleBarrel(equippedItem, player);
+    }
+
+    private boolean tryToPlaceItemStack(ItemStack equippedItem, EntityPlayer player) {
+        ItemStack inputItem = host.getInputItemStack();
+
+        // If there is already an input item, the items need to be able to form a stack
+        if (inputItem != null) {
+            if (inputItem.getItem() instanceof ItemFoodTFC) {
+                // Food cannot be stacked
+                return false;
+            } else if (!equippedItem.isItemEqual(inputItem) || equippedItem.getItemDamage() != inputItem.getItemDamage()) {
+                // Different items cannot be stacked
+                return false;
+            }
+        }
+
+        // For input items the stack size is determined based on the matching recipe
+        int requiredStackSize = getInputItemStackSizeForRecipe(equippedItem);
+        if (requiredStackSize == 0) {
+            // Stack size could not be determined based on the matching recipe,
+            // or it was determined as 0
+            // which means the item stack in fact cannot be placed
+            return false;
+        }
+        Bids.LOG.debug("requiredStackSize: " + requiredStackSize);
+
+        // Ensure the required stack size does not exceed max stack size
+        int checkedRequiredStackSize = Math.min(requiredStackSize, equippedItem.getMaxStackSize());
+        Bids.LOG.debug("checkedRequiredStackSize: " + checkedRequiredStackSize);
+
+        // Reduce target stack size by existing stack size
+        int existingStackSize = inputItem != null ? inputItem.stackSize : 0;
+        int targetStackSize = checkedRequiredStackSize - existingStackSize;
+        Bids.LOG.debug("targetStackSize: " + targetStackSize);
+
+        if (targetStackSize <= 0) {
+            // The target stack size is already fulfilled
+            return false;
+        }
+
+        // Consider the stack size that is available
+        int consumedStackSize = Math.min(targetStackSize, equippedItem.stackSize);
+        Bids.LOG.debug("consumedStackSize: " + consumedStackSize);
+
+        ItemStack outpuItem;
+        if (inputItem != null) {
+            outpuItem = inputItem.copy();
+            outpuItem.stackSize += consumedStackSize;
+        } else {
+            outpuItem = equippedItem.copy();
+            outpuItem.stackSize = consumedStackSize;
+        }
+
+        host.onItemChanged(outpuItem);
+
+        equippedItem.stackSize -= consumedStackSize;
+
+        Bids.LOG.debug("Placed input item: " + outpuItem.getDisplayName() + "[" + outpuItem.stackSize + "]");
+
+        // Cancel any recipe that may be in progress
+        // otherwise instant recipes returning output immediately will not work
+        cancelRecipeProgress();
+
+        // Process recipe right after item is placed
+        // and remember the input item
+        ItemStack before = host.getInputItemStack();
+
+        handleRecipeProgress();
+
+        ItemStack after = host.getInputItemStack();
+
+        if (after != null && !ItemStack.areItemStacksEqual(before, after)) {
+            // If the input item changed
+            // the recipe completed immediately
+            // so return the crafted item immediately
+            TFC_Core.giveItemToPlayer(after, player);
+
+            host.onItemChanged(null);
+
+            onRecipeParametersChanged(true);
+        }
+
+        return true;
+    }
+
+
+    private int getInputItemStackSizeForRecipe(ItemStack itemStack) {
+        if (CookingHelper.isCookableFoodItemStack(itemStack)) {
+            // Food items default to stack size of 1
+            return 1;
+        } else {
+            FluidStack fluidStack = host.getFluidStack();
+
+            // Look for all recipes matching specific input item
+            // as we don't know the final parameters for the recipes
+            // and manually ensure certain parameters such as steaming mesh and existing liquid
+            for (CookingRecipe recipe : CookingHelper.getRecipesMatchingInput(itemStack)) {
+                // Ensure accessory matches
+                if (recipe.getAccessory() != CookingAccessory.NONE) {
+                    continue;
+                }
+
+                if (recipe.getInputFluidStack() != null) {
+                    // Ensure existing liquid matches recipe input liquid
+                    if (fluidStack != null && !recipe.getInputFluidStack().isFluidEqual(fluidStack)) {
+                        continue;
+                    }
+
+                    // If recipe has secondary input liquid (e.g. fluid mixing)
+                    // those recipes are completed instantly when item containers are used
+                    if (recipe.getSecondaryInputFluidStack() != null) {
+                        continue;
+                    }
+
+                    // If the recipe has both input and output item (e.g. soaking)
+                    // we can only do one run
+                    if (recipe.getOutputItemStack() != null) {
+                        return 1;
+                    }
+
+                    // If input item is food
+                    // we take the whole stack to be processed fully or partially
+                    if (recipe.getInputItemStack().getItem() instanceof ItemFoodTFC) {
+                        return 1;
+                    }
+
+                    // Recipes with fluid input (salt + fresh water)
+                    // Stack size depends on how much input liquid is in the cooking pot
+                    // If there is no input liquid (yet) assume max volume
+                    int currentAmount = fluidStack != null ? fluidStack.amount : host.getMaxFluidVolume();
+                    float runs = (float) currentAmount / recipe.getInputFluidStack().amount;
+                    int count = (int) Math.ceil(runs);
+                    int stackSize = count * recipe.getInputItemStack().stackSize;
+
+                    Bids.LOG.debug("Determined input item stack size: " + stackSize + " for runs: " + runs + " and input amount: " + currentAmount);
+
+                    return stackSize;
+                } else if (recipe.getOutputFluidStack() != null) {
+                    // Ensure existing liquid matches recipe output liquid
+                    if (fluidStack != null && !recipe.getOutputFluidStack().isFluidEqual(fluidStack)) {
+                        continue;
+                    }
+
+                    // If the recipe has both input and output item (creating liquid and changing solid item)
+                    // we can only do one run
+                    if (recipe.getOutputItemStack() != null) {
+                        return 1;
+                    }
+
+                    // Recipes without fluid input (melting snow)
+                    // Stack size depends on how much output liquid can fit in the cooking pot
+                    // account for existing liquid
+                    int currentAmount = fluidStack != null ? fluidStack.amount : 0;
+                    int outputAmount = host.getMaxFluidVolume() - currentAmount;
+                    float runs = (float) outputAmount / recipe.getOutputFluidStack().amount;
+                    int count = (int) Math.floor(runs);
+                    int stackSize = count * recipe.getInputItemStack().stackSize;
+
+                    Bids.LOG.debug("Determined input item stack size: " + stackSize + " for runs: " + runs + " and output amount: " + outputAmount);
+
+                    return stackSize;
+                } else {
+                    // Recipes without input or output liquid (turning solid item into another solid item)
+                    // always one item
+                    return 1;
+                }
+            }
+
+            // No valid recipe found for the input item
+            return 0;
+        }
+    }
+
+    private boolean tryToDrainItemStack(ItemStack equippedItem, EntityPlayer player) {
+        if ((FluidContainerRegistry.isFilledContainer(equippedItem)
+            || equippedItem.getItem() instanceof IFluidContainerItem && ((IFluidContainerItem) equippedItem.getItem()).getFluid(equippedItem) != null)) {
+            ItemStack tmp = equippedItem.copy();
+            tmp.stackSize = 1;
+
+            ItemStack is = handleFluidAdding(tmp);
+
+            if (ItemStack.areItemStacksEqual(equippedItem, is)) {
+                // Could not add
+                return true;
+            }
+
+            equippedItem.stackSize--;
+
+            if (equippedItem.stackSize == 0) {
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+            }
+
+            if (equippedItem.stackSize == 0 && (is.getMaxStackSize() == 1 || !player.inventory.hasItemStack(is))) {
+                // put empty container in the slot you used them from.
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, is);
+            } else {
+                if (!player.inventory.addItemStackToInventory(is)) {
+                    // if the new item doesn't fit, drop it.
+                    player.dropPlayerItemWithRandomChoice(is, false);
+                }
+            }
+
+            if (player.inventoryContainer != null) {
+                // for some reason the players inventory won't update without this.
+                player.inventoryContainer.detectAndSendChanges();
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean tryToFillItemStack(ItemStack equippedItem, EntityPlayer player) {
+        if (FluidContainerRegistry.isEmptyContainer(equippedItem) || equippedItem.getItem() instanceof IFluidContainerItem) {
+            ItemStack singleStack = equippedItem.copy();
+            singleStack.stackSize = 1;
+            ItemStack fillingStack = drainFluid(singleStack);
+
+            if (ItemStack.areItemStacksEqual(equippedItem, fillingStack)) {
+                // Could not fill
+                return true;
+            }
+
+            boolean finished = false;
+            while (!finished) {
+                ItemStack copy = fillingStack.copy();
+                fillingStack = drainFluid(fillingStack);
+
+                // Keep filling up partial containers
+                finished = ItemStack.areItemStacksEqual(copy, fillingStack);
+            }
+
+            BidsEventFactory.onFillContainer(player, equippedItem, fillingStack);
+
+            equippedItem.stackSize--;
+
+            if (equippedItem.stackSize == 0) {
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+            }
+
+            if (equippedItem.stackSize == 0 && (fillingStack.getMaxStackSize() == 1 || !player.inventory.hasItemStack(fillingStack))) { // put buckets in the slot you used them from.
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, fillingStack);
+            } else {
+                if (!player.inventory.addItemStackToInventory(fillingStack))
+                    player.dropPlayerItemWithRandomChoice(fillingStack, false); // if the new item dosn't fit, drop it.
+            }
+
+            if (player.inventoryContainer != null) {
+                // for some reason the players inventory won't update without this.
+                player.inventoryContainer.detectAndSendChanges();
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean tryToHandleBarrel(ItemStack equippedItem, EntityPlayer player) {
+        if (equippedItem.getItem() instanceof ItemBarrels || equippedItem.getItem() instanceof ItemLargeVessel) {
+            Bids.LOG.debug("Cooking pot activated with barrel/large vessel: " + equippedItem.getDisplayName());
+
+            ItemStack is = equippedItem.copy();
+            is.stackSize = 1;
+
+            if (equippedItem.hasTagCompound()) {
+                if (equippedItem.getTagCompound().hasKey("fluidNBT") && !equippedItem.getTagCompound().hasKey("Items")) {
+                    boolean isNotFull = host.getFluidStack() == null || host.getFluidStack().amount < host.getMaxFluidVolume();
+                    if (isNotFull) {
+                        FluidStack fs = FluidStack.loadFluidStackFromNBT(equippedItem.getTagCompound().getCompoundTag("fluidNBT"));
+                        if (addFluid(fs)) {
+                            if (fs.amount == 0) {
+                                equippedItem.getTagCompound().removeTag("Sealed");
+                                equippedItem.getTagCompound().removeTag("fluidNBT");
+                                if (equippedItem.getTagCompound().hasNoTags())
+                                    equippedItem.setTagCompound(null);
+                            } else {
+                                fs.writeToNBT(equippedItem.getTagCompound().getCompoundTag("fluidNBT"));
+                            }
+
+                            return true;
+                        }
+                    }
+                }
+            } else {
+                if (host.getFluidStack() != null && !(host.getFluidStack().getFluid() instanceof CookingMixtureFluid)) {
+                    if (is.getItem() instanceof ItemBarrels) {
+                        FluidStack fs = host.getFluidStack();
+
+                        NBTTagCompound nbt = new NBTTagCompound();
+                        nbt.setTag("fluidNBT", fs.writeToNBT(new NBTTagCompound()));
+                        nbt.setBoolean("Sealed", true);
+                        is.setTagCompound(nbt);
+                        equippedItem.stackSize--;
+                        TFC_Core.giveItemToPlayer(is, player);
+
+                        emptyFluid();
+                    } else if (is.getItem() instanceof ItemLargeVessel) {
+                        if (is.getItemDamage() == 0) {
+                            return false;
+                        }
+
+                        FluidStack fs = host.getFluidStack();
+
+                        NBTTagCompound nbt = new NBTTagCompound();
+                        nbt.setTag("fluidNBT", fs.writeToNBT(new NBTTagCompound()));
+                        nbt.setBoolean("Sealed", true);
+                        is.setTagCompound(nbt);
+                        equippedItem.stackSize--;
+                        TFC_Core.giveItemToPlayer(is, player);
+
+                        emptyFluid();
+                    }
+
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private void emptyFluid() {
+        if (host.getFluidStack() != null) {
+            host.onFluidChanged(null, null);
+
+            onRecipeParametersChanged(true);
+        }
+    }
+
+    private ItemStack handleFluidAdding(ItemStack is) {
+        if (is == null || is.stackSize > 1) {
+            return is;
+        }
+
+        if (FluidContainerRegistry.isFilledContainer(is)) {
+            ItemStack draining = is.copy();
+            while (FluidContainerRegistry.isFilledContainer(draining)) {
+                FluidStack fs = FluidContainerRegistry.getFluidForFilledItem(draining);
+                if (addFluid(fs)) {
+                    draining = FluidContainerRegistry.drainFluidContainer(draining);
+                    Bids.LOG.debug("Draining item stack: " + draining.getDisplayName() + "[" + draining.getItemDamage() + "]");
+                } else {
+                    break;
+                }
+            }
+            return draining;
+        } else if (is.getItem() instanceof IFluidContainerItem) {
+            FluidStack isfs = ((IFluidContainerItem) is.getItem()).getFluid(is);
+            if (addFluid(isfs)) {
+                ((IFluidContainerItem) is.getItem()).drain(is, is.getMaxDamage(), true);
+                return is;
+            }
+        }
+
+        return is;
+    }
+
     public int handleFluidMixing(ItemStack itemStack) {
         if (FluidContainerRegistry.isFilledContainer(itemStack)) {
             FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
@@ -277,6 +650,101 @@ public class CookingEngine {
         }
 
         return 0;
+    }
+
+    public boolean addFluid(FluidStack inFS) {
+        if (inFS != null && host.isValidFluidStack(inFS)) {
+            FluidStack fluidStack = host.getFluidStack();
+            if (fluidStack == null) {
+                // Cannot fill up from larger amount
+                if (inFS.amount > host.getMaxFluidVolume()) {
+                    return false;
+                }
+
+                host.onFluidChanged(inFS.copy(), null);
+                inFS.amount = 0;
+            } else {
+                // check if the container would overflow or if the fluid being added does
+                // not match the contained liquid
+                if (fluidStack.amount + inFS.amount > host.getMaxFluidVolume() || !fluidStack.isFluidEqual(inFS)) {
+                    return false;
+                }
+
+                fluidStack.amount += inFS.amount;
+                host.onFluidChanged(fluidStack, null);
+
+                inFS.amount = 0;
+            }
+
+            onRecipeParametersChanged(true);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public ItemStack drainFluid(ItemStack container) {
+        if (container == null || container.stackSize > 1) {
+            return container;
+        }
+
+        if (host.getFluidStack() == null) {
+            return container;
+        }
+
+        FluidStack fluidStack = host.getFluidStack();
+
+        // Work with the primary fluid of diluted fluids
+        FluidStack primaryFluidStack = fluidStack.getFluid() instanceof FluidDilutable ?
+            DualFluid.getPrimaryFluidStack(fluidStack) : fluidStack;
+
+        if (FluidContainerRegistry.isEmptyContainer(container)) {
+            ItemStack empty = FluidContainerRegistry.fillFluidContainer(primaryFluidStack, container);
+            if (empty != null) {
+                int amount = FluidContainerRegistry.getFluidForFilledItem(empty).amount;
+                doDrainFluidAmount(amount);
+
+                return empty;
+            }
+        } else if (container.getItem() instanceof IFluidContainerItem) {
+            FluidStack isfs = ((IFluidContainerItem) container.getItem()).getFluid(container);
+            if (isfs == null || primaryFluidStack.isFluidEqual(isfs)) {
+                int amount = ((IFluidContainerItem) container.getItem()).fill(container, primaryFluidStack, true);
+                doDrainFluidAmount(amount);
+            }
+
+            return container;
+        }
+
+        return container;
+    }
+
+    private void doDrainFluidAmount(int amount) {
+        FluidStack fluidStack = host.getFluidStack();
+
+        if (fluidStack.getFluid() instanceof FluidDilutable) {
+            FluidStack primaryFluidStack = DualFluid.getPrimaryFluidStack(fluidStack);
+            if (primaryFluidStack.amount == amount) {
+                // All the primary fluid of the diluted fluid was used up
+                // so the fluid changes to the diluting fluid
+                host.onFluidChanged(DualFluid.getDilutingFluidStack(fluidStack), null);
+            } else {
+                // Otherwise just consume part of the primary fluid
+                fluidStack.amount -= amount;
+                host.onFluidChanged(fluidStack, null);
+            }
+        } else {
+            // Remove liquid from the top layer first
+            fluidStack.amount -= amount;
+            if (fluidStack.amount == 0) {
+                host.onFluidChanged(null, null);
+            } else {
+                host.onFluidChanged(fluidStack, null);
+            }
+        }
+
+        onRecipeParametersChanged(true);
     }
 
     private int calculateTotalRecipeRuns(CookingRecipe recipe) {

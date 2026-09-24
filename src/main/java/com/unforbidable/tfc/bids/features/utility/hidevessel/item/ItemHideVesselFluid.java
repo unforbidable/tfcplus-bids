@@ -49,9 +49,7 @@ public class ItemHideVesselFluid extends ItemTerra implements IBag {
                              float hitY, float hitZ) {
         if (player.isSneaking()) {
             if (side == 1) {
-                FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(is);
-                int damage = is.getItemDamage();
-                if (CookingPitHelper.placeHideCookingPitAt(world, x, y + 1, z, fluid, damage)) {
+                if (CookingPitHelper.placeHideCookingPitAt(world, x, y + 1, z, is, player)) {
                     is.stackSize--;
                 }
             }

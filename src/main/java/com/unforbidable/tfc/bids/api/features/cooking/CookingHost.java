@@ -23,4 +23,6 @@ public interface CookingHost {
 
     boolean isValidCookingRecipe(CookingRecipe recipe);
 
+    boolean isValidFluidStack(FluidStack inFS);
+
 }

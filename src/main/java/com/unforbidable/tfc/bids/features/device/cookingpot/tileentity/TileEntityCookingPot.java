@@ -416,6 +416,11 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
         return true;
     }
 
+    @Override
+    public boolean isValidFluidStack(FluidStack inFS) {
+        return true;
+    }
+
     private FluidStack getFluidStackFromItemStack(ItemStack itemStack) {
         if (itemStack != null && itemStack.getItem() instanceof IFluidContainerItem) {
             IFluidContainerItem container = (IFluidContainerItem) itemStack.getItem();
