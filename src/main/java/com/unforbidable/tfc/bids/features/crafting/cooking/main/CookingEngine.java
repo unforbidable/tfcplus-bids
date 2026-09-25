@@ -479,8 +479,11 @@ public class CookingEngine {
             ItemStack is = handleFluidAdding(tmp);
 
             if (ItemStack.areItemStacksEqual(equippedItem, is)) {
-                // Could not add
-                return true;
+                // Fluid could not be added, so let's try mixing instead
+                is = tryMixingFluids(equippedItem);
+                if (ItemStack.areItemStacksEqual(equippedItem, is)) {
+                    return true;
+                }
             }
 
             equippedItem.stackSize--;
@@ -661,16 +664,33 @@ public class CookingEngine {
         return is;
     }
 
+    public ItemStack tryMixingFluids(ItemStack itemStack) {
+        if (host.getFluidStack() != null) {
+            int drainedAmount = handleFluidMixing(itemStack);
+            if (drainedAmount > 0) {
+                ItemStack drainingItemStack = CookingHelper.doDrainAmount(itemStack, drainedAmount);
+
+                // Mixing liquids resets recipe parameters
+                onRecipeParametersChanged(true);
+
+                return drainingItemStack;
+            }
+        }
+
+        return itemStack;
+    }
+
     public int handleFluidMixing(ItemStack itemStack) {
         if (FluidContainerRegistry.isFilledContainer(itemStack)) {
             FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
 
             // Template just for mixing fluids
+            CookingRecipeInputTemplate hostTemplate = host.createRecipeTemplate();
             CookingRecipeInputTemplate template = new CookingRecipeInputTemplate(
                 host.getFluidStack(), fluidStack,
                 null,
-                null,
-                null,
+                hostTemplate.getAccessory(),
+                hostTemplate.getLidUsage(),
                 CookingHeatLevel.NONE, CookingHeatLevel.HIGH);
 
             for (CookingRecipe recipe : CookingHelper.getRecipesMatchingTemplate(template)) {
