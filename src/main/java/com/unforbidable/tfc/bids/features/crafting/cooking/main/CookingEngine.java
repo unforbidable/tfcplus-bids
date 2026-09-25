@@ -305,20 +305,20 @@ public class CookingEngine {
         int consumedStackSize = Math.min(targetStackSize, equippedItem.stackSize);
         Bids.LOG.debug("consumedStackSize: " + consumedStackSize);
 
-        ItemStack outpuItem;
+        ItemStack outputItem;
         if (inputItem != null) {
-            outpuItem = inputItem.copy();
-            outpuItem.stackSize += consumedStackSize;
+            outputItem = inputItem.copy();
+            outputItem.stackSize += consumedStackSize;
         } else {
-            outpuItem = equippedItem.copy();
-            outpuItem.stackSize = consumedStackSize;
+            outputItem = equippedItem.copy();
+            outputItem.stackSize = consumedStackSize;
         }
 
-        host.onItemChanged(outpuItem);
+        host.onItemChanged(outputItem);
 
         equippedItem.stackSize -= consumedStackSize;
 
-        Bids.LOG.debug("Placed input item: " + outpuItem.getDisplayName() + "[" + outpuItem.stackSize + "]");
+        Bids.LOG.debug("Placed input item: " + outputItem.getDisplayName() + "[" + outputItem.stackSize + "]");
 
         // Cancel any recipe that may be in progress
         // otherwise instant recipes returning output immediately will not work
