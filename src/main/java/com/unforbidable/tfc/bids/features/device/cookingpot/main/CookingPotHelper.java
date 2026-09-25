@@ -7,14 +7,12 @@ import com.unforbidable.tfc.bids.util.collision.CollisionInfo;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
 
 public class CookingPotHelper {
 
@@ -31,11 +29,11 @@ public class CookingPotHelper {
         EnumChatFormatting fluidColor = blockInfo ? EnumChatFormatting.GRAY : EnumChatFormatting.BLUE;
 
         if (tileEntityCookingPot.getTopLayerFluidStack() != null) {
-            list.add(fluidColor + getFluidInfoLine(tileEntityCookingPot.getTopLayerFluidStack()));
+            list.add(fluidColor + CookingHelper.getFluidInfoLine(tileEntityCookingPot.getTopLayerFluidStack()));
         }
 
         if (tileEntityCookingPot.getPrimaryFluidStack() != null) {
-            list.add(fluidColor + getFluidInfoLine(tileEntityCookingPot.getPrimaryFluidStack()));
+            list.add(fluidColor + CookingHelper.getFluidInfoLine(tileEntityCookingPot.getPrimaryFluidStack()));
         }
 
         if (tileEntityCookingPot.hasSteamingMesh()) {
@@ -43,7 +41,7 @@ public class CookingPotHelper {
         }
 
         if (tileEntityCookingPot.hasInputItem()) {
-            list.add(EnumChatFormatting.GOLD + getItemInfoLine(tileEntityCookingPot.getInputItemStack()));
+            list.add(EnumChatFormatting.GOLD + CookingHelper.getItemInfoLine(tileEntityCookingPot.getInputItemStack()));
         }
 
         if (blockInfo) {
@@ -61,15 +59,6 @@ public class CookingPotHelper {
                     break;
             }
         }
-    }
-
-    private static String getFluidInfoLine(FluidStack fluidStack) {
-        return fluidStack.getFluid().getLocalizedName(fluidStack) + " " + fluidStack.amount + " mB";
-    }
-
-    private static String getItemInfoLine(ItemStack itemStack) {
-        String stackSizeInfo = itemStack.stackSize > 1 ? (itemStack.stackSize + "x ") : "";
-        return stackSizeInfo + itemStack.getDisplayName();
     }
 
     public static MovingObjectPosition onCookingPotCollisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec) {
