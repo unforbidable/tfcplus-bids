@@ -33,6 +33,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
@@ -201,7 +202,7 @@ public abstract class TileEntityCookingPit extends TileEntity implements Cooking
     }
 
     @Override
-    public abstract boolean isValidFluidStack(FluidStack fluid);
+    public abstract boolean isValidFluid(Fluid fluid);
 
     @Override
     public void updateEntity() {

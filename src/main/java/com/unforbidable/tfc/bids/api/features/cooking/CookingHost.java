@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.api.features.cooking;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 public interface CookingHost {
@@ -23,6 +24,6 @@ public interface CookingHost {
 
     boolean isValidCookingRecipe(CookingRecipe recipe);
 
-    boolean isValidFluidStack(FluidStack inFS);
+    boolean isValidFluid(Fluid fluid);
 
 }

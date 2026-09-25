@@ -1,10 +1,10 @@
 package com.unforbidable.tfc.bids.api.features.cooking;
 
-import com.unforbidable.tfc.bids.common.fluid.FluidDilutable;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
+import com.unforbidable.tfc.bids.util.fluid.DualFluid;
 import java.util.Collections;
 import java.util.List;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 public class CookingRecipe {
 
@@ -111,15 +111,15 @@ public class CookingRecipe {
         return match;
     }
 
-    protected boolean areFluidsEqual(FluidStack one, FluidStack other) {
-        if (one.getFluid() instanceof FluidDilutable) {
-            // Ignore NBT (diluting fluid)
-            return one.getFluid() == other.getFluid();
-        } else if (one.getFluid() instanceof CookingMixtureFluid) {
+    protected boolean areFluidsEqual(FluidStack templateFluid, FluidStack recipeFluid) {
+        if (DualFluid.isDualFluidStack(templateFluid)) {
+            // Match recipe with either of dual fluids
+            return DualFluid.of(templateFluid).isEqual(recipeFluid);
+        } else if (templateFluid.getFluid() instanceof CookingMixtureFluid) {
             // For cooking fluids we use custom method
-            return ((CookingMixtureFluid) one.getFluid()).areCookingFluidsEqual(one, other);
+            return ((CookingMixtureFluid) templateFluid.getFluid()).areCookingFluidsEqual(templateFluid, recipeFluid);
         } else {
-            return one.isFluidEqual(other);
+            return templateFluid.isFluidEqual(recipeFluid);
         }
     }
 
@@ -200,7 +200,8 @@ public class CookingRecipe {
 
     public boolean matchesInput(FluidStack fluidStack) {
         return getInputFluidStack() != null && getInputFluidStack().isFluidEqual(fluidStack) ||
-            getSecondaryInputFluidStack() != null && getSecondaryInputFluidStack().isFluidEqual(fluidStack);
+            getSecondaryInputFluidStack() != null && getSecondaryInputFluidStack().isFluidEqual(fluidStack) ||
+            getInputFluidStack() != null && DualFluid.isDualFluidStack(fluidStack) && DualFluid.of(fluidStack).isEqual(getInputFluidStack());
     }
 
     public boolean matchesInput(ItemStack itemStack) {

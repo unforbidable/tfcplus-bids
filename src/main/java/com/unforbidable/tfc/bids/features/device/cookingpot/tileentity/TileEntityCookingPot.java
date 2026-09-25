@@ -42,6 +42,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
@@ -417,7 +418,7 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
     }
 
     @Override
-    public boolean isValidFluidStack(FluidStack inFS) {
+    public boolean isValidFluid(Fluid fluid) {
         return true;
     }
 

@@ -13,6 +13,7 @@ import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import java.util.ArrayList;
 import java.util.List;
+import com.unforbidable.tfc.bids.util.fluid.DualFluid;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -120,6 +121,22 @@ public class CookingHelper {
         return matches;
     }
 
+    public static List<CookingRecipe> getRecipesMatchingInput(ItemStack inputItemStack, FluidStack inputFluidStack) {
+        List<CookingRecipe> matches = new ArrayList<>();
+
+        for (CookingRecipe recipe : CookingRegistry.recipes) {
+            if (recipe.matchesInput(inputItemStack) && (recipe.getInputFluidStack() == null || recipe.matchesInput(inputFluidStack))) {
+                if (recipe instanceof CookingOreRecipe) {
+                    matches.add(flattenCookingOreRecipe((CookingOreRecipe) recipe, inputItemStack));
+                } else {
+                    matches.add(recipe);
+                }
+            }
+        }
+
+        return matches;
+    }
+
     public static CookingRecipe flattenCookingOreRecipe(CookingOreRecipe recipe, ItemStack inputItemStack) {
         // Cooking ore recipes are processed as normal cooking recipes
         // with input item stack resolved to ore ingredient that matches the actual input stack
@@ -198,6 +215,22 @@ public class CookingHelper {
         }
 
         return false;
+    }
+
+
+    public static String getFluidInfoLine(FluidStack fluidStack) {
+        if (DualFluid.isDualFluidStack(fluidStack)) {
+            FluidStack primary = DualFluid.of(fluidStack)
+                .getPrimaryFluid();
+            return primary.getFluid().getLocalizedName(primary) + " " + primary.amount + " mB";
+        } else {
+            return fluidStack.getFluid().getLocalizedName(fluidStack) + " " + fluidStack.amount + " mB";
+        }
+    }
+
+    public static String getItemInfoLine(ItemStack itemStack) {
+        String stackSizeInfo = itemStack.stackSize > 1 ? (itemStack.stackSize + "x ") : "";
+        return stackSizeInfo + itemStack.getDisplayName();
     }
 
 }

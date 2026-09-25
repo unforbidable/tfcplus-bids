@@ -4,6 +4,7 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.device.cookingpit.tileentity.TileEntityCookingPit;
 import com.unforbidable.tfc.bids.features.device.cookingpit.tileentity.TileEntityHideCookingPit;
 import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
@@ -84,11 +85,11 @@ public class CookingPitHelper {
 
     public static void getHideCookingPitInfo(TileEntityHideCookingPit tileEntityCookingPit, List<String> list) {
         if (tileEntityCookingPit.getFluidStack() != null) {
-            list.add(EnumChatFormatting.GRAY + getFluidInfoLine(tileEntityCookingPit.getFluidStack()));
+            list.add(EnumChatFormatting.GRAY + CookingHelper.getFluidInfoLine(tileEntityCookingPit.getFluidStack()));
         }
 
         if (tileEntityCookingPit.hasInputItem()) {
-            list.add(EnumChatFormatting.GOLD + getItemInfoLine(tileEntityCookingPit.getInputItemStack()));
+            list.add(EnumChatFormatting.GOLD + CookingHelper.getItemInfoLine(tileEntityCookingPit.getInputItemStack()));
         }
 
         if (tileEntityCookingPit.getHeatLevel() != CookingHeatLevel.NONE) {
@@ -113,15 +114,6 @@ public class CookingPitHelper {
                 }
             }
         }
-    }
-
-    private static String getFluidInfoLine(FluidStack fluidStack) {
-        return fluidStack.getFluid().getLocalizedName(fluidStack) + " " + fluidStack.amount + " mB";
-    }
-
-    private static String getItemInfoLine(ItemStack itemStack) {
-        String stackSizeInfo = itemStack.stackSize > 1 ? (itemStack.stackSize + "x ") : "";
-        return stackSizeInfo + itemStack.getDisplayName();
     }
 
 }
