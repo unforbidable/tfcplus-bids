@@ -71,7 +71,7 @@ public class FishOil extends Feature {
 
         setup.registry(CookingRegistry.recipes).add(CookingRecipe.builder()
             .consumes(new FluidStack(BidsFluids.oilyFishWater, 1000))
-            .produces(new FluidStack(TFCFluids.FRESHWATER, 950), new FluidStack(BidsFluids.fishOil, 50))
+            .produces(new FluidStack(BidsFluids.fishOil, 50), new FluidStack(TFCFluids.FRESHWATER, 950))
             .withoutHeat()
             .inFixedTime(48000)
             .build());

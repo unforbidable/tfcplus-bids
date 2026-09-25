@@ -289,11 +289,11 @@ public class CookingEngine {
                         output.amount += cookingMixFluidStack.amount;
                         cookingFluid.onCookingFluidCombined(output, original, cookingMixFluidStack);
 
-                        host.onFluidChanged(output, null);
+                        host.onFluidChanged(output);
                     } else {
                         cookingFluid.onCookingFluidPlaced(cookingMixFluidStack);
 
-                        host.onFluidChanged(cookingMixFluidStack, null);
+                        host.onFluidChanged(cookingMixFluidStack);
                     }
                 } else {
                     // Decay is too great and cooking mix is unusable
@@ -329,7 +329,7 @@ public class CookingEngine {
 
                     if (!event.isCanceled()) {
                         if (currentFluidStack.amount <= 0) {
-                            host.onFluidChanged(null, null);
+                            host.onFluidChanged(null);
                         }
 
                         itemStack.stackSize--;
@@ -630,7 +630,7 @@ public class CookingEngine {
 
     private void emptyFluid() {
         if (host.getFluidStack() != null) {
-            host.onFluidChanged(null, null);
+            host.onFluidChanged(null);
 
             onRecipeParametersChanged(true);
         }
@@ -744,7 +744,7 @@ public class CookingEngine {
                     return false;
                 }
 
-                host.onFluidChanged(inFS.copy(), null);
+                host.onFluidChanged(inFS.copy());
                 inFS.amount = 0;
             } else {
                 // check if the container would overflow or if the fluid being added does
@@ -754,7 +754,7 @@ public class CookingEngine {
                 }
 
                 fluidStack.amount += inFS.amount;
-                host.onFluidChanged(fluidStack, null);
+                host.onFluidChanged(fluidStack);
 
                 inFS.amount = 0;
             }
@@ -811,19 +811,19 @@ public class CookingEngine {
             if (primaryFluidStack.amount == amount) {
                 // All the primary fluid of the diluted fluid was used up
                 // so the fluid changes to the diluting fluid
-                host.onFluidChanged(dual.getSecondaryFluid(), null);
+                host.onFluidChanged(dual.getSecondaryFluid());
             } else {
                 // Otherwise just consume part of the primary fluid
                 fluidStack.amount -= amount;
-                host.onFluidChanged(fluidStack, null);
+                host.onFluidChanged(fluidStack);
             }
         } else {
             // Remove liquid from the top layer first
             fluidStack.amount -= amount;
             if (fluidStack.amount == 0) {
-                host.onFluidChanged(null, null);
+                host.onFluidChanged(null);
             } else {
-                host.onFluidChanged(fluidStack, null);
+                host.onFluidChanged(fluidStack);
             }
         }
 
@@ -1041,7 +1041,7 @@ public class CookingEngine {
             if (host.getFluidStack() != null && recipe.getInputFluidStack() == null) {
                 FluidStack output = host.getFluidStack().copy();
                 output.amount += result.getOutputFluidStack().amount * runs;
-                host.onFluidChanged(output, null);
+                host.onFluidChanged(output);
             } else {
                 FluidStack output = result.getOutputFluidStack().copy();
 
@@ -1096,9 +1096,14 @@ public class CookingEngine {
                     FluidStack secondaryOutput = result.getSecondaryOutputFluidStack().copy();
                     secondaryOutput.amount *= runs;
 
-                    host.onFluidChanged(output, secondaryOutput);
+                    // Add secondary output as dual fluid
+                    output.amount += secondaryOutput.amount;
+                    DualFluid.of(output)
+                        .setSecondaryFluid(secondaryOutput);
+
+                    host.onFluidChanged(output);
                 } else {
-                    host.onFluidChanged(output, null);
+                    host.onFluidChanged(output);
                 }
             }
         } else if (recipe.getInputFluidStack() != null) {
@@ -1138,9 +1143,9 @@ public class CookingEngine {
                 // Floor the amount to a sip volume
                 output.amount = (int)Math.floor(output.amount / 50f) * 50;
 
-                host.onFluidChanged(output, null);
+                host.onFluidChanged(output);
             } else {
-                host.onFluidChanged(null, null);
+                host.onFluidChanged(null);
             }
         }
     }

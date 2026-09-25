@@ -20,7 +20,7 @@ public interface CookingHost {
 
     void onItemChanged(ItemStack output);
 
-    void onFluidChanged(FluidStack output, FluidStack secondaryOutput);
+    void onFluidChanged(FluidStack output);
 
     boolean isValidCookingRecipe(CookingRecipe recipe);
 

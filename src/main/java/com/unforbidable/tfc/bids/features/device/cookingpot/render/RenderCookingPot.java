@@ -62,7 +62,7 @@ public class RenderCookingPot implements ISimpleBlockRenderingHandler {
             }
 
             if (te.hasFluid()) {
-                FluidStack fluid = te.getTopFluidStack();
+                FluidStack fluid = te.getFluidStack();
                 float fullnessRatio = (float)te.getTotalLiquidVolume() / (float)te.getMaxFluidVolume();
                 AxisAlignedBB contentBounds = bounds.getContentBounds().copy();
                 contentBounds.maxY = contentBounds.minY + bounds.getMaxContentHeight() * fullnessRatio;

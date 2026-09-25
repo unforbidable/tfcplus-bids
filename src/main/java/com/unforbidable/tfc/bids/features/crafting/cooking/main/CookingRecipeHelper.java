@@ -13,7 +13,7 @@ public class CookingRecipeHelper {
             return result.getOutputItemStack().getDisplayName();
         } else if (result.getOutputFluidStack() != null) {
             if (result.getSecondaryOutputFluidStack() != null) {
-                return result.getSecondaryOutputFluidStack().getLocalizedName() + " + " + recipe.getOutputFluidStack().getLocalizedName();
+                return recipe.getOutputFluidStack().getLocalizedName() + " / " + result.getSecondaryOutputFluidStack().getLocalizedName();
             } else {
                 return result.getOutputFluidStack().getLocalizedName();
             }

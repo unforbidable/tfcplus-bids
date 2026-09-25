@@ -32,7 +32,6 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class TileEntityCookingPot extends TileEntity implements CookingHost, PacketHandler<SimpleUpdatePacket>, IInventory {
@@ -45,8 +44,6 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
     private static final int SLOT_INPUT = 2;
 
     private static final int FLUID_PRIMARY = 0;
-    private static final int FLUID_TOP_LAYER = 1;
-    private static final int FLUID_BEFORE_SEPARATION = 2;
 
     private static final int HEAT_CHECK_INTERVAL = 10;
     private static final int HEAT_CHECK_DELAY_AFTER_PLACEMENT_CHANGE = 50;
@@ -131,7 +128,7 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
     @Override
     public CookingRecipeInputTemplate createRecipeTemplate() {
         return new CookingRecipeInputTemplate(
-            getPrimaryFluidStack(), null,
+            getFluidStack(), null,
             getInputItemStack(),
             hasSteamingMesh() ? CookingAccessory.STEAMING_MESH : CookingAccessory.NONE,
             hasLid() ? CookingLidUsage.ON : CookingLidUsage.OFF,
@@ -210,16 +207,6 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
 
     public void setLiquidEmptyNoUpdate() {
         fluids[FLUID_PRIMARY] = null;
-        fluids[FLUID_TOP_LAYER] = null;
-        fluids[FLUID_BEFORE_SEPARATION] = null;
-    }
-
-    public boolean hasTopLayerFluid() {
-        return fluids[FLUID_TOP_LAYER] != null;
-    }
-
-    public FluidStack getTopLayerFluidStack() {
-        return fluids[FLUID_TOP_LAYER];
     }
 
     public FluidStack getPrimaryFluidStack() {
@@ -288,34 +275,12 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
     }
 
     public int getTotalLiquidVolume() {
-        int total = 0;
-
-        if (fluids[FLUID_PRIMARY] != null) {
-            total += fluids[FLUID_PRIMARY].amount;
-        }
-
-        if (fluids[FLUID_TOP_LAYER] != null) {
-            total += fluids[FLUID_TOP_LAYER].amount;
-        }
-
-        return total;
+        return hasFluid() ? getFluidStack().amount : 0;
     }
 
     @Override
     public FluidStack getFluidStack() {
-        return getTopFluidStack();
-    }
-
-    public FluidStack getTopFluidStack() {
-        if (fluids[FLUID_TOP_LAYER] != null) {
-            return fluids[FLUID_TOP_LAYER];
-        }
-
-        if (fluids[FLUID_PRIMARY] != null) {
-            return fluids[FLUID_PRIMARY];
-        }
-
-        return null;
+        return fluids[FLUID_PRIMARY];
     }
 
     public void onBreakBlock() {
@@ -325,12 +290,6 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
 
         // Cancel recipe progress
         cookingEngine.cancelRecipeProgress();
-
-        if (fluids[FLUID_BEFORE_SEPARATION] != null) {
-            // When block is broken - that is picked up -
-            // any separated liquid is mixed together again
-            remixSeparatedFluids();
-        }
     }
 
     private void onHeatLevelChanged() {
@@ -340,12 +299,6 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
         clientNeedToUpdate = true;
 
         cookingEngine.onRecipeParametersChanged(false);
-    }
-
-    private void remixSeparatedFluids() {
-        fluids[FLUID_PRIMARY] = fluids[FLUID_BEFORE_SEPARATION];
-        fluids[FLUID_TOP_LAYER] = null;
-        fluids[FLUID_BEFORE_SEPARATION] = null;
     }
 
     @Override
@@ -364,16 +317,8 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
     }
 
     @Override
-    public void onFluidChanged(FluidStack output, FluidStack secondaryOutput) {
-        if (output != null && secondaryOutput != null) {
-            // When two liquids are created, the secondary one goes to the top
-            // Remember the input fluid to allow remixing
-            fluids[FLUID_BEFORE_SEPARATION] = fluids[FLUID_PRIMARY];
-            fluids[FLUID_PRIMARY] = output;
-            fluids[FLUID_TOP_LAYER] = secondaryOutput;
-        } else {
-            fluids[FLUID_PRIMARY] = output;
-        }
+    public void onFluidChanged(FluidStack output) {
+        fluids[FLUID_PRIMARY] = output;
 
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         markDirty();
@@ -382,7 +327,7 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
     }
 
     private void handleInputItemTicking() {
-        CookingFoodTickerResult result = cookingFoodTicker.tick(getInputItemStack(), getFluidStack(), heatLevel, hasSteamingMesh(), hasLid(), !hasTopLayerFluid());
+        CookingFoodTickerResult result = cookingFoodTicker.tick(getInputItemStack(), getFluidStack(), heatLevel, hasSteamingMesh(), hasLid(), true);
         if (result.updated) {
             if (fluids[FLUID_PRIMARY].amount == 0) {
                 fluids[FLUID_PRIMARY] = null;
@@ -563,6 +508,17 @@ public class TileEntityCookingPot extends TileEntity implements CookingHost, Pac
                 final int slot = fluidTag.getInteger("slot");
                 fluids[slot] = FluidStack.loadFluidStackFromNBT(fluidTag);
             }
+        }
+
+        // TODO consider removing obsolete layered fluid remixing
+        if (fluids[1] != null || fluids[2] != null) {
+            // Since v1.2 fluid separation produces dual fluid instead of top / primary layers
+            // separated fluids created in older version are simply remixed if possible
+            if (fluids[2] != null) {
+                fluids[0] = fluids[2];
+            }
+            fluids[1] = null;
+            fluids[2] = null;
         }
 
         cookingEngine.readDataFromNBT(tag);

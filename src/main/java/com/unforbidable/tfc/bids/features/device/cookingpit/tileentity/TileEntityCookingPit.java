@@ -158,7 +158,7 @@ public abstract class TileEntityCookingPit extends TileEntity implements Cooking
     }
 
     @Override
-    public void onFluidChanged(FluidStack output, FluidStack secondaryOutput) {
+    public void onFluidChanged(FluidStack output) {
         fluids[FLUID_PRIMARY] = output;
 
         if (output == null) {

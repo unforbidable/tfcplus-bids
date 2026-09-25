@@ -28,10 +28,6 @@ public class CookingPotHelper {
     public static void getCookingPotInfo(TileEntityCookingPot tileEntityCookingPot, List<String> list, boolean blockInfo) {
         EnumChatFormatting fluidColor = blockInfo ? EnumChatFormatting.GRAY : EnumChatFormatting.BLUE;
 
-        if (tileEntityCookingPot.getTopLayerFluidStack() != null) {
-            list.add(fluidColor + CookingHelper.getFluidInfoLine(tileEntityCookingPot.getTopLayerFluidStack()));
-        }
-
         if (tileEntityCookingPot.getPrimaryFluidStack() != null) {
             list.add(fluidColor + CookingHelper.getFluidInfoLine(tileEntityCookingPot.getPrimaryFluidStack()));
         }

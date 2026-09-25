@@ -91,15 +91,16 @@ public class Butter extends Feature {
             .add(new ChurningRecipe(new FluidStack(BidsFluids.cream, 1), ItemFoodTFC.createTag(new ItemStack(BidsItems.butter), Global.FOOD_MAX_WEIGHT / 4000),
                 1));
 
-        setup.registry(CookingRegistry.recipes).add(CookingRecipe.builder()
+        setup.registry(CookingRegistry.recipes)
+            .add(CookingRecipe.builder()
                 .consumes(new FluidStack(TFCFluids.MILK, 500))
-                .produces(new FluidStack(BidsFluids.skimmedMilk, 450), new FluidStack(BidsFluids.cream, 50))
+                .produces(new FluidStack(BidsFluids.cream, 50), new FluidStack(BidsFluids.skimmedMilk, 450))
                 .withoutHeat()
                 .inFixedTime(24000)
                 .build())
             .add(CookingRecipe.builder()
                 .consumes(new FluidStack(BidsFluids.goatMilk, 500))
-                .produces(new FluidStack(BidsFluids.skimmedMilk, 450), new FluidStack(BidsFluids.cream, 50))
+                .produces(new FluidStack(BidsFluids.cream, 50), new FluidStack(BidsFluids.skimmedMilk, 450))
                 .withoutHeat()
                 .inFixedTime(24000)
                 .build());
