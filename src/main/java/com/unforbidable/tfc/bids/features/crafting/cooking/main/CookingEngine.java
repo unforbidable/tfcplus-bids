@@ -263,7 +263,8 @@ public class CookingEngine {
     }
 
     public boolean handleItemInteraction(ItemStack equippedItem, EntityPlayer player) {
-        return tryToPlaceItemStack(equippedItem, player) ||
+        return tryToHandleCookingMixes(equippedItem, player) ||
+            tryToPlaceItemStack(equippedItem, player) ||
             tryToDrainItemStack(equippedItem, player) ||
             tryToFillItemStack(equippedItem, player) ||
             tryToHandleBarrel(equippedItem, player);
@@ -369,8 +370,13 @@ public class CookingEngine {
             }
         }
 
+        // Placed stack will include any existing amount so it needs to be included in the calculation
+        int existingStackSize = inputItem != null ? inputItem.stackSize : 0;
+        ItemStack placing = equippedItem.copy();
+        placing.stackSize += existingStackSize;
+
         // For input items the stack size is determined based on the matching recipe
-        int requiredStackSize = getInputItemStackSizeForRecipe(equippedItem);
+        int requiredStackSize = getInputItemStackSizeForRecipe(placing);
         if (requiredStackSize == 0) {
             // Stack size could not be determined based on the matching recipe,
             // or it was determined as 0
@@ -384,7 +390,6 @@ public class CookingEngine {
         Bids.LOG.debug("checkedRequiredStackSize: " + checkedRequiredStackSize);
 
         // Reduce target stack size by existing stack size
-        int existingStackSize = inputItem != null ? inputItem.stackSize : 0;
         int targetStackSize = checkedRequiredStackSize - existingStackSize;
         Bids.LOG.debug("targetStackSize: " + targetStackSize);
 
@@ -438,7 +443,6 @@ public class CookingEngine {
         return true;
     }
 
-
     private int getInputItemStackSizeForRecipe(ItemStack itemStack) {
         if (CookingHelper.isCookableFoodItemStack(itemStack)) {
             // Food items default to stack size of 1
@@ -449,7 +453,7 @@ public class CookingEngine {
             // Look for all recipes matching specific input item
             // as we don't know the final parameters for the recipes
             // and manually ensure certain parameters such as steaming mesh and existing liquid
-            for (CookingRecipe recipe : CookingHelper.getRecipesMatchingInput(itemStack, fluidStack)) {
+            for (CookingRecipe recipe : CookingHelper.getRecipesMatchingInput(itemStack)) {
                 // Ensure accessory matches
                 if (recipe.getAccessory() != CookingAccessory.NONE) {
                     continue;
@@ -877,7 +881,7 @@ public class CookingEngine {
         }
 
         // Making things out of thin air?
-        return 1;
+        return 0;
     }
 
     private boolean isOutputFluidDilutableByInputFluid(FluidStack outputFluidStack, FluidStack inputFluidStack) {
@@ -913,6 +917,11 @@ public class CookingEngine {
     }
 
     private int getRunsForInputFluidStack(CookingRecipe recipe, FluidStack fluidStack) {
+        if (fluidStack == null) {
+            // No fluid, no runs
+            return 0;
+        }
+
         int recipeAmount = recipe.getInputFluidStack().amount;
         int actualInputAmount = host.getTotalLiquidVolume();
 

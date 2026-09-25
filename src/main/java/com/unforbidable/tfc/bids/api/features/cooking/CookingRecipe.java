@@ -103,19 +103,37 @@ public class CookingRecipe {
     }
 
     protected boolean doesInputFluidMatch(CookingRecipeInputTemplate template) {
-        boolean match = getInputFluidStack() == null && template.getInputFluidStack() == null ||
-            getInputFluidStack() != null && template.getInputFluidStack() != null && areFluidsEqual(template.getInputFluidStack(), getInputFluidStack()) ||
-            getInputFluidStack() == null && template.getInputFluidStack() != null && areFluidsEqual(template.getInputFluidStack(), getOutputFluidStack());
-        //Bids.LOG.info("doesInputFluidMatch: " + match);
+        // No input require and no input present
+        if (getInputFluidStack() == null && template.getInputFluidStack() == null) {
+            return true;
+        }
 
-        return match;
+        // Input is required so input must match the current fluid
+        if (getInputFluidStack() != null && template.getInputFluidStack() != null) {
+            if (DualFluid.isDualFluidStack(template.getInputFluidStack())) {
+                // Match recipe with either of dual fluids
+                return DualFluid.of(template.getInputFluidStack()).isEqual(getInputFluidStack());
+            } else {
+                return areFluidsEqual(template.getInputFluidStack(), getInputFluidStack());
+            }
+        }
+
+        // When no input is required but input is still present, it must match the recipe output
+        if (getInputFluidStack() == null && template.getInputFluidStack() != null && getOutputFluidStack() != null) {
+            if (DualFluid.isDualFluidStack(template.getInputFluidStack()) && DualFluid.isDualFluidStack(getOutputFluidStack())) {
+                // Match recipe with either of dual fluids, only if recipe output is also dual fluid
+                // This prevents ambiguity with some recipes such as resin -> pitch VS resin + water -> diluted pitch
+                return DualFluid.of(template.getInputFluidStack()).isPrimaryFluidEqual(getOutputFluidStack());
+            } else {
+                return areFluidsEqual(template.getInputFluidStack(), getOutputFluidStack());
+            }
+        }
+
+        return false;
     }
 
     protected boolean areFluidsEqual(FluidStack templateFluid, FluidStack recipeFluid) {
-        if (DualFluid.isDualFluidStack(templateFluid)) {
-            // Match recipe with either of dual fluids
-            return DualFluid.of(templateFluid).isEqual(recipeFluid);
-        } else if (templateFluid.getFluid() instanceof CookingMixtureFluid) {
+        if (templateFluid.getFluid() instanceof CookingMixtureFluid) {
             // For cooking fluids we use custom method
             return ((CookingMixtureFluid) templateFluid.getFluid()).areCookingFluidsEqual(templateFluid, recipeFluid);
         } else {

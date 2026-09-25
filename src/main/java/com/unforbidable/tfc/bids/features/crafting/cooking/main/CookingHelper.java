@@ -121,22 +121,6 @@ public class CookingHelper {
         return matches;
     }
 
-    public static List<CookingRecipe> getRecipesMatchingInput(ItemStack inputItemStack, FluidStack inputFluidStack) {
-        List<CookingRecipe> matches = new ArrayList<>();
-
-        for (CookingRecipe recipe : CookingRegistry.recipes) {
-            if (recipe.matchesInput(inputItemStack) && (recipe.getInputFluidStack() == null || recipe.matchesInput(inputFluidStack))) {
-                if (recipe instanceof CookingOreRecipe) {
-                    matches.add(flattenCookingOreRecipe((CookingOreRecipe) recipe, inputItemStack));
-                } else {
-                    matches.add(recipe);
-                }
-            }
-        }
-
-        return matches;
-    }
-
     public static CookingRecipe flattenCookingOreRecipe(CookingOreRecipe recipe, ItemStack inputItemStack) {
         // Cooking ore recipes are processed as normal cooking recipes
         // with input item stack resolved to ore ingredient that matches the actual input stack
