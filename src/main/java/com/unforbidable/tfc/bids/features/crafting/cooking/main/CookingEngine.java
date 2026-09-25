@@ -8,10 +8,14 @@ import com.dunk.tfc.Items.ItemBlocks.ItemLargeVessel;
 import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsEventFactory;
+import com.unforbidable.tfc.bids.api.features.cooking.CookedMeal;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingAccessory;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHost;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingMixture;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureFluid;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingMixtureItem;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingPotPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
@@ -20,6 +24,8 @@ import com.unforbidable.tfc.bids.util.fluid.DualFluid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -261,6 +267,92 @@ public class CookingEngine {
             tryToDrainItemStack(equippedItem, player) ||
             tryToFillItemStack(equippedItem, player) ||
             tryToHandleBarrel(equippedItem, player);
+    }
+
+    private boolean tryToHandleCookingMixes(ItemStack itemStack, EntityPlayer player) {
+        // Cooking mixes can be added if there is no lid and accessory
+        if (itemStack.getItem() instanceof CookingMixtureItem) {
+            CookingMixtureItem cookingMix = (CookingMixtureItem) itemStack.getItem();
+            FluidStack cookingMixFluidStack = cookingMix.getCookingFluid(itemStack);
+            ItemStack emptyContainer = cookingMix.getEmptyContainer(itemStack);
+            CookingMixtureFluid cookingFluid = (CookingMixtureFluid) cookingMixFluidStack.getFluid();
+
+            if (canPlaceCookingMix(cookingMixFluidStack)) {
+                float decay = Math.max(0, Food.getDecay(itemStack));
+                float weight = Food.getWeight(itemStack);
+                float decayRatio = decay / weight;
+                if (decayRatio < 10) {
+                    if (host.getFluidStack() != null) {
+                        FluidStack output = host.getFluidStack();
+                        FluidStack original = output.copy();
+                        output.amount += cookingMixFluidStack.amount;
+                        cookingFluid.onCookingFluidCombined(output, original, cookingMixFluidStack);
+
+                        host.onFluidChanged(output, null);
+                    } else {
+                        cookingFluid.onCookingFluidPlaced(cookingMixFluidStack);
+
+                        host.onFluidChanged(cookingMixFluidStack, null);
+                    }
+                } else {
+                    // Decay is too great and cooking mix is unusable
+                    TFC_Core.sendInfoMessage(player, new ChatComponentTranslation("gui.cooking.cookingMixDecayed"));
+                }
+
+                // Consume and return empty container even when spoiled
+                itemStack.stackSize--;
+                TFC_Core.giveItemToPlayer(emptyContainer, player);
+
+                onRecipeParametersChanged(true);
+
+                return true;
+            }
+        }
+
+        // Cooked meals can be created from finished cooking mixes
+        // into valid meal containers
+        if (host.getFluidStack() != null && host.getFluidStack().getFluid() instanceof CookingMixtureFluid) {
+            FluidStack currentFluidStack = host.getFluidStack();
+            CookingMixtureFluid cookingFluid = (CookingMixtureFluid) currentFluidStack.getFluid();
+            CookingMixture mixture = CookingMixtureHelper.getCookingMixture(currentFluidStack);
+            if (mixture != null && mixture.isReady() && cookingFluid.isValidCookedMealContainer(currentFluidStack, itemStack)) {
+                ItemStack cookedMeal = cookingFluid.retrieveCookedMeal(currentFluidStack, itemStack, player, true);
+
+                if (cookedMeal != null) {
+                    if (cookedMeal.getItem() instanceof CookedMeal) {
+                        ((CookedMeal)cookedMeal.getItem()).onCookedMealCreated(cookedMeal, player);
+                    }
+
+                    CookingPotPlayerEvent event = new CookingPotPlayerEvent(player, host, CookingPotPlayerEvent.Action.RETRIEVE_COOKED_MEAL, cookedMeal);
+                    MinecraftForge.EVENT_BUS.post(event);
+
+                    if (!event.isCanceled()) {
+                        if (currentFluidStack.amount <= 0) {
+                            host.onFluidChanged(null, null);
+                        }
+
+                        itemStack.stackSize--;
+                        TFC_Core.giveItemToPlayer(cookedMeal, player);
+
+                        onRecipeParametersChanged(true);
+
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean canPlaceCookingMix(FluidStack cookingMixFluidStack) {
+        if (host.getFluidStack() != null) {
+            FluidStack currentFluidStack = host.getFluidStack();
+            return currentFluidStack.amount + cookingMixFluidStack.amount <= host.getMaxFluidVolume() &&
+                CookingMixtureHelper.canCombineCookingFluids(currentFluidStack, cookingMixFluidStack);
+        } else {
+            return cookingMixFluidStack.amount <= host.getMaxFluidVolume();
+        }
     }
 
     private boolean tryToPlaceItemStack(ItemStack equippedItem, EntityPlayer player) {

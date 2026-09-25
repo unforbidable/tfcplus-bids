@@ -11,14 +11,14 @@ public class CookingPotPlayerEvent extends PlayerEvent {
         RETRIEVE_COOKED_MEAL
     }
 
-    public final TileEntityCookingPot tileEntityCookingPot;
+    public final CookingHost cookingHost;
     public final Action action;
     public final ItemStack result;
 
-    public CookingPotPlayerEvent(EntityPlayer player, TileEntityCookingPot tileEntityCookingPot, Action action, ItemStack result) {
+    public CookingPotPlayerEvent(EntityPlayer player, CookingHost cookingHost, Action action, ItemStack result) {
         super(player);
 
-        this.tileEntityCookingPot = tileEntityCookingPot;
+        this.cookingHost = cookingHost;
         this.action = action;
         this.result = result;
     }
