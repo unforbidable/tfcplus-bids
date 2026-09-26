@@ -3,6 +3,9 @@ package com.unforbidable.tfc.bids.core.features.registry;
 import com.unforbidable.tfc.bids.Bids;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import java.util.Locale;
 
 public class FeatureRegistryLookup {
 
@@ -28,7 +31,18 @@ public class FeatureRegistryLookup {
         if (item != null) {
             return item.instance;
         } else {
-            Bids.LOG.warn("item '{}' not (yet) initialized, ensure lambda is used within block/item setup", name);
+            Bids.LOG.warn("Item '{}' not (yet) initialized, ensure lambda is used within block/item setup", name);
+
+            return null;
+        }
+    }
+
+    public Fluid fluid(String name) {
+        Fluid fluid = FluidRegistry.getFluid(name.toLowerCase(Locale.ENGLISH));
+        if (fluid != null) {
+            return fluid;
+        } else {
+            Bids.LOG.warn("Fluid '{}' not (yet) initialized, ensure lambda is used within block/item setup", name);
 
             return null;
         }
