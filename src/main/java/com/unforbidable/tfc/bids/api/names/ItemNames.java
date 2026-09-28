@@ -399,4 +399,7 @@ public interface ItemNames {
     // Heating Stone
     String HEATING_STONE = "Heating Stone";
 
+    // Resin
+    String SOLIDIFIED_PITCH = "Solidified Pitch";
+
 }

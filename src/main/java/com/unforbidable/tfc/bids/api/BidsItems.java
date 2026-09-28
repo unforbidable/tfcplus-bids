@@ -431,6 +431,8 @@ public class BidsItems {
     // Heating Stone
     public static final Item heatingStone = item(ItemNames.HEATING_STONE);
 
+    // Resin
+    public static final Item solidifiedPitch = item(ItemNames.SOLIDIFIED_PITCH);
 
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
