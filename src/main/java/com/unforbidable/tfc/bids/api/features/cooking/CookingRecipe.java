@@ -121,7 +121,7 @@ public class CookingRecipe {
         // When no input is required but input is still present, it must match the recipe output
         if (getInputFluidStack() == null && template.getInputFluidStack() != null && getOutputFluidStack() != null) {
             if (DualFluid.isDualFluidStack(template.getInputFluidStack()) && DualFluid.isDualFluidStack(getOutputFluidStack())) {
-                // Match recipe with either of dual fluids, only if recipe output is also dual fluid
+                // Match recipe with the primary fluid, only if recipe output is also dual fluid
                 // This prevents ambiguity with some recipes such as resin -> pitch VS resin + water -> diluted pitch
                 return DualFluid.of(template.getInputFluidStack()).isPrimaryFluidEqual(getOutputFluidStack());
             } else {

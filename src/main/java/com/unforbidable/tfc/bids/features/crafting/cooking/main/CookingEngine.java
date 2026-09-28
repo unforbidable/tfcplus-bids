@@ -19,8 +19,10 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingPotPlayerEvent;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
+import com.unforbidable.tfc.bids.api.features.cooking.DilutableRecipeOutputFluid;
+import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
+import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import com.unforbidable.tfc.bids.util.Timer;
-import com.unforbidable.tfc.bids.util.fluid.DualFluid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -861,16 +863,13 @@ public class CookingEngine {
         if (recipe.getInputItemStack() != null && recipe.getInputFluidStack() != null) {
             // Unless the recipe has an output liquid that is dilutable with the input liquid
             // Then any excess liquid is used to dilute the output liquid
-            boolean dilutable = recipe.getOutputFluidStack() != null &&
-                isOutputFluidDilutableByInputFluid(recipe.getOutputFluidStack(), recipe.getInputFluidStack());
-
             int itemRuns = getRunsForInputItemStack(recipe, inputItemStack);
             int fluidRuns = getRunsForInputFluidStack(recipe, inputFluidStack);
             int outputFluidRunsToFit = getOutputFluidRunsToFit(recipe, inputFluidStack);
 
             // If recipe also has fluid output, ensure enough items
             // unless dilutable
-            if (recipe.getOutputFluidStack() != null && itemRuns < fluidRuns && !dilutable) {
+            if (recipe.getOutputFluidStack() != null && itemRuns < fluidRuns && !CookingHelper.isDilutableRecipeOutputFluid(recipe.getOutputFluidStack())) {
                 Bids.LOG.debug("Not enough items for recipe");
                 return 0;
             }
@@ -902,15 +901,6 @@ public class CookingEngine {
 
         // Making things out of thin air?
         return 0;
-    }
-
-    private boolean isOutputFluidDilutableByInputFluid(FluidStack outputFluidStack, FluidStack inputFluidStack) {
-        if (DualFluid.isDualFluidStack(outputFluidStack)) {
-            return DualFluid.of(outputFluidStack)
-                .isSecondaryFluidEqual(inputFluidStack);
-        }
-
-        return false;
     }
 
     private int getOutputFluidRunsToFit(CookingRecipe recipe, FluidStack fluidStack) {
@@ -945,7 +935,7 @@ public class CookingEngine {
         int recipeAmount = recipe.getInputFluidStack().amount;
         int actualInputAmount = host.getTotalLiquidVolume();
 
-        // If the input stack is diluted, the actual amount depends on which of the liquids matches the recipe
+        // If the input fluid stack is dual fluid, the actual amount depends on which of the fluids matches the recipe
         if (DualFluid.isDualFluidStack(fluidStack)) {
             DualFluid dual = DualFluid.of(fluidStack);
             if (dual.isPrimaryFluidEqual(recipe.getInputFluidStack())) {
@@ -957,11 +947,12 @@ public class CookingEngine {
             }
         }
 
-        // Should the output stack be diluted, consider minimal diluting amount of the fluid, and save it to be used to dilute the output
-        if (recipe.getOutputFluidStack() != null && DualFluid.isDualFluidStack(recipe.getOutputFluidStack())) {
-            DualFluid dual = DualFluid.of(recipe.getOutputFluidStack());
-            FluidStack secondary = dual.getSecondaryFluid();
-            actualInputAmount -= secondary.amount;
+        // If the output stack is dilutable, consider minimal diluting amount of the fluid, and save it to be used to dilute the output
+        if (recipe.getInputFluidStack() != null && recipe.getOutputFluidStack() != null) {
+            DilutableRecipeOutputFluid dilutable = CookingRegistry.dilutable.get(recipe.getOutputFluidStack().getFluid());
+            if (dilutable != null) {
+                actualInputAmount -= dilutable.minDiluteAmount;
+            }
         }
 
         return (int)Math.floor((float)actualInputAmount / recipeAmount);
@@ -1045,25 +1036,7 @@ public class CookingEngine {
             } else {
                 FluidStack output = result.getOutputFluidStack().copy();
 
-                if (recipe.getInputFluidStack() != null && recipe.getSecondaryInputFluidStack() != null) {
-                    // For fluid mixing
-                    // the volume of both input liquids is considered rather than number of runs
-                    // to handle tolerance
-                    int inputAmount = recipe.getInputFluidStack().amount + recipe.getSecondaryInputFluidStack().amount;
-                    int outputAmount = recipe.getOutputFluidStack().amount;
-
-                    // Always 1 for lossless and gain-less fluid mixing
-                    float inputOutputRatio = (float)inputAmount / outputAmount;
-
-                    int actualInputAmount = template.getInputFluidStack().amount + template.getSecondaryInputFluidStack().amount;
-                    float actualOutputAmount = actualInputAmount / inputOutputRatio;
-
-                    output.amount = Math.round(actualOutputAmount);
-                } else {
-                    output.amount *= runs;
-                }
-
-                if (template.getInputFluidStack() != null && DualFluid.isDualFluidStack(recipe.getOutputFluidStack())) {
+                if (recipe.getInputFluidStack() != null && CookingHelper.isDilutableRecipeOutputFluid(output)) {
                     // Recipes with dilutable output fluid allow excess input fluid
                     // to dilute the output liquid
                     // Find out the amount if any
@@ -1083,13 +1056,29 @@ public class CookingEngine {
 
                     // Floor the amount of diluting fluid to a sip volume
                     // Tiny amount, possibly from decay and rounding errors, is ignored
-                    int remainingInputAmountFloored = (int)Math.floor(remainingInputAmount / 50f) * 50;
+                    int remainingInputAmountFloored = (int) Math.floor(remainingInputAmount / 50f) * 50;
                     if (remainingInputAmountFloored > 0) {
                         output.amount += remainingInputAmountFloored;
                         Fluid dilutingFluid = recipe.getInputFluidStack().getFluid();
                         DualFluid.of(output)
                             .setSecondaryFluid(new FluidStack(dilutingFluid, remainingInputAmountFloored));
                     }
+                } else if (recipe.getInputFluidStack() != null && recipe.getSecondaryInputFluidStack() != null) {
+                    // For fluid mixing
+                    // the volume of both input liquids is considered rather than number of runs
+                    // to handle tolerance
+                    int inputAmount = recipe.getInputFluidStack().amount + recipe.getSecondaryInputFluidStack().amount;
+                    int outputAmount = recipe.getOutputFluidStack().amount;
+
+                    // Always 1 for lossless and gain-less fluid mixing
+                    float inputOutputRatio = (float)inputAmount / outputAmount;
+
+                    int actualInputAmount = template.getInputFluidStack().amount + template.getSecondaryInputFluidStack().amount;
+                    float actualOutputAmount = actualInputAmount / inputOutputRatio;
+
+                    output.amount = Math.round(actualOutputAmount);
+                } else {
+                    output.amount *= runs;
                 }
 
                 if (result.getSecondaryOutputFluidStack() != null) {

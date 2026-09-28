@@ -11,9 +11,9 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
+import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
 import java.util.ArrayList;
 import java.util.List;
-import com.unforbidable.tfc.bids.util.fluid.DualFluid;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -215,6 +215,10 @@ public class CookingHelper {
     public static String getItemInfoLine(ItemStack itemStack) {
         String stackSizeInfo = itemStack.stackSize > 1 ? (itemStack.stackSize + "x ") : "";
         return stackSizeInfo + itemStack.getDisplayName();
+    }
+
+    public static boolean isDilutableRecipeOutputFluid(FluidStack outputFluidStack) {
+        return CookingRegistry.dilutable.has(outputFluidStack.getFluid());
     }
 
 }

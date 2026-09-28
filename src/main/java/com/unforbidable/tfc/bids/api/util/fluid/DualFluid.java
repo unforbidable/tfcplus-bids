@@ -1,4 +1,4 @@
-package com.unforbidable.tfc.bids.util.fluid;
+package com.unforbidable.tfc.bids.api.util.fluid;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
