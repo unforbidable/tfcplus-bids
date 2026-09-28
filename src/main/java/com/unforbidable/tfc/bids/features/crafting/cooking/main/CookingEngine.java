@@ -97,7 +97,10 @@ public class CookingEngine {
         // Snow can melt slowly without fire (assuming cooking pit is in cave or some tent, near a firepit, something)
         // To melt with boiling stones, without a fluid no heating is possible, so it just works out
         // So first batch of snow needs to melt on its own, and once there is any water heat can be provided by boiling stones
-        return (recipe.getOutputFluidStack() == null || isValidRecipeFluidStack(recipe.getOutputFluidStack()));
+        return (recipe.getOutputFluidStack() == null ||
+            isValidRecipeFluidStack(recipe.getOutputFluidStack()) ||
+            CookingHelper.isDilutableRecipeOutputFluid(recipe.getOutputFluidStack()) &&
+                recipe.getInputFluidStack() != null && isValidRecipeFluidStack(recipe.getInputFluidStack()));
     }
 
     private boolean isValidRecipeFluidStack(FluidStack fluidStack) {
