@@ -71,7 +71,8 @@ public class CookingPitHelper {
                 te.setHideVesselDamage(itemStack.getItemDamage());
 
                 if (FluidContainerRegistry.isFilledContainer(itemStack)) {
-                    te.interactWithItemStack(itemStack, player);
+                    FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(itemStack);
+                    te.setFluid(fluidStack);
                 }
 
                 world.markBlockForUpdate(x, y, z);

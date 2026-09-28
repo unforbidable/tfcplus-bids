@@ -61,7 +61,7 @@ public abstract class TileEntityCookingPit extends TileEntity implements Cooking
     boolean clientDataLoaded = false;
     boolean inputItemSelected = false;
 
-    private final CookingEngine cookingEngine = new CookingEngine(this);
+    protected final CookingEngine cookingEngine = new CookingEngine(this);
     private final CookingFoodTicker cookingFoodTicker = new CookingFoodTicker(this, ITEM_TICK_INTERVAL);
 
     private final Timer heatCheckTimer = new Timer(HEAT_CHECK_INTERVAL);

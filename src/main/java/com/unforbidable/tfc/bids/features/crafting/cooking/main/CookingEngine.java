@@ -631,7 +631,7 @@ public class CookingEngine {
             !DualFluid.isDualFluidStack(fluidStack);
     }
 
-    private void emptyFluid() {
+    public void emptyFluid() {
         if (host.getFluidStack() != null) {
             host.onFluidChanged(null);
 

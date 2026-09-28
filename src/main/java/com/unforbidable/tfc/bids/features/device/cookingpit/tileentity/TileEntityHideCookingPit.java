@@ -10,6 +10,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 public class TileEntityHideCookingPit extends TileEntityCookingPit {
 
@@ -41,6 +42,11 @@ public class TileEntityHideCookingPit extends TileEntityCookingPit {
     @Override
     public boolean isValidFluid(Fluid fluid) {
         return fluid == TFCFluids.FRESHWATER;
+    }
+
+    public void setFluid(FluidStack fluidStack) {
+        cookingEngine.emptyFluid();
+        cookingEngine.addFluid(fluidStack);
     }
 
     @Override
