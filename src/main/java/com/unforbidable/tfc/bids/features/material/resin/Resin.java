@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.features.material.resin;
 
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
@@ -47,6 +48,15 @@ public class Resin extends Feature {
                 .produces(new ItemStack(BidsItems.solidifiedPitch))
                 .withoutHeat()
                 .inFixedTime(1000)
+                .build())
+            .add(CookingRecipe.builder()
+                .consumes(new FluidStack(TFCFluids.PITCH, 50), new ItemStack(TFCItems.stick))
+                .produces(new ItemStack(TFCBlocks.torchOff, 1))
+                .build())
+            .add(CookingRecipe.builder()
+                .consumes(new FluidStack(TFCFluids.PITCH, 250), new ItemStack(TFCItems.leatherBag))
+                .produces(new ItemStack(TFCItems.pitchBag, 1))
+                .inTime(100)
                 .build());
 
         setup.registry(CookingRegistry.dilutable)
