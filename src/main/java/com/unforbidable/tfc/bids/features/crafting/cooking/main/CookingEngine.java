@@ -235,8 +235,6 @@ public class CookingEngine {
                     update = true;
                 }
             }
-
-            // TODO ensure progress is saved (chunk is set dirty)
         }
 
         // By default, pause recipe unless explicitly stated otherwise
