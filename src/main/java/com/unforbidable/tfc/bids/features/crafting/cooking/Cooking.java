@@ -93,12 +93,6 @@ public class Cooking extends Feature {
                 .inTime(1000)
                 .build())
             .add(CookingRecipe.builder()
-                .consumes(new ItemStack(TFCItems.emptyHoneycomb))
-                .produces(new FluidStack(TFCFluids.WAX, 300))
-                .withHeat()
-                .inTime(750)
-                .build())
-            .add(CookingRecipe.builder()
                 .consumes(new FluidStack(TFCFluids.FRESHWATER, 9), new FluidStack(TFCFluids.HONEY, 1))
                 .produces(new FluidStack(TFCFluids.HONEYWATER, 10))
                 .build())
@@ -127,13 +121,6 @@ public class Cooking extends Feature {
                 .withoutHeat()
                 .withLid()
                 .inFixedTime(8000)
-                .build());
-
-        setup.registry(CookingRegistry.recipes)
-            .add(CookingRecipe.builder()
-                .consumes(new FluidStack(TFCFluids.WAX, 200), "materialString")
-                .produces(new ItemStack(TFCBlocks.candleOff, 1))
-                .withHeat()
                 .build());
 
         setup.event()

@@ -1487,6 +1487,8 @@ item.Heating Stone.Hot.name=Glowing Hot Stone
 
 item.Solidified Pitch.name=Solidified Pitch
 
+item.Wax.name=Wax
+
 entity.PegLeashKnot.name=Leash Knot
 
 fluid.FishOil=Fish Oil

@@ -434,6 +434,9 @@ public class BidsItems {
     // Resin
     public static final Item solidifiedPitch = item(ItemNames.SOLIDIFIED_PITCH);
 
+    // Wax
+    public static final Item wax = item(ItemNames.WAX);
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {

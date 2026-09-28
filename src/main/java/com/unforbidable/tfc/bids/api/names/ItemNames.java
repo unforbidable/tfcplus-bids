@@ -402,4 +402,7 @@ public interface ItemNames {
     // Resin
     String SOLIDIFIED_PITCH = "Solidified Pitch";
 
+    // Wax
+    String WAX = "Wax";
+
 }
