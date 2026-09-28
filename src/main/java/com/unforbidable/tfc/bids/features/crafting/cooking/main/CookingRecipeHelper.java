@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.crafting.cooking.main;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
+import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
 
 public class CookingRecipeHelper {
 
@@ -12,8 +13,9 @@ public class CookingRecipeHelper {
         if (result.getOutputItemStack() != null) {
             return result.getOutputItemStack().getDisplayName();
         } else if (result.getOutputFluidStack() != null) {
-            if (result.getSecondaryOutputFluidStack() != null) {
-                return recipe.getOutputFluidStack().getLocalizedName() + " / " + result.getSecondaryOutputFluidStack().getLocalizedName();
+            if (DualFluid.isDualFluidStack(result.getOutputFluidStack())) {
+                DualFluid recipeOutputDualFluid = DualFluid.of(result.getOutputFluidStack());
+                return recipeOutputDualFluid.getPrimaryFluid().getLocalizedName() + " + " + recipeOutputDualFluid.getSecondaryFluid().getLocalizedName();
             } else {
                 return result.getOutputFluidStack().getLocalizedName();
             }
@@ -44,18 +46,22 @@ public class CookingRecipeHelper {
         stringBuilder.append(",");
 
         if (recipe.getOutputFluidStack() != null) {
-            stringBuilder.append(recipe.getOutputFluidStack().getUnlocalizedName())
-                .append(":")
-                .append(recipe.getOutputFluidStack().amount);
-        } else {
-            stringBuilder.append("NULL");
-        }
-        stringBuilder.append(",");
-
-        if (recipe.getSecondaryOutputFluidStack() != null) {
-            stringBuilder.append(recipe.getSecondaryOutputFluidStack().getUnlocalizedName())
-                .append(":")
-                .append(recipe.getSecondaryOutputFluidStack().amount);
+            if (DualFluid.isDualFluidStack(recipe.getOutputFluidStack())) {
+                DualFluid recipeOutputDualFluid = DualFluid.of(recipe.getOutputFluidStack());
+                stringBuilder.append(recipeOutputDualFluid.getPrimaryFluid().getUnlocalizedName())
+                    .append(":")
+                    .append(recipeOutputDualFluid.getPrimaryFluid().amount);
+                stringBuilder.append(",");
+                stringBuilder.append(recipeOutputDualFluid.getSecondaryFluid().getUnlocalizedName())
+                    .append(":")
+                    .append(recipeOutputDualFluid.getSecondaryFluid().amount);
+            } else {
+                stringBuilder.append(recipe.getOutputFluidStack().getUnlocalizedName())
+                    .append(":")
+                    .append(recipe.getOutputFluidStack().amount);
+                stringBuilder.append(",");
+                stringBuilder.append("NULL");
+            }
         } else {
             stringBuilder.append("NULL");
         }

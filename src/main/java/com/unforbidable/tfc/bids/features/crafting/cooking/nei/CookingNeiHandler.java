@@ -21,19 +21,19 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingOreRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResult;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
+import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
 import com.unforbidable.tfc.bids.compat.nei.HandlerInfo;
 import com.unforbidable.tfc.bids.compat.nei.IHandlerInfoProvider;
 import com.unforbidable.tfc.bids.compat.nei.NeiHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.cooking.fluid.FluidCookingMixture;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.unforbidable.tfc.bids.features.crafting.cooking.fluid.FluidCookingMixture;
-import com.unforbidable.tfc.bids.features.crafting.cooking.item.ItemCookingMixture;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingMixtureHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -96,9 +96,14 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
                 CookingMixtureHelper.isCookingMixtureFluidEqual(recipe.getOutputFluidStack(), output))) {
                 // Fluid matches
                 arecipes.add(new CachedCookingRecipe(recipe));
-            } else if (recipe.getSecondaryOutputFluidStack() != null && NeiHelper.isFluidEqual(recipe.getSecondaryOutputFluidStack(), output)) {
-                // Secondary fluid matches
-                arecipes.add(new CachedCookingRecipe(recipe));
+            } else if (recipe.getOutputFluidStack() != null && DualFluid.isDualFluidStack(recipe.getOutputFluidStack())) {
+                DualFluid recipeOutputDualFluid = DualFluid.of(recipe.getOutputFluidStack());
+
+                // For fluids separation recipes, match either of the dual fluid
+                if (NeiHelper.isFluidEqual(recipeOutputDualFluid.getPrimaryFluid(), output) ||
+                    NeiHelper.isFluidEqual(recipeOutputDualFluid.getSecondaryFluid(), output)) {
+                    arecipes.add(new CachedCookingRecipe(recipe));
+                }
             }
         }
     }
@@ -124,7 +129,7 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
                 }
 
                 CookingRecipe sizedRecipe = new CookingRecipe(
-                    recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack(), recipe.getOutputFluidStack(), recipe.getSecondaryOutputFluidStack(),
+                    recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack(), recipe.getOutputFluidStack(),
                     inputItem, recipe.getOutputItemStack(),
                     recipe.getAccessory(), recipe.getLidUsage(), recipe.getMinHeatLevel(), recipe.getMaxHeatLevel(), recipe.getTime(), recipe.isFixedTime()
                 );
@@ -295,7 +300,7 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
             GL11.glColor4ub((byte) ((color >> 16) & 255), (byte) ((color >> 8) & 255), (byte) (color & 255), (byte) (0xaa & 255));
 
             int part = Math.round(rect.height * fluids.getRatio(i));
-            int y = Math.max(rect.y + (rect.height - part) - pos, rect.y);
+            int y = Math.max(rect.y + pos, rect.y);
             pos += part;
 
             GuiDraw.gui.drawTexturedModelRectFromIcon(rect.x, y, fluidIcon, rect.width, part);
@@ -345,8 +350,21 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
 
             CookingRecipeCraftingResult result = recipe.getCraftingResult(template);
 
-            inputFluids = new FluidStackGroup(recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack());
-            outputFluids = new FluidStackGroup(result.getOutputFluidStack(), result.getSecondaryOutputFluidStack());
+            // Secondary fluid (one being added) at the top if any
+            inputFluids = new FluidStackGroup(recipe.getSecondaryInputFluidStack(), recipe.getInputFluidStack());
+
+            if (recipe.getOutputFluidStack() != null && DualFluid.isDualFluidStack(recipe.getOutputFluidStack())) {
+                DualFluid recipeOutputDualFluid = DualFluid.of(recipe.getOutputFluidStack());
+
+                // Secondary output is only visible for fluid separation recipes
+                if (recipe.getInputFluidStack().getFluid() != recipeOutputDualFluid.getSecondaryFluid().getFluid()) {
+                    outputFluids = new FluidStackGroup(recipeOutputDualFluid.getPrimaryFluid(), recipeOutputDualFluid.getSecondaryFluid());
+                } else {
+                    outputFluids = new FluidStackGroup(recipeOutputDualFluid.getPrimaryFluid());
+                }
+            } else {
+                outputFluids = new FluidStackGroup(recipe.getOutputFluidStack());
+            }
 
             inputItemStacks = recipe.getInputItemStacks();
             outputItemStack = result.getOutputItemStack() != null ? result.getOutputItemStack().copy() : null;
@@ -539,7 +557,7 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
                     for (int i = 0; i < size(); i++) {
                         float ratio = getRatio(i);
                         int part = Math.round(ratio * rect.height);
-                        int y = rect.y + (rect.height - part) - pos;
+                        int y = rect.y + pos;
                         pos += part;
                         Rectangle fluidRect = new Rectangle(rect.x, y, rect.width, part);
                         if (fluidRect.contains(point)) {

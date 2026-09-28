@@ -125,7 +125,7 @@ public class CookingHelper {
         // Cooking ore recipes are processed as normal cooking recipes
         // with input item stack resolved to ore ingredient that matches the actual input stack
         return new CookingRecipe(recipe.getInputFluidStack(), recipe.getSecondaryInputFluidStack(),
-            recipe.getOutputFluidStack(), recipe.getSecondaryOutputFluidStack(),
+            recipe.getOutputFluidStack(),
             getOreMatchingInputItemStack(recipe.getInputOreName(), inputItemStack), recipe.getOutputItemStack(),
             recipe.getAccessory(), recipe.getLidUsage(),
             recipe.getMinHeatLevel(), recipe.getMaxHeatLevel(),

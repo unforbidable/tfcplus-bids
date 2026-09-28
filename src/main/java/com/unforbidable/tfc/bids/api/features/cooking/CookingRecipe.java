@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.api.features.cooking;
 
-import com.unforbidable.tfc.bids.util.fluid.DualFluid;
+import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
 import java.util.Collections;
 import java.util.List;
 import net.minecraft.item.ItemStack;
@@ -11,7 +11,6 @@ public class CookingRecipe {
     private final FluidStack inputFluidStack;
     private final FluidStack secondaryInputFluidStack;
     private final FluidStack outputFluidStack;
-    private final FluidStack secondaryOutputFluidStack;
     private final ItemStack inputItemStack;
     private final ItemStack outputItemStack;
     private final CookingAccessory accessory;
@@ -21,11 +20,10 @@ public class CookingRecipe {
     private final float time;
     private final boolean fixedTime;
 
-    public CookingRecipe(FluidStack inputFluidStack, FluidStack secondaryInputFluidStack, FluidStack outputFluidStack, FluidStack secondaryOutputFluidStack, ItemStack inputItemStack, ItemStack outputItemStack, CookingAccessory accessory, CookingLidUsage lidUsage, CookingHeatLevel minHeatLevel, CookingHeatLevel maxHeatLevel, float time, boolean fixedTime) {
+    public CookingRecipe(FluidStack inputFluidStack, FluidStack secondaryInputFluidStack, FluidStack outputFluidStack, ItemStack inputItemStack, ItemStack outputItemStack, CookingAccessory accessory, CookingLidUsage lidUsage, CookingHeatLevel minHeatLevel, CookingHeatLevel maxHeatLevel, float time, boolean fixedTime) {
         this.inputFluidStack = inputFluidStack;
         this.secondaryInputFluidStack = secondaryInputFluidStack;
         this.outputFluidStack = outputFluidStack;
-        this.secondaryOutputFluidStack = secondaryOutputFluidStack;
         this.inputItemStack = inputItemStack;
         this.outputItemStack = outputItemStack;
         this.accessory = accessory;
@@ -46,10 +44,6 @@ public class CookingRecipe {
 
     public FluidStack getOutputFluidStack() {
         return outputFluidStack;
-    }
-
-    public FluidStack getSecondaryOutputFluidStack() {
-        return secondaryOutputFluidStack;
     }
 
     public ItemStack getInputItemStack() {
@@ -200,15 +194,14 @@ public class CookingRecipe {
                 cookingFluid.onCookingFluidCooked(fs, template.getInputFluidStack());
             }
 
-            return new CookingRecipeCraftingResult(fs, getSecondaryOutputFluidStack(), getOutputItemStack());
+            return new CookingRecipeCraftingResult(fs, getOutputItemStack());
         }
 
-        return new CookingRecipeCraftingResult(getOutputFluidStack(), getSecondaryOutputFluidStack(), getOutputItemStack());
+        return new CookingRecipeCraftingResult(getOutputFluidStack(), getOutputItemStack());
     }
 
     public boolean matchesOutput(FluidStack fluidStack) {
-        return getOutputFluidStack() != null && getOutputFluidStack().isFluidEqual(fluidStack)
-            || getSecondaryOutputFluidStack() != null && getSecondaryOutputFluidStack().isFluidEqual(fluidStack);
+        return getOutputFluidStack() != null && getOutputFluidStack().isFluidEqual(fluidStack);
     }
 
     public boolean matchesOutput(ItemStack itemStack) {

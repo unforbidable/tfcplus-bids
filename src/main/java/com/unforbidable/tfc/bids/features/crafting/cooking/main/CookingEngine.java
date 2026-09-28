@@ -1077,23 +1077,25 @@ public class CookingEngine {
                     float actualOutputAmount = actualInputAmount / inputOutputRatio;
 
                     output.amount = Math.round(actualOutputAmount);
+                } else if (DualFluid.isDualFluidStack(output)) {
+                    DualFluid recipeOutputDualFluid = DualFluid.of(output);
+
+                    // Multiply the amount of the actual primary fluid
+                    FluidStack primary = recipeOutputDualFluid.getPrimaryFluid();
+                    primary.amount *= runs;
+
+                    // The secondary liquid of a dual fluid needs to be adjusted to number of runs too
+                    FluidStack secondary = recipeOutputDualFluid.getSecondaryFluid();
+                    secondary.amount *= runs;
+
+                    DualFluid.of(output)
+                        .setSecondaryFluid(secondary);
+                    output.amount = primary.amount + secondary.amount;
                 } else {
                     output.amount *= runs;
                 }
 
-                if (result.getSecondaryOutputFluidStack() != null) {
-                    FluidStack secondaryOutput = result.getSecondaryOutputFluidStack().copy();
-                    secondaryOutput.amount *= runs;
-
-                    // Add secondary output as dual fluid
-                    output.amount += secondaryOutput.amount;
-                    DualFluid.of(output)
-                        .setSecondaryFluid(secondaryOutput);
-
-                    host.onFluidChanged(output);
-                } else {
-                    host.onFluidChanged(output);
-                }
+                host.onFluidChanged(output);
             }
         } else if (recipe.getInputFluidStack() != null) {
             // Otherwise consume appropriate amount of the input fluid stack

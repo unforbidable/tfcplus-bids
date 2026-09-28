@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.api.features.cooking;
 
+import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -8,7 +9,6 @@ public class CookingRecipeBuilder {
     protected FluidStack inputFluidStack;
     protected FluidStack secondaryInputFluidStack;
     protected FluidStack outputFluidStack;
-    protected FluidStack secondaryOutputFluidStack;
     protected ItemStack inputItemStack;
     protected String inputOreName;
     protected ItemStack outputItemStack;
@@ -59,7 +59,11 @@ public class CookingRecipeBuilder {
 
     public CookingRecipeBuilder produces(FluidStack outputFluidStack, FluidStack secondaryOutputFluidStack) {
         this.outputFluidStack = outputFluidStack;
-        this.secondaryOutputFluidStack = secondaryOutputFluidStack;
+
+        DualFluid.of(this.outputFluidStack)
+            .setSecondaryFluid(secondaryOutputFluidStack);
+        this.outputFluidStack.amount += secondaryOutputFluidStack.amount;
+
         return this;
     }
 
@@ -127,12 +131,12 @@ public class CookingRecipeBuilder {
     public CookingRecipe build() {
         if (inputOreName != null) {
             return new CookingOreRecipe(inputFluidStack, secondaryInputFluidStack,
-                outputFluidStack, secondaryOutputFluidStack,
+                outputFluidStack,
                 inputOreName, outputItemStack,
                 accessory, lidUsage, minHeatLevel, maxHeatLevel, time, fixedTime);
         } else {
             return new CookingRecipe(inputFluidStack, secondaryInputFluidStack,
-                outputFluidStack, secondaryOutputFluidStack,
+                outputFluidStack,
                 inputItemStack, outputItemStack,
                 accessory, lidUsage, minHeatLevel, maxHeatLevel, time, fixedTime);
         }

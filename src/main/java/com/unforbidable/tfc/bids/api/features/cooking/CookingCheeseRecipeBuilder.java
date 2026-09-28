@@ -12,7 +12,7 @@ public class CookingCheeseRecipeBuilder extends CookingRecipeBuilder {
     @Override
     public CookingCheeseRecipe build() {
         return new CookingCheeseRecipe(inputFluidStack, secondaryInputFluidStack,
-            outputFluidStack, secondaryOutputFluidStack,
+            outputFluidStack,
             inputItemStack, outputItemStack,
             accessory, lidUsage, minHeatLevel, maxHeatLevel, time, fixedTime,
             allowInfusion);

@@ -9,8 +9,8 @@ public class CookingOreRecipe extends CookingRecipe {
 
     private final String inputOreName;
 
-    public CookingOreRecipe(FluidStack inputFluidStack, FluidStack secondaryInputFluidStack, FluidStack outputFluidStack, FluidStack secondaryOutputFluidStack, String inputOreName, ItemStack outputItemStack, CookingAccessory accessory, CookingLidUsage lidUsage, CookingHeatLevel minHeatLevel, CookingHeatLevel maxHeatLevel, float time, boolean fixedTime) {
-        super(inputFluidStack, secondaryInputFluidStack, outputFluidStack, secondaryOutputFluidStack, null, outputItemStack, accessory, lidUsage, minHeatLevel, maxHeatLevel, time, fixedTime);
+    public CookingOreRecipe(FluidStack inputFluidStack, FluidStack secondaryInputFluidStack, FluidStack outputFluidStack, String inputOreName, ItemStack outputItemStack, CookingAccessory accessory, CookingLidUsage lidUsage, CookingHeatLevel minHeatLevel, CookingHeatLevel maxHeatLevel, float time, boolean fixedTime) {
+        super(inputFluidStack, secondaryInputFluidStack, outputFluidStack, null, outputItemStack, accessory, lidUsage, minHeatLevel, maxHeatLevel, time, fixedTime);
 
         this.inputOreName = inputOreName;
     }
