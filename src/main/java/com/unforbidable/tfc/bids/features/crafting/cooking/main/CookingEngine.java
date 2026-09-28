@@ -1113,7 +1113,7 @@ public class CookingEngine {
 
             if (output.amount > 0) {
                 // If the entirety of the undiluted portion of dilutable fluid is consumed
-                // or if the undiluted amount isn't enough to complete a single recipe run
+                // or less than a sip volume remains
                 // the output becomes the remaining diluting fluid
                 if (DualFluid.isDualFluidStack(output)) {
                     DualFluid dualOutput = DualFluid.of(output);
@@ -1123,8 +1123,7 @@ public class CookingEngine {
                         Bids.LOG.warn("Recipe consumed more undiluted fluid than available");
                     }
 
-                    int oneRunAmount = recipe.getInputFluidStack().amount;
-                    if (undilutedAmount <= 0 || undilutedAmount < oneRunAmount) {
+                    if (undilutedAmount <= 50) {
                         output = dualOutput.getSecondaryFluid();
                     }
                 }
