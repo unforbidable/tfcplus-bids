@@ -51,7 +51,6 @@ public class Wax extends Feature {
             .add(CookingRecipe.builder()
                 .consumes(new FluidStack(TFCFluids.WAX, 200), "materialString")
                 .produces(new ItemStack(TFCBlocks.candleOff, 1))
-                .withHeat()
                 .build());
 
         setup.registry(CookingRegistry.dilutable)
