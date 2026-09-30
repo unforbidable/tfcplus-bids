@@ -13,5 +13,10 @@ public class WorldEventHandler {
         }
     }
 
+    @SubscribeEvent
+    public void onWorldUnload(WorldEvent.Unload event) {
+        TfcRegistryHelper.unregisterWorldUnload();
+    }
+
 
 }

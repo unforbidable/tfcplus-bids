@@ -38,4 +38,11 @@ public class TfcRegistryHelper {
             .forEach(RegistryActor::act);
     }
 
+    public static void unregisterWorldUnload() {
+        // World bound recipes are not unregistered here
+        // instead TFC is expected to clear all recipes in AnvilManager and ClothingManager
+        // Changing this value only indicates that recipes should be registered again on next world load
+        worldBoundRecipesRegistered = false;
+    }
+
 }
