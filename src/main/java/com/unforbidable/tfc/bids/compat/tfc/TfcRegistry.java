@@ -36,6 +36,7 @@ public class TfcRegistry {
 
     public static class Sewing {
         public static final ListRegistry<RegistryActor<SewingRecipe>> recipes = new ListRegistry<>();
+        public static final ListRegistry<RegistryActor<SewingRecipe>> repairRecipes = new ListRegistry<>();
     }
 
     public static class Loom {

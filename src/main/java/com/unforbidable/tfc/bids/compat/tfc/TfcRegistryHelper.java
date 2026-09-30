@@ -14,6 +14,7 @@ public class TfcRegistryHelper {
         register(TfcRegistry.Kiln.recipes);
         register(TfcRegistry.Barrel.recipes);
         register(TfcRegistry.Loom.recipes);
+        register(TfcRegistry.Sewing.recipes);
 
         Bids.LOG.info("Register TFC values");
         register(TfcRegistry.Heat.values);
@@ -26,7 +27,7 @@ public class TfcRegistryHelper {
 
             register(TfcRegistry.Anvil.plans);
             register(TfcRegistry.Anvil.recipes);
-            register(TfcRegistry.Sewing.recipes);
+            register(TfcRegistry.Sewing.repairRecipes);
 
             worldBoundRecipesRegistered = true;
         }

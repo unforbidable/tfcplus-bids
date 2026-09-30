@@ -117,13 +117,13 @@ public class BirchBark extends Feature {
                 new ItemStack(BidsItems.extraStrap, 1, 0))
             );
 
-        setup.registry(TfcRegistry.Sewing.recipes)
+        setup.registry(TfcRegistry.Sewing.repairRecipes)
             .add(SewingRecipe.addRepair(new ItemStack(BidsItems.birchBarkBag),
                 new ItemStack(BidsItems.birchBarkBag, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(BidsItems.extraRepairPatch, 1, 0))
             );
 
-        setup.registry(TfcRegistry.Sewing.recipes)
+        setup.registry(TfcRegistry.Sewing.repairRecipes)
             .add(SewingRecipe.addRepair(new ItemStack(BidsItems.birchBarkShoes),
                 new ItemStack(BidsItems.birchBarkShoes, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(BidsItems.extraStrap, 1, 0))
