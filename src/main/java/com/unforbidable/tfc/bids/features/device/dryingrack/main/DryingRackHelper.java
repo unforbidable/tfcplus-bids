@@ -257,6 +257,7 @@ public class DryingRackHelper {
 
             // Place one section
             world.setBlock(x, y + 1, z, BidsBlocks.dryingRackSide, orientation, 2);
+            itemStack.stackSize -= 2;
         }
     }
 
