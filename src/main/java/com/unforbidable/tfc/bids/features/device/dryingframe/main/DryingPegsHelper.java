@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.device.dryingframe.main;
 import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.features.building.peg.block.BlockPeg;
+import com.unforbidable.tfc.bids.features.device.dryingframe.DryingFrameRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingframe.tileentity.TileEntityDryingPegs;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackHelper;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemFreshSkin;
@@ -50,7 +51,7 @@ public class DryingPegsHelper {
     }
 
     public static boolean canPlayerDryItem(EntityPlayer player, ItemStack itemStack) {
-        return hasCordage(player) && itemStack.getItem() instanceof ItemFreshSkin;
+        return hasCordage(player) && DryingFrameRegistry.recipes.findMatchingRecipe(itemStack) != null;
     }
 
     private static boolean hasCordage(EntityPlayer player) {
