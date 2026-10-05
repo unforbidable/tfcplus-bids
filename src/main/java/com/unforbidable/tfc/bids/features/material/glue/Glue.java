@@ -98,6 +98,10 @@ public class Glue extends Feature {
                 .withoutHeat()
                 .inFixedTime(500)
                 .build());
+
+        setup.registry(CookingRegistry.dilutable)
+            .add(BidsFluids.hideGlue, new DilutableRecipeOutputFluid(1000))
+            .add(BidsFluids.pitchGlue, new DilutableRecipeOutputFluid(1000));
     }
 
 }
