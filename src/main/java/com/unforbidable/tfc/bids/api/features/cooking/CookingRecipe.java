@@ -1,8 +1,10 @@
 package com.unforbidable.tfc.bids.api.features.cooking;
 
+import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
 import java.util.Collections;
 import java.util.List;
+import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -106,7 +108,18 @@ public class CookingRecipe {
         if (getInputFluidStack() != null && template.getInputFluidStack() != null) {
             if (DualFluid.isDualFluidStack(template.getInputFluidStack())) {
                 // Match recipe with either of dual fluids
-                return DualFluid.of(template.getInputFluidStack()).isEqual(getInputFluidStack());
+                DualFluid dual = DualFluid.of(template.getInputFluidStack());
+                if (dual.isPrimaryFluidEqual(getInputFluidStack())) {
+                    // If primary fluid matches input, any output fluid must match secondary fluid
+                    // or diluting fluid of dilutable recipe output
+                    FluidStack dilutableInFluid = getOutputFluidStack() != null && CookingRegistry.dilutable.has(getOutputFluidStack().getFluid()) ?
+                        new FluidStack(TFCFluids.FRESHWATER, 1000) : null;
+                    return getOutputFluidStack() == null || dual.isSecondaryFluidEqual(getOutputFluidStack()) ||
+                        dilutableInFluid != null && dual.isSecondaryFluidEqual(dilutableInFluid);
+                } else if (dual.isSecondaryFluidEqual(getInputFluidStack())) {
+                    // If secondary fluid matches input, any output fluid must match primary fluid
+                    return getOutputFluidStack() == null || dual.isPrimaryFluidEqual(getOutputFluidStack());
+                }
             } else {
                 return areFluidsEqual(template.getInputFluidStack(), getInputFluidStack());
             }
