@@ -161,6 +161,12 @@ public class Logs extends Feature {
                     .action(damageTool("itemAdze"))
                     .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
 
+                setup.recipes().addShaped(wood.items.getSeasonedPeeledLog(),
+                        "LA", 'L', wood.items.getSeasonedLog(), 'A', "itemHandAxe")
+                    .action(damageTool("itemHandAxe"))
+                    .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance))
+                    .action(copySeasoning(TFCItems.logs));
+
                 setup.registry(ChoppingBlockRegistry.recipes)
                     .add(new ChoppingBlockRecipe(wood.items.getSeasonedLog(), wood.items.getSeasonedPeeledLog(),
                         wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance,
@@ -174,6 +180,11 @@ public class Logs extends Feature {
                     setup.recipes().addShapeless(wood.items.getSeasonedPeeledLog(),
                             wood.items.getSeasonedChoppedLog(), "itemAdze")
                         .action(damageTool("itemAdze"))
+                        .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
+
+                    setup.recipes().addShaped(wood.items.getSeasonedPeeledLog(),
+                            "LA", 'L', wood.items.getSeasonedChoppedLog(), 'A', "itemHandAxe")
+                        .action(damageTool("itemHandAxe"))
                         .action(extraDrop(wood.items.getBark(), BarkConfig.dropPeelingSeasonedChance));
 
                     setup.registry(ChoppingBlockRegistry.recipes)
