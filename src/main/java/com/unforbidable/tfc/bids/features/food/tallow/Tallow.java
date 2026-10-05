@@ -9,6 +9,7 @@ import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
+import com.unforbidable.tfc.bids.api.features.cooking.DilutableRecipeOutputFluid;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.fluid.FluidCommon;
@@ -22,7 +23,6 @@ import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import com.unforbidable.tfc.bids.features.food.tallow.eventhandler.SuetLivingDropsEventHandler;
-import com.unforbidable.tfc.bids.util.fluid.DualFluid;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
@@ -81,10 +81,13 @@ public class Tallow extends Feature {
             .add(CookingRecipe.builder()
                 .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.suet), Global.FOOD_MAX_WEIGHT / 4000))
                 .consumes(new FluidStack(TFCFluids.FRESHWATER, 1))
-                .produces(DualFluid.create(BidsFluids.tallow, 1, TFCFluids.FRESHWATER, 1000))
+                .produces(new FluidStack(BidsFluids.tallow, 1))
                 .withHeat(CookingHeatLevel.LOW)
                 .inTime(4000 / 5000f)
                 .build());
+
+        setup.registry(CookingRegistry.dilutable)
+            .add(BidsFluids.tallow, new DilutableRecipeOutputFluid(1000));
 
         setup.registry(CookingRegistry.recipes)
             .add(CookingRecipe.builder()
