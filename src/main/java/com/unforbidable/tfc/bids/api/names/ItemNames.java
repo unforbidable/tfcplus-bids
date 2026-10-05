@@ -408,4 +408,7 @@ public interface ItemNames {
     // Glue
     String GLUE = "Glue";
 
+    // Bow
+    String UNFINISHED_COMPOSITE_BOW = "Unfinished Composite Bow";
+
 }

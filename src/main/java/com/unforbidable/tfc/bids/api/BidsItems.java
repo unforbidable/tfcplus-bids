@@ -440,6 +440,9 @@ public class BidsItems {
     // Glue
     public static final Item glue = item(ItemNames.GLUE);
 
+    // Bow
+    public static final Item unfinishedCompositeBow = item(ItemNames.UNFINISHED_COMPOSITE_BOW);
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {

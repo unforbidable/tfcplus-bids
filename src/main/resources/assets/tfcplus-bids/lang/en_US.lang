@@ -1492,6 +1492,10 @@ item.Wax.name=Wax
 item.Glue.Hide.name=Hide Glue
 item.Glue.Pitch.name=Pitch Glue
 
+item.Unfinished Composite Bow.Extended.name=Unfinished Composite Bow (Extended)
+item.Unfinished Composite Bow.Glued.name=Unfinished Composite Bow (Glued)
+item.Unfinished Composite Bow.Tied.name=Unfinished Composite Bow (Tied)
+
 entity.PegLeashKnot.name=Leash Knot
 
 fluid.FishOil=Fish Oil
