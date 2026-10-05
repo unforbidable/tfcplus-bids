@@ -6,6 +6,7 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.Items.ItemBlocks.ItemBarrels;
 import com.dunk.tfc.Items.ItemBlocks.ItemLargeVessel;
 import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsEventFactory;
@@ -887,7 +888,21 @@ public class CookingEngine {
         // Soaking recipes are always run one item at a time at most if there is enough input fluid
         if (recipe.getInputItemStack() != null && recipe.getOutputItemStack() != null && recipe.getInputFluidStack() != null) {
             int fluidRuns = getRunsForInputFluidStack(recipe, inputFluidStack);
-            return Math.min(1, fluidRuns);
+
+            // except for food
+            if (inputItemStack.getItem() instanceof IFood) {
+                int itemRuns = getRunsForInputFood(recipe, inputItemStack);
+
+                // Since the whole stack of food is processed at once
+                // there must be enough fluid
+                if (fluidRuns < itemRuns) {
+                    return 0;
+                }
+
+                return itemRuns;
+            } else {
+                return Math.min(1, fluidRuns);
+            }
         }
 
         // Melting (solid input changes into liquid output)
