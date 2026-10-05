@@ -22,6 +22,7 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeCraftingResul
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
 import com.unforbidable.tfc.bids.api.features.cooking.DilutableRecipeOutputFluid;
 import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
+import com.unforbidable.tfc.bids.core.drink.FluidHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import com.unforbidable.tfc.bids.util.Timer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -574,7 +575,7 @@ public class CookingEngine {
                     boolean isNotFull = host.getFluidStack() == null || host.getFluidStack().amount < host.getMaxFluidVolume();
                     if (isNotFull) {
                         FluidStack fs = FluidStack.loadFluidStackFromNBT(equippedItem.getTagCompound().getCompoundTag("fluidNBT"));
-                        if (addFluid(fs)) {
+                        if (addFluid(fs, fs.amount)) {
                             if (fs.amount == 0) {
                                 equippedItem.getTagCompound().removeTag("Sealed");
                                 equippedItem.getTagCompound().removeTag("fluidNBT");
@@ -648,7 +649,7 @@ public class CookingEngine {
             ItemStack draining = is.copy();
             while (FluidContainerRegistry.isFilledContainer(draining)) {
                 FluidStack fs = FluidContainerRegistry.getFluidForFilledItem(draining);
-                if (addFluid(fs)) {
+                if (addFluid(fs, FluidHelper.getTotalFilledContainerVolume(is))) {
                     draining = FluidContainerRegistry.drainFluidContainer(draining);
                     Bids.LOG.debug("Draining item stack: " + draining.getDisplayName() + "[" + draining.getItemDamage() + "]");
                 } else {
@@ -658,8 +659,8 @@ public class CookingEngine {
             return draining;
         } else if (is.getItem() instanceof IFluidContainerItem) {
             FluidStack isfs = ((IFluidContainerItem) is.getItem()).getFluid(is);
-            if (addFluid(isfs)) {
-                ((IFluidContainerItem) is.getItem()).drain(is, is.getMaxDamage(), true);
+            if (addFluid(isfs, isfs.amount)) {
+                ((IFluidContainerItem) is.getItem()).drain(is, isfs.amount, true);
                 return is;
             }
         }
@@ -738,7 +739,7 @@ public class CookingEngine {
         return 0;
     }
 
-    public boolean addFluid(FluidStack inFS) {
+    public boolean addFluid(FluidStack inFS, int totalExpectedVolumeAdded) {
         if (inFS != null && host.isValidFluid(inFS.getFluid())) {
             FluidStack fluidStack = host.getFluidStack();
             if (fluidStack == null) {
@@ -748,20 +749,65 @@ public class CookingEngine {
                 }
 
                 host.onFluidChanged(inFS.copy());
-                inFS.amount = 0;
             } else {
-                // check if the container would overflow or if the fluid being added does
-                // not match the contained liquid
-                if (fluidStack.amount + inFS.amount > host.getMaxFluidVolume() || !fluidStack.isFluidEqual(inFS)) {
+                // Check if the container would overflow or if the fluid being added does
+                if (fluidStack.amount + inFS.amount > host.getMaxFluidVolume()) {
                     return false;
                 }
 
-                fluidStack.amount += inFS.amount;
-                host.onFluidChanged(fluidStack);
+                // Check fluid match
+                if (DualFluid.isDualFluidStack(fluidStack)) {
+                    // Match either of the dual liquids
+                    DualFluid dual = DualFluid.of(fluidStack);
+                    if (dual.isSecondaryFluidEqual(inFS)) {
+                        // Add amount to secondary liquid
+                        FluidStack secondary = dual.getSecondaryFluid();
+                        secondary.amount += inFS.amount;
+                        dual.setSecondaryFluid(secondary);
 
-                inFS.amount = 0;
+                        fluidStack.amount += inFS.amount;
+
+                        host.onFluidChanged(fluidStack);
+                    } else if (dual.isPrimaryFluidEqual(inFS)) {
+                        fluidStack.amount += inFS.amount;
+
+                        host.onFluidChanged(fluidStack);
+                    } else {
+                        // Dual but neither fluid matches
+                        return false;
+                    }
+                } else if (fluidStack.isFluidEqual(inFS)) {
+                    fluidStack.amount += inFS.amount;
+
+                    host.onFluidChanged(fluidStack);
+                } else {
+                    // See if added fluid can dilute existing fluid considering the min dilute amount
+                    // Partial container fluid volume is handled with totalExpectedVolumeAdded
+                    DilutableRecipeOutputFluid existingDilutable = CookingRegistry.dilutable.get(fluidStack.getFluid());
+                    if (existingDilutable != null && existingDilutable.minDiluteAmount <= totalExpectedVolumeAdded && inFS.getFluid() == TFCFluids.FRESHWATER) {
+                        DualFluid.of(fluidStack)
+                            .setSecondaryFluid(inFS.copy());
+                        fluidStack.amount += inFS.amount;
+
+                        host.onFluidChanged(fluidStack);
+                    } else {
+                        // See if added fluid can be diluted by the existing fluid considering the min dilute amount
+                        DilutableRecipeOutputFluid addedDilutable = CookingRegistry.dilutable.get(inFS.getFluid());
+                        if (addedDilutable != null && addedDilutable.minDiluteAmount <= fluidStack.amount && fluidStack.getFluid() == TFCFluids.FRESHWATER) {
+                            FluidStack newFluidStack = inFS.copy();
+                            DualFluid.of(newFluidStack)
+                                .setSecondaryFluid(fluidStack.copy());
+                            newFluidStack.amount += fluidStack.amount;
+
+                            host.onFluidChanged(newFluidStack);
+                        } else {
+                            return false;
+                        }
+                    }
+                }
             }
 
+            inFS.amount = 0;
             onRecipeParametersChanged(true);
 
             return true;

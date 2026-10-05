@@ -95,6 +95,18 @@ public class FluidHelper {
         return null;
     }
 
+    public static int getTotalFilledContainerVolume(ItemStack is) {
+        int total = 0;
+
+        while (FluidContainerRegistry.isFilledContainer(is)) {
+            total += FluidContainerRegistry.getContainerCapacity(is);
+
+            is = FluidContainerRegistry.drainFluidContainer(is);
+        }
+
+        return total;
+    }
+
     public static int getTotalContainerCapacity(ItemStack is, Fluid fluid) {
         FluidStack fs = new FluidStack(fluid, 1);
         int total = 0;
