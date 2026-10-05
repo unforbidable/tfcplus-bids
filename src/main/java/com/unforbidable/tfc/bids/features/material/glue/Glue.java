@@ -18,6 +18,7 @@ import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.BarrelRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
+import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
@@ -27,6 +28,11 @@ import net.minecraftforge.fluids.FluidStack;
 
 @FeatureName("glue")
 public class Glue extends Feature {
+
+    @Override
+    public void config(FeatureConfig config) {
+        config.using(GlueConfig::load, "crafting");
+    }
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
@@ -106,9 +112,15 @@ public class Glue extends Feature {
             .produces(new ItemStack(TFCItems.pitchBag))
             .inTime(100)
             .build());
+
         setup.registry(CookingRegistry.dilutable)
             .add(BidsFluids.hideGlue, new DilutableRecipeOutputFluid(1000))
             .add(BidsFluids.pitchGlue, new DilutableRecipeOutputFluid(1000));
+
+        if (GlueConfig.removeOriginalWaterSkinRecipes) {
+            setup.registry(TfcRegistry.Barrel.recipes)
+                .add(BarrelRecipe.remove(TFCItems.pitchBag));
+        }
     }
 
 }
