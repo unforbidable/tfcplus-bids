@@ -4,6 +4,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingFrameRecipe;
 import com.unforbidable.tfc.bids.api.features.drying.DryingRackRecipe;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
@@ -22,6 +23,7 @@ import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import com.unforbidable.tfc.bids.features.crafting.soaking.SoakingRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingframe.DryingFrameRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingrack.DryingRackRegistry;
@@ -231,6 +233,13 @@ public class Skin extends Feature {
             .add(new SoakingRecipe(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
                 SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_TANNED),
                 new FluidStack(TFCFluids.TANNIN, 200), 8000));
+        setup.registry(CookingRegistry.recipes)
+            .add(CookingRecipe.builder()
+                .consumes(SkinHelper.createStack(BidsItems.dehairedSkin, 1, SkinTagAccess.STAGE_DEHAIRED))
+                .consumes(new FluidStack(TFCFluids.TANNIN, 10))
+                .produces(SkinHelper.createStack(BidsItems.dehairedSkin, 1, SkinTagAccess.STAGE_TANNED))
+                .inFixedTime(12000)
+                .build());
 
         // Tanned Skin -> Cured Skin
         setup.registry(DryingFrameRegistry.recipes)
