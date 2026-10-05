@@ -437,6 +437,9 @@ public class BidsItems {
     // Wax
     public static final Item wax = item(ItemNames.WAX);
 
+    // Glue
+    public static final Item glue = item(ItemNames.GLUE);
+
     private static Item item(String name) {
         Item item = GameRegistry.findItem(Tags.MOD_ID, "item." + name);
         if (item == null) {

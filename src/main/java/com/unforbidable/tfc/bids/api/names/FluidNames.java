@@ -23,5 +23,7 @@ public interface FluidNames {
     String SOAP = "Soap";
     String UNCURED_SOAP = "UncuredSoap";
     String SOAPY_WATER = "SoapyWater";
+    String HIDE_GLUE = "HideGlue";
+    String PITCH_GLUE = "PitchGlue";
 
 }

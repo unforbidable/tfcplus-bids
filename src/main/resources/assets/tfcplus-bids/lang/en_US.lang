@@ -1489,6 +1489,9 @@ item.Solidified Pitch.name=Solidified Pitch
 
 item.Wax.name=Wax
 
+item.Glue.Hide.name=Hide Glue
+item.Glue.Pitch.name=Pitch Glue
+
 entity.PegLeashKnot.name=Leash Knot
 
 fluid.FishOil=Fish Oil
@@ -1512,6 +1515,8 @@ fluid.Soap=Soap
 fluid.UncuredSoap=Uncured Soap
 fluid.SoapyWater=Soapy Water
 fluid.FlaxSeedOil=Linseed Oil
+fluid.HideGlue=Hide Glue
+fluid.PitchGlue=Pitch Glue
 
 itemGroup.Bids.Default=Bids and Pieces
 itemGroup.Bids.Foodstuffs=Bids and Pieces - Foodstuffs

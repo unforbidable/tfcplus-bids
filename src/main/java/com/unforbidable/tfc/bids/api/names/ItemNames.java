@@ -405,4 +405,7 @@ public interface ItemNames {
     // Wax
     String WAX = "Wax";
 
+    // Glue
+    String GLUE = "Glue";
+
 }
