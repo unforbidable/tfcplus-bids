@@ -1120,7 +1120,7 @@ public class CookingEngine {
 
                         // Check if diluting liquid is the same as the consumed fluid
                         if (dual.isSecondaryFluidEqual(recipe.getInputFluidStack())) {
-                            dilutingStack = recipe.getInputFluidStack();
+                            dilutingStack = recipe.getInputFluidStack().copy();
                             dilutingStack.amount = (int) (dual.getSecondaryFluid().amount - actuallyConsumedInputAmount);
                             output.amount += dual.getPrimaryFluid().amount;
                         } else {
@@ -1130,7 +1130,7 @@ public class CookingEngine {
                             dilutingStack = dual.getSecondaryFluid().copy();
                         }
                     } else {
-                        dilutingStack = recipe.getInputFluidStack();
+                        dilutingStack = recipe.getInputFluidStack().copy();
                         dilutingStack.amount = (int) (template.getInputFluidStack().amount - actuallyConsumedInputAmount);
                     }
 
