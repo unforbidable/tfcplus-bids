@@ -2,6 +2,7 @@ package com.unforbidable.tfc.bids.features.material.glue;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.TFCFluids;
+import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
@@ -99,6 +100,12 @@ public class Glue extends Feature {
                 .inFixedTime(500)
                 .build());
 
+        setup.registry(CookingRegistry.recipes)
+            .add(CookingRecipe.builder()
+            .consumes(new FluidStack(BidsFluids.pitchGlue, 250), new ItemStack(TFCItems.leatherBag))
+            .produces(new ItemStack(TFCItems.pitchBag))
+            .inTime(100)
+            .build());
         setup.registry(CookingRegistry.dilutable)
             .add(BidsFluids.hideGlue, new DilutableRecipeOutputFluid(1000))
             .add(BidsFluids.pitchGlue, new DilutableRecipeOutputFluid(1000));
