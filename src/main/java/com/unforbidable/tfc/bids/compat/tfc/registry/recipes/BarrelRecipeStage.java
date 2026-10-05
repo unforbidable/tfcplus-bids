@@ -8,6 +8,8 @@ import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.compat.tfc.recipe.barrel.BarrelItemDemandingRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.recipe.barrel.TrackedBarrelFoodHandlingRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.RegistryStage;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class BarrelRecipeStage extends RegistryStage<BarrelRecipe> {
 
@@ -28,7 +30,26 @@ public class BarrelRecipeStage extends RegistryStage<BarrelRecipe> {
 
             BarrelManager.getInstance().addRecipe(recipeTfc);
         } catch (Exception ex) {
-            Bids.LOG.error("Failed to register TFC anvil recipe for {}: {}", recipe, ex.getMessage(), ex);
+            Bids.LOG.error("Failed to register TFC barrel recipe for {}: {}", recipe, ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public void remove(Predicate<BarrelRecipe> predicate) {
+        try {
+            List<com.dunk.tfc.api.Crafting.BarrelRecipe> recipes = BarrelManager.getInstance().getRecipes();
+            for (int i = 0; i < recipes.size(); i++) {
+                com.dunk.tfc.api.Crafting.BarrelRecipe recipe = recipes.get(i);
+                BarrelRecipe r = new BarrelRecipe(BarrelRecipeType.SIMPLE, recipe.recipeIS, recipe.recipeOutIS, recipe.recipeFluid, recipe.recipeOutFluid, null,
+                    recipe.minTechLevel, recipe.sealTime, recipe.sealedRecipe, recipe.requiresCooked, recipe.removesLiquid, true, recipe.allowAnyStack);
+                if (predicate.test(r)) {
+                    recipes.remove(i--);
+                    Bids.LOG.info("Original barrel recipe removed: {}", r);
+                }
+            }
+        } catch (Exception ex) {
+            Bids.LOG.warn("Failed to match barrel recipes for removal: {}",
+                ex.getMessage(), ex);
         }
     }
 

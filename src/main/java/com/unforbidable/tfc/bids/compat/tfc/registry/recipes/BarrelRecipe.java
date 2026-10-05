@@ -5,6 +5,8 @@ import com.unforbidable.tfc.bids.compat.tfc.registry.actors.RegistryAddingActor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import com.unforbidable.tfc.bids.compat.tfc.registry.actors.RegistryRemovingActor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -66,6 +68,10 @@ public class BarrelRecipe {
 
     public static RegistryActor<BarrelRecipe> addLiquidToLiquid(Consumer<BarrelRecipeBuilder> consumer) {
         return new RegistryAddingActor<>(BarrelRecipeStage.instance, buildRecipe(BarrelRecipeType.LIQUID_TO_LIQUID, consumer));
+    }
+
+    public static RegistryRemovingActor<BarrelRecipe> remove(Item output) {
+        return new RegistryRemovingActor<>(BarrelRecipeStage.instance, r -> r.outputItem != null && r.outputItem.getItem() == output);
     }
 
     private static BarrelRecipe buildRecipe(BarrelRecipeType type, Consumer<BarrelRecipeBuilder> consumer) {
