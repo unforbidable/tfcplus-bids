@@ -7,8 +7,10 @@ import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.meta.UnfinishedCompositeBowMeta;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonMisc;
+import com.unforbidable.tfc.bids.core.crafting.MatchingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
+import com.unforbidable.tfc.bids.core.features.config.FeatureConfig;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
@@ -18,6 +20,11 @@ import net.minecraftforge.fluids.FluidStack;
 
 @FeatureName("bow")
 public class Bow extends Feature {
+
+    @Override
+    public void config(FeatureConfig config) {
+        config.using(BowConfig::load, "crafting");
+    }
 
     @Override
     public void init(FeatureInitSpecBuilder init, FeatureRegistryLookup lookup) {
@@ -54,6 +61,15 @@ public class Bow extends Feature {
                 .produces(new ItemStack(TFCItems.unstrungCompositeBow))
                 .inTime(200)
                 .build());
+
+        if (BowConfig.removeOriginalCompositeBowRecipes) {
+            setup.recipes()
+                .match(r -> r.output.is(TFCItems.unstrungCompositeBow))
+                .edit(MatchingRecipe::remove);
+            setup.recipes()
+                .match(r -> r.output.is(TFCItems.unstrungCompositeBow2))
+                .edit(MatchingRecipe::remove);
+        }
     }
 
 }
