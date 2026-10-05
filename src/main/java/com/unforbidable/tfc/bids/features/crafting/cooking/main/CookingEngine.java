@@ -975,14 +975,21 @@ public class CookingEngine {
             return Integer.MAX_VALUE;
         }
 
-        if (fluidStack == null || fluidStack.isFluidEqual(recipe.getOutputFluidStack()) ||
-            DualFluid.isDualFluidStack(fluidStack) && DualFluid.of(fluidStack).isSecondaryFluidEqual(fluidStack)) {
-            int totalAmountToFit = host.getMaxFluidVolume() - host.getTotalLiquidVolume();
-            return (int)Math.floor((float)totalAmountToFit / recipe.getOutputFluidStack().amount);
-        } else {
-            // Not compatible fluids present
-            return 0;
+        int totalAmountToFit = host.getMaxFluidVolume() - host.getTotalLiquidVolume();
+
+        if (fluidStack == null || fluidStack.isFluidEqual(recipe.getOutputFluidStack())) {
+            return (int) Math.floor((float) totalAmountToFit / recipe.getOutputFluidStack().amount);
+        } else if (DualFluid.isDualFluidStack(fluidStack)) {
+            DualFluid dual = DualFluid.of(fluidStack);
+            if (dual.isSecondaryFluidEqual(fluidStack)) {
+                return (int) Math.floor((float) totalAmountToFit / dual.getSecondaryFluid().amount);
+            } else if (dual.isPrimaryFluidEqual(fluidStack)) {
+                return (int) Math.floor((float) totalAmountToFit / dual.getPrimaryFluid().amount);
+            }
         }
+
+        // Not compatible fluids present
+        return 0;
     }
 
     private int getRunsForInputFood(CookingRecipe recipe, ItemStack inputItemStack) {
