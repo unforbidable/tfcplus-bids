@@ -4,8 +4,9 @@ import com.dunk.tfc.api.Armor;
 import com.dunk.tfc.api.Interfaces.IEquipable;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Tags;
+import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.compat.tfc.meta.WoodMeta;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonClothSheet;
 import com.unforbidable.tfc.bids.common.item.ItemCommonFlat;
@@ -14,6 +15,7 @@ import com.unforbidable.tfc.bids.common.item.ItemDrinkingCloth;
 import com.unforbidable.tfc.bids.common.item.ItemExtraBag;
 import com.unforbidable.tfc.bids.common.item.ItemExtraBoots;
 import com.unforbidable.tfc.bids.compat.tfc.TfcRegistry;
+import com.unforbidable.tfc.bids.compat.tfc.meta.WoodMeta;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.KnappingRecipe;
 import com.unforbidable.tfc.bids.compat.tfc.registry.recipes.SewingRecipe;
 import com.unforbidable.tfc.bids.core.features.Feature;
@@ -22,11 +24,12 @@ import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import static com.unforbidable.tfc.bids.core.crafting.actions.DamageTool.damageTool;
@@ -73,9 +76,6 @@ public class BirchBark extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-        setup.recipes().addShapeless(new ItemStack(BidsItems.birchBarkCup),
-            BidsItems.birchBarkCupUnfinished, Items.slime_ball);
-
         setup.recipes().addShapeless(new ItemStack(BidsItems.birchBarkSheet),
                 new ItemStack(BidsItems.bark, 1, WoodMeta.BIRCH), "itemKnife")
             .action(damageTool("itemKnife"));
@@ -83,6 +83,14 @@ public class BirchBark extends Feature {
         setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(new ItemStack(BidsItems.birchBarkShoes),
                 "  ###", "   ##", "     ", "##   ", "###  ", '#', BidsItems.flatBirchBark));
+
+        setup.registry(CookingRegistry.recipes)
+            .add(CookingRecipe.builder()
+                .consumes(new ItemStack(BidsItems.birchBarkCupUnfinished))
+                .consumes(new FluidStack(BidsFluids.pitchGlue, 200))
+                .produces(new ItemStack(BidsItems.birchBarkCup))
+                .inTime(100)
+                .build());
 
         int[][][] bagSewing = new int[][][]{{
             {25, 21},
