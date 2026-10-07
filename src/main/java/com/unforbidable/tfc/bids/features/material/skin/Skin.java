@@ -155,7 +155,7 @@ public class Skin extends Feature {
             setup.registry(SoakingRegistry.recipes)
                 .add(new SoakingRecipe(SkinHelper.createStack(skin.item, SkinTagAccess.STAGE_CLEAN, FoodTag::setSalted),
                     SkinHelper.createStack(skin.item, SkinTagAccess.STAGE_CLEAN),
-                    new FluidStack(TFCFluids.FRESHWATER, 200)));
+                    new FluidStack(TFCFluids.FRESHWATER, 200), 200));
 
             // Fresh -> Fleshed
             setup.registry(ProcessingSurfaceRegistry.recipes)
@@ -215,7 +215,7 @@ public class Skin extends Feature {
         setup.registry(SoakingRegistry.recipes)
             .add(new SoakingRecipe(SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED, FoodTag::setSalted),
                 SkinHelper.createStack(BidsItems.dehairedSkin, SkinTagAccess.STAGE_DEHAIRED),
-                new FluidStack(TFCFluids.FRESHWATER, 200)));
+                new FluidStack(TFCFluids.FRESHWATER, 200), 200));
 
         // Dehaired Skin -> Rawhide
         setup.registry(DryingFrameRegistry.recipes)
