@@ -271,7 +271,7 @@ public class Skin extends Feature {
 
         setup.recipes()
             .add(new SkinCuttingRecipe(SkinHelper.createStack(BidsItems.rawhide),
-                "itemKnife", TFCItems.hide, new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.VERY_SMALL_HIDE), null))
+                "itemKnife", TFCItems.hide, new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.VERY_SMALL_HIDE), new ItemStack(BidsItems.moreHide, 1, MoreHideMeta.HIDE_SCRAP)))
             .action(cutSkin())
             .action(damageTool("itemKnife"));
 
