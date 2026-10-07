@@ -1,5 +1,7 @@
 package com.unforbidable.tfc.bids.api.features.cooking;
 
+import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
 import java.util.Collections;
@@ -158,11 +160,20 @@ public class CookingRecipe {
 
     protected boolean doesInputItemMatch(CookingRecipeInputTemplate template) {
         boolean match = getInputItemStack() == null && template.getInputItemStack() == null ||
-            getInputItemStack() != null && template.getInputItemStack() != null && getInputItemStack().isItemEqual(template.getInputItemStack())
-                && getInputItemStack().getItemDamage() == template.getInputItemStack().getItemDamage();
+            getInputItemStack() != null && template.getInputItemStack() != null &&
+                getInputItemStack().isItemEqual(template.getInputItemStack()) &&
+                doesInputFoodMatch(template);
         //Bids.LOG.info("doesInputItemMatch: " + match);
 
         return match;
+    }
+
+    private boolean doesInputFoodMatch(CookingRecipeInputTemplate template) {
+        if (getInputItemStack().getItem() instanceof IFood) {
+            return Food.areEqual(getInputItemStack(), template.getInputItemStack());
+        } else {
+            return true;
+        }
     }
 
     protected boolean doesMinHeatLevelMatch(CookingRecipeInputTemplate template) {
