@@ -366,7 +366,12 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
                 outputFluids = new FluidStackGroup(recipe.getOutputFluidStack());
             }
 
-            inputItemStacks = recipe.getInputItemStacks();
+            inputItemStacks = new ArrayList<>();
+            for (int i = 0; i < recipe.getInputItemStacks().size(); i++) {
+                ItemStack is = recipe.getInputItemStacks().get(i);
+                inputItemStacks.add(is.copy());
+            }
+
             outputItemStack = result.getOutputItemStack() != null ? result.getOutputItemStack().copy() : null;
 
             int runs = getRuns();
