@@ -84,6 +84,13 @@ public class Tallow extends Feature {
                 .produces(new FluidStack(BidsFluids.tallow, 1))
                 .withHeat(CookingHeatLevel.LOW)
                 .inTime(4000 / 5000f)
+                .build())
+            .add(CookingRecipe.builder()
+                .consumes(ItemFoodTFC.createTag(new ItemStack(BidsItems.tallow), Global.FOOD_MAX_WEIGHT / 5000))
+                .consumes(new FluidStack(TFCFluids.FRESHWATER, 1))
+                .produces(new FluidStack(BidsFluids.tallow, 1))
+                .withHeat()
+                .inTime(250 / 5000f)
                 .build());
 
         setup.registry(CookingRegistry.dilutable)
