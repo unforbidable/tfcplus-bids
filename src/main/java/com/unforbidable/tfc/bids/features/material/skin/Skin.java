@@ -384,6 +384,9 @@ public class Skin extends Feature {
             .add(new SoakingRecipe(new ItemStack(TFCItems.bearFurScrap, 1, 2),
                 SkinHelper.createStack(BidsItems.bearFur, SkinHelper.WEIGHT_LARGE, SkinTagAccess.STAGE_CLEAN),
                 new FluidStack(TFCFluids.FRESHWATER, 200), 4000));
+
+        setup.registry(CookingRegistry.recipes)
+            .adapt(SoakingRegistry.recipes, SkinHelper::adaptSkinSoakingRecipeForCookingPot);
     }
 
 }

@@ -1,10 +1,15 @@
 package com.unforbidable.tfc.bids.features.material.skin.main;
 
+import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.Food.ItemFoodTFC;
+import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
+import com.unforbidable.tfc.bids.api.features.soaking.SoakingRecipe;
 import com.unforbidable.tfc.bids.features.material.skin.item.ItemSkin;
 import com.unforbidable.tfc.bids.features.material.skin.main.nbt.SkinTag;
 import com.unforbidable.tfc.bids.util.nbt.ItemTag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import java.util.function.Consumer;
 
 public class SkinHelper {
@@ -63,6 +68,28 @@ public class SkinHelper {
 
     public static ItemStack createStack(Item item, String stage, Consumer<SkinTag> apply) {
         return createTag(new ItemStack(item), tag -> { tag.setStage(stage); apply.accept(tag); });
+    }
+
+    public static CookingRecipe adaptSkinSoakingRecipeForCookingPot(SoakingRecipe source) {
+        if (source.input != null && source.input.getItem() instanceof ItemSkin &&
+            source.output != null && source.output.getItem() instanceof ItemSkin) {
+
+            // Cooking recipes are scaled
+            ItemStack input = source.input.copy();
+            SkinTag.of(input).setWeight(1);
+            ItemStack output = source.output.copy();
+            SkinTag.of(output).setWeight(1);
+            FluidStack fluid = new FluidStack(source.fluid.getFluid(), 10);
+
+            return CookingRecipe.builder()
+                .consumes(input)
+                .consumes(fluid)
+                .produces(output)
+                .inFixedTime(source.ticks)
+                .build();
+        }
+
+        return null;
     }
 
 }

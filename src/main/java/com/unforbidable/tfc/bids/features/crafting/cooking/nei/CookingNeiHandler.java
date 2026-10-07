@@ -392,7 +392,7 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
             if (recipe.getTime() > 0) {
                 float hours = recipe.getTime() / (float)TFC_Time.HOUR_LENGTH;
 
-                if (!inputItemStacks.isEmpty() && inputItemStacks.get(0).getItem() instanceof ItemFoodTFC) {
+                if (!inputItemStacks.isEmpty() && inputItemStacks.get(0).getItem() instanceof ItemFoodTFC && !recipe.isFixedTime()) {
                     // For input items that are food, the total time is determined by the number of runs
                     hours *= runs;
                 }
@@ -413,7 +413,9 @@ public class CookingNeiHandler extends TemplateRecipeHandler implements IHandler
             ItemStack inputItemStack = !inputItemStacks.isEmpty() ? inputItemStacks.get(0) : null;
             if ((inputItemStack == null || inputItemStack.getItem() instanceof ItemFoodTFC) &&
                 (outputItemStack == null || outputItemStack.getItem() instanceof ItemFoodTFC)) {
-                if (inputFluids.getTotalAmount() > 0) {
+                if (inputItemStack != null && inputItemStack.getItem() instanceof ItemFoodTFC && outputItemStack != null && outputItemStack.getItem() instanceof ItemFoodTFC) {
+                    runs = Math.min(160f / Food.getWeight(inputItemStack), 160f / Food.getWeight(outputItemStack));
+                } else if (inputFluids.getTotalAmount() > 0) {
                     runs = 5000f / inputFluids.getTotalAmount();
                 } else if (outputFluids.getTotalAmount() > 0) {
                     runs = 5000f / outputFluids.getTotalAmount();
