@@ -8,6 +8,7 @@ import com.unforbidable.tfc.bids.api.BidsFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
+import com.unforbidable.tfc.bids.api.features.cooking.DilutableRecipeOutputFluid;
 import com.unforbidable.tfc.bids.api.features.drying.DryingSurfaceRecipe;
 import com.unforbidable.tfc.bids.api.names.FluidNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
@@ -117,6 +118,9 @@ public class Soap extends Feature {
                 .consumes(new FluidStack(TFCFluids.FRESHWATER, 1), new FluidStack(BidsFluids.woodAshLye, 1))
                 .produces(new FluidStack(BidsFluids.weakWoodAshLye, 2))
                 .build());
+
+        setup.registry(CookingRegistry.dilutable)
+                .add(BidsFluids.weakWoodAshLye, new DilutableRecipeOutputFluid(0));
 
         setup.registry(CookingRegistry.recipes)
             .add(CookingRecipe.builder()
