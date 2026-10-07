@@ -110,6 +110,7 @@ public class CookingRecipe {
         if (getInputFluidStack() != null && template.getInputFluidStack() != null) {
             if (DualFluid.isDualFluidStack(template.getInputFluidStack())) {
                 // Match recipe with either of dual fluids
+                // however soaking recipes can only match with the primary fluid
                 DualFluid dual = DualFluid.of(template.getInputFluidStack());
                 if (dual.isPrimaryFluidEqual(getInputFluidStack())) {
                     // If primary fluid matches input, any output fluid must match secondary fluid
@@ -118,7 +119,7 @@ public class CookingRecipe {
                         new FluidStack(TFCFluids.FRESHWATER, 1000) : null;
                     return getOutputFluidStack() == null || dual.isSecondaryFluidEqual(getOutputFluidStack()) ||
                         dilutableInFluid != null && dual.isSecondaryFluidEqual(dilutableInFluid);
-                } else if (dual.isSecondaryFluidEqual(getInputFluidStack())) {
+                } else if (dual.isSecondaryFluidEqual(getInputFluidStack()) && (getOutputItemStack() == null || getInputItemStacks().size() == 0)) {
                     // If secondary fluid matches input, any output fluid must match primary fluid
                     return getOutputFluidStack() == null || dual.isPrimaryFluidEqual(getOutputFluidStack());
                 }
