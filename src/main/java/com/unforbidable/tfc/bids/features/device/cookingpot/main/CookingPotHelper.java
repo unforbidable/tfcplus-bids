@@ -1,5 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.cookingpot.main;
 
+import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.device.cookingpot.tileentity.TileEntityCookingPot;
 import com.unforbidable.tfc.bids.util.collision.CollisionHelper;
@@ -30,6 +31,10 @@ public class CookingPotHelper {
 
         if (tileEntityCookingPot.getPrimaryFluidStack() != null) {
             list.add(fluidColor + CookingHelper.getFluidInfoLine(tileEntityCookingPot.getPrimaryFluidStack()));
+
+            if (DualFluid.isDualFluidStack(tileEntityCookingPot.getFluidStack())) {
+                list.add(fluidColor + CookingHelper.getFluidInfoLine(DualFluid.of(tileEntityCookingPot.getFluidStack()).getSecondaryFluid()));
+            }
         }
 
         if (tileEntityCookingPot.hasSteamingMesh()) {
