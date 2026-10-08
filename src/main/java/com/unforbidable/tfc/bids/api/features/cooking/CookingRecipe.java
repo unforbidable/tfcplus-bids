@@ -162,7 +162,8 @@ public class CookingRecipe {
     protected boolean doesInputItemMatch(CookingRecipeInputTemplate template) {
         boolean match = getInputItemStack() == null && template.getInputItemStack() == null ||
             getInputItemStack() != null && template.getInputItemStack() != null &&
-                getInputItemStack().isItemEqual(template.getInputItemStack()) &&
+                getInputItemStack().getItem() == template.getInputItemStack().getItem() &&
+                getInputItemStack().getItemDamage() == template.getInputItemStack().getItemDamage() &&
                 doesInputFoodMatch(template);
         //Bids.LOG.info("doesInputItemMatch: " + match);
 
