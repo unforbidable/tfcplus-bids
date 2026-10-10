@@ -54,6 +54,7 @@ public class Pemmican extends Feature {
             .allow("foodFruitBerry")
             .allow("foodGrainGround")
             .allow("foodGrainCrushed")
+            .allow("foodStarch")
             .build();
 
         CookingPrepRegistry.recipes.add(new CookingPrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.pemmican)),
