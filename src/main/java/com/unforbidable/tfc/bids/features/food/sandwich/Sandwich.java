@@ -32,7 +32,7 @@ public class Sandwich extends Feature {
         init.item(ItemNames.STUFFED_MUSHROOM, () -> new ItemMoreSandwich(new float[]{2, 3, 2, 2, 1}))
             .meta("Stuffed Mushroom.Brown");
         init.item(ItemNames.WRAP, () -> new ItemWrap(new float[]{3, 6, 4, 2, 1}))
-            .meta("Wrap.Wheat", "Wrap.Barley", "Wrap.Oat", "Wrap.Rye", "Wrap.Corn", "Wrap.Rice");
+            .meta("Wrap.Wheat", "Wrap.Barley", "Wrap.Oat", "Wrap.Rye", "Wrap.Corn", "Wrap.Rice", "Wrap.Potato");
     }
 
     @SideOnly(Side.CLIENT)
@@ -80,7 +80,7 @@ public class Sandwich extends Feature {
             .allow(EnumFoodGroup.Protein)
             .allow(TFCItems.riceGrain)
             .build();
-        Item[] flatbread = new Item[]{BidsItems.wheatFlatbread, BidsItems.oatFlatbread, BidsItems.barleyFlatbread, BidsItems.ryeFlatbread, BidsItems.cornmealFlatbread, BidsItems.riceFlatbread};
+        Item[] flatbread = new Item[]{BidsItems.wheatFlatbread, BidsItems.oatFlatbread, BidsItems.barleyFlatbread, BidsItems.ryeFlatbread, BidsItems.cornmealFlatbread, BidsItems.riceFlatbread, BidsItems.potatoFlatbread};
         for (int i = 0; i < flatbread.length; i++) {
             setup.registry(CookingPrepRegistry.recipes)
                 .add(new CookingPrepRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.wrap, 1, i)), 7,
