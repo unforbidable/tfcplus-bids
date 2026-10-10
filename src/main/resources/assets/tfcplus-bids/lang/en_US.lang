@@ -1347,6 +1347,10 @@ item.Butter.name=Butter
 item.Bamboo Shoot.name=Bamboo Shoots
 
 item.Fern Rhizome.name=Fern Rhizome
+item.Fern Rhizome Crushed.name=Crushed Fern Rhizome
+item.Fern Dough.name=Fern Dough
+item.Fern Flour.name=Fern Flour
+item.Fern Cake.name=Fern Cake
 
 item.Potato Dough.name=Potato Dough
 item.Potato Flour.name=Potato Flour
@@ -1524,6 +1528,7 @@ fluid.Soap=Soap
 fluid.UncuredSoap=Uncured Soap
 fluid.SoapyWater=Soapy Water
 fluid.FlaxSeedOil=Linseed Oil
+fluid.FernStarch=Fern Starch
 fluid.HideGlue=Hide Glue
 fluid.PitchGlue=Pitch Glue
 

@@ -29,6 +29,7 @@ public class BidsFluids {
     public static final Fluid soap = fluid(FluidNames.SOAP);
     public static final Fluid uncuredSoap = fluid(FluidNames.UNCURED_SOAP);
     public static final Fluid soapyWater = fluid(FluidNames.SOAPY_WATER);
+    public static final Fluid fernStarch = fluid(FluidNames.FERN_STARCH);
     public static final Fluid hideGlue = fluid(FluidNames.HIDE_GLUE);
     public static final Fluid pitchGlue = fluid(FluidNames.PITCH_GLUE);
 

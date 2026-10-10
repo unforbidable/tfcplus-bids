@@ -366,6 +366,10 @@ public interface ItemNames {
 
     // Fern
     String FERN_RHIZOME = "Fern Rhizome";
+    String FERN_RHIZOME_CRUSHED = "Fern Rhizome Crushed";
+    String FERN_FLOUR = "Fern Flour";
+    String FERN_DOUGH = "Fern Dough";
+    String FERN_CAKE = "Fern Cake";
 
     // Skins
     String GENERIC_SKIN = "Generic Skin";

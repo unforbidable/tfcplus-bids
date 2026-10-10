@@ -398,6 +398,10 @@ public class BidsItems {
 
     // Fern
     public static final Item fernRhizome = item(ItemNames.FERN_RHIZOME);
+    public static final Item fernRhizomeCrushed = item(ItemNames.FERN_RHIZOME_CRUSHED);
+    public static final Item fernFlour = item(ItemNames.FERN_FLOUR);
+    public static final Item fernDough = item(ItemNames.FERN_DOUGH);
+    public static final Item fernCake = item(ItemNames.FERN_CAKE);
 
     // Skins
     public static final Item genericSkin = item(ItemNames.GENERIC_SKIN);
