@@ -22,7 +22,7 @@ public class RenderProcessingSurface implements ISimpleBlockRenderingHandler {
             renderer.renderStandardBlock(block, x, y, z);
         } else {
             TileEntityProcessingSurface te = (TileEntityProcessingSurface) world.getTileEntity(x, y, z);
-            if (te.getInputItem() != null) {
+            if (te.getInputItem() != null && ProcessingSurfaceHelper.renderItemAsSurface(te.getInputItem())) {
                 IIcon inputIcon = ProcessingSurfaceHelper.getIconForItem(te.getInputItem());
                 IIcon resultIcon = ProcessingSurfaceHelper.getIconForItem(te.getResultItem());
 

@@ -2,12 +2,16 @@ package com.unforbidable.tfc.bids.features.device.processingsurface.main;
 
 import com.dunk.tfc.Core.TFC_Textures;
 import com.dunk.tfc.Items.Tools.ItemWeapon;
+import com.dunk.tfc.api.Food;
+import com.dunk.tfc.api.Interfaces.IFood;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.Tags;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
+import com.unforbidable.tfc.bids.api.features.quern.QuernRecipe;
 import com.unforbidable.tfc.bids.api.features.surfaceitem.ItemSurfaceIconAccessor;
+import com.unforbidable.tfc.bids.common.item.ItemFoodLike;
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceConfig;
 import com.unforbidable.tfc.bids.features.device.processingsurface.ProcessingSurfaceRegistry;
 import java.lang.reflect.Field;
@@ -24,15 +28,21 @@ import net.minecraft.world.World;
 
 public class ProcessingSurfaceHelper {
 
-    private static final Map<String, IIcon> icons = new HashMap<String, IIcon>();
+    private static final Map<String, IIcon> icons = new HashMap<>();
 
     public static IIcon getIconForItem(ItemStack itemStack) {
         String key = getIconName(itemStack);
         if (icons.containsKey(key)) {
             return icons.get(key);
         } else {
+            Bids.LOG.warn("Missing surface icon for {}", itemStack);
+
             return TFC_Textures.invisibleTexture;
         }
+    }
+
+    public static boolean renderItemAsSurface(ItemStack itemStack) {
+        return !(itemStack.getItem() instanceof IFood) || itemStack.getItem() instanceof ItemFoodLike;
     }
 
     public static float getToolEfficiency(ItemStack tool) {
@@ -55,9 +65,7 @@ public class ProcessingSurfaceHelper {
             Field toolMatField = ItemWeapon.class.getDeclaredField("toolMat");
             toolMatField.setAccessible(true);
             return (Item.ToolMaterial)toolMatField.get(item);
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
@@ -67,8 +75,13 @@ public class ProcessingSurfaceHelper {
             ItemStack input = recipe.getInput();
             ItemStack result = recipe.getResult(input);
 
-            registerSurfaceItemIcon(registerer, input);
-            registerSurfaceItemIcon(registerer, result);
+            if (renderItemAsSurface(input)) {
+                registerSurfaceItemIcon(registerer, input);
+            }
+
+            if (renderItemAsSurface(result)) {
+                registerSurfaceItemIcon(registerer, result);
+            }
         }
     }
 
@@ -136,6 +149,26 @@ public class ProcessingSurfaceHelper {
         }
 
         return true;
+    }
+
+    public static ProcessingSurfaceRecipe adaptQuernRecipe(QuernRecipe source) {
+        if (source.getResistance() <= 1) {
+            if (source.getInput().getItem() instanceof IFood && source.getOutput().getItem() instanceof IFood) {
+                ItemStack input = source.getInput().copy();
+                Food.setWeight(input, 2);
+
+                ItemStack output = source.getOutput().copy();
+                Food.setWeight(output, 2);
+
+                float effort = source.getResistance() / 16;
+
+                return new ProcessingSurfaceRecipe(input, output,
+                    "itemCrushingTool", "blockCrushingSurface",
+                    effort, true);
+            }
+        }
+
+        return null;
     }
 
 }

@@ -1,5 +1,8 @@
 package com.unforbidable.tfc.bids.features.device.processingsurface.tileentity;
 
+import com.dunk.tfc.Core.TFC_Core;
+import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.api.Food;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.BidsEventFactory;
 import com.unforbidable.tfc.bids.api.features.processing.ProcessingSurfaceRecipe;
@@ -7,6 +10,7 @@ import com.unforbidable.tfc.bids.common.network.SimpleUpdatePacket;
 import com.unforbidable.tfc.bids.core.network.Network;
 import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.features.device.processingsurface.main.ProcessingSurfaceHelper;
+import java.util.Random;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,7 +18,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import java.util.Random;
 
 public class TileEntityProcessingSurface extends TileEntity implements PacketHandler<SimpleUpdatePacket> {
 
@@ -30,6 +33,8 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
     // This allows scrapping larger hides to take more time and more tool durability
     // Number 16 corresponds to the default TFC scrapping work grid of 4x4
     private static final float DEFAULT_MAX_WORK = 16;
+
+    private final ItemStack[] tickingStorage = new ItemStack[1];
 
     private ItemStack inputItem = null;
     private ItemStack resultItem = null;
@@ -87,12 +92,46 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
                     float prevWorkCounter = workCounter;
                     workCounter = Math.min(workCounter + (workAmount / newEffort), DEFAULT_MAX_WORK);
 
+                    float progress = getWorkProgress();
+
                     if (!worldObj.isRemote) {
-                        float progress = getWorkProgress();
                         BidsEventFactory.onProcessingSurfaceProgress(this, inputItem, resultItem, player.getHeldItem(), player, progress, newEffort);
 
                         if (progress == 1f) {
-                            BidsEventFactory.onProcessingItemCrafted(inputItem, resultItem, player);
+                            if (recipe.isPartial()) {
+                                // Partial recipes process only part of the item stack per work cycle
+                                float recipeInputWeight = Food.getWeight(recipe.getInput());
+                                float recipeOutputWeight = Food.getWeight(recipe.getOutput());
+                                float inOutRatio = recipeOutputWeight / recipeInputWeight;
+
+                                float inputWeight = Food.getWeight(inputItem);
+                                float inputDecay = Math.max(0, Food.getDecay(inputItem));
+                                float weightIn = Math.min(recipeInputWeight, inputWeight - inputDecay);
+                                float wightOut = weightIn * inOutRatio;
+
+                                ItemStack inputItemPartial = inputItem.copy();
+                                Food.setWeight(inputItemPartial, weightIn);
+                                Food.setDecay(inputItemPartial, 0);
+
+                                ItemStack resultItemPartial = resultItem.copy();
+                                resultItemPartial.stackSize = 1;
+
+                                Food.setWeight(resultItemPartial, wightOut);
+                                Food.setDecay(resultItemPartial, 0);
+                                Food.setDecayTimer(resultItemPartial, (int) TFC_Time.getTotalHours() + 1);
+
+                                BidsEventFactory.onProcessingItemCrafted(inputItemPartial, resultItemPartial, player);
+
+                                // Partial result is dropped and input is subtracted
+                                EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, resultItemPartial);
+                                ei.motionX = 0;
+                                ei.motionZ = 0;
+                                worldObj.spawnEntityInWorld(ei);
+
+                                Food.setWeight(inputItem, inputWeight - Food.getWeight(inputItemPartial));
+                            } else {
+                                BidsEventFactory.onProcessingItemCrafted(inputItem, resultItem, player);
+                            }
                         }
 
                         if ((int) Math.floor(workCounter) > (int) Math.floor(prevWorkCounter)) {
@@ -113,6 +152,11 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
                         if (visualProgress > 0) {
                             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                         }
+                    }
+
+                    if (progress == 1f && recipe.isPartial()) {
+                        // Reset progress for partial recipes
+                        workCounter = 0;
                     }
                 }
             }
@@ -138,7 +182,7 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
     public void onProcessingSurfaceBroken() {
         ItemStack is = getCurrentItem();
         if (is != null) {
-            EntityItem ei = new EntityItem(worldObj, xCoord, yCoord, zCoord, is);
+            EntityItem ei = new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, is);
             ei.motionX = 0;
             ei.motionZ = 0;
             worldObj.spawnEntityInWorld(ei);
@@ -161,6 +205,18 @@ public class TileEntityProcessingSurface extends TileEntity implements PacketHan
 
                 clientNeedToUpdate = false;
             }
+
+            handleItemsTicking();
+        }
+    }
+
+    private void handleItemsTicking() {
+        tickingStorage[0] = inputItem;
+        TFC_Core.handleItemTicking(tickingStorage, worldObj, xCoord, yCoord, zCoord, 1, 1, false);
+        inputItem = tickingStorage[0];
+
+        if (inputItem == null) {
+            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
         }
     }
 

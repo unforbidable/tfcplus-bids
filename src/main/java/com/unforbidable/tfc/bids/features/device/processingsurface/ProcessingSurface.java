@@ -13,20 +13,23 @@ import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneBlockType;
+import com.unforbidable.tfc.bids.core.schemes.stone.EnumStoneItemType;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodIndex;
 import com.unforbidable.tfc.bids.core.schemes.wood.WoodScheme;
+import com.unforbidable.tfc.bids.features.crafting.quern.QuernRegistry;
 import com.unforbidable.tfc.bids.features.device.processingsurface.block.BlockProcessingSurface;
 import com.unforbidable.tfc.bids.features.device.processingsurface.eventhandler.ProcessingSurfaceEventHandler;
+import com.unforbidable.tfc.bids.features.device.processingsurface.main.ProcessingSurfaceHelper;
 import com.unforbidable.tfc.bids.features.device.processingsurface.render.RenderProcessingSurface;
+import com.unforbidable.tfc.bids.features.device.processingsurface.render.RenderTileProcessingSurface;
 import com.unforbidable.tfc.bids.features.device.processingsurface.tileentity.TileEntityProcessingSurface;
 import com.unforbidable.tfc.bids.features.device.processingsurface.waila.ProcessingSurfaceWailaProvider;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 @FeatureName("processingSurface")
 public class ProcessingSurface extends Feature {
@@ -48,6 +51,9 @@ public class ProcessingSurface extends Feature {
     public void client(FeatureClientSpecBuilder client) {
         client.render(new RenderProcessingSurface())
             .block(BlockProcessingSurface.class);
+
+        client.render(new RenderTileProcessingSurface())
+            .tileEntity(TileEntityProcessingSurface.class);
 
         client.waila()
             .data(new ProcessingSurfaceWailaProvider(), TileEntityProcessingSurface.class);
@@ -81,7 +87,17 @@ public class ProcessingSurface extends Feature {
         }
 
         for (StoneIndex stone : StoneScheme.DEFAULT.getStones()) {
-            OreDictionary.registerOre("blockScrapingSurface", stone.blocks.getBlockStack(EnumStoneBlockType.RAW));
+            setup.ores("blockScrapingSurface")
+                .add(stone.blocks.getBlockStack(EnumStoneBlockType.RAW));
+
+            setup.ores("blockCrushingSurface")
+                .add(stone.blocks.getBlockStack(EnumStoneBlockType.RAW));
+
+            setup.ores("itemCrushingTool")
+                .add(stone.items.getItem(EnumStoneItemType.ROCK));
+
+            setup.ores("itemPrimitiveTool")
+                .add(stone.items.getItem(EnumStoneItemType.ROCK));
         }
 
         setup.registry(ProcessingSurfaceRegistry.recipes)
@@ -141,6 +157,9 @@ public class ProcessingSurface extends Feature {
                 "itemScrapingTool", "blockScrapingSurface", 2))
             .add(new ProcessingSurfaceRecipe(new ItemStack(TFCItems.sheepSkin, 1, 2), new ItemStack(TFCItems.hide, 1, 2),
                 "itemScrapingTool", "blockScrapingSurface", 4));
+
+        setup.registry(ProcessingSurfaceRegistry.recipes)
+            .adapt(QuernRegistry.recipes, ProcessingSurfaceHelper::adaptQuernRecipe);
     }
 
 }
