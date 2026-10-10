@@ -173,6 +173,11 @@ public class BidsItems {
     public static final Item riceFlatbread = item(ItemNames.RICE_FLATBREAD);
     public static final Item cornmealFlatbread = item(ItemNames.CORN_FLATBREAD);
 
+    // Potato
+    public static final Item potatoDough = item(ItemNames.POTATO_DOUGH);
+    public static final Item potatoFlour = item(ItemNames.POTATO_FLOUR);
+    public static final Item potatoFlatbread = item(ItemNames.POTATO_FLATBREAD);
+
     // Dough
     public static final Item flatDough = item(ItemNames.FLAT_DOUGH);
     public static final Item wheatDoughUnshaped = item(ItemNames.WHEAT_DOUGH_UNSHAPED);

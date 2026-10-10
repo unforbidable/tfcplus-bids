@@ -63,10 +63,6 @@ public class LargeBowl extends Feature {
         setup.ores("itemMilkingContainer")
             .add(new ItemStack(BidsItems.largeClayBowl, 1, 1));
 
-        // Used for mixing flour and water into unshaped dough or flatbread dough
-        setup.ores("itemLargeBowlWater")
-            .add(BidsItems.freshWaterLargeBowl);
-
         setup.ores("itemHoneycomb")
             .add(TFCItems.honeycomb)
             .add(TFCItems.fertileHoneycomb);

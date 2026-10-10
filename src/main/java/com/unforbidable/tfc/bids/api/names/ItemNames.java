@@ -207,6 +207,11 @@ public interface ItemNames {
     String CORN_FLATBREAD = "Cornmeal Flatbread";
     String FLAT_DOUGH = "Flat Dough";
 
+    // Potato
+    String POTATO_DOUGH = "Potato Dough";
+    String POTATO_FLOUR = "Potato Flour";
+    String POTATO_FLATBREAD = "Potato Flatbread";
+
     // Milk
     String BOTTLE_GOAT_MILK = "Glass Bottle.GoatMilk";
     String JUG_GOAT_MILK = "Pottery Jug.GoatMilk";
