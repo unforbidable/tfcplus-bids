@@ -6,7 +6,7 @@ import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.pressing.PressingRecipe;
-import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
+import com.unforbidable.tfc.bids.api.features.quern.QuernRecipe;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
@@ -17,7 +17,7 @@ import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.crafting.pressing.PressingRegistry;
-import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuernRegistry;
+import com.unforbidable.tfc.bids.features.crafting.quern.QuernRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
@@ -47,10 +47,10 @@ public class CrushedFruit extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-        setup.registry(SaddleQuernRegistry.recipes)
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.greenApple), new ItemStack(BidsItems.appleCrushed)))
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.redApple), new ItemStack(BidsItems.appleCrushed)))
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.olive), new ItemStack(BidsItems.oliveCrushed)));
+        setup.registry(QuernRegistry.recipes)
+            .add(new QuernRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.greenApple)), ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed)), 0.5f))
+            .add(new QuernRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.redApple)), ItemFoodTFC.createTag(new ItemStack(BidsItems.appleCrushed)), 0.5f))
+            .add(new QuernRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.olive)), ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed)), 0.5f));
 
         setup.registry(PressingRegistry.recipes)
             .add(new PressingRecipe(ItemFoodTFC.createTag(new ItemStack(BidsItems.oliveCrushed), 0.64f),

@@ -25,15 +25,13 @@ public class SaddleQuernRecipe implements SimpleRecipeMatcher<ItemStack> {
     }
 
     private boolean foodMatches(ItemStack itemStack) {
-        ItemStack inputFood = ItemFoodTFC.createTag(input.copy());
-
-        if (Food.areEqual(inputFood, itemStack)) {
+        if (Food.areEqual(input, itemStack)) {
             return true;
         }
 
         // Allow cooked - set both to 0 and compare
         if (Food.getCooked(itemStack) > 0) {
-            ItemStack inputFoodCooked = inputFood.copy();
+            ItemStack inputFoodCooked = input.copy();
             Food.setCooked(inputFoodCooked,0);
             ItemStack itemStackCooked = itemStack.copy();
             Food.setCooked(itemStackCooked,0);
@@ -45,7 +43,7 @@ public class SaddleQuernRecipe implements SimpleRecipeMatcher<ItemStack> {
     }
 
     public ItemStack getInput() {
-        return input.copy();
+        return input;
     }
 
     public ItemStack getCraftingResult() {

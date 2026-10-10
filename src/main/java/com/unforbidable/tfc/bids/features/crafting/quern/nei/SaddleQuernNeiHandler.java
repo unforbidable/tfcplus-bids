@@ -64,7 +64,7 @@ public class SaddleQuernNeiHandler extends TemplateRecipeHandler implements IHan
             final ItemStack result = recipe.getCraftingResult();
             if (ItemStack.areItemStacksEqual(result, output)
                     || result.getItem() instanceof IFood && result.getItem() == output.getItem()
-                            && Food.areEqual(ItemFoodTFC.createTag(result.copy()), output)) {
+                            && Food.areEqual(result.copy(), output)) {
                 arecipes.add(new CachedSaddleQuernRecipe(input, output));
             }
         }
@@ -102,8 +102,16 @@ public class SaddleQuernNeiHandler extends TemplateRecipeHandler implements IHan
         final ItemStack result;
 
         public CachedSaddleQuernRecipe(ItemStack ingred, ItemStack result) {
-            this.ingred = ingred.getItem() instanceof IFood ? ItemFoodTFC.createTag(ingred.copy(), 4) : ingred.copy();
-            this.result = ingred.getItem() instanceof IFood ? ItemFoodTFC.createTag(result.copy(), 4) : result.copy();
+            this.ingred = ingred.copy();
+            this.result = result.copy();
+
+            if (ingred.getItem() instanceof IFood) {
+                Food.setWeight(ingred, 4f);
+            }
+
+            if (result.getItem() instanceof IFood) {
+                Food.setWeight(result, 4f);
+            }
         }
 
         @Override

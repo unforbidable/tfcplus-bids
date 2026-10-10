@@ -3,7 +3,6 @@ package com.unforbidable.tfc.bids.features.device.saddlequern.tileentity;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Sounds;
 import com.dunk.tfc.Core.TFC_Time;
-import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.TileEntities.TEBarrel;
 import com.dunk.tfc.TileEntities.TEBasket;
 import com.dunk.tfc.api.Constant.Global;
@@ -502,13 +501,17 @@ public class TileEntitySaddleQuern extends TileEntity implements IInventory, Pac
                 ItemStack output = recipe.getCraftingResult();
 
                 if (input.getItem() instanceof IFood) {
+                    output.stackSize = 1;
+
                     float inputDecay = Food.getDecay(input);
                     float inputWeight = Food.getWeight(input);
 
                     float outputWeight = Math.min(MAX_GRIND_WEIGHT, inputWeight);
                     float outputDecay = inputDecay / Global.FOOD_MAX_WEIGHT * outputWeight;
 
-                    ItemFoodTFC.createTag(output, outputWeight, outputDecay);
+                    Food.setWeight(output, outputWeight);
+                    Food.setDecay(output, outputDecay);
+                    Food.setDecayTimer(output, (int) (TFC_Time.getTotalHours() + 1));
 
                     if (outputWeight != inputWeight) {
                         Food.setWeight(storage[SLOT_INPUT_STACK], inputWeight - outputWeight);

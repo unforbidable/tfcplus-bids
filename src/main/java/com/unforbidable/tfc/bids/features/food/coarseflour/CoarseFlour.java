@@ -1,9 +1,10 @@
 package com.unforbidable.tfc.bids.features.food.coarseflour;
 
+import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
-import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
+import com.unforbidable.tfc.bids.api.features.quern.QuernRecipe;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
@@ -13,7 +14,7 @@ import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
-import com.unforbidable.tfc.bids.features.device.saddlequern.SaddleQuernRegistry;
+import com.unforbidable.tfc.bids.features.crafting.quern.QuernRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
@@ -66,13 +67,13 @@ public class CoarseFlour extends Feature {
             .add(BidsItems.riceCrushed)
             .add(BidsItems.cornmealCrushed);
 
-        setup.registry(SaddleQuernRegistry.recipes)
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.wheatGrain), new ItemStack(BidsItems.wheatCrushed)))
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.barleyGrain), new ItemStack(BidsItems.barleyCrushed)))
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.oatGrain), new ItemStack(BidsItems.oatCrushed)))
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.ryeGrain), new ItemStack(BidsItems.ryeCrushed)))
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.riceGrain), new ItemStack(BidsItems.riceCrushed)))
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.maizeEar), new ItemStack(BidsItems.cornmealCrushed)));
+        setup.registry(QuernRegistry.recipes)
+            .add(new QuernRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.wheatGrain)), ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatCrushed)), 1))
+            .add(new QuernRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.barleyGrain)), ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyCrushed)), 1))
+            .add(new QuernRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.oatGrain)), ItemFoodTFC.createTag(new ItemStack(BidsItems.oatCrushed)), 1))
+            .add(new QuernRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.ryeGrain)), ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeCrushed)), 1))
+            .add(new QuernRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.riceGrain)), ItemFoodTFC.createTag(new ItemStack(BidsItems.riceCrushed)), 1))
+            .add(new QuernRecipe(ItemFoodTFC.createTag(new ItemStack(TFCItems.maizeEar)), ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealCrushed)), 1));
     }
 
 }

@@ -1,15 +1,9 @@
 package com.unforbidable.tfc.bids.features.device.saddlequern;
 
-import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipe;
 import com.unforbidable.tfc.bids.api.features.carving.CarvingRecipePattern;
-import com.unforbidable.tfc.bids.api.features.quern.SaddleQuernRecipe;
 import com.unforbidable.tfc.bids.api.names.BlockNames;
-import com.unforbidable.tfc.bids.compat.tfc.meta.DyeMeta;
-import com.unforbidable.tfc.bids.compat.tfc.meta.LooseRockMeta;
-import com.unforbidable.tfc.bids.compat.tfc.meta.OreMeta;
-import com.unforbidable.tfc.bids.compat.tfc.meta.PowderMeta;
 import com.unforbidable.tfc.bids.core.features.Feature;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureLoadAfter;
 import com.unforbidable.tfc.bids.core.features.annotations.FeatureName;
@@ -23,6 +17,7 @@ import com.unforbidable.tfc.bids.core.schemes.stone.StoneIndex;
 import com.unforbidable.tfc.bids.core.schemes.stone.StoneScheme;
 import com.unforbidable.tfc.bids.features.building.carving.CarvingRegistry;
 import com.unforbidable.tfc.bids.features.crafting.pressing.PressingRegistry;
+import com.unforbidable.tfc.bids.features.crafting.quern.QuernRegistry;
 import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockSaddleQuern;
 import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockStonePressLever;
 import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockStonePressWeight;
@@ -30,6 +25,7 @@ import com.unforbidable.tfc.bids.features.device.saddlequern.block.BlockWorkSton
 import com.unforbidable.tfc.bids.features.device.saddlequern.block.item.ItemSaddleQuern;
 import com.unforbidable.tfc.bids.features.device.saddlequern.block.item.ItemStonePressWeight;
 import com.unforbidable.tfc.bids.features.device.saddlequern.block.item.ItemWorkStone;
+import com.unforbidable.tfc.bids.features.device.saddlequern.main.SaddleQuernHelper;
 import com.unforbidable.tfc.bids.features.device.saddlequern.main.StonePressHelper;
 import com.unforbidable.tfc.bids.features.device.saddlequern.main.WorkStoneType;
 import com.unforbidable.tfc.bids.features.device.saddlequern.render.RenderSaddleQuern;
@@ -43,7 +39,6 @@ import com.unforbidable.tfc.bids.features.device.saddlequern.tileentity.TileEnti
 import com.unforbidable.tfc.bids.features.device.saddlequern.waila.SaddleQuernWailaProvider;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.item.ItemStack;
 
 @FeatureName("saddleQuern")
 @FeatureLoadAfter("roughStone")
@@ -159,40 +154,8 @@ public class SaddleQuern extends Feature {
             }
         }
 
-        // Salt
         setup.registry(SaddleQuernRegistry.recipes)
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.looseRock, 1, LooseRockMeta.ROCK_SALT),
-                new ItemStack(TFCItems.powder, 2, PowderMeta.SALT)));
-
-        setup.registry(SaddleQuernRegistry.recipes)
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.bone),
-                new ItemStack(TFCItems.dye, 1, DyeMeta.BONE)))
-            .add(new SaddleQuernRecipe(new ItemStack(TFCItems.boneFragment),
-                new ItemStack(TFCItems.dye, 1, DyeMeta.BONE)));
-
-        if (SaddleQuernConfig.allowGrindHematite) {
-            setup.registry(SaddleQuernRegistry.recipes)
-                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.smallOreChunk, 1, OreMeta.HEMATITE),
-                    new ItemStack(TFCItems.powder, 1, PowderMeta.HEMATITE)));
-        }
-
-        if (SaddleQuernConfig.allowGrindLimonite) {
-            setup.registry(SaddleQuernRegistry.recipes)
-                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.smallOreChunk, 1, OreMeta.LIMONITE),
-                    new ItemStack(TFCItems.powder, 1, PowderMeta.LIMONITE)));
-        }
-
-        if (SaddleQuernConfig.allowGrindMalachite) {
-            setup.registry(SaddleQuernRegistry.recipes)
-                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.smallOreChunk, 1, OreMeta.MALACHITE),
-                    new ItemStack(TFCItems.powder, 1, PowderMeta.MALACHITE)));
-        }
-
-        if (SaddleQuernConfig.allowGrindLapisLazuli) {
-            setup.registry(SaddleQuernRegistry.recipes)
-                .add(new SaddleQuernRecipe(new ItemStack(TFCItems.oreChunk, 1, OreMeta.LAPIS_LAZULI),
-                    new ItemStack(TFCItems.powder, 2, PowderMeta.LAPIS_LAZULI)));
-        }
+            .adapt(QuernRegistry.recipes, SaddleQuernHelper::adaptQuernRecipe);
 
         setup.registry(StonePressRegistry.recipes)
             .adapt(PressingRegistry.recipes, StonePressHelper::adaptPressingRecipe);
