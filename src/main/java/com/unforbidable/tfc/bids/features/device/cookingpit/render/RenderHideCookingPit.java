@@ -1,6 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.cookingpit.render;
 
-import com.unforbidable.tfc.bids.features.device.cookingpit.tileentity.TileEntityHideCookingPit;
+import com.unforbidable.tfc.bids.features.device.cookingpit.tileentity.TileEntityCookingPit;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -19,7 +19,7 @@ public class RenderHideCookingPit implements ISimpleBlockRenderingHandler {
 
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        TileEntityHideCookingPit te = (TileEntityHideCookingPit) world.getTileEntity(x, y, z);
+        TileEntityCookingPit te = (TileEntityCookingPit) world.getTileEntity(x, y, z);
         if (!te.isClientDataLoaded()) {
             return false;
         }

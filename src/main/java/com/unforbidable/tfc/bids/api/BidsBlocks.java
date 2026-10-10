@@ -202,6 +202,7 @@ public class BidsBlocks {
 
     // Cooking Pit
     public static final Block hideCookingPit = block(BlockNames.HIDE_COOKING_PIT);
+    public static final Block clayCookingPit = block(BlockNames.CLAY_COOKING_PIT);
 
     private static Block block(String name) {
         Block block = GameRegistry.findBlock(Tags.MOD_ID, name);

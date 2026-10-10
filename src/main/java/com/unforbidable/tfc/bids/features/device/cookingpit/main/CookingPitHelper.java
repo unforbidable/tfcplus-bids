@@ -4,6 +4,7 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.unforbidable.tfc.bids.api.BidsBlocks;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
+import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.device.cookingpit.tileentity.TileEntityCookingPit;
 import com.unforbidable.tfc.bids.features.device.cookingpit.tileentity.TileEntityHideCookingPit;
@@ -84,9 +85,29 @@ public class CookingPitHelper {
         return false;
     }
 
-    public static void getHideCookingPitInfo(TileEntityHideCookingPit tileEntityCookingPit, List<String> list) {
+    public static boolean placeClayCookingPitAt(World world, int x, int y, int z, int face, EntityPlayer player) {
+        if (face == 1) {
+            // Place the bottom
+            if (world.isAirBlock(x, y + 1, z) && BidsBlocks.clayCookingPit.canBlockStay(world, x, y + 1, z)) {
+                if (!world.isRemote) {
+                    // Place with meta = 1 to indicate not ready
+                    world.setBlock(x, y + 1, z, BidsBlocks.clayCookingPit, 1, 3);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void getCookingPitInfo(TileEntityCookingPit tileEntityCookingPit, List<String> list) {
         if (tileEntityCookingPit.getFluidStack() != null) {
             list.add(EnumChatFormatting.GRAY + CookingHelper.getFluidInfoLine(tileEntityCookingPit.getFluidStack()));
+
+            if (DualFluid.isDualFluidStack(tileEntityCookingPit.getFluidStack())) {
+                list.add(EnumChatFormatting.GRAY + CookingHelper.getFluidInfoLine(DualFluid.of(tileEntityCookingPit.getFluidStack()).getSecondaryFluid()));
+            }
         }
 
         if (tileEntityCookingPit.hasInputItem()) {

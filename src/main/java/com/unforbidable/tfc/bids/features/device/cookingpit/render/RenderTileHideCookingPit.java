@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.device.cookingpit.render;
 
 import com.dunk.tfc.Render.TESR.TESRBase;
+import com.unforbidable.tfc.bids.features.device.cookingpit.tileentity.TileEntityCookingPit;
 import com.unforbidable.tfc.bids.features.device.cookingpit.tileentity.TileEntityHideCookingPit;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -12,7 +13,7 @@ public class RenderTileHideCookingPit extends TESRBase {
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTicks) {
-        TileEntityHideCookingPit cookingPit = (TileEntityHideCookingPit) te;
+        TileEntityCookingPit cookingPit = (TileEntityCookingPit) te;
 
         if (cookingPit.getWorldObj() != null) {
             if (cookingPit.hasInputItem()) {

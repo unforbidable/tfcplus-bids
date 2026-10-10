@@ -319,5 +319,7 @@ public interface BlockNames {
 
     @BlockId(120)
     String HIDE_COOKING_PIT = "HideCookingPit";
+    @BlockId(121)
+    String CLAY_COOKING_PIT = "ClayCookingPit";
 
 }

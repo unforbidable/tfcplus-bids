@@ -4,6 +4,8 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingHeatLevel;
+import com.unforbidable.tfc.bids.features.device.cookingpit.main.CookingPitBounds;
+import com.unforbidable.tfc.bids.features.device.cookingpit.main.HideCookingPitBounds;
 import com.unforbidable.tfc.bids.features.utility.hidevessel.main.HideVesselHelper;
 import com.unforbidable.tfc.bids.util.Timer;
 import net.minecraft.entity.item.EntityItem;
@@ -20,6 +22,11 @@ public class TileEntityHideCookingPit extends TileEntityCookingPit {
 
     float hideVesselDamage = 0;
     long lastDamageTicks = 0;
+
+    @Override
+    public CookingPitBounds getCachedBounds() {
+        return HideCookingPitBounds.getBounds();
+    }
 
     public float getHideVesselDamage() {
         return hideVesselDamage;
@@ -46,7 +53,7 @@ public class TileEntityHideCookingPit extends TileEntityCookingPit {
 
     public void setFluid(FluidStack fluidStack) {
         cookingEngine.emptyFluid();
-        cookingEngine.addFluid(fluidStack);
+        cookingEngine.addFluid(fluidStack, fluidStack.getFluidID());
     }
 
     @Override

@@ -356,6 +356,7 @@ tile.WoodenPeg.name=Wooden Peg
 tile.DryingPegs.name=Ground Pegging
 
 tile.HideCookingPit.name=Hide Cooking Pit
+tile.ClayCookingPit.name=Clay Cooking Pit
 
 item.Ore Bit.Bismuthinite.name=Bismuthinite Ore Bit
 item.Ore Bit.Cassiterite.name=Cassiterite Ore Bit

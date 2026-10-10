@@ -40,7 +40,7 @@ public class HideCookingPitWailaProvider extends WailaDataProvider {
             TileEntityHideCookingPit tileEntityCookingPit = (TileEntityHideCookingPit) accessor.getTileEntity();
 
             if (!tileEntityCookingPit.isInputItemSelected()) {
-                CookingPitHelper.getHideCookingPitInfo(tileEntityCookingPit, currenttip);
+                CookingPitHelper.getCookingPitInfo(tileEntityCookingPit, currenttip);
 
                 CookingRecipeProgress recipeProgress = tileEntityCookingPit.getRecipeProgress();
                 if (recipeProgress != null) {

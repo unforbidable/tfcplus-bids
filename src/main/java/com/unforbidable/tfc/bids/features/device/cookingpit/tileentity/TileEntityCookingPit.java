@@ -1,7 +1,6 @@
 package com.unforbidable.tfc.bids.features.device.cookingpit.tileentity;
 
 import com.dunk.tfc.Core.TFC_Time;
-import com.dunk.tfc.Food.ItemFoodTFC;
 import com.unforbidable.tfc.bids.Bids;
 import com.unforbidable.tfc.bids.api.BidsItems;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingAccessory;
@@ -17,7 +16,6 @@ import com.unforbidable.tfc.bids.core.network.packet.PacketHandler;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingEngine;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingFoodTicker;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingFoodTickerResult;
-import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingRecipeProgress;
 import com.unforbidable.tfc.bids.features.device.cookingpit.main.CookingPitBounds;
 import com.unforbidable.tfc.bids.features.device.cookingpit.main.CookingPitHelper;
@@ -34,9 +32,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidContainerItem;
 
 public abstract class TileEntityCookingPit extends TileEntity implements CookingHost, PacketHandler<SimpleUpdatePacket>, IInventory {
 
@@ -71,9 +67,7 @@ public abstract class TileEntityCookingPit extends TileEntity implements Cooking
         return clientDataLoaded;
     }
 
-    public CookingPitBounds getCachedBounds() {
-        return CookingPitBounds.getBounds();
-    }
+    public abstract CookingPitBounds getCachedBounds();
 
     public void setInputItemSelected(boolean selected) {
         inputItemSelected = selected;
@@ -267,21 +261,28 @@ public abstract class TileEntityCookingPit extends TileEntity implements Cooking
             EntityScanner scanner = new EntityScanner(worldObj, xCoord, yCoord, zCoord);
             for (EntityItem ei : scanner.getEntities()) {
                 if (ei.getEntityItem().getItem() instanceof ItemHeatingStone && ei.getEntityItem().getItemDamage() == HeatingStoneMeta.HOT) {
+                    long ticksRemaining = heatedUntilTicks - TFC_Time.getTotalTicks();
+                    long ticksSpent = CookingPitHelper.TICKS_PER_HOT_STONE - ticksRemaining;
+                    int numStonesInARow = ticksSpent < CookingPitHelper.TICKS_SPENT_THRESHOLD_TO_ALLOW_INCREASE ? 2 : 1;
+
                     if (heatLevel == CookingHeatLevel.NONE) {
                         heatLevel = CookingHeatLevel.LOW;
 
                         onHeatLevelChanged();
-                    } else if (heatLevel != getMaxHeatLevel()) {
-                        long ticksRemaining = heatedUntilTicks - TFC_Time.getTotalTicks();
-                        long ticksSpent = CookingPitHelper.TICKS_PER_HOT_STONE - ticksRemaining;
-                        if (ticksSpent < CookingPitHelper.TICKS_SPENT_THRESHOLD_TO_ALLOW_INCREASE) {
-                            heatLevel = CookingHeatLevel.values()[heatLevel.ordinal() + 1];
+                    } else if (numStonesInARow == 2 && heatLevel == CookingHeatLevel.LOW && getMaxHeatLevel() != CookingHeatLevel.LOW) {
+                        heatLevel = CookingHeatLevel.MEDIUM;
 
-                            onHeatLevelChanged();
-                        }
+                        onHeatLevelChanged();
                     }
 
-                    heatedUntilTicks = TFC_Time.getTotalTicks() + CookingPitHelper.TICKS_PER_HOT_STONE;
+                    if (heatLevel == CookingHeatLevel.MEDIUM && numStonesInARow == 1) {
+                        // Single stone extends the current time only by half if the temp is MEDIUM
+                        // but no higher than full amount
+                        heatedUntilTicks = Math.min(heatedUntilTicks + CookingPitHelper.TICKS_PER_HOT_STONE / 2, TFC_Time.getTotalTicks() + CookingPitHelper.TICKS_PER_HOT_STONE);
+                    } else {
+                        // Otherwise extending full amount
+                        heatedUntilTicks = TFC_Time.getTotalTicks() + CookingPitHelper.TICKS_PER_HOT_STONE;
+                    }
 
                     ei.setDead();
 
