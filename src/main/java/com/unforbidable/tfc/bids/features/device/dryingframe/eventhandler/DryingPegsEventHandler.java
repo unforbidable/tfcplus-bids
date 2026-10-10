@@ -23,8 +23,6 @@ public class DryingPegsEventHandler {
                         DryingPegsHelper.placeDryingPegs(event.world, event.x + dir.offsetX, event.y, event.z + dir.offsetZ, event.itemStack, event.player);
                     }
 
-                    event.player.getHeldItem().stackSize--;
-
                     event.placed = true;
                 }
             }

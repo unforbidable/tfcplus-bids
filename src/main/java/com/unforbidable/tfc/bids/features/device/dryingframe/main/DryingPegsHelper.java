@@ -6,13 +6,11 @@ import com.unforbidable.tfc.bids.features.building.peg.block.BlockPeg;
 import com.unforbidable.tfc.bids.features.device.dryingframe.DryingFrameRegistry;
 import com.unforbidable.tfc.bids.features.device.dryingframe.tileentity.TileEntityDryingPegs;
 import com.unforbidable.tfc.bids.features.device.dryingrack.main.DryingRackHelper;
-import com.unforbidable.tfc.bids.features.material.skin.item.ItemFreshSkin;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -29,9 +27,12 @@ public class DryingPegsHelper {
             cordage.stackSize = CORDAGE_AMOUNT_REQUIRED;
 
             player.inventory.decrStackSize(slot, CORDAGE_AMOUNT_REQUIRED);
+            player.inventoryContainer.detectAndSendChanges();
 
             TileEntityDryingPegs dryingPegs = (TileEntityDryingPegs) te;
             dryingPegs.placeItemStack(itemStack, cordage, player);
+
+            itemStack.stackSize--;
         }
     }
 
