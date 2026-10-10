@@ -2,7 +2,6 @@ package com.unforbidable.tfc.bids.features.crafting.cooking;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Constant.Global;
-import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
@@ -21,6 +20,7 @@ import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
 import com.unforbidable.tfc.bids.features.crafting.cooking.eventhandler.CookedFoodTooltipHandler;
 import com.unforbidable.tfc.bids.features.crafting.cooking.fluid.FluidCookingMixture;
 import com.unforbidable.tfc.bids.features.crafting.cooking.item.ItemCookingMixture;
+import com.unforbidable.tfc.bids.features.crafting.cooking.main.CookingHelper;
 import com.unforbidable.tfc.bids.features.crafting.cooking.nei.CookingNeiHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -125,6 +125,9 @@ public class Cooking extends Feature {
 
         setup.event()
             .handler(new CookedFoodTooltipHandler());
+
+        setup.registry(CookingRegistry.recipes)
+            .adapt(CookingRegistry.dough, CookingHelper::adaptDoughRecipe);
     }
 
 }

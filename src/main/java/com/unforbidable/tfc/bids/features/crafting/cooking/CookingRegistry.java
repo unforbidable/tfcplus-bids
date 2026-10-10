@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.crafting.cooking;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingMixture;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.DilutableRecipeOutputFluid;
+import com.unforbidable.tfc.bids.api.features.cooking.DoughRecipe;
 import com.unforbidable.tfc.bids.util.registry.ListRegistry;
 import com.unforbidable.tfc.bids.util.registry.fluid.FluidRegistry;
 import com.unforbidable.tfc.bids.util.registry.item.ItemRegistry;
@@ -15,5 +16,6 @@ public class CookingRegistry {
     public static final ListRegistry<CookingMixture> mixtures = new ListRegistry<>();
     public static final ItemRegistry<Item> ingredientOverrides = new ItemRegistry<>();
     public static final FluidRegistry<DilutableRecipeOutputFluid> dilutable = new FluidRegistry<>();
+    public static final RecipeRegistry<DoughRecipe> dough = new RecipeRegistry<>();
 
 }

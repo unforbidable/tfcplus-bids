@@ -3,6 +3,7 @@ package com.unforbidable.tfc.bids.features.food.flatbread;
 import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.cooking.DoughRecipe;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemExtraFood;
 import com.unforbidable.tfc.bids.common.render.FoodItemRenderer;
@@ -15,6 +16,7 @@ import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
@@ -81,18 +83,13 @@ public class Flatbread extends Feature {
             .add(BidsItems.cornmealFlatbread);
 
         // Coarse flour + water -> flatbread dough
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatDoughFlatbread)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatCrushed)), "itemLargeBowlWater");
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyDoughFlatbread)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyCrushed)), "itemLargeBowlWater");
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.oatDoughFlatbread)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.oatCrushed)), "itemLargeBowlWater");
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeDoughFlatbread)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeCrushed)), "itemLargeBowlWater");
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.riceDoughFlatbread)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.riceCrushed)), "itemLargeBowlWater");
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealDoughFlatbread)),
-            ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealCrushed)), "itemLargeBowlWater");
+        setup.registry(CookingRegistry.dough)
+            .add(new DoughRecipe(new ItemStack(BidsItems.wheatCrushed), new ItemStack(BidsItems.wheatDoughFlatbread)))
+            .add(new DoughRecipe(new ItemStack(BidsItems.barleyCrushed), new ItemStack(BidsItems.barleyDoughFlatbread)))
+            .add(new DoughRecipe(new ItemStack(BidsItems.oatCrushed), new ItemStack(BidsItems.oatDoughFlatbread)))
+            .add(new DoughRecipe(new ItemStack(BidsItems.ryeCrushed), new ItemStack(BidsItems.ryeDoughFlatbread)))
+            .add(new DoughRecipe(new ItemStack(BidsItems.riceCrushed), new ItemStack(BidsItems.riceDoughFlatbread)))
+            .add(new DoughRecipe(new ItemStack(BidsItems.cornmealCrushed), new ItemStack(BidsItems.cornmealDoughFlatbread)));
 
         // unshaped dough -> flatbread dough
         setup.registry(TfcRegistry.Knapping.recipes)

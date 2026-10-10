@@ -1,6 +1,7 @@
 package com.unforbidable.tfc.bids.features.crafting.cooking.main;
 
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Food;
 import com.dunk.tfc.api.HeatIndex;
 import com.dunk.tfc.api.HeatRegistry;
@@ -9,9 +10,10 @@ import com.dunk.tfc.api.TFCFluids;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingOreRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipe;
 import com.unforbidable.tfc.bids.api.features.cooking.CookingRecipeInputTemplate;
+import com.unforbidable.tfc.bids.api.features.cooking.DoughRecipe;
+import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
 import com.unforbidable.tfc.bids.api.util.food.BidsFood;
 import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
-import com.unforbidable.tfc.bids.api.util.fluid.DualFluid;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.item.ItemStack;
@@ -219,6 +221,20 @@ public class CookingHelper {
 
     public static boolean isDilutableRecipeOutputFluid(FluidStack outputFluidStack) {
         return CookingRegistry.dilutable.has(outputFluidStack.getFluid());
+    }
+
+    public static CookingRecipe adaptDoughRecipe(DoughRecipe source) {
+        ItemStack input = source.getInput().copy();
+        ItemFoodTFC.createTag(input, Global.FOOD_MAX_WEIGHT / 5000);
+        ItemStack output = source.getOutput().copy();
+        ItemFoodTFC.createTag(output, Global.FOOD_MAX_WEIGHT / 5000);
+
+        return CookingRecipe.builder()
+            .consumes(input)
+            .consumes(new FluidStack(TFCFluids.FRESHWATER, 1))
+            .produces(output)
+            .inFixedTime(200)
+            .build();
     }
 
 }

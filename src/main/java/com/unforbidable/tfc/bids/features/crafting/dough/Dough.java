@@ -4,6 +4,7 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Enums.EnumFoodGroup;
 import com.dunk.tfc.api.TFCItems;
 import com.unforbidable.tfc.bids.api.BidsItems;
+import com.unforbidable.tfc.bids.api.features.cooking.DoughRecipe;
 import com.unforbidable.tfc.bids.api.names.GuiNames;
 import com.unforbidable.tfc.bids.api.names.ItemNames;
 import com.unforbidable.tfc.bids.common.item.ItemCommonFlat;
@@ -16,6 +17,7 @@ import com.unforbidable.tfc.bids.core.features.client.FeatureClientSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.init.FeatureInitSpecBuilder;
 import com.unforbidable.tfc.bids.core.features.registry.FeatureRegistryLookup;
 import com.unforbidable.tfc.bids.core.features.setup.FeatureSetupBuilder;
+import com.unforbidable.tfc.bids.features.crafting.cooking.CookingRegistry;
 import com.unforbidable.tfc.bids.features.crafting.dough.container.ContainerSpecialCraftingDough;
 import com.unforbidable.tfc.bids.features.crafting.dough.gui.GuiKnappingDough;
 import com.unforbidable.tfc.bids.features.crafting.dough.item.ItemUnshapedDough;
@@ -69,18 +71,13 @@ public class Dough extends Feature {
 
     @Override
     public void setup(FeatureSetupBuilder setup) {
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.wheatDoughUnshaped)),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.wheatGround)), "itemLargeBowlWater");
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.barleyDoughUnshaped)),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.barleyGround)), "itemLargeBowlWater");
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.oatDoughUnshaped)),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.oatGround)), "itemLargeBowlWater");
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.ryeDoughUnshaped)),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.ryeGround)), "itemLargeBowlWater");
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.riceDoughUnshaped)),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.riceGround)), "itemLargeBowlWater");
-        setup.recipes().addShapeless(ItemFoodTFC.createTag(new ItemStack(BidsItems.cornmealDoughUnshaped)),
-            ItemFoodTFC.createTag(new ItemStack(TFCItems.cornmealGround)), "itemLargeBowlWater");
+        setup.registry(CookingRegistry.dough)
+            .add(new DoughRecipe(new ItemStack(TFCItems.wheatGround), new ItemStack(BidsItems.wheatDoughUnshaped)))
+            .add(new DoughRecipe(new ItemStack(TFCItems.barleyGround), new ItemStack(BidsItems.barleyDoughUnshaped)))
+            .add(new DoughRecipe(new ItemStack(TFCItems.oatGround), new ItemStack(BidsItems.oatDoughUnshaped)))
+            .add(new DoughRecipe(new ItemStack(TFCItems.ryeGround), new ItemStack(BidsItems.ryeDoughUnshaped)))
+            .add(new DoughRecipe(new ItemStack(TFCItems.riceGround), new ItemStack(BidsItems.riceDoughUnshaped)))
+            .add(new DoughRecipe(new ItemStack(TFCItems.cornmealGround), new ItemStack(BidsItems.cornmealDoughUnshaped)));
 
         setup.registry(TfcRegistry.Knapping.recipes)
             .add(KnappingRecipe.add(ItemFoodTFC.createTag(new ItemStack(TFCItems.wheatDough), 160),
