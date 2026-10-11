@@ -855,3 +855,49 @@
 - Fixed: Nettles no longer die to snow
 - Fixed: Tools are now correctly damaged when used to harvest tall grass block configured with durability greater than 0
 - Fixed: Damaged tools created via Woodworking now correctly match recipe result in NEI
+
+1.2.0 (2026-10-11)
+- Added: Fire Board
+- Added: Hide Vessel
+- Added: Hide Lined Cooking Pit
+- Added: Clay Lined Cooking Pit (Earth Vat)
+- Added: Heating Stones
+- Added: Solidified Pitch
+- Added: Wax as an item
+- Added: Cooking recipes support fluid dilution and wet rendering
+- Added: Potato Flour, Dough, Flatbread and Wraps
+- Added: Fern Flour, Dough and Cakes
+- Added: Processing Surface can be use to crush and grind food stuff
+- Added: Rawhide Scrap
+- Added: Ruined Rawhide Scrap
+- Added: Hide Glue from Hide Scrap
+- Added: Pitch Glue from Pitch mixed with Wax or Tallow
+- Added: Skins in relevant stages of processing can soaked in a Cooking Pot containing Fresh Water
+- Added: Tannin can be created in a Cooking Pot from tannin bearing Bark in Fresh Water
+- Added: Dehaired skins can be soaked in Cooking Pot with Tannin
+- Added: Weak Wood Ash Lye can be created in a Cooking Pot from Ash in Fresh Water
+- Added: Clean skins can be soaked in Cooking Pot with Weak Wood Ash Lye
+- Changed: Waterskin is crafted using Pitch Glue instead of pure Pitch
+- Changed: Composite Bow is crafted using Hide Glue and Pitch Glue instead of Slime Ball
+- Changed: Potato Flour and Fern Flour can be added to Pemmican
+- Changed: Fern Rhizome is no longer consumable and cannot be cooked
+- Changed: Suet can be turned into Tallow via dry or wet rendering
+- Changed: Pitch is created by wet rendering of Empty Honeycomb in fresh water
+- Changed: Pitch solidifies into an item without heat
+- Changed: Wax is created by wet rendering of Pitch in Fresh Water
+- Changed: Wax solidifies into an item without heat
+- Changed: Fire Board is used to craft Bow Drill and Hand Drill fire starter
+- Changed: Chert gravel has increased change to drop Flint when harvested by hand
+- Changed: Washing salt off of skins in Fresh Water is no longer instant
+- Changed: Wrap item texture maybe look more like wraps now
+- Changed: Dough can now be crafted only in a Cooking Pot consuming appropriate amount of Fresh Water
+- Fixed: Flatbread dough recipes now use the correct coarse flour
+- Fixed: Prevent wood carving using a damaged tool from causing a crash
+- Fixed: Hand axe chopping clearance matches hand axe carve out as intended
+- Fixed: Correct amount of Flint flakes is given to player after flint knapping
+- Fixed: Placing standalone drying rack now consumes used poles
+- Fixed: Only items with valid recipe can be placed on drying pegs
+- Fixed: Possible Client/visual glitch when placing an item on drying pegs
+- Fixed: Anvil recipes and sewing repair recipes are registered on world reload
+- Fixed: Earned amount of Flint flakes is awarded after knapping
+- Note: Whenever possible, especially considering heat mechanics, Cooking Pot recipes are also available in a Cooking Pit
